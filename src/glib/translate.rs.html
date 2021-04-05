@@ -2897,14 +2897,14 @@
     <span class="doccomment">/// We transfer the container ownership to the foreign library retaining</span>
     <span class="doccomment">/// the elements ownership.</span>
     <span class="kw">fn</span> <span class="ident">to_glib_container</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Stash</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">P</span>, <span class="self">Self</span><span class="op">&gt;</span> {
-        <span class="macro">unimplemented</span><span class="macro">!</span>();
+        <span class="macro">unimplemented!</span>();
     }
 
     <span class="doccomment">/// Transfer: full.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// We transfer the ownership to the foreign library.</span>
     <span class="kw">fn</span> <span class="ident">to_glib_full</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">P</span> {
-        <span class="macro">unimplemented</span><span class="macro">!</span>();
+        <span class="macro">unimplemented!</span>();
     }
 }
 <span class="doccomment">///</span>
@@ -3221,7 +3221,7 @@
     <span class="kw">fn</span> <span class="ident">to_glib_full_from_slice</span>(<span class="ident">t</span>: <span class="kw-2">&amp;</span>[<span class="self">Self</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">P</span>;
 }
 
-<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">impl_to_glib_container_from_slice_fundamental</span> {
+<span class="macro">macro_rules!</span> <span class="ident">impl_to_glib_container_from_slice_fundamental</span> {
     (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ty</span>) <span class="op">=</span><span class="op">&gt;</span> {
         <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">ToGlibContainerFromSlice</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> {
             <span class="kw">type</span> <span class="ident">Storage</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>];
@@ -3249,18 +3249,18 @@
     };
 }
 
-<span class="macro">impl_to_glib_container_from_slice_fundamental</span><span class="macro">!</span>(<span class="ident">u8</span>);
-<span class="macro">impl_to_glib_container_from_slice_fundamental</span><span class="macro">!</span>(<span class="ident">i8</span>);
-<span class="macro">impl_to_glib_container_from_slice_fundamental</span><span class="macro">!</span>(<span class="ident">u16</span>);
-<span class="macro">impl_to_glib_container_from_slice_fundamental</span><span class="macro">!</span>(<span class="ident">i16</span>);
-<span class="macro">impl_to_glib_container_from_slice_fundamental</span><span class="macro">!</span>(<span class="ident">u32</span>);
-<span class="macro">impl_to_glib_container_from_slice_fundamental</span><span class="macro">!</span>(<span class="ident">i32</span>);
-<span class="macro">impl_to_glib_container_from_slice_fundamental</span><span class="macro">!</span>(<span class="ident">u64</span>);
-<span class="macro">impl_to_glib_container_from_slice_fundamental</span><span class="macro">!</span>(<span class="ident">i64</span>);
-<span class="macro">impl_to_glib_container_from_slice_fundamental</span><span class="macro">!</span>(<span class="ident">f32</span>);
-<span class="macro">impl_to_glib_container_from_slice_fundamental</span><span class="macro">!</span>(<span class="ident">f64</span>);
+<span class="macro">impl_to_glib_container_from_slice_fundamental!</span>(<span class="ident">u8</span>);
+<span class="macro">impl_to_glib_container_from_slice_fundamental!</span>(<span class="ident">i8</span>);
+<span class="macro">impl_to_glib_container_from_slice_fundamental!</span>(<span class="ident">u16</span>);
+<span class="macro">impl_to_glib_container_from_slice_fundamental!</span>(<span class="ident">i16</span>);
+<span class="macro">impl_to_glib_container_from_slice_fundamental!</span>(<span class="ident">u32</span>);
+<span class="macro">impl_to_glib_container_from_slice_fundamental!</span>(<span class="ident">i32</span>);
+<span class="macro">impl_to_glib_container_from_slice_fundamental!</span>(<span class="ident">u64</span>);
+<span class="macro">impl_to_glib_container_from_slice_fundamental!</span>(<span class="ident">i64</span>);
+<span class="macro">impl_to_glib_container_from_slice_fundamental!</span>(<span class="ident">f32</span>);
+<span class="macro">impl_to_glib_container_from_slice_fundamental!</span>(<span class="ident">f64</span>);
 
-<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">impl_to_glib_container_from_slice_string</span> {
+<span class="macro">macro_rules!</span> <span class="ident">impl_to_glib_container_from_slice_string</span> {
     (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ty</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span>:<span class="ident">ty</span>) <span class="op">=</span><span class="op">&gt;</span> {
         <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">ToGlibContainerFromSlice</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> {
             <span class="kw">type</span> <span class="ident">Storage</span> <span class="op">=</span> (<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Stash</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span><span class="op">&gt;</span><span class="op">&gt;</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span><span class="op">&gt;</span><span class="op">&gt;</span>);
@@ -3347,18 +3347,18 @@
     };
 }
 
-<span class="macro">impl_to_glib_container_from_slice_string</span><span class="macro">!</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_char</span>);
-<span class="macro">impl_to_glib_container_from_slice_string</span><span class="macro">!</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>, <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>);
-<span class="macro">impl_to_glib_container_from_slice_string</span><span class="macro">!</span>(<span class="ident">String</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_char</span>);
-<span class="macro">impl_to_glib_container_from_slice_string</span><span class="macro">!</span>(<span class="ident">String</span>, <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>);
-<span class="macro">impl_to_glib_container_from_slice_string</span><span class="macro">!</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Path</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_char</span>);
-<span class="macro">impl_to_glib_container_from_slice_string</span><span class="macro">!</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Path</span>, <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>);
-<span class="macro">impl_to_glib_container_from_slice_string</span><span class="macro">!</span>(<span class="ident">PathBuf</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_char</span>);
-<span class="macro">impl_to_glib_container_from_slice_string</span><span class="macro">!</span>(<span class="ident">PathBuf</span>, <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>);
-<span class="macro">impl_to_glib_container_from_slice_string</span><span class="macro">!</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">OsStr</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_char</span>);
-<span class="macro">impl_to_glib_container_from_slice_string</span><span class="macro">!</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">OsStr</span>, <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>);
-<span class="macro">impl_to_glib_container_from_slice_string</span><span class="macro">!</span>(<span class="ident">OsString</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_char</span>);
-<span class="macro">impl_to_glib_container_from_slice_string</span><span class="macro">!</span>(<span class="ident">OsString</span>, <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>);
+<span class="macro">impl_to_glib_container_from_slice_string!</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_char</span>);
+<span class="macro">impl_to_glib_container_from_slice_string!</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>, <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>);
+<span class="macro">impl_to_glib_container_from_slice_string!</span>(<span class="ident">String</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_char</span>);
+<span class="macro">impl_to_glib_container_from_slice_string!</span>(<span class="ident">String</span>, <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>);
+<span class="macro">impl_to_glib_container_from_slice_string!</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Path</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_char</span>);
+<span class="macro">impl_to_glib_container_from_slice_string!</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Path</span>, <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>);
+<span class="macro">impl_to_glib_container_from_slice_string!</span>(<span class="ident">PathBuf</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_char</span>);
+<span class="macro">impl_to_glib_container_from_slice_string!</span>(<span class="ident">PathBuf</span>, <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>);
+<span class="macro">impl_to_glib_container_from_slice_string!</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">OsStr</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_char</span>);
+<span class="macro">impl_to_glib_container_from_slice_string!</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">OsStr</span>, <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>);
+<span class="macro">impl_to_glib_container_from_slice_string!</span>(<span class="ident">OsString</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_char</span>);
+<span class="macro">impl_to_glib_container_from_slice_string!</span>(<span class="ident">OsString</span>, <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>);
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">T</span><span class="op">&gt;</span> <span class="ident">ToGlibContainerFromSlice</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GList</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">T</span>
 <span class="kw">where</span>
@@ -3422,12 +3422,12 @@
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">fn</span> <span class="ident">to_glib_container_from_slice</span>(<span class="ident">_t</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">T</span>]) <span class="op">-</span><span class="op">&gt;</span> (<span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ffi</span>::<span class="ident">GList</span>, <span class="self">Self</span>::<span class="ident">Storage</span>) {
-        <span class="macro">unimplemented</span><span class="macro">!</span>()
+        <span class="macro">unimplemented!</span>()
     }
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">fn</span> <span class="ident">to_glib_full_from_slice</span>(<span class="ident">_t</span>: <span class="kw-2">&amp;</span>[<span class="ident">T</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ffi</span>::<span class="ident">GList</span> {
-        <span class="macro">unimplemented</span><span class="macro">!</span>()
+        <span class="macro">unimplemented!</span>()
     }
 }
 
@@ -3502,12 +3502,12 @@
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">fn</span> <span class="ident">to_glib_container_from_slice</span>(<span class="ident">_t</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">T</span>]) <span class="op">-</span><span class="op">&gt;</span> (<span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ffi</span>::<span class="ident">GSList</span>, <span class="self">Self</span>::<span class="ident">Storage</span>) {
-        <span class="macro">unimplemented</span><span class="macro">!</span>()
+        <span class="macro">unimplemented!</span>()
     }
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">fn</span> <span class="ident">to_glib_full_from_slice</span>(<span class="ident">_t</span>: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">T</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ffi</span>::<span class="ident">GSList</span> {
-        <span class="macro">unimplemented</span><span class="macro">!</span>()
+        <span class="macro">unimplemented!</span>()
     }
 }
 
@@ -3650,12 +3650,12 @@
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">fn</span> <span class="ident">to_glib_container_from_slice</span>(<span class="ident">_t</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">T</span>]) <span class="op">-</span><span class="op">&gt;</span> (<span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ffi</span>::<span class="ident">GPtrArray</span>, <span class="self">Self</span>::<span class="ident">Storage</span>) {
-        <span class="macro">unimplemented</span><span class="macro">!</span>()
+        <span class="macro">unimplemented!</span>()
     }
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">fn</span> <span class="ident">to_glib_full_from_slice</span>(<span class="ident">_t</span>: <span class="kw-2">&amp;</span>[<span class="ident">T</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ffi</span>::<span class="ident">GPtrArray</span> {
-        <span class="macro">unimplemented</span><span class="macro">!</span>()
+        <span class="macro">unimplemented!</span>()
     }
 }
 
@@ -3696,7 +3696,7 @@
 
 <span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">GlibNoneError</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">fmt</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="macro">write</span><span class="macro">!</span>(<span class="ident">fmt</span>, <span class="string">&quot;glib value is None&quot;</span>)
+        <span class="macro">write!</span>(<span class="ident">fmt</span>, <span class="string">&quot;glib value is None&quot;</span>)
     }
 }
 
@@ -3724,12 +3724,12 @@
 
     <span class="doccomment">/// Returns `true` if `self` is the `None` variant.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_none</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="macro">matches</span><span class="macro">!</span>(<span class="self">self</span>, <span class="ident">GlibNoneOrInvalidError</span>::<span class="prelude-val">None</span>)
+        <span class="macro">matches!</span>(<span class="self">self</span>, <span class="ident">GlibNoneOrInvalidError</span>::<span class="prelude-val">None</span>)
     }
 
     <span class="doccomment">/// Returns `true` if `self` is the `Invalid` variant.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_invalid</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="macro">matches</span><span class="macro">!</span>(<span class="self">self</span>, <span class="ident">GlibNoneOrInvalidError</span>::<span class="ident">Invalid</span>(<span class="kw">_</span>))
+        <span class="macro">matches!</span>(<span class="self">self</span>, <span class="ident">GlibNoneOrInvalidError</span>::<span class="ident">Invalid</span>(<span class="kw">_</span>))
     }
 }
 
@@ -3743,10 +3743,10 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">fmt</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
         <span class="kw">match</span> <span class="self">self</span> {
             <span class="ident">GlibNoneOrInvalidError</span>::<span class="ident">Invalid</span>(<span class="ident">err</span>) <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="macro">write</span><span class="macro">!</span>(<span class="ident">fmt</span>, <span class="string">&quot;glib value is invalid: &quot;</span>)<span class="question-mark">?</span>;
+                <span class="macro">write!</span>(<span class="ident">fmt</span>, <span class="string">&quot;glib value is invalid: &quot;</span>)<span class="question-mark">?</span>;
                 <span class="ident">fmt</span>::<span class="ident">Display</span>::<span class="ident">fmt</span>(<span class="ident">err</span>, <span class="ident">fmt</span>)
             }
-            <span class="ident">GlibNoneOrInvalidError</span>::<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">fmt</span>, <span class="string">&quot;glib value is None&quot;</span>),
+            <span class="ident">GlibNoneOrInvalidError</span>::<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">write!</span>(<span class="ident">fmt</span>, <span class="string">&quot;glib value is None&quot;</span>),
         }
     }
 }
@@ -3840,7 +3840,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// See trait level [notes on safety](#safety_points)</span>
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_borrow</span>(<span class="ident">_ptr</span>: <span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-        <span class="macro">unimplemented</span><span class="macro">!</span>();
+        <span class="macro">unimplemented!</span>();
     }
 }
 
@@ -3905,7 +3905,7 @@
 <span class="kw">impl</span> <span class="ident">FromGlibPtrNone</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">String</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_none</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
+        <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
         <span class="ident">String</span>::<span class="ident">from_utf8_lossy</span>(<span class="ident">CStr</span>::<span class="ident">from_ptr</span>(<span class="ident">ptr</span>).<span class="ident">to_bytes</span>()).<span class="ident">into_owned</span>()
     }
 }
@@ -3924,7 +3924,7 @@
 <span class="kw">impl</span> <span class="ident">FromGlibPtrNone</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_char</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">String</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_none</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_char</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
+        <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
         <span class="ident">String</span>::<span class="ident">from_utf8_lossy</span>(<span class="ident">CStr</span>::<span class="ident">from_ptr</span>(<span class="ident">ptr</span>).<span class="ident">to_bytes</span>()).<span class="ident">into_owned</span>()
     }
 }
@@ -3941,7 +3941,7 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">windows</span>))]</span>
 <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">c_to_path_buf</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">PathBuf</span> {
-    <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
+    <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
 
     <span class="comment">// GLib paths on UNIX are always in the local encoding, which can be</span>
     <span class="comment">// UTF-8 or anything else really, but is always a NUL-terminated string</span>
@@ -3951,7 +3951,7 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">windows</span>)]</span>
 <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">c_to_path_buf</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">PathBuf</span> {
-    <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
+    <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
 
     <span class="comment">// GLib paths on Windows are always UTF-8, as such we can convert to a String</span>
     <span class="comment">// first and then go to a PathBuf from there. Unless there is a bug</span>
@@ -3964,7 +3964,7 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">windows</span>))]</span>
 <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">c_to_os_string</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">OsString</span> {
-    <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
+    <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
 
     <span class="comment">// GLib OS string (environment strings) on UNIX are always in the local encoding,</span>
     <span class="comment">// which can be UTF-8 or anything else really, but is always a NUL-terminated string</span>
@@ -3974,7 +3974,7 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">windows</span>)]</span>
 <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">c_to_os_string</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">OsString</span> {
-    <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
+    <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
 
     <span class="comment">// GLib OS string (environment strings) on Windows are always UTF-8,</span>
     <span class="comment">// as such we can convert to a String</span>
@@ -3989,7 +3989,7 @@
 <span class="kw">impl</span> <span class="ident">FromGlibPtrNone</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">PathBuf</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_none</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
+        <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
         <span class="ident">c_to_path_buf</span>(<span class="ident">ptr</span>)
     }
 }
@@ -4006,7 +4006,7 @@
 <span class="kw">impl</span> <span class="ident">FromGlibPtrNone</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_char</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">PathBuf</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_none</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_char</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
+        <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
         <span class="ident">c_to_path_buf</span>(<span class="ident">ptr</span>)
     }
 }
@@ -4023,7 +4023,7 @@
 <span class="kw">impl</span> <span class="ident">FromGlibPtrNone</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">OsString</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_none</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
+        <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
         <span class="ident">c_to_os_string</span>(<span class="ident">ptr</span>)
     }
 }
@@ -4040,7 +4040,7 @@
 <span class="kw">impl</span> <span class="ident">FromGlibPtrNone</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_char</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">OsString</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_none</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_char</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
+        <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
         <span class="ident">c_to_os_string</span>(<span class="ident">ptr</span>)
     }
 }
@@ -4129,12 +4129,12 @@
 
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_container_num_as_vec</span>(<span class="kw">_</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ffi</span>::<span class="ident">gboolean</span>, <span class="kw">_</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
         <span class="comment">// Can&#39;t really free a *const</span>
-        <span class="macro">unimplemented</span><span class="macro">!</span>();
+        <span class="macro">unimplemented!</span>();
     }
 
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_full_num_as_vec</span>(<span class="kw">_</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ffi</span>::<span class="ident">gboolean</span>, <span class="kw">_</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
         <span class="comment">// Can&#39;t really free a *const</span>
-        <span class="macro">unimplemented</span><span class="macro">!</span>();
+        <span class="macro">unimplemented!</span>();
     }
 }
 
@@ -4154,7 +4154,7 @@
     }
 }
 
-<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">impl_from_glib_container_as_vec_fundamental</span> {
+<span class="macro">macro_rules!</span> <span class="ident">impl_from_glib_container_as_vec_fundamental</span> {
     (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ty</span>) <span class="op">=</span><span class="op">&gt;</span> {
         <span class="kw">impl</span> <span class="ident">FromGlibContainerAsVec</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>, <span class="kw-2">*</span><span class="kw">const</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> {
             <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_none_num_as_vec</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>, <span class="ident">num</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
@@ -4171,12 +4171,12 @@
 
             <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_container_num_as_vec</span>(<span class="kw">_</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>, <span class="kw">_</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
                 <span class="comment">// Can&#39;t really free a *const</span>
-                <span class="macro">unimplemented</span><span class="macro">!</span>();
+                <span class="macro">unimplemented!</span>();
             }
 
             <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_full_num_as_vec</span>(<span class="kw">_</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>, <span class="kw">_</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
                 <span class="comment">// Can&#39;t really free a *const</span>
-                <span class="macro">unimplemented</span><span class="macro">!</span>();
+                <span class="macro">unimplemented!</span>();
             }
         }
 
@@ -4198,18 +4198,18 @@
     };
 }
 
-<span class="macro">impl_from_glib_container_as_vec_fundamental</span><span class="macro">!</span>(<span class="ident">u8</span>);
-<span class="macro">impl_from_glib_container_as_vec_fundamental</span><span class="macro">!</span>(<span class="ident">i8</span>);
-<span class="macro">impl_from_glib_container_as_vec_fundamental</span><span class="macro">!</span>(<span class="ident">u16</span>);
-<span class="macro">impl_from_glib_container_as_vec_fundamental</span><span class="macro">!</span>(<span class="ident">i16</span>);
-<span class="macro">impl_from_glib_container_as_vec_fundamental</span><span class="macro">!</span>(<span class="ident">u32</span>);
-<span class="macro">impl_from_glib_container_as_vec_fundamental</span><span class="macro">!</span>(<span class="ident">i32</span>);
-<span class="macro">impl_from_glib_container_as_vec_fundamental</span><span class="macro">!</span>(<span class="ident">u64</span>);
-<span class="macro">impl_from_glib_container_as_vec_fundamental</span><span class="macro">!</span>(<span class="ident">i64</span>);
-<span class="macro">impl_from_glib_container_as_vec_fundamental</span><span class="macro">!</span>(<span class="ident">f32</span>);
-<span class="macro">impl_from_glib_container_as_vec_fundamental</span><span class="macro">!</span>(<span class="ident">f64</span>);
+<span class="macro">impl_from_glib_container_as_vec_fundamental!</span>(<span class="ident">u8</span>);
+<span class="macro">impl_from_glib_container_as_vec_fundamental!</span>(<span class="ident">i8</span>);
+<span class="macro">impl_from_glib_container_as_vec_fundamental!</span>(<span class="ident">u16</span>);
+<span class="macro">impl_from_glib_container_as_vec_fundamental!</span>(<span class="ident">i16</span>);
+<span class="macro">impl_from_glib_container_as_vec_fundamental!</span>(<span class="ident">u32</span>);
+<span class="macro">impl_from_glib_container_as_vec_fundamental!</span>(<span class="ident">i32</span>);
+<span class="macro">impl_from_glib_container_as_vec_fundamental!</span>(<span class="ident">u64</span>);
+<span class="macro">impl_from_glib_container_as_vec_fundamental!</span>(<span class="ident">i64</span>);
+<span class="macro">impl_from_glib_container_as_vec_fundamental!</span>(<span class="ident">f32</span>);
+<span class="macro">impl_from_glib_container_as_vec_fundamental!</span>(<span class="ident">f64</span>);
 
-<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">impl_from_glib_container_as_vec_string</span> {
+<span class="macro">macro_rules!</span> <span class="ident">impl_from_glib_container_as_vec_string</span> {
     (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ty</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span>:<span class="ident">ty</span>) <span class="op">=</span><span class="op">&gt;</span> {
         <span class="kw">impl</span> <span class="ident">FromGlibContainerAsVec</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span>, <span class="kw-2">*</span><span class="kw">const</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> {
             <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_none_num_as_vec</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span>, <span class="ident">num</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
@@ -4226,12 +4226,12 @@
 
             <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_container_num_as_vec</span>(<span class="kw">_</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span>, <span class="kw">_</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
                 <span class="comment">// Can&#39;t really free a *const</span>
-                <span class="macro">unimplemented</span><span class="macro">!</span>();
+                <span class="macro">unimplemented!</span>();
             }
 
             <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_full_num_as_vec</span>(<span class="kw">_</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span>, <span class="kw">_</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
                 <span class="comment">// Can&#39;t really free a *const</span>
-                <span class="macro">unimplemented</span><span class="macro">!</span>();
+                <span class="macro">unimplemented!</span>();
             }
         }
 
@@ -4291,13 +4291,13 @@
 }
 
 <span class="comment">// TODO: Deprecate this</span>
-<span class="macro">impl_from_glib_container_as_vec_string</span><span class="macro">!</span>(<span class="ident">String</span>, <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>);
-<span class="macro">impl_from_glib_container_as_vec_string</span><span class="macro">!</span>(<span class="ident">String</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_char</span>);
+<span class="macro">impl_from_glib_container_as_vec_string!</span>(<span class="ident">String</span>, <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>);
+<span class="macro">impl_from_glib_container_as_vec_string!</span>(<span class="ident">String</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_char</span>);
 
-<span class="macro">impl_from_glib_container_as_vec_string</span><span class="macro">!</span>(<span class="ident">PathBuf</span>, <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>);
-<span class="macro">impl_from_glib_container_as_vec_string</span><span class="macro">!</span>(<span class="ident">PathBuf</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_char</span>);
-<span class="macro">impl_from_glib_container_as_vec_string</span><span class="macro">!</span>(<span class="ident">OsString</span>, <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>);
-<span class="macro">impl_from_glib_container_as_vec_string</span><span class="macro">!</span>(<span class="ident">OsString</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_char</span>);
+<span class="macro">impl_from_glib_container_as_vec_string!</span>(<span class="ident">PathBuf</span>, <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>);
+<span class="macro">impl_from_glib_container_as_vec_string!</span>(<span class="ident">PathBuf</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_char</span>);
+<span class="macro">impl_from_glib_container_as_vec_string!</span>(<span class="ident">OsString</span>, <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>);
+<span class="macro">impl_from_glib_container_as_vec_string!</span>(<span class="ident">OsString</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_char</span>);
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">P</span>, <span class="ident">PP</span>: <span class="ident">Ptr</span>, <span class="ident">T</span>: <span class="ident">FromGlibContainerAsVec</span><span class="op">&lt;</span><span class="ident">P</span>, <span class="ident">PP</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="ident">FromGlibContainer</span><span class="op">&lt;</span><span class="ident">P</span>, <span class="ident">PP</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_none_num</span>(<span class="ident">ptr</span>: <span class="ident">PP</span>, <span class="ident">num</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
@@ -4525,12 +4525,12 @@
 
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_container_num_as_vec</span>(<span class="kw">_</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ffi</span>::<span class="ident">GList</span>, <span class="kw">_</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
         <span class="comment">// Can&#39;t really free a *const</span>
-        <span class="macro">unimplemented</span><span class="macro">!</span>()
+        <span class="macro">unimplemented!</span>()
     }
 
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_full_num_as_vec</span>(<span class="kw">_</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ffi</span>::<span class="ident">GList</span>, <span class="kw">_</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
         <span class="comment">// Can&#39;t really free a *const</span>
-        <span class="macro">unimplemented</span><span class="macro">!</span>()
+        <span class="macro">unimplemented!</span>()
     }
 }
 
@@ -4546,12 +4546,12 @@
 
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_container_as_vec</span>(<span class="kw">_</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ffi</span>::<span class="ident">GList</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
         <span class="comment">// Can&#39;t really free a *const</span>
-        <span class="macro">unimplemented</span><span class="macro">!</span>()
+        <span class="macro">unimplemented!</span>()
     }
 
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_full_as_vec</span>(<span class="kw">_</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ffi</span>::<span class="ident">GList</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
         <span class="comment">// Can&#39;t really free a *const</span>
-        <span class="macro">unimplemented</span><span class="macro">!</span>()
+        <span class="macro">unimplemented!</span>()
     }
 }
 
@@ -4567,12 +4567,12 @@
 
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_container_num_as_vec</span>(<span class="kw">_</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ffi</span>::<span class="ident">GSList</span>, <span class="kw">_</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
         <span class="comment">// Can&#39;t really free a *const</span>
-        <span class="macro">unimplemented</span><span class="macro">!</span>()
+        <span class="macro">unimplemented!</span>()
     }
 
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_full_num_as_vec</span>(<span class="kw">_</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ffi</span>::<span class="ident">GSList</span>, <span class="kw">_</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
         <span class="comment">// Can&#39;t really free a *const</span>
-        <span class="macro">unimplemented</span><span class="macro">!</span>()
+        <span class="macro">unimplemented!</span>()
     }
 }
 
@@ -4588,12 +4588,12 @@
 
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_container_as_vec</span>(<span class="kw">_</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ffi</span>::<span class="ident">GSList</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
         <span class="comment">// Can&#39;t really free a *const</span>
-        <span class="macro">unimplemented</span><span class="macro">!</span>()
+        <span class="macro">unimplemented!</span>()
     }
 
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_full_as_vec</span>(<span class="kw">_</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ffi</span>::<span class="ident">GSList</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
         <span class="comment">// Can&#39;t really free a *const</span>
-        <span class="macro">unimplemented</span><span class="macro">!</span>()
+        <span class="macro">unimplemented!</span>()
     }
 }
 
@@ -4657,7 +4657,7 @@
             <span class="kw">return</span> <span class="ident">Vec</span>::<span class="ident">new</span>();
         }
         <span class="kw">let</span> <span class="ident">pdata</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">ptr</span>).<span class="ident">pdata</span>;
-        <span class="macro">assert</span><span class="macro">!</span>((<span class="kw-2">*</span><span class="ident">ptr</span>).<span class="ident">len</span> <span class="kw">as</span> <span class="ident">usize</span> <span class="op">&gt;</span><span class="op">=</span> <span class="ident">num</span>);
+        <span class="macro">assert!</span>((<span class="kw-2">*</span><span class="ident">ptr</span>).<span class="ident">len</span> <span class="kw">as</span> <span class="ident">usize</span> <span class="op">&gt;</span><span class="op">=</span> <span class="ident">num</span>);
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">with_capacity</span>(<span class="ident">num</span>);
         <span class="kw">for</span> <span class="ident">i</span> <span class="kw">in</span> <span class="number">0</span>..<span class="ident">num</span> {
             <span class="kw">let</span> <span class="ident">item_ptr</span>: <span class="op">&lt;</span><span class="ident">T</span> <span class="kw">as</span> <span class="ident">GlibPtrDefault</span><span class="op">&gt;</span>::<span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">Ptr</span>::<span class="ident">from</span>(<span class="ident">ptr</span>::<span class="ident">read</span>(<span class="ident">pdata</span>.<span class="ident">add</span>(<span class="ident">i</span>)));
@@ -4681,7 +4681,7 @@
             <span class="kw">return</span> <span class="ident">Vec</span>::<span class="ident">new</span>();
         }
         <span class="kw">let</span> <span class="ident">pdata</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">ptr</span>).<span class="ident">pdata</span>;
-        <span class="macro">assert</span><span class="macro">!</span>((<span class="kw-2">*</span><span class="ident">ptr</span>).<span class="ident">len</span> <span class="kw">as</span> <span class="ident">usize</span> <span class="op">&gt;</span><span class="op">=</span> <span class="ident">num</span>);
+        <span class="macro">assert!</span>((<span class="kw-2">*</span><span class="ident">ptr</span>).<span class="ident">len</span> <span class="kw">as</span> <span class="ident">usize</span> <span class="op">&gt;</span><span class="op">=</span> <span class="ident">num</span>);
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">with_capacity</span>(<span class="ident">num</span>);
         <span class="kw">for</span> <span class="ident">i</span> <span class="kw">in</span> <span class="number">0</span>..<span class="ident">num</span> {
             <span class="kw">let</span> <span class="ident">item_ptr</span>: <span class="op">&lt;</span><span class="ident">T</span> <span class="kw">as</span> <span class="ident">GlibPtrDefault</span><span class="op">&gt;</span>::<span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">Ptr</span>::<span class="ident">from</span>(<span class="ident">ptr</span>::<span class="ident">read</span>(<span class="ident">pdata</span>.<span class="ident">add</span>(<span class="ident">i</span>)));
@@ -4728,12 +4728,12 @@
 
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_container_num_as_vec</span>(<span class="kw">_</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ffi</span>::<span class="ident">GPtrArray</span>, <span class="kw">_</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
         <span class="comment">// Can&#39;t really free a *const</span>
-        <span class="macro">unimplemented</span><span class="macro">!</span>()
+        <span class="macro">unimplemented!</span>()
     }
 
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_full_num_as_vec</span>(<span class="kw">_</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ffi</span>::<span class="ident">GPtrArray</span>, <span class="kw">_</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
         <span class="comment">// Can&#39;t really free a *const</span>
-        <span class="macro">unimplemented</span><span class="macro">!</span>()
+        <span class="macro">unimplemented!</span>()
     }
 }
 
@@ -4749,12 +4749,12 @@
 
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_container_as_vec</span>(<span class="kw">_</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ffi</span>::<span class="ident">GPtrArray</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
         <span class="comment">// Can&#39;t really free a *const</span>
-        <span class="macro">unimplemented</span><span class="macro">!</span>()
+        <span class="macro">unimplemented!</span>()
     }
 
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_full_as_vec</span>(<span class="kw">_</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ffi</span>::<span class="ident">GPtrArray</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
         <span class="comment">// Can&#39;t really free a *const</span>
-        <span class="macro">unimplemented</span><span class="macro">!</span>()
+        <span class="macro">unimplemented!</span>()
     }
 }
 
@@ -4775,31 +4775,31 @@
         <span class="ident">map</span>.<span class="ident">insert</span>(<span class="string">&quot;C&quot;</span>.<span class="ident">into</span>(), <span class="string">&quot;3&quot;</span>.<span class="ident">into</span>());
         <span class="kw">let</span> <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GHashTable</span> <span class="op">=</span> <span class="ident">map</span>.<span class="ident">to_glib_full</span>();
         <span class="kw">let</span> <span class="ident">map</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">HashMap</span>::<span class="ident">from_glib_full</span>(<span class="ident">ptr</span>) };
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">map</span>.<span class="ident">get</span>(<span class="string">&quot;A&quot;</span>), <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="string">&quot;1&quot;</span>.<span class="ident">into</span>()));
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">map</span>.<span class="ident">get</span>(<span class="string">&quot;B&quot;</span>), <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="string">&quot;2&quot;</span>.<span class="ident">into</span>()));
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">map</span>.<span class="ident">get</span>(<span class="string">&quot;C&quot;</span>), <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="string">&quot;3&quot;</span>.<span class="ident">into</span>()));
+        <span class="macro">assert_eq!</span>(<span class="ident">map</span>.<span class="ident">get</span>(<span class="string">&quot;A&quot;</span>), <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="string">&quot;1&quot;</span>.<span class="ident">into</span>()));
+        <span class="macro">assert_eq!</span>(<span class="ident">map</span>.<span class="ident">get</span>(<span class="string">&quot;B&quot;</span>), <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="string">&quot;2&quot;</span>.<span class="ident">into</span>()));
+        <span class="macro">assert_eq!</span>(<span class="ident">map</span>.<span class="ident">get</span>(<span class="string">&quot;C&quot;</span>), <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="string">&quot;3&quot;</span>.<span class="ident">into</span>()));
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">string_array</span>() {
-        <span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[<span class="string">&quot;A&quot;</span>.<span class="ident">to_string</span>(), <span class="string">&quot;B&quot;</span>.<span class="ident">to_string</span>(), <span class="string">&quot;C&quot;</span>.<span class="ident">to_string</span>()];
+        <span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="macro">vec!</span>[<span class="string">&quot;A&quot;</span>.<span class="ident">to_string</span>(), <span class="string">&quot;B&quot;</span>.<span class="ident">to_string</span>(), <span class="string">&quot;C&quot;</span>.<span class="ident">to_string</span>()];
         <span class="kw">let</span> <span class="ident">stash</span> <span class="op">=</span> <span class="ident">v</span>.<span class="ident">to_glib_none</span>();
         <span class="kw">let</span> <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_char</span> <span class="op">=</span> <span class="ident">stash</span>.<span class="number">0</span>;
         <span class="kw">let</span> <span class="ident">ptr_copy</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">g_strdupv</span>(<span class="ident">ptr</span>) };
 
         <span class="kw">let</span> <span class="ident">actual</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">FromGlibPtrContainer</span>::<span class="ident">from_glib_full</span>(<span class="ident">ptr_copy</span>) };
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">v</span>, <span class="ident">actual</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">v</span>, <span class="ident">actual</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">gstring_array</span>() {
-        <span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[<span class="string">&quot;A&quot;</span>.<span class="ident">to_string</span>(), <span class="string">&quot;B&quot;</span>.<span class="ident">to_string</span>(), <span class="string">&quot;C&quot;</span>.<span class="ident">to_string</span>()];
+        <span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="macro">vec!</span>[<span class="string">&quot;A&quot;</span>.<span class="ident">to_string</span>(), <span class="string">&quot;B&quot;</span>.<span class="ident">to_string</span>(), <span class="string">&quot;C&quot;</span>.<span class="ident">to_string</span>()];
         <span class="kw">let</span> <span class="ident">stash</span> <span class="op">=</span> <span class="ident">v</span>.<span class="ident">to_glib_none</span>();
         <span class="kw">let</span> <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_char</span> <span class="op">=</span> <span class="ident">stash</span>.<span class="number">0</span>;
         <span class="kw">let</span> <span class="ident">ptr_copy</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">g_strdupv</span>(<span class="ident">ptr</span>) };
 
         <span class="kw">let</span> <span class="ident">actual</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">GString</span><span class="op">&gt;</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">FromGlibPtrContainer</span>::<span class="ident">from_glib_full</span>(<span class="ident">ptr_copy</span>) };
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">v</span>, <span class="ident">actual</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">v</span>, <span class="ident">actual</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -4808,7 +4808,7 @@
         <span class="kw">let</span> (<span class="ident">ptr</span>, <span class="ident">_stash</span>) <span class="op">=</span>
             <span class="ident">ToGlibContainerFromSlice</span>::<span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GPtrArray</span><span class="op">&gt;</span>::<span class="ident">to_glib_none_from_slice</span>(<span class="ident">strings</span>);
         <span class="kw">let</span> <span class="ident">v</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">GString</span><span class="op">&gt;</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">FromGlibPtrArrayContainerAsVec</span>::<span class="ident">from_glib_none_as_vec</span>(<span class="ident">ptr</span>) };
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="kw-2">&amp;</span><span class="ident">v</span>, <span class="ident">strings</span>);
+        <span class="macro">assert_eq!</span>(<span class="kw-2">&amp;</span><span class="ident">v</span>, <span class="ident">strings</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -4820,23 +4820,23 @@
         <span class="comment">// gives us useful results</span>
         <span class="kw">let</span> <span class="ident">dir_1</span> <span class="op">=</span> <span class="ident">tmp_dir</span>.<span class="ident">path</span>().<span class="ident">join</span>(<span class="string">&quot;abcd&quot;</span>);
         <span class="ident">fs</span>::<span class="ident">create_dir</span>(<span class="kw-2">&amp;</span><span class="ident">dir_1</span>).<span class="ident">unwrap</span>();
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="kw">crate</span>::<span class="ident">path_get_basename</span>(<span class="kw-2">&amp;</span><span class="ident">dir_1</span>), <span class="ident">Path</span>::<span class="ident">new</span>(<span class="string">&quot;abcd&quot;</span>));
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(<span class="kw">crate</span>::<span class="ident">path_get_basename</span>(<span class="kw-2">&amp;</span><span class="ident">dir_1</span>), <span class="ident">Path</span>::<span class="ident">new</span>(<span class="string">&quot;abcd&quot;</span>));
+        <span class="macro">assert_eq!</span>(
             <span class="kw">crate</span>::<span class="ident">path_get_basename</span>(<span class="ident">dir_1</span>.<span class="ident">canonicalize</span>().<span class="ident">unwrap</span>()),
             <span class="ident">Path</span>::<span class="ident">new</span>(<span class="string">&quot;abcd&quot;</span>)
         );
         <span class="comment">// This currently fails on Windows because C:\\Users\\runneradmin</span>
         <span class="comment">// gets shortened to C:\\Users\\RUNNER~1</span>
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">windows</span>))]</span>
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="kw">crate</span>::<span class="ident">path_get_dirname</span>(<span class="ident">dir_1</span>.<span class="ident">canonicalize</span>().<span class="ident">unwrap</span>()),
             <span class="ident">tmp_dir</span>.<span class="ident">path</span>()
         );
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="kw">crate</span>::<span class="ident">file_test</span>(
+        <span class="macro">assert!</span>(<span class="kw">crate</span>::<span class="ident">file_test</span>(
             <span class="kw-2">&amp;</span><span class="ident">dir_1</span>,
             <span class="kw">crate</span>::<span class="ident">FileTest</span>::<span class="ident">EXISTS</span> <span class="op">|</span> <span class="kw">crate</span>::<span class="ident">FileTest</span>::<span class="ident">IS_DIR</span>
         ));
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="kw">crate</span>::<span class="ident">file_test</span>(
+        <span class="macro">assert!</span>(<span class="kw">crate</span>::<span class="ident">file_test</span>(
             <span class="kw-2">&amp;</span><span class="ident">dir_1</span>.<span class="ident">canonicalize</span>().<span class="ident">unwrap</span>(),
             <span class="kw">crate</span>::<span class="ident">FileTest</span>::<span class="ident">EXISTS</span> <span class="op">|</span> <span class="kw">crate</span>::<span class="ident">FileTest</span>::<span class="ident">IS_DIR</span>
         ));
@@ -4844,23 +4844,23 @@
         <span class="comment">// And test with some non-ASCII characters</span>
         <span class="kw">let</span> <span class="ident">dir_2</span> <span class="op">=</span> <span class="ident">tmp_dir</span>.<span class="ident">as_ref</span>().<span class="ident">join</span>(<span class="string">&quot;øäöü&quot;</span>);
         <span class="ident">fs</span>::<span class="ident">create_dir</span>(<span class="kw-2">&amp;</span><span class="ident">dir_2</span>).<span class="ident">unwrap</span>();
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="kw">crate</span>::<span class="ident">path_get_basename</span>(<span class="kw-2">&amp;</span><span class="ident">dir_2</span>), <span class="ident">Path</span>::<span class="ident">new</span>(<span class="string">&quot;øäöü&quot;</span>));
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(<span class="kw">crate</span>::<span class="ident">path_get_basename</span>(<span class="kw-2">&amp;</span><span class="ident">dir_2</span>), <span class="ident">Path</span>::<span class="ident">new</span>(<span class="string">&quot;øäöü&quot;</span>));
+        <span class="macro">assert_eq!</span>(
             <span class="kw">crate</span>::<span class="ident">path_get_basename</span>(<span class="ident">dir_2</span>.<span class="ident">canonicalize</span>().<span class="ident">unwrap</span>()),
             <span class="ident">Path</span>::<span class="ident">new</span>(<span class="string">&quot;øäöü&quot;</span>)
         );
         <span class="comment">// This currently fails on Windows because C:\\Users\\runneradmin</span>
         <span class="comment">// gets shortened to C:\\Users\\RUNNER~1</span>
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">windows</span>))]</span>
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="kw">crate</span>::<span class="ident">path_get_dirname</span>(<span class="ident">dir_2</span>.<span class="ident">canonicalize</span>().<span class="ident">unwrap</span>()),
             <span class="ident">tmp_dir</span>.<span class="ident">path</span>()
         );
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="kw">crate</span>::<span class="ident">file_test</span>(
+        <span class="macro">assert!</span>(<span class="kw">crate</span>::<span class="ident">file_test</span>(
             <span class="kw-2">&amp;</span><span class="ident">dir_2</span>,
             <span class="kw">crate</span>::<span class="ident">FileTest</span>::<span class="ident">EXISTS</span> <span class="op">|</span> <span class="kw">crate</span>::<span class="ident">FileTest</span>::<span class="ident">IS_DIR</span>
         ));
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="kw">crate</span>::<span class="ident">file_test</span>(
+        <span class="macro">assert!</span>(<span class="kw">crate</span>::<span class="ident">file_test</span>(
             <span class="kw-2">&amp;</span><span class="ident">dir_2</span>.<span class="ident">canonicalize</span>().<span class="ident">unwrap</span>(),
             <span class="kw">crate</span>::<span class="ident">FileTest</span>::<span class="ident">EXISTS</span> <span class="op">|</span> <span class="kw">crate</span>::<span class="ident">FileTest</span>::<span class="ident">IS_DIR</span>
         ));
@@ -4876,20 +4876,20 @@
         <span class="comment">// gives us useful results</span>
         <span class="kw">let</span> <span class="ident">dir_1</span> <span class="op">=</span> <span class="ident">tmp_dir</span>.<span class="ident">join</span>(<span class="string">&quot;abcd&quot;</span>);
         <span class="ident">fs</span>::<span class="ident">create_dir</span>(<span class="kw-2">&amp;</span><span class="ident">dir_1</span>).<span class="ident">unwrap</span>();
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="kw">crate</span>::<span class="ident">path_get_basename</span>(<span class="kw-2">&amp;</span><span class="ident">dir_1</span>), <span class="ident">Path</span>::<span class="ident">from</span>(<span class="string">&quot;abcd&quot;</span>));
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(<span class="kw">crate</span>::<span class="ident">path_get_basename</span>(<span class="kw-2">&amp;</span><span class="ident">dir_1</span>), <span class="ident">Path</span>::<span class="ident">from</span>(<span class="string">&quot;abcd&quot;</span>));
+        <span class="macro">assert_eq!</span>(
             <span class="kw">crate</span>::<span class="ident">path_get_basename</span>(<span class="ident">dir_1</span>.<span class="ident">canonicalize</span>().<span class="ident">unwrap</span>()),
             <span class="ident">Path</span>::<span class="ident">from</span>(<span class="string">&quot;abcd&quot;</span>)
         );
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="kw">crate</span>::<span class="ident">path_get_dirname</span>(<span class="ident">dir_1</span>.<span class="ident">canonicalize</span>().<span class="ident">unwrap</span>()),
             <span class="ident">tmp_dir</span>
         );
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="kw">crate</span>::<span class="ident">file_test</span>(
+        <span class="macro">assert!</span>(<span class="kw">crate</span>::<span class="ident">file_test</span>(
             <span class="kw-2">&amp;</span><span class="ident">dir_1</span>,
             <span class="kw">crate</span>::<span class="ident">FileTest</span>::<span class="ident">EXISTS</span> <span class="op">|</span> <span class="kw">crate</span>::<span class="ident">FileTest</span>::<span class="ident">IS_DIR</span>
         ));
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="kw">crate</span>::<span class="ident">file_test</span>(
+        <span class="macro">assert!</span>(<span class="kw">crate</span>::<span class="ident">file_test</span>(
             <span class="kw-2">&amp;</span><span class="ident">dir_1</span>.<span class="ident">canonicalize</span>().<span class="ident">unwrap</span>(),
             <span class="kw">crate</span>::<span class="ident">FileTest</span>::<span class="ident">EXISTS</span> <span class="op">|</span> <span class="kw">crate</span>::<span class="ident">FileTest</span>::<span class="ident">IS_DIR</span>
         ));
@@ -4911,11 +4911,11 @@
             <span class="kw">const</span> <span class="ident">GLIB_NONE</span>: <span class="self">Self</span>::<span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">CLONG_NONE</span> <span class="kw">as</span> <span class="ident">libc</span>::<span class="ident">c_uint</span>;
         }
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">SpecialU32</span>(<span class="number">0</span>).<span class="ident">to_glib</span>(), <span class="number">0</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">SpecialU32</span>(<span class="number">42</span>).<span class="ident">to_glib</span>(), <span class="number">42</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">Some</span>(<span class="ident">SpecialU32</span>(<span class="number">0</span>)).<span class="ident">to_glib</span>(), <span class="number">0</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">Some</span>(<span class="ident">SpecialU32</span>(<span class="number">42</span>)).<span class="ident">to_glib</span>(), <span class="number">42</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-ty">Option</span>::<span class="prelude-val">None</span>::<span class="op">&lt;</span><span class="ident">SpecialU32</span><span class="op">&gt;</span>.<span class="ident">to_glib</span>(), <span class="ident">SpecialU32</span>::<span class="ident">GLIB_NONE</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">SpecialU32</span>(<span class="number">0</span>).<span class="ident">to_glib</span>(), <span class="number">0</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">SpecialU32</span>(<span class="number">42</span>).<span class="ident">to_glib</span>(), <span class="number">42</span>);
+        <span class="macro">assert_eq!</span>(<span class="prelude-val">Some</span>(<span class="ident">SpecialU32</span>(<span class="number">0</span>)).<span class="ident">to_glib</span>(), <span class="number">0</span>);
+        <span class="macro">assert_eq!</span>(<span class="prelude-val">Some</span>(<span class="ident">SpecialU32</span>(<span class="number">42</span>)).<span class="ident">to_glib</span>(), <span class="number">42</span>);
+        <span class="macro">assert_eq!</span>(<span class="prelude-ty">Option</span>::<span class="prelude-val">None</span>::<span class="op">&lt;</span><span class="ident">SpecialU32</span><span class="op">&gt;</span>.<span class="ident">to_glib</span>(), <span class="ident">SpecialU32</span>::<span class="ident">GLIB_NONE</span>);
 
         <span class="kw">impl</span> <span class="ident">TryFromGlib</span><span class="op">&lt;</span><span class="ident">libc</span>::<span class="ident">c_uint</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">SpecialU32</span> {
             <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">GlibNoneError</span>;
@@ -4928,22 +4928,22 @@
             }
         }
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">SpecialU32</span>::<span class="ident">try_from_glib</span>(<span class="number">0</span>), <span class="prelude-val">Ok</span>(<span class="ident">SpecialU32</span>(<span class="number">0</span>)));
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">SpecialU32</span>::<span class="ident">try_from_glib</span>(<span class="number">42</span>), <span class="prelude-val">Ok</span>(<span class="ident">SpecialU32</span>(<span class="number">42</span>)));
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(<span class="ident">SpecialU32</span>::<span class="ident">try_from_glib</span>(<span class="number">0</span>), <span class="prelude-val">Ok</span>(<span class="ident">SpecialU32</span>(<span class="number">0</span>)));
+        <span class="macro">assert_eq!</span>(<span class="ident">SpecialU32</span>::<span class="ident">try_from_glib</span>(<span class="number">42</span>), <span class="prelude-val">Ok</span>(<span class="ident">SpecialU32</span>(<span class="number">42</span>)));
+        <span class="macro">assert_eq!</span>(
             <span class="ident">SpecialU32</span>::<span class="ident">try_from_glib</span>(<span class="ident">SpecialU32</span>::<span class="ident">GLIB_NONE</span>),
             <span class="prelude-val">Err</span>(<span class="ident">GlibNoneError</span>)
         );
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="kw">unsafe</span> { <span class="prelude-ty">Option</span>::<span class="op">&lt;</span><span class="ident">SpecialU32</span><span class="op">&gt;</span>::<span class="ident">from_glib</span>(<span class="number">0</span>) },
             <span class="prelude-val">Some</span>(<span class="ident">SpecialU32</span>(<span class="number">0</span>))
         );
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="kw">unsafe</span> { <span class="prelude-ty">Option</span>::<span class="op">&lt;</span><span class="ident">SpecialU32</span><span class="op">&gt;</span>::<span class="ident">from_glib</span>(<span class="number">42</span>) },
             <span class="prelude-val">Some</span>(<span class="ident">SpecialU32</span>(<span class="number">42</span>))
         );
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="kw">unsafe</span> { <span class="prelude-ty">Option</span>::<span class="op">&lt;</span><span class="ident">SpecialU32</span><span class="op">&gt;</span>::<span class="ident">from_glib</span>(<span class="ident">SpecialU32</span>::<span class="ident">GLIB_NONE</span>) }.<span class="ident">is_none</span>());
+        <span class="macro">assert!</span>(<span class="kw">unsafe</span> { <span class="prelude-ty">Option</span>::<span class="op">&lt;</span><span class="ident">SpecialU32</span><span class="op">&gt;</span>::<span class="ident">from_glib</span>(<span class="ident">SpecialU32</span>::<span class="ident">GLIB_NONE</span>) }.<span class="ident">is_none</span>());
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -4961,10 +4961,10 @@
             }
         }
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">U32</span>::<span class="ident">try_from_glib</span>(<span class="number">0</span>), <span class="prelude-val">Ok</span>(<span class="ident">U32</span>(<span class="number">0</span>)));
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">U32</span>::<span class="ident">try_from_glib</span>(<span class="number">42</span>), <span class="prelude-val">Ok</span>(<span class="ident">U32</span>(<span class="number">42</span>)));
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">U32</span>::<span class="ident">try_from_glib</span>(<span class="op">-</span><span class="number">1</span>).<span class="ident">is_err</span>());
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">U32</span>::<span class="ident">try_from_glib</span>(<span class="op">-</span><span class="number">42</span>).<span class="ident">is_err</span>());
+        <span class="macro">assert_eq!</span>(<span class="ident">U32</span>::<span class="ident">try_from_glib</span>(<span class="number">0</span>), <span class="prelude-val">Ok</span>(<span class="ident">U32</span>(<span class="number">0</span>)));
+        <span class="macro">assert_eq!</span>(<span class="ident">U32</span>::<span class="ident">try_from_glib</span>(<span class="number">42</span>), <span class="prelude-val">Ok</span>(<span class="ident">U32</span>(<span class="number">42</span>)));
+        <span class="macro">assert!</span>(<span class="ident">U32</span>::<span class="ident">try_from_glib</span>(<span class="op">-</span><span class="number">1</span>).<span class="ident">is_err</span>());
+        <span class="macro">assert!</span>(<span class="ident">U32</span>::<span class="ident">try_from_glib</span>(<span class="op">-</span><span class="number">42</span>).<span class="ident">is_err</span>());
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -4984,10 +4984,10 @@
             <span class="kw">const</span> <span class="ident">GLIB_NONE</span>: <span class="self">Self</span>::<span class="ident">GlibType</span> <span class="op">=</span> <span class="op">-</span><span class="number">1</span>;
         }
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">SpecialU32</span>(<span class="number">0</span>).<span class="ident">to_glib</span>(), <span class="number">0</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">SpecialU32</span>(<span class="number">42</span>).<span class="ident">to_glib</span>(), <span class="number">42</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">Some</span>(<span class="ident">SpecialU32</span>(<span class="number">42</span>)).<span class="ident">to_glib</span>(), <span class="number">42</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-ty">Option</span>::<span class="prelude-val">None</span>::<span class="op">&lt;</span><span class="ident">SpecialU32</span><span class="op">&gt;</span>.<span class="ident">to_glib</span>(), <span class="ident">SpecialU32</span>::<span class="ident">GLIB_NONE</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">SpecialU32</span>(<span class="number">0</span>).<span class="ident">to_glib</span>(), <span class="number">0</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">SpecialU32</span>(<span class="number">42</span>).<span class="ident">to_glib</span>(), <span class="number">42</span>);
+        <span class="macro">assert_eq!</span>(<span class="prelude-val">Some</span>(<span class="ident">SpecialU32</span>(<span class="number">42</span>)).<span class="ident">to_glib</span>(), <span class="number">42</span>);
+        <span class="macro">assert_eq!</span>(<span class="prelude-ty">Option</span>::<span class="prelude-val">None</span>::<span class="op">&lt;</span><span class="ident">SpecialU32</span><span class="op">&gt;</span>.<span class="ident">to_glib</span>(), <span class="ident">SpecialU32</span>::<span class="ident">GLIB_NONE</span>);
 
         <span class="kw">impl</span> <span class="ident">TryFromGlib</span><span class="op">&lt;</span><span class="ident">libc</span>::<span class="ident">c_long</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">SpecialU32</span> {
             <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">GlibNoneOrInvalidError</span><span class="op">&lt;</span><span class="ident">TryFromIntError</span><span class="op">&gt;</span>;
@@ -5002,26 +5002,26 @@
             }
         }
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">SpecialU32</span>::<span class="ident">try_from_glib</span>(<span class="number">0</span>), <span class="prelude-val">Ok</span>(<span class="ident">SpecialU32</span>(<span class="number">0</span>)));
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">SpecialU32</span>::<span class="ident">try_from_glib</span>(<span class="number">42</span>), <span class="prelude-val">Ok</span>(<span class="ident">SpecialU32</span>(<span class="number">42</span>)));
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">SpecialU32</span>::<span class="ident">try_from_glib</span>(<span class="ident">SpecialU32</span>::<span class="ident">GLIB_NONE</span>)
+        <span class="macro">assert_eq!</span>(<span class="ident">SpecialU32</span>::<span class="ident">try_from_glib</span>(<span class="number">0</span>), <span class="prelude-val">Ok</span>(<span class="ident">SpecialU32</span>(<span class="number">0</span>)));
+        <span class="macro">assert_eq!</span>(<span class="ident">SpecialU32</span>::<span class="ident">try_from_glib</span>(<span class="number">42</span>), <span class="prelude-val">Ok</span>(<span class="ident">SpecialU32</span>(<span class="number">42</span>)));
+        <span class="macro">assert!</span>(<span class="ident">SpecialU32</span>::<span class="ident">try_from_glib</span>(<span class="ident">SpecialU32</span>::<span class="ident">GLIB_NONE</span>)
             .<span class="ident">unwrap_err</span>()
             .<span class="ident">is_none</span>());
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">SpecialU32</span>::<span class="ident">try_from_glib</span>(<span class="op">-</span><span class="number">42</span>).<span class="ident">unwrap_err</span>().<span class="ident">is_invalid</span>());
+        <span class="macro">assert!</span>(<span class="ident">SpecialU32</span>::<span class="ident">try_from_glib</span>(<span class="op">-</span><span class="number">42</span>).<span class="ident">unwrap_err</span>().<span class="ident">is_invalid</span>());
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="kw">unsafe</span> { <span class="prelude-ty">Result</span>::<span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SpecialU32</span><span class="op">&gt;</span>, <span class="kw">_</span><span class="op">&gt;</span>::<span class="ident">from_glib</span>(<span class="number">0</span>) },
             <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">SpecialU32</span>(<span class="number">0</span>)))
         );
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="kw">unsafe</span> { <span class="prelude-ty">Result</span>::<span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SpecialU32</span><span class="op">&gt;</span>, <span class="kw">_</span><span class="op">&gt;</span>::<span class="ident">from_glib</span>(<span class="number">42</span>) },
             <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">SpecialU32</span>(<span class="number">42</span>)))
         );
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="kw">unsafe</span> { <span class="prelude-ty">Result</span>::<span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SpecialU32</span><span class="op">&gt;</span>, <span class="kw">_</span><span class="op">&gt;</span>::<span class="ident">from_glib</span>(<span class="ident">SpecialU32</span>::<span class="ident">GLIB_NONE</span>) },
             <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>)
         );
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="kw">unsafe</span> { <span class="prelude-ty">Result</span>::<span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SpecialU32</span><span class="op">&gt;</span>, <span class="kw">_</span><span class="op">&gt;</span>::<span class="ident">from_glib</span>(<span class="op">-</span><span class="number">42</span>) }.<span class="ident">is_err</span>());
+        <span class="macro">assert!</span>(<span class="kw">unsafe</span> { <span class="prelude-ty">Result</span>::<span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SpecialU32</span><span class="op">&gt;</span>, <span class="kw">_</span><span class="op">&gt;</span>::<span class="ident">from_glib</span>(<span class="op">-</span><span class="number">42</span>) }.<span class="ident">is_err</span>());
     }
 }
 </pre></div>

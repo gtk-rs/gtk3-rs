@@ -1836,7 +1836,7 @@
 
 <span class="kw">impl</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Debug</span> <span class="kw">for</span> <span class="ident">graphene_box_t</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="ident">f</span>.<span class="ident">debug_struct</span>(<span class="kw-2">&amp;</span><span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;graphene_box_t @ {:?}&quot;</span>, <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>))
+        <span class="ident">f</span>.<span class="ident">debug_struct</span>(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;graphene_box_t @ {:?}&quot;</span>, <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>))
             .<span class="ident">finish</span>()
     }
 }
@@ -1851,7 +1851,7 @@
 
 <span class="kw">impl</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Debug</span> <span class="kw">for</span> <span class="ident">graphene_euler_t</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="ident">f</span>.<span class="ident">debug_struct</span>(<span class="kw-2">&amp;</span><span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;graphene_euler_t @ {:?}&quot;</span>, <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>))
+        <span class="ident">f</span>.<span class="ident">debug_struct</span>(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;graphene_euler_t @ {:?}&quot;</span>, <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>))
             .<span class="ident">finish</span>()
     }
 }
@@ -1865,7 +1865,7 @@
 
 <span class="kw">impl</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Debug</span> <span class="kw">for</span> <span class="ident">graphene_frustum_t</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="ident">f</span>.<span class="ident">debug_struct</span>(<span class="kw-2">&amp;</span><span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;graphene_frustum_t @ {:?}&quot;</span>, <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>))
+        <span class="ident">f</span>.<span class="ident">debug_struct</span>(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;graphene_frustum_t @ {:?}&quot;</span>, <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>))
             .<span class="ident">finish</span>()
     }
 }
@@ -1879,7 +1879,7 @@
 
 <span class="kw">impl</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Debug</span> <span class="kw">for</span> <span class="ident">graphene_matrix_t</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="ident">f</span>.<span class="ident">debug_struct</span>(<span class="kw-2">&amp;</span><span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;graphene_matrix_t @ {:?}&quot;</span>, <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>))
+        <span class="ident">f</span>.<span class="ident">debug_struct</span>(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;graphene_matrix_t @ {:?}&quot;</span>, <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>))
             .<span class="ident">finish</span>()
     }
 }
@@ -1894,7 +1894,7 @@
 
 <span class="kw">impl</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Debug</span> <span class="kw">for</span> <span class="ident">graphene_plane_t</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="ident">f</span>.<span class="ident">debug_struct</span>(<span class="kw-2">&amp;</span><span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;graphene_plane_t @ {:?}&quot;</span>, <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>))
+        <span class="ident">f</span>.<span class="ident">debug_struct</span>(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;graphene_plane_t @ {:?}&quot;</span>, <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>))
             .<span class="ident">finish</span>()
     }
 }
@@ -1909,7 +1909,7 @@
 
 <span class="kw">impl</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Debug</span> <span class="kw">for</span> <span class="ident">graphene_point3d_t</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="ident">f</span>.<span class="ident">debug_struct</span>(<span class="kw-2">&amp;</span><span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;graphene_point3d_t @ {:?}&quot;</span>, <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>))
+        <span class="ident">f</span>.<span class="ident">debug_struct</span>(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;graphene_point3d_t @ {:?}&quot;</span>, <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>))
             .<span class="ident">field</span>(<span class="string">&quot;x&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">x</span>)
             .<span class="ident">field</span>(<span class="string">&quot;y&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">y</span>)
             .<span class="ident">field</span>(<span class="string">&quot;z&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">z</span>)
@@ -1926,7 +1926,7 @@
 
 <span class="kw">impl</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Debug</span> <span class="kw">for</span> <span class="ident">graphene_point_t</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="ident">f</span>.<span class="ident">debug_struct</span>(<span class="kw-2">&amp;</span><span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;graphene_point_t @ {:?}&quot;</span>, <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>))
+        <span class="ident">f</span>.<span class="ident">debug_struct</span>(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;graphene_point_t @ {:?}&quot;</span>, <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>))
             .<span class="ident">field</span>(<span class="string">&quot;x&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">x</span>)
             .<span class="ident">field</span>(<span class="string">&quot;y&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">y</span>)
             .<span class="ident">finish</span>()
@@ -1941,7 +1941,7 @@
 
 <span class="kw">impl</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Debug</span> <span class="kw">for</span> <span class="ident">graphene_quad_t</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="ident">f</span>.<span class="ident">debug_struct</span>(<span class="kw-2">&amp;</span><span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;graphene_quad_t @ {:?}&quot;</span>, <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>))
+        <span class="ident">f</span>.<span class="ident">debug_struct</span>(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;graphene_quad_t @ {:?}&quot;</span>, <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>))
             .<span class="ident">finish</span>()
     }
 }
@@ -1957,7 +1957,7 @@
 
 <span class="kw">impl</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Debug</span> <span class="kw">for</span> <span class="ident">graphene_quaternion_t</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="ident">f</span>.<span class="ident">debug_struct</span>(<span class="kw-2">&amp;</span><span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;graphene_quaternion_t @ {:?}&quot;</span>, <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>))
+        <span class="ident">f</span>.<span class="ident">debug_struct</span>(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;graphene_quaternion_t @ {:?}&quot;</span>, <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>))
             .<span class="ident">finish</span>()
     }
 }
@@ -1972,7 +1972,7 @@
 
 <span class="kw">impl</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Debug</span> <span class="kw">for</span> <span class="ident">graphene_ray_t</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="ident">f</span>.<span class="ident">debug_struct</span>(<span class="kw-2">&amp;</span><span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;graphene_ray_t @ {:?}&quot;</span>, <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>))
+        <span class="ident">f</span>.<span class="ident">debug_struct</span>(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;graphene_ray_t @ {:?}&quot;</span>, <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>))
             .<span class="ident">finish</span>()
     }
 }
@@ -1986,7 +1986,7 @@
 
 <span class="kw">impl</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Debug</span> <span class="kw">for</span> <span class="ident">graphene_rect_t</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="ident">f</span>.<span class="ident">debug_struct</span>(<span class="kw-2">&amp;</span><span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;graphene_rect_t @ {:?}&quot;</span>, <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>))
+        <span class="ident">f</span>.<span class="ident">debug_struct</span>(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;graphene_rect_t @ {:?}&quot;</span>, <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>))
             .<span class="ident">field</span>(<span class="string">&quot;origin&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">origin</span>)
             .<span class="ident">field</span>(<span class="string">&quot;size&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">size</span>)
             .<span class="ident">finish</span>()
@@ -2005,7 +2005,7 @@
 
 <span class="kw">impl</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Debug</span> <span class="kw">for</span> <span class="ident">graphene_simd4f_t</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="ident">f</span>.<span class="ident">debug_struct</span>(<span class="kw-2">&amp;</span><span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;graphene_simd4f_t @ {:?}&quot;</span>, <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>))
+        <span class="ident">f</span>.<span class="ident">debug_struct</span>(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;graphene_simd4f_t @ {:?}&quot;</span>, <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>))
             .<span class="ident">finish</span>()
     }
 }
@@ -2021,7 +2021,7 @@
 
 <span class="kw">impl</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Debug</span> <span class="kw">for</span> <span class="ident">graphene_simd4x4f_t</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="ident">f</span>.<span class="ident">debug_struct</span>(<span class="kw-2">&amp;</span><span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;graphene_simd4x4f_t @ {:?}&quot;</span>, <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>))
+        <span class="ident">f</span>.<span class="ident">debug_struct</span>(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;graphene_simd4x4f_t @ {:?}&quot;</span>, <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>))
             .<span class="ident">finish</span>()
     }
 }
@@ -2035,7 +2035,7 @@
 
 <span class="kw">impl</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Debug</span> <span class="kw">for</span> <span class="ident">graphene_size_t</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="ident">f</span>.<span class="ident">debug_struct</span>(<span class="kw-2">&amp;</span><span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;graphene_size_t @ {:?}&quot;</span>, <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>))
+        <span class="ident">f</span>.<span class="ident">debug_struct</span>(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;graphene_size_t @ {:?}&quot;</span>, <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>))
             .<span class="ident">field</span>(<span class="string">&quot;width&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">width</span>)
             .<span class="ident">field</span>(<span class="string">&quot;height&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">height</span>)
             .<span class="ident">finish</span>()
@@ -2052,7 +2052,7 @@
 
 <span class="kw">impl</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Debug</span> <span class="kw">for</span> <span class="ident">graphene_sphere_t</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="ident">f</span>.<span class="ident">debug_struct</span>(<span class="kw-2">&amp;</span><span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;graphene_sphere_t @ {:?}&quot;</span>, <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>))
+        <span class="ident">f</span>.<span class="ident">debug_struct</span>(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;graphene_sphere_t @ {:?}&quot;</span>, <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>))
             .<span class="ident">finish</span>()
     }
 }
@@ -2068,7 +2068,7 @@
 
 <span class="kw">impl</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Debug</span> <span class="kw">for</span> <span class="ident">graphene_triangle_t</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="ident">f</span>.<span class="ident">debug_struct</span>(<span class="kw-2">&amp;</span><span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;graphene_triangle_t @ {:?}&quot;</span>, <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>))
+        <span class="ident">f</span>.<span class="ident">debug_struct</span>(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;graphene_triangle_t @ {:?}&quot;</span>, <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>))
             .<span class="ident">finish</span>()
     }
 }
@@ -2082,7 +2082,7 @@
 
 <span class="kw">impl</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Debug</span> <span class="kw">for</span> <span class="ident">graphene_vec2_t</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="ident">f</span>.<span class="ident">debug_struct</span>(<span class="kw-2">&amp;</span><span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;graphene_vec2_t @ {:?}&quot;</span>, <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>))
+        <span class="ident">f</span>.<span class="ident">debug_struct</span>(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;graphene_vec2_t @ {:?}&quot;</span>, <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>))
             .<span class="ident">finish</span>()
     }
 }
@@ -2096,7 +2096,7 @@
 
 <span class="kw">impl</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Debug</span> <span class="kw">for</span> <span class="ident">graphene_vec3_t</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="ident">f</span>.<span class="ident">debug_struct</span>(<span class="kw-2">&amp;</span><span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;graphene_vec3_t @ {:?}&quot;</span>, <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>))
+        <span class="ident">f</span>.<span class="ident">debug_struct</span>(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;graphene_vec3_t @ {:?}&quot;</span>, <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>))
             .<span class="ident">finish</span>()
     }
 }
@@ -2110,7 +2110,7 @@
 
 <span class="kw">impl</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Debug</span> <span class="kw">for</span> <span class="ident">graphene_vec4_t</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="ident">f</span>.<span class="ident">debug_struct</span>(<span class="kw-2">&amp;</span><span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;graphene_vec4_t @ {:?}&quot;</span>, <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>))
+        <span class="ident">f</span>.<span class="ident">debug_struct</span>(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;graphene_vec4_t @ {:?}&quot;</span>, <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>))
             .<span class="ident">finish</span>()
     }
 }

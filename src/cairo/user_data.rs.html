@@ -198,7 +198,7 @@
 <span class="comment">// We use `Rc` over `Arc` because the types implementing these methods are `!Send` and `!Sync`.</span>
 <span class="comment">// See &lt;https://github.com/gtk-rs/cairo/issues/256&gt;</span>
 
-<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">user_data_methods</span> {
+<span class="macro">macro_rules!</span> <span class="ident">user_data_methods</span> {
     (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_get_user_data</span>: <span class="ident">path</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_set_user_data</span>: <span class="ident">path</span>,) <span class="op">=</span><span class="op">&gt;</span> {
         <span class="doccomment">/// Attach user data to `self` for the given `key`.</span>
         <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_user_data</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(

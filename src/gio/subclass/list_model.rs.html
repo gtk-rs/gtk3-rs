@@ -247,7 +247,7 @@
     <span class="comment">// Store the type so we can enforce that it doesn&#39;t change.</span>
     <span class="kw">match</span> <span class="ident">wrap</span>.<span class="ident">get_qdata</span>(<span class="kw-2">*</span><span class="ident">LIST_ITEM_TYPE_QUARK</span>) {
         <span class="prelude-val">Some</span>(<span class="ident">old_type</span>) <span class="op">=</span><span class="op">&gt;</span> {
-            <span class="macro">assert_eq</span><span class="macro">!</span>(
+            <span class="macro">assert_eq!</span>(
                 <span class="ident">type_</span>,
                 <span class="kw-2">*</span><span class="ident">old_type</span>.<span class="ident">as_ref</span>(),
                 <span class="string">&quot;ListModel&#39;s get_item_type cannot be changed&quot;</span>
@@ -287,7 +287,7 @@
 
     <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">i</span>) <span class="op">=</span> <span class="ident">item</span> {
         <span class="kw">let</span> <span class="ident">type_</span> <span class="op">=</span> <span class="ident">imp</span>.<span class="ident">get_item_type</span>(<span class="ident">wrap</span>.<span class="ident">unsafe_cast_ref</span>());
-        <span class="macro">assert</span><span class="macro">!</span>(
+        <span class="macro">assert!</span>(
             <span class="ident">type_</span>.<span class="ident">is_a</span>(<span class="ident">i</span>.<span class="ident">get_type</span>()),
             <span class="string">&quot;All ListModel items should be of the same type&quot;</span>
         );

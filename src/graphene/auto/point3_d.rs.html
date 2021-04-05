@@ -300,7 +300,7 @@
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Vec3</span>;
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
 
-<span class="ident">glib</span>::<span class="macro">wrapper</span><span class="macro">!</span> {
+<span class="ident">glib</span>::<span class="macro">wrapper!</span> {
     <span class="doccomment">/// A point with three components: X, Y, and Z.</span>
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Point3D</span>(<span class="ident">Boxed</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">graphene_point3d_t</span><span class="op">&gt;</span>);
@@ -569,7 +569,7 @@
     <span class="doccomment">/// a zero point</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_point3d_zero&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">zero</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Point3D</span> {
-        <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
+        <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">graphene_point3d_zero</span>()) }
     }
 }

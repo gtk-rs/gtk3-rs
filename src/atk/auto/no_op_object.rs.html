@@ -88,7 +88,7 @@
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
 
-<span class="ident">glib</span>::<span class="macro">wrapper</span><span class="macro">!</span> {
+<span class="ident">glib</span>::<span class="macro">wrapper!</span> {
     <span class="doccomment">/// An AtkNoOpObject is an AtkObject which purports to implement all</span>
     <span class="doccomment">/// ATK interfaces. It is the type of AtkObject which is created if an</span>
     <span class="doccomment">/// accessible object is requested for an object type for which no</span>
@@ -115,7 +115,7 @@
     <span class="doccomment">/// a default (non-functioning stub) `Object`</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_no_op_object_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">Object</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">obj</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">NoOpObject</span> {
-        <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
+        <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe</span> {
             <span class="ident">Object</span>::<span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">atk_no_op_object_new</span>(<span class="ident">obj</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>))
                 .<span class="ident">unsafe_cast</span>()

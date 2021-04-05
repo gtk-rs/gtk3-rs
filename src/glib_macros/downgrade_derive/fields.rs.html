@@ -306,33 +306,33 @@
             <span class="kw">let</span> <span class="ident">weak_fields</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">fields</span>
                 .<span class="ident">iter</span>()
                 .<span class="ident">map</span>(<span class="op">|</span><span class="ident">ty</span><span class="op">|</span> {
-                    <span class="macro">quote</span><span class="macro">!</span> {
+                    <span class="macro">quote!</span> {
                         <span class="op">&lt;</span>#<span class="ident">ty</span> <span class="kw">as</span> <span class="ident">glib</span>::<span class="ident">clone</span>::<span class="ident">Downgrade</span><span class="op">&gt;</span>::<span class="ident">Weak</span>
                     }
                 })
                 .<span class="ident">collect</span>();
 
             <span class="kw">let</span> <span class="ident">field_ident</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Ident</span><span class="op">&gt;</span> <span class="op">=</span>
-                (<span class="number">0</span>..<span class="ident">fields</span>.<span class="ident">len</span>()).<span class="ident">map</span>(<span class="op">|</span><span class="ident">i</span><span class="op">|</span> <span class="macro">format_ident</span><span class="macro">!</span>(<span class="string">&quot;_{}&quot;</span>, <span class="ident">i</span>)).<span class="ident">collect</span>();
+                (<span class="number">0</span>..<span class="ident">fields</span>.<span class="ident">len</span>()).<span class="ident">map</span>(<span class="op">|</span><span class="ident">i</span><span class="op">|</span> <span class="macro">format_ident!</span>(<span class="string">&quot;_{}&quot;</span>, <span class="ident">i</span>)).<span class="ident">collect</span>();
 
             <span class="ident">DowngradeStructParts</span> {
-                <span class="ident">weak_fields</span>: <span class="macro">quote</span><span class="macro">!</span> {
+                <span class="ident">weak_fields</span>: <span class="macro">quote!</span> {
                     (#(
                         #<span class="ident">weak_fields</span>
                     ),<span class="kw-2">*</span>)
                 },
-                <span class="ident">end_of_struct</span>: <span class="macro">quote</span><span class="macro">!</span>(;),
-                <span class="ident">destruct</span>: <span class="macro">quote</span><span class="macro">!</span> {
+                <span class="ident">end_of_struct</span>: <span class="macro">quote!</span>(;),
+                <span class="ident">destruct</span>: <span class="macro">quote!</span> {
                     (#(
                         <span class="kw-2">ref</span> #<span class="ident">field_ident</span>
                     ),<span class="kw-2">*</span>)
                 },
-                <span class="ident">downgrade</span>: <span class="macro">quote</span><span class="macro">!</span> {
+                <span class="ident">downgrade</span>: <span class="macro">quote!</span> {
                     (#(
                         <span class="ident">glib</span>::<span class="ident">clone</span>::<span class="ident">Downgrade</span>::<span class="ident">downgrade</span>(#<span class="ident">field_ident</span>)
                     ),<span class="kw-2">*</span>)
                 },
-                <span class="ident">upgrade</span>: <span class="macro">quote</span><span class="macro">!</span> {
+                <span class="ident">upgrade</span>: <span class="macro">quote!</span> {
                     (#(
                         <span class="ident">glib</span>::<span class="ident">clone</span>::<span class="ident">Upgrade</span>::<span class="ident">upgrade</span>(#<span class="ident">field_ident</span>)<span class="question-mark">?</span>
                     ),<span class="kw-2">*</span>)
@@ -349,7 +349,7 @@
             <span class="kw">let</span> <span class="ident">weak_fields</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">fields</span>
                 .<span class="ident">iter</span>()
                 .<span class="ident">map</span>(<span class="op">|</span>(<span class="ident">ident</span>, <span class="ident">ty</span>)<span class="op">|</span> {
-                    <span class="macro">quote</span><span class="macro">!</span> {
+                    <span class="macro">quote!</span> {
                         #<span class="ident">ident</span>: <span class="op">&lt;</span>#<span class="ident">ty</span> <span class="kw">as</span> <span class="ident">glib</span>::<span class="ident">clone</span>::<span class="ident">Downgrade</span><span class="op">&gt;</span>::<span class="ident">Weak</span>
                     }
                 })
@@ -358,23 +358,23 @@
             <span class="kw">let</span> <span class="ident">field_ident</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">fields</span>.<span class="ident">iter</span>().<span class="ident">map</span>(<span class="op">|</span>(<span class="ident">ident</span>, <span class="ident">_ty</span>)<span class="op">|</span> <span class="ident">ident</span>).<span class="ident">collect</span>();
 
             <span class="ident">DowngradeStructParts</span> {
-                <span class="ident">weak_fields</span>: <span class="macro">quote</span><span class="macro">!</span> {
+                <span class="ident">weak_fields</span>: <span class="macro">quote!</span> {
                     {#(
                         #<span class="ident">weak_fields</span>
                     ),<span class="kw-2">*</span>}
                 },
-                <span class="ident">end_of_struct</span>: <span class="macro">quote</span><span class="macro">!</span>(),
-                <span class="ident">destruct</span>: <span class="macro">quote</span><span class="macro">!</span> {
+                <span class="ident">end_of_struct</span>: <span class="macro">quote!</span>(),
+                <span class="ident">destruct</span>: <span class="macro">quote!</span> {
                     {#(
                         <span class="kw-2">ref</span> #<span class="ident">field_ident</span>
                     ),<span class="kw-2">*</span>}
                 },
-                <span class="ident">downgrade</span>: <span class="macro">quote</span><span class="macro">!</span> {
+                <span class="ident">downgrade</span>: <span class="macro">quote!</span> {
                     {#(
                         #<span class="ident">field_ident</span>: <span class="ident">glib</span>::<span class="ident">clone</span>::<span class="ident">Downgrade</span>::<span class="ident">downgrade</span>(#<span class="ident">field_ident</span>)
                     ),<span class="kw-2">*</span>}
                 },
-                <span class="ident">upgrade</span>: <span class="macro">quote</span><span class="macro">!</span> {
+                <span class="ident">upgrade</span>: <span class="macro">quote!</span> {
                     {#(
                         #<span class="ident">field_ident</span>: <span class="ident">glib</span>::<span class="ident">clone</span>::<span class="ident">Upgrade</span>::<span class="ident">upgrade</span>(#<span class="ident">field_ident</span>)<span class="question-mark">?</span>
                     ),<span class="kw-2">*</span>}
@@ -382,11 +382,11 @@
             }
         }
         <span class="ident">Fields</span>::<span class="ident">Unit</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DowngradeStructParts</span> {
-            <span class="ident">weak_fields</span>: <span class="macro">quote</span><span class="macro">!</span> {},
-            <span class="ident">end_of_struct</span>: <span class="macro">quote</span><span class="macro">!</span> { ; },
-            <span class="ident">destruct</span>: <span class="macro">quote</span><span class="macro">!</span> {},
-            <span class="ident">downgrade</span>: <span class="macro">quote</span><span class="macro">!</span> {},
-            <span class="ident">upgrade</span>: <span class="macro">quote</span><span class="macro">!</span> {},
+            <span class="ident">weak_fields</span>: <span class="macro">quote!</span> {},
+            <span class="ident">end_of_struct</span>: <span class="macro">quote!</span> { ; },
+            <span class="ident">destruct</span>: <span class="macro">quote!</span> {},
+            <span class="ident">downgrade</span>: <span class="macro">quote!</span> {},
+            <span class="ident">upgrade</span>: <span class="macro">quote!</span> {},
         },
     }
 }

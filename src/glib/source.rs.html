@@ -1005,7 +1005,7 @@
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">SourceId</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">val</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SourceId</span> {
-        <span class="macro">assert_ne</span><span class="macro">!</span>(<span class="ident">val</span>, <span class="number">0</span>);
+        <span class="macro">assert_ne!</span>(<span class="ident">val</span>, <span class="number">0</span>);
         <span class="ident">SourceId</span>(<span class="ident">NonZeroU32</span>::<span class="ident">new_unchecked</span>(<span class="ident">val</span>))
     }
 }
@@ -1208,7 +1208,7 @@
     <span class="ident">F</span>: <span class="ident">FnMut</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Continue</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
 {
     <span class="kw">unsafe</span> {
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">MainContext</span>::<span class="ident">default</span>().<span class="ident">is_owner</span>());
+        <span class="macro">assert!</span>(<span class="ident">MainContext</span>::<span class="ident">default</span>().<span class="ident">is_owner</span>());
         <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_idle_add_full</span>(
             <span class="ident">ffi</span>::<span class="ident">G_PRIORITY_DEFAULT_IDLE</span>,
             <span class="prelude-val">Some</span>(<span class="ident">trampoline</span>::<span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>),
@@ -1310,7 +1310,7 @@
     <span class="ident">F</span>: <span class="ident">FnMut</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Continue</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
 {
     <span class="kw">unsafe</span> {
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">MainContext</span>::<span class="ident">default</span>().<span class="ident">is_owner</span>());
+        <span class="macro">assert!</span>(<span class="ident">MainContext</span>::<span class="ident">default</span>().<span class="ident">is_owner</span>());
         <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_timeout_add_full</span>(
             <span class="ident">ffi</span>::<span class="ident">G_PRIORITY_DEFAULT</span>,
             <span class="ident">interval</span>.<span class="ident">as_millis</span>() <span class="kw">as</span> <span class="kw">_</span>,
@@ -1414,7 +1414,7 @@
     <span class="ident">F</span>: <span class="ident">FnMut</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Continue</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
 {
     <span class="kw">unsafe</span> {
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">MainContext</span>::<span class="ident">default</span>().<span class="ident">is_owner</span>());
+        <span class="macro">assert!</span>(<span class="ident">MainContext</span>::<span class="ident">default</span>().<span class="ident">is_owner</span>());
         <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_timeout_add_seconds_full</span>(
             <span class="ident">ffi</span>::<span class="ident">G_PRIORITY_DEFAULT</span>,
             <span class="ident">interval</span>,
@@ -1487,7 +1487,7 @@
     <span class="ident">F</span>: <span class="ident">FnMut</span>(<span class="ident">Pid</span>, <span class="ident">i32</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span>,
 {
     <span class="kw">unsafe</span> {
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">MainContext</span>::<span class="ident">default</span>().<span class="ident">is_owner</span>());
+        <span class="macro">assert!</span>(<span class="ident">MainContext</span>::<span class="ident">default</span>().<span class="ident">is_owner</span>());
         <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_child_watch_add_full</span>(
             <span class="ident">ffi</span>::<span class="ident">G_PRIORITY_DEFAULT</span>,
             <span class="ident">pid</span>.<span class="number">0</span>,
@@ -1564,7 +1564,7 @@
     <span class="ident">F</span>: <span class="ident">FnMut</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Continue</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
 {
     <span class="kw">unsafe</span> {
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">MainContext</span>::<span class="ident">default</span>().<span class="ident">is_owner</span>());
+        <span class="macro">assert!</span>(<span class="ident">MainContext</span>::<span class="ident">default</span>().<span class="ident">is_owner</span>());
         <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_unix_signal_add_full</span>(
             <span class="ident">ffi</span>::<span class="ident">G_PRIORITY_DEFAULT</span>,
             <span class="ident">signum</span>,
@@ -1650,7 +1650,7 @@
     <span class="ident">F</span>: <span class="ident">FnMut</span>(<span class="ident">RawFd</span>, <span class="ident">IOCondition</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Continue</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
 {
     <span class="kw">unsafe</span> {
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">MainContext</span>::<span class="ident">default</span>().<span class="ident">is_owner</span>());
+        <span class="macro">assert!</span>(<span class="ident">MainContext</span>::<span class="ident">default</span>().<span class="ident">is_owner</span>());
         <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_unix_fd_add_full</span>(
             <span class="ident">ffi</span>::<span class="ident">G_PRIORITY_DEFAULT</span>,
             <span class="ident">fd</span>,
@@ -1929,7 +1929,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_source_remove&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">remove</span>(<span class="ident">tag</span>: <span class="ident">SourceId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="kw">crate</span>::<span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="macro">result_from_gboolean</span><span class="macro">!</span>(
+            <span class="macro">result_from_gboolean!</span>(
                 <span class="ident">ffi</span>::<span class="ident">g_source_remove</span>(<span class="ident">tag</span>.<span class="ident">to_glib</span>()),
                 <span class="string">&quot;Failed to remove source&quot;</span>
             )

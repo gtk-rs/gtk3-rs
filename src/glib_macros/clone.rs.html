@@ -788,7 +788,7 @@
     <span class="kw">fn</span> <span class="ident">to_str</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
         <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
             <span class="self">Self</span>::<span class="ident">DefaultPanic</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;@default-panic&quot;</span>.<span class="ident">to_owned</span>(),
-            <span class="self">Self</span>::<span class="ident">DefaultReturn</span>(<span class="kw-2">ref</span> <span class="ident">r</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;@default-return {}&quot;</span>, <span class="ident">r</span>),
+            <span class="self">Self</span>::<span class="ident">DefaultReturn</span>(<span class="kw-2">ref</span> <span class="ident">r</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">format!</span>(<span class="string">&quot;@default-return {}&quot;</span>, <span class="ident">r</span>),
         }
     }
 
@@ -810,7 +810,7 @@
 <span class="kw">impl</span> <span class="ident">ElemToClone</span> {
     <span class="kw">fn</span> <span class="ident">to_str_before</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">borrow_kind</span> {
-            <span class="ident">BorrowKind</span>::<span class="ident">Weak</span> <span class="op">|</span> <span class="ident">BorrowKind</span>::<span class="ident">WeakAllowNone</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">format</span><span class="macro">!</span>(
+            <span class="ident">BorrowKind</span>::<span class="ident">Weak</span> <span class="op">|</span> <span class="ident">BorrowKind</span>::<span class="ident">WeakAllowNone</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">format!</span>(
                 <span class="string">&quot;let {} = {}::clone::Downgrade::downgrade(&amp;{});&quot;</span>,
                 <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">a</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">alias</span> {
                     <span class="ident">a</span>
@@ -820,7 +820,7 @@
                 <span class="ident">crate_ident_new</span>(),
                 <span class="self">self</span>.<span class="ident">name</span>,
             ),
-            <span class="ident">BorrowKind</span>::<span class="ident">Strong</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">format</span><span class="macro">!</span>(
+            <span class="ident">BorrowKind</span>::<span class="ident">Strong</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">format!</span>(
                 <span class="string">&quot;let {} = {}.clone();&quot;</span>,
                 <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">a</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">alias</span> {
                     <span class="ident">a</span>
@@ -840,7 +840,7 @@
         };
         <span class="kw">match</span> (<span class="self">self</span>.<span class="ident">borrow_kind</span>, <span class="ident">wrapper_kind</span>) {
             (<span class="ident">BorrowKind</span>::<span class="ident">Weak</span>, <span class="prelude-val">Some</span>(<span class="ident">WrapperKind</span>::<span class="ident">DefaultPanic</span>)) <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="macro">format</span><span class="macro">!</span>(
+                <span class="macro">format!</span>(
                     <span class="string">&quot;\
 let {0} = match {1}::clone::Upgrade::upgrade(&amp;{0}) {{
     Some(val) =&gt; val,
@@ -853,7 +853,7 @@ let {0} = match {1}::clone::Upgrade::upgrade(&amp;{0}) {{
                 )
             }
             (<span class="ident">BorrowKind</span>::<span class="ident">Weak</span>, <span class="prelude-val">Some</span>(<span class="ident">WrapperKind</span>::<span class="ident">DefaultReturn</span>(<span class="kw-2">ref</span> <span class="ident">r</span>))) <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="macro">format</span><span class="macro">!</span>(
+                <span class="macro">format!</span>(
                     <span class="string">&quot;\
 let {0} = match {1}::clone::Upgrade::upgrade(&amp;{0}) {{
     Some(val) =&gt; val,
@@ -872,7 +872,7 @@ let {0} = match {1}::clone::Upgrade::upgrade(&amp;{0}) {{
                 )
             }
             (<span class="ident">BorrowKind</span>::<span class="ident">Weak</span>, <span class="prelude-val">None</span>) <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="macro">format</span><span class="macro">!</span>(
+                <span class="macro">format!</span>(
                     <span class="string">&quot;\
 let {0} = match {1}::clone::Upgrade::upgrade(&amp;{0}) {{
     Some(val) =&gt; val,
@@ -888,7 +888,7 @@ let {0} = match {1}::clone::Upgrade::upgrade(&amp;{0}) {{
                     <span class="ident">crate_ident_new</span>(),
                 )
             }
-            (<span class="ident">BorrowKind</span>::<span class="ident">WeakAllowNone</span>, <span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">format</span><span class="macro">!</span>(
+            (<span class="ident">BorrowKind</span>::<span class="ident">WeakAllowNone</span>, <span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">format!</span>(
                 <span class="string">&quot;let {0} = {1}::clone::Upgrade::upgrade(&amp;{0});&quot;</span>,
                 <span class="ident">name</span>,
                 <span class="ident">crate_ident_new</span>(),
@@ -968,15 +968,15 @@ let {0} = match {1}::clone::Upgrade::upgrade(&amp;{0}) {{
                     <span class="kw">break</span>;
                 } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">p_s</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;.&quot;</span> {
                     <span class="kw">if</span> <span class="op">!</span><span class="ident">prev_is_ident</span> {
-                        <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Unexpected `.` after `{}`&quot;</span>, <span class="ident">borrow_kind</span>.<span class="ident">to_str</span>());
+                        <span class="macro">panic!</span>(<span class="string">&quot;Unexpected `.` after `{}`&quot;</span>, <span class="ident">borrow_kind</span>.<span class="ident">to_str</span>());
                     }
                     <span class="ident">prev_is_ident</span> <span class="op">=</span> <span class="bool-val">false</span>;
                     <span class="ident">name</span>.<span class="ident">push</span>(<span class="string">&#39;.&#39;</span>);
                     <span class="ident">parts</span>.<span class="ident">next</span>();
                 } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">name</span>.<span class="ident">is_empty</span>() {
-                    <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Expected ident, found `{}`&quot;</span>, <span class="ident">p_s</span>);
+                    <span class="macro">panic!</span>(<span class="string">&quot;Expected ident, found `{}`&quot;</span>, <span class="ident">p_s</span>);
                 } <span class="kw">else</span> {
-                    <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Expected ident, found `{}` after `{}`&quot;</span>, <span class="ident">p_s</span>, <span class="ident">name</span>);
+                    <span class="macro">panic!</span>(<span class="string">&quot;Expected ident, found `{}` after `{}`&quot;</span>, <span class="ident">p_s</span>, <span class="ident">name</span>);
                 }
             }
             <span class="prelude-val">Some</span>(<span class="ident">TokenTree</span>::<span class="ident">Ident</span>(<span class="ident">i</span>)) <span class="op">=</span><span class="op">&gt;</span> {
@@ -987,13 +987,13 @@ let {0} = match {1}::clone::Upgrade::upgrade(&amp;{0}) {{
                 <span class="ident">name</span>.<span class="ident">push_str</span>(<span class="kw-2">&amp;</span><span class="ident">i</span>.<span class="ident">to_string</span>());
                 <span class="ident">parts</span>.<span class="ident">next</span>();
             }
-            <span class="prelude-val">Some</span>(<span class="ident">x</span>) <span class="kw">if</span> <span class="ident">name</span>.<span class="ident">is_empty</span>() <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Expected ident, found `{}`&quot;</span>, <span class="ident">x</span>.<span class="ident">to_string</span>()),
-            <span class="prelude-val">Some</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Expected ident, found `{}` after `{}`&quot;</span>, <span class="ident">x</span>.<span class="ident">to_string</span>(), <span class="ident">name</span>),
-            <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Unexpected end after ident `{}`&quot;</span>, <span class="ident">name</span>),
+            <span class="prelude-val">Some</span>(<span class="ident">x</span>) <span class="kw">if</span> <span class="ident">name</span>.<span class="ident">is_empty</span>() <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic!</span>(<span class="string">&quot;Expected ident, found `{}`&quot;</span>, <span class="ident">x</span>.<span class="ident">to_string</span>()),
+            <span class="prelude-val">Some</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic!</span>(<span class="string">&quot;Expected ident, found `{}` after `{}`&quot;</span>, <span class="ident">x</span>.<span class="ident">to_string</span>(), <span class="ident">name</span>),
+            <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic!</span>(<span class="string">&quot;Unexpected end after ident `{}`&quot;</span>, <span class="ident">name</span>),
         }
     }
     <span class="kw">if</span> <span class="ident">name</span>.<span class="ident">is_empty</span>() {
-        <span class="macro">panic</span><span class="macro">!</span>(
+        <span class="macro">panic!</span>(
             <span class="string">&quot;Expected ident, found `{}`&quot;</span>,
             <span class="ident">parts</span>.<span class="ident">next</span>().<span class="ident">unwrap</span>().<span class="ident">to_string</span>()
         );
@@ -1039,9 +1039,9 @@ let {0} = match {1}::clone::Upgrade::upgrade(&amp;{0}) {{
         <span class="string">&quot;strong&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">BorrowKind</span>::<span class="ident">Strong</span>,
         <span class="string">&quot;weak&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">BorrowKind</span>::<span class="ident">Weak</span>,
         <span class="string">&quot;weak-allow-none&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">BorrowKind</span>::<span class="ident">WeakAllowNone</span>,
-        <span class="string">&quot;default-return&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;`@default-return` should be after `=&gt;`&quot;</span>),
-        <span class="string">&quot;default-panic&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;`@default-panic` should be after `=&gt;`&quot;</span>),
-        <span class="ident">k</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(
+        <span class="string">&quot;default-return&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic!</span>(<span class="string">&quot;`@default-return` should be after `=&gt;`&quot;</span>),
+        <span class="string">&quot;default-panic&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic!</span>(<span class="string">&quot;`@default-panic` should be after `=&gt;`&quot;</span>),
+        <span class="ident">k</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic!</span>(
             <span class="string">&quot;Unknown keyword `{}`, only `weak`, `weak-allow-none` and `strong` are allowed&quot;</span>,
             <span class="ident">k</span>,
         ),
@@ -1052,25 +1052,25 @@ let {0} = match {1}::clone::Upgrade::upgrade(&amp;{0}) {{
             <span class="ident">parts</span>.<span class="ident">next</span>();
             <span class="kw">match</span> <span class="ident">parts</span>.<span class="ident">next</span>() {
                 <span class="prelude-val">Some</span>(<span class="ident">TokenTree</span>::<span class="ident">Ident</span>(<span class="ident">i</span>)) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">i</span>.<span class="ident">to_string</span>()),
-                <span class="prelude-val">Some</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(
+                <span class="prelude-val">Some</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic!</span>(
                     <span class="string">&quot;Expected ident after `as` keyword, found `{}`&quot;</span>,
                     <span class="ident">x</span>.<span class="ident">to_string</span>()
                 ),
-                <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Unexpected end after `as` keyword&quot;</span>),
+                <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic!</span>(<span class="string">&quot;Unexpected end after `as` keyword&quot;</span>),
             }
         }
-        <span class="prelude-val">Some</span>(<span class="ident">TokenTree</span>::<span class="ident">Ident</span>(<span class="ident">p</span>)) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Unexpected `{}`&quot;</span>, <span class="ident">p</span>.<span class="ident">to_string</span>()),
+        <span class="prelude-val">Some</span>(<span class="ident">TokenTree</span>::<span class="ident">Ident</span>(<span class="ident">p</span>)) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic!</span>(<span class="string">&quot;Unexpected `{}`&quot;</span>, <span class="ident">p</span>.<span class="ident">to_string</span>()),
         <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
     };
     <span class="kw">if</span> <span class="ident">name</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;self&quot;</span> <span class="op">&amp;&amp;</span> <span class="ident">alias</span>.<span class="ident">is_none</span>() {
-        <span class="macro">panic</span><span class="macro">!</span>(
+        <span class="macro">panic!</span>(
             <span class="string">&quot;Can&#39;t use `self` as variable name. Try storing it in a temporary variable or \
                 rename it using `as`.&quot;</span>
         );
     } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">name</span>.<span class="ident">ends_with</span>(<span class="string">&#39;.&#39;</span>) {
-        <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Invalid variable name: `{}`&quot;</span>, <span class="ident">name</span>);
+        <span class="macro">panic!</span>(<span class="string">&quot;Invalid variable name: `{}`&quot;</span>, <span class="ident">name</span>);
     } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">name</span>.<span class="ident">contains</span>(<span class="string">&#39;.&#39;</span>) <span class="op">&amp;&amp;</span> <span class="ident">alias</span>.<span class="ident">is_none</span>() {
-        <span class="macro">panic</span><span class="macro">!</span>(
+        <span class="macro">panic!</span>(
             <span class="string">&quot;`{}`: Field accesses are not allowed as is, you must rename it!&quot;</span>,
             <span class="ident">name</span>
         );
@@ -1110,7 +1110,7 @@ let {0} = match {1}::clone::Upgrade::upgrade(&amp;{0}) {{
 }
 
 <span class="kw">fn</span> <span class="ident">group_to_string</span>(<span class="ident">g</span>: <span class="kw-2">&amp;</span><span class="ident">Group</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
-    <span class="macro">format</span><span class="macro">!</span>(
+    <span class="macro">format!</span>(
         <span class="string">&quot;{}{}{}&quot;</span>,
         <span class="ident">delimiter_to_string</span>(<span class="ident">g</span>.<span class="ident">delimiter</span>(), <span class="bool-val">true</span>),
         <span class="ident">tokens_to_string</span>(<span class="ident">g</span>.<span class="ident">stream</span>().<span class="ident">into_iter</span>().<span class="ident">peekable</span>()),
@@ -1128,10 +1128,10 @@ let {0} = match {1}::clone::Upgrade::upgrade(&amp;{0}) {{
             <span class="string">&quot;[&quot;</span> <span class="op">|</span> <span class="string">&quot;{&quot;</span> <span class="op">|</span> <span class="string">&quot;(&quot;</span> <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="ident">total</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>;
             }
-            <span class="ident">x</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Unexpected token `{}` after `@default-return`&quot;</span>, <span class="ident">x</span>),
+            <span class="ident">x</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic!</span>(<span class="string">&quot;Unexpected token `{}` after `@default-return`&quot;</span>, <span class="ident">x</span>),
         },
         <span class="prelude-val">Some</span>(<span class="ident">TokenTree</span>::<span class="ident">Group</span>(<span class="ident">g</span>)) <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="ident">group_to_string</span>(<span class="kw-2">&amp;</span><span class="ident">g</span>),
-        <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Unexpected end after `@default-return`&quot;</span>),
+        <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic!</span>(<span class="string">&quot;Unexpected end after `@default-return`&quot;</span>),
     };
     <span class="kw">loop</span> {
         <span class="kw">match</span> <span class="ident">parts</span>.<span class="ident">peek</span>() {
@@ -1155,7 +1155,7 @@ let {0} = match {1}::clone::Upgrade::upgrade(&amp;{0}) {{
                 }
                 <span class="ident">ret</span>.<span class="ident">push_str</span>(<span class="kw-2">&amp;</span><span class="ident">x</span>.<span class="ident">to_string</span>())
             }
-            <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(
+            <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic!</span>(
                 <span class="string">&quot;Unexpected end after `{}`. Did you forget a `,` after the @default-return value?&quot;</span>,
                 <span class="ident">ret</span>
             ),
@@ -1170,10 +1170,10 @@ let {0} = match {1}::clone::Upgrade::upgrade(&amp;{0}) {{
         <span class="ident">parts</span>,
     ) {
         <span class="prelude-val">Err</span>(<span class="ident">TokenCheck</span>::<span class="ident">UnexpectedToken</span>(<span class="ident">tokens</span>, <span class="ident">unexpected_token</span>)) <span class="op">=</span><span class="op">&gt;</span> {
-            <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Unknown keyword `{}{}`&quot;</span>, <span class="ident">tokens</span>, <span class="ident">unexpected_token</span>);
+            <span class="macro">panic!</span>(<span class="string">&quot;Unknown keyword `{}{}`&quot;</span>, <span class="ident">tokens</span>, <span class="ident">unexpected_token</span>);
         }
         <span class="prelude-val">Err</span>(<span class="ident">TokenCheck</span>::<span class="ident">UnexpectedEnd</span>(<span class="ident">tokens</span>)) <span class="op">=</span><span class="op">&gt;</span> {
-            <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Unexpected end after tokens `{}`&quot;</span>, <span class="ident">tokens</span>);
+            <span class="macro">panic!</span>(<span class="string">&quot;Unexpected end after tokens `{}`&quot;</span>, <span class="ident">tokens</span>);
         }
         <span class="prelude-val">Ok</span>(()) <span class="op">=</span><span class="op">&gt;</span> {}
     }
@@ -1183,11 +1183,11 @@ let {0} = match {1}::clone::Upgrade::upgrade(&amp;{0}) {{
             <span class="kw">if</span> <span class="ident">i_s</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;panic&quot;</span> {
                 <span class="kw">return</span> <span class="ident">WrapperKind</span>::<span class="ident">DefaultPanic</span>;
             } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">i_s</span> <span class="op">!</span><span class="op">=</span> <span class="string">&quot;return&quot;</span> {
-                <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Unknown keyword `@default-{}`&quot;</span>, <span class="ident">i_s</span>);
+                <span class="macro">panic!</span>(<span class="string">&quot;Unknown keyword `@default-{}`&quot;</span>, <span class="ident">i_s</span>);
             }
         }
-        <span class="prelude-val">Some</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Unknown token `{}` after `@default-`&quot;</span>, <span class="ident">x</span>.<span class="ident">to_string</span>()),
-        <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Unexpected end after `@default-`&quot;</span>),
+        <span class="prelude-val">Some</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic!</span>(<span class="string">&quot;Unknown token `{}` after `@default-`&quot;</span>, <span class="ident">x</span>.<span class="ident">to_string</span>()),
+        <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic!</span>(<span class="string">&quot;Unexpected end after `@default-`&quot;</span>),
     }
     <span class="ident">WrapperKind</span>::<span class="ident">DefaultReturn</span>(<span class="ident">get_expr</span>(<span class="ident">parts</span>))
 }
@@ -1195,21 +1195,21 @@ let {0} = match {1}::clone::Upgrade::upgrade(&amp;{0}) {{
 <span class="kw">fn</span> <span class="ident">parse_return_kind</span>(<span class="ident">parts</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Peekable</span><span class="op">&lt;</span><span class="ident">ProcIter</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">WrapperKind</span><span class="op">&gt;</span> {
     <span class="kw">match</span> <span class="ident">parts</span>.<span class="ident">peek</span>() {
         <span class="prelude-val">Some</span>(<span class="ident">TokenTree</span>::<span class="ident">Punct</span>(<span class="ident">p</span>)) <span class="kw">if</span> <span class="ident">p</span>.<span class="ident">to_string</span>() <span class="op">=</span><span class="op">=</span> <span class="string">&quot;@&quot;</span> <span class="op">=</span><span class="op">&gt;</span> {}
-        <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Unexpected end 2&quot;</span>),
+        <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic!</span>(<span class="string">&quot;Unexpected end 2&quot;</span>),
         <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="prelude-val">None</span>,
     }
     <span class="ident">parts</span>.<span class="ident">next</span>();
     <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">get_return_kind</span>(<span class="ident">parts</span>);
     <span class="kw">match</span> <span class="ident">check_tokens</span>(<span class="kw-2">&amp;</span>[<span class="ident">SimpleToken</span>::<span class="ident">Punct</span>(<span class="string">&quot;,&quot;</span>)], <span class="ident">parts</span>) {
         <span class="prelude-val">Err</span>(<span class="ident">TokenCheck</span>::<span class="ident">UnexpectedToken</span>(<span class="kw">_</span>, <span class="ident">unexpected_token</span>)) <span class="op">=</span><span class="op">&gt;</span> {
-            <span class="macro">panic</span><span class="macro">!</span>(
+            <span class="macro">panic!</span>(
                 <span class="string">&quot;Expected `,` after `{}`, found `{}`&quot;</span>,
                 <span class="ident">ret</span>.<span class="ident">to_str</span>(),
                 <span class="ident">unexpected_token</span>
             );
         }
         <span class="prelude-val">Err</span>(<span class="ident">TokenCheck</span>::<span class="ident">UnexpectedEnd</span>(<span class="ident">tokens</span>)) <span class="op">=</span><span class="op">&gt;</span> {
-            <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Expected `,` after `{}{}`&quot;</span>, <span class="ident">ret</span>.<span class="ident">to_str</span>(), <span class="ident">tokens</span>);
+            <span class="macro">panic!</span>(<span class="string">&quot;Expected `,` after `{}{}`&quot;</span>, <span class="ident">ret</span>.<span class="ident">to_str</span>(), <span class="ident">tokens</span>);
         }
         <span class="prelude-val">Ok</span>(()) <span class="op">=</span><span class="op">&gt;</span> {}
     }
@@ -1237,18 +1237,18 @@ let {0} = match {1}::clone::Upgrade::upgrade(&amp;{0}) {{
         <span class="prelude-val">Some</span>(<span class="ident">TokenTree</span>::<span class="ident">Ident</span>(<span class="ident">i</span>)) <span class="kw">if</span> <span class="ident">i</span>.<span class="ident">to_string</span>() <span class="op">=</span><span class="op">=</span> <span class="string">&quot;move&quot;</span> <span class="op">=</span><span class="op">&gt;</span> {}
         <span class="comment">// The next checks are just for better error messages.</span>
         <span class="prelude-val">Some</span>(<span class="ident">TokenTree</span>::<span class="ident">Ident</span>(<span class="ident">i</span>)) <span class="op">=</span><span class="op">&gt;</span> {
-            <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Expected `move` after `async`, found `{}`&quot;</span>, <span class="ident">i</span>.<span class="ident">to_string</span>());
+            <span class="macro">panic!</span>(<span class="string">&quot;Expected `move` after `async`, found `{}`&quot;</span>, <span class="ident">i</span>.<span class="ident">to_string</span>());
         }
         <span class="prelude-val">Some</span>(<span class="ident">TokenTree</span>::<span class="ident">Punct</span>(<span class="ident">p</span>)) <span class="op">=</span><span class="op">&gt;</span> {
-            <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Expected `move` after `async`, found `{}`&quot;</span>, <span class="ident">p</span>.<span class="ident">to_string</span>());
+            <span class="macro">panic!</span>(<span class="string">&quot;Expected `move` after `async`, found `{}`&quot;</span>, <span class="ident">p</span>.<span class="ident">to_string</span>());
         }
         <span class="prelude-val">Some</span>(<span class="ident">TokenTree</span>::<span class="ident">Group</span>(<span class="ident">g</span>)) <span class="op">=</span><span class="op">&gt;</span> {
-            <span class="macro">panic</span><span class="macro">!</span>(
+            <span class="macro">panic!</span>(
                 <span class="string">&quot;Expected `move` after `async`, found `{}`&quot;</span>,
                 <span class="ident">delimiter_to_string</span>(<span class="ident">g</span>.<span class="ident">delimiter</span>(), <span class="bool-val">true</span>),
             );
         }
-        <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Expected `move` after `async`&quot;</span>),
+        <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic!</span>(<span class="string">&quot;Expected `move` after `async`&quot;</span>),
     }
 }
 
@@ -1260,19 +1260,19 @@ let {0} = match {1}::clone::Upgrade::upgrade(&amp;{0}) {{
             <span class="ident">BlockKind</span>::<span class="ident">AsyncClosure</span>(<span class="ident">get_closure</span>(<span class="ident">parts</span>))
         }
         <span class="prelude-val">Some</span>(<span class="ident">TokenTree</span>::<span class="ident">Punct</span>(<span class="ident">p</span>)) <span class="op">=</span><span class="op">&gt;</span> {
-            <span class="macro">panic</span><span class="macro">!</span>(
+            <span class="macro">panic!</span>(
                 <span class="string">&quot;Expected closure or block after `async move`, found `{}`&quot;</span>,
                 <span class="ident">p</span>.<span class="ident">to_string</span>()
             );
         }
         <span class="prelude-val">Some</span>(<span class="ident">TokenTree</span>::<span class="ident">Group</span>(<span class="ident">g</span>)) <span class="kw">if</span> <span class="ident">g</span>.<span class="ident">delimiter</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">Delimiter</span>::<span class="ident">Brace</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">BlockKind</span>::<span class="ident">AsyncBlock</span>,
         <span class="prelude-val">Some</span>(<span class="ident">TokenTree</span>::<span class="ident">Group</span>(<span class="ident">g</span>)) <span class="op">=</span><span class="op">&gt;</span> {
-            <span class="macro">panic</span><span class="macro">!</span>(
+            <span class="macro">panic!</span>(
                 <span class="string">&quot;Expected closure or block after `async move`, found `{}`&quot;</span>,
                 <span class="ident">delimiter_to_string</span>(<span class="ident">g</span>.<span class="ident">delimiter</span>(), <span class="bool-val">true</span>),
             );
         }
-        <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Expected closure or block after `async move`&quot;</span>),
+        <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic!</span>(<span class="string">&quot;Expected closure or block after `async move`&quot;</span>),
     }
 }
 
@@ -1283,12 +1283,12 @@ let {0} = match {1}::clone::Upgrade::upgrade(&amp;{0}) {{
         <span class="prelude-val">Some</span>(<span class="ident">TokenTree</span>::<span class="ident">Ident</span>(<span class="ident">i</span>)) <span class="kw">if</span> <span class="ident">i</span>.<span class="ident">to_string</span>() <span class="op">=</span><span class="op">=</span> <span class="string">&quot;async&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">true</span>,
         <span class="prelude-val">Some</span>(<span class="ident">TokenTree</span>::<span class="ident">Ident</span>(<span class="ident">i</span>)) <span class="kw">if</span> <span class="ident">i</span>.<span class="ident">to_string</span>() <span class="op">=</span><span class="op">=</span> <span class="string">&quot;default&quot;</span> <span class="op">=</span><span class="op">&gt;</span> {
             <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">get_return_kind</span>(<span class="ident">parts</span>);
-            <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Missing `@` before `{}`&quot;</span>, <span class="ident">ret</span>.<span class="ident">keyword</span>());
+            <span class="macro">panic!</span>(<span class="string">&quot;Missing `@` before `{}`&quot;</span>, <span class="ident">ret</span>.<span class="ident">keyword</span>());
         }
         <span class="prelude-val">Some</span>(<span class="ident">TokenTree</span>::<span class="ident">Punct</span>(<span class="ident">p</span>)) <span class="kw">if</span> <span class="ident">p</span>.<span class="ident">to_string</span>() <span class="op">=</span><span class="op">=</span> <span class="string">&quot;|&quot;</span> <span class="op">=</span><span class="op">&gt;</span> {
-            <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Closure needs to be \&quot;moved\&quot; so please add `move` before closure&quot;</span>)
+            <span class="macro">panic!</span>(<span class="string">&quot;Closure needs to be \&quot;moved\&quot; so please add `move` before closure&quot;</span>)
         }
-        <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Missing `move` and closure declaration&quot;</span>),
+        <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic!</span>(<span class="string">&quot;Missing `move` and closure declaration&quot;</span>),
     };
     <span class="ident">parts</span>.<span class="ident">next</span>();
     <span class="kw">if</span> <span class="ident">is_async</span> {
@@ -1296,8 +1296,8 @@ let {0} = match {1}::clone::Upgrade::upgrade(&amp;{0}) {{
     }
     <span class="kw">match</span> <span class="ident">parts</span>.<span class="ident">next</span>() {
         <span class="prelude-val">Some</span>(<span class="ident">TokenTree</span>::<span class="ident">Punct</span>(<span class="ident">p</span>)) <span class="kw">if</span> <span class="ident">p</span>.<span class="ident">to_string</span>() <span class="op">=</span><span class="op">=</span> <span class="string">&quot;|&quot;</span> <span class="op">=</span><span class="op">&gt;</span> {}
-        <span class="prelude-val">Some</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Expected closure, found `{}`&quot;</span>, <span class="ident">x</span>.<span class="ident">to_string</span>()),
-        <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Expected closure&quot;</span>),
+        <span class="prelude-val">Some</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic!</span>(<span class="string">&quot;Expected closure, found `{}`&quot;</span>, <span class="ident">x</span>.<span class="ident">to_string</span>()),
+        <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic!</span>(<span class="string">&quot;Expected closure&quot;</span>),
     }
     <span class="kw">let</span> <span class="ident">closure</span> <span class="op">=</span> <span class="ident">get_closure</span>(<span class="ident">parts</span>);
     <span class="kw">match</span> <span class="ident">parts</span>.<span class="ident">peek</span>() {
@@ -1310,18 +1310,18 @@ let {0} = match {1}::clone::Upgrade::upgrade(&amp;{0}) {{
                 }
                 <span class="comment">// The next matchings are for better error messages.</span>
                 <span class="prelude-val">Some</span>(<span class="ident">TokenTree</span>::<span class="ident">Punct</span>(<span class="ident">p</span>)) <span class="op">=</span><span class="op">&gt;</span> {
-                    <span class="macro">panic</span><span class="macro">!</span>(
+                    <span class="macro">panic!</span>(
                         <span class="string">&quot;Expected block after `| async move`, found `{}`&quot;</span>,
                         <span class="ident">p</span>.<span class="ident">to_string</span>()
                     );
                 }
                 <span class="prelude-val">Some</span>(<span class="ident">TokenTree</span>::<span class="ident">Group</span>(<span class="ident">g</span>)) <span class="op">=</span><span class="op">&gt;</span> {
-                    <span class="macro">panic</span><span class="macro">!</span>(
+                    <span class="macro">panic!</span>(
                         <span class="string">&quot;Expected block after `| async move`, found `{}`&quot;</span>,
                         <span class="ident">delimiter_to_string</span>(<span class="ident">g</span>.<span class="ident">delimiter</span>(), <span class="bool-val">true</span>),
                     );
                 }
-                <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Expected block after `| async move`&quot;</span>),
+                <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic!</span>(<span class="string">&quot;Expected block after `| async move`&quot;</span>),
             }
         }
         <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">BlockKind</span>::<span class="ident">Closure</span>(<span class="ident">closure</span>),
@@ -1335,7 +1335,7 @@ let {0} = match {1}::clone::Upgrade::upgrade(&amp;{0}) {{
         <span class="kw">match</span> <span class="ident">parts</span>.<span class="ident">next</span>() {
             <span class="prelude-val">Some</span>(<span class="ident">TokenTree</span>::<span class="ident">Punct</span>(<span class="ident">p</span>)) <span class="kw">if</span> <span class="ident">p</span>.<span class="ident">to_string</span>() <span class="op">=</span><span class="op">=</span> <span class="string">&quot;|&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">break</span>,
             <span class="prelude-val">Some</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ret</span>.<span class="ident">push</span>(<span class="ident">x</span>),
-            <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Unexpected end 3&quot;</span>),
+            <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic!</span>(<span class="string">&quot;Unexpected end 3&quot;</span>),
         }
     }
     <span class="ident">ret</span>
@@ -1406,7 +1406,7 @@ let {0} = match {1}::clone::Upgrade::upgrade(&amp;{0}) {{
     <span class="comment">//         .join(&quot;\n&quot;),</span>
     <span class="comment">//     body,</span>
     <span class="comment">// )</span>
-    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ret</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">TokenTree</span><span class="op">&gt;</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[];
+    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ret</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">TokenTree</span><span class="op">&gt;</span> <span class="op">=</span> <span class="macro">vec!</span>[];
     <span class="kw">for</span> <span class="ident">el</span> <span class="kw">in</span> <span class="ident">elements</span> {
         <span class="kw">let</span> <span class="ident">stream</span>: <span class="ident">TokenStream</span> <span class="op">=</span> <span class="ident">el</span>
             .<span class="ident">to_str_before</span>()
@@ -1418,33 +1418,33 @@ let {0} = match {1}::clone::Upgrade::upgrade(&amp;{0}) {{
     <span class="comment">// This part is creating the TokenStream using the variables that needs to be cloned (from the</span>
     <span class="comment">// @weak and @strong annotations).</span>
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">inner</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">TokenTree</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">new</span>();
-    <span class="kw">if</span> <span class="macro">matches</span><span class="macro">!</span>(<span class="ident">kind</span>, <span class="ident">BlockKind</span>::<span class="ident">ClosureWrappingAsync</span>(<span class="kw">_</span>)) {
-        <span class="ident">inner</span>.<span class="ident">extend</span>(<span class="macro">vec</span><span class="macro">!</span>[
+    <span class="kw">if</span> <span class="macro">matches!</span>(<span class="ident">kind</span>, <span class="ident">BlockKind</span>::<span class="ident">ClosureWrappingAsync</span>(<span class="kw">_</span>)) {
+        <span class="ident">inner</span>.<span class="ident">extend</span>(<span class="macro">vec!</span>[
             <span class="ident">TokenTree</span>::<span class="ident">Ident</span>(<span class="ident">Ident</span>::<span class="ident">new</span>(<span class="string">&quot;async&quot;</span>, <span class="ident">Span</span>::<span class="ident">call_site</span>())),
             <span class="ident">TokenTree</span>::<span class="ident">Ident</span>(<span class="ident">Ident</span>::<span class="ident">new</span>(<span class="string">&quot;move&quot;</span>, <span class="ident">Span</span>::<span class="ident">call_site</span>())),
         ]);
     }
 
-    <span class="kw">let</span> <span class="ident">is_async_closure_kind</span> <span class="op">=</span> <span class="macro">matches</span><span class="macro">!</span>(<span class="ident">kind</span>, <span class="ident">BlockKind</span>::<span class="ident">AsyncClosure</span>(<span class="kw">_</span>));
+    <span class="kw">let</span> <span class="ident">is_async_closure_kind</span> <span class="op">=</span> <span class="macro">matches!</span>(<span class="ident">kind</span>, <span class="ident">BlockKind</span>::<span class="ident">AsyncClosure</span>(<span class="kw">_</span>));
     <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">closure</span>) <span class="op">=</span> <span class="ident">kind</span>.<span class="ident">get_closure</span>() {
         <span class="kw">if</span> <span class="ident">is_async_closure_kind</span> {
             <span class="ident">ret</span>.<span class="ident">push</span>(<span class="ident">TokenTree</span>::<span class="ident">Ident</span>(<span class="ident">Ident</span>::<span class="ident">new</span>(<span class="string">&quot;async&quot;</span>, <span class="ident">Span</span>::<span class="ident">call_site</span>())));
         }
-        <span class="ident">ret</span>.<span class="ident">extend</span>(<span class="macro">vec</span><span class="macro">!</span>[
+        <span class="ident">ret</span>.<span class="ident">extend</span>(<span class="macro">vec!</span>[
             <span class="ident">TokenTree</span>::<span class="ident">Ident</span>(<span class="ident">Ident</span>::<span class="ident">new</span>(<span class="string">&quot;move&quot;</span>, <span class="ident">Span</span>::<span class="ident">call_site</span>())),
             <span class="ident">TokenTree</span>::<span class="ident">Punct</span>(<span class="ident">Punct</span>::<span class="ident">new</span>(<span class="string">&#39;|&#39;</span>, <span class="ident">Spacing</span>::<span class="ident">Alone</span>)),
         ]);
         <span class="ident">ret</span>.<span class="ident">extend</span>(<span class="ident">closure</span>);
-        <span class="ident">ret</span>.<span class="ident">extend</span>(<span class="macro">vec</span><span class="macro">!</span>[<span class="ident">TokenTree</span>::<span class="ident">Punct</span>(<span class="ident">Punct</span>::<span class="ident">new</span>(<span class="string">&#39;|&#39;</span>, <span class="ident">Spacing</span>::<span class="ident">Alone</span>))]);
+        <span class="ident">ret</span>.<span class="ident">extend</span>(<span class="macro">vec!</span>[<span class="ident">TokenTree</span>::<span class="ident">Punct</span>(<span class="ident">Punct</span>::<span class="ident">new</span>(<span class="string">&#39;|&#39;</span>, <span class="ident">Spacing</span>::<span class="ident">Alone</span>))]);
     } <span class="kw">else</span> {
-        <span class="ident">ret</span>.<span class="ident">extend</span>(<span class="macro">vec</span><span class="macro">!</span>[
+        <span class="ident">ret</span>.<span class="ident">extend</span>(<span class="macro">vec!</span>[
             <span class="ident">TokenTree</span>::<span class="ident">Ident</span>(<span class="ident">Ident</span>::<span class="ident">new</span>(<span class="string">&quot;async&quot;</span>, <span class="ident">Span</span>::<span class="ident">call_site</span>())),
             <span class="ident">TokenTree</span>::<span class="ident">Ident</span>(<span class="ident">Ident</span>::<span class="ident">new</span>(<span class="string">&quot;move&quot;</span>, <span class="ident">Span</span>::<span class="ident">call_site</span>())),
         ]);
     }
     <span class="comment">// The commented lines that follow *might* be useful, don&#39;t know. Just in case, I&#39;m keeping</span>
     <span class="comment">// them around. You&#39;re welcome future me!</span>
-    <span class="ident">inner</span>.<span class="ident">extend</span>(<span class="macro">vec</span><span class="macro">!</span>[
+    <span class="ident">inner</span>.<span class="ident">extend</span>(<span class="macro">vec!</span>[
         <span class="comment">// TokenTree::Ident(Ident::new(&quot;let&quot;, Span::call_site())),</span>
         <span class="comment">// TokenTree::Ident(Ident::new(&quot;____ret&quot;, Span::call_site())),</span>
         <span class="comment">// TokenTree::Punct(Punct::new(&#39;=&#39;, Spacing::Alone)),</span>
@@ -1454,7 +1454,7 @@ let {0} = match {1}::clone::Upgrade::upgrade(&amp;{0}) {{
     ]);
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">inners</span> <span class="op">=</span> <span class="ident">TokenStream</span>::<span class="ident">new</span>();
     <span class="ident">inners</span>.<span class="ident">extend</span>(<span class="ident">inner</span>);
-    <span class="ident">ret</span>.<span class="ident">extend</span>(<span class="macro">vec</span><span class="macro">!</span>[<span class="ident">TokenTree</span>::<span class="ident">Group</span>(<span class="ident">Group</span>::<span class="ident">new</span>(<span class="ident">Delimiter</span>::<span class="ident">Brace</span>, <span class="ident">inners</span>))]);
+    <span class="ident">ret</span>.<span class="ident">extend</span>(<span class="macro">vec!</span>[<span class="ident">TokenTree</span>::<span class="ident">Group</span>(<span class="ident">Group</span>::<span class="ident">new</span>(<span class="ident">Delimiter</span>::<span class="ident">Brace</span>, <span class="ident">inners</span>))]);
 
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">rets</span> <span class="op">=</span> <span class="ident">TokenStream</span>::<span class="ident">new</span>();
     <span class="ident">rets</span>.<span class="ident">extend</span>(<span class="ident">ret</span>);
@@ -1479,30 +1479,30 @@ let {0} = match {1}::clone::Upgrade::upgrade(&amp;{0}) {{
                     <span class="ident">prev_is_ident</span> <span class="op">=</span> <span class="bool-val">true</span>;
                 } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">p_s</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;,&quot;</span> {
                     <span class="kw">if</span> <span class="op">!</span><span class="ident">prev_is_ident</span> {
-                        <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Unexpected `,`&quot;</span>);
+                        <span class="macro">panic!</span>(<span class="string">&quot;Unexpected `,`&quot;</span>);
                     }
                     <span class="ident">prev_is_ident</span> <span class="op">=</span> <span class="bool-val">false</span>;
                 } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">p_s</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;|&quot;</span> {
                     <span class="kw">if</span> <span class="ident">elements</span>.<span class="ident">is_empty</span>() {
-                        <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;If you have nothing to clone, no need to use this macro!&quot;</span>);
+                        <span class="macro">panic!</span>(<span class="string">&quot;If you have nothing to clone, no need to use this macro!&quot;</span>);
                     } <span class="kw">else</span> {
-                        <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Expected `=&gt;` before closure&quot;</span>);
+                        <span class="macro">panic!</span>(<span class="string">&quot;Expected `=&gt;` before closure&quot;</span>);
                     }
                 }
             }
             <span class="prelude-val">Some</span>(<span class="ident">TokenTree</span>::<span class="ident">Ident</span>(<span class="ident">i</span>)) <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="macro">panic</span><span class="macro">!</span>(
+                <span class="macro">panic!</span>(
                     <span class="string">&quot;Unexpected ident `{}`: you need to specify if this is a weak or a strong \
                      clone.&quot;</span>,
                     <span class="ident">i</span>.<span class="ident">to_string</span>(),
                 );
             }
-            <span class="prelude-val">Some</span>(<span class="ident">t</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Unexpected token `{}`&quot;</span>, <span class="ident">t</span>.<span class="ident">to_string</span>()),
-            <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Unexpected end 4&quot;</span>),
+            <span class="prelude-val">Some</span>(<span class="ident">t</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic!</span>(<span class="string">&quot;Unexpected token `{}`&quot;</span>, <span class="ident">t</span>.<span class="ident">to_string</span>()),
+            <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic!</span>(<span class="string">&quot;Unexpected end 4&quot;</span>),
         }
     }
     <span class="kw">if</span> <span class="ident">elements</span>.<span class="ident">is_empty</span>() {
-        <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;If you have nothing to clone, no need to use this macro!&quot;</span>);
+        <span class="macro">panic!</span>(<span class="string">&quot;If you have nothing to clone, no need to use this macro!&quot;</span>);
     }
     <span class="kw">let</span> <span class="ident">return_kind</span> <span class="op">=</span> <span class="ident">parse_return_kind</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">parts</span>);
     <span class="kw">let</span> <span class="ident">kind</span> <span class="op">=</span> <span class="ident">check_before_closure</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">parts</span>);

@@ -280,7 +280,7 @@
     <span class="doccomment">/// a new `ListStore`</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_list_store_newv&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">column_types</span>: <span class="kw-2">&amp;</span>[<span class="ident">Type</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ListStore</span> {
-        <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
+        <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">column_types</span> <span class="op">=</span> <span class="ident">column_types</span>.<span class="ident">iter</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">t</span><span class="op">|</span> <span class="ident">t</span>.<span class="ident">to_glib</span>()).<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>();
             <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">gtk_list_store_newv</span>(
@@ -332,7 +332,7 @@
         <span class="ident">columns_and_values</span>: <span class="kw-2">&amp;</span>[(<span class="ident">u32</span>, <span class="kw-2">&amp;</span><span class="kw">dyn</span> <span class="ident">ToValue</span>)],
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TreeIter</span> {
         <span class="kw">unsafe</span> {
-            <span class="macro">assert</span><span class="macro">!</span>(
+            <span class="macro">assert!</span>(
                 <span class="ident">position</span>.<span class="ident">unwrap_or</span>(<span class="number">0</span>) <span class="op">&lt;</span><span class="op">=</span> <span class="ident">i32</span>::<span class="ident">max_value</span>() <span class="kw">as</span> <span class="ident">u32</span>,
                 <span class="string">&quot;can&#39;t have more than {} rows&quot;</span>,
                 <span class="ident">i32</span>::<span class="ident">max_value</span>()
@@ -340,14 +340,14 @@
             <span class="kw">let</span> <span class="ident">n_columns</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">gtk_tree_model_get_n_columns</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">upcast_ref</span>::<span class="op">&lt;</span><span class="ident">TreeModel</span><span class="op">&gt;</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ) <span class="kw">as</span> <span class="ident">u32</span>;
-            <span class="macro">assert</span><span class="macro">!</span>(
+            <span class="macro">assert!</span>(
                 <span class="ident">columns_and_values</span>.<span class="ident">len</span>() <span class="op">&lt;</span><span class="op">=</span> <span class="ident">n_columns</span> <span class="kw">as</span> <span class="ident">usize</span>,
                 <span class="string">&quot;got values for {} columns but only {} columns exist&quot;</span>,
                 <span class="ident">columns_and_values</span>.<span class="ident">len</span>(),
                 <span class="ident">n_columns</span>
             );
             <span class="kw">for</span> (<span class="ident">column</span>, <span class="ident">value</span>) <span class="kw">in</span> <span class="ident">columns_and_values</span> {
-                <span class="macro">assert</span><span class="macro">!</span>(
+                <span class="macro">assert!</span>(
                     <span class="kw-2">*</span><span class="ident">column</span> <span class="op">&lt;</span> <span class="ident">n_columns</span>,
                     <span class="string">&quot;got column {} which is higher than the number of columns {}&quot;</span>,
                     <span class="kw-2">*</span><span class="ident">column</span>,
@@ -357,7 +357,7 @@
                     <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">upcast_ref</span>::<span class="op">&lt;</span><span class="ident">TreeModel</span><span class="op">&gt;</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                     <span class="kw-2">*</span><span class="ident">column</span> <span class="kw">as</span> <span class="ident">c_int</span>,
                 ));
-                <span class="macro">assert</span><span class="macro">!</span>(
+                <span class="macro">assert!</span>(
                     <span class="ident">Value</span>::<span class="ident">type_transformable</span>(<span class="ident">value</span>.<span class="ident">to_value_type</span>(), <span class="ident">type_</span>),
                     <span class="string">&quot;column {} is of type {} but found value of type {}&quot;</span>,
                     <span class="kw-2">*</span><span class="ident">column</span>,
@@ -395,7 +395,7 @@
                 <span class="ident">ptr</span>::<span class="ident">null_mut</span>(),
             );
             <span class="kw">let</span> <span class="ident">safe_count</span> <span class="op">=</span> <span class="ident">count</span> <span class="kw">as</span> <span class="ident">usize</span> <span class="op">=</span><span class="op">=</span> <span class="ident">new_order</span>.<span class="ident">len</span>();
-            <span class="macro">debug_assert</span><span class="macro">!</span>(
+            <span class="macro">debug_assert!</span>(
                 <span class="ident">safe_count</span>,
                 <span class="string">&quot;Incorrect `new_order` slice length. Expected `{}`, found `{}`.&quot;</span>,
                 <span class="ident">count</span>,
@@ -405,7 +405,7 @@
                 <span class="kw">let</span> <span class="ident">max</span> <span class="op">=</span> <span class="ident">max</span> <span class="kw">as</span> <span class="ident">i32</span>;
                 <span class="ident">max</span> <span class="op">&gt;</span><span class="op">=</span> <span class="number">0</span> <span class="op">&amp;&amp;</span> <span class="ident">max</span> <span class="op">&lt;</span> <span class="ident">count</span>
             });
-            <span class="macro">debug_assert</span><span class="macro">!</span>(
+            <span class="macro">debug_assert!</span>(
                 <span class="ident">safe_values</span>,
                 <span class="string">&quot;Some `new_order` slice values are out of range. Maximum safe value: \
                  `{}`. The slice contents: `{:?}`&quot;</span>,
@@ -426,14 +426,14 @@
             <span class="kw">let</span> <span class="ident">n_columns</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">gtk_tree_model_get_n_columns</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">upcast_ref</span>::<span class="op">&lt;</span><span class="ident">TreeModel</span><span class="op">&gt;</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ) <span class="kw">as</span> <span class="ident">u32</span>;
-            <span class="macro">assert</span><span class="macro">!</span>(
+            <span class="macro">assert!</span>(
                 <span class="ident">columns_and_values</span>.<span class="ident">len</span>() <span class="op">&lt;</span><span class="op">=</span> <span class="ident">n_columns</span> <span class="kw">as</span> <span class="ident">usize</span>,
                 <span class="string">&quot;got values for {} columns but only {} columns exist&quot;</span>,
                 <span class="ident">columns_and_values</span>.<span class="ident">len</span>(),
                 <span class="ident">n_columns</span>
             );
             <span class="kw">for</span> (<span class="ident">column</span>, <span class="ident">value</span>) <span class="kw">in</span> <span class="ident">columns_and_values</span> {
-                <span class="macro">assert</span><span class="macro">!</span>(
+                <span class="macro">assert!</span>(
                     <span class="kw-2">*</span><span class="ident">column</span> <span class="op">&lt;</span> <span class="ident">n_columns</span>,
                     <span class="string">&quot;got column {} which is higher than the number of columns {}&quot;</span>,
                     <span class="kw-2">*</span><span class="ident">column</span>,
@@ -443,7 +443,7 @@
                     <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">upcast_ref</span>::<span class="op">&lt;</span><span class="ident">TreeModel</span><span class="op">&gt;</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                     <span class="kw-2">*</span><span class="ident">column</span> <span class="kw">as</span> <span class="ident">c_int</span>,
                 ));
-                <span class="macro">assert</span><span class="macro">!</span>(
+                <span class="macro">assert!</span>(
                     <span class="ident">Value</span>::<span class="ident">type_transformable</span>(<span class="ident">value</span>.<span class="ident">to_value_type</span>(), <span class="ident">type_</span>),
                     <span class="string">&quot;column {} is of type {} but found value of type {}&quot;</span>,
                     <span class="kw-2">*</span><span class="ident">column</span>,
@@ -476,7 +476,7 @@
             <span class="kw">let</span> <span class="ident">columns</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">gtk_tree_model_get_n_columns</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">upcast_ref</span>::<span class="op">&lt;</span><span class="ident">TreeModel</span><span class="op">&gt;</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ) <span class="kw">as</span> <span class="ident">u32</span>;
-            <span class="macro">assert</span><span class="macro">!</span>(
+            <span class="macro">assert!</span>(
                 <span class="ident">column</span> <span class="op">&lt;</span> <span class="ident">columns</span>,
                 <span class="string">&quot;got column {} which is higher than the number of columns {}&quot;</span>,
                 <span class="ident">column</span>,
@@ -487,7 +487,7 @@
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">upcast_ref</span>::<span class="op">&lt;</span><span class="ident">TreeModel</span><span class="op">&gt;</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">column</span> <span class="kw">as</span> <span class="ident">c_int</span>,
             ));
-            <span class="macro">assert</span><span class="macro">!</span>(
+            <span class="macro">assert!</span>(
                 <span class="ident">Value</span>::<span class="ident">type_transformable</span>(<span class="ident">value</span>.<span class="ident">type_</span>(), <span class="ident">type_</span>),
                 <span class="string">&quot;column {} is of type {} but found value of type {}&quot;</span>,
                 <span class="ident">column</span>,

@@ -113,7 +113,7 @@
 
 <span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">Version</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;{}.{}.{}&quot;</span>, <span class="self">self</span>.<span class="ident">major</span>, <span class="self">self</span>.<span class="ident">minor</span>, <span class="self">self</span>.<span class="ident">micro</span>)
+        <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;{}.{}.{}&quot;</span>, <span class="self">self</span>.<span class="ident">major</span>, <span class="self">self</span>.<span class="ident">minor</span>, <span class="self">self</span>.<span class="ident">micro</span>)
     }
 }
 
@@ -123,7 +123,7 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">check_versions</span>() {
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">get_version_string</span>(), <span class="ident">Version</span>::<span class="ident">get_version</span>().<span class="ident">to_string</span>());
+        <span class="macro">assert_eq!</span>(<span class="ident">get_version_string</span>(), <span class="ident">Version</span>::<span class="ident">get_version</span>().<span class="ident">to_string</span>());
     }
 }
 </pre></div>

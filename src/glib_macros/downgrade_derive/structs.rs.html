@@ -208,7 +208,7 @@
     <span class="ident">generics</span>: <span class="ident">Generics</span>,
     <span class="ident">data_struct</span>: <span class="ident">syn</span>::<span class="ident">DataStruct</span>,
 ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TokenStream</span> {
-    <span class="kw">let</span> <span class="ident">weak_type</span> <span class="op">=</span> <span class="macro">format_ident</span><span class="macro">!</span>(<span class="string">&quot;{}Weak&quot;</span>, <span class="ident">ident</span>);
+    <span class="kw">let</span> <span class="ident">weak_type</span> <span class="op">=</span> <span class="macro">format_ident!</span>(<span class="string">&quot;{}Weak&quot;</span>, <span class="ident">ident</span>);
 
     <span class="kw">let</span> <span class="ident">DowngradeStructParts</span> {
         <span class="ident">weak_fields</span>,
@@ -218,7 +218,7 @@
         <span class="ident">upgrade</span>,
     } <span class="op">=</span> <span class="ident">derive_downgrade_fields</span>(<span class="ident">data_struct</span>.<span class="ident">fields</span>);
 
-    <span class="kw">let</span> <span class="ident">derived</span> <span class="op">=</span> <span class="macro">quote</span><span class="macro">!</span> {
+    <span class="kw">let</span> <span class="ident">derived</span> <span class="op">=</span> <span class="macro">quote!</span> {
         <span class="kw">pub</span> <span class="kw">struct</span> #<span class="ident">weak_type</span> #<span class="ident">generics</span> #<span class="ident">weak_fields</span> #<span class="ident">end_of_struct</span>
 
         <span class="kw">impl</span> #<span class="ident">generics</span> <span class="ident">glib</span>::<span class="ident">clone</span>::<span class="ident">Downgrade</span> <span class="kw">for</span> #<span class="ident">ident</span> #<span class="ident">generics</span> {

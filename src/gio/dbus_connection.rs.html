@@ -769,7 +769,7 @@
         <span class="ident">registration_id</span>: <span class="ident">RegistrationId</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib</span>::<span class="ident">error</span>::<span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">glib</span>::<span class="macro">result_from_gboolean</span><span class="macro">!</span>(
+            <span class="ident">glib</span>::<span class="macro">result_from_gboolean!</span>(
                 <span class="ident">ffi</span>::<span class="ident">g_dbus_connection_unregister_object</span>(
                     <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                     <span class="ident">registration_id</span>.<span class="number">0</span>.<span class="ident">into</span>()

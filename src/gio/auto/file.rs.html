@@ -5319,7 +5319,7 @@
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">pin</span>::<span class="ident">Pin</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
 
-<span class="ident">glib</span>::<span class="macro">wrapper</span><span class="macro">!</span> {
+<span class="ident">glib</span>::<span class="macro">wrapper!</span> {
     <span class="doccomment">/// `File` is a high level abstraction for manipulating files on a</span>
     <span class="doccomment">/// virtual file system. `GFiles` are lightweight, immutable objects</span>
     <span class="doccomment">/// that do no I/O upon creation. It is necessary to understand that</span>
@@ -8105,7 +8105,7 @@
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">callback</span>) <span class="op">=</span> <span class="kw-2">*</span><span class="ident">callback</span> {
                 <span class="ident">callback</span>(<span class="ident">current_num_bytes</span>, <span class="ident">total_num_bytes</span>)
             } <span class="kw">else</span> {
-                <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;cannot get closure...&quot;</span>)
+                <span class="macro">panic!</span>(<span class="string">&quot;cannot get closure...&quot;</span>)
             };
         }
         <span class="kw">let</span> <span class="ident">progress_callback</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">progress_callback_data</span>.<span class="ident">is_some</span>() {
@@ -8955,7 +8955,7 @@
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">callback</span>) <span class="op">=</span> <span class="kw-2">*</span><span class="ident">callback</span> {
                 <span class="ident">callback</span>(<span class="ident">reporting</span>, <span class="ident">current_size</span>, <span class="ident">num_dirs</span>, <span class="ident">num_files</span>)
             } <span class="kw">else</span> {
-                <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;cannot get closure...&quot;</span>)
+                <span class="macro">panic!</span>(<span class="string">&quot;cannot get closure...&quot;</span>)
             };
         }
         <span class="kw">let</span> <span class="ident">progress_callback</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">progress_callback_data</span>.<span class="ident">is_some</span>() {
@@ -9227,7 +9227,7 @@
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">callback</span>) <span class="op">=</span> <span class="kw-2">*</span><span class="ident">callback</span> {
                 <span class="ident">callback</span>(<span class="ident">current_num_bytes</span>, <span class="ident">total_num_bytes</span>)
             } <span class="kw">else</span> {
-                <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;cannot get closure...&quot;</span>)
+                <span class="macro">panic!</span>(<span class="string">&quot;cannot get closure...&quot;</span>)
             };
         }
         <span class="kw">let</span> <span class="ident">progress_callback</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">progress_callback_data</span>.<span class="ident">is_some</span>() {

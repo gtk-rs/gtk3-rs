@@ -648,7 +648,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_type_interface_prerequisites&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">interface_prerequisites</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="ident">t</span> <span class="kw">if</span> <span class="op">!</span><span class="ident">t</span>.<span class="ident">is_a</span>(<span class="self">Self</span>::<span class="ident">INTERFACE</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">vec</span><span class="macro">!</span>[],
+            <span class="ident">t</span> <span class="kw">if</span> <span class="op">!</span><span class="ident">t</span>.<span class="ident">is_a</span>(<span class="self">Self</span>::<span class="ident">INTERFACE</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">vec!</span>[],
             <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">unsafe</span> {
                 <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">n_prereqs</span> <span class="op">=</span> <span class="number">0u32</span>;
                 <span class="kw">let</span> <span class="ident">prereqs</span> <span class="op">=</span>
@@ -732,7 +732,7 @@
     }
 }
 
-<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">builtin</span> {
+<span class="macro">macro_rules!</span> <span class="ident">builtin</span> {
     (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ty</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">val</span>:<span class="ident">ident</span>) <span class="op">=</span><span class="op">&gt;</span> {
         <span class="kw">impl</span> <span class="ident">StaticType</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> {
             <span class="kw">fn</span> <span class="ident">static_type</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Type</span> {
@@ -848,19 +848,19 @@
     }
 }
 
-<span class="macro">builtin</span><span class="macro">!</span>(<span class="ident">bool</span>, <span class="ident">BOOL</span>);
-<span class="macro">builtin</span><span class="macro">!</span>(<span class="ident">i8</span>, <span class="ident">I8</span>);
-<span class="macro">builtin</span><span class="macro">!</span>(<span class="ident">u8</span>, <span class="ident">U8</span>);
-<span class="macro">builtin</span><span class="macro">!</span>(<span class="ident">i32</span>, <span class="ident">I32</span>);
-<span class="macro">builtin</span><span class="macro">!</span>(<span class="ident">u32</span>, <span class="ident">U32</span>);
-<span class="macro">builtin</span><span class="macro">!</span>(<span class="ident">i64</span>, <span class="ident">I64</span>);
-<span class="macro">builtin</span><span class="macro">!</span>(<span class="ident">u64</span>, <span class="ident">U64</span>);
-<span class="macro">builtin</span><span class="macro">!</span>(<span class="ident">ILong</span>, <span class="ident">I_LONG</span>);
-<span class="macro">builtin</span><span class="macro">!</span>(<span class="ident">ULong</span>, <span class="ident">U_LONG</span>);
-<span class="macro">builtin</span><span class="macro">!</span>(<span class="ident">f32</span>, <span class="ident">F32</span>);
-<span class="macro">builtin</span><span class="macro">!</span>(<span class="ident">f64</span>, <span class="ident">F64</span>);
-<span class="macro">builtin</span><span class="macro">!</span>(<span class="ident">str</span>, <span class="ident">STRING</span>);
-<span class="macro">builtin</span><span class="macro">!</span>(<span class="ident">String</span>, <span class="ident">STRING</span>);
+<span class="macro">builtin!</span>(<span class="ident">bool</span>, <span class="ident">BOOL</span>);
+<span class="macro">builtin!</span>(<span class="ident">i8</span>, <span class="ident">I8</span>);
+<span class="macro">builtin!</span>(<span class="ident">u8</span>, <span class="ident">U8</span>);
+<span class="macro">builtin!</span>(<span class="ident">i32</span>, <span class="ident">I32</span>);
+<span class="macro">builtin!</span>(<span class="ident">u32</span>, <span class="ident">U32</span>);
+<span class="macro">builtin!</span>(<span class="ident">i64</span>, <span class="ident">I64</span>);
+<span class="macro">builtin!</span>(<span class="ident">u64</span>, <span class="ident">U64</span>);
+<span class="macro">builtin!</span>(<span class="ident">ILong</span>, <span class="ident">I_LONG</span>);
+<span class="macro">builtin!</span>(<span class="ident">ULong</span>, <span class="ident">U_LONG</span>);
+<span class="macro">builtin!</span>(<span class="ident">f32</span>, <span class="ident">F32</span>);
+<span class="macro">builtin!</span>(<span class="ident">f64</span>, <span class="ident">F64</span>);
+<span class="macro">builtin!</span>(<span class="ident">str</span>, <span class="ident">STRING</span>);
+<span class="macro">builtin!</span>(<span class="ident">String</span>, <span class="ident">STRING</span>);
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">StaticType</span> <span class="kw">for</span> [<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>] {
     <span class="kw">fn</span> <span class="ident">static_type</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Type</span> {
@@ -948,12 +948,12 @@
 
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_container_num_as_vec</span>(<span class="kw">_</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ffi</span>::<span class="ident">GType</span>, <span class="kw">_</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
         <span class="comment">// Can&#39;t really free a *const</span>
-        <span class="macro">unimplemented</span><span class="macro">!</span>();
+        <span class="macro">unimplemented!</span>();
     }
 
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_full_num_as_vec</span>(<span class="kw">_</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ffi</span>::<span class="ident">GType</span>, <span class="kw">_</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
         <span class="comment">// Can&#39;t really free a *const</span>
-        <span class="macro">unimplemented</span><span class="macro">!</span>();
+        <span class="macro">unimplemented!</span>();
     }
 }
 
@@ -983,16 +983,16 @@
     <span class="kw">fn</span> <span class="ident">invalid</span>() {
         <span class="kw">let</span> <span class="ident">invalid</span> <span class="op">=</span> <span class="ident">Type</span>::<span class="ident">INVALID</span>;
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">invalid</span>.<span class="ident">name</span>(), <span class="string">&quot;&lt;invalid&gt;&quot;</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">invalid</span>.<span class="ident">qname</span>(), <span class="kw">crate</span>::<span class="ident">Quark</span>::<span class="ident">from_string</span>(<span class="string">&quot;&lt;invalid&gt;&quot;</span>));
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">invalid</span>.<span class="ident">is_a</span>(<span class="ident">Type</span>::<span class="ident">INVALID</span>));
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">invalid</span>.<span class="ident">is_a</span>(<span class="ident">Type</span>::<span class="ident">STRING</span>));
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">invalid</span>.<span class="ident">parent</span>(), <span class="prelude-val">None</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">invalid</span>.<span class="ident">children</span>(), <span class="macro">vec</span><span class="macro">!</span>[]);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">invalid</span>.<span class="ident">interfaces</span>(), <span class="macro">vec</span><span class="macro">!</span>[]);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">invalid</span>.<span class="ident">interface_prerequisites</span>(), <span class="macro">vec</span><span class="macro">!</span>[]);
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">invalid</span>.<span class="ident">is_valid</span>());
-        <span class="macro">dbg</span><span class="macro">!</span>(<span class="kw-2">&amp;</span><span class="ident">invalid</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">invalid</span>.<span class="ident">name</span>(), <span class="string">&quot;&lt;invalid&gt;&quot;</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">invalid</span>.<span class="ident">qname</span>(), <span class="kw">crate</span>::<span class="ident">Quark</span>::<span class="ident">from_string</span>(<span class="string">&quot;&lt;invalid&gt;&quot;</span>));
+        <span class="macro">assert!</span>(<span class="ident">invalid</span>.<span class="ident">is_a</span>(<span class="ident">Type</span>::<span class="ident">INVALID</span>));
+        <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">invalid</span>.<span class="ident">is_a</span>(<span class="ident">Type</span>::<span class="ident">STRING</span>));
+        <span class="macro">assert_eq!</span>(<span class="ident">invalid</span>.<span class="ident">parent</span>(), <span class="prelude-val">None</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">invalid</span>.<span class="ident">children</span>(), <span class="macro">vec!</span>[]);
+        <span class="macro">assert_eq!</span>(<span class="ident">invalid</span>.<span class="ident">interfaces</span>(), <span class="macro">vec!</span>[]);
+        <span class="macro">assert_eq!</span>(<span class="ident">invalid</span>.<span class="ident">interface_prerequisites</span>(), <span class="macro">vec!</span>[]);
+        <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">invalid</span>.<span class="ident">is_valid</span>());
+        <span class="macro">dbg!</span>(<span class="kw-2">&amp;</span><span class="ident">invalid</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -1001,17 +1001,17 @@
         <span class="kw">let</span> <span class="ident">iu_type</span> <span class="op">=</span> <span class="ident">InitiallyUnowned</span>::<span class="ident">static_type</span>();
 
         <span class="kw">let</span> <span class="ident">set</span> <span class="op">=</span> <span class="ident">Type</span>::<span class="ident">OBJECT</span>.<span class="ident">children</span>().<span class="ident">into_iter</span>().<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">HashSet</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>();
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">set</span>.<span class="ident">contains</span>(<span class="kw-2">&amp;</span><span class="ident">iu_type</span>));
+        <span class="macro">assert!</span>(<span class="ident">set</span>.<span class="ident">contains</span>(<span class="kw-2">&amp;</span><span class="ident">iu_type</span>));
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">ord</span>() {
         <span class="comment">// Get this first so the type is registered</span>
         <span class="kw">let</span> <span class="ident">iu_type</span> <span class="op">=</span> <span class="ident">InitiallyUnowned</span>::<span class="ident">static_type</span>();
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">Type</span>::<span class="ident">OBJECT</span> <span class="op">&lt;</span> <span class="ident">iu_type</span>);
+        <span class="macro">assert!</span>(<span class="ident">Type</span>::<span class="ident">OBJECT</span> <span class="op">&lt;</span> <span class="ident">iu_type</span>);
 
         <span class="kw">let</span> <span class="ident">set</span> <span class="op">=</span> <span class="ident">Type</span>::<span class="ident">OBJECT</span>.<span class="ident">children</span>().<span class="ident">into_iter</span>().<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">BTreeSet</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>();
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">set</span>.<span class="ident">contains</span>(<span class="kw-2">&amp;</span><span class="ident">iu_type</span>));
+        <span class="macro">assert!</span>(<span class="ident">set</span>.<span class="ident">contains</span>(<span class="kw-2">&amp;</span><span class="ident">iu_type</span>));
     }
 }
 </pre></div>

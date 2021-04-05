@@ -319,7 +319,7 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">memory_layout_is_ffi_equivalent</span>() {
-        <span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">dummy_values</span> {
+        <span class="macro">macro_rules!</span> <span class="ident">dummy_values</span> {
             (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">Matrix</span>: <span class="ident">ident</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="macro-nonterminal">$</span><span class="macro-nonterminal">Matrix</span> {
                     <span class="ident">xx</span>: <span class="number">1.0</span>,
@@ -332,14 +332,14 @@
             };
         }
         <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">ffi</span>::<span class="ident">Matrix</span> <span class="kw">as</span> <span class="ident">FfiMatrix</span>;
-        <span class="kw">let</span> <span class="ident">transmuted</span>: <span class="ident">Matrix</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">std</span>::<span class="ident">mem</span>::<span class="ident">transmute</span>(<span class="macro">dummy_values</span><span class="macro">!</span>(<span class="ident">FfiMatrix</span>)) };
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">transmuted</span>, <span class="macro">dummy_values</span><span class="macro">!</span>(<span class="ident">Matrix</span>));
+        <span class="kw">let</span> <span class="ident">transmuted</span>: <span class="ident">Matrix</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">std</span>::<span class="ident">mem</span>::<span class="ident">transmute</span>(<span class="macro">dummy_values!</span>(<span class="ident">FfiMatrix</span>)) };
+        <span class="macro">assert_eq!</span>(<span class="ident">transmuted</span>, <span class="macro">dummy_values!</span>(<span class="ident">Matrix</span>));
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">invalid_matrix_does_not_invert</span>() {
         <span class="kw">let</span> <span class="ident">matrix</span> <span class="op">=</span> <span class="ident">Matrix</span>::<span class="ident">null</span>();
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">matrix</span>.<span class="ident">try_invert</span>().<span class="ident">is_err</span>());
+        <span class="macro">assert!</span>(<span class="ident">matrix</span>.<span class="ident">try_invert</span>().<span class="ident">is_err</span>());
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -352,14 +352,14 @@
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">valid_matrix_try_invert</span>() {
         <span class="kw">let</span> <span class="ident">matrix</span> <span class="op">=</span> <span class="ident">Matrix</span>::<span class="ident">identity</span>();
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">matrix</span>.<span class="ident">try_invert</span>().<span class="ident">unwrap</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">Matrix</span>::<span class="ident">identity</span>());
+        <span class="macro">assert!</span>(<span class="ident">matrix</span>.<span class="ident">try_invert</span>().<span class="ident">unwrap</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">Matrix</span>::<span class="ident">identity</span>());
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">valid_matrix_invert</span>() {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">matrix</span> <span class="op">=</span> <span class="ident">Matrix</span>::<span class="ident">identity</span>();
         <span class="ident">matrix</span>.<span class="ident">invert</span>();
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">matrix</span> <span class="op">=</span><span class="op">=</span> <span class="ident">Matrix</span>::<span class="ident">identity</span>());
+        <span class="macro">assert!</span>(<span class="ident">matrix</span> <span class="op">=</span><span class="op">=</span> <span class="ident">Matrix</span>::<span class="ident">identity</span>());
     }
 }
 </pre></div>

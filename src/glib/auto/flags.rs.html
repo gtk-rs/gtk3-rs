@@ -452,7 +452,7 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_66&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_66&quot;</span>)))]</span>
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FileSetContentsFlags</span>: <span class="ident">u32</span> {
         <span class="kw">const</span> <span class="ident">NONE</span> <span class="op">=</span> <span class="number">0</span>;
         <span class="kw">const</span> <span class="ident">CONSISTENT</span> <span class="op">=</span> <span class="number">1</span>;
@@ -489,7 +489,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FileTest</span>: <span class="ident">u32</span> {
         <span class="kw">const</span> <span class="ident">IS_REGULAR</span> <span class="op">=</span> <span class="number">1</span>;
         <span class="kw">const</span> <span class="ident">IS_SYMLINK</span> <span class="op">=</span> <span class="number">2</span>;
@@ -521,7 +521,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FormatSizeFlags</span>: <span class="ident">u32</span> {
         <span class="kw">const</span> <span class="ident">DEFAULT</span> <span class="op">=</span> <span class="number">0</span>;
         <span class="kw">const</span> <span class="ident">LONG_FORMAT</span> <span class="op">=</span> <span class="number">1</span>;
@@ -552,7 +552,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">IOCondition</span>: <span class="ident">u32</span> {
         <span class="kw">const</span> <span class="ident">IN</span> <span class="op">=</span> <span class="number">1</span>;
         <span class="kw">const</span> <span class="ident">OUT</span> <span class="op">=</span> <span class="number">4</span>;
@@ -611,7 +611,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">KeyFileFlags</span>: <span class="ident">u32</span> {
         <span class="kw">const</span> <span class="ident">NONE</span> <span class="op">=</span> <span class="number">0</span>;
         <span class="kw">const</span> <span class="ident">KEEP_COMMENTS</span> <span class="op">=</span> <span class="number">1</span>;
@@ -641,7 +641,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">LogLevelFlags</span>: <span class="ident">u32</span> {
         <span class="kw">const</span> <span class="ident">FLAG_RECURSION</span> <span class="op">=</span> <span class="number">1</span>;
         <span class="kw">const</span> <span class="ident">FLAG_FATAL</span> <span class="op">=</span> <span class="number">2</span>;
@@ -677,7 +677,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">OptionFlags</span>: <span class="ident">u32</span> {
         <span class="kw">const</span> <span class="ident">NONE</span> <span class="op">=</span> <span class="number">0</span>;
         <span class="kw">const</span> <span class="ident">HIDDEN</span> <span class="op">=</span> <span class="number">1</span>;
@@ -712,7 +712,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SpawnFlags</span>: <span class="ident">u32</span> {
         <span class="kw">const</span> <span class="ident">DEFAULT</span> <span class="op">=</span> <span class="number">0</span>;
         <span class="kw">const</span> <span class="ident">LEAVE_DESCRIPTORS_OPEN</span> <span class="op">=</span> <span class="number">1</span>;
@@ -751,7 +751,7 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_66&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_66&quot;</span>)))]</span>
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">UriFlags</span>: <span class="ident">u32</span> {
         <span class="kw">const</span> <span class="ident">NONE</span> <span class="op">=</span> <span class="number">0</span>;
         <span class="kw">const</span> <span class="ident">PARSE_RELAXED</span> <span class="op">=</span> <span class="number">1</span>;
@@ -795,7 +795,7 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_66&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_66&quot;</span>)))]</span>
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">UriHideFlags</span>: <span class="ident">u32</span> {
         <span class="kw">const</span> <span class="ident">NONE</span> <span class="op">=</span> <span class="number">0</span>;
         <span class="kw">const</span> <span class="ident">USERINFO</span> <span class="op">=</span> <span class="number">1</span>;
@@ -836,7 +836,7 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_66&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_66&quot;</span>)))]</span>
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">UriParamsFlags</span>: <span class="ident">u32</span> {
         <span class="kw">const</span> <span class="ident">NONE</span> <span class="op">=</span> <span class="number">0</span>;
         <span class="kw">const</span> <span class="ident">CASE_INSENSITIVE</span> <span class="op">=</span> <span class="number">1</span>;

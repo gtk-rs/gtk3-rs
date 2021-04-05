@@ -50,35 +50,35 @@
 
 <span class="kw">impl</span> <span class="ident">IconSize</span> {
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">unscaled</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">IconSize</span> {
-        <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
+        <span class="macro">skip_assert_initialized!</span>();
         <span class="ident">IconSize</span>::<span class="ident">__Unknown</span>(<span class="op">-</span><span class="number">1</span>)
     }
 }
 
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">IconSize</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">i32</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">val</span>: <span class="ident">IconSize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
-        <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
+        <span class="macro">skip_assert_initialized!</span>();
         <span class="ident">val</span>.<span class="ident">to_glib</span>() <span class="kw">as</span> <span class="ident">i32</span>
     }
 }
 
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">i32</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">IconSize</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">val</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
+        <span class="macro">skip_assert_initialized!</span>();
         <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">val</span> <span class="kw">as</span> <span class="ident">ffi</span>::<span class="ident">GtkIconSize</span>) }
     }
 }
 
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">ResponseType</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">i32</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">val</span>: <span class="ident">ResponseType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
-        <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
+        <span class="macro">skip_assert_initialized!</span>();
         <span class="ident">val</span>.<span class="ident">to_glib</span>() <span class="kw">as</span> <span class="ident">i32</span>
     }
 }
 
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">i32</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">ResponseType</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">val</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
+        <span class="macro">skip_assert_initialized!</span>();
         <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">val</span> <span class="kw">as</span> <span class="ident">ffi</span>::<span class="ident">GtkResponseType</span>) }
     }
 }

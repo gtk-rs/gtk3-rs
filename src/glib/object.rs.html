@@ -3225,7 +3225,7 @@
     <span class="doccomment">/// If not running with `debug_assertions` enabled, the caller is responsible</span>
     <span class="doccomment">/// for ensuring that the instance implements `T`</span>
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unsafe_cast</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ObjectType</span><span class="op">&gt;</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">T</span> {
-        <span class="macro">debug_assert</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">is</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>());
+        <span class="macro">debug_assert!</span>(<span class="self">self</span>.<span class="ident">is</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>());
         <span class="ident">T</span>::<span class="ident">unsafe_from</span>(<span class="self">self</span>.<span class="ident">into</span>())
     }
 
@@ -3240,7 +3240,7 @@
     <span class="doccomment">/// If not running with `debug_assertions` enabled, the caller is responsible</span>
     <span class="doccomment">/// for ensuring that the instance implements `T`</span>
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unsafe_cast_ref</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ObjectType</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">T</span> {
-        <span class="macro">debug_assert</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">is</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>());
+        <span class="macro">debug_assert!</span>(<span class="self">self</span>.<span class="ident">is</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>());
         <span class="comment">// This cast is safe because all our wrapper types have the</span>
         <span class="comment">// same representation except for the name and the phantom data</span>
         <span class="comment">// type. IsA&lt;&gt; is an unsafe trait that must only be implemented</span>
@@ -3403,12 +3403,12 @@
 
     <span class="kw">fn</span> <span class="ident">to_glib_container_from_slice</span>(<span class="kw">_</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">ObjectRef</span>]) <span class="op">-</span><span class="op">&gt;</span> (<span class="kw-2">*</span><span class="kw">const</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">GObject</span>, <span class="self">Self</span>::<span class="ident">Storage</span>) {
         <span class="comment">// Can&#39;t have consumer free a *const pointer</span>
-        <span class="macro">unimplemented</span><span class="macro">!</span>()
+        <span class="macro">unimplemented!</span>()
     }
 
     <span class="kw">fn</span> <span class="ident">to_glib_full_from_slice</span>(<span class="kw">_</span>: <span class="kw-2">&amp;</span>[<span class="ident">ObjectRef</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">GObject</span> {
         <span class="comment">// Can&#39;t have consumer free a *const pointer</span>
-        <span class="macro">unimplemented</span><span class="macro">!</span>()
+        <span class="macro">unimplemented!</span>()
     }
 }
 
@@ -3416,8 +3416,8 @@
 <span class="kw">impl</span> <span class="ident">FromGlibPtrNone</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">GObject</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">ObjectRef</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_none</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">GObject</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
-        <span class="macro">assert_ne</span><span class="macro">!</span>((<span class="kw-2">*</span><span class="ident">ptr</span>).<span class="ident">ref_count</span>, <span class="number">0</span>);
+        <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
+        <span class="macro">assert_ne!</span>((<span class="kw-2">*</span><span class="ident">ptr</span>).<span class="ident">ref_count</span>, <span class="number">0</span>);
 
         <span class="comment">// Attention: This takes ownership of floating references!</span>
         <span class="ident">ObjectRef</span> {
@@ -3439,8 +3439,8 @@
 <span class="kw">impl</span> <span class="ident">FromGlibPtrFull</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">GObject</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">ObjectRef</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_full</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">GObject</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
-        <span class="macro">assert_ne</span><span class="macro">!</span>((<span class="kw-2">*</span><span class="ident">ptr</span>).<span class="ident">ref_count</span>, <span class="number">0</span>);
+        <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
+        <span class="macro">assert_ne!</span>((<span class="kw-2">*</span><span class="ident">ptr</span>).<span class="ident">ref_count</span>, <span class="number">0</span>);
 
         <span class="ident">ObjectRef</span> {
             <span class="ident">inner</span>: <span class="ident">ptr</span>::<span class="ident">NonNull</span>::<span class="ident">new_unchecked</span>(<span class="ident">ptr</span>),
@@ -3452,8 +3452,8 @@
 <span class="kw">impl</span> <span class="ident">FromGlibPtrBorrow</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">GObject</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">ObjectRef</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_borrow</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">GObject</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
-        <span class="macro">assert_ne</span><span class="macro">!</span>((<span class="kw-2">*</span><span class="ident">ptr</span>).<span class="ident">ref_count</span>, <span class="number">0</span>);
+        <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
+        <span class="macro">assert_ne!</span>((<span class="kw-2">*</span><span class="ident">ptr</span>).<span class="ident">ref_count</span>, <span class="number">0</span>);
 
         <span class="ident">Borrowed</span>::<span class="ident">new</span>(<span class="ident">ObjectRef</span> {
             <span class="ident">inner</span>: <span class="ident">ptr</span>::<span class="ident">NonNull</span>::<span class="ident">new_unchecked</span>(<span class="ident">ptr</span>),
@@ -3531,12 +3531,12 @@
 
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_container_num_as_vec</span>(<span class="kw">_</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">GObject</span>, <span class="kw">_</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
         <span class="comment">// Can&#39;t free a *const</span>
-        <span class="macro">unimplemented</span><span class="macro">!</span>()
+        <span class="macro">unimplemented!</span>()
     }
 
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_full_num_as_vec</span>(<span class="kw">_</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">GObject</span>, <span class="kw">_</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
         <span class="comment">// Can&#39;t free a *const</span>
-        <span class="macro">unimplemented</span><span class="macro">!</span>()
+        <span class="macro">unimplemented!</span>()
     }
 }
 
@@ -3549,18 +3549,18 @@
 
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_container_as_vec</span>(<span class="kw">_</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">GObject</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
         <span class="comment">// Can&#39;t free a *const</span>
-        <span class="macro">unimplemented</span><span class="macro">!</span>()
+        <span class="macro">unimplemented!</span>()
     }
 
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_full_as_vec</span>(<span class="kw">_</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">GObject</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
         <span class="comment">// Can&#39;t free a *const</span>
-        <span class="macro">unimplemented</span><span class="macro">!</span>()
+        <span class="macro">unimplemented!</span>()
     }
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="attribute">#[<span class="ident">macro_export</span>]</span>
-<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">glib_weak_impl</span> {
+<span class="macro">macro_rules!</span> <span class="ident">glib_weak_impl</span> {
     (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ident</span>) <span class="op">=</span><span class="op">&gt;</span> {
         <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
         <span class="kw">impl</span> <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">clone</span>::<span class="ident">Downgrade</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> {
@@ -3575,7 +3575,7 @@
 
 <span class="doccomment">/// ObjectType implementations for Object types. See `wrapper!`.</span>
 <span class="attribute">#[<span class="ident">macro_export</span>]</span>
-<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">glib_object_wrapper</span> {
+<span class="macro">macro_rules!</span> <span class="ident">glib_object_wrapper</span> {
     (@<span class="ident">generic_impl</span> [$(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">attr</span>:<span class="ident">meta</span>)<span class="kw-2">*</span>] <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span>:<span class="ident">ty</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_class_name</span>:<span class="ident">ty</span>, @<span class="ident">get_type</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">get_type_expr</span>:<span class="ident">expr</span>) <span class="op">=</span><span class="op">&gt;</span> {
         $(<span class="attribute">#[<span class="macro-nonterminal">$</span><span class="macro-nonterminal">attr</span>]</span>)<span class="op">*</span>
         <span class="comment">// Always derive Hash/Ord (and below impl Debug, PartialEq, Eq, PartialOrd) for object</span>
@@ -3721,12 +3721,12 @@
 
             <span class="kw">fn</span> <span class="ident">to_glib_container_from_slice</span>(<span class="kw">_</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>]) <span class="op">-</span><span class="op">&gt;</span> (<span class="kw-2">*</span><span class="kw">const</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span>, <span class="self">Self</span>::<span class="ident">Storage</span>) {
                 <span class="comment">// Can&#39;t have consumer free a *const pointer</span>
-                <span class="macro">unimplemented</span><span class="macro">!</span>()
+                <span class="macro">unimplemented!</span>()
             }
 
             <span class="kw">fn</span> <span class="ident">to_glib_full_from_slice</span>(<span class="kw">_</span>: <span class="kw-2">&amp;</span>[<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span> {
                 <span class="comment">// Can&#39;t have consumer free a *const pointer</span>
-                <span class="macro">unimplemented</span><span class="macro">!</span>()
+                <span class="macro">unimplemented!</span>()
             }
         }
 
@@ -3735,7 +3735,7 @@
             <span class="attribute">#[<span class="ident">inline</span>]</span>
             <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">cast_ptr_alignment</span>)]</span>
             <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_none</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-                <span class="macro">debug_assert</span><span class="macro">!</span>(<span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">types</span>::<span class="ident">instance_of</span>::<span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>));
+                <span class="macro">debug_assert!</span>(<span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">types</span>::<span class="ident">instance_of</span>::<span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>));
                 <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>(<span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">translate</span>::<span class="ident">from_glib_none</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>))
             }
         }
@@ -3745,7 +3745,7 @@
             <span class="attribute">#[<span class="ident">inline</span>]</span>
             <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">cast_ptr_alignment</span>)]</span>
             <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_none</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-                <span class="macro">debug_assert</span><span class="macro">!</span>(<span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">types</span>::<span class="ident">instance_of</span>::<span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>));
+                <span class="macro">debug_assert!</span>(<span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">types</span>::<span class="ident">instance_of</span>::<span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>));
                 <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>(<span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">translate</span>::<span class="ident">from_glib_none</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>))
             }
         }
@@ -3755,7 +3755,7 @@
             <span class="attribute">#[<span class="ident">inline</span>]</span>
             <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">cast_ptr_alignment</span>)]</span>
             <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_full</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-                <span class="macro">debug_assert</span><span class="macro">!</span>(<span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">types</span>::<span class="ident">instance_of</span>::<span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>));
+                <span class="macro">debug_assert!</span>(<span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">types</span>::<span class="ident">instance_of</span>::<span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>));
                 <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>(<span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">translate</span>::<span class="ident">from_glib_full</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>))
             }
         }
@@ -3765,7 +3765,7 @@
             <span class="attribute">#[<span class="ident">inline</span>]</span>
             <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">cast_ptr_alignment</span>)]</span>
             <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_borrow</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">translate</span>::<span class="ident">Borrowed</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-                <span class="macro">debug_assert</span><span class="macro">!</span>(<span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">types</span>::<span class="ident">instance_of</span>::<span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>));
+                <span class="macro">debug_assert!</span>(<span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">types</span>::<span class="ident">instance_of</span>::<span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>));
                 <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">translate</span>::<span class="ident">Borrowed</span>::<span class="ident">new</span>(
                     <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>(
                         <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">translate</span>::<span class="ident">from_glib_borrow</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">object</span>::<span class="ident">ObjectRef</span><span class="op">&gt;</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>).<span class="ident">into_inner</span>()
@@ -3840,12 +3840,12 @@
 
             <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_container_num_as_vec</span>(<span class="kw">_</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span>, <span class="kw">_</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
                 <span class="comment">// Can&#39;t free a *const</span>
-                <span class="macro">unimplemented</span><span class="macro">!</span>()
+                <span class="macro">unimplemented!</span>()
             }
 
             <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_full_num_as_vec</span>(<span class="kw">_</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span>, <span class="kw">_</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
                 <span class="comment">// Can&#39;t free a *const</span>
-                <span class="macro">unimplemented</span><span class="macro">!</span>()
+                <span class="macro">unimplemented!</span>()
             }
         }
 
@@ -3857,12 +3857,12 @@
 
             <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_container_as_vec</span>(<span class="kw">_</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
                 <span class="comment">// Can&#39;t free a *const</span>
-                <span class="macro">unimplemented</span><span class="macro">!</span>()
+                <span class="macro">unimplemented!</span>()
             }
 
             <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_full_as_vec</span>(<span class="kw">_</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
                 <span class="comment">// Can&#39;t free a *const</span>
-                <span class="macro">unimplemented</span><span class="macro">!</span>()
+                <span class="macro">unimplemented!</span>()
             }
         }
 
@@ -3895,7 +3895,7 @@
                 <span class="comment">// Attention: Don&#39;t use from_glib_none() here because we don&#39;t want to steal any</span>
                 <span class="comment">// floating references that might be owned by someone else.</span>
                 <span class="kw">if</span> <span class="op">!</span><span class="ident">obj</span>.<span class="ident">is_null</span>() {
-                    <span class="macro">assert_ne</span><span class="macro">!</span>((<span class="kw-2">*</span><span class="ident">obj</span>).<span class="ident">ref_count</span>, <span class="number">0</span>);
+                    <span class="macro">assert_ne!</span>((<span class="kw-2">*</span><span class="ident">obj</span>).<span class="ident">ref_count</span>, <span class="number">0</span>);
                     <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">gobject_ffi</span>::<span class="ident">g_object_ref</span>(<span class="ident">obj</span>);
                 }
 
@@ -3920,7 +3920,7 @@
             }
         }
 
-        <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro">glib_weak_impl</span><span class="macro">!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>);
+        <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro">glib_weak_impl!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>);
     };
 
     (@<span class="ident">munch_impls</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ident</span>, ) <span class="op">=</span><span class="op">&gt;</span> { };
@@ -3937,13 +3937,13 @@
     };
 
     (@<span class="ident">munch_impls</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">super_name</span>:<span class="ident">path</span>, $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">implements</span>:<span class="ident">tt</span>)<span class="kw-2">*</span>) <span class="op">=</span><span class="op">&gt;</span> {
-        <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro">glib_object_wrapper</span><span class="macro">!</span>(@<span class="macro-nonterminal">munch_impls</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">super_name</span>);
-        <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro">glib_object_wrapper</span><span class="macro">!</span>(@<span class="macro-nonterminal">munch_impls</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>, $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">implements</span>)<span class="kw-2">*</span>);
+        <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro">glib_object_wrapper!</span>(@<span class="macro-nonterminal">munch_impls</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">super_name</span>);
+        <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro">glib_object_wrapper!</span>(@<span class="macro-nonterminal">munch_impls</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>, $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">implements</span>)<span class="kw-2">*</span>);
     };
 
     <span class="comment">// If there is no parent class, i.e. only glib::Object</span>
     (@<span class="ident">munch_first_impl</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ident</span>, ) <span class="op">=</span><span class="op">&gt;</span> {
-        <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro">glib_object_wrapper</span><span class="macro">!</span>(@<span class="macro-nonterminal">munch_impls</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>, );
+        <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro">glib_object_wrapper!</span>(@<span class="macro-nonterminal">munch_impls</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>, );
         <span class="kw">unsafe</span> <span class="kw">impl</span> <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">object</span>::<span class="ident">ParentClassIs</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> {
             <span class="kw">type</span> <span class="ident">Parent</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">object</span>::<span class="ident">Object</span>;
         }
@@ -3951,7 +3951,7 @@
 
     <span class="comment">// If there is only one parent class</span>
     (@<span class="ident">munch_first_impl</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">super_name</span>:<span class="ident">path</span>) <span class="op">=</span><span class="op">&gt;</span> {
-        <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro">glib_object_wrapper</span><span class="macro">!</span>(@<span class="macro-nonterminal">munch_impls</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">super_name</span>);
+        <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro">glib_object_wrapper!</span>(@<span class="macro-nonterminal">munch_impls</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">super_name</span>);
         <span class="kw">unsafe</span> <span class="kw">impl</span> <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">object</span>::<span class="ident">ParentClassIs</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> {
             <span class="kw">type</span> <span class="ident">Parent</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">super_name</span>;
         }
@@ -3959,17 +3959,17 @@
 
     <span class="comment">// If there is more than one parent class</span>
     (@<span class="ident">munch_first_impl</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">super_name</span>:<span class="ident">path</span>, $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">implements</span>:<span class="ident">tt</span>)<span class="kw-2">*</span>) <span class="op">=</span><span class="op">&gt;</span> {
-        <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro">glib_object_wrapper</span><span class="macro">!</span>(@<span class="macro-nonterminal">munch_impls</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">super_name</span>);
+        <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro">glib_object_wrapper!</span>(@<span class="macro-nonterminal">munch_impls</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">super_name</span>);
         <span class="kw">unsafe</span> <span class="kw">impl</span> <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">object</span>::<span class="ident">ParentClassIs</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> {
             <span class="kw">type</span> <span class="ident">Parent</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">super_name</span>;
         }
-        <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro">glib_object_wrapper</span><span class="macro">!</span>(@<span class="macro-nonterminal">munch_impls</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>, $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">implements</span>)<span class="kw-2">*</span>);
+        <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro">glib_object_wrapper!</span>(@<span class="macro-nonterminal">munch_impls</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>, $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">implements</span>)<span class="kw-2">*</span>);
     };
 
     <span class="comment">// This case is only for glib::Object itself below. All other cases have glib::Object in its</span>
     <span class="comment">// parent class list</span>
     (@<span class="ident">object</span> [$(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">attr</span>:<span class="ident">meta</span>)<span class="kw-2">*</span>] <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span>:<span class="ident">ty</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_class_name</span>:<span class="ident">ty</span>, @<span class="ident">get_type</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">get_type_expr</span>:<span class="ident">expr</span>) <span class="op">=</span><span class="op">&gt;</span> {
-        <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro">glib_object_wrapper</span><span class="macro">!</span>(@<span class="macro-nonterminal">generic_impl</span> [$(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">attr</span>)<span class="kw-2">*</span>] <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_class_name</span>,
+        <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro">glib_object_wrapper!</span>(@<span class="macro-nonterminal">generic_impl</span> [$(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">attr</span>)<span class="kw-2">*</span>] <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_class_name</span>,
             @<span class="ident">get_type</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">get_type_expr</span>);
 
         <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
@@ -3978,10 +3978,10 @@
 
     (@<span class="ident">object</span> [$(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">attr</span>:<span class="ident">meta</span>)<span class="kw-2">*</span>] <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span>:<span class="ident">ty</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_class_name</span>:<span class="ident">ty</span>,
         @<span class="ident">get_type</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">get_type_expr</span>:<span class="ident">expr</span>, @<span class="ident">extends</span> [$(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">extends</span>:<span class="ident">tt</span>)<span class="kw-2">*</span>], @<span class="ident">implements</span> [$(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">implements</span>:<span class="ident">tt</span>)<span class="kw-2">*</span>]) <span class="op">=</span><span class="op">&gt;</span> {
-        <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro">glib_object_wrapper</span><span class="macro">!</span>(@<span class="macro-nonterminal">generic_impl</span> [$(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">attr</span>)<span class="kw-2">*</span>] <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_class_name</span>,
+        <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro">glib_object_wrapper!</span>(@<span class="macro-nonterminal">generic_impl</span> [$(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">attr</span>)<span class="kw-2">*</span>] <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_class_name</span>,
             @<span class="ident">get_type</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">get_type_expr</span>);
-        <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro">glib_object_wrapper</span><span class="macro">!</span>(@<span class="macro-nonterminal">munch_first_impl</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>, $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">extends</span>)<span class="kw-2">*</span>);
-        <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro">glib_object_wrapper</span><span class="macro">!</span>(@<span class="macro-nonterminal">munch_impls</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>, $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">implements</span>)<span class="kw-2">*</span>);
+        <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro">glib_object_wrapper!</span>(@<span class="macro-nonterminal">munch_first_impl</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>, $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">extends</span>)<span class="kw-2">*</span>);
+        <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro">glib_object_wrapper!</span>(@<span class="macro-nonterminal">munch_impls</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>, $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">implements</span>)<span class="kw-2">*</span>);
 
         <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
         <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">object</span>::<span class="ident">Object</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> {
@@ -3999,9 +3999,9 @@
 
     (@<span class="ident">interface</span> [$(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">attr</span>:<span class="ident">meta</span>)<span class="kw-2">*</span>] <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span>:<span class="ident">ty</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_class_name</span>:<span class="ident">ty</span>,
         @<span class="ident">get_type</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">get_type_expr</span>:<span class="ident">expr</span>, @<span class="ident">requires</span> [$(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">requires</span>:<span class="ident">tt</span>)<span class="kw-2">*</span>]) <span class="op">=</span><span class="op">&gt;</span> {
-        <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro">glib_object_wrapper</span><span class="macro">!</span>(@<span class="macro-nonterminal">generic_impl</span> [$(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">attr</span>)<span class="kw-2">*</span>] <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_class_name</span>,
+        <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro">glib_object_wrapper!</span>(@<span class="macro-nonterminal">generic_impl</span> [$(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">attr</span>)<span class="kw-2">*</span>] <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_class_name</span>,
             @<span class="ident">get_type</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">get_type_expr</span>);
-        <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro">glib_object_wrapper</span><span class="macro">!</span>(@<span class="macro-nonterminal">munch_impls</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>, $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">requires</span>)<span class="kw-2">*</span>);
+        <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro">glib_object_wrapper!</span>(@<span class="macro-nonterminal">munch_impls</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>, $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">requires</span>)<span class="kw-2">*</span>);
 
         <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
         <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">object</span>::<span class="ident">Object</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> {
@@ -4018,7 +4018,7 @@
     };
 }
 
-<span class="macro">glib_object_wrapper</span><span class="macro">!</span>(@<span class="ident">object</span>
+<span class="macro">glib_object_wrapper!</span>(@<span class="ident">object</span>
     [<span class="ident">doc</span> <span class="op">=</span> <span class="string">&quot;The base class in the object hierarchy.&quot;</span>]
     <span class="ident">Object</span>, <span class="ident">GObject</span>, <span class="ident">GObjectClass</span>, @<span class="ident">get_type</span> <span class="ident">gobject_ffi</span>::<span class="ident">g_object_get_type</span>()
 );
@@ -4041,7 +4041,7 @@
         <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ffi</span>::<span class="ident">CString</span>;
 
         <span class="kw">let</span> <span class="ident">klass</span> <span class="op">=</span> <span class="ident">ObjectClass</span>::<span class="ident">from_type</span>(<span class="ident">type_</span>)
-            .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="macro">bool_error</span><span class="macro">!</span>(<span class="string">&quot;Can&#39;t retrieve class for type &#39;{}&#39;&quot;</span>, <span class="ident">type_</span>))<span class="question-mark">?</span>;
+            .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="macro">bool_error!</span>(<span class="string">&quot;Can&#39;t retrieve class for type &#39;{}&#39;&quot;</span>, <span class="ident">type_</span>))<span class="question-mark">?</span>;
         <span class="kw">let</span> <span class="ident">pspecs</span> <span class="op">=</span> <span class="ident">klass</span>.<span class="ident">list_properties</span>();
 
         <span class="kw">let</span> <span class="ident">params</span> <span class="op">=</span> <span class="ident">properties</span>
@@ -4051,7 +4051,7 @@
                     .<span class="ident">iter</span>()
                     .<span class="ident">find</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> <span class="ident">p</span>.<span class="ident">get_name</span>() <span class="op">=</span><span class="op">=</span> <span class="kw-2">*</span><span class="ident">name</span>)
                     .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> {
-                        <span class="macro">bool_error</span><span class="macro">!</span>(<span class="string">&quot;Can&#39;t find property &#39;{}&#39; for type &#39;{}&#39;&quot;</span>, <span class="ident">name</span>, <span class="ident">type_</span>)
+                        <span class="macro">bool_error!</span>(<span class="string">&quot;Can&#39;t find property &#39;{}&#39; for type &#39;{}&#39;&quot;</span>, <span class="ident">name</span>, <span class="ident">type_</span>)
                     })<span class="question-mark">?</span>;
 
                 <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">value</span>.<span class="ident">to_value</span>();
@@ -4067,7 +4067,7 @@
         <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ffi</span>::<span class="ident">CString</span>;
 
         <span class="kw">let</span> <span class="ident">klass</span> <span class="op">=</span> <span class="ident">ObjectClass</span>::<span class="ident">from_type</span>(<span class="ident">type_</span>)
-            .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="macro">bool_error</span><span class="macro">!</span>(<span class="string">&quot;Can&#39;t retrieve class for type &#39;{}&#39;&quot;</span>, <span class="ident">type_</span>))<span class="question-mark">?</span>;
+            .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="macro">bool_error!</span>(<span class="string">&quot;Can&#39;t retrieve class for type &#39;{}&#39;&quot;</span>, <span class="ident">type_</span>))<span class="question-mark">?</span>;
         <span class="kw">let</span> <span class="ident">pspecs</span> <span class="op">=</span> <span class="ident">klass</span>.<span class="ident">list_properties</span>();
 
         <span class="kw">let</span> <span class="ident">params</span> <span class="op">=</span> <span class="ident">properties</span>
@@ -4077,7 +4077,7 @@
                     .<span class="ident">iter</span>()
                     .<span class="ident">find</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> <span class="ident">p</span>.<span class="ident">get_name</span>() <span class="op">=</span><span class="op">=</span> <span class="kw-2">*</span><span class="ident">name</span>)
                     .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> {
-                        <span class="macro">bool_error</span><span class="macro">!</span>(<span class="string">&quot;Can&#39;t find property &#39;{}&#39; for type &#39;{}&#39;&quot;</span>, <span class="ident">name</span>, <span class="ident">type_</span>)
+                        <span class="macro">bool_error!</span>(<span class="string">&quot;Can&#39;t find property &#39;{}&#39; for type &#39;{}&#39;&quot;</span>, <span class="ident">name</span>, <span class="ident">type_</span>)
                     })<span class="question-mark">?</span>;
 
                 <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">value</span>.<span class="ident">clone</span>();
@@ -4094,7 +4094,7 @@
         <span class="ident">params</span>: <span class="kw-2">&amp;</span>[(<span class="ident">std</span>::<span class="ident">ffi</span>::<span class="ident">CString</span>, <span class="ident">Value</span>)],
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Object</span>, <span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="op">!</span><span class="ident">type_</span>.<span class="ident">is_a</span>(<span class="ident">Object</span>::<span class="ident">static_type</span>()) {
-            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="macro">bool_error</span><span class="macro">!</span>(
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="macro">bool_error!</span>(
                 <span class="string">&quot;Can&#39;t instantiate non-GObject type &#39;{}&#39;&quot;</span>,
                 <span class="ident">type_</span>
             ));
@@ -4103,13 +4103,13 @@
         <span class="kw">if</span> <span class="ident">gobject_ffi</span>::<span class="ident">g_type_test_flags</span>(<span class="ident">type_</span>.<span class="ident">to_glib</span>(), <span class="ident">gobject_ffi</span>::<span class="ident">G_TYPE_FLAG_INSTANTIATABLE</span>)
             <span class="op">=</span><span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">GFALSE</span>
         {
-            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="macro">bool_error</span><span class="macro">!</span>(<span class="string">&quot;Can&#39;t instantiate type &#39;{}&#39;&quot;</span>, <span class="ident">type_</span>));
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="macro">bool_error!</span>(<span class="string">&quot;Can&#39;t instantiate type &#39;{}&#39;&quot;</span>, <span class="ident">type_</span>));
         }
 
         <span class="kw">if</span> <span class="ident">gobject_ffi</span>::<span class="ident">g_type_test_flags</span>(<span class="ident">type_</span>.<span class="ident">to_glib</span>(), <span class="ident">gobject_ffi</span>::<span class="ident">G_TYPE_FLAG_ABSTRACT</span>)
             <span class="op">!</span><span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">GFALSE</span>
         {
-            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="macro">bool_error</span><span class="macro">!</span>(<span class="string">&quot;Can&#39;t instantiate abstract type &#39;{}&#39;&quot;</span>, <span class="ident">type_</span>));
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="macro">bool_error!</span>(<span class="string">&quot;Can&#39;t instantiate abstract type &#39;{}&#39;&quot;</span>, <span class="ident">type_</span>));
         }
 
         <span class="kw">let</span> <span class="ident">params_c</span> <span class="op">=</span> <span class="ident">params</span>
@@ -4126,7 +4126,7 @@
             <span class="ident">mut_override</span>(<span class="ident">params_c</span>.<span class="ident">as_ptr</span>()),
         );
         <span class="kw">if</span> <span class="ident">ptr</span>.<span class="ident">is_null</span>() {
-            <span class="prelude-val">Err</span>(<span class="macro">bool_error</span><span class="macro">!</span>(<span class="string">&quot;Can&#39;t instantiate object for type &#39;{}&#39;&quot;</span>, <span class="ident">type_</span>))
+            <span class="prelude-val">Err</span>(<span class="macro">bool_error!</span>(<span class="string">&quot;Can&#39;t instantiate object for type &#39;{}&#39;&quot;</span>, <span class="ident">type_</span>))
         } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">type_</span>.<span class="ident">is_a</span>(<span class="ident">InitiallyUnowned</span>::<span class="ident">static_type</span>()) {
             <span class="comment">// Attention: This takes ownership of the floating reference</span>
             <span class="prelude-val">Ok</span>(<span class="ident">from_glib_none</span>(<span class="ident">ptr</span>))
@@ -4388,7 +4388,7 @@
                     .<span class="ident">iter</span>()
                     .<span class="ident">find</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> <span class="ident">p</span>.<span class="ident">get_name</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">name</span>)
                     .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> {
-                        <span class="macro">bool_error</span><span class="macro">!</span>(
+                        <span class="macro">bool_error!</span>(
                             <span class="string">&quot;Can&#39;t find property &#39;{}&#39; for type &#39;{}&#39;&quot;</span>,
                             <span class="ident">name</span>,
                             <span class="self">self</span>.<span class="ident">get_type</span>()
@@ -4429,7 +4429,7 @@
                     .<span class="ident">iter</span>()
                     .<span class="ident">find</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> <span class="ident">p</span>.<span class="ident">get_name</span>() <span class="op">=</span><span class="op">=</span> <span class="kw-2">*</span><span class="ident">name</span>)
                     .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> {
-                        <span class="macro">bool_error</span><span class="macro">!</span>(
+                        <span class="macro">bool_error!</span>(
                             <span class="string">&quot;Can&#39;t find property &#39;{}&#39; for type &#39;{}&#39;&quot;</span>,
                             <span class="ident">name</span>,
                             <span class="self">self</span>.<span class="ident">get_type</span>()
@@ -4465,7 +4465,7 @@
         <span class="kw">let</span> <span class="ident">pspec</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">find_property</span>(<span class="ident">property_name</span>) {
             <span class="prelude-val">Some</span>(<span class="ident">pspec</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">pspec</span>,
             <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="macro">bool_error</span><span class="macro">!</span>(
+                <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="macro">bool_error!</span>(
                     <span class="string">&quot;property &#39;{}&#39; of type &#39;{}&#39; not found&quot;</span>,
                     <span class="ident">property_name</span>,
                     <span class="self">self</span>.<span class="ident">get_type</span>()
@@ -4496,7 +4496,7 @@
         <span class="kw">let</span> <span class="ident">pspec</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">find_property</span>(<span class="ident">property_name</span>) {
             <span class="prelude-val">Some</span>(<span class="ident">pspec</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">pspec</span>,
             <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="macro">bool_error</span><span class="macro">!</span>(
+                <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="macro">bool_error!</span>(
                     <span class="string">&quot;property &#39;{}&#39; of type &#39;{}&#39; not found&quot;</span>,
                     <span class="ident">property_name</span>,
                     <span class="self">self</span>.<span class="ident">get_type</span>()
@@ -4523,7 +4523,7 @@
         <span class="kw">let</span> <span class="ident">pspec</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">find_property</span>(<span class="ident">property_name</span>) {
             <span class="prelude-val">Some</span>(<span class="ident">pspec</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">pspec</span>,
             <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="macro">bool_error</span><span class="macro">!</span>(
+                <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="macro">bool_error!</span>(
                     <span class="string">&quot;property &#39;{}&#39; of type &#39;{}&#39; not found&quot;</span>,
                     <span class="ident">property_name</span>,
                     <span class="self">self</span>.<span class="ident">get_type</span>()
@@ -4532,7 +4532,7 @@
         };
 
         <span class="kw">if</span> <span class="op">!</span><span class="ident">pspec</span>.<span class="ident">get_flags</span>().<span class="ident">contains</span>(<span class="kw">crate</span>::<span class="ident">ParamFlags</span>::<span class="ident">READABLE</span>) {
-            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="macro">bool_error</span><span class="macro">!</span>(
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="macro">bool_error!</span>(
                 <span class="string">&quot;property &#39;{}&#39; of type &#39;{}&#39; is not readable&quot;</span>,
                 <span class="ident">property_name</span>,
                 <span class="self">self</span>.<span class="ident">get_type</span>()
@@ -4549,7 +4549,7 @@
 
             <span class="comment">// This can&#39;t really happen unless something goes wrong inside GObject</span>
             <span class="prelude-val">Some</span>(<span class="ident">value</span>).<span class="ident">filter</span>(<span class="op">|</span><span class="ident">v</span><span class="op">|</span> <span class="ident">v</span>.<span class="ident">type_</span>().<span class="ident">is_valid</span>()).<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> {
-                <span class="macro">bool_error</span><span class="macro">!</span>(
+                <span class="macro">bool_error!</span>(
                     <span class="string">&quot;Failed to get property value for property &#39;{}&#39; of type &#39;{}&#39;&quot;</span>,
                     <span class="ident">property_name</span>,
                     <span class="self">self</span>.<span class="ident">get_type</span>()
@@ -4560,7 +4560,7 @@
 
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_qdata</span><span class="op">&lt;</span><span class="ident">QD</span>: <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">key</span>: <span class="ident">Quark</span>, <span class="ident">value</span>: <span class="ident">QD</span>) {
         <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">drop_value</span><span class="op">&lt;</span><span class="ident">QD</span><span class="op">&gt;</span>(<span class="ident">ptr</span>: <span class="ident">ffi</span>::<span class="ident">gpointer</span>) {
-            <span class="macro">debug_assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
+            <span class="macro">debug_assert!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
             <span class="kw">let</span> <span class="ident">value</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">QD</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box</span>::<span class="ident">from_raw</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">QD</span>);
             <span class="ident">drop</span>(<span class="ident">value</span>)
         }
@@ -4682,7 +4682,7 @@
         }
 
         <span class="kw">let</span> <span class="ident">signal_name</span> <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">name</span>) <span class="op">=</span> <span class="ident">name</span> {
-            <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;notify::{}\0&quot;</span>, <span class="ident">name</span>)
+            <span class="macro">format!</span>(<span class="string">&quot;notify::{}\0&quot;</span>, <span class="ident">name</span>)
         } <span class="kw">else</span> {
             <span class="string">&quot;notify\0&quot;</span>.<span class="ident">into</span>()
         };
@@ -4811,7 +4811,7 @@
         <span class="kw">let</span> <span class="ident">signal_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span> <span class="op">=</span> <span class="ident">signal_name</span>.<span class="ident">into</span>();
         <span class="kw">let</span> <span class="ident">type_</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_type</span>();
         <span class="kw">let</span> (<span class="ident">signal_id</span>, <span class="ident">details</span>) <span class="op">=</span> <span class="ident">SignalId</span>::<span class="ident">parse_name</span>(<span class="ident">signal_name</span>, <span class="ident">type_</span>, <span class="bool-val">true</span>)
-            .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="macro">bool_error</span><span class="macro">!</span>(<span class="string">&quot;Signal &#39;{}&#39; of type &#39;{}&#39; not found&quot;</span>, <span class="ident">signal_name</span>, <span class="ident">type_</span>))<span class="question-mark">?</span>;
+            .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="macro">bool_error!</span>(<span class="string">&quot;Signal &#39;{}&#39; of type &#39;{}&#39; not found&quot;</span>, <span class="ident">signal_name</span>, <span class="ident">type_</span>))<span class="question-mark">?</span>;
         <span class="self">self</span>.<span class="ident">connect_unsafe_id</span>(<span class="ident">signal_id</span>, <span class="prelude-val">Some</span>(<span class="ident">details</span>), <span class="ident">after</span>, <span class="ident">callback</span>)
     }
 
@@ -4832,7 +4832,7 @@
 
         <span class="kw">let</span> <span class="ident">signal_query_type</span> <span class="op">=</span> <span class="ident">signal_query</span>.<span class="ident">type_</span>();
         <span class="kw">if</span> <span class="op">!</span><span class="ident">type_</span>.<span class="ident">is_a</span>(<span class="ident">signal_query_type</span>) {
-            <span class="macro">panic</span><span class="macro">!</span>(
+            <span class="macro">panic!</span>(
                 <span class="string">&quot;Signal &#39;{}&#39; of type &#39;{}&#39; but got type &#39;{}&#39;&quot;</span>,
                 <span class="ident">signal_name</span>, <span class="ident">type_</span>, <span class="ident">signal_query_type</span>
             );
@@ -4842,7 +4842,7 @@
             <span class="ident">Closure</span>::<span class="ident">new_unsafe</span>(<span class="kw">move</span> <span class="op">|</span><span class="ident">values</span><span class="op">|</span> {
                 <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">callback</span>(<span class="ident">values</span>);
                 <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">ret</span>) <span class="op">=</span> <span class="ident">ret</span> {
-                    <span class="macro">panic</span><span class="macro">!</span>(
+                    <span class="macro">panic!</span>(
                         <span class="string">&quot;Signal &#39;{}&#39; of type &#39;{}&#39; required no return value but got value of type &#39;{}&#39;&quot;</span>,
                         <span class="ident">signal_name</span>,
                         <span class="ident">type_</span>,
@@ -4854,7 +4854,7 @@
         } <span class="kw">else</span> {
             <span class="ident">Closure</span>::<span class="ident">new_unsafe</span>(<span class="kw">move</span> <span class="op">|</span><span class="ident">values</span><span class="op">|</span> {
                 <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">callback</span>(<span class="ident">values</span>).<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="op">|</span> {
-                    <span class="macro">panic</span><span class="macro">!</span>(
+                    <span class="macro">panic!</span>(
                         <span class="string">&quot;Signal &#39;{}&#39; of type &#39;{}&#39; required return value of type &#39;{}&#39; but got None&quot;</span>,
                         <span class="ident">signal_name</span>,
                         <span class="ident">type_</span>,
@@ -4875,7 +4875,7 @@
                 <span class="comment">// a properly typed Value. This can happen if the type field in the</span>
                 <span class="comment">// Value is set to a more generic type than the contained value</span>
                 <span class="kw">let</span> <span class="ident">opt_obj</span> <span class="op">=</span> <span class="ident">ret</span>.<span class="ident">get</span>::<span class="op">&lt;</span><span class="ident">Object</span><span class="op">&gt;</span>().<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> {
-                    <span class="macro">panic</span><span class="macro">!</span>(
+                    <span class="macro">panic!</span>(
                         <span class="string">&quot;Signal &#39;{}&#39; of type &#39;{}&#39; required return value of type &#39;{}&#39; but got &#39;{}&#39;&quot;</span>,
                         <span class="ident">signal_name</span>,
                         <span class="ident">type_</span>,
@@ -4886,7 +4886,7 @@
 
                 <span class="kw">let</span> <span class="ident">actual_type</span> <span class="op">=</span> <span class="ident">opt_obj</span>.<span class="ident">map_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">ret</span>.<span class="ident">type_</span>(), <span class="op">|</span><span class="ident">obj</span><span class="op">|</span> <span class="ident">obj</span>.<span class="ident">get_type</span>());
                 <span class="kw">if</span> <span class="op">!</span><span class="ident">actual_type</span>.<span class="ident">is_a</span>(<span class="ident">return_type</span>) {
-                    <span class="macro">panic</span><span class="macro">!</span>(
+                    <span class="macro">panic!</span>(
                         <span class="string">&quot;Signal &#39;{}&#39; of type &#39;{}&#39; required return value of type &#39;{}&#39; but got &#39;{}&#39; (actual &#39;{}&#39;)&quot;</span>,
                         <span class="ident">signal_name</span>,
                         <span class="ident">type_</span>,
@@ -4909,7 +4909,7 @@
         );
 
         <span class="kw">if</span> <span class="ident">handler</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span> {
-            <span class="prelude-val">Err</span>(<span class="macro">bool_error</span><span class="macro">!</span>(
+            <span class="prelude-val">Err</span>(<span class="macro">bool_error!</span>(
                 <span class="string">&quot;Failed to connect to signal &#39;{}&#39; of type &#39;{}&#39;&quot;</span>,
                 <span class="ident">signal_name</span>,
                 <span class="ident">type_</span>
@@ -4968,7 +4968,7 @@
         <span class="ident">args</span>: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span><span class="kw">dyn</span> <span class="ident">ToValue</span>],
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Value</span><span class="op">&gt;</span>, <span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">signal_query</span> <span class="op">=</span> <span class="ident">signal_id</span>.<span class="ident">query</span>();
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">signal_query</span>.<span class="ident">flags</span>().<span class="ident">contains</span>(<span class="kw">crate</span>::<span class="ident">SignalFlags</span>::<span class="ident">DETAILED</span>));
+        <span class="macro">assert!</span>(<span class="ident">signal_query</span>.<span class="ident">flags</span>().<span class="ident">contains</span>(<span class="kw">crate</span>::<span class="ident">SignalFlags</span>::<span class="ident">DETAILED</span>));
 
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">type_</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_type</span>();
@@ -5018,7 +5018,7 @@
         <span class="kw">let</span> <span class="ident">signal_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span> <span class="op">=</span> <span class="ident">signal_name</span>.<span class="ident">into</span>();
         <span class="kw">let</span> <span class="ident">type_</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_type</span>();
         <span class="kw">let</span> <span class="ident">signal_id</span> <span class="op">=</span> <span class="ident">SignalId</span>::<span class="ident">lookup</span>(<span class="ident">signal_name</span>, <span class="ident">type_</span>)
-            .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="macro">bool_error</span><span class="macro">!</span>(<span class="string">&quot;Signal &#39;{}&#39; of type &#39;{}&#39; not found&quot;</span>, <span class="ident">signal_name</span>, <span class="ident">type_</span>))<span class="question-mark">?</span>;
+            .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="macro">bool_error!</span>(<span class="string">&quot;Signal &#39;{}&#39; of type &#39;{}&#39; not found&quot;</span>, <span class="ident">signal_name</span>, <span class="ident">type_</span>))<span class="question-mark">?</span>;
         <span class="self">self</span>.<span class="ident">emit</span>(<span class="ident">signal_id</span>, <span class="ident">args</span>)
     }
 
@@ -5104,7 +5104,7 @@
         <span class="kw">let</span> <span class="ident">signal_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span> <span class="op">=</span> <span class="ident">signal_name</span>.<span class="ident">into</span>();
         <span class="kw">let</span> <span class="ident">type_</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_type</span>();
         <span class="kw">let</span> <span class="ident">signal_id</span> <span class="op">=</span> <span class="ident">SignalId</span>::<span class="ident">lookup</span>(<span class="ident">signal_name</span>, <span class="ident">type_</span>)
-            .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="macro">bool_error</span><span class="macro">!</span>(<span class="string">&quot;Signal &#39;{}&#39; of type &#39;{}&#39; not found&quot;</span>, <span class="ident">signal_name</span>, <span class="ident">type_</span>))<span class="question-mark">?</span>;
+            .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="macro">bool_error!</span>(<span class="string">&quot;Signal &#39;{}&#39; of type &#39;{}&#39; not found&quot;</span>, <span class="ident">signal_name</span>, <span class="ident">type_</span>))<span class="question-mark">?</span>;
         <span class="self">self</span>.<span class="ident">emit_with_values</span>(<span class="ident">signal_id</span>, <span class="ident">args</span>)
     }
 
@@ -5115,7 +5115,7 @@
         <span class="ident">args</span>: <span class="kw-2">&amp;</span>[<span class="ident">Value</span>],
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Value</span><span class="op">&gt;</span>, <span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">signal_query</span> <span class="op">=</span> <span class="ident">signal_id</span>.<span class="ident">query</span>();
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">signal_query</span>.<span class="ident">flags</span>().<span class="ident">contains</span>(<span class="kw">crate</span>::<span class="ident">SignalFlags</span>::<span class="ident">DETAILED</span>));
+        <span class="macro">assert!</span>(<span class="ident">signal_query</span>.<span class="ident">flags</span>().<span class="ident">contains</span>(<span class="kw">crate</span>::<span class="ident">SignalFlags</span>::<span class="ident">DETAILED</span>));
 
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">type_</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_type</span>();
@@ -5169,7 +5169,7 @@
                 .<span class="ident">get_flags</span>()
                 .<span class="ident">contains</span>(<span class="kw">crate</span>::<span class="ident">ParamFlags</span>::<span class="ident">CONSTRUCT_ONLY</span>))
     {
-        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="macro">bool_error</span><span class="macro">!</span>(
+        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="macro">bool_error!</span>(
             <span class="string">&quot;property &#39;{}&#39; of type &#39;{}&#39; is not writable&quot;</span>,
             <span class="ident">pspec</span>.<span class="ident">get_name</span>(),
             <span class="ident">type_</span>
@@ -5197,7 +5197,7 @@
                         <span class="ident">property_value</span>.<span class="number">0</span>.<span class="ident">g_type</span> <span class="op">=</span> <span class="ident">pspec</span>.<span class="ident">get_value_type</span>().<span class="ident">to_glib</span>();
                     } <span class="kw">else</span> {
                         <span class="kw">return</span> <span class="prelude-val">Err</span>(
-                            <span class="macro">bool_error</span><span class="macro">!</span>(
+                            <span class="macro">bool_error!</span>(
                                 <span class="string">&quot;property &#39;{}&#39; of type &#39;{}&#39; can&#39;t be set from the given object type (expected: &#39;{}&#39;, got: &#39;{}&#39;)&quot;</span>,
                                 <span class="ident">pspec</span>.<span class="ident">get_name</span>(),
                                 <span class="ident">type_</span>,
@@ -5211,10 +5211,10 @@
                     <span class="comment">// If the value is None then the type is compatible too</span>
                     <span class="ident">property_value</span>.<span class="number">0</span>.<span class="ident">g_type</span> <span class="op">=</span> <span class="ident">pspec</span>.<span class="ident">get_value_type</span>().<span class="ident">to_glib</span>();
                 }
-                <span class="prelude-val">Err</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">unreachable</span><span class="macro">!</span>(<span class="string">&quot;property_value type conformity already checked&quot;</span>),
+                <span class="prelude-val">Err</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">unreachable!</span>(<span class="string">&quot;property_value type conformity already checked&quot;</span>),
             }
         } <span class="kw">else</span> <span class="kw">if</span> <span class="op">!</span><span class="ident">valid_type</span> {
-            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="macro">bool_error</span><span class="macro">!</span>(<span class="macro">format</span><span class="macro">!</span>(
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="macro">bool_error!</span>(<span class="macro">format!</span>(
                 <span class="string">&quot;property &#39;{}&#39; of type &#39;{}&#39; can&#39;t be set from the given type (expected: &#39;{}&#39;, got: &#39;{}&#39;)&quot;</span>,
                 <span class="ident">pspec</span>.<span class="ident">get_name</span>(),
                 <span class="ident">type_</span>,
@@ -5231,7 +5231,7 @@
             .<span class="ident">get_flags</span>()
             .<span class="ident">contains</span>(<span class="kw">crate</span>::<span class="ident">ParamFlags</span>::<span class="ident">LAX_VALIDATION</span>);
         <span class="kw">if</span> <span class="ident">changed</span> <span class="op">&amp;&amp;</span> <span class="op">!</span><span class="ident">change_allowed</span> {
-            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="macro">bool_error</span><span class="macro">!</span>(
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="macro">bool_error!</span>(
                 <span class="string">&quot;property &#39;{}&#39; of type &#39;{}&#39; can&#39;t be set from given value, it is invalid or out of range&quot;</span>,
                 <span class="ident">pspec</span>.<span class="ident">get_name</span>(),
                 <span class="ident">type_</span>,
@@ -5249,12 +5249,12 @@
 ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Quark</span>, <span class="ident">BoolError</span><span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="ident">signal_name</span> <span class="op">=</span> <span class="ident">signal_query</span>.<span class="ident">signal_name</span>();
     <span class="kw">let</span> (<span class="ident">signal_id</span>, <span class="ident">signal_detail</span>) <span class="op">=</span> <span class="ident">SignalId</span>::<span class="ident">parse_name</span>(<span class="ident">signal_name</span>, <span class="ident">type_</span>, <span class="bool-val">false</span>)
-        .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="macro">bool_error</span><span class="macro">!</span>(<span class="string">&quot;Signal &#39;{}&#39; of type &#39;{}&#39; not found&quot;</span>, <span class="ident">signal_name</span>, <span class="ident">type_</span>))<span class="question-mark">?</span>;
+        .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="macro">bool_error!</span>(<span class="string">&quot;Signal &#39;{}&#39; of type &#39;{}&#39; not found&quot;</span>, <span class="ident">signal_name</span>, <span class="ident">type_</span>))<span class="question-mark">?</span>;
 
     <span class="kw">let</span> <span class="ident">signal_query</span> <span class="op">=</span> <span class="ident">signal_id</span>.<span class="ident">query</span>();
 
     <span class="kw">if</span> <span class="ident">signal_query</span>.<span class="ident">n_params</span>() <span class="op">!</span><span class="op">=</span> <span class="ident">args</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">u32</span> {
-        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="macro">bool_error</span><span class="macro">!</span>(
+        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="macro">bool_error!</span>(
             <span class="string">&quot;Incompatible number of arguments for signal &#39;{}&#39; of type &#39;{}&#39; (expected {}, got {})&quot;</span>,
             <span class="ident">signal_name</span>,
             <span class="ident">type_</span>,
@@ -5274,7 +5274,7 @@
                         <span class="ident">arg</span>.<span class="number">0</span>.<span class="ident">g_type</span> <span class="op">=</span> <span class="ident">param_type</span>.<span class="ident">to_glib</span>();
                     } <span class="kw">else</span> {
                         <span class="kw">return</span> <span class="prelude-val">Err</span>(
-                            <span class="macro">bool_error</span><span class="macro">!</span>(
+                            <span class="macro">bool_error!</span>(
                                 <span class="string">&quot;Incompatible argument type in argument {} for signal &#39;{}&#39; of type &#39;{}&#39; (expected {}, got {})&quot;</span>,
                                 <span class="ident">i</span>,
                                 <span class="ident">signal_name</span>,
@@ -5289,11 +5289,11 @@
                     <span class="comment">// If the value is None then the type is compatible too</span>
                     <span class="ident">arg</span>.<span class="number">0</span>.<span class="ident">g_type</span> <span class="op">=</span> <span class="ident">param_type</span>.<span class="ident">to_glib</span>();
                 }
-                <span class="prelude-val">Err</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">unreachable</span><span class="macro">!</span>(<span class="string">&quot;property_value type conformity already checked&quot;</span>),
+                <span class="prelude-val">Err</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">unreachable!</span>(<span class="string">&quot;property_value type conformity already checked&quot;</span>),
             }
         } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">param_type</span> <span class="op">!</span><span class="op">=</span> <span class="ident">arg</span>.<span class="ident">type_</span>() {
             <span class="kw">return</span> <span class="prelude-val">Err</span>(
-                <span class="macro">bool_error</span><span class="macro">!</span>(
+                <span class="macro">bool_error!</span>(
                     <span class="string">&quot;Incompatible argument type in argument {} for signal &#39;{}&#39; of type &#39;{}&#39; (expected {}, got {})&quot;</span>,
                     <span class="ident">i</span>,
                     <span class="ident">signal_name</span>,
@@ -5357,7 +5357,7 @@
     }
 }
 
-<span class="macro">wrapper</span><span class="macro">!</span> {
+<span class="macro">wrapper!</span> {
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">InitiallyUnowned</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">gobject_ffi</span>::<span class="ident">GInitiallyUnowned</span>, <span class="ident">gobject_ffi</span>::<span class="ident">GInitiallyUnownedClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -5442,7 +5442,7 @@
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_weak_ref</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WeakRef</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="self">self</span>.<span class="number">1</span>.<span class="ident">is_some</span>() <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="number">1</span> <span class="op">!</span><span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">get_thread_id</span>()) {
-            <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;SendWeakRef dereferenced on a different thread&quot;</span>);
+            <span class="macro">panic!</span>(<span class="string">&quot;SendWeakRef dereferenced on a different thread&quot;</span>);
         }
 
         <span class="self">self</span>.<span class="number">0</span>
@@ -5454,7 +5454,7 @@
 
     <span class="kw">fn</span> <span class="ident">deref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">WeakRef</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="self">self</span>.<span class="number">1</span>.<span class="ident">is_some</span>() <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="number">1</span> <span class="op">!</span><span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">get_thread_id</span>()) {
-            <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;SendWeakRef dereferenced on a different thread&quot;</span>);
+            <span class="macro">panic!</span>(<span class="string">&quot;SendWeakRef dereferenced on a different thread&quot;</span>);
         }
 
         <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>
@@ -5519,21 +5519,21 @@
         <span class="ident">func</span>: <span class="ident">F</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="ident">Closure</span> {
         <span class="kw">crate</span>::<span class="ident">Closure</span>::<span class="ident">new</span>(<span class="kw">move</span> <span class="op">|</span><span class="ident">values</span><span class="op">|</span> {
-            <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">values</span>.<span class="ident">len</span>(), <span class="number">3</span>);
+            <span class="macro">assert_eq!</span>(<span class="ident">values</span>.<span class="ident">len</span>(), <span class="number">3</span>);
             <span class="kw">let</span> <span class="ident">binding</span> <span class="op">=</span> <span class="ident">values</span>[<span class="number">0</span>].<span class="ident">get</span>::<span class="op">&lt;</span><span class="kw">crate</span>::<span class="ident">Binding</span><span class="op">&gt;</span>().<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> {
-                <span class="macro">panic</span><span class="macro">!</span>(
+                <span class="macro">panic!</span>(
                     <span class="string">&quot;Type mismatch with the first argument in the closure: expected: `Binding`, got: {:?}&quot;</span>,
                     <span class="ident">values</span>[<span class="number">0</span>].<span class="ident">type_</span>(),
                 )
             })
             .<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="op">|</span> {
-                <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Found `None` for the first argument in the closure, expected `Some`&quot;</span>)
+                <span class="macro">panic!</span>(<span class="string">&quot;Found `None` for the first argument in the closure, expected `Some`&quot;</span>)
             });
             <span class="kw">let</span> <span class="ident">from</span> <span class="op">=</span> <span class="kw">unsafe</span> {
                 <span class="kw">let</span> <span class="ident">ptr</span> <span class="op">=</span> <span class="ident">gobject_ffi</span>::<span class="ident">g_value_get_boxed</span>(<span class="ident">mut_override</span>(
                     <span class="kw-2">&amp;</span><span class="ident">values</span>[<span class="number">1</span>] <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">Value</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">gobject_ffi</span>::<span class="ident">GValue</span>,
                 ));
-                <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
+                <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
                 <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">gobject_ffi</span>::<span class="ident">GValue</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">Value</span>)
             };
 
@@ -5836,7 +5836,7 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">InterfaceRef</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span>, <span class="ident">T</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">ptr</span> <span class="op">=</span> <span class="ident">gobject_ffi</span>::<span class="ident">g_type_default_interface_ref</span>(<span class="ident">T</span>::<span class="ident">static_type</span>().<span class="ident">to_glib</span>());
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
+            <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
             <span class="ident">InterfaceRef</span>(
                 <span class="ident">ptr</span>::<span class="ident">NonNull</span>::<span class="ident">new_unchecked</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="self">Self</span>),
                 <span class="bool-val">true</span>,
@@ -5924,9 +5924,9 @@
         <span class="kw">unsafe</span> {
             <span class="ident">obj</span>.<span class="ident">set_data</span>::<span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>(<span class="string">&quot;foo&quot;</span>, <span class="string">&quot;hello&quot;</span>.<span class="ident">into</span>());
             <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">obj</span>.<span class="ident">get_data</span>::<span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>(<span class="string">&quot;foo&quot;</span>).<span class="ident">unwrap</span>();
-            <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">data</span>.<span class="ident">as_ref</span>(), <span class="string">&quot;hello&quot;</span>);
+            <span class="macro">assert_eq!</span>(<span class="ident">data</span>.<span class="ident">as_ref</span>(), <span class="string">&quot;hello&quot;</span>);
             <span class="kw">let</span> <span class="ident">data2</span> <span class="op">=</span> <span class="ident">obj</span>.<span class="ident">steal_data</span>::<span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>(<span class="string">&quot;foo&quot;</span>).<span class="ident">unwrap</span>();
-            <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">data2</span>, <span class="string">&quot;hello&quot;</span>);
+            <span class="macro">assert_eq!</span>(<span class="ident">data2</span>, <span class="string">&quot;hello&quot;</span>);
         }
     }
 }

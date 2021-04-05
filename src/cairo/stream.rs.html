@@ -284,7 +284,7 @@
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">rc</span>::<span class="ident">Rc</span>;
 
-<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">for_stream_constructors</span> {
+<span class="macro">macro_rules!</span> <span class="ident">for_stream_constructors</span> {
     (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">constructor_ffi</span>: <span class="ident">ident</span>) <span class="op">=</span><span class="op">&gt;</span> {
         <span class="doccomment">/// Takes full ownership of the output stream,</span>
         <span class="doccomment">/// which is not allowed to borrow any lifetime shorter than `&#39;static`.</span>
@@ -404,7 +404,7 @@
         <span class="kw">let</span> <span class="ident">env</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">env</span>.<span class="ident">as_ptr</span>() };
 
         <span class="kw">if</span> <span class="ident">env</span>.<span class="ident">saw_already_borrowed</span>.<span class="ident">get</span>() {
-            <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;The output stream’s RefCell was already borrowed when cairo attempted a write&quot;</span>)
+            <span class="macro">panic!</span>(<span class="string">&quot;The output stream’s RefCell was already borrowed when cairo attempted a write&quot;</span>)
         }
 
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">mutable</span> <span class="op">=</span> <span class="ident">env</span>.<span class="ident">mutable</span>.<span class="ident">borrow_mut</span>();

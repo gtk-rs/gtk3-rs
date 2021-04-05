@@ -183,7 +183,7 @@
     <span class="kw">fn</span> <span class="ident">test_variant_iter_variant</span>() {
         <span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">Variant</span>::<span class="ident">variant</span>(<span class="kw-2">&amp;</span><span class="string">&quot;foo&quot;</span>.<span class="ident">to_string</span>().<span class="ident">to_variant</span>());
         <span class="kw">let</span> <span class="ident">vec</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">v</span>.<span class="ident">iter</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">i</span><span class="op">|</span> <span class="ident">i</span>.<span class="ident">get</span>().<span class="ident">unwrap</span>()).<span class="ident">collect</span>();
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">vec</span>, <span class="macro">vec</span><span class="macro">!</span>[<span class="string">&quot;foo&quot;</span>.<span class="ident">to_string</span>()]);
+        <span class="macro">assert_eq!</span>(<span class="ident">vec</span>, <span class="macro">vec!</span>[<span class="string">&quot;foo&quot;</span>.<span class="ident">to_string</span>()]);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -193,7 +193,7 @@
             <span class="string">&quot;bar&quot;</span>.<span class="ident">to_string</span>().<span class="ident">to_variant</span>(),
         ]);
         <span class="kw">let</span> <span class="ident">vec</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">v</span>.<span class="ident">iter</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">i</span><span class="op">|</span> <span class="ident">i</span>.<span class="ident">get</span>().<span class="ident">unwrap</span>()).<span class="ident">collect</span>();
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">vec</span>, <span class="macro">vec</span><span class="macro">!</span>[<span class="string">&quot;foo&quot;</span>.<span class="ident">to_string</span>(), <span class="string">&quot;bar&quot;</span>.<span class="ident">to_string</span>()]);
+        <span class="macro">assert_eq!</span>(<span class="ident">vec</span>, <span class="macro">vec!</span>[<span class="string">&quot;foo&quot;</span>.<span class="ident">to_string</span>(), <span class="string">&quot;bar&quot;</span>.<span class="ident">to_string</span>()]);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -203,14 +203,14 @@
             <span class="string">&quot;bar&quot;</span>.<span class="ident">to_string</span>().<span class="ident">to_variant</span>(),
         ]);
         <span class="kw">let</span> <span class="ident">vec</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">v</span>.<span class="ident">iter</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">i</span><span class="op">|</span> <span class="ident">i</span>.<span class="ident">get</span>().<span class="ident">unwrap</span>()).<span class="ident">collect</span>();
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">vec</span>, <span class="macro">vec</span><span class="macro">!</span>[<span class="string">&quot;foo&quot;</span>.<span class="ident">to_string</span>(), <span class="string">&quot;bar&quot;</span>.<span class="ident">to_string</span>()]);
+        <span class="macro">assert_eq!</span>(<span class="ident">vec</span>, <span class="macro">vec!</span>[<span class="string">&quot;foo&quot;</span>.<span class="ident">to_string</span>(), <span class="string">&quot;bar&quot;</span>.<span class="ident">to_string</span>()]);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_variant_iter_dictentry</span>() {
         <span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">DictEntry</span>::<span class="ident">new</span>(<span class="string">&quot;foo&quot;</span>, <span class="number">1337</span>).<span class="ident">to_variant</span>();
-        <span class="macro">println</span><span class="macro">!</span>(<span class="string">&quot;{:?}&quot;</span>, <span class="ident">v</span>.<span class="ident">iter</span>().<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>());
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">v</span>.<span class="ident">iter</span>().<span class="ident">count</span>(), <span class="number">2</span>);
+        <span class="macro">println!</span>(<span class="string">&quot;{:?}&quot;</span>, <span class="ident">v</span>.<span class="ident">iter</span>().<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>());
+        <span class="macro">assert_eq!</span>(<span class="ident">v</span>.<span class="ident">iter</span>().<span class="ident">count</span>(), <span class="number">2</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -219,7 +219,7 @@
         <span class="ident">map</span>.<span class="ident">insert</span>(<span class="string">&quot;foo&quot;</span>, <span class="number">1</span>);
         <span class="ident">map</span>.<span class="ident">insert</span>(<span class="string">&quot;bar&quot;</span>, <span class="number">1</span>);
         <span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">map</span>.<span class="ident">to_variant</span>();
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">v</span>.<span class="ident">iter</span>().<span class="ident">count</span>(), <span class="number">2</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">v</span>.<span class="ident">iter</span>().<span class="ident">count</span>(), <span class="number">2</span>);
     }
 }
 </pre></div>

@@ -458,7 +458,7 @@
         <span class="ident">_user_data</span>: <span class="ident">ffi</span>::<span class="ident">gpointer</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">gboolean</span> {
         <span class="kw">let</span> <span class="ident">source</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span>(<span class="ident">source</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">TaskSource</span>);
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">callback</span>.<span class="ident">is_none</span>());
+        <span class="macro">assert!</span>(<span class="ident">callback</span>.<span class="ident">is_none</span>());
 
         <span class="comment">// Poll the TaskSource and ensure we&#39;re never called again if the</span>
         <span class="comment">// contained Future resolved now.</span>
@@ -590,7 +590,7 @@
         <span class="kw">let</span> <span class="ident">executor</span>: <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">MainContext</span><span class="op">&gt;</span> <span class="op">=</span>
             <span class="kw">unsafe</span> { <span class="ident">from_glib_borrow</span>(<span class="ident">ffi</span>::<span class="ident">g_source_get_context</span>(<span class="ident">mut_override</span>(<span class="ident">source</span>))) };
 
-        <span class="macro">assert</span><span class="macro">!</span>(
+        <span class="macro">assert!</span>(
             <span class="ident">executor</span>.<span class="ident">is_owner</span>(),
             <span class="string">&quot;Polling futures only allowed if the thread is owning the MainContext&quot;</span>
         );
@@ -652,7 +652,7 @@
         <span class="ident">priority</span>: <span class="ident">Priority</span>,
         <span class="ident">f</span>: <span class="ident">F</span>,
     ) {
-        <span class="macro">assert</span><span class="macro">!</span>(
+        <span class="macro">assert!</span>(
             <span class="self">self</span>.<span class="ident">is_owner</span>(),
             <span class="string">&quot;Spawning local futures only allowed on the thread owning the MainContext&quot;</span>
         );
@@ -742,7 +742,7 @@
                     <span class="ident">futures_util</span>::<span class="ident">future</span>::<span class="ident">ok</span>(())
                 })
                 .<span class="ident">then</span>(<span class="op">|</span><span class="ident">res</span><span class="op">|</span> {
-                    <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">res</span>.<span class="ident">is_ok</span>());
+                    <span class="macro">assert!</span>(<span class="ident">res</span>.<span class="ident">is_ok</span>());
                     <span class="ident">futures_util</span>::<span class="ident">future</span>::<span class="ident">ready</span>(())
                 }),
         );
@@ -786,10 +786,10 @@
             });
 
             <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">c</span>.<span class="ident">block_on</span>(<span class="ident">future</span>);
-            <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">res</span>, <span class="prelude-val">Ok</span>(<span class="number">123</span>));
+            <span class="macro">assert_eq!</span>(<span class="ident">res</span>, <span class="prelude-val">Ok</span>(<span class="number">123</span>));
         }
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">v</span>, <span class="prelude-val">Some</span>(<span class="number">123</span>));
+        <span class="macro">assert_eq!</span>(<span class="ident">v</span>, <span class="prelude-val">Some</span>(<span class="number">123</span>));
     }
 }
 </pre></div>

@@ -469,7 +469,7 @@
 
         <span class="kw">fn</span> <span class="ident">can_seek</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">_seekable</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
             <span class="kw">let</span> <span class="ident">write</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">write</span>.<span class="ident">borrow</span>();
-            <span class="macro">matches</span><span class="macro">!</span>(<span class="kw-2">*</span><span class="ident">write</span>, <span class="prelude-val">Some</span>(<span class="ident">Writer</span>::<span class="ident">WriteSeek</span>(<span class="kw">_</span>)))
+            <span class="macro">matches!</span>(<span class="kw-2">*</span><span class="ident">write</span>, <span class="prelude-val">Some</span>(<span class="ident">Writer</span>::<span class="ident">WriteSeek</span>(<span class="kw">_</span>)))
         }
 
         <span class="kw">fn</span> <span class="ident">seek</span>(
@@ -497,7 +497,7 @@
                             }
                         }
                         <span class="ident">glib</span>::<span class="ident">SeekType</span>::<span class="ident">End</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SeekFrom</span>::<span class="ident">End</span>(<span class="ident">offset</span>),
-                        <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">unimplemented</span><span class="macro">!</span>(),
+                        <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">unimplemented!</span>(),
                     };
 
                     <span class="kw">loop</span> {
@@ -532,7 +532,7 @@
     }
 }
 
-<span class="ident">glib</span>::<span class="macro">wrapper</span><span class="macro">!</span> {
+<span class="ident">glib</span>::<span class="macro">wrapper!</span> {
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">WriteOutputStream</span>(<span class="ident">ObjectSubclass</span><span class="op">&lt;</span><span class="ident">imp</span>::<span class="ident">WriteOutputStream</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="kw">crate</span>::<span class="ident">OutputStream</span>, @<span class="ident">implements</span> <span class="kw">crate</span>::<span class="ident">Seekable</span>;
 }
 
@@ -559,7 +559,7 @@
 
         <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">inner</span> {
             <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Stream already closed or inner taken&quot;</span>);
+                <span class="macro">panic!</span>(<span class="string">&quot;Stream already closed or inner taken&quot;</span>);
             }
             <span class="prelude-val">Some</span>(<span class="ident">imp</span>::<span class="ident">Writer</span>::<span class="ident">Write</span>(<span class="ident">write</span>)) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">write</span>.<span class="ident">writer</span>,
             <span class="prelude-val">Some</span>(<span class="ident">imp</span>::<span class="ident">Writer</span>::<span class="ident">WriteSeek</span>(<span class="ident">write</span>)) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">write</span>.<span class="ident">writer</span>,
@@ -656,7 +656,7 @@
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">seek_fn</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">seek_fn</span> {
             <span class="ident">seek_fn</span>(<span class="self">self</span>, <span class="ident">pos</span>)
         } <span class="kw">else</span> {
-            <span class="macro">unreachable</span><span class="macro">!</span>()
+            <span class="macro">unreachable!</span>()
         }
     }
 }
@@ -668,37 +668,37 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_write</span>() {
-        <span class="kw">let</span> <span class="ident">cursor</span> <span class="op">=</span> <span class="ident">Cursor</span>::<span class="ident">new</span>(<span class="macro">vec</span><span class="macro">!</span>[]);
+        <span class="kw">let</span> <span class="ident">cursor</span> <span class="op">=</span> <span class="ident">Cursor</span>::<span class="ident">new</span>(<span class="macro">vec!</span>[]);
         <span class="kw">let</span> <span class="ident">stream</span> <span class="op">=</span> <span class="ident">WriteOutputStream</span>::<span class="ident">new</span>(<span class="ident">cursor</span>);
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="ident">stream</span>.<span class="ident">write</span>(<span class="kw-2">&amp;</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>], <span class="kw">crate</span>::<span class="ident">NONE_CANCELLABLE</span>),
             <span class="prelude-val">Ok</span>(<span class="number">10</span>)
         );
 
         <span class="kw">let</span> <span class="ident">inner</span> <span class="op">=</span> <span class="ident">stream</span>.<span class="ident">close_and_take</span>();
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">inner</span>.<span class="ident">is</span>::<span class="op">&lt;</span><span class="ident">Cursor</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>());
+        <span class="macro">assert!</span>(<span class="ident">inner</span>.<span class="ident">is</span>::<span class="op">&lt;</span><span class="ident">Cursor</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>());
         <span class="kw">let</span> <span class="ident">inner</span> <span class="op">=</span> <span class="ident">inner</span>.<span class="ident">downcast_ref</span>::<span class="op">&lt;</span><span class="ident">Cursor</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>().<span class="ident">unwrap</span>();
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">inner</span>.<span class="ident">get_ref</span>(), <span class="kw-2">&amp;</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>]);
+        <span class="macro">assert_eq!</span>(<span class="ident">inner</span>.<span class="ident">get_ref</span>(), <span class="kw-2">&amp;</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>]);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_write_seek</span>() {
-        <span class="kw">let</span> <span class="ident">cursor</span> <span class="op">=</span> <span class="ident">Cursor</span>::<span class="ident">new</span>(<span class="macro">vec</span><span class="macro">!</span>[]);
+        <span class="kw">let</span> <span class="ident">cursor</span> <span class="op">=</span> <span class="ident">Cursor</span>::<span class="ident">new</span>(<span class="macro">vec!</span>[]);
         <span class="kw">let</span> <span class="ident">stream</span> <span class="op">=</span> <span class="ident">WriteOutputStream</span>::<span class="ident">new_seekable</span>(<span class="ident">cursor</span>);
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="ident">stream</span>.<span class="ident">write</span>(<span class="kw-2">&amp;</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>], <span class="kw">crate</span>::<span class="ident">NONE_CANCELLABLE</span>),
             <span class="prelude-val">Ok</span>(<span class="number">10</span>)
         );
 
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">stream</span>.<span class="ident">can_seek</span>());
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert!</span>(<span class="ident">stream</span>.<span class="ident">can_seek</span>());
+        <span class="macro">assert_eq!</span>(
             <span class="ident">stream</span>.<span class="ident">seek</span>(<span class="number">0</span>, <span class="ident">glib</span>::<span class="ident">SeekType</span>::<span class="ident">Set</span>, <span class="kw">crate</span>::<span class="ident">NONE_CANCELLABLE</span>),
             <span class="prelude-val">Ok</span>(())
         );
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="ident">stream</span>.<span class="ident">write</span>(
                 <span class="kw-2">&amp;</span>[<span class="number">11</span>, <span class="number">12</span>, <span class="number">13</span>, <span class="number">14</span>, <span class="number">15</span>, <span class="number">16</span>, <span class="number">17</span>, <span class="number">18</span>, <span class="number">19</span>, <span class="number">20</span>],
                 <span class="kw">crate</span>::<span class="ident">NONE_CANCELLABLE</span>
@@ -707,9 +707,9 @@
         );
 
         <span class="kw">let</span> <span class="ident">inner</span> <span class="op">=</span> <span class="ident">stream</span>.<span class="ident">close_and_take</span>();
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">inner</span>.<span class="ident">is</span>::<span class="op">&lt;</span><span class="ident">Cursor</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>());
+        <span class="macro">assert!</span>(<span class="ident">inner</span>.<span class="ident">is</span>::<span class="op">&lt;</span><span class="ident">Cursor</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>());
         <span class="kw">let</span> <span class="ident">inner</span> <span class="op">=</span> <span class="ident">inner</span>.<span class="ident">downcast_ref</span>::<span class="op">&lt;</span><span class="ident">Cursor</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>().<span class="ident">unwrap</span>();
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">inner</span>.<span class="ident">get_ref</span>(), <span class="kw-2">&amp;</span>[<span class="number">11</span>, <span class="number">12</span>, <span class="number">13</span>, <span class="number">14</span>, <span class="number">15</span>, <span class="number">16</span>, <span class="number">17</span>, <span class="number">18</span>, <span class="number">19</span>, <span class="number">20</span>]);
+        <span class="macro">assert_eq!</span>(<span class="ident">inner</span>.<span class="ident">get_ref</span>(), <span class="kw-2">&amp;</span>[<span class="number">11</span>, <span class="number">12</span>, <span class="number">13</span>, <span class="number">14</span>, <span class="number">15</span>, <span class="number">16</span>, <span class="number">17</span>, <span class="number">18</span>, <span class="number">19</span>, <span class="number">20</span>]);
     }
 }
 </pre></div>

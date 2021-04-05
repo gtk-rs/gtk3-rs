@@ -501,7 +501,7 @@
 
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">create_source</span>) <span class="op">=</span> <span class="ident">create_source</span>.<span class="ident">take</span>() {
             <span class="kw">let</span> <span class="ident">main_context</span> <span class="op">=</span> <span class="ident">MainContext</span>::<span class="ident">ref_thread_default</span>();
-            <span class="macro">assert</span><span class="macro">!</span>(
+            <span class="macro">assert!</span>(
                 <span class="ident">main_context</span>.<span class="ident">is_owner</span>(),
                 <span class="string">&quot;Spawning futures only allowed if the thread is owning the MainContext&quot;</span>
             );
@@ -527,7 +527,7 @@
         };
         <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">match_wild_err_arm</span>)]</span>
         <span class="kw">match</span> <span class="ident">res</span> {
-            <span class="ident">Poll</span>::<span class="ident">Ready</span>(<span class="prelude-val">Err</span>(<span class="kw">_</span>)) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Source sender was unexpectedly closed&quot;</span>),
+            <span class="ident">Poll</span>::<span class="ident">Ready</span>(<span class="prelude-val">Err</span>(<span class="kw">_</span>)) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic!</span>(<span class="string">&quot;Source sender was unexpectedly closed&quot;</span>),
             <span class="ident">Poll</span>::<span class="ident">Ready</span>(<span class="prelude-val">Ok</span>(<span class="ident">v</span>)) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="comment">// Get rid of the reference to the source, it triggered</span>
                 <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">source</span>.<span class="ident">take</span>();
@@ -689,7 +689,7 @@
 
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">create_source</span>) <span class="op">=</span> <span class="ident">create_source</span>.<span class="ident">take</span>() {
             <span class="kw">let</span> <span class="ident">main_context</span> <span class="op">=</span> <span class="ident">MainContext</span>::<span class="ident">ref_thread_default</span>();
-            <span class="macro">assert</span><span class="macro">!</span>(
+            <span class="macro">assert!</span>(
                 <span class="ident">main_context</span>.<span class="ident">is_owner</span>(),
                 <span class="string">&quot;Spawning futures only allowed if the thread is owning the MainContext&quot;</span>
             );
@@ -864,7 +864,7 @@
             );
         }
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">count</span>, <span class="number">2</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">count</span>, <span class="number">2</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -881,7 +881,7 @@
             <span class="ident">receiver</span>.<span class="ident">then</span>(<span class="op">|</span><span class="ident">i</span><span class="op">|</span> <span class="ident">futures_util</span>::<span class="ident">future</span>::<span class="ident">ready</span>(<span class="ident">i</span>.<span class="ident">unwrap</span>()))
         }));
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">res</span>, <span class="number">1</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">res</span>, <span class="number">1</span>);
     }
 }
 </pre></div>

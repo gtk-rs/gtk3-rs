@@ -1142,8 +1142,8 @@
     }
 }
 
-<span class="macro">impl_from_glib_container_as_vec_string</span><span class="macro">!</span>(<span class="ident">GString</span>, <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>);
-<span class="macro">impl_from_glib_container_as_vec_string</span><span class="macro">!</span>(<span class="ident">GString</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_char</span>);
+<span class="macro">impl_from_glib_container_as_vec_string!</span>(<span class="ident">GString</span>, <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>);
+<span class="macro">impl_from_glib_container_as_vec_string!</span>(<span class="ident">GString</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_char</span>);
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">blacklisted_name</span>)]</span>
@@ -1159,9 +1159,9 @@
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">ptr_copy</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">g_strdup</span>(<span class="ident">ptr</span>);
             <span class="kw">let</span> <span class="ident">gstring</span> <span class="op">=</span> <span class="ident">GString</span>::<span class="ident">new</span>(<span class="ident">ptr_copy</span>);
-            <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">gstring</span>.<span class="ident">as_str</span>(), <span class="string">&quot;foo&quot;</span>);
+            <span class="macro">assert_eq!</span>(<span class="ident">gstring</span>.<span class="ident">as_str</span>(), <span class="string">&quot;foo&quot;</span>);
             <span class="kw">let</span> <span class="ident">foo</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">gstring</span>.<span class="ident">into</span>();
-            <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">foo</span>.<span class="ident">as_ref</span>(), <span class="string">&quot;foo&quot;</span>);
+            <span class="macro">assert_eq!</span>(<span class="ident">foo</span>.<span class="ident">as_ref</span>(), <span class="string">&quot;foo&quot;</span>);
         }
     }
 
@@ -1172,41 +1172,41 @@
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">ptr_copy</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">g_strdup</span>(<span class="ident">ptr</span>);
             <span class="kw">let</span> <span class="ident">gstr</span> <span class="op">=</span> <span class="ident">GString</span>::<span class="ident">new</span>(<span class="ident">ptr_copy</span>);
-            <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">gstr</span>, <span class="string">&quot;foo&quot;</span>);
+            <span class="macro">assert_eq!</span>(<span class="ident">gstr</span>, <span class="string">&quot;foo&quot;</span>);
         }
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_gstring_from_str</span>() {
         <span class="kw">let</span> <span class="ident">gstring</span>: <span class="ident">GString</span> <span class="op">=</span> <span class="string">&quot;foo&quot;</span>.<span class="ident">into</span>();
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">gstring</span>.<span class="ident">as_str</span>(), <span class="string">&quot;foo&quot;</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">gstring</span>.<span class="ident">as_str</span>(), <span class="string">&quot;foo&quot;</span>);
         <span class="kw">let</span> <span class="ident">foo</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">gstring</span>.<span class="ident">into</span>();
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">foo</span>.<span class="ident">as_ref</span>(), <span class="string">&quot;foo&quot;</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">foo</span>.<span class="ident">as_ref</span>(), <span class="string">&quot;foo&quot;</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_gstring_from_cstring</span>() {
         <span class="kw">let</span> <span class="ident">cstr</span> <span class="op">=</span> <span class="ident">CString</span>::<span class="ident">new</span>(<span class="string">&quot;foo&quot;</span>).<span class="ident">unwrap</span>();
         <span class="kw">let</span> <span class="ident">gstring</span> <span class="op">=</span> <span class="ident">GString</span>::<span class="ident">from</span>(<span class="ident">cstr</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">gstring</span>.<span class="ident">as_str</span>(), <span class="string">&quot;foo&quot;</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">gstring</span>.<span class="ident">as_str</span>(), <span class="string">&quot;foo&quot;</span>);
         <span class="kw">let</span> <span class="ident">foo</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">gstring</span>.<span class="ident">into</span>();
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">foo</span>.<span class="ident">as_ref</span>(), <span class="string">&quot;foo&quot;</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">foo</span>.<span class="ident">as_ref</span>(), <span class="string">&quot;foo&quot;</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_string_from_gstring</span>() {
         <span class="kw">let</span> <span class="ident">cstr</span> <span class="op">=</span> <span class="ident">CString</span>::<span class="ident">new</span>(<span class="string">&quot;foo&quot;</span>).<span class="ident">unwrap</span>();
         <span class="kw">let</span> <span class="ident">gstring</span> <span class="op">=</span> <span class="ident">GString</span>::<span class="ident">from</span>(<span class="ident">cstr</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">gstring</span>.<span class="ident">as_str</span>(), <span class="string">&quot;foo&quot;</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">gstring</span>.<span class="ident">as_str</span>(), <span class="string">&quot;foo&quot;</span>);
         <span class="kw">let</span> <span class="ident">s</span> <span class="op">=</span> <span class="ident">String</span>::<span class="ident">from</span>(<span class="ident">gstring</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">s</span>, <span class="string">&quot;foo&quot;</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">s</span>, <span class="string">&quot;foo&quot;</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_vec_u8_to_gstring</span>() {
         <span class="kw">let</span> <span class="ident">v</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>] <span class="op">=</span> <span class="string">b&quot;foo&quot;</span>;
         <span class="kw">let</span> <span class="ident">s</span>: <span class="ident">GString</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">from</span>(<span class="ident">v</span>).<span class="ident">into</span>();
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">s</span>.<span class="ident">as_str</span>(), <span class="string">&quot;foo&quot;</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">s</span>.<span class="ident">as_str</span>(), <span class="string">&quot;foo&quot;</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -1216,22 +1216,22 @@
                 <span class="ident">ffi</span>::<span class="ident">g_strdup</span>(<span class="string">&quot;hello_world&quot;</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">i8</span>),
                 <span class="number">5</span>,
             );
-            <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="string">&quot;hello&quot;</span>, <span class="ident">test_a</span>.<span class="ident">as_str</span>());
+            <span class="macro">assert_eq!</span>(<span class="string">&quot;hello&quot;</span>, <span class="ident">test_a</span>.<span class="ident">as_str</span>());
 
             <span class="kw">let</span> <span class="ident">test_b</span>: <span class="ident">GString</span> <span class="op">=</span> <span class="ident">FromGlibContainer</span>::<span class="ident">from_glib_none_num</span>(<span class="string">&quot;hello_world&quot;</span>.<span class="ident">as_ptr</span>(), <span class="number">5</span>);
-            <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="string">&quot;hello&quot;</span>, <span class="ident">test_b</span>.<span class="ident">as_str</span>());
+            <span class="macro">assert_eq!</span>(<span class="string">&quot;hello&quot;</span>, <span class="ident">test_b</span>.<span class="ident">as_str</span>());
 
             <span class="kw">let</span> <span class="ident">test_c</span>: <span class="ident">GString</span> <span class="op">=</span> <span class="ident">FromGlibContainer</span>::<span class="ident">from_glib_none_num</span>(<span class="ident">std</span>::<span class="ident">ptr</span>::<span class="ident">null</span>::<span class="op">&lt;</span><span class="ident">i8</span><span class="op">&gt;</span>(), <span class="number">0</span>);
-            <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="string">&quot;&quot;</span>, <span class="ident">test_c</span>.<span class="ident">as_str</span>());
+            <span class="macro">assert_eq!</span>(<span class="string">&quot;&quot;</span>, <span class="ident">test_c</span>.<span class="ident">as_str</span>());
 
             <span class="kw">let</span> <span class="ident">test_d</span>: <span class="ident">GString</span> <span class="op">=</span> <span class="ident">FromGlibContainer</span>::<span class="ident">from_glib_none_num</span>(<span class="string">&quot;&quot;</span>.<span class="ident">as_ptr</span>(), <span class="number">0</span>);
-            <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="string">&quot;&quot;</span>, <span class="ident">test_d</span>.<span class="ident">as_str</span>());
+            <span class="macro">assert_eq!</span>(<span class="string">&quot;&quot;</span>, <span class="ident">test_d</span>.<span class="ident">as_str</span>());
 
             <span class="kw">let</span> <span class="ident">test_e</span>: <span class="ident">GString</span> <span class="op">=</span> <span class="ident">FromGlibContainer</span>::<span class="ident">from_glib_container_num</span>(
                 <span class="ident">ffi</span>::<span class="ident">g_strdup</span>(<span class="ident">std</span>::<span class="ident">ptr</span>::<span class="ident">null</span>::<span class="op">&lt;</span><span class="ident">i8</span><span class="op">&gt;</span>()),
                 <span class="number">0</span>,
             );
-            <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="string">&quot;&quot;</span>, <span class="ident">test_e</span>.<span class="ident">as_str</span>());
+            <span class="macro">assert_eq!</span>(<span class="string">&quot;&quot;</span>, <span class="ident">test_e</span>.<span class="ident">as_str</span>());
         }
     }
 
@@ -1241,11 +1241,11 @@
 
         <span class="kw">let</span> <span class="ident">cstr</span> <span class="op">=</span> <span class="ident">CString</span>::<span class="ident">new</span>(<span class="string">&quot;foo&quot;</span>).<span class="ident">unwrap</span>();
         <span class="kw">let</span> <span class="ident">gstring</span> <span class="op">=</span> <span class="ident">GString</span>::<span class="ident">from</span>(<span class="ident">cstr</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">gstring</span>.<span class="ident">as_str</span>(), <span class="string">&quot;foo&quot;</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">gstring</span>.<span class="ident">as_str</span>(), <span class="string">&quot;foo&quot;</span>);
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">h</span>: <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">GString</span>, <span class="ident">i32</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">HashMap</span>::<span class="ident">new</span>();
         <span class="ident">h</span>.<span class="ident">insert</span>(<span class="ident">gstring</span>, <span class="number">42</span>);
         <span class="kw">let</span> <span class="ident">gstring</span>: <span class="ident">GString</span> <span class="op">=</span> <span class="string">&quot;foo&quot;</span>.<span class="ident">into</span>();
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">h</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span><span class="ident">gstring</span>));
+        <span class="macro">assert!</span>(<span class="ident">h</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span><span class="ident">gstring</span>));
     }
 }
 </pre></div>

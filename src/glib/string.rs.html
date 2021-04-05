@@ -263,7 +263,7 @@
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">slice</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">str</span>;
 
-<span class="macro">wrapper</span><span class="macro">!</span> {
+<span class="macro">wrapper!</span> {
     <span class="doccomment">/// A mutable text buffer that grows automatically.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">String</span>(<span class="ident">Boxed</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GString</span><span class="op">&gt;</span>);
 
@@ -436,49 +436,49 @@
     <span class="kw">fn</span> <span class="ident">append</span>() {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">s</span> <span class="op">=</span> <span class="kw">crate</span>::<span class="ident">String</span>::<span class="ident">new</span>(<span class="string">&quot;&quot;</span>);
         <span class="ident">s</span>.<span class="ident">append</span>(<span class="string">&quot;Hello&quot;</span>).<span class="ident">append</span>(<span class="string">&quot; &quot;</span>).<span class="ident">append</span>(<span class="string">&quot;there!&quot;</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">s</span>, <span class="string">b&quot;Hello there!&quot;</span>);
+        <span class="macro">assert_eq!</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">s</span>, <span class="string">b&quot;Hello there!&quot;</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">insert</span>() {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">s</span> <span class="op">=</span> <span class="kw">crate</span>::<span class="ident">String</span>::<span class="ident">new</span>(<span class="string">&quot;foobaz&quot;</span>);
         <span class="ident">s</span>.<span class="ident">insert</span>(<span class="number">3</span>, <span class="string">&quot;bar&quot;</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">s</span>, <span class="string">b&quot;foobarbaz&quot;</span>);
+        <span class="macro">assert_eq!</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">s</span>, <span class="string">b&quot;foobarbaz&quot;</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">overwrite</span>() {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">s</span> <span class="op">=</span> <span class="kw">crate</span>::<span class="ident">String</span>::<span class="ident">new</span>(<span class="string">&quot;abc&quot;</span>);
         <span class="ident">s</span>.<span class="ident">overwrite</span>(<span class="number">2</span>, <span class="string">&quot;de&quot;</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">s</span>, <span class="string">b&quot;abde&quot;</span>);
+        <span class="macro">assert_eq!</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">s</span>, <span class="string">b&quot;abde&quot;</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">prepend</span>() {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">s</span> <span class="op">=</span> <span class="kw">crate</span>::<span class="ident">String</span>::<span class="ident">new</span>(<span class="string">&quot;456&quot;</span>);
         <span class="ident">s</span>.<span class="ident">prepend</span>(<span class="string">&quot;123&quot;</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">s</span>, <span class="string">b&quot;123456&quot;</span>);
+        <span class="macro">assert_eq!</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">s</span>, <span class="string">b&quot;123456&quot;</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">truncate</span>() {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">s</span> <span class="op">=</span> <span class="kw">crate</span>::<span class="ident">String</span>::<span class="ident">new</span>(<span class="string">&quot;12345&quot;</span>);
         <span class="ident">s</span>.<span class="ident">truncate</span>(<span class="number">10</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">s</span>, <span class="string">b&quot;12345&quot;</span>);
+        <span class="macro">assert_eq!</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">s</span>, <span class="string">b&quot;12345&quot;</span>);
         <span class="ident">s</span>.<span class="ident">truncate</span>(<span class="number">2</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">s</span>, <span class="string">b&quot;12&quot;</span>);
+        <span class="macro">assert_eq!</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">s</span>, <span class="string">b&quot;12&quot;</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">default</span>() {
         <span class="kw">let</span> <span class="ident">s1</span>: <span class="kw">crate</span>::<span class="ident">String</span> <span class="op">=</span> <span class="ident">Default</span>::<span class="ident">default</span>();
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">s1</span>, <span class="string">b&quot;&quot;</span>);
+        <span class="macro">assert_eq!</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">s1</span>, <span class="string">b&quot;&quot;</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">display</span>() {
         <span class="kw">let</span> <span class="ident">s</span>: <span class="kw">crate</span>::<span class="ident">String</span> <span class="op">=</span> <span class="kw">crate</span>::<span class="ident">String</span>::<span class="ident">new</span>(<span class="string">&quot;This is a string.&quot;</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="kw-2">&amp;</span><span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">s</span>), <span class="string">&quot;This is a string.&quot;</span>);
+        <span class="macro">assert_eq!</span>(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">s</span>), <span class="string">&quot;This is a string.&quot;</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -486,16 +486,16 @@
         <span class="kw">let</span> <span class="ident">a1</span> <span class="op">=</span> <span class="kw">crate</span>::<span class="ident">String</span>::<span class="ident">new</span>(<span class="string">&quot;a&quot;</span>);
         <span class="kw">let</span> <span class="ident">a2</span> <span class="op">=</span> <span class="kw">crate</span>::<span class="ident">String</span>::<span class="ident">new</span>(<span class="string">&quot;a&quot;</span>);
         <span class="kw">let</span> <span class="ident">b</span> <span class="op">=</span> <span class="kw">crate</span>::<span class="ident">String</span>::<span class="ident">new</span>(<span class="string">&quot;b&quot;</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">a1</span>, <span class="ident">a2</span>);
-        <span class="macro">assert_ne</span><span class="macro">!</span>(<span class="ident">a1</span>, <span class="ident">b</span>);
-        <span class="macro">assert_ne</span><span class="macro">!</span>(<span class="ident">a2</span>, <span class="ident">b</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">a1</span>, <span class="ident">a2</span>);
+        <span class="macro">assert_ne!</span>(<span class="ident">a1</span>, <span class="ident">b</span>);
+        <span class="macro">assert_ne!</span>(<span class="ident">a2</span>, <span class="ident">b</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">invalid_utf8</span>() {
         <span class="kw">let</span> <span class="ident">s</span> <span class="op">=</span> <span class="kw">crate</span>::<span class="ident">String</span>::<span class="ident">new</span>(<span class="string">b&quot;Hello \xF0\x90\x80World&quot;</span>);
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">s</span>.<span class="ident">to_str</span>().<span class="ident">is_err</span>());
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">s</span>.<span class="ident">to_string_lossy</span>(), <span class="string">&quot;Hello �World&quot;</span>);
+        <span class="macro">assert!</span>(<span class="ident">s</span>.<span class="ident">to_str</span>().<span class="ident">is_err</span>());
+        <span class="macro">assert_eq!</span>(<span class="ident">s</span>.<span class="ident">to_string_lossy</span>(), <span class="string">&quot;Hello �World&quot;</span>);
     }
 }
 </pre></div>

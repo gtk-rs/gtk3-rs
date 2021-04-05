@@ -105,7 +105,7 @@
     <span class="ident">y_origin</span>: <span class="ident">i32</span>,
     <span class="ident">index_ranges</span>: <span class="kw-2">&amp;</span>[<span class="ident">GRange</span>],
 ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">cairo</span>::<span class="ident">Region</span><span class="op">&gt;</span> {
-    <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
+    <span class="macro">assert_initialized_main_thread!</span>();
 
     <span class="kw">let</span> <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">i32</span> <span class="op">=</span> <span class="ident">index_ranges</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw">_</span>;
     <span class="kw">unsafe</span> {
@@ -126,7 +126,7 @@
     <span class="ident">y_origin</span>: <span class="ident">i32</span>,
     <span class="ident">index_ranges</span>: <span class="kw-2">&amp;</span>[<span class="ident">GRange</span>],
 ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">cairo</span>::<span class="ident">Region</span><span class="op">&gt;</span> {
-    <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
+    <span class="macro">assert_initialized_main_thread!</span>();
 
     <span class="kw">let</span> <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">i32</span> <span class="op">=</span> <span class="ident">index_ranges</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw">_</span>;
     <span class="kw">unsafe</span> {
@@ -142,7 +142,7 @@
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_setting_get&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">setting_get</span>(<span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">Value</span><span class="op">&gt;</span> {
-    <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
+    <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib</span>::<span class="ident">Value</span>::<span class="ident">uninitialized</span>();
         <span class="kw">let</span> <span class="ident">done</span>: <span class="ident">bool</span> <span class="op">=</span> <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">gdk_setting_get</span>(
@@ -166,7 +166,7 @@
     <span class="ident">mode</span>: <span class="kw">super</span>::<span class="ident">PropMode</span>,
     <span class="ident">data</span>: <span class="kw">super</span>::<span class="ident">ChangeData</span>,
 ) {
-    <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
+    <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">let</span> <span class="ident">nelements</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">len</span>();
     <span class="kw">unsafe</span> {
         <span class="ident">ffi</span>::<span class="ident">gdk_property_change</span>(

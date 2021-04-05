@@ -43,8 +43,8 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EventSelection</span>(<span class="kw">crate</span>::<span class="ident">Event</span>);
 
-<span class="macro">event_wrapper</span><span class="macro">!</span>(<span class="ident">EventSelection</span>, <span class="ident">GdkEventSelection</span>);
-<span class="macro">event_subtype</span><span class="macro">!</span>(
+<span class="macro">event_wrapper!</span>(<span class="ident">EventSelection</span>, <span class="ident">GdkEventSelection</span>);
+<span class="macro">event_subtype!</span>(
     <span class="ident">EventSelection</span>,
     <span class="ident">ffi</span>::<span class="ident">GDK_SELECTION_CLEAR</span> <span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">GDK_SELECTION_NOTIFY</span> <span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">GDK_SELECTION_REQUEST</span>
 );

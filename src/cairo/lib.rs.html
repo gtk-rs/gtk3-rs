@@ -298,7 +298,7 @@
 
 <span class="comment">// Helper macro for our GValue related trait impls</span>
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">gvalue_impl</span> {
+<span class="macro">macro_rules!</span> <span class="ident">gvalue_impl</span> {
     (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ty</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span>:<span class="ident">ty</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">get_type</span>:<span class="ident">expr</span>) <span class="op">=</span><span class="op">&gt;</span> {
         <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">unused_imports</span>)]</span>
         <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
@@ -312,7 +312,7 @@
         <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">glib</span>::<span class="ident">value</span>::<span class="ident">FromValueOptional</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> {
             <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value_optional</span>(<span class="ident">v</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">glib</span>::<span class="ident">value</span>::<span class="ident">Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
                 <span class="kw">let</span> <span class="ident">ptr</span> <span class="op">=</span> <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">g_value_get_boxed</span>(<span class="ident">v</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
-                <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
+                <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
                 <span class="ident">from_glib_none</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span>)
             }
         }

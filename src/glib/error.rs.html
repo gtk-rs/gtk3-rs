@@ -247,7 +247,7 @@
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">str</span>;
 
-<span class="macro">wrapper</span><span class="macro">!</span> {
+<span class="macro">wrapper!</span> {
     <span class="doccomment">/// A generic error capable of representing various error domains (types).</span>
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Error</span>(<span class="ident">Boxed</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GError</span><span class="op">&gt;</span>);
@@ -362,33 +362,33 @@
 
 <span class="doccomment">/// Generic error used for functions that fail without any further information</span>
 <span class="attribute">#[<span class="ident">macro_export</span>]</span>
-<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">bool_error</span>(
+<span class="macro">macro_rules!</span> <span class="ident">bool_error</span>(
 <span class="comment">// Plain strings</span>
     (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">msg</span>:<span class="ident">expr</span>) <span class="op">=</span><span class="op">&gt;</span>  {
-        <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">BoolError</span>::<span class="ident">new</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">msg</span>, <span class="macro">file</span><span class="macro">!</span>(), <span class="macro">module_path</span><span class="macro">!</span>(), <span class="macro">line</span><span class="macro">!</span>())
+        <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">BoolError</span>::<span class="ident">new</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">msg</span>, <span class="macro">file!</span>(), <span class="macro">module_path!</span>(), <span class="macro">line!</span>())
     };
 
 <span class="comment">// Format strings</span>
     ($(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">msg</span>:<span class="ident">tt</span>)<span class="kw-2">*</span>) <span class="op">=</span><span class="op">&gt;</span>  { {
-        <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">BoolError</span>::<span class="ident">new</span>(<span class="macro">format</span><span class="macro">!</span>($(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">msg</span>)<span class="kw-2">*</span>), <span class="macro">file</span><span class="macro">!</span>(), <span class="macro">module_path</span><span class="macro">!</span>(), <span class="macro">line</span><span class="macro">!</span>())
+        <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">BoolError</span>::<span class="ident">new</span>(<span class="macro">format!</span>($(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">msg</span>)<span class="kw-2">*</span>), <span class="macro">file!</span>(), <span class="macro">module_path!</span>(), <span class="macro">line!</span>())
     }};
 );
 
 <span class="attribute">#[<span class="ident">macro_export</span>]</span>
-<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">result_from_gboolean</span>(
+<span class="macro">macro_rules!</span> <span class="ident">result_from_gboolean</span>(
 <span class="comment">// Plain strings</span>
     (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_bool</span>:<span class="ident">expr</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">msg</span>:<span class="ident">expr</span>) <span class="op">=</span><span class="op">&gt;</span>  {
-        <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">BoolError</span>::<span class="ident">from_glib</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_bool</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">msg</span>, <span class="macro">file</span><span class="macro">!</span>(), <span class="macro">module_path</span><span class="macro">!</span>(), <span class="macro">line</span><span class="macro">!</span>())
+        <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">BoolError</span>::<span class="ident">from_glib</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_bool</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">msg</span>, <span class="macro">file!</span>(), <span class="macro">module_path!</span>(), <span class="macro">line!</span>())
     };
 
 <span class="comment">// Format strings</span>
     (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_bool</span>:<span class="ident">expr</span>, $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">msg</span>:<span class="ident">tt</span>)<span class="kw-2">*</span>) <span class="op">=</span><span class="op">&gt;</span>  { {
         <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">BoolError</span>::<span class="ident">from_glib</span>(
             <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_bool</span>,
-            <span class="macro">format</span><span class="macro">!</span>($(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">msg</span>)<span class="kw-2">*</span>),
-            <span class="macro">file</span><span class="macro">!</span>(),
-            <span class="macro">module_path</span><span class="macro">!</span>(),
-            <span class="macro">line</span><span class="macro">!</span>(),
+            <span class="macro">format!</span>($(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">msg</span>)<span class="kw-2">*</span>),
+            <span class="macro">file!</span>(),
+            <span class="macro">module_path!</span>(),
+            <span class="macro">line!</span>(),
         )
     }};
 );
@@ -445,27 +445,27 @@
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_bool_error</span>() {
-        <span class="kw">let</span> <span class="ident">from_static_msg</span> <span class="op">=</span> <span class="macro">bool_error</span><span class="macro">!</span>(<span class="string">&quot;Static message&quot;</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">from_static_msg</span>.<span class="ident">to_string</span>(), <span class="string">&quot;Static message&quot;</span>);
+        <span class="kw">let</span> <span class="ident">from_static_msg</span> <span class="op">=</span> <span class="macro">bool_error!</span>(<span class="string">&quot;Static message&quot;</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">from_static_msg</span>.<span class="ident">to_string</span>(), <span class="string">&quot;Static message&quot;</span>);
 
-        <span class="kw">let</span> <span class="ident">from_dynamic_msg</span> <span class="op">=</span> <span class="macro">bool_error</span><span class="macro">!</span>(<span class="string">&quot;{} message&quot;</span>, <span class="string">&quot;Dynamic&quot;</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">from_dynamic_msg</span>.<span class="ident">to_string</span>(), <span class="string">&quot;Dynamic message&quot;</span>);
+        <span class="kw">let</span> <span class="ident">from_dynamic_msg</span> <span class="op">=</span> <span class="macro">bool_error!</span>(<span class="string">&quot;{} message&quot;</span>, <span class="string">&quot;Dynamic&quot;</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">from_dynamic_msg</span>.<span class="ident">to_string</span>(), <span class="string">&quot;Dynamic message&quot;</span>);
 
-        <span class="kw">let</span> <span class="ident">false_static_res</span> <span class="op">=</span> <span class="macro">result_from_gboolean</span><span class="macro">!</span>(<span class="ident">ffi</span>::<span class="ident">GFALSE</span>, <span class="string">&quot;Static message&quot;</span>);
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">false_static_res</span>.<span class="ident">is_err</span>());
+        <span class="kw">let</span> <span class="ident">false_static_res</span> <span class="op">=</span> <span class="macro">result_from_gboolean!</span>(<span class="ident">ffi</span>::<span class="ident">GFALSE</span>, <span class="string">&quot;Static message&quot;</span>);
+        <span class="macro">assert!</span>(<span class="ident">false_static_res</span>.<span class="ident">is_err</span>());
         <span class="kw">let</span> <span class="ident">static_err</span> <span class="op">=</span> <span class="ident">false_static_res</span>.<span class="ident">err</span>().<span class="ident">unwrap</span>();
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">static_err</span>.<span class="ident">to_string</span>(), <span class="string">&quot;Static message&quot;</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">static_err</span>.<span class="ident">to_string</span>(), <span class="string">&quot;Static message&quot;</span>);
 
-        <span class="kw">let</span> <span class="ident">true_static_res</span> <span class="op">=</span> <span class="macro">result_from_gboolean</span><span class="macro">!</span>(<span class="ident">ffi</span>::<span class="ident">GTRUE</span>, <span class="string">&quot;Static message&quot;</span>);
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">true_static_res</span>.<span class="ident">is_ok</span>());
+        <span class="kw">let</span> <span class="ident">true_static_res</span> <span class="op">=</span> <span class="macro">result_from_gboolean!</span>(<span class="ident">ffi</span>::<span class="ident">GTRUE</span>, <span class="string">&quot;Static message&quot;</span>);
+        <span class="macro">assert!</span>(<span class="ident">true_static_res</span>.<span class="ident">is_ok</span>());
 
-        <span class="kw">let</span> <span class="ident">false_dynamic_res</span> <span class="op">=</span> <span class="macro">result_from_gboolean</span><span class="macro">!</span>(<span class="ident">ffi</span>::<span class="ident">GFALSE</span>, <span class="string">&quot;{} message&quot;</span>, <span class="string">&quot;Dynamic&quot;</span>);
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">false_dynamic_res</span>.<span class="ident">is_err</span>());
+        <span class="kw">let</span> <span class="ident">false_dynamic_res</span> <span class="op">=</span> <span class="macro">result_from_gboolean!</span>(<span class="ident">ffi</span>::<span class="ident">GFALSE</span>, <span class="string">&quot;{} message&quot;</span>, <span class="string">&quot;Dynamic&quot;</span>);
+        <span class="macro">assert!</span>(<span class="ident">false_dynamic_res</span>.<span class="ident">is_err</span>());
         <span class="kw">let</span> <span class="ident">dynamic_err</span> <span class="op">=</span> <span class="ident">false_dynamic_res</span>.<span class="ident">err</span>().<span class="ident">unwrap</span>();
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">dynamic_err</span>.<span class="ident">to_string</span>(), <span class="string">&quot;Dynamic message&quot;</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">dynamic_err</span>.<span class="ident">to_string</span>(), <span class="string">&quot;Dynamic message&quot;</span>);
 
-        <span class="kw">let</span> <span class="ident">true_dynamic_res</span> <span class="op">=</span> <span class="macro">result_from_gboolean</span><span class="macro">!</span>(<span class="ident">ffi</span>::<span class="ident">GTRUE</span>, <span class="string">&quot;{} message&quot;</span>, <span class="string">&quot;Dynamic&quot;</span>);
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">true_dynamic_res</span>.<span class="ident">is_ok</span>());
+        <span class="kw">let</span> <span class="ident">true_dynamic_res</span> <span class="op">=</span> <span class="macro">result_from_gboolean!</span>(<span class="ident">ffi</span>::<span class="ident">GTRUE</span>, <span class="string">&quot;{} message&quot;</span>, <span class="string">&quot;Dynamic&quot;</span>);
+        <span class="macro">assert!</span>(<span class="ident">true_dynamic_res</span>.<span class="ident">is_ok</span>());
     }
 }
 </pre></div>

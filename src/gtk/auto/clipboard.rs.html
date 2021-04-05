@@ -718,7 +718,7 @@
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
 
-<span class="ident">glib</span>::<span class="macro">wrapper</span><span class="macro">!</span> {
+<span class="ident">glib</span>::<span class="macro">wrapper!</span> {
     <span class="doccomment">/// The `Clipboard` object represents a clipboard of data shared</span>
     <span class="doccomment">/// between different processes or between different widgets in</span>
     <span class="doccomment">/// the same process. Each clipboard is identified by a name encoded as a</span>
@@ -1327,7 +1327,7 @@
     <span class="doccomment">///  owned by GTK+, must not be freed or unreffed.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_clipboard_get&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get</span>(<span class="ident">selection</span>: <span class="kw-2">&amp;</span><span class="ident">gdk</span>::<span class="ident">Atom</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Clipboard</span> {
-        <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
+        <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">gtk_clipboard_get</span>(<span class="ident">selection</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
@@ -1346,7 +1346,7 @@
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_16&quot;</span>)))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_clipboard_get_default&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_default</span>(<span class="ident">display</span>: <span class="kw-2">&amp;</span><span class="ident">gdk</span>::<span class="ident">Display</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Clipboard</span><span class="op">&gt;</span> {
-        <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
+        <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">gtk_clipboard_get_default</span>(<span class="ident">display</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
@@ -1389,7 +1389,7 @@
     <span class="doccomment">///  GTK+, must not be freed or unrefd.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_clipboard_get_for_display&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_for_display</span>(<span class="ident">display</span>: <span class="kw-2">&amp;</span><span class="ident">gdk</span>::<span class="ident">Display</span>, <span class="ident">selection</span>: <span class="kw-2">&amp;</span><span class="ident">gdk</span>::<span class="ident">Atom</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Clipboard</span> {
-        <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
+        <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe</span> {
             <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">gtk_clipboard_get_for_display</span>(
                 <span class="ident">display</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,

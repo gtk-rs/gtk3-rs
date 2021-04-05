@@ -265,7 +265,7 @@
     }
 
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_raw_full</span>(<span class="ident">pointer</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo_path_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Path</span> {
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">pointer</span>.<span class="ident">is_null</span>());
+        <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">pointer</span>.<span class="ident">is_null</span>());
         <span class="ident">Path</span>(<span class="ident">ptr</span>::<span class="ident">NonNull</span>::<span class="ident">new_unchecked</span>(<span class="ident">pointer</span>))
     }
 
@@ -301,7 +301,7 @@
 
 <span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">Path</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;Path&quot;</span>)
+        <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;Path&quot;</span>)
     }
 }
 
@@ -315,7 +315,7 @@
 
 <span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">PathSegment</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="macro">write</span><span class="macro">!</span>(
+        <span class="macro">write!</span>(
             <span class="ident">f</span>,
             <span class="string">&quot;PathSegment::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
@@ -352,7 +352,7 @@
                     <span class="ident">to_tuple</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">data</span>[<span class="self">self</span>.<span class="ident">i</span> <span class="op">+</span> <span class="number">3</span>].<span class="ident">point</span>),
                 ),
                 <span class="ident">PathDataType</span>::<span class="ident">ClosePath</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">PathSegment</span>::<span class="ident">ClosePath</span>,
-                <span class="ident">PathDataType</span>::<span class="ident">__Unknown</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Unknown value: {}&quot;</span>, <span class="ident">x</span>),
+                <span class="ident">PathDataType</span>::<span class="ident">__Unknown</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic!</span>(<span class="string">&quot;Unknown value: {}&quot;</span>, <span class="ident">x</span>),
             };
 
             <span class="self">self</span>.<span class="ident">i</span> <span class="op">+</span><span class="op">=</span> <span class="self">self</span>.<span class="ident">data</span>[<span class="self">self</span>.<span class="ident">i</span>].<span class="ident">header</span>.<span class="ident">length</span> <span class="kw">as</span> <span class="ident">usize</span>;
@@ -364,7 +364,7 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">PathSegments</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;PathSegments&quot;</span>)
+        <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;PathSegments&quot;</span>)
     }
 }
 
@@ -391,7 +391,7 @@
         <span class="kw">let</span> <span class="ident">expected_iter</span> <span class="op">=</span> <span class="ident">expected</span>.<span class="ident">iter</span>();
         <span class="kw">let</span> <span class="ident">actual_iter</span> <span class="op">=</span> <span class="ident">actual</span>.<span class="ident">iter</span>();
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">expected_iter</span>.<span class="ident">count</span>(), <span class="ident">actual_iter</span>.<span class="ident">count</span>());
+        <span class="macro">assert_eq!</span>(<span class="ident">expected_iter</span>.<span class="ident">count</span>(), <span class="ident">actual_iter</span>.<span class="ident">count</span>());
 
         <span class="comment">// Then actually compare the contents</span>
 
@@ -400,7 +400,7 @@
 
         <span class="kw">let</span> <span class="ident">iter</span> <span class="op">=</span> <span class="ident">expected_iter</span>.<span class="ident">zip</span>(<span class="ident">actual_iter</span>);
         <span class="kw">for</span> (<span class="ident">e</span>, <span class="ident">a</span>) <span class="kw">in</span> <span class="ident">iter</span> {
-            <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">e</span>, <span class="kw-2">*</span><span class="ident">a</span>);
+            <span class="macro">assert_eq!</span>(<span class="ident">e</span>, <span class="kw-2">*</span><span class="ident">a</span>);
         }
     }
 
@@ -410,7 +410,7 @@
 
         <span class="kw">let</span> <span class="ident">path</span> <span class="op">=</span> <span class="ident">cr</span>.<span class="ident">copy_path</span>();
 
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">path</span>.<span class="ident">iter</span>().<span class="ident">next</span>().<span class="ident">is_none</span>());
+        <span class="macro">assert!</span>(<span class="ident">path</span>.<span class="ident">iter</span>().<span class="ident">next</span>().<span class="ident">is_none</span>());
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>

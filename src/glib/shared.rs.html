@@ -437,11 +437,11 @@
 
 <span class="doccomment">/// Wrapper implementations for shared types. See `wrapper!`.</span>
 <span class="attribute">#[<span class="ident">macro_export</span>]</span>
-<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">glib_shared_wrapper</span> {
+<span class="macro">macro_rules!</span> <span class="ident">glib_shared_wrapper</span> {
     ([$(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">attr</span>:<span class="ident">meta</span>)<span class="kw-2">*</span>] <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span>:<span class="ident">ty</span>, @<span class="kw-2">ref</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ref_arg</span>:<span class="ident">ident</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ref_expr</span>:<span class="ident">expr</span>,
      @<span class="ident">unref</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">unref_arg</span>:<span class="ident">ident</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">unref_expr</span>:<span class="ident">expr</span>,
      @<span class="ident">get_type</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">get_type_expr</span>:<span class="ident">expr</span>) <span class="op">=</span><span class="op">&gt;</span> {
-        <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro">glib_shared_wrapper</span><span class="macro">!</span>([$(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">attr</span>)<span class="kw-2">*</span>] <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span>, @<span class="kw-2">ref</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ref_arg</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ref_expr</span>,
+        <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro">glib_shared_wrapper!</span>([$(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">attr</span>)<span class="kw-2">*</span>] <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span>, @<span class="kw-2">ref</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ref_arg</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ref_expr</span>,
             @<span class="ident">unref</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">unref_arg</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">unref_expr</span>);
 
         <span class="kw">impl</span> <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">types</span>::<span class="ident">StaticType</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> {
@@ -565,12 +565,12 @@
 
             <span class="kw">fn</span> <span class="ident">to_glib_container_from_slice</span>(<span class="kw">_</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>]) <span class="op">-</span><span class="op">&gt;</span> (<span class="kw-2">*</span><span class="kw">const</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span>, <span class="self">Self</span>::<span class="ident">Storage</span>) {
                 <span class="comment">// Can&#39;t have consumer free a *const pointer</span>
-                <span class="macro">unimplemented</span><span class="macro">!</span>()
+                <span class="macro">unimplemented!</span>()
             }
 
             <span class="kw">fn</span> <span class="ident">to_glib_full_from_slice</span>(<span class="kw">_</span>: <span class="kw-2">&amp;</span>[<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span> {
                 <span class="comment">// Can&#39;t have consumer free a *const pointer</span>
-                <span class="macro">unimplemented</span><span class="macro">!</span>()
+                <span class="macro">unimplemented!</span>()
             }
         }
 
@@ -675,12 +675,12 @@
 
             <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_container_num_as_vec</span>(<span class="kw">_</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span>, <span class="kw">_</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
                 <span class="comment">// Can&#39;t free a *const</span>
-                <span class="macro">unimplemented</span><span class="macro">!</span>()
+                <span class="macro">unimplemented!</span>()
             }
 
             <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_full_num_as_vec</span>(<span class="kw">_</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span>, <span class="kw">_</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
                 <span class="comment">// Can&#39;t free a *const</span>
-                <span class="macro">unimplemented</span><span class="macro">!</span>()
+                <span class="macro">unimplemented!</span>()
             }
         }
 
@@ -692,12 +692,12 @@
 
             <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_container_as_vec</span>(<span class="kw">_</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
                 <span class="comment">// Can&#39;t free a *const</span>
-                <span class="macro">unimplemented</span><span class="macro">!</span>()
+                <span class="macro">unimplemented!</span>()
             }
 
             <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_full_as_vec</span>(<span class="kw">_</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
                 <span class="comment">// Can&#39;t free a *const</span>
-                <span class="macro">unimplemented</span><span class="macro">!</span>()
+                <span class="macro">unimplemented!</span>()
             }
         }
     }
@@ -804,7 +804,7 @@
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="lifetime">&#39;static</span>, <span class="ident">MM</span>: <span class="ident">SharedMemoryManager</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="ident">FromGlibPtrNone</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Shared</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">MM</span><span class="op">&gt;</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_none</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
+        <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
         <span class="ident">MM</span>::<span class="ident">ref_</span>(<span class="ident">ptr</span>);
         <span class="ident">Shared</span> {
             <span class="ident">inner</span>: <span class="ident">ptr</span>::<span class="ident">NonNull</span>::<span class="ident">new_unchecked</span>(<span class="ident">ptr</span>),
@@ -816,7 +816,7 @@
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="lifetime">&#39;static</span>, <span class="ident">MM</span>: <span class="ident">SharedMemoryManager</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="ident">FromGlibPtrNone</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw">const</span> <span class="ident">T</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Shared</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">MM</span><span class="op">&gt;</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_none</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
+        <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
         <span class="ident">MM</span>::<span class="ident">ref_</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>);
         <span class="ident">Shared</span> {
             <span class="ident">inner</span>: <span class="ident">ptr</span>::<span class="ident">NonNull</span>::<span class="ident">new_unchecked</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>),
@@ -828,7 +828,7 @@
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="lifetime">&#39;static</span>, <span class="ident">MM</span>: <span class="ident">SharedMemoryManager</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="ident">FromGlibPtrFull</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Shared</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">MM</span><span class="op">&gt;</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_full</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
+        <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
         <span class="ident">Shared</span> {
             <span class="ident">inner</span>: <span class="ident">ptr</span>::<span class="ident">NonNull</span>::<span class="ident">new_unchecked</span>(<span class="ident">ptr</span>),
             <span class="ident">mm</span>: <span class="ident">PhantomData</span>,
@@ -839,7 +839,7 @@
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="lifetime">&#39;static</span>, <span class="ident">MM</span>: <span class="ident">SharedMemoryManager</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="ident">FromGlibPtrBorrow</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Shared</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">MM</span><span class="op">&gt;</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_borrow</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
+        <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
         <span class="ident">Borrowed</span>::<span class="ident">new</span>(<span class="ident">Shared</span> {
             <span class="ident">inner</span>: <span class="ident">ptr</span>::<span class="ident">NonNull</span>::<span class="ident">new_unchecked</span>(<span class="ident">ptr</span>),
             <span class="ident">mm</span>: <span class="ident">PhantomData</span>,

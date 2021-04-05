@@ -32,8 +32,8 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EventGrabBroken</span>(<span class="kw">crate</span>::<span class="ident">Event</span>);
 
-<span class="macro">event_wrapper</span><span class="macro">!</span>(<span class="ident">EventGrabBroken</span>, <span class="ident">GdkEventGrabBroken</span>);
-<span class="macro">event_subtype</span><span class="macro">!</span>(<span class="ident">EventGrabBroken</span>, <span class="ident">ffi</span>::<span class="ident">GDK_GRAB_BROKEN</span>);
+<span class="macro">event_wrapper!</span>(<span class="ident">EventGrabBroken</span>, <span class="ident">GdkEventGrabBroken</span>);
+<span class="macro">event_subtype!</span>(<span class="ident">EventGrabBroken</span>, <span class="ident">ffi</span>::<span class="ident">GDK_GRAB_BROKEN</span>);
 
 <span class="kw">impl</span> <span class="ident">EventGrabBroken</span> {
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_keyboard</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {

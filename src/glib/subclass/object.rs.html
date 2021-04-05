@@ -683,7 +683,7 @@
     <span class="doccomment">/// This is called whenever the property of this specific subclass with the</span>
     <span class="doccomment">/// given index is set. The new value is passed as `glib::Value`.</span>
     <span class="kw">fn</span> <span class="ident">set_property</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">_obj</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>, <span class="ident">_id</span>: <span class="ident">usize</span>, <span class="ident">_value</span>: <span class="kw-2">&amp;</span><span class="ident">Value</span>, <span class="ident">_pspec</span>: <span class="kw-2">&amp;</span><span class="ident">ParamSpec</span>) {
-        <span class="macro">unimplemented</span><span class="macro">!</span>()
+        <span class="macro">unimplemented!</span>()
     }
 
     <span class="doccomment">/// Property getter.</span>
@@ -691,7 +691,7 @@
     <span class="doccomment">/// This is called whenever the property value of the specific subclass with the</span>
     <span class="doccomment">/// given index should be returned.</span>
     <span class="kw">fn</span> <span class="ident">get_property</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">_obj</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>, <span class="ident">_id</span>: <span class="ident">usize</span>, <span class="ident">_pspec</span>: <span class="kw-2">&amp;</span><span class="ident">ParamSpec</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Value</span> {
-        <span class="macro">unimplemented</span><span class="macro">!</span>()
+        <span class="macro">unimplemented!</span>()
     }
 
     <span class="doccomment">/// Constructed.</span>
@@ -918,7 +918,7 @@
             <span class="kw">fn</span> <span class="ident">signals</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> [<span class="kw">super</span>::<span class="ident">Signal</span>] {
                 <span class="kw">use</span> <span class="ident">once_cell</span>::<span class="ident">sync</span>::<span class="ident">Lazy</span>;
                 <span class="kw">static</span> <span class="ident">SIGNALS</span>: <span class="ident">Lazy</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">super</span>::<span class="ident">Signal</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Lazy</span>::<span class="ident">new</span>(<span class="op">|</span><span class="op">|</span> {
-                    <span class="macro">vec</span><span class="macro">!</span>[
+                    <span class="macro">vec!</span>[
                         <span class="kw">super</span>::<span class="ident">Signal</span>::<span class="ident">builder</span>(
                             <span class="string">&quot;name-changed&quot;</span>,
                             <span class="kw-2">&amp;</span>[<span class="ident">String</span>::<span class="ident">static_type</span>().<span class="ident">into</span>()],
@@ -968,7 +968,7 @@
             <span class="kw">fn</span> <span class="ident">properties</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> [<span class="ident">ParamSpec</span>] {
                 <span class="kw">use</span> <span class="ident">once_cell</span>::<span class="ident">sync</span>::<span class="ident">Lazy</span>;
                 <span class="kw">static</span> <span class="ident">PROPERTIES</span>: <span class="ident">Lazy</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ParamSpec</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Lazy</span>::<span class="ident">new</span>(<span class="op">|</span><span class="op">|</span> {
-                    <span class="macro">vec</span><span class="macro">!</span>[
+                    <span class="macro">vec!</span>[
                         <span class="kw">crate</span>::<span class="ident">ParamSpec</span>::<span class="ident">string</span>(
                             <span class="string">&quot;name&quot;</span>,
                             <span class="string">&quot;Name&quot;</span>,
@@ -1028,7 +1028,7 @@
                     <span class="string">&quot;child&quot;</span> <span class="op">=</span><span class="op">&gt;</span> {
                         <span class="comment">// not stored, only used to test `set_property` with `Objects`</span>
                     }
-                    <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">unimplemented</span><span class="macro">!</span>(),
+                    <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">unimplemented!</span>(),
                 }
             }
 
@@ -1042,15 +1042,15 @@
                     <span class="string">&quot;name&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">name</span>.<span class="ident">borrow</span>().<span class="ident">to_value</span>(),
                     <span class="string">&quot;construct-name&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">construct_name</span>.<span class="ident">borrow</span>().<span class="ident">to_value</span>(),
                     <span class="string">&quot;constructed&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">constructed</span>.<span class="ident">borrow</span>().<span class="ident">to_value</span>(),
-                    <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">unimplemented</span><span class="macro">!</span>(),
+                    <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">unimplemented!</span>(),
                 }
             }
 
             <span class="kw">fn</span> <span class="ident">constructed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">obj</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>) {
                 <span class="self">self</span>.<span class="ident">parent_constructed</span>(<span class="ident">obj</span>);
 
-                <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">obj</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">get_instance</span>());
-                <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>, <span class="self">Self</span>::<span class="ident">from_instance</span>(<span class="ident">obj</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>);
+                <span class="macro">assert_eq!</span>(<span class="ident">obj</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">get_instance</span>());
+                <span class="macro">assert_eq!</span>(<span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>, <span class="self">Self</span>::<span class="ident">from_instance</span>(<span class="ident">obj</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>);
 
                 <span class="kw-2">*</span><span class="self">self</span>.<span class="ident">constructed</span>.<span class="ident">borrow_mut</span>() <span class="op">=</span> <span class="bool-val">true</span>;
             }
@@ -1068,15 +1068,15 @@
         }
     }
 
-    <span class="macro">wrapper</span><span class="macro">!</span> {
+    <span class="macro">wrapper!</span> {
         <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ChildObject</span>(<span class="ident">ObjectSubclass</span><span class="op">&lt;</span><span class="ident">imp</span>::<span class="ident">ChildObject</span><span class="op">&gt;</span>);
     }
 
-    <span class="macro">wrapper</span><span class="macro">!</span> {
+    <span class="macro">wrapper!</span> {
         <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SimpleObject</span>(<span class="ident">ObjectSubclass</span><span class="op">&lt;</span><span class="ident">imp</span>::<span class="ident">SimpleObject</span><span class="op">&gt;</span>);
     }
 
-    <span class="macro">wrapper</span><span class="macro">!</span> {
+    <span class="macro">wrapper!</span> {
         <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Dummy</span>(<span class="ident">ObjectInterface</span><span class="op">&lt;</span><span class="ident">imp</span>::<span class="ident">DummyInterface</span><span class="op">&gt;</span>);
     }
 
@@ -1090,9 +1090,9 @@
         <span class="kw">let</span> <span class="ident">type_</span> <span class="op">=</span> <span class="ident">SimpleObject</span>::<span class="ident">static_type</span>();
         <span class="kw">let</span> <span class="ident">obj</span> <span class="op">=</span> <span class="ident">Object</span>::<span class="ident">with_type</span>(<span class="ident">type_</span>, <span class="kw-2">&amp;</span>[]).<span class="ident">expect</span>(<span class="string">&quot;Object::new failed&quot;</span>);
 
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">obj</span>.<span class="ident">get_type</span>().<span class="ident">is_a</span>(<span class="ident">Dummy</span>::<span class="ident">static_type</span>()));
+        <span class="macro">assert!</span>(<span class="ident">obj</span>.<span class="ident">get_type</span>().<span class="ident">is_a</span>(<span class="ident">Dummy</span>::<span class="ident">static_type</span>()));
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="ident">obj</span>.<span class="ident">get_property</span>(<span class="string">&quot;constructed&quot;</span>)
                 .<span class="ident">expect</span>(<span class="string">&quot;Failed to get &#39;constructed&#39; property&quot;</span>)
                 .<span class="ident">get_some</span>::<span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span>()
@@ -1102,7 +1102,7 @@
 
         <span class="kw">let</span> <span class="ident">weak</span> <span class="op">=</span> <span class="ident">obj</span>.<span class="ident">downgrade</span>();
         <span class="ident">drop</span>(<span class="ident">obj</span>);
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">weak</span>.<span class="ident">upgrade</span>().<span class="ident">is_none</span>());
+        <span class="macro">assert!</span>(<span class="ident">weak</span>.<span class="ident">upgrade</span>().<span class="ident">is_none</span>());
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -1110,7 +1110,7 @@
         <span class="kw">let</span> <span class="ident">obj</span>: <span class="ident">ChildObject</span> <span class="op">=</span> <span class="ident">Object</span>::<span class="ident">new</span>(<span class="kw-2">&amp;</span>[]).<span class="ident">expect</span>(<span class="string">&quot;Object::new failed&quot;</span>);
 
         <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="ident">imp</span>::<span class="ident">ChildObject</span>::<span class="ident">from_instance</span>(<span class="kw-2">&amp;</span><span class="ident">obj</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">obj</span>, <span class="ident">imp</span>.<span class="ident">get_instance</span>());
+        <span class="macro">assert_eq!</span>(<span class="ident">obj</span>, <span class="ident">imp</span>.<span class="ident">get_instance</span>());
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -1121,21 +1121,21 @@
         )
         .<span class="ident">expect</span>(<span class="string">&quot;Object::new failed&quot;</span>);
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="ident">obj</span>.<span class="ident">get_property</span>(<span class="string">&quot;construct-name&quot;</span>)
                 .<span class="ident">expect</span>(<span class="string">&quot;Failed to get &#39;construct-name&#39; property&quot;</span>)
                 .<span class="ident">get</span>::<span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>()
                 .<span class="ident">expect</span>(<span class="string">&quot;Failed to get str from &#39;construct-name&#39; property&quot;</span>),
             <span class="prelude-val">Some</span>(<span class="string">&quot;meh&quot;</span>)
         );
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="ident">obj</span>.<span class="ident">set_property</span>(<span class="string">&quot;construct-name&quot;</span>, <span class="kw-2">&amp;</span><span class="string">&quot;test&quot;</span>)
                 .<span class="ident">err</span>()
                 .<span class="ident">expect</span>(<span class="string">&quot;Failed to set &#39;construct-name&#39; property&quot;</span>)
                 .<span class="ident">to_string</span>(),
             <span class="string">&quot;property &#39;construct-name&#39; of type &#39;SimpleObject&#39; is not writable&quot;</span>,
         );
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="ident">obj</span>.<span class="ident">get_property</span>(<span class="string">&quot;construct-name&quot;</span>)
                 .<span class="ident">expect</span>(<span class="string">&quot;Failed to get &#39;construct-name&#39; property&quot;</span>)
                 .<span class="ident">get</span>::<span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>()
@@ -1143,15 +1143,15 @@
             <span class="prelude-val">Some</span>(<span class="string">&quot;meh&quot;</span>)
         );
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="ident">obj</span>.<span class="ident">get_property</span>(<span class="string">&quot;name&quot;</span>)
                 .<span class="ident">expect</span>(<span class="string">&quot;Failed to get &#39;name&#39; property&quot;</span>)
                 .<span class="ident">get</span>::<span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>()
                 .<span class="ident">expect</span>(<span class="string">&quot;Failed to get str from &#39;name&#39; property&quot;</span>),
             <span class="prelude-val">Some</span>(<span class="string">&quot;initial&quot;</span>)
         );
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">obj</span>.<span class="ident">set_property</span>(<span class="string">&quot;name&quot;</span>, <span class="kw-2">&amp;</span><span class="string">&quot;test&quot;</span>).<span class="ident">is_ok</span>());
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert!</span>(<span class="ident">obj</span>.<span class="ident">set_property</span>(<span class="string">&quot;name&quot;</span>, <span class="kw-2">&amp;</span><span class="string">&quot;test&quot;</span>).<span class="ident">is_ok</span>());
+        <span class="macro">assert_eq!</span>(
             <span class="ident">obj</span>.<span class="ident">get_property</span>(<span class="string">&quot;name&quot;</span>)
                 .<span class="ident">expect</span>(<span class="string">&quot;Failed to get &#39;name&#39; property&quot;</span>)
                 .<span class="ident">get</span>::<span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>()
@@ -1159,7 +1159,7 @@
             <span class="prelude-val">Some</span>(<span class="string">&quot;test&quot;</span>)
         );
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="ident">obj</span>.<span class="ident">set_property</span>(<span class="string">&quot;test&quot;</span>, <span class="kw-2">&amp;</span><span class="bool-val">true</span>)
                 .<span class="ident">err</span>()
                 .<span class="ident">expect</span>(<span class="string">&quot;set_property failed&quot;</span>)
@@ -1167,7 +1167,7 @@
             <span class="string">&quot;property &#39;test&#39; of type &#39;SimpleObject&#39; not found&quot;</span>,
         );
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="ident">obj</span>.<span class="ident">set_property</span>(<span class="string">&quot;constructed&quot;</span>, <span class="kw-2">&amp;</span><span class="bool-val">false</span>)
                 .<span class="ident">err</span>()
                 .<span class="ident">expect</span>(<span class="string">&quot;Failed to set &#39;constructed&#39; property&quot;</span>)
@@ -1175,7 +1175,7 @@
             <span class="string">&quot;property &#39;constructed&#39; of type &#39;SimpleObject&#39; is not writable&quot;</span>,
         );
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="ident">obj</span>.<span class="ident">set_property</span>(<span class="string">&quot;name&quot;</span>, <span class="kw-2">&amp;</span><span class="bool-val">false</span>)
                 .<span class="ident">err</span>()
                 .<span class="ident">expect</span>(<span class="string">&quot;Failed to set &#39;name&#39; property&quot;</span>)
@@ -1185,7 +1185,7 @@
 
         <span class="kw">let</span> <span class="ident">other_obj</span> <span class="op">=</span>
             <span class="ident">Object</span>::<span class="ident">with_type</span>(<span class="ident">SimpleObject</span>::<span class="ident">static_type</span>(), <span class="kw-2">&amp;</span>[]).<span class="ident">expect</span>(<span class="string">&quot;Object::new failed&quot;</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="ident">obj</span>.<span class="ident">set_property</span>(<span class="string">&quot;child&quot;</span>, <span class="kw-2">&amp;</span><span class="ident">other_obj</span>)
                 .<span class="ident">err</span>()
                 .<span class="ident">expect</span>(<span class="string">&quot;Failed to set &#39;child&#39; property&quot;</span>)
@@ -1194,7 +1194,7 @@
         );
 
         <span class="kw">let</span> <span class="ident">child</span> <span class="op">=</span> <span class="ident">Object</span>::<span class="ident">with_type</span>(<span class="ident">ChildObject</span>::<span class="ident">static_type</span>(), <span class="kw-2">&amp;</span>[]).<span class="ident">expect</span>(<span class="string">&quot;Object::new failed&quot;</span>);
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">obj</span>.<span class="ident">set_property</span>(<span class="string">&quot;child&quot;</span>, <span class="kw-2">&amp;</span><span class="ident">child</span>).<span class="ident">is_ok</span>());
+        <span class="macro">assert!</span>(<span class="ident">obj</span>.<span class="ident">set_property</span>(<span class="string">&quot;child&quot;</span>, <span class="kw-2">&amp;</span><span class="ident">child</span>).<span class="ident">is_ok</span>());
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -1217,21 +1217,21 @@
                 .<span class="ident">expect</span>(<span class="string">&quot;Failed to get args[1]&quot;</span>)
                 .<span class="ident">expect</span>(<span class="string">&quot;Failed to get str from args[1]&quot;</span>);
 
-            <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">name</span>, <span class="string">&quot;new-name&quot;</span>);
+            <span class="macro">assert_eq!</span>(<span class="ident">name</span>, <span class="string">&quot;new-name&quot;</span>);
             <span class="ident">name_changed_clone</span>.<span class="ident">store</span>(<span class="bool-val">true</span>, <span class="ident">Ordering</span>::<span class="ident">Relaxed</span>);
 
             <span class="prelude-val">None</span>
         })
         .<span class="ident">expect</span>(<span class="string">&quot;Failed to connect on &#39;name-changed&#39;&quot;</span>);
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="ident">obj</span>.<span class="ident">get_property</span>(<span class="string">&quot;name&quot;</span>)
                 .<span class="ident">expect</span>(<span class="string">&quot;Failed to get &#39;name&#39; property&quot;</span>)
                 .<span class="ident">get</span>::<span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>()
                 .<span class="ident">expect</span>(<span class="string">&quot;Failed to get str from &#39;name&#39; property&quot;</span>),
             <span class="prelude-val">Some</span>(<span class="string">&quot;old-name&quot;</span>)
         );
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">name_changed_triggered</span>.<span class="ident">load</span>(<span class="ident">Ordering</span>::<span class="ident">Relaxed</span>));
+        <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">name_changed_triggered</span>.<span class="ident">load</span>(<span class="ident">Ordering</span>::<span class="ident">Relaxed</span>));
 
         <span class="kw">let</span> <span class="ident">old_name</span> <span class="op">=</span> <span class="ident">obj</span>
             .<span class="ident">emit_by_name</span>(<span class="string">&quot;change-name&quot;</span>, <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span><span class="string">&quot;new-name&quot;</span>])
@@ -1239,8 +1239,8 @@
             .<span class="ident">expect</span>(<span class="string">&quot;Failed to get value from emit&quot;</span>)
             .<span class="ident">get</span>::<span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>()
             .<span class="ident">expect</span>(<span class="string">&quot;Failed to get str from emit&quot;</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">old_name</span>, <span class="prelude-val">Some</span>(<span class="string">&quot;old-name&quot;</span>.<span class="ident">to_string</span>()));
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">name_changed_triggered</span>.<span class="ident">load</span>(<span class="ident">Ordering</span>::<span class="ident">Relaxed</span>));
+        <span class="macro">assert_eq!</span>(<span class="ident">old_name</span>, <span class="prelude-val">Some</span>(<span class="string">&quot;old-name&quot;</span>.<span class="ident">to_string</span>()));
+        <span class="macro">assert!</span>(<span class="ident">name_changed_triggered</span>.<span class="ident">load</span>(<span class="ident">Ordering</span>::<span class="ident">Relaxed</span>));
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -1258,7 +1258,7 @@
             .<span class="ident">emit</span>(<span class="ident">signal_id</span>, <span class="kw-2">&amp;</span>[])
             .<span class="ident">expect</span>(<span class="string">&quot;Failed to emit&quot;</span>)
             .<span class="ident">expect</span>(<span class="string">&quot;Failed to get value from emit&quot;</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">value</span>.<span class="ident">get</span>::<span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>(), <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;return value&quot;</span>.<span class="ident">to_string</span>())));
+        <span class="macro">assert_eq!</span>(<span class="ident">value</span>.<span class="ident">get</span>::<span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>(), <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="string">&quot;return value&quot;</span>.<span class="ident">to_string</span>())));
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -1276,7 +1276,7 @@
             <span class="ident">name_changed_clone</span>.<span class="ident">store</span>(<span class="bool-val">true</span>, <span class="ident">Ordering</span>::<span class="ident">Relaxed</span>);
         });
         <span class="ident">obj</span>.<span class="ident">notify</span>(<span class="string">&quot;name&quot;</span>);
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">name_changed_triggered</span>.<span class="ident">load</span>(<span class="ident">Ordering</span>::<span class="ident">Relaxed</span>));
+        <span class="macro">assert!</span>(<span class="ident">name_changed_triggered</span>.<span class="ident">load</span>(<span class="ident">Ordering</span>::<span class="ident">Relaxed</span>));
     }
 
     <span class="comment">// Note: can&#39;t test type mismatch in signals since panics accross FFI boundaries</span>
@@ -1299,7 +1299,7 @@
             .<span class="ident">emit_by_name</span>(<span class="string">&quot;create-child-object&quot;</span>, <span class="kw-2">&amp;</span>[])
             .<span class="ident">expect</span>(<span class="string">&quot;Failed to emit&quot;</span>)
             .<span class="ident">expect</span>(<span class="string">&quot;Failed to get value from emit&quot;</span>);
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">value</span>.<span class="ident">type_</span>().<span class="ident">is_a</span>(<span class="ident">ChildObject</span>::<span class="ident">static_type</span>()));
+        <span class="macro">assert!</span>(<span class="ident">value</span>.<span class="ident">type_</span>().<span class="ident">is_a</span>(<span class="ident">ChildObject</span>::<span class="ident">static_type</span>()));
     }
 }
 </pre></div>

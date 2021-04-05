@@ -1959,7 +1959,7 @@
 
 <span class="comment">// Helper macro for our GValue related trait impls</span>
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">gvalue_impl</span> {
+<span class="macro">macro_rules!</span> <span class="ident">gvalue_impl</span> {
     (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ty</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">get_type</span>:<span class="ident">expr</span>) <span class="op">=</span><span class="op">&gt;</span> {
         <span class="kw">impl</span> <span class="ident">glib</span>::<span class="ident">types</span>::<span class="ident">StaticType</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> {
             <span class="kw">fn</span> <span class="ident">static_type</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib</span>::<span class="ident">Type</span> {
@@ -2039,7 +2039,7 @@
 
 <span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">Antialias</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="macro">write</span><span class="macro">!</span>(
+        <span class="macro">write!</span>(
             <span class="ident">f</span>,
             <span class="string">&quot;Antialias::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
@@ -2057,7 +2057,7 @@
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="macro">gvalue_impl</span><span class="macro">!</span>(<span class="ident">Antialias</span>, <span class="ident">ffi</span>::<span class="ident">gobject</span>::<span class="ident">cairo_gobject_antialias_get_type</span>);
+<span class="macro">gvalue_impl!</span>(<span class="ident">Antialias</span>, <span class="ident">ffi</span>::<span class="ident">gobject</span>::<span class="ident">cairo_gobject_antialias_get_type</span>);
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">PartialEq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Debug</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
@@ -2092,7 +2092,7 @@
 
 <span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">FillRule</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="macro">write</span><span class="macro">!</span>(
+        <span class="macro">write!</span>(
             <span class="ident">f</span>,
             <span class="string">&quot;FillRule::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
@@ -2105,7 +2105,7 @@
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="macro">gvalue_impl</span><span class="macro">!</span>(<span class="ident">FillRule</span>, <span class="ident">ffi</span>::<span class="ident">gobject</span>::<span class="ident">cairo_gobject_fill_rule_get_type</span>);
+<span class="macro">gvalue_impl!</span>(<span class="ident">FillRule</span>, <span class="ident">ffi</span>::<span class="ident">gobject</span>::<span class="ident">cairo_gobject_fill_rule_get_type</span>);
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">PartialEq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Debug</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
@@ -2143,7 +2143,7 @@
 
 <span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">LineCap</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="macro">write</span><span class="macro">!</span>(
+        <span class="macro">write!</span>(
             <span class="ident">f</span>,
             <span class="string">&quot;LineCap::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
@@ -2157,7 +2157,7 @@
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="macro">gvalue_impl</span><span class="macro">!</span>(<span class="ident">LineCap</span>, <span class="ident">ffi</span>::<span class="ident">gobject</span>::<span class="ident">cairo_gobject_line_cap_get_type</span>);
+<span class="macro">gvalue_impl!</span>(<span class="ident">LineCap</span>, <span class="ident">ffi</span>::<span class="ident">gobject</span>::<span class="ident">cairo_gobject_line_cap_get_type</span>);
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">PartialEq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Debug</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
@@ -2195,7 +2195,7 @@
 
 <span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">LineJoin</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="macro">write</span><span class="macro">!</span>(
+        <span class="macro">write!</span>(
             <span class="ident">f</span>,
             <span class="string">&quot;LineJoin::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
@@ -2209,7 +2209,7 @@
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="macro">gvalue_impl</span><span class="macro">!</span>(<span class="ident">LineJoin</span>, <span class="ident">ffi</span>::<span class="ident">gobject</span>::<span class="ident">cairo_gobject_line_join_get_type</span>);
+<span class="macro">gvalue_impl!</span>(<span class="ident">LineJoin</span>, <span class="ident">ffi</span>::<span class="ident">gobject</span>::<span class="ident">cairo_gobject_line_join_get_type</span>);
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">PartialEq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Debug</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
@@ -2329,7 +2329,7 @@
 
 <span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">Operator</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="macro">write</span><span class="macro">!</span>(
+        <span class="macro">write!</span>(
             <span class="ident">f</span>,
             <span class="string">&quot;Operator::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
@@ -2369,7 +2369,7 @@
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="macro">gvalue_impl</span><span class="macro">!</span>(<span class="ident">Operator</span>, <span class="ident">ffi</span>::<span class="ident">gobject</span>::<span class="ident">cairo_gobject_operator_get_type</span>);
+<span class="macro">gvalue_impl!</span>(<span class="ident">Operator</span>, <span class="ident">ffi</span>::<span class="ident">gobject</span>::<span class="ident">cairo_gobject_operator_get_type</span>);
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">PartialEq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Debug</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
@@ -2410,7 +2410,7 @@
 
 <span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">PathDataType</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="macro">write</span><span class="macro">!</span>(
+        <span class="macro">write!</span>(
             <span class="ident">f</span>,
             <span class="string">&quot;PathDataType::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
@@ -2425,7 +2425,7 @@
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="macro">gvalue_impl</span><span class="macro">!</span>(
+<span class="macro">gvalue_impl!</span>(
     <span class="ident">PathDataType</span>,
     <span class="ident">ffi</span>::<span class="ident">gobject</span>::<span class="ident">cairo_gobject_path_data_type_get_type</span>
 );
@@ -2466,7 +2466,7 @@
 
 <span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">Content</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="macro">write</span><span class="macro">!</span>(
+        <span class="macro">write!</span>(
             <span class="ident">f</span>,
             <span class="string">&quot;Content::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
@@ -2480,7 +2480,7 @@
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="macro">gvalue_impl</span><span class="macro">!</span>(<span class="ident">Content</span>, <span class="ident">ffi</span>::<span class="ident">gobject</span>::<span class="ident">cairo_gobject_content_get_type</span>);
+<span class="macro">gvalue_impl!</span>(<span class="ident">Content</span>, <span class="ident">ffi</span>::<span class="ident">gobject</span>::<span class="ident">cairo_gobject_content_get_type</span>);
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">PartialEq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Debug</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
@@ -2521,7 +2521,7 @@
 
 <span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">Extend</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="macro">write</span><span class="macro">!</span>(
+        <span class="macro">write!</span>(
             <span class="ident">f</span>,
             <span class="string">&quot;Extend::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
@@ -2536,7 +2536,7 @@
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="macro">gvalue_impl</span><span class="macro">!</span>(<span class="ident">Extend</span>, <span class="ident">ffi</span>::<span class="ident">gobject</span>::<span class="ident">cairo_gobject_extend_get_type</span>);
+<span class="macro">gvalue_impl!</span>(<span class="ident">Extend</span>, <span class="ident">ffi</span>::<span class="ident">gobject</span>::<span class="ident">cairo_gobject_extend_get_type</span>);
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">PartialEq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Debug</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
@@ -2583,7 +2583,7 @@
 
 <span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">Filter</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="macro">write</span><span class="macro">!</span>(
+        <span class="macro">write!</span>(
             <span class="ident">f</span>,
             <span class="string">&quot;Filter::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
@@ -2600,7 +2600,7 @@
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="macro">gvalue_impl</span><span class="macro">!</span>(<span class="ident">Filter</span>, <span class="ident">ffi</span>::<span class="ident">gobject</span>::<span class="ident">cairo_gobject_filter_get_type</span>);
+<span class="macro">gvalue_impl!</span>(<span class="ident">Filter</span>, <span class="ident">ffi</span>::<span class="ident">gobject</span>::<span class="ident">cairo_gobject_filter_get_type</span>);
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">PartialEq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Debug</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
@@ -2647,7 +2647,7 @@
 
 <span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">PatternType</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="macro">write</span><span class="macro">!</span>(
+        <span class="macro">write!</span>(
             <span class="ident">f</span>,
             <span class="string">&quot;PatternType::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
@@ -2664,7 +2664,7 @@
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="macro">gvalue_impl</span><span class="macro">!</span>(
+<span class="macro">gvalue_impl!</span>(
     <span class="ident">PatternType</span>,
     <span class="ident">ffi</span>::<span class="ident">gobject</span>::<span class="ident">cairo_gobject_pattern_type_get_type</span>
 );
@@ -2705,7 +2705,7 @@
 
 <span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">FontSlant</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="macro">write</span><span class="macro">!</span>(
+        <span class="macro">write!</span>(
             <span class="ident">f</span>,
             <span class="string">&quot;FontSlant::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
@@ -2719,7 +2719,7 @@
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="macro">gvalue_impl</span><span class="macro">!</span>(<span class="ident">FontSlant</span>, <span class="ident">ffi</span>::<span class="ident">gobject</span>::<span class="ident">cairo_gobject_font_slant_get_type</span>);
+<span class="macro">gvalue_impl!</span>(<span class="ident">FontSlant</span>, <span class="ident">ffi</span>::<span class="ident">gobject</span>::<span class="ident">cairo_gobject_font_slant_get_type</span>);
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">PartialEq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Debug</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
@@ -2754,7 +2754,7 @@
 
 <span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">FontWeight</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="macro">write</span><span class="macro">!</span>(
+        <span class="macro">write!</span>(
             <span class="ident">f</span>,
             <span class="string">&quot;FontWeight::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
@@ -2767,7 +2767,7 @@
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="macro">gvalue_impl</span><span class="macro">!</span>(<span class="ident">FontWeight</span>, <span class="ident">ffi</span>::<span class="ident">gobject</span>::<span class="ident">cairo_gobject_font_weight_get_type</span>);
+<span class="macro">gvalue_impl!</span>(<span class="ident">FontWeight</span>, <span class="ident">ffi</span>::<span class="ident">gobject</span>::<span class="ident">cairo_gobject_font_weight_get_type</span>);
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">PartialEq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Debug</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
@@ -2802,7 +2802,7 @@
 
 <span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">TextClusterFlags</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="macro">write</span><span class="macro">!</span>(
+        <span class="macro">write!</span>(
             <span class="ident">f</span>,
             <span class="string">&quot;TextClusterFlags::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
@@ -2815,7 +2815,7 @@
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="macro">gvalue_impl</span><span class="macro">!</span>(
+<span class="macro">gvalue_impl!</span>(
     <span class="ident">TextClusterFlags</span>,
     <span class="ident">ffi</span>::<span class="ident">gobject</span>::<span class="ident">cairo_gobject_text_cluster_flags_get_type</span>
 );
@@ -2862,7 +2862,7 @@
 
 <span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">FontType</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="macro">write</span><span class="macro">!</span>(
+        <span class="macro">write!</span>(
             <span class="ident">f</span>,
             <span class="string">&quot;FontType::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
@@ -2878,7 +2878,7 @@
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="macro">gvalue_impl</span><span class="macro">!</span>(<span class="ident">FontType</span>, <span class="ident">ffi</span>::<span class="ident">gobject</span>::<span class="ident">cairo_gobject_font_type_get_type</span>);
+<span class="macro">gvalue_impl!</span>(<span class="ident">FontType</span>, <span class="ident">ffi</span>::<span class="ident">gobject</span>::<span class="ident">cairo_gobject_font_type_get_type</span>);
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">PartialEq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Debug</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
@@ -2922,7 +2922,7 @@
 
 <span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">SubpixelOrder</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="macro">write</span><span class="macro">!</span>(
+        <span class="macro">write!</span>(
             <span class="ident">f</span>,
             <span class="string">&quot;SubpixelOrder::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
@@ -2938,7 +2938,7 @@
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="macro">gvalue_impl</span><span class="macro">!</span>(
+<span class="macro">gvalue_impl!</span>(
     <span class="ident">SubpixelOrder</span>,
     <span class="ident">ffi</span>::<span class="ident">gobject</span>::<span class="ident">cairo_gobject_subpixel_order_get_type</span>
 );
@@ -2985,7 +2985,7 @@
 
 <span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">HintStyle</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="macro">write</span><span class="macro">!</span>(
+        <span class="macro">write!</span>(
             <span class="ident">f</span>,
             <span class="string">&quot;HintStyle::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
@@ -3001,7 +3001,7 @@
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="macro">gvalue_impl</span><span class="macro">!</span>(<span class="ident">HintStyle</span>, <span class="ident">ffi</span>::<span class="ident">gobject</span>::<span class="ident">cairo_gobject_hint_style_get_type</span>);
+<span class="macro">gvalue_impl!</span>(<span class="ident">HintStyle</span>, <span class="ident">ffi</span>::<span class="ident">gobject</span>::<span class="ident">cairo_gobject_hint_style_get_type</span>);
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">PartialEq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Debug</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
@@ -3039,7 +3039,7 @@
 
 <span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">HintMetrics</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="macro">write</span><span class="macro">!</span>(
+        <span class="macro">write!</span>(
             <span class="ident">f</span>,
             <span class="string">&quot;HintMetrics::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
@@ -3053,7 +3053,7 @@
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="macro">gvalue_impl</span><span class="macro">!</span>(
+<span class="macro">gvalue_impl!</span>(
     <span class="ident">HintMetrics</span>,
     <span class="ident">ffi</span>::<span class="ident">gobject</span>::<span class="ident">cairo_gobject_hint_metrics_get_type</span>
 );
@@ -3160,7 +3160,7 @@
 
 <span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">SurfaceType</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="macro">write</span><span class="macro">!</span>(
+        <span class="macro">write!</span>(
             <span class="ident">f</span>,
             <span class="string">&quot;SurfaceType::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
@@ -3196,7 +3196,7 @@
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="macro">gvalue_impl</span><span class="macro">!</span>(
+<span class="macro">gvalue_impl!</span>(
     <span class="ident">SurfaceType</span>,
     <span class="ident">ffi</span>::<span class="ident">gobject</span>::<span class="ident">cairo_gobject_surface_type_get_type</span>
 );
@@ -3262,7 +3262,7 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">all</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;svg&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v1_16&quot;</span>), <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">SvgUnit</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="macro">write</span><span class="macro">!</span>(
+        <span class="macro">write!</span>(
             <span class="ident">f</span>,
             <span class="string">&quot;SvgUnit::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
@@ -3330,7 +3330,7 @@
 
 <span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">Format</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="macro">write</span><span class="macro">!</span>(
+        <span class="macro">write!</span>(
             <span class="ident">f</span>,
             <span class="string">&quot;Format::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
@@ -3348,11 +3348,11 @@
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="macro">gvalue_impl</span><span class="macro">!</span>(<span class="ident">Format</span>, <span class="ident">ffi</span>::<span class="ident">gobject</span>::<span class="ident">cairo_gobject_format_get_type</span>);
+<span class="macro">gvalue_impl!</span>(<span class="ident">Format</span>, <span class="ident">ffi</span>::<span class="ident">gobject</span>::<span class="ident">cairo_gobject_format_get_type</span>);
 
 <span class="kw">impl</span> <span class="ident">Format</span> {
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">stride_for_width</span>(<span class="self">self</span>, <span class="ident">width</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">i32</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">width</span> <span class="op">&lt;</span><span class="op">=</span> <span class="ident">i32</span>::<span class="ident">MAX</span> <span class="kw">as</span> <span class="ident">u32</span>);
+        <span class="macro">assert!</span>(<span class="ident">width</span> <span class="op">&lt;</span><span class="op">=</span> <span class="ident">i32</span>::<span class="ident">MAX</span> <span class="kw">as</span> <span class="ident">u32</span>);
         <span class="kw">let</span> <span class="ident">width</span> <span class="op">=</span> <span class="ident">width</span> <span class="kw">as</span> <span class="ident">i32</span>;
 
         <span class="kw">let</span> <span class="ident">stride</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_format_stride_for_width</span>(<span class="self">self</span>.<span class="ident">into</span>(), <span class="ident">width</span>) };
@@ -3400,7 +3400,7 @@
 
 <span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">RegionOverlap</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="macro">write</span><span class="macro">!</span>(
+        <span class="macro">write!</span>(
             <span class="ident">f</span>,
             <span class="string">&quot;RegionOverlap::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
@@ -3414,12 +3414,12 @@
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="macro">gvalue_impl</span><span class="macro">!</span>(
+<span class="macro">gvalue_impl!</span>(
     <span class="ident">RegionOverlap</span>,
     <span class="ident">ffi</span>::<span class="ident">gobject</span>::<span class="ident">cairo_gobject_region_overlap_get_type</span>
 );
 
-<span class="ident">bitflags</span>::<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="ident">bitflags</span>::<span class="macro">bitflags!</span> {
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PdfOutline</span>: <span class="ident">i32</span> {
         <span class="kw">const</span> <span class="ident">OPEN</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">PDF_OUTLINE_FLAG_OPEN</span>;
         <span class="kw">const</span> <span class="ident">BOLD</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">PDF_OUTLINE_FLAG_BOLD</span>;
@@ -3479,7 +3479,7 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">all</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;pdf&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v1_16&quot;</span>), <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">PdfMetadata</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="macro">write</span><span class="macro">!</span>(
+        <span class="macro">write!</span>(
             <span class="ident">f</span>,
             <span class="string">&quot;PdfMetadata::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
@@ -3533,7 +3533,7 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;pdf&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">PdfVersion</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="macro">write</span><span class="macro">!</span>(
+        <span class="macro">write!</span>(
             <span class="ident">f</span>,
             <span class="string">&quot;PdfVersion::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
@@ -3582,7 +3582,7 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;svg&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">SvgVersion</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="macro">write</span><span class="macro">!</span>(
+        <span class="macro">write!</span>(
             <span class="ident">f</span>,
             <span class="string">&quot;SvgVersion::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
@@ -3631,7 +3631,7 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;ps&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">PsLevel</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="macro">write</span><span class="macro">!</span>(
+        <span class="macro">write!</span>(
             <span class="ident">f</span>,
             <span class="string">&quot;PsLevel::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
@@ -3682,7 +3682,7 @@
 
 <span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">MeshCorner</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="macro">write</span><span class="macro">!</span>(
+        <span class="macro">write!</span>(
             <span class="ident">f</span>,
             <span class="string">&quot;MeshCorner::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
@@ -3733,7 +3733,7 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;freetype&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">FtSynthesize</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="macro">write</span><span class="macro">!</span>(
+        <span class="macro">write!</span>(
             <span class="ident">f</span>,
             <span class="string">&quot;FtSynthesize::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
@@ -3782,7 +3782,7 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;script&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">ScriptMode</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="macro">write</span><span class="macro">!</span>(
+        <span class="macro">write!</span>(
             <span class="ident">f</span>,
             <span class="string">&quot;ScriptMode::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
@@ -3848,7 +3848,7 @@
 
 <span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">DeviceType</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="macro">write</span><span class="macro">!</span>(
+        <span class="macro">write!</span>(
             <span class="ident">f</span>,
             <span class="string">&quot;DeviceType::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
@@ -3868,7 +3868,7 @@
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="macro">gvalue_impl</span><span class="macro">!</span>(<span class="ident">DeviceType</span>, <span class="ident">ffi</span>::<span class="ident">gobject</span>::<span class="ident">cairo_gobject_device_type_get_type</span>);
+<span class="macro">gvalue_impl!</span>(<span class="ident">DeviceType</span>, <span class="ident">ffi</span>::<span class="ident">gobject</span>::<span class="ident">cairo_gobject_device_type_get_type</span>);
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
@@ -3882,12 +3882,12 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">stride_errors_on_large_width</span>() {
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">Format</span>::<span class="ident">Rgb24</span>.<span class="ident">stride_for_width</span>(<span class="ident">i32</span>::<span class="ident">MAX</span> <span class="kw">as</span> <span class="ident">u32</span>).<span class="ident">is_err</span>());
+        <span class="macro">assert!</span>(<span class="ident">Format</span>::<span class="ident">Rgb24</span>.<span class="ident">stride_for_width</span>(<span class="ident">i32</span>::<span class="ident">MAX</span> <span class="kw">as</span> <span class="ident">u32</span>).<span class="ident">is_err</span>());
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">stride_works</span>() {
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">Format</span>::<span class="ident">Rgb24</span>.<span class="ident">stride_for_width</span>(<span class="number">1</span>).<span class="ident">unwrap</span>() <span class="op">=</span><span class="op">=</span> <span class="number">4</span>);
+        <span class="macro">assert!</span>(<span class="ident">Format</span>::<span class="ident">Rgb24</span>.<span class="ident">stride_for_width</span>(<span class="number">1</span>).<span class="ident">unwrap</span>() <span class="op">=</span><span class="op">=</span> <span class="number">4</span>);
     }
 }
 </pre></div>

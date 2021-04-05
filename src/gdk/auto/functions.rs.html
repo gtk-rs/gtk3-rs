@@ -616,7 +616,7 @@
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_beep&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">beep</span>() {
-    <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
+    <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe</span> {
         <span class="ident">ffi</span>::<span class="ident">gdk_beep</span>();
     }
@@ -624,13 +624,13 @@
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_error_trap_pop&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">error_trap_pop</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
-    <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
+    <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">gdk_error_trap_pop</span>() }
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_error_trap_pop_ignored&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">error_trap_pop_ignored</span>() {
-    <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
+    <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe</span> {
         <span class="ident">ffi</span>::<span class="ident">gdk_error_trap_pop_ignored</span>();
     }
@@ -638,7 +638,7 @@
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_error_trap_push&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">error_trap_push</span>() {
-    <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
+    <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe</span> {
         <span class="ident">ffi</span>::<span class="ident">gdk_error_trap_push</span>();
     }
@@ -646,7 +646,7 @@
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_events_get_angle&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">events_get_angle</span>(<span class="ident">event1</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Event</span>, <span class="ident">event2</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Event</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">f64</span><span class="op">&gt;</span> {
-    <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
+    <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">angle</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
         <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">gdk_events_get_angle</span>(
@@ -665,7 +665,7 @@
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_events_get_center&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">events_get_center</span>(<span class="ident">event1</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Event</span>, <span class="ident">event2</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Event</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span>(<span class="ident">f64</span>, <span class="ident">f64</span>)<span class="op">&gt;</span> {
-    <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
+    <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">x</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">y</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
@@ -687,7 +687,7 @@
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_events_get_distance&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">events_get_distance</span>(<span class="ident">event1</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Event</span>, <span class="ident">event2</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Event</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">f64</span><span class="op">&gt;</span> {
-    <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
+    <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">distance</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
         <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">gdk_events_get_distance</span>(
@@ -706,13 +706,13 @@
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_events_pending&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">events_pending</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-    <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
+    <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">gdk_events_pending</span>()) }
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_flush&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">flush</span>() {
-    <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
+    <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe</span> {
         <span class="ident">ffi</span>::<span class="ident">gdk_flush</span>();
     }
@@ -720,19 +720,19 @@
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_get_display_arg_name&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_display_arg_name</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">GString</span><span class="op">&gt;</span> {
-    <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
+    <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">gdk_get_display_arg_name</span>()) }
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_get_program_class&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_program_class</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">GString</span><span class="op">&gt;</span> {
-    <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
+    <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">gdk_get_program_class</span>()) }
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_get_show_events&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_show_events</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-    <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
+    <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">gdk_get_show_events</span>()) }
 }
 
@@ -743,7 +743,7 @@
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_keyval_convert_case&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">keyval_convert_case</span>(<span class="ident">symbol</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">u32</span>, <span class="ident">u32</span>) {
-    <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
+    <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">lower</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">upper</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
@@ -756,44 +756,44 @@
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_keyval_from_name&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">keyval_from_name</span>(<span class="ident">keyval_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
-    <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
+    <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">gdk_keyval_from_name</span>(<span class="ident">keyval_name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_keyval_is_lower&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">keyval_is_lower</span>(<span class="ident">keyval</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-    <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
+    <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">gdk_keyval_is_lower</span>(<span class="ident">keyval</span>)) }
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_keyval_is_upper&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">keyval_is_upper</span>(<span class="ident">keyval</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-    <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
+    <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">gdk_keyval_is_upper</span>(<span class="ident">keyval</span>)) }
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_keyval_to_lower&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">keyval_to_lower</span>(<span class="ident">keyval</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
-    <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
+    <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">gdk_keyval_to_lower</span>(<span class="ident">keyval</span>) }
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_keyval_to_upper&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">keyval_to_upper</span>(<span class="ident">keyval</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
-    <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
+    <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">gdk_keyval_to_upper</span>(<span class="ident">keyval</span>) }
 }
 
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>, <span class="ident">deprecated</span>)]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_list_visuals&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">list_visuals</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Visual</span><span class="op">&gt;</span> {
-    <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
+    <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe</span> { <span class="ident">FromGlibPtrContainer</span>::<span class="ident">from_glib_container</span>(<span class="ident">ffi</span>::<span class="ident">gdk_list_visuals</span>()) }
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_notify_startup_complete&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">notify_startup_complete</span>() {
-    <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
+    <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe</span> {
         <span class="ident">ffi</span>::<span class="ident">gdk_notify_startup_complete</span>();
     }
@@ -801,7 +801,7 @@
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_notify_startup_complete_with_id&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">notify_startup_complete_with_id</span>(<span class="ident">startup_id</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) {
-    <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
+    <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe</span> {
         <span class="ident">ffi</span>::<span class="ident">gdk_notify_startup_complete_with_id</span>(<span class="ident">startup_id</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
     }
@@ -809,7 +809,7 @@
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_pango_context_get&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pango_context_get</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">pango</span>::<span class="ident">Context</span><span class="op">&gt;</span> {
-    <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
+    <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">gdk_pango_context_get</span>()) }
 }
 
@@ -817,7 +817,7 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>)))]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_pango_context_get_for_display&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pango_context_get_for_display</span>(<span class="ident">display</span>: <span class="kw-2">&amp;</span><span class="ident">Display</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">pango</span>::<span class="ident">Context</span><span class="op">&gt;</span> {
-    <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
+    <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe</span> {
         <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">gdk_pango_context_get_for_display</span>(
             <span class="ident">display</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -827,7 +827,7 @@
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_pango_context_get_for_screen&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pango_context_get_for_screen</span>(<span class="ident">screen</span>: <span class="kw-2">&amp;</span><span class="ident">Screen</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">pango</span>::<span class="ident">Context</span><span class="op">&gt;</span> {
-    <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
+    <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe</span> {
         <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">gdk_pango_context_get_for_screen</span>(
             <span class="ident">screen</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -853,7 +853,7 @@
     <span class="ident">width</span>: <span class="ident">i32</span>,
     <span class="ident">height</span>: <span class="ident">i32</span>,
 ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">gdk_pixbuf</span>::<span class="ident">Pixbuf</span><span class="op">&gt;</span> {
-    <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
+    <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe</span> {
         <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">gdk_pixbuf_get_from_surface</span>(
             <span class="ident">mut_override</span>(<span class="ident">surface</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>),
@@ -868,7 +868,7 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_16&quot;</span>, <span class="ident">deprecated</span>)]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_pre_parse_libgtk_only&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pre_parse_libgtk_only</span>() {
-    <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
+    <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe</span> {
         <span class="ident">ffi</span>::<span class="ident">gdk_pre_parse_libgtk_only</span>();
     }
@@ -876,7 +876,7 @@
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_property_delete&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">property_delete</span>(<span class="ident">window</span>: <span class="kw-2">&amp;</span><span class="ident">Window</span>, <span class="ident">property</span>: <span class="kw-2">&amp;</span><span class="ident">Atom</span>) {
-    <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
+    <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe</span> {
         <span class="ident">ffi</span>::<span class="ident">gdk_property_delete</span>(<span class="ident">window</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">property</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
     }
@@ -891,7 +891,7 @@
     <span class="ident">length</span>: <span class="ident">libc</span>::<span class="ident">c_ulong</span>,
     <span class="ident">pdelete</span>: <span class="ident">i32</span>,
 ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span>(<span class="ident">Atom</span>, <span class="ident">i32</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>)<span class="op">&gt;</span> {
-    <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
+    <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">actual_property_type</span> <span class="op">=</span> <span class="ident">Atom</span>::<span class="ident">uninitialized</span>();
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">actual_format</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
@@ -925,7 +925,7 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>, <span class="ident">deprecated</span>)]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_query_depths&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">query_depths</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">i32</span><span class="op">&gt;</span> {
-    <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
+    <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">depths</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">count</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
@@ -942,7 +942,7 @@
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_selection_convert&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">selection_convert</span>(<span class="ident">requestor</span>: <span class="kw-2">&amp;</span><span class="ident">Window</span>, <span class="ident">selection</span>: <span class="kw-2">&amp;</span><span class="ident">Atom</span>, <span class="ident">target</span>: <span class="kw-2">&amp;</span><span class="ident">Atom</span>, <span class="ident">time_</span>: <span class="ident">u32</span>) {
-    <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
+    <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe</span> {
         <span class="ident">ffi</span>::<span class="ident">gdk_selection_convert</span>(
             <span class="ident">requestor</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -955,13 +955,13 @@
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_selection_owner_get&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">selection_owner_get</span>(<span class="ident">selection</span>: <span class="kw-2">&amp;</span><span class="ident">Atom</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Window</span><span class="op">&gt;</span> {
-    <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
+    <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">gdk_selection_owner_get</span>(<span class="ident">selection</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_selection_owner_get_for_display&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">selection_owner_get_for_display</span>(<span class="ident">display</span>: <span class="kw-2">&amp;</span><span class="ident">Display</span>, <span class="ident">selection</span>: <span class="kw-2">&amp;</span><span class="ident">Atom</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Window</span><span class="op">&gt;</span> {
-    <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
+    <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe</span> {
         <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">gdk_selection_owner_get_for_display</span>(
             <span class="ident">display</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -977,7 +977,7 @@
     <span class="ident">time_</span>: <span class="ident">u32</span>,
     <span class="ident">send_event</span>: <span class="ident">bool</span>,
 ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-    <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
+    <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe</span> {
         <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">gdk_selection_owner_set</span>(
             <span class="ident">owner</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -996,7 +996,7 @@
     <span class="ident">time_</span>: <span class="ident">u32</span>,
     <span class="ident">send_event</span>: <span class="ident">bool</span>,
 ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-    <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
+    <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe</span> {
         <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">gdk_selection_owner_set_for_display</span>(
             <span class="ident">display</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -1016,7 +1016,7 @@
     <span class="ident">property</span>: <span class="kw-2">&amp;</span><span class="ident">Atom</span>,
     <span class="ident">time_</span>: <span class="ident">u32</span>,
 ) {
-    <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
+    <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe</span> {
         <span class="ident">ffi</span>::<span class="ident">gdk_selection_send_notify</span>(
             <span class="ident">requestor</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -1037,7 +1037,7 @@
     <span class="ident">property</span>: <span class="kw-2">&amp;</span><span class="ident">Atom</span>,
     <span class="ident">time_</span>: <span class="ident">u32</span>,
 ) {
-    <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
+    <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe</span> {
         <span class="ident">ffi</span>::<span class="ident">gdk_selection_send_notify_for_display</span>(
             <span class="ident">display</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -1052,7 +1052,7 @@
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_set_allowed_backends&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_allowed_backends</span>(<span class="ident">backends</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) {
-    <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
+    <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe</span> {
         <span class="ident">ffi</span>::<span class="ident">gdk_set_allowed_backends</span>(<span class="ident">backends</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
     }
@@ -1060,7 +1060,7 @@
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_set_double_click_time&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_double_click_time</span>(<span class="ident">msec</span>: <span class="ident">u32</span>) {
-    <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
+    <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe</span> {
         <span class="ident">ffi</span>::<span class="ident">gdk_set_double_click_time</span>(<span class="ident">msec</span>);
     }
@@ -1068,7 +1068,7 @@
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_set_program_class&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_program_class</span>(<span class="ident">program_class</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) {
-    <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
+    <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe</span> {
         <span class="ident">ffi</span>::<span class="ident">gdk_set_program_class</span>(<span class="ident">program_class</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
     }
@@ -1076,7 +1076,7 @@
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_set_show_events&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_show_events</span>(<span class="ident">show_events</span>: <span class="ident">bool</span>) {
-    <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
+    <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe</span> {
         <span class="ident">ffi</span>::<span class="ident">gdk_set_show_events</span>(<span class="ident">show_events</span>.<span class="ident">to_glib</span>());
     }
@@ -1084,7 +1084,7 @@
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_synthesize_window_state&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">synthesize_window_state</span>(<span class="ident">window</span>: <span class="kw-2">&amp;</span><span class="ident">Window</span>, <span class="ident">unset_flags</span>: <span class="ident">WindowState</span>, <span class="ident">set_flags</span>: <span class="ident">WindowState</span>) {
-    <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
+    <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe</span> {
         <span class="ident">ffi</span>::<span class="ident">gdk_synthesize_window_state</span>(
             <span class="ident">window</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -1096,7 +1096,7 @@
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_test_render_sync&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">test_render_sync</span>(<span class="ident">window</span>: <span class="kw-2">&amp;</span><span class="ident">Window</span>) {
-    <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
+    <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe</span> {
         <span class="ident">ffi</span>::<span class="ident">gdk_test_render_sync</span>(<span class="ident">window</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
     }
@@ -1111,7 +1111,7 @@
     <span class="ident">modifiers</span>: <span class="ident">ModifierType</span>,
     <span class="ident">button_pressrelease</span>: <span class="ident">EventType</span>,
 ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-    <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
+    <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe</span> {
         <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">gdk_test_simulate_button</span>(
             <span class="ident">window</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -1133,7 +1133,7 @@
     <span class="ident">modifiers</span>: <span class="ident">ModifierType</span>,
     <span class="ident">key_pressrelease</span>: <span class="ident">EventType</span>,
 ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-    <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
+    <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe</span> {
         <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">gdk_test_simulate_key</span>(
             <span class="ident">window</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -1153,7 +1153,7 @@
     <span class="ident">format</span>: <span class="ident">i32</span>,
     <span class="ident">text</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>],
 ) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">i32</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">GString</span><span class="op">&gt;</span>) {
-    <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
+    <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">let</span> <span class="ident">length</span> <span class="op">=</span> <span class="ident">text</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">i32</span>;
     <span class="kw">unsafe</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">list</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
@@ -1171,13 +1171,13 @@
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_unicode_to_keyval&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">unicode_to_keyval</span>(<span class="ident">wc</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
-    <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
+    <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">gdk_unicode_to_keyval</span>(<span class="ident">wc</span>) }
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_utf8_to_string_target&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">utf8_to_string_target</span>(<span class="ident">str</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">GString</span><span class="op">&gt;</span> {
-    <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
+    <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">gdk_utf8_to_string_target</span>(<span class="ident">str</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
 }
 </pre></div>

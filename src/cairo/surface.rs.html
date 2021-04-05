@@ -438,18 +438,18 @@
 
 <span class="kw">impl</span> <span class="ident">Surface</span> {
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_raw_none</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">cairo_surface_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Surface</span> {
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
+        <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
         <span class="ident">ffi</span>::<span class="ident">cairo_surface_reference</span>(<span class="ident">ptr</span>);
         <span class="ident">Surface</span>(<span class="ident">ptr</span>::<span class="ident">NonNull</span>::<span class="ident">new_unchecked</span>(<span class="ident">ptr</span>))
     }
 
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_raw_borrow</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">cairo_surface_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">Surface</span><span class="op">&gt;</span> {
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
+        <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
         <span class="kw">crate</span>::<span class="ident">Borrowed</span>::<span class="ident">new</span>(<span class="ident">Surface</span>(<span class="ident">ptr</span>::<span class="ident">NonNull</span>::<span class="ident">new_unchecked</span>(<span class="ident">ptr</span>)))
     }
 
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_raw_full</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">cairo_surface_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Surface</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
+        <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
         <span class="kw">let</span> <span class="ident">status</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">cairo_surface_status</span>(<span class="ident">ptr</span>);
         <span class="ident">status_to_result</span>(<span class="ident">status</span>)<span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>(<span class="ident">Surface</span>(<span class="ident">ptr</span>::<span class="ident">NonNull</span>::<span class="ident">new_unchecked</span>(<span class="ident">ptr</span>)))
@@ -681,7 +681,7 @@
         <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_surface_mark_dirty_rectangle</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>(), <span class="ident">x</span>, <span class="ident">y</span>, <span class="ident">width</span>, <span class="ident">height</span>) }
     }
 
-    <span class="macro">user_data_methods</span><span class="macro">!</span> {
+    <span class="macro">user_data_methods!</span> {
         <span class="ident">ffi</span>::<span class="ident">cairo_surface_get_user_data</span>,
         <span class="ident">ffi</span>::<span class="ident">cairo_surface_set_user_data</span>,
     }
@@ -727,7 +727,7 @@
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="macro">gvalue_impl</span><span class="macro">!</span>(
+<span class="macro">gvalue_impl!</span>(
     <span class="ident">Surface</span>,
     <span class="ident">ffi</span>::<span class="ident">cairo_surface_t</span>,
     <span class="ident">ffi</span>::<span class="ident">gobject</span>::<span class="ident">cairo_gobject_surface_get_type</span>
@@ -749,7 +749,7 @@
 
 <span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">Surface</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;Surface&quot;</span>)
+        <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;Surface&quot;</span>)
     }
 }
 
@@ -802,7 +802,7 @@
 
 <span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">MappedImageSurface</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;MappedImageSurface&quot;</span>)
+        <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;MappedImageSurface&quot;</span>)
     }
 }
 
@@ -817,11 +817,11 @@
         <span class="kw">let</span> <span class="ident">surface</span> <span class="op">=</span> <span class="ident">ImageSurface</span>::<span class="ident">create</span>(<span class="ident">Format</span>::<span class="ident">ARgb32</span>, <span class="number">500</span>, <span class="number">500</span>).<span class="ident">unwrap</span>();
         <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">surface</span>.<span class="ident">get_mime_data</span>(<span class="ident">MIME_TYPE_PNG</span>);
         <span class="comment">/* Initially the data for any mime type has to be none */</span>
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">data</span>.<span class="ident">is_none</span>());
+        <span class="macro">assert!</span>(<span class="ident">data</span>.<span class="ident">is_none</span>());
 
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">surface</span>.<span class="ident">set_mime_data</span>(<span class="ident">MIME_TYPE_PNG</span>, <span class="kw-2">&amp;</span>[<span class="number">1u8</span>, <span class="number">10u8</span>]).<span class="ident">is_ok</span>());
+        <span class="macro">assert!</span>(<span class="ident">surface</span>.<span class="ident">set_mime_data</span>(<span class="ident">MIME_TYPE_PNG</span>, <span class="kw-2">&amp;</span>[<span class="number">1u8</span>, <span class="number">10u8</span>]).<span class="ident">is_ok</span>());
         <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">surface</span>.<span class="ident">get_mime_data</span>(<span class="ident">MIME_TYPE_PNG</span>).<span class="ident">unwrap</span>();
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">data</span>, <span class="kw-2">&amp;</span>[<span class="number">1u8</span>, <span class="number">10u8</span>]);
+        <span class="macro">assert_eq!</span>(<span class="ident">data</span>, <span class="kw-2">&amp;</span>[<span class="number">1u8</span>, <span class="number">10u8</span>]);
     }
 }
 </pre></div>

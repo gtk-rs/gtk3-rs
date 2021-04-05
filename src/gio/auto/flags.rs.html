@@ -2093,7 +2093,7 @@
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">Type</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// Flags used when creating a `AppInfo`.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">AppInfoCreateFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// No flags.</span>
@@ -2153,7 +2153,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// Flags used to define the behaviour of a `Application`.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ApplicationFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// Default</span>
@@ -2252,7 +2252,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// `AskPasswordFlags` are used to request specific information from the</span>
     <span class="doccomment">/// user, or to notify the user of their choices in an authentication</span>
     <span class="doccomment">/// situation.</span>
@@ -2318,7 +2318,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// Flags used in `g_bus_own_name`.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">BusNameOwnerFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// No flags set.</span>
@@ -2380,7 +2380,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// Flags used in `g_bus_watch_name`.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">BusNameWatcherFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// No flags set.</span>
@@ -2438,7 +2438,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// Flags used when calling a `Converter::convert`.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ConverterFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// No flags.</span>
@@ -2496,7 +2496,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// Flags used in `DBusConnection::call` and similar APIs.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DBusCallFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// No flags set.</span>
@@ -2557,7 +2557,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// Capabilities negotiated with the remote peer.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DBusCapabilityFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// No flags set.</span>
@@ -2614,7 +2614,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// Flags used when creating a new `DBusConnection`.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DBusConnectionFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// No flags set.</span>
@@ -2682,7 +2682,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// Flags describing the behavior of a `DBusInterfaceSkeleton` instance.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DBusInterfaceSkeletonFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// No flags set.</span>
@@ -2741,7 +2741,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// Message flags used in `DBusMessage`.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DBusMessageFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// No flags set.</span>
@@ -2804,7 +2804,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// Flags used when constructing an instance of a `DBusProxy` derived class.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DBusProxyFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// No flags set.</span>
@@ -2873,7 +2873,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// Flags used when sending `GDBusMessages` on a `DBusConnection`.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DBusSendMessageFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// No flags set.</span>
@@ -2931,7 +2931,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// Flags used when creating a `DBusServer`.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DBusServerFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// No flags set.</span>
@@ -2992,7 +2992,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// Flags used when subscribing to signals via `DBusConnection::signal_subscribe`.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DBusSignalFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// No flags set.</span>
@@ -3057,7 +3057,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// Flags used when starting a drive.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DriveStartFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// No flags set.</span>
@@ -3111,7 +3111,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// Flags used when copying or moving files.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FileCopyFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// No flags set.</span>
@@ -3177,7 +3177,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// Flags used when an operation may create a file.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FileCreateFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// No flags set.</span>
@@ -3243,7 +3243,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// Flags that can be used with `File::measure_disk_usage`.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FileMeasureFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// No flags set.</span>
@@ -3309,7 +3309,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// Flags used to set what a `FileMonitor` will watch for.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FileMonitorFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// No flags set.</span>
@@ -3380,7 +3380,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// Flags used when querying a `FileInfo`.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FileQueryInfoFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// No flags set.</span>
@@ -3436,7 +3436,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// GIOStreamSpliceFlags determine how streams should be spliced.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">IOStreamSpliceFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// Do not close either stream.</span>
@@ -3499,7 +3499,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// Flags used when mounting a mount.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MountMountFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// No flags set.</span>
@@ -3553,7 +3553,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// Flags used when an unmounting a mount.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MountUnmountFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// No flags set.</span>
@@ -3610,7 +3610,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// GOutputStreamSpliceFlags determine how streams should be spliced.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">OutputStreamSpliceFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// Do not close either stream.</span>
@@ -3672,7 +3672,7 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_60&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_60&quot;</span>)))]</span>
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// Flags to modify lookup behavior.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ResolverNameLookupFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// default behavior (same as `ResolverExt::lookup_by_name`)</span>
@@ -3747,7 +3747,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// GResourceLookupFlags determine how resource path lookups are handled.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ResourceLookupFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// No flags set.</span>
@@ -3801,7 +3801,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// Flags used when creating a binding. These flags determine in which</span>
     <span class="doccomment">/// direction the binding works. The default is to synchronize in both</span>
     <span class="doccomment">/// directions.</span>
@@ -3872,7 +3872,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// Flags to define the behaviour of a `Subprocess`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that the default for stdin is to redirect from `/dev/null`. For</span>
@@ -3964,7 +3964,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// A set of flags describing TLS certification validation. This can be</span>
     <span class="doccomment">/// used to set which validation steps to perform (eg, with</span>
     <span class="doccomment">/// `TlsClientConnection::set_validation_flags`), or to describe why</span>
@@ -4043,7 +4043,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// Flags for `TlsDatabaseExt::verify_chain`.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TlsDatabaseVerifyFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// No verification flags</span>
@@ -4097,7 +4097,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// Various flags for the password.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TlsPasswordFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// No flags</span>

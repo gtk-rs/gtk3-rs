@@ -501,7 +501,7 @@
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Vec3</span>;
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
 
-<span class="ident">glib</span>::<span class="macro">wrapper</span><span class="macro">!</span> {
+<span class="ident">glib</span>::<span class="macro">wrapper!</span> {
     <span class="doccomment">/// A structure capable of holding a vector with four dimensions: x, y, z, and w.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The contents of the `Vec4` structure are private and should</span>
@@ -911,7 +911,7 @@
     <span class="doccomment">/// a constant vector</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_vec4_one&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">one</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec4</span> {
-        <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
+        <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">graphene_vec4_one</span>()) }
     }
 
@@ -923,7 +923,7 @@
     <span class="doccomment">/// a constant vector</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_vec4_w_axis&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">w_axis</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec4</span> {
-        <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
+        <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">graphene_vec4_w_axis</span>()) }
     }
 
@@ -935,7 +935,7 @@
     <span class="doccomment">/// a constant vector</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_vec4_x_axis&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">x_axis</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec4</span> {
-        <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
+        <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">graphene_vec4_x_axis</span>()) }
     }
 
@@ -947,7 +947,7 @@
     <span class="doccomment">/// a constant vector</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_vec4_y_axis&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">y_axis</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec4</span> {
-        <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
+        <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">graphene_vec4_y_axis</span>()) }
     }
 
@@ -959,7 +959,7 @@
     <span class="doccomment">/// a constant vector</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_vec4_z_axis&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">z_axis</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec4</span> {
-        <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
+        <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">graphene_vec4_z_axis</span>()) }
     }
 
@@ -971,7 +971,7 @@
     <span class="doccomment">/// a constant vector</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_vec4_zero&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">zero</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec4</span> {
-        <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
+        <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">graphene_vec4_zero</span>()) }
     }
 }

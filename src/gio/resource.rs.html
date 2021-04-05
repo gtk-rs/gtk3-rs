@@ -155,16 +155,16 @@
         .<span class="ident">arg</span>(<span class="string">&quot;--sourcedir&quot;</span>)
         .<span class="ident">arg</span>(<span class="ident">source_dir</span>.<span class="ident">as_ref</span>())
         .<span class="ident">arg</span>(<span class="string">&quot;--target&quot;</span>)
-        .<span class="ident">arg</span>(<span class="kw-2">&amp;</span><span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}/{}&quot;</span>, <span class="ident">out_dir</span>, <span class="ident">target</span>))
+        .<span class="ident">arg</span>(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;{}/{}&quot;</span>, <span class="ident">out_dir</span>, <span class="ident">target</span>))
         .<span class="ident">arg</span>(<span class="ident">gresource</span>)
         .<span class="ident">status</span>()
         .<span class="ident">unwrap</span>();
 
     <span class="kw">if</span> <span class="op">!</span><span class="ident">status</span>.<span class="ident">success</span>() {
-        <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;glib-compile-resources failed with exit status {}&quot;</span>, <span class="ident">status</span>);
+        <span class="macro">panic!</span>(<span class="string">&quot;glib-compile-resources failed with exit status {}&quot;</span>, <span class="ident">status</span>);
     }
 
-    <span class="macro">println</span><span class="macro">!</span>(<span class="string">&quot;cargo:rerun-if-changed={}&quot;</span>, <span class="ident">gresource</span>);
+    <span class="macro">println!</span>(<span class="string">&quot;cargo:rerun-if-changed={}&quot;</span>, <span class="ident">gresource</span>);
     <span class="kw">let</span> <span class="ident">output</span> <span class="op">=</span> <span class="ident">Command</span>::<span class="ident">new</span>(<span class="string">&quot;glib-compile-resources&quot;</span>)
         .<span class="ident">arg</span>(<span class="string">&quot;--sourcedir&quot;</span>)
         .<span class="ident">arg</span>(<span class="ident">source_dir</span>.<span class="ident">as_ref</span>())
@@ -175,7 +175,7 @@
         .<span class="ident">stdout</span>;
     <span class="kw">let</span> <span class="ident">output</span> <span class="op">=</span> <span class="ident">String</span>::<span class="ident">from_utf8</span>(<span class="ident">output</span>).<span class="ident">unwrap</span>();
     <span class="kw">for</span> <span class="ident">dep</span> <span class="kw">in</span> <span class="ident">output</span>.<span class="ident">split_whitespace</span>() {
-        <span class="macro">println</span><span class="macro">!</span>(<span class="string">&quot;cargo:rerun-if-changed={}&quot;</span>, <span class="ident">dep</span>);
+        <span class="macro">println!</span>(<span class="string">&quot;cargo:rerun-if-changed={}&quot;</span>, <span class="ident">dep</span>);
     }
 }
 
@@ -195,10 +195,10 @@
 <span class="doccomment">/// gio::resources_register_include!(&quot;compiled.gresource&quot;).unwrap();</span>
 <span class="doccomment">/// ```</span>
 <span class="attribute">#[<span class="ident">macro_export</span>]</span>
-<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">resources_register_include</span> {
+<span class="macro">macro_rules!</span> <span class="ident">resources_register_include</span> {
     (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">path</span>:<span class="ident">expr</span>) <span class="op">=</span><span class="op">&gt;</span> {
-        <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">resources_register_include_impl</span>(<span class="macro">include_bytes</span><span class="macro">!</span>(<span class="macro">concat</span><span class="macro">!</span>(
-            <span class="macro">env</span><span class="macro">!</span>(<span class="string">&quot;OUT_DIR&quot;</span>),
+        <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">resources_register_include_impl</span>(<span class="macro">include_bytes!</span>(<span class="macro">concat!</span>(
+            <span class="macro">env!</span>(<span class="string">&quot;OUT_DIR&quot;</span>),
             <span class="string">&quot;/&quot;</span>,
             <span class="macro-nonterminal">$</span><span class="macro-nonterminal">path</span>
         )))

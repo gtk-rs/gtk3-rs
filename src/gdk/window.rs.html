@@ -370,7 +370,7 @@
 
 <span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">WindowAttr</span> {
     <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WindowAttr</span> {
-        <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
+        <span class="macro">skip_assert_initialized!</span>();
         <span class="ident">WindowAttr</span> {
             <span class="ident">title</span>: <span class="prelude-val">None</span>,
             <span class="ident">event_mask</span>: <span class="ident">EventMask</span>::<span class="ident">empty</span>(),
@@ -470,7 +470,7 @@
     <span class="doccomment">/// the new `Window`</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">parent</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">Window</span><span class="op">&gt;</span>, <span class="ident">attributes</span>: <span class="kw-2">&amp;</span><span class="ident">WindowAttr</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Window</span> {
-        <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
+        <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe</span> {
             <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">gdk_window_new</span>(
                 <span class="ident">parent</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -605,7 +605,7 @@
     }
 
     <span class="kw">fn</span> <span class="ident">get_default_root_window</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Window</span> {
-        <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
+        <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">gdk_get_default_root_window</span>()) }
     }
 
@@ -627,7 +627,7 @@
     }
 
     <span class="kw">fn</span> <span class="ident">offscreen_window_get_surface</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Surface</span><span class="op">&gt;</span> {
-        <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
+        <span class="macro">skip_assert_initialized!</span>();
         <span class="kw">unsafe</span> {
             <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">gdk_offscreen_window_get_surface</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -642,7 +642,7 @@
         <span class="ident">width</span>: <span class="ident">i32</span>,
         <span class="ident">height</span>: <span class="ident">i32</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">gdk_pixbuf</span>::<span class="ident">Pixbuf</span><span class="op">&gt;</span> {
-        <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
+        <span class="macro">skip_assert_initialized!</span>();
         <span class="kw">unsafe</span> {
             <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">gdk_pixbuf_get_from_window</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,

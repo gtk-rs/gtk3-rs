@@ -1020,7 +1020,7 @@
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">slice</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">str</span>;
 
-<span class="macro">wrapper</span><span class="macro">!</span> {
+<span class="macro">wrapper!</span> {
     <span class="doccomment">/// A generic immutable value capable of carrying various types.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// See the [module documentation](index.html) for more details.</span>
@@ -1108,8 +1108,8 @@
     <span class="doccomment">/// * if `self` is not a container type.</span>
     <span class="doccomment">/// * if given `index` is larger than number of children.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_child_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">index</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Variant</span> {
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">index</span> <span class="op">&lt;</span> <span class="self">self</span>.<span class="ident">n_children</span>());
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">is_container</span>());
+        <span class="macro">assert!</span>(<span class="ident">index</span> <span class="op">&lt;</span> <span class="self">self</span>.<span class="ident">n_children</span>());
+        <span class="macro">assert!</span>(<span class="self">self</span>.<span class="ident">is_container</span>());
 
         <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">g_variant_get_child_value</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">index</span>)) }
     }
@@ -1142,7 +1142,7 @@
         <span class="kw">let</span> <span class="ident">type_</span> <span class="op">=</span> <span class="ident">T</span>::<span class="ident">static_variant_type</span>();
 
         <span class="kw">for</span> <span class="ident">child</span> <span class="kw">in</span> <span class="ident">children</span> {
-            <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">type_</span>, <span class="ident">child</span>.<span class="ident">type_</span>());
+            <span class="macro">assert_eq!</span>(<span class="ident">type_</span>, <span class="ident">child</span>.<span class="ident">type_</span>());
         }
         <span class="kw">unsafe</span> {
             <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">g_variant_new_array</span>(
@@ -1168,7 +1168,7 @@
         <span class="kw">let</span> <span class="ident">type_</span> <span class="op">=</span> <span class="ident">T</span>::<span class="ident">static_variant_type</span>();
         <span class="kw">let</span> <span class="ident">ptr</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">child</span> {
             <span class="prelude-val">Some</span>(<span class="ident">child</span>) <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">type_</span>, <span class="ident">child</span>.<span class="ident">type_</span>());
+                <span class="macro">assert_eq!</span>(<span class="ident">type_</span>, <span class="ident">child</span>.<span class="ident">type_</span>());
 
                 <span class="ident">child</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>
             }
@@ -1220,14 +1220,14 @@
 
     <span class="doccomment">/// Determines the number of children in a container GVariant instance.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">n_children</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span> {
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">is_container</span>());
+        <span class="macro">assert!</span>(<span class="self">self</span>.<span class="ident">is_container</span>());
 
         <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">g_variant_n_children</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Create an iterator over items in the variant.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">iter</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">VariantIter</span> {
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">is_container</span>());
+        <span class="macro">assert!</span>(<span class="self">self</span>.<span class="ident">is_container</span>());
 
         <span class="ident">VariantIter</span>::<span class="ident">new</span>(<span class="self">self</span>.<span class="ident">clone</span>())
     }
@@ -1339,7 +1339,7 @@
     }
 }
 
-<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">impl_numeric</span> {
+<span class="macro">macro_rules!</span> <span class="ident">impl_numeric</span> {
     (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ty</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">type_str</span>:<span class="ident">expr</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">new_fn</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">get_fn</span>:<span class="ident">ident</span>) <span class="op">=</span><span class="op">&gt;</span> {
         <span class="kw">impl</span> <span class="ident">StaticVariantType</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> {
             <span class="kw">fn</span> <span class="ident">static_variant_type</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Cow</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span>, <span class="ident">VariantTy</span><span class="op">&gt;</span> {
@@ -1367,14 +1367,14 @@
     };
 }
 
-<span class="macro">impl_numeric</span><span class="macro">!</span>(<span class="ident">u8</span>, <span class="string">&quot;y&quot;</span>, <span class="ident">g_variant_new_byte</span>, <span class="ident">g_variant_get_byte</span>);
-<span class="macro">impl_numeric</span><span class="macro">!</span>(<span class="ident">i16</span>, <span class="string">&quot;n&quot;</span>, <span class="ident">g_variant_new_int16</span>, <span class="ident">g_variant_get_int16</span>);
-<span class="macro">impl_numeric</span><span class="macro">!</span>(<span class="ident">u16</span>, <span class="string">&quot;q&quot;</span>, <span class="ident">g_variant_new_uint16</span>, <span class="ident">g_variant_get_uint16</span>);
-<span class="macro">impl_numeric</span><span class="macro">!</span>(<span class="ident">i32</span>, <span class="string">&quot;i&quot;</span>, <span class="ident">g_variant_new_int32</span>, <span class="ident">g_variant_get_int32</span>);
-<span class="macro">impl_numeric</span><span class="macro">!</span>(<span class="ident">u32</span>, <span class="string">&quot;u&quot;</span>, <span class="ident">g_variant_new_uint32</span>, <span class="ident">g_variant_get_uint32</span>);
-<span class="macro">impl_numeric</span><span class="macro">!</span>(<span class="ident">i64</span>, <span class="string">&quot;x&quot;</span>, <span class="ident">g_variant_new_int64</span>, <span class="ident">g_variant_get_int64</span>);
-<span class="macro">impl_numeric</span><span class="macro">!</span>(<span class="ident">u64</span>, <span class="string">&quot;t&quot;</span>, <span class="ident">g_variant_new_uint64</span>, <span class="ident">g_variant_get_uint64</span>);
-<span class="macro">impl_numeric</span><span class="macro">!</span>(<span class="ident">f64</span>, <span class="string">&quot;d&quot;</span>, <span class="ident">g_variant_new_double</span>, <span class="ident">g_variant_get_double</span>);
+<span class="macro">impl_numeric!</span>(<span class="ident">u8</span>, <span class="string">&quot;y&quot;</span>, <span class="ident">g_variant_new_byte</span>, <span class="ident">g_variant_get_byte</span>);
+<span class="macro">impl_numeric!</span>(<span class="ident">i16</span>, <span class="string">&quot;n&quot;</span>, <span class="ident">g_variant_new_int16</span>, <span class="ident">g_variant_get_int16</span>);
+<span class="macro">impl_numeric!</span>(<span class="ident">u16</span>, <span class="string">&quot;q&quot;</span>, <span class="ident">g_variant_new_uint16</span>, <span class="ident">g_variant_get_uint16</span>);
+<span class="macro">impl_numeric!</span>(<span class="ident">i32</span>, <span class="string">&quot;i&quot;</span>, <span class="ident">g_variant_new_int32</span>, <span class="ident">g_variant_get_int32</span>);
+<span class="macro">impl_numeric!</span>(<span class="ident">u32</span>, <span class="string">&quot;u&quot;</span>, <span class="ident">g_variant_new_uint32</span>, <span class="ident">g_variant_get_uint32</span>);
+<span class="macro">impl_numeric!</span>(<span class="ident">i64</span>, <span class="string">&quot;x&quot;</span>, <span class="ident">g_variant_new_int64</span>, <span class="ident">g_variant_get_int64</span>);
+<span class="macro">impl_numeric!</span>(<span class="ident">u64</span>, <span class="string">&quot;t&quot;</span>, <span class="ident">g_variant_new_uint64</span>, <span class="ident">g_variant_get_uint64</span>);
+<span class="macro">impl_numeric!</span>(<span class="ident">f64</span>, <span class="string">&quot;d&quot;</span>, <span class="ident">g_variant_new_double</span>, <span class="ident">g_variant_get_double</span>);
 
 <span class="kw">impl</span> <span class="ident">StaticVariantType</span> <span class="kw">for</span> <span class="ident">bool</span> {
     <span class="kw">fn</span> <span class="ident">static_variant_type</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Cow</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span>, <span class="ident">VariantTy</span><span class="op">&gt;</span> {
@@ -1435,7 +1435,7 @@
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">StaticVariantType</span><span class="op">&gt;</span> <span class="ident">StaticVariantType</span> <span class="kw">for</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
     <span class="kw">fn</span> <span class="ident">static_variant_type</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Cow</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span>, <span class="ident">VariantTy</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">child_type</span> <span class="op">=</span> <span class="ident">T</span>::<span class="ident">static_variant_type</span>();
-        <span class="kw">let</span> <span class="ident">signature</span> <span class="op">=</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;m{}&quot;</span>, <span class="ident">child_type</span>.<span class="ident">to_str</span>());
+        <span class="kw">let</span> <span class="ident">signature</span> <span class="op">=</span> <span class="macro">format!</span>(<span class="string">&quot;m{}&quot;</span>, <span class="ident">child_type</span>.<span class="ident">to_str</span>());
 
         <span class="ident">VariantType</span>::<span class="ident">new</span>(<span class="kw-2">&amp;</span><span class="ident">signature</span>)
             .<span class="ident">expect</span>(<span class="string">&quot;incorrect signature&quot;</span>)
@@ -1471,7 +1471,7 @@
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">StaticVariantType</span><span class="op">&gt;</span> <span class="ident">StaticVariantType</span> <span class="kw">for</span> [<span class="ident">T</span>] {
     <span class="kw">fn</span> <span class="ident">static_variant_type</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Cow</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span>, <span class="ident">VariantTy</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">child_type</span> <span class="op">=</span> <span class="ident">T</span>::<span class="ident">static_variant_type</span>();
-        <span class="kw">let</span> <span class="ident">signature</span> <span class="op">=</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;a{}&quot;</span>, <span class="ident">child_type</span>.<span class="ident">to_str</span>());
+        <span class="kw">let</span> <span class="ident">signature</span> <span class="op">=</span> <span class="macro">format!</span>(<span class="string">&quot;a{}&quot;</span>, <span class="ident">child_type</span>.<span class="ident">to_str</span>());
 
         <span class="ident">VariantType</span>::<span class="ident">new</span>(<span class="kw-2">&amp;</span><span class="ident">signature</span>)
             .<span class="ident">expect</span>(<span class="string">&quot;incorrect signature&quot;</span>)
@@ -1644,7 +1644,7 @@
     <span class="kw">fn</span> <span class="ident">static_variant_type</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Cow</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span>, <span class="ident">VariantTy</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">key_type</span> <span class="op">=</span> <span class="ident">K</span>::<span class="ident">static_variant_type</span>();
         <span class="kw">let</span> <span class="ident">value_type</span> <span class="op">=</span> <span class="ident">V</span>::<span class="ident">static_variant_type</span>();
-        <span class="kw">let</span> <span class="ident">signature</span> <span class="op">=</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{{{}{}}}&quot;</span>, <span class="ident">key_type</span>.<span class="ident">to_str</span>(), <span class="ident">value_type</span>.<span class="ident">to_str</span>());
+        <span class="kw">let</span> <span class="ident">signature</span> <span class="op">=</span> <span class="macro">format!</span>(<span class="string">&quot;{{{}{}}}&quot;</span>, <span class="ident">key_type</span>.<span class="ident">to_str</span>(), <span class="ident">value_type</span>.<span class="ident">to_str</span>());
 
         <span class="ident">VariantType</span>::<span class="ident">new</span>(<span class="kw-2">&amp;</span><span class="ident">signature</span>)
             .<span class="ident">expect</span>(<span class="string">&quot;incorrect signature&quot;</span>)
@@ -1661,7 +1661,7 @@
     <span class="kw">fn</span> <span class="ident">static_variant_type</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Cow</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span>, <span class="ident">VariantTy</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">key_type</span> <span class="op">=</span> <span class="ident">K</span>::<span class="ident">static_variant_type</span>();
         <span class="kw">let</span> <span class="ident">value_type</span> <span class="op">=</span> <span class="ident">V</span>::<span class="ident">static_variant_type</span>();
-        <span class="kw">let</span> <span class="ident">signature</span> <span class="op">=</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;a{{{}{}}}&quot;</span>, <span class="ident">key_type</span>.<span class="ident">to_str</span>(), <span class="ident">value_type</span>.<span class="ident">to_str</span>());
+        <span class="kw">let</span> <span class="ident">signature</span> <span class="op">=</span> <span class="macro">format!</span>(<span class="string">&quot;a{{{}{}}}&quot;</span>, <span class="ident">key_type</span>.<span class="ident">to_str</span>(), <span class="ident">value_type</span>.<span class="ident">to_str</span>());
 
         <span class="ident">VariantType</span>::<span class="ident">new</span>(<span class="kw-2">&amp;</span><span class="ident">signature</span>)
             .<span class="ident">expect</span>(<span class="string">&quot;incorrect signature&quot;</span>)
@@ -1669,7 +1669,7 @@
     }
 }
 
-<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">tuple_impls</span> {
+<span class="macro">macro_rules!</span> <span class="ident">tuple_impls</span> {
     ($(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">len</span>:<span class="ident">expr</span> <span class="op">=</span><span class="op">&gt;</span> ($(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">n</span>:<span class="ident">tt</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ident</span>)<span class="op">+</span>))<span class="op">+</span>) <span class="op">=</span><span class="op">&gt;</span> {
         $(
             <span class="kw">impl</span><span class="op">&lt;</span>$(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>),<span class="op">+</span><span class="op">&gt;</span> <span class="ident">StaticVariantType</span> <span class="kw">for</span> ($(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>,)<span class="op">+</span>)
@@ -1721,7 +1721,7 @@
     }
 }
 
-<span class="macro">tuple_impls</span><span class="macro">!</span> {
+<span class="macro">tuple_impls!</span> {
     <span class="number">1</span> <span class="op">=</span><span class="op">&gt;</span> (<span class="number">0</span> <span class="ident">T0</span>)
     <span class="number">2</span> <span class="op">=</span><span class="op">&gt;</span> (<span class="number">0</span> <span class="ident">T0</span> <span class="number">1</span> <span class="ident">T1</span>)
     <span class="number">3</span> <span class="op">=</span><span class="op">&gt;</span> (<span class="number">0</span> <span class="ident">T0</span> <span class="number">1</span> <span class="ident">T1</span> <span class="number">2</span> <span class="ident">T2</span>)
@@ -1745,56 +1745,56 @@
     <span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
     <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">collections</span>::{<span class="ident">HashMap</span>, <span class="ident">HashSet</span>};
 
-    <span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">unsigned</span> {
+    <span class="macro">macro_rules!</span> <span class="ident">unsigned</span> {
         (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ty</span>:<span class="ident">ident</span>) <span class="op">=</span><span class="op">&gt;</span> {
             <span class="attribute">#[<span class="ident">test</span>]</span>
             <span class="kw">fn</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>() {
                 <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">n</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ty</span>::<span class="ident">max_value</span>();
                 <span class="kw">while</span> <span class="ident">n</span> <span class="op">&gt;</span> <span class="number">0</span> {
                     <span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">n</span>.<span class="ident">to_variant</span>();
-                    <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">v</span>.<span class="ident">get</span>(), <span class="prelude-val">Some</span>(<span class="ident">n</span>));
+                    <span class="macro">assert_eq!</span>(<span class="ident">v</span>.<span class="ident">get</span>(), <span class="prelude-val">Some</span>(<span class="ident">n</span>));
                     <span class="ident">n</span> <span class="op">/</span><span class="op">=</span> <span class="number">2</span>;
                 }
             }
         };
     }
 
-    <span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">signed</span> {
+    <span class="macro">macro_rules!</span> <span class="ident">signed</span> {
         (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ty</span>:<span class="ident">ident</span>) <span class="op">=</span><span class="op">&gt;</span> {
             <span class="attribute">#[<span class="ident">test</span>]</span>
             <span class="kw">fn</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>() {
                 <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">n</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ty</span>::<span class="ident">max_value</span>();
                 <span class="kw">while</span> <span class="ident">n</span> <span class="op">&gt;</span> <span class="number">0</span> {
                     <span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">n</span>.<span class="ident">to_variant</span>();
-                    <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">v</span>.<span class="ident">get</span>(), <span class="prelude-val">Some</span>(<span class="ident">n</span>));
+                    <span class="macro">assert_eq!</span>(<span class="ident">v</span>.<span class="ident">get</span>(), <span class="prelude-val">Some</span>(<span class="ident">n</span>));
                     <span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> (<span class="op">-</span><span class="ident">n</span>).<span class="ident">to_variant</span>();
-                    <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">v</span>.<span class="ident">get</span>(), <span class="prelude-val">Some</span>(<span class="op">-</span><span class="ident">n</span>));
+                    <span class="macro">assert_eq!</span>(<span class="ident">v</span>.<span class="ident">get</span>(), <span class="prelude-val">Some</span>(<span class="op">-</span><span class="ident">n</span>));
                     <span class="ident">n</span> <span class="op">/</span><span class="op">=</span> <span class="number">2</span>;
                 }
             }
         };
     }
 
-    <span class="macro">unsigned</span><span class="macro">!</span>(<span class="ident">test_u8</span>, <span class="ident">u8</span>);
-    <span class="macro">unsigned</span><span class="macro">!</span>(<span class="ident">test_u16</span>, <span class="ident">u16</span>);
-    <span class="macro">unsigned</span><span class="macro">!</span>(<span class="ident">test_u32</span>, <span class="ident">u32</span>);
-    <span class="macro">unsigned</span><span class="macro">!</span>(<span class="ident">test_u64</span>, <span class="ident">u64</span>);
-    <span class="macro">signed</span><span class="macro">!</span>(<span class="ident">test_i16</span>, <span class="ident">i16</span>);
-    <span class="macro">signed</span><span class="macro">!</span>(<span class="ident">test_i32</span>, <span class="ident">i32</span>);
-    <span class="macro">signed</span><span class="macro">!</span>(<span class="ident">test_i64</span>, <span class="ident">i64</span>);
+    <span class="macro">unsigned!</span>(<span class="ident">test_u8</span>, <span class="ident">u8</span>);
+    <span class="macro">unsigned!</span>(<span class="ident">test_u16</span>, <span class="ident">u16</span>);
+    <span class="macro">unsigned!</span>(<span class="ident">test_u32</span>, <span class="ident">u32</span>);
+    <span class="macro">unsigned!</span>(<span class="ident">test_u64</span>, <span class="ident">u64</span>);
+    <span class="macro">signed!</span>(<span class="ident">test_i16</span>, <span class="ident">i16</span>);
+    <span class="macro">signed!</span>(<span class="ident">test_i32</span>, <span class="ident">i32</span>);
+    <span class="macro">signed!</span>(<span class="ident">test_i64</span>, <span class="ident">i64</span>);
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_str</span>() {
         <span class="kw">let</span> <span class="ident">s</span> <span class="op">=</span> <span class="string">&quot;this is a test&quot;</span>;
         <span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">s</span>.<span class="ident">to_variant</span>();
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">v</span>.<span class="ident">get_str</span>(), <span class="prelude-val">Some</span>(<span class="ident">s</span>));
+        <span class="macro">assert_eq!</span>(<span class="ident">v</span>.<span class="ident">get_str</span>(), <span class="prelude-val">Some</span>(<span class="ident">s</span>));
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_string</span>() {
         <span class="kw">let</span> <span class="ident">s</span> <span class="op">=</span> <span class="ident">String</span>::<span class="ident">from</span>(<span class="string">&quot;this is a test&quot;</span>);
         <span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">s</span>.<span class="ident">to_variant</span>();
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">v</span>.<span class="ident">get</span>(), <span class="prelude-val">Some</span>(<span class="ident">s</span>));
+        <span class="macro">assert_eq!</span>(<span class="ident">v</span>.<span class="ident">get</span>(), <span class="prelude-val">Some</span>(<span class="ident">s</span>));
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -1802,8 +1802,8 @@
         <span class="kw">let</span> <span class="ident">v1</span> <span class="op">=</span> <span class="string">&quot;this is a test&quot;</span>.<span class="ident">to_variant</span>();
         <span class="kw">let</span> <span class="ident">v2</span> <span class="op">=</span> <span class="string">&quot;this is a test&quot;</span>.<span class="ident">to_variant</span>();
         <span class="kw">let</span> <span class="ident">v3</span> <span class="op">=</span> <span class="string">&quot;test&quot;</span>.<span class="ident">to_variant</span>();
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">v1</span>, <span class="ident">v2</span>);
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">v1</span> <span class="op">!</span><span class="op">=</span> <span class="ident">v3</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">v1</span>, <span class="ident">v2</span>);
+        <span class="macro">assert!</span>(<span class="ident">v1</span> <span class="op">!</span><span class="op">=</span> <span class="ident">v3</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -1813,10 +1813,10 @@
         <span class="kw">let</span> <span class="ident">v3</span> <span class="op">=</span> <span class="string">&quot;test&quot;</span>.<span class="ident">to_variant</span>();
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">set</span> <span class="op">=</span> <span class="ident">HashSet</span>::<span class="ident">new</span>();
         <span class="ident">set</span>.<span class="ident">insert</span>(<span class="ident">v1</span>);
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">set</span>.<span class="ident">contains</span>(<span class="kw-2">&amp;</span><span class="ident">v2</span>));
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">set</span>.<span class="ident">contains</span>(<span class="kw-2">&amp;</span><span class="ident">v3</span>));
+        <span class="macro">assert!</span>(<span class="ident">set</span>.<span class="ident">contains</span>(<span class="kw-2">&amp;</span><span class="ident">v2</span>));
+        <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">set</span>.<span class="ident">contains</span>(<span class="kw-2">&amp;</span><span class="ident">v3</span>));
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(
             <span class="op">&lt;</span><span class="ident">HashMap</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span>, (<span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">u8</span>, <span class="ident">u32</span>)<span class="op">&gt;</span><span class="op">&gt;</span>::<span class="ident">static_variant_type</span>().<span class="ident">to_str</span>(),
             <span class="string">&quot;a{s(syu)}&quot;</span>
         );
@@ -1825,8 +1825,8 @@
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_array</span>() {
         <span class="comment">// Test just the signature for now.</span>
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span><span class="op">&gt;</span>::<span class="ident">static_variant_type</span>().<span class="ident">to_str</span>(), <span class="string">&quot;as&quot;</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert_eq!</span>(<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span><span class="op">&gt;</span>::<span class="ident">static_variant_type</span>().<span class="ident">to_str</span>(), <span class="string">&quot;as&quot;</span>);
+        <span class="macro">assert_eq!</span>(
             <span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span>(<span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">u8</span>, <span class="ident">u32</span>)<span class="op">&gt;</span><span class="op">&gt;</span>::<span class="ident">static_variant_type</span>().<span class="ident">to_str</span>(),
             <span class="string">&quot;a(syu)&quot;</span>
         );

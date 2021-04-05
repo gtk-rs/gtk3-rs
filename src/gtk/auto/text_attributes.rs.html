@@ -71,7 +71,7 @@
 
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
 
-<span class="ident">glib</span>::<span class="macro">wrapper</span><span class="macro">!</span> {
+<span class="ident">glib</span>::<span class="macro">wrapper!</span> {
     <span class="doccomment">/// Using `TextAttributes` directly should rarely be necessary.</span>
     <span class="doccomment">/// It’s primarily useful with `TextIter::get_attributes`.</span>
     <span class="doccomment">/// As with most GTK+ structs, the fields in this struct should only</span>
@@ -96,7 +96,7 @@
     <span class="doccomment">///  free with `TextAttributes::unref`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_text_attributes_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TextAttributes</span> {
-        <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
+        <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">gtk_text_attributes_new</span>()) }
     }
 

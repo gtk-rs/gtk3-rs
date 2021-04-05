@@ -1792,7 +1792,7 @@
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>::<span class="ident">transmute</span>;
 
-<span class="ident">glib</span>::<span class="macro">wrapper</span><span class="macro">!</span> {
+<span class="ident">glib</span>::<span class="macro">wrapper!</span> {
     <span class="doccomment">/// The `Settings` class provides a convenient API for storing and retrieving</span>
     <span class="doccomment">/// application settings.</span>
     <span class="doccomment">///</span>
@@ -3170,7 +3170,7 @@
 
     <span class="kw">fn</span> <span class="ident">set_boolean</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">key</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">value</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib</span>::<span class="ident">error</span>::<span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">glib</span>::<span class="macro">result_from_gboolean</span><span class="macro">!</span>(
+            <span class="ident">glib</span>::<span class="macro">result_from_gboolean!</span>(
                 <span class="ident">ffi</span>::<span class="ident">g_settings_set_boolean</span>(
                     <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                     <span class="ident">key</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -3183,7 +3183,7 @@
 
     <span class="kw">fn</span> <span class="ident">set_double</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">key</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">value</span>: <span class="ident">f64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib</span>::<span class="ident">error</span>::<span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">glib</span>::<span class="macro">result_from_gboolean</span><span class="macro">!</span>(
+            <span class="ident">glib</span>::<span class="macro">result_from_gboolean!</span>(
                 <span class="ident">ffi</span>::<span class="ident">g_settings_set_double</span>(
                     <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                     <span class="ident">key</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -3196,7 +3196,7 @@
 
     <span class="kw">fn</span> <span class="ident">set_enum</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">key</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">value</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib</span>::<span class="ident">error</span>::<span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">glib</span>::<span class="macro">result_from_gboolean</span><span class="macro">!</span>(
+            <span class="ident">glib</span>::<span class="macro">result_from_gboolean!</span>(
                 <span class="ident">ffi</span>::<span class="ident">g_settings_set_enum</span>(
                     <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                     <span class="ident">key</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -3209,7 +3209,7 @@
 
     <span class="kw">fn</span> <span class="ident">set_flags</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">key</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">value</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib</span>::<span class="ident">error</span>::<span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">glib</span>::<span class="macro">result_from_gboolean</span><span class="macro">!</span>(
+            <span class="ident">glib</span>::<span class="macro">result_from_gboolean!</span>(
                 <span class="ident">ffi</span>::<span class="ident">g_settings_set_flags</span>(
                     <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                     <span class="ident">key</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -3222,7 +3222,7 @@
 
     <span class="kw">fn</span> <span class="ident">set_int</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">key</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">value</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib</span>::<span class="ident">error</span>::<span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">glib</span>::<span class="macro">result_from_gboolean</span><span class="macro">!</span>(
+            <span class="ident">glib</span>::<span class="macro">result_from_gboolean!</span>(
                 <span class="ident">ffi</span>::<span class="ident">g_settings_set_int</span>(
                     <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                     <span class="ident">key</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -3237,7 +3237,7 @@
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_50&quot;</span>)))]</span>
     <span class="kw">fn</span> <span class="ident">set_int64</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">key</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">value</span>: <span class="ident">i64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib</span>::<span class="ident">error</span>::<span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">glib</span>::<span class="macro">result_from_gboolean</span><span class="macro">!</span>(
+            <span class="ident">glib</span>::<span class="macro">result_from_gboolean!</span>(
                 <span class="ident">ffi</span>::<span class="ident">g_settings_set_int64</span>(
                     <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                     <span class="ident">key</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -3250,7 +3250,7 @@
 
     <span class="kw">fn</span> <span class="ident">set_string</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">key</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib</span>::<span class="ident">error</span>::<span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">glib</span>::<span class="macro">result_from_gboolean</span><span class="macro">!</span>(
+            <span class="ident">glib</span>::<span class="macro">result_from_gboolean!</span>(
                 <span class="ident">ffi</span>::<span class="ident">g_settings_set_string</span>(
                     <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                     <span class="ident">key</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -3263,7 +3263,7 @@
 
     <span class="kw">fn</span> <span class="ident">set_strv</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">key</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">value</span>: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span><span class="ident">str</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib</span>::<span class="ident">error</span>::<span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">glib</span>::<span class="macro">result_from_gboolean</span><span class="macro">!</span>(
+            <span class="ident">glib</span>::<span class="macro">result_from_gboolean!</span>(
                 <span class="ident">ffi</span>::<span class="ident">g_settings_set_strv</span>(
                     <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                     <span class="ident">key</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -3276,7 +3276,7 @@
 
     <span class="kw">fn</span> <span class="ident">set_uint</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">key</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">value</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib</span>::<span class="ident">error</span>::<span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">glib</span>::<span class="macro">result_from_gboolean</span><span class="macro">!</span>(
+            <span class="ident">glib</span>::<span class="macro">result_from_gboolean!</span>(
                 <span class="ident">ffi</span>::<span class="ident">g_settings_set_uint</span>(
                     <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                     <span class="ident">key</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -3291,7 +3291,7 @@
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_50&quot;</span>)))]</span>
     <span class="kw">fn</span> <span class="ident">set_uint64</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">key</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">value</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib</span>::<span class="ident">error</span>::<span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">glib</span>::<span class="macro">result_from_gboolean</span><span class="macro">!</span>(
+            <span class="ident">glib</span>::<span class="macro">result_from_gboolean!</span>(
                 <span class="ident">ffi</span>::<span class="ident">g_settings_set_uint64</span>(
                     <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                     <span class="ident">key</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -3304,7 +3304,7 @@
 
     <span class="kw">fn</span> <span class="ident">set_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">key</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">glib</span>::<span class="ident">Variant</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib</span>::<span class="ident">error</span>::<span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">glib</span>::<span class="macro">result_from_gboolean</span><span class="macro">!</span>(
+            <span class="ident">glib</span>::<span class="macro">result_from_gboolean!</span>(
                 <span class="ident">ffi</span>::<span class="ident">g_settings_set_value</span>(
                     <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                     <span class="ident">key</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -3410,7 +3410,7 @@
         }
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">f</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_</span>::<span class="ident">new</span>(<span class="ident">f</span>);
-            <span class="kw">let</span> <span class="ident">detailed_signal_name</span> <span class="op">=</span> <span class="ident">detail</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">name</span><span class="op">|</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;changed::{}\0&quot;</span>, <span class="ident">name</span>));
+            <span class="kw">let</span> <span class="ident">detailed_signal_name</span> <span class="op">=</span> <span class="ident">detail</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">name</span><span class="op">|</span> <span class="macro">format!</span>(<span class="string">&quot;changed::{}\0&quot;</span>, <span class="ident">name</span>));
             <span class="kw">let</span> <span class="ident">signal_name</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>] <span class="op">=</span> <span class="ident">detailed_signal_name</span>
                 .<span class="ident">as_ref</span>()
                 .<span class="ident">map_or</span>(<span class="kw-2">&amp;</span><span class="string">b&quot;changed\0&quot;</span>[..], <span class="op">|</span><span class="ident">n</span><span class="op">|</span> <span class="ident">n</span>.<span class="ident">as_bytes</span>());
@@ -3476,7 +3476,7 @@
         }
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">f</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_</span>::<span class="ident">new</span>(<span class="ident">f</span>);
-            <span class="kw">let</span> <span class="ident">detailed_signal_name</span> <span class="op">=</span> <span class="ident">detail</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">name</span><span class="op">|</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;writable-changed::{}\0&quot;</span>, <span class="ident">name</span>));
+            <span class="kw">let</span> <span class="ident">detailed_signal_name</span> <span class="op">=</span> <span class="ident">detail</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">name</span><span class="op">|</span> <span class="macro">format!</span>(<span class="string">&quot;writable-changed::{}\0&quot;</span>, <span class="ident">name</span>));
             <span class="kw">let</span> <span class="ident">signal_name</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>] <span class="op">=</span> <span class="ident">detailed_signal_name</span>
                 .<span class="ident">as_ref</span>()
                 .<span class="ident">map_or</span>(<span class="kw-2">&amp;</span><span class="string">b&quot;writable-changed\0&quot;</span>[..], <span class="op">|</span><span class="ident">n</span><span class="op">|</span> <span class="ident">n</span>.<span class="ident">as_bytes</span>());

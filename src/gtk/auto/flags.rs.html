@@ -1528,7 +1528,7 @@
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">Type</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// Accelerator flags used with `AccelGroup::connect`.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">AccelFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// Accelerator is visible</span>
@@ -1558,7 +1558,7 @@
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GtkAccelFlags</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">AccelFlags</span> {
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GtkAccelFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">AccelFlags</span> {
-        <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
+        <span class="macro">skip_assert_initialized!</span>();
         <span class="ident">AccelFlags</span>::<span class="ident">from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
@@ -1587,7 +1587,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// Types of user actions that may be blocked by `GtkApplicationExt::inhibit`.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ApplicationInhibitFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// Inhibit ending the user session</span>
@@ -1622,7 +1622,7 @@
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GtkApplicationInhibitFlags</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">ApplicationInhibitFlags</span> {
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GtkApplicationInhibitFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ApplicationInhibitFlags</span> {
-        <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
+        <span class="macro">skip_assert_initialized!</span>();
         <span class="ident">ApplicationInhibitFlags</span>::<span class="ident">from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
@@ -1651,7 +1651,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// These options can be used to influence the display and behaviour of a `Calendar`.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">CalendarDisplayOptions</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// Specifies that the month and year should be displayed.</span>
@@ -1687,7 +1687,7 @@
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GtkCalendarDisplayOptions</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">CalendarDisplayOptions</span> {
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GtkCalendarDisplayOptions</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">CalendarDisplayOptions</span> {
-        <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
+        <span class="macro">skip_assert_initialized!</span>();
         <span class="ident">CalendarDisplayOptions</span>::<span class="ident">from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
@@ -1716,7 +1716,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// Tells how a cell is to be rendered.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">CellRendererState</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// The cell is currently selected, and</span>
@@ -1755,7 +1755,7 @@
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GtkCellRendererState</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">CellRendererState</span> {
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GtkCellRendererState</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">CellRendererState</span> {
-        <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
+        <span class="macro">skip_assert_initialized!</span>();
         <span class="ident">CellRendererState</span>::<span class="ident">from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
@@ -1784,7 +1784,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// The `DestDefaults` enumeration specifies the various</span>
     <span class="doccomment">/// types of action that will be taken on behalf</span>
     <span class="doccomment">/// of the user for a drag destination site.</span>
@@ -1829,7 +1829,7 @@
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GtkDestDefaults</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">DestDefaults</span> {
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GtkDestDefaults</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DestDefaults</span> {
-        <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
+        <span class="macro">skip_assert_initialized!</span>();
         <span class="ident">DestDefaults</span>::<span class="ident">from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
@@ -1858,7 +1858,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// Flags used to influence dialog construction.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DialogFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// Make the constructed dialog modal,</span>
@@ -1891,7 +1891,7 @@
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GtkDialogFlags</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">DialogFlags</span> {
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GtkDialogFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DialogFlags</span> {
-        <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
+        <span class="macro">skip_assert_initialized!</span>();
         <span class="ident">DialogFlags</span>::<span class="ident">from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
@@ -1922,7 +1922,7 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_24&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_24&quot;</span>)))]</span>
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// Describes the behavior of a `EventControllerScroll`.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EventControllerScrollFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// Don&#39;t emit scroll.</span>
@@ -1968,7 +1968,7 @@
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GtkEventControllerScrollFlags</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">EventControllerScrollFlags</span> {
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GtkEventControllerScrollFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">EventControllerScrollFlags</span> {
-        <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
+        <span class="macro">skip_assert_initialized!</span>();
         <span class="ident">EventControllerScrollFlags</span>::<span class="ident">from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
@@ -2005,7 +2005,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// These flags indicate what parts of a `FileFilterInfo` struct</span>
     <span class="doccomment">/// are filled or need to be filled.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FileFilterFlags</span>: <span class="ident">u32</span> {
@@ -2039,7 +2039,7 @@
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GtkFileFilterFlags</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">FileFilterFlags</span> {
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GtkFileFilterFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FileFilterFlags</span> {
-        <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
+        <span class="macro">skip_assert_initialized!</span>();
         <span class="ident">FileFilterFlags</span>::<span class="ident">from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
@@ -2070,7 +2070,7 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_24&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_24&quot;</span>)))]</span>
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// This enumeration specifies the granularity of font selection</span>
     <span class="doccomment">/// that is desired in a font chooser.</span>
     <span class="doccomment">///</span>
@@ -2116,7 +2116,7 @@
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GtkFontChooserLevel</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">FontChooserLevel</span> {
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GtkFontChooserLevel</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FontChooserLevel</span> {
-        <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
+        <span class="macro">skip_assert_initialized!</span>();
         <span class="ident">FontChooserLevel</span>::<span class="ident">from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
@@ -2153,7 +2153,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// Used to specify options for `IconThemeExt::lookup_icon`</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">IconLookupFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// Never get SVG icons, even if gdk-pixbuf</span>
@@ -2209,7 +2209,7 @@
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GtkIconLookupFlags</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">IconLookupFlags</span> {
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GtkIconLookupFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">IconLookupFlags</span> {
-        <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
+        <span class="macro">skip_assert_initialized!</span>();
         <span class="ident">IconLookupFlags</span>::<span class="ident">from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
@@ -2238,7 +2238,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// Describes hints that might be taken into account by input methods</span>
     <span class="doccomment">/// or applications. Note that input methods may already tailor their</span>
     <span class="doccomment">/// behaviour according to the `InputPurpose` of the entry.</span>
@@ -2301,7 +2301,7 @@
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GtkInputHints</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">InputHints</span> {
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GtkInputHints</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">InputHints</span> {
-        <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
+        <span class="macro">skip_assert_initialized!</span>();
         <span class="ident">InputHints</span>::<span class="ident">from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
@@ -2330,7 +2330,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// Describes how a rendered element connects to adjacent elements.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">JunctionSides</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// No junctions.</span>
@@ -2372,7 +2372,7 @@
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GtkJunctionSides</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">JunctionSides</span> {
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GtkJunctionSides</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">JunctionSides</span> {
-        <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
+        <span class="macro">skip_assert_initialized!</span>();
         <span class="ident">JunctionSides</span>::<span class="ident">from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
@@ -2401,7 +2401,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// These flags serve two purposes. First, the application can call `PlacesSidebar::set_open_flags`</span>
     <span class="doccomment">/// using these flags as a bitmask. This tells the sidebar that the application is able to open</span>
     <span class="doccomment">/// folders selected from the sidebar in various ways, for example, in new tabs or in new windows in</span>
@@ -2450,7 +2450,7 @@
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GtkPlacesOpenFlags</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">PlacesOpenFlags</span> {
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GtkPlacesOpenFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">PlacesOpenFlags</span> {
-        <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
+        <span class="macro">skip_assert_initialized!</span>();
         <span class="ident">PlacesOpenFlags</span>::<span class="ident">from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
@@ -2479,7 +2479,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// These flags indicate what parts of a `RecentFilterInfo` struct</span>
     <span class="doccomment">/// are filled or need to be filled.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RecentFilterFlags</span>: <span class="ident">u32</span> {
@@ -2519,7 +2519,7 @@
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GtkRecentFilterFlags</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">RecentFilterFlags</span> {
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GtkRecentFilterFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">RecentFilterFlags</span> {
-        <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
+        <span class="macro">skip_assert_initialized!</span>();
         <span class="ident">RecentFilterFlags</span>::<span class="ident">from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
@@ -2548,7 +2548,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// Describes a region within a widget.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RegionFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// Region has an even number within a set.</span>
@@ -2584,7 +2584,7 @@
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GtkRegionFlags</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">RegionFlags</span> {
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GtkRegionFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">RegionFlags</span> {
-        <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
+        <span class="macro">skip_assert_initialized!</span>();
         <span class="ident">RegionFlags</span>::<span class="ident">from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
@@ -2613,7 +2613,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// Describes a widget state. Widget states are used to match the widget</span>
     <span class="doccomment">/// against CSS pseudo-classes. Note that GTK extends the regular CSS</span>
     <span class="doccomment">/// classes and sometimes uses different names.</span>
@@ -2667,7 +2667,7 @@
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GtkStateFlags</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">StateFlags</span> {
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GtkStateFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">StateFlags</span> {
-        <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
+        <span class="macro">skip_assert_initialized!</span>();
         <span class="ident">StateFlags</span>::<span class="ident">from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
@@ -2698,7 +2698,7 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>)))]</span>
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// Flags that modify the behavior of `StyleContextExt::to_string`.</span>
     <span class="doccomment">/// New values may be added to this enumeration.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">StyleContextPrintFlags</span>: <span class="ident">u32</span> {
@@ -2739,7 +2739,7 @@
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GtkStyleContextPrintFlags</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">StyleContextPrintFlags</span> {
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GtkStyleContextPrintFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">StyleContextPrintFlags</span> {
-        <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
+        <span class="macro">skip_assert_initialized!</span>();
         <span class="ident">StyleContextPrintFlags</span>::<span class="ident">from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
@@ -2776,7 +2776,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// The `TargetFlags` enumeration is used to specify</span>
     <span class="doccomment">/// constraints on a `TargetEntry`.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TargetFlags</span>: <span class="ident">u32</span> {
@@ -2813,7 +2813,7 @@
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GtkTargetFlags</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">TargetFlags</span> {
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GtkTargetFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TargetFlags</span> {
-        <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
+        <span class="macro">skip_assert_initialized!</span>();
         <span class="ident">TargetFlags</span>::<span class="ident">from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
@@ -2842,7 +2842,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// Flags affecting how a search is done.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If neither `TextSearchFlags::VisibleOnly` nor `TextSearchFlags::TextOnly` are</span>
@@ -2879,7 +2879,7 @@
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GtkTextSearchFlags</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">TextSearchFlags</span> {
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GtkTextSearchFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TextSearchFlags</span> {
-        <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
+        <span class="macro">skip_assert_initialized!</span>();
         <span class="ident">TextSearchFlags</span>::<span class="ident">from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
@@ -2908,7 +2908,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// Flags used to specify the supported drag targets.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ToolPaletteDragTargets</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// Support drag of items.</span>
@@ -2936,7 +2936,7 @@
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GtkToolPaletteDragTargets</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">ToolPaletteDragTargets</span> {
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GtkToolPaletteDragTargets</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ToolPaletteDragTargets</span> {
-        <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
+        <span class="macro">skip_assert_initialized!</span>();
         <span class="ident">ToolPaletteDragTargets</span>::<span class="ident">from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
@@ -2965,7 +2965,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="doccomment">/// These flags indicate various properties of a `TreeModel`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// They are returned by `TreeModel::get_flags`, and must be</span>
@@ -3000,7 +3000,7 @@
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GtkTreeModelFlags</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">TreeModelFlags</span> {
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GtkTreeModelFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TreeModelFlags</span> {
-        <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
+        <span class="macro">skip_assert_initialized!</span>();
         <span class="ident">TreeModelFlags</span>::<span class="ident">from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }

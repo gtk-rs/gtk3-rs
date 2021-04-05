@@ -3544,7 +3544,7 @@
     <span class="doccomment">/// child is bound and of the right type.</span>
     <span class="kw">fn</span> <span class="ident">deref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Target</span> {
         <span class="kw">unsafe</span> {
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="self">self</span>.<span class="ident">ptr</span>.<span class="ident">is_null</span>());
+            <span class="macro">assert!</span>(<span class="op">!</span><span class="self">self</span>.<span class="ident">ptr</span>.<span class="ident">is_null</span>());
             <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">T</span>)
         }
     }

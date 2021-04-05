@@ -489,7 +489,7 @@
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">hash</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>;
 
-<span class="kw">crate</span>::<span class="macro">wrapper</span><span class="macro">!</span> {
+<span class="kw">crate</span>::<span class="macro">wrapper!</span> {
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DateTime</span>(<span class="ident">Shared</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GDateTime</span><span class="op">&gt;</span>);
 
@@ -521,7 +521,7 @@
                 <span class="ident">minute</span>,
                 <span class="ident">seconds</span>,
             ))
-            .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">crate</span>::<span class="macro">bool_error</span><span class="macro">!</span>(<span class="string">&quot;Invalid date&quot;</span>))
+            .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">crate</span>::<span class="macro">bool_error!</span>(<span class="string">&quot;Invalid date&quot;</span>))
         }
     }
 
@@ -534,7 +534,7 @@
                 <span class="ident">text</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">default_tz</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
-            .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">crate</span>::<span class="macro">bool_error</span><span class="macro">!</span>(<span class="string">&quot;Invalid date&quot;</span>))
+            .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">crate</span>::<span class="macro">bool_error!</span>(<span class="string">&quot;Invalid date&quot;</span>))
         }
     }
 
@@ -554,7 +554,7 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_unix_local</span>(<span class="ident">t</span>: <span class="ident">i64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">DateTime</span>, <span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="prelude-ty">Option</span>::<span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span>::<span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_date_time_new_from_unix_local</span>(<span class="ident">t</span>))
-                .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">crate</span>::<span class="macro">bool_error</span><span class="macro">!</span>(<span class="string">&quot;Invalid date&quot;</span>))
+                .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">crate</span>::<span class="macro">bool_error!</span>(<span class="string">&quot;Invalid date&quot;</span>))
         }
     }
 
@@ -562,7 +562,7 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_unix_utc</span>(<span class="ident">t</span>: <span class="ident">i64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">DateTime</span>, <span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="prelude-ty">Option</span>::<span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span>::<span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_date_time_new_from_unix_utc</span>(<span class="ident">t</span>))
-                .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">crate</span>::<span class="macro">bool_error</span><span class="macro">!</span>(<span class="string">&quot;Invalid date&quot;</span>))
+                .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">crate</span>::<span class="macro">bool_error!</span>(<span class="string">&quot;Invalid date&quot;</span>))
         }
     }
 
@@ -579,7 +579,7 @@
             <span class="prelude-ty">Option</span>::<span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span>::<span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_date_time_new_local</span>(
                 <span class="ident">year</span>, <span class="ident">month</span>, <span class="ident">day</span>, <span class="ident">hour</span>, <span class="ident">minute</span>, <span class="ident">seconds</span>,
             ))
-            .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">crate</span>::<span class="macro">bool_error</span><span class="macro">!</span>(<span class="string">&quot;Invalid date&quot;</span>))
+            .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">crate</span>::<span class="macro">bool_error!</span>(<span class="string">&quot;Invalid date&quot;</span>))
         }
     }
 
@@ -587,7 +587,7 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_now</span>(<span class="ident">tz</span>: <span class="kw-2">&amp;</span><span class="ident">TimeZone</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">DateTime</span>, <span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="prelude-ty">Option</span>::<span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span>::<span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_date_time_new_now</span>(<span class="ident">tz</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>))
-                .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">crate</span>::<span class="macro">bool_error</span><span class="macro">!</span>(<span class="string">&quot;Invalid date&quot;</span>))
+                .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">crate</span>::<span class="macro">bool_error!</span>(<span class="string">&quot;Invalid date&quot;</span>))
         }
     }
 
@@ -595,7 +595,7 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_now_local</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">DateTime</span>, <span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="prelude-ty">Option</span>::<span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span>::<span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_date_time_new_now_local</span>())
-                .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">crate</span>::<span class="macro">bool_error</span><span class="macro">!</span>(<span class="string">&quot;Invalid date&quot;</span>))
+                .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">crate</span>::<span class="macro">bool_error!</span>(<span class="string">&quot;Invalid date&quot;</span>))
         }
     }
 
@@ -603,7 +603,7 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_now_utc</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">DateTime</span>, <span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="prelude-ty">Option</span>::<span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span>::<span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_date_time_new_now_utc</span>())
-                .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">crate</span>::<span class="macro">bool_error</span><span class="macro">!</span>(<span class="string">&quot;Invalid date&quot;</span>))
+                .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">crate</span>::<span class="macro">bool_error!</span>(<span class="string">&quot;Invalid date&quot;</span>))
         }
     }
 
@@ -620,7 +620,7 @@
             <span class="prelude-ty">Option</span>::<span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span>::<span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_date_time_new_utc</span>(
                 <span class="ident">year</span>, <span class="ident">month</span>, <span class="ident">day</span>, <span class="ident">hour</span>, <span class="ident">minute</span>, <span class="ident">seconds</span>,
             ))
-            .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">crate</span>::<span class="macro">bool_error</span><span class="macro">!</span>(<span class="string">&quot;Invalid date&quot;</span>))
+            .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">crate</span>::<span class="macro">bool_error!</span>(<span class="string">&quot;Invalid date&quot;</span>))
         }
     }
 
@@ -628,7 +628,7 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">timespan</span>: <span class="ident">TimeSpan</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">DateTime</span>, <span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="prelude-ty">Option</span>::<span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span>::<span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_date_time_add</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">timespan</span>))
-                .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">crate</span>::<span class="macro">bool_error</span><span class="macro">!</span>(<span class="string">&quot;Invalid date&quot;</span>))
+                .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">crate</span>::<span class="macro">bool_error!</span>(<span class="string">&quot;Invalid date&quot;</span>))
         }
     }
 
@@ -636,7 +636,7 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_days</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">days</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">DateTime</span>, <span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="prelude-ty">Option</span>::<span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span>::<span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_date_time_add_days</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">days</span>))
-                .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">crate</span>::<span class="macro">bool_error</span><span class="macro">!</span>(<span class="string">&quot;Invalid date&quot;</span>))
+                .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">crate</span>::<span class="macro">bool_error!</span>(<span class="string">&quot;Invalid date&quot;</span>))
         }
     }
 
@@ -660,7 +660,7 @@
                 <span class="ident">minutes</span>,
                 <span class="ident">seconds</span>,
             ))
-            .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">crate</span>::<span class="macro">bool_error</span><span class="macro">!</span>(<span class="string">&quot;Invalid date&quot;</span>))
+            .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">crate</span>::<span class="macro">bool_error!</span>(<span class="string">&quot;Invalid date&quot;</span>))
         }
     }
 
@@ -668,7 +668,7 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_hours</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">hours</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">DateTime</span>, <span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="prelude-ty">Option</span>::<span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span>::<span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_date_time_add_hours</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">hours</span>))
-                .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">crate</span>::<span class="macro">bool_error</span><span class="macro">!</span>(<span class="string">&quot;Invalid date&quot;</span>))
+                .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">crate</span>::<span class="macro">bool_error!</span>(<span class="string">&quot;Invalid date&quot;</span>))
         }
     }
 
@@ -679,7 +679,7 @@
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">minutes</span>,
             ))
-            .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">crate</span>::<span class="macro">bool_error</span><span class="macro">!</span>(<span class="string">&quot;Invalid date&quot;</span>))
+            .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">crate</span>::<span class="macro">bool_error!</span>(<span class="string">&quot;Invalid date&quot;</span>))
         }
     }
 
@@ -687,7 +687,7 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_months</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">months</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">DateTime</span>, <span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="prelude-ty">Option</span>::<span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span>::<span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_date_time_add_months</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">months</span>))
-                .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">crate</span>::<span class="macro">bool_error</span><span class="macro">!</span>(<span class="string">&quot;Invalid date&quot;</span>))
+                .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">crate</span>::<span class="macro">bool_error!</span>(<span class="string">&quot;Invalid date&quot;</span>))
         }
     }
 
@@ -698,7 +698,7 @@
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">seconds</span>,
             ))
-            .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">crate</span>::<span class="macro">bool_error</span><span class="macro">!</span>(<span class="string">&quot;Invalid date&quot;</span>))
+            .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">crate</span>::<span class="macro">bool_error!</span>(<span class="string">&quot;Invalid date&quot;</span>))
         }
     }
 
@@ -706,7 +706,7 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_weeks</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">weeks</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">DateTime</span>, <span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="prelude-ty">Option</span>::<span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span>::<span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_date_time_add_weeks</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">weeks</span>))
-                .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">crate</span>::<span class="macro">bool_error</span><span class="macro">!</span>(<span class="string">&quot;Invalid date&quot;</span>))
+                .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">crate</span>::<span class="macro">bool_error!</span>(<span class="string">&quot;Invalid date&quot;</span>))
         }
     }
 
@@ -714,7 +714,7 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_years</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">years</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">DateTime</span>, <span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="prelude-ty">Option</span>::<span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span>::<span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_date_time_add_years</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">years</span>))
-                .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">crate</span>::<span class="macro">bool_error</span><span class="macro">!</span>(<span class="string">&quot;Invalid date&quot;</span>))
+                .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">crate</span>::<span class="macro">bool_error!</span>(<span class="string">&quot;Invalid date&quot;</span>))
         }
     }
 
@@ -750,7 +750,7 @@
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">format</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
-            .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">crate</span>::<span class="macro">bool_error</span><span class="macro">!</span>(<span class="string">&quot;Invalid date&quot;</span>))
+            .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">crate</span>::<span class="macro">bool_error!</span>(<span class="string">&quot;Invalid date&quot;</span>))
         }
     }
 
@@ -760,7 +760,7 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">format_iso8601</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw">crate</span>::<span class="ident">GString</span>, <span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="prelude-ty">Option</span>::<span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span>::<span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_date_time_format_iso8601</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>))
-                .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">crate</span>::<span class="macro">bool_error</span><span class="macro">!</span>(<span class="string">&quot;Invalid date&quot;</span>))
+                .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">crate</span>::<span class="macro">bool_error!</span>(<span class="string">&quot;Invalid date&quot;</span>))
         }
     }
 
@@ -882,7 +882,7 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_local</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">DateTime</span>, <span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="prelude-ty">Option</span>::<span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span>::<span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_date_time_to_local</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>))
-                .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">crate</span>::<span class="macro">bool_error</span><span class="macro">!</span>(<span class="string">&quot;Invalid date&quot;</span>))
+                .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">crate</span>::<span class="macro">bool_error!</span>(<span class="string">&quot;Invalid date&quot;</span>))
         }
     }
 
@@ -899,7 +899,7 @@
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">tz</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
-            .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">crate</span>::<span class="macro">bool_error</span><span class="macro">!</span>(<span class="string">&quot;Invalid date&quot;</span>))
+            .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">crate</span>::<span class="macro">bool_error!</span>(<span class="string">&quot;Invalid date&quot;</span>))
         }
     }
 
@@ -912,7 +912,7 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_utc</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">DateTime</span>, <span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="prelude-ty">Option</span>::<span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span>::<span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_date_time_to_utc</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>))
-                .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">crate</span>::<span class="macro">bool_error</span><span class="macro">!</span>(<span class="string">&quot;Invalid date&quot;</span>))
+                .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">crate</span>::<span class="macro">bool_error!</span>(<span class="string">&quot;Invalid date&quot;</span>))
         }
     }
 }

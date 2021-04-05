@@ -1058,7 +1058,7 @@
     <span class="ident">_user_data</span>: <span class="ident">ffi</span>::<span class="ident">gpointer</span>,
 ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">gboolean</span> {
     <span class="kw">let</span> <span class="ident">source</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span>(<span class="ident">source</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ChannelSource</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">F</span><span class="op">&gt;</span>);
-    <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">callback</span>.<span class="ident">is_none</span>());
+    <span class="macro">assert!</span>(<span class="ident">callback</span>.<span class="ident">is_none</span>());
 
     <span class="comment">// Set ready-time to -1 so that we won&#39;t get called again before a new item is added</span>
     <span class="comment">// to the channel queue.</span>
@@ -1278,7 +1278,7 @@
                 <span class="ident">mut_override</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">source_funcs</span>),
                 <span class="ident">mem</span>::<span class="ident">size_of</span>::<span class="op">&lt;</span><span class="ident">ChannelSource</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">F</span><span class="op">&gt;</span><span class="op">&gt;</span>() <span class="kw">as</span> <span class="ident">u32</span>,
             ) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ChannelSource</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">F</span><span class="op">&gt;</span>;
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">source</span>.<span class="ident">is_null</span>());
+            <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">source</span>.<span class="ident">is_null</span>());
 
             <span class="comment">// Set up the GSource</span>
             {
@@ -1309,11 +1309,11 @@
 
             <span class="kw">let</span> <span class="ident">source</span> <span class="op">=</span> <span class="ident">Source</span>::<span class="ident">from_glib_full</span>(<span class="ident">mut_override</span>(<span class="kw-2">&amp;</span>(<span class="kw-2">*</span><span class="ident">source</span>).<span class="ident">source</span>));
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">context</span>) <span class="op">=</span> <span class="ident">context</span> {
-                <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">context</span>.<span class="ident">is_owner</span>());
+                <span class="macro">assert!</span>(<span class="ident">context</span>.<span class="ident">is_owner</span>());
                 <span class="ident">source</span>.<span class="ident">attach</span>(<span class="prelude-val">Some</span>(<span class="ident">context</span>))
             } <span class="kw">else</span> {
                 <span class="kw">let</span> <span class="ident">context</span> <span class="op">=</span> <span class="ident">MainContext</span>::<span class="ident">ref_thread_default</span>();
-                <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">context</span>.<span class="ident">is_owner</span>());
+                <span class="macro">assert!</span>(<span class="ident">context</span>.<span class="ident">is_owner</span>());
                 <span class="ident">source</span>.<span class="ident">attach</span>(<span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="ident">context</span>))
             }
         }
@@ -1403,7 +1403,7 @@
 
         <span class="ident">l</span>.<span class="ident">run</span>();
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="kw-2">*</span><span class="ident">sum</span>.<span class="ident">borrow</span>(), <span class="number">6</span>);
+        <span class="macro">assert_eq!</span>(<span class="kw-2">*</span><span class="ident">sum</span>.<span class="ident">borrow</span>(), <span class="number">6</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -1439,7 +1439,7 @@
         <span class="kw">let</span> (<span class="ident">sender</span>, <span class="ident">receiver</span>) <span class="op">=</span> <span class="ident">MainContext</span>::<span class="ident">channel</span>::<span class="op">&lt;</span><span class="ident">i32</span><span class="op">&gt;</span>(<span class="ident">Priority</span>::<span class="ident">default</span>());
 
         <span class="ident">drop</span>(<span class="ident">receiver</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">sender</span>.<span class="ident">send</span>(<span class="number">1</span>), <span class="prelude-val">Err</span>(<span class="ident">mpsc</span>::<span class="ident">SendError</span>(<span class="number">1</span>)));
+        <span class="macro">assert_eq!</span>(<span class="ident">sender</span>.<span class="ident">send</span>(<span class="number">1</span>), <span class="prelude-val">Err</span>(<span class="ident">mpsc</span>::<span class="ident">SendError</span>(<span class="number">1</span>)));
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -1455,7 +1455,7 @@
         <span class="kw">let</span> <span class="ident">source</span> <span class="op">=</span> <span class="ident">c</span>.<span class="ident">find_source_by_id</span>(<span class="kw-2">&amp;</span><span class="ident">source_id</span>).<span class="ident">unwrap</span>();
         <span class="ident">source</span>.<span class="ident">destroy</span>();
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">sender</span>.<span class="ident">send</span>(<span class="number">1</span>), <span class="prelude-val">Err</span>(<span class="ident">mpsc</span>::<span class="ident">SendError</span>(<span class="number">1</span>)));
+        <span class="macro">assert_eq!</span>(<span class="ident">sender</span>.<span class="ident">send</span>(<span class="number">1</span>), <span class="prelude-val">Err</span>(<span class="ident">mpsc</span>::<span class="ident">SendError</span>(<span class="number">1</span>)));
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -1486,8 +1486,8 @@
         <span class="comment">// This should drop the closure</span>
         <span class="ident">drop</span>(<span class="ident">source</span>);
 
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">dropped</span>.<span class="ident">load</span>(<span class="ident">Ordering</span>::<span class="ident">Relaxed</span>));
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">sender</span>.<span class="ident">send</span>(<span class="number">1</span>), <span class="prelude-val">Err</span>(<span class="ident">mpsc</span>::<span class="ident">SendError</span>(<span class="number">1</span>)));
+        <span class="macro">assert!</span>(<span class="ident">dropped</span>.<span class="ident">load</span>(<span class="ident">Ordering</span>::<span class="ident">Relaxed</span>));
+        <span class="macro">assert_eq!</span>(<span class="ident">sender</span>.<span class="ident">send</span>(<span class="number">1</span>), <span class="prelude-val">Err</span>(<span class="ident">mpsc</span>::<span class="ident">SendError</span>(<span class="number">1</span>)));
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -1520,7 +1520,7 @@
             <span class="ident">sender</span>.<span class="ident">try_send</span>(<span class="number">2</span>).<span class="ident">unwrap</span>();
 
             <span class="comment">// This fills up the channel</span>
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">sender</span>.<span class="ident">try_send</span>(<span class="number">3</span>).<span class="ident">is_err</span>());
+            <span class="macro">assert!</span>(<span class="ident">sender</span>.<span class="ident">try_send</span>(<span class="number">3</span>).<span class="ident">is_err</span>());
             <span class="ident">wait_sender</span>.<span class="ident">send</span>(()).<span class="ident">unwrap</span>();
 
             <span class="comment">// This will block</span>
@@ -1530,13 +1530,13 @@
         <span class="comment">// Wait until the channel is full, and then another</span>
         <span class="comment">// 50ms to make sure the sender is blocked now and</span>
         <span class="comment">// can wake up properly once an item was consumed</span>
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">wait_receiver</span>.<span class="ident">recv</span>().<span class="ident">is_ok</span>());
+        <span class="macro">assert!</span>(<span class="ident">wait_receiver</span>.<span class="ident">recv</span>().<span class="ident">is_ok</span>());
         <span class="ident">thread</span>::<span class="ident">sleep</span>(<span class="ident">time</span>::<span class="ident">Duration</span>::<span class="ident">from_millis</span>(<span class="number">50</span>));
         <span class="ident">l</span>.<span class="ident">run</span>();
 
         <span class="ident">thread</span>.<span class="ident">join</span>().<span class="ident">unwrap</span>();
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="kw-2">*</span><span class="ident">sum</span>.<span class="ident">borrow</span>(), <span class="number">6</span>);
+        <span class="macro">assert_eq!</span>(<span class="kw-2">*</span><span class="ident">sum</span>.<span class="ident">borrow</span>(), <span class="number">6</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -1582,13 +1582,13 @@
         <span class="comment">// Wait until the channel is full, and then another</span>
         <span class="comment">// 50ms to make sure the sender is blocked now and</span>
         <span class="comment">// can wake up properly once an item was consumed</span>
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">wait_receiver</span>.<span class="ident">recv</span>().<span class="ident">is_ok</span>());
+        <span class="macro">assert!</span>(<span class="ident">wait_receiver</span>.<span class="ident">recv</span>().<span class="ident">is_ok</span>());
         <span class="ident">thread</span>::<span class="ident">sleep</span>(<span class="ident">time</span>::<span class="ident">Duration</span>::<span class="ident">from_millis</span>(<span class="number">50</span>));
         <span class="ident">l</span>.<span class="ident">run</span>();
 
         <span class="ident">thread</span>.<span class="ident">join</span>().<span class="ident">unwrap</span>();
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="kw-2">*</span><span class="ident">sum</span>.<span class="ident">borrow</span>(), <span class="number">6</span>);
+        <span class="macro">assert_eq!</span>(<span class="kw-2">*</span><span class="ident">sum</span>.<span class="ident">borrow</span>(), <span class="number">6</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -1608,13 +1608,13 @@
             <span class="ident">wait_sender</span>.<span class="ident">send</span>(()).<span class="ident">unwrap</span>();
 
             <span class="comment">// This will block and then error out because the receiver is destroyed</span>
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">sender</span>.<span class="ident">send</span>(<span class="number">3</span>).<span class="ident">is_err</span>());
+            <span class="macro">assert!</span>(<span class="ident">sender</span>.<span class="ident">send</span>(<span class="number">3</span>).<span class="ident">is_err</span>());
         });
 
         <span class="comment">// Wait until the channel is full, and then another</span>
         <span class="comment">// 50ms to make sure the sender is blocked now and</span>
         <span class="comment">// can wake up properly once an item was consumed</span>
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">wait_receiver</span>.<span class="ident">recv</span>().<span class="ident">is_ok</span>());
+        <span class="macro">assert!</span>(<span class="ident">wait_receiver</span>.<span class="ident">recv</span>().<span class="ident">is_ok</span>());
         <span class="ident">thread</span>::<span class="ident">sleep</span>(<span class="ident">time</span>::<span class="ident">Duration</span>::<span class="ident">from_millis</span>(<span class="number">50</span>));
         <span class="ident">drop</span>(<span class="ident">receiver</span>);
         <span class="ident">thread</span>.<span class="ident">join</span>().<span class="ident">unwrap</span>();
@@ -1644,8 +1644,8 @@
         <span class="comment">// Wait until the thread is started, then wait another 50ms and</span>
         <span class="comment">// during that time it must not have proceeded yet to send the</span>
         <span class="comment">// second item because we did not yet receive the first item.</span>
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">wait_receiver</span>.<span class="ident">recv</span>().<span class="ident">is_ok</span>());
-        <span class="macro">assert_eq</span><span class="macro">!</span>(
+        <span class="macro">assert!</span>(<span class="ident">wait_receiver</span>.<span class="ident">recv</span>().<span class="ident">is_ok</span>());
+        <span class="macro">assert_eq!</span>(
             <span class="ident">wait_receiver</span>.<span class="ident">recv_timeout</span>(<span class="ident">time</span>::<span class="ident">Duration</span>::<span class="ident">from_millis</span>(<span class="number">50</span>)),
             <span class="prelude-val">Err</span>(<span class="ident">mpsc</span>::<span class="ident">RecvTimeoutError</span>::<span class="ident">Timeout</span>)
         );
@@ -1656,12 +1656,12 @@
         <span class="ident">receiver</span>.<span class="ident">attach</span>(<span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="ident">c</span>), <span class="kw">move</span> <span class="op">|</span><span class="ident">item</span><span class="op">|</span> {
             <span class="comment">// We consumed one item so there should be one item on</span>
             <span class="comment">// the other receiver now.</span>
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">wait_receiver</span>.<span class="ident">recv</span>().<span class="ident">is_ok</span>());
+            <span class="macro">assert!</span>(<span class="ident">wait_receiver</span>.<span class="ident">recv</span>().<span class="ident">is_ok</span>());
             <span class="kw-2">*</span><span class="ident">sum_clone</span>.<span class="ident">borrow_mut</span>() <span class="op">+</span><span class="op">=</span> <span class="ident">item</span>;
             <span class="kw">if</span> <span class="kw-2">*</span><span class="ident">sum_clone</span>.<span class="ident">borrow</span>() <span class="op">=</span><span class="op">=</span> <span class="number">6</span> {
                 <span class="comment">// But as we didn&#39;t consume the next one yet, there must be no</span>
                 <span class="comment">// other item available yet</span>
-                <span class="macro">assert_eq</span><span class="macro">!</span>(
+                <span class="macro">assert_eq!</span>(
                     <span class="ident">wait_receiver</span>.<span class="ident">recv_timeout</span>(<span class="ident">time</span>::<span class="ident">Duration</span>::<span class="ident">from_millis</span>(<span class="number">50</span>)),
                     <span class="prelude-val">Err</span>(<span class="ident">mpsc</span>::<span class="ident">RecvTimeoutError</span>::<span class="ident">Disconnected</span>)
                 );
@@ -1670,7 +1670,7 @@
             } <span class="kw">else</span> {
                 <span class="comment">// But as we didn&#39;t consume the next one yet, there must be no</span>
                 <span class="comment">// other item available yet</span>
-                <span class="macro">assert_eq</span><span class="macro">!</span>(
+                <span class="macro">assert_eq!</span>(
                     <span class="ident">wait_receiver</span>.<span class="ident">recv_timeout</span>(<span class="ident">time</span>::<span class="ident">Duration</span>::<span class="ident">from_millis</span>(<span class="number">50</span>)),
                     <span class="prelude-val">Err</span>(<span class="ident">mpsc</span>::<span class="ident">RecvTimeoutError</span>::<span class="ident">Timeout</span>)
                 );
@@ -1681,7 +1681,7 @@
 
         <span class="ident">thread</span>.<span class="ident">join</span>().<span class="ident">unwrap</span>();
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="kw-2">*</span><span class="ident">sum</span>.<span class="ident">borrow</span>(), <span class="number">6</span>);
+        <span class="macro">assert_eq!</span>(<span class="kw-2">*</span><span class="ident">sum</span>.<span class="ident">borrow</span>(), <span class="number">6</span>);
     }
 }
 </pre></div>

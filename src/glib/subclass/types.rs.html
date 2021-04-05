@@ -1011,7 +1011,7 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ObjectSubclass</span><span class="op">&gt;</span> <span class="ident">InterfaceList</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="kw">for</span> () {
     <span class="kw">fn</span> <span class="ident">iface_infos</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span>(<span class="ident">ffi</span>::<span class="ident">GType</span>, <span class="ident">gobject_ffi</span>::<span class="ident">GInterfaceInfo</span>)<span class="op">&gt;</span> {
-        <span class="macro">vec</span><span class="macro">!</span>[]
+        <span class="macro">vec!</span>[]
     }
 
     <span class="kw">fn</span> <span class="ident">instance_init</span>(<span class="ident">_instance</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">InitializingObject</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>) {}
@@ -1022,7 +1022,7 @@
     <span class="op">&lt;</span><span class="ident">A</span> <span class="kw">as</span> <span class="ident">ObjectType</span><span class="op">&gt;</span>::<span class="ident">GlibClassType</span>: <span class="ident">Copy</span>,
 {
     <span class="kw">fn</span> <span class="ident">iface_infos</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span>(<span class="ident">ffi</span>::<span class="ident">GType</span>, <span class="ident">gobject_ffi</span>::<span class="ident">GInterfaceInfo</span>)<span class="op">&gt;</span> {
-        <span class="macro">vec</span><span class="macro">!</span>[(
+        <span class="macro">vec!</span>[(
             <span class="ident">A</span>::<span class="ident">static_type</span>().<span class="ident">to_glib</span>(),
             <span class="ident">gobject_ffi</span>::<span class="ident">GInterfaceInfo</span> {
                 <span class="ident">interface_init</span>: <span class="prelude-val">Some</span>(<span class="ident">interface_init</span>::<span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">A</span><span class="op">&gt;</span>),
@@ -1039,31 +1039,31 @@
 
 <span class="comment">// Generates all the InterfaceList impls for interface_lists of arbitrary sizes based on a list of type</span>
 <span class="comment">// parameters like A B C. It would generate the impl then for (A, B) and (A, B, C).</span>
-<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">interface_list_trait</span>(
+<span class="macro">macro_rules!</span> <span class="ident">interface_list_trait</span>(
     (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name1</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name2</span>: <span class="ident">ident</span>, $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ident</span>),<span class="kw-2">*</span>) <span class="op">=</span><span class="op">&gt;</span> (
-        <span class="macro">interface_list_trait</span><span class="macro">!</span>(<span class="ident">__impl</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name1</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name2</span>; $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>),<span class="kw-2">*</span>);
+        <span class="macro">interface_list_trait!</span>(<span class="ident">__impl</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name1</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name2</span>; $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>),<span class="kw-2">*</span>);
     );
     (<span class="ident">__impl</span> $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ident</span>),<span class="op">+</span>; <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name1</span>:<span class="ident">ident</span>, $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name2</span>:<span class="ident">ident</span>),<span class="kw-2">*</span>) <span class="op">=</span><span class="op">&gt;</span> (
-        <span class="macro">interface_list_trait_impl</span><span class="macro">!</span>($(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>),<span class="op">+</span>);
-        <span class="macro">interface_list_trait</span><span class="macro">!</span>(<span class="ident">__impl</span> $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>),<span class="op">+</span> , <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name1</span>; $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name2</span>),<span class="kw-2">*</span>);
+        <span class="macro">interface_list_trait_impl!</span>($(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>),<span class="op">+</span>);
+        <span class="macro">interface_list_trait!</span>(<span class="ident">__impl</span> $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>),<span class="op">+</span> , <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name1</span>; $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name2</span>),<span class="kw-2">*</span>);
     );
     (<span class="ident">__impl</span> $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ident</span>),<span class="op">+</span>; <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name1</span>:<span class="ident">ident</span>) <span class="op">=</span><span class="op">&gt;</span> (
-        <span class="macro">interface_list_trait_impl</span><span class="macro">!</span>($(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>),<span class="op">+</span>);
-        <span class="macro">interface_list_trait_impl</span><span class="macro">!</span>($(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>),<span class="op">+</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name1</span>);
+        <span class="macro">interface_list_trait_impl!</span>($(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>),<span class="op">+</span>);
+        <span class="macro">interface_list_trait_impl!</span>($(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>),<span class="op">+</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name1</span>);
     );
 );
 
 <span class="comment">// Generates the impl block for InterfaceList on interface_lists or arbitrary sizes based on its</span>
 <span class="comment">// arguments. Takes a list of type parameters as parameters, e.g. A B C</span>
 <span class="comment">// and then implements the trait on (A, B, C).</span>
-<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">interface_list_trait_impl</span>(
+<span class="macro">macro_rules!</span> <span class="ident">interface_list_trait_impl</span>(
     ($(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ident</span>),<span class="op">+</span>) <span class="op">=</span><span class="op">&gt;</span> (
         <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ObjectSubclass</span>, $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>: <span class="ident">IsImplementable</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>),<span class="op">+</span><span class="op">&gt;</span> <span class="ident">InterfaceList</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="kw">for</span> ( $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>),<span class="op">+</span> )
         <span class="kw">where</span>
             $(<span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> <span class="kw">as</span> <span class="ident">ObjectType</span><span class="op">&gt;</span>::<span class="ident">GlibClassType</span>: <span class="ident">Copy</span>),<span class="op">+</span>
         {
             <span class="kw">fn</span> <span class="ident">iface_infos</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span>(<span class="ident">ffi</span>::<span class="ident">GType</span>, <span class="ident">gobject_ffi</span>::<span class="ident">GInterfaceInfo</span>)<span class="op">&gt;</span> {
-                <span class="macro">vec</span><span class="macro">!</span>[
+                <span class="macro">vec!</span>[
                     $(
                         (
                             <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>::<span class="ident">static_type</span>().<span class="ident">to_glib</span>(),
@@ -1086,7 +1086,7 @@
     );
 );
 
-<span class="macro">interface_list_trait</span><span class="macro">!</span>(<span class="ident">A</span>, <span class="ident">B</span>, <span class="ident">C</span>, <span class="ident">D</span>, <span class="ident">E</span>, <span class="ident">F</span>, <span class="ident">G</span>, <span class="ident">H</span>, <span class="ident">I</span>, <span class="ident">J</span>, <span class="ident">K</span>, <span class="ident">L</span>, <span class="ident">M</span>, <span class="ident">N</span>, <span class="ident">O</span>, <span class="ident">P</span>, <span class="ident">Q</span>, <span class="ident">R</span>, <span class="ident">S</span>);
+<span class="macro">interface_list_trait!</span>(<span class="ident">A</span>, <span class="ident">B</span>, <span class="ident">C</span>, <span class="ident">D</span>, <span class="ident">E</span>, <span class="ident">F</span>, <span class="ident">G</span>, <span class="ident">H</span>, <span class="ident">I</span>, <span class="ident">J</span>, <span class="ident">K</span>, <span class="ident">L</span>, <span class="ident">M</span>, <span class="ident">N</span>, <span class="ident">O</span>, <span class="ident">P</span>, <span class="ident">Q</span>, <span class="ident">R</span>, <span class="ident">S</span>);
 
 <span class="doccomment">/// Type-specific data that is filled in during type creation.</span>
 <span class="comment">// FIXME: Once trait bounds other than `Sized` on const fn parameters are stable</span>
@@ -1121,7 +1121,7 @@
     <span class="doccomment">/// This is used for chaining up to the parent class&#39; implementation</span>
     <span class="doccomment">/// of virtual methods.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_parent_class</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">gpointer</span> {
-        <span class="macro">debug_assert</span><span class="macro">!</span>(<span class="op">!</span><span class="self">self</span>.<span class="ident">parent_class</span>.<span class="ident">is_null</span>());
+        <span class="macro">debug_assert!</span>(<span class="op">!</span><span class="self">self</span>.<span class="ident">parent_class</span>.<span class="ident">is_null</span>());
         <span class="self">self</span>.<span class="ident">parent_class</span>
     }
 
@@ -1136,7 +1136,7 @@
     <span class="doccomment">/// given interface or was not registered yet.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_parent_interface</span><span class="op">&lt;</span><span class="ident">I</span>: <span class="kw">crate</span>::<span class="ident">object</span>::<span class="ident">IsInterface</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">gpointer</span> {
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">parent_ifaces</span> {
-            <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">unreachable</span><span class="macro">!</span>(<span class="string">&quot;No parent interfaces&quot;</span>),
+            <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">unreachable!</span>(<span class="string">&quot;No parent interfaces&quot;</span>),
             <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">parent_ifaces</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="ident">parent_ifaces</span>
                 .<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">I</span>::<span class="ident">static_type</span>())
                 .<span class="ident">expect</span>(<span class="string">&quot;Parent interface not found&quot;</span>),
@@ -1184,7 +1184,7 @@
 
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">class_data</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">class_data</span> {
             <span class="kw">if</span> <span class="ident">class_data</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">type_</span>).<span class="ident">is_some</span>() {
-                <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;The class_data already contains a key for {}&quot;</span>, <span class="ident">type_</span>);
+                <span class="macro">panic!</span>(<span class="string">&quot;The class_data already contains a key for {}&quot;</span>, <span class="ident">type_</span>);
             }
 
             <span class="ident">class_data</span>.<span class="ident">insert</span>(<span class="ident">type_</span>, <span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">data</span>));
@@ -1300,7 +1300,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Optional, either implement this or `with_class()`.</span>
     <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="macro">unimplemented</span><span class="macro">!</span>();
+        <span class="macro">unimplemented!</span>();
     }
 
     <span class="doccomment">/// Constructor.</span>
@@ -1343,7 +1343,7 @@
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="self">Self</span>::<span class="ident">type_data</span>();
             <span class="kw">let</span> <span class="ident">type_</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_type</span>();
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">type_</span>.<span class="ident">is_valid</span>());
+            <span class="macro">assert!</span>(<span class="ident">type_</span>.<span class="ident">is_valid</span>());
 
             <span class="kw">let</span> <span class="ident">offset</span> <span class="op">=</span> <span class="op">-</span><span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_impl_offset</span>();
 
@@ -1354,7 +1354,7 @@
             <span class="comment">// The object might just be finalized, and in that case it&#39;s unsafe to access</span>
             <span class="comment">// it and use any API on it. This can only happen from inside the Drop impl</span>
             <span class="comment">// of Self.</span>
-            <span class="macro">assert_ne</span><span class="macro">!</span>((<span class="kw-2">*</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_ffi</span>::<span class="ident">GObject</span>)).<span class="ident">ref_count</span>, <span class="number">0</span>);
+            <span class="macro">assert_ne!</span>((<span class="kw-2">*</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_ffi</span>::<span class="ident">GObject</span>)).<span class="ident">ref_count</span>, <span class="number">0</span>);
 
             <span class="comment">// Don&#39;t steal floating reference here via from_glib_none() but</span>
             <span class="comment">// preserve it if needed by reffing manually.</span>
@@ -1377,7 +1377,7 @@
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">type_data</span> <span class="op">=</span> <span class="self">Self</span>::<span class="ident">type_data</span>();
             <span class="kw">let</span> <span class="ident">self_type_</span> <span class="op">=</span> <span class="ident">type_data</span>.<span class="ident">as_ref</span>().<span class="ident">get_type</span>();
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">self_type_</span>.<span class="ident">is_valid</span>());
+            <span class="macro">assert!</span>(<span class="ident">self_type_</span>.<span class="ident">is_valid</span>());
 
             <span class="kw">let</span> <span class="ident">offset</span> <span class="op">=</span> <span class="op">-</span><span class="ident">type_data</span>.<span class="ident">as_ref</span>().<span class="ident">private_imp_offset</span>;
 
@@ -1432,7 +1432,7 @@
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">type_data</span> <span class="op">=</span> <span class="ident">T</span>::<span class="ident">type_data</span>();
             <span class="kw">let</span> <span class="ident">self_type_</span> <span class="op">=</span> <span class="ident">type_data</span>.<span class="ident">as_ref</span>().<span class="ident">get_type</span>();
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">self_type_</span>.<span class="ident">is_valid</span>());
+            <span class="macro">assert!</span>(<span class="ident">self_type_</span>.<span class="ident">is_valid</span>());
 
             <span class="kw">let</span> <span class="ident">offset</span> <span class="op">=</span> <span class="ident">type_data</span>.<span class="ident">as_ref</span>().<span class="ident">private_offset</span>;
 
@@ -1447,7 +1447,7 @@
 
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">instance_data</span>) <span class="op">=</span> <span class="ident">priv_</span>.<span class="ident">instance_data</span> {
                 <span class="kw">if</span> <span class="ident">instance_data</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">type_</span>).<span class="ident">is_some</span>() {
-                    <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;The class_data already contains a key for {}&quot;</span>, <span class="ident">type_</span>);
+                    <span class="macro">panic!</span>(<span class="string">&quot;The class_data already contains a key for {}&quot;</span>, <span class="ident">type_</span>);
                 }
 
                 <span class="ident">instance_data</span>.<span class="ident">insert</span>(<span class="ident">type_</span>, <span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">data</span>));
@@ -1482,7 +1482,7 @@
         <span class="kw">let</span> <span class="ident">klass</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span>(<span class="ident">klass</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T</span>::<span class="ident">Class</span>);
         <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">gobject_ffi</span>::<span class="ident">g_type_class_peek_parent</span>(<span class="ident">klass</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span> <span class="kw">as</span> <span class="ident">ffi</span>::<span class="ident">gpointer</span>)
             <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="op">&lt;</span><span class="ident">T</span>::<span class="ident">ParentType</span> <span class="kw">as</span> <span class="ident">ObjectType</span><span class="op">&gt;</span>::<span class="ident">GlibClassType</span>;
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">parent_class</span>.<span class="ident">is_null</span>());
+        <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">parent_class</span>.<span class="ident">is_null</span>());
 
         (<span class="kw-2">*</span><span class="ident">data</span>.<span class="ident">as_mut</span>()).<span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">parent_class</span> <span class="kw">as</span> <span class="ident">ffi</span>::<span class="ident">gpointer</span>;
 
@@ -1556,7 +1556,7 @@
     <span class="comment">// GLib aligns the type private data to two gsizes so we can&#39;t safely store any type there that</span>
     <span class="comment">// requires a bigger alignment.</span>
     <span class="kw">if</span> <span class="ident">mem</span>::<span class="ident">align_of</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>() <span class="op">&gt;</span> <span class="number">2</span> <span class="op">*</span> <span class="ident">mem</span>::<span class="ident">size_of</span>::<span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span>() {
-        <span class="macro">panic</span><span class="macro">!</span>(
+        <span class="macro">panic!</span>(
             <span class="string">&quot;Alignment {} of type not supported, bigger than {}&quot;</span>,
             <span class="ident">mem</span>::<span class="ident">align_of</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(),
             <span class="number">2</span> <span class="op">*</span> <span class="ident">mem</span>::<span class="ident">size_of</span>::<span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span>(),
@@ -1568,7 +1568,7 @@
 
         <span class="kw">let</span> <span class="ident">type_name</span> <span class="op">=</span> <span class="ident">CString</span>::<span class="ident">new</span>(<span class="ident">T</span>::<span class="ident">NAME</span>).<span class="ident">unwrap</span>();
         <span class="kw">if</span> <span class="ident">gobject_ffi</span>::<span class="ident">g_type_from_name</span>(<span class="ident">type_name</span>.<span class="ident">as_ptr</span>()) <span class="op">!</span><span class="op">=</span> <span class="ident">gobject_ffi</span>::<span class="ident">G_TYPE_INVALID</span> {
-            <span class="macro">panic</span><span class="macro">!</span>(
+            <span class="macro">panic!</span>(
                 <span class="string">&quot;Type {} has already been registered&quot;</span>,
                 <span class="ident">type_name</span>.<span class="ident">to_str</span>().<span class="ident">unwrap</span>()
             );
@@ -1639,7 +1639,7 @@
             <span class="ident">class_handler</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
         );
     } <span class="kw">else</span> {
-        <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Signal &#39;{}&#39; not found&quot;</span>, <span class="ident">name</span>);
+        <span class="macro">panic!</span>(<span class="string">&quot;Signal &#39;{}&#39; not found&quot;</span>, <span class="ident">name</span>);
     }
 }
 
@@ -1648,7 +1648,7 @@
     <span class="ident">token</span>: <span class="kw-2">&amp;</span><span class="kw">super</span>::<span class="ident">SignalClassHandlerToken</span>,
     <span class="ident">values</span>: <span class="kw-2">&amp;</span>[<span class="ident">Value</span>],
 ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Value</span><span class="op">&gt;</span> {
-    <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">instance</span>, <span class="ident">token</span>.<span class="number">0</span>);
+    <span class="macro">assert_eq!</span>(<span class="ident">instance</span>, <span class="ident">token</span>.<span class="number">0</span>);
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">result</span> <span class="op">=</span> <span class="ident">Value</span>::<span class="ident">uninitialized</span>();
     <span class="ident">gobject_ffi</span>::<span class="ident">g_signal_chain_from_overridden</span>(
         <span class="ident">values</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">Value</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_ffi</span>::<span class="ident">GValue</span>,

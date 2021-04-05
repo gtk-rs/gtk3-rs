@@ -126,7 +126,7 @@
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
 
-<span class="ident">glib</span>::<span class="macro">wrapper</span><span class="macro">!</span> {
+<span class="ident">glib</span>::<span class="macro">wrapper!</span> {
     <span class="doccomment">/// Together with `Plug`, `Socket` provides the ability to embed</span>
     <span class="doccomment">/// accessibles from one process into another in a fashion that is</span>
     <span class="doccomment">/// transparent to assistive technologies. `Socket` works as the</span>
@@ -168,7 +168,7 @@
     <span class="doccomment">/// the newly created `Socket` instance</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_socket_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Socket</span> {
-        <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
+        <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe</span> { <span class="ident">Object</span>::<span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">atk_socket_new</span>()).<span class="ident">unsafe_cast</span>() }
     }
 }

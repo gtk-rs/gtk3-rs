@@ -120,7 +120,7 @@
 <span class="kw">use</span> <span class="ident">bitflags</span>::<span class="ident">bitflags</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">BindingFlags</span>: <span class="ident">u32</span> {
         <span class="kw">const</span> <span class="ident">DEFAULT</span> <span class="op">=</span> <span class="number">0</span>;
         <span class="kw">const</span> <span class="ident">BIDIRECTIONAL</span> <span class="op">=</span> <span class="number">1</span>;
@@ -177,7 +177,7 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="macro">bitflags!</span> {
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SignalFlags</span>: <span class="ident">u32</span> {
         <span class="kw">const</span> <span class="ident">RUN_FIRST</span> <span class="op">=</span> <span class="number">1</span>;
         <span class="kw">const</span> <span class="ident">RUN_LAST</span> <span class="op">=</span> <span class="number">2</span>;

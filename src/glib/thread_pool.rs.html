@@ -412,7 +412,7 @@
         })
         .<span class="ident">unwrap</span>();
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">receiver</span>.<span class="ident">recv</span>(), <span class="prelude-val">Ok</span>(<span class="bool-val">true</span>));
+        <span class="macro">assert_eq!</span>(<span class="ident">receiver</span>.<span class="ident">recv</span>(), <span class="prelude-val">Ok</span>(<span class="bool-val">true</span>));
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -423,7 +423,7 @@
         <span class="kw">let</span> <span class="ident">fut</span> <span class="op">=</span> <span class="ident">p</span>.<span class="ident">push_future</span>(<span class="op">|</span><span class="op">|</span> <span class="bool-val">true</span>).<span class="ident">unwrap</span>();
 
         <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">c</span>.<span class="ident">block_on</span>(<span class="ident">fut</span>);
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">res</span>);
+        <span class="macro">assert!</span>(<span class="ident">res</span>);
     }
 }
 </pre></div>
