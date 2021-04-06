@@ -8,6 +8,12 @@ use std::pin::Pin;
 
 use std::error::Error;
 
+fn main() -> Result<(), Box<dyn Error>> {
+    // Get the default main context and run our async function on it
+    let main_context = glib::MainContext::default();
+    main_context.block_on(run())
+}
+
 async fn run() -> Result<(), Box<dyn Error>> {
     // Connect to https://www.rust-lang.org
     let client = gio::SocketClient::new();
@@ -92,10 +98,4 @@ impl AsyncWrite for Connection {
     fn poll_flush(self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Result<(), io::Error>> {
         Pin::new(&mut Pin::get_mut(self).write).poll_flush(cx)
     }
-}
-
-fn main() -> Result<(), Box<dyn Error>> {
-    // Get the default main context and run our async function on it
-    let main_context = glib::MainContext::default();
-    main_context.block_on(run())
 }

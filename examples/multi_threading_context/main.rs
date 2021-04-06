@@ -4,6 +4,18 @@ use gtk::prelude::*;
 use std::thread;
 use std::time::Duration;
 
+fn main() {
+    let application = gtk::Application::new(
+        Some("com.github.gtk-rs.examples.multithreading_context"),
+        Default::default(),
+    )
+    .expect("Initialization failed...");
+
+    application.connect_activate(build_ui);
+
+    application.run();
+}
+
 fn build_ui(application: &gtk::Application) {
     let window = gtk::ApplicationWindow::new(application);
 
@@ -42,16 +54,4 @@ fn build_ui(application: &gtk::Application) {
 
     window.add(&scroll);
     window.show_all();
-}
-
-fn main() {
-    let application = gtk::Application::new(
-        Some("com.github.gtk-rs.examples.multithreading_context"),
-        Default::default(),
-    )
-    .expect("Initialization failed...");
-
-    application.connect_activate(build_ui);
-
-    application.run();
 }

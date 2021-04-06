@@ -1,8 +1,6 @@
 use gtk::prelude::*;
 use gtk::{glib, pango};
 
-use std::env::args;
-
 fn print(window: &gtk::Window, value1: String, value2: String) {
     let print_operation = gtk::PrintOperation::new();
 

@@ -2,6 +2,18 @@ use gtk::prelude::*;
 use gtk::{gdk, gio};
 use gtk::{DestDefaults, TargetFlags};
 
+fn main() {
+    let application = gtk::Application::new(
+        Some("com.github.gtk-rs.examples.drag_and_drop_textview"),
+        Default::default(),
+    )
+    .expect("Initialization failed...");
+
+    application.connect_activate(build_ui);
+
+    application.run();
+}
+
 fn build_ui(application: &gtk::Application) {
     let window = gtk::ApplicationWindow::new(application);
     window.set_title("Drag and Drop Example with a TextView");
@@ -57,16 +69,4 @@ fn build_ui(application: &gtk::Application) {
     // Create a new window
     window.add(&vbox);
     window.show_all();
-}
-
-fn main() {
-    let application = gtk::Application::new(
-        Some("com.github.gtk-rs.examples.drag_and_drop_textview"),
-        Default::default(),
-    )
-    .expect("Initialization failed...");
-
-    application.connect_activate(build_ui);
-
-    application.run();
 }

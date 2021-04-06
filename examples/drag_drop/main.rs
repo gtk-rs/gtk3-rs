@@ -1,6 +1,18 @@
 use gtk::gdk;
 use gtk::prelude::*;
 
+fn main() {
+    let application = gtk::Application::new(
+        Some("com.github.gtk-rs.examples.drag_and_drop"),
+        Default::default(),
+    )
+    .expect("Initialization failed...");
+
+    application.connect_activate(build_ui);
+
+    application.run();
+}
+
 fn build_ui(application: &gtk::Application) {
     // Configure button as drag source for text
     let button = gtk::Button::with_label("Drag here");
@@ -36,16 +48,4 @@ fn build_ui(application: &gtk::Application) {
     window.set_default_size(200, 100);
     window.add(&hbox);
     window.show_all();
-}
-
-fn main() {
-    let application = gtk::Application::new(
-        Some("com.github.gtk-rs.examples.drag_and_drop"),
-        Default::default(),
-    )
-    .expect("Initialization failed...");
-
-    application.connect_activate(build_ui);
-
-    application.run();
 }

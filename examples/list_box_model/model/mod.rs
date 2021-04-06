@@ -1,43 +1,10 @@
 //! Defines our custom model
 
+mod imp;
+
 use crate::row_data::RowData;
 use glib::subclass::prelude::*;
 use gtk::{gio, glib, prelude::*};
-
-mod imp {
-    use super::*;
-    use gio::subclass::prelude::*;
-    use std::cell::RefCell;
-
-    #[derive(Debug, Default)]
-    pub struct Model(pub RefCell<Vec<RowData>>);
-
-    // Basic declaration of our type for the GObject type system
-    #[glib::object_subclass]
-    impl ObjectSubclass for Model {
-        const NAME: &'static str = "Model";
-        type Type = super::Model;
-        type ParentType = glib::Object;
-        type Interfaces = (gio::ListModel,);
-    }
-
-    impl ObjectImpl for Model {}
-
-    impl ListModelImpl for Model {
-        fn get_item_type(&self, _list_model: &Self::Type) -> glib::Type {
-            RowData::static_type()
-        }
-        fn get_n_items(&self, _list_model: &Self::Type) -> u32 {
-            self.0.borrow().len() as u32
-        }
-        fn get_item(&self, _list_model: &Self::Type, position: u32) -> Option<glib::Object> {
-            self.0
-                .borrow()
-                .get(position as usize)
-                .map(|o| o.clone().upcast::<glib::Object>())
-        }
-    }
-}
 
 // Public part of the Model type.
 glib::wrapper! {

@@ -5,14 +5,6 @@
 use gtk::prelude::*;
 use gtk::{gdk, gio, glib};
 
-// Basic CSS: we change background color, we set font color to black and we set it as bold.
-const STYLE: &str = "
-#overlay-label {
-    background-color: rgba(192, 192, 192, 0.8);
-    color: black;
-    font-weight: bold;
-}";
-
 fn button_clicked(button: &gtk::Button, overlay_text: &gtk::Label) {
     overlay_text.set_text(&button.get_label().expect("Couldn't get button label"));
 }
@@ -75,9 +67,9 @@ fn main() {
     application.connect_startup(|_| {
         // We add a bit of CSS in order to make the overlay label easier to be seen.
         let provider = gtk::CssProvider::new();
-        provider
-            .load_from_data(STYLE.as_bytes())
-            .expect("Failed to load CSS");
+        // Basic CSS: we change background color, we set font color to black and we set it as bold.
+        let style = include_bytes!("style.css");
+        provider.load_from_data(style).expect("Failed to load CSS");
         gtk::StyleContext::add_provider_for_screen(
             &gdk::Screen::get_default().expect("Error initializing gtk css provider."),
             &provider,

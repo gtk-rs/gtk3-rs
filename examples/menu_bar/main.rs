@@ -5,6 +5,20 @@ use gtk::{
     Menu, MenuBar, MenuItem, WindowPosition,
 };
 
+fn main() {
+    gio::resources_register_include!("compiled.gresource").unwrap();
+
+    let application = gtk::Application::new(
+        Some("com.github.gtk-rs.examples.menu_bar"),
+        Default::default(),
+    )
+    .expect("Initialization failed...");
+
+    application.connect_activate(build_ui);
+
+    application.run();
+}
+
 fn build_ui(application: &gtk::Application) {
     let window = ApplicationWindow::new(application);
 
@@ -66,7 +80,7 @@ fn build_ui(application: &gtk::Application) {
     }));
 
     // `Primary` is `Ctrl` on Windows and Linux, and `command` on macOS
-    // It isn't available directly through gdk::ModifierType, since it has
+    // It isn't available directly through `gdk::ModifierType`, since it has
     // different values on different platforms.
     let (key, modifier) = gtk::accelerator_parse("<Primary>Q");
     quit.add_accelerator("activate", &accel_group, key, modifier, AccelFlags::VISIBLE);
@@ -95,18 +109,4 @@ fn build_ui(application: &gtk::Application) {
             "Unchecked"
         });
     });
-}
-
-fn main() {
-    gio::resources_register_include!("compiled.gresource").unwrap();
-
-    let application = gtk::Application::new(
-        Some("com.github.gtk-rs.examples.menu_bar"),
-        Default::default(),
-    )
-    .expect("Initialization failed...");
-
-    application.connect_activate(build_ui);
-
-    application.run();
 }

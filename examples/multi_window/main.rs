@@ -5,58 +5,16 @@ use std::cell::RefCell;
 use std::collections::HashMap;
 use std::rc::Rc;
 
-fn create_sub_window(
-    application: &gtk::Application,
-    title: &str,
-    main_window_entry: &gtk::Entry,
-    id: usize,
-    windows: &Rc<RefCell<HashMap<usize, glib::WeakRef<gtk::Window>>>>,
-) {
-    let window = gtk::Window::new(gtk::WindowType::Toplevel);
+fn main() {
+    let application = gtk::Application::new(
+        Some("com.github.gtk-rs.examples.multi_windows"),
+        Default::default(),
+    )
+    .expect("Initialization failed...");
 
-    application.add_window(&window);
+    application.connect_activate(build_ui);
 
-    window.set_title(title);
-    window.set_default_size(400, 200);
-
-    window.connect_delete_event(
-        glib::clone!(@weak windows => @default-return Inhibit(false), move |_, _| {
-            windows.borrow_mut().remove(&id);
-            Inhibit(false)
-        }),
-    );
-
-    let button = gtk::Button::with_label(&format!("Notify main window with id {}!", id));
-    button.connect_clicked(glib::clone!(@weak main_window_entry => move |_| {
-        // When the button is clicked, let's write it on the main window's entry!
-        main_window_entry.get_buffer().set_text(&format!("sub window {} clicked", id));
-    }));
-    window.add(&button);
-
-    window.show_all();
-    // Once the new window has been created, we put it into our hashmap so we can update its
-    // title when needed.
-    windows.borrow_mut().insert(id, window.downgrade());
-}
-
-fn create_main_window(application: &gtk::Application) -> gtk::ApplicationWindow {
-    let window = gtk::ApplicationWindow::new(application);
-
-    window.set_title("I'm the main window");
-    window.set_default_size(400, 200);
-    window.set_position(gtk::WindowPosition::Center);
-
-    window.show_all();
-    window
-}
-
-fn generate_new_id(windows: &HashMap<usize, glib::WeakRef<gtk::Window>>) -> usize {
-    let mut id = 0;
-    // As long as the id is already there, we just continue to increment.
-    while windows.get(&id).is_some() {
-        id += 1;
-    }
-    id
+    application.run();
 }
 
 fn build_ui(application: &gtk::Application) {
@@ -107,14 +65,55 @@ fn build_ui(application: &gtk::Application) {
     window.show_all();
 }
 
-fn main() {
-    let application = gtk::Application::new(
-        Some("com.github.gtk-rs.examples.multi_windows"),
-        Default::default(),
-    )
-    .expect("Initialization failed...");
+fn create_main_window(application: &gtk::Application) -> gtk::ApplicationWindow {
+    let window = gtk::ApplicationWindow::new(application);
 
-    application.connect_activate(build_ui);
+    window.set_title("I'm the main window");
+    window.set_default_size(400, 200);
+    window.set_position(gtk::WindowPosition::Center);
 
-    application.run();
+    window.show_all();
+    window
+}
+fn generate_new_id(windows: &HashMap<usize, glib::WeakRef<gtk::Window>>) -> usize {
+    let mut id = 0;
+    // As long as the id is already there, we just continue to increment.
+    while windows.get(&id).is_some() {
+        id += 1;
+    }
+    id
+}
+
+fn create_sub_window(
+    application: &gtk::Application,
+    title: &str,
+    main_window_entry: &gtk::Entry,
+    id: usize,
+    windows: &Rc<RefCell<HashMap<usize, glib::WeakRef<gtk::Window>>>>,
+) {
+    let window = gtk::Window::new(gtk::WindowType::Toplevel);
+
+    application.add_window(&window);
+
+    window.set_title(title);
+    window.set_default_size(400, 200);
+
+    window.connect_delete_event(
+        glib::clone!(@weak windows => @default-return Inhibit(false), move |_, _| {
+            windows.borrow_mut().remove(&id);
+            Inhibit(false)
+        }),
+    );
+
+    let button = gtk::Button::with_label(&format!("Notify main window with id {}!", id));
+    button.connect_clicked(glib::clone!(@weak main_window_entry => move |_| {
+        // When the button is clicked, let's write it on the main window's entry!
+        main_window_entry.get_buffer().set_text(&format!("sub window {} clicked", id));
+    }));
+    window.add(&button);
+
+    window.show_all();
+    // Once the new window has been created, we put it into our hashmap so we can update its
+    // title when needed.
+    windows.borrow_mut().insert(id, window.downgrade());
 }

@@ -8,26 +8,18 @@ use gtk::{
     Scale, SpinButton, Spinner, Switch, Window,
 };
 
-fn about_clicked(button: &Button, dialog: &AboutDialog) {
-    if let Some(window) = button
-        .get_toplevel()
-        .and_then(|w| w.downcast::<Window>().ok())
-    {
-        dialog.set_transient_for(Some(&window));
-    }
+fn main() {
+    gio::resources_register_include!("compiled.gresource").unwrap();
 
-    // We only want to hide the dialog when it's closed and not completely destroy it
-    // as otherwise we can't show it again a second time.
-    dialog.connect_delete_event(|dialog, _| {
-        dialog.hide();
-        gtk::Inhibit(true)
-    });
+    let application = gtk::Application::new(
+        Some("com.github.gtk-rs.examples.gtktest"),
+        Default::default(),
+    )
+    .expect("Initialization failed...");
 
-    println!("Authors: {:?}", dialog.get_authors());
-    println!("Artists: {:?}", dialog.get_artists());
-    println!("Documenters: {:?}", dialog.get_documenters());
+    application.connect_activate(build_ui);
 
-    dialog.show_all();
+    application.run();
 }
 
 fn build_ui(application: &gtk::Application) {
@@ -184,16 +176,24 @@ fn build_ui(application: &gtk::Application) {
     window.show_all();
 }
 
-fn main() {
-    gio::resources_register_include!("compiled.gresource").unwrap();
+fn about_clicked(button: &Button, dialog: &AboutDialog) {
+    if let Some(window) = button
+        .get_toplevel()
+        .and_then(|w| w.downcast::<Window>().ok())
+    {
+        dialog.set_transient_for(Some(&window));
+    }
 
-    let application = gtk::Application::new(
-        Some("com.github.gtk-rs.examples.gtktest"),
-        Default::default(),
-    )
-    .expect("Initialization failed...");
+    // We only want to hide the dialog when it's closed and not completely destroy it
+    // as otherwise we can't show it again a second time.
+    dialog.connect_delete_event(|dialog, _| {
+        dialog.hide();
+        gtk::Inhibit(true)
+    });
 
-    application.connect_activate(build_ui);
+    println!("Authors: {:?}", dialog.get_authors());
+    println!("Artists: {:?}", dialog.get_artists());
+    println!("Documenters: {:?}", dialog.get_documenters());
 
-    application.run();
+    dialog.show_all();
 }

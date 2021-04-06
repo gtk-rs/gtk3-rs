@@ -128,9 +128,7 @@ fn main() {
     )
     .expect("Initialization failed...");
 
-    application.connect_startup(|app| {
-        build_ui(app);
-    });
+    application.connect_startup(build_ui);
     application.connect_activate(|_| {});
 
     application.run();
