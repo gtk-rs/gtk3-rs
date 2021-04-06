@@ -271,6 +271,10 @@ impl Value {
     ) -> Result<SendValue, Self> {
         self.downcast::<T>().map(TypedValue::into_send_value)
     }
+
+    fn content_debug_string(&self) -> GString {
+        unsafe { from_glib_full(gobject_ffi::g_strdup_value_contents(self.to_glib_none().0)) }
+    }
 }
 
 impl Clone for Value {
@@ -295,12 +299,7 @@ impl Drop for Value {
 
 impl fmt::Debug for Value {
     fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
-        unsafe {
-            let s: GString =
-                from_glib_full(gobject_ffi::g_strdup_value_contents(self.to_glib_none().0));
-
-            f.debug_tuple("Value").field(&s).finish()
-        }
+        write!(f, "({}) {}", self.type_(), self.content_debug_string())
     }
 }
 
@@ -804,7 +803,7 @@ impl SendValue {
 
 impl fmt::Debug for SendValue {
     fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
-        f.debug_tuple("SendValue").field(&self.0).finish()
+        <Value as fmt::Debug>::fmt(&self.0, f)
     }
 }
 
@@ -1223,5 +1222,17 @@ mod tests {
             .transform::<String>()
             .expect("Failed to transform to string");
         assert_eq!(v2.get::<&str>(), Ok(Some("123")));
+    }
+
+    #[test]
+    fn test_debug() {
+        fn value_debug_string<T: ToValue>(val: T) -> String {
+            format!("{:?}", val.to_value())
+        }
+
+        assert_eq!(value_debug_string(1u32), "(guint) 1");
+        assert_eq!(value_debug_string(2i32), "(gint) 2");
+        assert_eq!(value_debug_string(false), "(gboolean) FALSE");
+        assert_eq!(value_debug_string("FooBar"), r#"(gchararray) "FooBar""#);
     }
 }
