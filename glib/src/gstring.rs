@@ -15,10 +15,8 @@ use std::string::String;
 
 use crate::value::{FromValueOptional, SetValue, SetValueOptional, Value};
 
-#[derive(Debug)]
 pub struct GString(Inner);
 
-#[derive(Debug)]
 enum Inner {
     Native(Option<CString>),
     Foreign(*mut c_char, usize),
@@ -85,6 +83,12 @@ impl Clone for GString {
         let cstring = CString::new(self.as_str().to_string()).expect("CString::new failed");
 
         GString(Inner::Native(Some(cstring)))
+    }
+}
+
+impl fmt::Debug for GString {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        <&str as fmt::Debug>::fmt(&self.as_str(), f)
     }
 }
 
