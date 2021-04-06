@@ -1,7 +1,6 @@
 use gtk::glib;
 use gtk::prelude::*;
 
-use std::env::args;
 use std::rc::Rc;
 use std::time::Duration;
 
@@ -320,5 +319,5 @@ fn main() {
 
     application.connect_activate(|_| {});
 
-    application.run(&args().collect::<Vec<_>>());
+    application.run();
 }

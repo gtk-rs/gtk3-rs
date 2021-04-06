@@ -2,8 +2,6 @@ use gtk::glib;
 use gtk::prelude::*;
 use gtk::{IconSize, Orientation, ReliefStyle, Widget};
 
-use std::env::args;
-
 struct Notebook {
     notebook: gtk::Notebook,
     tabs: Vec<gtk::Box>,
@@ -73,5 +71,5 @@ fn main() {
 
     application.connect_activate(build_ui);
 
-    application.run(&args().collect::<Vec<_>>());
+    application.run();
 }

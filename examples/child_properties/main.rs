@@ -3,8 +3,6 @@ use gtk::prelude::*;
 use gtk::Orientation::Vertical;
 use gtk::{ApplicationWindow, Button, Label, PackType};
 
-use std::env::args;
-
 fn build_ui(application: &gtk::Application) {
     let vbox = gtk::Box::new(Vertical, 0);
 
@@ -55,5 +53,5 @@ fn main() {
 
     application.connect_activate(build_ui);
 
-    application.run(&args().collect::<Vec<_>>());
+    application.run();
 }

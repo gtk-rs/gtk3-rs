@@ -561,6 +561,6 @@ mod tests {
 
         app.set_inactivity_timeout(10000);
 
-        assert!(app.run(&["--local".to_string()]) == EXIT_STATUS);
+        assert!(app.run_with_args(&["--local"]) == EXIT_STATUS);
     }
 }

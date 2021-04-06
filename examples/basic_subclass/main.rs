@@ -8,6 +8,5 @@ fn main() {
 
     let app = simple_application::SimpleApplication::new();
 
-    let args: Vec<String> = std::env::args().collect();
-    app.run(&args);
+    app.run();
 }

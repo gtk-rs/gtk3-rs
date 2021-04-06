@@ -74,7 +74,7 @@
 //!         // Don't forget to make all widgets visible.
 //!         win.show_all();
 //!     });
-//!     uiapp.run(&env::args().collect::<Vec<_>>());
+//!     uiapp.run();
 //! }
 //! ```
 //!

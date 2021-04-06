@@ -2,8 +2,6 @@ use gtk::prelude::*;
 use gtk::{cairo, gdk};
 use gtk::{ApplicationWindow, Button, Fixed};
 
-use std::env::args;
-
 fn build_ui(application: &gtk::Application) {
     let window = ApplicationWindow::new(application);
     set_visual(&window, None);
@@ -33,7 +31,7 @@ fn main() {
 
     application.connect_activate(build_ui);
 
-    application.run(&args().collect::<Vec<_>>());
+    application.run();
 }
 
 fn set_visual(window: &ApplicationWindow, _screen: Option<&gdk::Screen>) {

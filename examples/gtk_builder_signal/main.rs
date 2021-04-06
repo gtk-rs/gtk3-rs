@@ -3,8 +3,6 @@ use gtk::prelude::*;
 
 use gtk::{ApplicationWindow, Builder, MessageDialog};
 
-use std::env::args;
-
 fn build_ui(application: &gtk::Application) {
     let glade_src = include_str!("builder_signal.ui");
     let builder = Builder::from_string(glade_src);
@@ -48,5 +46,5 @@ fn main() {
 
     application.connect_activate(build_ui);
 
-    application.run(&args().collect::<Vec<_>>());
+    application.run();
 }

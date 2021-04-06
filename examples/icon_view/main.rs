@@ -1,7 +1,6 @@
 use gtk::prelude::*;
 use gtk::{gdk_pixbuf, glib};
 
-use std::env::args;
 use std::process;
 
 // Convenience Enum for IconView column types
@@ -94,5 +93,5 @@ fn main() {
 
     application.connect_activate(build_ui);
 
-    application.run(&args().collect::<Vec<_>>());
+    application.run();
 }

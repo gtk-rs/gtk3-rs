@@ -1,5 +1,3 @@
-use std::env::args;
-
 use gtk::prelude::*;
 use gtk::{gdk, gio};
 use gtk::{DestDefaults, TargetFlags};
@@ -70,5 +68,5 @@ fn main() {
 
     application.connect_activate(build_ui);
 
-    application.run(&args().collect::<Vec<_>>());
+    application.run();
 }

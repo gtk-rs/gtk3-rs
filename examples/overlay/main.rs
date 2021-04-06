@@ -5,8 +5,6 @@
 use gtk::prelude::*;
 use gtk::{gdk, gio, glib};
 
-use std::env::args;
-
 // Basic CSS: we change background color, we set font color to black and we set it as bold.
 const STYLE: &str = "
 #overlay-label {
@@ -92,5 +90,5 @@ fn main() {
         build_ui(app);
     });
 
-    application.run(&args().collect::<Vec<_>>());
+    application.run();
 }

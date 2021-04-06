@@ -1,7 +1,6 @@
 use gtk::glib;
 use gtk::prelude::*;
 
-use std::env::args;
 fn main() {
     let application = gtk::ApplicationBuilder::new()
         .application_id("com.github.gtk-rs.examples.dialog_async")
@@ -9,7 +8,7 @@ fn main() {
 
     application.connect_activate(build_ui);
 
-    application.run(&args().collect::<Vec<_>>());
+    application.run();
 }
 
 fn build_ui(application: &gtk::Application) {

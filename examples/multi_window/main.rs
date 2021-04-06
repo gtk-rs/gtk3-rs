@@ -3,7 +3,6 @@ use gtk::prelude::*;
 
 use std::cell::RefCell;
 use std::collections::HashMap;
-use std::env::args;
 use std::rc::Rc;
 
 fn create_sub_window(
@@ -117,5 +116,5 @@ fn main() {
 
     application.connect_activate(build_ui);
 
-    application.run(&args().collect::<Vec<_>>());
+    application.run();
 }

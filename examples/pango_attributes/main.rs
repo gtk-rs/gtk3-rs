@@ -1,8 +1,6 @@
 use gtk::pango;
 use gtk::prelude::*;
 
-use std::env::args;
-
 fn build_ui(application: &gtk::Application) {
     let window = gtk::ApplicationWindow::new(application);
 
@@ -47,5 +45,5 @@ fn main() {
 
     application.connect_activate(build_ui);
 
-    application.run(&args().collect::<Vec<_>>());
+    application.run();
 }

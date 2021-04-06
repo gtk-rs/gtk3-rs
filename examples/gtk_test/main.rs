@@ -8,8 +8,6 @@ use gtk::{
     Scale, SpinButton, Spinner, Switch, Window,
 };
 
-use std::env::args;
-
 fn about_clicked(button: &Button, dialog: &AboutDialog) {
     if let Some(window) = button
         .get_toplevel()
@@ -197,5 +195,5 @@ fn main() {
 
     application.connect_activate(build_ui);
 
-    application.run(&args().collect::<Vec<_>>());
+    application.run();
 }
