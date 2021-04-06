@@ -3,6 +3,7 @@
 use smallvec::SmallVec;
 
 use crate::translate::*;
+use crate::utils::is_canonical_pspec_name;
 use crate::Closure;
 use crate::SignalFlags;
 use crate::Type;
@@ -460,6 +461,11 @@ impl Signal {
         param_types: &'a [SignalType],
         return_type: SignalType,
     ) -> SignalBuilder<'a> {
+        assert!(
+            is_canonical_pspec_name(name),
+            "{} is not a valid canonical signal name",
+            name
+        );
         SignalBuilder {
             name,
             param_types,
