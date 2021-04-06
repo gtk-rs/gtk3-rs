@@ -173,3 +173,42 @@ fn attr_gflags() {
     assert!(e.get_value_by_nick("ab").is_none());
     assert!(e.get_value_by_nick("c").is_some());
 }
+
+#[test]
+fn subclassable() {
+    mod foo {
+        use super::*;
+
+        mod imp {
+            use super::*;
+
+            #[derive(Default)]
+            pub struct Foo {
+            }
+
+            #[glib::object_subclass]
+            impl ObjectSubclass for Foo {
+                const NAME: &'static str = "MyFoo";
+                type Type = super::Foo;
+                type ParentType = glib::Object;
+            }
+
+            impl ObjectImpl for Foo {}
+        }
+
+        pub trait FooExt: 'static {
+            fn test(&self);
+        }
+
+        impl<O: IsA<Foo>> FooExt for O {
+            fn test(&self) {
+                let self_ = imp::Foo::from_instance(self.downcast_ref::<Foo>());
+                unimplemented!()
+            }
+        }
+
+        glib::wrapper! {
+            pub struct Foo(ObjectSubclass<imp::Foo>);
+        }
+    }
+}
