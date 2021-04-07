@@ -12,12 +12,19 @@ use std::mem::transmute;
 
 pub trait ApplicationExtManual {
     #[doc(alias = "g_application_run")]
-    fn run(&self, argv: &[String]) -> i32;
+    fn run(&self) -> i32;
+    #[doc(alias = "g_application_run")]
+    fn run_with_args<S: AsRef<str>>(&self, args: &[S]) -> i32;
     fn connect_open<F: Fn(&Self, &[File], &str) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<Application>> ApplicationExtManual for O {
-    fn run(&self, argv: &[String]) -> i32 {
+    fn run(&self) -> i32 {
+        self.run_with_args(&std::env::args().collect::<Vec<_>>())
+    }
+
+    fn run_with_args<S: AsRef<str>>(&self, args: &[S]) -> i32 {
+        let argv: Vec<&str> = args.iter().map(|a| a.as_ref()).collect();
         let argc = argv.len() as i32;
         unsafe {
             ffi::g_application_run(self.as_ref().to_glib_none().0, argc, argv.to_glib_none().0)

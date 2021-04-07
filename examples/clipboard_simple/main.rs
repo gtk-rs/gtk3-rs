@@ -1,5 +1,4 @@
 use std::cell::RefCell;
-use std::env::args;
 
 use gtk::prelude::*;
 use gtk::{gdk, gio};
@@ -134,5 +133,5 @@ fn main() {
     });
     application.connect_activate(|_| {});
 
-    application.run(&args().collect::<Vec<_>>());
+    application.run();
 }

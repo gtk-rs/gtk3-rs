@@ -1,8 +1,6 @@
 use gtk::gdk;
 use gtk::prelude::*;
 
-use std::env::args;
-
 fn build_ui(application: &gtk::Application) {
     // Configure button as drag source for text
     let button = gtk::Button::with_label("Drag here");
@@ -49,5 +47,5 @@ fn main() {
 
     application.connect_activate(build_ui);
 
-    application.run(&args().collect::<Vec<_>>());
+    application.run();
 }

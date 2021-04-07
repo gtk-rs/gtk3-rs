@@ -2,8 +2,6 @@ use gtk::prelude::*;
 use gtk::AboutDialog;
 use gtk::{gio, glib};
 
-use std::env::args;
-
 fn build_system_menu(application: &gtk::Application) {
     let menu = gio::Menu::new();
     let menu_bar = gio::Menu::new();
@@ -139,5 +137,5 @@ fn main() {
     });
     application.connect_activate(build_ui);
 
-    application.run(&args().collect::<Vec<_>>());
+    application.run();
 }

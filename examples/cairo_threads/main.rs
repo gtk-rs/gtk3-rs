@@ -2,7 +2,6 @@ mod drawing;
 pub mod image;
 
 use std::cell::RefCell;
-use std::env::args;
 use std::rc::Rc;
 use std::sync::mpsc;
 use std::thread;
@@ -26,7 +25,7 @@ fn main() {
     .expect("Initialization failed...");
 
     application.connect_activate(build_ui);
-    application.run(&args().collect::<Vec<_>>());
+    application.run();
 }
 
 fn build_ui(application: &gtk::Application) {

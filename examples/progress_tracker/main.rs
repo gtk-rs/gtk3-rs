@@ -2,7 +2,6 @@ use gtk::prelude::*;
 use gtk::{gio, glib};
 
 use std::cell::{Cell, RefCell};
-use std::env::args;
 use std::rc::Rc;
 use std::thread;
 use std::time::Duration;
@@ -31,7 +30,7 @@ pub fn main() {
     });
 
     application.connect_activate(|_| {});
-    application.run(&args().collect::<Vec<_>>());
+    application.run();
 }
 
 pub struct Application {

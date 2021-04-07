@@ -6,8 +6,6 @@ use gtk::{
     MessageDialog, MessageType, Orientation, TreeStore, TreeView, TreeViewColumn, WindowPosition,
 };
 
-use std::env::args;
-
 fn append_text_column(tree: &TreeView) {
     let column = TreeViewColumn::new();
     let cell = CellRendererText::new();
@@ -120,5 +118,5 @@ fn main() {
 
     application.connect_activate(build_ui);
 
-    application.run(&args().collect::<Vec<_>>());
+    application.run();
 }

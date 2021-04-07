@@ -1,4 +1,3 @@
-use std::env::args;
 use std::f64::consts::PI;
 
 use gtk::prelude::*;
@@ -96,7 +95,7 @@ fn main() {
 
     application.connect_activate(build_ui);
 
-    application.run(&args().collect::<Vec<_>>());
+    application.run();
 }
 
 pub fn drawable<F>(application: &gtk::Application, width: i32, height: i32, draw_fn: F)

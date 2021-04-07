@@ -50,5 +50,5 @@ fn main() {
         }));
     }
 
-    application.run(&[]);
+    application.run();
 }

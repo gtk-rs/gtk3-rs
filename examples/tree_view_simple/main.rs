@@ -4,8 +4,6 @@ use gtk::{
     WindowPosition,
 };
 
-use std::env::args;
-
 fn create_and_fill_model() -> ListStore {
     // Creation of a model with two rows.
     let model = ListStore::new(&[u32::static_type(), String::static_type()]);
@@ -100,5 +98,5 @@ fn main() {
 
     application.connect_activate(build_ui);
 
-    application.run(&args().collect::<Vec<_>>());
+    application.run();
 }

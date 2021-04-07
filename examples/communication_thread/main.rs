@@ -2,7 +2,6 @@ use futures::{channel::mpsc, StreamExt};
 use gtk::glib;
 use gtk::prelude::*;
 use gtk::{ApplicationWindow, Label};
-use std::env::args;
 use std::thread;
 
 fn main() {
@@ -12,7 +11,7 @@ fn main() {
     )
     .expect("Initialization failed...");
     application.connect_activate(build_ui);
-    application.run(&args().collect::<Vec<_>>());
+    application.run();
 }
 
 fn build_ui(application: &gtk::Application) {

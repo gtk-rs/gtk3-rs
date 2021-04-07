@@ -1,8 +1,6 @@
 use gtk::prelude::*;
 use gtk::{gdk, gio};
 
-use std::env::args;
-
 fn main() {
     let application = gtk::Application::new(Some("com.github.css"), gio::ApplicationFlags::empty())
         .expect("Initialization failed...");
@@ -25,7 +23,7 @@ fn main() {
         build_ui(app);
     });
 
-    application.run(&args().collect::<Vec<_>>());
+    application.run();
 }
 
 fn build_ui(application: &gtk::Application) {

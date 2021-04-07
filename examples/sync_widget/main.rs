@@ -1,8 +1,6 @@
 use gtk::prelude::*;
 use gtk::{glib, Builder};
 
-use std::env::args;
-
 fn build_ui(application: &gtk::Application) {
     let glade_src = include_str!("sync_widgets.ui");
     let builder = Builder::new();
@@ -40,5 +38,5 @@ fn main() {
 
     application.connect_activate(build_ui);
 
-    application.run(&args().collect::<Vec<_>>());
+    application.run();
 }

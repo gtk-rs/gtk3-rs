@@ -4,8 +4,6 @@ use gtk::glib;
 use gtk::prelude::*;
 use gtk::{ApplicationWindow, Builder, Button, Grid};
 
-use std::env::args;
-
 fn build_ui(application: &gtk::Application) {
     let glade_src = include_str!("grid.ui");
     let builder = Builder::from_string(glade_src);
@@ -36,5 +34,5 @@ fn main() {
 
     application.connect_activate(build_ui);
 
-    application.run(&args().collect::<Vec<_>>());
+    application.run();
 }

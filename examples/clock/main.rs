@@ -2,8 +2,6 @@ use chrono::Local;
 use gtk::glib;
 use gtk::prelude::*;
 
-use std::env::args;
-
 fn current_time() -> String {
     return format!("{}", Local::now().format("%Y-%m-%d %H:%M:%S"));
 }
@@ -43,5 +41,5 @@ fn main() {
 
     application.connect_activate(build_ui);
 
-    application.run(&args().collect::<Vec<_>>());
+    application.run();
 }

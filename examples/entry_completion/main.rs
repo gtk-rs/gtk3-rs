@@ -1,8 +1,6 @@
 use gtk::prelude::*;
 use gtk::{gio, glib};
 
-use std::env::args;
-
 struct Data {
     description: String,
 }
@@ -95,5 +93,5 @@ fn main() {
     application.add_action(&quit);
 
     // Run the application
-    application.run(&args().collect::<Vec<_>>());
+    application.run();
 }
