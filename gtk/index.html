@@ -67,7 +67,7 @@ and run the main event loop:</p>
         <span class="comment">// Don&#39;t forget to make all widgets visible.</span>
         <span class="ident">win</span>.<span class="ident">show_all</span>();
     });
-    <span class="ident">uiapp</span>.<span class="ident">run</span>(<span class="kw-2">&amp;</span><span class="ident">env</span>::<span class="ident">args</span>().<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>());
+    <span class="ident">uiapp</span>.<span class="ident">run</span>();
 }</pre></div>
 <h1 id="threads" class="section-header"><a href="#threads">Threads</a></h1>
 <p>GTK+ is not thread-safe. Accordingly, none of this crate’s structs implement
