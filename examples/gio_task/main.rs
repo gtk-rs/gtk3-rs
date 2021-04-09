@@ -1,6 +1,7 @@
 mod file_size;
 
 use futures_channel::oneshot;
+use glib::clone;
 use gtk::glib::translate::*;
 use gtk::{gio, glib};
 
@@ -9,7 +10,6 @@ use file_size::FileSize;
 fn main() {
     let main_context = glib::MainContext::default();
     let main_loop = glib::MainLoop::new(Some(&main_context), false);
-    let main_loop_clone = main_loop.clone();
     let (send_safe, recv_safe) = oneshot::channel();
     let (send_unsafe, recv_unsafe) = oneshot::channel();
 
@@ -21,11 +21,11 @@ fn main() {
         run_safe(send_safe);
     });
 
-    main_context.spawn_local(async move {
+    main_context.spawn_local(clone!(@strong main_loop => async move {
         recv_safe.await.unwrap();
         recv_unsafe.await.unwrap();
-        main_loop_clone.quit();
-    });
+        main_loop.quit();
+    }));
     main_loop.run();
     main_context.pop_thread_default();
 }

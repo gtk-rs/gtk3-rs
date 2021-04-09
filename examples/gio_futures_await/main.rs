@@ -1,3 +1,4 @@
+use glib::clone;
 use gtk::prelude::*;
 use gtk::{gio, glib};
 
@@ -13,14 +14,13 @@ fn main() {
 
     let file = gio::File::new_for_path("Cargo.toml");
 
-    let l_clone = l.clone();
-    let future = async move {
+    let future = clone!(@strong l => async move {
         match read_file(file).await {
             Ok(()) => (),
             Err(err) => eprintln!("Got error: {}", err),
         }
-        l_clone.quit();
-    };
+        l.quit();
+    });
 
     c.spawn_local(future);
 
