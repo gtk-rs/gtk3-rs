@@ -919,12 +919,14 @@ impl DBusConnection {
         }))
     }
 
-    pub fn connect_closed<F: Fn(&DBusConnection, bool, Option<&glib::Error>) + 'static>(
+    pub fn connect_closed<
+        F: Fn(&DBusConnection, bool, Option<&glib::Error>) + Send + Sync + 'static,
+    >(
         &self,
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn closed_trampoline<
-            F: Fn(&DBusConnection, bool, Option<&glib::Error>) + 'static,
+            F: Fn(&DBusConnection, bool, Option<&glib::Error>) + Send + Sync + 'static,
         >(
             this: *mut ffi::GDBusConnection,
             remote_peer_vanished: glib::ffi::gboolean,
@@ -953,11 +955,13 @@ impl DBusConnection {
         }
     }
 
-    pub fn connect_property_capabilities_notify<F: Fn(&DBusConnection) + 'static>(
+    pub fn connect_property_capabilities_notify<F: Fn(&DBusConnection) + Send + Sync + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_capabilities_trampoline<F: Fn(&DBusConnection) + 'static>(
+        unsafe extern "C" fn notify_capabilities_trampoline<
+            F: Fn(&DBusConnection) + Send + Sync + 'static,
+        >(
             this: *mut ffi::GDBusConnection,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
@@ -978,11 +982,13 @@ impl DBusConnection {
         }
     }
 
-    pub fn connect_property_closed_notify<F: Fn(&DBusConnection) + 'static>(
+    pub fn connect_property_closed_notify<F: Fn(&DBusConnection) + Send + Sync + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_closed_trampoline<F: Fn(&DBusConnection) + 'static>(
+        unsafe extern "C" fn notify_closed_trampoline<
+            F: Fn(&DBusConnection) + Send + Sync + 'static,
+        >(
             this: *mut ffi::GDBusConnection,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
@@ -1003,11 +1009,13 @@ impl DBusConnection {
         }
     }
 
-    pub fn connect_property_exit_on_close_notify<F: Fn(&DBusConnection) + 'static>(
+    pub fn connect_property_exit_on_close_notify<F: Fn(&DBusConnection) + Send + Sync + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_exit_on_close_trampoline<F: Fn(&DBusConnection) + 'static>(
+        unsafe extern "C" fn notify_exit_on_close_trampoline<
+            F: Fn(&DBusConnection) + Send + Sync + 'static,
+        >(
             this: *mut ffi::GDBusConnection,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
@@ -1028,11 +1036,13 @@ impl DBusConnection {
         }
     }
 
-    pub fn connect_property_unique_name_notify<F: Fn(&DBusConnection) + 'static>(
+    pub fn connect_property_unique_name_notify<F: Fn(&DBusConnection) + Send + Sync + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_unique_name_trampoline<F: Fn(&DBusConnection) + 'static>(
+        unsafe extern "C" fn notify_unique_name_trampoline<
+            F: Fn(&DBusConnection) + Send + Sync + 'static,
+        >(
             this: *mut ffi::GDBusConnection,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
@@ -1053,6 +1063,9 @@ impl DBusConnection {
         }
     }
 }
+
+unsafe impl Send for DBusConnection {}
+unsafe impl Sync for DBusConnection {}
 
 impl fmt::Display for DBusConnection {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
