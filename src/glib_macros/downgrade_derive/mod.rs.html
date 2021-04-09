@@ -30,18 +30,18 @@
 <span class="kw">mod</span> <span class="ident">fields</span>;
 <span class="kw">mod</span> <span class="ident">structs</span>;
 
-<span class="kw">use</span> <span class="ident">proc_macro</span>::<span class="ident">TokenStream</span>;
+<span class="kw">use</span> <span class="ident">proc_macro::TokenStream</span>;
 <span class="kw">use</span> <span class="ident">syn</span>::{<span class="ident">Data</span>, <span class="ident">DeriveInput</span>};
 
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">impl_downgrade</span>(<span class="ident">input</span>: <span class="ident">DeriveInput</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TokenStream</span> {
     <span class="kw">match</span> <span class="ident">input</span>.<span class="ident">data</span> {
-        <span class="ident">Data</span>::<span class="ident">Struct</span>(<span class="ident">data_struct</span>) <span class="op">=</span><span class="op">&gt;</span> {
-            <span class="ident">structs</span>::<span class="ident">derive_downgrade_for_struct</span>(<span class="ident">input</span>.<span class="ident">ident</span>, <span class="ident">input</span>.<span class="ident">generics</span>, <span class="ident">data_struct</span>)
+        <span class="ident">Data::Struct</span>(<span class="ident">data_struct</span>) <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="ident">structs::derive_downgrade_for_struct</span>(<span class="ident">input</span>.<span class="ident">ident</span>, <span class="ident">input</span>.<span class="ident">generics</span>, <span class="ident">data_struct</span>)
         }
-        <span class="ident">Data</span>::<span class="ident">Enum</span>(<span class="ident">data_enum</span>) <span class="op">=</span><span class="op">&gt;</span> {
-            <span class="ident">enums</span>::<span class="ident">derive_downgrade_for_enum</span>(<span class="ident">input</span>.<span class="ident">ident</span>, <span class="ident">input</span>.<span class="ident">generics</span>, <span class="ident">data_enum</span>)
+        <span class="ident">Data::Enum</span>(<span class="ident">data_enum</span>) <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="ident">enums::derive_downgrade_for_enum</span>(<span class="ident">input</span>.<span class="ident">ident</span>, <span class="ident">input</span>.<span class="ident">generics</span>, <span class="ident">data_enum</span>)
         }
-        <span class="ident">Data</span>::<span class="ident">Union</span>(..) <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="ident">Data::Union</span>(..) <span class="op">=</span><span class="op">&gt;</span> {
             <span class="macro">panic!</span>(<span class="string">&quot;#[derive(Downgrade)] is not available for unions.&quot;</span>);
         }
     }

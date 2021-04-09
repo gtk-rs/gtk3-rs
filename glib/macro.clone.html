@@ -15,18 +15,18 @@ environment variable when running your code (either in the code directly or when
 binary) to either “all” or <a href="https://gtk-rs.org/docs/glib/constant.CLONE_MACRO_LOG_DOMAIN.html"><code>CLONE_MACRO_LOG_DOMAIN</code></a>:</p>
 
 <div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">CLONE_MACRO_LOG_DOMAIN</span>;
+<span class="kw">use</span> <span class="ident">glib::CLONE_MACRO_LOG_DOMAIN</span>;
 
-<span class="ident">std</span>::<span class="ident">env</span>::<span class="ident">set_var</span>(<span class="string">&quot;G_MESSAGES_DEBUG&quot;</span>, <span class="ident">CLONE_MACRO_LOG_DOMAIN</span>);
-<span class="ident">std</span>::<span class="ident">env</span>::<span class="ident">set_var</span>(<span class="string">&quot;G_MESSAGES_DEBUG&quot;</span>, <span class="string">&quot;all&quot;</span>);</pre></div>
+<span class="ident">std::env::set_var</span>(<span class="string">&quot;G_MESSAGES_DEBUG&quot;</span>, <span class="ident">CLONE_MACRO_LOG_DOMAIN</span>);
+<span class="ident">std::env::set_var</span>(<span class="string">&quot;G_MESSAGES_DEBUG&quot;</span>, <span class="string">&quot;all&quot;</span>);</pre></div>
 <p>Or:</p>
 <pre><code class="language-bash">$ G_MESSAGES_DEBUG=all ./binary
 </code></pre>
 <h3 id="passing-a-strong-reference" class="section-header"><a href="#passing-a-strong-reference">Passing a strong reference</a></h3>
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">rc</span>::<span class="ident">Rc</span>;
+<span class="kw">use</span> <span class="ident">std::rc::Rc</span>;
 
-<span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">Rc</span>::<span class="ident">new</span>(<span class="number">1</span>);
+<span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">Rc::new</span>(<span class="number">1</span>);
 <span class="kw">let</span> <span class="ident">closure</span> <span class="op">=</span> <span class="macro">clone!</span>(@<span class="ident">strong</span> <span class="ident">v</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">move</span> <span class="op">|</span><span class="ident">x</span><span class="op">|</span> {
     <span class="macro">println!</span>(<span class="string">&quot;v: {}, x: {}&quot;</span>, <span class="ident">v</span>, <span class="ident">x</span>);
 });
@@ -34,9 +34,9 @@ binary) to either “all” or <a href="https://gtk-rs.org/docs/glib/constant.CL
 <span class="ident">closure</span>(<span class="number">2</span>);</pre></div>
 <h3 id="passing-a-weak-reference" class="section-header"><a href="#passing-a-weak-reference">Passing a weak reference</a></h3>
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">rc</span>::<span class="ident">Rc</span>;
+<span class="kw">use</span> <span class="ident">std::rc::Rc</span>;
 
-<span class="kw">let</span> <span class="ident">u</span> <span class="op">=</span> <span class="ident">Rc</span>::<span class="ident">new</span>(<span class="number">2</span>);
+<span class="kw">let</span> <span class="ident">u</span> <span class="op">=</span> <span class="ident">Rc::new</span>(<span class="number">2</span>);
 <span class="kw">let</span> <span class="ident">closure</span> <span class="op">=</span> <span class="macro">clone!</span>(@<span class="ident">weak</span> <span class="ident">u</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">move</span> <span class="op">|</span><span class="ident">x</span><span class="op">|</span> {
     <span class="macro">println!</span>(<span class="string">&quot;u: {}, x: {}&quot;</span>, <span class="ident">u</span>, <span class="ident">x</span>);
 });
@@ -47,11 +47,11 @@ binary) to either “all” or <a href="https://gtk-rs.org/docs/glib/constant.CL
 your closure called. In this case, you need to use <code>@weak-allow-none</code>:</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">rc</span>::<span class="ident">Rc</span>;
+<span class="kw">use</span> <span class="ident">std::rc::Rc</span>;
 <span class="kw">let</span> <span class="ident">closure</span> <span class="op">=</span> {
     <span class="comment">// This `Rc` won&#39;t be available in the closure because it&#39;s dropped at the end of the</span>
     <span class="comment">// current block</span>
-    <span class="kw">let</span> <span class="ident">u</span> <span class="op">=</span> <span class="ident">Rc</span>::<span class="ident">new</span>(<span class="number">2</span>);
+    <span class="kw">let</span> <span class="ident">u</span> <span class="op">=</span> <span class="ident">Rc::new</span>(<span class="number">2</span>);
     <span class="macro">clone!</span>(@<span class="ident">weak</span><span class="op">-</span><span class="ident">allow</span><span class="op">-</span><span class="ident">none</span> <span class="ident">u</span> <span class="op">=</span><span class="op">&gt;</span> @<span class="ident">default</span><span class="op">-</span><span class="kw">return</span> <span class="bool-val">false</span>, <span class="kw">move</span> <span class="op">|</span><span class="ident">x</span><span class="op">|</span> {
         <span class="comment">// We need to use a Debug print for `u` because it&#39;ll be an `Option`.</span>
         <span class="macro">println!</span>(<span class="string">&quot;u: {:?}, x: {}&quot;</span>, <span class="ident">u</span>, <span class="ident">x</span>);
@@ -62,11 +62,11 @@ your closure called. In this case, you need to use <code>@weak-allow-none</code>
 <span class="macro">assert_eq!</span>(<span class="ident">closure</span>(<span class="number">3</span>), <span class="bool-val">true</span>);</pre></div>
 <h3 id="renaming-variables" class="section-header"><a href="#renaming-variables">Renaming variables</a></h3>
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">glib_macros</span>::<span class="ident">clone</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">rc</span>::<span class="ident">Rc</span>;
+<span class="kw">use</span> <span class="ident">glib_macros::clone</span>;
+<span class="kw">use</span> <span class="ident">std::rc::Rc</span>;
 
-<span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">Rc</span>::<span class="ident">new</span>(<span class="number">1</span>);
-<span class="kw">let</span> <span class="ident">u</span> <span class="op">=</span> <span class="ident">Rc</span>::<span class="ident">new</span>(<span class="number">2</span>);
+<span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">Rc::new</span>(<span class="number">1</span>);
+<span class="kw">let</span> <span class="ident">u</span> <span class="op">=</span> <span class="ident">Rc::new</span>(<span class="number">2</span>);
 <span class="kw">let</span> <span class="ident">closure</span> <span class="op">=</span> <span class="macro">clone!</span>(@<span class="ident">strong</span> <span class="ident">v</span> <span class="kw">as</span> <span class="ident">y</span>, @<span class="ident">weak</span> <span class="ident">u</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">move</span> <span class="op">|</span><span class="ident">x</span><span class="op">|</span> {
     <span class="macro">println!</span>(<span class="string">&quot;v as y: {}, u: {}, x: {}&quot;</span>, <span class="ident">y</span>, <span class="ident">u</span>, <span class="ident">x</span>);
 });
@@ -77,10 +77,10 @@ your closure called. In this case, you need to use <code>@weak-allow-none</code>
 <p>Either by providing the value yourself using <code>@default-return</code>:</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">glib_macros</span>::<span class="ident">clone</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">rc</span>::<span class="ident">Rc</span>;
+<span class="kw">use</span> <span class="ident">glib_macros::clone</span>;
+<span class="kw">use</span> <span class="ident">std::rc::Rc</span>;
 
-<span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">Rc</span>::<span class="ident">new</span>(<span class="number">1</span>);
+<span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">Rc::new</span>(<span class="number">1</span>);
 <span class="kw">let</span> <span class="ident">closure</span> <span class="op">=</span> <span class="macro">clone!</span>(@<span class="ident">weak</span> <span class="ident">v</span> <span class="op">=</span><span class="op">&gt;</span> @<span class="ident">default</span><span class="op">-</span><span class="kw">return</span> <span class="bool-val">false</span>, <span class="kw">move</span> <span class="op">|</span><span class="ident">x</span><span class="op">|</span> {
     <span class="macro">println!</span>(<span class="string">&quot;v: {}, x: {}&quot;</span>, <span class="ident">v</span>, <span class="ident">x</span>);
     <span class="bool-val">true</span>
@@ -102,7 +102,7 @@ your closure called. In this case, you need to use <code>@weak-allow-none</code>
 <p><strong>Missing <code>@weak</code> or <code>@strong</code></strong>:</p>
 
 <div class='information'><div class='tooltip compile_fail'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered compile_fail">
-<span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">Rc</span>::<span class="ident">new</span>(<span class="number">1</span>);
+<span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">Rc::new</span>(<span class="number">1</span>);
 
 <span class="kw">let</span> <span class="ident">closure</span> <span class="op">=</span> <span class="macro">clone!</span>(<span class="ident">v</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">move</span> <span class="op">|</span><span class="ident">x</span><span class="op">|</span> <span class="macro">println!</span>(<span class="string">&quot;v: {}, x: {}&quot;</span>, <span class="ident">v</span>, <span class="ident">x</span>));</pre></div>
 <p><strong>Passing <code>self</code> as an argument</strong>:</p>

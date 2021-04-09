@@ -1477,36 +1477,36 @@
 
 <span class="doccomment">//! The cairo drawing context</span>
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">font</span>::{
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::font</span>::{
     <span class="ident">FontExtents</span>, <span class="ident">FontFace</span>, <span class="ident">FontOptions</span>, <span class="ident">Glyph</span>, <span class="ident">ScaledFont</span>, <span class="ident">TextCluster</span>, <span class="ident">TextExtents</span>,
 };
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">matrices</span>::<span class="ident">Matrix</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">paths</span>::<span class="ident">Path</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Rectangle</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::matrices::Matrix</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::paths::Path</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Rectangle</span>;
 <span class="kw">use</span> <span class="kw">crate</span>::{
     <span class="ident">Antialias</span>, <span class="ident">Content</span>, <span class="ident">FillRule</span>, <span class="ident">FontSlant</span>, <span class="ident">FontWeight</span>, <span class="ident">LineCap</span>, <span class="ident">LineJoin</span>, <span class="ident">Operator</span>,
     <span class="ident">TextClusterFlags</span>,
 };
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">libc</span>::<span class="ident">c_int</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ffi</span>::<span class="ident">CString</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ops</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">slice</span>;
+<span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">libc::c_int</span>;
+<span class="kw">use</span> <span class="ident">std::ffi::CString</span>;
+<span class="kw">use</span> <span class="ident">std::fmt</span>;
+<span class="kw">use</span> <span class="ident">std::ops</span>;
+<span class="kw">use</span> <span class="ident">std::ptr</span>;
+<span class="kw">use</span> <span class="ident">std::slice</span>;
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">error</span>::<span class="ident">Error</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">ffi</span>::{<span class="ident">cairo_rectangle_list_t</span>, <span class="ident">cairo_t</span>};
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">patterns</span>::<span class="ident">Pattern</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">surface</span>::<span class="ident">Surface</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">utils</span>::<span class="ident">status_to_result</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::error::Error</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::ffi</span>::{<span class="ident">cairo_rectangle_list_t</span>, <span class="ident">cairo_t</span>};
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::patterns::Pattern</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::surface::Surface</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::utils::status_to_result</span>;
 
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RectangleList</span> {
     <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo_rectangle_list_t</span>,
 }
 
-<span class="kw">impl</span> <span class="ident">ops</span>::<span class="ident">Deref</span> <span class="kw">for</span> <span class="ident">RectangleList</span> {
+<span class="kw">impl</span> <span class="ident">ops::Deref</span> <span class="kw">for</span> <span class="ident">RectangleList</span> {
     <span class="kw">type</span> <span class="ident">Target</span> <span class="op">=</span> [<span class="ident">Rectangle</span>];
 
     <span class="kw">fn</span> <span class="ident">deref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span>[<span class="ident">Rectangle</span>] {
@@ -1517,7 +1517,7 @@
             <span class="kw">if</span> <span class="ident">ptr</span>.<span class="ident">is_null</span>() <span class="op">|</span><span class="op">|</span> <span class="ident">len</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span> {
                 <span class="kw-2">&amp;</span>[]
             } <span class="kw">else</span> {
-                <span class="ident">slice</span>::<span class="ident">from_raw_parts</span>(<span class="ident">ptr</span>, <span class="ident">len</span> <span class="kw">as</span> <span class="ident">usize</span>)
+                <span class="ident">slice::from_raw_parts</span>(<span class="ident">ptr</span>, <span class="ident">len</span> <span class="kw">as</span> <span class="ident">usize</span>)
             }
         }
     }
@@ -1526,63 +1526,63 @@
 <span class="kw">impl</span> <span class="ident">Drop</span> <span class="kw">for</span> <span class="ident">RectangleList</span> {
     <span class="kw">fn</span> <span class="ident">drop</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">cairo_rectangle_list_destroy</span>(<span class="self">self</span>.<span class="ident">ptr</span>);
+            <span class="ident">ffi::cairo_rectangle_list_destroy</span>(<span class="self">self</span>.<span class="ident">ptr</span>);
         }
     }
 }
 
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Debug</span> <span class="kw">for</span> <span class="ident">RectangleList</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ops</span>::<span class="ident">Deref</span>;
+<span class="kw">impl</span> <span class="ident">fmt::Debug</span> <span class="kw">for</span> <span class="ident">RectangleList</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
+        <span class="kw">use</span> <span class="ident">std::ops::Deref</span>;
         <span class="ident">f</span>.<span class="ident">debug_tuple</span>(<span class="string">&quot;RectangleList&quot;</span>).<span class="ident">field</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">deref</span>()).<span class="ident">finish</span>()
     }
 }
 
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">RectangleList</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">RectangleList</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;RectangleList&quot;</span>)
     }
 }
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Context</span>(<span class="ident">ptr</span>::<span class="ident">NonNull</span><span class="op">&lt;</span><span class="ident">cairo_t</span><span class="op">&gt;</span>);
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Context</span>(<span class="ident">ptr::NonNull</span><span class="op">&lt;</span><span class="ident">cairo_t</span><span class="op">&gt;</span>);
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">ToGlibPtr</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">cairo_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Context</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">ToGlibPtr</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::cairo_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Context</span> {
     <span class="kw">type</span> <span class="ident">Storage</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Context</span>;
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">to_glib_none</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Stash</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">cairo_t</span>, <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Context</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">to_glib_none</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Stash</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::cairo_t</span>, <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Context</span><span class="op">&gt;</span> {
         <span class="ident">Stash</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="kw-2">*</span><span class="self">self</span>)
     }
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">to_glib_full</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">cairo_t</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_reference</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
+    <span class="kw">fn</span> <span class="ident">to_glib_full</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::cairo_t</span> {
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_reference</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
     }
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="kw">impl</span> <span class="ident">FromGlibPtrNone</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">cairo_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Context</span> {
+<span class="kw">impl</span> <span class="ident">FromGlibPtrNone</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::cairo_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Context</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_none</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">cairo_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Context</span> {
-        <span class="self">Self</span>::<span class="ident">from_raw_none</span>(<span class="ident">ptr</span>)
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_none</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::cairo_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Context</span> {
+        <span class="self">Self</span><span class="ident">::from_raw_none</span>(<span class="ident">ptr</span>)
     }
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="kw">impl</span> <span class="ident">FromGlibPtrBorrow</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">cairo_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Context</span> {
+<span class="kw">impl</span> <span class="ident">FromGlibPtrBorrow</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::cairo_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Context</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_borrow</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">cairo_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">Context</span><span class="op">&gt;</span> {
-        <span class="self">Self</span>::<span class="ident">from_raw_borrow</span>(<span class="ident">ptr</span>)
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_borrow</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::cairo_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span><span class="ident">::Borrowed</span><span class="op">&lt;</span><span class="ident">Context</span><span class="op">&gt;</span> {
+        <span class="self">Self</span><span class="ident">::from_raw_borrow</span>(<span class="ident">ptr</span>)
     }
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="kw">impl</span> <span class="ident">FromGlibPtrFull</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">cairo_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Context</span> {
+<span class="kw">impl</span> <span class="ident">FromGlibPtrFull</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::cairo_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Context</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_full</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">cairo_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Context</span> {
-        <span class="self">Self</span>::<span class="ident">from_raw_full</span>(<span class="ident">ptr</span>)
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_full</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::cairo_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Context</span> {
+        <span class="self">Self</span><span class="ident">::from_raw_full</span>(<span class="ident">ptr</span>)
     }
 }
 
@@ -1590,50 +1590,50 @@
 <span class="macro">gvalue_impl!</span>(
     <span class="ident">Context</span>,
     <span class="ident">cairo_t</span>,
-    <span class="ident">ffi</span>::<span class="ident">gobject</span>::<span class="ident">cairo_gobject_context_get_type</span>
+    <span class="ident">ffi::gobject::cairo_gobject_context_get_type</span>
 );
 
 <span class="kw">impl</span> <span class="ident">Clone</span> <span class="kw">for</span> <span class="ident">Context</span> {
     <span class="kw">fn</span> <span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Context</span> {
-        <span class="kw">unsafe</span> { <span class="self">Self</span>::<span class="ident">from_raw_none</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>()) }
+        <span class="kw">unsafe</span> { <span class="self">Self</span><span class="ident">::from_raw_none</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>()) }
     }
 }
 
 <span class="kw">impl</span> <span class="ident">Drop</span> <span class="kw">for</span> <span class="ident">Context</span> {
     <span class="kw">fn</span> <span class="ident">drop</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">cairo_destroy</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>());
+            <span class="ident">ffi::cairo_destroy</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>());
         }
     }
 }
 
 <span class="kw">impl</span> <span class="ident">Context</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_raw_none</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">cairo_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Context</span> {
+    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_raw_none</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::cairo_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Context</span> {
         <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
-        <span class="ident">ffi</span>::<span class="ident">cairo_reference</span>(<span class="ident">ptr</span>);
-        <span class="ident">Context</span>(<span class="ident">ptr</span>::<span class="ident">NonNull</span>::<span class="ident">new_unchecked</span>(<span class="ident">ptr</span>))
+        <span class="ident">ffi::cairo_reference</span>(<span class="ident">ptr</span>);
+        <span class="ident">Context</span>(<span class="ident">ptr::NonNull::new_unchecked</span>(<span class="ident">ptr</span>))
     }
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_raw_borrow</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">cairo_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">Context</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_raw_borrow</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::cairo_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span><span class="ident">::Borrowed</span><span class="op">&lt;</span><span class="ident">Context</span><span class="op">&gt;</span> {
         <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
-        <span class="kw">crate</span>::<span class="ident">Borrowed</span>::<span class="ident">new</span>(<span class="ident">Context</span>(<span class="ident">ptr</span>::<span class="ident">NonNull</span>::<span class="ident">new_unchecked</span>(<span class="ident">ptr</span>)))
+        <span class="kw">crate</span><span class="ident">::Borrowed::new</span>(<span class="ident">Context</span>(<span class="ident">ptr::NonNull::new_unchecked</span>(<span class="ident">ptr</span>)))
     }
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_raw_full</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">cairo_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Context</span> {
+    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_raw_full</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::cairo_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Context</span> {
         <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
-        <span class="ident">Context</span>(<span class="ident">ptr</span>::<span class="ident">NonNull</span>::<span class="ident">new_unchecked</span>(<span class="ident">ptr</span>))
+        <span class="ident">Context</span>(<span class="ident">ptr::NonNull::new_unchecked</span>(<span class="ident">ptr</span>))
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_raw_none</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">cairo_t</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_raw_none</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::cairo_t</span> {
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()
     }
 
     <span class="doccomment">/// Checks whether an error has previously occurred for this context.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">status</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">status</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_status</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) };
+        <span class="kw">let</span> <span class="ident">status</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_status</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) };
         <span class="ident">status_to_result</span>(<span class="ident">status</span>)
     }
 
@@ -1645,7 +1645,7 @@
     <span class="doccomment">/// This function references target , so you can immediately call Surface::drop() on</span>
     <span class="doccomment">/// it if you don&#39;t need to maintain a separate reference to it.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">target</span>: <span class="kw-2">&amp;</span><span class="ident">Surface</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Context</span> {
-        <span class="kw">unsafe</span> { <span class="self">Self</span>::<span class="ident">from_raw_full</span>(<span class="ident">ffi</span>::<span class="ident">cairo_create</span>(<span class="ident">target</span>.<span class="ident">to_raw_none</span>())) }
+        <span class="kw">unsafe</span> { <span class="self">Self</span><span class="ident">::from_raw_full</span>(<span class="ident">ffi::cairo_create</span>(<span class="ident">target</span>.<span class="ident">to_raw_none</span>())) }
     }
 
     <span class="doccomment">/// Makes a copy of the current state of self and saves it on an internal stack of</span>
@@ -1658,19 +1658,19 @@
     <span class="doccomment">/// reference count of a Context drops to zero in response to a call to Context::drop(), any</span>
     <span class="doccomment">/// saved states will be freed along with the Context.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">save</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_save</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_save</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
         <span class="self">self</span>.<span class="ident">status</span>()
     }
 
     <span class="doccomment">/// Restores self to the state saved by a preceding call to Context::save() and removes</span>
     <span class="doccomment">/// that state from the stack of saved states.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">restore</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_restore</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_restore</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
         <span class="self">self</span>.<span class="ident">status</span>()
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_target</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Surface</span> {
-        <span class="kw">unsafe</span> { <span class="ident">Surface</span>::<span class="ident">from_raw_none</span>(<span class="ident">ffi</span>::<span class="ident">cairo_get_target</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>())) }
+        <span class="kw">unsafe</span> { <span class="ident">Surface::from_raw_none</span>(<span class="ident">ffi::cairo_get_target</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>())) }
     }
 
     <span class="doccomment">/// Temporarily redirects drawing to an intermediate surface known as a group. The</span>
@@ -1708,11 +1708,11 @@
     <span class="doccomment">/// cr.paint_with_alpha(alpha);</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">push_group</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_push_group</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_push_group</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">push_group_with_content</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">content</span>: <span class="ident">Content</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_push_group_with_content</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">content</span>.<span class="ident">into</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_push_group_with_content</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">content</span>.<span class="ident">into</span>()) }
     }
 
     <span class="doccomment">/// Terminates the redirection begun by a call to Context::push_group() or</span>
@@ -1723,7 +1723,7 @@
     <span class="doccomment">/// Context::save() by the push_group function), so that any changes to the graphics</span>
     <span class="doccomment">/// state will not be visible outside the group.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pop_group</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pattern</span> {
-        <span class="kw">unsafe</span> { <span class="ident">Pattern</span>::<span class="ident">from_raw_full</span>(<span class="ident">ffi</span>::<span class="ident">cairo_pop_group</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>())) }
+        <span class="kw">unsafe</span> { <span class="ident">Pattern::from_raw_full</span>(<span class="ident">ffi::cairo_pop_group</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>())) }
     }
 
     <span class="doccomment">/// Terminates the redirection begun by a call to Context::push_group() or</span>
@@ -1744,11 +1744,11 @@
     <span class="doccomment">/// Context::save() by the push_group function), so that any changes to the graphics state</span>
     <span class="doccomment">/// will not be visible outside the group.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pop_group_to_source</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_pop_group_to_source</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_pop_group_to_source</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_group_target</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Surface</span> {
-        <span class="kw">unsafe</span> { <span class="ident">Surface</span>::<span class="ident">from_raw_none</span>(<span class="ident">ffi</span>::<span class="ident">cairo_get_group_target</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>())) }
+        <span class="kw">unsafe</span> { <span class="ident">Surface::from_raw_none</span>(<span class="ident">ffi::cairo_get_group_target</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>())) }
     }
 
     <span class="doccomment">/// Sets the source pattern within self to an opaque color. This opaque color will then be</span>
@@ -1761,7 +1761,7 @@
     <span class="doccomment">/// The default source pattern is opaque black, (that is, it is equivalent to</span>
     <span class="doccomment">/// Context::set_source_rgb(0.0, 0.0, 0.0)).</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_source_rgb</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">red</span>: <span class="ident">f64</span>, <span class="ident">green</span>: <span class="ident">f64</span>, <span class="ident">blue</span>: <span class="ident">f64</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_set_source_rgb</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">red</span>, <span class="ident">green</span>, <span class="ident">blue</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_set_source_rgb</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">red</span>, <span class="ident">green</span>, <span class="ident">blue</span>) }
     }
 
     <span class="doccomment">/// Sets the source pattern within self to a translucent color. This color will then be used</span>
@@ -1773,7 +1773,7 @@
     <span class="doccomment">/// The default source pattern is opaque black, (that is, it is equivalent to</span>
     <span class="doccomment">/// Context::set_source_rgba(0.0, 0.0, 0.0, 1.0)).</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_source_rgba</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">red</span>: <span class="ident">f64</span>, <span class="ident">green</span>: <span class="ident">f64</span>, <span class="ident">blue</span>: <span class="ident">f64</span>, <span class="ident">alpha</span>: <span class="ident">f64</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_set_source_rgba</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">red</span>, <span class="ident">green</span>, <span class="ident">blue</span>, <span class="ident">alpha</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_set_source_rgba</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">red</span>, <span class="ident">green</span>, <span class="ident">blue</span>, <span class="ident">alpha</span>) }
     }
 
     <span class="doccomment">/// Sets the source pattern within self to source. This pattern will then be used for any</span>
@@ -1788,19 +1788,19 @@
     <span class="doccomment">/// equivalent to Context::set_source_rgb(0.0, 0.0, 0.0)).</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_source</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">source</span>: <span class="kw-2">&amp;</span><span class="ident">Pattern</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">cairo_set_source</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">source</span>.<span class="ident">to_raw_none</span>());
+            <span class="ident">ffi::cairo_set_source</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">source</span>.<span class="ident">to_raw_none</span>());
         }
         <span class="self">self</span>.<span class="ident">status</span>().<span class="ident">expect</span>(<span class="string">&quot;Failed to set source&quot;</span>);
     }
 
     <span class="doccomment">/// Gets the current source pattern for self.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_source</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pattern</span> {
-        <span class="kw">unsafe</span> { <span class="ident">Pattern</span>::<span class="ident">from_raw_none</span>(<span class="ident">ffi</span>::<span class="ident">cairo_get_source</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>())) }
+        <span class="kw">unsafe</span> { <span class="ident">Pattern::from_raw_none</span>(<span class="ident">ffi::cairo_get_source</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>())) }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_source_surface</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">surface</span>: <span class="kw-2">&amp;</span><span class="ident">Surface</span>, <span class="ident">x</span>: <span class="ident">f64</span>, <span class="ident">y</span>: <span class="ident">f64</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">cairo_set_source_surface</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">surface</span>.<span class="ident">to_raw_none</span>(), <span class="ident">x</span>, <span class="ident">y</span>);
+            <span class="ident">ffi::cairo_set_source_surface</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">surface</span>.<span class="ident">to_raw_none</span>(), <span class="ident">x</span>, <span class="ident">y</span>);
         }
     }
 
@@ -1812,13 +1812,13 @@
     <span class="doccomment">/// Note that this option does not affect text rendering, instead see</span>
     <span class="doccomment">/// FontOptions::set_antialias().</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_antialias</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">antialias</span>: <span class="ident">Antialias</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_set_antialias</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">antialias</span>.<span class="ident">into</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_set_antialias</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">antialias</span>.<span class="ident">into</span>()) }
         <span class="self">self</span>.<span class="ident">status</span>().<span class="ident">expect</span>(<span class="string">&quot;Failed to set antialias&quot;</span>);
     }
 
     <span class="doccomment">/// Gets the current shape antialiasing mode, as set by Context::set_antialias().</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_antialias</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Antialias</span> {
-        <span class="kw">unsafe</span> { <span class="ident">Antialias</span>::<span class="ident">from</span>(<span class="ident">ffi</span>::<span class="ident">cairo_get_antialias</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>())) }
+        <span class="kw">unsafe</span> { <span class="ident">Antialias::from</span>(<span class="ident">ffi::cairo_get_antialias</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>())) }
     }
 
     <span class="doccomment">/// Sets the dash pattern to be used by cairo_stroke(). A dash pattern is specified by dashes,</span>
@@ -1842,7 +1842,7 @@
     <span class="doccomment">/// an error state with a status of Status::InvalidDash.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_dash</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">dashes</span>: <span class="kw-2">&amp;</span>[<span class="ident">f64</span>], <span class="ident">offset</span>: <span class="ident">f64</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">cairo_set_dash</span>(
+            <span class="ident">ffi::cairo_set_dash</span>(
                 <span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(),
                 <span class="ident">dashes</span>.<span class="ident">as_ptr</span>(),
                 <span class="ident">dashes</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">i32</span>,
@@ -1855,18 +1855,18 @@
     <span class="doccomment">/// This function returns the length of the dash array in self (0 if dashing is not</span>
     <span class="doccomment">/// currently in effect).</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_dash_count</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_get_dash_count</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_get_dash_count</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
     }
 
     <span class="doccomment">/// Gets the current dash array. If not NULL, dashes should be big enough to hold at</span>
     <span class="doccomment">/// least the number of values returned by Context::get_dash_count().</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_dash</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">f64</span><span class="op">&gt;</span>, <span class="ident">f64</span>) {
         <span class="kw">let</span> <span class="ident">dash_count</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_dash_count</span>() <span class="kw">as</span> <span class="ident">usize</span>;
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">dashes</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">f64</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">with_capacity</span>(<span class="ident">dash_count</span>);
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">dashes</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">f64</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Vec::with_capacity</span>(<span class="ident">dash_count</span>);
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">offset</span>: <span class="ident">f64</span> <span class="op">=</span> <span class="number">0.0</span>;
 
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">cairo_get_dash</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">dashes</span>.<span class="ident">as_mut_ptr</span>(), <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">offset</span>);
+            <span class="ident">ffi::cairo_get_dash</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">dashes</span>.<span class="ident">as_mut_ptr</span>(), <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">offset</span>);
             <span class="ident">dashes</span>.<span class="ident">set_len</span>(<span class="ident">dash_count</span>);
             (<span class="ident">dashes</span>, <span class="ident">offset</span>)
         }
@@ -1890,14 +1890,14 @@
     <span class="doccomment">/// The default fill rule is FillRule::Winding.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_fill_rule</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">fill_rule</span>: <span class="ident">FillRule</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">cairo_set_fill_rule</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">fill_rule</span>.<span class="ident">into</span>());
+            <span class="ident">ffi::cairo_set_fill_rule</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">fill_rule</span>.<span class="ident">into</span>());
         }
         <span class="self">self</span>.<span class="ident">status</span>().<span class="ident">expect</span>(<span class="string">&quot;Failed to set fill rule&quot;</span>);
     }
 
     <span class="doccomment">/// Gets the current fill rule, as set by Context::set_fill_rule().</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_fill_rule</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FillRule</span> {
-        <span class="kw">unsafe</span> { <span class="ident">FillRule</span>::<span class="ident">from</span>(<span class="ident">ffi</span>::<span class="ident">cairo_get_fill_rule</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>())) }
+        <span class="kw">unsafe</span> { <span class="ident">FillRule::from</span>(<span class="ident">ffi::cairo_get_fill_rule</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>())) }
     }
 
     <span class="doccomment">/// Sets the current line cap style within the cairo context. See LineCap enum</span>
@@ -1909,13 +1909,13 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// The default line cap style is LineCap::Butt.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_line_cap</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">arg</span>: <span class="ident">LineCap</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_set_line_cap</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">arg</span>.<span class="ident">into</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_set_line_cap</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">arg</span>.<span class="ident">into</span>()) }
         <span class="self">self</span>.<span class="ident">status</span>().<span class="ident">expect</span>(<span class="string">&quot;Failed to set line cap&quot;</span>);
     }
 
     <span class="doccomment">/// Gets the current line cap style, as set by Context::set_line_cap().</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_line_cap</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">LineCap</span> {
-        <span class="kw">unsafe</span> { <span class="ident">LineCap</span>::<span class="ident">from</span>(<span class="ident">ffi</span>::<span class="ident">cairo_get_line_cap</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>())) }
+        <span class="kw">unsafe</span> { <span class="ident">LineCap::from</span>(<span class="ident">ffi::cairo_get_line_cap</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>())) }
     }
 
     <span class="doccomment">/// Sets the current line join style within the cairo context. See LineJoin enum</span>
@@ -1927,13 +1927,13 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// The default line join style is LineJoin::Miter.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_line_join</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">arg</span>: <span class="ident">LineJoin</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_set_line_join</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">arg</span>.<span class="ident">into</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_set_line_join</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">arg</span>.<span class="ident">into</span>()) }
         <span class="self">self</span>.<span class="ident">status</span>().<span class="ident">expect</span>(<span class="string">&quot;Failed to set line join&quot;</span>);
     }
 
     <span class="doccomment">/// Gets the current line join style, as set by Context::set_line_join().</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_line_join</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">LineJoin</span> {
-        <span class="kw">unsafe</span> { <span class="ident">LineJoin</span>::<span class="ident">from</span>(<span class="ident">ffi</span>::<span class="ident">cairo_get_line_join</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>())) }
+        <span class="kw">unsafe</span> { <span class="ident">LineJoin::from</span>(<span class="ident">ffi::cairo_get_line_join</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>())) }
     }
 
     <span class="doccomment">/// Sets the current line width within the cairo context. The line width value specifies</span>
@@ -1953,7 +1953,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// The default line width value is 2.0.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_line_width</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">arg</span>: <span class="ident">f64</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_set_line_width</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">arg</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_set_line_width</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">arg</span>) }
         <span class="self">self</span>.<span class="ident">status</span>().<span class="ident">expect</span>(<span class="string">&quot;Failed to set line width&quot;</span>);
     }
 
@@ -1961,7 +1961,7 @@
     <span class="doccomment">/// Context::set_line_width(). Note that the value is unchanged even if the CTM has changed</span>
     <span class="doccomment">/// between the calls to Context::set_line_width() and Context::get_line_width().</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_line_width</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f64</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_get_line_width</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_get_line_width</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
     }
 
     <span class="doccomment">/// Sets the current miter limit within the cairo context.</span>
@@ -1981,23 +1981,23 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// A miter limit for a desired angle can be computed as: miter limit = 1/sin(angle/2)</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_miter_limit</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">arg</span>: <span class="ident">f64</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_set_miter_limit</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">arg</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_set_miter_limit</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">arg</span>) }
         <span class="self">self</span>.<span class="ident">status</span>().<span class="ident">expect</span>(<span class="string">&quot;Failed to set miter limit&quot;</span>);
     }
 
     <span class="doccomment">/// Gets the current miter limit, as set by Contextset_miter_limit().</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_miter_limit</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f64</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_get_miter_limit</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_get_miter_limit</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_operator</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">op</span>: <span class="ident">Operator</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">cairo_set_operator</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">op</span>.<span class="ident">into</span>());
+            <span class="ident">ffi::cairo_set_operator</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">op</span>.<span class="ident">into</span>());
         }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_operator</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Operator</span> {
-        <span class="kw">unsafe</span> { <span class="ident">Operator</span>::<span class="ident">from</span>(<span class="ident">ffi</span>::<span class="ident">cairo_get_operator</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>())) }
+        <span class="kw">unsafe</span> { <span class="ident">Operator::from</span>(<span class="ident">ffi::cairo_get_operator</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>())) }
     }
 
     <span class="doccomment">/// Sets the tolerance used when converting paths into trapezoids. Curved segments of</span>
@@ -2009,13 +2009,13 @@
     <span class="doccomment">/// its internal arithmetic, and the prescribed tolerance is restricted to the smallest</span>
     <span class="doccomment">/// representable internal value.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_tolerance</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">arg</span>: <span class="ident">f64</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_set_tolerance</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">arg</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_set_tolerance</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">arg</span>) }
         <span class="self">self</span>.<span class="ident">status</span>().<span class="ident">expect</span>(<span class="string">&quot;Failed to set tolerance&quot;</span>);
     }
 
     <span class="doccomment">/// Gets the current tolerance value, as set by Context::set_tolerance().</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_tolerance</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f64</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_get_tolerance</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_get_tolerance</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
     }
 
     <span class="doccomment">/// Establishes a new clip region by intersecting the current clip region with the current</span>
@@ -2033,7 +2033,7 @@
     <span class="doccomment">/// Context::restore() pair. The only other means of increasing the size of the clip</span>
     <span class="doccomment">/// region is Context::reset_clip().</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">clip</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_clip</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_clip</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
     }
 
     <span class="doccomment">/// Establishes a new clip region by intersecting the current clip region with the current</span>
@@ -2052,7 +2052,7 @@
     <span class="doccomment">/// Context::save()/cairo_restore() pair. The only other means of increasing the size of</span>
     <span class="doccomment">/// the clip region is Context::reset_clip().</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">clip_preserve</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_clip_preserve</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_clip_preserve</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
     }
 
     <span class="doccomment">/// Computes a bounding box in user coordinates covering the area inside the current clip.</span>
@@ -2063,7 +2063,7 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">y2</span>: <span class="ident">f64</span> <span class="op">=</span> <span class="number">0.0</span>;
 
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">cairo_clip_extents</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">x1</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">y1</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">x2</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">y2</span>);
+            <span class="ident">ffi::cairo_clip_extents</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">x1</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">y1</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">x2</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">y2</span>);
         }
         (<span class="ident">x1</span>, <span class="ident">y1</span>, <span class="ident">x2</span>, <span class="ident">y2</span>)
     }
@@ -2073,7 +2073,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// See Context::clip(), and Context::clip_preserve().</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">in_clip</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">x</span>: <span class="ident">f64</span>, <span class="ident">y</span>: <span class="ident">f64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_in_clip</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">x</span>, <span class="ident">y</span>).<span class="ident">as_bool</span>() }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_in_clip</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">x</span>, <span class="ident">y</span>).<span class="ident">as_bool</span>() }
     }
 
     <span class="doccomment">/// Reset the current clip region to its original, unrestricted state. That is, set the clip</span>
@@ -2086,7 +2086,7 @@
     <span class="doccomment">/// using Context::save() and Context::restore() around Context::clip() as a more robust</span>
     <span class="doccomment">/// means of temporarily restricting the clip region.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">reset_clip</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_reset_clip</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_reset_clip</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
         <span class="self">self</span>.<span class="ident">status</span>().<span class="ident">expect</span>(<span class="string">&quot;Failed to reset clip&quot;</span>);
     }
 
@@ -2097,7 +2097,7 @@
     <span class="doccomment">/// The status may have other values to indicate other errors.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">copy_clip_rectangle_list</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">RectangleList</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">rectangle_list</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">cairo_copy_clip_rectangle_list</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>());
+            <span class="kw">let</span> <span class="ident">rectangle_list</span> <span class="op">=</span> <span class="ident">ffi::cairo_copy_clip_rectangle_list</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>());
 
             <span class="ident">status_to_result</span>((<span class="kw-2">*</span><span class="ident">rectangle_list</span>).<span class="ident">status</span>)<span class="question-mark">?</span>;
 
@@ -2112,7 +2112,7 @@
     <span class="doccomment">/// Context::fill(), the current path will be cleared from the cairo context. See</span>
     <span class="doccomment">/// Context::set_fill_rule() and Context::fill_preserve().</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">fill</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_fill</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_fill</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
     }
 
     <span class="doccomment">/// A drawing operator that fills the current path according to the current fill rule,</span>
@@ -2121,7 +2121,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// See Context::set_fill_rule() and Context::fill().</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">fill_preserve</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_fill_preserve</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_fill_preserve</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
     }
 
     <span class="doccomment">/// Computes a bounding box in user coordinates covering the area that would be affected,</span>
@@ -2144,7 +2144,7 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">y2</span>: <span class="ident">f64</span> <span class="op">=</span> <span class="number">0.0</span>;
 
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">cairo_fill_extents</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">x1</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">y1</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">x2</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">y2</span>);
+            <span class="ident">ffi::cairo_fill_extents</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">x1</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">y1</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">x2</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">y2</span>);
         }
         (<span class="ident">x1</span>, <span class="ident">y1</span>, <span class="ident">x2</span>, <span class="ident">y2</span>)
     }
@@ -2155,32 +2155,32 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// See Context::fill(), Context::set_fill_rule() and Context::fill_preserve().</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">in_fill</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">x</span>: <span class="ident">f64</span>, <span class="ident">y</span>: <span class="ident">f64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_in_fill</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">x</span>, <span class="ident">y</span>).<span class="ident">as_bool</span>() }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_in_fill</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">x</span>, <span class="ident">y</span>).<span class="ident">as_bool</span>() }
     }
 
     <span class="doccomment">/// A drawing operator that paints the current source using the alpha channel of</span>
     <span class="doccomment">/// pattern as a mask. (Opaque areas of pattern are painted with the source, transparent</span>
     <span class="doccomment">/// areas are not painted.)</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">mask</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">pattern</span>: <span class="kw-2">&amp;</span><span class="ident">Pattern</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_mask</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">pattern</span>.<span class="ident">to_raw_none</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_mask</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">pattern</span>.<span class="ident">to_raw_none</span>()) }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">mask_surface</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">surface</span>: <span class="kw-2">&amp;</span><span class="ident">Surface</span>, <span class="ident">x</span>: <span class="ident">f64</span>, <span class="ident">y</span>: <span class="ident">f64</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">cairo_mask_surface</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">surface</span>.<span class="ident">to_raw_none</span>(), <span class="ident">x</span>, <span class="ident">y</span>);
+            <span class="ident">ffi::cairo_mask_surface</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">surface</span>.<span class="ident">to_raw_none</span>(), <span class="ident">x</span>, <span class="ident">y</span>);
         }
     }
 
     <span class="doccomment">/// A drawing operator that paints the current source everywhere within the current clip region.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">paint</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_paint</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_paint</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
     }
 
     <span class="doccomment">/// A drawing operator that paints the current source everywhere within the current clip region</span>
     <span class="doccomment">/// using a mask of constant alpha value alpha . The effect is similar to Context::paint(), but</span>
     <span class="doccomment">/// the drawing is faded out using the alpha value.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">paint_with_alpha</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">alpha</span>: <span class="ident">f64</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_paint_with_alpha</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">alpha</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_paint_with_alpha</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">alpha</span>) }
     }
 
     <span class="doccomment">/// A drawing operator that strokes the current path according to the current line width, line</span>
@@ -2205,7 +2205,7 @@
     <span class="doccomment">/// In no case will a cap style of LineCap::Butt cause anything to be drawn in the case of either</span>
     <span class="doccomment">/// degenerate segments or sub-paths.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">stroke</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_stroke</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_stroke</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
     }
 
     <span class="doccomment">/// A drawing operator that strokes the current path according to the current line width, line</span>
@@ -2215,7 +2215,7 @@
     <span class="doccomment">/// See Context::set_line_width(), Context::set_line_join(), Context::set_line_cap(),</span>
     <span class="doccomment">/// Context::set_dash(), and Context::stroke_preserve().</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">stroke_preserve</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_stroke_preserve</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_stroke_preserve</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
     }
 
     <span class="doccomment">/// Computes a bounding box in user coordinates covering the area that would be affected,</span>
@@ -2240,7 +2240,7 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">y2</span>: <span class="ident">f64</span> <span class="op">=</span> <span class="number">0.0</span>;
 
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">cairo_stroke_extents</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">x1</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">y1</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">x2</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">y2</span>);
+            <span class="ident">ffi::cairo_stroke_extents</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">x1</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">y1</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">x2</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">y2</span>);
         }
         (<span class="ident">x1</span>, <span class="ident">y1</span>, <span class="ident">x2</span>, <span class="ident">y2</span>)
     }
@@ -2252,7 +2252,7 @@
     <span class="doccomment">/// See Context::stroke(), Context::set_line_width(), Context::set_line_join(),</span>
     <span class="doccomment">/// Context::set_line_cap(), Context::set_dash(), and Context::stroke_preserve().</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">in_stroke</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">x</span>: <span class="ident">f64</span>, <span class="ident">y</span>: <span class="ident">f64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_in_stroke</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">x</span>, <span class="ident">y</span>).<span class="ident">as_bool</span>() }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_in_stroke</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">x</span>, <span class="ident">y</span>).<span class="ident">as_bool</span>() }
     }
 
     <span class="doccomment">/// Emits the current page for backends that support multiple pages, but doesn&#39;t clear</span>
@@ -2262,7 +2262,7 @@
     <span class="doccomment">/// This is a convenience function that simply calls Surface::copy_page() on self&#39;s</span>
     <span class="doccomment">/// target.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">copy_page</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_copy_page</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_copy_page</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
     }
 
     <span class="doccomment">/// Emits and clears the current page for backends that support multiple pages. Use</span>
@@ -2271,12 +2271,12 @@
     <span class="doccomment">/// This is a convenience function that simply calls Surface::show_page() on self&#39;s</span>
     <span class="doccomment">/// target.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">show_page</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_show_page</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_show_page</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
     }
 
     <span class="doccomment">/// Returns the current reference count of self.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_reference_count</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_get_reference_count</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_get_reference_count</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
     }
 
     <span class="comment">// transformations stuff</span>
@@ -2287,14 +2287,14 @@
     <span class="doccomment">/// words, the translation of the user-space origin takes place after any existing</span>
     <span class="doccomment">/// transformation.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">translate</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tx</span>: <span class="ident">f64</span>, <span class="ident">ty</span>: <span class="ident">f64</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_translate</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">tx</span>, <span class="ident">ty</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_translate</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">tx</span>, <span class="ident">ty</span>) }
     }
 
     <span class="doccomment">/// Modifies the current transformation matrix (CTM) by scaling the X and Y user-space</span>
     <span class="doccomment">/// axes by sx and sy respectively. The scaling of the axes takes place after any</span>
     <span class="doccomment">/// existing transformation of user space.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">scale</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">sx</span>: <span class="ident">f64</span>, <span class="ident">sy</span>: <span class="ident">f64</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_scale</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">sx</span>, <span class="ident">sy</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_scale</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">sx</span>, <span class="ident">sy</span>) }
     }
 
     <span class="doccomment">/// Modifies the current transformation matrix (CTM) by rotating the user-space axes by</span>
@@ -2302,25 +2302,25 @@
     <span class="doccomment">/// of user space. The rotation direction for positive angles is from the positive X axis</span>
     <span class="doccomment">/// toward the positive Y axis.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">rotate</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">angle</span>: <span class="ident">f64</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_rotate</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">angle</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_rotate</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">angle</span>) }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">transform</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">matrix</span>: <span class="ident">Matrix</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">cairo_transform</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">matrix</span>.<span class="ident">ptr</span>());
+            <span class="ident">ffi::cairo_transform</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">matrix</span>.<span class="ident">ptr</span>());
         }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_matrix</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">matrix</span>: <span class="ident">Matrix</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">cairo_set_matrix</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">matrix</span>.<span class="ident">ptr</span>());
+            <span class="ident">ffi::cairo_set_matrix</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">matrix</span>.<span class="ident">ptr</span>());
         }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_matrix</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Matrix</span> {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">matrix</span> <span class="op">=</span> <span class="ident">Matrix</span>::<span class="ident">null</span>();
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">matrix</span> <span class="op">=</span> <span class="ident">Matrix::null</span>();
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">cairo_get_matrix</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">matrix</span>.<span class="ident">mut_ptr</span>());
+            <span class="ident">ffi::cairo_get_matrix</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">matrix</span>.<span class="ident">mut_ptr</span>());
         }
         <span class="ident">matrix</span>
     }
@@ -2329,14 +2329,14 @@
     <span class="doccomment">/// matrix. That is, the user-space and device-space axes will be aligned and one user-space</span>
     <span class="doccomment">/// unit will transform to one device-space unit.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">identity_matrix</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_identity_matrix</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_identity_matrix</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
     }
 
     <span class="doccomment">/// Transform a coordinate from user space to device space by multiplying the given point</span>
     <span class="doccomment">/// by the current transformation matrix (CTM).</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">user_to_device</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw-2">mut</span> <span class="ident">x</span>: <span class="ident">f64</span>, <span class="kw-2">mut</span> <span class="ident">y</span>: <span class="ident">f64</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">f64</span>, <span class="ident">f64</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">cairo_user_to_device</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">x</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">y</span>);
+            <span class="ident">ffi::cairo_user_to_device</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">x</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">y</span>);
             (<span class="ident">x</span>, <span class="ident">y</span>)
         }
     }
@@ -2346,7 +2346,7 @@
     <span class="doccomment">/// be ignored when transforming (dx ,dy ).</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">user_to_device_distance</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw-2">mut</span> <span class="ident">dx</span>: <span class="ident">f64</span>, <span class="kw-2">mut</span> <span class="ident">dy</span>: <span class="ident">f64</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">f64</span>, <span class="ident">f64</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">cairo_user_to_device_distance</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">dx</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">dy</span>);
+            <span class="ident">ffi::cairo_user_to_device_distance</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">dx</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">dy</span>);
             (<span class="ident">dx</span>, <span class="ident">dy</span>)
         }
     }
@@ -2355,7 +2355,7 @@
     <span class="doccomment">/// by the inverse of the current transformation matrix (CTM).</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">device_to_user</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw-2">mut</span> <span class="ident">x</span>: <span class="ident">f64</span>, <span class="kw-2">mut</span> <span class="ident">y</span>: <span class="ident">f64</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">f64</span>, <span class="ident">f64</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">cairo_device_to_user</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">x</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">y</span>);
+            <span class="ident">ffi::cairo_device_to_user</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">x</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">y</span>);
             (<span class="ident">x</span>, <span class="ident">y</span>)
         }
     }
@@ -2365,7 +2365,7 @@
     <span class="doccomment">/// will be ignored when transforming (dx ,dy ).</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">device_to_user_distance</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw-2">mut</span> <span class="ident">dx</span>: <span class="ident">f64</span>, <span class="kw-2">mut</span> <span class="ident">dy</span>: <span class="ident">f64</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">f64</span>, <span class="ident">f64</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">cairo_device_to_user_distance</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">dx</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">dy</span>);
+            <span class="ident">ffi::cairo_device_to_user_distance</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">dx</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">dy</span>);
             (<span class="ident">dx</span>, <span class="ident">dy</span>)
         }
     }
@@ -2406,8 +2406,8 @@
     <span class="doccomment">/// Context::set_font_face().</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">select_font_face</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">family</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">slant</span>: <span class="ident">FontSlant</span>, <span class="ident">weight</span>: <span class="ident">FontWeight</span>) {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">family</span> <span class="op">=</span> <span class="ident">CString</span>::<span class="ident">new</span>(<span class="ident">family</span>).<span class="ident">unwrap</span>();
-            <span class="ident">ffi</span>::<span class="ident">cairo_select_font_face</span>(
+            <span class="kw">let</span> <span class="ident">family</span> <span class="op">=</span> <span class="ident">CString::new</span>(<span class="ident">family</span>).<span class="ident">unwrap</span>();
+            <span class="ident">ffi::cairo_select_font_face</span>(
                 <span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(),
                 <span class="ident">family</span>.<span class="ident">as_ptr</span>(),
                 <span class="ident">slant</span>.<span class="ident">into</span>(),
@@ -2424,19 +2424,19 @@
     <span class="doccomment">/// If text is drawn without a call to Context::set_font_size(), (nor</span>
     <span class="doccomment">/// Context::set_font_matrix() nor Context::set_scaled_font()), the default font size is 10.0.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_font_size</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">size</span>: <span class="ident">f64</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_set_font_size</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">size</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_set_font_size</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">size</span>) }
     }
 
     <span class="comment">// FIXME probably needs a heap allocation</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_font_matrix</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">matrix</span>: <span class="ident">Matrix</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_set_font_matrix</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">matrix</span>.<span class="ident">ptr</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_set_font_matrix</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">matrix</span>.<span class="ident">ptr</span>()) }
     }
 
     <span class="doccomment">/// Stores the current font matrix into matrix . See Context::set_font_matrix().</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_font_matrix</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Matrix</span> {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">matrix</span> <span class="op">=</span> <span class="ident">Matrix</span>::<span class="ident">null</span>();
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">matrix</span> <span class="op">=</span> <span class="ident">Matrix::null</span>();
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">cairo_get_font_matrix</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">matrix</span>.<span class="ident">mut_ptr</span>());
+            <span class="ident">ffi::cairo_get_font_matrix</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">matrix</span>.<span class="ident">mut_ptr</span>());
         }
         <span class="ident">matrix</span>
     }
@@ -2446,16 +2446,16 @@
     <span class="doccomment">/// if the value in options has a default value (like Antialias::Default), then the value</span>
     <span class="doccomment">/// from the surface is used.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_font_options</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">options</span>: <span class="kw-2">&amp;</span><span class="ident">FontOptions</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_set_font_options</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">options</span>.<span class="ident">to_raw_none</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_set_font_options</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">options</span>.<span class="ident">to_raw_none</span>()) }
     }
 
     <span class="doccomment">/// Retrieves font rendering options set via Context::set_font_options. Note that the returned</span>
     <span class="doccomment">/// options do not include any options derived from the underlying surface; they are literally</span>
     <span class="doccomment">/// the options passed to Context::set_font_options().</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_font_options</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FontOptions</span> {
-        <span class="kw">let</span> <span class="ident">out</span> <span class="op">=</span> <span class="ident">FontOptions</span>::<span class="ident">new</span>();
+        <span class="kw">let</span> <span class="ident">out</span> <span class="op">=</span> <span class="ident">FontOptions::new</span>();
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">cairo_get_font_options</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">out</span>.<span class="ident">to_raw_none</span>());
+            <span class="ident">ffi::cairo_get_font_options</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">out</span>.<span class="ident">to_raw_none</span>());
         }
         <span class="ident">out</span>
     }
@@ -2463,12 +2463,12 @@
     <span class="doccomment">/// Replaces the current FontFace object in the Context with font_face. The replaced</span>
     <span class="doccomment">/// font face in the cairo_t will be destroyed if there are no other references to it.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_font_face</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">font_face</span>: <span class="kw-2">&amp;</span><span class="ident">FontFace</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_set_font_face</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">font_face</span>.<span class="ident">to_raw_none</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_set_font_face</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">font_face</span>.<span class="ident">to_raw_none</span>()) }
     }
 
     <span class="doccomment">/// Gets the current font face for a Context object.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_font_face</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FontFace</span> {
-        <span class="kw">unsafe</span> { <span class="ident">FontFace</span>::<span class="ident">from_raw_none</span>(<span class="ident">ffi</span>::<span class="ident">cairo_get_font_face</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>())) }
+        <span class="kw">unsafe</span> { <span class="ident">FontFace::from_raw_none</span>(<span class="ident">ffi::cairo_get_font_face</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>())) }
     }
 
     <span class="doccomment">/// Replaces the current font face, font matrix, and font options in the Context with</span>
@@ -2476,12 +2476,12 @@
     <span class="doccomment">/// Context should be the same as that of the ScaledFont object, which can be accessed</span>
     <span class="doccomment">/// using Context::scaled_font_get_ctm().</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_scaled_font</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">scaled_font</span>: <span class="kw-2">&amp;</span><span class="ident">ScaledFont</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_set_scaled_font</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">scaled_font</span>.<span class="ident">to_raw_none</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_set_scaled_font</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">scaled_font</span>.<span class="ident">to_raw_none</span>()) }
     }
 
     <span class="doccomment">/// Gets the current scaled font for a Context.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_scaled_font</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ScaledFont</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ScaledFont</span>::<span class="ident">from_raw_none</span>(<span class="ident">ffi</span>::<span class="ident">cairo_get_scaled_font</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>())) }
+        <span class="kw">unsafe</span> { <span class="ident">ScaledFont::from_raw_none</span>(<span class="ident">ffi::cairo_get_scaled_font</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>())) }
     }
 
     <span class="doccomment">/// A drawing operator that generates the shape from a string of UTF-8 characters,</span>
@@ -2504,13 +2504,13 @@
     <span class="doccomment">/// Context::show_glyphs() for the &quot;real&quot; text display API in cairo.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">show_text</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">text</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">text</span> <span class="op">=</span> <span class="ident">CString</span>::<span class="ident">new</span>(<span class="ident">text</span>).<span class="ident">unwrap</span>();
-            <span class="ident">ffi</span>::<span class="ident">cairo_show_text</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">text</span>.<span class="ident">as_ptr</span>())
+            <span class="kw">let</span> <span class="ident">text</span> <span class="op">=</span> <span class="ident">CString::new</span>(<span class="ident">text</span>).<span class="ident">unwrap</span>();
+            <span class="ident">ffi::cairo_show_text</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">text</span>.<span class="ident">as_ptr</span>())
         }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">show_glyphs</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">glyphs</span>: <span class="kw-2">&amp;</span>[<span class="ident">Glyph</span>]) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_show_glyphs</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">glyphs</span>.<span class="ident">as_ptr</span>(), <span class="ident">glyphs</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">c_int</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_show_glyphs</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">glyphs</span>.<span class="ident">as_ptr</span>(), <span class="ident">glyphs</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">c_int</span>) }
     }
 
     <span class="doccomment">/// A drawing operator that generates the shape from an array of glyphs, rendered</span>
@@ -2523,8 +2523,8 @@
         <span class="ident">cluster_flags</span>: <span class="ident">TextClusterFlags</span>,
     ) {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">text</span> <span class="op">=</span> <span class="ident">CString</span>::<span class="ident">new</span>(<span class="ident">text</span>).<span class="ident">unwrap</span>();
-            <span class="ident">ffi</span>::<span class="ident">cairo_show_text_glyphs</span>(
+            <span class="kw">let</span> <span class="ident">text</span> <span class="op">=</span> <span class="ident">CString::new</span>(<span class="ident">text</span>).<span class="ident">unwrap</span>();
+            <span class="ident">ffi::cairo_show_text_glyphs</span>(
                 <span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(),
                 <span class="ident">text</span>.<span class="ident">as_ptr</span>(),
                 <span class="op">-</span><span class="number">1_i32</span>, <span class="comment">//NULL terminated</span>
@@ -2548,7 +2548,7 @@
         };
 
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">cairo_font_extents</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">extents</span>);
+            <span class="ident">ffi::cairo_font_extents</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">extents</span>);
         }
 
         <span class="ident">extents</span>
@@ -2575,8 +2575,8 @@
         };
 
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">text</span> <span class="op">=</span> <span class="ident">CString</span>::<span class="ident">new</span>(<span class="ident">text</span>).<span class="ident">unwrap</span>();
-            <span class="ident">ffi</span>::<span class="ident">cairo_text_extents</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">text</span>.<span class="ident">as_ptr</span>(), <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">extents</span>);
+            <span class="kw">let</span> <span class="ident">text</span> <span class="op">=</span> <span class="ident">CString::new</span>(<span class="ident">text</span>).<span class="ident">unwrap</span>();
+            <span class="ident">ffi::cairo_text_extents</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">text</span>.<span class="ident">as_ptr</span>(), <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">extents</span>);
         }
         <span class="ident">extents</span>
     }
@@ -2599,7 +2599,7 @@
         };
 
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">cairo_glyph_extents</span>(
+            <span class="ident">ffi::cairo_glyph_extents</span>(
                 <span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(),
                 <span class="ident">glyphs</span>.<span class="ident">as_ptr</span>(),
                 <span class="ident">glyphs</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">c_int</span>,
@@ -2623,7 +2623,7 @@
     <span class="doccomment">/// 2. If self is already in an error state. In this case path.status will contain</span>
     <span class="doccomment">/// the same status that would be returned by cairo_status().</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">copy_path</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Path</span> {
-        <span class="kw">unsafe</span> { <span class="ident">Path</span>::<span class="ident">from_raw_full</span>(<span class="ident">ffi</span>::<span class="ident">cairo_copy_path</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>())) }
+        <span class="kw">unsafe</span> { <span class="ident">Path::from_raw_full</span>(<span class="ident">ffi::cairo_copy_path</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>())) }
     }
 
     <span class="doccomment">/// Gets a flattened copy of the current path and returns it to the user as a Path.</span>
@@ -2643,7 +2643,7 @@
     <span class="doccomment">/// 2. If self is already in an error state. In this case path-&gt;status will contain</span>
     <span class="doccomment">/// the same status that would be returned by Context::status().</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">copy_path_flat</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Path</span> {
-        <span class="kw">unsafe</span> { <span class="ident">Path</span>::<span class="ident">from_raw_full</span>(<span class="ident">ffi</span>::<span class="ident">cairo_copy_path_flat</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>())) }
+        <span class="kw">unsafe</span> { <span class="ident">Path::from_raw_full</span>(<span class="ident">ffi::cairo_copy_path_flat</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>())) }
     }
 
     <span class="doccomment">/// Append the path onto the current path. The path may be either the return value</span>
@@ -2651,13 +2651,13 @@
     <span class="doccomment">/// constructed manually. See Path for details on how the path data structure should</span>
     <span class="doccomment">/// be initialized, and note that path.status must be initialized to Status::Success.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">append_path</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">Path</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_append_path</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">path</span>.<span class="ident">as_ptr</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_append_path</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">path</span>.<span class="ident">as_ptr</span>()) }
     }
 
     <span class="doccomment">/// Returns whether a current point is defined on the current path. See</span>
     <span class="doccomment">/// Context::get_current_point() for details on the current point.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">has_current_point</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_has_current_point</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()).<span class="ident">as_bool</span>() }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_has_current_point</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()).<span class="ident">as_bool</span>() }
     }
 
     <span class="doccomment">/// Gets the current point of the current path, which is conceptually the final</span>
@@ -2682,14 +2682,14 @@
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">x</span> <span class="op">=</span> <span class="number">0.0</span>;
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">y</span> <span class="op">=</span> <span class="number">0.0</span>;
-            <span class="ident">ffi</span>::<span class="ident">cairo_get_current_point</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">x</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">y</span>);
+            <span class="ident">ffi::cairo_get_current_point</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">x</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">y</span>);
             (<span class="ident">x</span>, <span class="ident">y</span>)
         }
     }
 
     <span class="doccomment">/// Clears the current path. After this call there will be no path and no current point.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_path</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_new_path</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_new_path</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
     }
 
     <span class="doccomment">/// Begin a new sub-path. Note that the existing path is not affected. After this call</span>
@@ -2703,7 +2703,7 @@
     <span class="doccomment">/// no longer necessary to manually compute the arc&#39;s initial coordinates for a call to</span>
     <span class="doccomment">/// Context::move_to().</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_sub_path</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_new_sub_path</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_new_sub_path</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
     }
 
     <span class="doccomment">/// Adds a line segment to the path from the current point to the beginning of</span>
@@ -2727,7 +2727,7 @@
     <span class="doccomment">/// &quot;last move_to point&quot; during processing as the MOVE_TO immediately after the</span>
     <span class="doccomment">/// CLOSE_PATH will provide that point.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">close_path</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_close_path</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_close_path</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
     }
 
     <span class="doccomment">/// Adds a circular arc of the given radius to the current path. The arc is centered</span>
@@ -2763,7 +2763,7 @@
     <span class="doccomment">/// cr.restore();</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">arc</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">xc</span>: <span class="ident">f64</span>, <span class="ident">yc</span>: <span class="ident">f64</span>, <span class="ident">radius</span>: <span class="ident">f64</span>, <span class="ident">angle1</span>: <span class="ident">f64</span>, <span class="ident">angle2</span>: <span class="ident">f64</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_arc</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">xc</span>, <span class="ident">yc</span>, <span class="ident">radius</span>, <span class="ident">angle1</span>, <span class="ident">angle2</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_arc</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">xc</span>, <span class="ident">yc</span>, <span class="ident">radius</span>, <span class="ident">angle1</span>, <span class="ident">angle2</span>) }
     }
 
     <span class="doccomment">/// Adds a circular arc of the given radius to the current path. The arc is centered</span>
@@ -2774,7 +2774,7 @@
     <span class="doccomment">/// See Context::arc() for more details. This function differs only in the direction</span>
     <span class="doccomment">/// of the arc between the two angles.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">arc_negative</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">xc</span>: <span class="ident">f64</span>, <span class="ident">yc</span>: <span class="ident">f64</span>, <span class="ident">radius</span>: <span class="ident">f64</span>, <span class="ident">angle1</span>: <span class="ident">f64</span>, <span class="ident">angle2</span>: <span class="ident">f64</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_arc_negative</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">xc</span>, <span class="ident">yc</span>, <span class="ident">radius</span>, <span class="ident">angle1</span>, <span class="ident">angle2</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_arc_negative</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">xc</span>, <span class="ident">yc</span>, <span class="ident">radius</span>, <span class="ident">angle1</span>, <span class="ident">angle2</span>) }
     }
 
     <span class="doccomment">/// Adds a cubic Bézier spline to the path from the current point to position</span>
@@ -2784,7 +2784,7 @@
     <span class="doccomment">/// If there is no current point before the call to Context::curve_to() this function</span>
     <span class="doccomment">/// will behave as if preceded by a call to Context::move_to(cr , x1 , y1 ).</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">curve_to</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">x1</span>: <span class="ident">f64</span>, <span class="ident">y1</span>: <span class="ident">f64</span>, <span class="ident">x2</span>: <span class="ident">f64</span>, <span class="ident">y2</span>: <span class="ident">f64</span>, <span class="ident">x3</span>: <span class="ident">f64</span>, <span class="ident">y3</span>: <span class="ident">f64</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_curve_to</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">x1</span>, <span class="ident">y1</span>, <span class="ident">x2</span>, <span class="ident">y2</span>, <span class="ident">x3</span>, <span class="ident">y3</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_curve_to</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">x1</span>, <span class="ident">y1</span>, <span class="ident">x2</span>, <span class="ident">y2</span>, <span class="ident">x3</span>, <span class="ident">y3</span>) }
     }
 
     <span class="doccomment">/// Adds a line to the path from the current point to position (x , y ) in user-space</span>
@@ -2793,12 +2793,12 @@
     <span class="doccomment">/// If there is no current point before the call to cairo_line_to() this function</span>
     <span class="doccomment">/// will behave as cairo_move_to(cr , x , y ).</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">line_to</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">x</span>: <span class="ident">f64</span>, <span class="ident">y</span>: <span class="ident">f64</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_line_to</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">x</span>, <span class="ident">y</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_line_to</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">x</span>, <span class="ident">y</span>) }
     }
 
     <span class="doccomment">/// Begin a new sub-path. After this call the current point will be (x , y ).</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">move_to</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">x</span>: <span class="ident">f64</span>, <span class="ident">y</span>: <span class="ident">f64</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_move_to</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">x</span>, <span class="ident">y</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_move_to</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">x</span>, <span class="ident">y</span>) }
     }
 
     <span class="doccomment">/// Adds a closed sub-path rectangle of the given size to the current path at</span>
@@ -2814,20 +2814,20 @@
     <span class="doccomment">/// cr.close_path();</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">rectangle</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">x</span>: <span class="ident">f64</span>, <span class="ident">y</span>: <span class="ident">f64</span>, <span class="ident">width</span>: <span class="ident">f64</span>, <span class="ident">height</span>: <span class="ident">f64</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_rectangle</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">x</span>, <span class="ident">y</span>, <span class="ident">width</span>, <span class="ident">height</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_rectangle</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">x</span>, <span class="ident">y</span>, <span class="ident">width</span>, <span class="ident">height</span>) }
     }
 
     <span class="doccomment">/// Adds closed paths for the glyphs to the current path. The generated path if</span>
     <span class="doccomment">/// filled, achieves an effect similar to that of Context::show_glyphs().</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">text_path</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">str_</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">str_</span> <span class="op">=</span> <span class="ident">CString</span>::<span class="ident">new</span>(<span class="ident">str_</span>).<span class="ident">unwrap</span>();
-            <span class="ident">ffi</span>::<span class="ident">cairo_text_path</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">str_</span>.<span class="ident">as_ptr</span>())
+            <span class="kw">let</span> <span class="ident">str_</span> <span class="op">=</span> <span class="ident">CString::new</span>(<span class="ident">str_</span>).<span class="ident">unwrap</span>();
+            <span class="ident">ffi::cairo_text_path</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">str_</span>.<span class="ident">as_ptr</span>())
         }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">glyph_path</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">glyphs</span>: <span class="kw-2">&amp;</span>[<span class="ident">Glyph</span>]) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_glyph_path</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">glyphs</span>.<span class="ident">as_ptr</span>(), <span class="ident">glyphs</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">i32</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_glyph_path</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">glyphs</span>.<span class="ident">as_ptr</span>(), <span class="ident">glyphs</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">i32</span>) }
     }
 
     <span class="doccomment">/// Relative-coordinate version of Context::curve_to(). All offsets are relative to</span>
@@ -2843,7 +2843,7 @@
     <span class="doccomment">/// It is an error to call this function with no current point. Doing so will cause</span>
     <span class="doccomment">/// self to shutdown with a status of Status::NoCurrentPoint.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">rel_curve_to</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">dx1</span>: <span class="ident">f64</span>, <span class="ident">dy1</span>: <span class="ident">f64</span>, <span class="ident">dx2</span>: <span class="ident">f64</span>, <span class="ident">dy2</span>: <span class="ident">f64</span>, <span class="ident">dx3</span>: <span class="ident">f64</span>, <span class="ident">dy3</span>: <span class="ident">f64</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_rel_curve_to</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">dx1</span>, <span class="ident">dy1</span>, <span class="ident">dx2</span>, <span class="ident">dy2</span>, <span class="ident">dx3</span>, <span class="ident">dy3</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_rel_curve_to</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">dx1</span>, <span class="ident">dy1</span>, <span class="ident">dx2</span>, <span class="ident">dy2</span>, <span class="ident">dx3</span>, <span class="ident">dy3</span>) }
     }
 
     <span class="doccomment">/// Relative-coordinate version of Context::line_to(). Adds a line to the path from</span>
@@ -2856,7 +2856,7 @@
     <span class="doccomment">/// It is an error to call this function with no current point. Doing so will cause</span>
     <span class="doccomment">/// self to shutdown with a status of Status::NoCurrentPoint.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">rel_line_to</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">dx</span>: <span class="ident">f64</span>, <span class="ident">dy</span>: <span class="ident">f64</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_rel_line_to</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">dx</span>, <span class="ident">dy</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_rel_line_to</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">dx</span>, <span class="ident">dy</span>) }
     }
 
     <span class="doccomment">/// Begin a new sub-path. After this call the current point will offset by (x , y ).</span>
@@ -2867,7 +2867,7 @@
     <span class="doccomment">/// It is an error to call this function with no current point. Doing so will</span>
     <span class="doccomment">/// cause self to shutdown with a status of Status::NoCurrenPoint.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">rel_move_to</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">dx</span>: <span class="ident">f64</span>, <span class="ident">dy</span>: <span class="ident">f64</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_rel_move_to</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">dx</span>, <span class="ident">dy</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_rel_move_to</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">dx</span>, <span class="ident">dy</span>) }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">path_extents</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">f64</span>, <span class="ident">f64</span>, <span class="ident">f64</span>, <span class="ident">f64</span>) {
@@ -2877,7 +2877,7 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">y2</span>: <span class="ident">f64</span> <span class="op">=</span> <span class="number">0.0</span>;
 
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">cairo_path_extents</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">x1</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">y1</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">x2</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">y2</span>);
+            <span class="ident">ffi::cairo_path_extents</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">x1</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">y1</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">x2</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">y2</span>);
         }
         (<span class="ident">x1</span>, <span class="ident">y1</span>, <span class="ident">x2</span>, <span class="ident">y2</span>)
     }
@@ -2885,23 +2885,23 @@
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v1_16&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">tag_begin</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tag_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">attributes</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">tag_name</span> <span class="op">=</span> <span class="ident">CString</span>::<span class="ident">new</span>(<span class="ident">tag_name</span>).<span class="ident">unwrap</span>();
-            <span class="kw">let</span> <span class="ident">attributes</span> <span class="op">=</span> <span class="ident">CString</span>::<span class="ident">new</span>(<span class="ident">attributes</span>).<span class="ident">unwrap</span>();
-            <span class="ident">ffi</span>::<span class="ident">cairo_tag_begin</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">tag_name</span>.<span class="ident">as_ptr</span>(), <span class="ident">attributes</span>.<span class="ident">as_ptr</span>())
+            <span class="kw">let</span> <span class="ident">tag_name</span> <span class="op">=</span> <span class="ident">CString::new</span>(<span class="ident">tag_name</span>).<span class="ident">unwrap</span>();
+            <span class="kw">let</span> <span class="ident">attributes</span> <span class="op">=</span> <span class="ident">CString::new</span>(<span class="ident">attributes</span>).<span class="ident">unwrap</span>();
+            <span class="ident">ffi::cairo_tag_begin</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">tag_name</span>.<span class="ident">as_ptr</span>(), <span class="ident">attributes</span>.<span class="ident">as_ptr</span>())
         }
     }
 
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v1_16&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">tag_end</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tag_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">tag_name</span> <span class="op">=</span> <span class="ident">CString</span>::<span class="ident">new</span>(<span class="ident">tag_name</span>).<span class="ident">unwrap</span>();
-            <span class="ident">ffi</span>::<span class="ident">cairo_tag_end</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">tag_name</span>.<span class="ident">as_ptr</span>())
+            <span class="kw">let</span> <span class="ident">tag_name</span> <span class="op">=</span> <span class="ident">CString::new</span>(<span class="ident">tag_name</span>).<span class="ident">unwrap</span>();
+            <span class="ident">ffi::cairo_tag_end</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">tag_name</span>.<span class="ident">as_ptr</span>())
         }
     }
 }
 
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">Context</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">Context</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;Context&quot;</span>)
     }
 }
@@ -2909,13 +2909,13 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
-    <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">enums</span>::<span class="ident">Format</span>;
-    <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">image_surface</span>::<span class="ident">ImageSurface</span>;
-    <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">patterns</span>::<span class="ident">LinearGradient</span>;
+    <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::enums::Format</span>;
+    <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::image_surface::ImageSurface</span>;
+    <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::patterns::LinearGradient</span>;
 
     <span class="kw">fn</span> <span class="ident">create_ctx</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Context</span> {
-        <span class="kw">let</span> <span class="ident">surface</span> <span class="op">=</span> <span class="ident">ImageSurface</span>::<span class="ident">create</span>(<span class="ident">Format</span>::<span class="ident">ARgb32</span>, <span class="number">10</span>, <span class="number">10</span>).<span class="ident">unwrap</span>();
-        <span class="ident">Context</span>::<span class="ident">new</span>(<span class="kw-2">&amp;</span><span class="ident">surface</span>)
+        <span class="kw">let</span> <span class="ident">surface</span> <span class="op">=</span> <span class="ident">ImageSurface::create</span>(<span class="ident">Format::ARgb32</span>, <span class="number">10</span>, <span class="number">10</span>).<span class="ident">unwrap</span>();
+        <span class="ident">Context::new</span>(<span class="kw-2">&amp;</span><span class="ident">surface</span>)
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -2927,7 +2927,7 @@
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">drop_non_reference_pattern</span>() {
         <span class="kw">let</span> <span class="ident">ctx</span> <span class="op">=</span> <span class="ident">create_ctx</span>();
-        <span class="kw">let</span> <span class="ident">pattern</span> <span class="op">=</span> <span class="ident">LinearGradient</span>::<span class="ident">new</span>(<span class="number">1.0f64</span>, <span class="number">2.0f64</span>, <span class="number">3.0f64</span>, <span class="number">4.0f64</span>);
+        <span class="kw">let</span> <span class="ident">pattern</span> <span class="op">=</span> <span class="ident">LinearGradient::new</span>(<span class="number">1.0f64</span>, <span class="number">2.0f64</span>, <span class="number">3.0f64</span>, <span class="number">4.0f64</span>);
         <span class="ident">ctx</span>.<span class="ident">set_source</span>(<span class="kw-2">&amp;</span><span class="ident">pattern</span>);
     }
 

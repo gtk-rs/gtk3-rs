@@ -70,31 +70,31 @@
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">ffi</span>::<span class="ident">winapi</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">ffi::winapi</span>;
 
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">convert</span>::<span class="ident">TryFrom</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ops</span>::<span class="ident">Deref</span>;
+<span class="kw">use</span> <span class="ident">std::convert::TryFrom</span>;
+<span class="kw">use</span> <span class="ident">std::fmt</span>;
+<span class="kw">use</span> <span class="ident">std::ops::Deref</span>;
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">enums</span>::{<span class="ident">Format</span>, <span class="ident">SurfaceType</span>};
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">error</span>::<span class="ident">Error</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">surface</span>::<span class="ident">Surface</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::enums</span>::{<span class="ident">Format</span>, <span class="ident">SurfaceType</span>};
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::error::Error</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::surface::Surface</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
 
-<span class="macro">declare_surface!</span>(<span class="ident">Win32Surface</span>, <span class="ident">SurfaceType</span>::<span class="ident">Win32</span>);
+<span class="macro">declare_surface!</span>(<span class="ident">Win32Surface</span>, <span class="ident">SurfaceType::Win32</span>);
 
 <span class="kw">impl</span> <span class="ident">Win32Surface</span> {
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_win32_surface_create&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">create</span>(<span class="ident">hdc</span>: <span class="ident">winapi</span>::<span class="ident">HDC</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Win32Surface</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="self">Self</span>::<span class="ident">from_raw_full</span>(<span class="ident">ffi</span>::<span class="ident">cairo_win32_surface_create</span>(<span class="ident">hdc</span>)) }
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">create</span>(<span class="ident">hdc</span>: <span class="ident">winapi::HDC</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Win32Surface</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+        <span class="kw">unsafe</span> { <span class="self">Self</span><span class="ident">::from_raw_full</span>(<span class="ident">ffi::cairo_win32_surface_create</span>(<span class="ident">hdc</span>)) }
     }
 
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">all</span>(<span class="ident">windows</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v1_14&quot;</span>), <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_win32_surface_create_with_format&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">create_with_format</span>(<span class="ident">hdc</span>: <span class="ident">winapi</span>::<span class="ident">HDC</span>, <span class="ident">format</span>: <span class="ident">Format</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Win32Surface</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">create_with_format</span>(<span class="ident">hdc</span>: <span class="ident">winapi::HDC</span>, <span class="ident">format</span>: <span class="ident">Format</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Win32Surface</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="self">Self</span>::<span class="ident">from_raw_full</span>(<span class="ident">ffi</span>::<span class="ident">cairo_win32_surface_create_with_format</span>(
+            <span class="self">Self</span><span class="ident">::from_raw_full</span>(<span class="ident">ffi::cairo_win32_surface_create_with_format</span>(
                 <span class="ident">hdc</span>,
                 <span class="ident">format</span>.<span class="ident">into</span>(),
             ))
@@ -104,7 +104,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_win32_surface_create_with_dib&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">create_with_dib</span>(<span class="ident">format</span>: <span class="ident">Format</span>, <span class="ident">width</span>: <span class="ident">i32</span>, <span class="ident">height</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Win32Surface</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="self">Self</span>::<span class="ident">from_raw_full</span>(<span class="ident">ffi</span>::<span class="ident">cairo_win32_surface_create_with_dib</span>(
+            <span class="self">Self</span><span class="ident">::from_raw_full</span>(<span class="ident">ffi::cairo_win32_surface_create_with_dib</span>(
                 <span class="ident">format</span>.<span class="ident">into</span>(),
                 <span class="ident">width</span>,
                 <span class="ident">height</span>,
@@ -114,13 +114,13 @@
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_win32_surface_create_with_ddb&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">create_with_ddb</span>(
-        <span class="ident">hdc</span>: <span class="ident">winapi</span>::<span class="ident">HDC</span>,
+        <span class="ident">hdc</span>: <span class="ident">winapi::HDC</span>,
         <span class="ident">format</span>: <span class="ident">Format</span>,
         <span class="ident">width</span>: <span class="ident">i32</span>,
         <span class="ident">height</span>: <span class="ident">i32</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Win32Surface</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="self">Self</span>::<span class="ident">from_raw_full</span>(<span class="ident">ffi</span>::<span class="ident">cairo_win32_surface_create_with_ddb</span>(
+            <span class="self">Self</span><span class="ident">::from_raw_full</span>(<span class="ident">ffi::cairo_win32_surface_create_with_ddb</span>(
                 <span class="ident">hdc</span>,
                 <span class="ident">format</span>.<span class="ident">into</span>(),
                 <span class="ident">width</span>,
@@ -130,8 +130,8 @@
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_win32_printing_surface_create&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">printing_surface_create</span>(<span class="ident">hdc</span>: <span class="ident">winapi</span>::<span class="ident">HDC</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Win32Surface</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="self">Self</span>::<span class="ident">from_raw_full</span>(<span class="ident">ffi</span>::<span class="ident">cairo_win32_printing_surface_create</span>(<span class="ident">hdc</span>)) }
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">printing_surface_create</span>(<span class="ident">hdc</span>: <span class="ident">winapi::HDC</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Win32Surface</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+        <span class="kw">unsafe</span> { <span class="self">Self</span><span class="ident">::from_raw_full</span>(<span class="ident">ffi::cairo_win32_printing_surface_create</span>(<span class="ident">hdc</span>)) }
     }
 }
 </pre></div>

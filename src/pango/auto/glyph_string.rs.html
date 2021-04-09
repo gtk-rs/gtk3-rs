@@ -231,25 +231,25 @@
 <span class="comment">// from gir-files (https://github.com/gtk-rs/gir-files)</span>
 <span class="comment">// DO NOT EDIT</span>
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Analysis</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Font</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Rectangle</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">object</span>::<span class="ident">IsA</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Analysis</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Font</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Rectangle</span>;
+<span class="kw">use</span> <span class="ident">glib::object::IsA</span>;
+<span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">std::mem</span>;
 
-<span class="ident">glib</span>::<span class="macro">wrapper!</span> {
+<span class="macro">glib::wrapper!</span> {
     <span class="doccomment">/// The `GlyphString` structure is used to store strings</span>
     <span class="doccomment">/// of glyphs with geometry and visual attribute information.</span>
     <span class="doccomment">/// The storage for the glyph information is owned</span>
     <span class="doccomment">/// by the structure which simplifies memory management.</span>
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">GlyphString</span>(<span class="ident">Boxed</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">PangoGlyphString</span><span class="op">&gt;</span>);
+    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">GlyphString</span>(<span class="ident">Boxed</span><span class="op">&lt;</span><span class="ident">ffi::PangoGlyphString</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
-        <span class="ident">copy</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">pango_glyph_string_copy</span>(<span class="ident">mut_override</span>(<span class="ident">ptr</span>)),
-        <span class="ident">free</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">pango_glyph_string_free</span>(<span class="ident">ptr</span>),
-        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">pango_glyph_string_get_type</span>(),
+        <span class="ident">copy</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">ffi::pango_glyph_string_copy</span>(<span class="ident">mut_override</span>(<span class="ident">ptr</span>)),
+        <span class="ident">free</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">ffi::pango_glyph_string_free</span>(<span class="ident">ptr</span>),
+        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::pango_glyph_string_get_type</span>(),
     }
 }
 
@@ -262,7 +262,7 @@
     <span class="doccomment">///  should be freed with `GlyphString::free`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_glyph_string_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">GlyphString</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">pango_glyph_string_new</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::pango_glyph_string_new</span>()) }
     }
 
     <span class="doccomment">/// Compute the logical and ink extents of a glyph string. See the documentation</span>
@@ -283,9 +283,9 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_glyph_string_extents&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">extents</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Font</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">font</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">Rectangle</span>, <span class="ident">Rectangle</span>) {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ink_rect</span> <span class="op">=</span> <span class="ident">Rectangle</span>::<span class="ident">uninitialized</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">logical_rect</span> <span class="op">=</span> <span class="ident">Rectangle</span>::<span class="ident">uninitialized</span>();
-            <span class="ident">ffi</span>::<span class="ident">pango_glyph_string_extents</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ink_rect</span> <span class="op">=</span> <span class="ident">Rectangle::uninitialized</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">logical_rect</span> <span class="op">=</span> <span class="ident">Rectangle::uninitialized</span>();
+            <span class="ident">ffi::pango_glyph_string_extents</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
                 <span class="ident">font</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">ink_rect</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
@@ -322,9 +322,9 @@
         <span class="ident">font</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">Rectangle</span>, <span class="ident">Rectangle</span>) {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ink_rect</span> <span class="op">=</span> <span class="ident">Rectangle</span>::<span class="ident">uninitialized</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">logical_rect</span> <span class="op">=</span> <span class="ident">Rectangle</span>::<span class="ident">uninitialized</span>();
-            <span class="ident">ffi</span>::<span class="ident">pango_glyph_string_extents_range</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ink_rect</span> <span class="op">=</span> <span class="ident">Rectangle::uninitialized</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">logical_rect</span> <span class="op">=</span> <span class="ident">Rectangle::uninitialized</span>();
+            <span class="ident">ffi::pango_glyph_string_extents_range</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
                 <span class="ident">start</span>,
                 <span class="ident">end</span>,
@@ -351,7 +351,7 @@
     <span class="doccomment">/// the logical width of the glyph string.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_glyph_string_get_width&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_width</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">pango_glyph_string_get_width</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::pango_glyph_string_get_width</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Converts from character position to x position. (X position</span>
@@ -380,8 +380,8 @@
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
         <span class="kw">let</span> <span class="ident">length</span> <span class="op">=</span> <span class="ident">text</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">i32</span>;
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">x_pos</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
-            <span class="ident">ffi</span>::<span class="ident">pango_glyph_string_index_to_x</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">x_pos</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
+            <span class="ident">ffi::pango_glyph_string_index_to_x</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
                 <span class="ident">text</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">length</span>,
@@ -401,7 +401,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_glyph_string_set_size&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_size</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">new_len</span>: <span class="ident">i32</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">pango_glyph_string_set_size</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">new_len</span>);
+            <span class="ident">ffi::pango_glyph_string_set_size</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">new_len</span>);
         }
     }
 
@@ -429,9 +429,9 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">x_to_index</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">text</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">analysis</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Analysis</span>, <span class="ident">x_pos</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">i32</span>, <span class="ident">i32</span>) {
         <span class="kw">let</span> <span class="ident">length</span> <span class="op">=</span> <span class="ident">text</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">i32</span>;
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">index_</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">trailing</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
-            <span class="ident">ffi</span>::<span class="ident">pango_glyph_string_x_to_index</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">index_</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">trailing</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
+            <span class="ident">ffi::pango_glyph_string_x_to_index</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
                 <span class="ident">text</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">length</span>,
@@ -449,7 +449,7 @@
 
 <span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">GlyphString</span> {
     <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span>::<span class="ident">new</span>()
+        <span class="self">Self</span><span class="ident">::new</span>()
     }
 }
 </pre></div>

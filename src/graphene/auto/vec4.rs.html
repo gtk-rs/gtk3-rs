@@ -497,24 +497,24 @@
 <span class="comment">// from gir-files (https://github.com/gtk-rs/gir-files)</span>
 <span class="comment">// DO NOT EDIT</span>
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Vec2</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Vec3</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Vec2</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Vec3</span>;
+<span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
 
-<span class="ident">glib</span>::<span class="macro">wrapper!</span> {
+<span class="macro">glib::wrapper!</span> {
     <span class="doccomment">/// A structure capable of holding a vector with four dimensions: x, y, z, and w.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The contents of the `Vec4` structure are private and should</span>
     <span class="doccomment">/// never be accessed directly.</span>
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Vec4</span>(<span class="ident">Boxed</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">graphene_vec4_t</span><span class="op">&gt;</span>);
+    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Vec4</span>(<span class="ident">Boxed</span><span class="op">&lt;</span><span class="ident">ffi::graphene_vec4_t</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
-        <span class="ident">copy</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">g_boxed_copy</span>(<span class="ident">ffi</span>::<span class="ident">graphene_vec4_get_type</span>(), <span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">graphene_vec4_t</span>,
-        <span class="ident">free</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">g_boxed_free</span>(<span class="ident">ffi</span>::<span class="ident">graphene_vec4_get_type</span>(), <span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>),
+        <span class="ident">copy</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">glib::gobject_ffi::g_boxed_copy</span>(<span class="ident">ffi::graphene_vec4_get_type</span>(), <span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::graphene_vec4_t</span>,
+        <span class="ident">free</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">glib::gobject_ffi::g_boxed_free</span>(<span class="ident">ffi::graphene_vec4_get_type</span>(), <span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>),
         <span class="ident">init</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">_ptr</span><span class="op">|</span> (),
         <span class="ident">clear</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">_ptr</span><span class="op">|</span> (),
-        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">graphene_vec4_get_type</span>(),
+        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::graphene_vec4_get_type</span>(),
     }
 }
 
@@ -527,8 +527,8 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_vec4_add&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">b</span>: <span class="kw-2">&amp;</span><span class="ident">Vec4</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec4</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Vec4</span>::<span class="ident">uninitialized</span>();
-            <span class="ident">ffi</span>::<span class="ident">graphene_vec4_add</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Vec4::uninitialized</span>();
+            <span class="ident">ffi::graphene_vec4_add</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">b</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">res</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
@@ -547,8 +547,8 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_vec4_divide&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">divide</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">b</span>: <span class="kw-2">&amp;</span><span class="ident">Vec4</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec4</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Vec4</span>::<span class="ident">uninitialized</span>();
-            <span class="ident">ffi</span>::<span class="ident">graphene_vec4_divide</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Vec4::uninitialized</span>();
+            <span class="ident">ffi::graphene_vec4_divide</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">b</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">res</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
@@ -566,7 +566,7 @@
     <span class="doccomment">/// the value of the dot product</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_vec4_dot&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">dot</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">b</span>: <span class="kw-2">&amp;</span><span class="ident">Vec4</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f32</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">graphene_vec4_dot</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">b</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::graphene_vec4_dot</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">b</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Checks whether the two given `Vec4` are equal.</span>
@@ -579,7 +579,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_vec4_equal&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">equal</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">v2</span>: <span class="kw-2">&amp;</span><span class="ident">Vec4</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">graphene_vec4_equal</span>(
+            <span class="ident">from_glib</span>(<span class="ident">ffi::graphene_vec4_equal</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">v2</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
@@ -593,7 +593,7 @@
     <span class="doccomment">/// the value of the fourth component</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_vec4_get_w&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_w</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f32</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">graphene_vec4_get_w</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::graphene_vec4_get_w</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Retrieves the value of the first component of the given `Vec4`.</span>
@@ -603,7 +603,7 @@
     <span class="doccomment">/// the value of the first component</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_vec4_get_x&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_x</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f32</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">graphene_vec4_get_x</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::graphene_vec4_get_x</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Creates a `Vec2` that contains the first two components</span>
@@ -613,8 +613,8 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_vec4_get_xy&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_xy</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec2</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Vec2</span>::<span class="ident">uninitialized</span>();
-            <span class="ident">ffi</span>::<span class="ident">graphene_vec4_get_xy</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">res</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>);
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Vec2::uninitialized</span>();
+            <span class="ident">ffi::graphene_vec4_get_xy</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">res</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>);
             <span class="ident">res</span>
         }
     }
@@ -626,8 +626,8 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_vec4_get_xyz&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_xyz</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec3</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Vec3</span>::<span class="ident">uninitialized</span>();
-            <span class="ident">ffi</span>::<span class="ident">graphene_vec4_get_xyz</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">res</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>);
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Vec3::uninitialized</span>();
+            <span class="ident">ffi::graphene_vec4_get_xyz</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">res</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>);
             <span class="ident">res</span>
         }
     }
@@ -639,7 +639,7 @@
     <span class="doccomment">/// the value of the second component</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_vec4_get_y&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_y</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f32</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">graphene_vec4_get_y</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::graphene_vec4_get_y</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Retrieves the value of the third component of the given `Vec4`.</span>
@@ -649,7 +649,7 @@
     <span class="doccomment">/// the value of the third component</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_vec4_get_z&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_z</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f32</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">graphene_vec4_get_z</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::graphene_vec4_get_z</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Initializes a `Vec4` using the given values.</span>
@@ -671,7 +671,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_vec4_init&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">init</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">x</span>: <span class="ident">f32</span>, <span class="ident">y</span>: <span class="ident">f32</span>, <span class="ident">z</span>: <span class="ident">f32</span>, <span class="ident">w</span>: <span class="ident">f32</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">graphene_vec4_init</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">x</span>, <span class="ident">y</span>, <span class="ident">z</span>, <span class="ident">w</span>);
+            <span class="ident">ffi::graphene_vec4_init</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">x</span>, <span class="ident">y</span>, <span class="ident">z</span>, <span class="ident">w</span>);
         }
     }
 
@@ -695,7 +695,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_vec4_init_from_vec2&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">init_from_vec2</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">src</span>: <span class="kw-2">&amp;</span><span class="ident">Vec2</span>, <span class="ident">z</span>: <span class="ident">f32</span>, <span class="ident">w</span>: <span class="ident">f32</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">graphene_vec4_init_from_vec2</span>(
+            <span class="ident">ffi::graphene_vec4_init_from_vec2</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
                 <span class="ident">src</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">z</span>,
@@ -717,7 +717,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_vec4_init_from_vec3&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">init_from_vec3</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">src</span>: <span class="kw-2">&amp;</span><span class="ident">Vec3</span>, <span class="ident">w</span>: <span class="ident">f32</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">graphene_vec4_init_from_vec3</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">src</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">w</span>);
+            <span class="ident">ffi::graphene_vec4_init_from_vec3</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">src</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">w</span>);
         }
     }
 
@@ -732,7 +732,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_vec4_init_from_vec4&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">init_from_vec4</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">src</span>: <span class="kw-2">&amp;</span><span class="ident">Vec4</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">graphene_vec4_init_from_vec4</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">src</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+            <span class="ident">ffi::graphene_vec4_init_from_vec4</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">src</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
         }
     }
 
@@ -741,8 +741,8 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_vec4_interpolate&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">interpolate</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">v2</span>: <span class="kw-2">&amp;</span><span class="ident">Vec4</span>, <span class="ident">factor</span>: <span class="ident">f64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec4</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Vec4</span>::<span class="ident">uninitialized</span>();
-            <span class="ident">ffi</span>::<span class="ident">graphene_vec4_interpolate</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Vec4::uninitialized</span>();
+            <span class="ident">ffi::graphene_vec4_interpolate</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">v2</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">factor</span>,
@@ -759,7 +759,7 @@
     <span class="doccomment">/// the length of the vector</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_vec4_length&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">length</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f32</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">graphene_vec4_length</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::graphene_vec4_length</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Compares each component of the two given vectors and creates a</span>
@@ -771,8 +771,8 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_vec4_max&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">max</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">b</span>: <span class="kw-2">&amp;</span><span class="ident">Vec4</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec4</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Vec4</span>::<span class="ident">uninitialized</span>();
-            <span class="ident">ffi</span>::<span class="ident">graphene_vec4_max</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Vec4::uninitialized</span>();
+            <span class="ident">ffi::graphene_vec4_max</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">b</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">res</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
@@ -790,8 +790,8 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_vec4_min&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">min</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">b</span>: <span class="kw-2">&amp;</span><span class="ident">Vec4</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec4</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Vec4</span>::<span class="ident">uninitialized</span>();
-            <span class="ident">ffi</span>::<span class="ident">graphene_vec4_min</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Vec4::uninitialized</span>();
+            <span class="ident">ffi::graphene_vec4_min</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">b</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">res</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
@@ -808,8 +808,8 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_vec4_multiply&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">multiply</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">b</span>: <span class="kw-2">&amp;</span><span class="ident">Vec4</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec4</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Vec4</span>::<span class="ident">uninitialized</span>();
-            <span class="ident">ffi</span>::<span class="ident">graphene_vec4_multiply</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Vec4::uninitialized</span>();
+            <span class="ident">ffi::graphene_vec4_multiply</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">b</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">res</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
@@ -831,7 +831,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_vec4_near&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">near</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">v2</span>: <span class="kw-2">&amp;</span><span class="ident">Vec4</span>, <span class="ident">epsilon</span>: <span class="ident">f32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">graphene_vec4_near</span>(
+            <span class="ident">from_glib</span>(<span class="ident">ffi::graphene_vec4_near</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">v2</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">epsilon</span>,
@@ -845,8 +845,8 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_vec4_negate&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">negate</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec4</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Vec4</span>::<span class="ident">uninitialized</span>();
-            <span class="ident">ffi</span>::<span class="ident">graphene_vec4_negate</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">res</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>);
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Vec4::uninitialized</span>();
+            <span class="ident">ffi::graphene_vec4_negate</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">res</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>);
             <span class="ident">res</span>
         }
     }
@@ -858,8 +858,8 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_vec4_normalize&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">normalize</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec4</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Vec4</span>::<span class="ident">uninitialized</span>();
-            <span class="ident">ffi</span>::<span class="ident">graphene_vec4_normalize</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">res</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>);
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Vec4::uninitialized</span>();
+            <span class="ident">ffi::graphene_vec4_normalize</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">res</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>);
             <span class="ident">res</span>
         }
     }
@@ -872,8 +872,8 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_vec4_scale&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">scale</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">factor</span>: <span class="ident">f32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec4</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Vec4</span>::<span class="ident">uninitialized</span>();
-            <span class="ident">ffi</span>::<span class="ident">graphene_vec4_scale</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">factor</span>, <span class="ident">res</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>);
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Vec4::uninitialized</span>();
+            <span class="ident">ffi::graphene_vec4_scale</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">factor</span>, <span class="ident">res</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>);
             <span class="ident">res</span>
         }
     }
@@ -888,8 +888,8 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_vec4_subtract&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">subtract</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">b</span>: <span class="kw-2">&amp;</span><span class="ident">Vec4</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec4</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Vec4</span>::<span class="ident">uninitialized</span>();
-            <span class="ident">ffi</span>::<span class="ident">graphene_vec4_subtract</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Vec4::uninitialized</span>();
+            <span class="ident">ffi::graphene_vec4_subtract</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">b</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">res</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
@@ -912,7 +912,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_vec4_one&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">one</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec4</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">graphene_vec4_one</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::graphene_vec4_one</span>()) }
     }
 
     <span class="doccomment">/// Retrieves a pointer to a `Vec4` with its</span>
@@ -924,7 +924,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_vec4_w_axis&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">w_axis</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec4</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">graphene_vec4_w_axis</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::graphene_vec4_w_axis</span>()) }
     }
 
     <span class="doccomment">/// Retrieves a pointer to a `Vec4` with its</span>
@@ -936,7 +936,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_vec4_x_axis&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">x_axis</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec4</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">graphene_vec4_x_axis</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::graphene_vec4_x_axis</span>()) }
     }
 
     <span class="doccomment">/// Retrieves a pointer to a `Vec4` with its</span>
@@ -948,7 +948,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_vec4_y_axis&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">y_axis</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec4</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">graphene_vec4_y_axis</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::graphene_vec4_y_axis</span>()) }
     }
 
     <span class="doccomment">/// Retrieves a pointer to a `Vec4` with its</span>
@@ -960,7 +960,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_vec4_z_axis&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">z_axis</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec4</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">graphene_vec4_z_axis</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::graphene_vec4_z_axis</span>()) }
     }
 
     <span class="doccomment">/// Retrieves a pointer to a `Vec4` with all its</span>
@@ -972,7 +972,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_vec4_zero&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">zero</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec4</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">graphene_vec4_zero</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::graphene_vec4_zero</span>()) }
     }
 }
 

@@ -123,24 +123,24 @@
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">SocketAddress</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">UnixSocketAddress</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">UnixSocketAddressExt</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">UnixSocketAddressType</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">object</span>::{<span class="ident">Cast</span>, <span class="ident">IsA</span>};
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::SocketAddress</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::UnixSocketAddress</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::UnixSocketAddressExt</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::UnixSocketAddressType</span>;
+<span class="kw">use</span> <span class="ident">glib::object</span>::{<span class="ident">Cast</span>, <span class="ident">IsA</span>};
+<span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ffi</span>::<span class="ident">OsStr</span>;
+<span class="kw">use</span> <span class="ident">std::ffi::OsStr</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">unix</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">os</span>::<span class="ident">unix</span>::<span class="ident">ffi</span>::<span class="ident">OsStrExt</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">path</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">slice</span>;
+<span class="kw">use</span> <span class="ident">std::os::unix::ffi::OsStrExt</span>;
+<span class="kw">use</span> <span class="ident">std::path</span>;
+<span class="kw">use</span> <span class="ident">std::ptr</span>;
+<span class="kw">use</span> <span class="ident">std::slice</span>;
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">UnixSocketAddressPath</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
-    <span class="ident">Path</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">path</span>::<span class="ident">Path</span>),
+    <span class="ident">Path</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">path::Path</span>),
     <span class="ident">Anonymous</span>,
     <span class="ident">Abstract</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">u8</span>]),
     <span class="ident">AbstractPadded</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">u8</span>]),
@@ -148,13 +148,13 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">UnixSocketAddressPath</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="kw">fn</span> <span class="ident">to_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">UnixSocketAddressType</span> {
-        <span class="kw">use</span> <span class="self">self</span>::<span class="ident">UnixSocketAddressPath</span>::<span class="kw-2">*</span>;
+        <span class="kw">use</span> <span class="self">self</span><span class="ident">::UnixSocketAddressPath</span>::<span class="kw-2">*</span>;
 
         <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-            <span class="ident">Path</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">UnixSocketAddressType</span>::<span class="ident">Path</span>,
-            <span class="ident">Anonymous</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">UnixSocketAddressType</span>::<span class="ident">Anonymous</span>,
-            <span class="ident">Abstract</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">UnixSocketAddressType</span>::<span class="ident">Abstract</span>,
-            <span class="ident">AbstractPadded</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">UnixSocketAddressType</span>::<span class="ident">AbstractPadded</span>,
+            <span class="ident">Path</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">UnixSocketAddressType::Path</span>,
+            <span class="ident">Anonymous</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">UnixSocketAddressType::Anonymous</span>,
+            <span class="ident">Abstract</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">UnixSocketAddressType::Abstract</span>,
+            <span class="ident">AbstractPadded</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">UnixSocketAddressType::AbstractPadded</span>,
         }
     }
 }
@@ -171,27 +171,27 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// a new `UnixSocketAddress`</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_unix_socket_address_new&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">path</span>::<span class="ident">Path</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">UnixSocketAddress</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">path::Path</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">UnixSocketAddress</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">SocketAddress</span>::<span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_unix_socket_address_new</span>(<span class="ident">path</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>))
+            <span class="ident">SocketAddress::from_glib_full</span>(<span class="ident">ffi::g_unix_socket_address_new</span>(<span class="ident">path</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>))
                 .<span class="ident">unsafe_cast</span>()
         }
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_unix_socket_address_new_with_type&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_type</span>(<span class="ident">address_type</span>: <span class="ident">UnixSocketAddressPath</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="kw">use</span> <span class="self">self</span>::<span class="ident">UnixSocketAddressPath</span>::<span class="kw-2">*</span>;
+        <span class="kw">use</span> <span class="self">self</span><span class="ident">::UnixSocketAddressPath</span>::<span class="kw-2">*</span>;
 
         <span class="kw">let</span> <span class="ident">type_</span> <span class="op">=</span> <span class="ident">address_type</span>.<span class="ident">to_type</span>();
         <span class="kw">let</span> (<span class="ident">path</span>, <span class="ident">len</span>) <span class="op">=</span> <span class="kw">match</span> <span class="ident">address_type</span> {
             <span class="ident">Path</span>(<span class="ident">path</span>) <span class="op">=</span><span class="op">&gt;</span> (<span class="ident">path</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">path</span>.<span class="ident">as_os_str</span>().<span class="ident">len</span>()),
             <span class="ident">Abstract</span>(<span class="ident">path</span>) <span class="op">|</span> <span class="ident">AbstractPadded</span>(<span class="ident">path</span>) <span class="op">=</span><span class="op">&gt;</span> {
-                (<span class="ident">path</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">libc</span>::<span class="ident">c_char</span>, <span class="ident">path</span>.<span class="ident">len</span>())
+                (<span class="ident">path</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">libc::c_char</span>, <span class="ident">path</span>.<span class="ident">len</span>())
             }
-            <span class="ident">Anonymous</span> <span class="op">=</span><span class="op">&gt;</span> (<span class="ident">ptr</span>::<span class="ident">null_mut</span>(), <span class="number">0</span>),
+            <span class="ident">Anonymous</span> <span class="op">=</span><span class="op">&gt;</span> (<span class="ident">ptr::null_mut</span>(), <span class="number">0</span>),
         };
         <span class="kw">unsafe</span> {
-            <span class="ident">SocketAddress</span>::<span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_unix_socket_address_new_with_type</span>(
+            <span class="ident">SocketAddress::from_glib_full</span>(<span class="ident">ffi::g_unix_socket_address_new_with_type</span>(
                 <span class="ident">path</span>,
                 <span class="ident">len</span> <span class="kw">as</span> <span class="ident">i32</span>,
                 <span class="ident">type_</span>.<span class="ident">to_glib</span>(),
@@ -218,25 +218,25 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">O</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">UnixSocketAddress</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="ident">UnixSocketAddressExtManual</span> <span class="kw">for</span> <span class="ident">O</span> {
     <span class="kw">fn</span> <span class="ident">get_path</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">UnixSocketAddressPath</span><span class="op">&gt;</span> {
-        <span class="kw">use</span> <span class="self">self</span>::<span class="ident">UnixSocketAddressPath</span>::<span class="kw-2">*</span>;
+        <span class="kw">use</span> <span class="self">self</span><span class="ident">::UnixSocketAddressPath</span>::<span class="kw-2">*</span>;
 
         <span class="kw">let</span> <span class="ident">path</span> <span class="op">=</span> <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">path</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">g_unix_socket_address_get_path</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+            <span class="kw">let</span> <span class="ident">path</span> <span class="op">=</span> <span class="ident">ffi::g_unix_socket_address_get_path</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>);
             <span class="kw">if</span> <span class="ident">path</span>.<span class="ident">is_null</span>() {
                 <span class="kw-2">&amp;</span>[]
             } <span class="kw">else</span> {
-                <span class="ident">slice</span>::<span class="ident">from_raw_parts</span>(<span class="ident">path</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">u8</span>, <span class="self">self</span>.<span class="ident">get_path_len</span>())
+                <span class="ident">slice::from_raw_parts</span>(<span class="ident">path</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">u8</span>, <span class="self">self</span>.<span class="ident">get_path_len</span>())
             }
         };
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">get_address_type</span>() {
-            <span class="ident">UnixSocketAddressType</span>::<span class="ident">Anonymous</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">Anonymous</span>),
+            <span class="ident">UnixSocketAddressType::Anonymous</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">Anonymous</span>),
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
-            <span class="ident">UnixSocketAddressType</span>::<span class="ident">Path</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">Path</span>(<span class="ident">path</span>::<span class="ident">Path</span>::<span class="ident">new</span>(<span class="ident">OsStr</span>::<span class="ident">from_bytes</span>(<span class="ident">path</span>)))),
+            <span class="ident">UnixSocketAddressType::Path</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">Path</span>(<span class="ident">path::Path::new</span>(<span class="ident">OsStr::from_bytes</span>(<span class="ident">path</span>)))),
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>)]</span>
-            <span class="ident">UnixSocketAddressType</span>::<span class="ident">Path</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">unreachable!</span>(),
-            <span class="ident">UnixSocketAddressType</span>::<span class="ident">Abstract</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">Abstract</span>(<span class="ident">path</span>)),
-            <span class="ident">UnixSocketAddressType</span>::<span class="ident">AbstractPadded</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">AbstractPadded</span>(<span class="ident">path</span>)),
-            <span class="ident">UnixSocketAddressType</span>::<span class="ident">Invalid</span> <span class="op">|</span> <span class="ident">UnixSocketAddressType</span>::<span class="ident">__Unknown</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
+            <span class="ident">UnixSocketAddressType::Path</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">unreachable!</span>(),
+            <span class="ident">UnixSocketAddressType::Abstract</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">Abstract</span>(<span class="ident">path</span>)),
+            <span class="ident">UnixSocketAddressType::AbstractPadded</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">AbstractPadded</span>(<span class="ident">path</span>)),
+            <span class="ident">UnixSocketAddressType::Invalid</span> <span class="op">|</span> <span class="ident">UnixSocketAddressType::__Unknown</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
         }
     }
 }

@@ -162,22 +162,22 @@
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
-<span class="kw">use</span> <span class="ident">futures_channel</span>::<span class="ident">oneshot</span>;
-<span class="kw">use</span> <span class="ident">futures_core</span>::<span class="ident">task</span>::{<span class="ident">Context</span>, <span class="ident">Poll</span>};
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">future</span>::<span class="ident">Future</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">pin</span>::{<span class="self">self</span>, <span class="ident">Pin</span>};
+<span class="kw">use</span> <span class="ident">futures_channel::oneshot</span>;
+<span class="kw">use</span> <span class="ident">futures_core::task</span>::{<span class="ident">Context</span>, <span class="ident">Poll</span>};
+<span class="kw">use</span> <span class="ident">std::future::Future</span>;
+<span class="kw">use</span> <span class="ident">std::pin</span>::{<span class="self">self</span>, <span class="ident">Pin</span>};
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Cancellable</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">CancellableExt</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Cancellable</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::CancellableExt</span>;
 
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">GioFuture</span><span class="op">&lt;</span><span class="ident">F</span>, <span class="ident">O</span>, <span class="ident">T</span>, <span class="ident">E</span><span class="op">&gt;</span> {
     <span class="ident">obj</span>: <span class="ident">O</span>,
     <span class="ident">schedule_operation</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>,
-    <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span>(<span class="ident">Cancellable</span>, <span class="ident">oneshot</span>::<span class="ident">Receiver</span><span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">E</span><span class="op">&gt;</span><span class="op">&gt;</span>)<span class="op">&gt;</span>,
+    <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span>(<span class="ident">Cancellable</span>, <span class="ident">oneshot::Receiver</span><span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">E</span><span class="op">&gt;</span><span class="op">&gt;</span>)<span class="op">&gt;</span>,
 }
 
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">GioFutureResult</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">E</span><span class="op">&gt;</span> {
-    <span class="ident">sender</span>: <span class="ident">ThreadGuard</span><span class="op">&lt;</span><span class="ident">oneshot</span>::<span class="ident">Sender</span><span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">E</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    <span class="ident">sender</span>: <span class="ident">ThreadGuard</span><span class="op">&lt;</span><span class="ident">oneshot::Sender</span><span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">E</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">unsafe</span> <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">E</span><span class="op">&gt;</span> <span class="ident">Send</span> <span class="kw">for</span> <span class="ident">GioFutureResult</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">E</span><span class="op">&gt;</span> {}
@@ -209,7 +209,7 @@
 {
     <span class="kw">type</span> <span class="ident">Output</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">E</span><span class="op">&gt;</span>;
 
-    <span class="kw">fn</span> <span class="ident">poll</span>(<span class="kw-2">mut</span> <span class="self">self</span>: <span class="ident">pin</span>::<span class="ident">Pin</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span><span class="op">&gt;</span>, <span class="ident">ctx</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Context</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Poll</span><span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">E</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">poll</span>(<span class="kw-2">mut</span> <span class="self">self</span>: <span class="ident">pin::Pin</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span><span class="op">&gt;</span>, <span class="ident">ctx</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Context</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Poll</span><span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">E</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">GioFuture</span> {
             <span class="kw-2">ref</span> <span class="ident">obj</span>,
             <span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">schedule_operation</span>,
@@ -218,7 +218,7 @@
         } <span class="op">=</span> <span class="kw-2">*</span><span class="self">self</span>;
 
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">schedule_operation</span>) <span class="op">=</span> <span class="ident">schedule_operation</span>.<span class="ident">take</span>() {
-            <span class="kw">let</span> <span class="ident">main_context</span> <span class="op">=</span> <span class="ident">glib</span>::<span class="ident">MainContext</span>::<span class="ident">ref_thread_default</span>();
+            <span class="kw">let</span> <span class="ident">main_context</span> <span class="op">=</span> <span class="ident">glib::MainContext::ref_thread_default</span>();
             <span class="macro">assert!</span>(
                 <span class="ident">main_context</span>.<span class="ident">is_owner</span>(),
                 <span class="string">&quot;Spawning futures only allowed if the thread is owning the MainContext&quot;</span>
@@ -231,12 +231,12 @@
             <span class="comment">// corresponding task from the GIO async operation</span>
             <span class="comment">// callback, however this would break at the very</span>
             <span class="comment">// least the g_main_current_source() API.</span>
-            <span class="kw">let</span> (<span class="ident">send</span>, <span class="ident">recv</span>) <span class="op">=</span> <span class="ident">oneshot</span>::<span class="ident">channel</span>();
+            <span class="kw">let</span> (<span class="ident">send</span>, <span class="ident">recv</span>) <span class="op">=</span> <span class="ident">oneshot::channel</span>();
 
             <span class="kw">let</span> <span class="ident">c</span> <span class="op">=</span> <span class="ident">schedule_operation</span>(
                 <span class="ident">obj</span>,
                 <span class="ident">GioFutureResult</span> {
-                    <span class="ident">sender</span>: <span class="ident">ThreadGuard</span>::<span class="ident">new</span>(<span class="ident">send</span>),
+                    <span class="ident">sender</span>: <span class="ident">ThreadGuard::new</span>(<span class="ident">send</span>),
                 },
             );
 
@@ -246,16 +246,16 @@
         <span class="comment">// At this point we must have a receiver</span>
         <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> {
             <span class="kw">let</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> (<span class="kw">_</span>, <span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">receiver</span>) <span class="op">=</span> <span class="ident">cancellable</span>.<span class="ident">as_mut</span>().<span class="ident">unwrap</span>();
-            <span class="ident">Pin</span>::<span class="ident">new</span>(<span class="ident">receiver</span>).<span class="ident">poll</span>(<span class="ident">ctx</span>)
+            <span class="ident">Pin::new</span>(<span class="ident">receiver</span>).<span class="ident">poll</span>(<span class="ident">ctx</span>)
         };
 
         <span class="kw">match</span> <span class="ident">res</span> {
-            <span class="ident">Poll</span>::<span class="ident">Pending</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Poll</span>::<span class="ident">Pending</span>,
-            <span class="ident">Poll</span>::<span class="ident">Ready</span>(<span class="prelude-val">Err</span>(<span class="kw">_</span>)) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic!</span>(<span class="string">&quot;Async operation sender was unexpectedly closed&quot;</span>),
-            <span class="ident">Poll</span>::<span class="ident">Ready</span>(<span class="prelude-val">Ok</span>(<span class="ident">v</span>)) <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="ident">Poll::Pending</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Poll::Pending</span>,
+            <span class="ident">Poll::Ready</span>(<span class="prelude-val">Err</span>(<span class="kw">_</span>)) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic!</span>(<span class="string">&quot;Async operation sender was unexpectedly closed&quot;</span>),
+            <span class="ident">Poll::Ready</span>(<span class="prelude-val">Ok</span>(<span class="ident">v</span>)) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="comment">// Get rid of the reference to the cancellable</span>
                 <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">cancellable</span>.<span class="ident">take</span>();
-                <span class="ident">Poll</span>::<span class="ident">Ready</span>(<span class="ident">v</span>)
+                <span class="ident">Poll::Ready</span>(<span class="ident">v</span>)
             }
         }
     }
@@ -275,10 +275,10 @@
 <span class="comment">// This works around it by using our own counter for threads.</span>
 <span class="comment">//</span>
 <span class="comment">// Taken from the fragile crate</span>
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">sync</span>::<span class="ident">atomic</span>::{<span class="ident">AtomicUsize</span>, <span class="ident">Ordering</span>};
+<span class="kw">use</span> <span class="ident">std::sync::atomic</span>::{<span class="ident">AtomicUsize</span>, <span class="ident">Ordering</span>};
 <span class="kw">fn</span> <span class="ident">next_thread_id</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span> {
-    <span class="kw">static</span> <span class="kw-2">mut</span> <span class="ident">COUNTER</span>: <span class="ident">AtomicUsize</span> <span class="op">=</span> <span class="ident">AtomicUsize</span>::<span class="ident">new</span>(<span class="number">0</span>);
-    <span class="kw">unsafe</span> { <span class="ident">COUNTER</span>.<span class="ident">fetch_add</span>(<span class="number">1</span>, <span class="ident">Ordering</span>::<span class="ident">SeqCst</span>) }
+    <span class="kw">static</span> <span class="kw-2">mut</span> <span class="ident">COUNTER</span>: <span class="ident">AtomicUsize</span> <span class="op">=</span> <span class="ident">AtomicUsize::new</span>(<span class="number">0</span>);
+    <span class="kw">unsafe</span> { <span class="ident">COUNTER</span>.<span class="ident">fetch_add</span>(<span class="number">1</span>, <span class="ident">Ordering::SeqCst</span>) }
 }
 
 <span class="kw">fn</span> <span class="ident">get_thread_id</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span> {

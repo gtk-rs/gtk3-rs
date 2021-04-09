@@ -26,19 +26,19 @@
 <span class="comment">// DO NOT EDIT</span>
 
 <span class="kw">mod</span> <span class="ident">font</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">font</span>::<span class="ident">FontExt</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">font</span>::{<span class="ident">Font</span>, <span class="ident">NONE_FONT</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::font::FontExt</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::font</span>::{<span class="ident">Font</span>, <span class="ident">NONE_FONT</span>};
 
 <span class="kw">mod</span> <span class="ident">font_map</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">font_map</span>::<span class="ident">FontMapExt</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">font_map</span>::{<span class="ident">FontMap</span>, <span class="ident">NONE_FONT_MAP</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::font_map::FontMapExt</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::font_map</span>::{<span class="ident">FontMap</span>, <span class="ident">NONE_FONT_MAP</span>};
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">functions</span>;
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">traits</span> {
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">FontExt</span>;
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">FontMapExt</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::FontExt</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::FontMapExt</span>;
 }
 </pre></div>
 </section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="pangocairo" data-search-js="../../../search-index.js"></div>

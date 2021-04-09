@@ -447,19 +447,19 @@
 <span class="comment">// from gir-files (https://github.com/gtk-rs/gir-files)</span>
 <span class="comment">// DO NOT EDIT</span>
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Range</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">object</span>::<span class="ident">Cast</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">object</span>::<span class="ident">IsA</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">signal</span>::<span class="ident">connect_raw</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">signal</span>::<span class="ident">SignalHandlerId</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">boxed</span>::<span class="ident">Box</span> <span class="kw">as</span> <span class="ident">Box_</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>::<span class="ident">transmute</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Range</span>;
+<span class="kw">use</span> <span class="ident">glib::object::Cast</span>;
+<span class="kw">use</span> <span class="ident">glib::object::IsA</span>;
+<span class="kw">use</span> <span class="ident">glib::signal::connect_raw</span>;
+<span class="kw">use</span> <span class="ident">glib::signal::SignalHandlerId</span>;
+<span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">std::boxed::Box</span> <span class="kw">as</span> <span class="ident">Box_</span>;
+<span class="kw">use</span> <span class="ident">std::fmt</span>;
+<span class="kw">use</span> <span class="ident">std::mem</span>;
+<span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
+<span class="kw">use</span> <span class="ident">std::ptr</span>;
 
-<span class="ident">glib</span>::<span class="macro">wrapper!</span> {
+<span class="macro">glib::wrapper!</span> {
     <span class="doccomment">/// `Value` should be implemented for components which either display</span>
     <span class="doccomment">/// a value from a bounded range, or which allow the user to specify a</span>
     <span class="doccomment">/// value from a bounded range, or both. For instance, most sliders and</span>
@@ -604,10 +604,10 @@
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`ValueExt`](trait.ValueExt.html)</span>
-    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Value</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">AtkValue</span>, <span class="ident">ffi</span>::<span class="ident">AtkValueIface</span><span class="op">&gt;</span>);
+    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Value</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi::AtkValue</span>, <span class="ident">ffi::AtkValueIface</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
-        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">atk_value_get_type</span>(),
+        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::atk_value_get_type</span>(),
     }
 }
 
@@ -628,7 +628,7 @@
     <span class="doccomment">/// ## `value`</span>
     <span class="doccomment">/// a `gobject::Value` representing the current accessible value</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_value_get_current_value&quot;</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">get_current_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib</span>::<span class="ident">Value</span>;
+    <span class="kw">fn</span> <span class="ident">get_current_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span>;
 
     <span class="doccomment">/// Gets the minimum increment by which the value of this object may be</span>
     <span class="doccomment">/// changed. If zero, the minimum increment is undefined, which may</span>
@@ -650,7 +650,7 @@
     <span class="doccomment">/// ## `value`</span>
     <span class="doccomment">/// a `gobject::Value` representing the maximum accessible value</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_value_get_maximum_value&quot;</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">get_maximum_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib</span>::<span class="ident">Value</span>;
+    <span class="kw">fn</span> <span class="ident">get_maximum_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span>;
 
     <span class="doccomment">/// Gets the minimum increment by which the value of this object may be changed. If zero,</span>
     <span class="doccomment">/// the minimum increment is undefined, which may mean that it is limited only by the</span>
@@ -662,7 +662,7 @@
     <span class="doccomment">/// ## `value`</span>
     <span class="doccomment">/// a `gobject::Value` representing the minimum increment by which the accessible value may be changed</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_value_get_minimum_increment&quot;</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">get_minimum_increment</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib</span>::<span class="ident">Value</span>;
+    <span class="kw">fn</span> <span class="ident">get_minimum_increment</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span>;
 
     <span class="doccomment">/// Gets the minimum value of this object.</span>
     <span class="doccomment">///</span>
@@ -672,7 +672,7 @@
     <span class="doccomment">/// ## `value`</span>
     <span class="doccomment">/// a `gobject::Value` representing the minimum accessible value</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_value_get_minimum_value&quot;</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">get_minimum_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib</span>::<span class="ident">Value</span>;
+    <span class="kw">fn</span> <span class="ident">get_minimum_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span>;
 
     <span class="doccomment">/// Gets the range of this object.</span>
     <span class="doccomment">///</span>
@@ -704,7 +704,7 @@
     <span class="doccomment">/// address of `gchar` to put the human</span>
     <span class="doccomment">/// readable text alternative for `value`</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_value_get_value_and_text&quot;</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">get_value_and_text</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">f64</span>, <span class="ident">glib</span>::<span class="ident">GString</span>);
+    <span class="kw">fn</span> <span class="ident">get_value_and_text</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">f64</span>, <span class="ident">glib::GString</span>);
 
     <span class="doccomment">/// Sets the value of this object.</span>
     <span class="doccomment">///</span>
@@ -718,7 +718,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// `true` if new value is successfully set, `false` otherwise.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_value_set_current_value&quot;</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">set_current_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">glib</span>::<span class="ident">Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
+    <span class="kw">fn</span> <span class="ident">set_current_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">glib::Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
     <span class="doccomment">/// Sets the value of this object.</span>
     <span class="doccomment">///</span>
@@ -760,10 +760,10 @@
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">O</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Value</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="ident">ValueExt</span> <span class="kw">for</span> <span class="ident">O</span> {
-    <span class="kw">fn</span> <span class="ident">get_current_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib</span>::<span class="ident">Value</span> {
+    <span class="kw">fn</span> <span class="ident">get_current_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib</span>::<span class="ident">Value</span>::<span class="ident">uninitialized</span>();
-            <span class="ident">ffi</span>::<span class="ident">atk_value_get_current_value</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::uninitialized</span>();
+            <span class="ident">ffi::atk_value_get_current_value</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
             );
@@ -772,13 +772,13 @@
     }
 
     <span class="kw">fn</span> <span class="ident">get_increment</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f64</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">atk_value_get_increment</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::atk_value_get_increment</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
-    <span class="kw">fn</span> <span class="ident">get_maximum_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib</span>::<span class="ident">Value</span> {
+    <span class="kw">fn</span> <span class="ident">get_maximum_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib</span>::<span class="ident">Value</span>::<span class="ident">uninitialized</span>();
-            <span class="ident">ffi</span>::<span class="ident">atk_value_get_maximum_value</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::uninitialized</span>();
+            <span class="ident">ffi::atk_value_get_maximum_value</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
             );
@@ -786,10 +786,10 @@
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">get_minimum_increment</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib</span>::<span class="ident">Value</span> {
+    <span class="kw">fn</span> <span class="ident">get_minimum_increment</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib</span>::<span class="ident">Value</span>::<span class="ident">uninitialized</span>();
-            <span class="ident">ffi</span>::<span class="ident">atk_value_get_minimum_increment</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::uninitialized</span>();
+            <span class="ident">ffi::atk_value_get_minimum_increment</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
             );
@@ -797,10 +797,10 @@
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">get_minimum_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib</span>::<span class="ident">Value</span> {
+    <span class="kw">fn</span> <span class="ident">get_minimum_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib</span>::<span class="ident">Value</span>::<span class="ident">uninitialized</span>();
-            <span class="ident">ffi</span>::<span class="ident">atk_value_get_minimum_value</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::uninitialized</span>();
+            <span class="ident">ffi::atk_value_get_minimum_value</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
             );
@@ -809,22 +809,22 @@
     }
 
     <span class="kw">fn</span> <span class="ident">get_range</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Range</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">atk_value_get_range</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::atk_value_get_range</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="kw">fn</span> <span class="ident">get_sub_ranges</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Range</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">FromGlibPtrContainer</span>::<span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">atk_value_get_sub_ranges</span>(
+            <span class="ident">FromGlibPtrContainer::from_glib_full</span>(<span class="ident">ffi::atk_value_get_sub_ranges</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">get_value_and_text</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">f64</span>, <span class="ident">glib</span>::<span class="ident">GString</span>) {
+    <span class="kw">fn</span> <span class="ident">get_value_and_text</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">f64</span>, <span class="ident">glib::GString</span>) {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">text</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="ident">ffi</span>::<span class="ident">atk_value_get_value_and_text</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">text</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
+            <span class="ident">ffi::atk_value_get_value_and_text</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">value</span>.<span class="ident">as_mut_ptr</span>(),
                 <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">text</span>,
@@ -834,9 +834,9 @@
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">set_current_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">glib</span>::<span class="ident">Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">fn</span> <span class="ident">set_current_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">glib::Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">atk_value_set_current_value</span>(
+            <span class="ident">from_glib</span>(<span class="ident">ffi::atk_value_set_current_value</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
@@ -845,42 +845,42 @@
 
     <span class="kw">fn</span> <span class="ident">set_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">new_value</span>: <span class="ident">f64</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">atk_value_set_value</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">new_value</span>);
+            <span class="ident">ffi::atk_value_set_value</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">new_value</span>);
         }
     }
 
     <span class="kw">fn</span> <span class="ident">connect_value_changed</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="ident">f64</span>, <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span> {
         <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">value_changed_trampoline</span><span class="op">&lt;</span><span class="ident">P</span>, <span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">P</span>, <span class="ident">f64</span>, <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
-            <span class="ident">this</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">AtkValue</span>,
-            <span class="ident">value</span>: <span class="ident">libc</span>::<span class="ident">c_double</span>,
-            <span class="ident">text</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">libc</span>::<span class="ident">c_char</span>,
-            <span class="ident">f</span>: <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">gpointer</span>,
+            <span class="ident">this</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::AtkValue</span>,
+            <span class="ident">value</span>: <span class="ident">libc::c_double</span>,
+            <span class="ident">text</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">libc::c_char</span>,
+            <span class="ident">f</span>: <span class="ident">glib::ffi::gpointer</span>,
         ) <span class="kw">where</span>
             <span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Value</span><span class="op">&gt;</span>,
         {
             <span class="kw">let</span> <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="ident">F</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">f</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">F</span>);
             <span class="ident">f</span>(
-                <span class="kw-2">&amp;</span><span class="ident">Value</span>::<span class="ident">from_glib_borrow</span>(<span class="ident">this</span>).<span class="ident">unsafe_cast_ref</span>(),
+                <span class="kw-2">&amp;</span><span class="ident">Value::from_glib_borrow</span>(<span class="ident">this</span>).<span class="ident">unsafe_cast_ref</span>(),
                 <span class="ident">value</span>,
-                <span class="kw-2">&amp;</span><span class="ident">glib</span>::<span class="ident">GString</span>::<span class="ident">from_glib_borrow</span>(<span class="ident">text</span>),
+                <span class="kw-2">&amp;</span><span class="ident">glib::GString::from_glib_borrow</span>(<span class="ident">text</span>),
             )
         }
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">f</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_</span>::<span class="ident">new</span>(<span class="ident">f</span>);
+            <span class="kw">let</span> <span class="ident">f</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_::new</span>(<span class="ident">f</span>);
             <span class="ident">connect_raw</span>(
                 <span class="self">self</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
                 <span class="string">b&quot;value-changed\0&quot;</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(<span class="ident">transmute</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span>()<span class="op">&gt;</span>(
                     <span class="ident">value_changed_trampoline</span>::<span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">F</span><span class="op">&gt;</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> (),
                 )),
-                <span class="ident">Box_</span>::<span class="ident">into_raw</span>(<span class="ident">f</span>),
+                <span class="ident">Box_::into_raw</span>(<span class="ident">f</span>),
             )
         }
     }
 }
 
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">Value</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">Value</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Value&quot;</span>)
     }
 }

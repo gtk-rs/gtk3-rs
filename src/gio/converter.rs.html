@@ -170,13 +170,13 @@
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Converter</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">ConverterFlags</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">ConverterResult</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">object</span>::<span class="ident">IsA</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Converter</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::ConverterFlags</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::ConverterResult</span>;
+<span class="kw">use</span> <span class="ident">glib::object::IsA</span>;
+<span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">std::mem</span>;
+<span class="kw">use</span> <span class="ident">std::ptr</span>;
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ConverterExtManual</span> {
     <span class="doccomment">/// This is the main operation used when converting data. It is to be called</span>
@@ -286,7 +286,7 @@
         <span class="ident">inbuf</span>: <span class="ident">IN</span>,
         <span class="ident">outbuf</span>: <span class="ident">OUT</span>,
         <span class="ident">flags</span>: <span class="ident">ConverterFlags</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">ConverterResult</span>, <span class="ident">usize</span>, <span class="ident">usize</span>), <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span>;
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">ConverterResult</span>, <span class="ident">usize</span>, <span class="ident">usize</span>), <span class="ident">glib::Error</span><span class="op">&gt;</span>;
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">O</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Converter</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="ident">ConverterExtManual</span> <span class="kw">for</span> <span class="ident">O</span> {
@@ -296,22 +296,22 @@
         <span class="ident">inbuf</span>: <span class="ident">IN</span>,
         <span class="ident">outbuf</span>: <span class="ident">OUT</span>,
         <span class="ident">flags</span>: <span class="ident">ConverterFlags</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">ConverterResult</span>, <span class="ident">usize</span>, <span class="ident">usize</span>), <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">inbuf</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">IN</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">inbuf</span>);
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">ConverterResult</span>, <span class="ident">usize</span>, <span class="ident">usize</span>), <span class="ident">glib::Error</span><span class="op">&gt;</span> {
+        <span class="kw">let</span> <span class="ident">inbuf</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">IN</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box::new</span>(<span class="ident">inbuf</span>);
         <span class="kw">let</span> (<span class="ident">inbuf_size</span>, <span class="ident">inbuf</span>) <span class="op">=</span> {
             <span class="kw">let</span> <span class="ident">slice</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">inbuf</span>).<span class="ident">as_ref</span>();
             (<span class="ident">slice</span>.<span class="ident">len</span>(), <span class="ident">slice</span>.<span class="ident">as_ptr</span>())
         };
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">outbuf</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">OUT</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">outbuf</span>);
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">outbuf</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">OUT</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box::new</span>(<span class="ident">outbuf</span>);
         <span class="kw">let</span> (<span class="ident">outbuf_size</span>, <span class="ident">outbuf</span>) <span class="op">=</span> {
             <span class="kw">let</span> <span class="ident">slice</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">outbuf</span>).<span class="ident">as_mut</span>();
             (<span class="ident">slice</span>.<span class="ident">len</span>(), <span class="ident">slice</span>.<span class="ident">as_mut_ptr</span>())
         };
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">bytes_read</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">bytes_written</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">g_converter_convert</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">bytes_read</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">bytes_written</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
+            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">ffi::g_converter_convert</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">mut_override</span>(<span class="ident">inbuf</span>),
                 <span class="ident">inbuf_size</span>,

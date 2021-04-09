@@ -100,9 +100,9 @@
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">LayoutLine</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::LayoutLine</span>;
 
 <span class="comment">// rustdoc-stripper-ignore-next</span>
 <span class="doccomment">/// The result of [`LayoutLine::x_to_index`].</span>
@@ -179,7 +179,7 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">trailing</span> <span class="op">=</span> <span class="number">0</span>;
 
         <span class="kw">let</span> <span class="ident">is_inside</span> <span class="op">=</span> <span class="kw">unsafe</span> {
-            <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">pango_layout_line_x_to_index</span>(
+            <span class="ident">from_glib</span>(<span class="ident">ffi::pango_layout_line_x_to_index</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">x_pos</span>,
                 <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">index</span>,

@@ -274,7 +274,7 @@
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
-<span class="attribute">#![<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">needless_doctest_main</span>)]</span>
+<span class="attribute">#![<span class="ident">allow</span>(<span class="ident">clippy::needless_doctest_main</span>)]</span>
 
 <span class="doccomment">//! Module containing infrastructure for subclassing `GObject`s and registering boxed types.</span>
 <span class="doccomment">//!</span>
@@ -527,21 +527,21 @@
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">prelude</span> {
     <span class="doccomment">//! Prelude that re-exports all important traits from this crate.</span>
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">boxed</span>::<span class="ident">BoxedType</span>;
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">interface</span>::{<span class="ident">ObjectInterface</span>, <span class="ident">ObjectInterfaceExt</span>, <span class="ident">ObjectInterfaceType</span>};
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">object</span>::{<span class="ident">ObjectClassSubclassExt</span>, <span class="ident">ObjectImpl</span>, <span class="ident">ObjectImplExt</span>};
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">types</span>::{
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::boxed::BoxedType</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::interface</span>::{<span class="ident">ObjectInterface</span>, <span class="ident">ObjectInterfaceExt</span>, <span class="ident">ObjectInterfaceType</span>};
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::object</span>::{<span class="ident">ObjectClassSubclassExt</span>, <span class="ident">ObjectImpl</span>, <span class="ident">ObjectImplExt</span>};
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::types</span>::{
         <span class="ident">ClassStruct</span>, <span class="ident">InstanceStruct</span>, <span class="ident">IsImplementable</span>, <span class="ident">IsSubclassable</span>, <span class="ident">ObjectSubclass</span>,
         <span class="ident">ObjectSubclassExt</span>, <span class="ident">ObjectSubclassType</span>,
     };
 }
 
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">boxed</span>::<span class="ident">register_boxed_type</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">interface</span>::<span class="ident">register_interface</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">signal</span>::{
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::boxed::register_boxed_type</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::interface::register_interface</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::signal</span>::{
     <span class="ident">Signal</span>, <span class="ident">SignalClassHandlerToken</span>, <span class="ident">SignalId</span>, <span class="ident">SignalInvocationHint</span>, <span class="ident">SignalQuery</span>, <span class="ident">SignalType</span>,
 };
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">types</span>::{<span class="ident">register_type</span>, <span class="ident">InitializingObject</span>, <span class="ident">InitializingType</span>, <span class="ident">TypeData</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::types</span>::{<span class="ident">register_type</span>, <span class="ident">InitializingObject</span>, <span class="ident">InitializingType</span>, <span class="ident">TypeData</span>};
 </pre></div>
 </section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="glib" data-search-js="../../../search-index.js"></div>
     <script src="../../../main.js"></script><script src="../../../source-script.js"></script><script src="../../../source-files.js"></script></body></html>

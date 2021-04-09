@@ -50,12 +50,12 @@
 <span class="kw">mod</span> <span class="ident">font_options</span>;
 <span class="kw">mod</span> <span class="ident">scaled_font</span>;
 
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">enums</span>::{
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::enums</span>::{
     <span class="ident">Antialias</span>, <span class="ident">FontSlant</span>, <span class="ident">FontType</span>, <span class="ident">FontWeight</span>, <span class="ident">HintMetrics</span>, <span class="ident">HintStyle</span>, <span class="ident">SubpixelOrder</span>,
     <span class="ident">TextClusterFlags</span>,
 };
 
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">ffi</span>::{<span class="ident">FontExtents</span>, <span class="ident">Glyph</span>, <span class="ident">TextCluster</span>, <span class="ident">TextExtents</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::ffi</span>::{<span class="ident">FontExtents</span>, <span class="ident">Glyph</span>, <span class="ident">TextCluster</span>, <span class="ident">TextExtents</span>};
 
 <span class="comment">/* TODO
  Allocates an array of cairo_glyph_t&#39;s. This function is only useful in
@@ -83,9 +83,9 @@ impl TextCluster {
 }
 */</span>
 
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">font_face</span>::<span class="ident">FontFace</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">font_options</span>::<span class="ident">FontOptions</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">scaled_font</span>::<span class="ident">ScaledFont</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::font_face::FontFace</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::font_options::FontOptions</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::scaled_font::ScaledFont</span>;
 </pre></div>
 </section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="cairo" data-search-js="../../../search-index.js"></div>
     <script src="../../../main.js"></script><script src="../../../source-script.js"></script><script src="../../../source-files.js"></script></body></html>

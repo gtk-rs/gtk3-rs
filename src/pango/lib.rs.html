@@ -73,17 +73,17 @@
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">ffi</span>;
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">glib</span>;
 
-<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">too_many_arguments</span>)]</span>
-<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">should_implement_trait</span>)]</span>
-<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">derive_hash_xor_eq</span>)]</span>
-<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">let_and_return</span>)]</span>
+<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::too_many_arguments</span>)]</span>
+<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::should_implement_trait</span>)]</span>
+<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::derive_hash_xor_eq</span>)]</span>
+<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::let_and_return</span>)]</span>
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">unused_imports</span>)]</span>
 <span class="kw">mod</span> <span class="ident">auto</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">auto</span>::<span class="ident">functions</span>::<span class="kw-2">*</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">auto</span>::<span class="kw-2">*</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">functions</span>::<span class="kw-2">*</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::auto::functions</span>::<span class="kw-2">*</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::auto</span>::<span class="kw-2">*</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::functions</span>::<span class="kw-2">*</span>;
 
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">ffi</span>::<span class="ident">PANGO_SCALE</span> <span class="kw">as</span> <span class="ident">SCALE</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">ffi::PANGO_SCALE</span> <span class="kw">as</span> <span class="ident">SCALE</span>;
 
 <span class="doccomment">/// The scale factor for three shrinking steps (1 / (1.2 * 1.2 * 1.2)).</span>
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">SCALE_XX_SMALL</span>: <span class="ident">f64</span> <span class="op">=</span> <span class="number">0.5787037037037</span>;
@@ -109,25 +109,25 @@
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">prelude</span>;
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">analysis</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">analysis</span>::<span class="ident">Analysis</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::analysis::Analysis</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">attr_class</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">attr_class</span>::<span class="ident">AttrClass</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::attr_class::AttrClass</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">attr_iterator</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">attr_list</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">attribute</span>;
 <span class="kw">mod</span> <span class="ident">functions</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">item</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">language</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">language</span>::<span class="ident">Language</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::language::Language</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">layout</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">layout</span>::<span class="ident">HitPosition</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::layout::HitPosition</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">rectangle</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">rectangle</span>::<span class="ident">Rectangle</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::rectangle::Rectangle</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">glyph</span>;
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">glyph</span>::{<span class="ident">GlyphGeometry</span>, <span class="ident">GlyphInfo</span>};
 
 <span class="kw">mod</span> <span class="ident">coverage</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">coverage</span>::<span class="kw-2">*</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::coverage</span>::<span class="kw-2">*</span>;
 </pre></div>
 </section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="pango" data-search-js="../../search-index.js"></div>
     <script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script></body></html>

@@ -1143,24 +1143,24 @@
 <span class="comment">// from gir-files (https://github.com/gtk-rs/gir-files)</span>
 <span class="comment">// DO NOT EDIT</span>
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Alignment</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">AttrList</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Context</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Alignment</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::AttrList</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Context</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v1_46&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v1_46&quot;</span>)))]</span>
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Direction</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">EllipsizeMode</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">FontDescription</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">LayoutIter</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">LayoutLine</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Rectangle</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">TabArray</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">WrapMode</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Direction</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::EllipsizeMode</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::FontDescription</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::LayoutIter</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::LayoutLine</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Rectangle</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::TabArray</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::WrapMode</span>;
+<span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">std::fmt</span>;
+<span class="kw">use</span> <span class="ident">std::mem</span>;
 
-<span class="ident">glib</span>::<span class="macro">wrapper!</span> {
+<span class="macro">glib::wrapper!</span> {
     <span class="doccomment">/// The `Layout` structure represents an entire paragraph</span>
     <span class="doccomment">/// of text. It is initialized with a `Context`, UTF-8 string</span>
     <span class="doccomment">/// and set of attributes for that string. Once that is done, the</span>
@@ -1181,10 +1181,10 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// The `Layout` structure is opaque, and has no user-visible</span>
     <span class="doccomment">/// fields.</span>
-    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Layout</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">PangoLayout</span>, <span class="ident">ffi</span>::<span class="ident">PangoLayoutClass</span><span class="op">&gt;</span>);
+    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Layout</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::PangoLayout</span>, <span class="ident">ffi::PangoLayoutClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
-        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">pango_layout_get_type</span>(),
+        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::pango_layout_get_type</span>(),
     }
 }
 
@@ -1201,7 +1201,7 @@
     <span class="doccomment">///  `gobject::Object::unref`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">context</span>: <span class="kw-2">&amp;</span><span class="ident">Context</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Layout</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">pango_layout_new</span>(<span class="ident">context</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::pango_layout_new</span>(<span class="ident">context</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Forces recomputation of any state in the `Layout` that</span>
@@ -1211,7 +1211,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_context_changed&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">context_changed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">pango_layout_context_changed</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+            <span class="ident">ffi::pango_layout_context_changed</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
         }
     }
 
@@ -1226,7 +1226,7 @@
     <span class="doccomment">///  with `gobject::Object::unref`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_copy&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">copy</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Layout</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">pango_layout_copy</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::pango_layout_copy</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Gets the alignment for the layout: how partial lines are</span>
@@ -1237,7 +1237,7 @@
     <span class="doccomment">/// the alignment.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_get_alignment&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_alignment</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Alignment</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">pango_layout_get_alignment</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::pango_layout_get_alignment</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Gets the attribute list for the layout, if any.</span>
@@ -1247,7 +1247,7 @@
     <span class="doccomment">/// a `AttrList`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_get_attributes&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_attributes</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">AttrList</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">pango_layout_get_attributes</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::pango_layout_get_attributes</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Gets whether to calculate the bidirectional base direction</span>
@@ -1260,7 +1260,7 @@
     <span class="doccomment">///  is computed from the layout&#39;s contents, `false` otherwise.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_get_auto_dir&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_auto_dir</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">pango_layout_get_auto_dir</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::pango_layout_get_auto_dir</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Gets the Y position of baseline of the first line in `self`.</span>
@@ -1270,7 +1270,7 @@
     <span class="doccomment">/// baseline of first line, from top of `self`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_get_baseline&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_baseline</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">pango_layout_get_baseline</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::pango_layout_get_baseline</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Returns the number of Unicode characters in the</span>
@@ -1282,7 +1282,7 @@
     <span class="doccomment">///  in the text of `self`</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_get_character_count&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_character_count</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">pango_layout_get_character_count</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::pango_layout_get_character_count</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Retrieves the `Context` used for this layout.</span>
@@ -1294,7 +1294,7 @@
     <span class="doccomment">/// keep a copy of this around, you must reference it yourself.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_get_context&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_context</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Context</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">pango_layout_get_context</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::pango_layout_get_context</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Given an index within a layout, determines the positions that of the</span>
@@ -1315,9 +1315,9 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_get_cursor_pos&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_cursor_pos</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">index_</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">Rectangle</span>, <span class="ident">Rectangle</span>) {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">strong_pos</span> <span class="op">=</span> <span class="ident">Rectangle</span>::<span class="ident">uninitialized</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">weak_pos</span> <span class="op">=</span> <span class="ident">Rectangle</span>::<span class="ident">uninitialized</span>();
-            <span class="ident">ffi</span>::<span class="ident">pango_layout_get_cursor_pos</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">strong_pos</span> <span class="op">=</span> <span class="ident">Rectangle::uninitialized</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">weak_pos</span> <span class="op">=</span> <span class="ident">Rectangle::uninitialized</span>();
+            <span class="ident">ffi::pango_layout_get_cursor_pos</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">index_</span>,
                 <span class="ident">strong_pos</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
@@ -1332,7 +1332,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_get_direction&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_direction</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">index</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Direction</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">pango_layout_get_direction</span>(
+            <span class="ident">from_glib</span>(<span class="ident">ffi::pango_layout_get_direction</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">index</span>,
             ))
@@ -1350,7 +1350,7 @@
     <span class="doccomment">/// were actually ellipsized.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_get_ellipsize&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_ellipsize</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">EllipsizeMode</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">pango_layout_get_ellipsize</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::pango_layout_get_ellipsize</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Computes the logical and ink extents of `self`. Logical extents</span>
@@ -1373,9 +1373,9 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_get_extents&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_extents</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">Rectangle</span>, <span class="ident">Rectangle</span>) {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ink_rect</span> <span class="op">=</span> <span class="ident">Rectangle</span>::<span class="ident">uninitialized</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">logical_rect</span> <span class="op">=</span> <span class="ident">Rectangle</span>::<span class="ident">uninitialized</span>();
-            <span class="ident">ffi</span>::<span class="ident">pango_layout_get_extents</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ink_rect</span> <span class="op">=</span> <span class="ident">Rectangle::uninitialized</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">logical_rect</span> <span class="op">=</span> <span class="ident">Rectangle::uninitialized</span>();
+            <span class="ident">ffi::pango_layout_get_extents</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">ink_rect</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
                 <span class="ident">logical_rect</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
@@ -1395,7 +1395,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_get_font_description&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_font_description</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">FontDescription</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">pango_layout_get_font_description</span>(
+            <span class="ident">from_glib_none</span>(<span class="ident">ffi::pango_layout_get_font_description</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
         }
@@ -1410,7 +1410,7 @@
     <span class="doccomment">/// number of lines if negative.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_get_height&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_height</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">pango_layout_get_height</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::pango_layout_get_height</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Gets the paragraph indent width in Pango units. A negative value</span>
@@ -1421,7 +1421,7 @@
     <span class="doccomment">/// the indent in Pango units.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_get_indent&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_indent</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">pango_layout_get_indent</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::pango_layout_get_indent</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Returns an iterator to iterate over the visual extents of the layout.</span>
@@ -1432,7 +1432,7 @@
     <span class="doccomment">///  `LayoutIter::free`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_get_iter&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_iter</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">LayoutIter</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">pango_layout_get_iter</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::pango_layout_get_iter</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Gets whether each complete line should be stretched to fill the entire</span>
@@ -1443,7 +1443,7 @@
     <span class="doccomment">/// the justify.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_get_justify&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_justify</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">pango_layout_get_justify</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::pango_layout_get_justify</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Retrieves a particular line from a `Layout`.</span>
@@ -1463,7 +1463,7 @@
     <span class="doccomment">///  `Layout`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_get_line&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_line</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">line</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">LayoutLine</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">pango_layout_get_line</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">line</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::pango_layout_get_line</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">line</span>)) }
     }
 
     <span class="doccomment">/// Retrieves the count of lines for the `self`.</span>
@@ -1473,7 +1473,7 @@
     <span class="doccomment">/// the line count.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_get_line_count&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_line_count</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">pango_layout_get_line_count</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::pango_layout_get_line_count</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Retrieves a particular line from a `Layout`.</span>
@@ -1495,7 +1495,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_get_line_readonly&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_line_readonly</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">line</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">LayoutLine</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">pango_layout_get_line_readonly</span>(
+            <span class="ident">from_glib_none</span>(<span class="ident">ffi::pango_layout_get_line_readonly</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">line</span>,
             ))
@@ -1511,7 +1511,7 @@
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v1_44&quot;</span>)))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_get_line_spacing&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_line_spacing</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f32</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">pango_layout_get_line_spacing</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::pango_layout_get_line_spacing</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Returns the lines of the `self` as a list.</span>
@@ -1528,7 +1528,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_get_lines&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_lines</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">LayoutLine</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">FromGlibPtrContainer</span>::<span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">pango_layout_get_lines</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>))
+            <span class="ident">FromGlibPtrContainer::from_glib_none</span>(<span class="ident">ffi::pango_layout_get_lines</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>))
         }
     }
 
@@ -1547,7 +1547,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_get_lines_readonly&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_lines_readonly</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">LayoutLine</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">FromGlibPtrContainer</span>::<span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">pango_layout_get_lines_readonly</span>(
+            <span class="ident">FromGlibPtrContainer::from_glib_none</span>(<span class="ident">ffi::pango_layout_get_lines_readonly</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
         }
@@ -1579,9 +1579,9 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_get_pixel_extents&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_pixel_extents</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">Rectangle</span>, <span class="ident">Rectangle</span>) {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ink_rect</span> <span class="op">=</span> <span class="ident">Rectangle</span>::<span class="ident">uninitialized</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">logical_rect</span> <span class="op">=</span> <span class="ident">Rectangle</span>::<span class="ident">uninitialized</span>();
-            <span class="ident">ffi</span>::<span class="ident">pango_layout_get_pixel_extents</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ink_rect</span> <span class="op">=</span> <span class="ident">Rectangle::uninitialized</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">logical_rect</span> <span class="op">=</span> <span class="ident">Rectangle::uninitialized</span>();
+            <span class="ident">ffi::pango_layout_get_pixel_extents</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">ink_rect</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
                 <span class="ident">logical_rect</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
@@ -1602,9 +1602,9 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_get_pixel_size&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_pixel_size</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">i32</span>, <span class="ident">i32</span>) {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">width</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">height</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
-            <span class="ident">ffi</span>::<span class="ident">pango_layout_get_pixel_size</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">width</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">height</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
+            <span class="ident">ffi::pango_layout_get_pixel_size</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">width</span>.<span class="ident">as_mut_ptr</span>(),
                 <span class="ident">height</span>.<span class="ident">as_mut_ptr</span>(),
@@ -1631,7 +1631,7 @@
     <span class="doccomment">/// The current serial number of `self`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_get_serial&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_serial</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">pango_layout_get_serial</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::pango_layout_get_serial</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Obtains the value set by `Layout::set_single_paragraph_mode`.</span>
@@ -1643,7 +1643,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_get_single_paragraph_mode&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_single_paragraph_mode</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">pango_layout_get_single_paragraph_mode</span>(
+            <span class="ident">from_glib</span>(<span class="ident">ffi::pango_layout_get_single_paragraph_mode</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
         }
@@ -1659,9 +1659,9 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_get_size&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_size</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">i32</span>, <span class="ident">i32</span>) {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">width</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">height</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
-            <span class="ident">ffi</span>::<span class="ident">pango_layout_get_size</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">width</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">height</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
+            <span class="ident">ffi::pango_layout_get_size</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">width</span>.<span class="ident">as_mut_ptr</span>(),
                 <span class="ident">height</span>.<span class="ident">as_mut_ptr</span>(),
@@ -1679,7 +1679,7 @@
     <span class="doccomment">/// the spacing in Pango units.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_get_spacing&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_spacing</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">pango_layout_get_spacing</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::pango_layout_get_spacing</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Gets the current `TabArray` used by this layout. If no</span>
@@ -1693,7 +1693,7 @@
     <span class="doccomment">/// `None`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_get_tabs&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_tabs</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TabArray</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">pango_layout_get_tabs</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::pango_layout_get_tabs</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Gets the text in the layout. The returned text should not</span>
@@ -1703,8 +1703,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// the text in the `self`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_get_text&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_text</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">GString</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">pango_layout_get_text</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_text</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span> {
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::pango_layout_get_text</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Counts the number unknown glyphs in `self`. That is, zero if</span>
@@ -1721,7 +1721,7 @@
     <span class="doccomment">/// The number of unknown glyphs in `self`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_get_unknown_glyphs_count&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_unknown_glyphs_count</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">pango_layout_get_unknown_glyphs_count</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::pango_layout_get_unknown_glyphs_count</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Gets the width to which the lines of the `Layout` should wrap.</span>
@@ -1731,7 +1731,7 @@
     <span class="doccomment">/// the width in Pango units, or -1 if no width set.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_get_width&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_width</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">pango_layout_get_width</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::pango_layout_get_width</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Gets the wrap mode for the layout.</span>
@@ -1744,7 +1744,7 @@
     <span class="doccomment">/// active wrap mode.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_get_wrap&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_wrap</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WrapMode</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">pango_layout_get_wrap</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::pango_layout_get_wrap</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Converts from byte `index_` within the `self` to line and X position.</span>
@@ -1764,9 +1764,9 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_index_to_line_x&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">index_to_line_x</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">index_</span>: <span class="ident">i32</span>, <span class="ident">trailing</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">i32</span>, <span class="ident">i32</span>) {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">line</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">x_pos</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
-            <span class="ident">ffi</span>::<span class="ident">pango_layout_index_to_line_x</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">line</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">x_pos</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
+            <span class="ident">ffi::pango_layout_index_to_line_x</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">index_</span>,
                 <span class="ident">trailing</span>.<span class="ident">to_glib</span>(),
@@ -1792,8 +1792,8 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_index_to_pos&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">index_to_pos</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">index_</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Rectangle</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">pos</span> <span class="op">=</span> <span class="ident">Rectangle</span>::<span class="ident">uninitialized</span>();
-            <span class="ident">ffi</span>::<span class="ident">pango_layout_index_to_pos</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">index_</span>, <span class="ident">pos</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>);
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">pos</span> <span class="op">=</span> <span class="ident">Rectangle::uninitialized</span>();
+            <span class="ident">ffi::pango_layout_index_to_pos</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">index_</span>, <span class="ident">pos</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>);
             <span class="ident">pos</span>
         }
     }
@@ -1811,7 +1811,7 @@
     <span class="doccomment">/// otherwise.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_is_ellipsized&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_ellipsized</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">pango_layout_is_ellipsized</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::pango_layout_is_ellipsized</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Queries whether the layout had to wrap any paragraphs.</span>
@@ -1827,7 +1827,7 @@
     <span class="doccomment">/// otherwise.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_is_wrapped&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_wrapped</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">pango_layout_is_wrapped</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::pango_layout_is_wrapped</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Computes a new cursor position from an old position and</span>
@@ -1881,9 +1881,9 @@
         <span class="ident">direction</span>: <span class="ident">i32</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">i32</span>, <span class="ident">i32</span>) {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">new_index</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">new_trailing</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
-            <span class="ident">ffi</span>::<span class="ident">pango_layout_move_cursor_visually</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">new_index</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">new_trailing</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
+            <span class="ident">ffi::pango_layout_move_cursor_visually</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">strong</span>.<span class="ident">to_glib</span>(),
                 <span class="ident">old_index</span>,
@@ -1905,7 +1905,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_set_alignment&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_alignment</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">alignment</span>: <span class="ident">Alignment</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">pango_layout_set_alignment</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">alignment</span>.<span class="ident">to_glib</span>());
+            <span class="ident">ffi::pango_layout_set_alignment</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">alignment</span>.<span class="ident">to_glib</span>());
         }
     }
 
@@ -1916,7 +1916,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_set_attributes&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_attributes</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">attrs</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">AttrList</span><span class="op">&gt;</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">pango_layout_set_attributes</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">attrs</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+            <span class="ident">ffi::pango_layout_set_attributes</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">attrs</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
         }
     }
 
@@ -1942,7 +1942,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_set_auto_dir&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_auto_dir</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">auto_dir</span>: <span class="ident">bool</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">pango_layout_set_auto_dir</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">auto_dir</span>.<span class="ident">to_glib</span>());
+            <span class="ident">ffi::pango_layout_set_auto_dir</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">auto_dir</span>.<span class="ident">to_glib</span>());
         }
     }
 
@@ -1962,7 +1962,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_set_ellipsize&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_ellipsize</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">ellipsize</span>: <span class="ident">EllipsizeMode</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">pango_layout_set_ellipsize</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">ellipsize</span>.<span class="ident">to_glib</span>());
+            <span class="ident">ffi::pango_layout_set_ellipsize</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">ellipsize</span>.<span class="ident">to_glib</span>());
         }
     }
 
@@ -1975,7 +1975,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_set_font_description&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_font_description</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">desc</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">FontDescription</span><span class="op">&gt;</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">pango_layout_set_font_description</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">desc</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+            <span class="ident">ffi::pango_layout_set_font_description</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">desc</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
         }
     }
 
@@ -2009,7 +2009,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_set_height&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_height</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">height</span>: <span class="ident">i32</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">pango_layout_set_height</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">height</span>);
+            <span class="ident">ffi::pango_layout_set_height</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">height</span>);
         }
     }
 
@@ -2025,7 +2025,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_set_indent&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_indent</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">indent</span>: <span class="ident">i32</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">pango_layout_set_indent</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">indent</span>);
+            <span class="ident">ffi::pango_layout_set_indent</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">indent</span>);
         }
     }
 
@@ -2042,7 +2042,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_set_justify&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_justify</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">justify</span>: <span class="ident">bool</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">pango_layout_set_justify</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">justify</span>.<span class="ident">to_glib</span>());
+            <span class="ident">ffi::pango_layout_set_justify</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">justify</span>.<span class="ident">to_glib</span>());
         }
     }
 
@@ -2072,7 +2072,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_set_line_spacing&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_line_spacing</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">factor</span>: <span class="ident">f32</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">pango_layout_set_line_spacing</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">factor</span>);
+            <span class="ident">ffi::pango_layout_set_line_spacing</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">factor</span>);
         }
     }
 
@@ -2087,7 +2087,7 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_markup</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">markup</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) {
         <span class="kw">let</span> <span class="ident">length</span> <span class="op">=</span> <span class="ident">markup</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">i32</span>;
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">pango_layout_set_markup</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">markup</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">length</span>);
+            <span class="ident">ffi::pango_layout_set_markup</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">markup</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">length</span>);
         }
     }
 
@@ -2117,8 +2117,8 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_markup_with_accel</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">markup</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">accel_marker</span>: <span class="ident">char</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">char</span> {
         <span class="kw">let</span> <span class="ident">length</span> <span class="op">=</span> <span class="ident">markup</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">i32</span>;
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">accel_char</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
-            <span class="ident">ffi</span>::<span class="ident">pango_layout_set_markup_with_accel</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">accel_char</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
+            <span class="ident">ffi::pango_layout_set_markup_with_accel</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">markup</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">length</span>,
@@ -2126,7 +2126,7 @@
                 <span class="ident">accel_char</span>.<span class="ident">as_mut_ptr</span>(),
             );
             <span class="kw">let</span> <span class="ident">accel_char</span> <span class="op">=</span> <span class="ident">accel_char</span>.<span class="ident">assume_init</span>();
-            <span class="ident">std</span>::<span class="ident">convert</span>::<span class="ident">TryFrom</span>::<span class="ident">try_from</span>(<span class="ident">accel_char</span>)
+            <span class="ident">std::convert::TryFrom::try_from</span>(<span class="ident">accel_char</span>)
                 .<span class="ident">expect</span>(<span class="string">&quot;conversion from an invalid Unicode value attempted&quot;</span>)
         }
     }
@@ -2140,7 +2140,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_set_single_paragraph_mode&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_single_paragraph_mode</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">setting</span>: <span class="ident">bool</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">pango_layout_set_single_paragraph_mode</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">setting</span>.<span class="ident">to_glib</span>());
+            <span class="ident">ffi::pango_layout_set_single_paragraph_mode</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">setting</span>.<span class="ident">to_glib</span>());
         }
     }
 
@@ -2160,7 +2160,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_set_spacing&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_spacing</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">spacing</span>: <span class="ident">i32</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">pango_layout_set_spacing</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">spacing</span>);
+            <span class="ident">ffi::pango_layout_set_spacing</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">spacing</span>);
         }
     }
 
@@ -2173,7 +2173,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_set_tabs&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_tabs</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tabs</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">TabArray</span><span class="op">&gt;</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">pango_layout_set_tabs</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">mut_override</span>(<span class="ident">tabs</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>));
+            <span class="ident">ffi::pango_layout_set_tabs</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">mut_override</span>(<span class="ident">tabs</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>));
         }
     }
 
@@ -2199,7 +2199,7 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_text</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">text</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) {
         <span class="kw">let</span> <span class="ident">length</span> <span class="op">=</span> <span class="ident">text</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">i32</span>;
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">pango_layout_set_text</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">text</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">length</span>);
+            <span class="ident">ffi::pango_layout_set_text</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">text</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">length</span>);
         }
     }
 
@@ -2211,7 +2211,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_set_width&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_width</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">width</span>: <span class="ident">i32</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">pango_layout_set_width</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">width</span>);
+            <span class="ident">ffi::pango_layout_set_width</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">width</span>);
         }
     }
 
@@ -2223,7 +2223,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_set_wrap&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_wrap</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">wrap</span>: <span class="ident">WrapMode</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">pango_layout_set_wrap</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">wrap</span>.<span class="ident">to_glib</span>());
+            <span class="ident">ffi::pango_layout_set_wrap</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">wrap</span>.<span class="ident">to_glib</span>());
         }
     }
 
@@ -2255,9 +2255,9 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_xy_to_index&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">xy_to_index</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">x</span>: <span class="ident">i32</span>, <span class="ident">y</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">bool</span>, <span class="ident">i32</span>, <span class="ident">i32</span>) {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">index_</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">trailing</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
-            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">pango_layout_xy_to_index</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">index_</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">trailing</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
+            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">from_glib</span>(<span class="ident">ffi::pango_layout_xy_to_index</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">x</span>,
                 <span class="ident">y</span>,
@@ -2271,8 +2271,8 @@
     }
 }
 
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">Layout</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">Layout</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Layout&quot;</span>)
     }
 }

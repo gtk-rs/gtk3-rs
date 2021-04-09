@@ -719,23 +719,23 @@
 <span class="comment">// from gir-files (https://github.com/gtk-rs/gir-files)</span>
 <span class="comment">// DO NOT EDIT</span>
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Buildable</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Container</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">DirectionType</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">MenuDirectionType</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">MenuItem</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Widget</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">object</span>::<span class="ident">Cast</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">object</span>::<span class="ident">IsA</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">object</span>::<span class="ident">ObjectExt</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">signal</span>::<span class="ident">connect_raw</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">signal</span>::<span class="ident">SignalHandlerId</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">boxed</span>::<span class="ident">Box</span> <span class="kw">as</span> <span class="ident">Box_</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>::<span class="ident">transmute</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Buildable</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Container</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::DirectionType</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::MenuDirectionType</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::MenuItem</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Widget</span>;
+<span class="kw">use</span> <span class="ident">glib::object::Cast</span>;
+<span class="kw">use</span> <span class="ident">glib::object::IsA</span>;
+<span class="kw">use</span> <span class="ident">glib::object::ObjectExt</span>;
+<span class="kw">use</span> <span class="ident">glib::signal::connect_raw</span>;
+<span class="kw">use</span> <span class="ident">glib::signal::SignalHandlerId</span>;
+<span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">std::boxed::Box</span> <span class="kw">as</span> <span class="ident">Box_</span>;
+<span class="kw">use</span> <span class="ident">std::fmt</span>;
+<span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
-<span class="ident">glib</span>::<span class="macro">wrapper!</span> {
+<span class="macro">glib::wrapper!</span> {
     <span class="doccomment">/// A `MenuShell` is the abstract base class used to derive the</span>
     <span class="doccomment">/// `Menu` and `MenuBar` subclasses.</span>
     <span class="doccomment">///</span>
@@ -767,10 +767,10 @@
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`MenuShellExt`](trait.MenuShellExt.html), [`ContainerExt`](trait.ContainerExt.html), [`WidgetExt`](trait.WidgetExt.html), [`glib::object::ObjectExt`](../glib/object/trait.ObjectExt.html), [`BuildableExt`](trait.BuildableExt.html), [`WidgetExtManual`](prelude/trait.WidgetExtManual.html), [`BuildableExtManual`](prelude/trait.BuildableExtManual.html)</span>
-    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MenuShell</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GtkMenuShell</span>, <span class="ident">ffi</span>::<span class="ident">GtkMenuShellClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>;
+    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MenuShell</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkMenuShell</span>, <span class="ident">ffi::GtkMenuShellClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
-        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">gtk_menu_shell_get_type</span>(),
+        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::gtk_menu_shell_get_type</span>(),
     }
 }
 
@@ -840,7 +840,7 @@
     <span class="doccomment">/// `true` if toplevel items in `shell` should have</span>
     <span class="doccomment">///  separators between them</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_menu_shell_bind_model&quot;</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">bind_model</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">gio</span>::<span class="ident">MenuModel</span><span class="op">&gt;</span><span class="op">&gt;</span>(
+    <span class="kw">fn</span> <span class="ident">bind_model</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">gio::MenuModel</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">model</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>,
         <span class="ident">action_namespace</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>,
@@ -1013,7 +1013,7 @@
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// `true` to stop the signal emission, `false` to continue</span>
-    <span class="kw">fn</span> <span class="ident">connect_move_selected</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib</span>::<span class="ident">signal</span>::<span class="ident">Inhibit</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
+    <span class="kw">fn</span> <span class="ident">connect_move_selected</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::signal::Inhibit</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">f</span>: <span class="ident">F</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;
@@ -1028,7 +1028,7 @@
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">O</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">MenuShell</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="ident">MenuShellExt</span> <span class="kw">for</span> <span class="ident">O</span> {
     <span class="kw">fn</span> <span class="ident">activate_item</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">menu_item</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>, <span class="ident">force_deactivate</span>: <span class="ident">bool</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">gtk_menu_shell_activate_item</span>(
+            <span class="ident">ffi::gtk_menu_shell_activate_item</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">menu_item</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">force_deactivate</span>.<span class="ident">to_glib</span>(),
@@ -1038,21 +1038,21 @@
 
     <span class="kw">fn</span> <span class="ident">append</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">MenuItem</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">child</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">gtk_menu_shell_append</span>(
+            <span class="ident">ffi::gtk_menu_shell_append</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">child</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             );
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">bind_model</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">gio</span>::<span class="ident">MenuModel</span><span class="op">&gt;</span><span class="op">&gt;</span>(
+    <span class="kw">fn</span> <span class="ident">bind_model</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">gio::MenuModel</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">model</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>,
         <span class="ident">action_namespace</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>,
         <span class="ident">with_separators</span>: <span class="ident">bool</span>,
     ) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">gtk_menu_shell_bind_model</span>(
+            <span class="ident">ffi::gtk_menu_shell_bind_model</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">model</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> <span class="ident">p</span>.<span class="ident">as_ref</span>()).<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">action_namespace</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -1063,25 +1063,25 @@
 
     <span class="kw">fn</span> <span class="ident">cancel</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">gtk_menu_shell_cancel</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+            <span class="ident">ffi::gtk_menu_shell_cancel</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>);
         }
     }
 
     <span class="kw">fn</span> <span class="ident">deactivate</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">gtk_menu_shell_deactivate</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+            <span class="ident">ffi::gtk_menu_shell_deactivate</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>);
         }
     }
 
     <span class="kw">fn</span> <span class="ident">deselect</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">gtk_menu_shell_deselect</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+            <span class="ident">ffi::gtk_menu_shell_deselect</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>);
         }
     }
 
     <span class="kw">fn</span> <span class="ident">get_parent_shell</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">gtk_menu_shell_get_parent_shell</span>(
+            <span class="ident">from_glib_none</span>(<span class="ident">ffi::gtk_menu_shell_get_parent_shell</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
         }
@@ -1089,7 +1089,7 @@
 
     <span class="kw">fn</span> <span class="ident">get_selected_item</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">gtk_menu_shell_get_selected_item</span>(
+            <span class="ident">from_glib_none</span>(<span class="ident">ffi::gtk_menu_shell_get_selected_item</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
         }
@@ -1097,7 +1097,7 @@
 
     <span class="kw">fn</span> <span class="ident">get_take_focus</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">gtk_menu_shell_get_take_focus</span>(
+            <span class="ident">from_glib</span>(<span class="ident">ffi::gtk_menu_shell_get_take_focus</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
         }
@@ -1105,7 +1105,7 @@
 
     <span class="kw">fn</span> <span class="ident">insert</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">child</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>, <span class="ident">position</span>: <span class="ident">i32</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">gtk_menu_shell_insert</span>(
+            <span class="ident">ffi::gtk_menu_shell_insert</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">child</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">position</span>,
@@ -1115,7 +1115,7 @@
 
     <span class="kw">fn</span> <span class="ident">prepend</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">child</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">gtk_menu_shell_prepend</span>(
+            <span class="ident">ffi::gtk_menu_shell_prepend</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">child</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             );
@@ -1124,7 +1124,7 @@
 
     <span class="kw">fn</span> <span class="ident">select_first</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">search_sensitive</span>: <span class="ident">bool</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">gtk_menu_shell_select_first</span>(
+            <span class="ident">ffi::gtk_menu_shell_select_first</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">search_sensitive</span>.<span class="ident">to_glib</span>(),
             );
@@ -1133,7 +1133,7 @@
 
     <span class="kw">fn</span> <span class="ident">select_item</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">menu_item</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">gtk_menu_shell_select_item</span>(
+            <span class="ident">ffi::gtk_menu_shell_select_item</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">menu_item</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             );
@@ -1142,7 +1142,7 @@
 
     <span class="kw">fn</span> <span class="ident">set_take_focus</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">take_focus</span>: <span class="ident">bool</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">gtk_menu_shell_set_take_focus</span>(
+            <span class="ident">ffi::gtk_menu_shell_set_take_focus</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">take_focus</span>.<span class="ident">to_glib</span>(),
             );
@@ -1151,34 +1151,34 @@
 
     <span class="kw">fn</span> <span class="ident">connect_activate_current</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="ident">bool</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span> {
         <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">activate_current_trampoline</span><span class="op">&lt;</span><span class="ident">P</span>, <span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">P</span>, <span class="ident">bool</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
-            <span class="ident">this</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GtkMenuShell</span>,
-            <span class="ident">force_hide</span>: <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">gboolean</span>,
-            <span class="ident">f</span>: <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">gpointer</span>,
+            <span class="ident">this</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::GtkMenuShell</span>,
+            <span class="ident">force_hide</span>: <span class="ident">glib::ffi::gboolean</span>,
+            <span class="ident">f</span>: <span class="ident">glib::ffi::gpointer</span>,
         ) <span class="kw">where</span>
             <span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">MenuShell</span><span class="op">&gt;</span>,
         {
             <span class="kw">let</span> <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="ident">F</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">f</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">F</span>);
             <span class="ident">f</span>(
-                <span class="kw-2">&amp;</span><span class="ident">MenuShell</span>::<span class="ident">from_glib_borrow</span>(<span class="ident">this</span>).<span class="ident">unsafe_cast_ref</span>(),
+                <span class="kw-2">&amp;</span><span class="ident">MenuShell::from_glib_borrow</span>(<span class="ident">this</span>).<span class="ident">unsafe_cast_ref</span>(),
                 <span class="ident">from_glib</span>(<span class="ident">force_hide</span>),
             )
         }
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">f</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_</span>::<span class="ident">new</span>(<span class="ident">f</span>);
+            <span class="kw">let</span> <span class="ident">f</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_::new</span>(<span class="ident">f</span>);
             <span class="ident">connect_raw</span>(
                 <span class="self">self</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
                 <span class="string">b&quot;activate-current\0&quot;</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(<span class="ident">transmute</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span>()<span class="op">&gt;</span>(
                     <span class="ident">activate_current_trampoline</span>::<span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">F</span><span class="op">&gt;</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> (),
                 )),
-                <span class="ident">Box_</span>::<span class="ident">into_raw</span>(<span class="ident">f</span>),
+                <span class="ident">Box_::into_raw</span>(<span class="ident">f</span>),
             )
         }
     }
 
     <span class="kw">fn</span> <span class="ident">emit_activate_current</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">force_hide</span>: <span class="ident">bool</span>) {
         <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="kw">unsafe</span> {
-            <span class="ident">glib</span>::<span class="ident">Object</span>::<span class="ident">from_glib_borrow</span>(<span class="self">self</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">GObject</span>)
+            <span class="ident">glib::Object::from_glib_borrow</span>(<span class="self">self</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib::gobject_ffi::GObject</span>)
                 .<span class="ident">emit_by_name</span>(<span class="string">&quot;activate-current&quot;</span>, <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span><span class="ident">force_hide</span>])
                 .<span class="ident">unwrap</span>()
         };
@@ -1186,30 +1186,30 @@
 
     <span class="kw">fn</span> <span class="ident">connect_cancel</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span> {
         <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">cancel_trampoline</span><span class="op">&lt;</span><span class="ident">P</span>, <span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">P</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
-            <span class="ident">this</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GtkMenuShell</span>,
-            <span class="ident">f</span>: <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">gpointer</span>,
+            <span class="ident">this</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::GtkMenuShell</span>,
+            <span class="ident">f</span>: <span class="ident">glib::ffi::gpointer</span>,
         ) <span class="kw">where</span>
             <span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">MenuShell</span><span class="op">&gt;</span>,
         {
             <span class="kw">let</span> <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="ident">F</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">f</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">F</span>);
-            <span class="ident">f</span>(<span class="kw-2">&amp;</span><span class="ident">MenuShell</span>::<span class="ident">from_glib_borrow</span>(<span class="ident">this</span>).<span class="ident">unsafe_cast_ref</span>())
+            <span class="ident">f</span>(<span class="kw-2">&amp;</span><span class="ident">MenuShell::from_glib_borrow</span>(<span class="ident">this</span>).<span class="ident">unsafe_cast_ref</span>())
         }
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">f</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_</span>::<span class="ident">new</span>(<span class="ident">f</span>);
+            <span class="kw">let</span> <span class="ident">f</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_::new</span>(<span class="ident">f</span>);
             <span class="ident">connect_raw</span>(
                 <span class="self">self</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
                 <span class="string">b&quot;cancel\0&quot;</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(<span class="ident">transmute</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span>()<span class="op">&gt;</span>(
                     <span class="ident">cancel_trampoline</span>::<span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">F</span><span class="op">&gt;</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> (),
                 )),
-                <span class="ident">Box_</span>::<span class="ident">into_raw</span>(<span class="ident">f</span>),
+                <span class="ident">Box_::into_raw</span>(<span class="ident">f</span>),
             )
         }
     }
 
     <span class="kw">fn</span> <span class="ident">emit_cancel</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="kw">unsafe</span> {
-            <span class="ident">glib</span>::<span class="ident">Object</span>::<span class="ident">from_glib_borrow</span>(<span class="self">self</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">GObject</span>)
+            <span class="ident">glib::Object::from_glib_borrow</span>(<span class="self">self</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib::gobject_ffi::GObject</span>)
                 .<span class="ident">emit_by_name</span>(<span class="string">&quot;cancel&quot;</span>, <span class="kw-2">&amp;</span>[])
                 .<span class="ident">unwrap</span>()
         };
@@ -1217,34 +1217,34 @@
 
     <span class="kw">fn</span> <span class="ident">connect_cycle_focus</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="ident">DirectionType</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span> {
         <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">cycle_focus_trampoline</span><span class="op">&lt;</span><span class="ident">P</span>, <span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">P</span>, <span class="ident">DirectionType</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
-            <span class="ident">this</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GtkMenuShell</span>,
-            <span class="ident">direction</span>: <span class="ident">ffi</span>::<span class="ident">GtkDirectionType</span>,
-            <span class="ident">f</span>: <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">gpointer</span>,
+            <span class="ident">this</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::GtkMenuShell</span>,
+            <span class="ident">direction</span>: <span class="ident">ffi::GtkDirectionType</span>,
+            <span class="ident">f</span>: <span class="ident">glib::ffi::gpointer</span>,
         ) <span class="kw">where</span>
             <span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">MenuShell</span><span class="op">&gt;</span>,
         {
             <span class="kw">let</span> <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="ident">F</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">f</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">F</span>);
             <span class="ident">f</span>(
-                <span class="kw-2">&amp;</span><span class="ident">MenuShell</span>::<span class="ident">from_glib_borrow</span>(<span class="ident">this</span>).<span class="ident">unsafe_cast_ref</span>(),
+                <span class="kw-2">&amp;</span><span class="ident">MenuShell::from_glib_borrow</span>(<span class="ident">this</span>).<span class="ident">unsafe_cast_ref</span>(),
                 <span class="ident">from_glib</span>(<span class="ident">direction</span>),
             )
         }
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">f</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_</span>::<span class="ident">new</span>(<span class="ident">f</span>);
+            <span class="kw">let</span> <span class="ident">f</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_::new</span>(<span class="ident">f</span>);
             <span class="ident">connect_raw</span>(
                 <span class="self">self</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
                 <span class="string">b&quot;cycle-focus\0&quot;</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(<span class="ident">transmute</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span>()<span class="op">&gt;</span>(
                     <span class="ident">cycle_focus_trampoline</span>::<span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">F</span><span class="op">&gt;</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> (),
                 )),
-                <span class="ident">Box_</span>::<span class="ident">into_raw</span>(<span class="ident">f</span>),
+                <span class="ident">Box_::into_raw</span>(<span class="ident">f</span>),
             )
         }
     }
 
     <span class="kw">fn</span> <span class="ident">emit_cycle_focus</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">direction</span>: <span class="ident">DirectionType</span>) {
         <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="kw">unsafe</span> {
-            <span class="ident">glib</span>::<span class="ident">Object</span>::<span class="ident">from_glib_borrow</span>(<span class="self">self</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">GObject</span>)
+            <span class="ident">glib::Object::from_glib_borrow</span>(<span class="self">self</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib::gobject_ffi::GObject</span>)
                 .<span class="ident">emit_by_name</span>(<span class="string">&quot;cycle-focus&quot;</span>, <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span><span class="ident">direction</span>])
                 .<span class="ident">unwrap</span>()
         };
@@ -1252,52 +1252,52 @@
 
     <span class="kw">fn</span> <span class="ident">connect_deactivate</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span> {
         <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">deactivate_trampoline</span><span class="op">&lt;</span><span class="ident">P</span>, <span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">P</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
-            <span class="ident">this</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GtkMenuShell</span>,
-            <span class="ident">f</span>: <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">gpointer</span>,
+            <span class="ident">this</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::GtkMenuShell</span>,
+            <span class="ident">f</span>: <span class="ident">glib::ffi::gpointer</span>,
         ) <span class="kw">where</span>
             <span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">MenuShell</span><span class="op">&gt;</span>,
         {
             <span class="kw">let</span> <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="ident">F</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">f</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">F</span>);
-            <span class="ident">f</span>(<span class="kw-2">&amp;</span><span class="ident">MenuShell</span>::<span class="ident">from_glib_borrow</span>(<span class="ident">this</span>).<span class="ident">unsafe_cast_ref</span>())
+            <span class="ident">f</span>(<span class="kw-2">&amp;</span><span class="ident">MenuShell::from_glib_borrow</span>(<span class="ident">this</span>).<span class="ident">unsafe_cast_ref</span>())
         }
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">f</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_</span>::<span class="ident">new</span>(<span class="ident">f</span>);
+            <span class="kw">let</span> <span class="ident">f</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_::new</span>(<span class="ident">f</span>);
             <span class="ident">connect_raw</span>(
                 <span class="self">self</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
                 <span class="string">b&quot;deactivate\0&quot;</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(<span class="ident">transmute</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span>()<span class="op">&gt;</span>(
                     <span class="ident">deactivate_trampoline</span>::<span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">F</span><span class="op">&gt;</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> (),
                 )),
-                <span class="ident">Box_</span>::<span class="ident">into_raw</span>(<span class="ident">f</span>),
+                <span class="ident">Box_::into_raw</span>(<span class="ident">f</span>),
             )
         }
     }
 
     <span class="kw">fn</span> <span class="ident">connect_insert</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span><span class="ident">Widget</span>, <span class="ident">i32</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span> {
         <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">insert_trampoline</span><span class="op">&lt;</span><span class="ident">P</span>, <span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">P</span>, <span class="kw-2">&amp;</span><span class="ident">Widget</span>, <span class="ident">i32</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
-            <span class="ident">this</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GtkMenuShell</span>,
-            <span class="ident">child</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GtkWidget</span>,
-            <span class="ident">position</span>: <span class="ident">libc</span>::<span class="ident">c_int</span>,
-            <span class="ident">f</span>: <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">gpointer</span>,
+            <span class="ident">this</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::GtkMenuShell</span>,
+            <span class="ident">child</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::GtkWidget</span>,
+            <span class="ident">position</span>: <span class="ident">libc::c_int</span>,
+            <span class="ident">f</span>: <span class="ident">glib::ffi::gpointer</span>,
         ) <span class="kw">where</span>
             <span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">MenuShell</span><span class="op">&gt;</span>,
         {
             <span class="kw">let</span> <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="ident">F</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">f</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">F</span>);
             <span class="ident">f</span>(
-                <span class="kw-2">&amp;</span><span class="ident">MenuShell</span>::<span class="ident">from_glib_borrow</span>(<span class="ident">this</span>).<span class="ident">unsafe_cast_ref</span>(),
+                <span class="kw-2">&amp;</span><span class="ident">MenuShell::from_glib_borrow</span>(<span class="ident">this</span>).<span class="ident">unsafe_cast_ref</span>(),
                 <span class="kw-2">&amp;</span><span class="ident">from_glib_borrow</span>(<span class="ident">child</span>),
                 <span class="ident">position</span>,
             )
         }
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">f</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_</span>::<span class="ident">new</span>(<span class="ident">f</span>);
+            <span class="kw">let</span> <span class="ident">f</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_::new</span>(<span class="ident">f</span>);
             <span class="ident">connect_raw</span>(
                 <span class="self">self</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
                 <span class="string">b&quot;insert\0&quot;</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(<span class="ident">transmute</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span>()<span class="op">&gt;</span>(
                     <span class="ident">insert_trampoline</span>::<span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">F</span><span class="op">&gt;</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> (),
                 )),
-                <span class="ident">Box_</span>::<span class="ident">into_raw</span>(<span class="ident">f</span>),
+                <span class="ident">Box_::into_raw</span>(<span class="ident">f</span>),
             )
         }
     }
@@ -1307,124 +1307,124 @@
         <span class="ident">f</span>: <span class="ident">F</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span> {
         <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">move_current_trampoline</span><span class="op">&lt;</span><span class="ident">P</span>, <span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">P</span>, <span class="ident">MenuDirectionType</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
-            <span class="ident">this</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GtkMenuShell</span>,
-            <span class="ident">direction</span>: <span class="ident">ffi</span>::<span class="ident">GtkMenuDirectionType</span>,
-            <span class="ident">f</span>: <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">gpointer</span>,
+            <span class="ident">this</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::GtkMenuShell</span>,
+            <span class="ident">direction</span>: <span class="ident">ffi::GtkMenuDirectionType</span>,
+            <span class="ident">f</span>: <span class="ident">glib::ffi::gpointer</span>,
         ) <span class="kw">where</span>
             <span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">MenuShell</span><span class="op">&gt;</span>,
         {
             <span class="kw">let</span> <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="ident">F</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">f</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">F</span>);
             <span class="ident">f</span>(
-                <span class="kw-2">&amp;</span><span class="ident">MenuShell</span>::<span class="ident">from_glib_borrow</span>(<span class="ident">this</span>).<span class="ident">unsafe_cast_ref</span>(),
+                <span class="kw-2">&amp;</span><span class="ident">MenuShell::from_glib_borrow</span>(<span class="ident">this</span>).<span class="ident">unsafe_cast_ref</span>(),
                 <span class="ident">from_glib</span>(<span class="ident">direction</span>),
             )
         }
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">f</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_</span>::<span class="ident">new</span>(<span class="ident">f</span>);
+            <span class="kw">let</span> <span class="ident">f</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_::new</span>(<span class="ident">f</span>);
             <span class="ident">connect_raw</span>(
                 <span class="self">self</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
                 <span class="string">b&quot;move-current\0&quot;</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(<span class="ident">transmute</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span>()<span class="op">&gt;</span>(
                     <span class="ident">move_current_trampoline</span>::<span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">F</span><span class="op">&gt;</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> (),
                 )),
-                <span class="ident">Box_</span>::<span class="ident">into_raw</span>(<span class="ident">f</span>),
+                <span class="ident">Box_::into_raw</span>(<span class="ident">f</span>),
             )
         }
     }
 
     <span class="kw">fn</span> <span class="ident">emit_move_current</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">direction</span>: <span class="ident">MenuDirectionType</span>) {
         <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="kw">unsafe</span> {
-            <span class="ident">glib</span>::<span class="ident">Object</span>::<span class="ident">from_glib_borrow</span>(<span class="self">self</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">GObject</span>)
+            <span class="ident">glib::Object::from_glib_borrow</span>(<span class="self">self</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib::gobject_ffi::GObject</span>)
                 .<span class="ident">emit_by_name</span>(<span class="string">&quot;move-current&quot;</span>, <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span><span class="ident">direction</span>])
                 .<span class="ident">unwrap</span>()
         };
     }
 
-    <span class="kw">fn</span> <span class="ident">connect_move_selected</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib</span>::<span class="ident">signal</span>::<span class="ident">Inhibit</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
+    <span class="kw">fn</span> <span class="ident">connect_move_selected</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::signal::Inhibit</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">f</span>: <span class="ident">F</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span> {
         <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">move_selected_trampoline</span><span class="op">&lt;</span>
             <span class="ident">P</span>,
-            <span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">P</span>, <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib</span>::<span class="ident">signal</span>::<span class="ident">Inhibit</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
+            <span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">P</span>, <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::signal::Inhibit</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
         <span class="op">&gt;</span>(
-            <span class="ident">this</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GtkMenuShell</span>,
-            <span class="ident">distance</span>: <span class="ident">libc</span>::<span class="ident">c_int</span>,
-            <span class="ident">f</span>: <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">gpointer</span>,
-        ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">gboolean</span>
+            <span class="ident">this</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::GtkMenuShell</span>,
+            <span class="ident">distance</span>: <span class="ident">libc::c_int</span>,
+            <span class="ident">f</span>: <span class="ident">glib::ffi::gpointer</span>,
+        ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::ffi::gboolean</span>
         <span class="kw">where</span>
             <span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">MenuShell</span><span class="op">&gt;</span>,
         {
             <span class="kw">let</span> <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="ident">F</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">f</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">F</span>);
             <span class="ident">f</span>(
-                <span class="kw-2">&amp;</span><span class="ident">MenuShell</span>::<span class="ident">from_glib_borrow</span>(<span class="ident">this</span>).<span class="ident">unsafe_cast_ref</span>(),
+                <span class="kw-2">&amp;</span><span class="ident">MenuShell::from_glib_borrow</span>(<span class="ident">this</span>).<span class="ident">unsafe_cast_ref</span>(),
                 <span class="ident">distance</span>,
             )
             .<span class="ident">to_glib</span>()
         }
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">f</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_</span>::<span class="ident">new</span>(<span class="ident">f</span>);
+            <span class="kw">let</span> <span class="ident">f</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_::new</span>(<span class="ident">f</span>);
             <span class="ident">connect_raw</span>(
                 <span class="self">self</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
                 <span class="string">b&quot;move-selected\0&quot;</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(<span class="ident">transmute</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span>()<span class="op">&gt;</span>(
                     <span class="ident">move_selected_trampoline</span>::<span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">F</span><span class="op">&gt;</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> (),
                 )),
-                <span class="ident">Box_</span>::<span class="ident">into_raw</span>(<span class="ident">f</span>),
+                <span class="ident">Box_::into_raw</span>(<span class="ident">f</span>),
             )
         }
     }
 
     <span class="kw">fn</span> <span class="ident">connect_selection_done</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span> {
         <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">selection_done_trampoline</span><span class="op">&lt;</span><span class="ident">P</span>, <span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">P</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
-            <span class="ident">this</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GtkMenuShell</span>,
-            <span class="ident">f</span>: <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">gpointer</span>,
+            <span class="ident">this</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::GtkMenuShell</span>,
+            <span class="ident">f</span>: <span class="ident">glib::ffi::gpointer</span>,
         ) <span class="kw">where</span>
             <span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">MenuShell</span><span class="op">&gt;</span>,
         {
             <span class="kw">let</span> <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="ident">F</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">f</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">F</span>);
-            <span class="ident">f</span>(<span class="kw-2">&amp;</span><span class="ident">MenuShell</span>::<span class="ident">from_glib_borrow</span>(<span class="ident">this</span>).<span class="ident">unsafe_cast_ref</span>())
+            <span class="ident">f</span>(<span class="kw-2">&amp;</span><span class="ident">MenuShell::from_glib_borrow</span>(<span class="ident">this</span>).<span class="ident">unsafe_cast_ref</span>())
         }
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">f</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_</span>::<span class="ident">new</span>(<span class="ident">f</span>);
+            <span class="kw">let</span> <span class="ident">f</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_::new</span>(<span class="ident">f</span>);
             <span class="ident">connect_raw</span>(
                 <span class="self">self</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
                 <span class="string">b&quot;selection-done\0&quot;</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(<span class="ident">transmute</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span>()<span class="op">&gt;</span>(
                     <span class="ident">selection_done_trampoline</span>::<span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">F</span><span class="op">&gt;</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> (),
                 )),
-                <span class="ident">Box_</span>::<span class="ident">into_raw</span>(<span class="ident">f</span>),
+                <span class="ident">Box_::into_raw</span>(<span class="ident">f</span>),
             )
         }
     }
 
     <span class="kw">fn</span> <span class="ident">connect_property_take_focus_notify</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span> {
         <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">notify_take_focus_trampoline</span><span class="op">&lt;</span><span class="ident">P</span>, <span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">P</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
-            <span class="ident">this</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GtkMenuShell</span>,
-            <span class="ident">_param_spec</span>: <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">gpointer</span>,
-            <span class="ident">f</span>: <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">gpointer</span>,
+            <span class="ident">this</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::GtkMenuShell</span>,
+            <span class="ident">_param_spec</span>: <span class="ident">glib::ffi::gpointer</span>,
+            <span class="ident">f</span>: <span class="ident">glib::ffi::gpointer</span>,
         ) <span class="kw">where</span>
             <span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">MenuShell</span><span class="op">&gt;</span>,
         {
             <span class="kw">let</span> <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="ident">F</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">f</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">F</span>);
-            <span class="ident">f</span>(<span class="kw-2">&amp;</span><span class="ident">MenuShell</span>::<span class="ident">from_glib_borrow</span>(<span class="ident">this</span>).<span class="ident">unsafe_cast_ref</span>())
+            <span class="ident">f</span>(<span class="kw-2">&amp;</span><span class="ident">MenuShell::from_glib_borrow</span>(<span class="ident">this</span>).<span class="ident">unsafe_cast_ref</span>())
         }
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">f</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_</span>::<span class="ident">new</span>(<span class="ident">f</span>);
+            <span class="kw">let</span> <span class="ident">f</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_::new</span>(<span class="ident">f</span>);
             <span class="ident">connect_raw</span>(
                 <span class="self">self</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
                 <span class="string">b&quot;notify::take-focus\0&quot;</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(<span class="ident">transmute</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span>()<span class="op">&gt;</span>(
                     <span class="ident">notify_take_focus_trampoline</span>::<span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">F</span><span class="op">&gt;</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> (),
                 )),
-                <span class="ident">Box_</span>::<span class="ident">into_raw</span>(<span class="ident">f</span>),
+                <span class="ident">Box_::into_raw</span>(<span class="ident">f</span>),
             )
         }
     }
 }
 
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">MenuShell</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">MenuShell</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;MenuShell&quot;</span>)
     }
 }

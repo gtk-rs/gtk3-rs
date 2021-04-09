@@ -337,26 +337,26 @@
 <span class="comment">// from gir-files (https://github.com/gtk-rs/gir-files)</span>
 <span class="comment">// DO NOT EDIT</span>
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Layout</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">LayoutLine</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">LayoutRun</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Rectangle</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Layout</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::LayoutLine</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::LayoutRun</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Rectangle</span>;
+<span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">std::mem</span>;
 
-<span class="ident">glib</span>::<span class="macro">wrapper!</span> {
+<span class="macro">glib::wrapper!</span> {
     <span class="doccomment">/// A `LayoutIter` structure can be used to</span>
     <span class="doccomment">/// iterate over the visual extents of a `Layout`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The `LayoutIter` structure is opaque, and</span>
     <span class="doccomment">/// has no user-visible fields.</span>
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">LayoutIter</span>(<span class="ident">Boxed</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">PangoLayoutIter</span><span class="op">&gt;</span>);
+    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">LayoutIter</span>(<span class="ident">Boxed</span><span class="op">&lt;</span><span class="ident">ffi::PangoLayoutIter</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
-        <span class="ident">copy</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">pango_layout_iter_copy</span>(<span class="ident">mut_override</span>(<span class="ident">ptr</span>)),
-        <span class="ident">free</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">pango_layout_iter_free</span>(<span class="ident">ptr</span>),
-        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">pango_layout_iter_get_type</span>(),
+        <span class="ident">copy</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">ffi::pango_layout_iter_copy</span>(<span class="ident">mut_override</span>(<span class="ident">ptr</span>)),
+        <span class="ident">free</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">ffi::pango_layout_iter_free</span>(<span class="ident">ptr</span>),
+        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::pango_layout_iter_get_type</span>(),
     }
 }
 
@@ -369,7 +369,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_iter_at_last_line&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">at_last_line</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">pango_layout_iter_at_last_line</span>(
+            <span class="ident">from_glib</span>(<span class="ident">ffi::pango_layout_iter_at_last_line</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
             ))
         }
@@ -383,7 +383,7 @@
     <span class="doccomment">/// baseline of current line.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_iter_get_baseline&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_baseline</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">pango_layout_iter_get_baseline</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::pango_layout_iter_get_baseline</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Gets the extents of the current character, in layout coordinates</span>
@@ -396,8 +396,8 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_iter_get_char_extents&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_char_extents</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Rectangle</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">logical_rect</span> <span class="op">=</span> <span class="ident">Rectangle</span>::<span class="ident">uninitialized</span>();
-            <span class="ident">ffi</span>::<span class="ident">pango_layout_iter_get_char_extents</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">logical_rect</span> <span class="op">=</span> <span class="ident">Rectangle::uninitialized</span>();
+            <span class="ident">ffi::pango_layout_iter_get_char_extents</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
                 <span class="ident">logical_rect</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
             );
@@ -414,9 +414,9 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_iter_get_cluster_extents&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_cluster_extents</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">Rectangle</span>, <span class="ident">Rectangle</span>) {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ink_rect</span> <span class="op">=</span> <span class="ident">Rectangle</span>::<span class="ident">uninitialized</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">logical_rect</span> <span class="op">=</span> <span class="ident">Rectangle</span>::<span class="ident">uninitialized</span>();
-            <span class="ident">ffi</span>::<span class="ident">pango_layout_iter_get_cluster_extents</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ink_rect</span> <span class="op">=</span> <span class="ident">Rectangle::uninitialized</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">logical_rect</span> <span class="op">=</span> <span class="ident">Rectangle::uninitialized</span>();
+            <span class="ident">ffi::pango_layout_iter_get_cluster_extents</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
                 <span class="ident">ink_rect</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
                 <span class="ident">logical_rect</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
@@ -435,7 +435,7 @@
     <span class="doccomment">/// current byte index.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_iter_get_index&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_index</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">pango_layout_iter_get_index</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::pango_layout_iter_get_index</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Gets the layout associated with a `LayoutIter`.</span>
@@ -445,7 +445,7 @@
     <span class="doccomment">/// the layout associated with `self`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_iter_get_layout&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_layout</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Layout</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">pango_layout_iter_get_layout</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::pango_layout_iter_get_layout</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Obtains the extents of the `Layout` being iterated</span>
@@ -460,9 +460,9 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_iter_get_layout_extents&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_layout_extents</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">Rectangle</span>, <span class="ident">Rectangle</span>) {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ink_rect</span> <span class="op">=</span> <span class="ident">Rectangle</span>::<span class="ident">uninitialized</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">logical_rect</span> <span class="op">=</span> <span class="ident">Rectangle</span>::<span class="ident">uninitialized</span>();
-            <span class="ident">ffi</span>::<span class="ident">pango_layout_iter_get_layout_extents</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ink_rect</span> <span class="op">=</span> <span class="ident">Rectangle::uninitialized</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">logical_rect</span> <span class="op">=</span> <span class="ident">Rectangle::uninitialized</span>();
+            <span class="ident">ffi::pango_layout_iter_get_layout_extents</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
                 <span class="ident">ink_rect</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
                 <span class="ident">logical_rect</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
@@ -481,7 +481,7 @@
     <span class="doccomment">/// the current line.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_iter_get_line&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_line</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">LayoutLine</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">pango_layout_iter_get_line</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::pango_layout_iter_get_line</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Obtains the extents of the current line. `ink_rect` or `logical_rect`</span>
@@ -497,9 +497,9 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_iter_get_line_extents&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_line_extents</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">Rectangle</span>, <span class="ident">Rectangle</span>) {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ink_rect</span> <span class="op">=</span> <span class="ident">Rectangle</span>::<span class="ident">uninitialized</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">logical_rect</span> <span class="op">=</span> <span class="ident">Rectangle</span>::<span class="ident">uninitialized</span>();
-            <span class="ident">ffi</span>::<span class="ident">pango_layout_iter_get_line_extents</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ink_rect</span> <span class="op">=</span> <span class="ident">Rectangle::uninitialized</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">logical_rect</span> <span class="op">=</span> <span class="ident">Rectangle::uninitialized</span>();
+            <span class="ident">ffi::pango_layout_iter_get_line_extents</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
                 <span class="ident">ink_rect</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
                 <span class="ident">logical_rect</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
@@ -521,7 +521,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_iter_get_line_readonly&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_line_readonly</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">LayoutLine</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">pango_layout_iter_get_line_readonly</span>(
+            <span class="ident">from_glib_none</span>(<span class="ident">ffi::pango_layout_iter_get_line_readonly</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
             ))
         }
@@ -545,9 +545,9 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_iter_get_line_yrange&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_line_yrange</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">i32</span>, <span class="ident">i32</span>) {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">y0_</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">y1_</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
-            <span class="ident">ffi</span>::<span class="ident">pango_layout_iter_get_line_yrange</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">y0_</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">y1_</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
+            <span class="ident">ffi::pango_layout_iter_get_line_yrange</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
                 <span class="ident">y0_</span>.<span class="ident">as_mut_ptr</span>(),
                 <span class="ident">y1_</span>.<span class="ident">as_mut_ptr</span>(),
@@ -571,7 +571,7 @@
     <span class="doccomment">/// the current run.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_iter_get_run&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_run</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">LayoutRun</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">pango_layout_iter_get_run</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::pango_layout_iter_get_run</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Gets the extents of the current run in layout coordinates</span>
@@ -583,9 +583,9 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_iter_get_run_extents&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_run_extents</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">Rectangle</span>, <span class="ident">Rectangle</span>) {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ink_rect</span> <span class="op">=</span> <span class="ident">Rectangle</span>::<span class="ident">uninitialized</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">logical_rect</span> <span class="op">=</span> <span class="ident">Rectangle</span>::<span class="ident">uninitialized</span>();
-            <span class="ident">ffi</span>::<span class="ident">pango_layout_iter_get_run_extents</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ink_rect</span> <span class="op">=</span> <span class="ident">Rectangle::uninitialized</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">logical_rect</span> <span class="op">=</span> <span class="ident">Rectangle::uninitialized</span>();
+            <span class="ident">ffi::pango_layout_iter_get_run_extents</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
                 <span class="ident">ink_rect</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
                 <span class="ident">logical_rect</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
@@ -610,7 +610,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_iter_get_run_readonly&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_run_readonly</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">LayoutRun</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">pango_layout_iter_get_run_readonly</span>(
+            <span class="ident">from_glib_none</span>(<span class="ident">ffi::pango_layout_iter_get_run_readonly</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
             ))
         }
@@ -624,7 +624,7 @@
     <span class="doccomment">/// whether motion was possible.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_iter_next_char&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">next_char</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">pango_layout_iter_next_char</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::pango_layout_iter_next_char</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Moves `self` forward to the next cluster in visual order. If `self`</span>
@@ -636,7 +636,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_iter_next_cluster&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">next_cluster</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">pango_layout_iter_next_cluster</span>(
+            <span class="ident">from_glib</span>(<span class="ident">ffi::pango_layout_iter_next_cluster</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
             ))
         }
@@ -650,7 +650,7 @@
     <span class="doccomment">/// whether motion was possible.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_iter_next_line&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">next_line</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">pango_layout_iter_next_line</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::pango_layout_iter_next_line</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Moves `self` forward to the next run in visual order. If `self` was</span>
@@ -661,7 +661,7 @@
     <span class="doccomment">/// whether motion was possible.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_iter_next_run&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">next_run</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">pango_layout_iter_next_run</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::pango_layout_iter_next_run</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>)) }
     }
 }
 </pre></div>

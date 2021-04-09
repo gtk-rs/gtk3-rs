@@ -113,12 +113,12 @@
 <span class="comment">// from gir-files (https://github.com/gtk-rs/gir-files)</span>
 <span class="comment">// DO NOT EDIT</span>
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">ObjectFactory</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">object</span>::<span class="ident">IsA</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::ObjectFactory</span>;
+<span class="kw">use</span> <span class="ident">glib::object::IsA</span>;
+<span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">std::fmt</span>;
 
-<span class="ident">glib</span>::<span class="macro">wrapper!</span> {
+<span class="macro">glib::wrapper!</span> {
     <span class="doccomment">/// The AtkRegistry is normally used to create appropriate ATK &quot;peers&quot;</span>
     <span class="doccomment">/// for user interface components. Application developers usually need</span>
     <span class="doccomment">/// only interact with the AtkRegistry by associating appropriate ATK</span>
@@ -129,10 +129,10 @@
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`RegistryExt`](trait.RegistryExt.html), [`glib::object::ObjectExt`](../glib/object/trait.ObjectExt.html)</span>
-    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Registry</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">AtkRegistry</span>, <span class="ident">ffi</span>::<span class="ident">AtkRegistryClass</span><span class="op">&gt;</span>);
+    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Registry</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::AtkRegistry</span>, <span class="ident">ffi::AtkRegistryClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
-        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">atk_registry_get_type</span>(),
+        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::atk_registry_get_type</span>(),
     }
 }
 
@@ -154,7 +154,7 @@
     <span class="doccomment">/// an `ObjectFactory` appropriate for creating</span>
     <span class="doccomment">/// `AtkObjects` appropriate for `type_`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_registry_get_factory&quot;</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">get_factory</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">type_</span>: <span class="ident">glib</span>::<span class="ident">types</span>::<span class="ident">Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ObjectFactory</span><span class="op">&gt;</span>;
+    <span class="kw">fn</span> <span class="ident">get_factory</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">type_</span>: <span class="ident">glib::types::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ObjectFactory</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Provides a `glib::Type` indicating the `ObjectFactory` subclass</span>
     <span class="doccomment">/// associated with `type_`.</span>
@@ -166,7 +166,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// a `glib::Type` associated with type `type_`</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_registry_get_factory_type&quot;</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">get_factory_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">type_</span>: <span class="ident">glib</span>::<span class="ident">types</span>::<span class="ident">Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib</span>::<span class="ident">types</span>::<span class="ident">Type</span>;
+    <span class="kw">fn</span> <span class="ident">get_factory_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">type_</span>: <span class="ident">glib::types::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::types::Type</span>;
 
     <span class="doccomment">/// Associate an `ObjectFactory` subclass with a `glib::Type`. Note:</span>
     <span class="doccomment">/// The associated `factory_type` will thereafter be responsible for</span>
@@ -178,31 +178,31 @@
     <span class="doccomment">/// an `ObjectFactory` type to associate with `type_`. Must</span>
     <span class="doccomment">/// implement AtkObject appropriate for `type_`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_registry_set_factory_type&quot;</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">set_factory_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">type_</span>: <span class="ident">glib</span>::<span class="ident">types</span>::<span class="ident">Type</span>, <span class="ident">factory_type</span>: <span class="ident">glib</span>::<span class="ident">types</span>::<span class="ident">Type</span>);
+    <span class="kw">fn</span> <span class="ident">set_factory_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">type_</span>: <span class="ident">glib::types::Type</span>, <span class="ident">factory_type</span>: <span class="ident">glib::types::Type</span>);
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">O</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Registry</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="ident">RegistryExt</span> <span class="kw">for</span> <span class="ident">O</span> {
-    <span class="kw">fn</span> <span class="ident">get_factory</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">type_</span>: <span class="ident">glib</span>::<span class="ident">types</span>::<span class="ident">Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ObjectFactory</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">get_factory</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">type_</span>: <span class="ident">glib::types::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ObjectFactory</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">atk_registry_get_factory</span>(
+            <span class="ident">from_glib_none</span>(<span class="ident">ffi::atk_registry_get_factory</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">type_</span>.<span class="ident">to_glib</span>(),
             ))
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">get_factory_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">type_</span>: <span class="ident">glib</span>::<span class="ident">types</span>::<span class="ident">Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib</span>::<span class="ident">types</span>::<span class="ident">Type</span> {
+    <span class="kw">fn</span> <span class="ident">get_factory_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">type_</span>: <span class="ident">glib::types::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::types::Type</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">atk_registry_get_factory_type</span>(
+            <span class="ident">from_glib</span>(<span class="ident">ffi::atk_registry_get_factory_type</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">type_</span>.<span class="ident">to_glib</span>(),
             ))
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">set_factory_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">type_</span>: <span class="ident">glib</span>::<span class="ident">types</span>::<span class="ident">Type</span>, <span class="ident">factory_type</span>: <span class="ident">glib</span>::<span class="ident">types</span>::<span class="ident">Type</span>) {
+    <span class="kw">fn</span> <span class="ident">set_factory_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">type_</span>: <span class="ident">glib::types::Type</span>, <span class="ident">factory_type</span>: <span class="ident">glib::types::Type</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">atk_registry_set_factory_type</span>(
+            <span class="ident">ffi::atk_registry_set_factory_type</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">type_</span>.<span class="ident">to_glib</span>(),
                 <span class="ident">factory_type</span>.<span class="ident">to_glib</span>(),
@@ -211,8 +211,8 @@
     }
 }
 
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">Registry</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">Registry</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Registry&quot;</span>)
     }
 }

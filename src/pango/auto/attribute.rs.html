@@ -86,12 +86,12 @@
 <span class="comment">// from gir-files (https://github.com/gtk-rs/gir-files)</span>
 <span class="comment">// DO NOT EDIT</span>
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">AttrClass</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::AttrClass</span>;
+<span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v1_44&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v1_44&quot;</span>)))]</span>
-<span class="ident">glib</span>::<span class="macro">wrapper!</span> {
+<span class="macro">glib::wrapper!</span> {
     <span class="doccomment">/// The `Attribute` structure represents the common portions of all</span>
     <span class="doccomment">/// attributes. Particular types of attributes include this structure</span>
     <span class="doccomment">/// as their initial portion. The common portion of the attribute holds</span>
@@ -99,23 +99,23 @@
     <span class="doccomment">/// applies and should be initialized using `Attribute::init`.</span>
     <span class="doccomment">/// By default an attribute will have an all-inclusive range of [0,`G_MAXUINT`].</span>
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Attribute</span>(<span class="ident">Boxed</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">PangoAttribute</span><span class="op">&gt;</span>);
+    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Attribute</span>(<span class="ident">Boxed</span><span class="op">&lt;</span><span class="ident">ffi::PangoAttribute</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
-        <span class="ident">copy</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">pango_attribute_copy</span>(<span class="ident">ptr</span>),
-        <span class="ident">free</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">pango_attribute_destroy</span>(<span class="ident">ptr</span>),
-        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">pango_attribute_get_type</span>(),
+        <span class="ident">copy</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">ffi::pango_attribute_copy</span>(<span class="ident">ptr</span>),
+        <span class="ident">free</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">ffi::pango_attribute_destroy</span>(<span class="ident">ptr</span>),
+        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::pango_attribute_get_type</span>(),
     }
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v1_44&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>)))]</span>
-<span class="ident">glib</span>::<span class="macro">wrapper!</span> {
+<span class="macro">glib::wrapper!</span> {
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Attribute</span>(<span class="ident">Boxed</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">PangoAttribute</span><span class="op">&gt;</span>);
+    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Attribute</span>(<span class="ident">Boxed</span><span class="op">&lt;</span><span class="ident">ffi::PangoAttribute</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
-        <span class="ident">copy</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">pango_attribute_copy</span>(<span class="ident">ptr</span>),
-        <span class="ident">free</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">pango_attribute_destroy</span>(<span class="ident">ptr</span>),
+        <span class="ident">copy</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">ffi::pango_attribute_copy</span>(<span class="ident">ptr</span>),
+        <span class="ident">free</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">ffi::pango_attribute_destroy</span>(<span class="ident">ptr</span>),
     }
 }
 
@@ -132,7 +132,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_attribute_equal&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">equal</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">attr2</span>: <span class="kw-2">&amp;</span><span class="ident">Attribute</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">pango_attribute_equal</span>(
+            <span class="ident">from_glib</span>(<span class="ident">ffi::pango_attribute_equal</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">attr2</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
@@ -149,7 +149,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_attribute_init&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">init</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">klass</span>: <span class="kw-2">&amp;</span><span class="ident">AttrClass</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">pango_attribute_init</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">klass</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+            <span class="ident">ffi::pango_attribute_init</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">klass</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
         }
     }
 }

@@ -109,20 +109,20 @@
 <span class="comment">// from gir-files (https://github.com/gtk-rs/gir-files)</span>
 <span class="comment">// DO NOT EDIT</span>
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">DBusMethodInfo</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">DBusPropertyInfo</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">DBusSignalInfo</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::DBusMethodInfo</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::DBusPropertyInfo</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::DBusSignalInfo</span>;
+<span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
 
-<span class="ident">glib</span>::<span class="macro">wrapper!</span> {
+<span class="macro">glib::wrapper!</span> {
     <span class="doccomment">/// Information about a D-Bus interface.</span>
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DBusInterfaceInfo</span>(<span class="ident">Shared</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GDBusInterfaceInfo</span><span class="op">&gt;</span>);
+    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DBusInterfaceInfo</span>(<span class="ident">Shared</span><span class="op">&lt;</span><span class="ident">ffi::GDBusInterfaceInfo</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
-        <span class="kw-2">ref</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">g_dbus_interface_info_ref</span>(<span class="ident">ptr</span>),
-        <span class="ident">unref</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">g_dbus_interface_info_unref</span>(<span class="ident">ptr</span>),
-        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">g_dbus_interface_info_get_type</span>(),
+        <span class="kw-2">ref</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">ffi::g_dbus_interface_info_ref</span>(<span class="ident">ptr</span>),
+        <span class="ident">unref</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">ffi::g_dbus_interface_info_unref</span>(<span class="ident">ptr</span>),
+        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::g_dbus_interface_info_get_type</span>(),
     }
 }
 
@@ -138,9 +138,9 @@
     <span class="doccomment">/// ## `string_builder`</span>
     <span class="doccomment">/// A `glib::String` to to append XML data to.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_dbus_interface_info_generate_xml&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">generate_xml</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">indent</span>: <span class="ident">u32</span>, <span class="ident">string_builder</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">glib</span>::<span class="ident">String</span>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">generate_xml</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">indent</span>: <span class="ident">u32</span>, <span class="ident">string_builder</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">glib::String</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">g_dbus_interface_info_generate_xml</span>(
+            <span class="ident">ffi::g_dbus_interface_info_generate_xml</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">indent</span>,
                 <span class="ident">string_builder</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
@@ -161,7 +161,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_dbus_interface_info_lookup_method&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">lookup_method</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">DBusMethodInfo</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">g_dbus_interface_info_lookup_method</span>(
+            <span class="ident">from_glib_none</span>(<span class="ident">ffi::g_dbus_interface_info_lookup_method</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
@@ -181,7 +181,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_dbus_interface_info_lookup_property&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">lookup_property</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">DBusPropertyInfo</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">g_dbus_interface_info_lookup_property</span>(
+            <span class="ident">from_glib_none</span>(<span class="ident">ffi::g_dbus_interface_info_lookup_property</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
@@ -201,7 +201,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_dbus_interface_info_lookup_signal&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">lookup_signal</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">DBusSignalInfo</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">g_dbus_interface_info_lookup_signal</span>(
+            <span class="ident">from_glib_none</span>(<span class="ident">ffi::g_dbus_interface_info_lookup_signal</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))

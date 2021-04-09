@@ -34,11 +34,11 @@
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">StateFlags</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">StyleContext</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">StyleContextExt</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">object</span>::<span class="ident">IsA</span>;
-<span class="kw">use</span> <span class="ident">pango</span>::<span class="ident">FontDescription</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::StateFlags</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::StyleContext</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::StyleContextExt</span>;
+<span class="kw">use</span> <span class="ident">glib::object::IsA</span>;
+<span class="kw">use</span> <span class="ident">pango::FontDescription</span>;
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">StyleContextExtManual</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Returns the font description for a given state. The returned</span>

@@ -144,21 +144,21 @@
 <span class="comment">// from gir-files (https://github.com/gtk-rs/gir-files)</span>
 <span class="comment">// DO NOT EDIT</span>
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">AxisFlags</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">DeviceToolType</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">object</span>::<span class="ident">ObjectType</span> <span class="kw">as</span> <span class="ident">ObjectType_</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">StaticType</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::AxisFlags</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::DeviceToolType</span>;
+<span class="kw">use</span> <span class="ident">glib::object::ObjectType</span> <span class="kw">as</span> <span class="ident">ObjectType_</span>;
+<span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">glib::StaticType</span>;
+<span class="kw">use</span> <span class="ident">std::fmt</span>;
 
-<span class="ident">glib</span>::<span class="macro">wrapper!</span> {
+<span class="macro">glib::wrapper!</span> {
     <span class="doccomment">///</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Feature: `v3_22`</span>
-    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DeviceTool</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GdkDeviceTool</span><span class="op">&gt;</span>);
+    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DeviceTool</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GdkDeviceTool</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
-        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">gdk_device_tool_get_type</span>(),
+        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::gdk_device_tool_get_type</span>(),
     }
 }
 
@@ -181,7 +181,7 @@
     <span class="doccomment">/// The hardware identificator of this tool.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_device_tool_get_hardware_id&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_hardware_id</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u64</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">gdk_device_tool_get_hardware_id</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::gdk_device_tool_get_hardware_id</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Gets the serial of this tool, this value can be used to identify a</span>
@@ -195,7 +195,7 @@
     <span class="doccomment">/// The serial ID for this tool</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_device_tool_get_serial&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_serial</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u64</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">gdk_device_tool_get_serial</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::gdk_device_tool_get_serial</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Gets the `DeviceToolType` of the tool.</span>
@@ -209,14 +209,14 @@
     <span class="doccomment">/// sort of pen is being used, such as an airbrush or a pencil.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_device_tool_get_tool_type&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_tool_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DeviceToolType</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">gdk_device_tool_get_tool_type</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::gdk_device_tool_get_tool_type</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_property_axes</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">AxisFlags</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib</span>::<span class="ident">Value</span>::<span class="ident">from_type</span>(<span class="op">&lt;</span><span class="ident">AxisFlags</span> <span class="kw">as</span> <span class="ident">StaticType</span><span class="op">&gt;</span>::<span class="ident">static_type</span>());
-            <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">g_object_get_property</span>(
-                <span class="self">self</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">GObject</span>,
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::from_type</span>(<span class="op">&lt;</span><span class="ident">AxisFlags</span> <span class="kw">as</span> <span class="ident">StaticType</span><span class="op">&gt;</span><span class="ident">::static_type</span>());
+            <span class="ident">glib::gobject_ffi::g_object_get_property</span>(
+                <span class="self">self</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib::gobject_ffi::GObject</span>,
                 <span class="string">b&quot;axes\0&quot;</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>,
                 <span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
             );
@@ -229,9 +229,9 @@
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_property_hardware_id</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u64</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib</span>::<span class="ident">Value</span>::<span class="ident">from_type</span>(<span class="op">&lt;</span><span class="ident">u64</span> <span class="kw">as</span> <span class="ident">StaticType</span><span class="op">&gt;</span>::<span class="ident">static_type</span>());
-            <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">g_object_get_property</span>(
-                <span class="self">self</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">GObject</span>,
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::from_type</span>(<span class="op">&lt;</span><span class="ident">u64</span> <span class="kw">as</span> <span class="ident">StaticType</span><span class="op">&gt;</span><span class="ident">::static_type</span>());
+            <span class="ident">glib::gobject_ffi::g_object_get_property</span>(
+                <span class="self">self</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib::gobject_ffi::GObject</span>,
                 <span class="string">b&quot;hardware-id\0&quot;</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>,
                 <span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
             );
@@ -244,9 +244,9 @@
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_property_serial</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u64</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib</span>::<span class="ident">Value</span>::<span class="ident">from_type</span>(<span class="op">&lt;</span><span class="ident">u64</span> <span class="kw">as</span> <span class="ident">StaticType</span><span class="op">&gt;</span>::<span class="ident">static_type</span>());
-            <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">g_object_get_property</span>(
-                <span class="self">self</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">GObject</span>,
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::from_type</span>(<span class="op">&lt;</span><span class="ident">u64</span> <span class="kw">as</span> <span class="ident">StaticType</span><span class="op">&gt;</span><span class="ident">::static_type</span>());
+            <span class="ident">glib::gobject_ffi::g_object_get_property</span>(
+                <span class="self">self</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib::gobject_ffi::GObject</span>,
                 <span class="string">b&quot;serial\0&quot;</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>,
                 <span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
             );
@@ -259,9 +259,9 @@
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_property_tool_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DeviceToolType</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib</span>::<span class="ident">Value</span>::<span class="ident">from_type</span>(<span class="op">&lt;</span><span class="ident">DeviceToolType</span> <span class="kw">as</span> <span class="ident">StaticType</span><span class="op">&gt;</span>::<span class="ident">static_type</span>());
-            <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">g_object_get_property</span>(
-                <span class="self">self</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">GObject</span>,
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::from_type</span>(<span class="op">&lt;</span><span class="ident">DeviceToolType</span> <span class="kw">as</span> <span class="ident">StaticType</span><span class="op">&gt;</span><span class="ident">::static_type</span>());
+            <span class="ident">glib::gobject_ffi::g_object_get_property</span>(
+                <span class="self">self</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib::gobject_ffi::GObject</span>,
                 <span class="string">b&quot;tool-type\0&quot;</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>,
                 <span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
             );
@@ -273,8 +273,8 @@
     }
 }
 
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">DeviceTool</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">DeviceTool</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;DeviceTool&quot;</span>)
     }
 }

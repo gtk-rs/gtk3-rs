@@ -81,66 +81,66 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
-    <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
-    <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">MemoryInputStream</span>;
-    <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">Bytes</span>;
+    <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::prelude</span>::<span class="kw-2">*</span>;
+    <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::MemoryInputStream</span>;
+    <span class="kw">use</span> <span class="ident">glib::Bytes</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">new</span>() {
-        <span class="kw">let</span> <span class="ident">strm</span> <span class="op">=</span> <span class="ident">MemoryInputStream</span>::<span class="ident">new</span>();
-        <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">strm</span>.<span class="ident">skip</span>(<span class="number">1</span>, <span class="kw">crate</span>::<span class="ident">NONE_CANCELLABLE</span>);
+        <span class="kw">let</span> <span class="ident">strm</span> <span class="op">=</span> <span class="ident">MemoryInputStream::new</span>();
+        <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">strm</span>.<span class="ident">skip</span>(<span class="number">1</span>, <span class="kw">crate</span><span class="ident">::NONE_CANCELLABLE</span>);
         <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">ret</span>.<span class="ident">is_err</span>());
         <span class="macro">assert_eq!</span>(<span class="ident">ret</span>.<span class="ident">unwrap</span>(), <span class="number">0</span>);
 
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">buf</span> <span class="op">=</span> <span class="macro">vec!</span>[<span class="number">0</span>; <span class="number">10</span>];
-        <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">strm</span>.<span class="ident">read</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">buf</span>, <span class="kw">crate</span>::<span class="ident">NONE_CANCELLABLE</span>).<span class="ident">unwrap</span>();
+        <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">strm</span>.<span class="ident">read</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">buf</span>, <span class="kw">crate</span><span class="ident">::NONE_CANCELLABLE</span>).<span class="ident">unwrap</span>();
         <span class="macro">assert_eq!</span>(<span class="ident">ret</span>, <span class="number">0</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">from_bytes</span>() {
-        <span class="kw">let</span> <span class="ident">b</span> <span class="op">=</span> <span class="ident">Bytes</span>::<span class="ident">from_owned</span>(<span class="macro">vec!</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]);
-        <span class="kw">let</span> <span class="ident">strm</span> <span class="op">=</span> <span class="ident">MemoryInputStream</span>::<span class="ident">from_bytes</span>(<span class="kw-2">&amp;</span><span class="ident">b</span>);
+        <span class="kw">let</span> <span class="ident">b</span> <span class="op">=</span> <span class="ident">Bytes::from_owned</span>(<span class="macro">vec!</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]);
+        <span class="kw">let</span> <span class="ident">strm</span> <span class="op">=</span> <span class="ident">MemoryInputStream::from_bytes</span>(<span class="kw-2">&amp;</span><span class="ident">b</span>);
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">buf</span> <span class="op">=</span> <span class="macro">vec!</span>[<span class="number">0</span>; <span class="number">10</span>];
-        <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">strm</span>.<span class="ident">read</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">buf</span>, <span class="kw">crate</span>::<span class="ident">NONE_CANCELLABLE</span>).<span class="ident">unwrap</span>();
+        <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">strm</span>.<span class="ident">read</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">buf</span>, <span class="kw">crate</span><span class="ident">::NONE_CANCELLABLE</span>).<span class="ident">unwrap</span>();
         <span class="macro">assert_eq!</span>(<span class="ident">ret</span>, <span class="number">3</span>);
         <span class="macro">assert_eq!</span>(<span class="ident">buf</span>[<span class="number">0</span>], <span class="number">1</span>);
         <span class="macro">assert_eq!</span>(<span class="ident">buf</span>[<span class="number">1</span>], <span class="number">2</span>);
         <span class="macro">assert_eq!</span>(<span class="ident">buf</span>[<span class="number">2</span>], <span class="number">3</span>);
 
-        <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">strm</span>.<span class="ident">skip</span>(<span class="number">10</span>, <span class="kw">crate</span>::<span class="ident">NONE_CANCELLABLE</span>).<span class="ident">unwrap</span>();
+        <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">strm</span>.<span class="ident">skip</span>(<span class="number">10</span>, <span class="kw">crate</span><span class="ident">::NONE_CANCELLABLE</span>).<span class="ident">unwrap</span>();
         <span class="macro">assert_eq!</span>(<span class="ident">ret</span>, <span class="number">0</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">add_bytes</span>() {
-        <span class="kw">let</span> <span class="ident">strm</span> <span class="op">=</span> <span class="ident">MemoryInputStream</span>::<span class="ident">new</span>();
-        <span class="kw">let</span> <span class="ident">b</span> <span class="op">=</span> <span class="ident">Bytes</span>::<span class="ident">from_owned</span>(<span class="macro">vec!</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]);
+        <span class="kw">let</span> <span class="ident">strm</span> <span class="op">=</span> <span class="ident">MemoryInputStream::new</span>();
+        <span class="kw">let</span> <span class="ident">b</span> <span class="op">=</span> <span class="ident">Bytes::from_owned</span>(<span class="macro">vec!</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]);
         <span class="ident">strm</span>.<span class="ident">add_bytes</span>(<span class="kw-2">&amp;</span><span class="ident">b</span>);
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">buf</span> <span class="op">=</span> <span class="macro">vec!</span>[<span class="number">0</span>; <span class="number">10</span>];
-        <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">strm</span>.<span class="ident">read</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">buf</span>, <span class="kw">crate</span>::<span class="ident">NONE_CANCELLABLE</span>).<span class="ident">unwrap</span>();
+        <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">strm</span>.<span class="ident">read</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">buf</span>, <span class="kw">crate</span><span class="ident">::NONE_CANCELLABLE</span>).<span class="ident">unwrap</span>();
         <span class="macro">assert_eq!</span>(<span class="ident">ret</span>, <span class="number">3</span>);
         <span class="macro">assert_eq!</span>(<span class="ident">buf</span>[<span class="number">0</span>], <span class="number">1</span>);
         <span class="macro">assert_eq!</span>(<span class="ident">buf</span>[<span class="number">1</span>], <span class="number">2</span>);
         <span class="macro">assert_eq!</span>(<span class="ident">buf</span>[<span class="number">2</span>], <span class="number">3</span>);
 
-        <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">strm</span>.<span class="ident">skip</span>(<span class="number">10</span>, <span class="kw">crate</span>::<span class="ident">NONE_CANCELLABLE</span>).<span class="ident">unwrap</span>();
+        <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">strm</span>.<span class="ident">skip</span>(<span class="number">10</span>, <span class="kw">crate</span><span class="ident">::NONE_CANCELLABLE</span>).<span class="ident">unwrap</span>();
         <span class="macro">assert_eq!</span>(<span class="ident">ret</span>, <span class="number">0</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">read_async_future</span>() {
-        <span class="kw">use</span> <span class="ident">futures_util</span>::<span class="ident">future</span>::<span class="ident">TryFutureExt</span>;
+        <span class="kw">use</span> <span class="ident">futures_util::future::TryFutureExt</span>;
 
-        <span class="kw">let</span> <span class="ident">c</span> <span class="op">=</span> <span class="ident">glib</span>::<span class="ident">MainContext</span>::<span class="ident">new</span>();
+        <span class="kw">let</span> <span class="ident">c</span> <span class="op">=</span> <span class="ident">glib::MainContext::new</span>();
 
         <span class="kw">let</span> <span class="ident">buf</span> <span class="op">=</span> <span class="macro">vec!</span>[<span class="number">0</span>; <span class="number">10</span>];
-        <span class="kw">let</span> <span class="ident">b</span> <span class="op">=</span> <span class="ident">glib</span>::<span class="ident">Bytes</span>::<span class="ident">from_owned</span>(<span class="macro">vec!</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]);
-        <span class="kw">let</span> <span class="ident">strm</span> <span class="op">=</span> <span class="ident">MemoryInputStream</span>::<span class="ident">from_bytes</span>(<span class="kw-2">&amp;</span><span class="ident">b</span>);
+        <span class="kw">let</span> <span class="ident">b</span> <span class="op">=</span> <span class="ident">glib::Bytes::from_owned</span>(<span class="macro">vec!</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]);
+        <span class="kw">let</span> <span class="ident">strm</span> <span class="op">=</span> <span class="ident">MemoryInputStream::from_bytes</span>(<span class="kw-2">&amp;</span><span class="ident">b</span>);
 
         <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">c</span>
             .<span class="ident">block_on</span>(
-                <span class="ident">strm</span>.<span class="ident">read_async_future</span>(<span class="ident">buf</span>, <span class="ident">glib</span>::<span class="ident">PRIORITY_DEFAULT</span>)
+                <span class="ident">strm</span>.<span class="ident">read_async_future</span>(<span class="ident">buf</span>, <span class="ident">glib::PRIORITY_DEFAULT</span>)
                     .<span class="ident">map_err</span>(<span class="op">|</span>(<span class="ident">_buf</span>, <span class="ident">err</span>)<span class="op">|</span> <span class="ident">err</span>)
                     .<span class="ident">map_ok</span>(<span class="kw">move</span> <span class="op">|</span>(<span class="kw-2">mut</span> <span class="ident">buf</span>, <span class="ident">len</span>)<span class="op">|</span> {
                         <span class="ident">buf</span>.<span class="ident">truncate</span>(<span class="ident">len</span>);

@@ -54,22 +54,22 @@
 <span class="comment">// from gir-files (https://github.com/gtk-rs/gir-files)</span>
 <span class="comment">// DO NOT EDIT</span>
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">ActionGroup</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">ActionMap</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::ActionGroup</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::ActionMap</span>;
+<span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">std::fmt</span>;
 
-<span class="ident">glib</span>::<span class="macro">wrapper!</span> {
+<span class="macro">glib::wrapper!</span> {
     <span class="doccomment">/// `SimpleActionGroup` is a hash table filled with `Action` objects,</span>
     <span class="doccomment">/// implementing the `ActionGroup` and `ActionMap` interfaces.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`glib::object::ObjectExt`](../glib/object/trait.ObjectExt.html), [`ActionGroupExt`](trait.ActionGroupExt.html), [`ActionMapExt`](trait.ActionMapExt.html)</span>
-    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SimpleActionGroup</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GSimpleActionGroup</span>, <span class="ident">ffi</span>::<span class="ident">GSimpleActionGroupClass</span><span class="op">&gt;</span>) @<span class="ident">implements</span> <span class="ident">ActionGroup</span>, <span class="ident">ActionMap</span>;
+    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SimpleActionGroup</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GSimpleActionGroup</span>, <span class="ident">ffi::GSimpleActionGroupClass</span><span class="op">&gt;</span>) @<span class="ident">implements</span> <span class="ident">ActionGroup</span>, <span class="ident">ActionMap</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
-        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">g_simple_action_group_get_type</span>(),
+        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::g_simple_action_group_get_type</span>(),
     }
 }
 
@@ -81,20 +81,20 @@
     <span class="doccomment">/// a new `SimpleActionGroup`</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_simple_action_group_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SimpleActionGroup</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_simple_action_group_new</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_simple_action_group_new</span>()) }
     }
 }
 
 <span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">SimpleActionGroup</span> {
     <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span>::<span class="ident">new</span>()
+        <span class="self">Self</span><span class="ident">::new</span>()
     }
 }
 
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">NONE_SIMPLE_ACTION_GROUP</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SimpleActionGroup</span><span class="op">&gt;</span> <span class="op">=</span> <span class="prelude-val">None</span>;
 
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">SimpleActionGroup</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">SimpleActionGroup</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;SimpleActionGroup&quot;</span>)
     }
 }

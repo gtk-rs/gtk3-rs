@@ -134,12 +134,12 @@
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">SubprocessLauncher</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::SubprocessLauncher</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">unix</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">unix</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">unix</span>, <span class="ident">all</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">unix</span>)))]</span>
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">os</span>::<span class="ident">unix</span>::<span class="ident">io</span>::<span class="ident">IntoRawFd</span>;
+<span class="kw">use</span> <span class="ident">std::os::unix::io::IntoRawFd</span>;
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">not</span>(<span class="ident">unix</span>)))]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">IntoRawFd</span>: <span class="ident">Sized</span> {
@@ -170,7 +170,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_subprocess_launcher_take_fd&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">take_fd</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">IntoRawFd</span>, <span class="ident">G</span>: <span class="ident">IntoRawFd</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">source_fd</span>: <span class="ident">F</span>, <span class="ident">target_fd</span>: <span class="ident">G</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">g_subprocess_launcher_take_fd</span>(
+            <span class="ident">ffi::g_subprocess_launcher_take_fd</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">source_fd</span>.<span class="ident">into_raw_fd</span>(),
                 <span class="ident">target_fd</span>.<span class="ident">into_raw_fd</span>(),
@@ -201,7 +201,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_subprocess_launcher_take_stderr_fd&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">take_stderr_fd</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">IntoRawFd</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">fd</span>: <span class="ident">F</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">g_subprocess_launcher_take_stderr_fd</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">fd</span>.<span class="ident">into_raw_fd</span>());
+            <span class="ident">ffi::g_subprocess_launcher_take_stderr_fd</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">fd</span>.<span class="ident">into_raw_fd</span>());
         }
     }
 
@@ -230,7 +230,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_subprocess_launcher_take_stdin_fd&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">take_stdin_fd</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">IntoRawFd</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">fd</span>: <span class="ident">F</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">g_subprocess_launcher_take_stdin_fd</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">fd</span>.<span class="ident">into_raw_fd</span>());
+            <span class="ident">ffi::g_subprocess_launcher_take_stdin_fd</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">fd</span>.<span class="ident">into_raw_fd</span>());
         }
     }
 
@@ -258,7 +258,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_subprocess_launcher_take_stdout_fd&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">take_stdout_fd</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">IntoRawFd</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">fd</span>: <span class="ident">F</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">g_subprocess_launcher_take_stdout_fd</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">fd</span>.<span class="ident">into_raw_fd</span>());
+            <span class="ident">ffi::g_subprocess_launcher_take_stdout_fd</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">fd</span>.<span class="ident">into_raw_fd</span>());
         }
     }
 }

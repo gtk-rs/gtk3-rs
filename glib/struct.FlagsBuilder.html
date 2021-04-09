@@ -7,7 +7,7 @@ object again:</p>
 
 <div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
 <span class="kw">let</span> <span class="ident">flags</span> <span class="op">=</span> <span class="ident">obj</span>.<span class="ident">get_property</span>(<span class="string">&quot;flags&quot;</span>).<span class="ident">unwrap</span>();
-<span class="kw">let</span> <span class="ident">flags_class</span> <span class="op">=</span> <span class="ident">FlagsClass</span>::<span class="ident">new</span>(<span class="ident">flags</span>.<span class="ident">type_</span>()).<span class="ident">unwrap</span>();
+<span class="kw">let</span> <span class="ident">flags_class</span> <span class="op">=</span> <span class="ident">FlagsClass::new</span>(<span class="ident">flags</span>.<span class="ident">type_</span>()).<span class="ident">unwrap</span>();
 <span class="kw">let</span> <span class="ident">flags</span> <span class="op">=</span> <span class="ident">flags_class</span>.<span class="ident">builder_with_value</span>(<span class="ident">flags</span>).<span class="ident">unwrap</span>()
     .<span class="ident">unset_by_nick</span>(<span class="string">&quot;some-flag&quot;</span>)
     .<span class="ident">unset_by_nick</span>(<span class="string">&quot;some-other-flag&quot;</span>)

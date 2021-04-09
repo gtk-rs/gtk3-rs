@@ -682,10 +682,10 @@
 <span class="comment">// from gir-files (https://github.com/gtk-rs/gir-files)</span>
 <span class="comment">// DO NOT EDIT</span>
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">error</span>::<span class="ident">ErrorDomain</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Quark</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::error::ErrorDomain</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::translate</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Quark</span>;
+<span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
@@ -707,18 +707,18 @@
     <span class="ident">__Unknown</span>(<span class="ident">i32</span>),
 }
 
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">ChecksumType</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">ChecksumType</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
             <span class="string">&quot;ChecksumType::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-                <span class="ident">ChecksumType</span>::<span class="ident">Md5</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Md5&quot;</span>,
-                <span class="ident">ChecksumType</span>::<span class="ident">Sha1</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Sha1&quot;</span>,
-                <span class="ident">ChecksumType</span>::<span class="ident">Sha256</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Sha256&quot;</span>,
-                <span class="ident">ChecksumType</span>::<span class="ident">Sha512</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Sha512&quot;</span>,
+                <span class="ident">ChecksumType::Md5</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Md5&quot;</span>,
+                <span class="ident">ChecksumType::Sha1</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Sha1&quot;</span>,
+                <span class="ident">ChecksumType::Sha256</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Sha256&quot;</span>,
+                <span class="ident">ChecksumType::Sha512</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Sha512&quot;</span>,
                 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_52&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
-                <span class="ident">ChecksumType</span>::<span class="ident">Sha384</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Sha384&quot;</span>,
+                <span class="ident">ChecksumType::Sha384</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Sha384&quot;</span>,
                 <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Unknown&quot;</span>,
             }
         )
@@ -727,32 +727,32 @@
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">ChecksumType</span> {
-    <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">GChecksumType</span>;
+    <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi::GChecksumType</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">GChecksumType</span> {
+    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::GChecksumType</span> {
         <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-            <span class="ident">ChecksumType</span>::<span class="ident">Md5</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_CHECKSUM_MD5</span>,
-            <span class="ident">ChecksumType</span>::<span class="ident">Sha1</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_CHECKSUM_SHA1</span>,
-            <span class="ident">ChecksumType</span>::<span class="ident">Sha256</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_CHECKSUM_SHA256</span>,
-            <span class="ident">ChecksumType</span>::<span class="ident">Sha512</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_CHECKSUM_SHA512</span>,
+            <span class="ident">ChecksumType::Md5</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_CHECKSUM_MD5</span>,
+            <span class="ident">ChecksumType::Sha1</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_CHECKSUM_SHA1</span>,
+            <span class="ident">ChecksumType::Sha256</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_CHECKSUM_SHA256</span>,
+            <span class="ident">ChecksumType::Sha512</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_CHECKSUM_SHA512</span>,
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_52&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
-            <span class="ident">ChecksumType</span>::<span class="ident">Sha384</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_CHECKSUM_SHA384</span>,
-            <span class="ident">ChecksumType</span>::<span class="ident">__Unknown</span>(<span class="ident">value</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">value</span>,
+            <span class="ident">ChecksumType::Sha384</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_CHECKSUM_SHA384</span>,
+            <span class="ident">ChecksumType::__Unknown</span>(<span class="ident">value</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">value</span>,
         }
     }
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GChecksumType</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">ChecksumType</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GChecksumType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+<span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi::GChecksumType</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">ChecksumType</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi::GChecksumType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">match</span> <span class="ident">value</span> {
-            <span class="number">0</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ChecksumType</span>::<span class="ident">Md5</span>,
-            <span class="number">1</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ChecksumType</span>::<span class="ident">Sha1</span>,
-            <span class="number">2</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ChecksumType</span>::<span class="ident">Sha256</span>,
-            <span class="number">3</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ChecksumType</span>::<span class="ident">Sha512</span>,
+            <span class="number">0</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ChecksumType::Md5</span>,
+            <span class="number">1</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ChecksumType::Sha1</span>,
+            <span class="number">2</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ChecksumType::Sha256</span>,
+            <span class="number">3</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ChecksumType::Sha512</span>,
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_52&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
-            <span class="number">4</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ChecksumType</span>::<span class="ident">Sha384</span>,
-            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ChecksumType</span>::<span class="ident">__Unknown</span>(<span class="ident">value</span>),
+            <span class="number">4</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ChecksumType::Sha384</span>,
+            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ChecksumType::__Unknown</span>(<span class="ident">value</span>),
         }
     }
 }
@@ -791,25 +791,25 @@
     <span class="ident">__Unknown</span>(<span class="ident">i32</span>),
 }
 
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">DateMonth</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">DateMonth</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
             <span class="string">&quot;DateMonth::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-                <span class="ident">DateMonth</span>::<span class="ident">BadMonth</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;BadMonth&quot;</span>,
-                <span class="ident">DateMonth</span>::<span class="ident">January</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;January&quot;</span>,
-                <span class="ident">DateMonth</span>::<span class="ident">February</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;February&quot;</span>,
-                <span class="ident">DateMonth</span>::<span class="ident">March</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;March&quot;</span>,
-                <span class="ident">DateMonth</span>::<span class="ident">April</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;April&quot;</span>,
-                <span class="ident">DateMonth</span>::<span class="ident">May</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;May&quot;</span>,
-                <span class="ident">DateMonth</span>::<span class="ident">June</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;June&quot;</span>,
-                <span class="ident">DateMonth</span>::<span class="ident">July</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;July&quot;</span>,
-                <span class="ident">DateMonth</span>::<span class="ident">August</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;August&quot;</span>,
-                <span class="ident">DateMonth</span>::<span class="ident">September</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;September&quot;</span>,
-                <span class="ident">DateMonth</span>::<span class="ident">October</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;October&quot;</span>,
-                <span class="ident">DateMonth</span>::<span class="ident">November</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;November&quot;</span>,
-                <span class="ident">DateMonth</span>::<span class="ident">December</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;December&quot;</span>,
+                <span class="ident">DateMonth::BadMonth</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;BadMonth&quot;</span>,
+                <span class="ident">DateMonth::January</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;January&quot;</span>,
+                <span class="ident">DateMonth::February</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;February&quot;</span>,
+                <span class="ident">DateMonth::March</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;March&quot;</span>,
+                <span class="ident">DateMonth::April</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;April&quot;</span>,
+                <span class="ident">DateMonth::May</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;May&quot;</span>,
+                <span class="ident">DateMonth::June</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;June&quot;</span>,
+                <span class="ident">DateMonth::July</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;July&quot;</span>,
+                <span class="ident">DateMonth::August</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;August&quot;</span>,
+                <span class="ident">DateMonth::September</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;September&quot;</span>,
+                <span class="ident">DateMonth::October</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;October&quot;</span>,
+                <span class="ident">DateMonth::November</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;November&quot;</span>,
+                <span class="ident">DateMonth::December</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;December&quot;</span>,
                 <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Unknown&quot;</span>,
             }
         )
@@ -818,46 +818,46 @@
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">DateMonth</span> {
-    <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">GDateMonth</span>;
+    <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi::GDateMonth</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">GDateMonth</span> {
+    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::GDateMonth</span> {
         <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-            <span class="ident">DateMonth</span>::<span class="ident">BadMonth</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_DATE_BAD_MONTH</span>,
-            <span class="ident">DateMonth</span>::<span class="ident">January</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_DATE_JANUARY</span>,
-            <span class="ident">DateMonth</span>::<span class="ident">February</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_DATE_FEBRUARY</span>,
-            <span class="ident">DateMonth</span>::<span class="ident">March</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_DATE_MARCH</span>,
-            <span class="ident">DateMonth</span>::<span class="ident">April</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_DATE_APRIL</span>,
-            <span class="ident">DateMonth</span>::<span class="ident">May</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_DATE_MAY</span>,
-            <span class="ident">DateMonth</span>::<span class="ident">June</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_DATE_JUNE</span>,
-            <span class="ident">DateMonth</span>::<span class="ident">July</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_DATE_JULY</span>,
-            <span class="ident">DateMonth</span>::<span class="ident">August</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_DATE_AUGUST</span>,
-            <span class="ident">DateMonth</span>::<span class="ident">September</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_DATE_SEPTEMBER</span>,
-            <span class="ident">DateMonth</span>::<span class="ident">October</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_DATE_OCTOBER</span>,
-            <span class="ident">DateMonth</span>::<span class="ident">November</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_DATE_NOVEMBER</span>,
-            <span class="ident">DateMonth</span>::<span class="ident">December</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_DATE_DECEMBER</span>,
-            <span class="ident">DateMonth</span>::<span class="ident">__Unknown</span>(<span class="ident">value</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">value</span>,
+            <span class="ident">DateMonth::BadMonth</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_DATE_BAD_MONTH</span>,
+            <span class="ident">DateMonth::January</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_DATE_JANUARY</span>,
+            <span class="ident">DateMonth::February</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_DATE_FEBRUARY</span>,
+            <span class="ident">DateMonth::March</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_DATE_MARCH</span>,
+            <span class="ident">DateMonth::April</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_DATE_APRIL</span>,
+            <span class="ident">DateMonth::May</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_DATE_MAY</span>,
+            <span class="ident">DateMonth::June</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_DATE_JUNE</span>,
+            <span class="ident">DateMonth::July</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_DATE_JULY</span>,
+            <span class="ident">DateMonth::August</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_DATE_AUGUST</span>,
+            <span class="ident">DateMonth::September</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_DATE_SEPTEMBER</span>,
+            <span class="ident">DateMonth::October</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_DATE_OCTOBER</span>,
+            <span class="ident">DateMonth::November</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_DATE_NOVEMBER</span>,
+            <span class="ident">DateMonth::December</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_DATE_DECEMBER</span>,
+            <span class="ident">DateMonth::__Unknown</span>(<span class="ident">value</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">value</span>,
         }
     }
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GDateMonth</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">DateMonth</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GDateMonth</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+<span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi::GDateMonth</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">DateMonth</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi::GDateMonth</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">match</span> <span class="ident">value</span> {
-            <span class="number">0</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DateMonth</span>::<span class="ident">BadMonth</span>,
-            <span class="number">1</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DateMonth</span>::<span class="ident">January</span>,
-            <span class="number">2</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DateMonth</span>::<span class="ident">February</span>,
-            <span class="number">3</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DateMonth</span>::<span class="ident">March</span>,
-            <span class="number">4</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DateMonth</span>::<span class="ident">April</span>,
-            <span class="number">5</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DateMonth</span>::<span class="ident">May</span>,
-            <span class="number">6</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DateMonth</span>::<span class="ident">June</span>,
-            <span class="number">7</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DateMonth</span>::<span class="ident">July</span>,
-            <span class="number">8</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DateMonth</span>::<span class="ident">August</span>,
-            <span class="number">9</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DateMonth</span>::<span class="ident">September</span>,
-            <span class="number">10</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DateMonth</span>::<span class="ident">October</span>,
-            <span class="number">11</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DateMonth</span>::<span class="ident">November</span>,
-            <span class="number">12</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DateMonth</span>::<span class="ident">December</span>,
-            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DateMonth</span>::<span class="ident">__Unknown</span>(<span class="ident">value</span>),
+            <span class="number">0</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DateMonth::BadMonth</span>,
+            <span class="number">1</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DateMonth::January</span>,
+            <span class="number">2</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DateMonth::February</span>,
+            <span class="number">3</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DateMonth::March</span>,
+            <span class="number">4</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DateMonth::April</span>,
+            <span class="number">5</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DateMonth::May</span>,
+            <span class="number">6</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DateMonth::June</span>,
+            <span class="number">7</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DateMonth::July</span>,
+            <span class="number">8</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DateMonth::August</span>,
+            <span class="number">9</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DateMonth::September</span>,
+            <span class="number">10</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DateMonth::October</span>,
+            <span class="number">11</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DateMonth::November</span>,
+            <span class="number">12</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DateMonth::December</span>,
+            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DateMonth::__Unknown</span>(<span class="ident">value</span>),
         }
     }
 }
@@ -886,20 +886,20 @@
     <span class="ident">__Unknown</span>(<span class="ident">i32</span>),
 }
 
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">DateWeekday</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">DateWeekday</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
             <span class="string">&quot;DateWeekday::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-                <span class="ident">DateWeekday</span>::<span class="ident">BadWeekday</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;BadWeekday&quot;</span>,
-                <span class="ident">DateWeekday</span>::<span class="ident">Monday</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Monday&quot;</span>,
-                <span class="ident">DateWeekday</span>::<span class="ident">Tuesday</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Tuesday&quot;</span>,
-                <span class="ident">DateWeekday</span>::<span class="ident">Wednesday</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Wednesday&quot;</span>,
-                <span class="ident">DateWeekday</span>::<span class="ident">Thursday</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Thursday&quot;</span>,
-                <span class="ident">DateWeekday</span>::<span class="ident">Friday</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Friday&quot;</span>,
-                <span class="ident">DateWeekday</span>::<span class="ident">Saturday</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Saturday&quot;</span>,
-                <span class="ident">DateWeekday</span>::<span class="ident">Sunday</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Sunday&quot;</span>,
+                <span class="ident">DateWeekday::BadWeekday</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;BadWeekday&quot;</span>,
+                <span class="ident">DateWeekday::Monday</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Monday&quot;</span>,
+                <span class="ident">DateWeekday::Tuesday</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Tuesday&quot;</span>,
+                <span class="ident">DateWeekday::Wednesday</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Wednesday&quot;</span>,
+                <span class="ident">DateWeekday::Thursday</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Thursday&quot;</span>,
+                <span class="ident">DateWeekday::Friday</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Friday&quot;</span>,
+                <span class="ident">DateWeekday::Saturday</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Saturday&quot;</span>,
+                <span class="ident">DateWeekday::Sunday</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Sunday&quot;</span>,
                 <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Unknown&quot;</span>,
             }
         )
@@ -908,36 +908,36 @@
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">DateWeekday</span> {
-    <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">GDateWeekday</span>;
+    <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi::GDateWeekday</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">GDateWeekday</span> {
+    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::GDateWeekday</span> {
         <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-            <span class="ident">DateWeekday</span>::<span class="ident">BadWeekday</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_DATE_BAD_WEEKDAY</span>,
-            <span class="ident">DateWeekday</span>::<span class="ident">Monday</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_DATE_MONDAY</span>,
-            <span class="ident">DateWeekday</span>::<span class="ident">Tuesday</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_DATE_TUESDAY</span>,
-            <span class="ident">DateWeekday</span>::<span class="ident">Wednesday</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_DATE_WEDNESDAY</span>,
-            <span class="ident">DateWeekday</span>::<span class="ident">Thursday</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_DATE_THURSDAY</span>,
-            <span class="ident">DateWeekday</span>::<span class="ident">Friday</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_DATE_FRIDAY</span>,
-            <span class="ident">DateWeekday</span>::<span class="ident">Saturday</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_DATE_SATURDAY</span>,
-            <span class="ident">DateWeekday</span>::<span class="ident">Sunday</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_DATE_SUNDAY</span>,
-            <span class="ident">DateWeekday</span>::<span class="ident">__Unknown</span>(<span class="ident">value</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">value</span>,
+            <span class="ident">DateWeekday::BadWeekday</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_DATE_BAD_WEEKDAY</span>,
+            <span class="ident">DateWeekday::Monday</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_DATE_MONDAY</span>,
+            <span class="ident">DateWeekday::Tuesday</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_DATE_TUESDAY</span>,
+            <span class="ident">DateWeekday::Wednesday</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_DATE_WEDNESDAY</span>,
+            <span class="ident">DateWeekday::Thursday</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_DATE_THURSDAY</span>,
+            <span class="ident">DateWeekday::Friday</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_DATE_FRIDAY</span>,
+            <span class="ident">DateWeekday::Saturday</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_DATE_SATURDAY</span>,
+            <span class="ident">DateWeekday::Sunday</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_DATE_SUNDAY</span>,
+            <span class="ident">DateWeekday::__Unknown</span>(<span class="ident">value</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">value</span>,
         }
     }
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GDateWeekday</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">DateWeekday</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GDateWeekday</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+<span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi::GDateWeekday</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">DateWeekday</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi::GDateWeekday</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">match</span> <span class="ident">value</span> {
-            <span class="number">0</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DateWeekday</span>::<span class="ident">BadWeekday</span>,
-            <span class="number">1</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DateWeekday</span>::<span class="ident">Monday</span>,
-            <span class="number">2</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DateWeekday</span>::<span class="ident">Tuesday</span>,
-            <span class="number">3</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DateWeekday</span>::<span class="ident">Wednesday</span>,
-            <span class="number">4</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DateWeekday</span>::<span class="ident">Thursday</span>,
-            <span class="number">5</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DateWeekday</span>::<span class="ident">Friday</span>,
-            <span class="number">6</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DateWeekday</span>::<span class="ident">Saturday</span>,
-            <span class="number">7</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DateWeekday</span>::<span class="ident">Sunday</span>,
-            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DateWeekday</span>::<span class="ident">__Unknown</span>(<span class="ident">value</span>),
+            <span class="number">0</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DateWeekday::BadWeekday</span>,
+            <span class="number">1</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DateWeekday::Monday</span>,
+            <span class="number">2</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DateWeekday::Tuesday</span>,
+            <span class="number">3</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DateWeekday::Wednesday</span>,
+            <span class="number">4</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DateWeekday::Thursday</span>,
+            <span class="number">5</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DateWeekday::Friday</span>,
+            <span class="number">6</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DateWeekday::Saturday</span>,
+            <span class="number">7</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DateWeekday::Sunday</span>,
+            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DateWeekday::__Unknown</span>(<span class="ident">value</span>),
         }
     }
 }
@@ -962,18 +962,18 @@
     <span class="ident">__Unknown</span>(<span class="ident">i32</span>),
 }
 
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">KeyFileError</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">KeyFileError</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
             <span class="string">&quot;KeyFileError::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-                <span class="ident">KeyFileError</span>::<span class="ident">UnknownEncoding</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;UnknownEncoding&quot;</span>,
-                <span class="ident">KeyFileError</span>::<span class="ident">Parse</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Parse&quot;</span>,
-                <span class="ident">KeyFileError</span>::<span class="ident">NotFound</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;NotFound&quot;</span>,
-                <span class="ident">KeyFileError</span>::<span class="ident">KeyNotFound</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;KeyNotFound&quot;</span>,
-                <span class="ident">KeyFileError</span>::<span class="ident">GroupNotFound</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;GroupNotFound&quot;</span>,
-                <span class="ident">KeyFileError</span>::<span class="ident">InvalidValue</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;InvalidValue&quot;</span>,
+                <span class="ident">KeyFileError::UnknownEncoding</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;UnknownEncoding&quot;</span>,
+                <span class="ident">KeyFileError::Parse</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Parse&quot;</span>,
+                <span class="ident">KeyFileError::NotFound</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;NotFound&quot;</span>,
+                <span class="ident">KeyFileError::KeyNotFound</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;KeyNotFound&quot;</span>,
+                <span class="ident">KeyFileError::GroupNotFound</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;GroupNotFound&quot;</span>,
+                <span class="ident">KeyFileError::InvalidValue</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;InvalidValue&quot;</span>,
                 <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Unknown&quot;</span>,
             }
         )
@@ -982,39 +982,39 @@
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">KeyFileError</span> {
-    <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">GKeyFileError</span>;
+    <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi::GKeyFileError</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">GKeyFileError</span> {
+    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::GKeyFileError</span> {
         <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-            <span class="ident">KeyFileError</span>::<span class="ident">UnknownEncoding</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_KEY_FILE_ERROR_UNKNOWN_ENCODING</span>,
-            <span class="ident">KeyFileError</span>::<span class="ident">Parse</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_KEY_FILE_ERROR_PARSE</span>,
-            <span class="ident">KeyFileError</span>::<span class="ident">NotFound</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_KEY_FILE_ERROR_NOT_FOUND</span>,
-            <span class="ident">KeyFileError</span>::<span class="ident">KeyNotFound</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_KEY_FILE_ERROR_KEY_NOT_FOUND</span>,
-            <span class="ident">KeyFileError</span>::<span class="ident">GroupNotFound</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_KEY_FILE_ERROR_GROUP_NOT_FOUND</span>,
-            <span class="ident">KeyFileError</span>::<span class="ident">InvalidValue</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_KEY_FILE_ERROR_INVALID_VALUE</span>,
-            <span class="ident">KeyFileError</span>::<span class="ident">__Unknown</span>(<span class="ident">value</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">value</span>,
+            <span class="ident">KeyFileError::UnknownEncoding</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_KEY_FILE_ERROR_UNKNOWN_ENCODING</span>,
+            <span class="ident">KeyFileError::Parse</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_KEY_FILE_ERROR_PARSE</span>,
+            <span class="ident">KeyFileError::NotFound</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_KEY_FILE_ERROR_NOT_FOUND</span>,
+            <span class="ident">KeyFileError::KeyNotFound</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_KEY_FILE_ERROR_KEY_NOT_FOUND</span>,
+            <span class="ident">KeyFileError::GroupNotFound</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_KEY_FILE_ERROR_GROUP_NOT_FOUND</span>,
+            <span class="ident">KeyFileError::InvalidValue</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_KEY_FILE_ERROR_INVALID_VALUE</span>,
+            <span class="ident">KeyFileError::__Unknown</span>(<span class="ident">value</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">value</span>,
         }
     }
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GKeyFileError</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">KeyFileError</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GKeyFileError</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+<span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi::GKeyFileError</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">KeyFileError</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi::GKeyFileError</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">match</span> <span class="ident">value</span> {
-            <span class="number">0</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">KeyFileError</span>::<span class="ident">UnknownEncoding</span>,
-            <span class="number">1</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">KeyFileError</span>::<span class="ident">Parse</span>,
-            <span class="number">2</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">KeyFileError</span>::<span class="ident">NotFound</span>,
-            <span class="number">3</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">KeyFileError</span>::<span class="ident">KeyNotFound</span>,
-            <span class="number">4</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">KeyFileError</span>::<span class="ident">GroupNotFound</span>,
-            <span class="number">5</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">KeyFileError</span>::<span class="ident">InvalidValue</span>,
-            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">KeyFileError</span>::<span class="ident">__Unknown</span>(<span class="ident">value</span>),
+            <span class="number">0</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">KeyFileError::UnknownEncoding</span>,
+            <span class="number">1</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">KeyFileError::Parse</span>,
+            <span class="number">2</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">KeyFileError::NotFound</span>,
+            <span class="number">3</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">KeyFileError::KeyNotFound</span>,
+            <span class="number">4</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">KeyFileError::GroupNotFound</span>,
+            <span class="number">5</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">KeyFileError::InvalidValue</span>,
+            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">KeyFileError::__Unknown</span>(<span class="ident">value</span>),
         }
     }
 }
 
 <span class="kw">impl</span> <span class="ident">ErrorDomain</span> <span class="kw">for</span> <span class="ident">KeyFileError</span> {
     <span class="kw">fn</span> <span class="ident">domain</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Quark</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_key_file_error_quark</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::g_key_file_error_quark</span>()) }
     }
 
     <span class="kw">fn</span> <span class="ident">code</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
@@ -1023,13 +1023,13 @@
 
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">code</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="ident">code</span> {
-            <span class="number">0</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">KeyFileError</span>::<span class="ident">UnknownEncoding</span>),
-            <span class="number">1</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">KeyFileError</span>::<span class="ident">Parse</span>),
-            <span class="number">2</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">KeyFileError</span>::<span class="ident">NotFound</span>),
-            <span class="number">3</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">KeyFileError</span>::<span class="ident">KeyNotFound</span>),
-            <span class="number">4</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">KeyFileError</span>::<span class="ident">GroupNotFound</span>),
-            <span class="number">5</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">KeyFileError</span>::<span class="ident">InvalidValue</span>),
-            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">KeyFileError</span>::<span class="ident">__Unknown</span>(<span class="ident">value</span>)),
+            <span class="number">0</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">KeyFileError::UnknownEncoding</span>),
+            <span class="number">1</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">KeyFileError::Parse</span>),
+            <span class="number">2</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">KeyFileError::NotFound</span>),
+            <span class="number">3</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">KeyFileError::KeyNotFound</span>),
+            <span class="number">4</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">KeyFileError::GroupNotFound</span>),
+            <span class="number">5</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">KeyFileError::InvalidValue</span>),
+            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">KeyFileError::__Unknown</span>(<span class="ident">value</span>)),
         }
     }
 }
@@ -1060,21 +1060,21 @@
     <span class="ident">__Unknown</span>(<span class="ident">i32</span>),
 }
 
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">OptionArg</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">OptionArg</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
             <span class="string">&quot;OptionArg::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-                <span class="ident">OptionArg</span>::<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;None&quot;</span>,
-                <span class="ident">OptionArg</span>::<span class="ident">String</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;String&quot;</span>,
-                <span class="ident">OptionArg</span>::<span class="ident">Int</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Int&quot;</span>,
-                <span class="ident">OptionArg</span>::<span class="ident">Callback</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Callback&quot;</span>,
-                <span class="ident">OptionArg</span>::<span class="ident">Filename</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Filename&quot;</span>,
-                <span class="ident">OptionArg</span>::<span class="ident">StringArray</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;StringArray&quot;</span>,
-                <span class="ident">OptionArg</span>::<span class="ident">FilenameArray</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;FilenameArray&quot;</span>,
-                <span class="ident">OptionArg</span>::<span class="ident">Double</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Double&quot;</span>,
-                <span class="ident">OptionArg</span>::<span class="ident">Int64</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Int64&quot;</span>,
+                <span class="ident">OptionArg::None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;None&quot;</span>,
+                <span class="ident">OptionArg::String</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;String&quot;</span>,
+                <span class="ident">OptionArg::Int</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Int&quot;</span>,
+                <span class="ident">OptionArg::Callback</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Callback&quot;</span>,
+                <span class="ident">OptionArg::Filename</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Filename&quot;</span>,
+                <span class="ident">OptionArg::StringArray</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;StringArray&quot;</span>,
+                <span class="ident">OptionArg::FilenameArray</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;FilenameArray&quot;</span>,
+                <span class="ident">OptionArg::Double</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Double&quot;</span>,
+                <span class="ident">OptionArg::Int64</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Int64&quot;</span>,
                 <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Unknown&quot;</span>,
             }
         )
@@ -1083,38 +1083,38 @@
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">OptionArg</span> {
-    <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">GOptionArg</span>;
+    <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi::GOptionArg</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">GOptionArg</span> {
+    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::GOptionArg</span> {
         <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-            <span class="ident">OptionArg</span>::<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_OPTION_ARG_NONE</span>,
-            <span class="ident">OptionArg</span>::<span class="ident">String</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_OPTION_ARG_STRING</span>,
-            <span class="ident">OptionArg</span>::<span class="ident">Int</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_OPTION_ARG_INT</span>,
-            <span class="ident">OptionArg</span>::<span class="ident">Callback</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_OPTION_ARG_CALLBACK</span>,
-            <span class="ident">OptionArg</span>::<span class="ident">Filename</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_OPTION_ARG_FILENAME</span>,
-            <span class="ident">OptionArg</span>::<span class="ident">StringArray</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_OPTION_ARG_STRING_ARRAY</span>,
-            <span class="ident">OptionArg</span>::<span class="ident">FilenameArray</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_OPTION_ARG_FILENAME_ARRAY</span>,
-            <span class="ident">OptionArg</span>::<span class="ident">Double</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_OPTION_ARG_DOUBLE</span>,
-            <span class="ident">OptionArg</span>::<span class="ident">Int64</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_OPTION_ARG_INT64</span>,
-            <span class="ident">OptionArg</span>::<span class="ident">__Unknown</span>(<span class="ident">value</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">value</span>,
+            <span class="ident">OptionArg::None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_OPTION_ARG_NONE</span>,
+            <span class="ident">OptionArg::String</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_OPTION_ARG_STRING</span>,
+            <span class="ident">OptionArg::Int</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_OPTION_ARG_INT</span>,
+            <span class="ident">OptionArg::Callback</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_OPTION_ARG_CALLBACK</span>,
+            <span class="ident">OptionArg::Filename</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_OPTION_ARG_FILENAME</span>,
+            <span class="ident">OptionArg::StringArray</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_OPTION_ARG_STRING_ARRAY</span>,
+            <span class="ident">OptionArg::FilenameArray</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_OPTION_ARG_FILENAME_ARRAY</span>,
+            <span class="ident">OptionArg::Double</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_OPTION_ARG_DOUBLE</span>,
+            <span class="ident">OptionArg::Int64</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_OPTION_ARG_INT64</span>,
+            <span class="ident">OptionArg::__Unknown</span>(<span class="ident">value</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">value</span>,
         }
     }
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GOptionArg</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">OptionArg</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GOptionArg</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+<span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi::GOptionArg</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">OptionArg</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi::GOptionArg</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">match</span> <span class="ident">value</span> {
-            <span class="number">0</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">OptionArg</span>::<span class="prelude-val">None</span>,
-            <span class="number">1</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">OptionArg</span>::<span class="ident">String</span>,
-            <span class="number">2</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">OptionArg</span>::<span class="ident">Int</span>,
-            <span class="number">3</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">OptionArg</span>::<span class="ident">Callback</span>,
-            <span class="number">4</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">OptionArg</span>::<span class="ident">Filename</span>,
-            <span class="number">5</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">OptionArg</span>::<span class="ident">StringArray</span>,
-            <span class="number">6</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">OptionArg</span>::<span class="ident">FilenameArray</span>,
-            <span class="number">7</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">OptionArg</span>::<span class="ident">Double</span>,
-            <span class="number">8</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">OptionArg</span>::<span class="ident">Int64</span>,
-            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">OptionArg</span>::<span class="ident">__Unknown</span>(<span class="ident">value</span>),
+            <span class="number">0</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">OptionArg::None</span>,
+            <span class="number">1</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">OptionArg::String</span>,
+            <span class="number">2</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">OptionArg::Int</span>,
+            <span class="number">3</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">OptionArg::Callback</span>,
+            <span class="number">4</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">OptionArg::Filename</span>,
+            <span class="number">5</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">OptionArg::StringArray</span>,
+            <span class="number">6</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">OptionArg::FilenameArray</span>,
+            <span class="number">7</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">OptionArg::Double</span>,
+            <span class="number">8</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">OptionArg::Int64</span>,
+            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">OptionArg::__Unknown</span>(<span class="ident">value</span>),
         }
     }
 }
@@ -1133,15 +1133,15 @@
     <span class="ident">__Unknown</span>(<span class="ident">i32</span>),
 }
 
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">SeekType</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">SeekType</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
             <span class="string">&quot;SeekType::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-                <span class="ident">SeekType</span>::<span class="ident">Cur</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Cur&quot;</span>,
-                <span class="ident">SeekType</span>::<span class="ident">Set</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Set&quot;</span>,
-                <span class="ident">SeekType</span>::<span class="ident">End</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;End&quot;</span>,
+                <span class="ident">SeekType::Cur</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Cur&quot;</span>,
+                <span class="ident">SeekType::Set</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Set&quot;</span>,
+                <span class="ident">SeekType::End</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;End&quot;</span>,
                 <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Unknown&quot;</span>,
             }
         )
@@ -1150,26 +1150,26 @@
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">SeekType</span> {
-    <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">GSeekType</span>;
+    <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi::GSeekType</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">GSeekType</span> {
+    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::GSeekType</span> {
         <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-            <span class="ident">SeekType</span>::<span class="ident">Cur</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_SEEK_CUR</span>,
-            <span class="ident">SeekType</span>::<span class="ident">Set</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_SEEK_SET</span>,
-            <span class="ident">SeekType</span>::<span class="ident">End</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_SEEK_END</span>,
-            <span class="ident">SeekType</span>::<span class="ident">__Unknown</span>(<span class="ident">value</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">value</span>,
+            <span class="ident">SeekType::Cur</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_SEEK_CUR</span>,
+            <span class="ident">SeekType::Set</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_SEEK_SET</span>,
+            <span class="ident">SeekType::End</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_SEEK_END</span>,
+            <span class="ident">SeekType::__Unknown</span>(<span class="ident">value</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">value</span>,
         }
     }
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GSeekType</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">SeekType</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GSeekType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+<span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi::GSeekType</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">SeekType</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi::GSeekType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">match</span> <span class="ident">value</span> {
-            <span class="number">0</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SeekType</span>::<span class="ident">Cur</span>,
-            <span class="number">1</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SeekType</span>::<span class="ident">Set</span>,
-            <span class="number">2</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SeekType</span>::<span class="ident">End</span>,
-            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SeekType</span>::<span class="ident">__Unknown</span>(<span class="ident">value</span>),
+            <span class="number">0</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SeekType::Cur</span>,
+            <span class="number">1</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SeekType::Set</span>,
+            <span class="number">2</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SeekType::End</span>,
+            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SeekType::__Unknown</span>(<span class="ident">value</span>),
         }
     }
 }
@@ -1188,15 +1188,15 @@
     <span class="ident">__Unknown</span>(<span class="ident">i32</span>),
 }
 
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">TimeType</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">TimeType</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
             <span class="string">&quot;TimeType::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-                <span class="ident">TimeType</span>::<span class="ident">Standard</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Standard&quot;</span>,
-                <span class="ident">TimeType</span>::<span class="ident">Daylight</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Daylight&quot;</span>,
-                <span class="ident">TimeType</span>::<span class="ident">Universal</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Universal&quot;</span>,
+                <span class="ident">TimeType::Standard</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Standard&quot;</span>,
+                <span class="ident">TimeType::Daylight</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Daylight&quot;</span>,
+                <span class="ident">TimeType::Universal</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Universal&quot;</span>,
                 <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Unknown&quot;</span>,
             }
         )
@@ -1205,26 +1205,26 @@
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">TimeType</span> {
-    <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">GTimeType</span>;
+    <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi::GTimeType</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">GTimeType</span> {
+    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::GTimeType</span> {
         <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-            <span class="ident">TimeType</span>::<span class="ident">Standard</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_TIME_TYPE_STANDARD</span>,
-            <span class="ident">TimeType</span>::<span class="ident">Daylight</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_TIME_TYPE_DAYLIGHT</span>,
-            <span class="ident">TimeType</span>::<span class="ident">Universal</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_TIME_TYPE_UNIVERSAL</span>,
-            <span class="ident">TimeType</span>::<span class="ident">__Unknown</span>(<span class="ident">value</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">value</span>,
+            <span class="ident">TimeType::Standard</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_TIME_TYPE_STANDARD</span>,
+            <span class="ident">TimeType::Daylight</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_TIME_TYPE_DAYLIGHT</span>,
+            <span class="ident">TimeType::Universal</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_TIME_TYPE_UNIVERSAL</span>,
+            <span class="ident">TimeType::__Unknown</span>(<span class="ident">value</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">value</span>,
         }
     }
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GTimeType</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">TimeType</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GTimeType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+<span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi::GTimeType</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">TimeType</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi::GTimeType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">match</span> <span class="ident">value</span> {
-            <span class="number">0</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">TimeType</span>::<span class="ident">Standard</span>,
-            <span class="number">1</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">TimeType</span>::<span class="ident">Daylight</span>,
-            <span class="number">2</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">TimeType</span>::<span class="ident">Universal</span>,
-            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">TimeType</span>::<span class="ident">__Unknown</span>(<span class="ident">value</span>),
+            <span class="number">0</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">TimeType::Standard</span>,
+            <span class="number">1</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">TimeType::Daylight</span>,
+            <span class="number">2</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">TimeType::Universal</span>,
+            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">TimeType::__Unknown</span>(<span class="ident">value</span>),
         }
     }
 }
@@ -1261,22 +1261,22 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_66&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_66&quot;</span>)))]</span>
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">UriError</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">UriError</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
             <span class="string">&quot;UriError::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-                <span class="ident">UriError</span>::<span class="ident">Failed</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Failed&quot;</span>,
-                <span class="ident">UriError</span>::<span class="ident">BadScheme</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;BadScheme&quot;</span>,
-                <span class="ident">UriError</span>::<span class="ident">BadUser</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;BadUser&quot;</span>,
-                <span class="ident">UriError</span>::<span class="ident">BadPassword</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;BadPassword&quot;</span>,
-                <span class="ident">UriError</span>::<span class="ident">BadAuthParams</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;BadAuthParams&quot;</span>,
-                <span class="ident">UriError</span>::<span class="ident">BadHost</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;BadHost&quot;</span>,
-                <span class="ident">UriError</span>::<span class="ident">BadPort</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;BadPort&quot;</span>,
-                <span class="ident">UriError</span>::<span class="ident">BadPath</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;BadPath&quot;</span>,
-                <span class="ident">UriError</span>::<span class="ident">BadQuery</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;BadQuery&quot;</span>,
-                <span class="ident">UriError</span>::<span class="ident">BadFragment</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;BadFragment&quot;</span>,
+                <span class="ident">UriError::Failed</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Failed&quot;</span>,
+                <span class="ident">UriError::BadScheme</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;BadScheme&quot;</span>,
+                <span class="ident">UriError::BadUser</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;BadUser&quot;</span>,
+                <span class="ident">UriError::BadPassword</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;BadPassword&quot;</span>,
+                <span class="ident">UriError::BadAuthParams</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;BadAuthParams&quot;</span>,
+                <span class="ident">UriError::BadHost</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;BadHost&quot;</span>,
+                <span class="ident">UriError::BadPort</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;BadPort&quot;</span>,
+                <span class="ident">UriError::BadPath</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;BadPath&quot;</span>,
+                <span class="ident">UriError::BadQuery</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;BadQuery&quot;</span>,
+                <span class="ident">UriError::BadFragment</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;BadFragment&quot;</span>,
                 <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Unknown&quot;</span>,
             }
         )
@@ -1287,21 +1287,21 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_66&quot;</span>)))]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">UriError</span> {
-    <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">GUriError</span>;
+    <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi::GUriError</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">GUriError</span> {
+    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::GUriError</span> {
         <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-            <span class="ident">UriError</span>::<span class="ident">Failed</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_URI_ERROR_FAILED</span>,
-            <span class="ident">UriError</span>::<span class="ident">BadScheme</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_URI_ERROR_BAD_SCHEME</span>,
-            <span class="ident">UriError</span>::<span class="ident">BadUser</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_URI_ERROR_BAD_USER</span>,
-            <span class="ident">UriError</span>::<span class="ident">BadPassword</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_URI_ERROR_BAD_PASSWORD</span>,
-            <span class="ident">UriError</span>::<span class="ident">BadAuthParams</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_URI_ERROR_BAD_AUTH_PARAMS</span>,
-            <span class="ident">UriError</span>::<span class="ident">BadHost</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_URI_ERROR_BAD_HOST</span>,
-            <span class="ident">UriError</span>::<span class="ident">BadPort</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_URI_ERROR_BAD_PORT</span>,
-            <span class="ident">UriError</span>::<span class="ident">BadPath</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_URI_ERROR_BAD_PATH</span>,
-            <span class="ident">UriError</span>::<span class="ident">BadQuery</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_URI_ERROR_BAD_QUERY</span>,
-            <span class="ident">UriError</span>::<span class="ident">BadFragment</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_URI_ERROR_BAD_FRAGMENT</span>,
-            <span class="ident">UriError</span>::<span class="ident">__Unknown</span>(<span class="ident">value</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">value</span>,
+            <span class="ident">UriError::Failed</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_URI_ERROR_FAILED</span>,
+            <span class="ident">UriError::BadScheme</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_URI_ERROR_BAD_SCHEME</span>,
+            <span class="ident">UriError::BadUser</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_URI_ERROR_BAD_USER</span>,
+            <span class="ident">UriError::BadPassword</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_URI_ERROR_BAD_PASSWORD</span>,
+            <span class="ident">UriError::BadAuthParams</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_URI_ERROR_BAD_AUTH_PARAMS</span>,
+            <span class="ident">UriError::BadHost</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_URI_ERROR_BAD_HOST</span>,
+            <span class="ident">UriError::BadPort</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_URI_ERROR_BAD_PORT</span>,
+            <span class="ident">UriError::BadPath</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_URI_ERROR_BAD_PATH</span>,
+            <span class="ident">UriError::BadQuery</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_URI_ERROR_BAD_QUERY</span>,
+            <span class="ident">UriError::BadFragment</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_URI_ERROR_BAD_FRAGMENT</span>,
+            <span class="ident">UriError::__Unknown</span>(<span class="ident">value</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">value</span>,
         }
     }
 }
@@ -1309,20 +1309,20 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_66&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_66&quot;</span>)))]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GUriError</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">UriError</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GUriError</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+<span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi::GUriError</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">UriError</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi::GUriError</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">match</span> <span class="ident">value</span> {
-            <span class="number">0</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">UriError</span>::<span class="ident">Failed</span>,
-            <span class="number">1</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">UriError</span>::<span class="ident">BadScheme</span>,
-            <span class="number">2</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">UriError</span>::<span class="ident">BadUser</span>,
-            <span class="number">3</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">UriError</span>::<span class="ident">BadPassword</span>,
-            <span class="number">4</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">UriError</span>::<span class="ident">BadAuthParams</span>,
-            <span class="number">5</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">UriError</span>::<span class="ident">BadHost</span>,
-            <span class="number">6</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">UriError</span>::<span class="ident">BadPort</span>,
-            <span class="number">7</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">UriError</span>::<span class="ident">BadPath</span>,
-            <span class="number">8</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">UriError</span>::<span class="ident">BadQuery</span>,
-            <span class="number">9</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">UriError</span>::<span class="ident">BadFragment</span>,
-            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">UriError</span>::<span class="ident">__Unknown</span>(<span class="ident">value</span>),
+            <span class="number">0</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">UriError::Failed</span>,
+            <span class="number">1</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">UriError::BadScheme</span>,
+            <span class="number">2</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">UriError::BadUser</span>,
+            <span class="number">3</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">UriError::BadPassword</span>,
+            <span class="number">4</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">UriError::BadAuthParams</span>,
+            <span class="number">5</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">UriError::BadHost</span>,
+            <span class="number">6</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">UriError::BadPort</span>,
+            <span class="number">7</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">UriError::BadPath</span>,
+            <span class="number">8</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">UriError::BadQuery</span>,
+            <span class="number">9</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">UriError::BadFragment</span>,
+            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">UriError::__Unknown</span>(<span class="ident">value</span>),
         }
     }
 }
@@ -1331,7 +1331,7 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_66&quot;</span>)))]</span>
 <span class="kw">impl</span> <span class="ident">ErrorDomain</span> <span class="kw">for</span> <span class="ident">UriError</span> {
     <span class="kw">fn</span> <span class="ident">domain</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Quark</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_uri_error_quark</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::g_uri_error_quark</span>()) }
     }
 
     <span class="kw">fn</span> <span class="ident">code</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
@@ -1340,17 +1340,17 @@
 
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">code</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="ident">code</span> {
-            <span class="number">0</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">UriError</span>::<span class="ident">Failed</span>),
-            <span class="number">1</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">UriError</span>::<span class="ident">BadScheme</span>),
-            <span class="number">2</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">UriError</span>::<span class="ident">BadUser</span>),
-            <span class="number">3</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">UriError</span>::<span class="ident">BadPassword</span>),
-            <span class="number">4</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">UriError</span>::<span class="ident">BadAuthParams</span>),
-            <span class="number">5</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">UriError</span>::<span class="ident">BadHost</span>),
-            <span class="number">6</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">UriError</span>::<span class="ident">BadPort</span>),
-            <span class="number">7</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">UriError</span>::<span class="ident">BadPath</span>),
-            <span class="number">8</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">UriError</span>::<span class="ident">BadQuery</span>),
-            <span class="number">9</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">UriError</span>::<span class="ident">BadFragment</span>),
-            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">UriError</span>::<span class="ident">Failed</span>),
+            <span class="number">0</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">UriError::Failed</span>),
+            <span class="number">1</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">UriError::BadScheme</span>),
+            <span class="number">2</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">UriError::BadUser</span>),
+            <span class="number">3</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">UriError::BadPassword</span>),
+            <span class="number">4</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">UriError::BadAuthParams</span>),
+            <span class="number">5</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">UriError::BadHost</span>),
+            <span class="number">6</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">UriError::BadPort</span>),
+            <span class="number">7</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">UriError::BadPath</span>),
+            <span class="number">8</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">UriError::BadQuery</span>),
+            <span class="number">9</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">UriError::BadFragment</span>),
+            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">UriError::Failed</span>),
         }
     }
 }

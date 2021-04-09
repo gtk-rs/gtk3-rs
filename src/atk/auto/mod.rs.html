@@ -178,171 +178,171 @@
 <span class="comment">// DO NOT EDIT</span>
 
 <span class="kw">mod</span> <span class="ident">action</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">action</span>::<span class="ident">AtkActionExt</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">action</span>::{<span class="ident">Action</span>, <span class="ident">NONE_ACTION</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::action::AtkActionExt</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::action</span>::{<span class="ident">Action</span>, <span class="ident">NONE_ACTION</span>};
 
 <span class="kw">mod</span> <span class="ident">component</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">component</span>::<span class="ident">ComponentExt</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">component</span>::{<span class="ident">Component</span>, <span class="ident">NONE_COMPONENT</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::component::ComponentExt</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::component</span>::{<span class="ident">Component</span>, <span class="ident">NONE_COMPONENT</span>};
 
 <span class="kw">mod</span> <span class="ident">document</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">document</span>::<span class="ident">DocumentExt</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">document</span>::{<span class="ident">Document</span>, <span class="ident">NONE_DOCUMENT</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::document::DocumentExt</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::document</span>::{<span class="ident">Document</span>, <span class="ident">NONE_DOCUMENT</span>};
 
 <span class="kw">mod</span> <span class="ident">editable_text</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">editable_text</span>::<span class="ident">EditableTextExt</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">editable_text</span>::{<span class="ident">EditableText</span>, <span class="ident">NONE_EDITABLE_TEXT</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::editable_text::EditableTextExt</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::editable_text</span>::{<span class="ident">EditableText</span>, <span class="ident">NONE_EDITABLE_TEXT</span>};
 
 <span class="kw">mod</span> <span class="ident">gobject_accessible</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">gobject_accessible</span>::<span class="ident">GObjectAccessibleExt</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">gobject_accessible</span>::{<span class="ident">GObjectAccessible</span>, <span class="ident">NONE_GOBJECT_ACCESSIBLE</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::gobject_accessible::GObjectAccessibleExt</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::gobject_accessible</span>::{<span class="ident">GObjectAccessible</span>, <span class="ident">NONE_GOBJECT_ACCESSIBLE</span>};
 
 <span class="kw">mod</span> <span class="ident">hyperlink</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">hyperlink</span>::<span class="ident">HyperlinkExt</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">hyperlink</span>::{<span class="ident">Hyperlink</span>, <span class="ident">NONE_HYPERLINK</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::hyperlink::HyperlinkExt</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::hyperlink</span>::{<span class="ident">Hyperlink</span>, <span class="ident">NONE_HYPERLINK</span>};
 
 <span class="kw">mod</span> <span class="ident">hyperlink_impl</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">hyperlink_impl</span>::<span class="ident">HyperlinkImplExt</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">hyperlink_impl</span>::{<span class="ident">HyperlinkImpl</span>, <span class="ident">NONE_HYPERLINK_IMPL</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::hyperlink_impl::HyperlinkImplExt</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::hyperlink_impl</span>::{<span class="ident">HyperlinkImpl</span>, <span class="ident">NONE_HYPERLINK_IMPL</span>};
 
 <span class="kw">mod</span> <span class="ident">hypertext</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">hypertext</span>::<span class="ident">HypertextExt</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">hypertext</span>::{<span class="ident">Hypertext</span>, <span class="ident">NONE_HYPERTEXT</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::hypertext::HypertextExt</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::hypertext</span>::{<span class="ident">Hypertext</span>, <span class="ident">NONE_HYPERTEXT</span>};
 
 <span class="kw">mod</span> <span class="ident">image</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">image</span>::<span class="ident">AtkImageExt</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">image</span>::{<span class="ident">Image</span>, <span class="ident">NONE_IMAGE</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::image::AtkImageExt</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::image</span>::{<span class="ident">Image</span>, <span class="ident">NONE_IMAGE</span>};
 
 <span class="kw">mod</span> <span class="ident">misc</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">misc</span>::<span class="ident">AtkMiscExt</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">misc</span>::{<span class="ident">Misc</span>, <span class="ident">NONE_MISC</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::misc::AtkMiscExt</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::misc</span>::{<span class="ident">Misc</span>, <span class="ident">NONE_MISC</span>};
 
 <span class="kw">mod</span> <span class="ident">no_op_object</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">no_op_object</span>::{<span class="ident">NoOpObject</span>, <span class="ident">NONE_NO_OP_OBJECT</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::no_op_object</span>::{<span class="ident">NoOpObject</span>, <span class="ident">NONE_NO_OP_OBJECT</span>};
 
 <span class="kw">mod</span> <span class="ident">no_op_object_factory</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">no_op_object_factory</span>::{<span class="ident">NoOpObjectFactory</span>, <span class="ident">NONE_NO_OP_OBJECT_FACTORY</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::no_op_object_factory</span>::{<span class="ident">NoOpObjectFactory</span>, <span class="ident">NONE_NO_OP_OBJECT_FACTORY</span>};
 
 <span class="kw">mod</span> <span class="ident">object</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">object</span>::<span class="ident">AtkObjectExt</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">object</span>::{<span class="ident">Object</span>, <span class="ident">NONE_OBJECT</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::object::AtkObjectExt</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::object</span>::{<span class="ident">Object</span>, <span class="ident">NONE_OBJECT</span>};
 
 <span class="kw">mod</span> <span class="ident">object_factory</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">object_factory</span>::<span class="ident">ObjectFactoryExt</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">object_factory</span>::{<span class="ident">ObjectFactory</span>, <span class="ident">NONE_OBJECT_FACTORY</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::object_factory::ObjectFactoryExt</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::object_factory</span>::{<span class="ident">ObjectFactory</span>, <span class="ident">NONE_OBJECT_FACTORY</span>};
 
 <span class="kw">mod</span> <span class="ident">plug</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">plug</span>::<span class="ident">AtkPlugExt</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">plug</span>::{<span class="ident">Plug</span>, <span class="ident">NONE_PLUG</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::plug::AtkPlugExt</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::plug</span>::{<span class="ident">Plug</span>, <span class="ident">NONE_PLUG</span>};
 
 <span class="kw">mod</span> <span class="ident">registry</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">registry</span>::<span class="ident">RegistryExt</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">registry</span>::{<span class="ident">Registry</span>, <span class="ident">NONE_REGISTRY</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::registry::RegistryExt</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::registry</span>::{<span class="ident">Registry</span>, <span class="ident">NONE_REGISTRY</span>};
 
 <span class="kw">mod</span> <span class="ident">relation</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">relation</span>::<span class="ident">RelationExt</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">relation</span>::{<span class="ident">Relation</span>, <span class="ident">NONE_RELATION</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::relation::RelationExt</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::relation</span>::{<span class="ident">Relation</span>, <span class="ident">NONE_RELATION</span>};
 
 <span class="kw">mod</span> <span class="ident">relation_set</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">relation_set</span>::<span class="ident">RelationSetExt</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">relation_set</span>::{<span class="ident">RelationSet</span>, <span class="ident">NONE_RELATION_SET</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::relation_set::RelationSetExt</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::relation_set</span>::{<span class="ident">RelationSet</span>, <span class="ident">NONE_RELATION_SET</span>};
 
 <span class="kw">mod</span> <span class="ident">selection</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">selection</span>::<span class="ident">SelectionExt</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">selection</span>::{<span class="ident">Selection</span>, <span class="ident">NONE_SELECTION</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::selection::SelectionExt</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::selection</span>::{<span class="ident">Selection</span>, <span class="ident">NONE_SELECTION</span>};
 
 <span class="kw">mod</span> <span class="ident">socket</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">socket</span>::<span class="ident">AtkSocketExt</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">socket</span>::{<span class="ident">Socket</span>, <span class="ident">NONE_SOCKET</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::socket::AtkSocketExt</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::socket</span>::{<span class="ident">Socket</span>, <span class="ident">NONE_SOCKET</span>};
 
 <span class="kw">mod</span> <span class="ident">state_set</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">state_set</span>::<span class="ident">StateSetExt</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">state_set</span>::{<span class="ident">StateSet</span>, <span class="ident">NONE_STATE_SET</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::state_set::StateSetExt</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::state_set</span>::{<span class="ident">StateSet</span>, <span class="ident">NONE_STATE_SET</span>};
 
 <span class="kw">mod</span> <span class="ident">streamable_content</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">streamable_content</span>::<span class="ident">StreamableContentExt</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">streamable_content</span>::{<span class="ident">StreamableContent</span>, <span class="ident">NONE_STREAMABLE_CONTENT</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::streamable_content::StreamableContentExt</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::streamable_content</span>::{<span class="ident">StreamableContent</span>, <span class="ident">NONE_STREAMABLE_CONTENT</span>};
 
 <span class="kw">mod</span> <span class="ident">table</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">table</span>::<span class="ident">TableExt</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">table</span>::{<span class="ident">Table</span>, <span class="ident">NONE_TABLE</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::table::TableExt</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::table</span>::{<span class="ident">Table</span>, <span class="ident">NONE_TABLE</span>};
 
 <span class="kw">mod</span> <span class="ident">table_cell</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">table_cell</span>::<span class="ident">TableCellExt</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">table_cell</span>::{<span class="ident">TableCell</span>, <span class="ident">NONE_TABLE_CELL</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::table_cell::TableCellExt</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::table_cell</span>::{<span class="ident">TableCell</span>, <span class="ident">NONE_TABLE_CELL</span>};
 
 <span class="kw">mod</span> <span class="ident">text</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">text</span>::<span class="ident">TextExt</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">text</span>::{<span class="ident">Text</span>, <span class="ident">NONE_TEXT</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::text::TextExt</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::text</span>::{<span class="ident">Text</span>, <span class="ident">NONE_TEXT</span>};
 
 <span class="kw">mod</span> <span class="ident">util</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">util</span>::{<span class="ident">Util</span>, <span class="ident">NONE_UTIL</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::util</span>::{<span class="ident">Util</span>, <span class="ident">NONE_UTIL</span>};
 
 <span class="kw">mod</span> <span class="ident">value</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">value</span>::<span class="ident">ValueExt</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">value</span>::{<span class="ident">Value</span>, <span class="ident">NONE_VALUE</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::value::ValueExt</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::value</span>::{<span class="ident">Value</span>, <span class="ident">NONE_VALUE</span>};
 
 <span class="kw">mod</span> <span class="ident">window</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">window</span>::<span class="ident">AtkWindowExt</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">window</span>::{<span class="ident">Window</span>, <span class="ident">NONE_WINDOW</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::window::AtkWindowExt</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::window</span>::{<span class="ident">Window</span>, <span class="ident">NONE_WINDOW</span>};
 
 <span class="kw">mod</span> <span class="ident">range</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">range</span>::<span class="ident">Range</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::range::Range</span>;
 
 <span class="kw">mod</span> <span class="ident">rectangle</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">rectangle</span>::<span class="ident">Rectangle</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::rectangle::Rectangle</span>;
 
 <span class="kw">mod</span> <span class="ident">text_range</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">text_range</span>::<span class="ident">TextRange</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::text_range::TextRange</span>;
 
 <span class="kw">mod</span> <span class="ident">enums</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">enums</span>::<span class="ident">CoordType</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">enums</span>::<span class="ident">Layer</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">enums</span>::<span class="ident">RelationType</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">enums</span>::<span class="ident">Role</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::enums::CoordType</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::enums::Layer</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::enums::RelationType</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::enums::Role</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_30&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_30&quot;</span>)))]</span>
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">enums</span>::<span class="ident">ScrollType</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">enums</span>::<span class="ident">StateType</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">enums</span>::<span class="ident">TextAttribute</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">enums</span>::<span class="ident">TextBoundary</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">enums</span>::<span class="ident">TextClipType</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">enums</span>::<span class="ident">TextGranularity</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">enums</span>::<span class="ident">ValueType</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::enums::ScrollType</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::enums::StateType</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::enums::TextAttribute</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::enums::TextBoundary</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::enums::TextClipType</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::enums::TextGranularity</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::enums::ValueType</span>;
 
 <span class="kw">mod</span> <span class="ident">flags</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">flags</span>::<span class="ident">HyperlinkStateFlags</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::flags::HyperlinkStateFlags</span>;
 
 <span class="kw">mod</span> <span class="ident">alias</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">alias</span>::<span class="ident">State</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::alias::State</span>;
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">traits</span> {
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">AtkActionExt</span>;
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">AtkImageExt</span>;
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">AtkMiscExt</span>;
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">AtkObjectExt</span>;
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">AtkPlugExt</span>;
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">AtkSocketExt</span>;
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">AtkWindowExt</span>;
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">ComponentExt</span>;
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">DocumentExt</span>;
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">EditableTextExt</span>;
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">GObjectAccessibleExt</span>;
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">HyperlinkExt</span>;
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">HyperlinkImplExt</span>;
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">HypertextExt</span>;
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">ObjectFactoryExt</span>;
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">RegistryExt</span>;
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">RelationExt</span>;
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">RelationSetExt</span>;
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">SelectionExt</span>;
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">StateSetExt</span>;
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">StreamableContentExt</span>;
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">TableCellExt</span>;
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">TableExt</span>;
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">TextExt</span>;
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">ValueExt</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::AtkActionExt</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::AtkImageExt</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::AtkMiscExt</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::AtkObjectExt</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::AtkPlugExt</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::AtkSocketExt</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::AtkWindowExt</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::ComponentExt</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::DocumentExt</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::EditableTextExt</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::GObjectAccessibleExt</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::HyperlinkExt</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::HyperlinkImplExt</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::HypertextExt</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::ObjectFactoryExt</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::RegistryExt</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::RelationExt</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::RelationSetExt</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::SelectionExt</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::StateSetExt</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::StreamableContentExt</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::TableCellExt</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::TableExt</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::TextExt</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::ValueExt</span>;
 }
 </pre></div>
 </section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="atk" data-search-js="../../../search-index.js"></div>

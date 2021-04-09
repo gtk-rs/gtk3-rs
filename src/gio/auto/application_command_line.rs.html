@@ -525,19 +525,19 @@
 <span class="comment">// from gir-files (https://github.com/gtk-rs/gir-files)</span>
 <span class="comment">// DO NOT EDIT</span>
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">File</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">InputStream</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">object</span>::<span class="ident">Cast</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">object</span>::<span class="ident">IsA</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">signal</span>::<span class="ident">connect_raw</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">signal</span>::<span class="ident">SignalHandlerId</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">boxed</span>::<span class="ident">Box</span> <span class="kw">as</span> <span class="ident">Box_</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>::<span class="ident">transmute</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::File</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::InputStream</span>;
+<span class="kw">use</span> <span class="ident">glib::object::Cast</span>;
+<span class="kw">use</span> <span class="ident">glib::object::IsA</span>;
+<span class="kw">use</span> <span class="ident">glib::signal::connect_raw</span>;
+<span class="kw">use</span> <span class="ident">glib::signal::SignalHandlerId</span>;
+<span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">std::boxed::Box</span> <span class="kw">as</span> <span class="ident">Box_</span>;
+<span class="kw">use</span> <span class="ident">std::fmt</span>;
+<span class="kw">use</span> <span class="ident">std::mem</span>;
+<span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
-<span class="ident">glib</span>::<span class="macro">wrapper!</span> {
+<span class="macro">glib::wrapper!</span> {
     <span class="doccomment">/// `ApplicationCommandLine` represents a command-line invocation of</span>
     <span class="doccomment">/// an application. It is created by `Application` and emitted</span>
     <span class="doccomment">/// in the `Application::command-line` signal and virtual function.</span>
@@ -699,10 +699,10 @@
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`ApplicationCommandLineExt`](trait.ApplicationCommandLineExt.html), [`glib::object::ObjectExt`](../glib/object/trait.ObjectExt.html)</span>
-    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ApplicationCommandLine</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GApplicationCommandLine</span>, <span class="ident">ffi</span>::<span class="ident">GApplicationCommandLineClass</span><span class="op">&gt;</span>);
+    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ApplicationCommandLine</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GApplicationCommandLine</span>, <span class="ident">ffi::GApplicationCommandLineClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
-        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">g_application_command_line_get_type</span>(),
+        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::g_application_command_line_get_type</span>(),
     }
 }
 
@@ -727,7 +727,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// a new `File`</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_application_command_line_create_file_for_arg&quot;</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">create_file_for_arg</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">std</span>::<span class="ident">ffi</span>::<span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">arg</span>: <span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">File</span>;
+    <span class="kw">fn</span> <span class="ident">create_file_for_arg</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">std::ffi::OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">arg</span>: <span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">File</span>;
 
     <span class="doccomment">/// Gets the list of arguments that was passed on the command line.</span>
     <span class="doccomment">///</span>
@@ -748,7 +748,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">///  the string array containing the arguments (the argv)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_application_command_line_get_arguments&quot;</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">get_arguments</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">std</span>::<span class="ident">ffi</span>::<span class="ident">OsString</span><span class="op">&gt;</span>;
+    <span class="kw">fn</span> <span class="ident">get_arguments</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">std::ffi::OsString</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Gets the working directory of the command line invocation.</span>
     <span class="doccomment">/// The string may contain non-utf8 data.</span>
@@ -763,7 +763,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// the current directory, or `None`</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_application_command_line_get_cwd&quot;</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">get_cwd</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">std</span>::<span class="ident">path</span>::<span class="ident">PathBuf</span><span class="op">&gt;</span>;
+    <span class="kw">fn</span> <span class="ident">get_cwd</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">std::path::PathBuf</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Gets the contents of the &#39;environ&#39; variable of the command line</span>
     <span class="doccomment">/// invocation, as would be returned by `g_get_environ`, ie as a</span>
@@ -786,7 +786,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">///  the environment strings, or `None` if they were not sent</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_application_command_line_get_environ&quot;</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">get_environ</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">std</span>::<span class="ident">ffi</span>::<span class="ident">OsString</span><span class="op">&gt;</span>;
+    <span class="kw">fn</span> <span class="ident">get_environ</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">std::ffi::OsString</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Gets the exit status of `self`. See</span>
     <span class="doccomment">/// `ApplicationCommandLineExt::set_exit_status` for more information.</span>
@@ -819,7 +819,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// a `glib::VariantDict` with the options</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_application_command_line_get_options_dict&quot;</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">get_options_dict</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib</span>::<span class="ident">VariantDict</span>;
+    <span class="kw">fn</span> <span class="ident">get_options_dict</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::VariantDict</span>;
 
     <span class="doccomment">/// Gets the platform data associated with the invocation of `self`.</span>
     <span class="doccomment">///</span>
@@ -834,7 +834,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// the platform data, or `None`</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_application_command_line_get_platform_data&quot;</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">get_platform_data</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">Variant</span><span class="op">&gt;</span>;
+    <span class="kw">fn</span> <span class="ident">get_platform_data</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::Variant</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Gets the stdin of the invoking process.</span>
     <span class="doccomment">///</span>
@@ -871,7 +871,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// the value of the variable, or `None` if unset or unsent</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_application_command_line_getenv&quot;</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">getenv</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">std</span>::<span class="ident">ffi</span>::<span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">GString</span><span class="op">&gt;</span>;
+    <span class="kw">fn</span> <span class="ident">getenv</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">std::ffi::OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span>;
 
     <span class="comment">//#[doc(alias = &quot;g_application_command_line_print&quot;)]</span>
     <span class="comment">//fn print(&amp;self, format: &amp;str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);</span>
@@ -909,20 +909,20 @@
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">O</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">ApplicationCommandLine</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="ident">ApplicationCommandLineExt</span> <span class="kw">for</span> <span class="ident">O</span> {
-    <span class="kw">fn</span> <span class="ident">create_file_for_arg</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">std</span>::<span class="ident">ffi</span>::<span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">arg</span>: <span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">File</span> {
+    <span class="kw">fn</span> <span class="ident">create_file_for_arg</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">std::ffi::OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">arg</span>: <span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">File</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_application_command_line_create_file_for_arg</span>(
+            <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_application_command_line_create_file_for_arg</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">arg</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">get_arguments</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">std</span>::<span class="ident">ffi</span>::<span class="ident">OsString</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">get_arguments</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">std::ffi::OsString</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">argc</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
-            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">FromGlibContainer</span>::<span class="ident">from_glib_full_num</span>(
-                <span class="ident">ffi</span>::<span class="ident">g_application_command_line_get_arguments</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">argc</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
+            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">FromGlibContainer::from_glib_full_num</span>(
+                <span class="ident">ffi::g_application_command_line_get_arguments</span>(
                     <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                     <span class="ident">argc</span>.<span class="ident">as_mut_ptr</span>(),
                 ),
@@ -932,45 +932,45 @@
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">get_cwd</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">std</span>::<span class="ident">path</span>::<span class="ident">PathBuf</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">get_cwd</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">std::path::PathBuf</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">g_application_command_line_get_cwd</span>(
+            <span class="ident">from_glib_none</span>(<span class="ident">ffi::g_application_command_line_get_cwd</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">get_environ</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">std</span>::<span class="ident">ffi</span>::<span class="ident">OsString</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">get_environ</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">std::ffi::OsString</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">FromGlibPtrContainer</span>::<span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">g_application_command_line_get_environ</span>(
+            <span class="ident">FromGlibPtrContainer::from_glib_none</span>(<span class="ident">ffi::g_application_command_line_get_environ</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
         }
     }
 
     <span class="kw">fn</span> <span class="ident">get_exit_status</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">g_application_command_line_get_exit_status</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::g_application_command_line_get_exit_status</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
     <span class="kw">fn</span> <span class="ident">get_is_remote</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_application_command_line_get_is_remote</span>(
+            <span class="ident">from_glib</span>(<span class="ident">ffi::g_application_command_line_get_is_remote</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">get_options_dict</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib</span>::<span class="ident">VariantDict</span> {
+    <span class="kw">fn</span> <span class="ident">get_options_dict</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::VariantDict</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">g_application_command_line_get_options_dict</span>(
+            <span class="ident">from_glib_none</span>(<span class="ident">ffi::g_application_command_line_get_options_dict</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">get_platform_data</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">Variant</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">get_platform_data</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::Variant</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_application_command_line_get_platform_data</span>(
+            <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_application_command_line_get_platform_data</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
         }
@@ -978,15 +978,15 @@
 
     <span class="kw">fn</span> <span class="ident">get_stdin</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">InputStream</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_application_command_line_get_stdin</span>(
+            <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_application_command_line_get_stdin</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">getenv</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">std</span>::<span class="ident">ffi</span>::<span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">GString</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">getenv</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">std::ffi::OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">g_application_command_line_getenv</span>(
+            <span class="ident">from_glib_none</span>(<span class="ident">ffi::g_application_command_line_getenv</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">name</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
@@ -1003,7 +1003,7 @@
 
     <span class="kw">fn</span> <span class="ident">set_exit_status</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">exit_status</span>: <span class="ident">i32</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">g_application_command_line_set_exit_status</span>(
+            <span class="ident">ffi::g_application_command_line_set_exit_status</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">exit_status</span>,
             );
@@ -1012,31 +1012,31 @@
 
     <span class="kw">fn</span> <span class="ident">connect_property_is_remote_notify</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span> {
         <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">notify_is_remote_trampoline</span><span class="op">&lt;</span><span class="ident">P</span>, <span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">P</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
-            <span class="ident">this</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GApplicationCommandLine</span>,
-            <span class="ident">_param_spec</span>: <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">gpointer</span>,
-            <span class="ident">f</span>: <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">gpointer</span>,
+            <span class="ident">this</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::GApplicationCommandLine</span>,
+            <span class="ident">_param_spec</span>: <span class="ident">glib::ffi::gpointer</span>,
+            <span class="ident">f</span>: <span class="ident">glib::ffi::gpointer</span>,
         ) <span class="kw">where</span>
             <span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">ApplicationCommandLine</span><span class="op">&gt;</span>,
         {
             <span class="kw">let</span> <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="ident">F</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">f</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">F</span>);
-            <span class="ident">f</span>(<span class="kw-2">&amp;</span><span class="ident">ApplicationCommandLine</span>::<span class="ident">from_glib_borrow</span>(<span class="ident">this</span>).<span class="ident">unsafe_cast_ref</span>())
+            <span class="ident">f</span>(<span class="kw-2">&amp;</span><span class="ident">ApplicationCommandLine::from_glib_borrow</span>(<span class="ident">this</span>).<span class="ident">unsafe_cast_ref</span>())
         }
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">f</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_</span>::<span class="ident">new</span>(<span class="ident">f</span>);
+            <span class="kw">let</span> <span class="ident">f</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_::new</span>(<span class="ident">f</span>);
             <span class="ident">connect_raw</span>(
                 <span class="self">self</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
                 <span class="string">b&quot;notify::is-remote\0&quot;</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(<span class="ident">transmute</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span>()<span class="op">&gt;</span>(
                     <span class="ident">notify_is_remote_trampoline</span>::<span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">F</span><span class="op">&gt;</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> (),
                 )),
-                <span class="ident">Box_</span>::<span class="ident">into_raw</span>(<span class="ident">f</span>),
+                <span class="ident">Box_::into_raw</span>(<span class="ident">f</span>),
             )
         }
     }
 }
 
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">ApplicationCommandLine</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">ApplicationCommandLine</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;ApplicationCommandLine&quot;</span>)
     }
 }

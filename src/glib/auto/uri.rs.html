@@ -529,87 +529,87 @@
 <span class="comment">// from gir-files (https://github.com/gtk-rs/gir-files)</span>
 <span class="comment">// DO NOT EDIT</span>
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Bytes</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Error</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">UriFlags</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">UriHideFlags</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::translate</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Bytes</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Error</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::UriFlags</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::UriHideFlags</span>;
+<span class="kw">use</span> <span class="ident">std::fmt</span>;
+<span class="kw">use</span> <span class="ident">std::mem</span>;
+<span class="kw">use</span> <span class="ident">std::ptr</span>;
 
-<span class="kw">crate</span>::<span class="macro">wrapper!</span> {
+<span class="kw">crate</span><span class="macro">::wrapper!</span> {
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Uri</span>(<span class="ident">Shared</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GUri</span><span class="op">&gt;</span>);
+    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Uri</span>(<span class="ident">Shared</span><span class="op">&lt;</span><span class="ident">ffi::GUri</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
-        <span class="kw-2">ref</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">g_uri_ref</span>(<span class="ident">ptr</span>),
-        <span class="ident">unref</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">g_uri_unref</span>(<span class="ident">ptr</span>),
-        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">g_uri_get_type</span>(),
+        <span class="kw-2">ref</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">ffi::g_uri_ref</span>(<span class="ident">ptr</span>),
+        <span class="ident">unref</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">ffi::g_uri_unref</span>(<span class="ident">ptr</span>),
+        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::g_uri_get_type</span>(),
     }
 }
 
 <span class="kw">impl</span> <span class="ident">Uri</span> {
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_uri_get_auth_params&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_auth_params</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span>::<span class="ident">GString</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">g_uri_get_auth_params</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_auth_params</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span><span class="ident">::GString</span><span class="op">&gt;</span> {
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::g_uri_get_auth_params</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_uri_get_flags&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_flags</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">UriFlags</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_uri_get_flags</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::g_uri_get_flags</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_uri_get_fragment&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_fragment</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span>::<span class="ident">GString</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">g_uri_get_fragment</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_fragment</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span><span class="ident">::GString</span><span class="op">&gt;</span> {
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::g_uri_get_fragment</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_uri_get_host&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_host</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span>::<span class="ident">GString</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">g_uri_get_host</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_host</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span><span class="ident">::GString</span><span class="op">&gt;</span> {
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::g_uri_get_host</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_uri_get_password&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_password</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span>::<span class="ident">GString</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">g_uri_get_password</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_password</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span><span class="ident">::GString</span><span class="op">&gt;</span> {
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::g_uri_get_password</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_uri_get_path&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_path</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="ident">GString</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">g_uri_get_path</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_path</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span><span class="ident">::GString</span> {
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::g_uri_get_path</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_uri_get_port&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_port</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">g_uri_get_port</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::g_uri_get_port</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_uri_get_query&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_query</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span>::<span class="ident">GString</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">g_uri_get_query</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_query</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span><span class="ident">::GString</span><span class="op">&gt;</span> {
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::g_uri_get_query</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_uri_get_scheme&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_scheme</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="ident">GString</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">g_uri_get_scheme</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_scheme</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span><span class="ident">::GString</span> {
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::g_uri_get_scheme</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_uri_get_user&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_user</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span>::<span class="ident">GString</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">g_uri_get_user</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_user</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span><span class="ident">::GString</span><span class="op">&gt;</span> {
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::g_uri_get_user</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_uri_get_userinfo&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_userinfo</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span>::<span class="ident">GString</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">g_uri_get_userinfo</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_userinfo</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span><span class="ident">::GString</span><span class="op">&gt;</span> {
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::g_uri_get_userinfo</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_uri_parse_relative&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">parse_relative</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">uri_ref</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">flags</span>: <span class="ident">UriFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Uri</span>, <span class="kw">crate</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">parse_relative</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">uri_ref</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">flags</span>: <span class="ident">UriFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Uri</span>, <span class="kw">crate</span><span class="ident">::Error</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">g_uri_parse_relative</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
+            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">ffi::g_uri_parse_relative</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">uri_ref</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">flags</span>.<span class="ident">to_glib</span>(),
@@ -624,14 +624,14 @@
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_uri_to_string&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_str</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="ident">GString</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_uri_to_string</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_str</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span><span class="ident">::GString</span> {
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_uri_to_string</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_uri_to_string_partial&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_string_partial</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">flags</span>: <span class="ident">UriHideFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="ident">GString</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_string_partial</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">flags</span>: <span class="ident">UriHideFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span><span class="ident">::GString</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_uri_to_string_partial</span>(
+            <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_uri_to_string_partial</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">flags</span>.<span class="ident">to_glib</span>(),
             ))
@@ -650,7 +650,7 @@
         <span class="ident">fragment</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Uri</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_uri_build</span>(
+            <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_uri_build</span>(
                 <span class="ident">flags</span>.<span class="ident">to_glib</span>(),
                 <span class="ident">scheme</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">userinfo</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -677,7 +677,7 @@
         <span class="ident">fragment</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Uri</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_uri_build_with_user</span>(
+            <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_uri_build_with_user</span>(
                 <span class="ident">flags</span>.<span class="ident">to_glib</span>(),
                 <span class="ident">scheme</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">user</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -693,10 +693,10 @@
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_uri_escape_bytes&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">escape_bytes</span>(<span class="ident">unescaped</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>], <span class="ident">reserved_chars_allowed</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="ident">GString</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">escape_bytes</span>(<span class="ident">unescaped</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>], <span class="ident">reserved_chars_allowed</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span><span class="ident">::GString</span> {
         <span class="kw">let</span> <span class="ident">length</span> <span class="op">=</span> <span class="ident">unescaped</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">usize</span>;
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_uri_escape_bytes</span>(
+            <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_uri_escape_bytes</span>(
                 <span class="ident">unescaped</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">length</span>,
                 <span class="ident">reserved_chars_allowed</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -709,9 +709,9 @@
         <span class="ident">unescaped</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="ident">reserved_chars_allowed</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>,
         <span class="ident">allow_utf8</span>: <span class="ident">bool</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="ident">GString</span> {
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span><span class="ident">::GString</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_uri_escape_string</span>(
+            <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_uri_escape_string</span>(
                 <span class="ident">unescaped</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">reserved_chars_allowed</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">allow_utf8</span>.<span class="ident">to_glib</span>(),
@@ -720,10 +720,10 @@
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_uri_is_valid&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_valid</span>(<span class="ident">uri_string</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">flags</span>: <span class="ident">UriFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="kw">crate</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_valid</span>(<span class="ident">uri_string</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">flags</span>: <span class="ident">UriFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="kw">crate</span><span class="ident">::Error</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">g_uri_is_valid</span>(<span class="ident">uri_string</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">flags</span>.<span class="ident">to_glib</span>(), <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">error</span>);
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
+            <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">ffi::g_uri_is_valid</span>(<span class="ident">uri_string</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">flags</span>.<span class="ident">to_glib</span>(), <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">error</span>);
             <span class="kw">if</span> <span class="ident">error</span>.<span class="ident">is_null</span>() {
                 <span class="prelude-val">Ok</span>(())
             } <span class="kw">else</span> {
@@ -742,9 +742,9 @@
         <span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="ident">query</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>,
         <span class="ident">fragment</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="ident">GString</span> {
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span><span class="ident">::GString</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_uri_join</span>(
+            <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_uri_join</span>(
                 <span class="ident">flags</span>.<span class="ident">to_glib</span>(),
                 <span class="ident">scheme</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">userinfo</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -769,9 +769,9 @@
         <span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="ident">query</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>,
         <span class="ident">fragment</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="ident">GString</span> {
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span><span class="ident">::GString</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_uri_join_with_user</span>(
+            <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_uri_join_with_user</span>(
                 <span class="ident">flags</span>.<span class="ident">to_glib</span>(),
                 <span class="ident">scheme</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">user</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -787,19 +787,19 @@
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_uri_list_extract_uris&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">list_extract_uris</span>(<span class="ident">uri_list</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">crate</span>::<span class="ident">GString</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">list_extract_uris</span>(<span class="ident">uri_list</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">crate</span><span class="ident">::GString</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">FromGlibPtrContainer</span>::<span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_uri_list_extract_uris</span>(
+            <span class="ident">FromGlibPtrContainer::from_glib_full</span>(<span class="ident">ffi::g_uri_list_extract_uris</span>(
                 <span class="ident">uri_list</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
         }
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_uri_parse&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">parse</span>(<span class="ident">uri_string</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">flags</span>: <span class="ident">UriFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Uri</span>, <span class="kw">crate</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">parse</span>(<span class="ident">uri_string</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">flags</span>: <span class="ident">UriFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Uri</span>, <span class="kw">crate</span><span class="ident">::Error</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">g_uri_parse</span>(<span class="ident">uri_string</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">flags</span>.<span class="ident">to_glib</span>(), <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">error</span>);
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
+            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">ffi::g_uri_parse</span>(<span class="ident">uri_string</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">flags</span>.<span class="ident">to_glib</span>(), <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">error</span>);
             <span class="kw">if</span> <span class="ident">error</span>.<span class="ident">is_null</span>() {
                 <span class="prelude-val">Ok</span>(<span class="ident">from_glib_full</span>(<span class="ident">ret</span>))
             } <span class="kw">else</span> {
@@ -814,13 +814,13 @@
     <span class="comment">//}</span>
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_uri_parse_scheme&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">parse_scheme</span>(<span class="ident">uri</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span>::<span class="ident">GString</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_uri_parse_scheme</span>(<span class="ident">uri</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">parse_scheme</span>(<span class="ident">uri</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span><span class="ident">::GString</span><span class="op">&gt;</span> {
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_uri_parse_scheme</span>(<span class="ident">uri</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_uri_peek_scheme&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">peek_scheme</span>(<span class="ident">uri</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span>::<span class="ident">GString</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">g_uri_peek_scheme</span>(<span class="ident">uri</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">peek_scheme</span>(<span class="ident">uri</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span><span class="ident">::GString</span><span class="op">&gt;</span> {
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::g_uri_peek_scheme</span>(<span class="ident">uri</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_uri_resolve_relative&quot;</span>)]</span>
@@ -828,10 +828,10 @@
         <span class="ident">base_uri_string</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>,
         <span class="ident">uri_ref</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="ident">flags</span>: <span class="ident">UriFlags</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw">crate</span>::<span class="ident">GString</span>, <span class="kw">crate</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw">crate</span><span class="ident">::GString</span>, <span class="kw">crate</span><span class="ident">::Error</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">g_uri_resolve_relative</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
+            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">ffi::g_uri_resolve_relative</span>(
                 <span class="ident">base_uri_string</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">uri_ref</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">flags</span>.<span class="ident">to_glib</span>(),
@@ -851,26 +851,26 @@
         <span class="ident">flags</span>: <span class="ident">UriFlags</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>
         (
-            <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span>::<span class="ident">GString</span><span class="op">&gt;</span>,
-            <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span>::<span class="ident">GString</span><span class="op">&gt;</span>,
-            <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span>::<span class="ident">GString</span><span class="op">&gt;</span>,
+            <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span><span class="ident">::GString</span><span class="op">&gt;</span>,
+            <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span><span class="ident">::GString</span><span class="op">&gt;</span>,
+            <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span><span class="ident">::GString</span><span class="op">&gt;</span>,
             <span class="ident">i32</span>,
-            <span class="kw">crate</span>::<span class="ident">GString</span>,
-            <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span>::<span class="ident">GString</span><span class="op">&gt;</span>,
-            <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span>::<span class="ident">GString</span><span class="op">&gt;</span>,
+            <span class="kw">crate</span><span class="ident">::GString</span>,
+            <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span><span class="ident">::GString</span><span class="op">&gt;</span>,
+            <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span><span class="ident">::GString</span><span class="op">&gt;</span>,
         ),
-        <span class="kw">crate</span>::<span class="ident">Error</span>,
+        <span class="kw">crate</span><span class="ident">::Error</span>,
     <span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">scheme</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">userinfo</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">host</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">port</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">path</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">query</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">fragment</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">g_uri_split</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">scheme</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">userinfo</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">host</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">port</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">path</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">query</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">fragment</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
+            <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">ffi::g_uri_split</span>(
                 <span class="ident">uri_ref</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">flags</span>.<span class="ident">to_glib</span>(),
                 <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">scheme</span>,
@@ -903,13 +903,13 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">split_network</span>(
         <span class="ident">uri_string</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="ident">flags</span>: <span class="ident">UriFlags</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span>::<span class="ident">GString</span><span class="op">&gt;</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span>::<span class="ident">GString</span><span class="op">&gt;</span>, <span class="ident">i32</span>), <span class="kw">crate</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span><span class="ident">::GString</span><span class="op">&gt;</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span><span class="ident">::GString</span><span class="op">&gt;</span>, <span class="ident">i32</span>), <span class="kw">crate</span><span class="ident">::Error</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">scheme</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">host</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">port</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">g_uri_split_network</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">scheme</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">host</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">port</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
+            <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">ffi::g_uri_split_network</span>(
                 <span class="ident">uri_string</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">flags</span>.<span class="ident">to_glib</span>(),
                 <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">scheme</span>,
@@ -932,30 +932,30 @@
         <span class="ident">flags</span>: <span class="ident">UriFlags</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>
         (
-            <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span>::<span class="ident">GString</span><span class="op">&gt;</span>,
-            <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span>::<span class="ident">GString</span><span class="op">&gt;</span>,
-            <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span>::<span class="ident">GString</span><span class="op">&gt;</span>,
-            <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span>::<span class="ident">GString</span><span class="op">&gt;</span>,
-            <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span>::<span class="ident">GString</span><span class="op">&gt;</span>,
+            <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span><span class="ident">::GString</span><span class="op">&gt;</span>,
+            <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span><span class="ident">::GString</span><span class="op">&gt;</span>,
+            <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span><span class="ident">::GString</span><span class="op">&gt;</span>,
+            <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span><span class="ident">::GString</span><span class="op">&gt;</span>,
+            <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span><span class="ident">::GString</span><span class="op">&gt;</span>,
             <span class="ident">i32</span>,
-            <span class="kw">crate</span>::<span class="ident">GString</span>,
-            <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span>::<span class="ident">GString</span><span class="op">&gt;</span>,
-            <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span>::<span class="ident">GString</span><span class="op">&gt;</span>,
+            <span class="kw">crate</span><span class="ident">::GString</span>,
+            <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span><span class="ident">::GString</span><span class="op">&gt;</span>,
+            <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span><span class="ident">::GString</span><span class="op">&gt;</span>,
         ),
-        <span class="kw">crate</span>::<span class="ident">Error</span>,
+        <span class="kw">crate</span><span class="ident">::Error</span>,
     <span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">scheme</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">user</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">password</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">auth_params</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">host</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">port</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">path</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">query</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">fragment</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">g_uri_split_with_user</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">scheme</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">user</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">password</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">auth_params</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">host</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">port</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">path</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">query</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">fragment</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
+            <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">ffi::g_uri_split_with_user</span>(
                 <span class="ident">uri_ref</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">flags</span>.<span class="ident">to_glib</span>(),
                 <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">scheme</span>,
@@ -992,11 +992,11 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">unescape_bytes</span>(
         <span class="ident">escaped_string</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="ident">illegal_characters</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Bytes</span>, <span class="kw">crate</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Bytes</span>, <span class="kw">crate</span><span class="ident">::Error</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">length</span> <span class="op">=</span> <span class="ident">escaped_string</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">isize</span>;
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">g_uri_unescape_bytes</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
+            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">ffi::g_uri_unescape_bytes</span>(
                 <span class="ident">escaped_string</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">length</span>,
                 <span class="ident">illegal_characters</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -1015,9 +1015,9 @@
         <span class="ident">escaped_string</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>,
         <span class="ident">escaped_string_end</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>,
         <span class="ident">illegal_characters</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span>::<span class="ident">GString</span><span class="op">&gt;</span> {
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span><span class="ident">::GString</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_uri_unescape_segment</span>(
+            <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_uri_unescape_segment</span>(
                 <span class="ident">escaped_string</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">escaped_string_end</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">illegal_characters</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -1029,9 +1029,9 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">unescape_string</span>(
         <span class="ident">escaped_string</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="ident">illegal_characters</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span>::<span class="ident">GString</span><span class="op">&gt;</span> {
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span><span class="ident">::GString</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_uri_unescape_string</span>(
+            <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_uri_unescape_string</span>(
                 <span class="ident">escaped_string</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">illegal_characters</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
@@ -1039,9 +1039,9 @@
     }
 }
 
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">Uri</span> {
+<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">Uri</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">to_str</span>())
     }
 }

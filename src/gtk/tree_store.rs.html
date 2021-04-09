@@ -260,13 +260,13 @@
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">TreeIter</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">TreeModel</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">TreeStore</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">object</span>::{<span class="ident">Cast</span>, <span class="ident">IsA</span>};
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::TreeIter</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::TreeModel</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::TreeStore</span>;
+<span class="kw">use</span> <span class="ident">glib::object</span>::{<span class="ident">Cast</span>, <span class="ident">IsA</span>};
+<span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">glib</span>::{<span class="ident">ToValue</span>, <span class="ident">Type</span>, <span class="ident">Value</span>};
-<span class="kw">use</span> <span class="ident">libc</span>::<span class="ident">c_int</span>;
+<span class="kw">use</span> <span class="ident">libc::c_int</span>;
 
 <span class="kw">impl</span> <span class="ident">TreeStore</span> {
     <span class="doccomment">/// Creates a new tree store as with `n_columns` columns each of the types passed</span>
@@ -287,7 +287,7 @@
         <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">column_types</span> <span class="op">=</span> <span class="ident">column_types</span>.<span class="ident">iter</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">t</span><span class="op">|</span> <span class="ident">t</span>.<span class="ident">to_glib</span>()).<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>();
-            <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">gtk_tree_store_newv</span>(
+            <span class="ident">from_glib_full</span>(<span class="ident">ffi::gtk_tree_store_newv</span>(
                 <span class="ident">column_types</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">c_int</span>,
                 <span class="ident">column_types</span>.<span class="ident">as_mut_ptr</span>(),
             ))
@@ -341,11 +341,11 @@
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TreeIter</span> {
         <span class="kw">unsafe</span> {
             <span class="macro">assert!</span>(
-                <span class="ident">position</span>.<span class="ident">unwrap_or</span>(<span class="number">0</span>) <span class="op">&lt;</span><span class="op">=</span> <span class="ident">i32</span>::<span class="ident">max_value</span>() <span class="kw">as</span> <span class="ident">u32</span>,
+                <span class="ident">position</span>.<span class="ident">unwrap_or</span>(<span class="number">0</span>) <span class="op">&lt;</span><span class="op">=</span> <span class="ident">i32::max_value</span>() <span class="kw">as</span> <span class="ident">u32</span>,
                 <span class="string">&quot;can&#39;t have more than {} rows&quot;</span>,
-                <span class="ident">i32</span>::<span class="ident">max_value</span>()
+                <span class="ident">i32::max_value</span>()
             );
-            <span class="kw">let</span> <span class="ident">n_columns</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">gtk_tree_model_get_n_columns</span>(
+            <span class="kw">let</span> <span class="ident">n_columns</span> <span class="op">=</span> <span class="ident">ffi::gtk_tree_model_get_n_columns</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">upcast_ref</span>::<span class="op">&lt;</span><span class="ident">TreeModel</span><span class="op">&gt;</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ) <span class="kw">as</span> <span class="ident">u32</span>;
             <span class="macro">assert!</span>(
@@ -361,12 +361,12 @@
                     <span class="kw-2">*</span><span class="ident">column</span>,
                     <span class="ident">n_columns</span>
                 );
-                <span class="kw">let</span> <span class="ident">type_</span> <span class="op">=</span> <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">gtk_tree_model_get_column_type</span>(
+                <span class="kw">let</span> <span class="ident">type_</span> <span class="op">=</span> <span class="ident">from_glib</span>(<span class="ident">ffi::gtk_tree_model_get_column_type</span>(
                     <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">upcast_ref</span>::<span class="op">&lt;</span><span class="ident">TreeModel</span><span class="op">&gt;</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                     <span class="kw-2">*</span><span class="ident">column</span> <span class="kw">as</span> <span class="ident">c_int</span>,
                 ));
                 <span class="macro">assert!</span>(
-                    <span class="ident">Value</span>::<span class="ident">type_transformable</span>(<span class="ident">value</span>.<span class="ident">to_value_type</span>(), <span class="ident">type_</span>),
+                    <span class="ident">Value::type_transformable</span>(<span class="ident">value</span>.<span class="ident">to_value_type</span>(), <span class="ident">type_</span>),
                     <span class="string">&quot;column {} is of type {} but found value of type {}&quot;</span>,
                     <span class="kw-2">*</span><span class="ident">column</span>,
                     <span class="ident">type_</span>,
@@ -383,14 +383,14 @@
                 .<span class="ident">map</span>(<span class="op">|</span>(<span class="kw">_</span>, <span class="ident">v</span>)<span class="op">|</span> <span class="ident">v</span>.<span class="ident">to_value</span>())
                 .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>();
 
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">iter</span> <span class="op">=</span> <span class="ident">TreeIter</span>::<span class="ident">uninitialized</span>();
-            <span class="ident">ffi</span>::<span class="ident">gtk_tree_store_insert_with_valuesv</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">iter</span> <span class="op">=</span> <span class="ident">TreeIter::uninitialized</span>();
+            <span class="ident">ffi::gtk_tree_store_insert_with_valuesv</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">iter</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
                 <span class="ident">mut_override</span>(<span class="ident">parent</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>),
                 <span class="ident">position</span>.<span class="ident">map_or</span>(<span class="op">-</span><span class="number">1</span>, <span class="op">|</span><span class="ident">n</span><span class="op">|</span> <span class="ident">n</span> <span class="kw">as</span> <span class="ident">c_int</span>),
                 <span class="ident">mut_override</span>(<span class="ident">columns</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_int</span>),
-                <span class="ident">mut_override</span>(<span class="ident">values</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">GValue</span>),
+                <span class="ident">mut_override</span>(<span class="ident">values</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">glib::gobject_ffi::GValue</span>),
                 <span class="ident">columns</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">c_int</span>,
             );
             <span class="ident">iter</span>
@@ -399,7 +399,7 @@
 
     <span class="kw">fn</span> <span class="ident">reorder</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">parent</span>: <span class="kw-2">&amp;</span><span class="ident">TreeIter</span>, <span class="ident">new_order</span>: <span class="kw-2">&amp;</span>[<span class="ident">u32</span>]) {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">count</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">gtk_tree_model_iter_n_children</span>(
+            <span class="kw">let</span> <span class="ident">count</span> <span class="op">=</span> <span class="ident">ffi::gtk_tree_model_iter_n_children</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">upcast_ref</span>::<span class="op">&lt;</span><span class="ident">TreeModel</span><span class="op">&gt;</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">mut_override</span>(<span class="ident">parent</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>),
             );
@@ -422,7 +422,7 @@
                 <span class="ident">new_order</span>
             );
             <span class="kw">if</span> <span class="ident">safe_count</span> <span class="op">&amp;&amp;</span> <span class="ident">safe_values</span> {
-                <span class="ident">ffi</span>::<span class="ident">gtk_tree_store_reorder</span>(
+                <span class="ident">ffi::gtk_tree_store_reorder</span>(
                     <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                     <span class="ident">mut_override</span>(<span class="ident">parent</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>),
                     <span class="ident">mut_override</span>(<span class="ident">new_order</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_int</span>),
@@ -433,7 +433,7 @@
 
     <span class="kw">fn</span> <span class="ident">set</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">iter</span>: <span class="kw-2">&amp;</span><span class="ident">TreeIter</span>, <span class="ident">columns_and_values</span>: <span class="kw-2">&amp;</span>[(<span class="ident">u32</span>, <span class="kw-2">&amp;</span><span class="kw">dyn</span> <span class="ident">ToValue</span>)]) {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">n_columns</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">gtk_tree_model_get_n_columns</span>(
+            <span class="kw">let</span> <span class="ident">n_columns</span> <span class="op">=</span> <span class="ident">ffi::gtk_tree_model_get_n_columns</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">upcast_ref</span>::<span class="op">&lt;</span><span class="ident">TreeModel</span><span class="op">&gt;</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ) <span class="kw">as</span> <span class="ident">u32</span>;
             <span class="macro">assert!</span>(
@@ -449,12 +449,12 @@
                     <span class="kw-2">*</span><span class="ident">column</span>,
                     <span class="ident">n_columns</span>
                 );
-                <span class="kw">let</span> <span class="ident">type_</span> <span class="op">=</span> <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">gtk_tree_model_get_column_type</span>(
+                <span class="kw">let</span> <span class="ident">type_</span> <span class="op">=</span> <span class="ident">from_glib</span>(<span class="ident">ffi::gtk_tree_model_get_column_type</span>(
                     <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">upcast_ref</span>::<span class="op">&lt;</span><span class="ident">TreeModel</span><span class="op">&gt;</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                     <span class="kw-2">*</span><span class="ident">column</span> <span class="kw">as</span> <span class="ident">c_int</span>,
                 ));
                 <span class="macro">assert!</span>(
-                    <span class="ident">Value</span>::<span class="ident">type_transformable</span>(<span class="ident">value</span>.<span class="ident">to_value_type</span>(), <span class="ident">type_</span>),
+                    <span class="ident">Value::type_transformable</span>(<span class="ident">value</span>.<span class="ident">to_value_type</span>(), <span class="ident">type_</span>),
                     <span class="string">&quot;column {} is of type {} but found value of type {}&quot;</span>,
                     <span class="kw-2">*</span><span class="ident">column</span>,
                     <span class="ident">type_</span>,
@@ -471,11 +471,11 @@
                 .<span class="ident">map</span>(<span class="op">|</span>(<span class="kw">_</span>, <span class="ident">v</span>)<span class="op">|</span> <span class="ident">v</span>.<span class="ident">to_value</span>())
                 .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>();
 
-            <span class="ident">ffi</span>::<span class="ident">gtk_tree_store_set_valuesv</span>(
+            <span class="ident">ffi::gtk_tree_store_set_valuesv</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">mut_override</span>(<span class="ident">iter</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>),
                 <span class="ident">mut_override</span>(<span class="ident">columns</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_int</span>),
-                <span class="ident">mut_override</span>(<span class="ident">values</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">GValue</span>),
+                <span class="ident">mut_override</span>(<span class="ident">values</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">glib::gobject_ffi::GValue</span>),
                 <span class="ident">columns</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">c_int</span>,
             );
         }
@@ -483,7 +483,7 @@
 
     <span class="kw">fn</span> <span class="ident">set_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">iter</span>: <span class="kw-2">&amp;</span><span class="ident">TreeIter</span>, <span class="ident">column</span>: <span class="ident">u32</span>, <span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">Value</span>) {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">columns</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">gtk_tree_model_get_n_columns</span>(
+            <span class="kw">let</span> <span class="ident">columns</span> <span class="op">=</span> <span class="ident">ffi::gtk_tree_model_get_n_columns</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">upcast_ref</span>::<span class="op">&lt;</span><span class="ident">TreeModel</span><span class="op">&gt;</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ) <span class="kw">as</span> <span class="ident">u32</span>;
             <span class="macro">assert!</span>(
@@ -493,19 +493,19 @@
                 <span class="ident">columns</span>
             );
 
-            <span class="kw">let</span> <span class="ident">type_</span> <span class="op">=</span> <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">gtk_tree_model_get_column_type</span>(
+            <span class="kw">let</span> <span class="ident">type_</span> <span class="op">=</span> <span class="ident">from_glib</span>(<span class="ident">ffi::gtk_tree_model_get_column_type</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">upcast_ref</span>::<span class="op">&lt;</span><span class="ident">TreeModel</span><span class="op">&gt;</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">column</span> <span class="kw">as</span> <span class="ident">c_int</span>,
             ));
             <span class="macro">assert!</span>(
-                <span class="ident">Value</span>::<span class="ident">type_transformable</span>(<span class="ident">value</span>.<span class="ident">type_</span>(), <span class="ident">type_</span>),
+                <span class="ident">Value::type_transformable</span>(<span class="ident">value</span>.<span class="ident">type_</span>(), <span class="ident">type_</span>),
                 <span class="string">&quot;column {} is of type {} but found value of type {}&quot;</span>,
                 <span class="ident">column</span>,
                 <span class="ident">type_</span>,
                 <span class="ident">value</span>.<span class="ident">type_</span>()
             );
 
-            <span class="ident">ffi</span>::<span class="ident">gtk_tree_store_set_value</span>(
+            <span class="ident">ffi::gtk_tree_store_set_value</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">mut_override</span>(<span class="ident">iter</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>),
                 <span class="ident">column</span> <span class="kw">as</span> <span class="ident">c_int</span>,

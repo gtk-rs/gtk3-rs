@@ -224,12 +224,12 @@
 <span class="comment">// from gir-files (https://github.com/gtk-rs/gir-files)</span>
 <span class="comment">// DO NOT EDIT</span>
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Buildable</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">RecentFilterFlags</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Buildable</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::RecentFilterFlags</span>;
+<span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">std::fmt</span>;
 
-<span class="ident">glib</span>::<span class="macro">wrapper!</span> {
+<span class="macro">glib::wrapper!</span> {
     <span class="doccomment">/// A `RecentFilter` can be used to restrict the files being shown</span>
     <span class="doccomment">/// in a `RecentChooser`. Files can be filtered based on their name</span>
     <span class="doccomment">/// (with `RecentFilter::add_pattern`), on their mime type (with</span>
@@ -281,10 +281,10 @@
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`glib::object::ObjectExt`](../glib/object/trait.ObjectExt.html), [`BuildableExt`](trait.BuildableExt.html), [`BuildableExtManual`](prelude/trait.BuildableExtManual.html)</span>
-    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RecentFilter</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GtkRecentFilter</span><span class="op">&gt;</span>) @<span class="ident">implements</span> <span class="ident">Buildable</span>;
+    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RecentFilter</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkRecentFilter</span><span class="op">&gt;</span>) @<span class="ident">implements</span> <span class="ident">Buildable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
-        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">gtk_recent_filter_get_type</span>(),
+        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::gtk_recent_filter_get_type</span>(),
     }
 }
 
@@ -307,7 +307,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_recent_filter_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">RecentFilter</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">gtk_recent_filter_new</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::gtk_recent_filter_new</span>()) }
     }
 
     <span class="doccomment">/// Adds a rule that allows resources based on their age - that is, the number</span>
@@ -317,7 +317,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_recent_filter_add_age&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_age</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">days</span>: <span class="ident">i32</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">gtk_recent_filter_add_age</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">days</span>);
+            <span class="ident">ffi::gtk_recent_filter_add_age</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">days</span>);
         }
     }
 
@@ -328,7 +328,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_recent_filter_add_application&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_application</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">application</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">gtk_recent_filter_add_application</span>(
+            <span class="ident">ffi::gtk_recent_filter_add_application</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">application</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             );
@@ -347,7 +347,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_recent_filter_add_group&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_group</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">group</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">gtk_recent_filter_add_group</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">group</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+            <span class="ident">ffi::gtk_recent_filter_add_group</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">group</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
         }
     }
 
@@ -357,7 +357,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_recent_filter_add_mime_type&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_mime_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">mime_type</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">gtk_recent_filter_add_mime_type</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">mime_type</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+            <span class="ident">ffi::gtk_recent_filter_add_mime_type</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">mime_type</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
         }
     }
 
@@ -368,7 +368,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_recent_filter_add_pattern&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_pattern</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">pattern</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">gtk_recent_filter_add_pattern</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">pattern</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+            <span class="ident">ffi::gtk_recent_filter_add_pattern</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">pattern</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
         }
     }
 
@@ -377,7 +377,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_recent_filter_add_pixbuf_formats&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_pixbuf_formats</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">gtk_recent_filter_add_pixbuf_formats</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+            <span class="ident">ffi::gtk_recent_filter_add_pixbuf_formats</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
         }
     }
 
@@ -394,8 +394,8 @@
     <span class="doccomment">/// the name of the filter, or `None`. The returned string</span>
     <span class="doccomment">///  is owned by the filter object and should not be freed.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_recent_filter_get_name&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">GString</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">gtk_recent_filter_get_name</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span> {
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::gtk_recent_filter_get_name</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Gets the fields that need to be filled in for the `RecentFilterInfo`</span>
@@ -411,7 +411,7 @@
     <span class="doccomment">///  calling `RecentFilter::filter`</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_recent_filter_get_needed&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_needed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">RecentFilterFlags</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">gtk_recent_filter_get_needed</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::gtk_recent_filter_get_needed</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Sets the human-readable name of the filter; this is the string</span>
@@ -422,19 +422,19 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_recent_filter_set_name&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">gtk_recent_filter_set_name</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+            <span class="ident">ffi::gtk_recent_filter_set_name</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
         }
     }
 }
 
 <span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">RecentFilter</span> {
     <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span>::<span class="ident">new</span>()
+        <span class="self">Self</span><span class="ident">::new</span>()
     }
 }
 
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">RecentFilter</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">RecentFilter</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;RecentFilter&quot;</span>)
     }
 }

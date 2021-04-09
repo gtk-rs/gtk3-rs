@@ -862,21 +862,21 @@
 <span class="comment">// from gir-files (https://github.com/gtk-rs/gir-files)</span>
 <span class="comment">// DO NOT EDIT</span>
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">AsyncResult</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Cancellable</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">InputStream</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">OutputStreamSpliceFlags</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">object</span>::<span class="ident">IsA</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">boxed</span>::<span class="ident">Box</span> <span class="kw">as</span> <span class="ident">Box_</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::AsyncResult</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Cancellable</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::InputStream</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::OutputStreamSpliceFlags</span>;
+<span class="kw">use</span> <span class="ident">glib::object::IsA</span>;
+<span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">std::boxed::Box</span> <span class="kw">as</span> <span class="ident">Box_</span>;
+<span class="kw">use</span> <span class="ident">std::fmt</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_44&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_44&quot;</span>)))]</span>
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">pin</span>::<span class="ident">Pin</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
+<span class="kw">use</span> <span class="ident">std::mem</span>;
+<span class="kw">use</span> <span class="ident">std::pin::Pin</span>;
+<span class="kw">use</span> <span class="ident">std::ptr</span>;
 
-<span class="ident">glib</span>::<span class="macro">wrapper!</span> {
+<span class="macro">glib::wrapper!</span> {
     <span class="doccomment">/// `OutputStream` has functions to write to a stream (`OutputStreamExt::write`),</span>
     <span class="doccomment">/// to close a stream (`OutputStreamExt::close`) and to flush pending writes</span>
     <span class="doccomment">/// (`OutputStreamExt::flush`).</span>
@@ -892,10 +892,10 @@
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`OutputStreamExt`](trait.OutputStreamExt.html), [`glib::object::ObjectExt`](../glib/object/trait.ObjectExt.html), [`OutputStreamExtManual`](prelude/trait.OutputStreamExtManual.html)</span>
-    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">OutputStream</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GOutputStream</span>, <span class="ident">ffi</span>::<span class="ident">GOutputStreamClass</span><span class="op">&gt;</span>);
+    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">OutputStream</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GOutputStream</span>, <span class="ident">ffi::GOutputStreamClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
-        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">g_output_stream_get_type</span>(),
+        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::g_output_stream_get_type</span>(),
     }
 }
 
@@ -947,7 +947,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// `true` on success, `false` on failure</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_output_stream_close&quot;</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">close</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span>;
+    <span class="kw">fn</span> <span class="ident">close</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib::Error</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Requests an asynchronous close of the stream, releasing resources</span>
     <span class="doccomment">/// related to it. When the operation is finished `callback` will be</span>
@@ -968,17 +968,17 @@
     <span class="doccomment">/// ## `user_data`</span>
     <span class="doccomment">/// the data to pass to callback function</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_output_stream_close_async&quot;</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">close_async</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span>, <span class="ident">Q</span>: <span class="ident">FnOnce</span>(<span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
+    <span class="kw">fn</span> <span class="ident">close_async</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span>, <span class="ident">Q</span>: <span class="ident">FnOnce</span>(<span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib::Error</span><span class="op">&gt;</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">io_priority</span>: <span class="ident">glib</span>::<span class="ident">Priority</span>,
+        <span class="ident">io_priority</span>: <span class="ident">glib::Priority</span>,
         <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>,
         <span class="ident">callback</span>: <span class="ident">Q</span>,
     );
 
     <span class="kw">fn</span> <span class="ident">close_async_future</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">io_priority</span>: <span class="ident">glib</span>::<span class="ident">Priority</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pin</span><span class="op">&lt;</span><span class="ident">Box_</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">std</span>::<span class="ident">future</span>::<span class="ident">Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span><span class="op">&gt;</span>;
+        <span class="ident">io_priority</span>: <span class="ident">glib::Priority</span>,
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pin</span><span class="op">&lt;</span><span class="ident">Box_</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">std::future::Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib::Error</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Forces a write of all user-space buffered data for the given</span>
     <span class="doccomment">/// `self`. Will block during the operation. Closing the stream will</span>
@@ -996,7 +996,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// `true` on success, `false` on error</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_output_stream_flush&quot;</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">flush</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span>;
+    <span class="kw">fn</span> <span class="ident">flush</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib::Error</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Forces an asynchronous write of all user-space buffered data for</span>
     <span class="doccomment">/// the given `self`.</span>
@@ -1014,17 +1014,17 @@
     <span class="doccomment">/// ## `user_data`</span>
     <span class="doccomment">/// the data to pass to callback function</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_output_stream_flush_async&quot;</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">flush_async</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span>, <span class="ident">Q</span>: <span class="ident">FnOnce</span>(<span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
+    <span class="kw">fn</span> <span class="ident">flush_async</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span>, <span class="ident">Q</span>: <span class="ident">FnOnce</span>(<span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib::Error</span><span class="op">&gt;</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">io_priority</span>: <span class="ident">glib</span>::<span class="ident">Priority</span>,
+        <span class="ident">io_priority</span>: <span class="ident">glib::Priority</span>,
         <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>,
         <span class="ident">callback</span>: <span class="ident">Q</span>,
     );
 
     <span class="kw">fn</span> <span class="ident">flush_async_future</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">io_priority</span>: <span class="ident">glib</span>::<span class="ident">Priority</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pin</span><span class="op">&lt;</span><span class="ident">Box_</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">std</span>::<span class="ident">future</span>::<span class="ident">Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span><span class="op">&gt;</span>;
+        <span class="ident">io_priority</span>: <span class="ident">glib::Priority</span>,
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pin</span><span class="op">&lt;</span><span class="ident">Box_</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">std::future::Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib::Error</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Checks if an output stream has pending actions.</span>
     <span class="doccomment">///</span>
@@ -1064,7 +1064,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// `true` if pending was previously unset and is now set.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_output_stream_set_pending&quot;</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">set_pending</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span>;
+    <span class="kw">fn</span> <span class="ident">set_pending</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib::Error</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Splices an input stream into an output stream.</span>
     <span class="doccomment">/// ## `source`</span>
@@ -1087,7 +1087,7 @@
         <span class="ident">source</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>,
         <span class="ident">flags</span>: <span class="ident">OutputStreamSpliceFlags</span>,
         <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">Q</span><span class="op">&gt;</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">isize</span>, <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span>;
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">isize</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Splices a stream asynchronously.</span>
     <span class="doccomment">/// When the operation is finished `callback` will be called.</span>
@@ -1112,12 +1112,12 @@
     <span class="kw">fn</span> <span class="ident">splice_async</span><span class="op">&lt;</span>
         <span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">InputStream</span><span class="op">&gt;</span>,
         <span class="ident">Q</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span>,
-        <span class="ident">R</span>: <span class="ident">FnOnce</span>(<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">isize</span>, <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
+        <span class="ident">R</span>: <span class="ident">FnOnce</span>(<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">isize</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
     <span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">source</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>,
         <span class="ident">flags</span>: <span class="ident">OutputStreamSpliceFlags</span>,
-        <span class="ident">io_priority</span>: <span class="ident">glib</span>::<span class="ident">Priority</span>,
+        <span class="ident">io_priority</span>: <span class="ident">glib::Priority</span>,
         <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">Q</span><span class="op">&gt;</span>,
         <span class="ident">callback</span>: <span class="ident">R</span>,
     );
@@ -1126,8 +1126,8 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">source</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>,
         <span class="ident">flags</span>: <span class="ident">OutputStreamSpliceFlags</span>,
-        <span class="ident">io_priority</span>: <span class="ident">glib</span>::<span class="ident">Priority</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pin</span><span class="op">&lt;</span><span class="ident">Box_</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">std</span>::<span class="ident">future</span>::<span class="ident">Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">isize</span>, <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span><span class="op">&gt;</span>;
+        <span class="ident">io_priority</span>: <span class="ident">glib::Priority</span>,
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pin</span><span class="op">&lt;</span><span class="ident">Box_</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">std::future::Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">isize</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span><span class="op">&gt;</span>;
 
     <span class="comment">//#[doc(alias = &quot;g_output_stream_vprintf&quot;)]</span>
     <span class="comment">//fn vprintf&lt;P: IsA&lt;Cancellable&gt;&gt;(&amp;self, cancellable: Option&lt;&amp;P&gt;, error: &amp;mut glib::Error, format: &amp;str, args: /*Unknown conversion*//*Unimplemented*/Unsupported) -&gt; Option&lt;usize&gt;;</span>
@@ -1167,7 +1167,7 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">buffer</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>],
         <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">isize</span>, <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span>;
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">isize</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// A wrapper function for `OutputStreamExt::write` which takes a</span>
     <span class="doccomment">/// `glib::Bytes` as input. This can be more convenient for use by language</span>
@@ -1191,9 +1191,9 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_output_stream_write_bytes&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">write_bytes</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">bytes</span>: <span class="kw-2">&amp;</span><span class="ident">glib</span>::<span class="ident">Bytes</span>,
+        <span class="ident">bytes</span>: <span class="kw-2">&amp;</span><span class="ident">glib::Bytes</span>,
         <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">isize</span>, <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span>;
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">isize</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// This function is similar to `OutputStream::write_async`, but</span>
     <span class="doccomment">/// takes a `glib::Bytes` as input. Due to the refcounted nature of `glib::Bytes`,</span>
@@ -1221,20 +1221,20 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_output_stream_write_bytes_async&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">write_bytes_async</span><span class="op">&lt;</span>
         <span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span>,
-        <span class="ident">Q</span>: <span class="ident">FnOnce</span>(<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">isize</span>, <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
+        <span class="ident">Q</span>: <span class="ident">FnOnce</span>(<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">isize</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
     <span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">bytes</span>: <span class="kw-2">&amp;</span><span class="ident">glib</span>::<span class="ident">Bytes</span>,
-        <span class="ident">io_priority</span>: <span class="ident">glib</span>::<span class="ident">Priority</span>,
+        <span class="ident">bytes</span>: <span class="kw-2">&amp;</span><span class="ident">glib::Bytes</span>,
+        <span class="ident">io_priority</span>: <span class="ident">glib::Priority</span>,
         <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>,
         <span class="ident">callback</span>: <span class="ident">Q</span>,
     );
 
     <span class="kw">fn</span> <span class="ident">write_bytes_async_future</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">bytes</span>: <span class="kw-2">&amp;</span><span class="ident">glib</span>::<span class="ident">Bytes</span>,
-        <span class="ident">io_priority</span>: <span class="ident">glib</span>::<span class="ident">Priority</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pin</span><span class="op">&lt;</span><span class="ident">Box_</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">std</span>::<span class="ident">future</span>::<span class="ident">Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">isize</span>, <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span><span class="op">&gt;</span>;
+        <span class="ident">bytes</span>: <span class="kw-2">&amp;</span><span class="ident">glib::Bytes</span>,
+        <span class="ident">io_priority</span>: <span class="ident">glib::Priority</span>,
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pin</span><span class="op">&lt;</span><span class="ident">Box_</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">std::future::Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">isize</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span><span class="op">&gt;</span>;
 
     <span class="comment">//#[cfg(any(feature = &quot;v2_60&quot;, feature = &quot;dox&quot;))]</span>
     <span class="comment">//#[cfg_attr(feature = &quot;dox&quot;, doc(cfg(feature = &quot;v2_60&quot;)))]</span>
@@ -1270,14 +1270,14 @@
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">O</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">OutputStream</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="ident">OutputStreamExt</span> <span class="kw">for</span> <span class="ident">O</span> {
     <span class="kw">fn</span> <span class="ident">clear_pending</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">g_output_stream_clear_pending</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+            <span class="ident">ffi::g_output_stream_clear_pending</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>);
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">close</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">close</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib::Error</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">g_output_stream_close</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
+            <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">ffi::g_output_stream_close</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">cancellable</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> <span class="ident">p</span>.<span class="ident">as_ref</span>()).<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">error</span>,
@@ -1290,48 +1290,48 @@
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">close_async</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span>, <span class="ident">Q</span>: <span class="ident">FnOnce</span>(<span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
+    <span class="kw">fn</span> <span class="ident">close_async</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span>, <span class="ident">Q</span>: <span class="ident">FnOnce</span>(<span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib::Error</span><span class="op">&gt;</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">io_priority</span>: <span class="ident">glib</span>::<span class="ident">Priority</span>,
+        <span class="ident">io_priority</span>: <span class="ident">glib::Priority</span>,
         <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>,
         <span class="ident">callback</span>: <span class="ident">Q</span>,
     ) {
-        <span class="kw">let</span> <span class="ident">user_data</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">Q</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_</span>::<span class="ident">new</span>(<span class="ident">callback</span>);
+        <span class="kw">let</span> <span class="ident">user_data</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">Q</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_::new</span>(<span class="ident">callback</span>);
         <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">close_async_trampoline</span><span class="op">&lt;</span>
-            <span class="ident">Q</span>: <span class="ident">FnOnce</span>(<span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
+            <span class="ident">Q</span>: <span class="ident">FnOnce</span>(<span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib::Error</span><span class="op">&gt;</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
         <span class="op">&gt;</span>(
-            <span class="ident">_source_object</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">GObject</span>,
-            <span class="ident">res</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">crate</span>::<span class="ident">ffi</span>::<span class="ident">GAsyncResult</span>,
-            <span class="ident">user_data</span>: <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">gpointer</span>,
+            <span class="ident">_source_object</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib::gobject_ffi::GObject</span>,
+            <span class="ident">res</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">crate</span><span class="ident">::ffi::GAsyncResult</span>,
+            <span class="ident">user_data</span>: <span class="ident">glib::ffi::gpointer</span>,
         ) {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">g_output_stream_close_finish</span>(<span class="ident">_source_object</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>, <span class="ident">res</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">error</span>);
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
+            <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">ffi::g_output_stream_close_finish</span>(<span class="ident">_source_object</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>, <span class="ident">res</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">error</span>);
             <span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">error</span>.<span class="ident">is_null</span>() {
                 <span class="prelude-val">Ok</span>(())
             } <span class="kw">else</span> {
                 <span class="prelude-val">Err</span>(<span class="ident">from_glib_full</span>(<span class="ident">error</span>))
             };
-            <span class="kw">let</span> <span class="ident">callback</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">Q</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_</span>::<span class="ident">from_raw</span>(<span class="ident">user_data</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>);
+            <span class="kw">let</span> <span class="ident">callback</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">Q</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_::from_raw</span>(<span class="ident">user_data</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>);
             <span class="ident">callback</span>(<span class="ident">result</span>);
         }
         <span class="kw">let</span> <span class="ident">callback</span> <span class="op">=</span> <span class="ident">close_async_trampoline</span>::<span class="op">&lt;</span><span class="ident">Q</span><span class="op">&gt;</span>;
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">g_output_stream_close_async</span>(
+            <span class="ident">ffi::g_output_stream_close_async</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">io_priority</span>.<span class="ident">to_glib</span>(),
                 <span class="ident">cancellable</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> <span class="ident">p</span>.<span class="ident">as_ref</span>()).<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="prelude-val">Some</span>(<span class="ident">callback</span>),
-                <span class="ident">Box_</span>::<span class="ident">into_raw</span>(<span class="ident">user_data</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
+                <span class="ident">Box_::into_raw</span>(<span class="ident">user_data</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
             );
         }
     }
 
     <span class="kw">fn</span> <span class="ident">close_async_future</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">io_priority</span>: <span class="ident">glib</span>::<span class="ident">Priority</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pin</span><span class="op">&lt;</span><span class="ident">Box_</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">std</span>::<span class="ident">future</span>::<span class="ident">Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-        <span class="ident">Box_</span>::<span class="ident">pin</span>(<span class="kw">crate</span>::<span class="ident">GioFuture</span>::<span class="ident">new</span>(<span class="self">self</span>, <span class="kw">move</span> <span class="op">|</span><span class="ident">obj</span>, <span class="ident">send</span><span class="op">|</span> {
-            <span class="kw">let</span> <span class="ident">cancellable</span> <span class="op">=</span> <span class="ident">Cancellable</span>::<span class="ident">new</span>();
+        <span class="ident">io_priority</span>: <span class="ident">glib::Priority</span>,
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pin</span><span class="op">&lt;</span><span class="ident">Box_</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">std::future::Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib::Error</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+        <span class="ident">Box_::pin</span>(<span class="kw">crate</span><span class="ident">::GioFuture::new</span>(<span class="self">self</span>, <span class="kw">move</span> <span class="op">|</span><span class="ident">obj</span>, <span class="ident">send</span><span class="op">|</span> {
+            <span class="kw">let</span> <span class="ident">cancellable</span> <span class="op">=</span> <span class="ident">Cancellable::new</span>();
             <span class="ident">obj</span>.<span class="ident">close_async</span>(<span class="ident">io_priority</span>, <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="ident">cancellable</span>), <span class="kw">move</span> <span class="op">|</span><span class="ident">res</span><span class="op">|</span> {
                 <span class="ident">send</span>.<span class="ident">resolve</span>(<span class="ident">res</span>);
             });
@@ -1340,10 +1340,10 @@
         }))
     }
 
-    <span class="kw">fn</span> <span class="ident">flush</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">flush</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib::Error</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">g_output_stream_flush</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
+            <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">ffi::g_output_stream_flush</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">cancellable</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> <span class="ident">p</span>.<span class="ident">as_ref</span>()).<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">error</span>,
@@ -1356,48 +1356,48 @@
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">flush_async</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span>, <span class="ident">Q</span>: <span class="ident">FnOnce</span>(<span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
+    <span class="kw">fn</span> <span class="ident">flush_async</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span>, <span class="ident">Q</span>: <span class="ident">FnOnce</span>(<span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib::Error</span><span class="op">&gt;</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">io_priority</span>: <span class="ident">glib</span>::<span class="ident">Priority</span>,
+        <span class="ident">io_priority</span>: <span class="ident">glib::Priority</span>,
         <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>,
         <span class="ident">callback</span>: <span class="ident">Q</span>,
     ) {
-        <span class="kw">let</span> <span class="ident">user_data</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">Q</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_</span>::<span class="ident">new</span>(<span class="ident">callback</span>);
+        <span class="kw">let</span> <span class="ident">user_data</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">Q</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_::new</span>(<span class="ident">callback</span>);
         <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">flush_async_trampoline</span><span class="op">&lt;</span>
-            <span class="ident">Q</span>: <span class="ident">FnOnce</span>(<span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
+            <span class="ident">Q</span>: <span class="ident">FnOnce</span>(<span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib::Error</span><span class="op">&gt;</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
         <span class="op">&gt;</span>(
-            <span class="ident">_source_object</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">GObject</span>,
-            <span class="ident">res</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">crate</span>::<span class="ident">ffi</span>::<span class="ident">GAsyncResult</span>,
-            <span class="ident">user_data</span>: <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">gpointer</span>,
+            <span class="ident">_source_object</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib::gobject_ffi::GObject</span>,
+            <span class="ident">res</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">crate</span><span class="ident">::ffi::GAsyncResult</span>,
+            <span class="ident">user_data</span>: <span class="ident">glib::ffi::gpointer</span>,
         ) {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">g_output_stream_flush_finish</span>(<span class="ident">_source_object</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>, <span class="ident">res</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">error</span>);
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
+            <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">ffi::g_output_stream_flush_finish</span>(<span class="ident">_source_object</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>, <span class="ident">res</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">error</span>);
             <span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">error</span>.<span class="ident">is_null</span>() {
                 <span class="prelude-val">Ok</span>(())
             } <span class="kw">else</span> {
                 <span class="prelude-val">Err</span>(<span class="ident">from_glib_full</span>(<span class="ident">error</span>))
             };
-            <span class="kw">let</span> <span class="ident">callback</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">Q</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_</span>::<span class="ident">from_raw</span>(<span class="ident">user_data</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>);
+            <span class="kw">let</span> <span class="ident">callback</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">Q</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_::from_raw</span>(<span class="ident">user_data</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>);
             <span class="ident">callback</span>(<span class="ident">result</span>);
         }
         <span class="kw">let</span> <span class="ident">callback</span> <span class="op">=</span> <span class="ident">flush_async_trampoline</span>::<span class="op">&lt;</span><span class="ident">Q</span><span class="op">&gt;</span>;
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">g_output_stream_flush_async</span>(
+            <span class="ident">ffi::g_output_stream_flush_async</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">io_priority</span>.<span class="ident">to_glib</span>(),
                 <span class="ident">cancellable</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> <span class="ident">p</span>.<span class="ident">as_ref</span>()).<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="prelude-val">Some</span>(<span class="ident">callback</span>),
-                <span class="ident">Box_</span>::<span class="ident">into_raw</span>(<span class="ident">user_data</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
+                <span class="ident">Box_::into_raw</span>(<span class="ident">user_data</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
             );
         }
     }
 
     <span class="kw">fn</span> <span class="ident">flush_async_future</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">io_priority</span>: <span class="ident">glib</span>::<span class="ident">Priority</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pin</span><span class="op">&lt;</span><span class="ident">Box_</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">std</span>::<span class="ident">future</span>::<span class="ident">Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-        <span class="ident">Box_</span>::<span class="ident">pin</span>(<span class="kw">crate</span>::<span class="ident">GioFuture</span>::<span class="ident">new</span>(<span class="self">self</span>, <span class="kw">move</span> <span class="op">|</span><span class="ident">obj</span>, <span class="ident">send</span><span class="op">|</span> {
-            <span class="kw">let</span> <span class="ident">cancellable</span> <span class="op">=</span> <span class="ident">Cancellable</span>::<span class="ident">new</span>();
+        <span class="ident">io_priority</span>: <span class="ident">glib::Priority</span>,
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pin</span><span class="op">&lt;</span><span class="ident">Box_</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">std::future::Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib::Error</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+        <span class="ident">Box_::pin</span>(<span class="kw">crate</span><span class="ident">::GioFuture::new</span>(<span class="self">self</span>, <span class="kw">move</span> <span class="op">|</span><span class="ident">obj</span>, <span class="ident">send</span><span class="op">|</span> {
+            <span class="kw">let</span> <span class="ident">cancellable</span> <span class="op">=</span> <span class="ident">Cancellable::new</span>();
             <span class="ident">obj</span>.<span class="ident">flush_async</span>(<span class="ident">io_priority</span>, <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="ident">cancellable</span>), <span class="kw">move</span> <span class="op">|</span><span class="ident">res</span><span class="op">|</span> {
                 <span class="ident">send</span>.<span class="ident">resolve</span>(<span class="ident">res</span>);
             });
@@ -1408,7 +1408,7 @@
 
     <span class="kw">fn</span> <span class="ident">has_pending</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_output_stream_has_pending</span>(
+            <span class="ident">from_glib</span>(<span class="ident">ffi::g_output_stream_has_pending</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
         }
@@ -1416,7 +1416,7 @@
 
     <span class="kw">fn</span> <span class="ident">is_closed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_output_stream_is_closed</span>(
+            <span class="ident">from_glib</span>(<span class="ident">ffi::g_output_stream_is_closed</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
         }
@@ -1424,7 +1424,7 @@
 
     <span class="kw">fn</span> <span class="ident">is_closing</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_output_stream_is_closing</span>(
+            <span class="ident">from_glib</span>(<span class="ident">ffi::g_output_stream_is_closing</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
         }
@@ -1434,10 +1434,10 @@
     <span class="comment">//    unsafe { TODO: call ffi:g_output_stream_printf() }</span>
     <span class="comment">//}</span>
 
-    <span class="kw">fn</span> <span class="ident">set_pending</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">set_pending</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib::Error</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">g_output_stream_set_pending</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">error</span>);
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
+            <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">ffi::g_output_stream_set_pending</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">error</span>);
             <span class="kw">if</span> <span class="ident">error</span>.<span class="ident">is_null</span>() {
                 <span class="prelude-val">Ok</span>(())
             } <span class="kw">else</span> {
@@ -1451,10 +1451,10 @@
         <span class="ident">source</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>,
         <span class="ident">flags</span>: <span class="ident">OutputStreamSpliceFlags</span>,
         <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">Q</span><span class="op">&gt;</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">isize</span>, <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">isize</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">g_output_stream_splice</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
+            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">ffi::g_output_stream_splice</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">source</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">flags</span>.<span class="ident">to_glib</span>(),
@@ -1472,43 +1472,43 @@
     <span class="kw">fn</span> <span class="ident">splice_async</span><span class="op">&lt;</span>
         <span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">InputStream</span><span class="op">&gt;</span>,
         <span class="ident">Q</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span>,
-        <span class="ident">R</span>: <span class="ident">FnOnce</span>(<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">isize</span>, <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
+        <span class="ident">R</span>: <span class="ident">FnOnce</span>(<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">isize</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
     <span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">source</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>,
         <span class="ident">flags</span>: <span class="ident">OutputStreamSpliceFlags</span>,
-        <span class="ident">io_priority</span>: <span class="ident">glib</span>::<span class="ident">Priority</span>,
+        <span class="ident">io_priority</span>: <span class="ident">glib::Priority</span>,
         <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">Q</span><span class="op">&gt;</span>,
         <span class="ident">callback</span>: <span class="ident">R</span>,
     ) {
-        <span class="kw">let</span> <span class="ident">user_data</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_</span>::<span class="ident">new</span>(<span class="ident">callback</span>);
+        <span class="kw">let</span> <span class="ident">user_data</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_::new</span>(<span class="ident">callback</span>);
         <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">splice_async_trampoline</span><span class="op">&lt;</span>
-            <span class="ident">R</span>: <span class="ident">FnOnce</span>(<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">isize</span>, <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
+            <span class="ident">R</span>: <span class="ident">FnOnce</span>(<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">isize</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
         <span class="op">&gt;</span>(
-            <span class="ident">_source_object</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">GObject</span>,
-            <span class="ident">res</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">crate</span>::<span class="ident">ffi</span>::<span class="ident">GAsyncResult</span>,
-            <span class="ident">user_data</span>: <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">gpointer</span>,
+            <span class="ident">_source_object</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib::gobject_ffi::GObject</span>,
+            <span class="ident">res</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">crate</span><span class="ident">::ffi::GAsyncResult</span>,
+            <span class="ident">user_data</span>: <span class="ident">glib::ffi::gpointer</span>,
         ) {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">g_output_stream_splice_finish</span>(<span class="ident">_source_object</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>, <span class="ident">res</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">error</span>);
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
+            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">ffi::g_output_stream_splice_finish</span>(<span class="ident">_source_object</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>, <span class="ident">res</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">error</span>);
             <span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">error</span>.<span class="ident">is_null</span>() {
                 <span class="prelude-val">Ok</span>(<span class="ident">ret</span>)
             } <span class="kw">else</span> {
                 <span class="prelude-val">Err</span>(<span class="ident">from_glib_full</span>(<span class="ident">error</span>))
             };
-            <span class="kw">let</span> <span class="ident">callback</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_</span>::<span class="ident">from_raw</span>(<span class="ident">user_data</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>);
+            <span class="kw">let</span> <span class="ident">callback</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_::from_raw</span>(<span class="ident">user_data</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>);
             <span class="ident">callback</span>(<span class="ident">result</span>);
         }
         <span class="kw">let</span> <span class="ident">callback</span> <span class="op">=</span> <span class="ident">splice_async_trampoline</span>::<span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span>;
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">g_output_stream_splice_async</span>(
+            <span class="ident">ffi::g_output_stream_splice_async</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">source</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">flags</span>.<span class="ident">to_glib</span>(),
                 <span class="ident">io_priority</span>.<span class="ident">to_glib</span>(),
                 <span class="ident">cancellable</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> <span class="ident">p</span>.<span class="ident">as_ref</span>()).<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="prelude-val">Some</span>(<span class="ident">callback</span>),
-                <span class="ident">Box_</span>::<span class="ident">into_raw</span>(<span class="ident">user_data</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
+                <span class="ident">Box_::into_raw</span>(<span class="ident">user_data</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
             );
         }
     }
@@ -1517,11 +1517,11 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">source</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>,
         <span class="ident">flags</span>: <span class="ident">OutputStreamSpliceFlags</span>,
-        <span class="ident">io_priority</span>: <span class="ident">glib</span>::<span class="ident">Priority</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pin</span><span class="op">&lt;</span><span class="ident">Box_</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">std</span>::<span class="ident">future</span>::<span class="ident">Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">isize</span>, <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+        <span class="ident">io_priority</span>: <span class="ident">glib::Priority</span>,
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pin</span><span class="op">&lt;</span><span class="ident">Box_</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">std::future::Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">isize</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">source</span> <span class="op">=</span> <span class="ident">source</span>.<span class="ident">clone</span>();
-        <span class="ident">Box_</span>::<span class="ident">pin</span>(<span class="kw">crate</span>::<span class="ident">GioFuture</span>::<span class="ident">new</span>(<span class="self">self</span>, <span class="kw">move</span> <span class="op">|</span><span class="ident">obj</span>, <span class="ident">send</span><span class="op">|</span> {
-            <span class="kw">let</span> <span class="ident">cancellable</span> <span class="op">=</span> <span class="ident">Cancellable</span>::<span class="ident">new</span>();
+        <span class="ident">Box_::pin</span>(<span class="kw">crate</span><span class="ident">::GioFuture::new</span>(<span class="self">self</span>, <span class="kw">move</span> <span class="op">|</span><span class="ident">obj</span>, <span class="ident">send</span><span class="op">|</span> {
+            <span class="kw">let</span> <span class="ident">cancellable</span> <span class="op">=</span> <span class="ident">Cancellable::new</span>();
             <span class="ident">obj</span>.<span class="ident">splice_async</span>(
                 <span class="kw-2">&amp;</span><span class="ident">source</span>,
                 <span class="ident">flags</span>,
@@ -1544,11 +1544,11 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">buffer</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>],
         <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">isize</span>, <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">isize</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">count</span> <span class="op">=</span> <span class="ident">buffer</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">usize</span>;
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">g_output_stream_write</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
+            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">ffi::g_output_stream_write</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">buffer</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">count</span>,
@@ -1565,12 +1565,12 @@
 
     <span class="kw">fn</span> <span class="ident">write_bytes</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">bytes</span>: <span class="kw-2">&amp;</span><span class="ident">glib</span>::<span class="ident">Bytes</span>,
+        <span class="ident">bytes</span>: <span class="kw-2">&amp;</span><span class="ident">glib::Bytes</span>,
         <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">isize</span>, <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">isize</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">g_output_stream_write_bytes</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
+            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">ffi::g_output_stream_write_bytes</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">bytes</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">cancellable</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> <span class="ident">p</span>.<span class="ident">as_ref</span>()).<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -1586,54 +1586,54 @@
 
     <span class="kw">fn</span> <span class="ident">write_bytes_async</span><span class="op">&lt;</span>
         <span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span>,
-        <span class="ident">Q</span>: <span class="ident">FnOnce</span>(<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">isize</span>, <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
+        <span class="ident">Q</span>: <span class="ident">FnOnce</span>(<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">isize</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
     <span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">bytes</span>: <span class="kw-2">&amp;</span><span class="ident">glib</span>::<span class="ident">Bytes</span>,
-        <span class="ident">io_priority</span>: <span class="ident">glib</span>::<span class="ident">Priority</span>,
+        <span class="ident">bytes</span>: <span class="kw-2">&amp;</span><span class="ident">glib::Bytes</span>,
+        <span class="ident">io_priority</span>: <span class="ident">glib::Priority</span>,
         <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>,
         <span class="ident">callback</span>: <span class="ident">Q</span>,
     ) {
-        <span class="kw">let</span> <span class="ident">user_data</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">Q</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_</span>::<span class="ident">new</span>(<span class="ident">callback</span>);
+        <span class="kw">let</span> <span class="ident">user_data</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">Q</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_::new</span>(<span class="ident">callback</span>);
         <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">write_bytes_async_trampoline</span><span class="op">&lt;</span>
-            <span class="ident">Q</span>: <span class="ident">FnOnce</span>(<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">isize</span>, <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
+            <span class="ident">Q</span>: <span class="ident">FnOnce</span>(<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">isize</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
         <span class="op">&gt;</span>(
-            <span class="ident">_source_object</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">GObject</span>,
-            <span class="ident">res</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">crate</span>::<span class="ident">ffi</span>::<span class="ident">GAsyncResult</span>,
-            <span class="ident">user_data</span>: <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">gpointer</span>,
+            <span class="ident">_source_object</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib::gobject_ffi::GObject</span>,
+            <span class="ident">res</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">crate</span><span class="ident">::ffi::GAsyncResult</span>,
+            <span class="ident">user_data</span>: <span class="ident">glib::ffi::gpointer</span>,
         ) {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
             <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span>
-                <span class="ident">ffi</span>::<span class="ident">g_output_stream_write_bytes_finish</span>(<span class="ident">_source_object</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>, <span class="ident">res</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">error</span>);
+                <span class="ident">ffi::g_output_stream_write_bytes_finish</span>(<span class="ident">_source_object</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>, <span class="ident">res</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">error</span>);
             <span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">error</span>.<span class="ident">is_null</span>() {
                 <span class="prelude-val">Ok</span>(<span class="ident">ret</span>)
             } <span class="kw">else</span> {
                 <span class="prelude-val">Err</span>(<span class="ident">from_glib_full</span>(<span class="ident">error</span>))
             };
-            <span class="kw">let</span> <span class="ident">callback</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">Q</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_</span>::<span class="ident">from_raw</span>(<span class="ident">user_data</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>);
+            <span class="kw">let</span> <span class="ident">callback</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">Q</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_::from_raw</span>(<span class="ident">user_data</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>);
             <span class="ident">callback</span>(<span class="ident">result</span>);
         }
         <span class="kw">let</span> <span class="ident">callback</span> <span class="op">=</span> <span class="ident">write_bytes_async_trampoline</span>::<span class="op">&lt;</span><span class="ident">Q</span><span class="op">&gt;</span>;
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">g_output_stream_write_bytes_async</span>(
+            <span class="ident">ffi::g_output_stream_write_bytes_async</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">bytes</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">io_priority</span>.<span class="ident">to_glib</span>(),
                 <span class="ident">cancellable</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> <span class="ident">p</span>.<span class="ident">as_ref</span>()).<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="prelude-val">Some</span>(<span class="ident">callback</span>),
-                <span class="ident">Box_</span>::<span class="ident">into_raw</span>(<span class="ident">user_data</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
+                <span class="ident">Box_::into_raw</span>(<span class="ident">user_data</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
             );
         }
     }
 
     <span class="kw">fn</span> <span class="ident">write_bytes_async_future</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">bytes</span>: <span class="kw-2">&amp;</span><span class="ident">glib</span>::<span class="ident">Bytes</span>,
-        <span class="ident">io_priority</span>: <span class="ident">glib</span>::<span class="ident">Priority</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pin</span><span class="op">&lt;</span><span class="ident">Box_</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">std</span>::<span class="ident">future</span>::<span class="ident">Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">isize</span>, <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+        <span class="ident">bytes</span>: <span class="kw-2">&amp;</span><span class="ident">glib::Bytes</span>,
+        <span class="ident">io_priority</span>: <span class="ident">glib::Priority</span>,
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pin</span><span class="op">&lt;</span><span class="ident">Box_</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">std::future::Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">isize</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">bytes</span> <span class="op">=</span> <span class="ident">bytes</span>.<span class="ident">clone</span>();
-        <span class="ident">Box_</span>::<span class="ident">pin</span>(<span class="kw">crate</span>::<span class="ident">GioFuture</span>::<span class="ident">new</span>(<span class="self">self</span>, <span class="kw">move</span> <span class="op">|</span><span class="ident">obj</span>, <span class="ident">send</span><span class="op">|</span> {
-            <span class="kw">let</span> <span class="ident">cancellable</span> <span class="op">=</span> <span class="ident">Cancellable</span>::<span class="ident">new</span>();
+        <span class="ident">Box_::pin</span>(<span class="kw">crate</span><span class="ident">::GioFuture::new</span>(<span class="self">self</span>, <span class="kw">move</span> <span class="op">|</span><span class="ident">obj</span>, <span class="ident">send</span><span class="op">|</span> {
+            <span class="kw">let</span> <span class="ident">cancellable</span> <span class="op">=</span> <span class="ident">Cancellable::new</span>();
             <span class="ident">obj</span>.<span class="ident">write_bytes_async</span>(<span class="kw-2">&amp;</span><span class="ident">bytes</span>, <span class="ident">io_priority</span>, <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="ident">cancellable</span>), <span class="kw">move</span> <span class="op">|</span><span class="ident">res</span><span class="op">|</span> {
                 <span class="ident">send</span>.<span class="ident">resolve</span>(<span class="ident">res</span>);
             });
@@ -1709,8 +1709,8 @@
     <span class="comment">//}</span>
 }
 
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">OutputStream</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">OutputStream</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;OutputStream&quot;</span>)
     }
 }

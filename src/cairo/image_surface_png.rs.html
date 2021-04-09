@@ -212,21 +212,21 @@
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">utils</span>::<span class="ident">status_to_result</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">any</span>::<span class="ident">Any</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">io</span>::{<span class="self">self</span>, <span class="ident">Read</span>, <span class="ident">Write</span>};
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">panic</span>::<span class="ident">AssertUnwindSafe</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">slice</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::utils::status_to_result</span>;
+<span class="kw">use</span> <span class="ident">std::any::Any</span>;
+<span class="kw">use</span> <span class="ident">std::io</span>::{<span class="self">self</span>, <span class="ident">Read</span>, <span class="ident">Write</span>};
+<span class="kw">use</span> <span class="ident">std::panic::AssertUnwindSafe</span>;
+<span class="kw">use</span> <span class="ident">std::slice</span>;
 
 <span class="kw">use</span> <span class="ident">libc</span>::{<span class="ident">c_uint</span>, <span class="ident">c_void</span>};
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">error</span>::{<span class="ident">Error</span>, <span class="ident">IoError</span>};
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">ImageSurface</span>;
-<span class="kw">use</span> <span class="ident">ffi</span>::<span class="ident">cairo_status_t</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::error</span>::{<span class="ident">Error</span>, <span class="ident">IoError</span>};
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::ImageSurface</span>;
+<span class="kw">use</span> <span class="ident">ffi::cairo_status_t</span>;
 
 <span class="kw">struct</span> <span class="ident">ReadEnv</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">R</span>: <span class="lifetime">&#39;a</span> <span class="op">+</span> <span class="ident">Read</span><span class="op">&gt;</span> {
     <span class="ident">reader</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="ident">R</span>,
-    <span class="ident">io_error</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">io</span>::<span class="ident">Error</span><span class="op">&gt;</span>,
+    <span class="ident">io_error</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">io::Error</span><span class="op">&gt;</span>,
     <span class="ident">unwind_payload</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Any</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 
@@ -239,27 +239,27 @@
 
     <span class="comment">// Don’t attempt another read if a previous one errored or panicked:</span>
     <span class="kw">if</span> <span class="ident">read_env</span>.<span class="ident">io_error</span>.<span class="ident">is_some</span>() <span class="op">|</span><span class="op">|</span> <span class="ident">read_env</span>.<span class="ident">unwind_payload</span>.<span class="ident">is_some</span>() {
-        <span class="kw">return</span> <span class="ident">Error</span>::<span class="ident">ReadError</span>.<span class="ident">into</span>();
+        <span class="kw">return</span> <span class="ident">Error::ReadError</span>.<span class="ident">into</span>();
     }
 
-    <span class="kw">let</span> <span class="ident">buffer</span> <span class="op">=</span> <span class="ident">slice</span>::<span class="ident">from_raw_parts_mut</span>(<span class="ident">data</span>, <span class="ident">len</span> <span class="kw">as</span> <span class="ident">usize</span>);
-    <span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="ident">std</span>::<span class="ident">panic</span>::<span class="ident">catch_unwind</span>(<span class="ident">AssertUnwindSafe</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">read_env</span>.<span class="ident">reader</span>.<span class="ident">read_exact</span>(<span class="ident">buffer</span>)));
+    <span class="kw">let</span> <span class="ident">buffer</span> <span class="op">=</span> <span class="ident">slice::from_raw_parts_mut</span>(<span class="ident">data</span>, <span class="ident">len</span> <span class="kw">as</span> <span class="ident">usize</span>);
+    <span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="ident">std::panic::catch_unwind</span>(<span class="ident">AssertUnwindSafe</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">read_env</span>.<span class="ident">reader</span>.<span class="ident">read_exact</span>(<span class="ident">buffer</span>)));
     <span class="kw">match</span> <span class="ident">result</span> {
-        <span class="prelude-val">Ok</span>(<span class="prelude-val">Ok</span>(())) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">STATUS_SUCCESS</span>,
+        <span class="prelude-val">Ok</span>(<span class="prelude-val">Ok</span>(())) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::STATUS_SUCCESS</span>,
         <span class="prelude-val">Ok</span>(<span class="prelude-val">Err</span>(<span class="ident">error</span>)) <span class="op">=</span><span class="op">&gt;</span> {
             <span class="ident">read_env</span>.<span class="ident">io_error</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">error</span>);
-            <span class="ident">Error</span>::<span class="ident">ReadError</span>.<span class="ident">into</span>()
+            <span class="ident">Error::ReadError</span>.<span class="ident">into</span>()
         }
         <span class="prelude-val">Err</span>(<span class="ident">payload</span>) <span class="op">=</span><span class="op">&gt;</span> {
             <span class="ident">read_env</span>.<span class="ident">unwind_payload</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">payload</span>);
-            <span class="ident">Error</span>::<span class="ident">ReadError</span>.<span class="ident">into</span>()
+            <span class="ident">Error::ReadError</span>.<span class="ident">into</span>()
         }
     }
 }
 
 <span class="kw">struct</span> <span class="ident">WriteEnv</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">W</span>: <span class="lifetime">&#39;a</span> <span class="op">+</span> <span class="ident">Write</span><span class="op">&gt;</span> {
     <span class="ident">writer</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="ident">W</span>,
-    <span class="ident">io_error</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">io</span>::<span class="ident">Error</span><span class="op">&gt;</span>,
+    <span class="ident">io_error</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">io::Error</span><span class="op">&gt;</span>,
     <span class="ident">unwind_payload</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Any</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 
@@ -272,20 +272,20 @@
 
     <span class="comment">// Don’t attempt another write if a previous one errored or panicked:</span>
     <span class="kw">if</span> <span class="ident">write_env</span>.<span class="ident">io_error</span>.<span class="ident">is_some</span>() <span class="op">|</span><span class="op">|</span> <span class="ident">write_env</span>.<span class="ident">unwind_payload</span>.<span class="ident">is_some</span>() {
-        <span class="kw">return</span> <span class="ident">Error</span>::<span class="ident">WriteError</span>.<span class="ident">into</span>();
+        <span class="kw">return</span> <span class="ident">Error::WriteError</span>.<span class="ident">into</span>();
     }
 
-    <span class="kw">let</span> <span class="ident">buffer</span> <span class="op">=</span> <span class="ident">slice</span>::<span class="ident">from_raw_parts</span>(<span class="ident">data</span>, <span class="ident">len</span> <span class="kw">as</span> <span class="ident">usize</span>);
-    <span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="ident">std</span>::<span class="ident">panic</span>::<span class="ident">catch_unwind</span>(<span class="ident">AssertUnwindSafe</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">write_env</span>.<span class="ident">writer</span>.<span class="ident">write_all</span>(<span class="ident">buffer</span>)));
+    <span class="kw">let</span> <span class="ident">buffer</span> <span class="op">=</span> <span class="ident">slice::from_raw_parts</span>(<span class="ident">data</span>, <span class="ident">len</span> <span class="kw">as</span> <span class="ident">usize</span>);
+    <span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="ident">std::panic::catch_unwind</span>(<span class="ident">AssertUnwindSafe</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">write_env</span>.<span class="ident">writer</span>.<span class="ident">write_all</span>(<span class="ident">buffer</span>)));
     <span class="kw">match</span> <span class="ident">result</span> {
-        <span class="prelude-val">Ok</span>(<span class="prelude-val">Ok</span>(())) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">STATUS_SUCCESS</span>,
+        <span class="prelude-val">Ok</span>(<span class="prelude-val">Ok</span>(())) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::STATUS_SUCCESS</span>,
         <span class="prelude-val">Ok</span>(<span class="prelude-val">Err</span>(<span class="ident">error</span>)) <span class="op">=</span><span class="op">&gt;</span> {
             <span class="ident">write_env</span>.<span class="ident">io_error</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">error</span>);
-            <span class="ident">Error</span>::<span class="ident">WriteError</span>.<span class="ident">into</span>()
+            <span class="ident">Error::WriteError</span>.<span class="ident">into</span>()
         }
         <span class="prelude-val">Err</span>(<span class="ident">payload</span>) <span class="op">=</span><span class="op">&gt;</span> {
             <span class="ident">write_env</span>.<span class="ident">unwind_payload</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">payload</span>);
-            <span class="ident">Error</span>::<span class="ident">WriteError</span>.<span class="ident">into</span>()
+            <span class="ident">Error::WriteError</span>.<span class="ident">into</span>()
         }
     }
 }
@@ -299,20 +299,20 @@
             <span class="ident">unwind_payload</span>: <span class="prelude-val">None</span>,
         };
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">raw_surface</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">cairo_image_surface_create_from_png_stream</span>(
+            <span class="kw">let</span> <span class="ident">raw_surface</span> <span class="op">=</span> <span class="ident">ffi::cairo_image_surface_create_from_png_stream</span>(
                 <span class="prelude-val">Some</span>(<span class="ident">read_func</span>::<span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span>),
                 <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">env</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ReadEnv</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_void</span>,
             );
 
-            <span class="kw">let</span> <span class="ident">surface</span> <span class="op">=</span> <span class="ident">ImageSurface</span>::<span class="ident">from_raw_full</span>(<span class="ident">raw_surface</span>)<span class="question-mark">?</span>;
+            <span class="kw">let</span> <span class="ident">surface</span> <span class="op">=</span> <span class="ident">ImageSurface::from_raw_full</span>(<span class="ident">raw_surface</span>)<span class="question-mark">?</span>;
 
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">payload</span>) <span class="op">=</span> <span class="ident">env</span>.<span class="ident">unwind_payload</span> {
-                <span class="ident">std</span>::<span class="ident">panic</span>::<span class="ident">resume_unwind</span>(<span class="ident">payload</span>)
+                <span class="ident">std::panic::resume_unwind</span>(<span class="ident">payload</span>)
             }
 
             <span class="kw">match</span> <span class="ident">env</span>.<span class="ident">io_error</span> {
                 <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">surface</span>),
-                <span class="prelude-val">Some</span>(<span class="ident">err</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Err</span>(<span class="ident">IoError</span>::<span class="ident">Io</span>(<span class="ident">err</span>)),
+                <span class="prelude-val">Some</span>(<span class="ident">err</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Err</span>(<span class="ident">IoError::Io</span>(<span class="ident">err</span>)),
             }
         }
     }
@@ -325,7 +325,7 @@
             <span class="ident">unwind_payload</span>: <span class="prelude-val">None</span>,
         };
         <span class="kw">let</span> <span class="ident">status</span> <span class="op">=</span> <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">cairo_surface_write_to_png_stream</span>(
+            <span class="ident">ffi::cairo_surface_write_to_png_stream</span>(
                 <span class="self">self</span>.<span class="ident">to_raw_none</span>(),
                 <span class="prelude-val">Some</span>(<span class="ident">write_func</span>::<span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span>),
                 <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">env</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">WriteEnv</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_void</span>,
@@ -333,15 +333,15 @@
         };
 
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">payload</span>) <span class="op">=</span> <span class="ident">env</span>.<span class="ident">unwind_payload</span> {
-            <span class="ident">std</span>::<span class="ident">panic</span>::<span class="ident">resume_unwind</span>(<span class="ident">payload</span>)
+            <span class="ident">std::panic::resume_unwind</span>(<span class="ident">payload</span>)
         }
 
         <span class="kw">match</span> <span class="ident">env</span>.<span class="ident">io_error</span> {
             <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">match</span> <span class="ident">status_to_result</span>(<span class="ident">status</span>) {
-                <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Err</span>(<span class="ident">IoError</span>::<span class="ident">Cairo</span>(<span class="ident">err</span>)),
+                <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Err</span>(<span class="ident">IoError::Cairo</span>(<span class="ident">err</span>)),
                 <span class="prelude-val">Ok</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(()),
             },
-            <span class="prelude-val">Some</span>(<span class="ident">err</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Err</span>(<span class="ident">IoError</span>::<span class="ident">Io</span>(<span class="ident">err</span>)),
+            <span class="prelude-val">Some</span>(<span class="ident">err</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Err</span>(<span class="ident">IoError::Io</span>(<span class="ident">err</span>)),
         }
     }
 }
@@ -349,15 +349,15 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
-    <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">enums</span>::<span class="ident">Format</span>;
-    <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">io</span>::<span class="ident">ErrorKind</span>;
+    <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::enums::Format</span>;
+    <span class="kw">use</span> <span class="ident">std::io::ErrorKind</span>;
 
     <span class="kw">struct</span> <span class="ident">IoErrorReader</span>;
 
     <span class="comment">// A reader that always returns an error</span>
     <span class="kw">impl</span> <span class="ident">Read</span> <span class="kw">for</span> <span class="ident">IoErrorReader</span> {
-        <span class="kw">fn</span> <span class="ident">read</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="kw">_</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> [<span class="ident">u8</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">usize</span>, <span class="ident">io</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
-            <span class="prelude-val">Err</span>(<span class="ident">io</span>::<span class="ident">Error</span>::<span class="ident">new</span>(<span class="ident">ErrorKind</span>::<span class="ident">Other</span>, <span class="string">&quot;yikes!&quot;</span>))
+        <span class="kw">fn</span> <span class="ident">read</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="kw">_</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> [<span class="ident">u8</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">usize</span>, <span class="ident">io::Error</span><span class="op">&gt;</span> {
+            <span class="prelude-val">Err</span>(<span class="ident">io::Error::new</span>(<span class="ident">ErrorKind::Other</span>, <span class="string">&quot;yikes!&quot;</span>))
         }
     }
 
@@ -372,13 +372,13 @@
             <span class="number">0x4d</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x49</span>, <span class="number">0x45</span>, <span class="number">0x4e</span>, <span class="number">0x44</span>, <span class="number">0xae</span>, <span class="number">0x42</span>, <span class="number">0x60</span>, <span class="number">0x82</span>,
         ];
 
-        <span class="kw">let</span> <span class="ident">r</span> <span class="op">=</span> <span class="ident">ImageSurface</span>::<span class="ident">create_from_png</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">&amp;</span><span class="ident">png_data</span>[..]);
+        <span class="kw">let</span> <span class="ident">r</span> <span class="op">=</span> <span class="ident">ImageSurface::create_from_png</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">&amp;</span><span class="ident">png_data</span>[..]);
         <span class="macro">assert!</span>(<span class="ident">r</span>.<span class="ident">is_ok</span>());
 
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">surface</span> <span class="op">=</span> <span class="ident">r</span>.<span class="ident">unwrap</span>();
         <span class="macro">assert!</span>(<span class="ident">surface</span>.<span class="ident">get_width</span>() <span class="op">=</span><span class="op">=</span> <span class="number">1</span>);
         <span class="macro">assert!</span>(<span class="ident">surface</span>.<span class="ident">get_height</span>() <span class="op">=</span><span class="op">=</span> <span class="number">1</span>);
-        <span class="macro">assert!</span>(<span class="ident">surface</span>.<span class="ident">get_format</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">Format</span>::<span class="ident">Rgb24</span>);
+        <span class="macro">assert!</span>(<span class="ident">surface</span>.<span class="ident">get_format</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">Format::Rgb24</span>);
 
         <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">surface</span>.<span class="ident">get_data</span>().<span class="ident">unwrap</span>();
         <span class="macro">assert!</span>(<span class="ident">data</span>.<span class="ident">len</span>() <span class="op">&gt;</span><span class="op">=</span> <span class="number">3</span>);
@@ -401,8 +401,8 @@
             <span class="number">0x4d</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x49</span>, <span class="number">0x45</span>, <span class="number">0x4e</span>, <span class="number">0x44</span>, <span class="number">0xae</span>, <span class="number">0x42</span>, <span class="number">0x60</span>, <span class="number">0x82</span>,
         ];
 
-        <span class="kw">match</span> <span class="ident">ImageSurface</span>::<span class="ident">create_from_png</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">&amp;</span><span class="ident">png_data</span>[..]) {
-            <span class="prelude-val">Err</span>(<span class="ident">IoError</span>::<span class="ident">Cairo</span>(<span class="kw">_</span>)) <span class="op">=</span><span class="op">&gt;</span> (),
+        <span class="kw">match</span> <span class="ident">ImageSurface::create_from_png</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">&amp;</span><span class="ident">png_data</span>[..]) {
+            <span class="prelude-val">Err</span>(<span class="ident">IoError::Cairo</span>(<span class="kw">_</span>)) <span class="op">=</span><span class="op">&gt;</span> (),
             <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">unreachable!</span>(),
         }
     }
@@ -412,8 +412,8 @@
     <span class="kw">fn</span> <span class="ident">io_error_yields_cairo_read_error</span>() {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">r</span> <span class="op">=</span> <span class="ident">IoErrorReader</span>;
 
-        <span class="kw">match</span> <span class="ident">ImageSurface</span>::<span class="ident">create_from_png</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">r</span>) {
-            <span class="prelude-val">Err</span>(<span class="ident">IoError</span>::<span class="ident">Cairo</span>(<span class="ident">Error</span>::<span class="ident">ReadError</span>)) <span class="op">=</span><span class="op">&gt;</span> (),
+        <span class="kw">match</span> <span class="ident">ImageSurface::create_from_png</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">r</span>) {
+            <span class="prelude-val">Err</span>(<span class="ident">IoError::Cairo</span>(<span class="ident">Error::ReadError</span>)) <span class="op">=</span><span class="op">&gt;</span> (),
             <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">unreachable!</span>(),
         }
     }

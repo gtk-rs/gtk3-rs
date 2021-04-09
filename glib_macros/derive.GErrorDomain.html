@@ -10,10 +10,10 @@
 <a href="error/trait.ErrorDomain.html"><code>ErrorDomain</code></a> trait.</p>
 <h1 id="example" class="section-header"><a href="#example">Example</a></h1>
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">subclass</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">glib::prelude</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">glib::subclass::prelude</span>::<span class="kw-2">*</span>;
 
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Copy</span>, <span class="ident">Clone</span>, <span class="ident">glib</span>::<span class="ident">GErrorDomain</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Copy</span>, <span class="ident">Clone</span>, <span class="ident">glib::GErrorDomain</span>)]</span>
 <span class="attribute">#[<span class="ident">gerror_domain</span>(<span class="ident">name</span> <span class="op">=</span> <span class="string">&quot;ExFoo&quot;</span>)]</span>
 <span class="kw">enum</span> <span class="ident">Foo</span> {
     <span class="ident">Blah</span>,

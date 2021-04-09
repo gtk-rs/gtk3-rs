@@ -160,8 +160,8 @@
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
 <span class="attribute">#![<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">feature</span>(<span class="ident">doc_cfg</span>))]</span>
-<span class="attribute">#![<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">missing_safety_doc</span>)]</span>
-<span class="attribute">#![<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">upper_case_acronyms</span>)]</span>
+<span class="attribute">#![<span class="ident">allow</span>(<span class="ident">clippy::missing_safety_doc</span>)]</span>
+<span class="attribute">#![<span class="ident">allow</span>(<span class="ident">clippy::upper_case_acronyms</span>)]</span>
 <span class="attribute">#![<span class="ident">allow</span>(<span class="ident">deprecated</span>)]</span>
 
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">cairo</span>;
@@ -176,16 +176,16 @@
 <span class="attribute">#[<span class="ident">macro_use</span>]</span>
 <span class="kw">mod</span> <span class="ident">event</span>;
 
-<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">type_complexity</span>)]</span>
-<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">unreadable_literal</span>)]</span>
+<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::type_complexity</span>)]</span>
+<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::unreadable_literal</span>)]</span>
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">unused_doc_comments</span>)]</span>
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">unused_imports</span>)]</span>
 <span class="kw">mod</span> <span class="ident">auto</span>;
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">prelude</span>;
 
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">auto</span>::<span class="ident">functions</span>::<span class="kw-2">*</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">auto</span>::<span class="kw-2">*</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::auto::functions</span>::<span class="kw-2">*</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::auto</span>::<span class="kw-2">*</span>;
 
 <span class="kw">mod</span> <span class="ident">atom</span>;
 <span class="kw">mod</span> <span class="ident">cairo_interaction</span>;
@@ -235,83 +235,83 @@
 <span class="kw">mod</span> <span class="ident">visual</span>;
 <span class="kw">mod</span> <span class="ident">window</span>;
 
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">ffi</span>::<span class="ident">GdkColor</span> <span class="kw">as</span> <span class="ident">Color</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">ffi::GdkColor</span> <span class="kw">as</span> <span class="ident">Color</span>;
 
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">rt</span>::{<span class="ident">init</span>, <span class="ident">set_initialized</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::rt</span>::{<span class="ident">init</span>, <span class="ident">set_initialized</span>};
 
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">atom</span>::<span class="ident">Atom</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">atom</span>::<span class="ident">NONE</span> <span class="kw">as</span> <span class="ident">ATOM_NONE</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">atom</span>::<span class="ident">SELECTION_CLIPBOARD</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">atom</span>::<span class="ident">SELECTION_PRIMARY</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">atom</span>::<span class="ident">SELECTION_SECONDARY</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">atom</span>::<span class="ident">SELECTION_TYPE_ATOM</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">atom</span>::<span class="ident">SELECTION_TYPE_BITMAP</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">atom</span>::<span class="ident">SELECTION_TYPE_COLORMAP</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">atom</span>::<span class="ident">SELECTION_TYPE_DRAWABLE</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">atom</span>::<span class="ident">SELECTION_TYPE_INTEGER</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">atom</span>::<span class="ident">SELECTION_TYPE_PIXMAP</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">atom</span>::<span class="ident">SELECTION_TYPE_STRING</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">atom</span>::<span class="ident">SELECTION_TYPE_WINDOW</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">atom</span>::<span class="ident">TARGET_BITMAP</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">atom</span>::<span class="ident">TARGET_COLORMAP</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">atom</span>::<span class="ident">TARGET_DRAWABLE</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">atom</span>::<span class="ident">TARGET_PIXMAP</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">atom</span>::<span class="ident">TARGET_STRING</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">change_data</span>::<span class="ident">ChangeData</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">event</span>::{<span class="ident">Event</span>, <span class="ident">FromEvent</span>};
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">event_button</span>::<span class="ident">EventButton</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">event_configure</span>::<span class="ident">EventConfigure</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">event_crossing</span>::<span class="ident">EventCrossing</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">event_dnd</span>::<span class="ident">EventDND</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">event_expose</span>::<span class="ident">EventExpose</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">event_focus</span>::<span class="ident">EventFocus</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">event_grab_broken</span>::<span class="ident">EventGrabBroken</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">event_key</span>::<span class="ident">EventKey</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">event_motion</span>::<span class="ident">EventMotion</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">event_owner_change</span>::<span class="ident">EventOwnerChange</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">event_property</span>::<span class="ident">EventProperty</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">event_proximity</span>::<span class="ident">EventProximity</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">event_scroll</span>::<span class="ident">EventScroll</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">event_selection</span>::<span class="ident">EventSelection</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">event_setting</span>::<span class="ident">EventSetting</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">event_touch</span>::<span class="ident">EventTouch</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">event_visibility</span>::<span class="ident">EventVisibility</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">event_window_state</span>::<span class="ident">EventWindowState</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">functions</span>::<span class="kw-2">*</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">geometry</span>::<span class="ident">Geometry</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">keymap_key</span>::<span class="ident">KeymapKey</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">rectangle</span>::<span class="ident">Rectangle</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">rgba</span>::{<span class="ident">RgbaParseError</span>, <span class="ident">RGBA</span>};
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">time_coord</span>::<span class="ident">TimeCoord</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">window</span>::<span class="ident">WindowAttr</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::atom::Atom</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::atom::NONE</span> <span class="kw">as</span> <span class="ident">ATOM_NONE</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::atom::SELECTION_CLIPBOARD</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::atom::SELECTION_PRIMARY</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::atom::SELECTION_SECONDARY</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::atom::SELECTION_TYPE_ATOM</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::atom::SELECTION_TYPE_BITMAP</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::atom::SELECTION_TYPE_COLORMAP</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::atom::SELECTION_TYPE_DRAWABLE</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::atom::SELECTION_TYPE_INTEGER</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::atom::SELECTION_TYPE_PIXMAP</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::atom::SELECTION_TYPE_STRING</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::atom::SELECTION_TYPE_WINDOW</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::atom::TARGET_BITMAP</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::atom::TARGET_COLORMAP</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::atom::TARGET_DRAWABLE</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::atom::TARGET_PIXMAP</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::atom::TARGET_STRING</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::change_data::ChangeData</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::event</span>::{<span class="ident">Event</span>, <span class="ident">FromEvent</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::event_button::EventButton</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::event_configure::EventConfigure</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::event_crossing::EventCrossing</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::event_dnd::EventDND</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::event_expose::EventExpose</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::event_focus::EventFocus</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::event_grab_broken::EventGrabBroken</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::event_key::EventKey</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::event_motion::EventMotion</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::event_owner_change::EventOwnerChange</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::event_property::EventProperty</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::event_proximity::EventProximity</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::event_scroll::EventScroll</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::event_selection::EventSelection</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::event_setting::EventSetting</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::event_touch::EventTouch</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::event_visibility::EventVisibility</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::event_window_state::EventWindowState</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::functions</span>::<span class="kw-2">*</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::geometry::Geometry</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::keymap_key::KeymapKey</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::rectangle::Rectangle</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::rgba</span>::{<span class="ident">RgbaParseError</span>, <span class="ident">RGBA</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::time_coord::TimeCoord</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::window::WindowAttr</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">event_pad_axis</span>::<span class="ident">EventPadAxis</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">event_pad_axis::EventPadAxis</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">event_pad_button</span>::<span class="ident">EventPadButton</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">event_pad_button::EventPadButton</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">event_pad_group_mode</span>::<span class="ident">EventPadGroupMode</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">event_pad_group_mode::EventPadGroupMode</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_18&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">event_touchpad_pinch</span>::<span class="ident">EventTouchpadPinch</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">event_touchpad_pinch::EventTouchpadPinch</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_18&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">event_touchpad_swipe</span>::<span class="ident">EventTouchpadSwipe</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">event_touchpad_swipe::EventTouchpadSwipe</span>;
 
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">non_camel_case_types</span>)]</span>
 <span class="kw">pub</span> <span class="kw">type</span> <span class="ident">key</span> <span class="op">=</span> <span class="ident">i32</span>;
 
 <span class="doccomment">/// The primary button. This is typically the left mouse button, or the right button in a left-handed setup.</span>
-<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">BUTTON_PRIMARY</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">GDK_BUTTON_PRIMARY</span> <span class="kw">as</span> <span class="ident">u32</span>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">BUTTON_PRIMARY</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="ident">ffi::GDK_BUTTON_PRIMARY</span> <span class="kw">as</span> <span class="ident">u32</span>;
 
 <span class="doccomment">/// The middle button.</span>
-<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">BUTTON_MIDDLE</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">GDK_BUTTON_MIDDLE</span> <span class="kw">as</span> <span class="ident">u32</span>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">BUTTON_MIDDLE</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="ident">ffi::GDK_BUTTON_MIDDLE</span> <span class="kw">as</span> <span class="ident">u32</span>;
 
 <span class="doccomment">/// The secondary button. This is typically the right mouse button, or the left button in a left-handed setup.</span>
-<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">BUTTON_SECONDARY</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">GDK_BUTTON_SECONDARY</span> <span class="kw">as</span> <span class="ident">u32</span>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">BUTTON_SECONDARY</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="ident">ffi::GDK_BUTTON_SECONDARY</span> <span class="kw">as</span> <span class="ident">u32</span>;
 
 <span class="comment">// Used as the return value for stopping the propagation of an event handler.</span>
-<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">EVENT_STOP</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">GDK_EVENT_STOP</span> <span class="kw">as</span> <span class="ident">u32</span>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">EVENT_STOP</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="ident">ffi::GDK_EVENT_STOP</span> <span class="kw">as</span> <span class="ident">u32</span>;
 
 <span class="comment">// Used as the return value for continuing the propagation of an event handler.</span>
-<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">EVENT_PROPAGATE</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">GDK_EVENT_PROPAGATE</span> <span class="kw">as</span> <span class="ident">u32</span>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">EVENT_PROPAGATE</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="ident">ffi::GDK_EVENT_PROPAGATE</span> <span class="kw">as</span> <span class="ident">u32</span>;
 </pre></div>
 </section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="gdk" data-search-js="../../search-index.js"></div>
     <script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script></body></html>

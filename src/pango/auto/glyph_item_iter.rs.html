@@ -138,10 +138,10 @@
 <span class="comment">// from gir-files (https://github.com/gtk-rs/gir-files)</span>
 <span class="comment">// DO NOT EDIT</span>
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">GlyphItem</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::GlyphItem</span>;
+<span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
 
-<span class="ident">glib</span>::<span class="macro">wrapper!</span> {
+<span class="macro">glib::wrapper!</span> {
     <span class="doccomment">/// A `GlyphItemIter` is an iterator over the clusters in a</span>
     <span class="doccomment">/// `GlyphItem`. The `&lt;firstterm&gt;`forward direction`&lt;/firstterm&gt;` of the</span>
     <span class="doccomment">/// iterator is the logical direction of text. That is, with increasing</span>
@@ -180,12 +180,12 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// None of the members of a `GlyphItemIter` should be modified manually.</span>
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">GlyphItemIter</span>(<span class="ident">Boxed</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">PangoGlyphItemIter</span><span class="op">&gt;</span>);
+    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">GlyphItemIter</span>(<span class="ident">Boxed</span><span class="op">&lt;</span><span class="ident">ffi::PangoGlyphItemIter</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
-        <span class="ident">copy</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">pango_glyph_item_iter_copy</span>(<span class="ident">mut_override</span>(<span class="ident">ptr</span>)),
-        <span class="ident">free</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">pango_glyph_item_iter_free</span>(<span class="ident">ptr</span>),
-        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">pango_glyph_item_iter_get_type</span>(),
+        <span class="ident">copy</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">ffi::pango_glyph_item_iter_copy</span>(<span class="ident">mut_override</span>(<span class="ident">ptr</span>)),
+        <span class="ident">free</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">ffi::pango_glyph_item_iter_free</span>(<span class="ident">ptr</span>),
+        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::pango_glyph_item_iter_get_type</span>(),
     }
 }
 
@@ -204,7 +204,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_glyph_item_iter_init_end&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">init_end</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">glyph_item</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">GlyphItem</span>, <span class="ident">text</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">pango_glyph_item_iter_init_end</span>(
+            <span class="ident">from_glib</span>(<span class="ident">ffi::pango_glyph_item_iter_init_end</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
                 <span class="ident">glyph_item</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
                 <span class="ident">text</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -226,7 +226,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_glyph_item_iter_init_start&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">init_start</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">glyph_item</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">GlyphItem</span>, <span class="ident">text</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">pango_glyph_item_iter_init_start</span>(
+            <span class="ident">from_glib</span>(<span class="ident">ffi::pango_glyph_item_iter_init_start</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
                 <span class="ident">glyph_item</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
                 <span class="ident">text</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -244,7 +244,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_glyph_item_iter_next_cluster&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">next_cluster</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">pango_glyph_item_iter_next_cluster</span>(
+            <span class="ident">from_glib</span>(<span class="ident">ffi::pango_glyph_item_iter_next_cluster</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
             ))
         }
@@ -260,7 +260,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_glyph_item_iter_prev_cluster&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">prev_cluster</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">pango_glyph_item_iter_prev_cluster</span>(
+            <span class="ident">from_glib</span>(<span class="ident">ffi::pango_glyph_item_iter_prev_cluster</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
             ))
         }

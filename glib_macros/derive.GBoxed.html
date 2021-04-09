@@ -10,10 +10,10 @@
 the <a href="value/struct.Value.html"><code>glib::Value</code></a> traits.</p>
 <h1 id="example" class="section-header"><a href="#example">Example</a></h1>
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">subclass</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">glib::prelude</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">glib::subclass::prelude</span>::<span class="kw-2">*</span>;
 
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">glib</span>::<span class="ident">GBoxed</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">glib::GBoxed</span>)]</span>
 <span class="attribute">#[<span class="ident">gboxed</span>(<span class="ident">type_name</span> <span class="op">=</span> <span class="string">&quot;MyBoxed&quot;</span>)]</span>
 <span class="kw">struct</span> <span class="ident">MyBoxed</span>(<span class="ident">String</span>);</pre></div>
 </div></section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../" data-current-crate="glib_macros" data-search-js="../search-index.js"></div>

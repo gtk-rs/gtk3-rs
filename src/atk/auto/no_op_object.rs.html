@@ -70,25 +70,25 @@
 <span class="comment">// from gir-files (https://github.com/gtk-rs/gir-files)</span>
 <span class="comment">// DO NOT EDIT</span>
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Action</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Component</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Document</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">EditableText</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Hypertext</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Image</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Object</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Selection</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Table</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">TableCell</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Text</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Value</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Window</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">object</span>::<span class="ident">Cast</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">object</span>::<span class="ident">IsA</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Action</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Component</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Document</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::EditableText</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Hypertext</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Image</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Object</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Selection</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Table</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::TableCell</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Text</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Value</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Window</span>;
+<span class="kw">use</span> <span class="ident">glib::object::Cast</span>;
+<span class="kw">use</span> <span class="ident">glib::object::IsA</span>;
+<span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">std::fmt</span>;
 
-<span class="ident">glib</span>::<span class="macro">wrapper!</span> {
+<span class="macro">glib::wrapper!</span> {
     <span class="doccomment">/// An AtkNoOpObject is an AtkObject which purports to implement all</span>
     <span class="doccomment">/// ATK interfaces. It is the type of AtkObject which is created if an</span>
     <span class="doccomment">/// accessible object is requested for an object type for which no</span>
@@ -97,10 +97,10 @@
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`AtkObjectExt`](trait.AtkObjectExt.html), [`glib::object::ObjectExt`](../glib/object/trait.ObjectExt.html), [`AtkActionExt`](trait.AtkActionExt.html), [`ComponentExt`](trait.ComponentExt.html), [`DocumentExt`](trait.DocumentExt.html), [`EditableTextExt`](trait.EditableTextExt.html), [`HypertextExt`](trait.HypertextExt.html), [`AtkImageExt`](trait.AtkImageExt.html), [`SelectionExt`](trait.SelectionExt.html), [`TableExt`](trait.TableExt.html), [`TableCellExt`](trait.TableCellExt.html), [`TextExt`](trait.TextExt.html), [`ValueExt`](trait.ValueExt.html), [`AtkWindowExt`](trait.AtkWindowExt.html), [`EditableTextExtManual`](prelude/trait.EditableTextExtManual.html), [`TableExtManual`](prelude/trait.TableExtManual.html)</span>
-    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">NoOpObject</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">AtkNoOpObject</span>, <span class="ident">ffi</span>::<span class="ident">AtkNoOpObjectClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Object</span>, @<span class="ident">implements</span> <span class="ident">Action</span>, <span class="ident">Component</span>, <span class="ident">Document</span>, <span class="ident">EditableText</span>, <span class="ident">Hypertext</span>, <span class="ident">Image</span>, <span class="ident">Selection</span>, <span class="ident">Table</span>, <span class="ident">TableCell</span>, <span class="ident">Text</span>, <span class="ident">Value</span>, <span class="ident">Window</span>;
+    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">NoOpObject</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::AtkNoOpObject</span>, <span class="ident">ffi::AtkNoOpObjectClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Object</span>, @<span class="ident">implements</span> <span class="ident">Action</span>, <span class="ident">Component</span>, <span class="ident">Document</span>, <span class="ident">EditableText</span>, <span class="ident">Hypertext</span>, <span class="ident">Image</span>, <span class="ident">Selection</span>, <span class="ident">Table</span>, <span class="ident">TableCell</span>, <span class="ident">Text</span>, <span class="ident">Value</span>, <span class="ident">Window</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
-        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">atk_no_op_object_get_type</span>(),
+        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::atk_no_op_object_get_type</span>(),
     }
 }
 
@@ -114,10 +114,10 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// a default (non-functioning stub) `Object`</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_no_op_object_new&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">Object</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">obj</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">NoOpObject</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">glib::Object</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">obj</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">NoOpObject</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe</span> {
-            <span class="ident">Object</span>::<span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">atk_no_op_object_new</span>(<span class="ident">obj</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>))
+            <span class="ident">Object::from_glib_full</span>(<span class="ident">ffi::atk_no_op_object_new</span>(<span class="ident">obj</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>))
                 .<span class="ident">unsafe_cast</span>()
         }
     }
@@ -125,8 +125,8 @@
 
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">NONE_NO_OP_OBJECT</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">NoOpObject</span><span class="op">&gt;</span> <span class="op">=</span> <span class="prelude-val">None</span>;
 
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">NoOpObject</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">NoOpObject</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;NoOpObject&quot;</span>)
     }
 }

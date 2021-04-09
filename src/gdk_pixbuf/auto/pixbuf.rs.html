@@ -1118,18 +1118,18 @@
 <span class="comment">// from gir-files (https://github.com/gtk-rs/gir-files)</span>
 <span class="comment">// DO NOT EDIT</span>
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Colorspace</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">InterpType</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">PixbufFormat</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">PixbufRotation</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">object</span>::<span class="ident">IsA</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">object</span>::<span class="ident">ObjectType</span> <span class="kw">as</span> <span class="ident">ObjectType_</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">StaticType</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Colorspace</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::InterpType</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::PixbufFormat</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::PixbufRotation</span>;
+<span class="kw">use</span> <span class="ident">glib::object::IsA</span>;
+<span class="kw">use</span> <span class="ident">glib::object::ObjectType</span> <span class="kw">as</span> <span class="ident">ObjectType_</span>;
+<span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">glib::StaticType</span>;
+<span class="kw">use</span> <span class="ident">std::fmt</span>;
+<span class="kw">use</span> <span class="ident">std::ptr</span>;
 
-<span class="ident">glib</span>::<span class="macro">wrapper!</span> {
+<span class="macro">glib::wrapper!</span> {
     <span class="doccomment">/// This is the main structure in the gdk-pixbuf library. It is</span>
     <span class="doccomment">/// used to represent images. It contains information about the</span>
     <span class="doccomment">/// image&#39;s pixel data, its color space, bits per sample, width and</span>
@@ -1139,10 +1139,10 @@
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`gio::IconExt`](../gio/trait.IconExt.html), [`gio::LoadableIconExt`](../gio/trait.LoadableIconExt.html)</span>
-    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Pixbuf</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GdkPixbuf</span><span class="op">&gt;</span>) @<span class="ident">implements</span> <span class="ident">gio</span>::<span class="ident">Icon</span>, <span class="ident">gio</span>::<span class="ident">LoadableIcon</span>;
+    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Pixbuf</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GdkPixbuf</span><span class="op">&gt;</span>) @<span class="ident">implements</span> <span class="ident">gio::Icon</span>, <span class="ident">gio::LoadableIcon</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
-        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">gdk_pixbuf_get_type</span>(),
+        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::gdk_pixbuf_get_type</span>(),
     }
 }
 
@@ -1174,7 +1174,7 @@
         <span class="ident">height</span>: <span class="ident">i32</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Pixbuf</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">gdk_pixbuf_new</span>(
+            <span class="ident">from_glib_full</span>(<span class="ident">ffi::gdk_pixbuf_new</span>(
                 <span class="ident">colorspace</span>.<span class="ident">to_glib</span>(),
                 <span class="ident">has_alpha</span>.<span class="ident">to_glib</span>(),
                 <span class="ident">bits_per_sample</span>,
@@ -1188,7 +1188,7 @@
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_32&quot;</span>)))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_pixbuf_new_from_bytes&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_bytes</span>(
-        <span class="ident">data</span>: <span class="kw-2">&amp;</span><span class="ident">glib</span>::<span class="ident">Bytes</span>,
+        <span class="ident">data</span>: <span class="kw-2">&amp;</span><span class="ident">glib::Bytes</span>,
         <span class="ident">colorspace</span>: <span class="ident">Colorspace</span>,
         <span class="ident">has_alpha</span>: <span class="ident">bool</span>,
         <span class="ident">bits_per_sample</span>: <span class="ident">i32</span>,
@@ -1197,7 +1197,7 @@
         <span class="ident">rowstride</span>: <span class="ident">i32</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pixbuf</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">gdk_pixbuf_new_from_bytes</span>(
+            <span class="ident">from_glib_full</span>(<span class="ident">ffi::gdk_pixbuf_new_from_bytes</span>(
                 <span class="ident">data</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">colorspace</span>.<span class="ident">to_glib</span>(),
                 <span class="ident">has_alpha</span>.<span class="ident">to_glib</span>(),
@@ -1216,11 +1216,11 @@
 
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_32&quot;</span>, <span class="ident">deprecated</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_pixbuf_new_from_inline&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_inline</span>(<span class="ident">data</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>], <span class="ident">copy_pixels</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Pixbuf</span>, <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_inline</span>(<span class="ident">data</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>], <span class="ident">copy_pixels</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Pixbuf</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">data_length</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">i32</span>;
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">gdk_pixbuf_new_from_inline</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
+            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">ffi::gdk_pixbuf_new_from_inline</span>(
                 <span class="ident">data_length</span>,
                 <span class="ident">data</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">copy_pixels</span>.<span class="ident">to_glib</span>(),
@@ -1235,10 +1235,10 @@
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_pixbuf_new_from_resource&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_resource</span>(<span class="ident">resource_path</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Pixbuf</span>, <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_resource</span>(<span class="ident">resource_path</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Pixbuf</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">gdk_pixbuf_new_from_resource</span>(<span class="ident">resource_path</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">error</span>);
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
+            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">ffi::gdk_pixbuf_new_from_resource</span>(<span class="ident">resource_path</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">error</span>);
             <span class="kw">if</span> <span class="ident">error</span>.<span class="ident">is_null</span>() {
                 <span class="prelude-val">Ok</span>(<span class="ident">from_glib_full</span>(<span class="ident">ret</span>))
             } <span class="kw">else</span> {
@@ -1253,10 +1253,10 @@
         <span class="ident">width</span>: <span class="ident">i32</span>,
         <span class="ident">height</span>: <span class="ident">i32</span>,
         <span class="ident">preserve_aspect_ratio</span>: <span class="ident">bool</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Pixbuf</span>, <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Pixbuf</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">gdk_pixbuf_new_from_resource_at_scale</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
+            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">ffi::gdk_pixbuf_new_from_resource_at_scale</span>(
                 <span class="ident">resource_path</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">width</span>,
                 <span class="ident">height</span>,
@@ -1272,13 +1272,13 @@
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_pixbuf_new_from_stream&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_stream</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">gio</span>::<span class="ident">InputStream</span><span class="op">&gt;</span>, <span class="ident">Q</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">gio</span>::<span class="ident">Cancellable</span><span class="op">&gt;</span><span class="op">&gt;</span>(
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_stream</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">gio::InputStream</span><span class="op">&gt;</span>, <span class="ident">Q</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">gio::Cancellable</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="ident">stream</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>,
         <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">Q</span><span class="op">&gt;</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Pixbuf</span>, <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Pixbuf</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">gdk_pixbuf_new_from_stream</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
+            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">ffi::gdk_pixbuf_new_from_stream</span>(
                 <span class="ident">stream</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">cancellable</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> <span class="ident">p</span>.<span class="ident">as_ref</span>()).<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">error</span>,
@@ -1292,16 +1292,16 @@
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_pixbuf_new_from_stream_at_scale&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_stream_at_scale</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">gio</span>::<span class="ident">InputStream</span><span class="op">&gt;</span>, <span class="ident">Q</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">gio</span>::<span class="ident">Cancellable</span><span class="op">&gt;</span><span class="op">&gt;</span>(
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_stream_at_scale</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">gio::InputStream</span><span class="op">&gt;</span>, <span class="ident">Q</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">gio::Cancellable</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="ident">stream</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>,
         <span class="ident">width</span>: <span class="ident">i32</span>,
         <span class="ident">height</span>: <span class="ident">i32</span>,
         <span class="ident">preserve_aspect_ratio</span>: <span class="ident">bool</span>,
         <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">Q</span><span class="op">&gt;</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Pixbuf</span>, <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Pixbuf</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">gdk_pixbuf_new_from_stream_at_scale</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
+            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">ffi::gdk_pixbuf_new_from_stream_at_scale</span>(
                 <span class="ident">stream</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">width</span>,
                 <span class="ident">height</span>,
@@ -1319,7 +1319,7 @@
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_pixbuf_new_from_xpm_data&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_xpm_data</span>(<span class="ident">data</span>: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span><span class="ident">str</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pixbuf</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">gdk_pixbuf_new_from_xpm_data</span>(<span class="ident">data</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::gdk_pixbuf_new_from_xpm_data</span>(<span class="ident">data</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Takes an existing pixbuf and adds an alpha channel to it.</span>
@@ -1346,7 +1346,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_pixbuf_add_alpha&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_alpha</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">substitute_color</span>: <span class="ident">bool</span>, <span class="ident">r</span>: <span class="ident">u8</span>, <span class="ident">g</span>: <span class="ident">u8</span>, <span class="ident">b</span>: <span class="ident">u8</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Pixbuf</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">gdk_pixbuf_add_alpha</span>(
+            <span class="ident">from_glib_full</span>(<span class="ident">ffi::gdk_pixbuf_add_alpha</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">substitute_color</span>.<span class="ident">to_glib</span>(),
                 <span class="ident">r</span>,
@@ -1373,7 +1373,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_pixbuf_apply_embedded_orientation&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">apply_embedded_orientation</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Pixbuf</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">gdk_pixbuf_apply_embedded_orientation</span>(
+            <span class="ident">from_glib_full</span>(<span class="ident">ffi::gdk_pixbuf_apply_embedded_orientation</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
         }
@@ -1429,7 +1429,7 @@
         <span class="ident">overall_alpha</span>: <span class="ident">i32</span>,
     ) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">gdk_pixbuf_composite</span>(
+            <span class="ident">ffi::gdk_pixbuf_composite</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">dest</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">dest_x</span>,
@@ -1511,7 +1511,7 @@
         <span class="ident">color2</span>: <span class="ident">u32</span>,
     ) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">gdk_pixbuf_composite_color</span>(
+            <span class="ident">ffi::gdk_pixbuf_composite_color</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">dest</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">dest_x</span>,
@@ -1567,7 +1567,7 @@
         <span class="ident">color2</span>: <span class="ident">u32</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Pixbuf</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">gdk_pixbuf_composite_color_simple</span>(
+            <span class="ident">from_glib_full</span>(<span class="ident">ffi::gdk_pixbuf_composite_color_simple</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">dest_width</span>,
                 <span class="ident">dest_height</span>,
@@ -1590,7 +1590,7 @@
     <span class="doccomment">/// not enough memory could be allocated.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_pixbuf_copy&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">copy</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Pixbuf</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">gdk_pixbuf_copy</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::gdk_pixbuf_copy</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Copies a rectangular area from `self` to `dest_pixbuf`. Conversion of</span>
@@ -1625,7 +1625,7 @@
         <span class="ident">dest_y</span>: <span class="ident">i32</span>,
     ) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">gdk_pixbuf_copy_area</span>(
+            <span class="ident">ffi::gdk_pixbuf_copy_area</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">src_x</span>,
                 <span class="ident">src_y</span>,
@@ -1656,7 +1656,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_pixbuf_copy_options&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">copy_options</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">dest_pixbuf</span>: <span class="kw-2">&amp;</span><span class="ident">Pixbuf</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">gdk_pixbuf_copy_options</span>(
+            <span class="ident">from_glib</span>(<span class="ident">ffi::gdk_pixbuf_copy_options</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">dest_pixbuf</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
@@ -1672,7 +1672,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_pixbuf_fill&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">fill</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">pixel</span>: <span class="ident">u32</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">gdk_pixbuf_fill</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">pixel</span>);
+            <span class="ident">ffi::gdk_pixbuf_fill</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">pixel</span>);
         }
     }
 
@@ -1688,7 +1688,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_pixbuf_flip&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">flip</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">horizontal</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Pixbuf</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">gdk_pixbuf_flip</span>(
+            <span class="ident">from_glib_full</span>(<span class="ident">ffi::gdk_pixbuf_flip</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">horizontal</span>.<span class="ident">to_glib</span>(),
             ))
@@ -1702,7 +1702,7 @@
     <span class="doccomment">/// Number of bits per color sample.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_pixbuf_get_bits_per_sample&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_bits_per_sample</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">gdk_pixbuf_get_bits_per_sample</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::gdk_pixbuf_get_bits_per_sample</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Returns the length of the pixel data, in bytes.</span>
@@ -1712,7 +1712,7 @@
     <span class="doccomment">/// The length of the pixel data.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_pixbuf_get_byte_length&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_byte_length</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">gdk_pixbuf_get_byte_length</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::gdk_pixbuf_get_byte_length</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Queries the color space of a pixbuf.</span>
@@ -1722,7 +1722,7 @@
     <span class="doccomment">/// Color space.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_pixbuf_get_colorspace&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_colorspace</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Colorspace</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">gdk_pixbuf_get_colorspace</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::gdk_pixbuf_get_colorspace</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Queries whether a pixbuf has an alpha channel (opacity information).</span>
@@ -1732,7 +1732,7 @@
     <span class="doccomment">/// `true` if it has an alpha channel, `false` otherwise.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_pixbuf_get_has_alpha&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_has_alpha</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">gdk_pixbuf_get_has_alpha</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::gdk_pixbuf_get_has_alpha</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Queries the height of a pixbuf.</span>
@@ -1742,7 +1742,7 @@
     <span class="doccomment">/// Height in pixels.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_pixbuf_get_height&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_height</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">gdk_pixbuf_get_height</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::gdk_pixbuf_get_height</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Queries the number of channels of a pixbuf.</span>
@@ -1752,7 +1752,7 @@
     <span class="doccomment">/// Number of channels.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_pixbuf_get_n_channels&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_n_channels</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">gdk_pixbuf_get_n_channels</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::gdk_pixbuf_get_n_channels</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Looks up `key` in the list of options that may have been attached to the</span>
@@ -1778,9 +1778,9 @@
     <span class="doccomment">/// the value associated with `key`. This is a nul-terminated</span>
     <span class="doccomment">/// string that should not be freed or `None` if `key` was not found.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_pixbuf_get_option&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_option</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">key</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">GString</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_option</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">key</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">gdk_pixbuf_get_option</span>(
+            <span class="ident">from_glib_none</span>(<span class="ident">ffi::gdk_pixbuf_get_option</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">key</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
@@ -1802,7 +1802,7 @@
     <span class="doccomment">/// Distance between row starts.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_pixbuf_get_rowstride&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_rowstride</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">gdk_pixbuf_get_rowstride</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::gdk_pixbuf_get_rowstride</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Queries the width of a pixbuf.</span>
@@ -1812,7 +1812,7 @@
     <span class="doccomment">/// Width in pixels.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_pixbuf_get_width&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_width</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">gdk_pixbuf_get_width</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::gdk_pixbuf_get_width</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Creates a new pixbuf which represents a sub-region of `self`.</span>
@@ -1838,7 +1838,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_pixbuf_new_subpixbuf&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_subpixbuf</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">src_x</span>: <span class="ident">i32</span>, <span class="ident">src_y</span>: <span class="ident">i32</span>, <span class="ident">width</span>: <span class="ident">i32</span>, <span class="ident">height</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Pixbuf</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">gdk_pixbuf_new_subpixbuf</span>(
+            <span class="ident">from_glib_full</span>(<span class="ident">ffi::gdk_pixbuf_new_subpixbuf</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">src_x</span>,
                 <span class="ident">src_y</span>,
@@ -1865,8 +1865,8 @@
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_32&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_32&quot;</span>)))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_pixbuf_read_pixel_bytes&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">read_pixel_bytes</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">Bytes</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">gdk_pixbuf_read_pixel_bytes</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">read_pixel_bytes</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::Bytes</span><span class="op">&gt;</span> {
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::gdk_pixbuf_read_pixel_bytes</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Remove the key/value pair option attached to a `Pixbuf`.</span>
@@ -1884,7 +1884,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_pixbuf_remove_option&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">remove_option</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">key</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">gdk_pixbuf_remove_option</span>(
+            <span class="ident">from_glib</span>(<span class="ident">ffi::gdk_pixbuf_remove_option</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">key</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
@@ -1905,7 +1905,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_pixbuf_rotate_simple&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">rotate_simple</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">angle</span>: <span class="ident">PixbufRotation</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Pixbuf</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">gdk_pixbuf_rotate_simple</span>(
+            <span class="ident">from_glib_full</span>(<span class="ident">ffi::gdk_pixbuf_rotate_simple</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">angle</span>.<span class="ident">to_glib</span>(),
             ))
@@ -1929,7 +1929,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_pixbuf_saturate_and_pixelate&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">saturate_and_pixelate</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">dest</span>: <span class="kw-2">&amp;</span><span class="ident">Pixbuf</span>, <span class="ident">saturation</span>: <span class="ident">f32</span>, <span class="ident">pixelate</span>: <span class="ident">bool</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">gdk_pixbuf_saturate_and_pixelate</span>(
+            <span class="ident">ffi::gdk_pixbuf_saturate_and_pixelate</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">dest</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">saturation</span>,
@@ -2037,7 +2037,7 @@
         <span class="ident">interp_type</span>: <span class="ident">InterpType</span>,
     ) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">gdk_pixbuf_scale</span>(
+            <span class="ident">ffi::gdk_pixbuf_scale</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">dest</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">dest_x</span>,
@@ -2087,7 +2087,7 @@
         <span class="ident">interp_type</span>: <span class="ident">InterpType</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Pixbuf</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">gdk_pixbuf_scale_simple</span>(
+            <span class="ident">from_glib_full</span>(<span class="ident">ffi::gdk_pixbuf_scale_simple</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">dest_width</span>,
                 <span class="ident">dest_height</span>,
@@ -2110,7 +2110,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_pixbuf_set_option&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_option</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">key</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">gdk_pixbuf_set_option</span>(
+            <span class="ident">from_glib</span>(<span class="ident">ffi::gdk_pixbuf_set_option</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">key</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -2118,11 +2118,11 @@
         }
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_property_pixel_bytes</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">Bytes</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_property_pixel_bytes</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::Bytes</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib</span>::<span class="ident">Value</span>::<span class="ident">from_type</span>(<span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">Bytes</span> <span class="kw">as</span> <span class="ident">StaticType</span><span class="op">&gt;</span>::<span class="ident">static_type</span>());
-            <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">g_object_get_property</span>(
-                <span class="self">self</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">GObject</span>,
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::from_type</span>(<span class="op">&lt;</span><span class="ident">glib::Bytes</span> <span class="kw">as</span> <span class="ident">StaticType</span><span class="op">&gt;</span><span class="ident">::static_type</span>());
+            <span class="ident">glib::gobject_ffi::g_object_get_property</span>(
+                <span class="self">self</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib::gobject_ffi::GObject</span>,
                 <span class="string">b&quot;pixel-bytes\0&quot;</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>,
                 <span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
             );
@@ -2163,7 +2163,7 @@
         <span class="ident">height</span>: <span class="ident">i32</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">gdk_pixbuf_calculate_rowstride</span>(
+            <span class="ident">ffi::gdk_pixbuf_calculate_rowstride</span>(
                 <span class="ident">colorspace</span>.<span class="ident">to_glib</span>(),
                 <span class="ident">has_alpha</span>.<span class="ident">to_glib</span>(),
                 <span class="ident">bits_per_sample</span>,
@@ -2184,7 +2184,7 @@
     <span class="doccomment">/// owned by `Pixbuf` and should not be freed.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_pixbuf_get_formats&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_formats</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">PixbufFormat</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="ident">FromGlibPtrContainer</span>::<span class="ident">from_glib_container</span>(<span class="ident">ffi</span>::<span class="ident">gdk_pixbuf_get_formats</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">FromGlibPtrContainer::from_glib_container</span>(<span class="ident">ffi::gdk_pixbuf_get_formats</span>()) }
     }
 
     <span class="doccomment">/// Initalizes the gdk-pixbuf loader modules referenced by the loaders.cache</span>
@@ -2208,10 +2208,10 @@
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_40&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_40&quot;</span>)))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_pixbuf_init_modules&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">init_modules</span>(<span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">init_modules</span>(<span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib::Error</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">gdk_pixbuf_init_modules</span>(<span class="ident">path</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">error</span>);
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
+            <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">ffi::gdk_pixbuf_init_modules</span>(<span class="ident">path</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">error</span>);
             <span class="kw">if</span> <span class="ident">error</span>.<span class="ident">is_null</span>() {
                 <span class="prelude-val">Ok</span>(())
             } <span class="kw">else</span> {
@@ -2221,8 +2221,8 @@
     }
 }
 
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">Pixbuf</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">Pixbuf</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Pixbuf&quot;</span>)
     }
 }

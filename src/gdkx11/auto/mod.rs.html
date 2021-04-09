@@ -70,59 +70,59 @@
 <span class="comment">// DO NOT EDIT</span>
 
 <span class="kw">mod</span> <span class="ident">x11_app_launch_context</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">x11_app_launch_context</span>::<span class="ident">X11AppLaunchContext</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::x11_app_launch_context::X11AppLaunchContext</span>;
 
 <span class="kw">mod</span> <span class="ident">x11_cursor</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">x11_cursor</span>::<span class="ident">X11Cursor</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::x11_cursor::X11Cursor</span>;
 
 <span class="kw">mod</span> <span class="ident">x11_device_core</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">x11_device_core</span>::<span class="ident">X11DeviceCore</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::x11_device_core::X11DeviceCore</span>;
 
 <span class="kw">mod</span> <span class="ident">x11_device_manager_core</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">x11_device_manager_core</span>::{<span class="ident">X11DeviceManagerCore</span>, <span class="ident">NONE_X11_DEVICE_MANAGER_CORE</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::x11_device_manager_core</span>::{<span class="ident">X11DeviceManagerCore</span>, <span class="ident">NONE_X11_DEVICE_MANAGER_CORE</span>};
 
 <span class="kw">mod</span> <span class="ident">x11_device_manager_xi2</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">x11_device_manager_xi2</span>::<span class="ident">X11DeviceManagerXI2</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">x11_device_manager_xi2</span>::<span class="ident">X11DeviceManagerXI2Builder</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::x11_device_manager_xi2::X11DeviceManagerXI2</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::x11_device_manager_xi2::X11DeviceManagerXI2Builder</span>;
 
 <span class="kw">mod</span> <span class="ident">x11_device_xi2</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">x11_device_xi2</span>::<span class="ident">X11DeviceXI2</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">x11_device_xi2</span>::<span class="ident">X11DeviceXI2Builder</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::x11_device_xi2::X11DeviceXI2</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::x11_device_xi2::X11DeviceXI2Builder</span>;
 
 <span class="kw">mod</span> <span class="ident">x11_display</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">x11_display</span>::<span class="ident">X11Display</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::x11_display::X11Display</span>;
 
 <span class="kw">mod</span> <span class="ident">x11_display_manager</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">x11_display_manager</span>::<span class="ident">X11DisplayManager</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::x11_display_manager::X11DisplayManager</span>;
 
 <span class="kw">mod</span> <span class="ident">x11_drag_context</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">x11_drag_context</span>::<span class="ident">X11DragContext</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::x11_drag_context::X11DragContext</span>;
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_16&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_16&quot;</span>)))]</span>
 <span class="kw">mod</span> <span class="ident">x11gl_context</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_16&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_16&quot;</span>)))]</span>
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">x11gl_context</span>::<span class="ident">X11GLContext</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::x11gl_context::X11GLContext</span>;
 
 <span class="kw">mod</span> <span class="ident">x11_keymap</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">x11_keymap</span>::<span class="ident">X11Keymap</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::x11_keymap::X11Keymap</span>;
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>)))]</span>
 <span class="kw">mod</span> <span class="ident">x11_monitor</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>)))]</span>
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">x11_monitor</span>::<span class="ident">X11Monitor</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::x11_monitor::X11Monitor</span>;
 
 <span class="kw">mod</span> <span class="ident">x11_screen</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">x11_screen</span>::<span class="ident">X11Screen</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::x11_screen::X11Screen</span>;
 
 <span class="kw">mod</span> <span class="ident">x11_visual</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">x11_visual</span>::<span class="ident">X11Visual</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::x11_visual::X11Visual</span>;
 
 <span class="kw">mod</span> <span class="ident">x11_window</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">x11_window</span>::<span class="ident">X11Window</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::x11_window::X11Window</span>;
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">functions</span>;
 

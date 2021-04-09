@@ -483,8 +483,8 @@
 <span class="kw">mod</span> <span class="ident">object_subclass_attribute</span>;
 <span class="kw">mod</span> <span class="ident">utils</span>;
 
-<span class="kw">use</span> <span class="ident">proc_macro</span>::<span class="ident">TokenStream</span>;
-<span class="kw">use</span> <span class="ident">proc_macro_error</span>::<span class="ident">proc_macro_error</span>;
+<span class="kw">use</span> <span class="ident">proc_macro::TokenStream</span>;
+<span class="kw">use</span> <span class="ident">proc_macro_error::proc_macro_error</span>;
 <span class="kw">use</span> <span class="ident">syn</span>::{<span class="ident">parse_macro_input</span>, <span class="ident">DeriveInput</span>, <span class="ident">LitStr</span>};
 
 <span class="doccomment">/// Macro for passing variables as strong or weak references into a closure.</span>
@@ -712,14 +712,14 @@
 <span class="doccomment">/// ```</span>
 <span class="attribute">#[<span class="ident">proc_macro</span>]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">clone</span>(<span class="ident">item</span>: <span class="ident">TokenStream</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TokenStream</span> {
-    <span class="ident">clone</span>::<span class="ident">clone_inner</span>(<span class="ident">item</span>)
+    <span class="ident">clone::clone_inner</span>(<span class="ident">item</span>)
 }
 
 <span class="attribute">#[<span class="ident">proc_macro_derive</span>(<span class="ident">GEnum</span>, <span class="ident">attributes</span>(<span class="ident">genum</span>))]</span>
 <span class="attribute">#[<span class="ident">proc_macro_error</span>]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">genum_derive</span>(<span class="ident">input</span>: <span class="ident">TokenStream</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TokenStream</span> {
     <span class="kw">let</span> <span class="ident">input</span> <span class="op">=</span> <span class="macro">parse_macro_input!</span>(<span class="ident">input</span> <span class="kw">as</span> <span class="ident">DeriveInput</span>);
-    <span class="kw">let</span> <span class="ident">gen</span> <span class="op">=</span> <span class="ident">genum_derive</span>::<span class="ident">impl_genum</span>(<span class="kw-2">&amp;</span><span class="ident">input</span>);
+    <span class="kw">let</span> <span class="ident">gen</span> <span class="op">=</span> <span class="ident">genum_derive::impl_genum</span>(<span class="kw-2">&amp;</span><span class="ident">input</span>);
     <span class="ident">gen</span>.<span class="ident">into</span>()
 }
 
@@ -745,7 +745,7 @@
 <span class="attribute">#[<span class="ident">proc_macro_error</span>]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">gerror_domain_derive</span>(<span class="ident">input</span>: <span class="ident">TokenStream</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TokenStream</span> {
     <span class="kw">let</span> <span class="ident">input</span> <span class="op">=</span> <span class="macro">parse_macro_input!</span>(<span class="ident">input</span> <span class="kw">as</span> <span class="ident">DeriveInput</span>);
-    <span class="kw">let</span> <span class="ident">gen</span> <span class="op">=</span> <span class="ident">gerror_domain_derive</span>::<span class="ident">impl_gerror_domain</span>(<span class="kw-2">&amp;</span><span class="ident">input</span>);
+    <span class="kw">let</span> <span class="ident">gen</span> <span class="op">=</span> <span class="ident">gerror_domain_derive::impl_gerror_domain</span>(<span class="kw-2">&amp;</span><span class="ident">input</span>);
     <span class="ident">gen</span>.<span class="ident">into</span>()
 }
 
@@ -769,7 +769,7 @@
 <span class="attribute">#[<span class="ident">proc_macro_error</span>]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">gboxed_derive</span>(<span class="ident">input</span>: <span class="ident">TokenStream</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TokenStream</span> {
     <span class="kw">let</span> <span class="ident">input</span> <span class="op">=</span> <span class="macro">parse_macro_input!</span>(<span class="ident">input</span> <span class="kw">as</span> <span class="ident">DeriveInput</span>);
-    <span class="kw">let</span> <span class="ident">gen</span> <span class="op">=</span> <span class="ident">gboxed_derive</span>::<span class="ident">impl_gboxed</span>(<span class="kw-2">&amp;</span><span class="ident">input</span>);
+    <span class="kw">let</span> <span class="ident">gen</span> <span class="op">=</span> <span class="ident">gboxed_derive::impl_gboxed</span>(<span class="kw-2">&amp;</span><span class="ident">input</span>);
     <span class="ident">gen</span>.<span class="ident">into</span>()
 }
 
@@ -808,7 +808,7 @@
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">gflags</span>(<span class="ident">attr</span>: <span class="ident">TokenStream</span>, <span class="ident">item</span>: <span class="ident">TokenStream</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TokenStream</span> {
     <span class="kw">let</span> <span class="ident">input</span> <span class="op">=</span> <span class="macro">parse_macro_input!</span>(<span class="ident">item</span> <span class="kw">as</span> <span class="ident">DeriveInput</span>);
     <span class="kw">let</span> <span class="ident">gtype_name</span> <span class="op">=</span> <span class="macro">parse_macro_input!</span>(<span class="ident">attr</span> <span class="kw">as</span> <span class="ident">LitStr</span>);
-    <span class="kw">let</span> <span class="ident">gen</span> <span class="op">=</span> <span class="ident">gflags_attribute</span>::<span class="ident">impl_gflags</span>(<span class="kw-2">&amp;</span><span class="ident">input</span>, <span class="kw-2">&amp;</span><span class="ident">gtype_name</span>);
+    <span class="kw">let</span> <span class="ident">gen</span> <span class="op">=</span> <span class="ident">gflags_attribute::impl_gflags</span>(<span class="kw-2">&amp;</span><span class="ident">input</span>, <span class="kw-2">&amp;</span><span class="ident">gtype_name</span>);
     <span class="ident">gen</span>.<span class="ident">into</span>()
 }
 
@@ -844,10 +844,10 @@
 <span class="attribute">#[<span class="ident">proc_macro_attribute</span>]</span>
 <span class="attribute">#[<span class="ident">proc_macro_error</span>]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">object_subclass</span>(<span class="ident">_attr</span>: <span class="ident">TokenStream</span>, <span class="ident">item</span>: <span class="ident">TokenStream</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TokenStream</span> {
-    <span class="kw">use</span> <span class="ident">proc_macro_error</span>::<span class="ident">abort_call_site</span>;
-    <span class="kw">match</span> <span class="ident">syn</span>::<span class="ident">parse</span>::<span class="op">&lt;</span><span class="ident">syn</span>::<span class="ident">ItemImpl</span><span class="op">&gt;</span>(<span class="ident">item</span>) {
-        <span class="prelude-val">Ok</span>(<span class="ident">input</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">object_subclass_attribute</span>::<span class="ident">impl_object_subclass</span>(<span class="kw-2">&amp;</span><span class="ident">input</span>).<span class="ident">into</span>(),
-        <span class="prelude-val">Err</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">abort_call_site!</span>(<span class="ident">object_subclass_attribute</span>::<span class="ident">WRONG_PLACE_MSG</span>),
+    <span class="kw">use</span> <span class="ident">proc_macro_error::abort_call_site</span>;
+    <span class="kw">match</span> <span class="ident">syn::parse</span>::<span class="op">&lt;</span><span class="ident">syn::ItemImpl</span><span class="op">&gt;</span>(<span class="ident">item</span>) {
+        <span class="prelude-val">Ok</span>(<span class="ident">input</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">object_subclass_attribute::impl_object_subclass</span>(<span class="kw-2">&amp;</span><span class="ident">input</span>).<span class="ident">into</span>(),
+        <span class="prelude-val">Err</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">abort_call_site!</span>(<span class="ident">object_subclass_attribute::WRONG_PLACE_MSG</span>),
     }
 }
 
@@ -869,10 +869,10 @@
 <span class="attribute">#[<span class="ident">proc_macro_attribute</span>]</span>
 <span class="attribute">#[<span class="ident">proc_macro_error</span>]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">object_interface</span>(<span class="ident">_attr</span>: <span class="ident">TokenStream</span>, <span class="ident">item</span>: <span class="ident">TokenStream</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TokenStream</span> {
-    <span class="kw">use</span> <span class="ident">proc_macro_error</span>::<span class="ident">abort_call_site</span>;
-    <span class="kw">match</span> <span class="ident">syn</span>::<span class="ident">parse</span>::<span class="op">&lt;</span><span class="ident">syn</span>::<span class="ident">ItemImpl</span><span class="op">&gt;</span>(<span class="ident">item</span>) {
-        <span class="prelude-val">Ok</span>(<span class="ident">input</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">object_interface_attribute</span>::<span class="ident">impl_object_interface</span>(<span class="kw-2">&amp;</span><span class="ident">input</span>).<span class="ident">into</span>(),
-        <span class="prelude-val">Err</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">abort_call_site!</span>(<span class="ident">object_interface_attribute</span>::<span class="ident">WRONG_PLACE_MSG</span>),
+    <span class="kw">use</span> <span class="ident">proc_macro_error::abort_call_site</span>;
+    <span class="kw">match</span> <span class="ident">syn::parse</span>::<span class="op">&lt;</span><span class="ident">syn::ItemImpl</span><span class="op">&gt;</span>(<span class="ident">item</span>) {
+        <span class="prelude-val">Ok</span>(<span class="ident">input</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">object_interface_attribute::impl_object_interface</span>(<span class="kw-2">&amp;</span><span class="ident">input</span>).<span class="ident">into</span>(),
+        <span class="prelude-val">Err</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">abort_call_site!</span>(<span class="ident">object_interface_attribute::WRONG_PLACE_MSG</span>),
     }
 }
 
@@ -938,7 +938,7 @@
 <span class="attribute">#[<span class="ident">proc_macro_derive</span>(<span class="ident">Downgrade</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">downgrade</span>(<span class="ident">input</span>: <span class="ident">TokenStream</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TokenStream</span> {
     <span class="kw">let</span> <span class="ident">input</span> <span class="op">=</span> <span class="macro">parse_macro_input!</span>(<span class="ident">input</span> <span class="kw">as</span> <span class="ident">DeriveInput</span>);
-    <span class="ident">downgrade_derive</span>::<span class="ident">impl_downgrade</span>(<span class="ident">input</span>)
+    <span class="ident">downgrade_derive::impl_downgrade</span>(<span class="ident">input</span>)
 }
 </pre></div>
 </section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="glib_macros" data-search-js="../../search-index.js"></div>

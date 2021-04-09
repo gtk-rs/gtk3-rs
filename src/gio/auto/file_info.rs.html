@@ -936,16 +936,16 @@
 <span class="comment">// from gir-files (https://github.com/gtk-rs/gir-files)</span>
 <span class="comment">// DO NOT EDIT</span>
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">FileAttributeMatcher</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">FileAttributeStatus</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">FileAttributeType</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">FileType</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Icon</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">object</span>::<span class="ident">IsA</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::FileAttributeMatcher</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::FileAttributeStatus</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::FileAttributeType</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::FileType</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Icon</span>;
+<span class="kw">use</span> <span class="ident">glib::object::IsA</span>;
+<span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">std::fmt</span>;
 
-<span class="ident">glib</span>::<span class="macro">wrapper!</span> {
+<span class="macro">glib::wrapper!</span> {
     <span class="doccomment">/// Functionality for manipulating basic metadata for files. `FileInfo`</span>
     <span class="doccomment">/// implements methods for getting information that all files should</span>
     <span class="doccomment">/// contain, and allows for manipulation of extended attributes.</span>
@@ -974,10 +974,10 @@
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`glib::object::ObjectExt`](../glib/object/trait.ObjectExt.html)</span>
-    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FileInfo</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GFileInfo</span>, <span class="ident">ffi</span>::<span class="ident">GFileInfoClass</span><span class="op">&gt;</span>);
+    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FileInfo</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GFileInfo</span>, <span class="ident">ffi::GFileInfoClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
-        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">g_file_info_get_type</span>(),
+        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::g_file_info_get_type</span>(),
     }
 }
 
@@ -989,14 +989,14 @@
     <span class="doccomment">/// a `FileInfo`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FileInfo</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_file_info_new</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_file_info_new</span>()) }
     }
 
     <span class="doccomment">/// Clears the status information from `self`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_clear_status&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">clear_status</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">g_file_info_clear_status</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+            <span class="ident">ffi::g_file_info_clear_status</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
         }
     }
 
@@ -1007,7 +1007,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_copy_into&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">copy_into</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">dest_info</span>: <span class="kw-2">&amp;</span><span class="ident">FileInfo</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">g_file_info_copy_into</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">dest_info</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+            <span class="ident">ffi::g_file_info_copy_into</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">dest_info</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
         }
     }
 
@@ -1018,7 +1018,7 @@
     <span class="doccomment">/// a duplicate `FileInfo` of `self`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_dup&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">dup</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FileInfo</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_file_info_dup</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_file_info_dup</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Gets the value of a attribute, formated as a string.</span>
@@ -1033,9 +1033,9 @@
     <span class="doccomment">///  `None` if the attribute wasn’t set.</span>
     <span class="doccomment">///  When you&#39;re done with the string it must be freed with `g_free`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_get_attribute_as_string&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_attribute_as_string</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">attribute</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">GString</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_attribute_as_string</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">attribute</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_file_info_get_attribute_as_string</span>(
+            <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_file_info_get_attribute_as_string</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">attribute</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
@@ -1053,7 +1053,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_get_attribute_boolean&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_attribute_boolean</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">attribute</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_file_info_get_attribute_boolean</span>(
+            <span class="ident">from_glib</span>(<span class="ident">ffi::g_file_info_get_attribute_boolean</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">attribute</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
@@ -1070,9 +1070,9 @@
     <span class="doccomment">/// the contents of the `attribute` value as a byte string, or</span>
     <span class="doccomment">/// `None` otherwise.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_get_attribute_byte_string&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_attribute_byte_string</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">attribute</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">GString</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_attribute_byte_string</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">attribute</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">g_file_info_get_attribute_byte_string</span>(
+            <span class="ident">from_glib_none</span>(<span class="ident">ffi::g_file_info_get_attribute_byte_string</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">attribute</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
@@ -1096,7 +1096,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_get_attribute_int32&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_attribute_int32</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">attribute</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">g_file_info_get_attribute_int32</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">attribute</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)
+            <span class="ident">ffi::g_file_info_get_attribute_int32</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">attribute</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)
         }
     }
 
@@ -1112,7 +1112,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_get_attribute_int64&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_attribute_int64</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">attribute</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i64</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">g_file_info_get_attribute_int64</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">attribute</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)
+            <span class="ident">ffi::g_file_info_get_attribute_int64</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">attribute</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)
         }
     }
 
@@ -1126,9 +1126,9 @@
     <span class="doccomment">/// a `gobject::Object` associated with the given `attribute`, or</span>
     <span class="doccomment">/// `None` otherwise.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_get_attribute_object&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_attribute_object</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">attribute</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">Object</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_attribute_object</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">attribute</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::Object</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">g_file_info_get_attribute_object</span>(
+            <span class="ident">from_glib_none</span>(<span class="ident">ffi::g_file_info_get_attribute_object</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">attribute</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
@@ -1146,7 +1146,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_get_attribute_status&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_attribute_status</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">attribute</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FileAttributeStatus</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_file_info_get_attribute_status</span>(
+            <span class="ident">from_glib</span>(<span class="ident">ffi::g_file_info_get_attribute_status</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">attribute</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
@@ -1163,9 +1163,9 @@
     <span class="doccomment">/// the contents of the `attribute` value as a UTF-8 string, or</span>
     <span class="doccomment">/// `None` otherwise.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_get_attribute_string&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_attribute_string</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">attribute</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">GString</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_attribute_string</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">attribute</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">g_file_info_get_attribute_string</span>(
+            <span class="ident">from_glib_none</span>(<span class="ident">ffi::g_file_info_get_attribute_string</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">attribute</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
@@ -1182,9 +1182,9 @@
     <span class="doccomment">/// the contents of the `attribute` value as a stringv, or</span>
     <span class="doccomment">/// `None` otherwise. Do not free. These returned strings are UTF-8.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_get_attribute_stringv&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_attribute_stringv</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">attribute</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">GString</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_attribute_stringv</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">attribute</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">FromGlibPtrContainer</span>::<span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">g_file_info_get_attribute_stringv</span>(
+            <span class="ident">FromGlibPtrContainer::from_glib_none</span>(<span class="ident">ffi::g_file_info_get_attribute_stringv</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">attribute</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
@@ -1202,7 +1202,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_get_attribute_type&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_attribute_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">attribute</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FileAttributeType</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_file_info_get_attribute_type</span>(
+            <span class="ident">from_glib</span>(<span class="ident">ffi::g_file_info_get_attribute_type</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">attribute</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
@@ -1221,7 +1221,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_get_attribute_uint32&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_attribute_uint32</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">attribute</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">g_file_info_get_attribute_uint32</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">attribute</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)
+            <span class="ident">ffi::g_file_info_get_attribute_uint32</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">attribute</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)
         }
     }
 
@@ -1237,7 +1237,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_get_attribute_uint64&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_attribute_uint64</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">attribute</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u64</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">g_file_info_get_attribute_uint64</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">attribute</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)
+            <span class="ident">ffi::g_file_info_get_attribute_uint64</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">attribute</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)
         }
     }
 
@@ -1247,8 +1247,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// a string containing the file&#39;s content type.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_get_content_type&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_content_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">GString</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">g_file_info_get_content_type</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_content_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span> {
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::g_file_info_get_content_type</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Returns the `glib::DateTime` representing the deletion date of the file, as</span>
@@ -1259,8 +1259,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// a `glib::DateTime`, or `None`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_get_deletion_date&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_deletion_date</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">DateTime</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_file_info_get_deletion_date</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_deletion_date</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::DateTime</span><span class="op">&gt;</span> {
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_file_info_get_deletion_date</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Gets a display name for a file.</span>
@@ -1269,8 +1269,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// a string containing the display name.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_get_display_name&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_display_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib</span>::<span class="ident">GString</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">g_file_info_get_display_name</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_display_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::GString</span> {
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::g_file_info_get_display_name</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Gets the edit name for a file.</span>
@@ -1279,8 +1279,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// a string containing the edit name.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_get_edit_name&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_edit_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib</span>::<span class="ident">GString</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">g_file_info_get_edit_name</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_edit_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::GString</span> {
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::g_file_info_get_edit_name</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Gets the [entity tag][gfile-etag] for a given</span>
@@ -1290,8 +1290,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// a string containing the value of the &quot;etag:value&quot; attribute.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_get_etag&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_etag</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">GString</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">g_file_info_get_etag</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_etag</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span> {
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::g_file_info_get_etag</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Gets a file&#39;s type (whether it is a regular file, symlink, etc).</span>
@@ -1302,7 +1302,7 @@
     <span class="doccomment">/// a `FileType` for the given file.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_get_file_type&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_file_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FileType</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_file_info_get_file_type</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::g_file_info_get_file_type</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Gets the icon for a file.</span>
@@ -1312,7 +1312,7 @@
     <span class="doccomment">/// `Icon` for the given `self`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_get_icon&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_icon</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Icon</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">g_file_info_get_icon</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::g_file_info_get_icon</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Checks if a file is a backup file.</span>
@@ -1322,7 +1322,7 @@
     <span class="doccomment">/// `true` if file is a backup file, `false` otherwise.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_get_is_backup&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_is_backup</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_file_info_get_is_backup</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::g_file_info_get_is_backup</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Checks if a file is hidden.</span>
@@ -1332,7 +1332,7 @@
     <span class="doccomment">/// `true` if the file is a hidden file, `false` otherwise.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_get_is_hidden&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_is_hidden</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_file_info_get_is_hidden</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::g_file_info_get_is_hidden</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Checks if a file is a symlink.</span>
@@ -1342,7 +1342,7 @@
     <span class="doccomment">/// `true` if the given `self` is a symlink.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_get_is_symlink&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_is_symlink</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_file_info_get_is_symlink</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::g_file_info_get_is_symlink</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Gets the modification time of the current `self` and returns it as a</span>
@@ -1361,9 +1361,9 @@
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_62&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_62&quot;</span>)))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_get_modification_date_time&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_modification_date_time</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">DateTime</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_modification_date_time</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::DateTime</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_file_info_get_modification_date_time</span>(
+            <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_file_info_get_modification_date_time</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
         }
@@ -1375,8 +1375,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// a string containing the file name.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_get_name&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">std</span>::<span class="ident">path</span>::<span class="ident">PathBuf</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">g_file_info_get_name</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">std::path::PathBuf</span> {
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::g_file_info_get_name</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Gets the file&#39;s size.</span>
@@ -1386,7 +1386,7 @@
     <span class="doccomment">/// a `goffset` containing the file&#39;s size.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_get_size&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_size</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i64</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">g_file_info_get_size</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::g_file_info_get_size</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Gets the value of the sort_order attribute from the `FileInfo`.</span>
@@ -1397,7 +1397,7 @@
     <span class="doccomment">/// a `gint32` containing the value of the &quot;standard::sort_order&quot; attribute.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_get_sort_order&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_sort_order</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">g_file_info_get_sort_order</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::g_file_info_get_sort_order</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Gets the symbolic icon for a file.</span>
@@ -1407,7 +1407,7 @@
     <span class="doccomment">/// `Icon` for the given `self`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_get_symbolic_icon&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_symbolic_icon</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Icon</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">g_file_info_get_symbolic_icon</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::g_file_info_get_symbolic_icon</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Gets the symlink target for a given `FileInfo`.</span>
@@ -1416,8 +1416,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// a string containing the symlink target.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_get_symlink_target&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_symlink_target</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">GString</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">g_file_info_get_symlink_target</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_symlink_target</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span> {
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::g_file_info_get_symlink_target</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Checks if a file info structure has an attribute named `attribute`.</span>
@@ -1431,7 +1431,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_has_attribute&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">has_attribute</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">attribute</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_file_info_has_attribute</span>(
+            <span class="ident">from_glib</span>(<span class="ident">ffi::g_file_info_has_attribute</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">attribute</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
@@ -1450,7 +1450,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_has_namespace&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">has_namespace</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name_space</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_file_info_has_namespace</span>(
+            <span class="ident">from_glib</span>(<span class="ident">ffi::g_file_info_has_namespace</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">name_space</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
@@ -1468,9 +1468,9 @@
     <span class="doccomment">/// null-terminated array of strings of all of the possible attribute</span>
     <span class="doccomment">/// types for the given `name_space`, or `None` on error.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_list_attributes&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">list_attributes</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name_space</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">GString</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">list_attributes</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name_space</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">FromGlibPtrContainer</span>::<span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_file_info_list_attributes</span>(
+            <span class="ident">FromGlibPtrContainer::from_glib_full</span>(<span class="ident">ffi::g_file_info_list_attributes</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">name_space</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
@@ -1483,7 +1483,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_remove_attribute&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">remove_attribute</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">attribute</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">g_file_info_remove_attribute</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">attribute</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+            <span class="ident">ffi::g_file_info_remove_attribute</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">attribute</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
         }
     }
 
@@ -1501,7 +1501,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_set_attribute_boolean&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_attribute_boolean</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">attribute</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">attr_value</span>: <span class="ident">bool</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">g_file_info_set_attribute_boolean</span>(
+            <span class="ident">ffi::g_file_info_set_attribute_boolean</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">attribute</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">attr_value</span>.<span class="ident">to_glib</span>(),
@@ -1518,7 +1518,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_set_attribute_byte_string&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_attribute_byte_string</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">attribute</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">attr_value</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">g_file_info_set_attribute_byte_string</span>(
+            <span class="ident">ffi::g_file_info_set_attribute_byte_string</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">attribute</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">attr_value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -1535,7 +1535,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_set_attribute_int32&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_attribute_int32</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">attribute</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">attr_value</span>: <span class="ident">i32</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">g_file_info_set_attribute_int32</span>(
+            <span class="ident">ffi::g_file_info_set_attribute_int32</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">attribute</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">attr_value</span>,
@@ -1552,7 +1552,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_set_attribute_int64&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_attribute_int64</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">attribute</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">attr_value</span>: <span class="ident">i64</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">g_file_info_set_attribute_int64</span>(
+            <span class="ident">ffi::g_file_info_set_attribute_int64</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">attribute</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">attr_value</span>,
@@ -1566,7 +1566,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_set_attribute_mask&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_attribute_mask</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">mask</span>: <span class="kw-2">&amp;</span><span class="ident">FileAttributeMatcher</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">g_file_info_set_attribute_mask</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">mask</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+            <span class="ident">ffi::g_file_info_set_attribute_mask</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">mask</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
         }
     }
 
@@ -1577,9 +1577,9 @@
     <span class="doccomment">/// ## `attr_value`</span>
     <span class="doccomment">/// a `gobject::Object`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_set_attribute_object&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_attribute_object</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">Object</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">attribute</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">attr_value</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_attribute_object</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">glib::Object</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">attribute</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">attr_value</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">g_file_info_set_attribute_object</span>(
+            <span class="ident">ffi::g_file_info_set_attribute_object</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">attribute</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">attr_value</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -1604,7 +1604,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_set_attribute_status&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_attribute_status</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">attribute</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">status</span>: <span class="ident">FileAttributeStatus</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_file_info_set_attribute_status</span>(
+            <span class="ident">from_glib</span>(<span class="ident">ffi::g_file_info_set_attribute_status</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">attribute</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">status</span>.<span class="ident">to_glib</span>(),
@@ -1621,7 +1621,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_set_attribute_string&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_attribute_string</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">attribute</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">attr_value</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">g_file_info_set_attribute_string</span>(
+            <span class="ident">ffi::g_file_info_set_attribute_string</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">attribute</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">attr_value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -1641,7 +1641,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_set_attribute_stringv&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_attribute_stringv</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">attribute</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">attr_value</span>: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span><span class="ident">str</span>]) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">g_file_info_set_attribute_stringv</span>(
+            <span class="ident">ffi::g_file_info_set_attribute_stringv</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">attribute</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">attr_value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -1658,7 +1658,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_set_attribute_uint32&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_attribute_uint32</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">attribute</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">attr_value</span>: <span class="ident">u32</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">g_file_info_set_attribute_uint32</span>(
+            <span class="ident">ffi::g_file_info_set_attribute_uint32</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">attribute</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">attr_value</span>,
@@ -1675,7 +1675,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_set_attribute_uint64&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_attribute_uint64</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">attribute</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">attr_value</span>: <span class="ident">u64</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">g_file_info_set_attribute_uint64</span>(
+            <span class="ident">ffi::g_file_info_set_attribute_uint64</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">attribute</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">attr_value</span>,
@@ -1690,7 +1690,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_set_content_type&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_content_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">content_type</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">g_file_info_set_content_type</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">content_type</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+            <span class="ident">ffi::g_file_info_set_content_type</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">content_type</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
         }
     }
 
@@ -1701,7 +1701,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_set_display_name&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_display_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">display_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">g_file_info_set_display_name</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">display_name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+            <span class="ident">ffi::g_file_info_set_display_name</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">display_name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
         }
     }
 
@@ -1712,7 +1712,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_set_edit_name&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_edit_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">edit_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">g_file_info_set_edit_name</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">edit_name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+            <span class="ident">ffi::g_file_info_set_edit_name</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">edit_name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
         }
     }
 
@@ -1723,7 +1723,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_set_file_type&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_file_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">type_</span>: <span class="ident">FileType</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">g_file_info_set_file_type</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">type_</span>.<span class="ident">to_glib</span>());
+            <span class="ident">ffi::g_file_info_set_file_type</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">type_</span>.<span class="ident">to_glib</span>());
         }
     }
 
@@ -1734,7 +1734,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_set_icon&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_icon</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Icon</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">icon</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">g_file_info_set_icon</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">icon</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+            <span class="ident">ffi::g_file_info_set_icon</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">icon</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>);
         }
     }
 
@@ -1745,7 +1745,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_set_is_hidden&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_is_hidden</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">is_hidden</span>: <span class="ident">bool</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">g_file_info_set_is_hidden</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">is_hidden</span>.<span class="ident">to_glib</span>());
+            <span class="ident">ffi::g_file_info_set_is_hidden</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">is_hidden</span>.<span class="ident">to_glib</span>());
         }
     }
 
@@ -1756,7 +1756,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_set_is_symlink&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_is_symlink</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">is_symlink</span>: <span class="ident">bool</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">g_file_info_set_is_symlink</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">is_symlink</span>.<span class="ident">to_glib</span>());
+            <span class="ident">ffi::g_file_info_set_is_symlink</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">is_symlink</span>.<span class="ident">to_glib</span>());
         }
     }
 
@@ -1771,9 +1771,9 @@
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_62&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_62&quot;</span>)))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_set_modification_date_time&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_modification_date_time</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">mtime</span>: <span class="kw-2">&amp;</span><span class="ident">glib</span>::<span class="ident">DateTime</span>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_modification_date_time</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">mtime</span>: <span class="kw-2">&amp;</span><span class="ident">glib::DateTime</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">g_file_info_set_modification_date_time</span>(
+            <span class="ident">ffi::g_file_info_set_modification_date_time</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">mtime</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             );
@@ -1785,9 +1785,9 @@
     <span class="doccomment">/// ## `name`</span>
     <span class="doccomment">/// a string containing a name.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_set_name&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_name</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">std</span>::<span class="ident">path</span>::<span class="ident">Path</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="ident">P</span>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_name</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">std::path::Path</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="ident">P</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">g_file_info_set_name</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">name</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+            <span class="ident">ffi::g_file_info_set_name</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">name</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>);
         }
     }
 
@@ -1798,7 +1798,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_set_size&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_size</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">size</span>: <span class="ident">i64</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">g_file_info_set_size</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">size</span>);
+            <span class="ident">ffi::g_file_info_set_size</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">size</span>);
         }
     }
 
@@ -1809,7 +1809,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_set_sort_order&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_sort_order</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">sort_order</span>: <span class="ident">i32</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">g_file_info_set_sort_order</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">sort_order</span>);
+            <span class="ident">ffi::g_file_info_set_sort_order</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">sort_order</span>);
         }
     }
 
@@ -1820,7 +1820,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_set_symbolic_icon&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_symbolic_icon</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Icon</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">icon</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">g_file_info_set_symbolic_icon</span>(
+            <span class="ident">ffi::g_file_info_set_symbolic_icon</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">icon</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             );
@@ -1834,7 +1834,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_set_symlink_target&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_symlink_target</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">symlink_target</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">g_file_info_set_symlink_target</span>(
+            <span class="ident">ffi::g_file_info_set_symlink_target</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">symlink_target</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             );
@@ -1846,19 +1846,19 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_unset_attribute_mask&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">unset_attribute_mask</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">g_file_info_unset_attribute_mask</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+            <span class="ident">ffi::g_file_info_unset_attribute_mask</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
         }
     }
 }
 
 <span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">FileInfo</span> {
     <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span>::<span class="ident">new</span>()
+        <span class="self">Self</span><span class="ident">::new</span>()
     }
 }
 
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">FileInfo</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">FileInfo</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;FileInfo&quot;</span>)
     }
 }

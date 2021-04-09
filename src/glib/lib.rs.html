@@ -353,10 +353,10 @@
 <span class="doccomment">//! conversions between high level Rust types (including the aforementioned</span>
 <span class="doccomment">//! wrappers) and their FFI counterparts.</span>
 
-<span class="attribute">#![<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">doc_markdown</span>)]</span>
-<span class="attribute">#![<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">unreadable_literal</span>)]</span>
+<span class="attribute">#![<span class="ident">allow</span>(<span class="ident">clippy::doc_markdown</span>)]</span>
+<span class="attribute">#![<span class="ident">allow</span>(<span class="ident">clippy::unreadable_literal</span>)]</span>
 <span class="attribute">#![<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">feature</span>(<span class="ident">doc_cfg</span>))]</span>
-<span class="attribute">#![<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">missing_safety_doc</span>)]</span>
+<span class="attribute">#![<span class="ident">allow</span>(<span class="ident">clippy::missing_safety_doc</span>)]</span>
 
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">ffi</span>;
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">gobject_ffi</span>;
@@ -371,29 +371,29 @@
     <span class="ident">clone</span>, <span class="ident">gflags</span>, <span class="ident">object_interface</span>, <span class="ident">object_subclass</span>, <span class="ident">Downgrade</span>, <span class="ident">GBoxed</span>, <span class="ident">GEnum</span>, <span class="ident">GErrorDomain</span>,
 };
 
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">byte_array</span>::<span class="ident">ByteArray</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">bytes</span>::<span class="ident">Bytes</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">closure</span>::<span class="ident">Closure</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">error</span>::{<span class="ident">BoolError</span>, <span class="ident">Error</span>};
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">file_error</span>::<span class="ident">FileError</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">object</span>::{
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::byte_array::ByteArray</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::bytes::Bytes</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::closure::Closure</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::error</span>::{<span class="ident">BoolError</span>, <span class="ident">Error</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::file_error::FileError</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::object</span>::{
     <span class="ident">Cast</span>, <span class="ident">Class</span>, <span class="ident">InitiallyUnowned</span>, <span class="ident">Interface</span>, <span class="ident">IsA</span>, <span class="ident">Object</span>, <span class="ident">ObjectExt</span>, <span class="ident">ObjectType</span>, <span class="ident">SendWeakRef</span>,
     <span class="ident">WeakRef</span>,
 };
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">signal</span>::{
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::signal</span>::{
     <span class="ident">signal_handler_block</span>, <span class="ident">signal_handler_disconnect</span>, <span class="ident">signal_handler_unblock</span>,
     <span class="ident">signal_stop_emission_by_name</span>, <span class="ident">SignalHandlerId</span>,
 };
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">string</span>::<span class="ident">String</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ffi</span>::<span class="ident">CStr</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::string::String</span>;
+<span class="kw">use</span> <span class="ident">std::ffi::CStr</span>;
 
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">enums</span>::{<span class="ident">EnumClass</span>, <span class="ident">EnumValue</span>, <span class="ident">FlagsBuilder</span>, <span class="ident">FlagsClass</span>, <span class="ident">FlagsValue</span>, <span class="ident">UserDirectory</span>};
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">types</span>::{<span class="ident">ILong</span>, <span class="ident">StaticType</span>, <span class="ident">Type</span>, <span class="ident">ULong</span>};
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">value</span>::{<span class="ident">SendValue</span>, <span class="ident">ToSendValue</span>, <span class="ident">ToValue</span>, <span class="ident">TypedValue</span>, <span class="ident">Value</span>};
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">variant</span>::{<span class="ident">FromVariant</span>, <span class="ident">StaticVariantType</span>, <span class="ident">ToVariant</span>, <span class="ident">Variant</span>};
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">variant_dict</span>::<span class="ident">VariantDict</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">variant_iter</span>::<span class="ident">VariantIter</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">variant_type</span>::{<span class="ident">VariantTy</span>, <span class="ident">VariantType</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::enums</span>::{<span class="ident">EnumClass</span>, <span class="ident">EnumValue</span>, <span class="ident">FlagsBuilder</span>, <span class="ident">FlagsClass</span>, <span class="ident">FlagsValue</span>, <span class="ident">UserDirectory</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::types</span>::{<span class="ident">ILong</span>, <span class="ident">StaticType</span>, <span class="ident">Type</span>, <span class="ident">ULong</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::value</span>::{<span class="ident">SendValue</span>, <span class="ident">ToSendValue</span>, <span class="ident">ToValue</span>, <span class="ident">TypedValue</span>, <span class="ident">Value</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::variant</span>::{<span class="ident">FromVariant</span>, <span class="ident">StaticVariantType</span>, <span class="ident">ToVariant</span>, <span class="ident">Variant</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::variant_dict::VariantDict</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::variant_iter::VariantIter</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::variant_type</span>::{<span class="ident">VariantTy</span>, <span class="ident">VariantType</span>};
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">clone</span>;
 <span class="attribute">#[<span class="ident">macro_use</span>]</span>
@@ -407,43 +407,43 @@
 <span class="attribute">#[<span class="ident">macro_use</span>]</span>
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">object</span>;
 
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">auto</span>::<span class="ident">functions</span>::<span class="kw-2">*</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">auto</span>::<span class="kw-2">*</span>;
-<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">let_and_return</span>)]</span>
-<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">let_unit_value</span>)]</span>
-<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">too_many_arguments</span>)]</span>
-<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">type_complexity</span>)]</span>
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::auto::functions</span>::<span class="kw-2">*</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::auto</span>::<span class="kw-2">*</span>;
+<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::let_and_return</span>)]</span>
+<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::let_unit_value</span>)]</span>
+<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::too_many_arguments</span>)]</span>
+<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::type_complexity</span>)]</span>
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">unused_doc_comments</span>)]</span>
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">non_upper_case_globals</span>)]</span>
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">unused_imports</span>)]</span>
 <span class="kw">mod</span> <span class="ident">auto</span>;
 
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">gobject</span>::<span class="kw-2">*</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::gobject</span>::<span class="kw-2">*</span>;
 <span class="kw">mod</span> <span class="ident">gobject</span>;
 
 <span class="kw">mod</span> <span class="ident">byte_array</span>;
 <span class="kw">mod</span> <span class="ident">bytes</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">char</span>;
 <span class="kw">mod</span> <span class="ident">string</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">char</span>::<span class="kw-2">*</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::char</span>::<span class="kw-2">*</span>;
 <span class="kw">mod</span> <span class="ident">checksum</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">closure</span>;
 <span class="kw">mod</span> <span class="ident">enums</span>;
 <span class="kw">mod</span> <span class="ident">file_error</span>;
 <span class="kw">mod</span> <span class="ident">functions</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">functions</span>::<span class="kw-2">*</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::functions</span>::<span class="kw-2">*</span>;
 <span class="kw">mod</span> <span class="ident">key_file</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">prelude</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">signal</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">source</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">source</span>::<span class="kw-2">*</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::source</span>::<span class="kw-2">*</span>;
 <span class="attribute">#[<span class="ident">macro_use</span>]</span>
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">translate</span>;
 <span class="kw">mod</span> <span class="ident">gstring</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">gstring</span>::<span class="ident">GString</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::gstring::GString</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">types</span>;
 <span class="kw">mod</span> <span class="ident">utils</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">utils</span>::<span class="kw-2">*</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::utils</span>::<span class="kw-2">*</span>;
 <span class="kw">mod</span> <span class="ident">main_context</span>;
 <span class="kw">mod</span> <span class="ident">main_context_channel</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">value</span>;
@@ -451,23 +451,23 @@
 <span class="kw">mod</span> <span class="ident">variant_dict</span>;
 <span class="kw">mod</span> <span class="ident">variant_iter</span>;
 <span class="kw">mod</span> <span class="ident">variant_type</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">main_context_channel</span>::{<span class="ident">Receiver</span>, <span class="ident">Sender</span>, <span class="ident">SyncSender</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::main_context_channel</span>::{<span class="ident">Receiver</span>, <span class="ident">Sender</span>, <span class="ident">SyncSender</span>};
 <span class="kw">mod</span> <span class="ident">date</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">date</span>::<span class="ident">Date</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::date::Date</span>;
 <span class="kw">mod</span> <span class="ident">value_array</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">value_array</span>::<span class="ident">ValueArray</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::value_array::ValueArray</span>;
 <span class="kw">mod</span> <span class="ident">param_spec</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">param_spec</span>::<span class="kw-2">*</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::param_spec</span>::<span class="kw-2">*</span>;
 <span class="kw">mod</span> <span class="ident">quark</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">quark</span>::<span class="ident">Quark</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::quark::Quark</span>;
 <span class="attribute">#[<span class="ident">macro_use</span>]</span>
 <span class="kw">mod</span> <span class="ident">log</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_46&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">log</span>::<span class="ident">log_set_handler</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::log::log_set_handler</span>;
 
 <span class="comment">// #[cfg(any(feature = &quot;v2_50&quot;, feature = &quot;dox&quot;))]</span>
 <span class="comment">// pub use log::log_variant;</span>
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">log</span>::{
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::log</span>::{
     <span class="ident">log_default_handler</span>, <span class="ident">log_remove_handler</span>, <span class="ident">log_set_always_fatal</span>, <span class="ident">log_set_default_handler</span>,
     <span class="ident">log_set_fatal_mask</span>, <span class="ident">log_unset_default_handler</span>, <span class="ident">set_print_handler</span>, <span class="ident">set_printerr_handler</span>,
     <span class="ident">unset_print_handler</span>, <span class="ident">unset_printerr_handler</span>, <span class="ident">LogHandlerId</span>, <span class="ident">LogLevel</span>, <span class="ident">LogLevels</span>,
@@ -482,20 +482,20 @@
 <span class="attribute">#[<span class="ident">macro_use</span>]</span>
 <span class="kw">mod</span> <span class="ident">bridged_logging</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;log&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">bridged_logging</span>::{<span class="ident">rust_log_handler</span>, <span class="ident">GlibLogger</span>, <span class="ident">GlibLoggerDomain</span>, <span class="ident">GlibLoggerFormat</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::bridged_logging</span>::{<span class="ident">rust_log_handler</span>, <span class="ident">GlibLogger</span>, <span class="ident">GlibLoggerDomain</span>, <span class="ident">GlibLoggerFormat</span>};
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">send_unique</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">send_unique</span>::{<span class="ident">SendUnique</span>, <span class="ident">SendUniqueCell</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::send_unique</span>::{<span class="ident">SendUnique</span>, <span class="ident">SendUniqueCell</span>};
 
 <span class="attribute">#[<span class="ident">macro_use</span>]</span>
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">subclass</span>;
 
 <span class="kw">mod</span> <span class="ident">main_context_futures</span>;
 <span class="kw">mod</span> <span class="ident">source_futures</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">source_futures</span>::<span class="kw-2">*</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::source_futures</span>::<span class="kw-2">*</span>;
 
 <span class="kw">mod</span> <span class="ident">thread_pool</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">thread_pool</span>::<span class="ident">ThreadPool</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::thread_pool::ThreadPool</span>;
 
 <span class="doccomment">/// This is the log domain used by the [`clone!`][crate::clone!] macro. If you want to use a custom</span>
 <span class="doccomment">/// logger (it prints to stdout by default), you can set your own logger using the corresponding</span>
@@ -506,10 +506,10 @@
 <span class="comment">// This works around it by using our own counter for threads.</span>
 <span class="comment">//</span>
 <span class="comment">// Taken from the fragile crate</span>
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">sync</span>::<span class="ident">atomic</span>::{<span class="ident">AtomicUsize</span>, <span class="ident">Ordering</span>};
+<span class="kw">use</span> <span class="ident">std::sync::atomic</span>::{<span class="ident">AtomicUsize</span>, <span class="ident">Ordering</span>};
 <span class="kw">fn</span> <span class="ident">next_thread_id</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span> {
-    <span class="kw">static</span> <span class="kw-2">mut</span> <span class="ident">COUNTER</span>: <span class="ident">AtomicUsize</span> <span class="op">=</span> <span class="ident">AtomicUsize</span>::<span class="ident">new</span>(<span class="number">0</span>);
-    <span class="kw">unsafe</span> { <span class="ident">COUNTER</span>.<span class="ident">fetch_add</span>(<span class="number">1</span>, <span class="ident">Ordering</span>::<span class="ident">SeqCst</span>) }
+    <span class="kw">static</span> <span class="kw-2">mut</span> <span class="ident">COUNTER</span>: <span class="ident">AtomicUsize</span> <span class="op">=</span> <span class="ident">AtomicUsize::new</span>(<span class="number">0</span>);
+    <span class="kw">unsafe</span> { <span class="ident">COUNTER</span>.<span class="ident">fetch_add</span>(<span class="number">1</span>, <span class="ident">Ordering::SeqCst</span>) }
 }
 
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">get_thread_id</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span> {

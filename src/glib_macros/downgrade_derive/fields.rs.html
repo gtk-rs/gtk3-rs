@@ -198,7 +198,7 @@
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
-<span class="kw">use</span> <span class="ident">proc_macro2</span>::<span class="ident">TokenStream</span>;
+<span class="kw">use</span> <span class="ident">proc_macro2::TokenStream</span>;
 <span class="kw">use</span> <span class="ident">quote</span>::{<span class="ident">format_ident</span>, <span class="ident">quote</span>};
 <span class="kw">use</span> <span class="ident">syn</span>::{<span class="ident">Fields</span>, <span class="ident">FieldsNamed</span>, <span class="ident">FieldsUnnamed</span>, <span class="ident">Ident</span>, <span class="ident">Type</span>};
 
@@ -294,9 +294,9 @@
 <span class="doccomment">///     y: glib::clone::Upgrade::upgrade(y)?,</span>
 <span class="doccomment">/// }</span>
 <span class="doccomment">/// ```</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">derive_downgrade_fields</span>(<span class="ident">fields</span>: <span class="ident">syn</span>::<span class="ident">Fields</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DowngradeStructParts</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">derive_downgrade_fields</span>(<span class="ident">fields</span>: <span class="ident">syn::Fields</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DowngradeStructParts</span> {
     <span class="kw">match</span> <span class="ident">fields</span> {
-        <span class="ident">Fields</span>::<span class="ident">Unnamed</span>(<span class="ident">FieldsUnnamed</span> { <span class="ident">unnamed</span>, .. }) <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="ident">Fields::Unnamed</span>(<span class="ident">FieldsUnnamed</span> { <span class="ident">unnamed</span>, .. }) <span class="op">=</span><span class="op">&gt;</span> {
             <span class="kw">let</span> <span class="ident">fields</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Type</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">unnamed</span>
                 .<span class="ident">into_pairs</span>()
                 .<span class="ident">map</span>(<span class="op">|</span><span class="ident">pair</span><span class="op">|</span> <span class="ident">pair</span>.<span class="ident">into_value</span>())
@@ -307,7 +307,7 @@
                 .<span class="ident">iter</span>()
                 .<span class="ident">map</span>(<span class="op">|</span><span class="ident">ty</span><span class="op">|</span> {
                     <span class="macro">quote!</span> {
-                        <span class="op">&lt;</span>#<span class="ident">ty</span> <span class="kw">as</span> <span class="ident">glib</span>::<span class="ident">clone</span>::<span class="ident">Downgrade</span><span class="op">&gt;</span>::<span class="ident">Weak</span>
+                        <span class="op">&lt;</span>#<span class="ident">ty</span> <span class="kw">as</span> <span class="ident">glib::clone::Downgrade</span><span class="op">&gt;</span><span class="ident">::Weak</span>
                     }
                 })
                 .<span class="ident">collect</span>();
@@ -329,17 +329,17 @@
                 },
                 <span class="ident">downgrade</span>: <span class="macro">quote!</span> {
                     (#(
-                        <span class="ident">glib</span>::<span class="ident">clone</span>::<span class="ident">Downgrade</span>::<span class="ident">downgrade</span>(#<span class="ident">field_ident</span>)
+                        <span class="ident">glib::clone::Downgrade::downgrade</span>(#<span class="ident">field_ident</span>)
                     ),<span class="kw-2">*</span>)
                 },
                 <span class="ident">upgrade</span>: <span class="macro">quote!</span> {
                     (#(
-                        <span class="ident">glib</span>::<span class="ident">clone</span>::<span class="ident">Upgrade</span>::<span class="ident">upgrade</span>(#<span class="ident">field_ident</span>)<span class="question-mark">?</span>
+                        <span class="ident">glib::clone::Upgrade::upgrade</span>(#<span class="ident">field_ident</span>)<span class="question-mark">?</span>
                     ),<span class="kw-2">*</span>)
                 },
             }
         }
-        <span class="ident">Fields</span>::<span class="ident">Named</span>(<span class="ident">FieldsNamed</span> { <span class="ident">named</span>, .. }) <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="ident">Fields::Named</span>(<span class="ident">FieldsNamed</span> { <span class="ident">named</span>, .. }) <span class="op">=</span><span class="op">&gt;</span> {
             <span class="kw">let</span> <span class="ident">fields</span>: <span class="ident">Vec</span><span class="op">&lt;</span>(<span class="ident">Ident</span>, <span class="ident">Type</span>)<span class="op">&gt;</span> <span class="op">=</span> <span class="ident">named</span>
                 .<span class="ident">into_pairs</span>()
                 .<span class="ident">map</span>(<span class="op">|</span><span class="ident">pair</span><span class="op">|</span> <span class="ident">pair</span>.<span class="ident">into_value</span>())
@@ -350,7 +350,7 @@
                 .<span class="ident">iter</span>()
                 .<span class="ident">map</span>(<span class="op">|</span>(<span class="ident">ident</span>, <span class="ident">ty</span>)<span class="op">|</span> {
                     <span class="macro">quote!</span> {
-                        #<span class="ident">ident</span>: <span class="op">&lt;</span>#<span class="ident">ty</span> <span class="kw">as</span> <span class="ident">glib</span>::<span class="ident">clone</span>::<span class="ident">Downgrade</span><span class="op">&gt;</span>::<span class="ident">Weak</span>
+                        #<span class="ident">ident</span>: <span class="op">&lt;</span>#<span class="ident">ty</span> <span class="kw">as</span> <span class="ident">glib::clone::Downgrade</span><span class="op">&gt;</span><span class="ident">::Weak</span>
                     }
                 })
                 .<span class="ident">collect</span>();
@@ -371,17 +371,17 @@
                 },
                 <span class="ident">downgrade</span>: <span class="macro">quote!</span> {
                     {#(
-                        #<span class="ident">field_ident</span>: <span class="ident">glib</span>::<span class="ident">clone</span>::<span class="ident">Downgrade</span>::<span class="ident">downgrade</span>(#<span class="ident">field_ident</span>)
+                        #<span class="ident">field_ident</span>: <span class="ident">glib::clone::Downgrade::downgrade</span>(#<span class="ident">field_ident</span>)
                     ),<span class="kw-2">*</span>}
                 },
                 <span class="ident">upgrade</span>: <span class="macro">quote!</span> {
                     {#(
-                        #<span class="ident">field_ident</span>: <span class="ident">glib</span>::<span class="ident">clone</span>::<span class="ident">Upgrade</span>::<span class="ident">upgrade</span>(#<span class="ident">field_ident</span>)<span class="question-mark">?</span>
+                        #<span class="ident">field_ident</span>: <span class="ident">glib::clone::Upgrade::upgrade</span>(#<span class="ident">field_ident</span>)<span class="question-mark">?</span>
                     ),<span class="kw-2">*</span>}
                 },
             }
         }
-        <span class="ident">Fields</span>::<span class="ident">Unit</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DowngradeStructParts</span> {
+        <span class="ident">Fields::Unit</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DowngradeStructParts</span> {
             <span class="ident">weak_fields</span>: <span class="macro">quote!</span> {},
             <span class="ident">end_of_struct</span>: <span class="macro">quote!</span> { ; },
             <span class="ident">destruct</span>: <span class="macro">quote!</span> {},

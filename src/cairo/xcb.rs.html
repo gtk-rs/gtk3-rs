@@ -449,17 +449,17 @@
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">enums</span>::<span class="ident">SurfaceType</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::enums::SurfaceType</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">convert</span>::<span class="ident">TryFrom</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ops</span>::<span class="ident">Deref</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
+<span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">std::convert::TryFrom</span>;
+<span class="kw">use</span> <span class="ident">std::fmt</span>;
+<span class="kw">use</span> <span class="ident">std::ops::Deref</span>;
+<span class="kw">use</span> <span class="ident">std::ptr</span>;
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">error</span>::<span class="ident">Error</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">surface</span>::<span class="ident">Surface</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">utils</span>::<span class="ident">status_to_result</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::error::Error</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::surface::Surface</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::utils::status_to_result</span>;
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">XCBDrawable</span>(<span class="kw">pub</span> <span class="ident">u32</span>);
@@ -470,8 +470,8 @@
     }
 }
 
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">XCBDrawable</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">XCBDrawable</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;XCBDrawable&quot;</span>)
     }
 }
@@ -485,229 +485,229 @@
     }
 }
 
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">XCBPixmap</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">XCBPixmap</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;XCBPixmap&quot;</span>)
     }
 }
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">XCBConnection</span>(<span class="kw">pub</span> <span class="ident">ptr</span>::<span class="ident">NonNull</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">xcb_connection_t</span><span class="op">&gt;</span>);
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">XCBConnection</span>(<span class="kw">pub</span> <span class="ident">ptr::NonNull</span><span class="op">&lt;</span><span class="ident">ffi::xcb_connection_t</span><span class="op">&gt;</span>);
 
 <span class="kw">impl</span> <span class="ident">XCBConnection</span> {
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_raw_none</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">xcb_connection_t</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_raw_none</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::xcb_connection_t</span> {
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()
     }
 
-    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_raw_none</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">xcb_connection_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">XCBConnection</span> {
+    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_raw_none</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::xcb_connection_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">XCBConnection</span> {
         <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
-        <span class="ident">XCBConnection</span>(<span class="ident">ptr</span>::<span class="ident">NonNull</span>::<span class="ident">new_unchecked</span>(<span class="ident">ptr</span>))
+        <span class="ident">XCBConnection</span>(<span class="ident">ptr::NonNull::new_unchecked</span>(<span class="ident">ptr</span>))
     }
 
-    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_raw_borrow</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">xcb_connection_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">XCBConnection</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_raw_borrow</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::xcb_connection_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">XCBConnection</span><span class="op">&gt;</span> {
         <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
-        <span class="ident">Borrowed</span>::<span class="ident">new</span>(<span class="ident">XCBConnection</span>(<span class="ident">ptr</span>::<span class="ident">NonNull</span>::<span class="ident">new_unchecked</span>(<span class="ident">ptr</span>)))
+        <span class="ident">Borrowed::new</span>(<span class="ident">XCBConnection</span>(<span class="ident">ptr::NonNull::new_unchecked</span>(<span class="ident">ptr</span>)))
     }
 
-    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_raw_full</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">xcb_connection_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">XCBConnection</span> {
+    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_raw_full</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::xcb_connection_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">XCBConnection</span> {
         <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
-        <span class="ident">XCBConnection</span>(<span class="ident">ptr</span>::<span class="ident">NonNull</span>::<span class="ident">new_unchecked</span>(<span class="ident">ptr</span>))
+        <span class="ident">XCBConnection</span>(<span class="ident">ptr::NonNull::new_unchecked</span>(<span class="ident">ptr</span>))
     }
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">ToGlibPtr</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">xcb_connection_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">XCBConnection</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">ToGlibPtr</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::xcb_connection_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">XCBConnection</span> {
     <span class="kw">type</span> <span class="ident">Storage</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">XCBConnection</span>;
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">to_glib_none</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Stash</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">xcb_connection_t</span>, <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">XCBConnection</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">to_glib_none</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Stash</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::xcb_connection_t</span>, <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">XCBConnection</span><span class="op">&gt;</span> {
         <span class="ident">Stash</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>(), <span class="kw-2">*</span><span class="self">self</span>)
     }
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="kw">impl</span> <span class="ident">FromGlibPtrNone</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">xcb_connection_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">XCBConnection</span> {
+<span class="kw">impl</span> <span class="ident">FromGlibPtrNone</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::xcb_connection_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">XCBConnection</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_none</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">xcb_connection_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">XCBConnection</span> {
-        <span class="self">Self</span>::<span class="ident">from_raw_none</span>(<span class="ident">ptr</span>)
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_none</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::xcb_connection_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">XCBConnection</span> {
+        <span class="self">Self</span><span class="ident">::from_raw_none</span>(<span class="ident">ptr</span>)
     }
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="kw">impl</span> <span class="ident">FromGlibPtrBorrow</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">xcb_connection_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">XCBConnection</span> {
+<span class="kw">impl</span> <span class="ident">FromGlibPtrBorrow</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::xcb_connection_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">XCBConnection</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_borrow</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">xcb_connection_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">XCBConnection</span><span class="op">&gt;</span> {
-        <span class="self">Self</span>::<span class="ident">from_raw_borrow</span>(<span class="ident">ptr</span>)
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_borrow</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::xcb_connection_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">XCBConnection</span><span class="op">&gt;</span> {
+        <span class="self">Self</span><span class="ident">::from_raw_borrow</span>(<span class="ident">ptr</span>)
     }
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="kw">impl</span> <span class="ident">FromGlibPtrFull</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">xcb_connection_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">XCBConnection</span> {
+<span class="kw">impl</span> <span class="ident">FromGlibPtrFull</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::xcb_connection_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">XCBConnection</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_full</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">xcb_connection_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">XCBConnection</span> {
-        <span class="self">Self</span>::<span class="ident">from_raw_full</span>(<span class="ident">ptr</span>)
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_full</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::xcb_connection_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">XCBConnection</span> {
+        <span class="self">Self</span><span class="ident">::from_raw_full</span>(<span class="ident">ptr</span>)
     }
 }
 
 <span class="kw">impl</span> <span class="ident">Clone</span> <span class="kw">for</span> <span class="ident">XCBConnection</span> {
     <span class="kw">fn</span> <span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">XCBConnection</span> {
-        <span class="kw">unsafe</span> { <span class="self">Self</span>::<span class="ident">from_raw_none</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>()) }
+        <span class="kw">unsafe</span> { <span class="self">Self</span><span class="ident">::from_raw_none</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>()) }
     }
 }
 
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">XCBConnection</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">XCBConnection</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;XCBConnection&quot;</span>)
     }
 }
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">XCBRenderPictFormInfo</span>(<span class="kw">pub</span> <span class="ident">ptr</span>::<span class="ident">NonNull</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">xcb_render_pictforminfo_t</span><span class="op">&gt;</span>);
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">XCBRenderPictFormInfo</span>(<span class="kw">pub</span> <span class="ident">ptr::NonNull</span><span class="op">&lt;</span><span class="ident">ffi::xcb_render_pictforminfo_t</span><span class="op">&gt;</span>);
 
 <span class="kw">impl</span> <span class="ident">XCBRenderPictFormInfo</span> {
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_raw_none</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">xcb_render_pictforminfo_t</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_raw_none</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::xcb_render_pictforminfo_t</span> {
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()
     }
 
-    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_raw_none</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">xcb_render_pictforminfo_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">XCBRenderPictFormInfo</span> {
+    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_raw_none</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::xcb_render_pictforminfo_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">XCBRenderPictFormInfo</span> {
         <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
-        <span class="ident">XCBRenderPictFormInfo</span>(<span class="ident">ptr</span>::<span class="ident">NonNull</span>::<span class="ident">new_unchecked</span>(<span class="ident">ptr</span>))
+        <span class="ident">XCBRenderPictFormInfo</span>(<span class="ident">ptr::NonNull::new_unchecked</span>(<span class="ident">ptr</span>))
     }
 
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_raw_borrow</span>(
-        <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">xcb_render_pictforminfo_t</span>,
+        <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::xcb_render_pictforminfo_t</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">XCBRenderPictFormInfo</span><span class="op">&gt;</span> {
         <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
-        <span class="ident">Borrowed</span>::<span class="ident">new</span>(<span class="ident">XCBRenderPictFormInfo</span>(<span class="ident">ptr</span>::<span class="ident">NonNull</span>::<span class="ident">new_unchecked</span>(<span class="ident">ptr</span>)))
+        <span class="ident">Borrowed::new</span>(<span class="ident">XCBRenderPictFormInfo</span>(<span class="ident">ptr::NonNull::new_unchecked</span>(<span class="ident">ptr</span>)))
     }
 
-    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_raw_full</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">xcb_render_pictforminfo_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">XCBRenderPictFormInfo</span> {
+    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_raw_full</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::xcb_render_pictforminfo_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">XCBRenderPictFormInfo</span> {
         <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
-        <span class="ident">XCBRenderPictFormInfo</span>(<span class="ident">ptr</span>::<span class="ident">NonNull</span>::<span class="ident">new_unchecked</span>(<span class="ident">ptr</span>))
+        <span class="ident">XCBRenderPictFormInfo</span>(<span class="ident">ptr::NonNull::new_unchecked</span>(<span class="ident">ptr</span>))
     }
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">ToGlibPtr</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">xcb_render_pictforminfo_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">XCBRenderPictFormInfo</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">ToGlibPtr</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::xcb_render_pictforminfo_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">XCBRenderPictFormInfo</span> {
     <span class="kw">type</span> <span class="ident">Storage</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">XCBRenderPictFormInfo</span>;
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">fn</span> <span class="ident">to_glib_none</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Stash</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">xcb_render_pictforminfo_t</span>, <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">XCBRenderPictFormInfo</span><span class="op">&gt;</span> {
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Stash</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::xcb_render_pictforminfo_t</span>, <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">XCBRenderPictFormInfo</span><span class="op">&gt;</span> {
         <span class="ident">Stash</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>(), <span class="kw-2">*</span><span class="self">self</span>)
     }
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="kw">impl</span> <span class="ident">FromGlibPtrNone</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">xcb_render_pictforminfo_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">XCBRenderPictFormInfo</span> {
+<span class="kw">impl</span> <span class="ident">FromGlibPtrNone</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::xcb_render_pictforminfo_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">XCBRenderPictFormInfo</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_none</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">xcb_render_pictforminfo_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">XCBRenderPictFormInfo</span> {
-        <span class="self">Self</span>::<span class="ident">from_raw_none</span>(<span class="ident">ptr</span>)
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_none</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::xcb_render_pictforminfo_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">XCBRenderPictFormInfo</span> {
+        <span class="self">Self</span><span class="ident">::from_raw_none</span>(<span class="ident">ptr</span>)
     }
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="kw">impl</span> <span class="ident">FromGlibPtrBorrow</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">xcb_render_pictforminfo_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">XCBRenderPictFormInfo</span> {
+<span class="kw">impl</span> <span class="ident">FromGlibPtrBorrow</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::xcb_render_pictforminfo_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">XCBRenderPictFormInfo</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_borrow</span>(
-        <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">xcb_render_pictforminfo_t</span>,
+        <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::xcb_render_pictforminfo_t</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">XCBRenderPictFormInfo</span><span class="op">&gt;</span> {
-        <span class="self">Self</span>::<span class="ident">from_raw_borrow</span>(<span class="ident">ptr</span>)
+        <span class="self">Self</span><span class="ident">::from_raw_borrow</span>(<span class="ident">ptr</span>)
     }
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="kw">impl</span> <span class="ident">FromGlibPtrFull</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">xcb_render_pictforminfo_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">XCBRenderPictFormInfo</span> {
+<span class="kw">impl</span> <span class="ident">FromGlibPtrFull</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::xcb_render_pictforminfo_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">XCBRenderPictFormInfo</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_full</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">xcb_render_pictforminfo_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">XCBRenderPictFormInfo</span> {
-        <span class="self">Self</span>::<span class="ident">from_raw_full</span>(<span class="ident">ptr</span>)
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_full</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::xcb_render_pictforminfo_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">XCBRenderPictFormInfo</span> {
+        <span class="self">Self</span><span class="ident">::from_raw_full</span>(<span class="ident">ptr</span>)
     }
 }
 
 <span class="kw">impl</span> <span class="ident">Clone</span> <span class="kw">for</span> <span class="ident">XCBRenderPictFormInfo</span> {
     <span class="kw">fn</span> <span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">XCBRenderPictFormInfo</span> {
-        <span class="kw">unsafe</span> { <span class="self">Self</span>::<span class="ident">from_raw_none</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>()) }
+        <span class="kw">unsafe</span> { <span class="self">Self</span><span class="ident">::from_raw_none</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>()) }
     }
 }
 
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">XCBRenderPictFormInfo</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">XCBRenderPictFormInfo</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;XCBRenderPictFormInfo&quot;</span>)
     }
 }
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">XCBScreen</span>(<span class="kw">pub</span> <span class="ident">ptr</span>::<span class="ident">NonNull</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">xcb_screen_t</span><span class="op">&gt;</span>);
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">XCBScreen</span>(<span class="kw">pub</span> <span class="ident">ptr::NonNull</span><span class="op">&lt;</span><span class="ident">ffi::xcb_screen_t</span><span class="op">&gt;</span>);
 
 <span class="kw">impl</span> <span class="ident">XCBScreen</span> {
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_raw_none</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">xcb_screen_t</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_raw_none</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::xcb_screen_t</span> {
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()
     }
 
-    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_raw_none</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">xcb_screen_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">XCBScreen</span> {
+    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_raw_none</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::xcb_screen_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">XCBScreen</span> {
         <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
-        <span class="ident">XCBScreen</span>(<span class="ident">ptr</span>::<span class="ident">NonNull</span>::<span class="ident">new_unchecked</span>(<span class="ident">ptr</span>))
+        <span class="ident">XCBScreen</span>(<span class="ident">ptr::NonNull::new_unchecked</span>(<span class="ident">ptr</span>))
     }
 
-    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_raw_borrow</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">xcb_screen_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">XCBScreen</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_raw_borrow</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::xcb_screen_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">XCBScreen</span><span class="op">&gt;</span> {
         <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
-        <span class="ident">Borrowed</span>::<span class="ident">new</span>(<span class="ident">XCBScreen</span>(<span class="ident">ptr</span>::<span class="ident">NonNull</span>::<span class="ident">new_unchecked</span>(<span class="ident">ptr</span>)))
+        <span class="ident">Borrowed::new</span>(<span class="ident">XCBScreen</span>(<span class="ident">ptr::NonNull::new_unchecked</span>(<span class="ident">ptr</span>)))
     }
 
-    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_raw_full</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">xcb_screen_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">XCBScreen</span> {
+    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_raw_full</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::xcb_screen_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">XCBScreen</span> {
         <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
-        <span class="ident">XCBScreen</span>(<span class="ident">ptr</span>::<span class="ident">NonNull</span>::<span class="ident">new_unchecked</span>(<span class="ident">ptr</span>))
+        <span class="ident">XCBScreen</span>(<span class="ident">ptr::NonNull::new_unchecked</span>(<span class="ident">ptr</span>))
     }
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">ToGlibPtr</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">xcb_screen_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">XCBScreen</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">ToGlibPtr</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::xcb_screen_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">XCBScreen</span> {
     <span class="kw">type</span> <span class="ident">Storage</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">XCBScreen</span>;
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">to_glib_none</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Stash</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">xcb_screen_t</span>, <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">XCBScreen</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">to_glib_none</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Stash</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::xcb_screen_t</span>, <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">XCBScreen</span><span class="op">&gt;</span> {
         <span class="ident">Stash</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>(), <span class="kw-2">*</span><span class="self">self</span>)
     }
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="kw">impl</span> <span class="ident">FromGlibPtrNone</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">xcb_screen_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">XCBScreen</span> {
+<span class="kw">impl</span> <span class="ident">FromGlibPtrNone</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::xcb_screen_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">XCBScreen</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_none</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">xcb_screen_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">XCBScreen</span> {
-        <span class="self">Self</span>::<span class="ident">from_raw_none</span>(<span class="ident">ptr</span>)
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_none</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::xcb_screen_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">XCBScreen</span> {
+        <span class="self">Self</span><span class="ident">::from_raw_none</span>(<span class="ident">ptr</span>)
     }
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="kw">impl</span> <span class="ident">FromGlibPtrBorrow</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">xcb_screen_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">XCBScreen</span> {
+<span class="kw">impl</span> <span class="ident">FromGlibPtrBorrow</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::xcb_screen_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">XCBScreen</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_borrow</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">xcb_screen_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">XCBScreen</span><span class="op">&gt;</span> {
-        <span class="self">Self</span>::<span class="ident">from_raw_borrow</span>(<span class="ident">ptr</span>)
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_borrow</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::xcb_screen_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">XCBScreen</span><span class="op">&gt;</span> {
+        <span class="self">Self</span><span class="ident">::from_raw_borrow</span>(<span class="ident">ptr</span>)
     }
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="kw">impl</span> <span class="ident">FromGlibPtrFull</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">xcb_screen_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">XCBScreen</span> {
+<span class="kw">impl</span> <span class="ident">FromGlibPtrFull</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::xcb_screen_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">XCBScreen</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_full</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">xcb_screen_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">XCBScreen</span> {
-        <span class="self">Self</span>::<span class="ident">from_raw_full</span>(<span class="ident">ptr</span>)
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_full</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::xcb_screen_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">XCBScreen</span> {
+        <span class="self">Self</span><span class="ident">::from_raw_full</span>(<span class="ident">ptr</span>)
     }
 }
 
 <span class="kw">impl</span> <span class="ident">Clone</span> <span class="kw">for</span> <span class="ident">XCBScreen</span> {
     <span class="kw">fn</span> <span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">XCBScreen</span> {
-        <span class="kw">unsafe</span> { <span class="self">Self</span>::<span class="ident">from_raw_none</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>()) }
+        <span class="kw">unsafe</span> { <span class="self">Self</span><span class="ident">::from_raw_none</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>()) }
     }
 }
 
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">XCBScreen</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">XCBScreen</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;XCBScreen&quot;</span>)
     }
 }
 
-<span class="macro">declare_surface!</span>(<span class="ident">XCBSurface</span>, <span class="ident">SurfaceType</span>::<span class="ident">Xcb</span>);
+<span class="macro">declare_surface!</span>(<span class="ident">XCBSurface</span>, <span class="ident">SurfaceType::Xcb</span>);
 
 <span class="kw">impl</span> <span class="ident">XCBSurface</span> {
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_xcb_surface_create&quot;</span>)]</span>
@@ -719,7 +719,7 @@
         <span class="ident">height</span>: <span class="ident">i32</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="prelude-val">Ok</span>(<span class="self">Self</span>::<span class="ident">from_raw_full</span>(<span class="ident">ffi</span>::<span class="ident">cairo_xcb_surface_create</span>(
+            <span class="prelude-val">Ok</span>(<span class="self">Self</span><span class="ident">::from_raw_full</span>(<span class="ident">ffi::cairo_xcb_surface_create</span>(
                 <span class="ident">connection</span>.<span class="ident">to_raw_none</span>(),
                 <span class="ident">drawable</span>.<span class="ident">to_raw_none</span>(),
                 <span class="ident">visual</span>.<span class="ident">to_raw_none</span>(),
@@ -738,8 +738,8 @@
         <span class="ident">height</span>: <span class="ident">i32</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="prelude-val">Ok</span>(<span class="self">Self</span>(<span class="ident">Surface</span>::<span class="ident">from_raw_full</span>(
-                <span class="ident">ffi</span>::<span class="ident">cairo_xcb_surface_create_for_bitmap</span>(
+            <span class="prelude-val">Ok</span>(<span class="self">Self</span>(<span class="ident">Surface::from_raw_full</span>(
+                <span class="ident">ffi::cairo_xcb_surface_create_for_bitmap</span>(
                     <span class="ident">connection</span>.<span class="ident">to_raw_none</span>(),
                     <span class="ident">screen</span>.<span class="ident">to_raw_none</span>(),
                     <span class="ident">bitmap</span>.<span class="ident">to_raw_none</span>(),
@@ -760,8 +760,8 @@
         <span class="ident">height</span>: <span class="ident">i32</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="prelude-val">Ok</span>(<span class="self">Self</span>(<span class="ident">Surface</span>::<span class="ident">from_raw_full</span>(
-                <span class="ident">ffi</span>::<span class="ident">cairo_xcb_surface_create_with_xrender_format</span>(
+            <span class="prelude-val">Ok</span>(<span class="self">Self</span>(<span class="ident">Surface::from_raw_full</span>(
+                <span class="ident">ffi::cairo_xcb_surface_create_with_xrender_format</span>(
                     <span class="ident">connection</span>.<span class="ident">to_raw_none</span>(),
                     <span class="ident">screen</span>.<span class="ident">to_raw_none</span>(),
                     <span class="ident">bitmap</span>.<span class="ident">to_raw_none</span>(),
@@ -774,13 +774,13 @@
     }
 
     <span class="kw">fn</span> <span class="ident">status</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">status</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_surface_status</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>()) };
+        <span class="kw">let</span> <span class="ident">status</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_surface_status</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>()) };
         <span class="ident">status_to_result</span>(<span class="ident">status</span>)
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_xcb_surface_set_size&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_size</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">width</span>: <span class="ident">i32</span>, <span class="ident">height</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_xcb_surface_set_size</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>(), <span class="ident">width</span>, <span class="ident">height</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_xcb_surface_set_size</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>(), <span class="ident">width</span>, <span class="ident">height</span>) }
         <span class="self">self</span>.<span class="ident">status</span>()
     }
 
@@ -792,7 +792,7 @@
         <span class="ident">height</span>: <span class="ident">i32</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">cairo_xcb_surface_set_drawable</span>(
+            <span class="ident">ffi::cairo_xcb_surface_set_drawable</span>(
                 <span class="self">self</span>.<span class="ident">to_raw_none</span>(),
                 <span class="ident">drawable</span>.<span class="ident">to_raw_none</span>(),
                 <span class="ident">width</span>,
@@ -804,87 +804,87 @@
 }
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">XCBVisualType</span>(<span class="kw">pub</span> <span class="ident">ptr</span>::<span class="ident">NonNull</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">xcb_visualtype_t</span><span class="op">&gt;</span>);
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">XCBVisualType</span>(<span class="kw">pub</span> <span class="ident">ptr::NonNull</span><span class="op">&lt;</span><span class="ident">ffi::xcb_visualtype_t</span><span class="op">&gt;</span>);
 
 <span class="kw">impl</span> <span class="ident">XCBVisualType</span> {
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_raw_none</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">xcb_visualtype_t</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_raw_none</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::xcb_visualtype_t</span> {
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()
     }
 
-    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_raw_none</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">xcb_visualtype_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">XCBVisualType</span> {
+    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_raw_none</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::xcb_visualtype_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">XCBVisualType</span> {
         <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
-        <span class="ident">XCBVisualType</span>(<span class="ident">ptr</span>::<span class="ident">NonNull</span>::<span class="ident">new_unchecked</span>(<span class="ident">ptr</span>))
+        <span class="ident">XCBVisualType</span>(<span class="ident">ptr::NonNull::new_unchecked</span>(<span class="ident">ptr</span>))
     }
 
-    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_raw_borrow</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">xcb_visualtype_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">XCBVisualType</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_raw_borrow</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::xcb_visualtype_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">XCBVisualType</span><span class="op">&gt;</span> {
         <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
-        <span class="ident">Borrowed</span>::<span class="ident">new</span>(<span class="ident">XCBVisualType</span>(<span class="ident">ptr</span>::<span class="ident">NonNull</span>::<span class="ident">new_unchecked</span>(<span class="ident">ptr</span>)))
+        <span class="ident">Borrowed::new</span>(<span class="ident">XCBVisualType</span>(<span class="ident">ptr::NonNull::new_unchecked</span>(<span class="ident">ptr</span>)))
     }
 
-    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_raw_full</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">xcb_visualtype_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">XCBVisualType</span> {
+    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_raw_full</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::xcb_visualtype_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">XCBVisualType</span> {
         <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
-        <span class="ident">XCBVisualType</span>(<span class="ident">ptr</span>::<span class="ident">NonNull</span>::<span class="ident">new_unchecked</span>(<span class="ident">ptr</span>))
+        <span class="ident">XCBVisualType</span>(<span class="ident">ptr::NonNull::new_unchecked</span>(<span class="ident">ptr</span>))
     }
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">ToGlibPtr</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">xcb_visualtype_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">XCBVisualType</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">ToGlibPtr</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::xcb_visualtype_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">XCBVisualType</span> {
     <span class="kw">type</span> <span class="ident">Storage</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">XCBVisualType</span>;
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">to_glib_none</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Stash</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">xcb_visualtype_t</span>, <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">XCBVisualType</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">to_glib_none</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Stash</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::xcb_visualtype_t</span>, <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">XCBVisualType</span><span class="op">&gt;</span> {
         <span class="ident">Stash</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>(), <span class="kw-2">*</span><span class="self">self</span>)
     }
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="kw">impl</span> <span class="ident">FromGlibPtrNone</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">xcb_visualtype_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">XCBVisualType</span> {
+<span class="kw">impl</span> <span class="ident">FromGlibPtrNone</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::xcb_visualtype_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">XCBVisualType</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_none</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">xcb_visualtype_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">XCBVisualType</span> {
-        <span class="self">Self</span>::<span class="ident">from_raw_none</span>(<span class="ident">ptr</span>)
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_none</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::xcb_visualtype_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">XCBVisualType</span> {
+        <span class="self">Self</span><span class="ident">::from_raw_none</span>(<span class="ident">ptr</span>)
     }
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="kw">impl</span> <span class="ident">FromGlibPtrBorrow</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">xcb_visualtype_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">XCBVisualType</span> {
+<span class="kw">impl</span> <span class="ident">FromGlibPtrBorrow</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::xcb_visualtype_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">XCBVisualType</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_borrow</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">xcb_visualtype_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">XCBVisualType</span><span class="op">&gt;</span> {
-        <span class="self">Self</span>::<span class="ident">from_raw_borrow</span>(<span class="ident">ptr</span>)
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_borrow</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::xcb_visualtype_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">XCBVisualType</span><span class="op">&gt;</span> {
+        <span class="self">Self</span><span class="ident">::from_raw_borrow</span>(<span class="ident">ptr</span>)
     }
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="kw">impl</span> <span class="ident">FromGlibPtrFull</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">xcb_visualtype_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">XCBVisualType</span> {
+<span class="kw">impl</span> <span class="ident">FromGlibPtrFull</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::xcb_visualtype_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">XCBVisualType</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_full</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">xcb_visualtype_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">XCBVisualType</span> {
-        <span class="self">Self</span>::<span class="ident">from_raw_full</span>(<span class="ident">ptr</span>)
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_full</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::xcb_visualtype_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">XCBVisualType</span> {
+        <span class="self">Self</span><span class="ident">::from_raw_full</span>(<span class="ident">ptr</span>)
     }
 }
 
 <span class="kw">impl</span> <span class="ident">Clone</span> <span class="kw">for</span> <span class="ident">XCBVisualType</span> {
     <span class="kw">fn</span> <span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">XCBVisualType</span> {
-        <span class="kw">unsafe</span> { <span class="self">Self</span>::<span class="ident">from_raw_none</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>()) }
+        <span class="kw">unsafe</span> { <span class="self">Self</span><span class="ident">::from_raw_none</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>()) }
     }
 }
 
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">XCBVisualType</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">XCBVisualType</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;XCBVisualType&quot;</span>)
     }
 }
 
-<span class="kw">impl</span> <span class="kw">crate</span>::<span class="ident">device</span>::<span class="ident">Device</span> {
+<span class="kw">impl</span> <span class="kw">crate</span><span class="ident">::device::Device</span> {
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_xcb_device_get_connection&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_connection</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">XCBConnection</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">XCBConnection</span>::<span class="ident">from_raw_full</span>(<span class="ident">ffi</span>::<span class="ident">cairo_xcb_device_get_connection</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>()))
+            <span class="ident">XCBConnection::from_raw_full</span>(<span class="ident">ffi::cairo_xcb_device_get_connection</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>()))
         }
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_xcb_device_debug_cap_xshm_version&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">debug_cap_xshm_version</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">major_version</span>: <span class="ident">i32</span>, <span class="ident">minor_version</span>: <span class="ident">i32</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">cairo_xcb_device_debug_cap_xshm_version</span>(
+            <span class="ident">ffi::cairo_xcb_device_debug_cap_xshm_version</span>(
                 <span class="self">self</span>.<span class="ident">to_raw_none</span>(),
                 <span class="ident">major_version</span>,
                 <span class="ident">minor_version</span>,

@@ -119,10 +119,10 @@
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
 <span class="attribute">#![<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">feature</span>(<span class="ident">doc_cfg</span>))]</span>
-<span class="attribute">#![<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">type_complexity</span>)]</span>
-<span class="attribute">#![<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">too_many_arguments</span>)]</span>
-<span class="attribute">#![<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">missing_safety_doc</span>)]</span>
-<span class="attribute">#![<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">upper_case_acronyms</span>)]</span>
+<span class="attribute">#![<span class="ident">allow</span>(<span class="ident">clippy::type_complexity</span>)]</span>
+<span class="attribute">#![<span class="ident">allow</span>(<span class="ident">clippy::too_many_arguments</span>)]</span>
+<span class="attribute">#![<span class="ident">allow</span>(<span class="ident">clippy::missing_safety_doc</span>)]</span>
+<span class="attribute">#![<span class="ident">allow</span>(<span class="ident">clippy::upper_case_acronyms</span>)]</span>
 <span class="attribute">#![<span class="ident">allow</span>(<span class="ident">deprecated</span>)]</span>
 
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">ffi</span>;
@@ -135,9 +135,9 @@
 <span class="kw">mod</span> <span class="ident">converter</span>;
 <span class="kw">mod</span> <span class="ident">data_input_stream</span>;
 <span class="kw">mod</span> <span class="ident">dbus</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">dbus</span>::<span class="kw-2">*</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::dbus</span>::<span class="kw-2">*</span>;
 <span class="kw">mod</span> <span class="ident">dbus_connection</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">dbus_connection</span>::{
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::dbus_connection</span>::{
     <span class="ident">ActionGroupExportId</span>, <span class="ident">FilterId</span>, <span class="ident">MenuModelExportId</span>, <span class="ident">RegistrationId</span>, <span class="ident">SignalSubscriptionId</span>,
     <span class="ident">WatcherId</span>,
 };
@@ -148,28 +148,28 @@
 <span class="kw">mod</span> <span class="ident">error</span>;
 <span class="kw">mod</span> <span class="ident">file</span>;
 <span class="kw">mod</span> <span class="ident">file_attribute_matcher</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">file_attribute_matcher</span>::<span class="ident">FileAttributematcherIter</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::file_attribute_matcher::FileAttributematcherIter</span>;
 <span class="kw">mod</span> <span class="ident">file_enumerator</span>;
 <span class="kw">mod</span> <span class="ident">file_info</span>;
 <span class="kw">mod</span> <span class="ident">flags</span>;
 <span class="kw">mod</span> <span class="ident">inet_address</span>;
 <span class="kw">mod</span> <span class="ident">inet_socket_address</span>;
 <span class="kw">mod</span> <span class="ident">io_stream</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">io_stream</span>::<span class="ident">IOStreamAsyncReadWrite</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::io_stream::IOStreamAsyncReadWrite</span>;
 <span class="kw">mod</span> <span class="ident">input_stream</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">input_stream</span>::{<span class="ident">InputStreamAsyncBufRead</span>, <span class="ident">InputStreamRead</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::input_stream</span>::{<span class="ident">InputStreamAsyncBufRead</span>, <span class="ident">InputStreamRead</span>};
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_44&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="kw">mod</span> <span class="ident">list_store</span>;
 <span class="kw">mod</span> <span class="ident">memory_input_stream</span>;
 <span class="kw">mod</span> <span class="ident">memory_output_stream</span>;
 <span class="kw">mod</span> <span class="ident">output_stream</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">output_stream</span>::<span class="ident">OutputStreamWrite</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::output_stream::OutputStreamWrite</span>;
 <span class="kw">mod</span> <span class="ident">pollable_input_stream</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">pollable_input_stream</span>::<span class="ident">InputStreamAsyncRead</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::pollable_input_stream::InputStreamAsyncRead</span>;
 <span class="kw">mod</span> <span class="ident">pollable_output_stream</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">pollable_output_stream</span>::<span class="ident">OutputStreamAsyncWrite</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::pollable_output_stream::OutputStreamAsyncWrite</span>;
 <span class="kw">mod</span> <span class="ident">resource</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">resource</span>::{<span class="ident">compile_resources</span>, <span class="ident">resources_register_include_impl</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::resource</span>::{<span class="ident">compile_resources</span>, <span class="ident">resources_register_include_impl</span>};
 <span class="kw">mod</span> <span class="ident">settings</span>;
 <span class="kw">mod</span> <span class="ident">socket</span>;
 <span class="kw">mod</span> <span class="ident">subprocess</span>;
@@ -189,47 +189,47 @@
 <span class="kw">mod</span> <span class="ident">unix_output_stream</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">unix</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="kw">mod</span> <span class="ident">unix_socket_address</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">inet_address</span>::<span class="ident">InetAddressBytes</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::inet_address::InetAddressBytes</span>;
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">test_util</span>;
 
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">auto</span>::<span class="ident">functions</span>::<span class="kw-2">*</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">auto</span>::<span class="kw-2">*</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::auto::functions</span>::<span class="kw-2">*</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::auto</span>::<span class="kw-2">*</span>;
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">prelude</span>;
 
-<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">cast_ptr_alignment</span>)]</span>
-<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">wrong_self_convention</span>)]</span>
-<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">new_ret_no_self</span>)]</span>
-<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">let_and_return</span>)]</span>
+<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::cast_ptr_alignment</span>)]</span>
+<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::wrong_self_convention</span>)]</span>
+<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::new_ret_no_self</span>)]</span>
+<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::let_and_return</span>)]</span>
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">unused_doc_comments</span>)]</span>
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">unused_imports</span>)]</span>
 <span class="kw">mod</span> <span class="ident">auto</span>;
 
 <span class="kw">mod</span> <span class="ident">gio_future</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">gio_future</span>::<span class="kw-2">*</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::gio_future</span>::<span class="kw-2">*</span>;
 
 <span class="attribute">#[<span class="ident">macro_use</span>]</span>
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">subclass</span>;
 <span class="kw">mod</span> <span class="ident">read_input_stream</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">read_input_stream</span>::<span class="ident">ReadInputStream</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::read_input_stream::ReadInputStream</span>;
 <span class="kw">mod</span> <span class="ident">write_output_stream</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">write_output_stream</span>::<span class="ident">WriteOutputStream</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::write_output_stream::WriteOutputStream</span>;
 <span class="kw">mod</span> <span class="ident">tls_connection</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">tls_connection</span>::<span class="ident">TlsConnectionManualExt</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::tls_connection::TlsConnectionManualExt</span>;
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">task</span>;
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">target_family</span> <span class="op">=</span> <span class="string">&quot;windows&quot;</span>)]</span>
 <span class="kw">mod</span> <span class="ident">win32_input_stream</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">target_family</span> <span class="op">=</span> <span class="string">&quot;windows&quot;</span>)]</span>
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">win32_input_stream</span>::{<span class="ident">Win32InputStream</span>, <span class="ident">NONE_WIN32_INPUT_STREAM</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::win32_input_stream</span>::{<span class="ident">Win32InputStream</span>, <span class="ident">NONE_WIN32_INPUT_STREAM</span>};
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">target_family</span> <span class="op">=</span> <span class="string">&quot;windows&quot;</span>)]</span>
 <span class="kw">mod</span> <span class="ident">win32_output_stream</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">target_family</span> <span class="op">=</span> <span class="string">&quot;windows&quot;</span>)]</span>
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">win32_output_stream</span>::{<span class="ident">Win32OutputStream</span>, <span class="ident">NONE_WIN32_OUTPUT_STREAM</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::win32_output_stream</span>::{<span class="ident">Win32OutputStream</span>, <span class="ident">NONE_WIN32_OUTPUT_STREAM</span>};
 </pre></div>
 </section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="gio" data-search-js="../../search-index.js"></div>
     <script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script></body></html>

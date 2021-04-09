@@ -1300,34 +1300,34 @@
 <span class="comment">// from gir-files (https://github.com/gtk-rs/gir-files)</span>
 <span class="comment">// DO NOT EDIT</span>
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Box</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Euler</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Point</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Point3D</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Quad</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Quaternion</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Ray</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Rect</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Sphere</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Vec3</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Vec4</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Box</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Euler</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Point</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Point3D</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Quad</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Quaternion</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Ray</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Rect</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Sphere</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Vec3</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Vec4</span>;
+<span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">std::mem</span>;
 
-<span class="ident">glib</span>::<span class="macro">wrapper!</span> {
+<span class="macro">glib::wrapper!</span> {
     <span class="doccomment">/// A structure capable of holding a 4x4 matrix.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The contents of the `Matrix` structure are private and</span>
     <span class="doccomment">/// should never be accessed directly.</span>
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Matrix</span>(<span class="ident">Boxed</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">graphene_matrix_t</span><span class="op">&gt;</span>);
+    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Matrix</span>(<span class="ident">Boxed</span><span class="op">&lt;</span><span class="ident">ffi::graphene_matrix_t</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
-        <span class="ident">copy</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">g_boxed_copy</span>(<span class="ident">ffi</span>::<span class="ident">graphene_matrix_get_type</span>(), <span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">graphene_matrix_t</span>,
-        <span class="ident">free</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">g_boxed_free</span>(<span class="ident">ffi</span>::<span class="ident">graphene_matrix_get_type</span>(), <span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>),
+        <span class="ident">copy</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">glib::gobject_ffi::g_boxed_copy</span>(<span class="ident">ffi::graphene_matrix_get_type</span>(), <span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::graphene_matrix_t</span>,
+        <span class="ident">free</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">glib::gobject_ffi::g_boxed_free</span>(<span class="ident">ffi::graphene_matrix_get_type</span>(), <span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>),
         <span class="ident">init</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">_ptr</span><span class="op">|</span> (),
         <span class="ident">clear</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">_ptr</span><span class="op">|</span> (),
-        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">graphene_matrix_get_type</span>(),
+        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::graphene_matrix_get_type</span>(),
     }
 }
 
@@ -1335,12 +1335,12 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_decompose&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">decompose</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span>(<span class="ident">Vec3</span>, <span class="ident">Vec3</span>, <span class="ident">Quaternion</span>, <span class="ident">Vec3</span>, <span class="ident">Vec4</span>)<span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">translate</span> <span class="op">=</span> <span class="ident">Vec3</span>::<span class="ident">uninitialized</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">scale</span> <span class="op">=</span> <span class="ident">Vec3</span>::<span class="ident">uninitialized</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">rotate</span> <span class="op">=</span> <span class="ident">Quaternion</span>::<span class="ident">uninitialized</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">shear</span> <span class="op">=</span> <span class="ident">Vec3</span>::<span class="ident">uninitialized</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">perspective</span> <span class="op">=</span> <span class="ident">Vec4</span>::<span class="ident">uninitialized</span>();
-            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">graphene_matrix_decompose</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">translate</span> <span class="op">=</span> <span class="ident">Vec3::uninitialized</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">scale</span> <span class="op">=</span> <span class="ident">Vec3::uninitialized</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">rotate</span> <span class="op">=</span> <span class="ident">Quaternion::uninitialized</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">shear</span> <span class="op">=</span> <span class="ident">Vec3::uninitialized</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">perspective</span> <span class="op">=</span> <span class="ident">Vec4::uninitialized</span>();
+            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">from_glib</span>(<span class="ident">ffi::graphene_matrix_decompose</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">translate</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
                 <span class="ident">scale</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
@@ -1363,7 +1363,7 @@
     <span class="doccomment">/// the value of the determinant</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_determinant&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">determinant</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f32</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">graphene_matrix_determinant</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::graphene_matrix_determinant</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Checks whether the two given `Matrix` matrices are equal.</span>
@@ -1381,7 +1381,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_equal&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">equal</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">b</span>: <span class="kw-2">&amp;</span><span class="ident">Matrix</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">graphene_matrix_equal</span>(
+            <span class="ident">from_glib</span>(<span class="ident">ffi::graphene_matrix_equal</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">b</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
@@ -1426,7 +1426,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_equal_fast&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">equal_fast</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">b</span>: <span class="kw-2">&amp;</span><span class="ident">Matrix</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">graphene_matrix_equal_fast</span>(
+            <span class="ident">from_glib</span>(<span class="ident">ffi::graphene_matrix_equal_fast</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">b</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
@@ -1442,8 +1442,8 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_get_row&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_row</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">index_</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec4</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Vec4</span>::<span class="ident">uninitialized</span>();
-            <span class="ident">ffi</span>::<span class="ident">graphene_matrix_get_row</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">index_</span>, <span class="ident">res</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>);
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Vec4::uninitialized</span>();
+            <span class="ident">ffi::graphene_matrix_get_row</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">index_</span>, <span class="ident">res</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>);
             <span class="ident">res</span>
         }
     }
@@ -1459,7 +1459,7 @@
     <span class="doccomment">/// the value at the given indices</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_get_value&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">row</span>: <span class="ident">u32</span>, <span class="ident">col</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f32</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">graphene_matrix_get_value</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">row</span>, <span class="ident">col</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::graphene_matrix_get_value</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">row</span>, <span class="ident">col</span>) }
     }
 
     <span class="doccomment">/// Retrieves the scaling factor on the X axis in `self`.</span>
@@ -1469,7 +1469,7 @@
     <span class="doccomment">/// the value of the scaling factor</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_get_x_scale&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_x_scale</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f32</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">graphene_matrix_get_x_scale</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::graphene_matrix_get_x_scale</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Retrieves the translation component on the X axis from `self`.</span>
@@ -1484,7 +1484,7 @@
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v1_10&quot;</span>)))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_get_x_translation&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_x_translation</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f32</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">graphene_matrix_get_x_translation</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::graphene_matrix_get_x_translation</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Retrieves the scaling factor on the Y axis in `self`.</span>
@@ -1494,7 +1494,7 @@
     <span class="doccomment">/// the value of the scaling factor</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_get_y_scale&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_y_scale</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f32</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">graphene_matrix_get_y_scale</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::graphene_matrix_get_y_scale</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Retrieves the translation component on the Y axis from `self`.</span>
@@ -1509,7 +1509,7 @@
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v1_10&quot;</span>)))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_get_y_translation&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_y_translation</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f32</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">graphene_matrix_get_y_translation</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::graphene_matrix_get_y_translation</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Retrieves the scaling factor on the Z axis in `self`.</span>
@@ -1519,7 +1519,7 @@
     <span class="doccomment">/// the value of the scaling factor</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_get_z_scale&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_z_scale</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f32</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">graphene_matrix_get_z_scale</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::graphene_matrix_get_z_scale</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Retrieves the translation component on the Z axis from `self`.</span>
@@ -1534,7 +1534,7 @@
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v1_10&quot;</span>)))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_get_z_translation&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_z_translation</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f32</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">graphene_matrix_get_z_translation</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::graphene_matrix_get_z_translation</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Initializes a `Matrix` from the values of an affine</span>
@@ -1570,7 +1570,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_init_from_2d&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">init_from_2d</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">xx</span>: <span class="ident">f64</span>, <span class="ident">yx</span>: <span class="ident">f64</span>, <span class="ident">xy</span>: <span class="ident">f64</span>, <span class="ident">yy</span>: <span class="ident">f64</span>, <span class="ident">x_0</span>: <span class="ident">f64</span>, <span class="ident">y_0</span>: <span class="ident">f64</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">graphene_matrix_init_from_2d</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">xx</span>, <span class="ident">yx</span>, <span class="ident">xy</span>, <span class="ident">yy</span>, <span class="ident">x_0</span>, <span class="ident">y_0</span>);
+            <span class="ident">ffi::graphene_matrix_init_from_2d</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">xx</span>, <span class="ident">yx</span>, <span class="ident">xy</span>, <span class="ident">yy</span>, <span class="ident">x_0</span>, <span class="ident">y_0</span>);
         }
     }
 
@@ -1590,7 +1590,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_init_from_matrix&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">init_from_matrix</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">src</span>: <span class="kw-2">&amp;</span><span class="ident">Matrix</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">graphene_matrix_init_from_matrix</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">src</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+            <span class="ident">ffi::graphene_matrix_init_from_matrix</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">src</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
         }
     }
 
@@ -1611,7 +1611,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_init_from_vec4&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">init_from_vec4</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">v0</span>: <span class="kw-2">&amp;</span><span class="ident">Vec4</span>, <span class="ident">v1</span>: <span class="kw-2">&amp;</span><span class="ident">Vec4</span>, <span class="ident">v2</span>: <span class="kw-2">&amp;</span><span class="ident">Vec4</span>, <span class="ident">v3</span>: <span class="kw-2">&amp;</span><span class="ident">Vec4</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">graphene_matrix_init_from_vec4</span>(
+            <span class="ident">ffi::graphene_matrix_init_from_vec4</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
                 <span class="ident">v0</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">v1</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -1651,7 +1651,7 @@
         <span class="ident">z_far</span>: <span class="ident">f32</span>,
     ) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">graphene_matrix_init_frustum</span>(
+            <span class="ident">ffi::graphene_matrix_init_frustum</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
                 <span class="ident">left</span>,
                 <span class="ident">right</span>,
@@ -1671,7 +1671,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_init_identity&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">init_identity</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">graphene_matrix_init_identity</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>);
+            <span class="ident">ffi::graphene_matrix_init_identity</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>);
         }
     }
 
@@ -1693,7 +1693,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_init_look_at&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">init_look_at</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">eye</span>: <span class="kw-2">&amp;</span><span class="ident">Vec3</span>, <span class="ident">center</span>: <span class="kw-2">&amp;</span><span class="ident">Vec3</span>, <span class="ident">up</span>: <span class="kw-2">&amp;</span><span class="ident">Vec3</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">graphene_matrix_init_look_at</span>(
+            <span class="ident">ffi::graphene_matrix_init_look_at</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
                 <span class="ident">eye</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">center</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -1730,7 +1730,7 @@
         <span class="ident">z_far</span>: <span class="ident">f32</span>,
     ) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">graphene_matrix_init_ortho</span>(
+            <span class="ident">ffi::graphene_matrix_init_ortho</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
                 <span class="ident">left</span>,
                 <span class="ident">right</span>,
@@ -1758,7 +1758,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_init_perspective&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">init_perspective</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">fovy</span>: <span class="ident">f32</span>, <span class="ident">aspect</span>: <span class="ident">f32</span>, <span class="ident">z_near</span>: <span class="ident">f32</span>, <span class="ident">z_far</span>: <span class="ident">f32</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">graphene_matrix_init_perspective</span>(
+            <span class="ident">ffi::graphene_matrix_init_perspective</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
                 <span class="ident">fovy</span>,
                 <span class="ident">aspect</span>,
@@ -1781,7 +1781,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_init_rotate&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">init_rotate</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">angle</span>: <span class="ident">f32</span>, <span class="ident">axis</span>: <span class="kw-2">&amp;</span><span class="ident">Vec3</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">graphene_matrix_init_rotate</span>(
+            <span class="ident">ffi::graphene_matrix_init_rotate</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
                 <span class="ident">angle</span>,
                 <span class="ident">axis</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -1803,7 +1803,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_init_scale&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">init_scale</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">x</span>: <span class="ident">f32</span>, <span class="ident">y</span>: <span class="ident">f32</span>, <span class="ident">z</span>: <span class="ident">f32</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">graphene_matrix_init_scale</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">x</span>, <span class="ident">y</span>, <span class="ident">z</span>);
+            <span class="ident">ffi::graphene_matrix_init_scale</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">x</span>, <span class="ident">y</span>, <span class="ident">z</span>);
         }
     }
 
@@ -1820,7 +1820,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_init_skew&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">init_skew</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">x_skew</span>: <span class="ident">f32</span>, <span class="ident">y_skew</span>: <span class="ident">f32</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">graphene_matrix_init_skew</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">x_skew</span>, <span class="ident">y_skew</span>);
+            <span class="ident">ffi::graphene_matrix_init_skew</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">x_skew</span>, <span class="ident">y_skew</span>);
         }
     }
 
@@ -1835,7 +1835,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_init_translate&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">init_translate</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">p</span>: <span class="kw-2">&amp;</span><span class="ident">Point3D</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">graphene_matrix_init_translate</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">p</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+            <span class="ident">ffi::graphene_matrix_init_translate</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">p</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
         }
     }
 
@@ -1855,8 +1855,8 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_interpolate&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">interpolate</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">b</span>: <span class="kw-2">&amp;</span><span class="ident">Matrix</span>, <span class="ident">factor</span>: <span class="ident">f64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Matrix</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Matrix</span>::<span class="ident">uninitialized</span>();
-            <span class="ident">ffi</span>::<span class="ident">graphene_matrix_interpolate</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Matrix::uninitialized</span>();
+            <span class="ident">ffi::graphene_matrix_interpolate</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">b</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">factor</span>,
@@ -1877,8 +1877,8 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_inverse&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">inverse</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Matrix</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Matrix</span>::<span class="ident">uninitialized</span>();
-            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">graphene_matrix_inverse</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Matrix::uninitialized</span>();
+            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">from_glib</span>(<span class="ident">ffi::graphene_matrix_inverse</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">res</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
             ));
@@ -1899,7 +1899,7 @@
     <span class="doccomment">///  transformation matrix</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_is_2d&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_2d</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">graphene_matrix_is_2d</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::graphene_matrix_is_2d</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Checks whether a `Matrix` has a visible back face.</span>
@@ -1910,7 +1910,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_is_backface_visible&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_backface_visible</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">graphene_matrix_is_backface_visible</span>(
+            <span class="ident">from_glib</span>(<span class="ident">ffi::graphene_matrix_is_backface_visible</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
         }
@@ -1923,7 +1923,7 @@
     <span class="doccomment">/// `true` if the matrix is the identity matrix</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_is_identity&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_identity</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">graphene_matrix_is_identity</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::graphene_matrix_is_identity</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Checks whether a matrix is singular.</span>
@@ -1933,7 +1933,7 @@
     <span class="doccomment">/// `true` if the matrix is singular</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_is_singular&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_singular</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">graphene_matrix_is_singular</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::graphene_matrix_is_singular</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Multiplies two `Matrix`.</span>
@@ -1948,8 +1948,8 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_multiply&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">multiply</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">b</span>: <span class="kw-2">&amp;</span><span class="ident">Matrix</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Matrix</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Matrix</span>::<span class="ident">uninitialized</span>();
-            <span class="ident">ffi</span>::<span class="ident">graphene_matrix_multiply</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Matrix::uninitialized</span>();
+            <span class="ident">ffi::graphene_matrix_multiply</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">b</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">res</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
@@ -1976,7 +1976,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_near&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">near</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">b</span>: <span class="kw-2">&amp;</span><span class="ident">Matrix</span>, <span class="ident">epsilon</span>: <span class="ident">f32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">graphene_matrix_near</span>(
+            <span class="ident">from_glib</span>(<span class="ident">ffi::graphene_matrix_near</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">b</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">epsilon</span>,
@@ -1990,8 +1990,8 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_normalize&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">normalize</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Matrix</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Matrix</span>::<span class="ident">uninitialized</span>();
-            <span class="ident">ffi</span>::<span class="ident">graphene_matrix_normalize</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">res</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>);
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Matrix::uninitialized</span>();
+            <span class="ident">ffi::graphene_matrix_normalize</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">res</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>);
             <span class="ident">res</span>
         }
     }
@@ -2005,8 +2005,8 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_perspective&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">perspective</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">depth</span>: <span class="ident">f32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Matrix</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Matrix</span>::<span class="ident">uninitialized</span>();
-            <span class="ident">ffi</span>::<span class="ident">graphene_matrix_perspective</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Matrix::uninitialized</span>();
+            <span class="ident">ffi::graphene_matrix_perspective</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">depth</span>,
                 <span class="ident">res</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
@@ -2019,7 +2019,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_print&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">print</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">graphene_matrix_print</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+            <span class="ident">ffi::graphene_matrix_print</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
         }
     }
 
@@ -2032,8 +2032,8 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_project_point&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">project_point</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">p</span>: <span class="kw-2">&amp;</span><span class="ident">Point</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Point</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Point</span>::<span class="ident">uninitialized</span>();
-            <span class="ident">ffi</span>::<span class="ident">graphene_matrix_project_point</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Point::uninitialized</span>();
+            <span class="ident">ffi::graphene_matrix_project_point</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">p</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">res</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
@@ -2051,8 +2051,8 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_project_rect&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">project_rect</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">r</span>: <span class="kw-2">&amp;</span><span class="ident">Rect</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Quad</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Quad</span>::<span class="ident">uninitialized</span>();
-            <span class="ident">ffi</span>::<span class="ident">graphene_matrix_project_rect</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Quad::uninitialized</span>();
+            <span class="ident">ffi::graphene_matrix_project_rect</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">r</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">res</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
@@ -2073,8 +2073,8 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_project_rect_bounds&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">project_rect_bounds</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">r</span>: <span class="kw-2">&amp;</span><span class="ident">Rect</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Rect</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Rect</span>::<span class="ident">uninitialized</span>();
-            <span class="ident">ffi</span>::<span class="ident">graphene_matrix_project_rect_bounds</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Rect::uninitialized</span>();
+            <span class="ident">ffi::graphene_matrix_project_rect_bounds</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">r</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">res</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
@@ -2095,7 +2095,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_rotate&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">rotate</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">angle</span>: <span class="ident">f32</span>, <span class="ident">axis</span>: <span class="kw-2">&amp;</span><span class="ident">Vec3</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">graphene_matrix_rotate</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">angle</span>, <span class="ident">axis</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+            <span class="ident">ffi::graphene_matrix_rotate</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">angle</span>, <span class="ident">axis</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
         }
     }
 
@@ -2106,7 +2106,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_rotate_euler&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">rotate_euler</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">e</span>: <span class="kw-2">&amp;</span><span class="ident">Euler</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">graphene_matrix_rotate_euler</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">e</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+            <span class="ident">ffi::graphene_matrix_rotate_euler</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">e</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
         }
     }
 
@@ -2120,7 +2120,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_rotate_quaternion&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">rotate_quaternion</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">q</span>: <span class="kw-2">&amp;</span><span class="ident">Quaternion</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">graphene_matrix_rotate_quaternion</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">q</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+            <span class="ident">ffi::graphene_matrix_rotate_quaternion</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">q</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
         }
     }
 
@@ -2133,7 +2133,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_rotate_x&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">rotate_x</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">angle</span>: <span class="ident">f32</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">graphene_matrix_rotate_x</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">angle</span>);
+            <span class="ident">ffi::graphene_matrix_rotate_x</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">angle</span>);
         }
     }
 
@@ -2146,7 +2146,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_rotate_y&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">rotate_y</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">angle</span>: <span class="ident">f32</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">graphene_matrix_rotate_y</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">angle</span>);
+            <span class="ident">ffi::graphene_matrix_rotate_y</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">angle</span>);
         }
     }
 
@@ -2159,7 +2159,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_rotate_z&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">rotate_z</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">angle</span>: <span class="ident">f32</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">graphene_matrix_rotate_z</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">angle</span>);
+            <span class="ident">ffi::graphene_matrix_rotate_z</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">angle</span>);
         }
     }
 
@@ -2177,7 +2177,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_scale&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">scale</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">factor_x</span>: <span class="ident">f32</span>, <span class="ident">factor_y</span>: <span class="ident">f32</span>, <span class="ident">factor_z</span>: <span class="ident">f32</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">graphene_matrix_scale</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">factor_x</span>, <span class="ident">factor_y</span>, <span class="ident">factor_z</span>);
+            <span class="ident">ffi::graphene_matrix_scale</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">factor_x</span>, <span class="ident">factor_y</span>, <span class="ident">factor_z</span>);
         }
     }
 
@@ -2187,7 +2187,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_skew_xy&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">skew_xy</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">factor</span>: <span class="ident">f32</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">graphene_matrix_skew_xy</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">factor</span>);
+            <span class="ident">ffi::graphene_matrix_skew_xy</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">factor</span>);
         }
     }
 
@@ -2197,7 +2197,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_skew_xz&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">skew_xz</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">factor</span>: <span class="ident">f32</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">graphene_matrix_skew_xz</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">factor</span>);
+            <span class="ident">ffi::graphene_matrix_skew_xz</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">factor</span>);
         }
     }
 
@@ -2207,7 +2207,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_skew_yz&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">skew_yz</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">factor</span>: <span class="ident">f32</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">graphene_matrix_skew_yz</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">factor</span>);
+            <span class="ident">ffi::graphene_matrix_skew_yz</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">factor</span>);
         }
     }
 
@@ -2245,13 +2245,13 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_to_2d&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_2d</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span>(<span class="ident">f64</span>, <span class="ident">f64</span>, <span class="ident">f64</span>, <span class="ident">f64</span>, <span class="ident">f64</span>, <span class="ident">f64</span>)<span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">xx</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">yx</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">xy</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">yy</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">x_0</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">y_0</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
-            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">graphene_matrix_to_2d</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">xx</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">yx</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">xy</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">yy</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">x_0</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">y_0</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
+            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">from_glib</span>(<span class="ident">ffi::graphene_matrix_to_2d</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">xx</span>.<span class="ident">as_mut_ptr</span>(),
                 <span class="ident">yx</span>.<span class="ident">as_mut_ptr</span>(),
@@ -2291,8 +2291,8 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_transform_bounds&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">transform_bounds</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">r</span>: <span class="kw-2">&amp;</span><span class="ident">Rect</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Rect</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Rect</span>::<span class="ident">uninitialized</span>();
-            <span class="ident">ffi</span>::<span class="ident">graphene_matrix_transform_bounds</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Rect::uninitialized</span>();
+            <span class="ident">ffi::graphene_matrix_transform_bounds</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">r</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">res</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
@@ -2313,8 +2313,8 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_transform_box&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">transform_box</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">b</span>: <span class="kw-2">&amp;</span><span class="ident">Box</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Box</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Box</span>::<span class="ident">uninitialized</span>();
-            <span class="ident">ffi</span>::<span class="ident">graphene_matrix_transform_box</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Box::uninitialized</span>();
+            <span class="ident">ffi::graphene_matrix_transform_box</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">b</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">res</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
@@ -2338,8 +2338,8 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_transform_point&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">transform_point</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">p</span>: <span class="kw-2">&amp;</span><span class="ident">Point</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Point</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Point</span>::<span class="ident">uninitialized</span>();
-            <span class="ident">ffi</span>::<span class="ident">graphene_matrix_transform_point</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Point::uninitialized</span>();
+            <span class="ident">ffi::graphene_matrix_transform_point</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">p</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">res</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
@@ -2360,8 +2360,8 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_transform_point3d&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">transform_point3d</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">p</span>: <span class="kw-2">&amp;</span><span class="ident">Point3D</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Point3D</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Point3D</span>::<span class="ident">uninitialized</span>();
-            <span class="ident">ffi</span>::<span class="ident">graphene_matrix_transform_point3d</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Point3D::uninitialized</span>();
+            <span class="ident">ffi::graphene_matrix_transform_point3d</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">p</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">res</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
@@ -2379,8 +2379,8 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_transform_ray&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">transform_ray</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">r</span>: <span class="kw-2">&amp;</span><span class="ident">Ray</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Ray</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Ray</span>::<span class="ident">uninitialized</span>();
-            <span class="ident">ffi</span>::<span class="ident">graphene_matrix_transform_ray</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Ray::uninitialized</span>();
+            <span class="ident">ffi::graphene_matrix_transform_ray</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">r</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">res</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
@@ -2400,8 +2400,8 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_transform_rect&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">transform_rect</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">r</span>: <span class="kw-2">&amp;</span><span class="ident">Rect</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Quad</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Quad</span>::<span class="ident">uninitialized</span>();
-            <span class="ident">ffi</span>::<span class="ident">graphene_matrix_transform_rect</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Quad::uninitialized</span>();
+            <span class="ident">ffi::graphene_matrix_transform_rect</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">r</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">res</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
@@ -2420,8 +2420,8 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_transform_sphere&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">transform_sphere</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">s</span>: <span class="kw-2">&amp;</span><span class="ident">Sphere</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Sphere</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Sphere</span>::<span class="ident">uninitialized</span>();
-            <span class="ident">ffi</span>::<span class="ident">graphene_matrix_transform_sphere</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Sphere::uninitialized</span>();
+            <span class="ident">ffi::graphene_matrix_transform_sphere</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">s</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">res</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
@@ -2444,8 +2444,8 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_transform_vec3&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">transform_vec3</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">v</span>: <span class="kw-2">&amp;</span><span class="ident">Vec3</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec3</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Vec3</span>::<span class="ident">uninitialized</span>();
-            <span class="ident">ffi</span>::<span class="ident">graphene_matrix_transform_vec3</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Vec3::uninitialized</span>();
+            <span class="ident">ffi::graphene_matrix_transform_vec3</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">v</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">res</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
@@ -2464,8 +2464,8 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_transform_vec4&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">transform_vec4</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">v</span>: <span class="kw-2">&amp;</span><span class="ident">Vec4</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec4</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Vec4</span>::<span class="ident">uninitialized</span>();
-            <span class="ident">ffi</span>::<span class="ident">graphene_matrix_transform_vec4</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Vec4::uninitialized</span>();
+            <span class="ident">ffi::graphene_matrix_transform_vec4</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">v</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">res</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
@@ -2484,7 +2484,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_translate&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">translate</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">pos</span>: <span class="kw-2">&amp;</span><span class="ident">Point3D</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">graphene_matrix_translate</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">pos</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+            <span class="ident">ffi::graphene_matrix_translate</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">pos</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
         }
     }
 
@@ -2495,8 +2495,8 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_transpose&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">transpose</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Matrix</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Matrix</span>::<span class="ident">uninitialized</span>();
-            <span class="ident">ffi</span>::<span class="ident">graphene_matrix_transpose</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">res</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>);
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Matrix::uninitialized</span>();
+            <span class="ident">ffi::graphene_matrix_transpose</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">res</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>);
             <span class="ident">res</span>
         }
     }
@@ -2514,8 +2514,8 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_unproject_point3d&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">unproject_point3d</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">modelview</span>: <span class="kw-2">&amp;</span><span class="ident">Matrix</span>, <span class="ident">point</span>: <span class="kw-2">&amp;</span><span class="ident">Point3D</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Point3D</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Point3D</span>::<span class="ident">uninitialized</span>();
-            <span class="ident">ffi</span>::<span class="ident">graphene_matrix_unproject_point3d</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Point3D::uninitialized</span>();
+            <span class="ident">ffi::graphene_matrix_unproject_point3d</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">modelview</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">point</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -2537,8 +2537,8 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_untransform_bounds&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">untransform_bounds</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">r</span>: <span class="kw-2">&amp;</span><span class="ident">Rect</span>, <span class="ident">bounds</span>: <span class="kw-2">&amp;</span><span class="ident">Rect</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Rect</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Rect</span>::<span class="ident">uninitialized</span>();
-            <span class="ident">ffi</span>::<span class="ident">graphene_matrix_untransform_bounds</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Rect::uninitialized</span>();
+            <span class="ident">ffi::graphene_matrix_untransform_bounds</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">r</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">bounds</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -2564,8 +2564,8 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_untransform_point&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">untransform_point</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">p</span>: <span class="kw-2">&amp;</span><span class="ident">Point</span>, <span class="ident">bounds</span>: <span class="kw-2">&amp;</span><span class="ident">Rect</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Point</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Point</span>::<span class="ident">uninitialized</span>();
-            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">graphene_matrix_untransform_point</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Point::uninitialized</span>();
+            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">from_glib</span>(<span class="ident">ffi::graphene_matrix_untransform_point</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">p</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">bounds</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,

@@ -564,27 +564,27 @@
 <span class="comment">// from gir-files (https://github.com/gtk-rs/gir-files)</span>
 <span class="comment">// DO NOT EDIT</span>
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">IconTheme</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">StyleContext</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">object</span>::<span class="ident">IsA</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">boxed</span>::<span class="ident">Box</span> <span class="kw">as</span> <span class="ident">Box_</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">pin</span>::<span class="ident">Pin</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::IconTheme</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::StyleContext</span>;
+<span class="kw">use</span> <span class="ident">glib::object::IsA</span>;
+<span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">std::boxed::Box</span> <span class="kw">as</span> <span class="ident">Box_</span>;
+<span class="kw">use</span> <span class="ident">std::fmt</span>;
+<span class="kw">use</span> <span class="ident">std::mem</span>;
+<span class="kw">use</span> <span class="ident">std::pin::Pin</span>;
+<span class="kw">use</span> <span class="ident">std::ptr</span>;
 
-<span class="ident">glib</span>::<span class="macro">wrapper!</span> {
+<span class="macro">glib::wrapper!</span> {
     <span class="doccomment">/// Contains information found when looking up an icon in</span>
     <span class="doccomment">/// an icon theme.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`glib::object::ObjectExt`](../glib/object/trait.ObjectExt.html)</span>
-    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">IconInfo</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GtkIconInfo</span>, <span class="ident">ffi</span>::<span class="ident">GtkIconInfoClass</span><span class="op">&gt;</span>);
+    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">IconInfo</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkIconInfo</span>, <span class="ident">ffi::GtkIconInfoClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
-        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">gtk_icon_info_get_type</span>(),
+        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::gtk_icon_info_get_type</span>(),
     }
 }
 
@@ -601,11 +601,11 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_icon_info_new_for_pixbuf&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_for_pixbuf</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">IconTheme</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="ident">icon_theme</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>,
-        <span class="ident">pixbuf</span>: <span class="kw-2">&amp;</span><span class="ident">gdk_pixbuf</span>::<span class="ident">Pixbuf</span>,
+        <span class="ident">pixbuf</span>: <span class="kw-2">&amp;</span><span class="ident">gdk_pixbuf::Pixbuf</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">IconInfo</span> {
         <span class="macro">skip_assert_initialized!</span>();
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">gtk_icon_info_new_for_pixbuf</span>(
+            <span class="ident">from_glib_full</span>(<span class="ident">ffi::gtk_icon_info_new_for_pixbuf</span>(
                 <span class="ident">icon_theme</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">pixbuf</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
@@ -623,7 +623,7 @@
     <span class="doccomment">/// the base scale</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_icon_info_get_base_scale&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_base_scale</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">gtk_icon_info_get_base_scale</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::gtk_icon_info_get_base_scale</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Gets the base size for the icon. The base size</span>
@@ -644,7 +644,7 @@
     <span class="doccomment">///  size is known for the icon.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_icon_info_get_base_size&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_base_size</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">gtk_icon_info_get_base_size</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::gtk_icon_info_get_base_size</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Gets the filename for the icon. If the `IconLookupFlags::UseBuiltin`</span>
@@ -659,8 +659,8 @@
     <span class="doccomment">///  The return value is owned by GTK+ and should not be modified</span>
     <span class="doccomment">///  or freed.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_icon_info_get_filename&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_filename</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">std</span>::<span class="ident">path</span>::<span class="ident">PathBuf</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">gtk_icon_info_get_filename</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_filename</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">std::path::PathBuf</span><span class="op">&gt;</span> {
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::gtk_icon_info_get_filename</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Checks if the icon is symbolic or not. This currently uses only</span>
@@ -672,7 +672,7 @@
     <span class="doccomment">/// `true` if the icon is symbolic, `false` otherwise</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_icon_info_is_symbolic&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_symbolic</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">gtk_icon_info_is_symbolic</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::gtk_icon_info_is_symbolic</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Renders an icon previously looked up in an icon theme using</span>
@@ -694,10 +694,10 @@
     <span class="doccomment">///  not modify the icon. Use `gobject::ObjectExt::unref` to release your reference</span>
     <span class="doccomment">///  to the icon.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_icon_info_load_icon&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">load_icon</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">gdk_pixbuf</span>::<span class="ident">Pixbuf</span>, <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">load_icon</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">gdk_pixbuf::Pixbuf</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">gtk_icon_info_load_icon</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">error</span>);
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
+            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">ffi::gtk_icon_info_load_icon</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">error</span>);
             <span class="kw">if</span> <span class="ident">error</span>.<span class="ident">is_null</span>() {
                 <span class="prelude-val">Ok</span>(<span class="ident">from_glib_full</span>(<span class="ident">ret</span>))
             } <span class="kw">else</span> {
@@ -720,39 +720,39 @@
     <span class="doccomment">/// the data to pass to callback function</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_icon_info_load_icon_async&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">load_icon_async</span><span class="op">&lt;</span>
-        <span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">gio</span>::<span class="ident">Cancellable</span><span class="op">&gt;</span>,
-        <span class="ident">Q</span>: <span class="ident">FnOnce</span>(<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">gdk_pixbuf</span>::<span class="ident">Pixbuf</span>, <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
+        <span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">gio::Cancellable</span><span class="op">&gt;</span>,
+        <span class="ident">Q</span>: <span class="ident">FnOnce</span>(<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">gdk_pixbuf::Pixbuf</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
     <span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>,
         <span class="ident">callback</span>: <span class="ident">Q</span>,
     ) {
-        <span class="kw">let</span> <span class="ident">user_data</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">Q</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_</span>::<span class="ident">new</span>(<span class="ident">callback</span>);
+        <span class="kw">let</span> <span class="ident">user_data</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">Q</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_::new</span>(<span class="ident">callback</span>);
         <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">load_icon_async_trampoline</span><span class="op">&lt;</span>
-            <span class="ident">Q</span>: <span class="ident">FnOnce</span>(<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">gdk_pixbuf</span>::<span class="ident">Pixbuf</span>, <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
+            <span class="ident">Q</span>: <span class="ident">FnOnce</span>(<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">gdk_pixbuf::Pixbuf</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
         <span class="op">&gt;</span>(
-            <span class="ident">_source_object</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">GObject</span>,
-            <span class="ident">res</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gio</span>::<span class="ident">ffi</span>::<span class="ident">GAsyncResult</span>,
-            <span class="ident">user_data</span>: <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">gpointer</span>,
+            <span class="ident">_source_object</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib::gobject_ffi::GObject</span>,
+            <span class="ident">res</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gio::ffi::GAsyncResult</span>,
+            <span class="ident">user_data</span>: <span class="ident">glib::ffi::gpointer</span>,
         ) {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
             <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span>
-                <span class="ident">ffi</span>::<span class="ident">gtk_icon_info_load_icon_finish</span>(<span class="ident">_source_object</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>, <span class="ident">res</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">error</span>);
+                <span class="ident">ffi::gtk_icon_info_load_icon_finish</span>(<span class="ident">_source_object</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>, <span class="ident">res</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">error</span>);
             <span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">error</span>.<span class="ident">is_null</span>() {
                 <span class="prelude-val">Ok</span>(<span class="ident">from_glib_full</span>(<span class="ident">ret</span>))
             } <span class="kw">else</span> {
                 <span class="prelude-val">Err</span>(<span class="ident">from_glib_full</span>(<span class="ident">error</span>))
             };
-            <span class="kw">let</span> <span class="ident">callback</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">Q</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_</span>::<span class="ident">from_raw</span>(<span class="ident">user_data</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>);
+            <span class="kw">let</span> <span class="ident">callback</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">Q</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_::from_raw</span>(<span class="ident">user_data</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>);
             <span class="ident">callback</span>(<span class="ident">result</span>);
         }
         <span class="kw">let</span> <span class="ident">callback</span> <span class="op">=</span> <span class="ident">load_icon_async_trampoline</span>::<span class="op">&lt;</span><span class="ident">Q</span><span class="op">&gt;</span>;
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">gtk_icon_info_load_icon_async</span>(
+            <span class="ident">ffi::gtk_icon_info_load_icon_async</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">cancellable</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> <span class="ident">p</span>.<span class="ident">as_ref</span>()).<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="prelude-val">Some</span>(<span class="ident">callback</span>),
-                <span class="ident">Box_</span>::<span class="ident">into_raw</span>(<span class="ident">user_data</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
+                <span class="ident">Box_::into_raw</span>(<span class="ident">user_data</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
             );
         }
     }
@@ -760,10 +760,10 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">load_icon_async_future</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pin</span><span class="op">&lt;</span>
-        <span class="ident">Box_</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">std</span>::<span class="ident">future</span>::<span class="ident">Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">gdk_pixbuf</span>::<span class="ident">Pixbuf</span>, <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>,
+        <span class="ident">Box_</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">std::future::Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">gdk_pixbuf::Pixbuf</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>,
     <span class="op">&gt;</span> {
-        <span class="ident">Box_</span>::<span class="ident">pin</span>(<span class="ident">gio</span>::<span class="ident">GioFuture</span>::<span class="ident">new</span>(<span class="self">self</span>, <span class="kw">move</span> <span class="op">|</span><span class="ident">obj</span>, <span class="ident">send</span><span class="op">|</span> {
-            <span class="kw">let</span> <span class="ident">cancellable</span> <span class="op">=</span> <span class="ident">gio</span>::<span class="ident">Cancellable</span>::<span class="ident">new</span>();
+        <span class="ident">Box_::pin</span>(<span class="ident">gio::GioFuture::new</span>(<span class="self">self</span>, <span class="kw">move</span> <span class="op">|</span><span class="ident">obj</span>, <span class="ident">send</span><span class="op">|</span> {
+            <span class="kw">let</span> <span class="ident">cancellable</span> <span class="op">=</span> <span class="ident">gio::Cancellable::new</span>();
             <span class="ident">obj</span>.<span class="ident">load_icon_async</span>(<span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="ident">cancellable</span>), <span class="kw">move</span> <span class="op">|</span><span class="ident">res</span><span class="op">|</span> {
                 <span class="ident">send</span>.<span class="ident">resolve</span>(<span class="ident">res</span>);
             });
@@ -795,11 +795,11 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_icon_info_load_surface&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">load_surface</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">for_window</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">gdk</span>::<span class="ident">Window</span><span class="op">&gt;</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">cairo</span>::<span class="ident">Surface</span>, <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+        <span class="ident">for_window</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">gdk::Window</span><span class="op">&gt;</span>,
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">cairo::Surface</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">gtk_icon_info_load_surface</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
+            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">ffi::gtk_icon_info_load_surface</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">for_window</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">error</span>,
@@ -850,15 +850,15 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_icon_info_load_symbolic&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">load_symbolic</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">fg</span>: <span class="kw-2">&amp;</span><span class="ident">gdk</span>::<span class="ident">RGBA</span>,
-        <span class="ident">success_color</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">gdk</span>::<span class="ident">RGBA</span><span class="op">&gt;</span>,
-        <span class="ident">warning_color</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">gdk</span>::<span class="ident">RGBA</span><span class="op">&gt;</span>,
-        <span class="ident">error_color</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">gdk</span>::<span class="ident">RGBA</span><span class="op">&gt;</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">gdk_pixbuf</span>::<span class="ident">Pixbuf</span>, <span class="ident">bool</span>), <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+        <span class="ident">fg</span>: <span class="kw-2">&amp;</span><span class="ident">gdk::RGBA</span>,
+        <span class="ident">success_color</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">gdk::RGBA</span><span class="op">&gt;</span>,
+        <span class="ident">warning_color</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">gdk::RGBA</span><span class="op">&gt;</span>,
+        <span class="ident">error_color</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">gdk::RGBA</span><span class="op">&gt;</span>,
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">gdk_pixbuf::Pixbuf</span>, <span class="ident">bool</span>), <span class="ident">glib::Error</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">was_symbolic</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">gtk_icon_info_load_symbolic</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">was_symbolic</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
+            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">ffi::gtk_icon_info_load_symbolic</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">fg</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">success_color</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -902,28 +902,28 @@
     <span class="doccomment">/// the data to pass to callback function</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_icon_info_load_symbolic_async&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">load_symbolic_async</span><span class="op">&lt;</span>
-        <span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">gio</span>::<span class="ident">Cancellable</span><span class="op">&gt;</span>,
-        <span class="ident">Q</span>: <span class="ident">FnOnce</span>(<span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">gdk_pixbuf</span>::<span class="ident">Pixbuf</span>, <span class="ident">bool</span>), <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
+        <span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">gio::Cancellable</span><span class="op">&gt;</span>,
+        <span class="ident">Q</span>: <span class="ident">FnOnce</span>(<span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">gdk_pixbuf::Pixbuf</span>, <span class="ident">bool</span>), <span class="ident">glib::Error</span><span class="op">&gt;</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
     <span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">fg</span>: <span class="kw-2">&amp;</span><span class="ident">gdk</span>::<span class="ident">RGBA</span>,
-        <span class="ident">success_color</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">gdk</span>::<span class="ident">RGBA</span><span class="op">&gt;</span>,
-        <span class="ident">warning_color</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">gdk</span>::<span class="ident">RGBA</span><span class="op">&gt;</span>,
-        <span class="ident">error_color</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">gdk</span>::<span class="ident">RGBA</span><span class="op">&gt;</span>,
+        <span class="ident">fg</span>: <span class="kw-2">&amp;</span><span class="ident">gdk::RGBA</span>,
+        <span class="ident">success_color</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">gdk::RGBA</span><span class="op">&gt;</span>,
+        <span class="ident">warning_color</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">gdk::RGBA</span><span class="op">&gt;</span>,
+        <span class="ident">error_color</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">gdk::RGBA</span><span class="op">&gt;</span>,
         <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>,
         <span class="ident">callback</span>: <span class="ident">Q</span>,
     ) {
-        <span class="kw">let</span> <span class="ident">user_data</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">Q</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_</span>::<span class="ident">new</span>(<span class="ident">callback</span>);
+        <span class="kw">let</span> <span class="ident">user_data</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">Q</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_::new</span>(<span class="ident">callback</span>);
         <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">load_symbolic_async_trampoline</span><span class="op">&lt;</span>
-            <span class="ident">Q</span>: <span class="ident">FnOnce</span>(<span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">gdk_pixbuf</span>::<span class="ident">Pixbuf</span>, <span class="ident">bool</span>), <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
+            <span class="ident">Q</span>: <span class="ident">FnOnce</span>(<span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">gdk_pixbuf::Pixbuf</span>, <span class="ident">bool</span>), <span class="ident">glib::Error</span><span class="op">&gt;</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
         <span class="op">&gt;</span>(
-            <span class="ident">_source_object</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">GObject</span>,
-            <span class="ident">res</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gio</span>::<span class="ident">ffi</span>::<span class="ident">GAsyncResult</span>,
-            <span class="ident">user_data</span>: <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">gpointer</span>,
+            <span class="ident">_source_object</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib::gobject_ffi::GObject</span>,
+            <span class="ident">res</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gio::ffi::GAsyncResult</span>,
+            <span class="ident">user_data</span>: <span class="ident">glib::ffi::gpointer</span>,
         ) {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">was_symbolic</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
-            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">gtk_icon_info_load_symbolic_finish</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">was_symbolic</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
+            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">ffi::gtk_icon_info_load_symbolic_finish</span>(
                 <span class="ident">_source_object</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
                 <span class="ident">res</span>,
                 <span class="ident">was_symbolic</span>.<span class="ident">as_mut_ptr</span>(),
@@ -935,12 +935,12 @@
             } <span class="kw">else</span> {
                 <span class="prelude-val">Err</span>(<span class="ident">from_glib_full</span>(<span class="ident">error</span>))
             };
-            <span class="kw">let</span> <span class="ident">callback</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">Q</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_</span>::<span class="ident">from_raw</span>(<span class="ident">user_data</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>);
+            <span class="kw">let</span> <span class="ident">callback</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">Q</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_::from_raw</span>(<span class="ident">user_data</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>);
             <span class="ident">callback</span>(<span class="ident">result</span>);
         }
         <span class="kw">let</span> <span class="ident">callback</span> <span class="op">=</span> <span class="ident">load_symbolic_async_trampoline</span>::<span class="op">&lt;</span><span class="ident">Q</span><span class="op">&gt;</span>;
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">gtk_icon_info_load_symbolic_async</span>(
+            <span class="ident">ffi::gtk_icon_info_load_symbolic_async</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">fg</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">success_color</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -948,34 +948,34 @@
                 <span class="ident">error_color</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">cancellable</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> <span class="ident">p</span>.<span class="ident">as_ref</span>()).<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="prelude-val">Some</span>(<span class="ident">callback</span>),
-                <span class="ident">Box_</span>::<span class="ident">into_raw</span>(<span class="ident">user_data</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
+                <span class="ident">Box_::into_raw</span>(<span class="ident">user_data</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
             );
         }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">load_symbolic_async_future</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">fg</span>: <span class="kw-2">&amp;</span><span class="ident">gdk</span>::<span class="ident">RGBA</span>,
-        <span class="ident">success_color</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">gdk</span>::<span class="ident">RGBA</span><span class="op">&gt;</span>,
-        <span class="ident">warning_color</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">gdk</span>::<span class="ident">RGBA</span><span class="op">&gt;</span>,
-        <span class="ident">error_color</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">gdk</span>::<span class="ident">RGBA</span><span class="op">&gt;</span>,
+        <span class="ident">fg</span>: <span class="kw-2">&amp;</span><span class="ident">gdk::RGBA</span>,
+        <span class="ident">success_color</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">gdk::RGBA</span><span class="op">&gt;</span>,
+        <span class="ident">warning_color</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">gdk::RGBA</span><span class="op">&gt;</span>,
+        <span class="ident">error_color</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">gdk::RGBA</span><span class="op">&gt;</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pin</span><span class="op">&lt;</span>
         <span class="ident">Box_</span><span class="op">&lt;</span>
-            <span class="kw">dyn</span> <span class="ident">std</span>::<span class="ident">future</span>::<span class="ident">Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">gdk_pixbuf</span>::<span class="ident">Pixbuf</span>, <span class="ident">bool</span>), <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span>
+            <span class="kw">dyn</span> <span class="ident">std::future::Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">gdk_pixbuf::Pixbuf</span>, <span class="ident">bool</span>), <span class="ident">glib::Error</span><span class="op">&gt;</span><span class="op">&gt;</span>
                 <span class="op">+</span> <span class="lifetime">&#39;static</span>,
         <span class="op">&gt;</span>,
     <span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">fg</span> <span class="op">=</span> <span class="ident">fg</span>.<span class="ident">clone</span>();
-        <span class="kw">let</span> <span class="ident">success_color</span> <span class="op">=</span> <span class="ident">success_color</span>.<span class="ident">map</span>(<span class="ident">ToOwned</span>::<span class="ident">to_owned</span>);
-        <span class="kw">let</span> <span class="ident">warning_color</span> <span class="op">=</span> <span class="ident">warning_color</span>.<span class="ident">map</span>(<span class="ident">ToOwned</span>::<span class="ident">to_owned</span>);
-        <span class="kw">let</span> <span class="ident">error_color</span> <span class="op">=</span> <span class="ident">error_color</span>.<span class="ident">map</span>(<span class="ident">ToOwned</span>::<span class="ident">to_owned</span>);
-        <span class="ident">Box_</span>::<span class="ident">pin</span>(<span class="ident">gio</span>::<span class="ident">GioFuture</span>::<span class="ident">new</span>(<span class="self">self</span>, <span class="kw">move</span> <span class="op">|</span><span class="ident">obj</span>, <span class="ident">send</span><span class="op">|</span> {
-            <span class="kw">let</span> <span class="ident">cancellable</span> <span class="op">=</span> <span class="ident">gio</span>::<span class="ident">Cancellable</span>::<span class="ident">new</span>();
+        <span class="kw">let</span> <span class="ident">success_color</span> <span class="op">=</span> <span class="ident">success_color</span>.<span class="ident">map</span>(<span class="ident">ToOwned::to_owned</span>);
+        <span class="kw">let</span> <span class="ident">warning_color</span> <span class="op">=</span> <span class="ident">warning_color</span>.<span class="ident">map</span>(<span class="ident">ToOwned::to_owned</span>);
+        <span class="kw">let</span> <span class="ident">error_color</span> <span class="op">=</span> <span class="ident">error_color</span>.<span class="ident">map</span>(<span class="ident">ToOwned::to_owned</span>);
+        <span class="ident">Box_::pin</span>(<span class="ident">gio::GioFuture::new</span>(<span class="self">self</span>, <span class="kw">move</span> <span class="op">|</span><span class="ident">obj</span>, <span class="ident">send</span><span class="op">|</span> {
+            <span class="kw">let</span> <span class="ident">cancellable</span> <span class="op">=</span> <span class="ident">gio::Cancellable::new</span>();
             <span class="ident">obj</span>.<span class="ident">load_symbolic_async</span>(
                 <span class="kw-2">&amp;</span><span class="ident">fg</span>,
-                <span class="ident">success_color</span>.<span class="ident">as_ref</span>().<span class="ident">map</span>(::<span class="ident">std</span>::<span class="ident">borrow</span>::<span class="ident">Borrow</span>::<span class="ident">borrow</span>),
-                <span class="ident">warning_color</span>.<span class="ident">as_ref</span>().<span class="ident">map</span>(::<span class="ident">std</span>::<span class="ident">borrow</span>::<span class="ident">Borrow</span>::<span class="ident">borrow</span>),
-                <span class="ident">error_color</span>.<span class="ident">as_ref</span>().<span class="ident">map</span>(::<span class="ident">std</span>::<span class="ident">borrow</span>::<span class="ident">Borrow</span>::<span class="ident">borrow</span>),
+                <span class="ident">success_color</span>.<span class="ident">as_ref</span>().<span class="ident">map</span>(<span class="ident">::std::borrow::Borrow::borrow</span>),
+                <span class="ident">warning_color</span>.<span class="ident">as_ref</span>().<span class="ident">map</span>(<span class="ident">::std::borrow::Borrow::borrow</span>),
+                <span class="ident">error_color</span>.<span class="ident">as_ref</span>().<span class="ident">map</span>(<span class="ident">::std::borrow::Borrow::borrow</span>),
                 <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="ident">cancellable</span>),
                 <span class="kw">move</span> <span class="op">|</span><span class="ident">res</span><span class="op">|</span> {
                     <span class="ident">send</span>.<span class="ident">resolve</span>(<span class="ident">res</span>);
@@ -1010,11 +1010,11 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">load_symbolic_for_context</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">StyleContext</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">context</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">gdk_pixbuf</span>::<span class="ident">Pixbuf</span>, <span class="ident">bool</span>), <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">gdk_pixbuf::Pixbuf</span>, <span class="ident">bool</span>), <span class="ident">glib::Error</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">was_symbolic</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">gtk_icon_info_load_symbolic_for_context</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">was_symbolic</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
+            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">ffi::gtk_icon_info_load_symbolic_for_context</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">context</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">was_symbolic</span>.<span class="ident">as_mut_ptr</span>(),
@@ -1047,25 +1047,25 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_icon_info_load_symbolic_for_context_async&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">load_symbolic_for_context_async</span><span class="op">&lt;</span>
         <span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">StyleContext</span><span class="op">&gt;</span>,
-        <span class="ident">Q</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">gio</span>::<span class="ident">Cancellable</span><span class="op">&gt;</span>,
-        <span class="ident">R</span>: <span class="ident">FnOnce</span>(<span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">gdk_pixbuf</span>::<span class="ident">Pixbuf</span>, <span class="ident">bool</span>), <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
+        <span class="ident">Q</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">gio::Cancellable</span><span class="op">&gt;</span>,
+        <span class="ident">R</span>: <span class="ident">FnOnce</span>(<span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">gdk_pixbuf::Pixbuf</span>, <span class="ident">bool</span>), <span class="ident">glib::Error</span><span class="op">&gt;</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
     <span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">context</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>,
         <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">Q</span><span class="op">&gt;</span>,
         <span class="ident">callback</span>: <span class="ident">R</span>,
     ) {
-        <span class="kw">let</span> <span class="ident">user_data</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_</span>::<span class="ident">new</span>(<span class="ident">callback</span>);
+        <span class="kw">let</span> <span class="ident">user_data</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_::new</span>(<span class="ident">callback</span>);
         <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">load_symbolic_for_context_async_trampoline</span><span class="op">&lt;</span>
-            <span class="ident">R</span>: <span class="ident">FnOnce</span>(<span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">gdk_pixbuf</span>::<span class="ident">Pixbuf</span>, <span class="ident">bool</span>), <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
+            <span class="ident">R</span>: <span class="ident">FnOnce</span>(<span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">gdk_pixbuf::Pixbuf</span>, <span class="ident">bool</span>), <span class="ident">glib::Error</span><span class="op">&gt;</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
         <span class="op">&gt;</span>(
-            <span class="ident">_source_object</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">GObject</span>,
-            <span class="ident">res</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gio</span>::<span class="ident">ffi</span>::<span class="ident">GAsyncResult</span>,
-            <span class="ident">user_data</span>: <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">gpointer</span>,
+            <span class="ident">_source_object</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib::gobject_ffi::GObject</span>,
+            <span class="ident">res</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gio::ffi::GAsyncResult</span>,
+            <span class="ident">user_data</span>: <span class="ident">glib::ffi::gpointer</span>,
         ) {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">was_symbolic</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
-            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">gtk_icon_info_load_symbolic_for_context_finish</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">was_symbolic</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
+            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">ffi::gtk_icon_info_load_symbolic_for_context_finish</span>(
                 <span class="ident">_source_object</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
                 <span class="ident">res</span>,
                 <span class="ident">was_symbolic</span>.<span class="ident">as_mut_ptr</span>(),
@@ -1077,17 +1077,17 @@
             } <span class="kw">else</span> {
                 <span class="prelude-val">Err</span>(<span class="ident">from_glib_full</span>(<span class="ident">error</span>))
             };
-            <span class="kw">let</span> <span class="ident">callback</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_</span>::<span class="ident">from_raw</span>(<span class="ident">user_data</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>);
+            <span class="kw">let</span> <span class="ident">callback</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_::from_raw</span>(<span class="ident">user_data</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>);
             <span class="ident">callback</span>(<span class="ident">result</span>);
         }
         <span class="kw">let</span> <span class="ident">callback</span> <span class="op">=</span> <span class="ident">load_symbolic_for_context_async_trampoline</span>::<span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span>;
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">gtk_icon_info_load_symbolic_for_context_async</span>(
+            <span class="ident">ffi::gtk_icon_info_load_symbolic_for_context_async</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">context</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">cancellable</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> <span class="ident">p</span>.<span class="ident">as_ref</span>()).<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="prelude-val">Some</span>(<span class="ident">callback</span>),
-                <span class="ident">Box_</span>::<span class="ident">into_raw</span>(<span class="ident">user_data</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
+                <span class="ident">Box_::into_raw</span>(<span class="ident">user_data</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
             );
         }
     }
@@ -1097,13 +1097,13 @@
         <span class="ident">context</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pin</span><span class="op">&lt;</span>
         <span class="ident">Box_</span><span class="op">&lt;</span>
-            <span class="kw">dyn</span> <span class="ident">std</span>::<span class="ident">future</span>::<span class="ident">Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">gdk_pixbuf</span>::<span class="ident">Pixbuf</span>, <span class="ident">bool</span>), <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span>
+            <span class="kw">dyn</span> <span class="ident">std::future::Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">gdk_pixbuf::Pixbuf</span>, <span class="ident">bool</span>), <span class="ident">glib::Error</span><span class="op">&gt;</span><span class="op">&gt;</span>
                 <span class="op">+</span> <span class="lifetime">&#39;static</span>,
         <span class="op">&gt;</span>,
     <span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">context</span> <span class="op">=</span> <span class="ident">context</span>.<span class="ident">clone</span>();
-        <span class="ident">Box_</span>::<span class="ident">pin</span>(<span class="ident">gio</span>::<span class="ident">GioFuture</span>::<span class="ident">new</span>(<span class="self">self</span>, <span class="kw">move</span> <span class="op">|</span><span class="ident">obj</span>, <span class="ident">send</span><span class="op">|</span> {
-            <span class="kw">let</span> <span class="ident">cancellable</span> <span class="op">=</span> <span class="ident">gio</span>::<span class="ident">Cancellable</span>::<span class="ident">new</span>();
+        <span class="ident">Box_::pin</span>(<span class="ident">gio::GioFuture::new</span>(<span class="self">self</span>, <span class="kw">move</span> <span class="op">|</span><span class="ident">obj</span>, <span class="ident">send</span><span class="op">|</span> {
+            <span class="kw">let</span> <span class="ident">cancellable</span> <span class="op">=</span> <span class="ident">gio::Cancellable::new</span>();
             <span class="ident">obj</span>.<span class="ident">load_symbolic_for_context_async</span>(<span class="kw-2">&amp;</span><span class="ident">context</span>, <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="ident">cancellable</span>), <span class="kw">move</span> <span class="op">|</span><span class="ident">res</span><span class="op">|</span> {
                 <span class="ident">send</span>.<span class="ident">resolve</span>(<span class="ident">res</span>);
             });
@@ -1113,8 +1113,8 @@
     }
 }
 
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">IconInfo</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">IconInfo</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;IconInfo&quot;</span>)
     }
 }

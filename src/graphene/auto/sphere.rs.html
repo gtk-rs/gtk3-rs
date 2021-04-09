@@ -164,21 +164,21 @@
 <span class="comment">// from gir-files (https://github.com/gtk-rs/gir-files)</span>
 <span class="comment">// DO NOT EDIT</span>
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Box</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Point3D</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Box</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Point3D</span>;
+<span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
 
-<span class="ident">glib</span>::<span class="macro">wrapper!</span> {
+<span class="macro">glib::wrapper!</span> {
     <span class="doccomment">/// A sphere, represented by its center and radius.</span>
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Sphere</span>(<span class="ident">Boxed</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">graphene_sphere_t</span><span class="op">&gt;</span>);
+    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Sphere</span>(<span class="ident">Boxed</span><span class="op">&lt;</span><span class="ident">ffi::graphene_sphere_t</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
-        <span class="ident">copy</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">g_boxed_copy</span>(<span class="ident">ffi</span>::<span class="ident">graphene_sphere_get_type</span>(), <span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">graphene_sphere_t</span>,
-        <span class="ident">free</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">g_boxed_free</span>(<span class="ident">ffi</span>::<span class="ident">graphene_sphere_get_type</span>(), <span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>),
+        <span class="ident">copy</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">glib::gobject_ffi::g_boxed_copy</span>(<span class="ident">ffi::graphene_sphere_get_type</span>(), <span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::graphene_sphere_t</span>,
+        <span class="ident">free</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">glib::gobject_ffi::g_boxed_free</span>(<span class="ident">ffi::graphene_sphere_get_type</span>(), <span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>),
         <span class="ident">init</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">_ptr</span><span class="op">|</span> (),
         <span class="ident">clear</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">_ptr</span><span class="op">|</span> (),
-        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">graphene_sphere_get_type</span>(),
+        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::graphene_sphere_get_type</span>(),
     }
 }
 
@@ -194,7 +194,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_sphere_contains_point&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">contains_point</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">point</span>: <span class="kw-2">&amp;</span><span class="ident">Point3D</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">graphene_sphere_contains_point</span>(
+            <span class="ident">from_glib</span>(<span class="ident">ffi::graphene_sphere_contains_point</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">point</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
@@ -211,7 +211,7 @@
     <span class="doccomment">/// the distance of the point</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_sphere_distance&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">distance</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">point</span>: <span class="kw-2">&amp;</span><span class="ident">Point3D</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f32</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">graphene_sphere_distance</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">point</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::graphene_sphere_distance</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">point</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Checks whether two `Sphere` are equal.</span>
@@ -224,7 +224,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_sphere_equal&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">equal</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">b</span>: <span class="kw-2">&amp;</span><span class="ident">Sphere</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">graphene_sphere_equal</span>(
+            <span class="ident">from_glib</span>(<span class="ident">ffi::graphene_sphere_equal</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">b</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
@@ -238,8 +238,8 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_sphere_get_bounding_box&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_bounding_box</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Box</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">box_</span> <span class="op">=</span> <span class="ident">Box</span>::<span class="ident">uninitialized</span>();
-            <span class="ident">ffi</span>::<span class="ident">graphene_sphere_get_bounding_box</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">box_</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>);
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">box_</span> <span class="op">=</span> <span class="ident">Box::uninitialized</span>();
+            <span class="ident">ffi::graphene_sphere_get_bounding_box</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">box_</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>);
             <span class="ident">box_</span>
         }
     }
@@ -251,8 +251,8 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_sphere_get_center&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_center</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Point3D</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">center</span> <span class="op">=</span> <span class="ident">Point3D</span>::<span class="ident">uninitialized</span>();
-            <span class="ident">ffi</span>::<span class="ident">graphene_sphere_get_center</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">center</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>);
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">center</span> <span class="op">=</span> <span class="ident">Point3D::uninitialized</span>();
+            <span class="ident">ffi::graphene_sphere_get_center</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">center</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>);
             <span class="ident">center</span>
         }
     }
@@ -260,7 +260,7 @@
     <span class="doccomment">/// Retrieves the radius of a `Sphere`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_sphere_get_radius&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_radius</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f32</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">graphene_sphere_get_radius</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::graphene_sphere_get_radius</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Initializes the given `Sphere` with the given `center` and `radius`.</span>
@@ -276,7 +276,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_sphere_init&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">init</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">center</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">Point3D</span><span class="op">&gt;</span>, <span class="ident">radius</span>: <span class="ident">f32</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">graphene_sphere_init</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">center</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">radius</span>);
+            <span class="ident">ffi::graphene_sphere_init</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">center</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">radius</span>);
         }
     }
 
@@ -287,7 +287,7 @@
     <span class="doccomment">/// `true` if the sphere is empty</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_sphere_is_empty&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">graphene_sphere_is_empty</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::graphene_sphere_is_empty</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Translates the center of the given `Sphere` using the `point`</span>
@@ -299,8 +299,8 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_sphere_translate&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">translate</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">point</span>: <span class="kw-2">&amp;</span><span class="ident">Point3D</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Sphere</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Sphere</span>::<span class="ident">uninitialized</span>();
-            <span class="ident">ffi</span>::<span class="ident">graphene_sphere_translate</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Sphere::uninitialized</span>();
+            <span class="ident">ffi::graphene_sphere_translate</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">point</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">res</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,

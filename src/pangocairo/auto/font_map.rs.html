@@ -100,11 +100,11 @@
 <span class="comment">// from gir-files (https://github.com/gtk-rs/gir-files)</span>
 <span class="comment">// DO NOT EDIT</span>
 
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">object</span>::<span class="ident">IsA</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
+<span class="kw">use</span> <span class="ident">glib::object::IsA</span>;
+<span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">std::fmt</span>;
 
-<span class="ident">glib</span>::<span class="macro">wrapper!</span> {
+<span class="macro">glib::wrapper!</span> {
     <span class="doccomment">/// `FontMap` is an interface exported by font maps for</span>
     <span class="doccomment">/// use with Cairo. The actual type of the font map will depend</span>
     <span class="doccomment">/// on the particular font technology Cairo was compiled to use.</span>
@@ -112,10 +112,10 @@
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`FontMapExt`](trait.FontMapExt.html), [`pango::FontMapExt`](../pango/trait.FontMapExt.html), [`FontMapExtManual`](prelude/trait.FontMapExtManual.html)</span>
-    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FontMap</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">PangoCairoFontMap</span><span class="op">&gt;</span>) @<span class="ident">requires</span> <span class="ident">pango</span>::<span class="ident">FontMap</span>;
+    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FontMap</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi::PangoCairoFontMap</span><span class="op">&gt;</span>) @<span class="ident">requires</span> <span class="ident">pango::FontMap</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
-        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">pango_cairo_font_map_get_type</span>(),
+        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::pango_cairo_font_map_get_type</span>(),
     }
 }
 
@@ -141,8 +141,8 @@
     <span class="doccomment">/// the default PangoCairo fontmap</span>
     <span class="doccomment">///  for the current thread. This object is owned by Pango and must not be freed.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_cairo_font_map_get_default&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">pango</span>::<span class="ident">FontMap</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">pango_cairo_font_map_get_default</span>()) }
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">pango::FontMap</span><span class="op">&gt;</span> {
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::pango_cairo_font_map_get_default</span>()) }
     }
 }
 
@@ -175,18 +175,18 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">O</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">FontMap</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="ident">FontMapExt</span> <span class="kw">for</span> <span class="ident">O</span> {
     <span class="kw">fn</span> <span class="ident">get_resolution</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f64</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">pango_cairo_font_map_get_resolution</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::pango_cairo_font_map_get_resolution</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
     <span class="kw">fn</span> <span class="ident">set_resolution</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">dpi</span>: <span class="ident">f64</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">pango_cairo_font_map_set_resolution</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">dpi</span>);
+            <span class="ident">ffi::pango_cairo_font_map_set_resolution</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">dpi</span>);
         }
     }
 }
 
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">FontMap</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">FontMap</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;FontMap&quot;</span>)
     }
 }

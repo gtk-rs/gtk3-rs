@@ -1683,9 +1683,9 @@
 <span class="comment">// Licensed under the MIT license, see the LICENSE file or &lt;https://opensource.org/licenses/MIT&gt;</span>
 
 <span class="attribute">#![<span class="ident">allow</span>(<span class="ident">non_camel_case_types</span>)]</span>
-<span class="attribute">#![<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">unreadable_literal</span>)]</span>
-<span class="attribute">#![<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">write_literal</span>)]</span>
-<span class="attribute">#![<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">upper_case_acronyms</span>)]</span>
+<span class="attribute">#![<span class="ident">allow</span>(<span class="ident">clippy::unreadable_literal</span>)]</span>
+<span class="attribute">#![<span class="ident">allow</span>(<span class="ident">clippy::write_literal</span>)]</span>
+<span class="attribute">#![<span class="ident">allow</span>(<span class="ident">clippy::upper_case_acronyms</span>)]</span>
 
 <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">libc</span>;
 
@@ -1700,12 +1700,12 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>(<span class="ident">windows</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;win32-surface&quot;</span>))]</span>
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">winapi</span> {
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">winapi_orig</span>::<span class="ident">shared</span>::<span class="ident">windef</span>::<span class="ident">HDC</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">winapi_orig::shared::windef::HDC</span>;
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">not</span>(<span class="ident">all</span>(<span class="ident">windows</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;win32-surface&quot;</span>))))]</span>
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">winapi</span> {
-    <span class="kw">use</span> <span class="ident">libc</span>::<span class="ident">c_void</span>;
+    <span class="kw">use</span> <span class="ident">libc::c_void</span>;
 
     <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">HDC</span>(<span class="ident">c_void</span>);
@@ -1714,7 +1714,7 @@
 <span class="kw">use</span> <span class="ident">libc</span>::{<span class="ident">c_char</span>, <span class="ident">c_double</span>, <span class="ident">c_int</span>, <span class="ident">c_uchar</span>, <span class="ident">c_uint</span>, <span class="ident">c_ulong</span>, <span class="ident">c_void</span>};
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;xlib&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
-<span class="kw">use</span> <span class="ident">x11</span>::<span class="ident">xlib</span>;
+<span class="kw">use</span> <span class="ident">x11::xlib</span>;
 
 <span class="kw">pub</span> <span class="kw">type</span> <span class="ident">cairo_antialias_t</span> <span class="op">=</span> <span class="ident">c_int</span>;
 <span class="kw">pub</span> <span class="kw">type</span> <span class="ident">cairo_content_t</span> <span class="op">=</span> <span class="ident">c_int</span>;
@@ -1759,8 +1759,8 @@
 
 <span class="macro">macro_rules!</span> <span class="ident">debug_impl</span> {
     (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ty</span>) <span class="op">=</span><span class="op">&gt;</span> {
-        <span class="kw">impl</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Debug</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> {
-            <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+        <span class="kw">impl</span> <span class="ident">::std::fmt::Debug</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> {
+            <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">::std::fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">::std::fmt::Result</span> {
                 <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;{} @ {:?}&quot;</span>, <span class="macro">stringify!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>), <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>)
             }
         }
@@ -1919,8 +1919,8 @@
     <span class="kw">pub</span> <span class="ident">y0</span>: <span class="ident">c_double</span>,
 }
 
-<span class="kw">impl</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">Matrix</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+<span class="kw">impl</span> <span class="ident">::std::fmt::Display</span> <span class="kw">for</span> <span class="ident">Matrix</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">::std::fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">::std::fmt::Result</span> {
         <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;Matrix&quot;</span>)
     }
 }
@@ -2976,17 +2976,17 @@
     <span class="comment">// CAIRO XLIB SURFACE</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;xlib&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">cairo_xlib_surface_create</span>(
-        <span class="ident">dpy</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">xlib</span>::<span class="ident">Display</span>,
-        <span class="ident">drawable</span>: <span class="ident">xlib</span>::<span class="ident">Drawable</span>,
-        <span class="ident">visual</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">xlib</span>::<span class="ident">Visual</span>,
+        <span class="ident">dpy</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">xlib::Display</span>,
+        <span class="ident">drawable</span>: <span class="ident">xlib::Drawable</span>,
+        <span class="ident">visual</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">xlib::Visual</span>,
         <span class="ident">width</span>: <span class="ident">c_int</span>,
         <span class="ident">height</span>: <span class="ident">c_int</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo_surface_t</span>;
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;xlib&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">cairo_xlib_surface_create_for_bitmap</span>(
-        <span class="ident">dpy</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">xlib</span>::<span class="ident">Display</span>,
-        <span class="ident">bitmap</span>: <span class="ident">xlib</span>::<span class="ident">Pixmap</span>,
-        <span class="ident">screen</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">xlib</span>::<span class="ident">Screen</span>,
+        <span class="ident">dpy</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">xlib::Display</span>,
+        <span class="ident">bitmap</span>: <span class="ident">xlib::Pixmap</span>,
+        <span class="ident">screen</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">xlib::Screen</span>,
         <span class="ident">width</span>: <span class="ident">c_int</span>,
         <span class="ident">height</span>: <span class="ident">c_int</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo_surface_t</span>;
@@ -2995,18 +2995,18 @@
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;xlib&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">cairo_xlib_surface_set_drawable</span>(
         <span class="ident">surface</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo_surface_t</span>,
-        <span class="ident">drawable</span>: <span class="ident">xlib</span>::<span class="ident">Drawable</span>,
+        <span class="ident">drawable</span>: <span class="ident">xlib::Drawable</span>,
         <span class="ident">width</span>: <span class="ident">c_int</span>,
         <span class="ident">height</span>: <span class="ident">c_int</span>,
     );
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;xlib&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">cairo_xlib_surface_get_display</span>(<span class="ident">surface</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo_surface_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">xlib</span>::<span class="ident">Display</span>;
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">cairo_xlib_surface_get_display</span>(<span class="ident">surface</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo_surface_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">xlib::Display</span>;
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;xlib&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">cairo_xlib_surface_get_drawable</span>(<span class="ident">surface</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo_surface_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">xlib</span>::<span class="ident">Drawable</span>;
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">cairo_xlib_surface_get_drawable</span>(<span class="ident">surface</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo_surface_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">xlib::Drawable</span>;
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;xlib&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">cairo_xlib_surface_get_screen</span>(<span class="ident">surface</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo_surface_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">xlib</span>::<span class="ident">Screen</span>;
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">cairo_xlib_surface_get_screen</span>(<span class="ident">surface</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo_surface_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">xlib::Screen</span>;
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;xlib&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">cairo_xlib_surface_get_visual</span>(<span class="ident">surface</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo_surface_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">xlib</span>::<span class="ident">Visual</span>;
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">cairo_xlib_surface_get_visual</span>(<span class="ident">surface</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo_surface_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">xlib::Visual</span>;
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;xlib&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">cairo_xlib_surface_get_depth</span>(<span class="ident">surface</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo_surface_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">c_int</span>;
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;xlib&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
@@ -3026,13 +3026,13 @@
 
     <span class="comment">// CAIRO WINDOWS SURFACE</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">all</span>(<span class="ident">windows</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;win32-surface&quot;</span>), <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">cairo_win32_surface_create</span>(<span class="ident">hdc</span>: <span class="ident">winapi</span>::<span class="ident">HDC</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo_surface_t</span>;
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">cairo_win32_surface_create</span>(<span class="ident">hdc</span>: <span class="ident">winapi::HDC</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo_surface_t</span>;
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(
         <span class="ident">all</span>(<span class="ident">windows</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;win32-surface&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v1_14&quot;</span>),
         <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>
     ))]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">cairo_win32_surface_create_with_format</span>(
-        <span class="ident">hdc</span>: <span class="ident">winapi</span>::<span class="ident">HDC</span>,
+        <span class="ident">hdc</span>: <span class="ident">winapi::HDC</span>,
         <span class="ident">format</span>: <span class="ident">cairo_format_t</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo_surface_t</span>;
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">all</span>(<span class="ident">windows</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;win32-surface&quot;</span>), <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
@@ -3043,15 +3043,15 @@
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo_surface_t</span>;
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">all</span>(<span class="ident">windows</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;win32-surface&quot;</span>), <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">cairo_win32_surface_create_with_ddb</span>(
-        <span class="ident">hdc</span>: <span class="ident">winapi</span>::<span class="ident">HDC</span>,
+        <span class="ident">hdc</span>: <span class="ident">winapi::HDC</span>,
         <span class="ident">format</span>: <span class="ident">cairo_format_t</span>,
         <span class="ident">width</span>: <span class="ident">c_int</span>,
         <span class="ident">height</span>: <span class="ident">c_int</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo_surface_t</span>;
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">all</span>(<span class="ident">windows</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;win32-surface&quot;</span>), <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">cairo_win32_printing_surface_create</span>(<span class="ident">hdc</span>: <span class="ident">winapi</span>::<span class="ident">HDC</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo_surface_t</span>;
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">cairo_win32_printing_surface_create</span>(<span class="ident">hdc</span>: <span class="ident">winapi::HDC</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo_surface_t</span>;
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">all</span>(<span class="ident">windows</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;win32-surface&quot;</span>), <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">cairo_win32_surface_get_dc</span>(<span class="ident">surface</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo_surface_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">winapi</span>::<span class="ident">HDC</span>;
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">cairo_win32_surface_get_dc</span>(<span class="ident">surface</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo_surface_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">winapi::HDC</span>;
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">all</span>(<span class="ident">windows</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;win32-surface&quot;</span>), <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">cairo_win32_surface_get_image</span>(<span class="ident">surface</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo_surface_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo_surface_t</span>;
 

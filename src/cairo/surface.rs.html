@@ -416,46 +416,46 @@
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
 <span class="kw">use</span> <span class="ident">libc</span>::{<span class="ident">c_ulong</span>, <span class="ident">c_void</span>};
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ffi</span>::<span class="ident">CString</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ops</span>::<span class="ident">Deref</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">slice</span>;
+<span class="kw">use</span> <span class="ident">std::ffi::CString</span>;
+<span class="kw">use</span> <span class="ident">std::fmt</span>;
+<span class="kw">use</span> <span class="ident">std::ops::Deref</span>;
+<span class="kw">use</span> <span class="ident">std::ptr</span>;
+<span class="kw">use</span> <span class="ident">std::slice</span>;
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">enums</span>::{<span class="ident">Content</span>, <span class="ident">Format</span>, <span class="ident">SurfaceType</span>};
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">error</span>::<span class="ident">Error</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">utils</span>::<span class="ident">status_to_result</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::enums</span>::{<span class="ident">Content</span>, <span class="ident">Format</span>, <span class="ident">SurfaceType</span>};
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::error::Error</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::utils::status_to_result</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">device</span>::<span class="ident">Device</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">image_surface</span>::<span class="ident">ImageSurface</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">rectangle</span>::<span class="ident">Rectangle</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">rectangle_int</span>::<span class="ident">RectangleInt</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::device::Device</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::image_surface::ImageSurface</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::rectangle::Rectangle</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::rectangle_int::RectangleInt</span>;
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Surface</span>(<span class="ident">ptr</span>::<span class="ident">NonNull</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">cairo_surface_t</span><span class="op">&gt;</span>);
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Surface</span>(<span class="ident">ptr::NonNull</span><span class="op">&lt;</span><span class="ident">ffi::cairo_surface_t</span><span class="op">&gt;</span>);
 
 <span class="kw">impl</span> <span class="ident">Surface</span> {
-    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_raw_none</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">cairo_surface_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Surface</span> {
+    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_raw_none</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::cairo_surface_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Surface</span> {
         <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
-        <span class="ident">ffi</span>::<span class="ident">cairo_surface_reference</span>(<span class="ident">ptr</span>);
-        <span class="ident">Surface</span>(<span class="ident">ptr</span>::<span class="ident">NonNull</span>::<span class="ident">new_unchecked</span>(<span class="ident">ptr</span>))
+        <span class="ident">ffi::cairo_surface_reference</span>(<span class="ident">ptr</span>);
+        <span class="ident">Surface</span>(<span class="ident">ptr::NonNull::new_unchecked</span>(<span class="ident">ptr</span>))
     }
 
-    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_raw_borrow</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">cairo_surface_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">Surface</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_raw_borrow</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::cairo_surface_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span><span class="ident">::Borrowed</span><span class="op">&lt;</span><span class="ident">Surface</span><span class="op">&gt;</span> {
         <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
-        <span class="kw">crate</span>::<span class="ident">Borrowed</span>::<span class="ident">new</span>(<span class="ident">Surface</span>(<span class="ident">ptr</span>::<span class="ident">NonNull</span>::<span class="ident">new_unchecked</span>(<span class="ident">ptr</span>)))
+        <span class="kw">crate</span><span class="ident">::Borrowed::new</span>(<span class="ident">Surface</span>(<span class="ident">ptr::NonNull::new_unchecked</span>(<span class="ident">ptr</span>)))
     }
 
-    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_raw_full</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">cairo_surface_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Surface</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_raw_full</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::cairo_surface_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Surface</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
-        <span class="kw">let</span> <span class="ident">status</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">cairo_surface_status</span>(<span class="ident">ptr</span>);
+        <span class="kw">let</span> <span class="ident">status</span> <span class="op">=</span> <span class="ident">ffi::cairo_surface_status</span>(<span class="ident">ptr</span>);
         <span class="ident">status_to_result</span>(<span class="ident">status</span>)<span class="question-mark">?</span>;
-        <span class="prelude-val">Ok</span>(<span class="ident">Surface</span>(<span class="ident">ptr</span>::<span class="ident">NonNull</span>::<span class="ident">new_unchecked</span>(<span class="ident">ptr</span>)))
+        <span class="prelude-val">Ok</span>(<span class="ident">Surface</span>(<span class="ident">ptr::NonNull::new_unchecked</span>(<span class="ident">ptr</span>)))
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_raw_none</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">cairo_surface_t</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_raw_none</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::cairo_surface_t</span> {
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()
     }
 
@@ -467,7 +467,7 @@
         <span class="ident">height</span>: <span class="ident">i32</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Surface</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="self">Self</span>::<span class="ident">from_raw_full</span>(<span class="ident">ffi</span>::<span class="ident">cairo_surface_create_similar</span>(
+            <span class="self">Self</span><span class="ident">::from_raw_full</span>(<span class="ident">ffi::cairo_surface_create_similar</span>(
                 <span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(),
                 <span class="ident">content</span>.<span class="ident">into</span>(),
                 <span class="ident">width</span>,
@@ -479,7 +479,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_surface_create_for_rectangle&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">create_for_rectangle</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">bounds</span>: <span class="ident">Rectangle</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Surface</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="self">Self</span>::<span class="ident">from_raw_full</span>(<span class="ident">ffi</span>::<span class="ident">cairo_surface_create_for_rectangle</span>(
+            <span class="self">Self</span><span class="ident">::from_raw_full</span>(<span class="ident">ffi::cairo_surface_create_for_rectangle</span>(
                 <span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(),
                 <span class="ident">bounds</span>.<span class="ident">x</span>,
                 <span class="ident">bounds</span>.<span class="ident">y</span>,
@@ -491,18 +491,18 @@
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_surface_get_mime_data&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_mime_data</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">mime_type</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">data_ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">u8</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
+        <span class="kw">let</span> <span class="ident">data_ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">u8</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">length</span>: <span class="ident">c_ulong</span> <span class="op">=</span> <span class="number">0</span>;
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">mime_type</span> <span class="op">=</span> <span class="ident">CString</span>::<span class="ident">new</span>(<span class="ident">mime_type</span>).<span class="ident">unwrap</span>();
-            <span class="ident">ffi</span>::<span class="ident">cairo_surface_get_mime_data</span>(
+            <span class="kw">let</span> <span class="ident">mime_type</span> <span class="op">=</span> <span class="ident">CString::new</span>(<span class="ident">mime_type</span>).<span class="ident">unwrap</span>();
+            <span class="ident">ffi::cairo_surface_get_mime_data</span>(
                 <span class="self">self</span>.<span class="ident">to_raw_none</span>(),
                 <span class="ident">mime_type</span>.<span class="ident">as_ptr</span>(),
                 <span class="kw-2">&amp;</span><span class="ident">data_ptr</span>,
                 <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">length</span>,
             );
             <span class="kw">if</span> <span class="op">!</span><span class="ident">data_ptr</span>.<span class="ident">is_null</span>() <span class="op">&amp;&amp;</span> <span class="ident">length</span> <span class="op">!</span><span class="op">=</span> <span class="number">0</span> {
-                <span class="prelude-val">Some</span>(<span class="ident">slice</span>::<span class="ident">from_raw_parts</span>(<span class="ident">data_ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">u8</span>, <span class="ident">length</span> <span class="kw">as</span> <span class="ident">usize</span>).<span class="ident">to_vec</span>())
+                <span class="prelude-val">Some</span>(<span class="ident">slice::from_raw_parts</span>(<span class="ident">data_ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">u8</span>, <span class="ident">length</span> <span class="kw">as</span> <span class="ident">usize</span>).<span class="ident">to_vec</span>())
             } <span class="kw">else</span> {
                 <span class="prelude-val">None</span>
             }
@@ -511,17 +511,17 @@
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_surface_get_mime_data&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">get_mime_data_raw</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">mime_type</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">data_ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">u8</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
+        <span class="kw">let</span> <span class="ident">data_ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">u8</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">length</span>: <span class="ident">c_ulong</span> <span class="op">=</span> <span class="number">0</span>;
-        <span class="kw">let</span> <span class="ident">mime_type</span> <span class="op">=</span> <span class="ident">CString</span>::<span class="ident">new</span>(<span class="ident">mime_type</span>).<span class="ident">unwrap</span>();
-        <span class="ident">ffi</span>::<span class="ident">cairo_surface_get_mime_data</span>(
+        <span class="kw">let</span> <span class="ident">mime_type</span> <span class="op">=</span> <span class="ident">CString::new</span>(<span class="ident">mime_type</span>).<span class="ident">unwrap</span>();
+        <span class="ident">ffi::cairo_surface_get_mime_data</span>(
             <span class="self">self</span>.<span class="ident">to_raw_none</span>(),
             <span class="ident">mime_type</span>.<span class="ident">as_ptr</span>(),
             <span class="kw-2">&amp;</span><span class="ident">data_ptr</span>,
             <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">length</span>,
         );
         <span class="kw">if</span> <span class="op">!</span><span class="ident">data_ptr</span>.<span class="ident">is_null</span>() <span class="op">&amp;&amp;</span> <span class="ident">length</span> <span class="op">!</span><span class="op">=</span> <span class="number">0</span> {
-            <span class="prelude-val">Some</span>(<span class="ident">slice</span>::<span class="ident">from_raw_parts</span>(
+            <span class="prelude-val">Some</span>(<span class="ident">slice::from_raw_parts</span>(
                 <span class="ident">data_ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">u8</span>,
                 <span class="ident">length</span> <span class="kw">as</span> <span class="ident">usize</span>,
             ))
@@ -536,22 +536,22 @@
         <span class="ident">mime_type</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="ident">slice</span>: <span class="ident">T</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">b</span> <span class="op">=</span> <span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">slice</span>);
+        <span class="kw">let</span> <span class="ident">b</span> <span class="op">=</span> <span class="ident">Box::new</span>(<span class="ident">slice</span>);
         <span class="kw">let</span> (<span class="ident">size</span>, <span class="ident">data</span>) <span class="op">=</span> {
             <span class="kw">let</span> <span class="ident">slice</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">b</span>).<span class="ident">as_ref</span>();
             (<span class="ident">slice</span>.<span class="ident">len</span>(), <span class="ident">slice</span>.<span class="ident">as_ptr</span>())
         };
 
-        <span class="kw">let</span> <span class="ident">user_data</span> <span class="op">=</span> <span class="ident">Box</span>::<span class="ident">into_raw</span>(<span class="ident">b</span>);
+        <span class="kw">let</span> <span class="ident">user_data</span> <span class="op">=</span> <span class="ident">Box::into_raw</span>(<span class="ident">b</span>);
 
         <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">unbox</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">data</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_void</span>) {
-            <span class="kw">let</span> <span class="ident">data</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box</span>::<span class="ident">from_raw</span>(<span class="ident">data</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T</span>);
+            <span class="kw">let</span> <span class="ident">data</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box::from_raw</span>(<span class="ident">data</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T</span>);
             <span class="ident">drop</span>(<span class="ident">data</span>);
         }
 
         <span class="kw">let</span> <span class="ident">status</span> <span class="op">=</span> <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">mime_type</span> <span class="op">=</span> <span class="ident">CString</span>::<span class="ident">new</span>(<span class="ident">mime_type</span>).<span class="ident">unwrap</span>();
-            <span class="ident">ffi</span>::<span class="ident">cairo_surface_set_mime_data</span>(
+            <span class="kw">let</span> <span class="ident">mime_type</span> <span class="op">=</span> <span class="ident">CString::new</span>(<span class="ident">mime_type</span>).<span class="ident">unwrap</span>();
+            <span class="ident">ffi::cairo_surface_set_mime_data</span>(
                 <span class="self">self</span>.<span class="ident">to_raw_none</span>(),
                 <span class="ident">mime_type</span>.<span class="ident">as_ptr</span>(),
                 <span class="ident">data</span>,
@@ -566,26 +566,26 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_surface_supports_mime_type&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">supports_mime_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">mime_type</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">mime_type</span> <span class="op">=</span> <span class="ident">CString</span>::<span class="ident">new</span>(<span class="ident">mime_type</span>).<span class="ident">unwrap</span>();
-            <span class="ident">ffi</span>::<span class="ident">cairo_surface_supports_mime_type</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">mime_type</span>.<span class="ident">as_ptr</span>()).<span class="ident">as_bool</span>()
+            <span class="kw">let</span> <span class="ident">mime_type</span> <span class="op">=</span> <span class="ident">CString::new</span>(<span class="ident">mime_type</span>).<span class="ident">unwrap</span>();
+            <span class="ident">ffi::cairo_surface_supports_mime_type</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">mime_type</span>.<span class="ident">as_ptr</span>()).<span class="ident">as_bool</span>()
         }
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_surface_get_device&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_device</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Device</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">device</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">cairo_surface_get_device</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>());
+            <span class="kw">let</span> <span class="ident">device</span> <span class="op">=</span> <span class="ident">ffi::cairo_surface_get_device</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>());
             <span class="kw">if</span> <span class="ident">device</span>.<span class="ident">is_null</span>() {
                 <span class="prelude-val">None</span>
             } <span class="kw">else</span> {
-                <span class="prelude-val">Some</span>(<span class="ident">Device</span>::<span class="ident">from_raw_none</span>(<span class="ident">device</span>))
+                <span class="prelude-val">Some</span>(<span class="ident">Device::from_raw_none</span>(<span class="ident">device</span>))
             }
         }
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_surface_set_device_offset&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_device_offset</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">x_offset</span>: <span class="ident">f64</span>, <span class="ident">y_offset</span>: <span class="ident">f64</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_surface_set_device_offset</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>(), <span class="ident">x_offset</span>, <span class="ident">y_offset</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_surface_set_device_offset</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>(), <span class="ident">x_offset</span>, <span class="ident">y_offset</span>) }
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_surface_get_device_offset&quot;</span>)]</span>
@@ -593,7 +593,7 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">x_offset</span> <span class="op">=</span> <span class="number">0.0f64</span>;
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">y_offset</span> <span class="op">=</span> <span class="number">0.0f64</span>;
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">cairo_surface_get_device_offset</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>(), <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">x_offset</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">y_offset</span>);
+            <span class="ident">ffi::cairo_surface_get_device_offset</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>(), <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">x_offset</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">y_offset</span>);
         }
         (<span class="ident">x_offset</span>, <span class="ident">y_offset</span>)
     }
@@ -601,7 +601,7 @@
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v1_14&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_surface_set_device_scale&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_device_scale</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">x_scale</span>: <span class="ident">f64</span>, <span class="ident">y_scale</span>: <span class="ident">f64</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_surface_set_device_scale</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>(), <span class="ident">x_scale</span>, <span class="ident">y_scale</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_surface_set_device_scale</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>(), <span class="ident">x_scale</span>, <span class="ident">y_scale</span>) }
     }
 
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v1_14&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
@@ -610,7 +610,7 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">x_scale</span> <span class="op">=</span> <span class="number">0.0f64</span>;
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">y_scale</span> <span class="op">=</span> <span class="number">0.0f64</span>;
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">cairo_surface_get_device_scale</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>(), <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">x_scale</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">y_scale</span>);
+            <span class="ident">ffi::cairo_surface_get_device_scale</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>(), <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">x_scale</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">y_scale</span>);
         }
         (<span class="ident">x_scale</span>, <span class="ident">y_scale</span>)
     }
@@ -618,7 +618,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_surface_set_fallback_resolution&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_fallback_resolution</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">x_pixels_per_inch</span>: <span class="ident">f64</span>, <span class="ident">y_pixels_per_inch</span>: <span class="ident">f64</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">cairo_surface_set_fallback_resolution</span>(
+            <span class="ident">ffi::cairo_surface_set_fallback_resolution</span>(
                 <span class="self">self</span>.<span class="ident">to_raw_none</span>(),
                 <span class="ident">x_pixels_per_inch</span>,
                 <span class="ident">y_pixels_per_inch</span>,
@@ -631,7 +631,7 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">x_pixels_per_inch</span> <span class="op">=</span> <span class="number">0.0f64</span>;
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">y_pixels_per_inch</span> <span class="op">=</span> <span class="number">0.0f64</span>;
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">cairo_surface_get_fallback_resolution</span>(
+            <span class="ident">ffi::cairo_surface_get_fallback_resolution</span>(
                 <span class="self">self</span>.<span class="ident">to_raw_none</span>(),
                 <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">x_pixels_per_inch</span>,
                 <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">y_pixels_per_inch</span>,
@@ -648,7 +648,7 @@
         <span class="ident">height</span>: <span class="ident">i32</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Surface</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="self">Self</span>::<span class="ident">from_raw_full</span>(<span class="ident">ffi</span>::<span class="ident">cairo_surface_create_similar_image</span>(
+            <span class="self">Self</span><span class="ident">::from_raw_full</span>(<span class="ident">ffi::cairo_surface_create_similar_image</span>(
                 <span class="self">self</span>.<span class="ident">to_raw_none</span>(),
                 <span class="ident">format</span>.<span class="ident">into</span>(),
                 <span class="ident">width</span>,
@@ -660,9 +660,9 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_surface_map_to_image&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">map_to_image</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">extents</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">RectangleInt</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">MappedImageSurface</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">ImageSurface</span>::<span class="ident">from_raw_full</span>(<span class="kw">match</span> <span class="ident">extents</span> {
-                <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">cairo_surface_map_to_image</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>(), <span class="ident">e</span>.<span class="ident">to_raw_none</span>()),
-                <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">cairo_surface_map_to_image</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>(), <span class="ident">std</span>::<span class="ident">ptr</span>::<span class="ident">null</span>()),
+            <span class="ident">ImageSurface::from_raw_full</span>(<span class="kw">match</span> <span class="ident">extents</span> {
+                <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::cairo_surface_map_to_image</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>(), <span class="ident">e</span>.<span class="ident">to_raw_none</span>()),
+                <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::cairo_surface_map_to_image</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>(), <span class="ident">std::ptr::null</span>()),
             })
             .<span class="ident">map</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="ident">MappedImageSurface</span> {
                 <span class="ident">original_surface</span>: <span class="self">self</span>.<span class="ident">clone</span>(),
@@ -673,82 +673,82 @@
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_surface_mark_dirty&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">mark_dirty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_surface_mark_dirty</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_surface_mark_dirty</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>()) }
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_surface_mark_dirty_rectangle&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">mark_dirty_rectangle</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">x</span>: <span class="ident">i32</span>, <span class="ident">y</span>: <span class="ident">i32</span>, <span class="ident">width</span>: <span class="ident">i32</span>, <span class="ident">height</span>: <span class="ident">i32</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_surface_mark_dirty_rectangle</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>(), <span class="ident">x</span>, <span class="ident">y</span>, <span class="ident">width</span>, <span class="ident">height</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_surface_mark_dirty_rectangle</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>(), <span class="ident">x</span>, <span class="ident">y</span>, <span class="ident">width</span>, <span class="ident">height</span>) }
     }
 
     <span class="macro">user_data_methods!</span> {
-        <span class="ident">ffi</span>::<span class="ident">cairo_surface_get_user_data</span>,
-        <span class="ident">ffi</span>::<span class="ident">cairo_surface_set_user_data</span>,
+        <span class="ident">ffi::cairo_surface_get_user_data</span>,
+        <span class="ident">ffi::cairo_surface_set_user_data</span>,
     }
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">ToGlibPtr</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">cairo_surface_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Surface</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">ToGlibPtr</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::cairo_surface_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Surface</span> {
     <span class="kw">type</span> <span class="ident">Storage</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Surface</span>;
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">to_glib_none</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Stash</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">cairo_surface_t</span>, <span class="self">Self</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">to_glib_none</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Stash</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::cairo_surface_t</span>, <span class="self">Self</span><span class="op">&gt;</span> {
         <span class="ident">Stash</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>(), <span class="self">self</span>)
     }
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">to_glib_full</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">cairo_surface_t</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_surface_reference</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>()) }
+    <span class="kw">fn</span> <span class="ident">to_glib_full</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::cairo_surface_t</span> {
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_surface_reference</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>()) }
     }
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="kw">impl</span> <span class="ident">FromGlibPtrNone</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">cairo_surface_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Surface</span> {
+<span class="kw">impl</span> <span class="ident">FromGlibPtrNone</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::cairo_surface_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Surface</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_none</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">cairo_surface_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Surface</span> {
-        <span class="self">Self</span>::<span class="ident">from_raw_none</span>(<span class="ident">ptr</span>)
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_none</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::cairo_surface_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Surface</span> {
+        <span class="self">Self</span><span class="ident">::from_raw_none</span>(<span class="ident">ptr</span>)
     }
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="kw">impl</span> <span class="ident">FromGlibPtrBorrow</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">cairo_surface_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Surface</span> {
+<span class="kw">impl</span> <span class="ident">FromGlibPtrBorrow</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::cairo_surface_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Surface</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_borrow</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">cairo_surface_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">Surface</span><span class="op">&gt;</span> {
-        <span class="self">Self</span>::<span class="ident">from_raw_borrow</span>(<span class="ident">ptr</span>)
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_borrow</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::cairo_surface_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span><span class="ident">::Borrowed</span><span class="op">&lt;</span><span class="ident">Surface</span><span class="op">&gt;</span> {
+        <span class="self">Self</span><span class="ident">::from_raw_borrow</span>(<span class="ident">ptr</span>)
     }
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="kw">impl</span> <span class="ident">FromGlibPtrFull</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">cairo_surface_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Surface</span> {
+<span class="kw">impl</span> <span class="ident">FromGlibPtrFull</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::cairo_surface_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Surface</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_full</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">cairo_surface_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Surface</span> {
-        <span class="self">Self</span>::<span class="ident">from_raw_full</span>(<span class="ident">ptr</span>).<span class="ident">unwrap</span>()
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_full</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::cairo_surface_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Surface</span> {
+        <span class="self">Self</span><span class="ident">::from_raw_full</span>(<span class="ident">ptr</span>).<span class="ident">unwrap</span>()
     }
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
 <span class="macro">gvalue_impl!</span>(
     <span class="ident">Surface</span>,
-    <span class="ident">ffi</span>::<span class="ident">cairo_surface_t</span>,
-    <span class="ident">ffi</span>::<span class="ident">gobject</span>::<span class="ident">cairo_gobject_surface_get_type</span>
+    <span class="ident">ffi::cairo_surface_t</span>,
+    <span class="ident">ffi::gobject::cairo_gobject_surface_get_type</span>
 );
 
 <span class="kw">impl</span> <span class="ident">Clone</span> <span class="kw">for</span> <span class="ident">Surface</span> {
     <span class="kw">fn</span> <span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Surface</span> {
-        <span class="kw">unsafe</span> { <span class="self">Self</span>::<span class="ident">from_raw_none</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
+        <span class="kw">unsafe</span> { <span class="self">Self</span><span class="ident">::from_raw_none</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
     }
 }
 
 <span class="kw">impl</span> <span class="ident">Drop</span> <span class="kw">for</span> <span class="ident">Surface</span> {
     <span class="kw">fn</span> <span class="ident">drop</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">cairo_surface_destroy</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>());
+            <span class="ident">ffi::cairo_surface_destroy</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>());
         }
     }
 }
 
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">Surface</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">Surface</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;Surface&quot;</span>)
     }
 }
@@ -757,20 +757,20 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_surface_flush&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">flush</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">cairo_surface_flush</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>());
+            <span class="ident">ffi::cairo_surface_flush</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>());
         }
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_surface_finish&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">finish</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">cairo_surface_finish</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>());
+            <span class="ident">ffi::cairo_surface_finish</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>());
         }
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_surface_get_type&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SurfaceType</span> {
-        <span class="kw">unsafe</span> { <span class="ident">SurfaceType</span>::<span class="ident">from</span>(<span class="ident">ffi</span>::<span class="ident">cairo_surface_get_type</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>())) }
+        <span class="kw">unsafe</span> { <span class="ident">SurfaceType::from</span>(<span class="ident">ffi::cairo_surface_get_type</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>())) }
     }
 }
 
@@ -791,30 +791,30 @@
 <span class="kw">impl</span> <span class="ident">Drop</span> <span class="kw">for</span> <span class="ident">MappedImageSurface</span> {
     <span class="kw">fn</span> <span class="ident">drop</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">cairo_surface_unmap_image</span>(
+            <span class="ident">ffi::cairo_surface_unmap_image</span>(
                 <span class="self">self</span>.<span class="ident">original_surface</span>.<span class="ident">to_raw_none</span>(),
                 <span class="self">self</span>.<span class="ident">image_surface</span>.<span class="ident">to_raw_none</span>(),
             );
-            <span class="ident">ffi</span>::<span class="ident">cairo_surface_reference</span>(<span class="self">self</span>.<span class="ident">image_surface</span>.<span class="ident">to_raw_none</span>());
+            <span class="ident">ffi::cairo_surface_reference</span>(<span class="self">self</span>.<span class="ident">image_surface</span>.<span class="ident">to_raw_none</span>());
         }
     }
 }
 
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">MappedImageSurface</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">MappedImageSurface</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;MappedImageSurface&quot;</span>)
     }
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
-    <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">constants</span>::<span class="ident">MIME_TYPE_PNG</span>;
-    <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Format</span>;
-    <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">ImageSurface</span>;
+    <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::constants::MIME_TYPE_PNG</span>;
+    <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Format</span>;
+    <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::ImageSurface</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">mime_data</span>() {
-        <span class="kw">let</span> <span class="ident">surface</span> <span class="op">=</span> <span class="ident">ImageSurface</span>::<span class="ident">create</span>(<span class="ident">Format</span>::<span class="ident">ARgb32</span>, <span class="number">500</span>, <span class="number">500</span>).<span class="ident">unwrap</span>();
+        <span class="kw">let</span> <span class="ident">surface</span> <span class="op">=</span> <span class="ident">ImageSurface::create</span>(<span class="ident">Format::ARgb32</span>, <span class="number">500</span>, <span class="number">500</span>).<span class="ident">unwrap</span>();
         <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">surface</span>.<span class="ident">get_mime_data</span>(<span class="ident">MIME_TYPE_PNG</span>);
         <span class="comment">/* Initially the data for any mime type has to be none */</span>
         <span class="macro">assert!</span>(<span class="ident">data</span>.<span class="ident">is_none</span>());

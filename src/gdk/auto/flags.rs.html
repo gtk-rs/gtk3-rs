@@ -1016,14 +1016,14 @@
 <span class="comment">// from gir-files (https://github.com/gtk-rs/gir-files)</span>
 <span class="comment">// DO NOT EDIT</span>
 
-<span class="kw">use</span> <span class="ident">bitflags</span>::<span class="ident">bitflags</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">value</span>::<span class="ident">FromValue</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">value</span>::<span class="ident">FromValueOptional</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">value</span>::<span class="ident">SetValue</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">StaticType</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">Type</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
+<span class="kw">use</span> <span class="ident">bitflags::bitflags</span>;
+<span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">glib::value::FromValue</span>;
+<span class="kw">use</span> <span class="ident">glib::value::FromValueOptional</span>;
+<span class="kw">use</span> <span class="ident">glib::value::SetValue</span>;
+<span class="kw">use</span> <span class="ident">glib::StaticType</span>;
+<span class="kw">use</span> <span class="ident">glib::Type</span>;
+<span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>)))]</span>
@@ -1070,9 +1070,9 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>)))]</span>
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">AnchorHints</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="op">&lt;</span><span class="self">Self</span> <span class="kw">as</span> <span class="ident">fmt</span>::<span class="ident">Debug</span><span class="op">&gt;</span>::<span class="ident">fmt</span>(<span class="self">self</span>, <span class="ident">f</span>)
+<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">AnchorHints</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
+        <span class="op">&lt;</span><span class="self">Self</span> <span class="kw">as</span> <span class="ident">fmt::Debug</span><span class="op">&gt;</span><span class="ident">::fmt</span>(<span class="self">self</span>, <span class="ident">f</span>)
     }
 }
 
@@ -1080,9 +1080,9 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>)))]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">AnchorHints</span> {
-    <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">GdkAnchorHints</span>;
+    <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi::GdkAnchorHints</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">GdkAnchorHints</span> {
+    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::GdkAnchorHints</span> {
         <span class="self">self</span>.<span class="ident">bits</span>()
     }
 }
@@ -1090,10 +1090,10 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>)))]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GdkAnchorHints</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">AnchorHints</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GdkAnchorHints</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">AnchorHints</span> {
+<span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi::GdkAnchorHints</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">AnchorHints</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi::GdkAnchorHints</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">AnchorHints</span> {
         <span class="macro">skip_assert_initialized!</span>();
-        <span class="ident">AnchorHints</span>::<span class="ident">from_bits_truncate</span>(<span class="ident">value</span>)
+        <span class="ident">AnchorHints::from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
 
@@ -1101,31 +1101,31 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>)))]</span>
 <span class="kw">impl</span> <span class="ident">StaticType</span> <span class="kw">for</span> <span class="ident">AnchorHints</span> {
     <span class="kw">fn</span> <span class="ident">static_type</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Type</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">gdk_anchor_hints_get_type</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::gdk_anchor_hints_get_type</span>()) }
     }
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>)))]</span>
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">FromValueOptional</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">AnchorHints</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value_optional</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">glib</span>::<span class="ident">Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-        <span class="prelude-val">Some</span>(<span class="ident">FromValue</span>::<span class="ident">from_value</span>(<span class="ident">value</span>))
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value_optional</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">glib::Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+        <span class="prelude-val">Some</span>(<span class="ident">FromValue::from_value</span>(<span class="ident">value</span>))
     }
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>)))]</span>
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">FromValue</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">AnchorHints</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">glib</span>::<span class="ident">Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="ident">from_glib</span>(<span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">g_value_get_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>))
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">glib::Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="ident">from_glib</span>(<span class="ident">glib::gobject_ffi::g_value_get_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>))
     }
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>)))]</span>
 <span class="kw">impl</span> <span class="ident">SetValue</span> <span class="kw">for</span> <span class="ident">AnchorHints</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">glib</span>::<span class="ident">Value</span>, <span class="ident">this</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) {
-        <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">g_value_set_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">this</span>.<span class="ident">to_glib</span>())
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">glib::Value</span>, <span class="ident">this</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) {
+        <span class="ident">glib::gobject_ffi::g_value_set_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">this</span>.<span class="ident">to_glib</span>())
     }
 }
 
@@ -1160,9 +1160,9 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>)))]</span>
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">AxisFlags</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="op">&lt;</span><span class="self">Self</span> <span class="kw">as</span> <span class="ident">fmt</span>::<span class="ident">Debug</span><span class="op">&gt;</span>::<span class="ident">fmt</span>(<span class="self">self</span>, <span class="ident">f</span>)
+<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">AxisFlags</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
+        <span class="op">&lt;</span><span class="self">Self</span> <span class="kw">as</span> <span class="ident">fmt::Debug</span><span class="op">&gt;</span><span class="ident">::fmt</span>(<span class="self">self</span>, <span class="ident">f</span>)
     }
 }
 
@@ -1170,9 +1170,9 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>)))]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">AxisFlags</span> {
-    <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">GdkAxisFlags</span>;
+    <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi::GdkAxisFlags</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">GdkAxisFlags</span> {
+    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::GdkAxisFlags</span> {
         <span class="self">self</span>.<span class="ident">bits</span>()
     }
 }
@@ -1180,10 +1180,10 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>)))]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GdkAxisFlags</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">AxisFlags</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GdkAxisFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">AxisFlags</span> {
+<span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi::GdkAxisFlags</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">AxisFlags</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi::GdkAxisFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">AxisFlags</span> {
         <span class="macro">skip_assert_initialized!</span>();
-        <span class="ident">AxisFlags</span>::<span class="ident">from_bits_truncate</span>(<span class="ident">value</span>)
+        <span class="ident">AxisFlags::from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
 
@@ -1191,31 +1191,31 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>)))]</span>
 <span class="kw">impl</span> <span class="ident">StaticType</span> <span class="kw">for</span> <span class="ident">AxisFlags</span> {
     <span class="kw">fn</span> <span class="ident">static_type</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Type</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">gdk_axis_flags_get_type</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::gdk_axis_flags_get_type</span>()) }
     }
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>)))]</span>
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">FromValueOptional</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">AxisFlags</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value_optional</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">glib</span>::<span class="ident">Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-        <span class="prelude-val">Some</span>(<span class="ident">FromValue</span>::<span class="ident">from_value</span>(<span class="ident">value</span>))
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value_optional</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">glib::Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+        <span class="prelude-val">Some</span>(<span class="ident">FromValue::from_value</span>(<span class="ident">value</span>))
     }
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>)))]</span>
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">FromValue</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">AxisFlags</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">glib</span>::<span class="ident">Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="ident">from_glib</span>(<span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">g_value_get_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>))
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">glib::Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="ident">from_glib</span>(<span class="ident">glib::gobject_ffi::g_value_get_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>))
     }
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>)))]</span>
 <span class="kw">impl</span> <span class="ident">SetValue</span> <span class="kw">for</span> <span class="ident">AxisFlags</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">glib</span>::<span class="ident">Value</span>, <span class="ident">this</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) {
-        <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">g_value_set_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">this</span>.<span class="ident">to_glib</span>())
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">glib::Value</span>, <span class="ident">this</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) {
+        <span class="ident">glib::gobject_ffi::g_value_set_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">this</span>.<span class="ident">to_glib</span>())
     }
 }
 
@@ -1241,50 +1241,50 @@
     }
 }
 
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">DragAction</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="op">&lt;</span><span class="self">Self</span> <span class="kw">as</span> <span class="ident">fmt</span>::<span class="ident">Debug</span><span class="op">&gt;</span>::<span class="ident">fmt</span>(<span class="self">self</span>, <span class="ident">f</span>)
+<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">DragAction</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
+        <span class="op">&lt;</span><span class="self">Self</span> <span class="kw">as</span> <span class="ident">fmt::Debug</span><span class="op">&gt;</span><span class="ident">::fmt</span>(<span class="self">self</span>, <span class="ident">f</span>)
     }
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">DragAction</span> {
-    <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">GdkDragAction</span>;
+    <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi::GdkDragAction</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">GdkDragAction</span> {
+    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::GdkDragAction</span> {
         <span class="self">self</span>.<span class="ident">bits</span>()
     }
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GdkDragAction</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">DragAction</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GdkDragAction</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DragAction</span> {
+<span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi::GdkDragAction</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">DragAction</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi::GdkDragAction</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DragAction</span> {
         <span class="macro">skip_assert_initialized!</span>();
-        <span class="ident">DragAction</span>::<span class="ident">from_bits_truncate</span>(<span class="ident">value</span>)
+        <span class="ident">DragAction::from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
 
 <span class="kw">impl</span> <span class="ident">StaticType</span> <span class="kw">for</span> <span class="ident">DragAction</span> {
     <span class="kw">fn</span> <span class="ident">static_type</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Type</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">gdk_drag_action_get_type</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::gdk_drag_action_get_type</span>()) }
     }
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">FromValueOptional</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">DragAction</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value_optional</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">glib</span>::<span class="ident">Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-        <span class="prelude-val">Some</span>(<span class="ident">FromValue</span>::<span class="ident">from_value</span>(<span class="ident">value</span>))
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value_optional</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">glib::Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+        <span class="prelude-val">Some</span>(<span class="ident">FromValue::from_value</span>(<span class="ident">value</span>))
     }
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">FromValue</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">DragAction</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">glib</span>::<span class="ident">Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="ident">from_glib</span>(<span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">g_value_get_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>))
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">glib::Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="ident">from_glib</span>(<span class="ident">glib::gobject_ffi::g_value_get_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>))
     }
 }
 
 <span class="kw">impl</span> <span class="ident">SetValue</span> <span class="kw">for</span> <span class="ident">DragAction</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">glib</span>::<span class="ident">Value</span>, <span class="ident">this</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) {
-        <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">g_value_set_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">this</span>.<span class="ident">to_glib</span>())
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">glib::Value</span>, <span class="ident">this</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) {
+        <span class="ident">glib::gobject_ffi::g_value_set_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">this</span>.<span class="ident">to_glib</span>())
     }
 }
 
@@ -1372,50 +1372,50 @@
     }
 }
 
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">EventMask</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="op">&lt;</span><span class="self">Self</span> <span class="kw">as</span> <span class="ident">fmt</span>::<span class="ident">Debug</span><span class="op">&gt;</span>::<span class="ident">fmt</span>(<span class="self">self</span>, <span class="ident">f</span>)
+<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">EventMask</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
+        <span class="op">&lt;</span><span class="self">Self</span> <span class="kw">as</span> <span class="ident">fmt::Debug</span><span class="op">&gt;</span><span class="ident">::fmt</span>(<span class="self">self</span>, <span class="ident">f</span>)
     }
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">EventMask</span> {
-    <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">GdkEventMask</span>;
+    <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi::GdkEventMask</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">GdkEventMask</span> {
+    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::GdkEventMask</span> {
         <span class="self">self</span>.<span class="ident">bits</span>()
     }
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GdkEventMask</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">EventMask</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GdkEventMask</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">EventMask</span> {
+<span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi::GdkEventMask</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">EventMask</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi::GdkEventMask</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">EventMask</span> {
         <span class="macro">skip_assert_initialized!</span>();
-        <span class="ident">EventMask</span>::<span class="ident">from_bits_truncate</span>(<span class="ident">value</span>)
+        <span class="ident">EventMask::from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
 
 <span class="kw">impl</span> <span class="ident">StaticType</span> <span class="kw">for</span> <span class="ident">EventMask</span> {
     <span class="kw">fn</span> <span class="ident">static_type</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Type</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">gdk_event_mask_get_type</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::gdk_event_mask_get_type</span>()) }
     }
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">FromValueOptional</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">EventMask</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value_optional</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">glib</span>::<span class="ident">Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-        <span class="prelude-val">Some</span>(<span class="ident">FromValue</span>::<span class="ident">from_value</span>(<span class="ident">value</span>))
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value_optional</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">glib::Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+        <span class="prelude-val">Some</span>(<span class="ident">FromValue::from_value</span>(<span class="ident">value</span>))
     }
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">FromValue</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">EventMask</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">glib</span>::<span class="ident">Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="ident">from_glib</span>(<span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">g_value_get_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>))
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">glib::Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="ident">from_glib</span>(<span class="ident">glib::gobject_ffi::g_value_get_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>))
     }
 }
 
 <span class="kw">impl</span> <span class="ident">SetValue</span> <span class="kw">for</span> <span class="ident">EventMask</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">glib</span>::<span class="ident">Value</span>, <span class="ident">this</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) {
-        <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">g_value_set_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">this</span>.<span class="ident">to_glib</span>())
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">glib::Value</span>, <span class="ident">this</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) {
+        <span class="ident">glib::gobject_ffi::g_value_set_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">this</span>.<span class="ident">to_glib</span>())
     }
 }
 
@@ -1443,50 +1443,50 @@
     }
 }
 
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">FrameClockPhase</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="op">&lt;</span><span class="self">Self</span> <span class="kw">as</span> <span class="ident">fmt</span>::<span class="ident">Debug</span><span class="op">&gt;</span>::<span class="ident">fmt</span>(<span class="self">self</span>, <span class="ident">f</span>)
+<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">FrameClockPhase</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
+        <span class="op">&lt;</span><span class="self">Self</span> <span class="kw">as</span> <span class="ident">fmt::Debug</span><span class="op">&gt;</span><span class="ident">::fmt</span>(<span class="self">self</span>, <span class="ident">f</span>)
     }
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">FrameClockPhase</span> {
-    <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">GdkFrameClockPhase</span>;
+    <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi::GdkFrameClockPhase</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">GdkFrameClockPhase</span> {
+    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::GdkFrameClockPhase</span> {
         <span class="self">self</span>.<span class="ident">bits</span>()
     }
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GdkFrameClockPhase</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">FrameClockPhase</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GdkFrameClockPhase</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FrameClockPhase</span> {
+<span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi::GdkFrameClockPhase</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">FrameClockPhase</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi::GdkFrameClockPhase</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FrameClockPhase</span> {
         <span class="macro">skip_assert_initialized!</span>();
-        <span class="ident">FrameClockPhase</span>::<span class="ident">from_bits_truncate</span>(<span class="ident">value</span>)
+        <span class="ident">FrameClockPhase::from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
 
 <span class="kw">impl</span> <span class="ident">StaticType</span> <span class="kw">for</span> <span class="ident">FrameClockPhase</span> {
     <span class="kw">fn</span> <span class="ident">static_type</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Type</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">gdk_frame_clock_phase_get_type</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::gdk_frame_clock_phase_get_type</span>()) }
     }
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">FromValueOptional</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">FrameClockPhase</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value_optional</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">glib</span>::<span class="ident">Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-        <span class="prelude-val">Some</span>(<span class="ident">FromValue</span>::<span class="ident">from_value</span>(<span class="ident">value</span>))
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value_optional</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">glib::Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+        <span class="prelude-val">Some</span>(<span class="ident">FromValue::from_value</span>(<span class="ident">value</span>))
     }
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">FromValue</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">FrameClockPhase</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">glib</span>::<span class="ident">Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="ident">from_glib</span>(<span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">g_value_get_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>))
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">glib::Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="ident">from_glib</span>(<span class="ident">glib::gobject_ffi::g_value_get_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>))
     }
 }
 
 <span class="kw">impl</span> <span class="ident">SetValue</span> <span class="kw">for</span> <span class="ident">FrameClockPhase</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">glib</span>::<span class="ident">Value</span>, <span class="ident">this</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) {
-        <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">g_value_set_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">this</span>.<span class="ident">to_glib</span>())
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">glib::Value</span>, <span class="ident">this</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) {
+        <span class="ident">glib::gobject_ffi::g_value_set_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">this</span>.<span class="ident">to_glib</span>())
     }
 }
 
@@ -1585,50 +1585,50 @@
     }
 }
 
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">ModifierType</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="op">&lt;</span><span class="self">Self</span> <span class="kw">as</span> <span class="ident">fmt</span>::<span class="ident">Debug</span><span class="op">&gt;</span>::<span class="ident">fmt</span>(<span class="self">self</span>, <span class="ident">f</span>)
+<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">ModifierType</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
+        <span class="op">&lt;</span><span class="self">Self</span> <span class="kw">as</span> <span class="ident">fmt::Debug</span><span class="op">&gt;</span><span class="ident">::fmt</span>(<span class="self">self</span>, <span class="ident">f</span>)
     }
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">ModifierType</span> {
-    <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">GdkModifierType</span>;
+    <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi::GdkModifierType</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">GdkModifierType</span> {
+    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::GdkModifierType</span> {
         <span class="self">self</span>.<span class="ident">bits</span>()
     }
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GdkModifierType</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">ModifierType</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GdkModifierType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ModifierType</span> {
+<span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi::GdkModifierType</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">ModifierType</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi::GdkModifierType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ModifierType</span> {
         <span class="macro">skip_assert_initialized!</span>();
-        <span class="ident">ModifierType</span>::<span class="ident">from_bits_truncate</span>(<span class="ident">value</span>)
+        <span class="ident">ModifierType::from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
 
 <span class="kw">impl</span> <span class="ident">StaticType</span> <span class="kw">for</span> <span class="ident">ModifierType</span> {
     <span class="kw">fn</span> <span class="ident">static_type</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Type</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">gdk_modifier_type_get_type</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::gdk_modifier_type_get_type</span>()) }
     }
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">FromValueOptional</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">ModifierType</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value_optional</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">glib</span>::<span class="ident">Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-        <span class="prelude-val">Some</span>(<span class="ident">FromValue</span>::<span class="ident">from_value</span>(<span class="ident">value</span>))
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value_optional</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">glib::Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+        <span class="prelude-val">Some</span>(<span class="ident">FromValue::from_value</span>(<span class="ident">value</span>))
     }
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">FromValue</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">ModifierType</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">glib</span>::<span class="ident">Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="ident">from_glib</span>(<span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">g_value_get_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>))
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">glib::Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="ident">from_glib</span>(<span class="ident">glib::gobject_ffi::g_value_get_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>))
     }
 }
 
 <span class="kw">impl</span> <span class="ident">SetValue</span> <span class="kw">for</span> <span class="ident">ModifierType</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">glib</span>::<span class="ident">Value</span>, <span class="ident">this</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) {
-        <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">g_value_set_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">this</span>.<span class="ident">to_glib</span>())
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">glib::Value</span>, <span class="ident">this</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) {
+        <span class="ident">glib::gobject_ffi::g_value_set_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">this</span>.<span class="ident">to_glib</span>())
     }
 }
 
@@ -1659,9 +1659,9 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>)))]</span>
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">SeatCapabilities</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="op">&lt;</span><span class="self">Self</span> <span class="kw">as</span> <span class="ident">fmt</span>::<span class="ident">Debug</span><span class="op">&gt;</span>::<span class="ident">fmt</span>(<span class="self">self</span>, <span class="ident">f</span>)
+<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">SeatCapabilities</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
+        <span class="op">&lt;</span><span class="self">Self</span> <span class="kw">as</span> <span class="ident">fmt::Debug</span><span class="op">&gt;</span><span class="ident">::fmt</span>(<span class="self">self</span>, <span class="ident">f</span>)
     }
 }
 
@@ -1669,9 +1669,9 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>)))]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">SeatCapabilities</span> {
-    <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">GdkSeatCapabilities</span>;
+    <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi::GdkSeatCapabilities</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">GdkSeatCapabilities</span> {
+    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::GdkSeatCapabilities</span> {
         <span class="self">self</span>.<span class="ident">bits</span>()
     }
 }
@@ -1679,10 +1679,10 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>)))]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GdkSeatCapabilities</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">SeatCapabilities</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GdkSeatCapabilities</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SeatCapabilities</span> {
+<span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi::GdkSeatCapabilities</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">SeatCapabilities</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi::GdkSeatCapabilities</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SeatCapabilities</span> {
         <span class="macro">skip_assert_initialized!</span>();
-        <span class="ident">SeatCapabilities</span>::<span class="ident">from_bits_truncate</span>(<span class="ident">value</span>)
+        <span class="ident">SeatCapabilities::from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
 
@@ -1690,31 +1690,31 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>)))]</span>
 <span class="kw">impl</span> <span class="ident">StaticType</span> <span class="kw">for</span> <span class="ident">SeatCapabilities</span> {
     <span class="kw">fn</span> <span class="ident">static_type</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Type</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">gdk_seat_capabilities_get_type</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::gdk_seat_capabilities_get_type</span>()) }
     }
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>)))]</span>
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">FromValueOptional</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">SeatCapabilities</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value_optional</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">glib</span>::<span class="ident">Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-        <span class="prelude-val">Some</span>(<span class="ident">FromValue</span>::<span class="ident">from_value</span>(<span class="ident">value</span>))
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value_optional</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">glib::Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+        <span class="prelude-val">Some</span>(<span class="ident">FromValue::from_value</span>(<span class="ident">value</span>))
     }
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>)))]</span>
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">FromValue</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">SeatCapabilities</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">glib</span>::<span class="ident">Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="ident">from_glib</span>(<span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">g_value_get_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>))
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">glib::Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="ident">from_glib</span>(<span class="ident">glib::gobject_ffi::g_value_get_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>))
     }
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>)))]</span>
 <span class="kw">impl</span> <span class="ident">SetValue</span> <span class="kw">for</span> <span class="ident">SeatCapabilities</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">glib</span>::<span class="ident">Value</span>, <span class="ident">this</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) {
-        <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">g_value_set_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">this</span>.<span class="ident">to_glib</span>())
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">glib::Value</span>, <span class="ident">this</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) {
+        <span class="ident">glib::gobject_ffi::g_value_set_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">this</span>.<span class="ident">to_glib</span>())
     }
 }
 
@@ -1740,50 +1740,50 @@
     }
 }
 
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">WMDecoration</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="op">&lt;</span><span class="self">Self</span> <span class="kw">as</span> <span class="ident">fmt</span>::<span class="ident">Debug</span><span class="op">&gt;</span>::<span class="ident">fmt</span>(<span class="self">self</span>, <span class="ident">f</span>)
+<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">WMDecoration</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
+        <span class="op">&lt;</span><span class="self">Self</span> <span class="kw">as</span> <span class="ident">fmt::Debug</span><span class="op">&gt;</span><span class="ident">::fmt</span>(<span class="self">self</span>, <span class="ident">f</span>)
     }
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">WMDecoration</span> {
-    <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">GdkWMDecoration</span>;
+    <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi::GdkWMDecoration</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">GdkWMDecoration</span> {
+    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::GdkWMDecoration</span> {
         <span class="self">self</span>.<span class="ident">bits</span>()
     }
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GdkWMDecoration</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">WMDecoration</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GdkWMDecoration</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WMDecoration</span> {
+<span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi::GdkWMDecoration</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">WMDecoration</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi::GdkWMDecoration</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WMDecoration</span> {
         <span class="macro">skip_assert_initialized!</span>();
-        <span class="ident">WMDecoration</span>::<span class="ident">from_bits_truncate</span>(<span class="ident">value</span>)
+        <span class="ident">WMDecoration::from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
 
 <span class="kw">impl</span> <span class="ident">StaticType</span> <span class="kw">for</span> <span class="ident">WMDecoration</span> {
     <span class="kw">fn</span> <span class="ident">static_type</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Type</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">gdk_wm_decoration_get_type</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::gdk_wm_decoration_get_type</span>()) }
     }
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">FromValueOptional</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">WMDecoration</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value_optional</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">glib</span>::<span class="ident">Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-        <span class="prelude-val">Some</span>(<span class="ident">FromValue</span>::<span class="ident">from_value</span>(<span class="ident">value</span>))
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value_optional</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">glib::Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+        <span class="prelude-val">Some</span>(<span class="ident">FromValue::from_value</span>(<span class="ident">value</span>))
     }
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">FromValue</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">WMDecoration</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">glib</span>::<span class="ident">Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="ident">from_glib</span>(<span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">g_value_get_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>))
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">glib::Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="ident">from_glib</span>(<span class="ident">glib::gobject_ffi::g_value_get_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>))
     }
 }
 
 <span class="kw">impl</span> <span class="ident">SetValue</span> <span class="kw">for</span> <span class="ident">WMDecoration</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">glib</span>::<span class="ident">Value</span>, <span class="ident">this</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) {
-        <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">g_value_set_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">this</span>.<span class="ident">to_glib</span>())
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">glib::Value</span>, <span class="ident">this</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) {
+        <span class="ident">glib::gobject_ffi::g_value_set_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">this</span>.<span class="ident">to_glib</span>())
     }
 }
 
@@ -1807,50 +1807,50 @@
     }
 }
 
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">WMFunction</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="op">&lt;</span><span class="self">Self</span> <span class="kw">as</span> <span class="ident">fmt</span>::<span class="ident">Debug</span><span class="op">&gt;</span>::<span class="ident">fmt</span>(<span class="self">self</span>, <span class="ident">f</span>)
+<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">WMFunction</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
+        <span class="op">&lt;</span><span class="self">Self</span> <span class="kw">as</span> <span class="ident">fmt::Debug</span><span class="op">&gt;</span><span class="ident">::fmt</span>(<span class="self">self</span>, <span class="ident">f</span>)
     }
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">WMFunction</span> {
-    <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">GdkWMFunction</span>;
+    <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi::GdkWMFunction</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">GdkWMFunction</span> {
+    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::GdkWMFunction</span> {
         <span class="self">self</span>.<span class="ident">bits</span>()
     }
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GdkWMFunction</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">WMFunction</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GdkWMFunction</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WMFunction</span> {
+<span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi::GdkWMFunction</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">WMFunction</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi::GdkWMFunction</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WMFunction</span> {
         <span class="macro">skip_assert_initialized!</span>();
-        <span class="ident">WMFunction</span>::<span class="ident">from_bits_truncate</span>(<span class="ident">value</span>)
+        <span class="ident">WMFunction::from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
 
 <span class="kw">impl</span> <span class="ident">StaticType</span> <span class="kw">for</span> <span class="ident">WMFunction</span> {
     <span class="kw">fn</span> <span class="ident">static_type</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Type</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">gdk_wm_function_get_type</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::gdk_wm_function_get_type</span>()) }
     }
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">FromValueOptional</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">WMFunction</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value_optional</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">glib</span>::<span class="ident">Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-        <span class="prelude-val">Some</span>(<span class="ident">FromValue</span>::<span class="ident">from_value</span>(<span class="ident">value</span>))
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value_optional</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">glib::Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+        <span class="prelude-val">Some</span>(<span class="ident">FromValue::from_value</span>(<span class="ident">value</span>))
     }
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">FromValue</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">WMFunction</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">glib</span>::<span class="ident">Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="ident">from_glib</span>(<span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">g_value_get_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>))
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">glib::Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="ident">from_glib</span>(<span class="ident">glib::gobject_ffi::g_value_get_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>))
     }
 }
 
 <span class="kw">impl</span> <span class="ident">SetValue</span> <span class="kw">for</span> <span class="ident">WMFunction</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">glib</span>::<span class="ident">Value</span>, <span class="ident">this</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) {
-        <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">g_value_set_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">this</span>.<span class="ident">to_glib</span>())
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">glib::Value</span>, <span class="ident">this</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) {
+        <span class="ident">glib::gobject_ffi::g_value_set_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">this</span>.<span class="ident">to_glib</span>())
     }
 }
 
@@ -1887,50 +1887,50 @@
     }
 }
 
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">WindowHints</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="op">&lt;</span><span class="self">Self</span> <span class="kw">as</span> <span class="ident">fmt</span>::<span class="ident">Debug</span><span class="op">&gt;</span>::<span class="ident">fmt</span>(<span class="self">self</span>, <span class="ident">f</span>)
+<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">WindowHints</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
+        <span class="op">&lt;</span><span class="self">Self</span> <span class="kw">as</span> <span class="ident">fmt::Debug</span><span class="op">&gt;</span><span class="ident">::fmt</span>(<span class="self">self</span>, <span class="ident">f</span>)
     }
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">WindowHints</span> {
-    <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">GdkWindowHints</span>;
+    <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi::GdkWindowHints</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">GdkWindowHints</span> {
+    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::GdkWindowHints</span> {
         <span class="self">self</span>.<span class="ident">bits</span>()
     }
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GdkWindowHints</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">WindowHints</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GdkWindowHints</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WindowHints</span> {
+<span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi::GdkWindowHints</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">WindowHints</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi::GdkWindowHints</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WindowHints</span> {
         <span class="macro">skip_assert_initialized!</span>();
-        <span class="ident">WindowHints</span>::<span class="ident">from_bits_truncate</span>(<span class="ident">value</span>)
+        <span class="ident">WindowHints::from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
 
 <span class="kw">impl</span> <span class="ident">StaticType</span> <span class="kw">for</span> <span class="ident">WindowHints</span> {
     <span class="kw">fn</span> <span class="ident">static_type</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Type</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">gdk_window_hints_get_type</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::gdk_window_hints_get_type</span>()) }
     }
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">FromValueOptional</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">WindowHints</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value_optional</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">glib</span>::<span class="ident">Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-        <span class="prelude-val">Some</span>(<span class="ident">FromValue</span>::<span class="ident">from_value</span>(<span class="ident">value</span>))
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value_optional</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">glib::Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+        <span class="prelude-val">Some</span>(<span class="ident">FromValue::from_value</span>(<span class="ident">value</span>))
     }
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">FromValue</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">WindowHints</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">glib</span>::<span class="ident">Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="ident">from_glib</span>(<span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">g_value_get_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>))
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">glib::Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="ident">from_glib</span>(<span class="ident">glib::gobject_ffi::g_value_get_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>))
     }
 }
 
 <span class="kw">impl</span> <span class="ident">SetValue</span> <span class="kw">for</span> <span class="ident">WindowHints</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">glib</span>::<span class="ident">Value</span>, <span class="ident">this</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) {
-        <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">g_value_set_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">this</span>.<span class="ident">to_glib</span>())
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">glib::Value</span>, <span class="ident">this</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) {
+        <span class="ident">glib::gobject_ffi::g_value_set_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">this</span>.<span class="ident">to_glib</span>())
     }
 }
 
@@ -1976,50 +1976,50 @@
     }
 }
 
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">WindowState</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="op">&lt;</span><span class="self">Self</span> <span class="kw">as</span> <span class="ident">fmt</span>::<span class="ident">Debug</span><span class="op">&gt;</span>::<span class="ident">fmt</span>(<span class="self">self</span>, <span class="ident">f</span>)
+<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">WindowState</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
+        <span class="op">&lt;</span><span class="self">Self</span> <span class="kw">as</span> <span class="ident">fmt::Debug</span><span class="op">&gt;</span><span class="ident">::fmt</span>(<span class="self">self</span>, <span class="ident">f</span>)
     }
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">WindowState</span> {
-    <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">GdkWindowState</span>;
+    <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi::GdkWindowState</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">GdkWindowState</span> {
+    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::GdkWindowState</span> {
         <span class="self">self</span>.<span class="ident">bits</span>()
     }
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GdkWindowState</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">WindowState</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GdkWindowState</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WindowState</span> {
+<span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi::GdkWindowState</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">WindowState</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi::GdkWindowState</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WindowState</span> {
         <span class="macro">skip_assert_initialized!</span>();
-        <span class="ident">WindowState</span>::<span class="ident">from_bits_truncate</span>(<span class="ident">value</span>)
+        <span class="ident">WindowState::from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
 
 <span class="kw">impl</span> <span class="ident">StaticType</span> <span class="kw">for</span> <span class="ident">WindowState</span> {
     <span class="kw">fn</span> <span class="ident">static_type</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Type</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">gdk_window_state_get_type</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::gdk_window_state_get_type</span>()) }
     }
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">FromValueOptional</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">WindowState</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value_optional</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">glib</span>::<span class="ident">Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-        <span class="prelude-val">Some</span>(<span class="ident">FromValue</span>::<span class="ident">from_value</span>(<span class="ident">value</span>))
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value_optional</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">glib::Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+        <span class="prelude-val">Some</span>(<span class="ident">FromValue::from_value</span>(<span class="ident">value</span>))
     }
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">FromValue</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">WindowState</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">glib</span>::<span class="ident">Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="ident">from_glib</span>(<span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">g_value_get_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>))
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">glib::Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="ident">from_glib</span>(<span class="ident">glib::gobject_ffi::g_value_get_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>))
     }
 }
 
 <span class="kw">impl</span> <span class="ident">SetValue</span> <span class="kw">for</span> <span class="ident">WindowState</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">glib</span>::<span class="ident">Value</span>, <span class="ident">this</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) {
-        <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">g_value_set_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">this</span>.<span class="ident">to_glib</span>())
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">glib::Value</span>, <span class="ident">this</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) {
+        <span class="ident">glib::gobject_ffi::g_value_set_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">this</span>.<span class="ident">to_glib</span>())
     }
 }
 </pre></div>

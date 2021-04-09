@@ -151,29 +151,29 @@
 <span class="comment">// from gir-files (https://github.com/gtk-rs/gir-files)</span>
 <span class="comment">// DO NOT EDIT</span>
 
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">object</span>::<span class="ident">IsA</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
+<span class="kw">use</span> <span class="ident">glib::object::IsA</span>;
+<span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">std::fmt</span>;
+<span class="kw">use</span> <span class="ident">std::ptr</span>;
 
-<span class="ident">glib</span>::<span class="macro">wrapper!</span> {
+<span class="macro">glib::wrapper!</span> {
     <span class="doccomment">/// `MenuAttributeIter` is an opaque structure type. You must access it</span>
     <span class="doccomment">/// using the functions below.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`MenuAttributeIterExt`](trait.MenuAttributeIterExt.html), [`glib::object::ObjectExt`](../glib/object/trait.ObjectExt.html)</span>
-    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MenuAttributeIter</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GMenuAttributeIter</span>, <span class="ident">ffi</span>::<span class="ident">GMenuAttributeIterClass</span><span class="op">&gt;</span>);
+    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MenuAttributeIter</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GMenuAttributeIter</span>, <span class="ident">ffi::GMenuAttributeIterClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
-        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">g_menu_attribute_iter_get_type</span>(),
+        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::g_menu_attribute_iter_get_type</span>(),
     }
 }
 
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">MenuAttributeIter</span> {
+<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">MenuAttributeIter</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="kw-2">&amp;</span><span class="ident">MenuAttributeIterExt</span>::<span class="ident">get_name</span>(<span class="self">self</span>))
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
+        <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="kw-2">&amp;</span><span class="ident">MenuAttributeIterExt::get_name</span>(<span class="self">self</span>))
     }
 }
 
@@ -194,7 +194,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// the name of the attribute</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_menu_attribute_iter_get_name&quot;</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">get_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib</span>::<span class="ident">GString</span>;
+    <span class="kw">fn</span> <span class="ident">get_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::GString</span>;
 
     <span class="doccomment">/// This function combines `MenuAttributeIterExt::next` with</span>
     <span class="doccomment">/// `MenuAttributeIterExt::get_name` and `MenuAttributeIterExt::get_value`.</span>
@@ -221,7 +221,7 @@
     <span class="doccomment">/// `true` on success, or `false` if there is no additional</span>
     <span class="doccomment">///  attribute</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_menu_attribute_iter_get_next&quot;</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">get_next</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span>(<span class="ident">glib</span>::<span class="ident">GString</span>, <span class="ident">glib</span>::<span class="ident">Variant</span>)<span class="op">&gt;</span>;
+    <span class="kw">fn</span> <span class="ident">get_next</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span>(<span class="ident">glib::GString</span>, <span class="ident">glib::Variant</span>)<span class="op">&gt;</span>;
 
     <span class="doccomment">/// Gets the value of the attribute at the current iterator position.</span>
     <span class="doccomment">///</span>
@@ -231,7 +231,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// the value of the current attribute</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_menu_attribute_iter_get_value&quot;</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">get_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib</span>::<span class="ident">Variant</span>;
+    <span class="kw">fn</span> <span class="ident">get_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Variant</span>;
 
     <span class="doccomment">/// Attempts to advance the iterator to the next (possibly first)</span>
     <span class="doccomment">/// attribute.</span>
@@ -251,19 +251,19 @@
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">O</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">MenuAttributeIter</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="ident">MenuAttributeIterExt</span> <span class="kw">for</span> <span class="ident">O</span> {
-    <span class="kw">fn</span> <span class="ident">get_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib</span>::<span class="ident">GString</span> {
+    <span class="kw">fn</span> <span class="ident">get_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::GString</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">g_menu_attribute_iter_get_name</span>(
+            <span class="ident">from_glib_none</span>(<span class="ident">ffi::g_menu_attribute_iter_get_name</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">get_next</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span>(<span class="ident">glib</span>::<span class="ident">GString</span>, <span class="ident">glib</span>::<span class="ident">Variant</span>)<span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">get_next</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span>(<span class="ident">glib::GString</span>, <span class="ident">glib::Variant</span>)<span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">out_name</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_menu_attribute_iter_get_next</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">out_name</span> <span class="op">=</span> <span class="ident">ptr::null</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
+            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">from_glib</span>(<span class="ident">ffi::g_menu_attribute_iter_get_next</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">out_name</span>,
                 <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">value</span>,
@@ -276,9 +276,9 @@
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">get_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib</span>::<span class="ident">Variant</span> {
+    <span class="kw">fn</span> <span class="ident">get_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Variant</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_menu_attribute_iter_get_value</span>(
+            <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_menu_attribute_iter_get_value</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
         }
@@ -286,7 +286,7 @@
 
     <span class="kw">fn</span> <span class="ident">next</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_menu_attribute_iter_next</span>(
+            <span class="ident">from_glib</span>(<span class="ident">ffi::g_menu_attribute_iter_next</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
         }

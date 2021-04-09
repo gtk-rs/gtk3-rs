@@ -883,26 +883,26 @@
 <span class="comment">// from gir-files (https://github.com/gtk-rs/gir-files)</span>
 <span class="comment">// DO NOT EDIT</span>
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">CoordType</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::CoordType</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_32&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_32&quot;</span>)))]</span>
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">ScrollType</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">TextBoundary</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">TextClipType</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">TextGranularity</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">TextRange</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">TextRectangle</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">object</span>::<span class="ident">Cast</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">object</span>::<span class="ident">IsA</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">signal</span>::<span class="ident">connect_raw</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">signal</span>::<span class="ident">SignalHandlerId</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">boxed</span>::<span class="ident">Box</span> <span class="kw">as</span> <span class="ident">Box_</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>::<span class="ident">transmute</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::ScrollType</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::TextBoundary</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::TextClipType</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::TextGranularity</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::TextRange</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::TextRectangle</span>;
+<span class="kw">use</span> <span class="ident">glib::object::Cast</span>;
+<span class="kw">use</span> <span class="ident">glib::object::IsA</span>;
+<span class="kw">use</span> <span class="ident">glib::signal::connect_raw</span>;
+<span class="kw">use</span> <span class="ident">glib::signal::SignalHandlerId</span>;
+<span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">std::boxed::Box</span> <span class="kw">as</span> <span class="ident">Box_</span>;
+<span class="kw">use</span> <span class="ident">std::fmt</span>;
+<span class="kw">use</span> <span class="ident">std::mem</span>;
+<span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
-<span class="ident">glib</span>::<span class="macro">wrapper!</span> {
+<span class="macro">glib::wrapper!</span> {
     <span class="doccomment">/// `Text` should be implemented by `AtkObjects` on behalf of widgets</span>
     <span class="doccomment">/// that have text content which is either attributed or otherwise</span>
     <span class="doccomment">/// non-trivial. `AtkObjects` whose text content is simple,</span>
@@ -926,10 +926,10 @@
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`TextExt`](trait.TextExt.html)</span>
-    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Text</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">AtkText</span>, <span class="ident">ffi</span>::<span class="ident">AtkTextIface</span><span class="op">&gt;</span>);
+    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Text</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi::AtkText</span>, <span class="ident">ffi::AtkTextIface</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
-        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">atk_text_get_type</span>(),
+        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::atk_text_get_type</span>(),
     }
 }
 
@@ -1090,7 +1090,7 @@
     <span class="doccomment">/// a newly allocated string containing the selected text. Use `g_free`</span>
     <span class="doccomment">///  to free the returned string.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_text_get_selection&quot;</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">get_selection</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">selection_num</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">glib</span>::<span class="ident">GString</span>, <span class="ident">i32</span>, <span class="ident">i32</span>);
+    <span class="kw">fn</span> <span class="ident">get_selection</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">selection_num</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">glib::GString</span>, <span class="ident">i32</span>, <span class="ident">i32</span>);
 
     <span class="doccomment">/// Gets a portion of the text exposed through an `Text` according to a given `offset`</span>
     <span class="doccomment">/// and a specific `granularity`, along with the start and end offsets defining the</span>
@@ -1144,7 +1144,7 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">offset</span>: <span class="ident">i32</span>,
         <span class="ident">granularity</span>: <span class="ident">TextGranularity</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> (<span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">GString</span><span class="op">&gt;</span>, <span class="ident">i32</span>, <span class="ident">i32</span>);
+    ) <span class="op">-</span><span class="op">&gt;</span> (<span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span>, <span class="ident">i32</span>, <span class="ident">i32</span>);
 
     <span class="doccomment">/// Gets the specified text.</span>
     <span class="doccomment">/// ## `start_offset`</span>
@@ -1158,7 +1158,7 @@
     <span class="doccomment">///  to, but not including `end_offset`. Use `g_free` to free the returned</span>
     <span class="doccomment">///  string.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_text_get_text&quot;</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">get_text</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">start_offset</span>: <span class="ident">i32</span>, <span class="ident">end_offset</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">GString</span><span class="op">&gt;</span>;
+    <span class="kw">fn</span> <span class="ident">get_text</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">start_offset</span>: <span class="ident">i32</span>, <span class="ident">end_offset</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Gets the specified text.</span>
     <span class="doccomment">///</span>
@@ -1209,7 +1209,7 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">offset</span>: <span class="ident">i32</span>,
         <span class="ident">boundary_type</span>: <span class="ident">TextBoundary</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">glib</span>::<span class="ident">GString</span>, <span class="ident">i32</span>, <span class="ident">i32</span>);
+    ) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">glib::GString</span>, <span class="ident">i32</span>, <span class="ident">i32</span>);
 
     <span class="doccomment">/// Removes the specified selection.</span>
     <span class="doccomment">/// ## `selection_num`</span>
@@ -1361,7 +1361,7 @@
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">O</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Text</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="ident">TextExt</span> <span class="kw">for</span> <span class="ident">O</span> {
     <span class="kw">fn</span> <span class="ident">add_selection</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">start_offset</span>: <span class="ident">i32</span>, <span class="ident">end_offset</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">atk_text_add_selection</span>(
+            <span class="ident">from_glib</span>(<span class="ident">ffi::atk_text_add_selection</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">start_offset</span>,
                 <span class="ident">end_offset</span>,
@@ -1377,7 +1377,7 @@
         <span class="ident">y_clip_type</span>: <span class="ident">TextClipType</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">TextRange</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">FromGlibPtrContainer</span>::<span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">atk_text_get_bounded_ranges</span>(
+            <span class="ident">FromGlibPtrContainer::from_glib_full</span>(<span class="ident">ffi::atk_text_get_bounded_ranges</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">rect</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
                 <span class="ident">coord_type</span>.<span class="ident">to_glib</span>(),
@@ -1388,12 +1388,12 @@
     }
 
     <span class="kw">fn</span> <span class="ident">get_caret_offset</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">atk_text_get_caret_offset</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::atk_text_get_caret_offset</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
     <span class="kw">fn</span> <span class="ident">get_character_at_offset</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">offset</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">char</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">std</span>::<span class="ident">convert</span>::<span class="ident">TryFrom</span>::<span class="ident">try_from</span>(<span class="ident">ffi</span>::<span class="ident">atk_text_get_character_at_offset</span>(
+            <span class="ident">std::convert::TryFrom::try_from</span>(<span class="ident">ffi::atk_text_get_character_at_offset</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">offset</span>,
             ))
@@ -1402,16 +1402,16 @@
     }
 
     <span class="kw">fn</span> <span class="ident">get_character_count</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">atk_text_get_character_count</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::atk_text_get_character_count</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
     <span class="kw">fn</span> <span class="ident">get_character_extents</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">offset</span>: <span class="ident">i32</span>, <span class="ident">coords</span>: <span class="ident">CoordType</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">i32</span>, <span class="ident">i32</span>, <span class="ident">i32</span>, <span class="ident">i32</span>) {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">x</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">y</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">width</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">height</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
-            <span class="ident">ffi</span>::<span class="ident">atk_text_get_character_extents</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">x</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">y</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">width</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">height</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
+            <span class="ident">ffi::atk_text_get_character_extents</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">offset</span>,
                 <span class="ident">x</span>.<span class="ident">as_mut_ptr</span>(),
@@ -1433,12 +1433,12 @@
     <span class="comment">//}</span>
 
     <span class="kw">fn</span> <span class="ident">get_n_selections</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">atk_text_get_n_selections</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::atk_text_get_n_selections</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
     <span class="kw">fn</span> <span class="ident">get_offset_at_point</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">x</span>: <span class="ident">i32</span>, <span class="ident">y</span>: <span class="ident">i32</span>, <span class="ident">coords</span>: <span class="ident">CoordType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">atk_text_get_offset_at_point</span>(
+            <span class="ident">ffi::atk_text_get_offset_at_point</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">x</span>,
                 <span class="ident">y</span>,
@@ -1454,8 +1454,8 @@
         <span class="ident">coord_type</span>: <span class="ident">CoordType</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TextRectangle</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">rect</span> <span class="op">=</span> <span class="ident">TextRectangle</span>::<span class="ident">uninitialized</span>();
-            <span class="ident">ffi</span>::<span class="ident">atk_text_get_range_extents</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">rect</span> <span class="op">=</span> <span class="ident">TextRectangle::uninitialized</span>();
+            <span class="ident">ffi::atk_text_get_range_extents</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">start_offset</span>,
                 <span class="ident">end_offset</span>,
@@ -1470,11 +1470,11 @@
     <span class="comment">//    unsafe { TODO: call ffi:atk_text_get_run_attributes() }</span>
     <span class="comment">//}</span>
 
-    <span class="kw">fn</span> <span class="ident">get_selection</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">selection_num</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">glib</span>::<span class="ident">GString</span>, <span class="ident">i32</span>, <span class="ident">i32</span>) {
+    <span class="kw">fn</span> <span class="ident">get_selection</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">selection_num</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">glib::GString</span>, <span class="ident">i32</span>, <span class="ident">i32</span>) {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">start_offset</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">end_offset</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
-            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">atk_text_get_selection</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">start_offset</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">end_offset</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
+            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">from_glib_full</span>(<span class="ident">ffi::atk_text_get_selection</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">selection_num</span>,
                 <span class="ident">start_offset</span>.<span class="ident">as_mut_ptr</span>(),
@@ -1490,11 +1490,11 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">offset</span>: <span class="ident">i32</span>,
         <span class="ident">granularity</span>: <span class="ident">TextGranularity</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> (<span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">GString</span><span class="op">&gt;</span>, <span class="ident">i32</span>, <span class="ident">i32</span>) {
+    ) <span class="op">-</span><span class="op">&gt;</span> (<span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span>, <span class="ident">i32</span>, <span class="ident">i32</span>) {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">start_offset</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">end_offset</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
-            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">atk_text_get_string_at_offset</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">start_offset</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">end_offset</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
+            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">from_glib_full</span>(<span class="ident">ffi::atk_text_get_string_at_offset</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">offset</span>,
                 <span class="ident">granularity</span>.<span class="ident">to_glib</span>(),
@@ -1507,9 +1507,9 @@
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">get_text</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">start_offset</span>: <span class="ident">i32</span>, <span class="ident">end_offset</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">GString</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">get_text</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">start_offset</span>: <span class="ident">i32</span>, <span class="ident">end_offset</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">atk_text_get_text</span>(
+            <span class="ident">from_glib_full</span>(<span class="ident">ffi::atk_text_get_text</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">start_offset</span>,
                 <span class="ident">end_offset</span>,
@@ -1521,11 +1521,11 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">offset</span>: <span class="ident">i32</span>,
         <span class="ident">boundary_type</span>: <span class="ident">TextBoundary</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">glib</span>::<span class="ident">GString</span>, <span class="ident">i32</span>, <span class="ident">i32</span>) {
+    ) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">glib::GString</span>, <span class="ident">i32</span>, <span class="ident">i32</span>) {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">start_offset</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">end_offset</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
-            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">atk_text_get_text_at_offset</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">start_offset</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">end_offset</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
+            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">from_glib_full</span>(<span class="ident">ffi::atk_text_get_text_at_offset</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">offset</span>,
                 <span class="ident">boundary_type</span>.<span class="ident">to_glib</span>(),
@@ -1540,7 +1540,7 @@
 
     <span class="kw">fn</span> <span class="ident">remove_selection</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">selection_num</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">atk_text_remove_selection</span>(
+            <span class="ident">from_glib</span>(<span class="ident">ffi::atk_text_remove_selection</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">selection_num</span>,
             ))
@@ -1551,7 +1551,7 @@
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_32&quot;</span>)))]</span>
     <span class="kw">fn</span> <span class="ident">scroll_substring_to</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">start_offset</span>: <span class="ident">i32</span>, <span class="ident">end_offset</span>: <span class="ident">i32</span>, <span class="ident">type_</span>: <span class="ident">ScrollType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">atk_text_scroll_substring_to</span>(
+            <span class="ident">from_glib</span>(<span class="ident">ffi::atk_text_scroll_substring_to</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">start_offset</span>,
                 <span class="ident">end_offset</span>,
@@ -1571,7 +1571,7 @@
         <span class="ident">y</span>: <span class="ident">i32</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">atk_text_scroll_substring_to_point</span>(
+            <span class="ident">from_glib</span>(<span class="ident">ffi::atk_text_scroll_substring_to_point</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">start_offset</span>,
                 <span class="ident">end_offset</span>,
@@ -1584,7 +1584,7 @@
 
     <span class="kw">fn</span> <span class="ident">set_caret_offset</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">offset</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">atk_text_set_caret_offset</span>(
+            <span class="ident">from_glib</span>(<span class="ident">ffi::atk_text_set_caret_offset</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">offset</span>,
             ))
@@ -1593,7 +1593,7 @@
 
     <span class="kw">fn</span> <span class="ident">set_selection</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">selection_num</span>: <span class="ident">i32</span>, <span class="ident">start_offset</span>: <span class="ident">i32</span>, <span class="ident">end_offset</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">atk_text_set_selection</span>(
+            <span class="ident">from_glib</span>(<span class="ident">ffi::atk_text_set_selection</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">selection_num</span>,
                 <span class="ident">start_offset</span>,
@@ -1604,47 +1604,47 @@
 
     <span class="kw">fn</span> <span class="ident">connect_text_attributes_changed</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span> {
         <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">text_attributes_changed_trampoline</span><span class="op">&lt;</span><span class="ident">P</span>, <span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">P</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
-            <span class="ident">this</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">AtkText</span>,
-            <span class="ident">f</span>: <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">gpointer</span>,
+            <span class="ident">this</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::AtkText</span>,
+            <span class="ident">f</span>: <span class="ident">glib::ffi::gpointer</span>,
         ) <span class="kw">where</span>
             <span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Text</span><span class="op">&gt;</span>,
         {
             <span class="kw">let</span> <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="ident">F</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">f</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">F</span>);
-            <span class="ident">f</span>(<span class="kw-2">&amp;</span><span class="ident">Text</span>::<span class="ident">from_glib_borrow</span>(<span class="ident">this</span>).<span class="ident">unsafe_cast_ref</span>())
+            <span class="ident">f</span>(<span class="kw-2">&amp;</span><span class="ident">Text::from_glib_borrow</span>(<span class="ident">this</span>).<span class="ident">unsafe_cast_ref</span>())
         }
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">f</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_</span>::<span class="ident">new</span>(<span class="ident">f</span>);
+            <span class="kw">let</span> <span class="ident">f</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_::new</span>(<span class="ident">f</span>);
             <span class="ident">connect_raw</span>(
                 <span class="self">self</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
                 <span class="string">b&quot;text-attributes-changed\0&quot;</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(<span class="ident">transmute</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span>()<span class="op">&gt;</span>(
                     <span class="ident">text_attributes_changed_trampoline</span>::<span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">F</span><span class="op">&gt;</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> (),
                 )),
-                <span class="ident">Box_</span>::<span class="ident">into_raw</span>(<span class="ident">f</span>),
+                <span class="ident">Box_::into_raw</span>(<span class="ident">f</span>),
             )
         }
     }
 
     <span class="kw">fn</span> <span class="ident">connect_text_caret_moved</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="ident">i32</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span> {
         <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">text_caret_moved_trampoline</span><span class="op">&lt;</span><span class="ident">P</span>, <span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">P</span>, <span class="ident">i32</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
-            <span class="ident">this</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">AtkText</span>,
-            <span class="ident">arg1</span>: <span class="ident">libc</span>::<span class="ident">c_int</span>,
-            <span class="ident">f</span>: <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">gpointer</span>,
+            <span class="ident">this</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::AtkText</span>,
+            <span class="ident">arg1</span>: <span class="ident">libc::c_int</span>,
+            <span class="ident">f</span>: <span class="ident">glib::ffi::gpointer</span>,
         ) <span class="kw">where</span>
             <span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Text</span><span class="op">&gt;</span>,
         {
             <span class="kw">let</span> <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="ident">F</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">f</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">F</span>);
-            <span class="ident">f</span>(<span class="kw-2">&amp;</span><span class="ident">Text</span>::<span class="ident">from_glib_borrow</span>(<span class="ident">this</span>).<span class="ident">unsafe_cast_ref</span>(), <span class="ident">arg1</span>)
+            <span class="ident">f</span>(<span class="kw-2">&amp;</span><span class="ident">Text::from_glib_borrow</span>(<span class="ident">this</span>).<span class="ident">unsafe_cast_ref</span>(), <span class="ident">arg1</span>)
         }
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">f</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_</span>::<span class="ident">new</span>(<span class="ident">f</span>);
+            <span class="kw">let</span> <span class="ident">f</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_::new</span>(<span class="ident">f</span>);
             <span class="ident">connect_raw</span>(
                 <span class="self">self</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
                 <span class="string">b&quot;text-caret-moved\0&quot;</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(<span class="ident">transmute</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span>()<span class="op">&gt;</span>(
                     <span class="ident">text_caret_moved_trampoline</span>::<span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">F</span><span class="op">&gt;</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> (),
                 )),
-                <span class="ident">Box_</span>::<span class="ident">into_raw</span>(<span class="ident">f</span>),
+                <span class="ident">Box_::into_raw</span>(<span class="ident">f</span>),
             )
         }
     }
@@ -1655,24 +1655,24 @@
         <span class="ident">f</span>: <span class="ident">F</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span> {
         <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">text_insert_trampoline</span><span class="op">&lt;</span><span class="ident">P</span>, <span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">P</span>, <span class="ident">i32</span>, <span class="ident">i32</span>, <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
-            <span class="ident">this</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">AtkText</span>,
-            <span class="ident">arg1</span>: <span class="ident">libc</span>::<span class="ident">c_int</span>,
-            <span class="ident">arg2</span>: <span class="ident">libc</span>::<span class="ident">c_int</span>,
-            <span class="ident">arg3</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">libc</span>::<span class="ident">c_char</span>,
-            <span class="ident">f</span>: <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">gpointer</span>,
+            <span class="ident">this</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::AtkText</span>,
+            <span class="ident">arg1</span>: <span class="ident">libc::c_int</span>,
+            <span class="ident">arg2</span>: <span class="ident">libc::c_int</span>,
+            <span class="ident">arg3</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">libc::c_char</span>,
+            <span class="ident">f</span>: <span class="ident">glib::ffi::gpointer</span>,
         ) <span class="kw">where</span>
             <span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Text</span><span class="op">&gt;</span>,
         {
             <span class="kw">let</span> <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="ident">F</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">f</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">F</span>);
             <span class="ident">f</span>(
-                <span class="kw-2">&amp;</span><span class="ident">Text</span>::<span class="ident">from_glib_borrow</span>(<span class="ident">this</span>).<span class="ident">unsafe_cast_ref</span>(),
+                <span class="kw-2">&amp;</span><span class="ident">Text::from_glib_borrow</span>(<span class="ident">this</span>).<span class="ident">unsafe_cast_ref</span>(),
                 <span class="ident">arg1</span>,
                 <span class="ident">arg2</span>,
-                <span class="kw-2">&amp;</span><span class="ident">glib</span>::<span class="ident">GString</span>::<span class="ident">from_glib_borrow</span>(<span class="ident">arg3</span>),
+                <span class="kw-2">&amp;</span><span class="ident">glib::GString::from_glib_borrow</span>(<span class="ident">arg3</span>),
             )
         }
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">f</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_</span>::<span class="ident">new</span>(<span class="ident">f</span>);
+            <span class="kw">let</span> <span class="ident">f</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_::new</span>(<span class="ident">f</span>);
             <span class="kw">let</span> <span class="ident">detailed_signal_name</span> <span class="op">=</span> <span class="ident">detail</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">name</span><span class="op">|</span> <span class="macro">format!</span>(<span class="string">&quot;text-insert::{}\0&quot;</span>, <span class="ident">name</span>));
             <span class="kw">let</span> <span class="ident">signal_name</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>] <span class="op">=</span> <span class="ident">detailed_signal_name</span>
                 .<span class="ident">as_ref</span>()
@@ -1683,7 +1683,7 @@
                 <span class="prelude-val">Some</span>(<span class="ident">transmute</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span>()<span class="op">&gt;</span>(
                     <span class="ident">text_insert_trampoline</span>::<span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">F</span><span class="op">&gt;</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> (),
                 )),
-                <span class="ident">Box_</span>::<span class="ident">into_raw</span>(<span class="ident">f</span>),
+                <span class="ident">Box_::into_raw</span>(<span class="ident">f</span>),
             )
         }
     }
@@ -1694,24 +1694,24 @@
         <span class="ident">f</span>: <span class="ident">F</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span> {
         <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">text_remove_trampoline</span><span class="op">&lt;</span><span class="ident">P</span>, <span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">P</span>, <span class="ident">i32</span>, <span class="ident">i32</span>, <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
-            <span class="ident">this</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">AtkText</span>,
-            <span class="ident">arg1</span>: <span class="ident">libc</span>::<span class="ident">c_int</span>,
-            <span class="ident">arg2</span>: <span class="ident">libc</span>::<span class="ident">c_int</span>,
-            <span class="ident">arg3</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">libc</span>::<span class="ident">c_char</span>,
-            <span class="ident">f</span>: <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">gpointer</span>,
+            <span class="ident">this</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::AtkText</span>,
+            <span class="ident">arg1</span>: <span class="ident">libc::c_int</span>,
+            <span class="ident">arg2</span>: <span class="ident">libc::c_int</span>,
+            <span class="ident">arg3</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">libc::c_char</span>,
+            <span class="ident">f</span>: <span class="ident">glib::ffi::gpointer</span>,
         ) <span class="kw">where</span>
             <span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Text</span><span class="op">&gt;</span>,
         {
             <span class="kw">let</span> <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="ident">F</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">f</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">F</span>);
             <span class="ident">f</span>(
-                <span class="kw-2">&amp;</span><span class="ident">Text</span>::<span class="ident">from_glib_borrow</span>(<span class="ident">this</span>).<span class="ident">unsafe_cast_ref</span>(),
+                <span class="kw-2">&amp;</span><span class="ident">Text::from_glib_borrow</span>(<span class="ident">this</span>).<span class="ident">unsafe_cast_ref</span>(),
                 <span class="ident">arg1</span>,
                 <span class="ident">arg2</span>,
-                <span class="kw-2">&amp;</span><span class="ident">glib</span>::<span class="ident">GString</span>::<span class="ident">from_glib_borrow</span>(<span class="ident">arg3</span>),
+                <span class="kw-2">&amp;</span><span class="ident">glib::GString::from_glib_borrow</span>(<span class="ident">arg3</span>),
             )
         }
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">f</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_</span>::<span class="ident">new</span>(<span class="ident">f</span>);
+            <span class="kw">let</span> <span class="ident">f</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_::new</span>(<span class="ident">f</span>);
             <span class="kw">let</span> <span class="ident">detailed_signal_name</span> <span class="op">=</span> <span class="ident">detail</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">name</span><span class="op">|</span> <span class="macro">format!</span>(<span class="string">&quot;text-remove::{}\0&quot;</span>, <span class="ident">name</span>));
             <span class="kw">let</span> <span class="ident">signal_name</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>] <span class="op">=</span> <span class="ident">detailed_signal_name</span>
                 .<span class="ident">as_ref</span>()
@@ -1722,37 +1722,37 @@
                 <span class="prelude-val">Some</span>(<span class="ident">transmute</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span>()<span class="op">&gt;</span>(
                     <span class="ident">text_remove_trampoline</span>::<span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">F</span><span class="op">&gt;</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> (),
                 )),
-                <span class="ident">Box_</span>::<span class="ident">into_raw</span>(<span class="ident">f</span>),
+                <span class="ident">Box_::into_raw</span>(<span class="ident">f</span>),
             )
         }
     }
 
     <span class="kw">fn</span> <span class="ident">connect_text_selection_changed</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span> {
         <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">text_selection_changed_trampoline</span><span class="op">&lt;</span><span class="ident">P</span>, <span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">P</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
-            <span class="ident">this</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">AtkText</span>,
-            <span class="ident">f</span>: <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">gpointer</span>,
+            <span class="ident">this</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::AtkText</span>,
+            <span class="ident">f</span>: <span class="ident">glib::ffi::gpointer</span>,
         ) <span class="kw">where</span>
             <span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Text</span><span class="op">&gt;</span>,
         {
             <span class="kw">let</span> <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="ident">F</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">f</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">F</span>);
-            <span class="ident">f</span>(<span class="kw-2">&amp;</span><span class="ident">Text</span>::<span class="ident">from_glib_borrow</span>(<span class="ident">this</span>).<span class="ident">unsafe_cast_ref</span>())
+            <span class="ident">f</span>(<span class="kw-2">&amp;</span><span class="ident">Text::from_glib_borrow</span>(<span class="ident">this</span>).<span class="ident">unsafe_cast_ref</span>())
         }
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">f</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_</span>::<span class="ident">new</span>(<span class="ident">f</span>);
+            <span class="kw">let</span> <span class="ident">f</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_::new</span>(<span class="ident">f</span>);
             <span class="ident">connect_raw</span>(
                 <span class="self">self</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
                 <span class="string">b&quot;text-selection-changed\0&quot;</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(<span class="ident">transmute</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span>()<span class="op">&gt;</span>(
                     <span class="ident">text_selection_changed_trampoline</span>::<span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">F</span><span class="op">&gt;</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> (),
                 )),
-                <span class="ident">Box_</span>::<span class="ident">into_raw</span>(<span class="ident">f</span>),
+                <span class="ident">Box_::into_raw</span>(<span class="ident">f</span>),
             )
         }
     }
 }
 
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">Text</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">Text</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;Text&quot;</span>)
     }
 }

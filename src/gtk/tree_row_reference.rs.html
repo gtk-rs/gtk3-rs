@@ -53,12 +53,12 @@
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">TreeIter</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">TreePath</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">TreeRowReference</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">object</span>::<span class="ident">IsA</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">libc</span>::<span class="ident">c_int</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::TreeIter</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::TreePath</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::TreeRowReference</span>;
+<span class="kw">use</span> <span class="ident">glib::object::IsA</span>;
+<span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">libc::c_int</span>;
 
 <span class="kw">impl</span> <span class="ident">TreeRowReference</span> {
     <span class="comment">// rustdoc-stripper-ignore-next</span>
@@ -79,9 +79,9 @@
     <span class="doccomment">/// # Safety</span>
     <span class="doccomment">/// The `proxy` must be a proxy returned by `gtk::TreeRowReference` and</span>
     <span class="doccomment">/// the `new_order` bounds **must** be valid as they cannot be checked.</span>
-    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">missing_safety_doc</span>)]</span>
+    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::missing_safety_doc</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_tree_row_reference_reordered&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">reordered</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">Object</span><span class="op">&gt;</span><span class="op">&gt;</span>(
+    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">reordered</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">glib::Object</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="ident">proxy</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>,
         <span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">TreePath</span>,
         <span class="ident">iter</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">TreeIter</span><span class="op">&gt;</span>,
@@ -92,7 +92,7 @@
             <span class="ident">iter</span>.<span class="ident">is_some</span>() <span class="op">|</span><span class="op">|</span> <span class="ident">path</span>.<span class="ident">get_depth</span>() <span class="op">=</span><span class="op">=</span> <span class="number">0</span>,
             <span class="string">&quot;If &#39;iter&#39; is None, &#39;path&#39; must point to the root.&quot;</span>
         );
-        <span class="ident">ffi</span>::<span class="ident">gtk_tree_row_reference_reordered</span>(
+        <span class="ident">ffi::gtk_tree_row_reference_reordered</span>(
             <span class="ident">proxy</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             <span class="ident">mut_override</span>(<span class="ident">path</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>),
             <span class="ident">mut_override</span>(<span class="ident">iter</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>),

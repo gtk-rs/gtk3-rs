@@ -283,8 +283,8 @@
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
-<span class="attribute">#![<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">needless_doctest_main</span>)]</span>
-<span class="attribute">#![<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">upper_case_acronyms</span>)]</span>
+<span class="attribute">#![<span class="ident">allow</span>(<span class="ident">clippy::needless_doctest_main</span>)]</span>
+<span class="attribute">#![<span class="ident">allow</span>(<span class="ident">clippy::upper_case_acronyms</span>)]</span>
 
 <span class="doccomment">//! # GTK+ 3 bindings</span>
 <span class="doccomment">//!</span>
@@ -428,10 +428,10 @@
 <span class="doccomment">//! them once. **Omitting them in the following cargo invocations will not undo</span>
 <span class="doccomment">//! their effects!**</span>
 
-<span class="attribute">#![<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">new_without_default</span>)]</span>
-<span class="attribute">#![<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">type_complexity</span>)]</span>
-<span class="attribute">#![<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">derive_hash_xor_eq</span>)]</span>
-<span class="attribute">#![<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">too_many_arguments</span>)]</span>
+<span class="attribute">#![<span class="ident">allow</span>(<span class="ident">clippy::new_without_default</span>)]</span>
+<span class="attribute">#![<span class="ident">allow</span>(<span class="ident">clippy::type_complexity</span>)]</span>
+<span class="attribute">#![<span class="ident">allow</span>(<span class="ident">clippy::derive_hash_xor_eq</span>)]</span>
+<span class="attribute">#![<span class="ident">allow</span>(<span class="ident">clippy::too_many_arguments</span>)]</span>
 <span class="attribute">#![<span class="ident">allow</span>(<span class="ident">deprecated</span>)]</span>
 <span class="attribute">#![<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">feature</span>(<span class="ident">doc_cfg</span>))]</span>
 
@@ -452,24 +452,24 @@
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">xlib</span>;
 
-<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">STYLE_PROVIDER_PRIORITY_FALLBACK</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">GTK_STYLE_PROVIDER_PRIORITY_FALLBACK</span> <span class="kw">as</span> <span class="ident">u32</span>;
-<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">STYLE_PROVIDER_PRIORITY_THEME</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">GTK_STYLE_PROVIDER_PRIORITY_THEME</span> <span class="kw">as</span> <span class="ident">u32</span>;
-<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">STYLE_PROVIDER_PRIORITY_SETTINGS</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">GTK_STYLE_PROVIDER_PRIORITY_SETTINGS</span> <span class="kw">as</span> <span class="ident">u32</span>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">STYLE_PROVIDER_PRIORITY_FALLBACK</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="ident">ffi::GTK_STYLE_PROVIDER_PRIORITY_FALLBACK</span> <span class="kw">as</span> <span class="ident">u32</span>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">STYLE_PROVIDER_PRIORITY_THEME</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="ident">ffi::GTK_STYLE_PROVIDER_PRIORITY_THEME</span> <span class="kw">as</span> <span class="ident">u32</span>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">STYLE_PROVIDER_PRIORITY_SETTINGS</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="ident">ffi::GTK_STYLE_PROVIDER_PRIORITY_SETTINGS</span> <span class="kw">as</span> <span class="ident">u32</span>;
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">STYLE_PROVIDER_PRIORITY_APPLICATION</span>: <span class="ident">u32</span> <span class="op">=</span>
-    <span class="ident">ffi</span>::<span class="ident">GTK_STYLE_PROVIDER_PRIORITY_APPLICATION</span> <span class="kw">as</span> <span class="ident">u32</span>;
-<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">STYLE_PROVIDER_PRIORITY_USER</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">GTK_STYLE_PROVIDER_PRIORITY_USER</span> <span class="kw">as</span> <span class="ident">u32</span>;
+    <span class="ident">ffi::GTK_STYLE_PROVIDER_PRIORITY_APPLICATION</span> <span class="kw">as</span> <span class="ident">u32</span>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">STYLE_PROVIDER_PRIORITY_USER</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="ident">ffi::GTK_STYLE_PROVIDER_PRIORITY_USER</span> <span class="kw">as</span> <span class="ident">u32</span>;
 
 <span class="attribute">#[<span class="ident">macro_use</span>]</span>
 <span class="kw">mod</span> <span class="ident">rt</span>;
 
-<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">match_same_arms</span>)]</span>
-<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">let_and_return</span>)]</span>
-<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">many_single_char_names</span>)]</span>
-<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">wrong_self_convention</span>)]</span>
-<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">cognitive_complexity</span>)]</span>
-<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">clone_on_copy</span>)]</span>
-<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">many_single_char_names</span>)]</span>
-<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">cast_ptr_alignment</span>)]</span>
+<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::match_same_arms</span>)]</span>
+<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::let_and_return</span>)]</span>
+<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::many_single_char_names</span>)]</span>
+<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::wrong_self_convention</span>)]</span>
+<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::cognitive_complexity</span>)]</span>
+<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::clone_on_copy</span>)]</span>
+<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::many_single_char_names</span>)]</span>
+<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::cast_ptr_alignment</span>)]</span>
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">unused_doc_comments</span>)]</span>
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">unused_imports</span>)]</span>
 <span class="kw">mod</span> <span class="ident">auto</span>;
@@ -540,26 +540,26 @@
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">prelude</span>;
 
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">auto</span>::<span class="ident">functions</span>::<span class="kw-2">*</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">auto</span>::<span class="kw-2">*</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">rt</span>::<span class="kw-2">*</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">signal</span>::<span class="kw-2">*</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::auto::functions</span>::<span class="kw-2">*</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::auto</span>::<span class="kw-2">*</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::rt</span>::<span class="kw-2">*</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::signal</span>::<span class="kw-2">*</span>;
 
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">gdk</span>::<span class="ident">Rectangle</span> <span class="kw">as</span> <span class="ident">Allocation</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">gdk</span>::<span class="ident">Rectangle</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">gdk::Rectangle</span> <span class="kw">as</span> <span class="ident">Allocation</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">gdk::Rectangle</span>;
 
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">app_chooser</span>::<span class="ident">AppChooser</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">border</span>::<span class="ident">Border</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">entry_buffer</span>::<span class="ident">EntryBuffer</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">page_range</span>::<span class="ident">PageRange</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">recent_data</span>::<span class="ident">RecentData</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">requisition</span>::<span class="ident">Requisition</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">response_type</span>::<span class="ident">ResponseType</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">target_entry</span>::<span class="ident">TargetEntry</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">tree_sortable</span>::<span class="ident">SortColumn</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">widget</span>::<span class="ident">TickCallbackId</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::app_chooser::AppChooser</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::border::Border</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::entry_buffer::EntryBuffer</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::page_range::PageRange</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::recent_data::RecentData</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::requisition::Requisition</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::response_type::ResponseType</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::target_entry::TargetEntry</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::tree_sortable::SortColumn</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::widget::TickCallbackId</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">pad_action_entry</span>::<span class="ident">PadActionEntry</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">pad_action_entry::PadActionEntry</span>;
 </pre></div>
 </section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="gtk" data-search-js="../../search-index.js"></div>
     <script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script></body></html>

@@ -109,10 +109,10 @@
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">ListStore</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::ListStore</span>;
+<span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">glib</span>::{<span class="ident">IsA</span>, <span class="ident">Object</span>};
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">cmp</span>::<span class="ident">Ordering</span>;
+<span class="kw">use</span> <span class="ident">std::cmp::Ordering</span>;
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ListStoreExtManual</span> {
     <span class="doccomment">/// Inserts `item` into `self` at a position to be determined by the</span>
@@ -137,7 +137,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// the position at which `item` was inserted</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_list_store_insert_sorted&quot;</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">insert_sorted</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">Object</span><span class="op">&gt;</span>, <span class="ident">F</span>: <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="ident">Object</span>, <span class="kw-2">&amp;</span><span class="ident">Object</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Ordering</span><span class="op">&gt;</span>(
+    <span class="kw">fn</span> <span class="ident">insert_sorted</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">glib::Object</span><span class="op">&gt;</span>, <span class="ident">F</span>: <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="ident">Object</span>, <span class="kw-2">&amp;</span><span class="ident">Object</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Ordering</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">item</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>,
         <span class="ident">compare_func</span>: <span class="ident">F</span>,
@@ -158,7 +158,7 @@
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">O</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">ListStore</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="ident">ListStoreExtManual</span> <span class="kw">for</span> <span class="ident">O</span> {
-    <span class="kw">fn</span> <span class="ident">insert_sorted</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">Object</span><span class="op">&gt;</span>, <span class="ident">F</span>: <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="ident">Object</span>, <span class="kw-2">&amp;</span><span class="ident">Object</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Ordering</span><span class="op">&gt;</span>(
+    <span class="kw">fn</span> <span class="ident">insert_sorted</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">glib::Object</span><span class="op">&gt;</span>, <span class="ident">F</span>: <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="ident">Object</span>, <span class="kw-2">&amp;</span><span class="ident">Object</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Ordering</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">item</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>,
         <span class="ident">compare_func</span>: <span class="ident">F</span>,
@@ -167,9 +167,9 @@
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">func</span> <span class="op">=</span> <span class="ident">compare_func</span>;
             <span class="kw">let</span> <span class="ident">func_obj</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> (<span class="kw">dyn</span> <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="ident">Object</span>, <span class="kw-2">&amp;</span><span class="ident">Object</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Ordering</span>) <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">func</span>;
             <span class="kw">let</span> <span class="ident">func_ptr</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">func_obj</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> (<span class="kw">dyn</span> <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="ident">Object</span>, <span class="kw-2">&amp;</span><span class="ident">Object</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Ordering</span>)
-                <span class="kw">as</span> <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">gpointer</span>;
+                <span class="kw">as</span> <span class="ident">glib::ffi::gpointer</span>;
 
-            <span class="ident">ffi</span>::<span class="ident">g_list_store_insert_sorted</span>(
+            <span class="ident">ffi::g_list_store_insert_sorted</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">item</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="prelude-val">Some</span>(<span class="ident">compare_func_trampoline</span>),
@@ -185,9 +185,9 @@
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">func</span> <span class="op">=</span> <span class="ident">compare_func</span>;
             <span class="kw">let</span> <span class="ident">func_obj</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> (<span class="kw">dyn</span> <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="ident">Object</span>, <span class="kw-2">&amp;</span><span class="ident">Object</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Ordering</span>) <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">func</span>;
             <span class="kw">let</span> <span class="ident">func_ptr</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">func_obj</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> (<span class="kw">dyn</span> <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="ident">Object</span>, <span class="kw-2">&amp;</span><span class="ident">Object</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Ordering</span>)
-                <span class="kw">as</span> <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">gpointer</span>;
+                <span class="kw">as</span> <span class="ident">glib::ffi::gpointer</span>;
 
-            <span class="ident">ffi</span>::<span class="ident">g_list_store_sort</span>(
+            <span class="ident">ffi::g_list_store_sort</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="prelude-val">Some</span>(<span class="ident">compare_func_trampoline</span>),
                 <span class="ident">func_ptr</span>,
@@ -197,19 +197,19 @@
 }
 
 <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">compare_func_trampoline</span>(
-    <span class="ident">a</span>: <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">gconstpointer</span>,
-    <span class="ident">b</span>: <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">gconstpointer</span>,
-    <span class="ident">func</span>: <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">gpointer</span>,
+    <span class="ident">a</span>: <span class="ident">glib::ffi::gconstpointer</span>,
+    <span class="ident">b</span>: <span class="ident">glib::ffi::gconstpointer</span>,
+    <span class="ident">func</span>: <span class="ident">glib::ffi::gpointer</span>,
 ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
     <span class="kw">let</span> <span class="ident">func</span> <span class="op">=</span> <span class="ident">func</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> (<span class="kw">dyn</span> <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="ident">Object</span>, <span class="kw-2">&amp;</span><span class="ident">Object</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Ordering</span>);
 
-    <span class="kw">let</span> <span class="ident">a</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">a</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">GObject</span>);
-    <span class="kw">let</span> <span class="ident">b</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">b</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">GObject</span>);
+    <span class="kw">let</span> <span class="ident">a</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">a</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib::gobject_ffi::GObject</span>);
+    <span class="kw">let</span> <span class="ident">b</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">b</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib::gobject_ffi::GObject</span>);
 
     <span class="kw">match</span> (<span class="kw-2">*</span><span class="ident">func</span>)(<span class="kw-2">&amp;</span><span class="ident">a</span>, <span class="kw-2">&amp;</span><span class="ident">b</span>) {
-        <span class="ident">Ordering</span>::<span class="ident">Less</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">-</span><span class="number">1</span>,
-        <span class="ident">Ordering</span>::<span class="ident">Equal</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">0</span>,
-        <span class="ident">Ordering</span>::<span class="ident">Greater</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">1</span>,
+        <span class="ident">Ordering::Less</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">-</span><span class="number">1</span>,
+        <span class="ident">Ordering::Equal</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">0</span>,
+        <span class="ident">Ordering::Greater</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">1</span>,
     }
 }
 </pre></div>

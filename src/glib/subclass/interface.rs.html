@@ -209,26 +209,26 @@
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
 <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">InitializingType</span>, <span class="ident">Signal</span>};
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::translate</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">IsA</span>, <span class="ident">Object</span>, <span class="ident">ObjectExt</span>, <span class="ident">ParamSpec</span>, <span class="ident">Type</span>};
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">marker</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>;
+<span class="kw">use</span> <span class="ident">std::marker</span>;
+<span class="kw">use</span> <span class="ident">std::mem</span>;
 
 <span class="doccomment">/// Trait for a type list of prerequisite object types.</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">PrerequisiteList</span> {
     <span class="doccomment">/// Returns the list of types for this list.</span>
-    <span class="kw">fn</span> <span class="ident">types</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GType</span><span class="op">&gt;</span>;
+    <span class="kw">fn</span> <span class="ident">types</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ffi::GType</span><span class="op">&gt;</span>;
 }
 
 <span class="kw">impl</span> <span class="ident">PrerequisiteList</span> <span class="kw">for</span> () {
-    <span class="kw">fn</span> <span class="ident">types</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GType</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">types</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ffi::GType</span><span class="op">&gt;</span> {
         <span class="macro">vec!</span>[]
     }
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="kw">crate</span>::<span class="ident">ObjectType</span><span class="op">&gt;</span> <span class="ident">PrerequisiteList</span> <span class="kw">for</span> (<span class="ident">T</span>,) {
-    <span class="kw">fn</span> <span class="ident">types</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GType</span><span class="op">&gt;</span> {
-        <span class="macro">vec!</span>[<span class="ident">T</span>::<span class="ident">static_type</span>().<span class="ident">to_glib</span>()]
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="kw">crate</span><span class="ident">::ObjectType</span><span class="op">&gt;</span> <span class="ident">PrerequisiteList</span> <span class="kw">for</span> (<span class="ident">T</span>,) {
+    <span class="kw">fn</span> <span class="ident">types</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ffi::GType</span><span class="op">&gt;</span> {
+        <span class="macro">vec!</span>[<span class="ident">T::static_type</span>().<span class="ident">to_glib</span>()]
     }
 }
 
@@ -253,9 +253,9 @@
 <span class="comment">// and then implements the trait on (A, B, C).</span>
 <span class="macro">macro_rules!</span> <span class="ident">prerequisite_list_trait_impl</span>(
     ($(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ident</span>),<span class="op">+</span>) <span class="op">=</span><span class="op">&gt;</span> (
-        <span class="kw">impl</span><span class="op">&lt;</span>$(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>: <span class="kw">crate</span>::<span class="ident">ObjectType</span>),<span class="op">+</span><span class="op">&gt;</span> <span class="ident">PrerequisiteList</span> <span class="kw">for</span> ( $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>),<span class="op">+</span> ) {
-            <span class="kw">fn</span> <span class="ident">types</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GType</span><span class="op">&gt;</span> {
-                <span class="macro">vec!</span>[$(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>::<span class="ident">static_type</span>().<span class="ident">to_glib</span>()),<span class="op">+</span>]
+        <span class="kw">impl</span><span class="op">&lt;</span>$(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>: <span class="kw">crate</span><span class="ident">::ObjectType</span>),<span class="op">+</span><span class="op">&gt;</span> <span class="ident">PrerequisiteList</span> <span class="kw">for</span> ( $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>),<span class="op">+</span> ) {
+            <span class="kw">fn</span> <span class="ident">types</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ffi::GType</span><span class="op">&gt;</span> {
+                <span class="macro">vec!</span>[$(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name::static_type</span>().<span class="ident">to_glib</span>()),<span class="op">+</span>]
             }
         }
     );
@@ -333,12 +333,12 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This will panic if `obj` does not implement the interface.</span>
     <span class="kw">fn</span> <span class="ident">from_instance</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Object</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">obj</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="self">Self</span> {
-        <span class="macro">assert!</span>(<span class="ident">obj</span>.<span class="ident">as_ref</span>().<span class="ident">get_type</span>().<span class="ident">is_a</span>(<span class="self">Self</span>::<span class="ident">get_type</span>()));
+        <span class="macro">assert!</span>(<span class="ident">obj</span>.<span class="ident">as_ref</span>().<span class="ident">get_type</span>().<span class="ident">is_a</span>(<span class="self">Self</span><span class="ident">::get_type</span>()));
 
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">klass</span> <span class="op">=</span> (<span class="kw-2">*</span>(<span class="ident">obj</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">gobject_ffi</span>::<span class="ident">GTypeInstance</span>)).<span class="ident">g_class</span>;
+            <span class="kw">let</span> <span class="ident">klass</span> <span class="op">=</span> (<span class="kw-2">*</span>(<span class="ident">obj</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">gobject_ffi::GTypeInstance</span>)).<span class="ident">g_class</span>;
             <span class="kw">let</span> <span class="ident">interface</span> <span class="op">=</span>
-                <span class="ident">gobject_ffi</span>::<span class="ident">g_type_interface_peek</span>(<span class="ident">klass</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>, <span class="self">Self</span>::<span class="ident">get_type</span>().<span class="ident">to_glib</span>());
+                <span class="ident">gobject_ffi::g_type_interface_peek</span>(<span class="ident">klass</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>, <span class="self">Self</span><span class="ident">::get_type</span>().<span class="ident">to_glib</span>());
             <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">interface</span>.<span class="ident">is_null</span>());
             <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">interface</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="self">Self</span>)
         }
@@ -348,21 +348,21 @@
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ObjectInterface</span><span class="op">&gt;</span> <span class="ident">ObjectInterfaceExt</span> <span class="kw">for</span> <span class="ident">T</span> {}
 
 <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">interface_init</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ObjectInterface</span><span class="op">&gt;</span>(
-    <span class="ident">klass</span>: <span class="ident">ffi</span>::<span class="ident">gpointer</span>,
-    <span class="ident">_klass_data</span>: <span class="ident">ffi</span>::<span class="ident">gpointer</span>,
+    <span class="ident">klass</span>: <span class="ident">ffi::gpointer</span>,
+    <span class="ident">_klass_data</span>: <span class="ident">ffi::gpointer</span>,
 ) {
     <span class="kw">let</span> <span class="ident">iface</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span>(<span class="ident">klass</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T</span>);
 
-    <span class="kw">let</span> <span class="ident">pspecs</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">T</span> <span class="kw">as</span> <span class="ident">ObjectInterface</span><span class="op">&gt;</span>::<span class="ident">properties</span>();
+    <span class="kw">let</span> <span class="ident">pspecs</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">T</span> <span class="kw">as</span> <span class="ident">ObjectInterface</span><span class="op">&gt;</span><span class="ident">::properties</span>();
     <span class="kw">for</span> <span class="ident">pspec</span> <span class="kw">in</span> <span class="ident">pspecs</span> {
-        <span class="ident">gobject_ffi</span>::<span class="ident">g_object_interface_install_property</span>(
+        <span class="ident">gobject_ffi::g_object_interface_install_property</span>(
             <span class="ident">iface</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
             <span class="ident">pspec</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
         );
     }
 
-    <span class="kw">let</span> <span class="ident">type_</span> <span class="op">=</span> <span class="ident">T</span>::<span class="ident">get_type</span>();
-    <span class="kw">let</span> <span class="ident">signals</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">T</span> <span class="kw">as</span> <span class="ident">ObjectInterface</span><span class="op">&gt;</span>::<span class="ident">signals</span>();
+    <span class="kw">let</span> <span class="ident">type_</span> <span class="op">=</span> <span class="ident">T::get_type</span>();
+    <span class="kw">let</span> <span class="ident">signals</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">T</span> <span class="kw">as</span> <span class="ident">ObjectInterface</span><span class="op">&gt;</span><span class="ident">::signals</span>();
     <span class="kw">for</span> <span class="ident">signal</span> <span class="kw">in</span> <span class="ident">signals</span> {
         <span class="ident">signal</span>.<span class="ident">register</span>(<span class="ident">type_</span>);
     }
@@ -380,32 +380,32 @@
 <span class="doccomment">/// [`object_interface!`]: ../../macro.object_interface.html</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">register_interface</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ObjectInterface</span><span class="op">&gt;</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Type</span> {
     <span class="kw">unsafe</span> {
-        <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ffi</span>::<span class="ident">CString</span>;
+        <span class="kw">use</span> <span class="ident">std::ffi::CString</span>;
 
-        <span class="kw">let</span> <span class="ident">type_name</span> <span class="op">=</span> <span class="ident">CString</span>::<span class="ident">new</span>(<span class="ident">T</span>::<span class="ident">NAME</span>).<span class="ident">unwrap</span>();
+        <span class="kw">let</span> <span class="ident">type_name</span> <span class="op">=</span> <span class="ident">CString::new</span>(<span class="ident">T::NAME</span>).<span class="ident">unwrap</span>();
         <span class="macro">assert_eq!</span>(
-            <span class="ident">gobject_ffi</span>::<span class="ident">g_type_from_name</span>(<span class="ident">type_name</span>.<span class="ident">as_ptr</span>()),
-            <span class="ident">gobject_ffi</span>::<span class="ident">G_TYPE_INVALID</span>
+            <span class="ident">gobject_ffi::g_type_from_name</span>(<span class="ident">type_name</span>.<span class="ident">as_ptr</span>()),
+            <span class="ident">gobject_ffi::G_TYPE_INVALID</span>
         );
 
-        <span class="kw">let</span> <span class="ident">type_</span> <span class="op">=</span> <span class="ident">gobject_ffi</span>::<span class="ident">g_type_register_static_simple</span>(
-            <span class="ident">Type</span>::<span class="ident">INTERFACE</span>.<span class="ident">to_glib</span>(),
+        <span class="kw">let</span> <span class="ident">type_</span> <span class="op">=</span> <span class="ident">gobject_ffi::g_type_register_static_simple</span>(
+            <span class="ident">Type::INTERFACE</span>.<span class="ident">to_glib</span>(),
             <span class="ident">type_name</span>.<span class="ident">as_ptr</span>(),
-            <span class="ident">mem</span>::<span class="ident">size_of</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>() <span class="kw">as</span> <span class="ident">u32</span>,
+            <span class="ident">mem::size_of</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>() <span class="kw">as</span> <span class="ident">u32</span>,
             <span class="prelude-val">Some</span>(<span class="ident">interface_init</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>),
             <span class="number">0</span>,
             <span class="prelude-val">None</span>,
             <span class="number">0</span>,
         );
 
-        <span class="kw">let</span> <span class="ident">prerequisites</span> <span class="op">=</span> <span class="ident">T</span>::<span class="ident">Prerequisites</span>::<span class="ident">types</span>();
+        <span class="kw">let</span> <span class="ident">prerequisites</span> <span class="op">=</span> <span class="ident">T::Prerequisites::types</span>();
         <span class="kw">for</span> <span class="ident">prerequisite</span> <span class="kw">in</span> <span class="ident">prerequisites</span> {
-            <span class="ident">gobject_ffi</span>::<span class="ident">g_type_interface_add_prerequisite</span>(<span class="ident">type_</span>, <span class="ident">prerequisite</span>);
+            <span class="ident">gobject_ffi::g_type_interface_add_prerequisite</span>(<span class="ident">type_</span>, <span class="ident">prerequisite</span>);
         }
 
         <span class="kw">let</span> <span class="ident">type_</span> <span class="op">=</span> <span class="ident">from_glib</span>(<span class="ident">type_</span>);
 
-        <span class="ident">T</span>::<span class="ident">type_init</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">InitializingType</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">type_</span>, <span class="ident">marker</span>::<span class="ident">PhantomData</span>));
+        <span class="ident">T::type_init</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">InitializingType</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">type_</span>, <span class="ident">marker::PhantomData</span>));
 
         <span class="ident">type_</span>
     }

@@ -219,11 +219,11 @@ class implements.</p>
 <div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
 <span class="macro">wrapper!</span> {
     <span class="doccomment">/// Text buffer iterator</span>
-    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TextIter</span>(<span class="ident">Boxed</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GtkTextIter</span><span class="op">&gt;</span>);
+    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TextIter</span>(<span class="ident">Boxed</span><span class="op">&lt;</span><span class="ident">ffi::GtkTextIter</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
-        <span class="ident">copy</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">gtk_text_iter_copy</span>(<span class="ident">ptr</span>),
-        <span class="ident">free</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">gtk_text_iter_free</span>(<span class="ident">ptr</span>),
+        <span class="ident">copy</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">ffi::gtk_text_iter_copy</span>(<span class="ident">ptr</span>),
+        <span class="ident">free</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">ffi::gtk_text_iter_free</span>(<span class="ident">ptr</span>),
     }
 }</pre></div>
 <p><code>copy</code>: <code>|*const $foreign| -&gt; *mut $foreign</code> creates a copy of the value.</p>
@@ -233,12 +233,12 @@ class implements.</p>
 <div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
 <span class="macro">wrapper!</span> {
     <span class="doccomment">/// Text buffer iterator</span>
-    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TextIter</span>(<span class="ident">Boxed</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GtkTextIter</span><span class="op">&gt;</span>);
+    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TextIter</span>(<span class="ident">Boxed</span><span class="op">&lt;</span><span class="ident">ffi::GtkTextIter</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
-        <span class="ident">copy</span>     <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">gtk_text_iter_copy</span>(<span class="ident">ptr</span>),
-        <span class="ident">free</span>     <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">gtk_text_iter_free</span>(<span class="ident">ptr</span>),
-        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span>    <span class="ident">ffi</span>::<span class="ident">gtk_text_iter_get_type</span>(),
+        <span class="ident">copy</span>     <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">ffi::gtk_text_iter_copy</span>(<span class="ident">ptr</span>),
+        <span class="ident">free</span>     <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">ffi::gtk_text_iter_free</span>(<span class="ident">ptr</span>),
+        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span>    <span class="ident">ffi::gtk_text_iter_get_type</span>(),
     }
 }</pre></div>
 <p><code>get_type</code>: <code>|| -&gt; glib_ffi::GType</code> (optional) returns the
@@ -250,11 +250,11 @@ class implements.</p>
 <div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
 <span class="macro">wrapper!</span> {
     <span class="doccomment">/// Object holding timing information for a single frame.</span>
-    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FrameTimings</span>(<span class="ident">Shared</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GdkFrameTimings</span><span class="op">&gt;</span>);
+    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FrameTimings</span>(<span class="ident">Shared</span><span class="op">&lt;</span><span class="ident">ffi::GdkFrameTimings</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
-        <span class="kw-2">ref</span>   <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">gdk_frame_timings_ref</span>(<span class="ident">ptr</span>),
-        <span class="ident">unref</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">gdk_frame_timings_unref</span>(<span class="ident">ptr</span>),
+        <span class="kw-2">ref</span>   <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">ffi::gdk_frame_timings_ref</span>(<span class="ident">ptr</span>),
+        <span class="ident">unref</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">ffi::gdk_frame_timings_unref</span>(<span class="ident">ptr</span>),
     }
 }</pre></div>
 <p><code>ref</code>: <code>|*mut $foreign|</code> increases the refcount.</p>
@@ -264,12 +264,12 @@ class implements.</p>
 <div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
 <span class="macro">wrapper!</span> {
     <span class="doccomment">/// Object holding timing information for a single frame.</span>
-    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FrameTimings</span>(<span class="ident">Shared</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GdkFrameTimings</span><span class="op">&gt;</span>);
+    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FrameTimings</span>(<span class="ident">Shared</span><span class="op">&lt;</span><span class="ident">ffi::GdkFrameTimings</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
-        <span class="kw-2">ref</span>      <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">gdk_frame_timings_ref</span>(<span class="ident">ptr</span>),
-        <span class="ident">unref</span>    <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">gdk_frame_timings_unref</span>(<span class="ident">ptr</span>),
-        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span>    <span class="ident">ffi</span>::<span class="ident">gdk_frame_timings_get_type</span>(),
+        <span class="kw-2">ref</span>      <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">ffi::gdk_frame_timings_ref</span>(<span class="ident">ptr</span>),
+        <span class="ident">unref</span>    <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">ffi::gdk_frame_timings_unref</span>(<span class="ident">ptr</span>),
+        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span>    <span class="ident">ffi::gdk_frame_timings_get_type</span>(),
     }
 }</pre></div>
 <p><code>get_type</code>: <code>|| -&gt; glib_ffi::GType</code> (optional) returns the
@@ -282,12 +282,12 @@ $foreign type; see below for <a href="#non-derivable-classes">non-derivable clas
 <div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
 <span class="macro">wrapper!</span> {
     <span class="doccomment">/// Your documentation goes here</span>
-    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">InstanceName</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">InstanceStruct</span>, <span class="ident">ffi</span>::<span class="ident">ClassStruct</span><span class="op">&gt;</span>)
+    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">InstanceName</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::InstanceStruct</span>, <span class="ident">ffi::ClassStruct</span><span class="op">&gt;</span>)
         @<span class="ident">extends</span> <span class="ident">ParentClass</span>, <span class="ident">GrandparentClass</span>, ...,
         @<span class="ident">implements</span> <span class="ident">Interface1</span>, <span class="ident">Interface2</span>, ...;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
-        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">instance_get_type</span>(),
+        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::instance_get_type</span>(),
     }
 }</pre></div>
 <p><code>get_type</code>: <code>|| -&gt; glib_ffi::GType</code> returns the <code>glib_ffi::GType</code>
@@ -301,21 +301,21 @@ specify all the parent classes of the one you are wrapping. The uppermost parent
 
 <div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
 <span class="macro">wrapper!</span> {
-    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">WindowGroup</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GtkWindowGroup</span>, <span class="ident">ffi</span>::<span class="ident">GtkWindowGroupClass</span><span class="op">&gt;</span>);
+    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">WindowGroup</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkWindowGroup</span>, <span class="ident">ffi::GtkWindowGroupClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
-        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">gtk_window_group_get_type</span>(),
+        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::gtk_window_group_get_type</span>(),
     }
 }</pre></div>
 <p>In contrast, <code>ffi::GtkButton</code> has a parent, grandparent, etc. classes, which must be specified:</p>
 
 <div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
 <span class="macro">wrapper!</span> {
-    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Button</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GtkButton</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Bin</span>, <span class="ident">Container</span>, <span class="ident">Widget</span>;
+    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Button</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkButton</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Bin</span>, <span class="ident">Container</span>, <span class="ident">Widget</span>;
         <span class="comment">// see note on interfaces in the example below</span>
 
     <span class="kw">match</span> <span class="kw">fn</span> {
-        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">gtk_button_get_type</span>(),
+        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::gtk_button_get_type</span>(),
     }
 }</pre></div>
 <h4 id="objects-which-implement-interfaces" class="section-header"><a href="#objects-which-implement-interfaces">Objects which implement interfaces</a></h4>
@@ -325,12 +325,12 @@ behind the <code>@implements</code> keyword:</p>
 
 <div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
 <span class="macro">wrapper!</span> {
-    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Button</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GtkButton</span><span class="op">&gt;</span>)
+    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Button</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkButton</span><span class="op">&gt;</span>)
         @<span class="ident">extends</span> <span class="ident">Bin</span>, <span class="ident">Container</span>, <span class="ident">Widget</span>, <span class="comment">// parent classes</span>
         @<span class="ident">implements</span> <span class="ident">Buildable</span>, <span class="ident">Actionable</span>;  <span class="comment">// interfaces</span>
 
     <span class="kw">match</span> <span class="kw">fn</span> {
-        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">gtk_button_get_type</span>(),
+        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::gtk_button_get_type</span>(),
     }
 }</pre></div>
 <h4 id="non-derivable-classes" class="section-header"><a href="#non-derivable-classes">Non-derivable classes</a></h4>
@@ -342,7 +342,7 @@ specify a FFI class name at all in the <code>Object&lt;&gt;</code> part:</p>
 
 <div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
 <span class="macro">wrapper!</span> {
-    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Clipboard</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GtkClipboard</span><span class="op">&gt;</span>);
+    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Clipboard</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkClipboard</span><span class="op">&gt;</span>);
     ...
 }</pre></div>
 <h4 id="interfaces" class="section-header"><a href="#interfaces">Interfaces</a></h4>
@@ -351,7 +351,7 @@ specify a FFI class name at all in the <code>Object&lt;&gt;</code> part:</p>
 
 <div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
 <span class="macro">wrapper!</span> {
-    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TreeModel</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GtkTreeModel</span>, <span class="ident">ffi</span>::<span class="ident">GtkTreeModelIface</span><span class="op">&gt;</span>);
+    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TreeModel</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi::GtkTreeModel</span>, <span class="ident">ffi::GtkTreeModelIface</span><span class="op">&gt;</span>);
     ...
 }</pre></div>
 <h4 id="interfaces-with-prerequisites" class="section-header"><a href="#interfaces-with-prerequisites">Interfaces with prerequisites</a></h4>
@@ -360,7 +360,7 @@ interface have to inherit or interfaces that have to be implemented:</p>
 
 <div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
 <span class="macro">wrapper!</span> {
-    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TreeSortable</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GtkTreeSortable</span>, <span class="ident">ffi</span>::<span class="ident">GtkTreeSortable</span><span class="op">&gt;</span>) @<span class="ident">requires</span> <span class="ident">TreeModel</span>;
+    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TreeSortable</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi::GtkTreeSortable</span>, <span class="ident">ffi::GtkTreeSortable</span><span class="op">&gt;</span>) @<span class="ident">requires</span> <span class="ident">TreeModel</span>;
     ...
 }</pre></div>
 </div></section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../" data-current-crate="glib" data-search-js="../search-index.js"></div>

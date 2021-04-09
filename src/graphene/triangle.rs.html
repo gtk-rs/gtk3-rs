@@ -46,10 +46,10 @@
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Point3D</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Triangle</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Vec3</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Point3D</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Triangle</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Vec3</span>;
+<span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
 
 <span class="kw">impl</span> <span class="ident">Triangle</span> {
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_triangle_init_from_point3d&quot;</span>)]</span>
@@ -60,8 +60,8 @@
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Triangle</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">alloc</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">graphene_triangle_alloc</span>();
-            <span class="ident">ffi</span>::<span class="ident">graphene_triangle_init_from_point3d</span>(
+            <span class="kw">let</span> <span class="ident">alloc</span> <span class="op">=</span> <span class="ident">ffi::graphene_triangle_alloc</span>();
+            <span class="ident">ffi::graphene_triangle_init_from_point3d</span>(
                 <span class="ident">alloc</span>,
                 <span class="ident">a</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">b</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -75,8 +75,8 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_from_vec3</span>(<span class="ident">a</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">Vec3</span><span class="op">&gt;</span>, <span class="ident">b</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">Vec3</span><span class="op">&gt;</span>, <span class="ident">c</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">Vec3</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Triangle</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">alloc</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">graphene_triangle_alloc</span>();
-            <span class="ident">ffi</span>::<span class="ident">graphene_triangle_init_from_vec3</span>(
+            <span class="kw">let</span> <span class="ident">alloc</span> <span class="op">=</span> <span class="ident">ffi::graphene_triangle_alloc</span>();
+            <span class="ident">ffi::graphene_triangle_init_from_vec3</span>(
                 <span class="ident">alloc</span>,
                 <span class="ident">a</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">b</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,

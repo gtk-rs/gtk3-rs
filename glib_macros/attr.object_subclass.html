@@ -11,8 +11,8 @@ instead of the default.</p>
 necessary for types that implement interfaces.</p>
 
 <div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
-<span class="kw">type</span> <span class="ident">Instance</span> <span class="op">=</span> <span class="ident">glib</span>::<span class="ident">subclass</span>::<span class="ident">simple</span>::<span class="ident">InstanceStruct</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
-<span class="kw">type</span> <span class="ident">Class</span> <span class="op">=</span> <span class="ident">glib</span>::<span class="ident">subclass</span>::<span class="ident">simple</span>::<span class="ident">ClassStruct</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
+<span class="kw">type</span> <span class="ident">Instance</span> <span class="op">=</span> <span class="ident">glib::subclass::simple::InstanceStruct</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
+<span class="kw">type</span> <span class="ident">Class</span> <span class="op">=</span> <span class="ident">glib::subclass::simple::ClassStruct</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
 <span class="kw">type</span> <span class="ident">Interfaces</span> <span class="op">=</span> ();</pre></div>
 <p>If no <code>new()</code> or <code>with_class()</code> method is provide, the macro adds a <code>new()</code>
 implementation calling <code>Default::default()</code>. So the type needs to implement
@@ -20,7 +20,7 @@ implementation calling <code>Default::default()</code>. So the type needs to imp
 
 <div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
 <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-    <span class="ident">Default</span>::<span class="ident">default</span>()
+    <span class="ident">Default::default</span>()
 }</pre></div>
 </div></section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../" data-current-crate="glib_macros" data-search-js="../search-index.js"></div>
     <script src="../main.js"></script></body></html>

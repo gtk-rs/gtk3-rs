@@ -95,12 +95,12 @@
 <span class="comment">// from gir-files (https://github.com/gtk-rs/gir-files)</span>
 <span class="comment">// DO NOT EDIT</span>
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">InputStream</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">object</span>::<span class="ident">IsA</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::InputStream</span>;
+<span class="kw">use</span> <span class="ident">glib::object::IsA</span>;
+<span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">std::fmt</span>;
 
-<span class="ident">glib</span>::<span class="macro">wrapper!</span> {
+<span class="macro">glib::wrapper!</span> {
     <span class="doccomment">/// `PollableInputStream` is implemented by `GInputStreams` that</span>
     <span class="doccomment">/// can be polled for readiness to read. This can be used when</span>
     <span class="doccomment">/// interfacing with a non-GIO API that expects</span>
@@ -109,10 +109,10 @@
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`PollableInputStreamExt`](trait.PollableInputStreamExt.html), [`InputStreamExt`](trait.InputStreamExt.html), [`glib::object::ObjectExt`](../glib/object/trait.ObjectExt.html), [`PollableInputStreamExtManual`](prelude/trait.PollableInputStreamExtManual.html), [`InputStreamExtManual`](prelude/trait.InputStreamExtManual.html)</span>
-    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PollableInputStream</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GPollableInputStream</span>, <span class="ident">ffi</span>::<span class="ident">GPollableInputStreamInterface</span><span class="op">&gt;</span>) @<span class="ident">requires</span> <span class="ident">InputStream</span>;
+    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PollableInputStream</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi::GPollableInputStream</span>, <span class="ident">ffi::GPollableInputStreamInterface</span><span class="op">&gt;</span>) @<span class="ident">requires</span> <span class="ident">InputStream</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
-        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">g_pollable_input_stream_get_type</span>(),
+        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::g_pollable_input_stream_get_type</span>(),
     }
 }
 
@@ -160,7 +160,7 @@
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">O</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">PollableInputStream</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="ident">PollableInputStreamExt</span> <span class="kw">for</span> <span class="ident">O</span> {
     <span class="kw">fn</span> <span class="ident">can_poll</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_pollable_input_stream_can_poll</span>(
+            <span class="ident">from_glib</span>(<span class="ident">ffi::g_pollable_input_stream_can_poll</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
         }
@@ -168,15 +168,15 @@
 
     <span class="kw">fn</span> <span class="ident">is_readable</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_pollable_input_stream_is_readable</span>(
+            <span class="ident">from_glib</span>(<span class="ident">ffi::g_pollable_input_stream_is_readable</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
         }
     }
 }
 
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">PollableInputStream</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">PollableInputStream</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;PollableInputStream&quot;</span>)
     }
 }

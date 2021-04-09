@@ -146,14 +146,14 @@
 <span class="comment">// from gir-files (https://github.com/gtk-rs/gir-files)</span>
 <span class="comment">// DO NOT EDIT</span>
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Emblem</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Icon</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">object</span>::<span class="ident">IsA</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">StaticType</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Emblem</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Icon</span>;
+<span class="kw">use</span> <span class="ident">glib::object::IsA</span>;
+<span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">glib::StaticType</span>;
+<span class="kw">use</span> <span class="ident">std::fmt</span>;
 
-<span class="ident">glib</span>::<span class="macro">wrapper!</span> {
+<span class="macro">glib::wrapper!</span> {
     <span class="doccomment">/// `EmblemedIcon` is an implementation of `Icon` that supports</span>
     <span class="doccomment">/// adding an emblem to an icon. Adding multiple emblems to an</span>
     <span class="doccomment">/// icon is ensured via `EmblemedIconExt::add_emblem`.</span>
@@ -164,10 +164,10 @@
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`EmblemedIconExt`](trait.EmblemedIconExt.html), [`glib::object::ObjectExt`](../glib/object/trait.ObjectExt.html), [`IconExt`](trait.IconExt.html)</span>
-    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EmblemedIcon</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GEmblemedIcon</span>, <span class="ident">ffi</span>::<span class="ident">GEmblemedIconClass</span><span class="op">&gt;</span>) @<span class="ident">implements</span> <span class="ident">Icon</span>;
+    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EmblemedIcon</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GEmblemedIcon</span>, <span class="ident">ffi::GEmblemedIconClass</span><span class="op">&gt;</span>) @<span class="ident">implements</span> <span class="ident">Icon</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
-        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">g_emblemed_icon_get_type</span>(),
+        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::g_emblemed_icon_get_type</span>(),
     }
 }
 
@@ -184,7 +184,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_emblemed_icon_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Icon</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">icon</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>, <span class="ident">emblem</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">Emblem</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">EmblemedIcon</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_emblemed_icon_new</span>(
+            <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_emblemed_icon_new</span>(
                 <span class="ident">icon</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">emblem</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
@@ -233,7 +233,7 @@
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">O</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">EmblemedIcon</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="ident">EmblemedIconExt</span> <span class="kw">for</span> <span class="ident">O</span> {
     <span class="kw">fn</span> <span class="ident">add_emblem</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">emblem</span>: <span class="kw-2">&amp;</span><span class="ident">Emblem</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">g_emblemed_icon_add_emblem</span>(
+            <span class="ident">ffi::g_emblemed_icon_add_emblem</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">emblem</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             );
@@ -242,13 +242,13 @@
 
     <span class="kw">fn</span> <span class="ident">clear_emblems</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">g_emblemed_icon_clear_emblems</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+            <span class="ident">ffi::g_emblemed_icon_clear_emblems</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>);
         }
     }
 
     <span class="kw">fn</span> <span class="ident">get_emblems</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Emblem</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">FromGlibPtrContainer</span>::<span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">g_emblemed_icon_get_emblems</span>(
+            <span class="ident">FromGlibPtrContainer::from_glib_none</span>(<span class="ident">ffi::g_emblemed_icon_get_emblems</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
         }
@@ -256,7 +256,7 @@
 
     <span class="kw">fn</span> <span class="ident">get_icon</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Icon</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">g_emblemed_icon_get_icon</span>(
+            <span class="ident">from_glib_none</span>(<span class="ident">ffi::g_emblemed_icon_get_icon</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
         }
@@ -264,9 +264,9 @@
 
     <span class="kw">fn</span> <span class="ident">get_property_gicon</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Icon</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib</span>::<span class="ident">Value</span>::<span class="ident">from_type</span>(<span class="op">&lt;</span><span class="ident">Icon</span> <span class="kw">as</span> <span class="ident">StaticType</span><span class="op">&gt;</span>::<span class="ident">static_type</span>());
-            <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">g_object_get_property</span>(
-                <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">GObject</span>,
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::from_type</span>(<span class="op">&lt;</span><span class="ident">Icon</span> <span class="kw">as</span> <span class="ident">StaticType</span><span class="op">&gt;</span><span class="ident">::static_type</span>());
+            <span class="ident">glib::gobject_ffi::g_object_get_property</span>(
+                <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib::gobject_ffi::GObject</span>,
                 <span class="string">b&quot;gicon\0&quot;</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>,
                 <span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
             );
@@ -277,8 +277,8 @@
     }
 }
 
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">EmblemedIcon</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">EmblemedIcon</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;EmblemedIcon&quot;</span>)
     }
 }

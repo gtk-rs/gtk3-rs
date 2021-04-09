@@ -172,20 +172,20 @@
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">all</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_58&quot;</span>, <span class="ident">unix</span>), <span class="ident">all</span>(<span class="ident">unix</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>)))]</span>
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">AppLaunchContext</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">DesktopAppInfo</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">object</span>::<span class="ident">IsA</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::AppLaunchContext</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::DesktopAppInfo</span>;
+<span class="kw">use</span> <span class="ident">glib::object::IsA</span>;
+<span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">all</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_58&quot;</span>, <span class="ident">unix</span>), <span class="ident">all</span>(<span class="ident">unix</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>)))]</span>
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">Error</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">GString</span>;
+<span class="kw">use</span> <span class="ident">glib::Error</span>;
+<span class="kw">use</span> <span class="ident">glib::GString</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">all</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_58&quot;</span>, <span class="ident">unix</span>), <span class="ident">all</span>(<span class="ident">unix</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>)))]</span>
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">boxed</span>::<span class="ident">Box</span> <span class="kw">as</span> <span class="ident">Box_</span>;
+<span class="kw">use</span> <span class="ident">std::boxed::Box</span> <span class="kw">as</span> <span class="ident">Box_</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">all</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_58&quot;</span>, <span class="ident">unix</span>), <span class="ident">all</span>(<span class="ident">unix</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>)))]</span>
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
+<span class="kw">use</span> <span class="ident">std::ptr</span>;
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">all</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_58&quot;</span>, <span class="ident">unix</span>), <span class="ident">all</span>(<span class="ident">unix</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>)))]</span>
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">os</span>::<span class="ident">unix</span>::<span class="ident">io</span>::<span class="ident">AsRawFd</span>;
+<span class="kw">use</span> <span class="ident">std::os::unix::io::AsRawFd</span>;
 
 <span class="kw">impl</span> <span class="ident">DesktopAppInfo</span> {
     <span class="doccomment">/// Searches desktop files for ones that match `search_string`.</span>
@@ -207,26 +207,26 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_desktop_app_info_search&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">search</span>(<span class="ident">search_string</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">GString</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">out</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">g_desktop_app_info_search</span>(<span class="ident">search_string</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+            <span class="kw">let</span> <span class="ident">out</span> <span class="op">=</span> <span class="ident">ffi::g_desktop_app_info_search</span>(<span class="ident">search_string</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
 
             <span class="kw">if</span> <span class="ident">out</span>.<span class="ident">is_null</span>() {
-                <span class="kw">return</span> <span class="ident">Vec</span>::<span class="ident">new</span>();
+                <span class="kw">return</span> <span class="ident">Vec::new</span>();
             }
 
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">new</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">Vec::new</span>();
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">it</span> <span class="op">=</span> <span class="number">0</span>;
             <span class="kw">loop</span> {
-                <span class="kw">let</span> <span class="ident">tmp</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">libc</span>::<span class="ident">c_char</span> <span class="op">=</span> <span class="kw-2">*</span><span class="ident">out</span>.<span class="ident">offset</span>(<span class="ident">it</span>);
+                <span class="kw">let</span> <span class="ident">tmp</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">libc::c_char</span> <span class="op">=</span> <span class="kw-2">*</span><span class="ident">out</span>.<span class="ident">offset</span>(<span class="ident">it</span>);
 
                 <span class="kw">if</span> <span class="ident">tmp</span>.<span class="ident">is_null</span>() {
                     <span class="kw">break</span>;
                 }
-                <span class="kw">let</span> <span class="ident">v</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">GString</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">FromGlibPtrContainer</span>::<span class="ident">from_glib_full</span>(<span class="ident">tmp</span>);
+                <span class="kw">let</span> <span class="ident">v</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">GString</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">FromGlibPtrContainer::from_glib_full</span>(<span class="ident">tmp</span>);
                 <span class="ident">ret</span>.<span class="ident">push</span>(<span class="ident">v</span>);
                 <span class="ident">it</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>;
             }
 
-            <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">g_free</span>(<span class="ident">out</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">libc</span>::<span class="ident">c_void</span>);
+            <span class="ident">glib::ffi::g_free</span>(<span class="ident">out</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">libc::c_void</span>);
             <span class="ident">ret</span>
         }
     }
@@ -245,9 +245,9 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">uris</span>: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span><span class="ident">str</span>],
         <span class="ident">launch_context</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>,
-        <span class="ident">spawn_flags</span>: <span class="ident">glib</span>::<span class="ident">SpawnFlags</span>,
+        <span class="ident">spawn_flags</span>: <span class="ident">glib::SpawnFlags</span>,
         <span class="ident">user_setup</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box_</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">FnOnce</span>() <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span><span class="op">&gt;</span>,
-        <span class="ident">pid_callback</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw">dyn</span> (<span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="ident">DesktopAppInfo</span>, <span class="ident">glib</span>::<span class="ident">Pid</span>))<span class="op">&gt;</span>,
+        <span class="ident">pid_callback</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw">dyn</span> (<span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="ident">DesktopAppInfo</span>, <span class="ident">glib::Pid</span>))<span class="op">&gt;</span>,
         <span class="ident">stdin_fd</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">T</span>,
         <span class="ident">stdout_fd</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">U</span>,
         <span class="ident">stderr_fd</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">V</span>,
@@ -266,19 +266,19 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">uris</span>: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span><span class="ident">str</span>],
         <span class="ident">launch_context</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>,
-        <span class="ident">spawn_flags</span>: <span class="ident">glib</span>::<span class="ident">SpawnFlags</span>,
+        <span class="ident">spawn_flags</span>: <span class="ident">glib::SpawnFlags</span>,
         <span class="ident">user_setup</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box_</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">FnOnce</span>() <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span><span class="op">&gt;</span>,
-        <span class="ident">pid_callback</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw">dyn</span> (<span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="ident">DesktopAppInfo</span>, <span class="ident">glib</span>::<span class="ident">Pid</span>))<span class="op">&gt;</span>,
+        <span class="ident">pid_callback</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw">dyn</span> (<span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="ident">DesktopAppInfo</span>, <span class="ident">glib::Pid</span>))<span class="op">&gt;</span>,
         <span class="ident">stdin_fd</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">T</span>,
         <span class="ident">stdout_fd</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">U</span>,
         <span class="ident">stderr_fd</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">V</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">user_setup_data</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box_</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">FnOnce</span>() <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_</span>::<span class="ident">new</span>(<span class="ident">user_setup</span>);
+        <span class="kw">let</span> <span class="ident">user_setup_data</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box_</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">FnOnce</span>() <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_::new</span>(<span class="ident">user_setup</span>);
         <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">user_setup_func</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">AppLaunchContext</span><span class="op">&gt;</span><span class="op">&gt;</span>(
-            <span class="ident">user_data</span>: <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">gpointer</span>,
+            <span class="ident">user_data</span>: <span class="ident">glib::ffi::gpointer</span>,
         ) {
             <span class="kw">let</span> <span class="ident">callback</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box_</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">FnOnce</span>() <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">=</span>
-                <span class="ident">Box_</span>::<span class="ident">from_raw</span>(<span class="ident">user_data</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>);
+                <span class="ident">Box_::from_raw</span>(<span class="ident">user_data</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>);
             <span class="kw">let</span> <span class="ident">callback</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">callback</span>).<span class="ident">expect</span>(<span class="string">&quot;cannot get closure...&quot;</span>);
             <span class="ident">callback</span>()
         }
@@ -287,17 +287,17 @@
         } <span class="kw">else</span> {
             <span class="prelude-val">None</span>
         };
-        <span class="kw">let</span> <span class="ident">pid_callback_data</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw">dyn</span> (<span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="ident">DesktopAppInfo</span>, <span class="ident">glib</span>::<span class="ident">Pid</span>))<span class="op">&gt;</span> <span class="op">=</span> <span class="ident">pid_callback</span>;
+        <span class="kw">let</span> <span class="ident">pid_callback_data</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw">dyn</span> (<span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="ident">DesktopAppInfo</span>, <span class="ident">glib::Pid</span>))<span class="op">&gt;</span> <span class="op">=</span> <span class="ident">pid_callback</span>;
         <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">pid_callback_func</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">AppLaunchContext</span><span class="op">&gt;</span><span class="op">&gt;</span>(
-            <span class="ident">appinfo</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GDesktopAppInfo</span>,
-            <span class="ident">pid</span>: <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">GPid</span>,
-            <span class="ident">user_data</span>: <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">gpointer</span>,
+            <span class="ident">appinfo</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::GDesktopAppInfo</span>,
+            <span class="ident">pid</span>: <span class="ident">glib::ffi::GPid</span>,
+            <span class="ident">user_data</span>: <span class="ident">glib::ffi::gpointer</span>,
         ) {
             <span class="kw">let</span> <span class="ident">appinfo</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">appinfo</span>);
             <span class="kw">let</span> <span class="ident">pid</span> <span class="op">=</span> <span class="ident">from_glib</span>(<span class="ident">pid</span>);
-            <span class="kw">let</span> <span class="ident">callback</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw">dyn</span> (<span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="ident">DesktopAppInfo</span>, <span class="ident">glib</span>::<span class="ident">Pid</span>))<span class="op">&gt;</span> <span class="op">=</span>
+            <span class="kw">let</span> <span class="ident">callback</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw">dyn</span> (<span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="ident">DesktopAppInfo</span>, <span class="ident">glib::Pid</span>))<span class="op">&gt;</span> <span class="op">=</span>
                 <span class="ident">user_data</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span> <span class="kw">as</span> <span class="ident">usize</span>
-                    <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw">dyn</span> (<span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="ident">DesktopAppInfo</span>, <span class="ident">glib</span>::<span class="ident">Pid</span>))<span class="op">&gt;</span>;
+                    <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw">dyn</span> (<span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="ident">DesktopAppInfo</span>, <span class="ident">glib::Pid</span>))<span class="op">&gt;</span>;
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">callback</span>) <span class="op">=</span> <span class="kw-2">*</span><span class="ident">callback</span> {
                 <span class="ident">callback</span>(<span class="kw-2">&amp;</span><span class="ident">appinfo</span>, <span class="ident">pid</span>)
             } <span class="kw">else</span> {
@@ -310,17 +310,17 @@
             <span class="prelude-val">None</span>
         };
         <span class="kw">let</span> <span class="ident">super_callback0</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box_</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">FnOnce</span>() <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">user_setup_data</span>;
-        <span class="kw">let</span> <span class="ident">super_callback1</span>: <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw">dyn</span> (<span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="ident">DesktopAppInfo</span>, <span class="ident">glib</span>::<span class="ident">Pid</span>))<span class="op">&gt;</span> <span class="op">=</span>
+        <span class="kw">let</span> <span class="ident">super_callback1</span>: <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw">dyn</span> (<span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="ident">DesktopAppInfo</span>, <span class="ident">glib::Pid</span>))<span class="op">&gt;</span> <span class="op">=</span>
             <span class="kw-2">&amp;</span><span class="ident">pid_callback_data</span>;
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">g_desktop_app_info_launch_uris_as_manager_with_fds</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
+            <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">ffi::g_desktop_app_info_launch_uris_as_manager_with_fds</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">uris</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">launch_context</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> <span class="ident">p</span>.<span class="ident">as_ref</span>()).<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">spawn_flags</span>.<span class="ident">to_glib</span>(),
                 <span class="ident">user_setup</span>,
-                <span class="ident">Box_</span>::<span class="ident">into_raw</span>(<span class="ident">super_callback0</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
+                <span class="ident">Box_::into_raw</span>(<span class="ident">super_callback0</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
                 <span class="ident">pid_callback</span>,
                 <span class="ident">super_callback1</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span> <span class="kw">as</span> <span class="ident">usize</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
                 <span class="ident">stdin_fd</span>.<span class="ident">as_raw_fd</span>(),

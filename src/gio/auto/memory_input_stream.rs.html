@@ -94,15 +94,15 @@
 <span class="comment">// from gir-files (https://github.com/gtk-rs/gir-files)</span>
 <span class="comment">// DO NOT EDIT</span>
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">InputStream</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">PollableInputStream</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Seekable</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">object</span>::<span class="ident">Cast</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">object</span>::<span class="ident">IsA</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::InputStream</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::PollableInputStream</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Seekable</span>;
+<span class="kw">use</span> <span class="ident">glib::object::Cast</span>;
+<span class="kw">use</span> <span class="ident">glib::object::IsA</span>;
+<span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">std::fmt</span>;
 
-<span class="ident">glib</span>::<span class="macro">wrapper!</span> {
+<span class="macro">glib::wrapper!</span> {
     <span class="doccomment">/// `MemoryInputStream` is a class for using arbitrary</span>
     <span class="doccomment">/// memory chunks as input for GIO streaming input operations.</span>
     <span class="doccomment">///</span>
@@ -112,10 +112,10 @@
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`MemoryInputStreamExt`](trait.MemoryInputStreamExt.html), [`InputStreamExt`](trait.InputStreamExt.html), [`glib::object::ObjectExt`](../glib/object/trait.ObjectExt.html), [`PollableInputStreamExt`](trait.PollableInputStreamExt.html), [`SeekableExt`](trait.SeekableExt.html), [`InputStreamExtManual`](prelude/trait.InputStreamExtManual.html), [`PollableInputStreamExtManual`](prelude/trait.PollableInputStreamExtManual.html)</span>
-    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MemoryInputStream</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GMemoryInputStream</span>, <span class="ident">ffi</span>::<span class="ident">GMemoryInputStreamClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">InputStream</span>, @<span class="ident">implements</span> <span class="ident">PollableInputStream</span>, <span class="ident">Seekable</span>;
+    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MemoryInputStream</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GMemoryInputStream</span>, <span class="ident">ffi::GMemoryInputStreamClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">InputStream</span>, @<span class="ident">implements</span> <span class="ident">PollableInputStream</span>, <span class="ident">Seekable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
-        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">g_memory_input_stream_get_type</span>(),
+        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::g_memory_input_stream_get_type</span>(),
     }
 }
 
@@ -127,13 +127,13 @@
     <span class="doccomment">/// a new `InputStream`</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_memory_input_stream_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MemoryInputStream</span> {
-        <span class="kw">unsafe</span> { <span class="ident">InputStream</span>::<span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_memory_input_stream_new</span>()).<span class="ident">unsafe_cast</span>() }
+        <span class="kw">unsafe</span> { <span class="ident">InputStream::from_glib_full</span>(<span class="ident">ffi::g_memory_input_stream_new</span>()).<span class="ident">unsafe_cast</span>() }
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_memory_input_stream_new_from_bytes&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_bytes</span>(<span class="ident">bytes</span>: <span class="kw-2">&amp;</span><span class="ident">glib</span>::<span class="ident">Bytes</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MemoryInputStream</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_bytes</span>(<span class="ident">bytes</span>: <span class="kw-2">&amp;</span><span class="ident">glib::Bytes</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MemoryInputStream</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">InputStream</span>::<span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_memory_input_stream_new_from_bytes</span>(
+            <span class="ident">InputStream::from_glib_full</span>(<span class="ident">ffi::g_memory_input_stream_new_from_bytes</span>(
                 <span class="ident">bytes</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
             .<span class="ident">unsafe_cast</span>()
@@ -143,7 +143,7 @@
 
 <span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">MemoryInputStream</span> {
     <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span>::<span class="ident">new</span>()
+        <span class="self">Self</span><span class="ident">::new</span>()
     }
 }
 
@@ -159,13 +159,13 @@
     <span class="doccomment">/// ## `bytes`</span>
     <span class="doccomment">/// input data</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_memory_input_stream_add_bytes&quot;</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">add_bytes</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">bytes</span>: <span class="kw-2">&amp;</span><span class="ident">glib</span>::<span class="ident">Bytes</span>);
+    <span class="kw">fn</span> <span class="ident">add_bytes</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">bytes</span>: <span class="kw-2">&amp;</span><span class="ident">glib::Bytes</span>);
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">O</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">MemoryInputStream</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="ident">MemoryInputStreamExt</span> <span class="kw">for</span> <span class="ident">O</span> {
-    <span class="kw">fn</span> <span class="ident">add_bytes</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">bytes</span>: <span class="kw-2">&amp;</span><span class="ident">glib</span>::<span class="ident">Bytes</span>) {
+    <span class="kw">fn</span> <span class="ident">add_bytes</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">bytes</span>: <span class="kw-2">&amp;</span><span class="ident">glib::Bytes</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">g_memory_input_stream_add_bytes</span>(
+            <span class="ident">ffi::g_memory_input_stream_add_bytes</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">bytes</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             );
@@ -173,8 +173,8 @@
     }
 }
 
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">MemoryInputStream</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">MemoryInputStream</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;MemoryInputStream&quot;</span>)
     }
 }

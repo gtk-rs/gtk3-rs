@@ -249,15 +249,15 @@
 
 <span class="doccomment">//! Creating paths and manipulating path data</span>
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">enums</span>::<span class="ident">PathDataType</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">ffi</span>::<span class="ident">cairo_path_t</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">iter</span>::<span class="ident">Iterator</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::enums::PathDataType</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::ffi::cairo_path_t</span>;
+<span class="kw">use</span> <span class="ident">std::fmt</span>;
+<span class="kw">use</span> <span class="ident">std::iter::Iterator</span>;
+<span class="kw">use</span> <span class="ident">std::ptr</span>;
 
 <span class="doccomment">/// Paths are the most basic drawing tools and are primarily used to implicitly generate simple masks.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Path</span>(<span class="ident">ptr</span>::<span class="ident">NonNull</span><span class="op">&lt;</span><span class="ident">cairo_path_t</span><span class="op">&gt;</span>);
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Path</span>(<span class="ident">ptr::NonNull</span><span class="op">&lt;</span><span class="ident">cairo_path_t</span><span class="op">&gt;</span>);
 
 <span class="kw">impl</span> <span class="ident">Path</span> {
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_ptr</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo_path_t</span> {
@@ -266,18 +266,18 @@
 
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_raw_full</span>(<span class="ident">pointer</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo_path_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Path</span> {
         <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">pointer</span>.<span class="ident">is_null</span>());
-        <span class="ident">Path</span>(<span class="ident">ptr</span>::<span class="ident">NonNull</span>::<span class="ident">new_unchecked</span>(<span class="ident">pointer</span>))
+        <span class="ident">Path</span>(<span class="ident">ptr::NonNull::new_unchecked</span>(<span class="ident">pointer</span>))
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">iter</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">PathSegments</span> {
-        <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">slice</span>;
+        <span class="kw">use</span> <span class="ident">std::slice</span>;
 
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo_path_t</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">as_ptr</span>();
             <span class="kw">let</span> <span class="ident">length</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">ptr</span>).<span class="ident">num_data</span> <span class="kw">as</span> <span class="ident">usize</span>;
             <span class="kw">let</span> <span class="ident">data_ptr</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">ptr</span>).<span class="ident">data</span>;
             <span class="kw">let</span> <span class="ident">data_vec</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">length</span> <span class="op">!</span><span class="op">=</span> <span class="number">0</span> <span class="op">&amp;&amp;</span> <span class="op">!</span><span class="ident">data_ptr</span>.<span class="ident">is_null</span>() {
-                <span class="ident">slice</span>::<span class="ident">from_raw_parts</span>(<span class="ident">data_ptr</span>, <span class="ident">length</span>)
+                <span class="ident">slice::from_raw_parts</span>(<span class="ident">data_ptr</span>, <span class="ident">length</span>)
             } <span class="kw">else</span> {
                 <span class="kw-2">&amp;</span>[]
             };
@@ -294,13 +294,13 @@
 <span class="kw">impl</span> <span class="ident">Drop</span> <span class="kw">for</span> <span class="ident">Path</span> {
     <span class="kw">fn</span> <span class="ident">drop</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">cairo_path_destroy</span>(<span class="self">self</span>.<span class="ident">as_ptr</span>());
+            <span class="ident">ffi::cairo_path_destroy</span>(<span class="self">self</span>.<span class="ident">as_ptr</span>());
         }
     }
 }
 
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">Path</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">Path</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;Path&quot;</span>)
     }
 }
@@ -313,23 +313,23 @@
     <span class="ident">ClosePath</span>,
 }
 
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">PathSegment</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">PathSegment</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
             <span class="string">&quot;PathSegment::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-                <span class="ident">PathSegment</span>::<span class="ident">MoveTo</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;MoveTo&quot;</span>,
-                <span class="ident">PathSegment</span>::<span class="ident">LineTo</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;LineTo&quot;</span>,
-                <span class="ident">PathSegment</span>::<span class="ident">CurveTo</span>(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;CurveTo&quot;</span>,
-                <span class="ident">PathSegment</span>::<span class="ident">ClosePath</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;ClosePath&quot;</span>,
+                <span class="ident">PathSegment::MoveTo</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;MoveTo&quot;</span>,
+                <span class="ident">PathSegment::LineTo</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;LineTo&quot;</span>,
+                <span class="ident">PathSegment::CurveTo</span>(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;CurveTo&quot;</span>,
+                <span class="ident">PathSegment::ClosePath</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;ClosePath&quot;</span>,
             }
         )
     }
 }
 
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PathSegments</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
-    <span class="ident">data</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">ffi</span>::<span class="ident">cairo_path_data</span>],
+    <span class="ident">data</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">ffi::cairo_path_data</span>],
     <span class="ident">i</span>: <span class="ident">usize</span>,
     <span class="ident">num_data</span>: <span class="ident">usize</span>,
 }
@@ -343,16 +343,16 @@
         }
 
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">PathDataType</span>::<span class="ident">from</span>(<span class="self">self</span>.<span class="ident">data</span>[<span class="self">self</span>.<span class="ident">i</span>].<span class="ident">header</span>.<span class="ident">data_type</span>) {
-                <span class="ident">PathDataType</span>::<span class="ident">MoveTo</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">PathSegment</span>::<span class="ident">MoveTo</span>(<span class="ident">to_tuple</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">data</span>[<span class="self">self</span>.<span class="ident">i</span> <span class="op">+</span> <span class="number">1</span>].<span class="ident">point</span>)),
-                <span class="ident">PathDataType</span>::<span class="ident">LineTo</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">PathSegment</span>::<span class="ident">LineTo</span>(<span class="ident">to_tuple</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">data</span>[<span class="self">self</span>.<span class="ident">i</span> <span class="op">+</span> <span class="number">1</span>].<span class="ident">point</span>)),
-                <span class="ident">PathDataType</span>::<span class="ident">CurveTo</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">PathSegment</span>::<span class="ident">CurveTo</span>(
+            <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">PathDataType::from</span>(<span class="self">self</span>.<span class="ident">data</span>[<span class="self">self</span>.<span class="ident">i</span>].<span class="ident">header</span>.<span class="ident">data_type</span>) {
+                <span class="ident">PathDataType::MoveTo</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">PathSegment::MoveTo</span>(<span class="ident">to_tuple</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">data</span>[<span class="self">self</span>.<span class="ident">i</span> <span class="op">+</span> <span class="number">1</span>].<span class="ident">point</span>)),
+                <span class="ident">PathDataType::LineTo</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">PathSegment::LineTo</span>(<span class="ident">to_tuple</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">data</span>[<span class="self">self</span>.<span class="ident">i</span> <span class="op">+</span> <span class="number">1</span>].<span class="ident">point</span>)),
+                <span class="ident">PathDataType::CurveTo</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">PathSegment::CurveTo</span>(
                     <span class="ident">to_tuple</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">data</span>[<span class="self">self</span>.<span class="ident">i</span> <span class="op">+</span> <span class="number">1</span>].<span class="ident">point</span>),
                     <span class="ident">to_tuple</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">data</span>[<span class="self">self</span>.<span class="ident">i</span> <span class="op">+</span> <span class="number">2</span>].<span class="ident">point</span>),
                     <span class="ident">to_tuple</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">data</span>[<span class="self">self</span>.<span class="ident">i</span> <span class="op">+</span> <span class="number">3</span>].<span class="ident">point</span>),
                 ),
-                <span class="ident">PathDataType</span>::<span class="ident">ClosePath</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">PathSegment</span>::<span class="ident">ClosePath</span>,
-                <span class="ident">PathDataType</span>::<span class="ident">__Unknown</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic!</span>(<span class="string">&quot;Unknown value: {}&quot;</span>, <span class="ident">x</span>),
+                <span class="ident">PathDataType::ClosePath</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">PathSegment::ClosePath</span>,
+                <span class="ident">PathDataType::__Unknown</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic!</span>(<span class="string">&quot;Unknown value: {}&quot;</span>, <span class="ident">x</span>),
             };
 
             <span class="self">self</span>.<span class="ident">i</span> <span class="op">+</span><span class="op">=</span> <span class="self">self</span>.<span class="ident">data</span>[<span class="self">self</span>.<span class="ident">i</span>].<span class="ident">header</span>.<span class="ident">length</span> <span class="kw">as</span> <span class="ident">usize</span>;
@@ -362,8 +362,8 @@
     }
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">PathSegments</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">PathSegments</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;PathSegments&quot;</span>)
     }
 }
@@ -375,14 +375,14 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
-    <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">context</span>::<span class="kw-2">*</span>;
-    <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">enums</span>::<span class="ident">Format</span>;
-    <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">image_surface</span>::<span class="kw-2">*</span>;
+    <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::context</span>::<span class="kw-2">*</span>;
+    <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::enums::Format</span>;
+    <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::image_surface</span>::<span class="kw-2">*</span>;
 
     <span class="kw">fn</span> <span class="ident">make_cr</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Context</span> {
-        <span class="kw">let</span> <span class="ident">surface</span> <span class="op">=</span> <span class="ident">ImageSurface</span>::<span class="ident">create</span>(<span class="ident">Format</span>::<span class="ident">Rgb24</span>, <span class="number">1</span>, <span class="number">1</span>).<span class="ident">unwrap</span>();
+        <span class="kw">let</span> <span class="ident">surface</span> <span class="op">=</span> <span class="ident">ImageSurface::create</span>(<span class="ident">Format::Rgb24</span>, <span class="number">1</span>, <span class="number">1</span>).<span class="ident">unwrap</span>();
 
-        <span class="ident">Context</span>::<span class="ident">new</span>(<span class="kw-2">&amp;</span><span class="ident">surface</span>)
+        <span class="ident">Context::new</span>(<span class="kw-2">&amp;</span><span class="ident">surface</span>)
     }
 
     <span class="kw">fn</span> <span class="ident">assert_path_equals_segments</span>(<span class="ident">expected</span>: <span class="kw-2">&amp;</span><span class="ident">Path</span>, <span class="ident">actual</span>: <span class="kw-2">&amp;</span>[<span class="ident">PathSegment</span>]) {
@@ -421,7 +421,7 @@
 
         <span class="kw">let</span> <span class="ident">path</span> <span class="op">=</span> <span class="ident">cr</span>.<span class="ident">copy_path</span>();
 
-        <span class="ident">assert_path_equals_segments</span>(<span class="kw-2">&amp;</span><span class="ident">path</span>, <span class="kw-2">&amp;</span>[<span class="ident">PathSegment</span>::<span class="ident">MoveTo</span>((<span class="number">1.0</span>, <span class="number">2.0</span>))]);
+        <span class="ident">assert_path_equals_segments</span>(<span class="kw-2">&amp;</span><span class="ident">path</span>, <span class="kw-2">&amp;</span>[<span class="ident">PathSegment::MoveTo</span>((<span class="number">1.0</span>, <span class="number">2.0</span>))]);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -437,9 +437,9 @@
         <span class="ident">assert_path_equals_segments</span>(
             <span class="kw-2">&amp;</span><span class="ident">path</span>,
             <span class="kw-2">&amp;</span>[
-                <span class="ident">PathSegment</span>::<span class="ident">MoveTo</span>((<span class="number">1.0</span>, <span class="number">2.0</span>)),
-                <span class="ident">PathSegment</span>::<span class="ident">LineTo</span>((<span class="number">3.0</span>, <span class="number">4.0</span>)),
-                <span class="ident">PathSegment</span>::<span class="ident">MoveTo</span>((<span class="number">5.0</span>, <span class="number">6.0</span>)),
+                <span class="ident">PathSegment::MoveTo</span>((<span class="number">1.0</span>, <span class="number">2.0</span>)),
+                <span class="ident">PathSegment::LineTo</span>((<span class="number">3.0</span>, <span class="number">4.0</span>)),
+                <span class="ident">PathSegment::MoveTo</span>((<span class="number">5.0</span>, <span class="number">6.0</span>)),
             ],
         );
     }
@@ -459,9 +459,9 @@
         <span class="ident">assert_path_equals_segments</span>(
             <span class="kw-2">&amp;</span><span class="ident">path</span>,
             <span class="kw-2">&amp;</span>[
-                <span class="ident">PathSegment</span>::<span class="ident">MoveTo</span>((<span class="number">1.0</span>, <span class="number">2.0</span>)),
-                <span class="ident">PathSegment</span>::<span class="ident">ClosePath</span>,
-                <span class="ident">PathSegment</span>::<span class="ident">MoveTo</span>((<span class="number">1.0</span>, <span class="number">2.0</span>)),
+                <span class="ident">PathSegment::MoveTo</span>((<span class="number">1.0</span>, <span class="number">2.0</span>)),
+                <span class="ident">PathSegment::ClosePath</span>,
+                <span class="ident">PathSegment::MoveTo</span>((<span class="number">1.0</span>, <span class="number">2.0</span>)),
             ],
         );
     }
@@ -479,11 +479,11 @@
         <span class="ident">assert_path_equals_segments</span>(
             <span class="kw-2">&amp;</span><span class="ident">path</span>,
             <span class="kw-2">&amp;</span>[
-                <span class="ident">PathSegment</span>::<span class="ident">MoveTo</span>((<span class="number">1.0</span>, <span class="number">2.0</span>)),
-                <span class="ident">PathSegment</span>::<span class="ident">CurveTo</span>((<span class="number">3.0</span>, <span class="number">4.0</span>), (<span class="number">5.0</span>, <span class="number">6.0</span>), (<span class="number">7.0</span>, <span class="number">8.0</span>)),
-                <span class="ident">PathSegment</span>::<span class="ident">ClosePath</span>,
-                <span class="ident">PathSegment</span>::<span class="ident">MoveTo</span>((<span class="number">1.0</span>, <span class="number">2.0</span>)),
-                <span class="ident">PathSegment</span>::<span class="ident">LineTo</span>((<span class="number">9.0</span>, <span class="number">10.0</span>)),
+                <span class="ident">PathSegment::MoveTo</span>((<span class="number">1.0</span>, <span class="number">2.0</span>)),
+                <span class="ident">PathSegment::CurveTo</span>((<span class="number">3.0</span>, <span class="number">4.0</span>), (<span class="number">5.0</span>, <span class="number">6.0</span>), (<span class="number">7.0</span>, <span class="number">8.0</span>)),
+                <span class="ident">PathSegment::ClosePath</span>,
+                <span class="ident">PathSegment::MoveTo</span>((<span class="number">1.0</span>, <span class="number">2.0</span>)),
+                <span class="ident">PathSegment::LineTo</span>((<span class="number">9.0</span>, <span class="number">10.0</span>)),
             ],
         );
     }

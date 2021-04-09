@@ -149,10 +149,10 @@
 
 <span class="attribute">#![<span class="ident">allow</span>(<span class="ident">non_camel_case_types</span>, <span class="ident">non_upper_case_globals</span>, <span class="ident">non_snake_case</span>)]</span>
 <span class="attribute">#![<span class="ident">allow</span>(
-    <span class="ident">clippy</span>::<span class="ident">approx_constant</span>,
-    <span class="ident">clippy</span>::<span class="ident">type_complexity</span>,
-    <span class="ident">clippy</span>::<span class="ident">unreadable_literal</span>,
-    <span class="ident">clippy</span>::<span class="ident">upper_case_acronyms</span>
+    <span class="ident">clippy::approx_constant</span>,
+    <span class="ident">clippy::type_complexity</span>,
+    <span class="ident">clippy::unreadable_literal</span>,
+    <span class="ident">clippy::upper_case_acronyms</span>
 )]</span>
 <span class="attribute">#![<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">feature</span>(<span class="ident">doc_cfg</span>))]</span>
 
@@ -171,15 +171,15 @@
 
 <span class="comment">// Callbacks</span>
 <span class="kw">pub</span> <span class="kw">type</span> <span class="ident">PangoCairoShapeRendererFunc</span> <span class="op">=</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span>
-    <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span>(<span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo</span>::<span class="ident">cairo_t</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">pango</span>::<span class="ident">PangoAttrShape</span>, <span class="ident">gboolean</span>, <span class="ident">gpointer</span>),
+    <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span>(<span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo::cairo_t</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">pango::PangoAttrShape</span>, <span class="ident">gboolean</span>, <span class="ident">gpointer</span>),
 <span class="op">&gt;</span>;
 
 <span class="comment">// Interfaces</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PangoCairoFont</span>(<span class="ident">c_void</span>);
 
-<span class="kw">impl</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Debug</span> <span class="kw">for</span> <span class="ident">PangoCairoFont</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+<span class="kw">impl</span> <span class="ident">::std::fmt::Debug</span> <span class="kw">for</span> <span class="ident">PangoCairoFont</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">::std::fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">::std::fmt::Result</span> {
         <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;PangoCairoFont @ {:?}&quot;</span>, <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>)
     }
 }
@@ -187,8 +187,8 @@
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PangoCairoFontMap</span>(<span class="ident">c_void</span>);
 
-<span class="kw">impl</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Debug</span> <span class="kw">for</span> <span class="ident">PangoCairoFontMap</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+<span class="kw">impl</span> <span class="ident">::std::fmt::Debug</span> <span class="kw">for</span> <span class="ident">PangoCairoFontMap</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">::std::fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">::std::fmt::Result</span> {
         <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;PangoCairoFontMap @ {:?}&quot;</span>, <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>)
     }
 }
@@ -202,23 +202,23 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pango_cairo_font_get_type</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">GType</span>;
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pango_cairo_font_get_scaled_font</span>(
         <span class="ident">font</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">PangoCairoFont</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo</span>::<span class="ident">cairo_scaled_font_t</span>;
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo::cairo_scaled_font_t</span>;
 
     <span class="comment">//=========================================================================</span>
     <span class="comment">// PangoCairoFontMap</span>
     <span class="comment">//=========================================================================</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pango_cairo_font_map_get_type</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">GType</span>;
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pango_cairo_font_map_get_default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">pango</span>::<span class="ident">PangoFontMap</span>;
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pango_cairo_font_map_new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">pango</span>::<span class="ident">PangoFontMap</span>;
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pango_cairo_font_map_get_default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">pango::PangoFontMap</span>;
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pango_cairo_font_map_new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">pango::PangoFontMap</span>;
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pango_cairo_font_map_new_for_font_type</span>(
-        <span class="ident">fonttype</span>: <span class="ident">cairo</span>::<span class="ident">cairo_font_type_t</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">pango</span>::<span class="ident">PangoFontMap</span>;
+        <span class="ident">fonttype</span>: <span class="ident">cairo::cairo_font_type_t</span>,
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">pango::PangoFontMap</span>;
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pango_cairo_font_map_create_context</span>(
         <span class="ident">fontmap</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">PangoCairoFontMap</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">pango</span>::<span class="ident">PangoContext</span>;
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">pango::PangoContext</span>;
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pango_cairo_font_map_get_font_type</span>(
         <span class="ident">fontmap</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">PangoCairoFontMap</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">cairo</span>::<span class="ident">cairo_font_type_t</span>;
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">cairo::cairo_font_type_t</span>;
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pango_cairo_font_map_get_resolution</span>(<span class="ident">fontmap</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">PangoCairoFontMap</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">c_double</span>;
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pango_cairo_font_map_set_default</span>(<span class="ident">fontmap</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">PangoCairoFontMap</span>);
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pango_cairo_font_map_set_resolution</span>(<span class="ident">fontmap</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">PangoCairoFontMap</span>, <span class="ident">dpi</span>: <span class="ident">c_double</span>);
@@ -227,61 +227,61 @@
     <span class="comment">// Other functions</span>
     <span class="comment">//=========================================================================</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pango_cairo_context_get_font_options</span>(
-        <span class="ident">context</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">pango</span>::<span class="ident">PangoContext</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">cairo</span>::<span class="ident">cairo_font_options_t</span>;
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pango_cairo_context_get_resolution</span>(<span class="ident">context</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">pango</span>::<span class="ident">PangoContext</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">c_double</span>;
+        <span class="ident">context</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">pango::PangoContext</span>,
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">cairo::cairo_font_options_t</span>;
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pango_cairo_context_get_resolution</span>(<span class="ident">context</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">pango::PangoContext</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">c_double</span>;
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pango_cairo_context_get_shape_renderer</span>(
-        <span class="ident">context</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">pango</span>::<span class="ident">PangoContext</span>,
+        <span class="ident">context</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">pango::PangoContext</span>,
         <span class="ident">data</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gpointer</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">PangoCairoShapeRendererFunc</span>;
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pango_cairo_context_set_font_options</span>(
-        <span class="ident">context</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">pango</span>::<span class="ident">PangoContext</span>,
-        <span class="ident">options</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">cairo</span>::<span class="ident">cairo_font_options_t</span>,
+        <span class="ident">context</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">pango::PangoContext</span>,
+        <span class="ident">options</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">cairo::cairo_font_options_t</span>,
     );
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pango_cairo_context_set_resolution</span>(<span class="ident">context</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">pango</span>::<span class="ident">PangoContext</span>, <span class="ident">dpi</span>: <span class="ident">c_double</span>);
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pango_cairo_context_set_resolution</span>(<span class="ident">context</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">pango::PangoContext</span>, <span class="ident">dpi</span>: <span class="ident">c_double</span>);
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pango_cairo_context_set_shape_renderer</span>(
-        <span class="ident">context</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">pango</span>::<span class="ident">PangoContext</span>,
+        <span class="ident">context</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">pango::PangoContext</span>,
         <span class="ident">func</span>: <span class="ident">PangoCairoShapeRendererFunc</span>,
         <span class="ident">data</span>: <span class="ident">gpointer</span>,
-        <span class="ident">dnotify</span>: <span class="ident">glib</span>::<span class="ident">GDestroyNotify</span>,
+        <span class="ident">dnotify</span>: <span class="ident">glib::GDestroyNotify</span>,
     );
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pango_cairo_create_context</span>(<span class="ident">cr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo</span>::<span class="ident">cairo_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">pango</span>::<span class="ident">PangoContext</span>;
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pango_cairo_create_layout</span>(<span class="ident">cr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo</span>::<span class="ident">cairo_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">pango</span>::<span class="ident">PangoLayout</span>;
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pango_cairo_create_context</span>(<span class="ident">cr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo::cairo_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">pango::PangoContext</span>;
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pango_cairo_create_layout</span>(<span class="ident">cr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo::cairo_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">pango::PangoLayout</span>;
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pango_cairo_error_underline_path</span>(
-        <span class="ident">cr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo</span>::<span class="ident">cairo_t</span>,
+        <span class="ident">cr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo::cairo_t</span>,
         <span class="ident">x</span>: <span class="ident">c_double</span>,
         <span class="ident">y</span>: <span class="ident">c_double</span>,
         <span class="ident">width</span>: <span class="ident">c_double</span>,
         <span class="ident">height</span>: <span class="ident">c_double</span>,
     );
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pango_cairo_glyph_string_path</span>(
-        <span class="ident">cr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo</span>::<span class="ident">cairo_t</span>,
-        <span class="ident">font</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">pango</span>::<span class="ident">PangoFont</span>,
-        <span class="ident">glyphs</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">pango</span>::<span class="ident">PangoGlyphString</span>,
+        <span class="ident">cr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo::cairo_t</span>,
+        <span class="ident">font</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">pango::PangoFont</span>,
+        <span class="ident">glyphs</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">pango::PangoGlyphString</span>,
     );
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pango_cairo_layout_line_path</span>(<span class="ident">cr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo</span>::<span class="ident">cairo_t</span>, <span class="ident">line</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">pango</span>::<span class="ident">PangoLayoutLine</span>);
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pango_cairo_layout_path</span>(<span class="ident">cr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo</span>::<span class="ident">cairo_t</span>, <span class="ident">layout</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">pango</span>::<span class="ident">PangoLayout</span>);
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pango_cairo_layout_line_path</span>(<span class="ident">cr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo::cairo_t</span>, <span class="ident">line</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">pango::PangoLayoutLine</span>);
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pango_cairo_layout_path</span>(<span class="ident">cr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo::cairo_t</span>, <span class="ident">layout</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">pango::PangoLayout</span>);
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pango_cairo_show_error_underline</span>(
-        <span class="ident">cr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo</span>::<span class="ident">cairo_t</span>,
+        <span class="ident">cr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo::cairo_t</span>,
         <span class="ident">x</span>: <span class="ident">c_double</span>,
         <span class="ident">y</span>: <span class="ident">c_double</span>,
         <span class="ident">width</span>: <span class="ident">c_double</span>,
         <span class="ident">height</span>: <span class="ident">c_double</span>,
     );
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pango_cairo_show_glyph_item</span>(
-        <span class="ident">cr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo</span>::<span class="ident">cairo_t</span>,
+        <span class="ident">cr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo::cairo_t</span>,
         <span class="ident">text</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>,
-        <span class="ident">glyph_item</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">pango</span>::<span class="ident">PangoGlyphItem</span>,
+        <span class="ident">glyph_item</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">pango::PangoGlyphItem</span>,
     );
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pango_cairo_show_glyph_string</span>(
-        <span class="ident">cr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo</span>::<span class="ident">cairo_t</span>,
-        <span class="ident">font</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">pango</span>::<span class="ident">PangoFont</span>,
-        <span class="ident">glyphs</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">pango</span>::<span class="ident">PangoGlyphString</span>,
+        <span class="ident">cr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo::cairo_t</span>,
+        <span class="ident">font</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">pango::PangoFont</span>,
+        <span class="ident">glyphs</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">pango::PangoGlyphString</span>,
     );
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pango_cairo_show_layout</span>(<span class="ident">cr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo</span>::<span class="ident">cairo_t</span>, <span class="ident">layout</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">pango</span>::<span class="ident">PangoLayout</span>);
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pango_cairo_show_layout_line</span>(<span class="ident">cr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo</span>::<span class="ident">cairo_t</span>, <span class="ident">line</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">pango</span>::<span class="ident">PangoLayoutLine</span>);
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pango_cairo_update_context</span>(<span class="ident">cr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo</span>::<span class="ident">cairo_t</span>, <span class="ident">context</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">pango</span>::<span class="ident">PangoContext</span>);
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pango_cairo_update_layout</span>(<span class="ident">cr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo</span>::<span class="ident">cairo_t</span>, <span class="ident">layout</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">pango</span>::<span class="ident">PangoLayout</span>);
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pango_cairo_show_layout</span>(<span class="ident">cr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo::cairo_t</span>, <span class="ident">layout</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">pango::PangoLayout</span>);
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pango_cairo_show_layout_line</span>(<span class="ident">cr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo::cairo_t</span>, <span class="ident">line</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">pango::PangoLayoutLine</span>);
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pango_cairo_update_context</span>(<span class="ident">cr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo::cairo_t</span>, <span class="ident">context</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">pango::PangoContext</span>);
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pango_cairo_update_layout</span>(<span class="ident">cr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo::cairo_t</span>, <span class="ident">layout</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">pango::PangoLayout</span>);
 
 }
 </pre></div>

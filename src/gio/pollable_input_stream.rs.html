@@ -269,20 +269,20 @@
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Cancellable</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">PollableInputStream</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">PollableInputStreamExt</span>;
-<span class="kw">use</span> <span class="ident">futures_core</span>::<span class="ident">task</span>::{<span class="ident">Context</span>, <span class="ident">Poll</span>};
-<span class="kw">use</span> <span class="ident">futures_io</span>::<span class="ident">AsyncRead</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">object</span>::{<span class="ident">Cast</span>, <span class="ident">IsA</span>};
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">cell</span>::<span class="ident">RefCell</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">io</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>::<span class="ident">transmute</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Cancellable</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::PollableInputStream</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::PollableInputStreamExt</span>;
+<span class="kw">use</span> <span class="ident">futures_core::task</span>::{<span class="ident">Context</span>, <span class="ident">Poll</span>};
+<span class="kw">use</span> <span class="ident">futures_io::AsyncRead</span>;
+<span class="kw">use</span> <span class="ident">glib::object</span>::{<span class="ident">Cast</span>, <span class="ident">IsA</span>};
+<span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">std::cell::RefCell</span>;
+<span class="kw">use</span> <span class="ident">std::io</span>;
+<span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
+<span class="kw">use</span> <span class="ident">std::ptr</span>;
 
-<span class="kw">use</span> <span class="ident">futures_core</span>::<span class="ident">stream</span>::<span class="ident">Stream</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">pin</span>::<span class="ident">Pin</span>;
+<span class="kw">use</span> <span class="ident">futures_core::stream::Stream</span>;
+<span class="kw">use</span> <span class="ident">std::pin::Pin</span>;
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">PollableInputStreamExtManual</span>: <span class="ident">Sized</span> {
     <span class="doccomment">/// Creates a `glib::Source` that triggers when `self` can be read, or</span>
@@ -303,23 +303,23 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">C</span><span class="op">&gt;</span>,
         <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>,
-        <span class="ident">priority</span>: <span class="ident">glib</span>::<span class="ident">Priority</span>,
+        <span class="ident">priority</span>: <span class="ident">glib::Priority</span>,
         <span class="ident">func</span>: <span class="ident">F</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib</span>::<span class="ident">Source</span>
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Source</span>
     <span class="kw">where</span>
-        <span class="ident">F</span>: <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib</span>::<span class="ident">Continue</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
+        <span class="ident">F</span>: <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Continue</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
         <span class="ident">C</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span>;
 
     <span class="kw">fn</span> <span class="ident">create_source_future</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">C</span><span class="op">&gt;</span>,
-        <span class="ident">priority</span>: <span class="ident">glib</span>::<span class="ident">Priority</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pin</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">std</span>::<span class="ident">future</span>::<span class="ident">Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> ()<span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span><span class="op">&gt;</span>;
+        <span class="ident">priority</span>: <span class="ident">glib::Priority</span>,
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pin</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">std::future::Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> ()<span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span><span class="op">&gt;</span>;
 
     <span class="kw">fn</span> <span class="ident">create_source_stream</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">C</span><span class="op">&gt;</span>,
-        <span class="ident">priority</span>: <span class="ident">glib</span>::<span class="ident">Priority</span>,
+        <span class="ident">priority</span>: <span class="ident">glib::Priority</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pin</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Stream</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> ()<span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Attempts to read up to `count` bytes from `self` into `buffer`, as</span>
@@ -349,7 +349,7 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">buffer</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> [<span class="ident">u8</span>],
         <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">C</span><span class="op">&gt;</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">isize</span>, <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span>;
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">isize</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span>;
 
     <span class="kw">fn</span> <span class="ident">into_async_read</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">InputStreamAsyncRead</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>, <span class="self">Self</span><span class="op">&gt;</span>
     <span class="kw">where</span>
@@ -368,49 +368,49 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">C</span><span class="op">&gt;</span>,
         <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>,
-        <span class="ident">priority</span>: <span class="ident">glib</span>::<span class="ident">Priority</span>,
+        <span class="ident">priority</span>: <span class="ident">glib::Priority</span>,
         <span class="ident">func</span>: <span class="ident">F</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib</span>::<span class="ident">Source</span>
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Source</span>
     <span class="kw">where</span>
-        <span class="ident">F</span>: <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib</span>::<span class="ident">Continue</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
+        <span class="ident">F</span>: <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Continue</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
         <span class="ident">C</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span>,
     {
         <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">trampoline</span><span class="op">&lt;</span>
             <span class="ident">O</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">PollableInputStream</span><span class="op">&gt;</span>,
-            <span class="ident">F</span>: <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="ident">O</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib</span>::<span class="ident">Continue</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
+            <span class="ident">F</span>: <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="ident">O</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Continue</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
         <span class="op">&gt;</span>(
-            <span class="ident">stream</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GPollableInputStream</span>,
-            <span class="ident">func</span>: <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">gpointer</span>,
-        ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">gboolean</span> {
+            <span class="ident">stream</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::GPollableInputStream</span>,
+            <span class="ident">func</span>: <span class="ident">glib::ffi::gpointer</span>,
+        ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::ffi::gboolean</span> {
             <span class="kw">let</span> <span class="ident">func</span>: <span class="kw-2">&amp;</span><span class="ident">RefCell</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">func</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">RefCell</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>);
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">func</span> <span class="op">=</span> <span class="ident">func</span>.<span class="ident">borrow_mut</span>();
-            (<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="ident">func</span>)(<span class="kw-2">&amp;</span><span class="ident">PollableInputStream</span>::<span class="ident">from_glib_borrow</span>(<span class="ident">stream</span>).<span class="ident">unsafe_cast_ref</span>()).<span class="ident">to_glib</span>()
+            (<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="ident">func</span>)(<span class="kw-2">&amp;</span><span class="ident">PollableInputStream::from_glib_borrow</span>(<span class="ident">stream</span>).<span class="ident">unsafe_cast_ref</span>()).<span class="ident">to_glib</span>()
         }
-        <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">destroy_closure</span><span class="op">&lt;</span><span class="ident">O</span>, <span class="ident">F</span><span class="op">&gt;</span>(<span class="ident">ptr</span>: <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">gpointer</span>) {
-            <span class="ident">Box</span>::<span class="op">&lt;</span><span class="ident">RefCell</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span><span class="op">&gt;</span>::<span class="ident">from_raw</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>);
+        <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">destroy_closure</span><span class="op">&lt;</span><span class="ident">O</span>, <span class="ident">F</span><span class="op">&gt;</span>(<span class="ident">ptr</span>: <span class="ident">glib::ffi::gpointer</span>) {
+            <span class="ident">Box</span>::<span class="op">&lt;</span><span class="ident">RefCell</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::from_raw</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>);
         }
         <span class="kw">let</span> <span class="ident">cancellable</span> <span class="op">=</span> <span class="ident">cancellable</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">c</span><span class="op">|</span> <span class="ident">c</span>.<span class="ident">as_ref</span>());
         <span class="kw">let</span> <span class="ident">gcancellable</span> <span class="op">=</span> <span class="ident">cancellable</span>.<span class="ident">to_glib_none</span>();
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">source</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">g_pollable_input_stream_create_source</span>(
+            <span class="kw">let</span> <span class="ident">source</span> <span class="op">=</span> <span class="ident">ffi::g_pollable_input_stream_create_source</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">gcancellable</span>.<span class="number">0</span>,
             );
 
-            <span class="kw">let</span> <span class="ident">trampoline</span> <span class="op">=</span> <span class="ident">trampoline</span>::<span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">F</span><span class="op">&gt;</span> <span class="kw">as</span> <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">gpointer</span>;
-            <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">g_source_set_callback</span>(
+            <span class="kw">let</span> <span class="ident">trampoline</span> <span class="op">=</span> <span class="ident">trampoline</span>::<span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">F</span><span class="op">&gt;</span> <span class="kw">as</span> <span class="ident">glib::ffi::gpointer</span>;
+            <span class="ident">glib::ffi::g_source_set_callback</span>(
                 <span class="ident">source</span>,
                 <span class="prelude-val">Some</span>(<span class="ident">transmute</span>::<span class="op">&lt;</span>
                     <span class="kw">_</span>,
-                    <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span>(<span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">gpointer</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">gboolean</span>,
+                    <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span>(<span class="ident">glib::ffi::gpointer</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::ffi::gboolean</span>,
                 <span class="op">&gt;</span>(<span class="ident">trampoline</span>)),
-                <span class="ident">Box</span>::<span class="ident">into_raw</span>(<span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">RefCell</span>::<span class="ident">new</span>(<span class="ident">func</span>))) <span class="kw">as</span> <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">gpointer</span>,
+                <span class="ident">Box::into_raw</span>(<span class="ident">Box::new</span>(<span class="ident">RefCell::new</span>(<span class="ident">func</span>))) <span class="kw">as</span> <span class="ident">glib::ffi::gpointer</span>,
                 <span class="prelude-val">Some</span>(<span class="ident">destroy_closure</span>::<span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">F</span><span class="op">&gt;</span>),
             );
-            <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">g_source_set_priority</span>(<span class="ident">source</span>, <span class="ident">priority</span>.<span class="ident">to_glib</span>());
+            <span class="ident">glib::ffi::g_source_set_priority</span>(<span class="ident">source</span>, <span class="ident">priority</span>.<span class="ident">to_glib</span>());
 
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">name</span>) <span class="op">=</span> <span class="ident">name</span> {
-                <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">g_source_set_name</span>(<span class="ident">source</span>, <span class="ident">name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+                <span class="ident">glib::ffi::g_source_set_name</span>(<span class="ident">source</span>, <span class="ident">name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
             }
 
             <span class="ident">from_glib_full</span>(<span class="ident">source</span>)
@@ -421,13 +421,13 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">buffer</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> [<span class="ident">u8</span>],
         <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">C</span><span class="op">&gt;</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">isize</span>, <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">isize</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">cancellable</span> <span class="op">=</span> <span class="ident">cancellable</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">c</span><span class="op">|</span> <span class="ident">c</span>.<span class="ident">as_ref</span>());
         <span class="kw">let</span> <span class="ident">gcancellable</span> <span class="op">=</span> <span class="ident">cancellable</span>.<span class="ident">to_glib_none</span>();
         <span class="kw">let</span> <span class="ident">count</span> <span class="op">=</span> <span class="ident">buffer</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">usize</span>;
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">g_pollable_input_stream_read_nonblocking</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
+            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">ffi::g_pollable_input_stream_read_nonblocking</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">buffer</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">count</span>,
@@ -445,16 +445,16 @@
     <span class="kw">fn</span> <span class="ident">create_source_future</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">C</span><span class="op">&gt;</span>,
-        <span class="ident">priority</span>: <span class="ident">glib</span>::<span class="ident">Priority</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pin</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">std</span>::<span class="ident">future</span>::<span class="ident">Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> ()<span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+        <span class="ident">priority</span>: <span class="ident">glib::Priority</span>,
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pin</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">std::future::Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> ()<span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">cancellable</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">c</span><span class="op">|</span> <span class="ident">c</span>.<span class="ident">as_ref</span>()).<span class="ident">cloned</span>();
 
         <span class="kw">let</span> <span class="ident">obj</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">clone</span>();
-        <span class="ident">Box</span>::<span class="ident">pin</span>(<span class="ident">glib</span>::<span class="ident">SourceFuture</span>::<span class="ident">new</span>(<span class="kw">move</span> <span class="op">|</span><span class="ident">send</span><span class="op">|</span> {
+        <span class="ident">Box::pin</span>(<span class="ident">glib::SourceFuture::new</span>(<span class="kw">move</span> <span class="op">|</span><span class="ident">send</span><span class="op">|</span> {
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">send</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">send</span>);
             <span class="ident">obj</span>.<span class="ident">create_source</span>(<span class="ident">cancellable</span>.<span class="ident">as_ref</span>(), <span class="prelude-val">None</span>, <span class="ident">priority</span>, <span class="kw">move</span> <span class="op">|</span><span class="kw">_</span><span class="op">|</span> {
                 <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">send</span>.<span class="ident">take</span>().<span class="ident">unwrap</span>().<span class="ident">send</span>(());
-                <span class="ident">glib</span>::<span class="ident">Continue</span>(<span class="bool-val">false</span>)
+                <span class="ident">glib::Continue</span>(<span class="bool-val">false</span>)
             })
         }))
     }
@@ -462,17 +462,17 @@
     <span class="kw">fn</span> <span class="ident">create_source_stream</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">C</span><span class="op">&gt;</span>,
-        <span class="ident">priority</span>: <span class="ident">glib</span>::<span class="ident">Priority</span>,
+        <span class="ident">priority</span>: <span class="ident">glib::Priority</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pin</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Stream</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> ()<span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">cancellable</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">c</span><span class="op">|</span> <span class="ident">c</span>.<span class="ident">as_ref</span>()).<span class="ident">cloned</span>();
 
         <span class="kw">let</span> <span class="ident">obj</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">clone</span>();
-        <span class="ident">Box</span>::<span class="ident">pin</span>(<span class="ident">glib</span>::<span class="ident">SourceStream</span>::<span class="ident">new</span>(<span class="kw">move</span> <span class="op">|</span><span class="ident">send</span><span class="op">|</span> {
+        <span class="ident">Box::pin</span>(<span class="ident">glib::SourceStream::new</span>(<span class="kw">move</span> <span class="op">|</span><span class="ident">send</span><span class="op">|</span> {
             <span class="ident">obj</span>.<span class="ident">create_source</span>(<span class="ident">cancellable</span>.<span class="ident">as_ref</span>(), <span class="prelude-val">None</span>, <span class="ident">priority</span>, <span class="kw">move</span> <span class="op">|</span><span class="kw">_</span><span class="op">|</span> {
                 <span class="kw">if</span> <span class="ident">send</span>.<span class="ident">unbounded_send</span>(()).<span class="ident">is_err</span>() {
-                    <span class="ident">glib</span>::<span class="ident">Continue</span>(<span class="bool-val">false</span>)
+                    <span class="ident">glib::Continue</span>(<span class="bool-val">false</span>)
                 } <span class="kw">else</span> {
-                    <span class="ident">glib</span>::<span class="ident">Continue</span>(<span class="bool-val">true</span>)
+                    <span class="ident">glib::Continue</span>(<span class="bool-val">true</span>)
                 }
             })
         }))
@@ -497,36 +497,36 @@
         <span class="self">self</span>: <span class="ident">Pin</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span><span class="op">&gt;</span>,
         <span class="ident">cx</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Context</span>,
         <span class="ident">buf</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> [<span class="ident">u8</span>],
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Poll</span><span class="op">&lt;</span><span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">stream</span> <span class="op">=</span> <span class="ident">Pin</span>::<span class="ident">get_ref</span>(<span class="self">self</span>.<span class="ident">as_ref</span>());
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Poll</span><span class="op">&lt;</span><span class="ident">io::Result</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+        <span class="kw">let</span> <span class="ident">stream</span> <span class="op">=</span> <span class="ident">Pin::get_ref</span>(<span class="self">self</span>.<span class="ident">as_ref</span>());
         <span class="kw">let</span> <span class="ident">gio_result</span> <span class="op">=</span> <span class="ident">stream</span>
             .<span class="number">0</span>
             .<span class="ident">as_ref</span>()
-            .<span class="ident">read_nonblocking</span>(<span class="ident">buf</span>, <span class="kw">crate</span>::<span class="ident">NONE_CANCELLABLE</span>);
+            .<span class="ident">read_nonblocking</span>(<span class="ident">buf</span>, <span class="kw">crate</span><span class="ident">::NONE_CANCELLABLE</span>);
 
         <span class="kw">match</span> <span class="ident">gio_result</span> {
-            <span class="prelude-val">Ok</span>(<span class="ident">size</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Poll</span>::<span class="ident">Ready</span>(<span class="prelude-val">Ok</span>(<span class="ident">size</span> <span class="kw">as</span> <span class="ident">usize</span>)),
+            <span class="prelude-val">Ok</span>(<span class="ident">size</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Poll::Ready</span>(<span class="prelude-val">Ok</span>(<span class="ident">size</span> <span class="kw">as</span> <span class="ident">usize</span>)),
             <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="kw">let</span> <span class="ident">kind</span> <span class="op">=</span> <span class="ident">err</span>.<span class="ident">kind</span>::<span class="op">&lt;</span><span class="kw">crate</span>::<span class="ident">IOErrorEnum</span><span class="op">&gt;</span>().<span class="ident">unwrap</span>();
-                <span class="kw">if</span> <span class="ident">kind</span> <span class="op">=</span><span class="op">=</span> <span class="kw">crate</span>::<span class="ident">IOErrorEnum</span>::<span class="ident">WouldBlock</span> {
+                <span class="kw">let</span> <span class="ident">kind</span> <span class="op">=</span> <span class="ident">err</span>.<span class="ident">kind</span>::<span class="op">&lt;</span><span class="kw">crate</span><span class="ident">::IOErrorEnum</span><span class="op">&gt;</span>().<span class="ident">unwrap</span>();
+                <span class="kw">if</span> <span class="ident">kind</span> <span class="op">=</span><span class="op">=</span> <span class="kw">crate</span><span class="ident">::IOErrorEnum::WouldBlock</span> {
                     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">waker</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">cx</span>.<span class="ident">waker</span>().<span class="ident">clone</span>());
                     <span class="kw">let</span> <span class="ident">source</span> <span class="op">=</span> <span class="ident">stream</span>.<span class="number">0</span>.<span class="ident">as_ref</span>().<span class="ident">create_source</span>(
-                        <span class="kw">crate</span>::<span class="ident">NONE_CANCELLABLE</span>,
+                        <span class="kw">crate</span><span class="ident">::NONE_CANCELLABLE</span>,
                         <span class="prelude-val">None</span>,
-                        <span class="ident">glib</span>::<span class="ident">PRIORITY_DEFAULT</span>,
+                        <span class="ident">glib::PRIORITY_DEFAULT</span>,
                         <span class="kw">move</span> <span class="op">|</span><span class="kw">_</span><span class="op">|</span> {
                             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">waker</span>) <span class="op">=</span> <span class="ident">waker</span>.<span class="ident">take</span>() {
                                 <span class="ident">waker</span>.<span class="ident">wake</span>();
                             }
-                            <span class="ident">glib</span>::<span class="ident">Continue</span>(<span class="bool-val">false</span>)
+                            <span class="ident">glib::Continue</span>(<span class="bool-val">false</span>)
                         },
                     );
-                    <span class="kw">let</span> <span class="ident">main_context</span> <span class="op">=</span> <span class="ident">glib</span>::<span class="ident">MainContext</span>::<span class="ident">ref_thread_default</span>();
+                    <span class="kw">let</span> <span class="ident">main_context</span> <span class="op">=</span> <span class="ident">glib::MainContext::ref_thread_default</span>();
                     <span class="ident">source</span>.<span class="ident">attach</span>(<span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="ident">main_context</span>));
 
-                    <span class="ident">Poll</span>::<span class="ident">Pending</span>
+                    <span class="ident">Poll::Pending</span>
                 } <span class="kw">else</span> {
-                    <span class="ident">Poll</span>::<span class="ident">Ready</span>(<span class="prelude-val">Err</span>(<span class="ident">io</span>::<span class="ident">Error</span>::<span class="ident">new</span>(<span class="ident">io</span>::<span class="ident">ErrorKind</span>::<span class="ident">from</span>(<span class="ident">kind</span>), <span class="ident">err</span>)))
+                    <span class="ident">Poll::Ready</span>(<span class="prelude-val">Err</span>(<span class="ident">io::Error::new</span>(<span class="ident">io::ErrorKind::from</span>(<span class="ident">kind</span>), <span class="ident">err</span>)))
                 }
             }
         }

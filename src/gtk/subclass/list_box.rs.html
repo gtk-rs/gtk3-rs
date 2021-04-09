@@ -251,79 +251,79 @@
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">subclass</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">Cast</span>;
+<span class="kw">use</span> <span class="ident">glib::subclass::prelude</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">glib::Cast</span>;
 
-<span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">container</span>::<span class="ident">ContainerImpl</span>, <span class="ident">widget</span>::<span class="ident">WidgetImpl</span>};
+<span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">container::ContainerImpl</span>, <span class="ident">widget::WidgetImpl</span>};
 
-<span class="kw">use</span> <span class="ident">libc</span>::<span class="ident">c_int</span>;
+<span class="kw">use</span> <span class="ident">libc::c_int</span>;
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Container</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">ListBox</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">ListBoxRow</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">MovementStep</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Container</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::ListBox</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::ListBoxRow</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::MovementStep</span>;
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ListBoxImpl</span>: <span class="ident">ListBoxImplExt</span> <span class="op">+</span> <span class="ident">ContainerImpl</span> <span class="op">+</span> <span class="ident">WidgetImpl</span> {
-    <span class="kw">fn</span> <span class="ident">activate_cursor_row</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_box</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>) {
+    <span class="kw">fn</span> <span class="ident">activate_cursor_row</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_box</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) {
         <span class="self">self</span>.<span class="ident">list_box_activate_cursor_row</span>(<span class="ident">list_box</span>)
     }
 
-    <span class="kw">fn</span> <span class="ident">move_cursor</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_box</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>, <span class="ident">step</span>: <span class="ident">MovementStep</span>, <span class="ident">count</span>: <span class="ident">i32</span>) {
+    <span class="kw">fn</span> <span class="ident">move_cursor</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_box</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>, <span class="ident">step</span>: <span class="ident">MovementStep</span>, <span class="ident">count</span>: <span class="ident">i32</span>) {
         <span class="self">self</span>.<span class="ident">list_box_move_cursor</span>(<span class="ident">list_box</span>, <span class="ident">step</span>, <span class="ident">count</span>)
     }
 
-    <span class="kw">fn</span> <span class="ident">row_activated</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_box</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>, <span class="ident">row</span>: <span class="kw-2">&amp;</span><span class="ident">ListBoxRow</span>) {
+    <span class="kw">fn</span> <span class="ident">row_activated</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_box</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>, <span class="ident">row</span>: <span class="kw-2">&amp;</span><span class="ident">ListBoxRow</span>) {
         <span class="self">self</span>.<span class="ident">list_box_row_activated</span>(<span class="ident">list_box</span>, <span class="ident">row</span>)
     }
 
-    <span class="kw">fn</span> <span class="ident">row_selected</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_box</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>, <span class="ident">row</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">ListBoxRow</span><span class="op">&gt;</span>) {
+    <span class="kw">fn</span> <span class="ident">row_selected</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_box</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>, <span class="ident">row</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">ListBoxRow</span><span class="op">&gt;</span>) {
         <span class="self">self</span>.<span class="ident">list_box_row_selected</span>(<span class="ident">list_box</span>, <span class="ident">row</span>)
     }
 
-    <span class="kw">fn</span> <span class="ident">select_all</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_box</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>) {
+    <span class="kw">fn</span> <span class="ident">select_all</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_box</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) {
         <span class="self">self</span>.<span class="ident">list_box_select_all</span>(<span class="ident">list_box</span>)
     }
 
-    <span class="kw">fn</span> <span class="ident">selected_rows_changed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_box</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>) {
+    <span class="kw">fn</span> <span class="ident">selected_rows_changed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_box</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) {
         <span class="self">self</span>.<span class="ident">list_box_selected_rows_changed</span>(<span class="ident">list_box</span>)
     }
 
-    <span class="kw">fn</span> <span class="ident">toggle_cursor_row</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_box</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>) {
+    <span class="kw">fn</span> <span class="ident">toggle_cursor_row</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_box</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) {
         <span class="self">self</span>.<span class="ident">list_box_toggle_cursor_row</span>(<span class="ident">list_box</span>)
     }
 
-    <span class="kw">fn</span> <span class="ident">unselect_all</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_box</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>) {
+    <span class="kw">fn</span> <span class="ident">unselect_all</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_box</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) {
         <span class="self">self</span>.<span class="ident">list_box_unselect_all</span>(<span class="ident">list_box</span>)
     }
 }
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ListBoxImplExt</span>: <span class="ident">ObjectSubclass</span> {
-    <span class="kw">fn</span> <span class="ident">list_box_activate_cursor_row</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_box</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>);
-    <span class="kw">fn</span> <span class="ident">list_box_move_cursor</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_box</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>, <span class="ident">step</span>: <span class="ident">MovementStep</span>, <span class="ident">count</span>: <span class="ident">i32</span>);
-    <span class="kw">fn</span> <span class="ident">list_box_row_activated</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_box</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>, <span class="ident">row</span>: <span class="kw-2">&amp;</span><span class="ident">ListBoxRow</span>);
-    <span class="kw">fn</span> <span class="ident">list_box_row_selected</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_box</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>, <span class="ident">row</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">ListBoxRow</span><span class="op">&gt;</span>);
-    <span class="kw">fn</span> <span class="ident">list_box_select_all</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_box</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>);
-    <span class="kw">fn</span> <span class="ident">list_box_selected_rows_changed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_box</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>);
-    <span class="kw">fn</span> <span class="ident">list_box_toggle_cursor_row</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_box</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>);
-    <span class="kw">fn</span> <span class="ident">list_box_unselect_all</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_box</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>);
+    <span class="kw">fn</span> <span class="ident">list_box_activate_cursor_row</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_box</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>);
+    <span class="kw">fn</span> <span class="ident">list_box_move_cursor</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_box</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>, <span class="ident">step</span>: <span class="ident">MovementStep</span>, <span class="ident">count</span>: <span class="ident">i32</span>);
+    <span class="kw">fn</span> <span class="ident">list_box_row_activated</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_box</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>, <span class="ident">row</span>: <span class="kw-2">&amp;</span><span class="ident">ListBoxRow</span>);
+    <span class="kw">fn</span> <span class="ident">list_box_row_selected</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_box</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>, <span class="ident">row</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">ListBoxRow</span><span class="op">&gt;</span>);
+    <span class="kw">fn</span> <span class="ident">list_box_select_all</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_box</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>);
+    <span class="kw">fn</span> <span class="ident">list_box_selected_rows_changed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_box</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>);
+    <span class="kw">fn</span> <span class="ident">list_box_toggle_cursor_row</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_box</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>);
+    <span class="kw">fn</span> <span class="ident">list_box_unselect_all</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_box</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>);
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ListBoxImpl</span><span class="op">&gt;</span> <span class="ident">ListBoxImplExt</span> <span class="kw">for</span> <span class="ident">T</span> {
-    <span class="kw">fn</span> <span class="ident">list_box_activate_cursor_row</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_box</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>) {
+    <span class="kw">fn</span> <span class="ident">list_box_activate_cursor_row</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_box</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">T</span>::<span class="ident">type_data</span>();
-            <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GtkListBoxClass</span>;
+            <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">T::type_data</span>();
+            <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::GtkListBoxClass</span>;
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">f</span>) <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">parent_class</span>).<span class="ident">activate_cursor_row</span> {
                 <span class="ident">f</span>(<span class="ident">list_box</span>.<span class="ident">unsafe_cast_ref</span>::<span class="op">&lt;</span><span class="ident">ListBox</span><span class="op">&gt;</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>)
             }
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">list_box_move_cursor</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_box</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>, <span class="ident">step</span>: <span class="ident">MovementStep</span>, <span class="ident">count</span>: <span class="ident">i32</span>) {
+    <span class="kw">fn</span> <span class="ident">list_box_move_cursor</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_box</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>, <span class="ident">step</span>: <span class="ident">MovementStep</span>, <span class="ident">count</span>: <span class="ident">i32</span>) {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">T</span>::<span class="ident">type_data</span>();
-            <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GtkListBoxClass</span>;
+            <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">T::type_data</span>();
+            <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::GtkListBoxClass</span>;
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">f</span>) <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">parent_class</span>).<span class="ident">move_cursor</span> {
                 <span class="ident">f</span>(
                     <span class="ident">list_box</span>.<span class="ident">unsafe_cast_ref</span>::<span class="op">&lt;</span><span class="ident">ListBox</span><span class="op">&gt;</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -334,10 +334,10 @@
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">list_box_row_activated</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_box</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>, <span class="ident">row</span>: <span class="kw-2">&amp;</span><span class="ident">ListBoxRow</span>) {
+    <span class="kw">fn</span> <span class="ident">list_box_row_activated</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_box</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>, <span class="ident">row</span>: <span class="kw-2">&amp;</span><span class="ident">ListBoxRow</span>) {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">T</span>::<span class="ident">type_data</span>();
-            <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GtkListBoxClass</span>;
+            <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">T::type_data</span>();
+            <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::GtkListBoxClass</span>;
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">f</span>) <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">parent_class</span>).<span class="ident">row_activated</span> {
                 <span class="ident">f</span>(
                     <span class="ident">list_box</span>.<span class="ident">unsafe_cast_ref</span>::<span class="op">&lt;</span><span class="ident">ListBox</span><span class="op">&gt;</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -347,10 +347,10 @@
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">list_box_row_selected</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_box</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>, <span class="ident">row</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">ListBoxRow</span><span class="op">&gt;</span>) {
+    <span class="kw">fn</span> <span class="ident">list_box_row_selected</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_box</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>, <span class="ident">row</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">ListBoxRow</span><span class="op">&gt;</span>) {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">T</span>::<span class="ident">type_data</span>();
-            <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GtkListBoxClass</span>;
+            <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">T::type_data</span>();
+            <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::GtkListBoxClass</span>;
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">f</span>) <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">parent_class</span>).<span class="ident">row_selected</span> {
                 <span class="ident">f</span>(
                     <span class="ident">list_box</span>.<span class="ident">unsafe_cast_ref</span>::<span class="op">&lt;</span><span class="ident">ListBox</span><span class="op">&gt;</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -360,40 +360,40 @@
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">list_box_select_all</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_box</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>) {
+    <span class="kw">fn</span> <span class="ident">list_box_select_all</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_box</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">T</span>::<span class="ident">type_data</span>();
-            <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GtkListBoxClass</span>;
+            <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">T::type_data</span>();
+            <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::GtkListBoxClass</span>;
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">f</span>) <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">parent_class</span>).<span class="ident">select_all</span> {
                 <span class="ident">f</span>(<span class="ident">list_box</span>.<span class="ident">unsafe_cast_ref</span>::<span class="op">&lt;</span><span class="ident">ListBox</span><span class="op">&gt;</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>)
             }
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">list_box_selected_rows_changed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_box</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>) {
+    <span class="kw">fn</span> <span class="ident">list_box_selected_rows_changed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_box</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">T</span>::<span class="ident">type_data</span>();
-            <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GtkListBoxClass</span>;
+            <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">T::type_data</span>();
+            <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::GtkListBoxClass</span>;
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">f</span>) <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">parent_class</span>).<span class="ident">selected_rows_changed</span> {
                 <span class="ident">f</span>(<span class="ident">list_box</span>.<span class="ident">unsafe_cast_ref</span>::<span class="op">&lt;</span><span class="ident">ListBox</span><span class="op">&gt;</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>)
             }
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">list_box_toggle_cursor_row</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_box</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>) {
+    <span class="kw">fn</span> <span class="ident">list_box_toggle_cursor_row</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_box</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">T</span>::<span class="ident">type_data</span>();
-            <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GtkListBoxClass</span>;
+            <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">T::type_data</span>();
+            <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::GtkListBoxClass</span>;
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">f</span>) <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">parent_class</span>).<span class="ident">toggle_cursor_row</span> {
                 <span class="ident">f</span>(<span class="ident">list_box</span>.<span class="ident">unsafe_cast_ref</span>::<span class="op">&lt;</span><span class="ident">ListBox</span><span class="op">&gt;</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>)
             }
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">list_box_unselect_all</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_box</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>) {
+    <span class="kw">fn</span> <span class="ident">list_box_unselect_all</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_box</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">T</span>::<span class="ident">type_data</span>();
-            <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GtkListBoxClass</span>;
+            <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">T::type_data</span>();
+            <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::GtkListBoxClass</span>;
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">f</span>) <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">parent_class</span>).<span class="ident">unselect_all</span> {
                 <span class="ident">f</span>(<span class="ident">list_box</span>.<span class="ident">unsafe_cast_ref</span>::<span class="op">&lt;</span><span class="ident">ListBox</span><span class="op">&gt;</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>)
             }
@@ -402,8 +402,8 @@
 }
 
 <span class="kw">unsafe</span> <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ListBoxImpl</span><span class="op">&gt;</span> <span class="ident">IsSubclassable</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">ListBox</span> {
-    <span class="kw">fn</span> <span class="ident">class_init</span>(<span class="ident">class</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> ::<span class="ident">glib</span>::<span class="ident">Class</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>) {
-        <span class="op">&lt;</span><span class="ident">Container</span> <span class="kw">as</span> <span class="ident">IsSubclassable</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span>::<span class="ident">class_init</span>(<span class="ident">class</span>);
+    <span class="kw">fn</span> <span class="ident">class_init</span>(<span class="ident">class</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">::glib::Class</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>) {
+        <span class="op">&lt;</span><span class="ident">Container</span> <span class="kw">as</span> <span class="ident">IsSubclassable</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::class_init</span>(<span class="ident">class</span>);
 
         <span class="kw">let</span> <span class="ident">klass</span> <span class="op">=</span> <span class="ident">class</span>.<span class="ident">as_mut</span>();
         <span class="ident">klass</span>.<span class="ident">activate_cursor_row</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">list_box_activate_cursor_row</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
@@ -416,13 +416,13 @@
         <span class="ident">klass</span>.<span class="ident">unselect_all</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">list_box_unselect_all</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
     }
 
-    <span class="kw">fn</span> <span class="ident">instance_init</span>(<span class="ident">instance</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">glib</span>::<span class="ident">subclass</span>::<span class="ident">InitializingObject</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>) {
-        <span class="op">&lt;</span><span class="ident">Container</span> <span class="kw">as</span> <span class="ident">IsSubclassable</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span>::<span class="ident">instance_init</span>(<span class="ident">instance</span>);
+    <span class="kw">fn</span> <span class="ident">instance_init</span>(<span class="ident">instance</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">glib::subclass::InitializingObject</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>) {
+        <span class="op">&lt;</span><span class="ident">Container</span> <span class="kw">as</span> <span class="ident">IsSubclassable</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::instance_init</span>(<span class="ident">instance</span>);
     }
 }
 
-<span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">list_box_activate_cursor_row</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ListBoxImpl</span><span class="op">&gt;</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GtkListBox</span>) {
-    <span class="kw">let</span> <span class="ident">instance</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T</span>::<span class="ident">Instance</span>);
+<span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">list_box_activate_cursor_row</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ListBoxImpl</span><span class="op">&gt;</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::GtkListBox</span>) {
+    <span class="kw">let</span> <span class="ident">instance</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T::Instance</span>);
     <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="ident">instance</span>.<span class="ident">get_impl</span>();
     <span class="kw">let</span> <span class="ident">wrap</span>: <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">ListBox</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">ptr</span>);
 
@@ -430,11 +430,11 @@
 }
 
 <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">list_box_move_cursor</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ListBoxImpl</span><span class="op">&gt;</span>(
-    <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GtkListBox</span>,
-    <span class="ident">step</span>: <span class="ident">ffi</span>::<span class="ident">GtkMovementStep</span>,
+    <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::GtkListBox</span>,
+    <span class="ident">step</span>: <span class="ident">ffi::GtkMovementStep</span>,
     <span class="ident">count</span>: <span class="ident">c_int</span>,
 ) {
-    <span class="kw">let</span> <span class="ident">instance</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T</span>::<span class="ident">Instance</span>);
+    <span class="kw">let</span> <span class="ident">instance</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T::Instance</span>);
     <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="ident">instance</span>.<span class="ident">get_impl</span>();
     <span class="kw">let</span> <span class="ident">wrap</span>: <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">ListBox</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">ptr</span>);
 
@@ -442,10 +442,10 @@
 }
 
 <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">list_box_row_activated</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ListBoxImpl</span><span class="op">&gt;</span>(
-    <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GtkListBox</span>,
-    <span class="ident">rowptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GtkListBoxRow</span>,
+    <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::GtkListBox</span>,
+    <span class="ident">rowptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::GtkListBoxRow</span>,
 ) {
-    <span class="kw">let</span> <span class="ident">instance</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T</span>::<span class="ident">Instance</span>);
+    <span class="kw">let</span> <span class="ident">instance</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T::Instance</span>);
     <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="ident">instance</span>.<span class="ident">get_impl</span>();
     <span class="kw">let</span> <span class="ident">wrap</span>: <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">ListBox</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">ptr</span>);
     <span class="kw">let</span> <span class="ident">row</span>: <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">ListBoxRow</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">rowptr</span>);
@@ -454,10 +454,10 @@
 }
 
 <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">list_box_row_selected</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ListBoxImpl</span><span class="op">&gt;</span>(
-    <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GtkListBox</span>,
-    <span class="ident">rowptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GtkListBoxRow</span>,
+    <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::GtkListBox</span>,
+    <span class="ident">rowptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::GtkListBoxRow</span>,
 ) {
-    <span class="kw">let</span> <span class="ident">instance</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T</span>::<span class="ident">Instance</span>);
+    <span class="kw">let</span> <span class="ident">instance</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T::Instance</span>);
     <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="ident">instance</span>.<span class="ident">get_impl</span>();
     <span class="kw">let</span> <span class="ident">wrap</span>: <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">ListBox</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">ptr</span>);
     <span class="kw">let</span> <span class="ident">row</span>: <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ListBoxRow</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">rowptr</span>);
@@ -465,32 +465,32 @@
     <span class="ident">imp</span>.<span class="ident">row_selected</span>(<span class="ident">wrap</span>.<span class="ident">unsafe_cast_ref</span>(), <span class="ident">row</span>.<span class="ident">as_ref</span>().<span class="ident">as_ref</span>())
 }
 
-<span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">list_box_select_all</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ListBoxImpl</span><span class="op">&gt;</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GtkListBox</span>) {
-    <span class="kw">let</span> <span class="ident">instance</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T</span>::<span class="ident">Instance</span>);
+<span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">list_box_select_all</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ListBoxImpl</span><span class="op">&gt;</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::GtkListBox</span>) {
+    <span class="kw">let</span> <span class="ident">instance</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T::Instance</span>);
     <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="ident">instance</span>.<span class="ident">get_impl</span>();
     <span class="kw">let</span> <span class="ident">wrap</span>: <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">ListBox</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">ptr</span>);
 
     <span class="ident">imp</span>.<span class="ident">select_all</span>(<span class="ident">wrap</span>.<span class="ident">unsafe_cast_ref</span>())
 }
 
-<span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">list_box_selected_rows_changed</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ListBoxImpl</span><span class="op">&gt;</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GtkListBox</span>) {
-    <span class="kw">let</span> <span class="ident">instance</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T</span>::<span class="ident">Instance</span>);
+<span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">list_box_selected_rows_changed</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ListBoxImpl</span><span class="op">&gt;</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::GtkListBox</span>) {
+    <span class="kw">let</span> <span class="ident">instance</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T::Instance</span>);
     <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="ident">instance</span>.<span class="ident">get_impl</span>();
     <span class="kw">let</span> <span class="ident">wrap</span>: <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">ListBox</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">ptr</span>);
 
     <span class="ident">imp</span>.<span class="ident">selected_rows_changed</span>(<span class="ident">wrap</span>.<span class="ident">unsafe_cast_ref</span>())
 }
 
-<span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">list_box_toggle_cursor_row</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ListBoxImpl</span><span class="op">&gt;</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GtkListBox</span>) {
-    <span class="kw">let</span> <span class="ident">instance</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T</span>::<span class="ident">Instance</span>);
+<span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">list_box_toggle_cursor_row</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ListBoxImpl</span><span class="op">&gt;</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::GtkListBox</span>) {
+    <span class="kw">let</span> <span class="ident">instance</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T::Instance</span>);
     <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="ident">instance</span>.<span class="ident">get_impl</span>();
     <span class="kw">let</span> <span class="ident">wrap</span>: <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">ListBox</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">ptr</span>);
 
     <span class="ident">imp</span>.<span class="ident">toggle_cursor_row</span>(<span class="ident">wrap</span>.<span class="ident">unsafe_cast_ref</span>())
 }
 
-<span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">list_box_unselect_all</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ListBoxImpl</span><span class="op">&gt;</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GtkListBox</span>) {
-    <span class="kw">let</span> <span class="ident">instance</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T</span>::<span class="ident">Instance</span>);
+<span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">list_box_unselect_all</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ListBoxImpl</span><span class="op">&gt;</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::GtkListBox</span>) {
+    <span class="kw">let</span> <span class="ident">instance</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T::Instance</span>);
     <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="ident">instance</span>.<span class="ident">get_impl</span>();
     <span class="kw">let</span> <span class="ident">wrap</span>: <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">ListBox</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">ptr</span>);
 

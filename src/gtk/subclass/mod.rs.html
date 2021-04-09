@@ -112,43 +112,43 @@
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">prelude</span> {
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">gio</span>::<span class="ident">subclass</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">gio::subclass::prelude</span>::<span class="kw-2">*</span>;
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">subclass</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">glib::subclass::prelude</span>::<span class="kw-2">*</span>;
 
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">application</span>::{<span class="ident">GtkApplicationImpl</span>, <span class="ident">GtkApplicationImplExt</span>};
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">application_window</span>::<span class="ident">ApplicationWindowImpl</span>;
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">bin</span>::<span class="ident">BinImpl</span>;
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">box_</span>::<span class="ident">BoxImpl</span>;
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">button</span>::<span class="ident">ButtonImpl</span>;
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">cell_renderer</span>::{<span class="ident">CellRendererImpl</span>, <span class="ident">CellRendererImplExt</span>};
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">cell_renderer_accel</span>::{<span class="ident">CellRendererAccelImpl</span>, <span class="ident">CellRendererAccelImplExt</span>};
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">cell_renderer_combo</span>::<span class="ident">CellRendererComboImpl</span>;
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">cell_renderer_pixbuf</span>::<span class="ident">CellRendererPixbufImpl</span>;
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">cell_renderer_progress</span>::<span class="ident">CellRendererProgressImpl</span>;
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">cell_renderer_spin</span>::<span class="ident">CellRendererSpinImpl</span>;
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">cell_renderer_spinner</span>::<span class="ident">CellRendererSpinnerImpl</span>;
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">cell_renderer_text</span>::{<span class="ident">CellRendererTextImpl</span>, <span class="ident">CellRendererTextImplExt</span>};
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">cell_renderer_toggle</span>::{<span class="ident">CellRendererToggleImpl</span>, <span class="ident">CellRendererToggleImplExt</span>};
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">container</span>::{<span class="ident">ContainerImpl</span>, <span class="ident">ContainerImplExt</span>};
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">dialog</span>::{<span class="ident">DialogImpl</span>, <span class="ident">DialogImplExt</span>};
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">drawing_area</span>::<span class="ident">DrawingAreaImpl</span>;
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">event_box</span>::<span class="ident">EventBoxImpl</span>;
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">fixed</span>::<span class="ident">FixedImpl</span>;
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">header_bar</span>::<span class="ident">HeaderBarImpl</span>;
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">icon_view</span>::{<span class="ident">IconViewImpl</span>, <span class="ident">IconViewImplExt</span>};
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">list_box</span>::{<span class="ident">ListBoxImpl</span>, <span class="ident">ListBoxImplExt</span>};
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">list_box_row</span>::{<span class="ident">ListBoxRowImpl</span>, <span class="ident">ListBoxRowImplExt</span>};
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::application</span>::{<span class="ident">GtkApplicationImpl</span>, <span class="ident">GtkApplicationImplExt</span>};
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::application_window::ApplicationWindowImpl</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::bin::BinImpl</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::box_::BoxImpl</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::button::ButtonImpl</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::cell_renderer</span>::{<span class="ident">CellRendererImpl</span>, <span class="ident">CellRendererImplExt</span>};
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::cell_renderer_accel</span>::{<span class="ident">CellRendererAccelImpl</span>, <span class="ident">CellRendererAccelImplExt</span>};
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::cell_renderer_combo::CellRendererComboImpl</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::cell_renderer_pixbuf::CellRendererPixbufImpl</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::cell_renderer_progress::CellRendererProgressImpl</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::cell_renderer_spin::CellRendererSpinImpl</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::cell_renderer_spinner::CellRendererSpinnerImpl</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::cell_renderer_text</span>::{<span class="ident">CellRendererTextImpl</span>, <span class="ident">CellRendererTextImplExt</span>};
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::cell_renderer_toggle</span>::{<span class="ident">CellRendererToggleImpl</span>, <span class="ident">CellRendererToggleImplExt</span>};
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::container</span>::{<span class="ident">ContainerImpl</span>, <span class="ident">ContainerImplExt</span>};
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::dialog</span>::{<span class="ident">DialogImpl</span>, <span class="ident">DialogImplExt</span>};
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::drawing_area::DrawingAreaImpl</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::event_box::EventBoxImpl</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::fixed::FixedImpl</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::header_bar::HeaderBarImpl</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::icon_view</span>::{<span class="ident">IconViewImpl</span>, <span class="ident">IconViewImplExt</span>};
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::list_box</span>::{<span class="ident">ListBoxImpl</span>, <span class="ident">ListBoxImplExt</span>};
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::list_box_row</span>::{<span class="ident">ListBoxRowImpl</span>, <span class="ident">ListBoxRowImplExt</span>};
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">gdk_backend</span> <span class="op">=</span> <span class="string">&quot;x11&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">plug</span>::{<span class="ident">PlugImpl</span>, <span class="ident">PlugImplExt</span>};
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::plug</span>::{<span class="ident">PlugImpl</span>, <span class="ident">PlugImplExt</span>};
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">gdk_backend</span> <span class="op">=</span> <span class="string">&quot;x11&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">socket</span>::{<span class="ident">SocketImpl</span>, <span class="ident">SocketImplExt</span>};
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">stack</span>::<span class="ident">StackImpl</span>;
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">tree_view</span>::<span class="ident">TreeViewImpl</span>;
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">widget</span>::{
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::socket</span>::{<span class="ident">SocketImpl</span>, <span class="ident">SocketImplExt</span>};
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::stack::StackImpl</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::tree_view::TreeViewImpl</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::widget</span>::{
         <span class="ident">CompositeTemplate</span>, <span class="ident">TemplateChild</span>, <span class="ident">WidgetClassSubclassExt</span>, <span class="ident">WidgetImpl</span>, <span class="ident">WidgetImplExt</span>,
     };
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">window</span>::{<span class="ident">WindowImpl</span>, <span class="ident">WindowImplExt</span>};
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span><span class="ident">::window</span>::{<span class="ident">WindowImpl</span>, <span class="ident">WindowImplExt</span>};
 }
 </pre></div>
 </section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gtk" data-search-js="../../../search-index.js"></div>

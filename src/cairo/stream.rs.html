@@ -272,17 +272,17 @@
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">error</span>::<span class="ident">Error</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::error::Error</span>;
 <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">Surface</span>, <span class="ident">UserDataKey</span>};
-<span class="kw">use</span> <span class="ident">ffi</span>::<span class="ident">cairo_status_t</span>;
+<span class="kw">use</span> <span class="ident">ffi::cairo_status_t</span>;
 
 <span class="kw">use</span> <span class="ident">libc</span>::{<span class="ident">c_double</span>, <span class="ident">c_uchar</span>, <span class="ident">c_uint</span>, <span class="ident">c_void</span>};
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">any</span>::<span class="ident">Any</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">cell</span>::{<span class="ident">Cell</span>, <span class="ident">RefCell</span>};
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">io</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">panic</span>::<span class="ident">AssertUnwindSafe</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">rc</span>::<span class="ident">Rc</span>;
+<span class="kw">use</span> <span class="ident">std::any::Any</span>;
+<span class="kw">use</span> <span class="ident">std::cell</span>::{<span class="ident">Cell</span>, <span class="ident">RefCell</span>};
+<span class="kw">use</span> <span class="ident">std::io</span>;
+<span class="kw">use</span> <span class="ident">std::panic::AssertUnwindSafe</span>;
+<span class="kw">use</span> <span class="ident">std::ptr</span>;
+<span class="kw">use</span> <span class="ident">std::rc::Rc</span>;
 
 <span class="macro">macro_rules!</span> <span class="ident">for_stream_constructors</span> {
     (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">constructor_ffi</span>: <span class="ident">ident</span>) <span class="op">=</span><span class="op">&gt;</span> {
@@ -292,12 +292,12 @@
         <span class="doccomment">/// Because the underlying `cairo_surface_t` is reference-counted,</span>
         <span class="doccomment">/// a lifetime parameter in a Rust wrapper type would not be enough to track</span>
         <span class="doccomment">/// how long it can keep writing to the stream.</span>
-        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">for_stream</span><span class="op">&lt;</span><span class="ident">W</span>: <span class="ident">io</span>::<span class="ident">Write</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">for_stream</span><span class="op">&lt;</span><span class="ident">W</span>: <span class="ident">io::Write</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
             <span class="ident">width</span>: <span class="ident">f64</span>,
             <span class="ident">height</span>: <span class="ident">f64</span>,
             <span class="ident">stream</span>: <span class="ident">W</span>,
-        ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="kw">crate</span>::<span class="ident">error</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
-            <span class="prelude-val">Ok</span>(<span class="self">Self</span>(<span class="ident">Surface</span>::<span class="ident">_for_stream</span>(
+        ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="kw">crate</span><span class="ident">::error::Error</span><span class="op">&gt;</span> {
+            <span class="prelude-val">Ok</span>(<span class="self">Self</span>(<span class="ident">Surface::_for_stream</span>(
                 <span class="ident">ffi</span>::<span class="macro-nonterminal">$</span><span class="macro-nonterminal">constructor_ffi</span>,
                 <span class="ident">width</span>,
                 <span class="ident">height</span>,
@@ -317,12 +317,12 @@
         <span class="doccomment">/// The concrete type behind the `Box&lt;dyn Any&gt;` value returned by `finish_output_stream`</span>
         <span class="doccomment">/// is private, so you won’t be able to downcast it.</span>
         <span class="doccomment">/// But removing it anyway ensures that later writes do no go through a dangling pointer.</span>
-        <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">for_raw_stream</span><span class="op">&lt;</span><span class="ident">W</span>: <span class="ident">io</span>::<span class="ident">Write</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
+        <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">for_raw_stream</span><span class="op">&lt;</span><span class="ident">W</span>: <span class="ident">io::Write</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
             <span class="ident">width</span>: <span class="ident">f64</span>,
             <span class="ident">height</span>: <span class="ident">f64</span>,
             <span class="ident">stream</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">W</span>,
-        ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="kw">crate</span>::<span class="ident">error</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
-            <span class="prelude-val">Ok</span>(<span class="self">Self</span>(<span class="ident">Surface</span>::<span class="ident">_for_raw_stream</span>(
+        ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="kw">crate</span><span class="ident">::error::Error</span><span class="op">&gt;</span> {
+            <span class="prelude-val">Ok</span>(<span class="self">Self</span>(<span class="ident">Surface::_for_raw_stream</span>(
                 <span class="ident">ffi</span>::<span class="macro-nonterminal">$</span><span class="macro-nonterminal">constructor_ffi</span>,
                 <span class="ident">width</span>,
                 <span class="ident">height</span>,
@@ -333,39 +333,39 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Surface</span> {
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">_for_stream</span><span class="op">&lt;</span><span class="ident">W</span>: <span class="ident">io</span>::<span class="ident">Write</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">_for_stream</span><span class="op">&lt;</span><span class="ident">W</span>: <span class="ident">io::Write</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
         <span class="ident">constructor</span>: <span class="ident">Constructor</span>,
         <span class="ident">width</span>: <span class="ident">f64</span>,
         <span class="ident">height</span>: <span class="ident">f64</span>,
         <span class="ident">stream</span>: <span class="ident">W</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">env_rc</span> <span class="op">=</span> <span class="ident">Rc</span>::<span class="ident">new</span>(<span class="ident">CallbackEnvironment</span> {
-            <span class="ident">mutable</span>: <span class="ident">RefCell</span>::<span class="ident">new</span>(<span class="ident">MutableCallbackEnvironment</span> {
-                <span class="ident">stream</span>: <span class="prelude-val">Some</span>((<span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">stream</span>), <span class="prelude-val">None</span>)),
+        <span class="kw">let</span> <span class="ident">env_rc</span> <span class="op">=</span> <span class="ident">Rc::new</span>(<span class="ident">CallbackEnvironment</span> {
+            <span class="ident">mutable</span>: <span class="ident">RefCell::new</span>(<span class="ident">MutableCallbackEnvironment</span> {
+                <span class="ident">stream</span>: <span class="prelude-val">Some</span>((<span class="ident">Box::new</span>(<span class="ident">stream</span>), <span class="prelude-val">None</span>)),
                 <span class="ident">unwind_payload</span>: <span class="prelude-val">None</span>,
             }),
-            <span class="ident">saw_already_borrowed</span>: <span class="ident">Cell</span>::<span class="ident">new</span>(<span class="bool-val">false</span>),
+            <span class="ident">saw_already_borrowed</span>: <span class="ident">Cell::new</span>(<span class="bool-val">false</span>),
         });
         <span class="kw">let</span> <span class="ident">env</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">CallbackEnvironment</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">env_rc</span>;
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">ptr</span> <span class="op">=</span> <span class="ident">constructor</span>(<span class="prelude-val">Some</span>(<span class="ident">write_callback</span>::<span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span>), <span class="ident">env</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_void</span>, <span class="ident">width</span>, <span class="ident">height</span>);
-            <span class="kw">let</span> <span class="ident">surface</span> <span class="op">=</span> <span class="ident">Surface</span>::<span class="ident">from_raw_full</span>(<span class="ident">ptr</span>)<span class="question-mark">?</span>;
+            <span class="kw">let</span> <span class="ident">surface</span> <span class="op">=</span> <span class="ident">Surface::from_raw_full</span>(<span class="ident">ptr</span>)<span class="question-mark">?</span>;
             <span class="ident">surface</span>.<span class="ident">set_user_data</span>(<span class="kw-2">&amp;</span><span class="ident">STREAM_CALLBACK_ENVIRONMENT</span>, <span class="ident">env_rc</span>);
             <span class="prelude-val">Ok</span>(<span class="ident">surface</span>)
         }
     }
 
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">_for_raw_stream</span><span class="op">&lt;</span><span class="ident">W</span>: <span class="ident">io</span>::<span class="ident">Write</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">_for_raw_stream</span><span class="op">&lt;</span><span class="ident">W</span>: <span class="ident">io::Write</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
         <span class="ident">constructor</span>: <span class="ident">Constructor</span>,
         <span class="ident">width</span>: <span class="ident">f64</span>,
         <span class="ident">height</span>: <span class="ident">f64</span>,
         <span class="ident">stream</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">W</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
-        <span class="self">Self</span>::<span class="ident">_for_stream</span>(
+        <span class="self">Self</span><span class="ident">::_for_stream</span>(
             <span class="ident">constructor</span>,
             <span class="ident">width</span>,
             <span class="ident">height</span>,
-            <span class="ident">RawStream</span>(<span class="ident">ptr</span>::<span class="ident">NonNull</span>::<span class="ident">new</span>(<span class="ident">stream</span>).<span class="ident">expect</span>(<span class="string">&quot;NULL stream passed&quot;</span>)),
+            <span class="ident">RawStream</span>(<span class="ident">ptr::NonNull::new</span>(<span class="ident">stream</span>).<span class="ident">expect</span>(<span class="string">&quot;NULL stream passed&quot;</span>)),
         )
     }
 
@@ -409,7 +409,7 @@
 
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">mutable</span> <span class="op">=</span> <span class="ident">env</span>.<span class="ident">mutable</span>.<span class="ident">borrow_mut</span>();
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">payload</span>) <span class="op">=</span> <span class="ident">mutable</span>.<span class="ident">unwind_payload</span>.<span class="ident">take</span>() {
-            <span class="ident">std</span>::<span class="ident">panic</span>::<span class="ident">resume_unwind</span>(<span class="ident">payload</span>)
+            <span class="ident">std::panic::resume_unwind</span>(<span class="ident">payload</span>)
         }
 
         <span class="kw">let</span> (<span class="ident">stream</span>, <span class="ident">io_error</span>) <span class="op">=</span> <span class="ident">mutable</span>
@@ -426,35 +426,35 @@
 
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">StreamWithError</span> {
     <span class="kw">pub</span> <span class="ident">stream</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Any</span><span class="op">&gt;</span>,
-    <span class="kw">pub</span> <span class="ident">error</span>: <span class="ident">io</span>::<span class="ident">Error</span>,
+    <span class="kw">pub</span> <span class="ident">error</span>: <span class="ident">io::Error</span>,
 }
 
-<span class="kw">impl</span> <span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Debug</span> <span class="kw">for</span> <span class="ident">StreamWithError</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">std</span>::<span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+<span class="kw">impl</span> <span class="ident">std::fmt::Debug</span> <span class="kw">for</span> <span class="ident">StreamWithError</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">std::fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">std::fmt::Result</span> {
         <span class="self">self</span>.<span class="ident">error</span>.<span class="ident">fmt</span>(<span class="ident">f</span>)
     }
 }
 
-<span class="kw">impl</span> <span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">StreamWithError</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">std</span>::<span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+<span class="kw">impl</span> <span class="ident">std::fmt::Display</span> <span class="kw">for</span> <span class="ident">StreamWithError</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">std::fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">std::fmt::Result</span> {
         <span class="self">self</span>.<span class="ident">error</span>.<span class="ident">fmt</span>(<span class="ident">f</span>)
     }
 }
 
-<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">StreamWithError</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">io</span>::<span class="ident">Error</span> {
+<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">StreamWithError</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">io::Error</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">e</span>: <span class="ident">StreamWithError</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="ident">e</span>.<span class="ident">error</span>
     }
 }
 
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">type</span> <span class="ident">Constructor</span> <span class="op">=</span> <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span>(
-    <span class="ident">ffi</span>::<span class="ident">cairo_write_func_t</span>,
+    <span class="ident">ffi::cairo_write_func_t</span>,
     <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_void</span>,
     <span class="ident">c_double</span>,
     <span class="ident">c_double</span>,
-) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">cairo_surface_t</span>;
+) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::cairo_surface_t</span>;
 
-<span class="kw">static</span> <span class="ident">STREAM_CALLBACK_ENVIRONMENT</span>: <span class="ident">UserDataKey</span><span class="op">&lt;</span><span class="ident">CallbackEnvironment</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">UserDataKey</span>::<span class="ident">new</span>();
+<span class="kw">static</span> <span class="ident">STREAM_CALLBACK_ENVIRONMENT</span>: <span class="ident">UserDataKey</span><span class="op">&lt;</span><span class="ident">CallbackEnvironment</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">UserDataKey::new</span>();
 
 <span class="kw">struct</span> <span class="ident">CallbackEnvironment</span> {
     <span class="ident">mutable</span>: <span class="ident">RefCell</span><span class="op">&lt;</span><span class="ident">MutableCallbackEnvironment</span><span class="op">&gt;</span>,
@@ -462,13 +462,13 @@
 }
 
 <span class="kw">struct</span> <span class="ident">MutableCallbackEnvironment</span> {
-    <span class="ident">stream</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span>(<span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Any</span><span class="op">&gt;</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">io</span>::<span class="ident">Error</span><span class="op">&gt;</span>)<span class="op">&gt;</span>,
+    <span class="ident">stream</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span>(<span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Any</span><span class="op">&gt;</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">io::Error</span><span class="op">&gt;</span>)<span class="op">&gt;</span>,
     <span class="ident">unwind_payload</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Any</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 
 <span class="comment">// Safety: unwinding into C is undefined behavior (https://github.com/rust-lang/rust/issues/58794)</span>
 <span class="comment">// so code outside of the `catch_unwind` call must never panic.</span>
-<span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">write_callback</span><span class="op">&lt;</span><span class="ident">W</span>: <span class="ident">io</span>::<span class="ident">Write</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
+<span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">write_callback</span><span class="op">&lt;</span><span class="ident">W</span>: <span class="ident">io::Write</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
     <span class="ident">env</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_void</span>,
     <span class="ident">data</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_uchar</span>,
     <span class="ident">length</span>: <span class="ident">c_uint</span>,
@@ -496,12 +496,12 @@
             <span class="comment">// with a W parameter consistent with the box that was unsized to `Box&lt;dyn Any&gt;`.</span>
             <span class="kw">let</span> <span class="ident">stream</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">stream</span>.<span class="ident">downcast_mut_unchecked</span>::<span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span>() };
             <span class="comment">// Safety: this is the callback contract from cairo’s API</span>
-            <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">std</span>::<span class="ident">slice</span>::<span class="ident">from_raw_parts</span>(<span class="ident">data</span>, <span class="ident">length</span> <span class="kw">as</span> <span class="ident">usize</span>) };
+            <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">std::slice::from_raw_parts</span>(<span class="ident">data</span>, <span class="ident">length</span> <span class="kw">as</span> <span class="ident">usize</span>) };
             <span class="comment">// Because `&lt;W as Write&gt;::write_all` is a generic,</span>
             <span class="comment">// we must conservatively assume that it can panic.</span>
-            <span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="ident">std</span>::<span class="ident">panic</span>::<span class="ident">catch_unwind</span>(<span class="ident">AssertUnwindSafe</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">stream</span>.<span class="ident">write_all</span>(<span class="ident">data</span>)));
+            <span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="ident">std::panic::catch_unwind</span>(<span class="ident">AssertUnwindSafe</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">stream</span>.<span class="ident">write_all</span>(<span class="ident">data</span>)));
             <span class="kw">match</span> <span class="ident">result</span> {
-                <span class="prelude-val">Ok</span>(<span class="prelude-val">Ok</span>(())) <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="ident">ffi</span>::<span class="ident">STATUS_SUCCESS</span>,
+                <span class="prelude-val">Ok</span>(<span class="prelude-val">Ok</span>(())) <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="ident">ffi::STATUS_SUCCESS</span>,
                 <span class="prelude-val">Ok</span>(<span class="prelude-val">Err</span>(<span class="ident">error</span>)) <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="kw-2">*</span><span class="ident">io_error</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">error</span>);
                 }
@@ -513,19 +513,19 @@
     } <span class="kw">else</span> {
         <span class="ident">env</span>.<span class="ident">saw_already_borrowed</span>.<span class="ident">set</span>(<span class="bool-val">true</span>)
     }
-    <span class="ident">Error</span>::<span class="ident">WriteError</span>.<span class="ident">into</span>()
+    <span class="ident">Error::WriteError</span>.<span class="ident">into</span>()
 }
 
-<span class="kw">struct</span> <span class="ident">RawStream</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span>(<span class="ident">ptr</span>::<span class="ident">NonNull</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span>);
+<span class="kw">struct</span> <span class="ident">RawStream</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span>(<span class="ident">ptr::NonNull</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span>);
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">W</span>: <span class="ident">io</span>::<span class="ident">Write</span><span class="op">&gt;</span> <span class="ident">io</span>::<span class="ident">Write</span> <span class="kw">for</span> <span class="ident">RawStream</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span> {
-    <span class="kw">fn</span> <span class="ident">write</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">W</span>: <span class="ident">io::Write</span><span class="op">&gt;</span> <span class="ident">io::Write</span> <span class="kw">for</span> <span class="ident">RawStream</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">write</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">io::Result</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> { (<span class="kw-2">*</span><span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()).<span class="ident">write</span>(<span class="ident">buf</span>) }
     }
-    <span class="kw">fn</span> <span class="ident">write_all</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">write_all</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">unsafe</span> { (<span class="kw-2">*</span><span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()).<span class="ident">write_all</span>(<span class="ident">buf</span>) }
     }
-    <span class="kw">fn</span> <span class="ident">flush</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">flush</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">unsafe</span> { (<span class="kw-2">*</span><span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()).<span class="ident">flush</span>() }
     }
 }

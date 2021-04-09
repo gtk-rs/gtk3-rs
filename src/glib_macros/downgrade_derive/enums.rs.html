@@ -142,8 +142,8 @@
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
-<span class="kw">use</span> <span class="kw">super</span>::<span class="ident">fields</span>::{<span class="ident">derive_downgrade_fields</span>, <span class="ident">DowngradeStructParts</span>};
-<span class="kw">use</span> <span class="ident">proc_macro</span>::<span class="ident">TokenStream</span>;
+<span class="kw">use</span> <span class="kw">super</span><span class="ident">::fields</span>::{<span class="ident">derive_downgrade_fields</span>, <span class="ident">DowngradeStructParts</span>};
+<span class="kw">use</span> <span class="ident">proc_macro::TokenStream</span>;
 <span class="kw">use</span> <span class="ident">quote</span>::{<span class="ident">format_ident</span>, <span class="ident">quote</span>};
 <span class="kw">use</span> <span class="ident">syn</span>::{<span class="ident">Generics</span>, <span class="ident">Ident</span>};
 
@@ -208,7 +208,7 @@
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">derive_downgrade_for_enum</span>(
     <span class="ident">ident</span>: <span class="ident">Ident</span>,
     <span class="ident">generics</span>: <span class="ident">Generics</span>,
-    <span class="ident">data_enum</span>: <span class="ident">syn</span>::<span class="ident">DataEnum</span>,
+    <span class="ident">data_enum</span>: <span class="ident">syn::DataEnum</span>,
 ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TokenStream</span> {
     <span class="kw">let</span> <span class="ident">weak_type</span> <span class="op">=</span> <span class="macro">format_ident!</span>(<span class="string">&quot;{}Weak&quot;</span>, <span class="ident">ident</span>);
 
@@ -234,7 +234,7 @@
             <span class="kw">let</span> <span class="ident">destruct</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">parts</span>.<span class="ident">destruct</span>;
             <span class="kw">let</span> <span class="ident">downgrade</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">parts</span>.<span class="ident">downgrade</span>;
             <span class="macro">quote!</span> {
-                <span class="self">Self</span>::#<span class="ident">ident</span> #<span class="ident">destruct</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">Weak</span>::#<span class="ident">ident</span> #<span class="ident">downgrade</span>
+                <span class="self">Self</span>::#<span class="ident">ident</span> #<span class="ident">destruct</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Weak</span>::#<span class="ident">ident</span> #<span class="ident">downgrade</span>
             }
         })
         .<span class="ident">collect</span>();
@@ -245,7 +245,7 @@
             <span class="kw">let</span> <span class="ident">destruct</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">parts</span>.<span class="ident">destruct</span>;
             <span class="kw">let</span> <span class="ident">upgrade</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">parts</span>.<span class="ident">upgrade</span>;
             <span class="macro">quote!</span> {
-                <span class="self">Self</span>::#<span class="ident">ident</span> #<span class="ident">destruct</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">Strong</span>::#<span class="ident">ident</span> #<span class="ident">upgrade</span>
+                <span class="self">Self</span>::#<span class="ident">ident</span> #<span class="ident">destruct</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Strong</span>::#<span class="ident">ident</span> #<span class="ident">upgrade</span>
             }
         })
         .<span class="ident">collect</span>();
@@ -255,20 +255,20 @@
             #<span class="ident">weak_variants</span>
         ),<span class="kw-2">*</span>}
 
-        <span class="kw">impl</span> #<span class="ident">generics</span> <span class="ident">glib</span>::<span class="ident">clone</span>::<span class="ident">Downgrade</span> <span class="kw">for</span> #<span class="ident">ident</span> #<span class="ident">generics</span> {
+        <span class="kw">impl</span> #<span class="ident">generics</span> <span class="ident">glib::clone::Downgrade</span> <span class="kw">for</span> #<span class="ident">ident</span> #<span class="ident">generics</span> {
             <span class="kw">type</span> <span class="ident">Weak</span> <span class="op">=</span> #<span class="ident">weak_type</span> #<span class="ident">generics</span>;
 
-            <span class="kw">fn</span> <span class="ident">downgrade</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">Weak</span> {
+            <span class="kw">fn</span> <span class="ident">downgrade</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Weak</span> {
                 <span class="kw">match</span> <span class="self">self</span> {#(
                     #<span class="ident">downgrade_variants</span>
                 ),<span class="kw-2">*</span>}
             }
         }
 
-        <span class="kw">impl</span> #<span class="ident">generics</span> <span class="ident">glib</span>::<span class="ident">clone</span>::<span class="ident">Upgrade</span> <span class="kw">for</span> #<span class="ident">weak_type</span> #<span class="ident">generics</span> {
+        <span class="kw">impl</span> #<span class="ident">generics</span> <span class="ident">glib::clone::Upgrade</span> <span class="kw">for</span> #<span class="ident">weak_type</span> #<span class="ident">generics</span> {
             <span class="kw">type</span> <span class="ident">Strong</span> <span class="op">=</span> #<span class="ident">ident</span> #<span class="ident">generics</span>;
 
-            <span class="kw">fn</span> <span class="ident">upgrade</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Strong</span><span class="op">&gt;</span> {
+            <span class="kw">fn</span> <span class="ident">upgrade</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::Strong</span><span class="op">&gt;</span> {
                 <span class="prelude-val">Some</span>(<span class="kw">match</span> <span class="self">self</span> {#(
                     #<span class="ident">upgrade_variants</span>
                 ),<span class="kw-2">*</span>})

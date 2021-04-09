@@ -186,9 +186,9 @@
 
 <span class="doccomment">//! Generic matrix operations</span>
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">error</span>::<span class="ident">Error</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">utils</span>::<span class="ident">status_to_result</span>;
-<span class="kw">use</span> <span class="ident">libc</span>::<span class="ident">c_double</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::error::Error</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::utils::status_to_result</span>;
+<span class="kw">use</span> <span class="ident">libc::c_double</span>;
 
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">PartialEq</span>)]</span>
@@ -205,16 +205,16 @@
 
 <span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">Matrix</span> {
     <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Matrix</span> {
-        <span class="ident">Matrix</span>::<span class="ident">identity</span>()
+        <span class="ident">Matrix::identity</span>()
     }
 }
 
 <span class="kw">impl</span> <span class="ident">Matrix</span> {
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">ptr</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ffi</span>::<span class="ident">Matrix</span> {
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">ptr</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ffi::Matrix</span> {
         <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">Matrix</span> <span class="kw">as</span> <span class="kw">_</span>
     }
 
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">mut_ptr</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">Matrix</span> {
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">mut_ptr</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::Matrix</span> {
         <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">Matrix</span> <span class="kw">as</span> <span class="kw">_</span>
     }
 
@@ -253,31 +253,31 @@
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_matrix_multiply&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">multiply</span>(<span class="ident">left</span>: <span class="kw-2">&amp;</span><span class="ident">Matrix</span>, <span class="ident">right</span>: <span class="kw-2">&amp;</span><span class="ident">Matrix</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Matrix</span> {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">matrix</span> <span class="op">=</span> <span class="ident">Matrix</span>::<span class="ident">null</span>();
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">matrix</span> <span class="op">=</span> <span class="ident">Matrix::null</span>();
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">cairo_matrix_multiply</span>(<span class="ident">matrix</span>.<span class="ident">mut_ptr</span>(), <span class="ident">left</span>.<span class="ident">ptr</span>(), <span class="ident">right</span>.<span class="ident">ptr</span>());
+            <span class="ident">ffi::cairo_matrix_multiply</span>(<span class="ident">matrix</span>.<span class="ident">mut_ptr</span>(), <span class="ident">left</span>.<span class="ident">ptr</span>(), <span class="ident">right</span>.<span class="ident">ptr</span>());
         }
         <span class="ident">matrix</span>
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_matrix_translate&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">translate</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">tx</span>: <span class="ident">f64</span>, <span class="ident">ty</span>: <span class="ident">f64</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_matrix_translate</span>(<span class="self">self</span>.<span class="ident">mut_ptr</span>(), <span class="ident">tx</span>, <span class="ident">ty</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_matrix_translate</span>(<span class="self">self</span>.<span class="ident">mut_ptr</span>(), <span class="ident">tx</span>, <span class="ident">ty</span>) }
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_matrix_scale&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">scale</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">sx</span>: <span class="ident">f64</span>, <span class="ident">sy</span>: <span class="ident">f64</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_matrix_scale</span>(<span class="self">self</span>.<span class="ident">mut_ptr</span>(), <span class="ident">sx</span>, <span class="ident">sy</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_matrix_scale</span>(<span class="self">self</span>.<span class="ident">mut_ptr</span>(), <span class="ident">sx</span>, <span class="ident">sy</span>) }
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_matrix_rotate&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">rotate</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">angle</span>: <span class="ident">f64</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_matrix_rotate</span>(<span class="self">self</span>.<span class="ident">mut_ptr</span>(), <span class="ident">angle</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_matrix_rotate</span>(<span class="self">self</span>.<span class="ident">mut_ptr</span>(), <span class="ident">angle</span>) }
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_matrix_invert&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">invert</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
-        <span class="kw">let</span> <span class="ident">status</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_matrix_invert</span>(<span class="self">self</span>.<span class="ident">mut_ptr</span>()) };
+        <span class="kw">let</span> <span class="ident">status</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_matrix_invert</span>(<span class="self">self</span>.<span class="ident">mut_ptr</span>()) };
         <span class="ident">status_to_result</span>(<span class="ident">status</span>).<span class="ident">expect</span>(<span class="string">&quot;Failed to invert matrix&quot;</span>);
     }
 
@@ -285,7 +285,7 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">try_invert</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Matrix</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">matrix</span> <span class="op">=</span> <span class="kw-2">*</span><span class="self">self</span>;
 
-        <span class="kw">let</span> <span class="ident">status</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_matrix_invert</span>(<span class="ident">matrix</span>.<span class="ident">mut_ptr</span>()) };
+        <span class="kw">let</span> <span class="ident">status</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_matrix_invert</span>(<span class="ident">matrix</span>.<span class="ident">mut_ptr</span>()) };
         <span class="ident">status_to_result</span>(<span class="ident">status</span>)<span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>(<span class="ident">matrix</span>)
     }
@@ -296,7 +296,7 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">dy</span> <span class="op">=</span> <span class="ident">_dy</span>;
 
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">cairo_matrix_transform_distance</span>(<span class="self">self</span>.<span class="ident">ptr</span>(), <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">dx</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">dy</span>);
+            <span class="ident">ffi::cairo_matrix_transform_distance</span>(<span class="self">self</span>.<span class="ident">ptr</span>(), <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">dx</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">dy</span>);
         }
         (<span class="ident">dx</span>, <span class="ident">dy</span>)
     }
@@ -307,7 +307,7 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">y</span> <span class="op">=</span> <span class="ident">_y</span>;
 
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">cairo_matrix_transform_point</span>(<span class="self">self</span>.<span class="ident">ptr</span>(), <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">x</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">y</span>);
+            <span class="ident">ffi::cairo_matrix_transform_point</span>(<span class="self">self</span>.<span class="ident">ptr</span>(), <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">x</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">y</span>);
         }
         (<span class="ident">x</span>, <span class="ident">y</span>)
     }
@@ -331,35 +331,35 @@
                 }
             };
         }
-        <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">ffi</span>::<span class="ident">Matrix</span> <span class="kw">as</span> <span class="ident">FfiMatrix</span>;
-        <span class="kw">let</span> <span class="ident">transmuted</span>: <span class="ident">Matrix</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">std</span>::<span class="ident">mem</span>::<span class="ident">transmute</span>(<span class="macro">dummy_values!</span>(<span class="ident">FfiMatrix</span>)) };
+        <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::ffi::Matrix</span> <span class="kw">as</span> <span class="ident">FfiMatrix</span>;
+        <span class="kw">let</span> <span class="ident">transmuted</span>: <span class="ident">Matrix</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">std::mem::transmute</span>(<span class="macro">dummy_values!</span>(<span class="ident">FfiMatrix</span>)) };
         <span class="macro">assert_eq!</span>(<span class="ident">transmuted</span>, <span class="macro">dummy_values!</span>(<span class="ident">Matrix</span>));
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">invalid_matrix_does_not_invert</span>() {
-        <span class="kw">let</span> <span class="ident">matrix</span> <span class="op">=</span> <span class="ident">Matrix</span>::<span class="ident">null</span>();
+        <span class="kw">let</span> <span class="ident">matrix</span> <span class="op">=</span> <span class="ident">Matrix::null</span>();
         <span class="macro">assert!</span>(<span class="ident">matrix</span>.<span class="ident">try_invert</span>().<span class="ident">is_err</span>());
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="attribute">#[<span class="ident">should_panic</span>]</span>
     <span class="kw">fn</span> <span class="ident">inverting_invalid_matrix_panics</span>() {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">matrix</span> <span class="op">=</span> <span class="ident">Matrix</span>::<span class="ident">null</span>();
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">matrix</span> <span class="op">=</span> <span class="ident">Matrix::null</span>();
         <span class="ident">matrix</span>.<span class="ident">invert</span>();
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">valid_matrix_try_invert</span>() {
-        <span class="kw">let</span> <span class="ident">matrix</span> <span class="op">=</span> <span class="ident">Matrix</span>::<span class="ident">identity</span>();
-        <span class="macro">assert!</span>(<span class="ident">matrix</span>.<span class="ident">try_invert</span>().<span class="ident">unwrap</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">Matrix</span>::<span class="ident">identity</span>());
+        <span class="kw">let</span> <span class="ident">matrix</span> <span class="op">=</span> <span class="ident">Matrix::identity</span>();
+        <span class="macro">assert!</span>(<span class="ident">matrix</span>.<span class="ident">try_invert</span>().<span class="ident">unwrap</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">Matrix::identity</span>());
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">valid_matrix_invert</span>() {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">matrix</span> <span class="op">=</span> <span class="ident">Matrix</span>::<span class="ident">identity</span>();
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">matrix</span> <span class="op">=</span> <span class="ident">Matrix::identity</span>();
         <span class="ident">matrix</span>.<span class="ident">invert</span>();
-        <span class="macro">assert!</span>(<span class="ident">matrix</span> <span class="op">=</span><span class="op">=</span> <span class="ident">Matrix</span>::<span class="ident">identity</span>());
+        <span class="macro">assert!</span>(<span class="ident">matrix</span> <span class="op">=</span><span class="op">=</span> <span class="ident">Matrix::identity</span>());
     }
 }
 </pre></div>

@@ -35,19 +35,19 @@
 <span class="comment">// from gir-files (https://github.com/gtk-rs/gir-files)</span>
 <span class="comment">// DO NOT EDIT</span>
 
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
+<span class="kw">use</span> <span class="ident">std::fmt</span>;
 
-<span class="ident">glib</span>::<span class="macro">wrapper!</span> {
+<span class="macro">glib::wrapper!</span> {
     <span class="doccomment">/// `[Deprecated since 1.38]` The `EngineLang` class is implemented by engines that</span>
     <span class="doccomment">/// customize the rendering-system independent part of the</span>
     <span class="doccomment">/// Pango pipeline for a particular script or language. For</span>
     <span class="doccomment">/// instance, a custom `EngineLang` could be provided for</span>
     <span class="doccomment">/// Thai to implement the dictionary-based word boundary</span>
     <span class="doccomment">/// lookups needed for that language.</span>
-    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EngineLang</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">PangoEngineLang</span>, <span class="ident">ffi</span>::<span class="ident">PangoEngineLangClass</span><span class="op">&gt;</span>);
+    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EngineLang</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::PangoEngineLang</span>, <span class="ident">ffi::PangoEngineLangClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
-        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">pango_engine_lang_get_type</span>(),
+        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::pango_engine_lang_get_type</span>(),
     }
 }
 
@@ -55,8 +55,8 @@
 
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">NONE_ENGINE_LANG</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">EngineLang</span><span class="op">&gt;</span> <span class="op">=</span> <span class="prelude-val">None</span>;
 
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">EngineLang</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">EngineLang</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;EngineLang&quot;</span>)
     }
 }
