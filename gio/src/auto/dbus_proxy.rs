@@ -258,6 +258,9 @@ impl fmt::Display for DBusProxy {
     }
 }
 
+unsafe impl Send for DBusProxy {}
+unsafe impl Sync for DBusProxy {}
+
 pub const NONE_DBUS_PROXY: Option<&DBusProxy> = None;
 
 pub trait DBusProxyExt: 'static {
@@ -396,18 +399,20 @@ pub trait DBusProxyExt: 'static {
 
     fn get_property_g_object_path(&self) -> Option<glib::GString>;
 
-    fn connect_property_g_default_timeout_notify<F: Fn(&Self) + 'static>(
+    fn connect_property_g_default_timeout_notify<F: Fn(&Self) + Send + Sync + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
-    fn connect_property_g_interface_info_notify<F: Fn(&Self) + 'static>(
+    fn connect_property_g_interface_info_notify<F: Fn(&Self) + Send + Sync + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
-    fn connect_property_g_name_owner_notify<F: Fn(&Self) + 'static>(&self, f: F)
-        -> SignalHandlerId;
+    fn connect_property_g_name_owner_notify<F: Fn(&Self) + Send + Sync + 'static>(
+        &self,
+        f: F,
+    ) -> SignalHandlerId;
 }
 
 impl<O: IsA<DBusProxy>> DBusProxyExt for O {
@@ -861,11 +866,14 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
         }
     }
 
-    fn connect_property_g_default_timeout_notify<F: Fn(&Self) + 'static>(
+    fn connect_property_g_default_timeout_notify<F: Fn(&Self) + Send + Sync + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_g_default_timeout_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_g_default_timeout_trampoline<
+            P,
+            F: Fn(&P) + Send + Sync + 'static,
+        >(
             this: *mut ffi::GDBusProxy,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
@@ -888,11 +896,14 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
         }
     }
 
-    fn connect_property_g_interface_info_notify<F: Fn(&Self) + 'static>(
+    fn connect_property_g_interface_info_notify<F: Fn(&Self) + Send + Sync + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_g_interface_info_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_g_interface_info_trampoline<
+            P,
+            F: Fn(&P) + Send + Sync + 'static,
+        >(
             this: *mut ffi::GDBusProxy,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
@@ -915,11 +926,11 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
         }
     }
 
-    fn connect_property_g_name_owner_notify<F: Fn(&Self) + 'static>(
+    fn connect_property_g_name_owner_notify<F: Fn(&Self) + Send + Sync + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_g_name_owner_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_g_name_owner_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(
             this: *mut ffi::GDBusProxy,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,

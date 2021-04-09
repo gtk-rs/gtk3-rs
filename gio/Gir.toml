@@ -421,6 +421,7 @@ generate_builder = true
 
 [[object]]
 name = "Gio.DBusConnection"
+concurrency = "send+sync"
 status = "generate"
     [[object.function]]
     pattern = ".+_unix_fd.+"
@@ -508,6 +509,7 @@ status = "generate"
 [[object]]
 name = "Gio.DBusProxy"
 status = "generate"
+concurrency = "send+sync"
     [[object.signal]]
     pattern = ".+"
     # libc::c_char vs str
