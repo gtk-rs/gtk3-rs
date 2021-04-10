@@ -2412,6 +2412,17 @@ impl<T: ObjectType> WeakRef<T> {
         }
     }
 
+    pub fn set(&self, obj: Option<&T>) {
+        unsafe {
+            gobject_ffi::g_weak_ref_set(
+                mut_override(Pin::as_ref(&self.0).get_ref()),
+                obj.map_or(std::ptr::null_mut(), |obj| {
+                    obj.as_object_ref().to_glib_none().0
+                }),
+            );
+        }
+    }
+
     pub fn upgrade(&self) -> Option<T> {
         unsafe {
             let ptr = gobject_ffi::g_weak_ref_get(mut_override(Pin::as_ref(&self.0).get_ref()));
@@ -2960,5 +2971,23 @@ mod tests {
             let data2 = obj.steal_data::<String>("foo").unwrap();
             assert_eq!(data2, "hello");
         }
+    }
+
+    #[test]
+    fn weak_ref() {
+        let obj: Object = Object::new(&[]).unwrap();
+
+        let weakref: WeakRef<Object> = WeakRef::new();
+        weakref.set(Some(&obj));
+        assert!(weakref.upgrade().is_some());
+        weakref.set(None);
+        assert!(weakref.upgrade().is_none());
+
+        let weakref = WeakRef::new();
+        weakref.set(Some(&obj));
+        assert!(weakref.upgrade().is_some());
+
+        drop(obj);
+        assert!(weakref.upgrade().is_none());
     }
 }
