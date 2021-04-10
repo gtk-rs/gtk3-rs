@@ -44,12 +44,10 @@ use std::num::NonZeroU64;
 #[derive(Debug, Eq, PartialEq)]
 pub struct SignalHandlerId(NonZeroU64);
 
-impl ToGlib for SignalHandlerId {
-    type GlibType = c_ulong;
-
-    #[inline]
-    fn to_glib(self) -> c_ulong {
-        self.0.get() as c_ulong
+impl SignalHandlerId {
+    /// Returns the internal signal handler ID.
+    pub unsafe fn as_raw(&self) -> libc::c_ulong {
+        self.0.get() as libc::c_ulong
     }
 }
 
@@ -106,7 +104,7 @@ pub fn signal_handler_block<T: ObjectType>(instance: &T, handler_id: &SignalHand
     unsafe {
         gobject_ffi::g_signal_handler_block(
             instance.as_object_ref().to_glib_none().0,
-            handler_id.to_glib(),
+            handler_id.as_raw(),
         );
     }
 }
@@ -116,7 +114,7 @@ pub fn signal_handler_unblock<T: ObjectType>(instance: &T, handler_id: &SignalHa
     unsafe {
         gobject_ffi::g_signal_handler_unblock(
             instance.as_object_ref().to_glib_none().0,
-            handler_id.to_glib(),
+            handler_id.as_raw(),
         );
     }
 }
@@ -127,7 +125,7 @@ pub fn signal_handler_disconnect<T: ObjectType>(instance: &T, handler_id: Signal
     unsafe {
         gobject_ffi::g_signal_handler_disconnect(
             instance.as_object_ref().to_glib_none().0,
-            handler_id.to_glib(),
+            handler_id.as_raw(),
         );
     }
 }

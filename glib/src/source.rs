@@ -20,12 +20,9 @@ use crate::Source;
 #[derive(Debug, Eq, PartialEq)]
 pub struct SourceId(NonZeroU32);
 
-#[doc(hidden)]
-impl ToGlib for SourceId {
-    type GlibType = u32;
-
-    #[inline]
-    fn to_glib(self) -> u32 {
+impl SourceId {
+    /// Returns the internal source ID.
+    pub unsafe fn as_raw(&self) -> u32 {
         self.0.get()
     }
 }
@@ -701,7 +698,7 @@ where
 #[allow(clippy::needless_pass_by_value)]
 pub fn source_remove(source_id: SourceId) {
     unsafe {
-        ffi::g_source_remove(source_id.to_glib());
+        ffi::g_source_remove(source_id.as_raw());
     }
 }
 
@@ -959,7 +956,7 @@ impl Source {
     pub fn remove(tag: SourceId) -> Result<(), crate::BoolError> {
         unsafe {
             result_from_gboolean!(
-                ffi::g_source_remove(tag.to_glib()),
+                ffi::g_source_remove(tag.as_raw()),
                 "Failed to remove source"
             )
         }

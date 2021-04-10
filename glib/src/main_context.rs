@@ -28,7 +28,7 @@ impl MainContext {
         unsafe {
             from_glib_none(ffi::g_main_context_find_source_by_id(
                 self.to_glib_none().0,
-                source_id.to_glib(),
+                source_id.as_raw(),
             ))
         }
     }
