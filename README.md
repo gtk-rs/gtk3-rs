@@ -11,6 +11,24 @@ information about each crate, please refer to their `README.md` file in their di
 You can see the all the released crates' documentation in
 [one place](https://gtk-rs.org/docs-src/).
 
+## Ecosystem
+
+The `gtk-rs` repository contains Rust crates for the foundational `GObject`-based
+libraries. However there is a large ecosystem of `GObject` libraries and many of these
+libraries have Rust bindings based on the tooling included in `gtk-rs`.
+Of particular note:
+
+* [gtk4-rs](https://github.com/gtk-rs/gtk4-rs) - bindings for GTK 4
+* [gstreamer-rs](https://gitlab.freedesktop.org/gstreamer/gstreamer-rs) - bindings for the GStreamer media framework
+
+Additionally, Rust bindings for various libraries are hosted on
+[GNOME's GitLab](https://gitlab.gnome.org) instance and can be found at
+<https://gitlab.gnome.org/World/Rust>.
+
+When using crates that are not part of the `gtk-rs` repository, you will
+need to be careful and ensure that they do not pull in incompatible versions of core
+crates like `glib-rs`.
+
 ## Regenerating
 
 To regenerate crates using [gir], please use the `generator.py`
