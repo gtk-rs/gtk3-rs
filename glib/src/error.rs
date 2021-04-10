@@ -69,7 +69,7 @@ impl Error {
     /// }
     /// ```
     pub fn kind<T: ErrorDomain>(&self) -> Option<T> {
-        if self.0.domain == T::domain().to_glib() {
+        if self.is::<T>() {
             T::from(self.0.code)
         } else {
             None
@@ -215,6 +215,13 @@ impl error::Error for BoolError {}
 mod tests {
     use super::*;
     use std::ffi::CString;
+
+    #[test]
+    fn test_error_kind() {
+        let e = Error::new(crate::FileError::Failed, "Failed");
+        assert_eq!(e.kind::<crate::FileError>(), Some(crate::FileError::Failed));
+        assert_eq!(e.kind::<crate::KeyFileError>(), None);
+    }
 
     #[test]
     fn test_into_raw() {
