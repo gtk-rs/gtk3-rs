@@ -3,6 +3,8 @@
 use crate::Cancellable;
 use crate::File;
 use crate::FileCreateFlags;
+use crate::FileEnumerator;
+use crate::FileQueryInfoFlags;
 use glib::object::IsA;
 use glib::translate::*;
 use std::pin::Pin;
@@ -36,6 +38,26 @@ pub trait FileExtManual: Sized {
                 + 'static,
         >,
     >;
+
+    #[doc(alias = "g_file_enumerate_children_async")]
+    fn enumerate_children_async<
+        P: IsA<Cancellable>,
+        Q: FnOnce(Result<FileEnumerator, glib::Error>) + Send + 'static,
+    >(
+        &self,
+        attributes: &'static str,
+        flags: FileQueryInfoFlags,
+        io_priority: glib::Priority,
+        cancellable: Option<&P>,
+        callback: Q,
+    );
+
+    fn enumerate_children_async_future(
+        &self,
+        attributes: &'static str,
+        flags: FileQueryInfoFlags,
+        io_priority: glib::Priority,
+    ) -> Pin<Box<dyn std::future::Future<Output = Result<FileEnumerator, glib::Error>> + 'static>>;
 }
 
 impl<O: IsA<File>> FileExtManual for O {
@@ -124,6 +146,73 @@ impl<O: IsA<File>> FileExtManual for O {
                 etag.as_ref().map(|s| s.as_str()),
                 make_backup,
                 flags,
+                Some(&cancellable),
+                move |res| {
+                    send.resolve(res);
+                },
+            );
+
+            cancellable
+        }))
+    }
+
+    fn enumerate_children_async<
+        P: IsA<Cancellable>,
+        Q: FnOnce(Result<FileEnumerator, glib::Error>) + Send + 'static,
+    >(
+        &self,
+        attributes: &'static str,
+        flags: FileQueryInfoFlags,
+        io_priority: glib::Priority,
+        cancellable: Option<&P>,
+        callback: Q,
+    ) {
+        let user_data: Box<Q> = Box::new(callback);
+        unsafe extern "C" fn create_async_trampoline<
+            Q: FnOnce(Result<FileEnumerator, glib::Error>) + Send + 'static,
+        >(
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
+        ) {
+            let mut error = ptr::null_mut();
+            let ret =
+                ffi::g_file_enumerate_children_finish(_source_object as *mut _, res, &mut error);
+            let result = if error.is_null() {
+                Ok(from_glib_full(ret))
+            } else {
+                Err(from_glib_full(error))
+            };
+            let callback: Box<Q> = Box::from_raw(user_data as *mut _);
+            callback(result);
+        }
+        let callback = create_async_trampoline::<Q>;
+        unsafe {
+            ffi::g_file_enumerate_children_async(
+                self.as_ref().to_glib_none().0,
+                attributes.to_glib_none().0,
+                flags.to_glib(),
+                io_priority.to_glib(),
+                cancellable.map(|p| p.as_ref()).to_glib_none().0,
+                Some(callback),
+                Box::into_raw(user_data) as *mut _,
+            );
+        }
+    }
+
+    fn enumerate_children_async_future(
+        &self,
+        attributes: &'static str,
+        flags: FileQueryInfoFlags,
+        io_priority: glib::Priority,
+    ) -> Pin<Box<dyn std::future::Future<Output = Result<FileEnumerator, glib::Error>> + 'static>>
+    {
+        Box::pin(crate::GioFuture::new(self, move |obj, send| {
+            let cancellable = Cancellable::new();
+            obj.enumerate_children_async(
+                attributes,
+                flags,
+                io_priority,
                 Some(&cancellable),
                 move |res| {
                     send.resolve(res);
