@@ -11,6 +11,10 @@ Cairo bindings for Rust.
 
 ![screenshot](https://guillaume-gomez.fr/image/cairo.png)
 
+## Minimum supported Rust version
+
+Currently, the minimum supported Rust version is `1.48.0`.
+
 ## License
 
 MIT
