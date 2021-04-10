@@ -159,6 +159,9 @@ status = "generate"
     #manual trait
     ignore = true
     [[object.function]]
+    name = "get_event_compression"
+    rename = "compresses_events"
+    [[object.function]]
     name = "get_default_root_window"
     #manual trait
     ignore = true
@@ -325,6 +328,15 @@ version = "3.8"
 name = "Gdk.Keymap"
 status = "generate"
     [[object.function]]
+    name = "get_caps_lock_state"
+    rename = "is_caps_locked"
+    [[object.function]]
+    name = "get_num_lock_state"
+    rename = "is_num_locked"
+    [[object.function]]
+    name = "get_scroll_lock_state"
+    rename = "is_scroll_locked"
+    [[object.function]]
     name = "get_entries_for_keycode"
     # Invalid generation of Vec<KeymapKey>
     manual = true
@@ -373,6 +385,26 @@ status = "generate"
     name = "get_setting"
     # bool return value signals success
     manual = true
+    [[object.function]]
+    name = "height"
+    # This is an associated function which clashes with
+    # the actual method getter after auto-renaming.
+    rename = "screen_height"
+    [[object.function]]
+    name = "height_mm"
+    # This is an associated function which clashes with
+    # the actual method getter after auto-renaming.
+    rename = "screen_height_mm"
+    [[object.function]]
+    name = "width"
+    # This is an associated function which clashes with
+    # the actual method getter after auto-renaming.
+    rename = "screen_width"
+    [[object.function]]
+    name = "width_mm"
+    # This is an associated function which clashes with
+    # the actual method getter after auto-renaming.
+    rename = "screen_width_mm"
 
 [[object]]
 name = "Gdk.Seat"
