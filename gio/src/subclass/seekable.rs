@@ -7,7 +7,6 @@ use glib::SeekType;
 
 use glib::subclass::prelude::*;
 
-use std::mem;
 use std::ptr;
 
 use crate::Cancellable;
@@ -209,8 +208,7 @@ unsafe extern "C" fn seekable_seek<T: SeekableImpl>(
     ) {
         Ok(()) => glib::ffi::GTRUE,
         Err(e) => {
-            let mut e = mem::ManuallyDrop::new(e);
-            *err = e.to_glib_none_mut().0;
+            *err = e.into_raw();
             glib::ffi::GFALSE
         }
     }
@@ -244,8 +242,7 @@ unsafe extern "C" fn seekable_truncate<T: SeekableImpl>(
     ) {
         Ok(()) => glib::ffi::GTRUE,
         Err(e) => {
-            let mut e = mem::ManuallyDrop::new(e);
-            *err = e.to_glib_none_mut().0;
+            *err = e.into_raw();
             glib::ffi::GFALSE
         }
     }

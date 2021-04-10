@@ -8,7 +8,6 @@ use glib::{Cast, Error};
 use crate::Cancellable;
 use crate::InputStream;
 
-use std::mem;
 use std::ptr;
 
 pub trait InputStreamImpl: ObjectImpl + InputStreamImplExt + Send {
@@ -189,8 +188,7 @@ unsafe extern "C" fn stream_read<T: InputStreamImpl>(
             res as isize
         }
         Err(e) => {
-            let mut e = mem::ManuallyDrop::new(e);
-            *err = e.to_glib_none_mut().0;
+            *err = e.into_raw();
             -1
         }
     }
@@ -213,8 +211,7 @@ unsafe extern "C" fn stream_close<T: InputStreamImpl>(
     ) {
         Ok(_) => glib::ffi::GTRUE,
         Err(e) => {
-            let mut e = mem::ManuallyDrop::new(e);
-            *err = e.to_glib_none_mut().0;
+            *err = e.into_raw();
             glib::ffi::GFALSE
         }
     }
@@ -247,8 +244,7 @@ unsafe extern "C" fn stream_skip<T: InputStreamImpl>(
             res as isize
         }
         Err(e) => {
-            let mut e = mem::ManuallyDrop::new(e);
-            *err = e.to_glib_none_mut().0;
+            *err = e.into_raw();
             -1
         }
     }

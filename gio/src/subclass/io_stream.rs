@@ -9,7 +9,6 @@ use glib::{Cast, Error};
 use crate::Cancellable;
 use crate::{IOStream, InputStream, OutputStream};
 
-use std::mem;
 use std::ptr;
 
 use once_cell::sync::Lazy;
@@ -172,8 +171,7 @@ unsafe extern "C" fn stream_close<T: IOStreamImpl>(
     ) {
         Ok(_) => glib::ffi::GTRUE,
         Err(e) => {
-            let mut e = mem::ManuallyDrop::new(e);
-            *err = e.to_glib_none_mut().0;
+            *err = e.into_raw();
             glib::ffi::GFALSE
         }
     }
