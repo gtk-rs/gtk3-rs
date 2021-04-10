@@ -4,6 +4,10 @@
 
 __Rust__ bindings and wrappers for __GLib__, __GDK 3__, __GTK+ 3__  and __Cairo__.
 
+## Minimum supported Rust version
+
+Currently, the minimum supported Rust version is `1.48.0`.
+
 ## Building
 
 __gtk__ expects __GTK+__, __GLib__ and __Cairo__ development files to be installed on your system.

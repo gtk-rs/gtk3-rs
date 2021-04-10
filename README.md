@@ -6,6 +6,10 @@ You can find more about it on <https://gtk-rs.org>.
 This repository contains all the "core" crates of the gtk-rs organization. For more
 information about each crate, please refer to their `README.md` file in their directory.
 
+## Minimum supported Rust version
+
+Currently, the minimum supported Rust version is `1.48.0`.
+
 ## Documentation
 
 You can see the all the released crates' documentation in

@@ -9,6 +9,10 @@ Graphene bindings for Rust.
 - [Readme](https://github.com/gtk-rs/gtk/blob/master/README.md) in our
   [main repo](https://github.com/gtk-rs/gtk)
 
+## Minimum supported Rust version
+
+Currently, the minimum supported Rust version is `1.48.0`.
+
 ## License
 
 MIT
