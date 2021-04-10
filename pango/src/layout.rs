@@ -48,6 +48,21 @@ impl LayoutLine {
         unsafe { (*self.to_glib_none().0).length }
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Returns `true` if this is the first line of the paragraph.
+    pub fn is_paragraph_start(&self) -> bool {
+        let field = unsafe { (*self.to_glib_none().0).is_paragraph_start };
+        (field >> 24) != 0 // We only keep the bigger byte to get "is_paragraph".
+    }
+
+    // rustdoc-stripper-ignore-next
+    /// Resolved [`PangoDirection`] of line.
+    pub fn resolved_dir(&self) -> crate::Direction {
+        let field = unsafe { (*self.to_glib_none().0).is_paragraph_start };
+        let field = (field << 8) >> 8; // We remove the bigger byte to only keep "resolved_dir".
+        unsafe { crate::Direction::from_glib(field as _) }
+    }
+
     #[doc(alias = "pango_layout_line_x_to_index")]
     pub fn x_to_index(&self, x_pos: i32) -> HitPosition {
         let mut index = 0;
