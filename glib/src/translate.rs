@@ -293,14 +293,14 @@ impl<T> std::ops::Deref for Borrowed<T> {
 pub trait ToGlib {
     type GlibType: Copy;
 
-    fn to_glib(&self) -> Self::GlibType;
+    fn to_glib(self) -> Self::GlibType;
 }
 
 impl ToGlib for bool {
     type GlibType = ffi::gboolean;
 
     #[inline]
-    fn to_glib(&self) -> ffi::gboolean {
+    fn to_glib(self) -> ffi::gboolean {
         if *self {
             ffi::GTRUE
         } else {
@@ -313,7 +313,7 @@ impl ToGlib for char {
     type GlibType = u32;
 
     #[inline]
-    fn to_glib(&self) -> u32 {
+    fn to_glib(self) -> u32 {
         *self as u32
     }
 }
@@ -322,7 +322,7 @@ impl ToGlib for Option<char> {
     type GlibType = u32;
 
     #[inline]
-    fn to_glib(&self) -> u32 {
+    fn to_glib(self) -> u32 {
         self.as_ref().map(|&c| c as u32).unwrap_or(0)
     }
 }
@@ -331,7 +331,7 @@ impl ToGlib for Ordering {
     type GlibType = i32;
 
     #[inline]
-    fn to_glib(&self) -> i32 {
+    fn to_glib(self) -> i32 {
         match *self {
             Ordering::Less => -1,
             Ordering::Equal => 0,
@@ -349,7 +349,7 @@ impl<T: OptionToGlib> ToGlib for Option<T> {
     type GlibType = T::GlibType;
 
     #[inline]
-    fn to_glib(&self) -> Self::GlibType {
+    fn to_glib(self) -> Self::GlibType {
         match self {
             Some(t) => t.to_glib(),
             None => T::GLIB_NONE,
