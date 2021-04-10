@@ -1,13 +1,10 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-//! # **glib**, **gobject** and **gio** bindings for Rust
+//! # Rust GLib and GObject bindings
 //!
-//! This library contains
-//!
-//! - bindings to some essential GLib, GObject, GIO types and APIs,
-//!
-//! - common building blocks used in both handmade and machine generated
-//! bindings to GTK+ and other GLib-based libraries.
+//! This library contains bindings to GLib and GObject types and APIs as well as
+//! common building blocks used in both handmade and machine generated
+//! bindings to GTK and other GLib-based libraries.
 //!
 //! It is the foundation for higher level libraries with uniform Rusty (safe and
 //! strongly typed) APIs. It avoids exposing GLib-specific data types where
@@ -15,47 +12,42 @@
 //! would often amount to duplicating the Rust Standard Library or other utility
 //! crates.
 //!
-//! The library is a work in progress: expect missing functionality and breaking
-//! changes.
+//! The library is a work in progress. Expect breaking changes between releases.
 //!
 //! # Dynamic typing
 //!
-//! Most types in the GLib family have type identifiers
-//! ([`Type`](types/enum.Type.html)). Their corresponding Rust types implement
-//! the [`StaticType`](types/trait.StaticType.html) trait.
+//! Most types in the GLib family have [`Type`] identifiers.
+//! Their corresponding Rust types implement the [`StaticType`] trait.
 //!
-//! Dynamically typed [`Value`](value/index.html) can carry values of any `T:
-//! StaticType`.
-//!
-//! [`Variant`](variant/index.html) can carry values of `T: StaticVariantType`.
+//! A dynamically typed [`Value`] can carry values of any [`StaticType`].
+//! [`Variant`]s can carry values of [`StaticVariantType`].
 //!
 //! # Errors
 //!
-//! Errors are represented by [`Error`](error/struct.Error.html), which can
-//! carry values from various [error
-//! domains](error/trait.ErrorDomain.html#implementors) (such as
-//! [`FileError`](enum.FileError.html)).
+//! Errors are represented by [`Error`], which can
+//! carry values from various [error domains](error::ErrorDomain) such as
+//! [`FileError`].
 //!
 //! # Objects
 //!
 //! Each class and interface has a corresponding smart pointer struct
-//! representing an instance of that type (e.g. `Object` for `GObject`,
+//! representing an instance of that type (e.g. [`Object`] for `GObject` or
 //! `gtk::Widget` for `GtkWidget`). They are reference counted and feature
 //! interior mutability similarly to Rust's `Rc<RefCell<T>>` idiom.
 //! Consequently, cloning objects is cheap and their methods never require
 //! mutable borrows. Two smart pointers are equal iff they point to the same
 //! object.
 //!
-//! The root of the object hierarchy is [`Object`](object/struct.Object.html).
-//! Inheritance and subtyping is denoted with the [`IsA`](object/trait.IsA.html)
-//! marker trait. The [`Cast`](object/trait.Cast.html) trait enables upcasting
+//! The root of the object hierarchy is [`Object`].
+//! Inheritance and subtyping is denoted with the [`IsA`]
+//! marker trait. The [`Cast`] trait enables upcasting
 //! and downcasting.
 //!
 //! Interfaces and non-leaf classes also have corresponding traits (e.g.
-//! `ObjectExt` and `gtk::WidgetExt`), which are blanketly implemented for all
+//! [`ObjectExt`] or `gtk::WidgetExt`), which are blanketly implemented for all
 //! their subtypes.
 //!
-//! You can create new subclasses of `Object` or other object types. Look at
+//! You can create new subclasses of [`Object`] or other object types. Look at
 //! the module's documentation for further details and a code example.
 //!
 //! # Under the hood
@@ -64,11 +56,11 @@
 //! reference counted structures so the bindings have to implement corresponding
 //! smart pointers (wrappers), which encapsulate resource management and safety
 //! checks. Such wrappers are defined via the
-//! [`wrapper!`](macro.wrapper!.html) macro, which uses abstractions
-//! defined in the [`wrapper`](wrapper/index.html), [`boxed`](boxed/index.html),
-//! [`shared`](shared/index.html) and [`object`](object/index.html) modules.
+//! [`macro@wrapper`] macro, which uses abstractions
+//! defined in the [`mod@wrapper`], [`mod@boxed`],
+//! [`mod@shared`] and [`mod@object`] modules.
 //!
-//! The [`translate`](translate/index.html) module defines and partly implements
+//! The [`mod@translate`] module defines and partly implements
 //! conversions between high level Rust types (including the aforementioned
 //! wrappers) and their FFI counterparts.
 
