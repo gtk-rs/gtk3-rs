@@ -10,7 +10,6 @@ use crate::InputStream;
 use crate::OutputStream;
 use crate::OutputStreamSpliceFlags;
 
-use std::mem;
 use std::ptr;
 
 pub trait OutputStreamImpl: ObjectImpl + OutputStreamImplExt + Send {
@@ -230,8 +229,7 @@ unsafe extern "C" fn stream_write<T: OutputStreamImpl>(
             res as isize
         }
         Err(e) => {
-            let mut e = mem::ManuallyDrop::new(e);
-            *err = e.to_glib_none_mut().0;
+            *err = e.into_raw();
             -1
         }
     }
@@ -254,8 +252,7 @@ unsafe extern "C" fn stream_close<T: OutputStreamImpl>(
     ) {
         Ok(_) => glib::ffi::GTRUE,
         Err(e) => {
-            let mut e = mem::ManuallyDrop::new(e);
-            *err = e.to_glib_none_mut().0;
+            *err = e.into_raw();
             glib::ffi::GFALSE
         }
     }
@@ -278,8 +275,7 @@ unsafe extern "C" fn stream_flush<T: OutputStreamImpl>(
     ) {
         Ok(_) => glib::ffi::GTRUE,
         Err(e) => {
-            let mut e = mem::ManuallyDrop::new(e);
-            *err = e.to_glib_none_mut().0;
+            *err = e.into_raw();
             glib::ffi::GFALSE
         }
     }
@@ -310,8 +306,7 @@ unsafe extern "C" fn stream_splice<T: OutputStreamImpl>(
             res as isize
         }
         Err(e) => {
-            let mut e = mem::ManuallyDrop::new(e);
-            *err = e.to_glib_none_mut().0;
+            *err = e.into_raw();
             -1
         }
     }

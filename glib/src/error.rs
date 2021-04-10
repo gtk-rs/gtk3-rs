@@ -8,6 +8,7 @@ use std::borrow::Cow;
 use std::error;
 use std::ffi::CStr;
 use std::fmt;
+use std::mem;
 use std::str;
 
 wrapper! {
@@ -68,7 +69,7 @@ impl Error {
     /// }
     /// ```
     pub fn kind<T: ErrorDomain>(&self) -> Option<T> {
-        if self.0.domain == T::domain().to_glib() {
+        if self.is::<T>() {
             T::from(self.0.code)
         } else {
             None
@@ -81,6 +82,12 @@ impl Error {
             str::from_utf8(bytes)
                 .unwrap_or_else(|err| str::from_utf8(&bytes[..err.valid_up_to()]).unwrap())
         }
+    }
+
+    /// Consumes the `Error` and returns the corresponding `GError` pointer.
+    pub fn into_raw(self) -> *mut ffi::GError {
+        let mut e = mem::ManuallyDrop::new(self);
+        e.to_glib_none_mut().0
     }
 }
 
@@ -206,6 +213,31 @@ impl error::Error for BoolError {}
 
 #[cfg(test)]
 mod tests {
+    use super::*;
+    use std::ffi::CString;
+
+    #[test]
+    fn test_error_kind() {
+        let e = Error::new(crate::FileError::Failed, "Failed");
+        assert_eq!(e.kind::<crate::FileError>(), Some(crate::FileError::Failed));
+        assert_eq!(e.kind::<crate::KeyFileError>(), None);
+    }
+
+    #[test]
+    fn test_into_raw() {
+        let e = Error::new(crate::FileError::Failed, "Failed").into_raw();
+        unsafe {
+            assert_eq!((*e).domain, ffi::g_file_error_quark());
+            assert_eq!((*e).code, ffi::G_FILE_ERROR_FAILED);
+            assert_eq!(
+                CStr::from_ptr((*e).message),
+                CString::new("Failed").unwrap().as_c_str()
+            );
+
+            ffi::g_error_free(e);
+        }
+    }
+
     #[test]
     fn test_bool_error() {
         let from_static_msg = bool_error!("Static message");

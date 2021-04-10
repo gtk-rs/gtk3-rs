@@ -258,7 +258,7 @@ impl Value {
         }
     }
 
-    #[doc(hidden)]
+    /// Consumes `Value` and returns the corresponding `GValue`.
     pub fn into_raw(self) -> gobject_ffi::GValue {
         unsafe {
             let s = mem::ManuallyDrop::new(self);
@@ -1222,6 +1222,16 @@ mod tests {
             .transform::<String>()
             .expect("Failed to transform to string");
         assert_eq!(v2.get::<&str>(), Ok(Some("123")));
+    }
+
+    #[test]
+    fn test_into_raw() {
+        unsafe {
+            let mut v = 123.to_value().into_raw();
+            assert_eq!(gobject_ffi::g_type_check_value(&v), ffi::GTRUE);
+            assert_eq!(gobject_ffi::g_value_get_int(&v), 123);
+            gobject_ffi::g_value_unset(&mut v);
+        }
     }
 
     #[test]
