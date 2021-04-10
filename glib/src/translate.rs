@@ -28,7 +28,7 @@
 //! struct SpecialU32(u32);
 //! impl ToGlib for SpecialU32 {
 //!     type GlibType = libc::c_uint;
-//!     fn to_glib(&self) -> libc::c_uint {
+//!     fn to_glib(self) -> libc::c_uint {
 //!         self.0 as libc::c_uint
 //!     }
 //! }
@@ -44,7 +44,7 @@
 //! # struct SpecialU32(u32);
 //! # impl ToGlib for SpecialU32 {
 //! #     type GlibType = libc::c_uint;
-//! #     fn to_glib(&self) -> libc::c_uint {
+//! #     fn to_glib(self) -> libc::c_uint {
 //! #         self.0 as libc::c_uint
 //! #     }
 //! # }
@@ -301,7 +301,7 @@ impl ToGlib for bool {
 
     #[inline]
     fn to_glib(self) -> ffi::gboolean {
-        if *self {
+        if self {
             ffi::GTRUE
         } else {
             ffi::GFALSE
@@ -314,7 +314,7 @@ impl ToGlib for char {
 
     #[inline]
     fn to_glib(self) -> u32 {
-        *self as u32
+        self as u32
     }
 }
 
@@ -332,7 +332,7 @@ impl ToGlib for Ordering {
 
     #[inline]
     fn to_glib(self) -> i32 {
-        match *self {
+        match self {
             Ordering::Less => -1,
             Ordering::Equal => 0,
             Ordering::Greater => 1,
@@ -2437,7 +2437,7 @@ mod tests {
         struct SpecialU32(u32);
         impl ToGlib for SpecialU32 {
             type GlibType = libc::c_uint;
-            fn to_glib(&self) -> libc::c_uint {
+            fn to_glib(self) -> libc::c_uint {
                 self.0 as libc::c_uint
             }
         }
@@ -2510,7 +2510,7 @@ mod tests {
         struct SpecialU32(u32);
         impl ToGlib for SpecialU32 {
             type GlibType = libc::c_long;
-            fn to_glib(&self) -> libc::c_long {
+            fn to_glib(self) -> libc::c_long {
                 self.0 as libc::c_long
             }
         }

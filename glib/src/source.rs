@@ -25,7 +25,7 @@ impl ToGlib for SourceId {
     type GlibType = u32;
 
     #[inline]
-    fn to_glib(&self) -> u32 {
+    fn to_glib(self) -> u32 {
         self.0.get()
     }
 }
@@ -51,7 +51,7 @@ impl ToGlib for Pid {
     type GlibType = ffi::GPid;
 
     #[inline]
-    fn to_glib(&self) -> ffi::GPid {
+    fn to_glib(self) -> ffi::GPid {
         self.0
     }
 }
@@ -79,7 +79,7 @@ impl ToGlib for Continue {
     type GlibType = gboolean;
 
     #[inline]
-    fn to_glib(&self) -> gboolean {
+    fn to_glib(self) -> gboolean {
         self.0.to_glib()
     }
 }
@@ -715,7 +715,7 @@ impl ToGlib for Priority {
     type GlibType = i32;
 
     #[inline]
-    fn to_glib(&self) -> i32 {
+    fn to_glib(self) -> i32 {
         self.0
     }
 }

@@ -21,7 +21,7 @@ pub struct InitializingType<T>(pub(crate) Type, pub(crate) marker::PhantomData<*
 impl<T> ToGlib for InitializingType<T> {
     type GlibType = ffi::GType;
 
-    fn to_glib(&self) -> ffi::GType {
+    fn to_glib(self) -> ffi::GType {
         self.0.to_glib()
     }
 }

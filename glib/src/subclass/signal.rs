@@ -215,7 +215,7 @@ impl FromGlib<u32> for SignalId {
 impl ToGlib for SignalId {
     type GlibType = u32;
 
-    fn to_glib(&self) -> u32 {
+    fn to_glib(self) -> u32 {
         self.0.into()
     }
 }
@@ -289,7 +289,7 @@ impl FromGlib<ffi::GType> for SignalType {
 impl ToGlib for SignalType {
     type GlibType = ffi::GType;
 
-    fn to_glib(&self) -> ffi::GType {
+    fn to_glib(self) -> ffi::GType {
         self.0
     }
 }
@@ -530,7 +530,7 @@ impl Signal {
         let param_types = self
             .param_types
             .iter()
-            .map(ToGlib::to_glib)
+            .map(|t| t.to_glib())
             .collect::<Vec<_>>();
 
         let class_handler = class_handler.map(|class_handler| {

@@ -73,7 +73,7 @@ impl FromGlib<c_char> for Char {
 impl ToGlib for Char {
     type GlibType = c_char;
 
-    fn to_glib(&self) -> c_char {
+    fn to_glib(self) -> c_char {
         self.0
     }
 }
@@ -129,7 +129,7 @@ impl FromGlib<c_uchar> for UChar {
 impl ToGlib for UChar {
     type GlibType = c_uchar;
 
-    fn to_glib(&self) -> c_uchar {
+    fn to_glib(self) -> c_uchar {
         self.0
     }
 }

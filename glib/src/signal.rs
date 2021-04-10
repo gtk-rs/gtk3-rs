@@ -48,7 +48,7 @@ impl ToGlib for SignalHandlerId {
     type GlibType = c_ulong;
 
     #[inline]
-    fn to_glib(&self) -> c_ulong {
+    fn to_glib(self) -> c_ulong {
         self.0.get() as c_ulong
     }
 }
@@ -72,7 +72,7 @@ impl ToGlib for Inhibit {
     type GlibType = gboolean;
 
     #[inline]
-    fn to_glib(&self) -> gboolean {
+    fn to_glib(self) -> gboolean {
         self.0.to_glib()
     }
 }

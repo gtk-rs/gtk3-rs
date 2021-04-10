@@ -28,7 +28,7 @@ bitflags::bitflags! {
 impl ToGlib for ParamFlags {
     type GlibType = gobject_ffi::GParamFlags;
 
-    fn to_glib(&self) -> gobject_ffi::GParamFlags {
+    fn to_glib(self) -> gobject_ffi::GParamFlags {
         self.bits()
     }
 }

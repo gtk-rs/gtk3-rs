@@ -57,7 +57,7 @@ impl FromGlib<ffi::AtkTextRectangle> for TextRectangle {
 impl ToGlib for TextRectangle {
     type GlibType = ffi::AtkTextRectangle;
 
-    fn to_glib(&self) -> ffi::AtkTextRectangle {
+    fn to_glib(self) -> ffi::AtkTextRectangle {
         ffi::AtkTextRectangle {
             x: self.x,
             y: self.y,

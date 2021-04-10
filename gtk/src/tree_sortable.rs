@@ -22,8 +22,8 @@ impl ToGlib for SortColumn {
     type GlibType = i32;
 
     #[inline]
-    fn to_glib(&self) -> i32 {
-        match *self {
+    fn to_glib(self) -> i32 {
+        match self {
             SortColumn::Default => ffi::GTK_TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID,
             SortColumn::Index(x) => {
                 assert!(x <= i32::max_value() as u32, "column index is too big");

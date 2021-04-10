@@ -90,8 +90,8 @@ pub fn impl_genum(input: &syn::DeriveInput) -> TokenStream {
         impl #crate_ident::translate::ToGlib for #name {
             type GlibType = i32;
 
-            fn to_glib(&self) -> i32 {
-                *self as i32
+            fn to_glib(self) -> i32 {
+                self as i32
             }
         }
 

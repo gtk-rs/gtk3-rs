@@ -33,7 +33,7 @@ impl FromGlib<ffi::AtkAttribute> for Attribute {
 impl ToGlib for Attribute {
     type GlibType = ffi::AtkAttribute;
 
-    fn to_glib(&self) -> ffi::AtkAttribute {
+    fn to_glib(self) -> ffi::AtkAttribute {
         ffi::AtkAttribute {
             name: self.name.to_glib_none().0,
             value: self.value.to_glib_none().0,

@@ -21,7 +21,7 @@ impl FromGlib<u32> for LogHandlerId {
 impl ToGlib for LogHandlerId {
     type GlibType = u32;
 
-    fn to_glib(&self) -> u32 {
+    fn to_glib(self) -> u32 {
         self.0
     }
 }
@@ -40,8 +40,8 @@ pub enum LogLevel {
 impl ToGlib for LogLevel {
     type GlibType = u32;
 
-    fn to_glib(&self) -> u32 {
-        match *self {
+    fn to_glib(self) -> u32 {
+        match self {
             LogLevel::Error => ffi::G_LOG_LEVEL_ERROR,
             LogLevel::Critical => ffi::G_LOG_LEVEL_CRITICAL,
             LogLevel::Warning => ffi::G_LOG_LEVEL_WARNING,
@@ -88,7 +88,7 @@ bitflags::bitflags! {
 impl ToGlib for LogLevels {
     type GlibType = ffi::GLogLevelFlags;
 
-    fn to_glib(&self) -> ffi::GLogLevelFlags {
+    fn to_glib(self) -> ffi::GLogLevelFlags {
         self.bits()
     }
 }

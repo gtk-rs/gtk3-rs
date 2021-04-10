@@ -52,7 +52,7 @@ impl FromGlib<ffi::GQuark> for Quark {
 impl ToGlib for Quark {
     type GlibType = ffi::GQuark;
 
-    fn to_glib(&self) -> ffi::GQuark {
+    fn to_glib(self) -> ffi::GQuark {
         self.0
     }
 }

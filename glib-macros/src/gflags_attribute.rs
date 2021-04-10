@@ -124,7 +124,7 @@ pub fn impl_gflags(input: &DeriveInput, gtype_name: &LitStr) -> TokenStream {
         impl #crate_ident::translate::ToGlib for #name {
             type GlibType = u32;
 
-            fn to_glib(&self) -> u32 {
+            fn to_glib(self) -> u32 {
                 self.bits()
             }
         }

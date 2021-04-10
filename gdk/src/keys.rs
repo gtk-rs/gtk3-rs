@@ -38,8 +38,8 @@ impl FromGlib<u32> for Key {
 impl ToGlib for Key {
     type GlibType = u32;
 
-    fn to_glib(&self) -> u32 {
-        **self
+    fn to_glib(self) -> u32 {
+        *self
     }
 }
 

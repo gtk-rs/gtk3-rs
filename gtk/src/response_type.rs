@@ -27,8 +27,8 @@ pub enum ResponseType {
 impl ToGlib for ResponseType {
     type GlibType = ffi::GtkResponseType;
 
-    fn to_glib(&self) -> ffi::GtkResponseType {
-        match *self {
+    fn to_glib(self) -> ffi::GtkResponseType {
+        match self {
             ResponseType::None => ffi::GTK_RESPONSE_NONE,
             ResponseType::Reject => ffi::GTK_RESPONSE_REJECT,
             ResponseType::Accept => ffi::GTK_RESPONSE_ACCEPT,

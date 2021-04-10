@@ -24,8 +24,8 @@ pub enum UserDirectory {
 impl ToGlib for UserDirectory {
     type GlibType = ffi::GUserDirectory;
 
-    fn to_glib(&self) -> ffi::GUserDirectory {
-        match *self {
+    fn to_glib(self) -> ffi::GUserDirectory {
+        match self {
             UserDirectory::Desktop => ffi::G_USER_DIRECTORY_DESKTOP,
             UserDirectory::Documents => ffi::G_USER_DIRECTORY_DOCUMENTS,
             UserDirectory::Downloads => ffi::G_USER_DIRECTORY_DOWNLOAD,
