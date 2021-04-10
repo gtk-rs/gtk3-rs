@@ -2,6 +2,18 @@ use gtk::glib;
 use gtk::prelude::*;
 use gtk::{ApplicationWindow, Builder, Button, MessageDialog};
 
+fn main() {
+    let application = gtk::Application::new(
+        Some("com.github.gtk-rs.examples.builder_basics"),
+        Default::default(),
+    )
+    .expect("Initialization failed...");
+
+    application.connect_activate(build_ui);
+
+    application.run();
+}
+
 fn build_ui(application: &gtk::Application) {
     let glade_src = include_str!("builder_basics.ui");
     let builder = Builder::from_string(glade_src);
@@ -20,16 +32,4 @@ fn build_ui(application: &gtk::Application) {
 
     bigbutton.connect_clicked(glib::clone!(@weak dialog => move |_| dialog.show_all()));
     window.show_all();
-}
-
-fn main() {
-    let application = gtk::Application::new(
-        Some("com.github.gtk-rs.examples.builder_basics"),
-        Default::default(),
-    )
-    .expect("Initialization failed...");
-
-    application.connect_activate(build_ui);
-
-    application.run();
 }

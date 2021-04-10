@@ -5,11 +5,38 @@ use std::str;
 
 use futures::prelude::*;
 
-// Throughout our chained futures, we convert all errors to strings
-// via map_err() and print them at the very end.
-//
-// Open the file for reading, and if that succeeds read the whole file from
-// the resulting input stream.
+fn main() {
+    let c = glib::MainContext::default();
+    let l = glib::MainLoop::new(Some(&c), false);
+
+    c.push_thread_default();
+
+    let file = gio::File::new_for_path("Cargo.toml");
+
+    let l_clone = l.clone();
+    c.spawn_local(
+        read_and_print_file(&file)
+            // Once all is done we quit the main loop and in case of an
+            // error first print that error.
+            .map(move |res| {
+                if let Err(err) = res {
+                    eprintln!("Got error: {}", err);
+                }
+
+                l_clone.quit();
+            }),
+    );
+
+    l.run();
+
+    c.pop_thread_default();
+}
+
+/// Throughout our chained futures, we convert all errors to strings
+/// via map_err() and print them at the very end.
+///
+/// Open the file for reading, and if that succeeds read the whole file from
+/// the resulting input stream.
 fn read_and_print_file(
     file: &gio::File,
 ) -> impl Future<Output = Result<(), String>> + std::marker::Unpin {
@@ -18,9 +45,9 @@ fn read_and_print_file(
         .and_then(read_and_print_chunks)
 }
 
-// Read the input stream in chunks of 64 bytes, always into the same buffer
-// without re-allocating it all the time. Continue until the end of the file
-// or an error happens.
+/// Read the input stream in chunks of 64 bytes, always into the same buffer
+/// without re-allocating it all the time. Continue until the end of the file
+/// or an error happens.
 fn read_and_print_chunks(
     strm: gio::FileInputStream,
 ) -> impl Future<Output = Result<(), String>> + std::marker::Unpin {
@@ -64,11 +91,11 @@ fn read_and_print_chunks(
     .try_for_each(|_| futures::future::ok(()))
 }
 
-// Read the next chunk into the buffer and print it out, or return an error. If
-// the input stream is finished, close the stream.
-//
-// After reading successfully we return the buffer again so it can be used in the
-// next iteration.
+/// Read the next chunk into the buffer and print it out, or return an error. If
+/// the input stream is finished, close the stream.
+///
+/// After reading successfully we return the buffer again so it can be used in the
+/// next iteration.
 fn read_and_print_next_chunk(
     strm: &gio::FileInputStream,
     buf: Vec<u8>,
@@ -96,31 +123,4 @@ fn read_and_print_next_chunk(
                 futures::future::Either::Right(futures::future::ok(Some(buf)))
             }
         })
-}
-
-fn main() {
-    let c = glib::MainContext::default();
-    let l = glib::MainLoop::new(Some(&c), false);
-
-    c.push_thread_default();
-
-    let file = gio::File::new_for_path("Cargo.toml");
-
-    let l_clone = l.clone();
-    c.spawn_local(
-        read_and_print_file(&file)
-            // Once all is done we quit the main loop and in case of an
-            // error first print that error.
-            .map(move |res| {
-                if let Err(err) = res {
-                    eprintln!("Got error: {}", err);
-                }
-
-                l_clone.quit();
-            }),
-    );
-
-    l.run();
-
-    c.pop_thread_default();
 }

@@ -7,7 +7,18 @@ use gtk::{
     ResponseType,
 };
 use row_data::RowData;
-use std::env::args;
+
+fn main() {
+    let application = gtk::Application::new(
+        Some("com.github.gtk-rs.examples.listbox-model"),
+        Default::default(),
+    )
+    .expect("Initialization failed...");
+
+    application.connect_activate(build_ui);
+
+    application.run();
+}
 
 fn build_ui(application: &gtk::Application) {
     let window = gtk::ApplicationWindow::new(application);
@@ -172,16 +183,4 @@ fn build_ui(application: &gtk::Application) {
     }
 
     window.show_all();
-}
-
-fn main() {
-    let application = gtk::Application::new(
-        Some("com.github.gtk-rs.examples.listbox-model"),
-        Default::default(),
-    )
-    .expect("Initialization failed...");
-
-    application.connect_activate(build_ui);
-
-    application.run();
 }

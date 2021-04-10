@@ -3,6 +3,15 @@
 use gtk::glib;
 use gtk::prelude::*;
 use gtk::{ApplicationWindow, Builder, Button, Grid};
+fn main() {
+    let application =
+        gtk::Application::new(Some("com.github.gtk-rs.examples.grid"), Default::default())
+            .expect("Initialization failed...");
+
+    application.connect_activate(build_ui);
+
+    application.run();
+}
 
 fn build_ui(application: &gtk::Application) {
     let glade_src = include_str!("grid.ui");
@@ -25,14 +34,4 @@ fn build_ui(application: &gtk::Application) {
     }));
 
     window.show_all();
-}
-
-fn main() {
-    let application =
-        gtk::Application::new(Some("com.github.gtk-rs.examples.grid"), Default::default())
-            .expect("Initialization failed...");
-
-    application.connect_activate(build_ui);
-
-    application.run();
 }

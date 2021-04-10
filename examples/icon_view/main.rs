@@ -3,10 +3,49 @@ use gtk::{gdk_pixbuf, glib};
 
 use std::process;
 
+fn main() {
+    let application = gtk::Application::new(
+        Some("com.github.gtk-rs.examples.iconview_example"),
+        Default::default(),
+    )
+    .expect("Initialization failed...");
+
+    application.connect_activate(build_ui);
+
+    application.run();
+}
 // Convenience Enum for IconView column types
 enum IconViewColumnType {
     TextColumn = 0,
     PixbufColumn = 1,
+}
+
+fn build_ui(application: &gtk::Application) {
+    let window = gtk::ApplicationWindow::new(application);
+
+    window.set_title("IconView Example");
+    window.set_border_width(10);
+    window.set_position(gtk::WindowPosition::Center);
+    window.set_default_size(350, 70);
+
+    let icon_view = gtk::IconView::new();
+    icon_view.set_item_padding(0);
+    icon_view.set_columns(3);
+    icon_view.set_column_spacing(0);
+    // User can select only one item at a time
+    icon_view.set_selection_mode(gtk::SelectionMode::Single);
+
+    // Create a model for our IconView
+    let icon_view_model = create_list_store_model();
+    // Set IconView model
+    icon_view.set_model(Some(&icon_view_model));
+
+    // And finally set text column and pixbuf column using enum
+    icon_view.set_text_column(IconViewColumnType::TextColumn as i32);
+    icon_view.set_pixbuf_column(IconViewColumnType::PixbufColumn as i32);
+
+    window.add(&icon_view);
+    window.show_all();
 }
 
 fn create_list_store_model() -> gtk::ListStore {
@@ -54,44 +93,4 @@ fn create_list_store_model() -> gtk::ListStore {
     }
 
     icon_view_model
-}
-
-fn build_ui(application: &gtk::Application) {
-    let window = gtk::ApplicationWindow::new(application);
-
-    window.set_title("IconView Example");
-    window.set_border_width(10);
-    window.set_position(gtk::WindowPosition::Center);
-    window.set_default_size(350, 70);
-
-    let icon_view = gtk::IconView::new();
-    icon_view.set_item_padding(0);
-    icon_view.set_columns(3);
-    icon_view.set_column_spacing(0);
-    // User can select only one item at a time
-    icon_view.set_selection_mode(gtk::SelectionMode::Single);
-
-    // Create a model for our IconView
-    let icon_view_model = create_list_store_model();
-    // Set IconView model
-    icon_view.set_model(Some(&icon_view_model));
-
-    // And finally set text column and pixbuf column using enum
-    icon_view.set_text_column(IconViewColumnType::TextColumn as i32);
-    icon_view.set_pixbuf_column(IconViewColumnType::PixbufColumn as i32);
-
-    window.add(&icon_view);
-    window.show_all();
-}
-
-fn main() {
-    let application = gtk::Application::new(
-        Some("com.github.gtk-rs.examples.iconview_example"),
-        Default::default(),
-    )
-    .expect("Initialization failed...");
-
-    application.connect_activate(build_ui);
-
-    application.run();
 }

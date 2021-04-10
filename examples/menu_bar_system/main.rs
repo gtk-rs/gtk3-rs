@@ -2,6 +2,52 @@ use gtk::prelude::*;
 use gtk::AboutDialog;
 use gtk::{gio, glib};
 
+fn main() {
+    let application = gtk::Application::new(
+        Some("com.github.gtk-rs.examples.menu_bar_system"),
+        Default::default(),
+    )
+    .expect("Initialization failed...");
+
+    application.connect_startup(|app| {
+        add_accelerators(app);
+    });
+    application.connect_activate(build_ui);
+
+    application.run();
+}
+
+fn add_accelerators(application: &gtk::Application) {
+    application.set_accels_for_action("app.about", &["F1"]);
+    // `Primary` is a platform-agnostic accelerator modifier.
+    // On Windows and Linux, `Primary` maps to the `Ctrl` key,
+    // and on macOS it maps to the `command` key.
+    application.set_accels_for_action("app.quit", &["<Primary>Q"]);
+}
+
+fn build_ui(application: &gtk::Application) {
+    let window = gtk::ApplicationWindow::new(application);
+
+    window.set_title("System menu bar");
+    window.set_border_width(10);
+    window.set_position(gtk::WindowPosition::Center);
+    window.set_default_size(350, 70);
+
+    let v_box = gtk::Box::new(gtk::Orientation::Vertical, 10);
+    let label = gtk::Label::new(Some("Nothing happened yet"));
+    let switch = gtk::Switch::new();
+
+    v_box.pack_start(&label, false, false, 0);
+    v_box.pack_start(&switch, true, true, 0);
+    window.add(&v_box);
+
+    build_system_menu(application);
+
+    add_actions(application, &switch, &label, &window);
+
+    window.show_all();
+}
+
 fn build_system_menu(application: &gtk::Application) {
     let menu = gio::Menu::new();
     let menu_bar = gio::Menu::new();
@@ -92,50 +138,4 @@ fn add_actions(
     application.add_action(&sub_sub_another);
     application.add_action(&sub_sub_another2);
     application.add_action(&switch_action);
-}
-
-fn add_accelerators(application: &gtk::Application) {
-    application.set_accels_for_action("app.about", &["F1"]);
-    // `Primary` is a platform-agnostic accelerator modifier.
-    // On Windows and Linux, `Primary` maps to the `Ctrl` key,
-    // and on macOS it maps to the `command` key.
-    application.set_accels_for_action("app.quit", &["<Primary>Q"]);
-}
-
-fn build_ui(application: &gtk::Application) {
-    let window = gtk::ApplicationWindow::new(application);
-
-    window.set_title("System menu bar");
-    window.set_border_width(10);
-    window.set_position(gtk::WindowPosition::Center);
-    window.set_default_size(350, 70);
-
-    let v_box = gtk::Box::new(gtk::Orientation::Vertical, 10);
-    let label = gtk::Label::new(Some("Nothing happened yet"));
-    let switch = gtk::Switch::new();
-
-    v_box.pack_start(&label, false, false, 0);
-    v_box.pack_start(&switch, true, true, 0);
-    window.add(&v_box);
-
-    build_system_menu(application);
-
-    add_actions(application, &switch, &label, &window);
-
-    window.show_all();
-}
-
-fn main() {
-    let application = gtk::Application::new(
-        Some("com.github.gtk-rs.examples.menu_bar_system"),
-        Default::default(),
-    )
-    .expect("Initialization failed...");
-
-    application.connect_startup(|app| {
-        add_accelerators(app);
-    });
-    application.connect_activate(build_ui);
-
-    application.run();
 }

@@ -4,6 +4,18 @@ use gtk::prelude::*;
 use std::rc::Rc;
 use std::time::Duration;
 
+fn main() {
+    let application = gtk::Application::new(
+        Some("com.github.gtk-rs.examples.list-store"),
+        Default::default(),
+    )
+    .expect("Initialization failed...");
+
+    application.connect_startup(build_ui);
+
+    application.run();
+}
+
 #[derive(Debug)]
 #[repr(i32)]
 enum Columns {
@@ -304,20 +316,4 @@ fn spinner_timeout(model: &gtk::ListStore) -> Continue {
     model.set_value(&iter, Columns::Active as i32 as u32, &true.to_value());
 
     Continue(true)
-}
-
-fn main() {
-    let application = gtk::Application::new(
-        Some("com.github.gtk-rs.examples.list-store"),
-        Default::default(),
-    )
-    .expect("Initialization failed...");
-
-    application.connect_startup(|app| {
-        build_ui(app);
-    });
-
-    application.connect_activate(|_| {});
-
-    application.run();
 }

@@ -1,3 +1,4 @@
+use glib::clone;
 use gtk::prelude::*;
 use gtk::{gio, glib};
 
@@ -5,8 +6,31 @@ use futures::prelude::*;
 
 use std::str;
 
-// Throughout our chained futures, we convert all errors to strings
-// via map_err() return them directly.
+fn main() {
+    let c = glib::MainContext::default();
+    let l = glib::MainLoop::new(Some(&c), false);
+
+    c.push_thread_default();
+
+    let file = gio::File::new_for_path("Cargo.toml");
+
+    let future = clone!(@strong l => async move {
+        match read_file(file).await {
+            Ok(()) => (),
+            Err(err) => eprintln!("Got error: {}", err),
+        }
+        l.quit();
+    });
+
+    c.spawn_local(future);
+
+    l.run();
+
+    c.pop_thread_default();
+}
+
+/// Throughout our chained futures, we convert all errors to strings
+/// via map_err() return them directly.
 async fn read_file(file: gio::File) -> Result<(), String> {
     // Try to open the file.
     let strm = file
@@ -46,28 +70,4 @@ async fn read_file(file: gio::File) -> Result<(), String> {
         .await?;
 
     Ok(())
-}
-
-fn main() {
-    let c = glib::MainContext::default();
-    let l = glib::MainLoop::new(Some(&c), false);
-
-    c.push_thread_default();
-
-    let file = gio::File::new_for_path("Cargo.toml");
-
-    let l_clone = l.clone();
-    let future = async move {
-        match read_file(file).await {
-            Ok(()) => (),
-            Err(err) => eprintln!("Got error: {}", err),
-        }
-        l_clone.quit();
-    };
-
-    c.spawn_local(future);
-
-    l.run();
-
-    c.pop_thread_default();
 }

@@ -1,33 +1,28 @@
 use gtk::prelude::*;
 use gtk::{gio, glib};
 
-struct Data {
-    description: String,
-}
+fn main() {
+    let application = gtk::Application::new(
+        Some("com.github.gtk-rs.examples.entry-completion"),
+        Default::default(),
+    )
+    .expect("Initialization failed...");
+    application.connect_activate(build_ui);
 
-fn create_list_model() -> gtk::ListStore {
-    let col_types: [glib::Type; 1] = [glib::Type::STRING];
+    // When activated, shuts down the application
+    let quit = gio::SimpleAction::new("quit", None);
+    quit.connect_activate(
+        glib::clone!(@weak application => move |_action, _parameter| {
+            application.quit();
+        }),
+    );
+    application.connect_startup(|application| {
+        application.set_accels_for_action("app.quit", &["<Primary>Q"]);
+    });
+    application.add_action(&quit);
 
-    let data: [Data; 4] = [
-        Data {
-            description: "France".to_string(),
-        },
-        Data {
-            description: "Italy".to_string(),
-        },
-        Data {
-            description: "Sweden".to_string(),
-        },
-        Data {
-            description: "Switzerland".to_string(),
-        },
-    ];
-    let store = gtk::ListStore::new(&col_types);
-    for d in data.iter() {
-        let values: [(u32, &dyn ToValue); 1] = [(0, &d.description)];
-        store.set(&store.append(), &values);
-    }
-    store
+    // Run the application
+    application.run();
 }
 
 fn build_ui(application: &gtk::Application) {
@@ -72,26 +67,31 @@ fn build_ui(application: &gtk::Application) {
     window.show_all();
 }
 
-fn main() {
-    let application = gtk::Application::new(
-        Some("com.github.gtk-rs.examples.entry-completion"),
-        Default::default(),
-    )
-    .expect("Initialization failed...");
-    application.connect_activate(build_ui);
+struct Data {
+    description: String,
+}
 
-    // When activated, shuts down the application
-    let quit = gio::SimpleAction::new("quit", None);
-    quit.connect_activate(
-        glib::clone!(@weak application => move |_action, _parameter| {
-            application.quit();
-        }),
-    );
-    application.connect_startup(|application| {
-        application.set_accels_for_action("app.quit", &["<Primary>Q"]);
-    });
-    application.add_action(&quit);
+fn create_list_model() -> gtk::ListStore {
+    let col_types: [glib::Type; 1] = [glib::Type::STRING];
 
-    // Run the application
-    application.run();
+    let data: [Data; 4] = [
+        Data {
+            description: "France".to_string(),
+        },
+        Data {
+            description: "Italy".to_string(),
+        },
+        Data {
+            description: "Sweden".to_string(),
+        },
+        Data {
+            description: "Switzerland".to_string(),
+        },
+    ];
+    let store = gtk::ListStore::new(&col_types);
+    for d in data.iter() {
+        let values: [(u32, &dyn ToValue); 1] = [(0, &d.description)];
+        store.set(&store.append(), &values);
+    }
+    store
 }
