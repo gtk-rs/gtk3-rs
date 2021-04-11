@@ -1,1 +1,1 @@
-window.ALL_CRATES = ["atk","atk_sys","cairo","cairo_sys","gdk","gdk_pixbuf","gdk_pixbuf_sys","gdk_sys","gdk_x11_sys","gdkx11","gio","gio_sys","glib","glib_macros","glib_sys","gobject_sys","graphene","graphene_sys","gtk","gtk_sys","pango","pango_cairo_sys","pango_sys","pangocairo"];
+window.ALL_CRATES = ["atk","atk_sys","cairo","cairo_sys","gdk","gdk_pixbuf","gdk_pixbuf_sys","gdk_sys","gdk_x11_sys","gdkx11","gio","gio_sys","glib","glib_macros","glib_sys","gobject_sys","graphene","graphene_sys","gtk","gtk3_macros","gtk_sys","pango","pango_cairo_sys","pango_sys","pangocairo"];
