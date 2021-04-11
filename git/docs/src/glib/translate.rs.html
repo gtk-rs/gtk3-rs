@@ -2512,6 +2512,53 @@
 <span id="2509">2509</span>
 <span id="2510">2510</span>
 <span id="2511">2511</span>
+<span id="2512">2512</span>
+<span id="2513">2513</span>
+<span id="2514">2514</span>
+<span id="2515">2515</span>
+<span id="2516">2516</span>
+<span id="2517">2517</span>
+<span id="2518">2518</span>
+<span id="2519">2519</span>
+<span id="2520">2520</span>
+<span id="2521">2521</span>
+<span id="2522">2522</span>
+<span id="2523">2523</span>
+<span id="2524">2524</span>
+<span id="2525">2525</span>
+<span id="2526">2526</span>
+<span id="2527">2527</span>
+<span id="2528">2528</span>
+<span id="2529">2529</span>
+<span id="2530">2530</span>
+<span id="2531">2531</span>
+<span id="2532">2532</span>
+<span id="2533">2533</span>
+<span id="2534">2534</span>
+<span id="2535">2535</span>
+<span id="2536">2536</span>
+<span id="2537">2537</span>
+<span id="2538">2538</span>
+<span id="2539">2539</span>
+<span id="2540">2540</span>
+<span id="2541">2541</span>
+<span id="2542">2542</span>
+<span id="2543">2543</span>
+<span id="2544">2544</span>
+<span id="2545">2545</span>
+<span id="2546">2546</span>
+<span id="2547">2547</span>
+<span id="2548">2548</span>
+<span id="2549">2549</span>
+<span id="2550">2550</span>
+<span id="2551">2551</span>
+<span id="2552">2552</span>
+<span id="2553">2553</span>
+<span id="2554">2554</span>
+<span id="2555">2555</span>
+<span id="2556">2556</span>
+<span id="2557">2557</span>
+<span id="2558">2558</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -4766,6 +4813,53 @@
     <span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
     <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::GString</span>;
     <span class="kw">use</span> <span class="ident">std::collections::HashMap</span>;
+
+    <span class="attribute">#[<span class="ident">test</span>]</span>
+    <span class="kw">fn</span> <span class="ident">boolean</span>() {
+        <span class="macro">assert_eq!</span>(<span class="bool-val">true</span>.<span class="ident">to_glib</span>(), <span class="ident">ffi::GTRUE</span>);
+        <span class="macro">assert_eq!</span>(<span class="bool-val">false</span>.<span class="ident">to_glib</span>(), <span class="ident">ffi::GFALSE</span>);
+        <span class="macro">assert_eq!</span>(<span class="bool-val">true</span>, <span class="kw">unsafe</span> { <span class="ident">bool::from_glib</span>(<span class="ident">ffi::GTRUE</span>) });
+        <span class="macro">assert_eq!</span>(<span class="bool-val">false</span>, <span class="kw">unsafe</span> { <span class="ident">bool::from_glib</span>(<span class="ident">ffi::GFALSE</span>) });
+        <span class="macro">assert_eq!</span>(<span class="bool-val">true</span>, <span class="kw">unsafe</span> { <span class="ident">bool::from_glib</span>(<span class="number">42</span>) });
+    }
+
+    <span class="attribute">#[<span class="ident">test</span>]</span>
+    <span class="kw">fn</span> <span class="ident">ordering</span>() {
+        <span class="macro">assert_eq!</span>(<span class="ident">Ordering::Less</span>.<span class="ident">to_glib</span>(), <span class="op">-</span><span class="number">1</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">Ordering::Equal</span>.<span class="ident">to_glib</span>(), <span class="number">0</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">Ordering::Greater</span>.<span class="ident">to_glib</span>(), <span class="number">1</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">Ordering::Less</span>, <span class="kw">unsafe</span> { <span class="ident">Ordering::from_glib</span>(<span class="op">-</span><span class="number">42</span>) });
+        <span class="macro">assert_eq!</span>(<span class="ident">Ordering::Less</span>, <span class="kw">unsafe</span> { <span class="ident">Ordering::from_glib</span>(<span class="op">-</span><span class="number">1</span>) });
+        <span class="macro">assert_eq!</span>(<span class="ident">Ordering::Equal</span>, <span class="kw">unsafe</span> { <span class="ident">Ordering::from_glib</span>(<span class="number">0</span>) });
+        <span class="macro">assert_eq!</span>(<span class="ident">Ordering::Greater</span>, <span class="kw">unsafe</span> { <span class="ident">Ordering::from_glib</span>(<span class="number">1</span>) });
+        <span class="macro">assert_eq!</span>(<span class="ident">Ordering::Greater</span>, <span class="kw">unsafe</span> { <span class="ident">Ordering::from_glib</span>(<span class="number">42</span>) });
+    }
+
+    <span class="attribute">#[<span class="ident">test</span>]</span>
+    <span class="kw">fn</span> <span class="ident">string</span>() {
+        <span class="kw">let</span> <span class="ident">s</span> <span class="op">=</span> <span class="string">&quot;ABC&quot;</span>;
+        <span class="kw">let</span> <span class="ident">owned</span> <span class="op">=</span> <span class="string">&quot;ABC&quot;</span>.<span class="ident">to_string</span>();
+        <span class="kw">let</span> <span class="ident">cstring</span> <span class="op">=</span> <span class="ident">CString::new</span>(<span class="string">&quot;ABC&quot;</span>).<span class="ident">unwrap</span>();
+
+        <span class="kw">let</span> <span class="ident">stash</span> <span class="op">=</span> <span class="ident">s</span>.<span class="ident">to_glib_none</span>();
+        <span class="macro">assert_eq!</span>(<span class="kw">unsafe</span> { <span class="ident">CStr::from_ptr</span>(<span class="ident">stash</span>.<span class="number">0</span>) }, <span class="ident">cstring</span>.<span class="ident">as_c_str</span>());
+
+        <span class="kw">let</span> <span class="ident">stash</span> <span class="op">=</span> <span class="ident">owned</span>.<span class="ident">to_glib_none</span>();
+        <span class="macro">assert_eq!</span>(<span class="kw">unsafe</span> { <span class="ident">CStr::from_ptr</span>(<span class="ident">stash</span>.<span class="number">0</span>) }, <span class="ident">cstring</span>.<span class="ident">as_c_str</span>());
+
+        <span class="kw">let</span> <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_char</span> <span class="op">=</span> <span class="ident">s</span>.<span class="ident">to_glib_full</span>();
+        <span class="macro">assert_eq!</span>(<span class="kw">unsafe</span> { <span class="ident">CStr::from_ptr</span>(<span class="ident">ptr</span>) }, <span class="ident">cstring</span>.<span class="ident">as_c_str</span>());
+
+        <span class="kw">unsafe</span> {
+            <span class="ident">ffi::g_free</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>);
+        }
+
+        <span class="kw">let</span> <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_char</span> <span class="op">=</span> <span class="ident">owned</span>.<span class="ident">to_glib_full</span>();
+        <span class="macro">assert_eq!</span>(<span class="kw">unsafe</span> { <span class="ident">CStr::from_ptr</span>(<span class="ident">ptr</span>) }, <span class="ident">cstring</span>.<span class="ident">as_c_str</span>());
+
+        <span class="macro">assert_eq!</span>(<span class="ident">s</span>, <span class="kw">unsafe</span> { <span class="ident">String::from_glib_none</span>(<span class="ident">ptr</span>) });
+        <span class="macro">assert_eq!</span>(<span class="ident">owned</span>, <span class="kw">unsafe</span> { <span class="ident">String::from_glib_full</span>(<span class="ident">ptr</span>) });
+    }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">string_hash_map</span>() {
