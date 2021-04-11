@@ -108,7 +108,7 @@ use std::ffi::CStr;
 
 pub use self::enums::{EnumClass, EnumValue, FlagsBuilder, FlagsClass, FlagsValue, UserDirectory};
 pub use self::types::{ILong, StaticType, Type, ULong};
-pub use self::value::{SendValue, ToSendValue, ToValue, TypedValue, Value};
+pub use self::value::{SendValue, ToSendValue, ToValue, Value};
 pub use self::variant::{FromVariant, StaticVariantType, ToVariant, Variant};
 pub use self::variant_dict::VariantDict;
 pub use self::variant_iter::VariantIter;
