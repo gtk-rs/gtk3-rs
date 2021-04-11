@@ -29,14 +29,14 @@ impl ObjectImpl for RowData {
         use once_cell::sync::Lazy;
         static PROPERTIES: Lazy<Vec<glib::ParamSpec>> = Lazy::new(|| {
             vec![
-                glib::ParamSpec::string(
+                glib::ParamSpec::new_string(
                     "name",
                     "Name",
                     "Name",
                     None, // Default value
                     glib::ParamFlags::READWRITE,
                 ),
-                glib::ParamSpec::uint(
+                glib::ParamSpec::new_uint(
                     "count",
                     "Count",
                     "Count",
@@ -67,7 +67,7 @@ impl ObjectImpl for RowData {
             }
             "count" => {
                 let count = value
-                    .get_some()
+                    .get()
                     .expect("type conformity checked by `Object::set_property`");
                 self.count.replace(count);
             }

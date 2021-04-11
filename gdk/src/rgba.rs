@@ -2,6 +2,7 @@
 
 use glib::ffi::gconstpointer;
 use glib::translate::*;
+use glib::StaticType;
 use std::fmt;
 use std::hash::{Hash, Hasher};
 use std::mem;
@@ -192,28 +193,51 @@ impl glib::StaticType for RGBA {
     }
 }
 
-impl<'a> glib::value::FromValueOptional<'a> for RGBA {
-    unsafe fn from_value_optional(value: &'a glib::Value) -> Option<Self> {
-        from_glib_full(
-            glib::gobject_ffi::g_value_dup_boxed(value.to_glib_none().0) as *mut ffi::GdkRGBA
-        )
+impl glib::value::ValueType for RGBA {
+    type Type = Self;
+}
+
+unsafe impl<'a> glib::value::FromValue<'a> for RGBA {
+    type Checker = glib::value::GenericValueTypeOrNoneChecker<Self>;
+    type Error = glib::value::ValueTypeMismatchOrNoneError;
+
+    unsafe fn from_value(value: &'a glib::Value) -> Self {
+        skip_assert_initialized!();
+
+        let ptr = glib::gobject_ffi::g_value_get_boxed(value.to_glib_none().0);
+        assert!(!ptr.is_null());
+        from_glib_none(ptr as *mut ffi::GdkRGBA)
     }
 }
 
-impl glib::value::SetValue for RGBA {
-    unsafe fn set_value(value: &mut glib::Value, this: &Self) {
-        glib::gobject_ffi::g_value_set_boxed(
-            value.to_glib_none_mut().0,
-            this.to_glib_none().0 as gconstpointer,
-        )
+impl glib::value::ToValue for RGBA {
+    fn to_value(&self) -> glib::Value {
+        unsafe {
+            let mut value = glib::Value::from_type(<RGBA as glib::StaticType>::static_type());
+            glib::gobject_ffi::g_value_set_boxed(
+                value.to_glib_none_mut().0,
+                self.to_glib_none().0 as *mut _,
+            );
+            value
+        }
+    }
+
+    fn value_type(&self) -> glib::Type {
+        RGBA::static_type()
     }
 }
 
-impl glib::value::SetValueOptional for RGBA {
-    unsafe fn set_value_optional(value: &mut glib::Value, this: Option<&Self>) {
-        glib::gobject_ffi::g_value_set_boxed(
-            value.to_glib_none_mut().0,
-            this.to_glib_none().0 as gconstpointer,
-        )
+impl glib::value::ToValueOptional for RGBA {
+    fn to_value_optional(s: Option<&Self>) -> glib::Value {
+        skip_assert_initialized!();
+        let mut value = glib::Value::for_value_type::<RGBA>();
+        unsafe {
+            glib::gobject_ffi::g_value_set_boxed(
+                value.to_glib_none_mut().0,
+                s.to_glib_none().0 as *mut _,
+            );
+        }
+
+        value
     }
 }

@@ -112,7 +112,7 @@ mod test {
         }) {
             Err(_) => panic!(),
             Ok(i) => {
-                assert!(i.get::<i32>().unwrap().unwrap() == 100);
+                assert!(i.get::<i32>().unwrap() == 100);
             }
         }
     }
@@ -184,7 +184,6 @@ mod test {
             Ok(o) => {
                 let o = o
                     .get::<glib::Object>()
-                    .unwrap()
                     .unwrap()
                     .downcast::<MySimpleObject>()
                     .unwrap();

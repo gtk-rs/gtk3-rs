@@ -2,7 +2,6 @@
 
 use crate::translate::*;
 use crate::utils::is_canonical_pspec_name;
-use crate::value;
 use crate::ParamFlags;
 use crate::StaticType;
 use crate::Type;
@@ -30,23 +29,49 @@ impl StaticType for ParamSpec {
 }
 
 #[doc(hidden)]
-impl<'a> value::FromValueOptional<'a> for ParamSpec {
-    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
-        from_glib_full(gobject_ffi::g_value_dup_param(value.to_glib_none().0))
+impl crate::value::ValueType for ParamSpec {
+    type Type = ParamSpec;
+}
+
+#[doc(hidden)]
+unsafe impl<'a> crate::value::FromValue<'a> for ParamSpec {
+    type Checker = crate::value::GenericValueTypeOrNoneChecker<Self>;
+    type Error = crate::value::ValueTypeMismatchOrNoneError;
+
+    unsafe fn from_value(value: &'a crate::Value) -> Self {
+        let ptr = gobject_ffi::g_value_dup_param(value.to_glib_none().0);
+        assert!(!ptr.is_null());
+        from_glib_full(ptr as *mut gobject_ffi::GParamSpec)
     }
 }
 
 #[doc(hidden)]
-impl value::SetValue for ParamSpec {
-    unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_ffi::g_value_set_param(value.to_glib_none_mut().0, this.to_glib_none().0)
+impl crate::value::ToValue for ParamSpec {
+    fn to_value(&self) -> crate::Value {
+        unsafe {
+            let mut value = crate::Value::from_type(ParamSpec::static_type());
+            gobject_ffi::g_value_take_param(
+                value.to_glib_none_mut().0,
+                self.to_glib_full() as *mut _,
+            );
+            value
+        }
+    }
+
+    fn value_type(&self) -> crate::Type {
+        ParamSpec::static_type()
     }
 }
 
 #[doc(hidden)]
-impl value::SetValueOptional for ParamSpec {
-    unsafe fn set_value_optional(value: &mut Value, this: Option<&Self>) {
-        gobject_ffi::g_value_set_param(value.to_glib_none_mut().0, this.to_glib_none().0)
+impl crate::value::ToValueOptional for ParamSpec {
+    fn to_value_optional(s: Option<&Self>) -> crate::Value {
+        let mut value = crate::Value::for_value_type::<ParamSpec>();
+        unsafe {
+            gobject_ffi::g_value_take_param(value.to_glib_none_mut().0, s.to_glib_full() as *mut _);
+        }
+
+        value
     }
 }
 
@@ -781,23 +806,46 @@ macro_rules! define_param_spec {
         }
 
         #[doc(hidden)]
-        impl<'a> value::FromValueOptional<'a> for $rust_type {
-            unsafe fn from_value_optional(value: &Value) -> Option<Self> {
-                from_glib_full(gobject_ffi::g_value_dup_param(value.to_glib_none().0) as *mut $ffi_type)
+        impl crate::value::ValueType for $rust_type {
+            type Type = $rust_type;
+        }
+
+        #[doc(hidden)]
+        unsafe impl<'a> crate::value::FromValue<'a> for $rust_type {
+            type Checker = $crate::value::GenericValueTypeOrNoneChecker<Self>;
+            type Error = $crate::value::ValueTypeMismatchOrNoneError;
+
+            unsafe fn from_value(value: &'a crate::Value) -> Self {
+                let ptr = gobject_ffi::g_value_dup_param(value.to_glib_none().0);
+                assert!(!ptr.is_null());
+                from_glib_full(ptr as *mut $ffi_type)
             }
         }
 
         #[doc(hidden)]
-        impl value::SetValue for $rust_type {
-            unsafe fn set_value(value: &mut Value, this: &Self) {
-                gobject_ffi::g_value_set_param(value.to_glib_none_mut().0, this.to_glib_none().0 as *mut gobject_ffi::GParamSpec)
+        impl crate::value::ToValue for $rust_type {
+            fn to_value(&self) -> crate::Value {
+                unsafe {
+                    let mut value = crate::Value::from_type($rust_type::static_type());
+                    gobject_ffi::g_value_take_param(value.to_glib_none_mut().0, self.to_glib_full() as *mut _);
+                    value
+                }
+            }
+
+            fn value_type(&self) -> crate::Type {
+                $rust_type::static_type()
             }
         }
 
         #[doc(hidden)]
-        impl value::SetValueOptional for $rust_type {
-            unsafe fn set_value_optional(value: &mut Value, this: Option<&Self>) {
-                gobject_ffi::g_value_set_param(value.to_glib_none_mut().0, this.to_glib_none().0 as *mut gobject_ffi::GParamSpec)
+        impl crate::value::ToValueOptional for $rust_type {
+            fn to_value_optional(s: Option<&Self>) -> crate::Value {
+                let mut value = crate::Value::for_value_type::<$rust_type>();
+                unsafe {
+                    gobject_ffi::g_value_take_param(value.to_glib_none_mut().0, s.to_glib_full() as *mut _);
+                }
+
+                value
             }
         }
 
@@ -1169,7 +1217,7 @@ mod tests {
         assert_eq!(pspec.nick(), "nick");
         assert_eq!(pspec.blurb(), "blurb");
         let default_value = pspec.default_value();
-        assert_eq!(default_value.get::<&str>().unwrap(), Some("default"));
+        assert_eq!(default_value.get::<&str>().unwrap(), "default");
         assert_eq!(pspec.flags(), ParamFlags::READWRITE);
         assert_eq!(pspec.value_type(), Type::STRING);
         assert_eq!(pspec.type_(), ParamSpecString::static_type());

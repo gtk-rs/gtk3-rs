@@ -212,7 +212,7 @@ fn fixed_toggled<W: IsA<gtk::CellRendererToggle>>(
     let iter = model.iter(&path).unwrap();
     let mut fixed = model
         .value(&iter, Columns::Fixed as i32)
-        .get_some::<bool>()
+        .get::<bool>()
         .unwrap_or_else(|err| {
             panic!(
                 "ListStore value for {:?} at path {}: {}",
@@ -301,7 +301,7 @@ fn spinner_timeout(model: &gtk::ListStore) -> Continue {
     let iter = model.iter_first().unwrap();
     let pulse = model
         .value(&iter, Columns::Pulse as i32)
-        .get_some::<u32>()
+        .get::<u32>()
         .unwrap_or_else(|err| {
             panic!(
                 "ListStore value for {:?} at first entry: {}",

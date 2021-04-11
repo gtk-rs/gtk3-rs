@@ -43,7 +43,7 @@ impl<O: IsA<Fixed>> FixedExtManual for O {
             );
         }
         value
-            .get_some()
+            .get()
             .expect("Return Value for `FixedExtManual::get_child_x`")
     }
 
@@ -77,7 +77,7 @@ impl<O: IsA<Fixed>> FixedExtManual for O {
             );
         }
         value
-            .get_some()
+            .get()
             .expect("Return Value for `FixedExtManual::get_child_y`")
     }
 

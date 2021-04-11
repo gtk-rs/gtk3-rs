@@ -163,7 +163,7 @@ mod test {
             foo: String::from("abc"),
         }));
         let v = b.to_value();
-        let b2 = v.get_some::<MySharedArc>().unwrap();
+        let b2 = v.get::<MySharedArc>().unwrap();
         assert!(std::sync::Arc::ptr_eq(&b.0, &b2.0));
     }
 
@@ -175,7 +175,7 @@ mod test {
             foo: String::from("abc"),
         }));
         let v = b.to_value();
-        let b2 = v.get_some::<MySharedRc>().unwrap();
+        let b2 = v.get::<MySharedRc>().unwrap();
         assert!(std::rc::Rc::ptr_eq(&b.0, &b2.0));
     }
 

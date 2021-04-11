@@ -37,21 +37,19 @@ impl<O: IsA<AccelGroup>> AccelGroupExtManual for O {
             assert_eq!(values.len(), 4);
             let s = values[0]
                 .get::<AccelGroup>()
-                .expect("Wrong argument type for first closure argument")
-                .expect("First closure argument is None");
+                .expect("Wrong argument type for first closure argument");
             let s = s
                 .downcast::<Self>()
                 .expect("Wrong argument type for first closure argument");
 
             let obj = values[1]
                 .get::<glib::Object>()
-                .expect("Wrong argument type for second closure argument")
-                .expect("Second closure argument is None");
+                .expect("Wrong argument type for second closure argument");
             let accel_key = values[2]
-                .get_some::<u32>()
+                .get::<u32>()
                 .expect("Wrong argument type for third closure argument");
             let accel_mods = values[3]
-                .get_some::<gdk::ModifierType>()
+                .get::<gdk::ModifierType>()
                 .expect("Wrong argument type for fourth closure argument");
 
             let ret = func(&s, &obj, accel_key, accel_mods);
@@ -80,20 +78,18 @@ impl<O: IsA<AccelGroup>> AccelGroupExtManual for O {
             assert_eq!(values.len(), 4);
             let s = values[0]
                 .get::<AccelGroup>()
-                .expect("Wrong argument type for first closure argument")
-                .expect("First closure argument is None");
+                .expect("Wrong argument type for first closure argument");
             let s = s
                 .downcast::<Self>()
                 .expect("Wrong argument type for first closure argument");
             let obj = values[1]
                 .get::<glib::Object>()
-                .expect("Wrong argument type for second closure argument")
-                .expect("Second closure argument is None");
+                .expect("Wrong argument type for second closure argument");
             let accel_key = values[2]
-                .get_some::<u32>()
+                .get::<u32>()
                 .expect("Wrong argument type for third closure argument");
             let accel_mods = values[3]
-                .get_some::<gdk::ModifierType>()
+                .get::<gdk::ModifierType>()
                 .expect("Wrong argument type for fourth closure argument");
 
             let ret = func(&s, &obj, accel_key, accel_mods);

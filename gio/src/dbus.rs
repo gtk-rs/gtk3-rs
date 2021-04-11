@@ -17,8 +17,8 @@ where
     F: Fn(DBusConnection, &str) + Send + Sync + 'static,
 {
     glib::Closure::new(move |args| {
-        let conn = args[0].get::<DBusConnection>().unwrap().unwrap();
-        let name = args[1].get::<&str>().unwrap().unwrap();
+        let conn = args[0].get::<DBusConnection>().unwrap();
+        let name = args[1].get::<&str>().unwrap();
         f(conn, name);
         None
     })
@@ -29,9 +29,9 @@ where
     F: Fn(DBusConnection, &str, &str) + Send + Sync + 'static,
 {
     glib::Closure::new(move |args| {
-        let conn = args[0].get::<DBusConnection>().unwrap().unwrap();
-        let name = args[1].get::<&str>().unwrap().unwrap();
-        let name_owner = args[2].get::<&str>().unwrap().unwrap();
+        let conn = args[0].get::<DBusConnection>().unwrap();
+        let name = args[1].get::<&str>().unwrap();
+        let name_owner = args[2].get::<&str>().unwrap();
         f(conn, name, name_owner);
         None
     })
@@ -81,8 +81,8 @@ where
             own_closure(bus_acquired).to_glib_none().0,
             own_closure(name_acquired).to_glib_none().0,
             glib::Closure::new(move |args| {
-                let conn = args[0].get::<DBusConnection>().unwrap();
-                let name = args[1].get::<&str>().unwrap().unwrap();
+                let conn = args[0].get::<Option<DBusConnection>>().unwrap();
+                let name = args[1].get::<&str>().unwrap();
                 name_lost(conn, name);
                 None
             })

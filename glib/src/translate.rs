@@ -844,6 +844,8 @@ impl_to_glib_container_from_slice_string!(&'a OsStr, *mut c_char);
 impl_to_glib_container_from_slice_string!(&'a OsStr, *const c_char);
 impl_to_glib_container_from_slice_string!(OsString, *mut c_char);
 impl_to_glib_container_from_slice_string!(OsString, *const c_char);
+impl_to_glib_container_from_slice_string!(crate::GString, *mut c_char);
+impl_to_glib_container_from_slice_string!(crate::GString, *const c_char);
 
 impl<'a, T> ToGlibContainerFromSlice<'a, *mut ffi::GList> for T
 where

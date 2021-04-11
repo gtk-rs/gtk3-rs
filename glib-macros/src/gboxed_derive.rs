@@ -8,37 +8,32 @@ use crate::utils::{crate_ident_new, find_attribute_meta, find_nested_meta, parse
 
 fn gen_option_to_ptr() -> TokenStream {
     quote! {
-        match this {
-            Some(this) => Box::into_raw(Box::new(this.clone())),
+        match s {
+            Some(s) => Box::into_raw(Box::new(s.clone())),
             None => std::ptr::null_mut(),
         };
     }
 }
 
-fn gen_ptr_to_option(name: &Ident, nullable: bool) -> TokenStream {
-    if nullable {
-        quote! {
-            if ptr.is_null() {
-                None
-            } else {
-                Some(&*(ptr as *mut #name))
+fn gen_impl_from_value_optional(name: &Ident, crate_ident: &TokenStream) -> TokenStream {
+    quote! {
+        unsafe impl<'a> #crate_ident::value::FromValue<'a> for #name {
+            type Checker = #crate_ident::value::GenericValueTypeOrNoneChecker<Self>;
+            type Error = #crate_ident::value::ValueTypeMismatchOrNoneError;
+
+            unsafe fn from_value(value: &'a #crate_ident::Value) -> Self {
+                let ptr = #crate_ident::gobject_ffi::g_value_dup_boxed(#crate_ident::translate::ToGlibPtr::to_glib_none(value).0);
+                assert!(!ptr.is_null());
+                *Box::from_raw(ptr as *mut #name)
             }
         }
-    } else {
-        quote! {
-            assert!(!ptr.is_null());
-            Some(&*(ptr as *mut #name))
-        }
-    }
-}
 
-fn gen_impl_from_value(name: &Ident, crate_ident: &TokenStream) -> TokenStream {
-    quote! {
-        impl<'a> #crate_ident::value::FromValue<'a> for &'a #name {
-            unsafe fn from_value(value: &'a #crate_ident::value::Value) -> Self {
-                let ptr = #crate_ident::gobject_ffi::g_value_get_boxed(
-                    #crate_ident::translate::ToGlibPtr::to_glib_none(value).0,
-                );
+        unsafe impl<'a> #crate_ident::value::FromValue<'a> for &'a #name {
+            type Checker = #crate_ident::value::GenericValueTypeOrNoneChecker<Self>;
+            type Error = #crate_ident::value::ValueTypeMismatchOrNoneError;
+
+            unsafe fn from_value(value: &'a #crate_ident::Value) -> Self {
+                let ptr = #crate_ident::gobject_ffi::g_value_get_boxed(#crate_ident::translate::ToGlibPtr::to_glib_none(value).0);
                 assert!(!ptr.is_null());
                 &*(ptr as *mut #name)
             }
@@ -46,17 +41,48 @@ fn gen_impl_from_value(name: &Ident, crate_ident: &TokenStream) -> TokenStream {
     }
 }
 
-fn gen_impl_set_value_optional(name: &Ident, crate_ident: &TokenStream) -> TokenStream {
+fn gen_impl_from_value(name: &Ident, crate_ident: &TokenStream) -> TokenStream {
+    quote! {
+        unsafe impl<'a> #crate_ident::value::FromValue<'a> for #name {
+            type Checker = #crate_ident::value::GenericValueTypeChecker<Self>;
+            type Error = #crate_ident::value::ValueTypeMismatchError;
+
+            unsafe fn from_value(value: &'a #crate_ident::Value) -> Self {
+                let ptr = #crate_ident::gobject_ffi::g_value_dup_boxed(#crate_ident::translate::ToGlibPtr::to_glib_none(value).0);
+                assert!(!ptr.is_null());
+                *Box::from_raw(ptr as *mut #name)
+            }
+        }
+
+        unsafe impl<'a> #crate_ident::value::FromValue<'a> for &'a #name {
+            type Checker = #crate_ident::value::GenericValueTypeChecker<Self>;
+            type Error = #crate_ident::value::ValueTypeMismatchError;
+
+            unsafe fn from_value(value: &'a #crate_ident::Value) -> Self {
+                let ptr = #crate_ident::gobject_ffi::g_value_get_boxed(#crate_ident::translate::ToGlibPtr::to_glib_none(value).0);
+                assert!(!ptr.is_null());
+                &*(ptr as *mut #name)
+            }
+        }
+    }
+}
+
+fn gen_impl_to_value_optional(name: &Ident, crate_ident: &TokenStream) -> TokenStream {
     let option_to_ptr = gen_option_to_ptr();
 
     quote! {
-        impl #crate_ident::value::SetValueOptional for #name {
-            unsafe fn set_value_optional(value: &mut #crate_ident::value::Value, this: Option<&Self>) {
-                let ptr: *mut #name = #option_to_ptr;
-                #crate_ident::gobject_ffi::g_value_take_boxed(
-                    #crate_ident::translate::ToGlibPtrMut::to_glib_none_mut(value).0,
-                    ptr as *mut _,
-                );
+        impl #crate_ident::value::ToValueOptional for #name {
+            fn to_value_optional(s: Option<&Self>) -> #crate_ident::Value {
+                let mut value = #crate_ident::Value::for_value_type::<#name>();
+                unsafe {
+                    let ptr: *mut #name = #option_to_ptr;
+                    #crate_ident::gobject_ffi::g_value_take_boxed(
+                        #crate_ident::translate::ToGlibPtrMut::to_glib_none_mut(&mut value).0,
+                        ptr as *mut _
+                    );
+                }
+
+                value
             }
         }
     }
@@ -80,14 +106,13 @@ pub fn impl_gboxed(input: &syn::DeriveInput) -> TokenStream {
         .unwrap();
     let nullable = find_nested_meta(&meta, "nullable").is_some();
 
-    let ptr_to_option = gen_ptr_to_option(name, nullable);
     let impl_from_value = if !nullable {
         gen_impl_from_value(name, &crate_ident)
     } else {
-        quote! {}
+        gen_impl_from_value_optional(name, &crate_ident)
     };
-    let impl_set_value_optional = if nullable {
-        gen_impl_set_value_optional(name, &crate_ident)
+    let impl_to_value_optional = if nullable {
+        gen_impl_to_value_optional(name, &crate_ident)
     } else {
         quote! {}
     };
@@ -120,26 +145,29 @@ pub fn impl_gboxed(input: &syn::DeriveInput) -> TokenStream {
             }
         }
 
-        impl #crate_ident::value::SetValue for #name {
-            unsafe fn set_value(value: &mut #crate_ident::value::Value, this: &Self) {
-                let ptr: *mut #name = Box::into_raw(Box::new(this.clone()));
-                #crate_ident::gobject_ffi::g_value_take_boxed(
-                    #crate_ident::translate::ToGlibPtrMut::to_glib_none_mut(value).0,
-                    ptr as *mut _,
-                );
+        impl #crate_ident::value::ValueType for #name {
+            type Type = #name;
+        }
+
+        impl #crate_ident::value::ToValue for #name {
+            fn to_value(&self) -> #crate_ident::Value {
+                unsafe {
+                    let ptr: *mut #name = Box::into_raw(Box::new(self.clone()));
+                    let mut value = #crate_ident::Value::from_type(<#name as #crate_ident::StaticType>::static_type());
+                    #crate_ident::gobject_ffi::g_value_take_boxed(
+                        #crate_ident::translate::ToGlibPtrMut::to_glib_none_mut(&mut value).0,
+                        ptr as *mut _
+                    );
+                    value
+                }
+            }
+
+            fn value_type(&self) -> #crate_ident::Type {
+                <#name as #crate_ident::StaticType>::static_type()
             }
         }
 
-        #impl_set_value_optional
-
-        impl<'a> #crate_ident::value::FromValueOptional<'a> for &'a #name {
-            unsafe fn from_value_optional(value: &'a #crate_ident::value::Value) -> Option<Self> {
-                let ptr = #crate_ident::gobject_ffi::g_value_get_boxed(
-                    #crate_ident::translate::ToGlibPtr::to_glib_none(value).0,
-                );
-                #ptr_to_option
-            }
-        }
+        #impl_to_value_optional
 
         #impl_from_value
     }

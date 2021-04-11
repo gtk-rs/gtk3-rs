@@ -74,11 +74,11 @@ impl<O: IsA<ListStore>> GtkListStoreExtManual for O {
                     *column as c_int,
                 ));
                 assert!(
-                    Value::type_transformable(value.to_value_type(), type_),
+                    Value::type_transformable(value.value_type(), type_),
                     "column {} is of type {} but found value of type {}",
                     *column,
                     type_,
-                    value.to_value_type()
+                    value.value_type()
                 );
             }
 
@@ -160,11 +160,11 @@ impl<O: IsA<ListStore>> GtkListStoreExtManual for O {
                     *column as c_int,
                 ));
                 assert!(
-                    Value::type_transformable(value.to_value_type(), type_),
+                    Value::type_transformable(value.value_type(), type_),
                     "column {} is of type {} but found value of type {}",
                     *column,
                     type_,
-                    value.to_value_type()
+                    value.value_type()
                 );
             }
 

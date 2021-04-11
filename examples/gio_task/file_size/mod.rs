@@ -34,7 +34,6 @@ impl FileSize {
                 .propagate_value()
                 .unwrap()
                 .get::<i64>()
-                .unwrap()
                 .unwrap();
             let source_object = source_object.unwrap().downcast_ref::<FileSize>().unwrap();
             callback(value, &source_object);

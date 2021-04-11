@@ -4,7 +4,7 @@ use crate::RadioToolButton;
 use crate::ToolItem;
 use glib::object::{Cast, ObjectType};
 use glib::translate::*;
-use glib::Value;
+use glib::ToValue;
 use std::ptr;
 
 impl RadioToolButton {
@@ -33,7 +33,7 @@ impl RadioToolButton {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut _,
                 "group".to_glib_none().0,
-                Value::from(group).to_glib_none().0,
+                group.to_value().to_glib_none().0,
             );
         }
     }
