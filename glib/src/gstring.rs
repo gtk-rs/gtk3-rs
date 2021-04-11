@@ -493,11 +493,10 @@ impl StaticType for Vec<GString> {
 
 impl<'a> FromValueOptional<'a> for GString {
     unsafe fn from_value_optional(value: &'a Value) -> Option<Self> {
-        let val = value.to_glib_none().0;
-        if val.is_null() {
+        let ptr = gobject_ffi::g_value_dup_string(value.to_glib_none().0);
+        if ptr.is_null() {
             None
         } else {
-            let ptr = gobject_ffi::g_value_dup_string(val);
             Some(GString::new(ptr))
         }
     }
