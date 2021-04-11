@@ -1,1 +1,0 @@
-initSidebarItems({"struct":[["Signal","Signal metadata."],["SignalBuilder","Builder for signals."],["SignalClassHandlerToken","Token passed to signal class handlers."],["SignalId","Signal ID."],["SignalInvocationHint","Signal invocation hint passed to signal accumulators."],["SignalQuery","In-depth information of a specific signal"],["SignalType",""]]});

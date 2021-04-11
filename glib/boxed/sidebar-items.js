@@ -1,1 +1,0 @@
-initSidebarItems({"struct":[["Boxed","Encapsulates memory management logic for boxed types."]],"trait":[["BoxedMemoryManager","Memory management functions for a boxed type."]]});

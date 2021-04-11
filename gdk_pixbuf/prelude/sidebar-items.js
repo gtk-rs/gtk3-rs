@@ -1,1 +1,0 @@
-initSidebarItems({"trait":[["PixbufAnimationExt","Trait containing all `PixbufAnimation` methods."],["PixbufAnimationExtManual",""],["PixbufLoaderExt","Trait containing all `PixbufLoader` methods."]]});
