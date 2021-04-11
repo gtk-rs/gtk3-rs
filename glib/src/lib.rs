@@ -90,6 +90,7 @@ pub use glib_macros::{
     clone, gflags, object_interface, object_subclass, Downgrade, GBoxed, GEnum, GErrorDomain,
 };
 
+pub use self::array::Array;
 pub use self::byte_array::ByteArray;
 pub use self::bytes::Bytes;
 pub use self::closure::Closure;
@@ -140,6 +141,7 @@ mod auto;
 pub use self::gobject::*;
 mod gobject;
 
+mod array;
 mod byte_array;
 mod bytes;
 pub mod char;
