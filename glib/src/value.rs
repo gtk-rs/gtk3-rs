@@ -6,10 +6,6 @@
 //! isn't known at compile time but once created a `Value` can't change its
 //! type.
 //!
-//! [`TypedValue`](struct.TypedValue.html) has a statically known type and
-//! dereferences to `Value` so it can be used everywhere `Value` references are
-//! accepted.
-//!
 //! [`SendValue`](struct.SendValue.html) is a version of [`Value`](struct.Value.html)
 //! that can only store types that implement `Send` and as such implements `Send` itself. It
 //! dereferences to `Value` so it can be used everywhere `Value` references are accepted.
@@ -21,15 +17,14 @@
 //!
 //! ```
 //! use glib::prelude::*; // or `use gtk::prelude::*;`
-//! use glib::{TypedValue, Value};
+//! use glib::Value;
 //!
-//! // Value and TypedValue implement From<&i32>, From<&str>
-//! // and From<Option<&str>>. Another option is the `ToValue` trait.
+//! // Value implement From<&i32>, From<&str> and From<Option<&str>>.
+//! // Another option is the `ToValue` trait.
 //! let mut num = 10.to_value();
 //! let mut hello = Value::from("Hello!");
 //! let none: Option<&str> = None;
 //! let str_none = Value::from(none.clone());
-//! let typed_str_none = TypedValue::from(none);
 //!
 //! // `is` tests the type of the value.
 //! assert!(num.is::<i32>());
@@ -47,42 +42,12 @@
 //! // and returns an `Err` if the type doesn't match.
 //! assert_eq!(num.get_some::<i32>(), Ok(10));
 //! assert!(num.get_some::<bool>().is_err());
-//!
-//! // `typed` tries to convert a `Value` to `TypedValue`.
-//! let mut typed_num = num.downcast::<i32>().unwrap();
-//! let mut typed_hello = hello.downcast::<String>().unwrap();
-//!
-//! // `str_none` is not an `i32`
-//! assert!(str_none.downcast::<i32>().is_err());
-//!
-//! // `get`
-//! assert!(typed_hello.get().unwrap() == "Hello!");
-//! assert!(typed_str_none.get() == None);
-//!
-//! // Numeric types can't have value `None`, `get` always returns `Some`.
-//! // Such types have `get_some`, which avoids unnecessary `unwrap`ping.
-//! assert_eq!(typed_num.get().unwrap(), 10);
-//! assert_eq!(typed_num.get_some(), 10);
-//!
-//! // `set_none` sets the value to `None` if the type supports it.
-//! typed_hello.set_none();
-//! assert!(typed_hello.get().is_none());
-//!
-//! // `set` takes an optional reference for types that support `None`.
-//! typed_hello.set(Some("Hello again!"));
-//! assert!(typed_hello.get().unwrap() == "Hello again!");
-//!
-//! // `set_some` is the only setter for types that don't support `None`.
-//! typed_num.set_some(&20);
-//! assert_eq!(typed_num.get_some(), 20);
 //! ```
 
 use libc::{c_char, c_void};
-use std::borrow::Borrow;
 use std::error;
 use std::ffi::CStr;
 use std::fmt;
-use std::marker::PhantomData;
 use std::mem;
 use std::ops::Deref;
 use std::ptr;
@@ -143,44 +108,6 @@ impl Value {
             let mut value = Value::uninitialized();
             gobject_ffi::g_value_init(value.to_glib_none_mut().0, type_.to_glib());
             value
-        }
-    }
-
-    /// Tries to downcast to a `TypedValue`.
-    ///
-    /// Returns `Ok(TypedValue<T>)` if the value carries a type corresponding
-    /// to `T` and `Err(self)` otherwise.
-    pub fn downcast<'a, T: FromValueOptional<'a> + SetValue>(self) -> Result<TypedValue<T>, Self> {
-        unsafe {
-            let ok = from_glib(gobject_ffi::g_type_check_value_holds(
-                mut_override(self.to_glib_none().0),
-                T::static_type().to_glib(),
-            ));
-            if ok {
-                Ok(TypedValue(self, PhantomData))
-            } else {
-                Err(self)
-            }
-        }
-    }
-
-    /// Tries to downcast to a `&TypedValue`.
-    ///
-    /// Returns `Some(&TypedValue<T>)` if the value carries a type corresponding
-    /// to `T` and `None` otherwise.
-    pub fn downcast_ref<'a, T: FromValueOptional<'a> + SetValue>(&self) -> Option<&TypedValue<T>> {
-        unsafe {
-            let ok = from_glib(gobject_ffi::g_type_check_value_holds(
-                mut_override(self.to_glib_none().0),
-                T::static_type().to_glib(),
-            ));
-            if ok {
-                // This cast is safe because Value and TypedValue have the same
-                // representation: the only difference is the zero-sized phantom data
-                Some(&*(self as *const Value as *const TypedValue<T>))
-            } else {
-                None
-            }
         }
     }
 
@@ -269,7 +196,11 @@ impl Value {
     pub fn try_into_send_value<'a, T: Send + FromValueOptional<'a> + SetValue>(
         self,
     ) -> Result<SendValue, Self> {
-        self.downcast::<T>().map(TypedValue::into_send_value)
+        if self.is::<T>() {
+            Ok(SendValue(self))
+        } else {
+            Err(self)
+        }
     }
 
     fn content_debug_string(&self) -> GString {
@@ -314,12 +245,6 @@ impl<'a, T: ?Sized + SetValue> From<&'a T> for Value {
     #[inline]
     fn from(value: &'a T) -> Self {
         value.to_value()
-    }
-}
-
-impl<T> From<TypedValue<T>> for Value {
-    fn from(value: TypedValue<T>) -> Self {
-        value.0
     }
 }
 
@@ -586,133 +511,6 @@ impl Drop for ValueArray {
     }
 }
 
-/// A statically typed [`Value`](struct.Value.html).
-///
-/// It dereferences to `Value` and can be used everywhere `Value` references are
-/// accepted.
-///
-/// See the [module documentation](index.html) for more details.
-#[derive(Clone)]
-#[repr(transparent)]
-pub struct TypedValue<T>(Value, PhantomData<*const T>);
-
-impl<'a, T: FromValueOptional<'a> + SetValue> TypedValue<T> {
-    /// Returns the value.
-    ///
-    /// Types that don't support a `None` value always return `Some`. See
-    /// `get_some`.
-    pub fn get(&'a self) -> Option<T> {
-        unsafe { T::from_value_optional(self) }
-    }
-
-    /// Returns the value.
-    ///
-    /// This method is only available for types that don't support a `None`
-    /// value.
-    pub fn get_some(&'a self) -> T
-    where
-        T: FromValue<'a>,
-    {
-        unsafe { T::from_value(self) }
-    }
-
-    /// Sets the value.
-    ///
-    /// This method is only available for types that support a `None` value.
-    pub fn set<U: ?Sized + SetValueOptional>(&mut self, value: Option<&U>)
-    where
-        T: Borrow<U>,
-    {
-        unsafe { SetValueOptional::set_value_optional(&mut self.0, value) }
-    }
-
-    /// Sets the value to `None`.
-    ///
-    /// This method is only available for types that support a `None` value.
-    pub fn set_none(&mut self)
-    where
-        T: SetValueOptional,
-    {
-        unsafe { T::set_value_optional(&mut self.0, None) }
-    }
-
-    /// Sets the value.
-    pub fn set_some<U: ?Sized + SetValue>(&mut self, value: &U)
-    where
-        T: Borrow<U>,
-    {
-        unsafe { SetValue::set_value(&mut self.0, value) }
-    }
-}
-
-impl<T> fmt::Debug for TypedValue<T> {
-    fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
-        f.debug_tuple("TypedValue").field(&self.0).finish()
-    }
-}
-
-impl<'a, T: FromValueOptional<'a> + SetValue + Send> TypedValue<T> {
-    pub fn into_send_value(self) -> SendValue {
-        SendValue(self.0)
-    }
-}
-
-impl<T> Deref for TypedValue<T> {
-    type Target = Value;
-
-    fn deref(&self) -> &Value {
-        &self.0
-    }
-}
-
-unsafe impl<T: Send> Send for TypedValue<T> {}
-unsafe impl<T: Sync> Sync for TypedValue<T> {}
-
-impl<'a, T: FromValueOptional<'a> + SetValueOptional> From<Option<&'a T>> for TypedValue<T> {
-    fn from(value: Option<&'a T>) -> Self {
-        TypedValue(Value::from(value), PhantomData)
-    }
-}
-
-impl<'a, T: FromValueOptional<'a> + SetValue> From<&'a T> for TypedValue<T> {
-    fn from(value: &'a T) -> Self {
-        TypedValue(Value::from(value), PhantomData)
-    }
-}
-
-impl<'a> From<Option<&'a str>> for TypedValue<String> {
-    fn from(value: Option<&'a str>) -> Self {
-        TypedValue(Value::from(value), PhantomData)
-    }
-}
-
-impl<'a> From<&'a str> for TypedValue<String> {
-    fn from(value: &'a str) -> Self {
-        TypedValue(Value::from(value), PhantomData)
-    }
-}
-
-impl<'a> From<TypedValue<&'a str>> for TypedValue<String> {
-    fn from(value: TypedValue<&str>) -> Self {
-        TypedValue(value.0, PhantomData)
-    }
-}
-
-impl<'a> From<TypedValue<String>> for TypedValue<&'a str> {
-    fn from(value: TypedValue<String>) -> Self {
-        TypedValue(value.0, PhantomData)
-    }
-}
-
-#[doc(hidden)]
-impl<'a, T: 'a> ToGlibPtrMut<'a, *mut gobject_ffi::GValue> for TypedValue<T> {
-    type Storage = &'a mut TypedValue<T>;
-
-    fn to_glib_none_mut(&'a mut self) -> StashMut<'a, *mut gobject_ffi::GValue, Self> {
-        StashMut(&mut (self.0).0, self)
-    }
-}
-
 /// Converts to `Value`.
 pub trait ToValue {
     /// Returns a `Value` clone of `self`.
@@ -765,37 +563,7 @@ pub struct SendValue(Value);
 unsafe impl Send for SendValue {}
 
 impl SendValue {
-    /// Tries to downcast to a `TypedValue`.
-    ///
-    /// Returns `Ok(TypedValue<T>)` if the value carries a type corresponding
-    /// to `T` and `Err(self)` otherwise.
-    pub fn downcast<'a, T: FromValueOptional<'a> + SetValue + Send>(
-        self,
-    ) -> Result<TypedValue<T>, Self> {
-        self.0.downcast().map_err(SendValue)
-    }
-
-    /// Tries to downcast to a `&TypedValue`.
-    ///
-    /// Returns `Some(&TypedValue<T>)` if the value carries a type corresponding
-    /// to `T` and `None` otherwise.
-    pub fn downcast_ref<'a, T: FromValueOptional<'a> + SetValue>(&self) -> Option<&TypedValue<T>> {
-        unsafe {
-            let ok = from_glib(gobject_ffi::g_type_check_value_holds(
-                mut_override(self.to_glib_none().0),
-                T::static_type().to_glib(),
-            ));
-            if ok {
-                // This cast is safe because SendValue and TypedValue have the same
-                // representation: the only difference is the zero-sized phantom data
-                Some(&*(self as *const SendValue as *const TypedValue<T>))
-            } else {
-                None
-            }
-        }
-    }
-
-    #[doc(hidden)]
+    /// Consumes `SendValue` and returns the corresponding `GValue`.
     pub fn into_raw(self) -> gobject_ffi::GValue {
         self.0.into_raw()
     }
@@ -826,12 +594,6 @@ impl<'a, T: ?Sized + SetValue + Send> From<&'a T> for SendValue {
     #[inline]
     fn from(value: &'a T) -> Self {
         SendValue(value.to_value())
-    }
-}
-
-impl<T: Send> From<TypedValue<T>> for SendValue {
-    fn from(value: TypedValue<T>) -> Self {
-        SendValue(value.0)
     }
 }
 
