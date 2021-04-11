@@ -166,7 +166,7 @@ impl ParamSpec {
     //}
 
     #[doc(alias = "g_param_spec_boolean")]
-    pub fn boolean(
+    pub fn new_boolean(
         name: &str,
         nick: &str,
         blurb: &str,
@@ -190,7 +190,7 @@ impl ParamSpec {
     }
 
     #[doc(alias = "g_param_spec_boxed")]
-    pub fn boxed(
+    pub fn new_boxed(
         name: &str,
         nick: &str,
         blurb: &str,
@@ -214,7 +214,7 @@ impl ParamSpec {
     }
 
     #[doc(alias = "g_param_spec_char")]
-    pub fn char(
+    pub fn new_char(
         name: &str,
         nick: &str,
         blurb: &str,
@@ -242,7 +242,7 @@ impl ParamSpec {
     }
 
     #[doc(alias = "g_param_spec_double")]
-    pub fn double(
+    pub fn new_double(
         name: &str,
         nick: &str,
         blurb: &str,
@@ -270,7 +270,7 @@ impl ParamSpec {
     }
 
     #[doc(alias = "g_param_spec_enum")]
-    pub fn enum_(
+    pub fn new_enum(
         name: &str,
         nick: &str,
         blurb: &str,
@@ -296,7 +296,7 @@ impl ParamSpec {
     }
 
     #[doc(alias = "g_param_spec_flags")]
-    pub fn flags(
+    pub fn new_flags(
         name: &str,
         nick: &str,
         blurb: &str,
@@ -322,7 +322,7 @@ impl ParamSpec {
     }
 
     #[doc(alias = "g_param_spec_float")]
-    pub fn float(
+    pub fn new_float(
         name: &str,
         nick: &str,
         blurb: &str,
@@ -350,7 +350,7 @@ impl ParamSpec {
     }
 
     #[doc(alias = "g_param_spec_gtype")]
-    pub fn gtype(
+    pub fn new_type(
         name: &str,
         nick: &str,
         blurb: &str,
@@ -374,7 +374,7 @@ impl ParamSpec {
     }
 
     #[doc(alias = "g_param_spec_int")]
-    pub fn int(
+    pub fn new_int(
         name: &str,
         nick: &str,
         blurb: &str,
@@ -402,7 +402,7 @@ impl ParamSpec {
     }
 
     #[doc(alias = "g_param_spec_int64")]
-    pub fn int64(
+    pub fn new_int64(
         name: &str,
         nick: &str,
         blurb: &str,
@@ -430,7 +430,7 @@ impl ParamSpec {
     }
 
     #[doc(alias = "g_param_spec_long")]
-    pub fn long(
+    pub fn new_long(
         name: &str,
         nick: &str,
         blurb: &str,
@@ -458,7 +458,7 @@ impl ParamSpec {
     }
 
     #[doc(alias = "g_param_spec_object")]
-    pub fn object(
+    pub fn new_object(
         name: &str,
         nick: &str,
         blurb: &str,
@@ -482,7 +482,7 @@ impl ParamSpec {
     }
 
     #[doc(alias = "g_param_spec_override")]
-    pub fn override_(name: &str, overridden: &ParamSpec) -> ParamSpec {
+    pub fn new_override(name: &str, overridden: &ParamSpec) -> ParamSpec {
         assert!(
             is_canonical_pspec_name(name),
             "{} is not a valid canonical parameter name",
@@ -497,7 +497,7 @@ impl ParamSpec {
     }
 
     #[doc(alias = "g_param_spec_param")]
-    pub fn param(
+    pub fn new_param(
         name: &str,
         nick: &str,
         blurb: &str,
@@ -521,7 +521,7 @@ impl ParamSpec {
     }
 
     #[doc(alias = "g_param_spec_pointer")]
-    pub fn pointer(name: &str, nick: &str, blurb: &str, flags: ParamFlags) -> ParamSpec {
+    pub fn new_pointer(name: &str, nick: &str, blurb: &str, flags: ParamFlags) -> ParamSpec {
         assert!(
             is_canonical_pspec_name(name),
             "{} is not a valid canonical parameter name",
@@ -538,7 +538,7 @@ impl ParamSpec {
     }
 
     #[doc(alias = "g_param_spec_string")]
-    pub fn string(
+    pub fn new_string(
         name: &str,
         nick: &str,
         blurb: &str,
@@ -563,7 +563,7 @@ impl ParamSpec {
     }
 
     #[doc(alias = "g_param_spec_uchar")]
-    pub fn uchar(
+    pub fn new_uchar(
         name: &str,
         nick: &str,
         blurb: &str,
@@ -591,7 +591,7 @@ impl ParamSpec {
     }
 
     #[doc(alias = "g_param_spec_uint")]
-    pub fn uint(
+    pub fn new_uint(
         name: &str,
         nick: &str,
         blurb: &str,
@@ -619,7 +619,7 @@ impl ParamSpec {
     }
 
     #[doc(alias = "g_param_spec_uint64")]
-    pub fn uint64(
+    pub fn new_uint64(
         name: &str,
         nick: &str,
         blurb: &str,
@@ -647,7 +647,7 @@ impl ParamSpec {
     }
 
     #[doc(alias = "g_param_spec_ulong")]
-    pub fn ulong(
+    pub fn new_ulong(
         name: &str,
         nick: &str,
         blurb: &str,
@@ -675,7 +675,7 @@ impl ParamSpec {
     }
 
     #[doc(alias = "g_param_spec_unichar")]
-    pub fn unichar(
+    pub fn new_unichar(
         name: &str,
         nick: &str,
         blurb: &str,
@@ -699,7 +699,7 @@ impl ParamSpec {
     }
 
     #[doc(alias = "g_param_spec_value_array")]
-    pub fn value_array(
+    pub fn new_value_array(
         name: &str,
         nick: &str,
         blurb: &str,
@@ -723,7 +723,7 @@ impl ParamSpec {
     }
 
     #[doc(alias = "g_param_spec_variant")]
-    pub fn variant(
+    pub fn new_variant(
         name: &str,
         nick: &str,
         blurb: &str,
@@ -1157,7 +1157,7 @@ mod tests {
 
     #[test]
     fn test_param_spec_string() {
-        let pspec = ParamSpec::string(
+        let pspec = ParamSpec::new_string(
             "name",
             "nick",
             "blurb",

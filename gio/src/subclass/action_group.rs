@@ -542,7 +542,7 @@ unsafe extern "C" fn action_group_get_action_enabled<T: ActionGroupImpl>(
     let imp = instance.impl_();
     let action_name = GString::from_glib_borrow(action_nameptr);
 
-    imp.get_action_enabled(
+    imp.is_action_enabled(
         from_glib_borrow::<_, ActionGroup>(action_group).unsafe_cast_ref(),
         &action_name,
     )

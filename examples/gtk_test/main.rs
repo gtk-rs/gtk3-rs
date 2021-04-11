@@ -133,7 +133,7 @@ fn build_ui(application: &gtk::Application) {
         .expect("Couldn't get app_button");
     app_button.connect_clicked(glib::clone!(@weak window => move |_| {
         // entry.set_text("Clicked!");
-        let dialog = AppChooserDialog::new_for_content_type(Some(&window),
+        let dialog = AppChooserDialog::for_content_type(Some(&window),
                                                             gtk::DialogFlags::MODAL,
                                                             "sh");
 
@@ -143,7 +143,7 @@ fn build_ui(application: &gtk::Application) {
 
     let switch: Switch = builder.get_object("switch").expect("Couldn't get switch");
     switch.connect_changed_active(glib::clone!(@weak entry => move |switch| {
-        if switch.active() {
+        if switch.is_active() {
             entry.set_text("Switch On");
         } else {
             entry.set_text("Switch Off");

@@ -98,7 +98,7 @@ fn add_actions(
     // The same goes the around way: if we update the switch state, we need to update the menu
     // item's state.
     switch.connect_property_active_notify(glib::clone!(@weak switch_action => move |s| {
-        switch_action.change_state(&s.active().to_variant());
+        switch_action.change_state(&s.is_active().to_variant());
     }));
 
     let sub_another = gio::SimpleAction::new("sub_another", None);

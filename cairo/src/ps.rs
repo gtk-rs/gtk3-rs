@@ -150,7 +150,7 @@ mod test {
         let buffer: Vec<u8> = vec![];
         let surface = PsSurface::for_stream(100., 100., buffer).unwrap();
         surface.set_eps(true);
-        assert_eq!(surface.eps(), true);
+        assert!(surface.is_eps());
     }
 
     #[test]

@@ -35,13 +35,13 @@
 //! assert_eq!(num.str(), None);
 //!
 //! // Variant carrying a Variant
-//! let variant = Variant::variant(&hello);
-//! let variant = variant.variant().unwrap();
+//! let variant = Variant::from_variant(&hello);
+//! let variant = variant.as_variant().unwrap();
 //! assert_eq!(variant.str(), Some("Hello!"));
 //!
 //! // Variant carrying an array
 //! let array = ["Hello".to_variant(), "there!".to_variant()];
-//! let variant = Variant::array::<&str>(&array);
+//! let variant = Variant::from_array::<&str>(&array);
 //! assert_eq!(variant.n_children(), 2);
 //! assert_eq!(variant.get_child_value(0).str(), Some("Hello"));
 //! assert_eq!(variant.get_child_value(1).str(), Some("there!"));
@@ -170,7 +170,7 @@ impl Variant {
 
     /// Boxes value.
     #[inline]
-    pub fn variant(value: &Variant) -> Self {
+    pub fn from_variant(value: &Variant) -> Self {
         unsafe { from_glib_none(ffi::g_variant_new_variant(value.to_glib_none().0)) }
     }
 
@@ -178,7 +178,7 @@ impl Variant {
     ///
     /// Returns `Some` if self contains a `Variant`.
     #[inline]
-    pub fn variant(&self) -> Option<Variant> {
+    pub fn as_variant(&self) -> Option<Variant> {
         unsafe { from_glib_none(ffi::g_variant_get_variant(self.to_glib_none().0)) }
     }
 
@@ -219,7 +219,7 @@ impl Variant {
     /// Creates a new GVariant array from children.
     ///
     /// All children must be of type `T`.
-    pub fn array<T: StaticVariantType>(children: &[Variant]) -> Self {
+    pub fn from_array<T: StaticVariantType>(children: &[Variant]) -> Self {
         let type_ = T::static_variant_type();
 
         for child in children {
@@ -235,7 +235,7 @@ impl Variant {
     }
 
     /// Creates a new GVariant tuple from children.
-    pub fn tuple(children: &[Variant]) -> Self {
+    pub fn from_tuple(children: &[Variant]) -> Self {
         unsafe {
             from_glib_none(ffi::g_variant_new_tuple(
                 children.to_glib_none().0,
@@ -245,7 +245,7 @@ impl Variant {
     }
 
     /// Creates a new maybe Variant.
-    pub fn maybe<T: StaticVariantType>(child: Option<&Variant>) -> Self {
+    pub fn from_maybe<T: StaticVariantType>(child: Option<&Variant>) -> Self {
         let type_ = T::static_variant_type();
         let ptr = match child {
             Some(child) => {
@@ -526,7 +526,7 @@ impl<T: StaticVariantType> StaticVariantType for Option<T> {
 
 impl<T: StaticVariantType + ToVariant> ToVariant for Option<T> {
     fn to_variant(&self) -> Variant {
-        Variant::maybe::<T>(self.as_ref().map(|m| m.to_variant()).as_ref())
+        Variant::from_maybe::<T>(self.as_ref().map(|m| m.to_variant()).as_ref())
     }
 }
 
@@ -581,7 +581,7 @@ impl<T: StaticVariantType + ToVariant> ToVariant for Vec<T> {
         for child in self {
             vec.push(child.to_variant());
         }
-        Variant::array::<T>(&vec)
+        Variant::from_array::<T>(&vec)
     }
 }
 
@@ -629,7 +629,7 @@ where
             let entry = DictEntry::new(key, value).to_variant();
             vec.push(entry);
         }
-        Variant::array::<DictEntry<K, V>>(&vec)
+        Variant::from_array::<DictEntry<K, V>>(&vec)
     }
 }
 
@@ -648,7 +648,7 @@ where
 ///     DictEntry::new("uuid", 1000u32).to_variant(),
 ///     DictEntry::new("guid", 1001u32).to_variant(),
 /// ];
-/// let dict = Variant::array::<DictEntry<&str, u32>>(&entries);
+/// let dict = Variant::from_array::<DictEntry<&str, u32>>(&entries);
 /// assert_eq!(dict.n_children(), 2);
 /// assert_eq!(dict.type_().to_str(), "a{su}");
 /// ```
@@ -711,13 +711,13 @@ where
 
 impl ToVariant for Variant {
     fn to_variant(&self) -> Variant {
-        Variant::variant(self)
+        Variant::from_variant(self)
     }
 }
 
 impl FromVariant for Variant {
     fn from_variant(variant: &Variant) -> Option<Self> {
-        variant.variant()
+        variant.as_variant()
     }
 }
 
@@ -795,7 +795,7 @@ macro_rules! tuple_impls {
                         let field = self.$n.to_variant();
                         fields.push(field);
                     )+
-                    Variant::tuple(&fields)
+                    Variant::from_tuple(&fields)
                 }
             }
         )+
