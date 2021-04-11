@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["instance_of",""]],"struct":[["ILong",""],["Type","A GLib or GLib-based library type"],["ULong",""]],"trait":[["StaticType","Types that are supported by GLib dynamic typing."]]});
