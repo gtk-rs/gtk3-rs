@@ -278,6 +278,8 @@
 <span id="275">275</span>
 <span id="276">276</span>
 <span id="277">277</span>
+<span id="278">278</span>
+<span id="279">279</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -371,6 +373,7 @@
     <span class="ident">clone</span>, <span class="ident">gflags</span>, <span class="ident">object_interface</span>, <span class="ident">object_subclass</span>, <span class="ident">Downgrade</span>, <span class="ident">GBoxed</span>, <span class="ident">GEnum</span>, <span class="ident">GErrorDomain</span>,
 };
 
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::array::Array</span>;
 <span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::byte_array::ByteArray</span>;
 <span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::bytes::Bytes</span>;
 <span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::closure::Closure</span>;
@@ -389,7 +392,7 @@
 
 <span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::enums</span>::{<span class="ident">EnumClass</span>, <span class="ident">EnumValue</span>, <span class="ident">FlagsBuilder</span>, <span class="ident">FlagsClass</span>, <span class="ident">FlagsValue</span>, <span class="ident">UserDirectory</span>};
 <span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::types</span>::{<span class="ident">ILong</span>, <span class="ident">StaticType</span>, <span class="ident">Type</span>, <span class="ident">ULong</span>};
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::value</span>::{<span class="ident">SendValue</span>, <span class="ident">ToSendValue</span>, <span class="ident">ToValue</span>, <span class="ident">TypedValue</span>, <span class="ident">Value</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::value</span>::{<span class="ident">SendValue</span>, <span class="ident">ToSendValue</span>, <span class="ident">ToValue</span>, <span class="ident">Value</span>};
 <span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::variant</span>::{<span class="ident">FromVariant</span>, <span class="ident">StaticVariantType</span>, <span class="ident">ToVariant</span>, <span class="ident">Variant</span>};
 <span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::variant_dict::VariantDict</span>;
 <span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::variant_iter::VariantIter</span>;
@@ -421,6 +424,7 @@
 <span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::gobject</span>::<span class="kw-2">*</span>;
 <span class="kw">mod</span> <span class="ident">gobject</span>;
 
+<span class="kw">mod</span> <span class="ident">array</span>;
 <span class="kw">mod</span> <span class="ident">byte_array</span>;
 <span class="kw">mod</span> <span class="ident">bytes</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">char</span>;
