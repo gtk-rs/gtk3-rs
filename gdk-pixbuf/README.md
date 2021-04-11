@@ -1,18 +1,43 @@
 # gdk-pixbuf
 
-Gdk-Pixbuf bindings for Rust.
-
-- [Gtk-rs project site](https://gtk-rs.org/)
-
-- [Online documentation](https://gtk-rs.org/docs-src/)
-
-- [Readme](https://github.com/gtk-rs/gtk/blob/master/README.md) in our
-  [main repo](https://github.com/gtk-rs/gtk)
+__Rust__ bindings and wrappers for __Gdk-Pixbuf__.
 
 ## Minimum supported Rust version
 
 Currently, the minimum supported Rust version is `1.48.0`.
 
+## Documentation
+
+ * [Rust API - Stable](https://gtk-rs.org/docs/gdk-pixbuf/)
+ * [Rust API - Development](https://gtk-rs.org/gtk-rs/git/docs/gdk-pixbuf)
+ * [C API](https://developer.gnome.org/gdk-pixbuf/stable/)
+ * [GTK Installation instructions](https://www.gtk.org/docs/installations/)
+
+## Using
+
+We recommend using [crates from crates.io](https://crates.io/keywords/gtk-rs),
+as [demonstrated here](https://gtk-rs.org/#using).
+
+If you want to track the bleeding edge, use the git dependency instead:
+
+```toml
+[dependencies]
+gdk-pixbuf = { git = "https://github.com/gtk-rs/gtk-rs.git", package = "gdk-pixbuf" }
+```
+
+Avoid mixing versioned and git crates like this:
+
+```toml
+# This will not compile
+[dependencies]
+gdk-pixbuf = "0.13"
+gdk-pixbuf = { git = "https://github.com/gtk-rs/gtk-rs.git", package = "gdk-pixbuf" }
+
+### See Also
+
+ * [glib](https://crates.io/crates/glib)
+ * [gio](https://crates.io/crates/gio)
+
 ## License
 
-MIT
+__gdk-pixbuf__ is available under the MIT License, please refer to it.

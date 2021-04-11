@@ -2,7 +2,7 @@
 
 [Project site](http://gtk-rs.org/) | [Online documentation](https://gtk-rs.org/docs-src/)
 
-__Rust__ bindings and wrappers for __GLib__, __GDK 3__, __GTK+ 3__  and __Cairo__.
+__Rust__ bindings and wrappers for __GTK 3__, part of [gtk-rs](https://github.com/gtk-rs/gtk-rs).
 
 ## Minimum supported Rust version
 
@@ -10,7 +10,7 @@ Currently, the minimum supported Rust version is `1.48.0`.
 
 ## Building
 
-__gtk__ expects __GTK+__, __GLib__ and __Cairo__ development files to be installed on your system.
+__gtk__ expects __GTK__, __GLib__ and __Cairo__ development files to be installed on your system.
 See the [GTK installation page](https://www.gtk.org/docs/installations/).
 
 ## Using
@@ -30,11 +30,16 @@ Avoid mixing versioned and git crates like this:
 ```toml
 # This will not compile
 [dependencies]
-gdk = "0.2"
+gtk = "0.13"
 gtk = { git = "https://github.com/gtk-rs/gtk.git" }
 ```
 
 ## Documentation
+
+ * [Rust API - Stable](https://gtk-rs.org/docs/gtk/)
+ * [Rust API - Development](https://gtk-rs.org/gtk-rs/git/docs/gtk)
+ * [C API](https://developer.gnome.org/gtk/stable/)
+ * [GTK Installation instructions](https://www.gtk.org/docs/installations/)
 
 The majority of the documentation is kept [in a separate repo][gtk-md] due to
 licensing issues. You can pull it in with cargo:
@@ -82,6 +87,16 @@ When opening a PR please put the changes to the `src/auto` directory in a separa
 
 You may also wish to run `cargo clippy -- -D warnings` and check that you're clean because
 otherwise you may be surprised when CI fails.
+
+## See Also
+
+ * [atk](https://crates.io/crates/atk)
+ * [cairo](https://crates.io/crates/cairo-rs)
+ * [gdk](https://crates.io/crates/gdk)
+ * [gdk-pixbuf](https://crates.io/crates/gdk-pixbuf)
+ * [gio](https://crates.io/crates/gio)
+ * [glib](https://crates.io/crates/glib)
+ * [pango](https://crates.io/crates/pango)
 
 ## License
 

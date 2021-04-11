@@ -37,15 +37,9 @@ features = ["dox", "embed-lgpl-docs"]
 libc = "0.2"
 x11 = "2.18"
 ffi = { package = "gdkx11-sys", path = "sys" }
-
-[dependencies.glib]
-path = "../glib"
-
-[dependencies.gdk]
-path = "../gdk"
-
-[dependencies.gio]
-path = "../gio"
+glib = { path = "../glib" }
+gdk = { path = "../gdk" }
+gio = { path = "../gio" }
 
 [dev-dependencies]
 gir-format-check = "^0.1"
