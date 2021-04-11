@@ -21,7 +21,7 @@ pub struct GString(Inner);
 #[derive(Debug)]
 enum Inner {
     Native(Option<CString>),
-    Foreign(*mut c_char, usize),
+    Foreign(ptr::NonNull<c_char>, usize),
 }
 
 unsafe impl Send for GString {}
@@ -43,7 +43,11 @@ impl GString {
     /// The underlying string must not be mutated, in particular in terms of
     /// length, underneath the `GString` instance.
     unsafe fn new(ptr: *mut c_char) -> Self {
-        GString(Inner::Foreign(ptr, libc::strlen(ptr)))
+        assert!(!ptr.is_null());
+        GString(Inner::Foreign(
+            ptr::NonNull::new_unchecked(ptr),
+            libc::strlen(ptr),
+        ))
     }
 
     /// Create a new GString from a glib-originated string, borrowing it rather
@@ -59,16 +63,17 @@ impl GString {
     /// The underlying string must not be mutated, in particular in terms of
     /// length, underneath the `GString` instance for the duration of the borrow.
     unsafe fn new_borrowed(ptr: *const c_char) -> Borrowed<Self> {
-        Borrowed::new(GString(Inner::Foreign(ptr as *mut _, libc::strlen(ptr))))
+        assert!(!ptr.is_null());
+        Borrowed::new(GString(Inner::Foreign(
+            ptr::NonNull::new_unchecked(ptr as *mut _),
+            libc::strlen(ptr),
+        )))
     }
 
     pub fn as_str(&self) -> &str {
         let cstr = match self {
             GString(Inner::Foreign(ptr, length)) => unsafe {
-                if ptr.is_null() || length == &0 {
-                    return "";
-                }
-                let bytes = slice::from_raw_parts(*ptr as *const u8, length + 1);
+                let bytes = slice::from_raw_parts(ptr.as_ptr() as *const u8, length + 1);
                 CStr::from_bytes_with_nul_unchecked(bytes)
             },
             GString(Inner::Native(cstring)) => cstring
@@ -92,7 +97,7 @@ impl Drop for GString {
     fn drop(&mut self) {
         if let GString(Inner::Foreign(ptr, _len)) = self {
             unsafe {
-                ffi::g_free(*ptr as *mut _);
+                ffi::g_free(ptr.as_ptr() as *mut _);
             }
         }
     }
@@ -108,11 +113,7 @@ impl hash::Hash for GString {
     fn hash<H: hash::Hasher>(&self, state: &mut H) {
         let bytes = match self {
             GString(Inner::Foreign(ptr, length)) => unsafe {
-                if ptr.is_null() || length == &0 {
-                    b""
-                } else {
-                    slice::from_raw_parts(*ptr as *const u8, length + 1)
-                }
+                slice::from_raw_parts(ptr.as_ptr() as *const u8, length + 1)
             },
             GString(Inner::Native(cstring)) => cstring
                 .as_ref()
@@ -324,6 +325,7 @@ impl FromGlibPtrFull<*mut i8> for GString {
 impl FromGlibPtrNone<*const c_char> for GString {
     #[inline]
     unsafe fn from_glib_none(ptr: *const c_char) -> Self {
+        assert!(!ptr.is_null());
         let cstr = CStr::from_ptr(ptr);
         cstr.into()
     }
@@ -333,6 +335,7 @@ impl FromGlibPtrNone<*const c_char> for GString {
 impl FromGlibPtrNone<*mut u8> for GString {
     #[inline]
     unsafe fn from_glib_none(ptr: *mut u8) -> Self {
+        assert!(!ptr.is_null());
         let cstr = CStr::from_ptr(ptr as *mut _);
         cstr.into()
     }
@@ -342,6 +345,7 @@ impl FromGlibPtrNone<*mut u8> for GString {
 impl FromGlibPtrNone<*mut i8> for GString {
     #[inline]
     unsafe fn from_glib_none(ptr: *mut i8) -> Self {
+        assert!(!ptr.is_null());
         let cstr = CStr::from_ptr(ptr as *mut _);
         cstr.into()
     }
@@ -422,11 +426,23 @@ impl<'a> FromGlibContainer<*const c_char, *const i8> for GString {
     }
 
     unsafe fn from_glib_container_num(ptr: *const i8, num: usize) -> Self {
-        GString(Inner::Foreign(ptr as *mut _, num))
+        if num == 0 || ptr.is_null() {
+            return Self::from("");
+        }
+        GString(Inner::Foreign(
+            ptr::NonNull::new_unchecked(ptr as *mut _),
+            num,
+        ))
     }
 
     unsafe fn from_glib_full_num(ptr: *const i8, num: usize) -> Self {
-        GString(Inner::Foreign(ptr as *mut _, num))
+        if num == 0 || ptr.is_null() {
+            return Self::from("");
+        }
+        GString(Inner::Foreign(
+            ptr::NonNull::new_unchecked(ptr as *mut _),
+            num,
+        ))
     }
 }
 
