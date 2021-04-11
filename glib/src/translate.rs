@@ -2253,6 +2253,53 @@ mod tests {
     use std::collections::HashMap;
 
     #[test]
+    fn boolean() {
+        assert_eq!(true.to_glib(), ffi::GTRUE);
+        assert_eq!(false.to_glib(), ffi::GFALSE);
+        assert_eq!(true, unsafe { bool::from_glib(ffi::GTRUE) });
+        assert_eq!(false, unsafe { bool::from_glib(ffi::GFALSE) });
+        assert_eq!(true, unsafe { bool::from_glib(42) });
+    }
+
+    #[test]
+    fn ordering() {
+        assert_eq!(Ordering::Less.to_glib(), -1);
+        assert_eq!(Ordering::Equal.to_glib(), 0);
+        assert_eq!(Ordering::Greater.to_glib(), 1);
+        assert_eq!(Ordering::Less, unsafe { Ordering::from_glib(-42) });
+        assert_eq!(Ordering::Less, unsafe { Ordering::from_glib(-1) });
+        assert_eq!(Ordering::Equal, unsafe { Ordering::from_glib(0) });
+        assert_eq!(Ordering::Greater, unsafe { Ordering::from_glib(1) });
+        assert_eq!(Ordering::Greater, unsafe { Ordering::from_glib(42) });
+    }
+
+    #[test]
+    fn string() {
+        let s = "ABC";
+        let owned = "ABC".to_string();
+        let cstring = CString::new("ABC").unwrap();
+
+        let stash = s.to_glib_none();
+        assert_eq!(unsafe { CStr::from_ptr(stash.0) }, cstring.as_c_str());
+
+        let stash = owned.to_glib_none();
+        assert_eq!(unsafe { CStr::from_ptr(stash.0) }, cstring.as_c_str());
+
+        let ptr: *mut c_char = s.to_glib_full();
+        assert_eq!(unsafe { CStr::from_ptr(ptr) }, cstring.as_c_str());
+
+        unsafe {
+            ffi::g_free(ptr as *mut _);
+        }
+
+        let ptr: *mut c_char = owned.to_glib_full();
+        assert_eq!(unsafe { CStr::from_ptr(ptr) }, cstring.as_c_str());
+
+        assert_eq!(s, unsafe { String::from_glib_none(ptr) });
+        assert_eq!(owned, unsafe { String::from_glib_full(ptr) });
+    }
+
+    #[test]
     fn string_hash_map() {
         let mut map = HashMap::new();
         map.insert("A".into(), "1".into());
