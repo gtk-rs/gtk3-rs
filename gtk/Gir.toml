@@ -1315,6 +1315,11 @@ name = "Gtk.Label"
 status = "generate"
 generate_builder = true
     [[object.function]]
+    name = "new_with_mnemonic"
+        [[object.function.parameter]]
+        name = "str"
+        nullable = false
+    [[object.function]]
     name = "get_label"
         [object.function.return]
         nullable = false
@@ -1346,6 +1351,11 @@ generate_builder = true
 name = "Gtk.LinkButton"
 status = "generate"
 generate_builder = true
+    [[object.function]]
+    name = "new_with_label"
+        [[object.function.parameter]]
+        name = "label"
+        nullable = false
     [[object.signal]]
     name = "activate-link"
     inhibit = true
