@@ -21,8 +21,7 @@ impl State {
 
 fn main() {
     let application =
-        Application::new(Some("com.github.gtk-rs.examples.basic"), Default::default())
-            .expect("failed to initialize GTK application");
+        Application::new(Some("com.github.gtk-rs.examples.basic"), Default::default());
 
     let state = Rc::new(RefCell::new(State::new()));
 

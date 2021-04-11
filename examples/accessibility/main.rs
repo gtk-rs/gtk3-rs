@@ -41,8 +41,7 @@ fn main() {
     let application = gtk::Application::new(
         Some("com.github.accessibility"),
         gio::ApplicationFlags::empty(),
-    )
-    .expect("Initialization failed...");
+    );
 
     application.connect_activate(|app| {
         // We build the application UI.

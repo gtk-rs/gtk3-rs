@@ -113,8 +113,7 @@ fn main() {
     let application = gtk::Application::new(
         Some("com.github.gtk-rs.examples.treeview"),
         Default::default(),
-    )
-    .expect("Initialization failed...");
+    );
 
     application.connect_activate(build_ui);
 

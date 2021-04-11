@@ -61,8 +61,7 @@ fn build_ui(application: &gtk::Application) {
 
 fn main() {
     let application =
-        gtk::Application::new(Some("com.github.overlay"), gio::ApplicationFlags::empty())
-            .expect("Initialization failed...");
+        gtk::Application::new(Some("com.github.overlay"), gio::ApplicationFlags::empty());
 
     application.connect_startup(|_| {
         // We add a bit of CSS in order to make the overlay label easier to be seen.

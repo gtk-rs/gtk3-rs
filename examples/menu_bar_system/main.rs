@@ -6,8 +6,7 @@ fn main() {
     let application = gtk::Application::new(
         Some("com.github.gtk-rs.examples.menu_bar_system"),
         Default::default(),
-    )
-    .expect("Initialization failed...");
+    );
 
     application.connect_startup(|app| {
         add_accelerators(app);

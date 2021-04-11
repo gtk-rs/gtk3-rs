@@ -125,8 +125,7 @@ fn main() {
     let application = gtk::Application::new(
         Some("org.gtk-rs.example.clipboard_simple"),
         gio::ApplicationFlags::NON_UNIQUE,
-    )
-    .expect("Initialization failed...");
+    );
 
     application.connect_startup(build_ui);
     application.connect_activate(|_| {});

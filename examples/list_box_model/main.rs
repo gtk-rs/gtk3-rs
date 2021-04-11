@@ -12,8 +12,7 @@ fn main() {
     let application = gtk::Application::new(
         Some("com.github.gtk-rs.examples.listbox-model"),
         Default::default(),
-    )
-    .expect("Initialization failed...");
+    );
 
     application.connect_activate(build_ui);
 

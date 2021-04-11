@@ -6,8 +6,7 @@ fn main() {
     let application = gtk::Application::new(
         Some("com.github.gtk-rs.examples.drag_and_drop_textview"),
         Default::default(),
-    )
-    .expect("Initialization failed...");
+    );
 
     application.connect_activate(build_ui);
 
