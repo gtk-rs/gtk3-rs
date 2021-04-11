@@ -59,31 +59,31 @@ pub trait MountExt: 'static {
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>>;
 
     #[doc(alias = "g_mount_get_default_location")]
-    fn get_default_location(&self) -> File;
+    fn default_location(&self) -> File;
 
     #[doc(alias = "g_mount_get_drive")]
-    fn get_drive(&self) -> Option<Drive>;
+    fn drive(&self) -> Option<Drive>;
 
     #[doc(alias = "g_mount_get_icon")]
-    fn get_icon(&self) -> Icon;
+    fn icon(&self) -> Icon;
 
     #[doc(alias = "g_mount_get_name")]
-    fn get_name(&self) -> glib::GString;
+    fn name(&self) -> glib::GString;
 
     #[doc(alias = "g_mount_get_root")]
-    fn get_root(&self) -> File;
+    fn root(&self) -> File;
 
     #[doc(alias = "g_mount_get_sort_key")]
-    fn get_sort_key(&self) -> Option<glib::GString>;
+    fn sort_key(&self) -> Option<glib::GString>;
 
     #[doc(alias = "g_mount_get_symbolic_icon")]
-    fn get_symbolic_icon(&self) -> Icon;
+    fn symbolic_icon(&self) -> Icon;
 
     #[doc(alias = "g_mount_get_uuid")]
-    fn get_uuid(&self) -> Option<glib::GString>;
+    fn uuid(&self) -> Option<glib::GString>;
 
     #[doc(alias = "g_mount_get_volume")]
-    fn get_volume(&self) -> Option<Volume>;
+    fn volume(&self) -> Option<Volume>;
 
     #[doc(alias = "g_mount_guess_content_type")]
     fn guess_content_type<
@@ -237,7 +237,7 @@ impl<O: IsA<Mount>> MountExt for O {
         }))
     }
 
-    fn get_default_location(&self) -> File {
+    fn default_location(&self) -> File {
         unsafe {
             from_glib_full(ffi::g_mount_get_default_location(
                 self.as_ref().to_glib_none().0,
@@ -245,27 +245,27 @@ impl<O: IsA<Mount>> MountExt for O {
         }
     }
 
-    fn get_drive(&self) -> Option<Drive> {
+    fn drive(&self) -> Option<Drive> {
         unsafe { from_glib_full(ffi::g_mount_get_drive(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_icon(&self) -> Icon {
+    fn icon(&self) -> Icon {
         unsafe { from_glib_full(ffi::g_mount_get_icon(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_name(&self) -> glib::GString {
+    fn name(&self) -> glib::GString {
         unsafe { from_glib_full(ffi::g_mount_get_name(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_root(&self) -> File {
+    fn root(&self) -> File {
         unsafe { from_glib_full(ffi::g_mount_get_root(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_sort_key(&self) -> Option<glib::GString> {
+    fn sort_key(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::g_mount_get_sort_key(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_symbolic_icon(&self) -> Icon {
+    fn symbolic_icon(&self) -> Icon {
         unsafe {
             from_glib_full(ffi::g_mount_get_symbolic_icon(
                 self.as_ref().to_glib_none().0,
@@ -273,11 +273,11 @@ impl<O: IsA<Mount>> MountExt for O {
         }
     }
 
-    fn get_uuid(&self) -> Option<glib::GString> {
+    fn uuid(&self) -> Option<glib::GString> {
         unsafe { from_glib_full(ffi::g_mount_get_uuid(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_volume(&self) -> Option<Volume> {
+    fn volume(&self) -> Option<Volume> {
         unsafe { from_glib_full(ffi::g_mount_get_volume(self.as_ref().to_glib_none().0)) }
     }
 

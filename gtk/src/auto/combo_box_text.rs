@@ -521,7 +521,7 @@ pub trait ComboBoxTextExt: 'static {
     fn append_text(&self, text: &str);
 
     #[doc(alias = "gtk_combo_box_text_get_active_text")]
-    fn get_active_text(&self) -> Option<glib::GString>;
+    fn active_text(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_combo_box_text_insert")]
     fn insert(&self, position: i32, id: Option<&str>, text: &str);
@@ -562,7 +562,7 @@ impl<O: IsA<ComboBoxText>> ComboBoxTextExt for O {
         }
     }
 
-    fn get_active_text(&self) -> Option<glib::GString> {
+    fn active_text(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_full(ffi::gtk_combo_box_text_get_active_text(
                 self.as_ref().to_glib_none().0,

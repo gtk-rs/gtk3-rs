@@ -38,7 +38,7 @@ impl RecentChooserDialog {
     //}
 
     //#[doc(alias = "gtk_recent_chooser_dialog_new_for_manager")]
-    //pub fn new_for_manager<P: IsA<Window>, Q: IsA<RecentManager>>(title: Option<&str>, parent: Option<&P>, manager: &Q, first_button_text: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> RecentChooserDialog {
+    //pub fn for_manager<P: IsA<Window>, Q: IsA<RecentManager>>(title: Option<&str>, parent: Option<&P>, manager: &Q, first_button_text: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> RecentChooserDialog {
     //    unsafe { TODO: call ffi:gtk_recent_chooser_dialog_new_for_manager() }
     //}
 }

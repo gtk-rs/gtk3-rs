@@ -42,12 +42,12 @@ impl CharsetConverter {
     }
 
     #[doc(alias = "g_charset_converter_get_num_fallbacks")]
-    pub fn get_num_fallbacks(&self) -> u32 {
+    pub fn num_fallbacks(&self) -> u32 {
         unsafe { ffi::g_charset_converter_get_num_fallbacks(self.to_glib_none().0) }
     }
 
     #[doc(alias = "g_charset_converter_get_use_fallback")]
-    pub fn get_use_fallback(&self) -> bool {
+    pub fn uses_fallback(&self) -> bool {
         unsafe {
             from_glib(ffi::g_charset_converter_get_use_fallback(
                 self.to_glib_none().0,
@@ -65,7 +65,8 @@ impl CharsetConverter {
         }
     }
 
-    pub fn get_property_from_charset(&self) -> Option<glib::GString> {
+    #[doc(alias = "get_property_from_charset")]
+    pub fn from_charset(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -79,7 +80,8 @@ impl CharsetConverter {
         }
     }
 
-    pub fn get_property_to_charset(&self) -> Option<glib::GString> {
+    #[doc(alias = "get_property_to_charset")]
+    pub fn to_charset(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(

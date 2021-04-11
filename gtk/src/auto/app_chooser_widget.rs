@@ -484,22 +484,22 @@ pub const NONE_APP_CHOOSER_WIDGET: Option<&AppChooserWidget> = None;
 
 pub trait AppChooserWidgetExt: 'static {
     #[doc(alias = "gtk_app_chooser_widget_get_default_text")]
-    fn get_default_text(&self) -> Option<glib::GString>;
+    fn default_text(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_app_chooser_widget_get_show_all")]
-    fn get_show_all(&self) -> bool;
+    fn shows_all(&self) -> bool;
 
     #[doc(alias = "gtk_app_chooser_widget_get_show_default")]
-    fn get_show_default(&self) -> bool;
+    fn shows_default(&self) -> bool;
 
     #[doc(alias = "gtk_app_chooser_widget_get_show_fallback")]
-    fn get_show_fallback(&self) -> bool;
+    fn shows_fallback(&self) -> bool;
 
     #[doc(alias = "gtk_app_chooser_widget_get_show_other")]
-    fn get_show_other(&self) -> bool;
+    fn shows_other(&self) -> bool;
 
     #[doc(alias = "gtk_app_chooser_widget_get_show_recommended")]
-    fn get_show_recommended(&self) -> bool;
+    fn shows_recommended(&self) -> bool;
 
     #[doc(alias = "gtk_app_chooser_widget_set_default_text")]
     fn set_default_text(&self, text: &str);
@@ -556,7 +556,7 @@ pub trait AppChooserWidgetExt: 'static {
 }
 
 impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
-    fn get_default_text(&self) -> Option<glib::GString> {
+    fn default_text(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_app_chooser_widget_get_default_text(
                 self.as_ref().to_glib_none().0,
@@ -564,7 +564,7 @@ impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
         }
     }
 
-    fn get_show_all(&self) -> bool {
+    fn shows_all(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_app_chooser_widget_get_show_all(
                 self.as_ref().to_glib_none().0,
@@ -572,7 +572,7 @@ impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
         }
     }
 
-    fn get_show_default(&self) -> bool {
+    fn shows_default(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_app_chooser_widget_get_show_default(
                 self.as_ref().to_glib_none().0,
@@ -580,7 +580,7 @@ impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
         }
     }
 
-    fn get_show_fallback(&self) -> bool {
+    fn shows_fallback(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_app_chooser_widget_get_show_fallback(
                 self.as_ref().to_glib_none().0,
@@ -588,7 +588,7 @@ impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
         }
     }
 
-    fn get_show_other(&self) -> bool {
+    fn shows_other(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_app_chooser_widget_get_show_other(
                 self.as_ref().to_glib_none().0,
@@ -596,7 +596,7 @@ impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
         }
     }
 
-    fn get_show_recommended(&self) -> bool {
+    fn shows_recommended(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_app_chooser_widget_get_show_recommended(
                 self.as_ref().to_glib_none().0,

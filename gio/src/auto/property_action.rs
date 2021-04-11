@@ -41,7 +41,8 @@ impl PropertyAction {
 
     #[cfg(any(feature = "v2_46", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
-    pub fn get_property_invert_boolean(&self) -> bool {
+    #[doc(alias = "get_property_invert_boolean")]
+    pub fn inverts_boolean(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(

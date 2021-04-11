@@ -24,57 +24,57 @@ crate::wrapper! {
 
 impl Uri {
     #[doc(alias = "g_uri_get_auth_params")]
-    pub fn get_auth_params(&self) -> Option<crate::GString> {
+    pub fn auth_params(&self) -> Option<crate::GString> {
         unsafe { from_glib_none(ffi::g_uri_get_auth_params(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_uri_get_flags")]
-    pub fn get_flags(&self) -> UriFlags {
+    pub fn flags(&self) -> UriFlags {
         unsafe { from_glib(ffi::g_uri_get_flags(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_uri_get_fragment")]
-    pub fn get_fragment(&self) -> Option<crate::GString> {
+    pub fn fragment(&self) -> Option<crate::GString> {
         unsafe { from_glib_none(ffi::g_uri_get_fragment(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_uri_get_host")]
-    pub fn get_host(&self) -> Option<crate::GString> {
+    pub fn host(&self) -> Option<crate::GString> {
         unsafe { from_glib_none(ffi::g_uri_get_host(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_uri_get_password")]
-    pub fn get_password(&self) -> Option<crate::GString> {
+    pub fn password(&self) -> Option<crate::GString> {
         unsafe { from_glib_none(ffi::g_uri_get_password(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_uri_get_path")]
-    pub fn get_path(&self) -> crate::GString {
+    pub fn path(&self) -> crate::GString {
         unsafe { from_glib_none(ffi::g_uri_get_path(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_uri_get_port")]
-    pub fn get_port(&self) -> i32 {
+    pub fn port(&self) -> i32 {
         unsafe { ffi::g_uri_get_port(self.to_glib_none().0) }
     }
 
     #[doc(alias = "g_uri_get_query")]
-    pub fn get_query(&self) -> Option<crate::GString> {
+    pub fn query(&self) -> Option<crate::GString> {
         unsafe { from_glib_none(ffi::g_uri_get_query(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_uri_get_scheme")]
-    pub fn get_scheme(&self) -> crate::GString {
+    pub fn scheme(&self) -> crate::GString {
         unsafe { from_glib_none(ffi::g_uri_get_scheme(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_uri_get_user")]
-    pub fn get_user(&self) -> Option<crate::GString> {
+    pub fn user(&self) -> Option<crate::GString> {
         unsafe { from_glib_none(ffi::g_uri_get_user(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_uri_get_userinfo")]
-    pub fn get_userinfo(&self) -> Option<crate::GString> {
+    pub fn userinfo(&self) -> Option<crate::GString> {
         unsafe { from_glib_none(ffi::g_uri_get_userinfo(self.to_glib_none().0)) }
     }
 

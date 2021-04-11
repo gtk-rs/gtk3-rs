@@ -109,52 +109,52 @@ pub trait SocketExt: 'static {
     fn connection_factory_create_connection(&self) -> SocketConnection;
 
     #[doc(alias = "g_socket_get_available_bytes")]
-    fn get_available_bytes(&self) -> isize;
+    fn available_bytes(&self) -> isize;
 
     #[doc(alias = "g_socket_get_blocking")]
-    fn get_blocking(&self) -> bool;
+    fn is_blocking(&self) -> bool;
 
     #[doc(alias = "g_socket_get_broadcast")]
-    fn get_broadcast(&self) -> bool;
+    fn is_broadcast(&self) -> bool;
 
     #[doc(alias = "g_socket_get_credentials")]
-    fn get_credentials(&self) -> Result<Credentials, glib::Error>;
+    fn credentials(&self) -> Result<Credentials, glib::Error>;
 
     #[doc(alias = "g_socket_get_family")]
-    fn get_family(&self) -> SocketFamily;
+    fn family(&self) -> SocketFamily;
 
     #[doc(alias = "g_socket_get_keepalive")]
-    fn get_keepalive(&self) -> bool;
+    fn is_keepalive(&self) -> bool;
 
     #[doc(alias = "g_socket_get_listen_backlog")]
-    fn get_listen_backlog(&self) -> i32;
+    fn listen_backlog(&self) -> i32;
 
     #[doc(alias = "g_socket_get_local_address")]
-    fn get_local_address(&self) -> Result<SocketAddress, glib::Error>;
+    fn local_address(&self) -> Result<SocketAddress, glib::Error>;
 
     #[doc(alias = "g_socket_get_multicast_loopback")]
-    fn get_multicast_loopback(&self) -> bool;
+    fn is_multicast_loopback(&self) -> bool;
 
     #[doc(alias = "g_socket_get_multicast_ttl")]
-    fn get_multicast_ttl(&self) -> u32;
+    fn multicast_ttl(&self) -> u32;
 
     #[doc(alias = "g_socket_get_option")]
     fn get_option(&self, level: i32, optname: i32) -> Result<i32, glib::Error>;
 
     #[doc(alias = "g_socket_get_protocol")]
-    fn get_protocol(&self) -> SocketProtocol;
+    fn protocol(&self) -> SocketProtocol;
 
     #[doc(alias = "g_socket_get_remote_address")]
-    fn get_remote_address(&self) -> Result<SocketAddress, glib::Error>;
+    fn remote_address(&self) -> Result<SocketAddress, glib::Error>;
 
     #[doc(alias = "g_socket_get_socket_type")]
-    fn get_socket_type(&self) -> SocketType;
+    fn socket_type(&self) -> SocketType;
 
     #[doc(alias = "g_socket_get_timeout")]
-    fn get_timeout(&self) -> u32;
+    fn timeout(&self) -> u32;
 
     #[doc(alias = "g_socket_get_ttl")]
-    fn get_ttl(&self) -> u32;
+    fn ttl(&self) -> u32;
 
     #[doc(alias = "g_socket_is_closed")]
     fn is_closed(&self) -> bool;
@@ -234,7 +234,8 @@ pub trait SocketExt: 'static {
     #[doc(alias = "g_socket_speaks_ipv4")]
     fn speaks_ipv4(&self) -> bool;
 
-    fn get_property_type(&self) -> SocketType;
+    #[doc(alias = "get_property_type")]
+    fn type_(&self) -> SocketType;
 
     fn connect_property_blocking_notify<F: Fn(&Self) + Send + 'static>(
         &self,
@@ -428,19 +429,19 @@ impl<O: IsA<Socket>> SocketExt for O {
         }
     }
 
-    fn get_available_bytes(&self) -> isize {
+    fn available_bytes(&self) -> isize {
         unsafe { ffi::g_socket_get_available_bytes(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_blocking(&self) -> bool {
+    fn is_blocking(&self) -> bool {
         unsafe { from_glib(ffi::g_socket_get_blocking(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_broadcast(&self) -> bool {
+    fn is_broadcast(&self) -> bool {
         unsafe { from_glib(ffi::g_socket_get_broadcast(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_credentials(&self) -> Result<Credentials, glib::Error> {
+    fn credentials(&self) -> Result<Credentials, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = ffi::g_socket_get_credentials(self.as_ref().to_glib_none().0, &mut error);
@@ -452,19 +453,19 @@ impl<O: IsA<Socket>> SocketExt for O {
         }
     }
 
-    fn get_family(&self) -> SocketFamily {
+    fn family(&self) -> SocketFamily {
         unsafe { from_glib(ffi::g_socket_get_family(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_keepalive(&self) -> bool {
+    fn is_keepalive(&self) -> bool {
         unsafe { from_glib(ffi::g_socket_get_keepalive(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_listen_backlog(&self) -> i32 {
+    fn listen_backlog(&self) -> i32 {
         unsafe { ffi::g_socket_get_listen_backlog(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_local_address(&self) -> Result<SocketAddress, glib::Error> {
+    fn local_address(&self) -> Result<SocketAddress, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = ffi::g_socket_get_local_address(self.as_ref().to_glib_none().0, &mut error);
@@ -476,7 +477,7 @@ impl<O: IsA<Socket>> SocketExt for O {
         }
     }
 
-    fn get_multicast_loopback(&self) -> bool {
+    fn is_multicast_loopback(&self) -> bool {
         unsafe {
             from_glib(ffi::g_socket_get_multicast_loopback(
                 self.as_ref().to_glib_none().0,
@@ -484,7 +485,7 @@ impl<O: IsA<Socket>> SocketExt for O {
         }
     }
 
-    fn get_multicast_ttl(&self) -> u32 {
+    fn multicast_ttl(&self) -> u32 {
         unsafe { ffi::g_socket_get_multicast_ttl(self.as_ref().to_glib_none().0) }
     }
 
@@ -508,11 +509,11 @@ impl<O: IsA<Socket>> SocketExt for O {
         }
     }
 
-    fn get_protocol(&self) -> SocketProtocol {
+    fn protocol(&self) -> SocketProtocol {
         unsafe { from_glib(ffi::g_socket_get_protocol(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_remote_address(&self) -> Result<SocketAddress, glib::Error> {
+    fn remote_address(&self) -> Result<SocketAddress, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = ffi::g_socket_get_remote_address(self.as_ref().to_glib_none().0, &mut error);
@@ -524,7 +525,7 @@ impl<O: IsA<Socket>> SocketExt for O {
         }
     }
 
-    fn get_socket_type(&self) -> SocketType {
+    fn socket_type(&self) -> SocketType {
         unsafe {
             from_glib(ffi::g_socket_get_socket_type(
                 self.as_ref().to_glib_none().0,
@@ -532,11 +533,11 @@ impl<O: IsA<Socket>> SocketExt for O {
         }
     }
 
-    fn get_timeout(&self) -> u32 {
+    fn timeout(&self) -> u32 {
         unsafe { ffi::g_socket_get_timeout(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_ttl(&self) -> u32 {
+    fn ttl(&self) -> u32 {
         unsafe { ffi::g_socket_get_ttl(self.as_ref().to_glib_none().0) }
     }
 
@@ -746,7 +747,7 @@ impl<O: IsA<Socket>> SocketExt for O {
         unsafe { from_glib(ffi::g_socket_speaks_ipv4(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_property_type(&self) -> SocketType {
+    fn type_(&self) -> SocketType {
         unsafe {
             let mut value = glib::Value::from_type(<SocketType as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(

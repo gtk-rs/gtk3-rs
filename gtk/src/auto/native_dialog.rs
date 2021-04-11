@@ -28,16 +28,16 @@ pub trait NativeDialogExt: 'static {
     fn destroy(&self);
 
     #[doc(alias = "gtk_native_dialog_get_modal")]
-    fn get_modal(&self) -> bool;
+    fn is_modal(&self) -> bool;
 
     #[doc(alias = "gtk_native_dialog_get_title")]
-    fn get_title(&self) -> Option<glib::GString>;
+    fn title(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_native_dialog_get_transient_for")]
-    fn get_transient_for(&self) -> Option<Window>;
+    fn transient_for(&self) -> Option<Window>;
 
     #[doc(alias = "gtk_native_dialog_get_visible")]
-    fn get_visible(&self) -> bool;
+    fn is_visible(&self) -> bool;
 
     #[doc(alias = "gtk_native_dialog_hide")]
     fn hide(&self);
@@ -59,7 +59,8 @@ pub trait NativeDialogExt: 'static {
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-    fn set_property_visible(&self, visible: bool);
+    #[doc(alias = "set_property_visible")]
+    fn set_visible(&self, visible: bool);
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
@@ -92,7 +93,7 @@ impl<O: IsA<NativeDialog>> NativeDialogExt for O {
         }
     }
 
-    fn get_modal(&self) -> bool {
+    fn is_modal(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_native_dialog_get_modal(
                 self.as_ref().to_glib_none().0,
@@ -100,7 +101,7 @@ impl<O: IsA<NativeDialog>> NativeDialogExt for O {
         }
     }
 
-    fn get_title(&self) -> Option<glib::GString> {
+    fn title(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_native_dialog_get_title(
                 self.as_ref().to_glib_none().0,
@@ -108,7 +109,7 @@ impl<O: IsA<NativeDialog>> NativeDialogExt for O {
         }
     }
 
-    fn get_transient_for(&self) -> Option<Window> {
+    fn transient_for(&self) -> Option<Window> {
         unsafe {
             from_glib_none(ffi::gtk_native_dialog_get_transient_for(
                 self.as_ref().to_glib_none().0,
@@ -116,7 +117,7 @@ impl<O: IsA<NativeDialog>> NativeDialogExt for O {
         }
     }
 
-    fn get_visible(&self) -> bool {
+    fn is_visible(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_native_dialog_get_visible(
                 self.as_ref().to_glib_none().0,
@@ -166,7 +167,7 @@ impl<O: IsA<NativeDialog>> NativeDialogExt for O {
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-    fn set_property_visible(&self, visible: bool) {
+    fn set_visible(&self, visible: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,

@@ -156,22 +156,22 @@ pub trait TextBufferExt: 'static {
     fn end_user_action(&self);
 
     #[doc(alias = "gtk_text_buffer_get_bounds")]
-    fn get_bounds(&self) -> (TextIter, TextIter);
+    fn bounds(&self) -> (TextIter, TextIter);
 
     #[doc(alias = "gtk_text_buffer_get_char_count")]
-    fn get_char_count(&self) -> i32;
+    fn char_count(&self) -> i32;
 
     #[doc(alias = "gtk_text_buffer_get_copy_target_list")]
-    fn get_copy_target_list(&self) -> Option<TargetList>;
+    fn copy_target_list(&self) -> Option<TargetList>;
 
     #[doc(alias = "gtk_text_buffer_get_deserialize_formats")]
-    fn get_deserialize_formats(&self) -> Vec<gdk::Atom>;
+    fn deserialize_formats(&self) -> Vec<gdk::Atom>;
 
     #[doc(alias = "gtk_text_buffer_get_end_iter")]
-    fn get_end_iter(&self) -> TextIter;
+    fn end_iter(&self) -> TextIter;
 
     #[doc(alias = "gtk_text_buffer_get_has_selection")]
-    fn get_has_selection(&self) -> bool;
+    fn has_selection(&self) -> bool;
 
     #[doc(alias = "gtk_text_buffer_get_insert")]
     fn get_insert(&self) -> Option<TextMark>;
@@ -195,25 +195,25 @@ pub trait TextBufferExt: 'static {
     fn get_iter_at_offset(&self, char_offset: i32) -> TextIter;
 
     #[doc(alias = "gtk_text_buffer_get_line_count")]
-    fn get_line_count(&self) -> i32;
+    fn line_count(&self) -> i32;
 
     #[doc(alias = "gtk_text_buffer_get_mark")]
     fn get_mark(&self, name: &str) -> Option<TextMark>;
 
     #[doc(alias = "gtk_text_buffer_get_modified")]
-    fn get_modified(&self) -> bool;
+    fn is_modified(&self) -> bool;
 
     #[doc(alias = "gtk_text_buffer_get_paste_target_list")]
-    fn get_paste_target_list(&self) -> Option<TargetList>;
+    fn paste_target_list(&self) -> Option<TargetList>;
 
     #[doc(alias = "gtk_text_buffer_get_selection_bound")]
-    fn get_selection_bound(&self) -> Option<TextMark>;
+    fn selection_bound(&self) -> Option<TextMark>;
 
     #[doc(alias = "gtk_text_buffer_get_selection_bounds")]
-    fn get_selection_bounds(&self) -> Option<(TextIter, TextIter)>;
+    fn selection_bounds(&self) -> Option<(TextIter, TextIter)>;
 
     #[doc(alias = "gtk_text_buffer_get_serialize_formats")]
-    fn get_serialize_formats(&self) -> Vec<gdk::Atom>;
+    fn serialize_formats(&self) -> Vec<gdk::Atom>;
 
     #[doc(alias = "gtk_text_buffer_get_slice")]
     fn get_slice(
@@ -224,10 +224,10 @@ pub trait TextBufferExt: 'static {
     ) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_text_buffer_get_start_iter")]
-    fn get_start_iter(&self) -> TextIter;
+    fn start_iter(&self) -> TextIter;
 
     #[doc(alias = "gtk_text_buffer_get_tag_table")]
-    fn get_tag_table(&self) -> Option<TextTagTable>;
+    fn tag_table(&self) -> Option<TextTagTable>;
 
     #[doc(alias = "gtk_text_buffer_get_text")]
     fn get_text(
@@ -340,7 +340,8 @@ pub trait TextBufferExt: 'static {
     #[doc(alias = "gtk_text_buffer_unregister_serialize_format")]
     fn unregister_serialize_format(&self, format: &gdk::Atom);
 
-    fn get_property_cursor_position(&self) -> i32;
+    #[doc(alias = "get_property_cursor_position")]
+    fn cursor_position(&self) -> i32;
 
     fn connect_begin_user_action<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -595,7 +596,7 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
         }
     }
 
-    fn get_bounds(&self) -> (TextIter, TextIter) {
+    fn bounds(&self) -> (TextIter, TextIter) {
         unsafe {
             let mut start = TextIter::uninitialized();
             let mut end = TextIter::uninitialized();
@@ -608,11 +609,11 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
         }
     }
 
-    fn get_char_count(&self) -> i32 {
+    fn char_count(&self) -> i32 {
         unsafe { ffi::gtk_text_buffer_get_char_count(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_copy_target_list(&self) -> Option<TargetList> {
+    fn copy_target_list(&self) -> Option<TargetList> {
         unsafe {
             from_glib_none(ffi::gtk_text_buffer_get_copy_target_list(
                 self.as_ref().to_glib_none().0,
@@ -620,7 +621,7 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
         }
     }
 
-    fn get_deserialize_formats(&self) -> Vec<gdk::Atom> {
+    fn deserialize_formats(&self) -> Vec<gdk::Atom> {
         unsafe {
             let mut n_formats = mem::MaybeUninit::uninit();
             let ret = FromGlibContainer::from_glib_container_num(
@@ -634,7 +635,7 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
         }
     }
 
-    fn get_end_iter(&self) -> TextIter {
+    fn end_iter(&self) -> TextIter {
         unsafe {
             let mut iter = TextIter::uninitialized();
             ffi::gtk_text_buffer_get_end_iter(
@@ -645,7 +646,7 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
         }
     }
 
-    fn get_has_selection(&self) -> bool {
+    fn has_selection(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_text_buffer_get_has_selection(
                 self.as_ref().to_glib_none().0,
@@ -735,7 +736,7 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
         }
     }
 
-    fn get_line_count(&self) -> i32 {
+    fn line_count(&self) -> i32 {
         unsafe { ffi::gtk_text_buffer_get_line_count(self.as_ref().to_glib_none().0) }
     }
 
@@ -748,7 +749,7 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
         }
     }
 
-    fn get_modified(&self) -> bool {
+    fn is_modified(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_text_buffer_get_modified(
                 self.as_ref().to_glib_none().0,
@@ -756,7 +757,7 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
         }
     }
 
-    fn get_paste_target_list(&self) -> Option<TargetList> {
+    fn paste_target_list(&self) -> Option<TargetList> {
         unsafe {
             from_glib_none(ffi::gtk_text_buffer_get_paste_target_list(
                 self.as_ref().to_glib_none().0,
@@ -764,7 +765,7 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
         }
     }
 
-    fn get_selection_bound(&self) -> Option<TextMark> {
+    fn selection_bound(&self) -> Option<TextMark> {
         unsafe {
             from_glib_none(ffi::gtk_text_buffer_get_selection_bound(
                 self.as_ref().to_glib_none().0,
@@ -772,7 +773,7 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
         }
     }
 
-    fn get_selection_bounds(&self) -> Option<(TextIter, TextIter)> {
+    fn selection_bounds(&self) -> Option<(TextIter, TextIter)> {
         unsafe {
             let mut start = TextIter::uninitialized();
             let mut end = TextIter::uninitialized();
@@ -789,7 +790,7 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
         }
     }
 
-    fn get_serialize_formats(&self) -> Vec<gdk::Atom> {
+    fn serialize_formats(&self) -> Vec<gdk::Atom> {
         unsafe {
             let mut n_formats = mem::MaybeUninit::uninit();
             let ret = FromGlibContainer::from_glib_container_num(
@@ -819,7 +820,7 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
         }
     }
 
-    fn get_start_iter(&self) -> TextIter {
+    fn start_iter(&self) -> TextIter {
         unsafe {
             let mut iter = TextIter::uninitialized();
             ffi::gtk_text_buffer_get_start_iter(
@@ -830,7 +831,7 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
         }
     }
 
-    fn get_tag_table(&self) -> Option<TextTagTable> {
+    fn tag_table(&self) -> Option<TextTagTable> {
         unsafe {
             from_glib_none(ffi::gtk_text_buffer_get_tag_table(
                 self.as_ref().to_glib_none().0,
@@ -1150,7 +1151,7 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
         }
     }
 
-    fn get_property_cursor_position(&self) -> i32 {
+    fn cursor_position(&self) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(

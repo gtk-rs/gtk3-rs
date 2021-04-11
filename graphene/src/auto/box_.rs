@@ -91,7 +91,7 @@ impl Box {
     }
 
     #[doc(alias = "graphene_box_get_bounding_sphere")]
-    pub fn get_bounding_sphere(&self) -> Sphere {
+    pub fn bounding_sphere(&self) -> Sphere {
         unsafe {
             let mut sphere = Sphere::uninitialized();
             ffi::graphene_box_get_bounding_sphere(
@@ -103,7 +103,7 @@ impl Box {
     }
 
     #[doc(alias = "graphene_box_get_center")]
-    pub fn get_center(&self) -> Point3D {
+    pub fn center(&self) -> Point3D {
         unsafe {
             let mut center = Point3D::uninitialized();
             ffi::graphene_box_get_center(self.to_glib_none().0, center.to_glib_none_mut().0);
@@ -112,17 +112,17 @@ impl Box {
     }
 
     #[doc(alias = "graphene_box_get_depth")]
-    pub fn get_depth(&self) -> f32 {
+    pub fn depth(&self) -> f32 {
         unsafe { ffi::graphene_box_get_depth(self.to_glib_none().0) }
     }
 
     #[doc(alias = "graphene_box_get_height")]
-    pub fn get_height(&self) -> f32 {
+    pub fn height(&self) -> f32 {
         unsafe { ffi::graphene_box_get_height(self.to_glib_none().0) }
     }
 
     #[doc(alias = "graphene_box_get_max")]
-    pub fn get_max(&self) -> Point3D {
+    pub fn max(&self) -> Point3D {
         unsafe {
             let mut max = Point3D::uninitialized();
             ffi::graphene_box_get_max(self.to_glib_none().0, max.to_glib_none_mut().0);
@@ -131,7 +131,7 @@ impl Box {
     }
 
     #[doc(alias = "graphene_box_get_min")]
-    pub fn get_min(&self) -> Point3D {
+    pub fn min(&self) -> Point3D {
         unsafe {
             let mut min = Point3D::uninitialized();
             ffi::graphene_box_get_min(self.to_glib_none().0, min.to_glib_none_mut().0);
@@ -140,7 +140,7 @@ impl Box {
     }
 
     #[doc(alias = "graphene_box_get_size")]
-    pub fn get_size(&self) -> Vec3 {
+    pub fn size(&self) -> Vec3 {
         unsafe {
             let mut size = Vec3::uninitialized();
             ffi::graphene_box_get_size(self.to_glib_none().0, size.to_glib_none_mut().0);
@@ -149,12 +149,12 @@ impl Box {
     }
 
     //#[doc(alias = "graphene_box_get_vertices")]
-    //pub fn get_vertices(&self, vertices: /*Unimplemented*/FixedArray TypeId { ns_id: 1, id: 0 }; 8) {
+    //pub fn vertices(&self, vertices: /*Unimplemented*/FixedArray TypeId { ns_id: 1, id: 0 }; 8) {
     //    unsafe { TODO: call ffi:graphene_box_get_vertices() }
     //}
 
     #[doc(alias = "graphene_box_get_width")]
-    pub fn get_width(&self) -> f32 {
+    pub fn width(&self) -> f32 {
         unsafe { ffi::graphene_box_get_width(self.to_glib_none().0) }
     }
 

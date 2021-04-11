@@ -32,7 +32,7 @@ impl UnixMountPoint {
     }
 
     #[doc(alias = "g_unix_mount_point_get_device_path")]
-    pub fn get_device_path(&self) -> std::path::PathBuf {
+    pub fn device_path(&self) -> std::path::PathBuf {
         unsafe {
             from_glib_none(ffi::g_unix_mount_point_get_device_path(mut_override(
                 self.to_glib_none().0,
@@ -41,7 +41,7 @@ impl UnixMountPoint {
     }
 
     #[doc(alias = "g_unix_mount_point_get_fs_type")]
-    pub fn get_fs_type(&self) -> glib::GString {
+    pub fn fs_type(&self) -> glib::GString {
         unsafe {
             from_glib_none(ffi::g_unix_mount_point_get_fs_type(mut_override(
                 self.to_glib_none().0,
@@ -50,7 +50,7 @@ impl UnixMountPoint {
     }
 
     #[doc(alias = "g_unix_mount_point_get_mount_path")]
-    pub fn get_mount_path(&self) -> std::path::PathBuf {
+    pub fn mount_path(&self) -> std::path::PathBuf {
         unsafe {
             from_glib_none(ffi::g_unix_mount_point_get_mount_path(mut_override(
                 self.to_glib_none().0,
@@ -59,7 +59,7 @@ impl UnixMountPoint {
     }
 
     #[doc(alias = "g_unix_mount_point_get_options")]
-    pub fn get_options(&self) -> Option<glib::GString> {
+    pub fn options(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::g_unix_mount_point_get_options(mut_override(
                 self.to_glib_none().0,

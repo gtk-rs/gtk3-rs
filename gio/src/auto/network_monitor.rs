@@ -64,15 +64,15 @@ pub trait NetworkMonitorExt: 'static {
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     #[doc(alias = "g_network_monitor_get_connectivity")]
-    fn get_connectivity(&self) -> NetworkConnectivity;
+    fn connectivity(&self) -> NetworkConnectivity;
 
     #[doc(alias = "g_network_monitor_get_network_available")]
-    fn get_network_available(&self) -> bool;
+    fn is_network_available(&self) -> bool;
 
     #[cfg(any(feature = "v2_46", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
     #[doc(alias = "g_network_monitor_get_network_metered")]
-    fn get_network_metered(&self) -> bool;
+    fn is_network_metered(&self) -> bool;
 
     fn connect_network_changed<F: Fn(&Self, bool) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -174,7 +174,7 @@ impl<O: IsA<NetworkMonitor>> NetworkMonitorExt for O {
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
-    fn get_connectivity(&self) -> NetworkConnectivity {
+    fn connectivity(&self) -> NetworkConnectivity {
         unsafe {
             from_glib(ffi::g_network_monitor_get_connectivity(
                 self.as_ref().to_glib_none().0,
@@ -182,7 +182,7 @@ impl<O: IsA<NetworkMonitor>> NetworkMonitorExt for O {
         }
     }
 
-    fn get_network_available(&self) -> bool {
+    fn is_network_available(&self) -> bool {
         unsafe {
             from_glib(ffi::g_network_monitor_get_network_available(
                 self.as_ref().to_glib_none().0,
@@ -192,7 +192,7 @@ impl<O: IsA<NetworkMonitor>> NetworkMonitorExt for O {
 
     #[cfg(any(feature = "v2_46", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
-    fn get_network_metered(&self) -> bool {
+    fn is_network_metered(&self) -> bool {
         unsafe {
             from_glib(ffi::g_network_monitor_get_network_metered(
                 self.as_ref().to_glib_none().0,

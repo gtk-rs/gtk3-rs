@@ -30,7 +30,7 @@ pub trait HypertextExt: 'static {
     fn get_link_index(&self, char_index: i32) -> i32;
 
     #[doc(alias = "atk_hypertext_get_n_links")]
-    fn get_n_links(&self) -> i32;
+    fn n_links(&self) -> i32;
 
     fn connect_link_selected<F: Fn(&Self, i32) + 'static>(&self, f: F) -> SignalHandlerId;
 }
@@ -49,7 +49,7 @@ impl<O: IsA<Hypertext>> HypertextExt for O {
         unsafe { ffi::atk_hypertext_get_link_index(self.as_ref().to_glib_none().0, char_index) }
     }
 
-    fn get_n_links(&self) -> i32 {
+    fn n_links(&self) -> i32 {
         unsafe { ffi::atk_hypertext_get_n_links(self.as_ref().to_glib_none().0) }
     }
 

@@ -47,7 +47,8 @@ impl PopoverMenu {
         }
     }
 
-    pub fn get_property_visible_submenu(&self) -> Option<glib::GString> {
+    #[doc(alias = "get_property_visible_submenu")]
+    pub fn visible_submenu(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -61,7 +62,8 @@ impl PopoverMenu {
         }
     }
 
-    pub fn set_property_visible_submenu(&self, visible_submenu: Option<&str>) {
+    #[doc(alias = "set_property_visible_submenu")]
+    pub fn set_visible_submenu(&self, visible_submenu: Option<&str>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,

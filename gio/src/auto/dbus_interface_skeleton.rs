@@ -35,22 +35,22 @@ pub trait DBusInterfaceSkeletonExt: 'static {
     fn flush(&self);
 
     #[doc(alias = "g_dbus_interface_skeleton_get_connection")]
-    fn get_connection(&self) -> Option<DBusConnection>;
+    fn connection(&self) -> Option<DBusConnection>;
 
     #[doc(alias = "g_dbus_interface_skeleton_get_connections")]
-    fn get_connections(&self) -> Vec<DBusConnection>;
+    fn connections(&self) -> Vec<DBusConnection>;
 
     #[doc(alias = "g_dbus_interface_skeleton_get_flags")]
-    fn get_flags(&self) -> DBusInterfaceSkeletonFlags;
+    fn flags(&self) -> DBusInterfaceSkeletonFlags;
 
     #[doc(alias = "g_dbus_interface_skeleton_get_object_path")]
-    fn get_object_path(&self) -> Option<glib::GString>;
+    fn object_path(&self) -> Option<glib::GString>;
 
     #[doc(alias = "g_dbus_interface_skeleton_get_properties")]
-    fn get_properties(&self) -> glib::Variant;
+    fn properties(&self) -> glib::Variant;
 
     //#[doc(alias = "g_dbus_interface_skeleton_get_vtable")]
-    //fn get_vtable(&self) -> /*Ignored*/DBusInterfaceVTable;
+    //fn vtable(&self) -> /*Ignored*/DBusInterfaceVTable;
 
     #[doc(alias = "g_dbus_interface_skeleton_has_connection")]
     fn has_connection(&self, connection: &DBusConnection) -> bool;
@@ -64,9 +64,11 @@ pub trait DBusInterfaceSkeletonExt: 'static {
     #[doc(alias = "g_dbus_interface_skeleton_unexport_from_connection")]
     fn unexport_from_connection(&self, connection: &DBusConnection);
 
-    fn get_property_g_flags(&self) -> DBusInterfaceSkeletonFlags;
+    #[doc(alias = "get_property_g_flags")]
+    fn g_flags(&self) -> DBusInterfaceSkeletonFlags;
 
-    fn set_property_g_flags(&self, g_flags: DBusInterfaceSkeletonFlags);
+    #[doc(alias = "set_property_g_flags")]
+    fn set_g_flags(&self, g_flags: DBusInterfaceSkeletonFlags);
 
     fn connect_g_authorize_method<F: Fn(&Self, &DBusMethodInvocation) -> bool + 'static>(
         &self,
@@ -100,7 +102,7 @@ impl<O: IsA<DBusInterfaceSkeleton>> DBusInterfaceSkeletonExt for O {
         }
     }
 
-    fn get_connection(&self) -> Option<DBusConnection> {
+    fn connection(&self) -> Option<DBusConnection> {
         unsafe {
             from_glib_none(ffi::g_dbus_interface_skeleton_get_connection(
                 self.as_ref().to_glib_none().0,
@@ -108,7 +110,7 @@ impl<O: IsA<DBusInterfaceSkeleton>> DBusInterfaceSkeletonExt for O {
         }
     }
 
-    fn get_connections(&self) -> Vec<DBusConnection> {
+    fn connections(&self) -> Vec<DBusConnection> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::g_dbus_interface_skeleton_get_connections(
                 self.as_ref().to_glib_none().0,
@@ -116,7 +118,7 @@ impl<O: IsA<DBusInterfaceSkeleton>> DBusInterfaceSkeletonExt for O {
         }
     }
 
-    fn get_flags(&self) -> DBusInterfaceSkeletonFlags {
+    fn flags(&self) -> DBusInterfaceSkeletonFlags {
         unsafe {
             from_glib(ffi::g_dbus_interface_skeleton_get_flags(
                 self.as_ref().to_glib_none().0,
@@ -124,7 +126,7 @@ impl<O: IsA<DBusInterfaceSkeleton>> DBusInterfaceSkeletonExt for O {
         }
     }
 
-    fn get_object_path(&self) -> Option<glib::GString> {
+    fn object_path(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::g_dbus_interface_skeleton_get_object_path(
                 self.as_ref().to_glib_none().0,
@@ -132,7 +134,7 @@ impl<O: IsA<DBusInterfaceSkeleton>> DBusInterfaceSkeletonExt for O {
         }
     }
 
-    fn get_properties(&self) -> glib::Variant {
+    fn properties(&self) -> glib::Variant {
         unsafe {
             from_glib_full(ffi::g_dbus_interface_skeleton_get_properties(
                 self.as_ref().to_glib_none().0,
@@ -140,7 +142,7 @@ impl<O: IsA<DBusInterfaceSkeleton>> DBusInterfaceSkeletonExt for O {
         }
     }
 
-    //fn get_vtable(&self) -> /*Ignored*/DBusInterfaceVTable {
+    //fn vtable(&self) -> /*Ignored*/DBusInterfaceVTable {
     //    unsafe { TODO: call ffi:g_dbus_interface_skeleton_get_vtable() }
     //}
 
@@ -177,7 +179,7 @@ impl<O: IsA<DBusInterfaceSkeleton>> DBusInterfaceSkeletonExt for O {
         }
     }
 
-    fn get_property_g_flags(&self) -> DBusInterfaceSkeletonFlags {
+    fn g_flags(&self) -> DBusInterfaceSkeletonFlags {
         unsafe {
             let mut value =
                 glib::Value::from_type(<DBusInterfaceSkeletonFlags as StaticType>::static_type());
@@ -193,7 +195,7 @@ impl<O: IsA<DBusInterfaceSkeleton>> DBusInterfaceSkeletonExt for O {
         }
     }
 
-    fn set_property_g_flags(&self, g_flags: DBusInterfaceSkeletonFlags) {
+    fn set_g_flags(&self, g_flags: DBusInterfaceSkeletonFlags) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,

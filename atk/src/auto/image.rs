@@ -20,23 +20,23 @@ pub const NONE_IMAGE: Option<&Image> = None;
 
 pub trait AtkImageExt: 'static {
     #[doc(alias = "atk_image_get_image_description")]
-    fn get_image_description(&self) -> Option<glib::GString>;
+    fn image_description(&self) -> Option<glib::GString>;
 
     #[doc(alias = "atk_image_get_image_locale")]
-    fn get_image_locale(&self) -> Option<glib::GString>;
+    fn image_locale(&self) -> Option<glib::GString>;
 
     #[doc(alias = "atk_image_get_image_position")]
     fn get_image_position(&self, coord_type: CoordType) -> (i32, i32);
 
     #[doc(alias = "atk_image_get_image_size")]
-    fn get_image_size(&self) -> (i32, i32);
+    fn image_size(&self) -> (i32, i32);
 
     #[doc(alias = "atk_image_set_image_description")]
     fn set_image_description(&self, description: &str) -> bool;
 }
 
 impl<O: IsA<Image>> AtkImageExt for O {
-    fn get_image_description(&self) -> Option<glib::GString> {
+    fn image_description(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::atk_image_get_image_description(
                 self.as_ref().to_glib_none().0,
@@ -44,7 +44,7 @@ impl<O: IsA<Image>> AtkImageExt for O {
         }
     }
 
-    fn get_image_locale(&self) -> Option<glib::GString> {
+    fn image_locale(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::atk_image_get_image_locale(
                 self.as_ref().to_glib_none().0,
@@ -68,7 +68,7 @@ impl<O: IsA<Image>> AtkImageExt for O {
         }
     }
 
-    fn get_image_size(&self) -> (i32, i32) {
+    fn image_size(&self) -> (i32, i32) {
         unsafe {
             let mut width = mem::MaybeUninit::uninit();
             let mut height = mem::MaybeUninit::uninit();

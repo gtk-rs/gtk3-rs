@@ -62,13 +62,13 @@ pub trait VolumeExt: 'static {
     fn enumerate_identifiers(&self) -> Vec<glib::GString>;
 
     #[doc(alias = "g_volume_get_activation_root")]
-    fn get_activation_root(&self) -> Option<File>;
+    fn activation_root(&self) -> Option<File>;
 
     #[doc(alias = "g_volume_get_drive")]
-    fn get_drive(&self) -> Option<Drive>;
+    fn drive(&self) -> Option<Drive>;
 
     #[doc(alias = "g_volume_get_icon")]
-    fn get_icon(&self) -> Icon;
+    fn icon(&self) -> Icon;
 
     #[doc(alias = "g_volume_get_identifier")]
     fn get_identifier(&self, kind: &str) -> Option<glib::GString>;
@@ -77,16 +77,16 @@ pub trait VolumeExt: 'static {
     fn get_mount(&self) -> Option<Mount>;
 
     #[doc(alias = "g_volume_get_name")]
-    fn get_name(&self) -> glib::GString;
+    fn name(&self) -> glib::GString;
 
     #[doc(alias = "g_volume_get_sort_key")]
-    fn get_sort_key(&self) -> Option<glib::GString>;
+    fn sort_key(&self) -> Option<glib::GString>;
 
     #[doc(alias = "g_volume_get_symbolic_icon")]
-    fn get_symbolic_icon(&self) -> Icon;
+    fn symbolic_icon(&self) -> Icon;
 
     #[doc(alias = "g_volume_get_uuid")]
-    fn get_uuid(&self) -> Option<glib::GString>;
+    fn uuid(&self) -> Option<glib::GString>;
 
     #[doc(alias = "g_volume_mount")]
     fn mount<
@@ -199,7 +199,7 @@ impl<O: IsA<Volume>> VolumeExt for O {
         }
     }
 
-    fn get_activation_root(&self) -> Option<File> {
+    fn activation_root(&self) -> Option<File> {
         unsafe {
             from_glib_full(ffi::g_volume_get_activation_root(
                 self.as_ref().to_glib_none().0,
@@ -207,11 +207,11 @@ impl<O: IsA<Volume>> VolumeExt for O {
         }
     }
 
-    fn get_drive(&self) -> Option<Drive> {
+    fn drive(&self) -> Option<Drive> {
         unsafe { from_glib_full(ffi::g_volume_get_drive(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_icon(&self) -> Icon {
+    fn icon(&self) -> Icon {
         unsafe { from_glib_full(ffi::g_volume_get_icon(self.as_ref().to_glib_none().0)) }
     }
 
@@ -228,15 +228,15 @@ impl<O: IsA<Volume>> VolumeExt for O {
         unsafe { from_glib_full(ffi::g_volume_get_mount(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_name(&self) -> glib::GString {
+    fn name(&self) -> glib::GString {
         unsafe { from_glib_full(ffi::g_volume_get_name(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_sort_key(&self) -> Option<glib::GString> {
+    fn sort_key(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::g_volume_get_sort_key(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_symbolic_icon(&self) -> Icon {
+    fn symbolic_icon(&self) -> Icon {
         unsafe {
             from_glib_full(ffi::g_volume_get_symbolic_icon(
                 self.as_ref().to_glib_none().0,
@@ -244,7 +244,7 @@ impl<O: IsA<Volume>> VolumeExt for O {
         }
     }
 
-    fn get_uuid(&self) -> Option<glib::GString> {
+    fn uuid(&self) -> Option<glib::GString> {
         unsafe { from_glib_full(ffi::g_volume_get_uuid(self.as_ref().to_glib_none().0)) }
     }
 

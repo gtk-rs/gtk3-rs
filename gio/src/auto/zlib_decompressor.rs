@@ -29,7 +29,7 @@ impl ZlibDecompressor {
     }
 
     #[doc(alias = "g_zlib_decompressor_get_file_info")]
-    pub fn get_file_info(&self) -> Option<FileInfo> {
+    pub fn file_info(&self) -> Option<FileInfo> {
         unsafe {
             from_glib_none(ffi::g_zlib_decompressor_get_file_info(
                 self.to_glib_none().0,
@@ -37,7 +37,8 @@ impl ZlibDecompressor {
         }
     }
 
-    pub fn get_property_format(&self) -> ZlibCompressorFormat {
+    #[doc(alias = "get_property_format")]
+    pub fn format(&self) -> ZlibCompressorFormat {
         unsafe {
             let mut value =
                 glib::Value::from_type(<ZlibCompressorFormat as StaticType>::static_type());

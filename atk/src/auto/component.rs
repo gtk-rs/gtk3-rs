@@ -34,22 +34,22 @@ pub trait ComponentExt: 'static {
     fn contains(&self, x: i32, y: i32, coord_type: CoordType) -> bool;
 
     #[doc(alias = "atk_component_get_alpha")]
-    fn get_alpha(&self) -> f64;
+    fn alpha(&self) -> f64;
 
     #[doc(alias = "atk_component_get_extents")]
     fn get_extents(&self, coord_type: CoordType) -> (i32, i32, i32, i32);
 
     #[doc(alias = "atk_component_get_layer")]
-    fn get_layer(&self) -> Layer;
+    fn layer(&self) -> Layer;
 
     #[doc(alias = "atk_component_get_mdi_zorder")]
-    fn get_mdi_zorder(&self) -> i32;
+    fn mdi_zorder(&self) -> i32;
 
     #[doc(alias = "atk_component_get_position")]
     fn get_position(&self, coord_type: CoordType) -> (i32, i32);
 
     #[doc(alias = "atk_component_get_size")]
-    fn get_size(&self) -> (i32, i32);
+    fn size(&self) -> (i32, i32);
 
     #[doc(alias = "atk_component_grab_focus")]
     fn grab_focus(&self) -> bool;
@@ -91,7 +91,7 @@ impl<O: IsA<Component>> ComponentExt for O {
         }
     }
 
-    fn get_alpha(&self) -> f64 {
+    fn alpha(&self) -> f64 {
         unsafe { ffi::atk_component_get_alpha(self.as_ref().to_glib_none().0) }
     }
 
@@ -117,11 +117,11 @@ impl<O: IsA<Component>> ComponentExt for O {
         }
     }
 
-    fn get_layer(&self) -> Layer {
+    fn layer(&self) -> Layer {
         unsafe { from_glib(ffi::atk_component_get_layer(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_mdi_zorder(&self) -> i32 {
+    fn mdi_zorder(&self) -> i32 {
         unsafe { ffi::atk_component_get_mdi_zorder(self.as_ref().to_glib_none().0) }
     }
 
@@ -141,7 +141,7 @@ impl<O: IsA<Component>> ComponentExt for O {
         }
     }
 
-    fn get_size(&self) -> (i32, i32) {
+    fn size(&self) -> (i32, i32) {
         unsafe {
             let mut width = mem::MaybeUninit::uninit();
             let mut height = mem::MaybeUninit::uninit();

@@ -41,7 +41,7 @@ impl RecentChooserMenu {
     }
 
     #[doc(alias = "gtk_recent_chooser_menu_new_for_manager")]
-    pub fn new_for_manager<P: IsA<RecentManager>>(manager: &P) -> RecentChooserMenu {
+    pub fn for_manager<P: IsA<RecentManager>>(manager: &P) -> RecentChooserMenu {
         skip_assert_initialized!();
         unsafe {
             Widget::from_glib_none(ffi::gtk_recent_chooser_menu_new_for_manager(
@@ -616,7 +616,7 @@ pub const NONE_RECENT_CHOOSER_MENU: Option<&RecentChooserMenu> = None;
 
 pub trait RecentChooserMenuExt: 'static {
     #[doc(alias = "gtk_recent_chooser_menu_get_show_numbers")]
-    fn get_show_numbers(&self) -> bool;
+    fn shows_numbers(&self) -> bool;
 
     #[doc(alias = "gtk_recent_chooser_menu_set_show_numbers")]
     fn set_show_numbers(&self, show_numbers: bool);
@@ -626,7 +626,7 @@ pub trait RecentChooserMenuExt: 'static {
 }
 
 impl<O: IsA<RecentChooserMenu>> RecentChooserMenuExt for O {
-    fn get_show_numbers(&self) -> bool {
+    fn shows_numbers(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_recent_chooser_menu_get_show_numbers(
                 self.as_ref().to_glib_none().0,

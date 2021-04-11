@@ -41,31 +41,31 @@ pub trait TlsConnectionExt: 'static {
     ) -> bool;
 
     #[doc(alias = "g_tls_connection_get_certificate")]
-    fn get_certificate(&self) -> Option<TlsCertificate>;
+    fn certificate(&self) -> Option<TlsCertificate>;
 
     #[doc(alias = "g_tls_connection_get_database")]
-    fn get_database(&self) -> Option<TlsDatabase>;
+    fn database(&self) -> Option<TlsDatabase>;
 
     #[doc(alias = "g_tls_connection_get_interaction")]
-    fn get_interaction(&self) -> Option<TlsInteraction>;
+    fn interaction(&self) -> Option<TlsInteraction>;
 
     #[cfg(any(feature = "v2_60", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     #[doc(alias = "g_tls_connection_get_negotiated_protocol")]
-    fn get_negotiated_protocol(&self) -> Option<glib::GString>;
+    fn negotiated_protocol(&self) -> Option<glib::GString>;
 
     #[doc(alias = "g_tls_connection_get_peer_certificate")]
-    fn get_peer_certificate(&self) -> Option<TlsCertificate>;
+    fn peer_certificate(&self) -> Option<TlsCertificate>;
 
     #[doc(alias = "g_tls_connection_get_peer_certificate_errors")]
-    fn get_peer_certificate_errors(&self) -> TlsCertificateFlags;
+    fn peer_certificate_errors(&self) -> TlsCertificateFlags;
 
     #[cfg_attr(feature = "v2_60", deprecated)]
     #[doc(alias = "g_tls_connection_get_rehandshake_mode")]
-    fn get_rehandshake_mode(&self) -> TlsRehandshakeMode;
+    fn rehandshake_mode(&self) -> TlsRehandshakeMode;
 
     #[doc(alias = "g_tls_connection_get_require_close_notify")]
-    fn get_require_close_notify(&self) -> bool;
+    fn requires_close_notify(&self) -> bool;
 
     #[doc(alias = "g_tls_connection_handshake")]
     fn handshake<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), glib::Error>;
@@ -106,9 +106,11 @@ pub trait TlsConnectionExt: 'static {
 
     #[cfg(any(feature = "v2_60", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
-    fn get_property_advertised_protocols(&self) -> Vec<glib::GString>;
+    #[doc(alias = "get_property_advertised_protocols")]
+    fn advertised_protocols(&self) -> Vec<glib::GString>;
 
-    fn get_property_base_io_stream(&self) -> Option<IOStream>;
+    #[doc(alias = "get_property_base_io_stream")]
+    fn base_io_stream(&self) -> Option<IOStream>;
 
     fn connect_accept_certificate<
         F: Fn(&Self, &TlsCertificate, TlsCertificateFlags) -> bool + 'static,
@@ -174,7 +176,7 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
         }
     }
 
-    fn get_certificate(&self) -> Option<TlsCertificate> {
+    fn certificate(&self) -> Option<TlsCertificate> {
         unsafe {
             from_glib_none(ffi::g_tls_connection_get_certificate(
                 self.as_ref().to_glib_none().0,
@@ -182,7 +184,7 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
         }
     }
 
-    fn get_database(&self) -> Option<TlsDatabase> {
+    fn database(&self) -> Option<TlsDatabase> {
         unsafe {
             from_glib_none(ffi::g_tls_connection_get_database(
                 self.as_ref().to_glib_none().0,
@@ -190,7 +192,7 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
         }
     }
 
-    fn get_interaction(&self) -> Option<TlsInteraction> {
+    fn interaction(&self) -> Option<TlsInteraction> {
         unsafe {
             from_glib_none(ffi::g_tls_connection_get_interaction(
                 self.as_ref().to_glib_none().0,
@@ -200,7 +202,7 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
 
     #[cfg(any(feature = "v2_60", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
-    fn get_negotiated_protocol(&self) -> Option<glib::GString> {
+    fn negotiated_protocol(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::g_tls_connection_get_negotiated_protocol(
                 self.as_ref().to_glib_none().0,
@@ -208,7 +210,7 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
         }
     }
 
-    fn get_peer_certificate(&self) -> Option<TlsCertificate> {
+    fn peer_certificate(&self) -> Option<TlsCertificate> {
         unsafe {
             from_glib_none(ffi::g_tls_connection_get_peer_certificate(
                 self.as_ref().to_glib_none().0,
@@ -216,7 +218,7 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
         }
     }
 
-    fn get_peer_certificate_errors(&self) -> TlsCertificateFlags {
+    fn peer_certificate_errors(&self) -> TlsCertificateFlags {
         unsafe {
             from_glib(ffi::g_tls_connection_get_peer_certificate_errors(
                 self.as_ref().to_glib_none().0,
@@ -224,7 +226,7 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
         }
     }
 
-    fn get_rehandshake_mode(&self) -> TlsRehandshakeMode {
+    fn rehandshake_mode(&self) -> TlsRehandshakeMode {
         unsafe {
             from_glib(ffi::g_tls_connection_get_rehandshake_mode(
                 self.as_ref().to_glib_none().0,
@@ -232,7 +234,7 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
         }
     }
 
-    fn get_require_close_notify(&self) -> bool {
+    fn requires_close_notify(&self) -> bool {
         unsafe {
             from_glib(ffi::g_tls_connection_get_require_close_notify(
                 self.as_ref().to_glib_none().0,
@@ -365,7 +367,7 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
 
     #[cfg(any(feature = "v2_60", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
-    fn get_property_advertised_protocols(&self) -> Vec<glib::GString> {
+    fn advertised_protocols(&self) -> Vec<glib::GString> {
         unsafe {
             let mut value =
                 glib::Value::from_type(<Vec<glib::GString> as StaticType>::static_type());
@@ -381,7 +383,7 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
         }
     }
 
-    fn get_property_base_io_stream(&self) -> Option<IOStream> {
+    fn base_io_stream(&self) -> Option<IOStream> {
         unsafe {
             let mut value = glib::Value::from_type(<IOStream as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(

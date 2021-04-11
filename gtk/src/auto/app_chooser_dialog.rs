@@ -53,7 +53,7 @@ impl AppChooserDialog {
     }
 
     #[doc(alias = "gtk_app_chooser_dialog_new_for_content_type")]
-    pub fn new_for_content_type<P: IsA<Window>>(
+    pub fn for_content_type<P: IsA<Window>>(
         parent: Option<&P>,
         flags: DialogFlags,
         content_type: &str,
@@ -698,21 +698,22 @@ pub const NONE_APP_CHOOSER_DIALOG: Option<&AppChooserDialog> = None;
 
 pub trait AppChooserDialogExt: 'static {
     #[doc(alias = "gtk_app_chooser_dialog_get_heading")]
-    fn get_heading(&self) -> Option<glib::GString>;
+    fn heading(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_app_chooser_dialog_get_widget")]
-    fn get_widget(&self) -> Widget;
+    fn widget(&self) -> Widget;
 
     #[doc(alias = "gtk_app_chooser_dialog_set_heading")]
     fn set_heading(&self, heading: &str);
 
-    fn get_property_gfile(&self) -> Option<gio::File>;
+    #[doc(alias = "get_property_gfile")]
+    fn gfile(&self) -> Option<gio::File>;
 
     fn connect_property_heading_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<AppChooserDialog>> AppChooserDialogExt for O {
-    fn get_heading(&self) -> Option<glib::GString> {
+    fn heading(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_app_chooser_dialog_get_heading(
                 self.as_ref().to_glib_none().0,
@@ -720,7 +721,7 @@ impl<O: IsA<AppChooserDialog>> AppChooserDialogExt for O {
         }
     }
 
-    fn get_widget(&self) -> Widget {
+    fn widget(&self) -> Widget {
         unsafe {
             from_glib_none(ffi::gtk_app_chooser_dialog_get_widget(
                 self.as_ref().to_glib_none().0,
@@ -737,7 +738,7 @@ impl<O: IsA<AppChooserDialog>> AppChooserDialogExt for O {
         }
     }
 
-    fn get_property_gfile(&self) -> Option<gio::File> {
+    fn gfile(&self) -> Option<gio::File> {
         unsafe {
             let mut value = glib::Value::from_type(<gio::File as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(

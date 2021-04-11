@@ -30,7 +30,7 @@ pub trait AtkActionExt: 'static {
     fn get_localized_name(&self, i: i32) -> Option<glib::GString>;
 
     #[doc(alias = "atk_action_get_n_actions")]
-    fn get_n_actions(&self) -> i32;
+    fn n_actions(&self) -> i32;
 
     #[doc(alias = "atk_action_get_name")]
     fn get_name(&self, i: i32) -> Option<glib::GString>;
@@ -71,7 +71,7 @@ impl<O: IsA<Action>> AtkActionExt for O {
         }
     }
 
-    fn get_n_actions(&self) -> i32 {
+    fn n_actions(&self) -> i32 {
         unsafe { ffi::atk_action_get_n_actions(self.as_ref().to_glib_none().0) }
     }
 

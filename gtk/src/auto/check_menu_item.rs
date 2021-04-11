@@ -496,13 +496,13 @@ pub const NONE_CHECK_MENU_ITEM: Option<&CheckMenuItem> = None;
 
 pub trait CheckMenuItemExt: 'static {
     #[doc(alias = "gtk_check_menu_item_get_active")]
-    fn get_active(&self) -> bool;
+    fn is_active(&self) -> bool;
 
     #[doc(alias = "gtk_check_menu_item_get_draw_as_radio")]
-    fn get_draw_as_radio(&self) -> bool;
+    fn draws_as_radio(&self) -> bool;
 
     #[doc(alias = "gtk_check_menu_item_get_inconsistent")]
-    fn get_inconsistent(&self) -> bool;
+    fn is_inconsistent(&self) -> bool;
 
     #[doc(alias = "gtk_check_menu_item_set_active")]
     fn set_active(&self, is_active: bool);
@@ -530,7 +530,7 @@ pub trait CheckMenuItemExt: 'static {
 }
 
 impl<O: IsA<CheckMenuItem>> CheckMenuItemExt for O {
-    fn get_active(&self) -> bool {
+    fn is_active(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_check_menu_item_get_active(
                 self.as_ref().to_glib_none().0,
@@ -538,7 +538,7 @@ impl<O: IsA<CheckMenuItem>> CheckMenuItemExt for O {
         }
     }
 
-    fn get_draw_as_radio(&self) -> bool {
+    fn draws_as_radio(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_check_menu_item_get_draw_as_radio(
                 self.as_ref().to_glib_none().0,
@@ -546,7 +546,7 @@ impl<O: IsA<CheckMenuItem>> CheckMenuItemExt for O {
         }
     }
 
-    fn get_inconsistent(&self) -> bool {
+    fn is_inconsistent(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_check_menu_item_get_inconsistent(
                 self.as_ref().to_glib_none().0,

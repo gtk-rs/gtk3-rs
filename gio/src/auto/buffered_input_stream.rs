@@ -121,10 +121,10 @@ pub trait BufferedInputStreamExt: 'static {
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<isize, glib::Error>> + 'static>>;
 
     #[doc(alias = "g_buffered_input_stream_get_available")]
-    fn get_available(&self) -> usize;
+    fn available(&self) -> usize;
 
     #[doc(alias = "g_buffered_input_stream_get_buffer_size")]
-    fn get_buffer_size(&self) -> usize;
+    fn buffer_size(&self) -> usize;
 
     #[doc(alias = "g_buffered_input_stream_peek_buffer")]
     fn peek_buffer(&self) -> Vec<u8>;
@@ -214,11 +214,11 @@ impl<O: IsA<BufferedInputStream>> BufferedInputStreamExt for O {
         }))
     }
 
-    fn get_available(&self) -> usize {
+    fn available(&self) -> usize {
         unsafe { ffi::g_buffered_input_stream_get_available(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_buffer_size(&self) -> usize {
+    fn buffer_size(&self) -> usize {
         unsafe { ffi::g_buffered_input_stream_get_buffer_size(self.as_ref().to_glib_none().0) }
     }
 

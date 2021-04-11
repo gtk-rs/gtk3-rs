@@ -20,7 +20,7 @@ glib::wrapper! {
 
 impl LayoutLine {
     #[doc(alias = "pango_layout_line_get_extents")]
-    pub fn get_extents(&self) -> (Rectangle, Rectangle) {
+    pub fn extents(&self) -> (Rectangle, Rectangle) {
         unsafe {
             let mut ink_rect = Rectangle::uninitialized();
             let mut logical_rect = Rectangle::uninitialized();
@@ -36,7 +36,7 @@ impl LayoutLine {
     #[cfg(any(feature = "v1_44", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
     #[doc(alias = "pango_layout_line_get_height")]
-    pub fn get_height(&self) -> i32 {
+    pub fn height(&self) -> i32 {
         unsafe {
             let mut height = mem::MaybeUninit::uninit();
             ffi::pango_layout_line_get_height(self.to_glib_none().0, height.as_mut_ptr());
@@ -46,7 +46,7 @@ impl LayoutLine {
     }
 
     #[doc(alias = "pango_layout_line_get_pixel_extents")]
-    pub fn get_pixel_extents(&self) -> (Rectangle, Rectangle) {
+    pub fn pixel_extents(&self) -> (Rectangle, Rectangle) {
         unsafe {
             let mut ink_rect = Rectangle::uninitialized();
             let mut logical_rect = Rectangle::uninitialized();

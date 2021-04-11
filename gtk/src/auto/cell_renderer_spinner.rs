@@ -210,17 +210,23 @@ impl CellRendererSpinnerBuilder {
 pub const NONE_CELL_RENDERER_SPINNER: Option<&CellRendererSpinner> = None;
 
 pub trait CellRendererSpinnerExt: 'static {
-    fn get_property_active(&self) -> bool;
+    #[doc(alias = "get_property_active")]
+    fn is_active(&self) -> bool;
 
-    fn set_property_active(&self, active: bool);
+    #[doc(alias = "set_property_active")]
+    fn set_active(&self, active: bool);
 
-    fn get_property_pulse(&self) -> u32;
+    #[doc(alias = "get_property_pulse")]
+    fn pulse(&self) -> u32;
 
-    fn set_property_pulse(&self, pulse: u32);
+    #[doc(alias = "set_property_pulse")]
+    fn set_pulse(&self, pulse: u32);
 
-    fn get_property_size(&self) -> IconSize;
+    #[doc(alias = "get_property_size")]
+    fn size(&self) -> IconSize;
 
-    fn set_property_size(&self, size: IconSize);
+    #[doc(alias = "set_property_size")]
+    fn set_size(&self, size: IconSize);
 
     fn connect_property_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -230,7 +236,7 @@ pub trait CellRendererSpinnerExt: 'static {
 }
 
 impl<O: IsA<CellRendererSpinner>> CellRendererSpinnerExt for O {
-    fn get_property_active(&self) -> bool {
+    fn is_active(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -245,7 +251,7 @@ impl<O: IsA<CellRendererSpinner>> CellRendererSpinnerExt for O {
         }
     }
 
-    fn set_property_active(&self, active: bool) {
+    fn set_active(&self, active: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -255,7 +261,7 @@ impl<O: IsA<CellRendererSpinner>> CellRendererSpinnerExt for O {
         }
     }
 
-    fn get_property_pulse(&self) -> u32 {
+    fn pulse(&self) -> u32 {
         unsafe {
             let mut value = glib::Value::from_type(<u32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -270,7 +276,7 @@ impl<O: IsA<CellRendererSpinner>> CellRendererSpinnerExt for O {
         }
     }
 
-    fn set_property_pulse(&self, pulse: u32) {
+    fn set_pulse(&self, pulse: u32) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -280,7 +286,7 @@ impl<O: IsA<CellRendererSpinner>> CellRendererSpinnerExt for O {
         }
     }
 
-    fn get_property_size(&self) -> IconSize {
+    fn size(&self) -> IconSize {
         unsafe {
             let mut value = glib::Value::from_type(<IconSize as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -295,7 +301,7 @@ impl<O: IsA<CellRendererSpinner>> CellRendererSpinnerExt for O {
         }
     }
 
-    fn set_property_size(&self, size: IconSize) {
+    fn set_size(&self, size: IconSize) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,

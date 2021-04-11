@@ -132,24 +132,24 @@ pub const NONE_PIXBUF_ANIMATION: Option<&PixbufAnimation> = None;
 
 pub trait PixbufAnimationExt: 'static {
     #[doc(alias = "gdk_pixbuf_animation_get_height")]
-    fn get_height(&self) -> i32;
+    fn height(&self) -> i32;
 
     #[doc(alias = "gdk_pixbuf_animation_get_static_image")]
-    fn get_static_image(&self) -> Option<Pixbuf>;
+    fn static_image(&self) -> Option<Pixbuf>;
 
     #[doc(alias = "gdk_pixbuf_animation_get_width")]
-    fn get_width(&self) -> i32;
+    fn width(&self) -> i32;
 
     #[doc(alias = "gdk_pixbuf_animation_is_static_image")]
     fn is_static_image(&self) -> bool;
 }
 
 impl<O: IsA<PixbufAnimation>> PixbufAnimationExt for O {
-    fn get_height(&self) -> i32 {
+    fn height(&self) -> i32 {
         unsafe { ffi::gdk_pixbuf_animation_get_height(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_static_image(&self) -> Option<Pixbuf> {
+    fn static_image(&self) -> Option<Pixbuf> {
         unsafe {
             from_glib_none(ffi::gdk_pixbuf_animation_get_static_image(
                 self.as_ref().to_glib_none().0,
@@ -157,7 +157,7 @@ impl<O: IsA<PixbufAnimation>> PixbufAnimationExt for O {
         }
     }
 
-    fn get_width(&self) -> i32 {
+    fn width(&self) -> i32 {
         unsafe { ffi::gdk_pixbuf_animation_get_width(self.as_ref().to_glib_none().0) }
     }
 

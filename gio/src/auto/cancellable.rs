@@ -54,7 +54,7 @@ pub trait CancellableExt: 'static {
     fn disconnect(&self, handler_id: libc::c_ulong);
 
     #[doc(alias = "g_cancellable_get_fd")]
-    fn get_fd(&self) -> i32;
+    fn fd(&self) -> i32;
 
     #[doc(alias = "g_cancellable_is_cancelled")]
     fn is_cancelled(&self) -> bool;
@@ -94,7 +94,7 @@ impl<O: IsA<Cancellable>> CancellableExt for O {
         }
     }
 
-    fn get_fd(&self) -> i32 {
+    fn fd(&self) -> i32 {
         unsafe { ffi::g_cancellable_get_fd(self.as_ref().to_glib_none().0) }
     }
 

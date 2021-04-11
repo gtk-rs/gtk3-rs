@@ -43,7 +43,7 @@ impl AttrIterator {
     }
 
     #[doc(alias = "pango_attr_iterator_get_attrs")]
-    pub fn get_attrs(&mut self) -> Vec<Attribute> {
+    pub fn attrs(&mut self) -> Vec<Attribute> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::pango_attr_iterator_get_attrs(
                 self.to_glib_none_mut().0,

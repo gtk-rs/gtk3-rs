@@ -43,15 +43,15 @@ pub trait FontExt: 'static {
     #[cfg(any(feature = "v1_46", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_46")))]
     #[doc(alias = "pango_font_get_face")]
-    fn get_face(&self) -> Option<FontFace>;
+    fn face(&self) -> Option<FontFace>;
 
     //#[cfg(any(feature = "v1_44", feature = "dox"))]
     //#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
     //#[doc(alias = "pango_font_get_features")]
-    //fn get_features(&self, features: /*Unimplemented*/&mut Fundamental: Pointer, num_features: &mut u32) -> u32;
+    //fn features(&self, features: /*Unimplemented*/&mut Fundamental: Pointer, num_features: &mut u32) -> u32;
 
     #[doc(alias = "pango_font_get_font_map")]
-    fn get_font_map(&self) -> Option<FontMap>;
+    fn font_map(&self) -> Option<FontMap>;
 
     #[doc(alias = "pango_font_get_glyph_extents")]
     fn get_glyph_extents(&self, glyph: Glyph) -> (Rectangle, Rectangle);
@@ -59,7 +59,7 @@ pub trait FontExt: 'static {
     //#[cfg(any(feature = "v1_44", feature = "dox"))]
     //#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
     //#[doc(alias = "pango_font_get_hb_font")]
-    //fn get_hb_font(&self) -> /*Ignored*/Option<harf_buzz::font_t>;
+    //fn hb_font(&self) -> /*Ignored*/Option<harf_buzz::font_t>;
 
     #[doc(alias = "pango_font_get_metrics")]
     fn get_metrics(&self, language: Option<&Language>) -> Option<FontMetrics>;
@@ -104,17 +104,17 @@ impl<O: IsA<Font>> FontExt for O {
 
     #[cfg(any(feature = "v1_46", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_46")))]
-    fn get_face(&self) -> Option<FontFace> {
+    fn face(&self) -> Option<FontFace> {
         unsafe { from_glib_none(ffi::pango_font_get_face(self.as_ref().to_glib_none().0)) }
     }
 
     //#[cfg(any(feature = "v1_44", feature = "dox"))]
     //#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
-    //fn get_features(&self, features: /*Unimplemented*/&mut Fundamental: Pointer, num_features: &mut u32) -> u32 {
+    //fn features(&self, features: /*Unimplemented*/&mut Fundamental: Pointer, num_features: &mut u32) -> u32 {
     //    unsafe { TODO: call ffi:pango_font_get_features() }
     //}
 
-    fn get_font_map(&self) -> Option<FontMap> {
+    fn font_map(&self) -> Option<FontMap> {
         unsafe { from_glib_none(ffi::pango_font_get_font_map(self.as_ref().to_glib_none().0)) }
     }
 
@@ -134,7 +134,7 @@ impl<O: IsA<Font>> FontExt for O {
 
     //#[cfg(any(feature = "v1_44", feature = "dox"))]
     //#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
-    //fn get_hb_font(&self) -> /*Ignored*/Option<harf_buzz::font_t> {
+    //fn hb_font(&self) -> /*Ignored*/Option<harf_buzz::font_t> {
     //    unsafe { TODO: call ffi:pango_font_get_hb_font() }
     //}
 

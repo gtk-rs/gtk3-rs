@@ -441,10 +441,10 @@ pub const NONE_LAYOUT: Option<&Layout> = None;
 
 pub trait LayoutExt: 'static {
     #[doc(alias = "gtk_layout_get_bin_window")]
-    fn get_bin_window(&self) -> Option<gdk::Window>;
+    fn bin_window(&self) -> Option<gdk::Window>;
 
     #[doc(alias = "gtk_layout_get_size")]
-    fn get_size(&self) -> (u32, u32);
+    fn size(&self) -> (u32, u32);
 
     #[doc(alias = "gtk_layout_move")]
     fn move_<P: IsA<Widget>>(&self, child_widget: &P, x: i32, y: i32);
@@ -455,13 +455,17 @@ pub trait LayoutExt: 'static {
     #[doc(alias = "gtk_layout_set_size")]
     fn set_size(&self, width: u32, height: u32);
 
-    fn get_property_height(&self) -> u32;
+    #[doc(alias = "get_property_height")]
+    fn height(&self) -> u32;
 
-    fn set_property_height(&self, height: u32);
+    #[doc(alias = "set_property_height")]
+    fn set_height(&self, height: u32);
 
-    fn get_property_width(&self) -> u32;
+    #[doc(alias = "get_property_width")]
+    fn width(&self) -> u32;
 
-    fn set_property_width(&self, width: u32);
+    #[doc(alias = "set_property_width")]
+    fn set_width(&self, width: u32);
 
     fn get_child_x<T: IsA<Widget>>(&self, item: &T) -> i32;
 
@@ -477,7 +481,7 @@ pub trait LayoutExt: 'static {
 }
 
 impl<O: IsA<Layout>> LayoutExt for O {
-    fn get_bin_window(&self) -> Option<gdk::Window> {
+    fn bin_window(&self) -> Option<gdk::Window> {
         unsafe {
             from_glib_none(ffi::gtk_layout_get_bin_window(
                 self.as_ref().to_glib_none().0,
@@ -485,7 +489,7 @@ impl<O: IsA<Layout>> LayoutExt for O {
         }
     }
 
-    fn get_size(&self) -> (u32, u32) {
+    fn size(&self) -> (u32, u32) {
         unsafe {
             let mut width = mem::MaybeUninit::uninit();
             let mut height = mem::MaybeUninit::uninit();
@@ -528,7 +532,7 @@ impl<O: IsA<Layout>> LayoutExt for O {
         }
     }
 
-    fn get_property_height(&self) -> u32 {
+    fn height(&self) -> u32 {
         unsafe {
             let mut value = glib::Value::from_type(<u32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -543,7 +547,7 @@ impl<O: IsA<Layout>> LayoutExt for O {
         }
     }
 
-    fn set_property_height(&self, height: u32) {
+    fn set_height(&self, height: u32) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -553,7 +557,7 @@ impl<O: IsA<Layout>> LayoutExt for O {
         }
     }
 
-    fn get_property_width(&self) -> u32 {
+    fn width(&self) -> u32 {
         unsafe {
             let mut value = glib::Value::from_type(<u32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -568,7 +572,7 @@ impl<O: IsA<Layout>> LayoutExt for O {
         }
     }
 
-    fn set_property_width(&self, width: u32) {
+    fn set_width(&self, width: u32) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,

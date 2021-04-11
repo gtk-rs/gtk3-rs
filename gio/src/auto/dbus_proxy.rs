@@ -35,7 +35,7 @@ glib::wrapper! {
 
 impl DBusProxy {
     #[doc(alias = "g_dbus_proxy_new_for_bus_sync")]
-    pub fn new_for_bus_sync<P: IsA<Cancellable>>(
+    pub fn for_bus_sync<P: IsA<Cancellable>>(
         bus_type: BusType,
         flags: DBusProxyFlags,
         info: Option<&DBusInterfaceInfo>,
@@ -254,7 +254,7 @@ impl DBusProxy {
 impl fmt::Display for DBusProxy {
     #[inline]
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str(&DBusProxyExt::get_name(self))
+        f.write_str(&DBusProxyExt::name(self))
     }
 }
 
@@ -344,31 +344,31 @@ pub trait DBusProxyExt: 'static {
     fn get_cached_property(&self, property_name: &str) -> Option<glib::Variant>;
 
     #[doc(alias = "g_dbus_proxy_get_cached_property_names")]
-    fn get_cached_property_names(&self) -> Vec<glib::GString>;
+    fn cached_property_names(&self) -> Vec<glib::GString>;
 
     #[doc(alias = "g_dbus_proxy_get_connection")]
-    fn get_connection(&self) -> DBusConnection;
+    fn connection(&self) -> DBusConnection;
 
     #[doc(alias = "g_dbus_proxy_get_default_timeout")]
-    fn get_default_timeout(&self) -> i32;
+    fn default_timeout(&self) -> i32;
 
     #[doc(alias = "g_dbus_proxy_get_flags")]
-    fn get_flags(&self) -> DBusProxyFlags;
+    fn flags(&self) -> DBusProxyFlags;
 
     #[doc(alias = "g_dbus_proxy_get_interface_info")]
-    fn get_interface_info(&self) -> Option<DBusInterfaceInfo>;
+    fn interface_info(&self) -> Option<DBusInterfaceInfo>;
 
     #[doc(alias = "g_dbus_proxy_get_interface_name")]
-    fn get_interface_name(&self) -> glib::GString;
+    fn interface_name(&self) -> glib::GString;
 
     #[doc(alias = "g_dbus_proxy_get_name")]
-    fn get_name(&self) -> glib::GString;
+    fn name(&self) -> glib::GString;
 
     #[doc(alias = "g_dbus_proxy_get_name_owner")]
-    fn get_name_owner(&self) -> Option<glib::GString>;
+    fn name_owner(&self) -> Option<glib::GString>;
 
     #[doc(alias = "g_dbus_proxy_get_object_path")]
-    fn get_object_path(&self) -> glib::GString;
+    fn object_path(&self) -> glib::GString;
 
     #[doc(alias = "g_dbus_proxy_set_cached_property")]
     fn set_cached_property(&self, property_name: &str, value: Option<&glib::Variant>);
@@ -379,25 +379,35 @@ pub trait DBusProxyExt: 'static {
     #[doc(alias = "g_dbus_proxy_set_interface_info")]
     fn set_interface_info(&self, info: Option<&DBusInterfaceInfo>);
 
-    fn get_property_g_connection(&self) -> Option<DBusConnection>;
+    #[doc(alias = "get_property_g_connection")]
+    fn g_connection(&self) -> Option<DBusConnection>;
 
-    fn get_property_g_default_timeout(&self) -> i32;
+    #[doc(alias = "get_property_g_default_timeout")]
+    fn g_default_timeout(&self) -> i32;
 
-    fn set_property_g_default_timeout(&self, g_default_timeout: i32);
+    #[doc(alias = "set_property_g_default_timeout")]
+    fn set_g_default_timeout(&self, g_default_timeout: i32);
 
-    fn get_property_g_flags(&self) -> DBusProxyFlags;
+    #[doc(alias = "get_property_g_flags")]
+    fn g_flags(&self) -> DBusProxyFlags;
 
-    fn get_property_g_interface_info(&self) -> Option<DBusInterfaceInfo>;
+    #[doc(alias = "get_property_g_interface_info")]
+    fn g_interface_info(&self) -> Option<DBusInterfaceInfo>;
 
-    fn set_property_g_interface_info(&self, g_interface_info: Option<&DBusInterfaceInfo>);
+    #[doc(alias = "set_property_g_interface_info")]
+    fn set_g_interface_info(&self, g_interface_info: Option<&DBusInterfaceInfo>);
 
-    fn get_property_g_interface_name(&self) -> Option<glib::GString>;
+    #[doc(alias = "get_property_g_interface_name")]
+    fn g_interface_name(&self) -> Option<glib::GString>;
 
-    fn get_property_g_name(&self) -> Option<glib::GString>;
+    #[doc(alias = "get_property_g_name")]
+    fn g_name(&self) -> Option<glib::GString>;
 
-    fn get_property_g_name_owner(&self) -> Option<glib::GString>;
+    #[doc(alias = "get_property_g_name_owner")]
+    fn g_name_owner(&self) -> Option<glib::GString>;
 
-    fn get_property_g_object_path(&self) -> Option<glib::GString>;
+    #[doc(alias = "get_property_g_object_path")]
+    fn g_object_path(&self) -> Option<glib::GString>;
 
     fn connect_property_g_default_timeout_notify<F: Fn(&Self) + Send + Sync + 'static>(
         &self,
@@ -646,7 +656,7 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
         }
     }
 
-    fn get_cached_property_names(&self) -> Vec<glib::GString> {
+    fn cached_property_names(&self) -> Vec<glib::GString> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::g_dbus_proxy_get_cached_property_names(
                 self.as_ref().to_glib_none().0,
@@ -654,7 +664,7 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
         }
     }
 
-    fn get_connection(&self) -> DBusConnection {
+    fn connection(&self) -> DBusConnection {
         unsafe {
             from_glib_none(ffi::g_dbus_proxy_get_connection(
                 self.as_ref().to_glib_none().0,
@@ -662,15 +672,15 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
         }
     }
 
-    fn get_default_timeout(&self) -> i32 {
+    fn default_timeout(&self) -> i32 {
         unsafe { ffi::g_dbus_proxy_get_default_timeout(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_flags(&self) -> DBusProxyFlags {
+    fn flags(&self) -> DBusProxyFlags {
         unsafe { from_glib(ffi::g_dbus_proxy_get_flags(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_interface_info(&self) -> Option<DBusInterfaceInfo> {
+    fn interface_info(&self) -> Option<DBusInterfaceInfo> {
         unsafe {
             from_glib_none(ffi::g_dbus_proxy_get_interface_info(
                 self.as_ref().to_glib_none().0,
@@ -678,7 +688,7 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
         }
     }
 
-    fn get_interface_name(&self) -> glib::GString {
+    fn interface_name(&self) -> glib::GString {
         unsafe {
             from_glib_none(ffi::g_dbus_proxy_get_interface_name(
                 self.as_ref().to_glib_none().0,
@@ -686,11 +696,11 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
         }
     }
 
-    fn get_name(&self) -> glib::GString {
+    fn name(&self) -> glib::GString {
         unsafe { from_glib_none(ffi::g_dbus_proxy_get_name(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_name_owner(&self) -> Option<glib::GString> {
+    fn name_owner(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_full(ffi::g_dbus_proxy_get_name_owner(
                 self.as_ref().to_glib_none().0,
@@ -698,7 +708,7 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
         }
     }
 
-    fn get_object_path(&self) -> glib::GString {
+    fn object_path(&self) -> glib::GString {
         unsafe {
             from_glib_none(ffi::g_dbus_proxy_get_object_path(
                 self.as_ref().to_glib_none().0,
@@ -731,7 +741,7 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
         }
     }
 
-    fn get_property_g_connection(&self) -> Option<DBusConnection> {
+    fn g_connection(&self) -> Option<DBusConnection> {
         unsafe {
             let mut value = glib::Value::from_type(<DBusConnection as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -745,7 +755,7 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
         }
     }
 
-    fn get_property_g_default_timeout(&self) -> i32 {
+    fn g_default_timeout(&self) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -760,7 +770,7 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
         }
     }
 
-    fn set_property_g_default_timeout(&self, g_default_timeout: i32) {
+    fn set_g_default_timeout(&self, g_default_timeout: i32) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -770,7 +780,7 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
         }
     }
 
-    fn get_property_g_flags(&self) -> DBusProxyFlags {
+    fn g_flags(&self) -> DBusProxyFlags {
         unsafe {
             let mut value = glib::Value::from_type(<DBusProxyFlags as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -785,7 +795,7 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
         }
     }
 
-    fn get_property_g_interface_info(&self) -> Option<DBusInterfaceInfo> {
+    fn g_interface_info(&self) -> Option<DBusInterfaceInfo> {
         unsafe {
             let mut value =
                 glib::Value::from_type(<DBusInterfaceInfo as StaticType>::static_type());
@@ -800,7 +810,7 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
         }
     }
 
-    fn set_property_g_interface_info(&self, g_interface_info: Option<&DBusInterfaceInfo>) {
+    fn set_g_interface_info(&self, g_interface_info: Option<&DBusInterfaceInfo>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -810,7 +820,7 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
         }
     }
 
-    fn get_property_g_interface_name(&self) -> Option<glib::GString> {
+    fn g_interface_name(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -824,7 +834,7 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
         }
     }
 
-    fn get_property_g_name(&self) -> Option<glib::GString> {
+    fn g_name(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -838,7 +848,7 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
         }
     }
 
-    fn get_property_g_name_owner(&self) -> Option<glib::GString> {
+    fn g_name_owner(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -852,7 +862,7 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
         }
     }
 
-    fn get_property_g_object_path(&self) -> Option<glib::GString> {
+    fn g_object_path(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(

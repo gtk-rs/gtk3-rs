@@ -26,19 +26,19 @@ pub trait DocumentExt: 'static {
     fn get_attribute_value(&self, attribute_name: &str) -> Option<glib::GString>;
 
     //#[doc(alias = "atk_document_get_attributes")]
-    //fn get_attributes(&self) -> /*Ignored*/Option<AttributeSet>;
+    //fn attributes(&self) -> /*Ignored*/Option<AttributeSet>;
 
     #[doc(alias = "atk_document_get_current_page_number")]
-    fn get_current_page_number(&self) -> i32;
+    fn current_page_number(&self) -> i32;
 
     //#[doc(alias = "atk_document_get_document")]
-    //fn get_document(&self) -> /*Unimplemented*/Option<Fundamental: Pointer>;
+    //fn document(&self) -> /*Unimplemented*/Option<Fundamental: Pointer>;
 
     #[doc(alias = "atk_document_get_document_type")]
-    fn get_document_type(&self) -> Option<glib::GString>;
+    fn document_type(&self) -> Option<glib::GString>;
 
     #[doc(alias = "atk_document_get_page_count")]
-    fn get_page_count(&self) -> i32;
+    fn page_count(&self) -> i32;
 
     #[doc(alias = "atk_document_set_attribute_value")]
     fn set_attribute_value(&self, attribute_name: &str, attribute_value: &str) -> bool;
@@ -62,19 +62,19 @@ impl<O: IsA<Document>> DocumentExt for O {
         }
     }
 
-    //fn get_attributes(&self) -> /*Ignored*/Option<AttributeSet> {
+    //fn attributes(&self) -> /*Ignored*/Option<AttributeSet> {
     //    unsafe { TODO: call ffi:atk_document_get_attributes() }
     //}
 
-    fn get_current_page_number(&self) -> i32 {
+    fn current_page_number(&self) -> i32 {
         unsafe { ffi::atk_document_get_current_page_number(self.as_ref().to_glib_none().0) }
     }
 
-    //fn get_document(&self) -> /*Unimplemented*/Option<Fundamental: Pointer> {
+    //fn document(&self) -> /*Unimplemented*/Option<Fundamental: Pointer> {
     //    unsafe { TODO: call ffi:atk_document_get_document() }
     //}
 
-    fn get_document_type(&self) -> Option<glib::GString> {
+    fn document_type(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::atk_document_get_document_type(
                 self.as_ref().to_glib_none().0,
@@ -82,7 +82,7 @@ impl<O: IsA<Document>> DocumentExt for O {
         }
     }
 
-    fn get_page_count(&self) -> i32 {
+    fn page_count(&self) -> i32 {
         unsafe { ffi::atk_document_get_page_count(self.as_ref().to_glib_none().0) }
     }
 

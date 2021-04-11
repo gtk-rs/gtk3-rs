@@ -417,22 +417,22 @@ pub const NONE_PROGRESS_BAR: Option<&ProgressBar> = None;
 
 pub trait ProgressBarExt: 'static {
     #[doc(alias = "gtk_progress_bar_get_ellipsize")]
-    fn get_ellipsize(&self) -> pango::EllipsizeMode;
+    fn ellipsize(&self) -> pango::EllipsizeMode;
 
     #[doc(alias = "gtk_progress_bar_get_fraction")]
-    fn get_fraction(&self) -> f64;
+    fn fraction(&self) -> f64;
 
     #[doc(alias = "gtk_progress_bar_get_inverted")]
-    fn get_inverted(&self) -> bool;
+    fn is_inverted(&self) -> bool;
 
     #[doc(alias = "gtk_progress_bar_get_pulse_step")]
-    fn get_pulse_step(&self) -> f64;
+    fn pulse_step(&self) -> f64;
 
     #[doc(alias = "gtk_progress_bar_get_show_text")]
-    fn get_show_text(&self) -> bool;
+    fn shows_text(&self) -> bool;
 
     #[doc(alias = "gtk_progress_bar_get_text")]
-    fn get_text(&self) -> Option<glib::GString>;
+    fn text(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_progress_bar_pulse")]
     fn pulse(&self);
@@ -469,7 +469,7 @@ pub trait ProgressBarExt: 'static {
 }
 
 impl<O: IsA<ProgressBar>> ProgressBarExt for O {
-    fn get_ellipsize(&self) -> pango::EllipsizeMode {
+    fn ellipsize(&self) -> pango::EllipsizeMode {
         unsafe {
             from_glib(ffi::gtk_progress_bar_get_ellipsize(
                 self.as_ref().to_glib_none().0,
@@ -477,11 +477,11 @@ impl<O: IsA<ProgressBar>> ProgressBarExt for O {
         }
     }
 
-    fn get_fraction(&self) -> f64 {
+    fn fraction(&self) -> f64 {
         unsafe { ffi::gtk_progress_bar_get_fraction(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_inverted(&self) -> bool {
+    fn is_inverted(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_progress_bar_get_inverted(
                 self.as_ref().to_glib_none().0,
@@ -489,11 +489,11 @@ impl<O: IsA<ProgressBar>> ProgressBarExt for O {
         }
     }
 
-    fn get_pulse_step(&self) -> f64 {
+    fn pulse_step(&self) -> f64 {
         unsafe { ffi::gtk_progress_bar_get_pulse_step(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_show_text(&self) -> bool {
+    fn shows_text(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_progress_bar_get_show_text(
                 self.as_ref().to_glib_none().0,
@@ -501,7 +501,7 @@ impl<O: IsA<ProgressBar>> ProgressBarExt for O {
         }
     }
 
-    fn get_text(&self) -> Option<glib::GString> {
+    fn text(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_progress_bar_get_text(
                 self.as_ref().to_glib_none().0,

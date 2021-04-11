@@ -66,12 +66,12 @@ impl FileFilter {
     //}
 
     #[doc(alias = "gtk_file_filter_get_name")]
-    pub fn get_name(&self) -> Option<glib::GString> {
+    pub fn name(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::gtk_file_filter_get_name(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gtk_file_filter_get_needed")]
-    pub fn get_needed(&self) -> FileFilterFlags {
+    pub fn needed(&self) -> FileFilterFlags {
         unsafe { from_glib(ffi::gtk_file_filter_get_needed(self.to_glib_none().0)) }
     }
 

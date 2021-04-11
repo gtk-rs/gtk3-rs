@@ -487,14 +487,15 @@ impl FontChooserWidgetBuilder {
 pub const NONE_FONT_CHOOSER_WIDGET: Option<&FontChooserWidget> = None;
 
 pub trait FontChooserWidgetExt: 'static {
-    //fn get_property_tweak_action(&self) -> /*Ignored*/Option<gio::Action>;
+    //#[doc(alias = "get_property_tweak_action")]
+    //fn tweak_action(&self) -> /*Ignored*/Option<gio::Action>;
 
     fn connect_property_tweak_action_notify<F: Fn(&Self) + 'static>(&self, f: F)
         -> SignalHandlerId;
 }
 
 impl<O: IsA<FontChooserWidget>> FontChooserWidgetExt for O {
-    //fn get_property_tweak_action(&self) -> /*Ignored*/Option<gio::Action> {
+    //fn tweak_action(&self) -> /*Ignored*/Option<gio::Action> {
     //    unsafe {
     //        let mut value = glib::Value::from_type(</*Unknown type*/ as StaticType>::static_type());
     //        glib::gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut glib::gobject_ffi::GObject, b"tweak-action\0".as_ptr() as *const _, value.to_glib_none_mut().0);

@@ -91,7 +91,7 @@ pub const NONE_TLS_CERTIFICATE: Option<&TlsCertificate> = None;
 
 pub trait TlsCertificateExt: 'static {
     #[doc(alias = "g_tls_certificate_get_issuer")]
-    fn get_issuer(&self) -> Option<TlsCertificate>;
+    fn issuer(&self) -> Option<TlsCertificate>;
 
     #[doc(alias = "g_tls_certificate_is_same")]
     fn is_same<P: IsA<TlsCertificate>>(&self, cert_two: &P) -> bool;
@@ -103,13 +103,15 @@ pub trait TlsCertificateExt: 'static {
         trusted_ca: Option<&Q>,
     ) -> TlsCertificateFlags;
 
-    fn get_property_certificate(&self) -> Option<glib::ByteArray>;
+    #[doc(alias = "get_property_certificate")]
+    fn certificate(&self) -> Option<glib::ByteArray>;
 
-    fn get_property_certificate_pem(&self) -> Option<glib::GString>;
+    #[doc(alias = "get_property_certificate_pem")]
+    fn certificate_pem(&self) -> Option<glib::GString>;
 }
 
 impl<O: IsA<TlsCertificate>> TlsCertificateExt for O {
-    fn get_issuer(&self) -> Option<TlsCertificate> {
+    fn issuer(&self) -> Option<TlsCertificate> {
         unsafe {
             from_glib_none(ffi::g_tls_certificate_get_issuer(
                 self.as_ref().to_glib_none().0,
@@ -140,7 +142,7 @@ impl<O: IsA<TlsCertificate>> TlsCertificateExt for O {
         }
     }
 
-    fn get_property_certificate(&self) -> Option<glib::ByteArray> {
+    fn certificate(&self) -> Option<glib::ByteArray> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::ByteArray as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -154,7 +156,7 @@ impl<O: IsA<TlsCertificate>> TlsCertificateExt for O {
         }
     }
 
-    fn get_property_certificate_pem(&self) -> Option<glib::GString> {
+    fn certificate_pem(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(

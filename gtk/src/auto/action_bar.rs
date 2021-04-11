@@ -378,7 +378,7 @@ pub const NONE_ACTION_BAR: Option<&ActionBar> = None;
 
 pub trait ActionBarExt: 'static {
     #[doc(alias = "gtk_action_bar_get_center_widget")]
-    fn get_center_widget(&self) -> Option<Widget>;
+    fn center_widget(&self) -> Option<Widget>;
 
     #[doc(alias = "gtk_action_bar_pack_end")]
     fn pack_end<P: IsA<Widget>>(&self, child: &P);
@@ -399,7 +399,7 @@ pub trait ActionBarExt: 'static {
 }
 
 impl<O: IsA<ActionBar>> ActionBarExt for O {
-    fn get_center_widget(&self) -> Option<Widget> {
+    fn center_widget(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_action_bar_get_center_widget(
                 self.as_ref().to_glib_none().0,

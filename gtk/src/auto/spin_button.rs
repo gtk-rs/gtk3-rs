@@ -854,34 +854,34 @@ pub trait SpinButtonExt: 'static {
     fn configure<P: IsA<Adjustment>>(&self, adjustment: Option<&P>, climb_rate: f64, digits: u32);
 
     #[doc(alias = "gtk_spin_button_get_adjustment")]
-    fn get_adjustment(&self) -> Adjustment;
+    fn adjustment(&self) -> Adjustment;
 
     #[doc(alias = "gtk_spin_button_get_digits")]
-    fn get_digits(&self) -> u32;
+    fn digits(&self) -> u32;
 
     #[doc(alias = "gtk_spin_button_get_increments")]
-    fn get_increments(&self) -> (f64, f64);
+    fn increments(&self) -> (f64, f64);
 
     #[doc(alias = "gtk_spin_button_get_numeric")]
-    fn get_numeric(&self) -> bool;
+    fn is_numeric(&self) -> bool;
 
     #[doc(alias = "gtk_spin_button_get_range")]
-    fn get_range(&self) -> (f64, f64);
+    fn range(&self) -> (f64, f64);
 
     #[doc(alias = "gtk_spin_button_get_snap_to_ticks")]
-    fn get_snap_to_ticks(&self) -> bool;
+    fn snaps_to_ticks(&self) -> bool;
 
     #[doc(alias = "gtk_spin_button_get_update_policy")]
-    fn get_update_policy(&self) -> SpinButtonUpdatePolicy;
+    fn update_policy(&self) -> SpinButtonUpdatePolicy;
 
     #[doc(alias = "gtk_spin_button_get_value")]
-    fn get_value(&self) -> f64;
+    fn value(&self) -> f64;
 
     #[doc(alias = "gtk_spin_button_get_value_as_int")]
-    fn get_value_as_int(&self) -> i32;
+    fn value_as_int(&self) -> i32;
 
     #[doc(alias = "gtk_spin_button_get_wrap")]
-    fn get_wrap(&self) -> bool;
+    fn wraps(&self) -> bool;
 
     #[doc(alias = "gtk_spin_button_set_adjustment")]
     fn set_adjustment<P: IsA<Adjustment>>(&self, adjustment: &P);
@@ -916,9 +916,11 @@ pub trait SpinButtonExt: 'static {
     #[doc(alias = "gtk_spin_button_update")]
     fn update(&self);
 
-    fn get_property_climb_rate(&self) -> f64;
+    #[doc(alias = "get_property_climb_rate")]
+    fn climb_rate(&self) -> f64;
 
-    fn set_property_climb_rate(&self, climb_rate: f64);
+    #[doc(alias = "set_property_climb_rate")]
+    fn set_climb_rate(&self, climb_rate: f64);
 
     fn connect_property_adjustment_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -955,7 +957,7 @@ impl<O: IsA<SpinButton>> SpinButtonExt for O {
         }
     }
 
-    fn get_adjustment(&self) -> Adjustment {
+    fn adjustment(&self) -> Adjustment {
         unsafe {
             from_glib_none(ffi::gtk_spin_button_get_adjustment(
                 self.as_ref().to_glib_none().0,
@@ -963,11 +965,11 @@ impl<O: IsA<SpinButton>> SpinButtonExt for O {
         }
     }
 
-    fn get_digits(&self) -> u32 {
+    fn digits(&self) -> u32 {
         unsafe { ffi::gtk_spin_button_get_digits(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_increments(&self) -> (f64, f64) {
+    fn increments(&self) -> (f64, f64) {
         unsafe {
             let mut step = mem::MaybeUninit::uninit();
             let mut page = mem::MaybeUninit::uninit();
@@ -982,7 +984,7 @@ impl<O: IsA<SpinButton>> SpinButtonExt for O {
         }
     }
 
-    fn get_numeric(&self) -> bool {
+    fn is_numeric(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_spin_button_get_numeric(
                 self.as_ref().to_glib_none().0,
@@ -990,7 +992,7 @@ impl<O: IsA<SpinButton>> SpinButtonExt for O {
         }
     }
 
-    fn get_range(&self) -> (f64, f64) {
+    fn range(&self) -> (f64, f64) {
         unsafe {
             let mut min = mem::MaybeUninit::uninit();
             let mut max = mem::MaybeUninit::uninit();
@@ -1005,7 +1007,7 @@ impl<O: IsA<SpinButton>> SpinButtonExt for O {
         }
     }
 
-    fn get_snap_to_ticks(&self) -> bool {
+    fn snaps_to_ticks(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_spin_button_get_snap_to_ticks(
                 self.as_ref().to_glib_none().0,
@@ -1013,7 +1015,7 @@ impl<O: IsA<SpinButton>> SpinButtonExt for O {
         }
     }
 
-    fn get_update_policy(&self) -> SpinButtonUpdatePolicy {
+    fn update_policy(&self) -> SpinButtonUpdatePolicy {
         unsafe {
             from_glib(ffi::gtk_spin_button_get_update_policy(
                 self.as_ref().to_glib_none().0,
@@ -1021,15 +1023,15 @@ impl<O: IsA<SpinButton>> SpinButtonExt for O {
         }
     }
 
-    fn get_value(&self) -> f64 {
+    fn value(&self) -> f64 {
         unsafe { ffi::gtk_spin_button_get_value(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_value_as_int(&self) -> i32 {
+    fn value_as_int(&self) -> i32 {
         unsafe { ffi::gtk_spin_button_get_value_as_int(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_wrap(&self) -> bool {
+    fn wraps(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_spin_button_get_wrap(
                 self.as_ref().to_glib_none().0,
@@ -1116,7 +1118,7 @@ impl<O: IsA<SpinButton>> SpinButtonExt for O {
         }
     }
 
-    fn get_property_climb_rate(&self) -> f64 {
+    fn climb_rate(&self) -> f64 {
         unsafe {
             let mut value = glib::Value::from_type(<f64 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -1131,7 +1133,7 @@ impl<O: IsA<SpinButton>> SpinButtonExt for O {
         }
     }
 
-    fn set_property_climb_rate(&self, climb_rate: f64) {
+    fn set_climb_rate(&self, climb_rate: f64) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,

@@ -69,13 +69,13 @@ pub trait InetAddressMaskExt: 'static {
     fn equal<P: IsA<InetAddressMask>>(&self, mask2: &P) -> bool;
 
     #[doc(alias = "g_inet_address_mask_get_address")]
-    fn get_address(&self) -> InetAddress;
+    fn address(&self) -> InetAddress;
 
     #[doc(alias = "g_inet_address_mask_get_family")]
-    fn get_family(&self) -> SocketFamily;
+    fn family(&self) -> SocketFamily;
 
     #[doc(alias = "g_inet_address_mask_get_length")]
-    fn get_length(&self) -> u32;
+    fn length(&self) -> u32;
 
     #[doc(alias = "g_inet_address_mask_matches")]
     fn matches<P: IsA<InetAddress>>(&self, address: &P) -> bool;
@@ -83,9 +83,11 @@ pub trait InetAddressMaskExt: 'static {
     #[doc(alias = "g_inet_address_mask_to_string")]
     fn to_str(&self) -> glib::GString;
 
-    fn set_property_address<P: IsA<InetAddress>>(&self, address: Option<&P>);
+    #[doc(alias = "set_property_address")]
+    fn set_address<P: IsA<InetAddress>>(&self, address: Option<&P>);
 
-    fn set_property_length(&self, length: u32);
+    #[doc(alias = "set_property_length")]
+    fn set_length(&self, length: u32);
 
     fn connect_property_address_notify<F: Fn(&Self) + Send + Sync + 'static>(
         &self,
@@ -113,7 +115,7 @@ impl<O: IsA<InetAddressMask>> InetAddressMaskExt for O {
         }
     }
 
-    fn get_address(&self) -> InetAddress {
+    fn address(&self) -> InetAddress {
         unsafe {
             from_glib_none(ffi::g_inet_address_mask_get_address(
                 self.as_ref().to_glib_none().0,
@@ -121,7 +123,7 @@ impl<O: IsA<InetAddressMask>> InetAddressMaskExt for O {
         }
     }
 
-    fn get_family(&self) -> SocketFamily {
+    fn family(&self) -> SocketFamily {
         unsafe {
             from_glib(ffi::g_inet_address_mask_get_family(
                 self.as_ref().to_glib_none().0,
@@ -129,7 +131,7 @@ impl<O: IsA<InetAddressMask>> InetAddressMaskExt for O {
         }
     }
 
-    fn get_length(&self) -> u32 {
+    fn length(&self) -> u32 {
         unsafe { ffi::g_inet_address_mask_get_length(self.as_ref().to_glib_none().0) }
     }
 
@@ -150,7 +152,7 @@ impl<O: IsA<InetAddressMask>> InetAddressMaskExt for O {
         }
     }
 
-    fn set_property_address<P: IsA<InetAddress>>(&self, address: Option<&P>) {
+    fn set_address<P: IsA<InetAddress>>(&self, address: Option<&P>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -160,7 +162,7 @@ impl<O: IsA<InetAddressMask>> InetAddressMaskExt for O {
         }
     }
 
-    fn set_property_length(&self, length: u32) {
+    fn set_length(&self, length: u32) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,

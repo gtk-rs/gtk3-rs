@@ -756,102 +756,102 @@ pub trait GtkWindowExt: 'static {
     fn fullscreen_on_monitor(&self, screen: &gdk::Screen, monitor: i32);
 
     #[doc(alias = "gtk_window_get_accept_focus")]
-    fn get_accept_focus(&self) -> bool;
+    fn accepts_focus(&self) -> bool;
 
     #[doc(alias = "gtk_window_get_application")]
-    fn get_application(&self) -> Option<Application>;
+    fn application(&self) -> Option<Application>;
 
     #[doc(alias = "gtk_window_get_attached_to")]
-    fn get_attached_to(&self) -> Option<Widget>;
+    fn attached_to(&self) -> Option<Widget>;
 
     #[doc(alias = "gtk_window_get_decorated")]
-    fn get_decorated(&self) -> bool;
+    fn is_decorated(&self) -> bool;
 
     #[doc(alias = "gtk_window_get_default_size")]
-    fn get_default_size(&self) -> (i32, i32);
+    fn default_size(&self) -> (i32, i32);
 
     #[doc(alias = "gtk_window_get_default_widget")]
-    fn get_default_widget(&self) -> Option<Widget>;
+    fn default_widget(&self) -> Option<Widget>;
 
     #[doc(alias = "gtk_window_get_deletable")]
-    fn get_deletable(&self) -> bool;
+    fn is_deletable(&self) -> bool;
 
     #[doc(alias = "gtk_window_get_destroy_with_parent")]
-    fn get_destroy_with_parent(&self) -> bool;
+    fn must_destroy_with_parent(&self) -> bool;
 
     #[doc(alias = "gtk_window_get_focus")]
-    fn get_focus(&self) -> Option<Widget>;
+    fn focus(&self) -> Option<Widget>;
 
     #[doc(alias = "gtk_window_get_focus_on_map")]
-    fn get_focus_on_map(&self) -> bool;
+    fn gets_focus_on_map(&self) -> bool;
 
     #[doc(alias = "gtk_window_get_focus_visible")]
-    fn get_focus_visible(&self) -> bool;
+    fn gets_focus_visible(&self) -> bool;
 
     #[doc(alias = "gtk_window_get_gravity")]
-    fn get_gravity(&self) -> gdk::Gravity;
+    fn gravity(&self) -> gdk::Gravity;
 
     #[doc(alias = "gtk_window_get_group")]
-    fn get_group(&self) -> Option<WindowGroup>;
+    fn group(&self) -> Option<WindowGroup>;
 
     #[doc(alias = "gtk_window_get_hide_titlebar_when_maximized")]
-    fn get_hide_titlebar_when_maximized(&self) -> bool;
+    fn hides_titlebar_when_maximized(&self) -> bool;
 
     #[doc(alias = "gtk_window_get_icon")]
-    fn get_icon(&self) -> Option<gdk_pixbuf::Pixbuf>;
+    fn icon(&self) -> Option<gdk_pixbuf::Pixbuf>;
 
     #[doc(alias = "gtk_window_get_icon_list")]
-    fn get_icon_list(&self) -> Vec<gdk_pixbuf::Pixbuf>;
+    fn icon_list(&self) -> Vec<gdk_pixbuf::Pixbuf>;
 
     #[doc(alias = "gtk_window_get_icon_name")]
-    fn get_icon_name(&self) -> Option<glib::GString>;
+    fn icon_name(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_window_get_mnemonic_modifier")]
-    fn get_mnemonic_modifier(&self) -> gdk::ModifierType;
+    fn mnemonic_modifier(&self) -> gdk::ModifierType;
 
     #[doc(alias = "gtk_window_get_mnemonics_visible")]
-    fn get_mnemonics_visible(&self) -> bool;
+    fn is_mnemonics_visible(&self) -> bool;
 
     #[doc(alias = "gtk_window_get_modal")]
-    fn get_modal(&self) -> bool;
+    fn is_modal(&self) -> bool;
 
     #[doc(alias = "gtk_window_get_position")]
-    fn get_position(&self) -> (i32, i32);
+    fn position(&self) -> (i32, i32);
 
     #[doc(alias = "gtk_window_get_resizable")]
-    fn get_resizable(&self) -> bool;
+    fn is_resizable(&self) -> bool;
 
     #[doc(alias = "gtk_window_get_role")]
-    fn get_role(&self) -> Option<glib::GString>;
+    fn role(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_window_get_size")]
-    fn get_size(&self) -> (i32, i32);
+    fn size(&self) -> (i32, i32);
 
     #[doc(alias = "gtk_window_get_skip_pager_hint")]
-    fn get_skip_pager_hint(&self) -> bool;
+    fn skips_pager_hint(&self) -> bool;
 
     #[doc(alias = "gtk_window_get_skip_taskbar_hint")]
-    fn get_skip_taskbar_hint(&self) -> bool;
+    fn skips_taskbar_hint(&self) -> bool;
 
     #[doc(alias = "gtk_window_get_title")]
-    fn get_title(&self) -> Option<glib::GString>;
+    fn title(&self) -> Option<glib::GString>;
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_window_get_titlebar")]
-    fn get_titlebar(&self) -> Option<Widget>;
+    fn titlebar(&self) -> Option<Widget>;
 
     #[doc(alias = "gtk_window_get_transient_for")]
-    fn get_transient_for(&self) -> Option<Window>;
+    fn transient_for(&self) -> Option<Window>;
 
     #[doc(alias = "gtk_window_get_type_hint")]
-    fn get_type_hint(&self) -> gdk::WindowTypeHint;
+    fn type_hint(&self) -> gdk::WindowTypeHint;
 
     #[doc(alias = "gtk_window_get_urgency_hint")]
-    fn get_urgency_hint(&self) -> bool;
+    fn is_urgency_hint(&self) -> bool;
 
     #[doc(alias = "gtk_window_get_window_type")]
-    fn get_window_type(&self) -> WindowType;
+    fn window_type(&self) -> WindowType;
 
     #[doc(alias = "gtk_window_has_group")]
     fn has_group(&self) -> bool;
@@ -1034,25 +1034,26 @@ pub trait GtkWindowExt: 'static {
     #[doc(alias = "gtk_window_unstick")]
     fn unstick(&self);
 
-    fn get_property_default_height(&self) -> i32;
+    #[doc(alias = "get_property_default_height")]
+    fn default_height(&self) -> i32;
 
-    fn set_property_default_height(&self, default_height: i32);
+    #[doc(alias = "set_property_default_height")]
+    fn set_default_height(&self, default_height: i32);
 
-    fn get_property_default_width(&self) -> i32;
+    #[doc(alias = "get_property_default_width")]
+    fn default_width(&self) -> i32;
 
-    fn set_property_default_width(&self, default_width: i32);
+    #[doc(alias = "set_property_default_width")]
+    fn set_default_width(&self, default_width: i32);
 
-    fn get_property_has_toplevel_focus(&self) -> bool;
+    #[doc(alias = "get_property_type")]
+    fn type_(&self) -> WindowType;
 
-    fn get_property_is_active(&self) -> bool;
+    #[doc(alias = "get_property_window_position")]
+    fn window_position(&self) -> WindowPosition;
 
-    fn get_property_is_maximized(&self) -> bool;
-
-    fn get_property_type(&self) -> WindowType;
-
-    fn get_property_window_position(&self) -> WindowPosition;
-
-    fn set_property_window_position(&self, window_position: WindowPosition);
+    #[doc(alias = "set_property_window_position")]
+    fn set_window_position(&self, window_position: WindowPosition);
 
     fn connect_activate_default<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -1278,7 +1279,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
-    fn get_accept_focus(&self) -> bool {
+    fn accepts_focus(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_window_get_accept_focus(
                 self.as_ref().to_glib_none().0,
@@ -1286,7 +1287,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
-    fn get_application(&self) -> Option<Application> {
+    fn application(&self) -> Option<Application> {
         unsafe {
             from_glib_none(ffi::gtk_window_get_application(
                 self.as_ref().to_glib_none().0,
@@ -1294,7 +1295,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
-    fn get_attached_to(&self) -> Option<Widget> {
+    fn attached_to(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_window_get_attached_to(
                 self.as_ref().to_glib_none().0,
@@ -1302,7 +1303,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
-    fn get_decorated(&self) -> bool {
+    fn is_decorated(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_window_get_decorated(
                 self.as_ref().to_glib_none().0,
@@ -1310,7 +1311,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
-    fn get_default_size(&self) -> (i32, i32) {
+    fn default_size(&self) -> (i32, i32) {
         unsafe {
             let mut width = mem::MaybeUninit::uninit();
             let mut height = mem::MaybeUninit::uninit();
@@ -1325,7 +1326,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
-    fn get_default_widget(&self) -> Option<Widget> {
+    fn default_widget(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_window_get_default_widget(
                 self.as_ref().to_glib_none().0,
@@ -1333,7 +1334,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
-    fn get_deletable(&self) -> bool {
+    fn is_deletable(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_window_get_deletable(
                 self.as_ref().to_glib_none().0,
@@ -1341,7 +1342,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
-    fn get_destroy_with_parent(&self) -> bool {
+    fn must_destroy_with_parent(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_window_get_destroy_with_parent(
                 self.as_ref().to_glib_none().0,
@@ -1349,11 +1350,11 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
-    fn get_focus(&self) -> Option<Widget> {
+    fn focus(&self) -> Option<Widget> {
         unsafe { from_glib_none(ffi::gtk_window_get_focus(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_focus_on_map(&self) -> bool {
+    fn gets_focus_on_map(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_window_get_focus_on_map(
                 self.as_ref().to_glib_none().0,
@@ -1361,7 +1362,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
-    fn get_focus_visible(&self) -> bool {
+    fn gets_focus_visible(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_window_get_focus_visible(
                 self.as_ref().to_glib_none().0,
@@ -1369,15 +1370,15 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
-    fn get_gravity(&self) -> gdk::Gravity {
+    fn gravity(&self) -> gdk::Gravity {
         unsafe { from_glib(ffi::gtk_window_get_gravity(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_group(&self) -> Option<WindowGroup> {
+    fn group(&self) -> Option<WindowGroup> {
         unsafe { from_glib_none(ffi::gtk_window_get_group(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_hide_titlebar_when_maximized(&self) -> bool {
+    fn hides_titlebar_when_maximized(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_window_get_hide_titlebar_when_maximized(
                 self.as_ref().to_glib_none().0,
@@ -1385,11 +1386,11 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
-    fn get_icon(&self) -> Option<gdk_pixbuf::Pixbuf> {
+    fn icon(&self) -> Option<gdk_pixbuf::Pixbuf> {
         unsafe { from_glib_none(ffi::gtk_window_get_icon(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_icon_list(&self) -> Vec<gdk_pixbuf::Pixbuf> {
+    fn icon_list(&self) -> Vec<gdk_pixbuf::Pixbuf> {
         unsafe {
             FromGlibPtrContainer::from_glib_container(ffi::gtk_window_get_icon_list(
                 self.as_ref().to_glib_none().0,
@@ -1397,7 +1398,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
-    fn get_icon_name(&self) -> Option<glib::GString> {
+    fn icon_name(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_window_get_icon_name(
                 self.as_ref().to_glib_none().0,
@@ -1405,7 +1406,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
-    fn get_mnemonic_modifier(&self) -> gdk::ModifierType {
+    fn mnemonic_modifier(&self) -> gdk::ModifierType {
         unsafe {
             from_glib(ffi::gtk_window_get_mnemonic_modifier(
                 self.as_ref().to_glib_none().0,
@@ -1413,7 +1414,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
-    fn get_mnemonics_visible(&self) -> bool {
+    fn is_mnemonics_visible(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_window_get_mnemonics_visible(
                 self.as_ref().to_glib_none().0,
@@ -1421,11 +1422,11 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
-    fn get_modal(&self) -> bool {
+    fn is_modal(&self) -> bool {
         unsafe { from_glib(ffi::gtk_window_get_modal(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_position(&self) -> (i32, i32) {
+    fn position(&self) -> (i32, i32) {
         unsafe {
             let mut root_x = mem::MaybeUninit::uninit();
             let mut root_y = mem::MaybeUninit::uninit();
@@ -1440,7 +1441,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
-    fn get_resizable(&self) -> bool {
+    fn is_resizable(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_window_get_resizable(
                 self.as_ref().to_glib_none().0,
@@ -1448,11 +1449,11 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
-    fn get_role(&self) -> Option<glib::GString> {
+    fn role(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::gtk_window_get_role(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_size(&self) -> (i32, i32) {
+    fn size(&self) -> (i32, i32) {
         unsafe {
             let mut width = mem::MaybeUninit::uninit();
             let mut height = mem::MaybeUninit::uninit();
@@ -1467,7 +1468,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
-    fn get_skip_pager_hint(&self) -> bool {
+    fn skips_pager_hint(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_window_get_skip_pager_hint(
                 self.as_ref().to_glib_none().0,
@@ -1475,7 +1476,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
-    fn get_skip_taskbar_hint(&self) -> bool {
+    fn skips_taskbar_hint(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_window_get_skip_taskbar_hint(
                 self.as_ref().to_glib_none().0,
@@ -1483,17 +1484,17 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
-    fn get_title(&self) -> Option<glib::GString> {
+    fn title(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::gtk_window_get_title(self.as_ref().to_glib_none().0)) }
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    fn get_titlebar(&self) -> Option<Widget> {
+    fn titlebar(&self) -> Option<Widget> {
         unsafe { from_glib_none(ffi::gtk_window_get_titlebar(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_transient_for(&self) -> Option<Window> {
+    fn transient_for(&self) -> Option<Window> {
         unsafe {
             from_glib_none(ffi::gtk_window_get_transient_for(
                 self.as_ref().to_glib_none().0,
@@ -1501,7 +1502,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
-    fn get_type_hint(&self) -> gdk::WindowTypeHint {
+    fn type_hint(&self) -> gdk::WindowTypeHint {
         unsafe {
             from_glib(ffi::gtk_window_get_type_hint(
                 self.as_ref().to_glib_none().0,
@@ -1509,7 +1510,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
-    fn get_urgency_hint(&self) -> bool {
+    fn is_urgency_hint(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_window_get_urgency_hint(
                 self.as_ref().to_glib_none().0,
@@ -1517,7 +1518,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
-    fn get_window_type(&self) -> WindowType {
+    fn window_type(&self) -> WindowType {
         unsafe {
             from_glib(ffi::gtk_window_get_window_type(
                 self.as_ref().to_glib_none().0,
@@ -1946,7 +1947,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
-    fn get_property_default_height(&self) -> i32 {
+    fn default_height(&self) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -1961,7 +1962,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
-    fn set_property_default_height(&self, default_height: i32) {
+    fn set_default_height(&self, default_height: i32) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -1971,7 +1972,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
-    fn get_property_default_width(&self) -> i32 {
+    fn default_width(&self) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -1986,7 +1987,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
-    fn set_property_default_width(&self, default_width: i32) {
+    fn set_default_width(&self, default_width: i32) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -1996,52 +1997,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
-    fn get_property_has_toplevel_focus(&self) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"has-toplevel-focus\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `has-toplevel-focus` getter")
-                .unwrap()
-        }
-    }
-
-    fn get_property_is_active(&self) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"is-active\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `is-active` getter")
-                .unwrap()
-        }
-    }
-
-    fn get_property_is_maximized(&self) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"is-maximized\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `is-maximized` getter")
-                .unwrap()
-        }
-    }
-
-    fn get_property_type(&self) -> WindowType {
+    fn type_(&self) -> WindowType {
         unsafe {
             let mut value = glib::Value::from_type(<WindowType as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -2056,7 +2012,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
-    fn get_property_window_position(&self) -> WindowPosition {
+    fn window_position(&self) -> WindowPosition {
         unsafe {
             let mut value = glib::Value::from_type(<WindowPosition as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -2071,7 +2027,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
-    fn set_property_window_position(&self, window_position: WindowPosition) {
+    fn set_window_position(&self, window_position: WindowPosition) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,

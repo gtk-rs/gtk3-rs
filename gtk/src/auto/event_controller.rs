@@ -25,10 +25,10 @@ pub const NONE_EVENT_CONTROLLER: Option<&EventController> = None;
 
 pub trait EventControllerExt: 'static {
     #[doc(alias = "gtk_event_controller_get_propagation_phase")]
-    fn get_propagation_phase(&self) -> PropagationPhase;
+    fn propagation_phase(&self) -> PropagationPhase;
 
     #[doc(alias = "gtk_event_controller_get_widget")]
-    fn get_widget(&self) -> Option<Widget>;
+    fn widget(&self) -> Option<Widget>;
 
     #[doc(alias = "gtk_event_controller_handle_event")]
     fn handle_event(&self, event: &gdk::Event) -> bool;
@@ -46,7 +46,7 @@ pub trait EventControllerExt: 'static {
 }
 
 impl<O: IsA<EventController>> EventControllerExt for O {
-    fn get_propagation_phase(&self) -> PropagationPhase {
+    fn propagation_phase(&self) -> PropagationPhase {
         unsafe {
             from_glib(ffi::gtk_event_controller_get_propagation_phase(
                 self.as_ref().to_glib_none().0,
@@ -54,7 +54,7 @@ impl<O: IsA<EventController>> EventControllerExt for O {
         }
     }
 
-    fn get_widget(&self) -> Option<Widget> {
+    fn widget(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_event_controller_get_widget(
                 self.as_ref().to_glib_none().0,

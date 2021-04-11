@@ -44,7 +44,7 @@ pub trait FileEnumeratorExt: 'static {
     fn get_child(&self, info: &FileInfo) -> File;
 
     #[doc(alias = "g_file_enumerator_get_container")]
-    fn get_container(&self) -> File;
+    fn container(&self) -> File;
 
     #[doc(alias = "g_file_enumerator_has_pending")]
     fn has_pending(&self) -> bool;
@@ -156,7 +156,7 @@ impl<O: IsA<FileEnumerator>> FileEnumeratorExt for O {
         }
     }
 
-    fn get_container(&self) -> File {
+    fn container(&self) -> File {
         unsafe {
             from_glib_none(ffi::g_file_enumerator_get_container(
                 self.as_ref().to_glib_none().0,

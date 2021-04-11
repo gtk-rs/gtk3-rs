@@ -65,7 +65,7 @@ impl Display {
     }
 
     #[doc(alias = "gdk_display_get_app_launch_context")]
-    pub fn get_app_launch_context(&self) -> Option<AppLaunchContext> {
+    pub fn app_launch_context(&self) -> Option<AppLaunchContext> {
         unsafe {
             from_glib_full(ffi::gdk_display_get_app_launch_context(
                 self.to_glib_none().0,
@@ -74,40 +74,40 @@ impl Display {
     }
 
     #[doc(alias = "gdk_display_get_default_cursor_size")]
-    pub fn get_default_cursor_size(&self) -> u32 {
+    pub fn default_cursor_size(&self) -> u32 {
         unsafe { ffi::gdk_display_get_default_cursor_size(self.to_glib_none().0) }
     }
 
     #[doc(alias = "gdk_display_get_default_group")]
-    pub fn get_default_group(&self) -> Window {
+    pub fn default_group(&self) -> Window {
         unsafe { from_glib_none(ffi::gdk_display_get_default_group(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_display_get_default_screen")]
-    pub fn get_default_screen(&self) -> Screen {
+    pub fn default_screen(&self) -> Screen {
         unsafe { from_glib_none(ffi::gdk_display_get_default_screen(self.to_glib_none().0)) }
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "gdk_display_get_default_seat")]
-    pub fn get_default_seat(&self) -> Option<Seat> {
+    pub fn default_seat(&self) -> Option<Seat> {
         unsafe { from_glib_none(ffi::gdk_display_get_default_seat(self.to_glib_none().0)) }
     }
 
     #[cfg_attr(feature = "v3_20", deprecated)]
     #[doc(alias = "gdk_display_get_device_manager")]
-    pub fn get_device_manager(&self) -> Option<DeviceManager> {
+    pub fn device_manager(&self) -> Option<DeviceManager> {
         unsafe { from_glib_none(ffi::gdk_display_get_device_manager(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_display_get_event")]
-    pub fn get_event(&self) -> Option<Event> {
+    pub fn event(&self) -> Option<Event> {
         unsafe { from_glib_full(ffi::gdk_display_get_event(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_display_get_maximal_cursor_size")]
-    pub fn get_maximal_cursor_size(&self) -> (u32, u32) {
+    pub fn maximal_cursor_size(&self) -> (u32, u32) {
         unsafe {
             let mut width = mem::MaybeUninit::uninit();
             let mut height = mem::MaybeUninit::uninit();
@@ -162,19 +162,19 @@ impl Display {
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gdk_display_get_n_monitors")]
-    pub fn get_n_monitors(&self) -> i32 {
+    pub fn n_monitors(&self) -> i32 {
         unsafe { ffi::gdk_display_get_n_monitors(self.to_glib_none().0) }
     }
 
     #[doc(alias = "gdk_display_get_name")]
-    pub fn get_name(&self) -> glib::GString {
+    pub fn name(&self) -> glib::GString {
         unsafe { from_glib_none(ffi::gdk_display_get_name(self.to_glib_none().0)) }
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gdk_display_get_primary_monitor")]
-    pub fn get_primary_monitor(&self) -> Option<Monitor> {
+    pub fn primary_monitor(&self) -> Option<Monitor> {
         unsafe { from_glib_none(ffi::gdk_display_get_primary_monitor(self.to_glib_none().0)) }
     }
 
@@ -501,6 +501,6 @@ impl Display {
 impl fmt::Display for Display {
     #[inline]
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str(&self.get_name())
+        f.write_str(&self.name())
     }
 }

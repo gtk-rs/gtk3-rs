@@ -69,7 +69,7 @@ impl GlyphString {
     //}
 
     #[doc(alias = "pango_glyph_string_get_width")]
-    pub fn get_width(&mut self) -> i32 {
+    pub fn width(&mut self) -> i32 {
         unsafe { ffi::pango_glyph_string_get_width(self.to_glib_none_mut().0) }
     }
 

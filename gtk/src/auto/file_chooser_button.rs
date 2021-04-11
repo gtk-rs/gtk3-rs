@@ -564,13 +564,13 @@ pub trait FileChooserButtonExt: 'static {
     #[cfg(any(not(feature = "v3_20"), feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(not(feature = "v3_20"))))]
     #[doc(alias = "gtk_file_chooser_button_get_focus_on_click")]
-    fn get_focus_on_click(&self) -> bool;
+    fn gets_focus_on_click(&self) -> bool;
 
     #[doc(alias = "gtk_file_chooser_button_get_title")]
-    fn get_title(&self) -> Option<glib::GString>;
+    fn title(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_file_chooser_button_get_width_chars")]
-    fn get_width_chars(&self) -> i32;
+    fn width_chars(&self) -> i32;
 
     #[cfg_attr(feature = "v3_20", deprecated)]
     #[cfg(any(not(feature = "v3_20"), feature = "dox"))]
@@ -594,7 +594,7 @@ pub trait FileChooserButtonExt: 'static {
 impl<O: IsA<FileChooserButton>> FileChooserButtonExt for O {
     #[cfg(any(not(feature = "v3_20"), feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(not(feature = "v3_20"))))]
-    fn get_focus_on_click(&self) -> bool {
+    fn gets_focus_on_click(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_file_chooser_button_get_focus_on_click(
                 self.as_ref().to_glib_none().0,
@@ -602,7 +602,7 @@ impl<O: IsA<FileChooserButton>> FileChooserButtonExt for O {
         }
     }
 
-    fn get_title(&self) -> Option<glib::GString> {
+    fn title(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_file_chooser_button_get_title(
                 self.as_ref().to_glib_none().0,
@@ -610,7 +610,7 @@ impl<O: IsA<FileChooserButton>> FileChooserButtonExt for O {
         }
     }
 
-    fn get_width_chars(&self) -> i32 {
+    fn width_chars(&self) -> i32 {
         unsafe { ffi::gtk_file_chooser_button_get_width_chars(self.as_ref().to_glib_none().0) }
     }
 

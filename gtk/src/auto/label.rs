@@ -542,80 +542,80 @@ pub const NONE_LABEL: Option<&Label> = None;
 
 pub trait LabelExt: 'static {
     #[doc(alias = "gtk_label_get_angle")]
-    fn get_angle(&self) -> f64;
+    fn angle(&self) -> f64;
 
     #[doc(alias = "gtk_label_get_attributes")]
-    fn get_attributes(&self) -> Option<pango::AttrList>;
+    fn attributes(&self) -> Option<pango::AttrList>;
 
     #[doc(alias = "gtk_label_get_current_uri")]
-    fn get_current_uri(&self) -> Option<glib::GString>;
+    fn current_uri(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_label_get_ellipsize")]
-    fn get_ellipsize(&self) -> pango::EllipsizeMode;
+    fn ellipsize(&self) -> pango::EllipsizeMode;
 
     #[doc(alias = "gtk_label_get_justify")]
-    fn get_justify(&self) -> Justification;
+    fn justify(&self) -> Justification;
 
     #[doc(alias = "gtk_label_get_label")]
-    fn get_label(&self) -> glib::GString;
+    fn label(&self) -> glib::GString;
 
     #[doc(alias = "gtk_label_get_layout")]
-    fn get_layout(&self) -> Option<pango::Layout>;
+    fn layout(&self) -> Option<pango::Layout>;
 
     #[doc(alias = "gtk_label_get_layout_offsets")]
-    fn get_layout_offsets(&self) -> (i32, i32);
+    fn layout_offsets(&self) -> (i32, i32);
 
     #[doc(alias = "gtk_label_get_line_wrap")]
-    fn get_line_wrap(&self) -> bool;
+    fn is_line_wrap(&self) -> bool;
 
     #[doc(alias = "gtk_label_get_line_wrap_mode")]
-    fn get_line_wrap_mode(&self) -> pango::WrapMode;
+    fn line_wrap_mode(&self) -> pango::WrapMode;
 
     #[doc(alias = "gtk_label_get_lines")]
-    fn get_lines(&self) -> i32;
+    fn lines(&self) -> i32;
 
     #[doc(alias = "gtk_label_get_max_width_chars")]
-    fn get_max_width_chars(&self) -> i32;
+    fn max_width_chars(&self) -> i32;
 
     #[doc(alias = "gtk_label_get_mnemonic_keyval")]
-    fn get_mnemonic_keyval(&self) -> u32;
+    fn mnemonic_keyval(&self) -> u32;
 
     #[doc(alias = "gtk_label_get_mnemonic_widget")]
-    fn get_mnemonic_widget(&self) -> Option<Widget>;
+    fn mnemonic_widget(&self) -> Option<Widget>;
 
     #[doc(alias = "gtk_label_get_selectable")]
-    fn get_selectable(&self) -> bool;
+    fn is_selectable(&self) -> bool;
 
     #[doc(alias = "gtk_label_get_selection_bounds")]
-    fn get_selection_bounds(&self) -> Option<(i32, i32)>;
+    fn selection_bounds(&self) -> Option<(i32, i32)>;
 
     #[doc(alias = "gtk_label_get_single_line_mode")]
-    fn get_single_line_mode(&self) -> bool;
+    fn is_single_line_mode(&self) -> bool;
 
     #[doc(alias = "gtk_label_get_text")]
-    fn get_text(&self) -> glib::GString;
+    fn text(&self) -> glib::GString;
 
     #[doc(alias = "gtk_label_get_track_visited_links")]
-    fn get_track_visited_links(&self) -> bool;
+    fn tracks_visited_links(&self) -> bool;
 
     #[doc(alias = "gtk_label_get_use_markup")]
-    fn get_use_markup(&self) -> bool;
+    fn uses_markup(&self) -> bool;
 
     #[doc(alias = "gtk_label_get_use_underline")]
-    fn get_use_underline(&self) -> bool;
+    fn uses_underline(&self) -> bool;
 
     #[doc(alias = "gtk_label_get_width_chars")]
-    fn get_width_chars(&self) -> i32;
+    fn width_chars(&self) -> i32;
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_label_get_xalign")]
-    fn get_xalign(&self) -> f32;
+    fn xalign(&self) -> f32;
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_label_get_yalign")]
-    fn get_yalign(&self) -> f32;
+    fn yalign(&self) -> f32;
 
     #[doc(alias = "gtk_label_select_region")]
     fn select_region(&self, start_offset: i32, end_offset: i32);
@@ -693,17 +693,23 @@ pub trait LabelExt: 'static {
     #[doc(alias = "gtk_label_set_yalign")]
     fn set_yalign(&self, yalign: f32);
 
-    fn get_property_cursor_position(&self) -> i32;
+    #[doc(alias = "get_property_cursor_position")]
+    fn cursor_position(&self) -> i32;
 
-    fn get_property_selection_bound(&self) -> i32;
+    #[doc(alias = "get_property_selection_bound")]
+    fn selection_bound(&self) -> i32;
 
-    fn get_property_wrap(&self) -> bool;
+    #[doc(alias = "get_property_wrap")]
+    fn wraps(&self) -> bool;
 
-    fn set_property_wrap(&self, wrap: bool);
+    #[doc(alias = "set_property_wrap")]
+    fn set_wrap(&self, wrap: bool);
 
-    fn get_property_wrap_mode(&self) -> pango::WrapMode;
+    #[doc(alias = "get_property_wrap_mode")]
+    fn wrap_mode(&self) -> pango::WrapMode;
 
-    fn set_property_wrap_mode(&self, wrap_mode: pango::WrapMode);
+    #[doc(alias = "set_property_wrap_mode")]
+    fn set_wrap_mode(&self, wrap_mode: pango::WrapMode);
 
     fn connect_activate_current_link<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -801,11 +807,11 @@ pub trait LabelExt: 'static {
 }
 
 impl<O: IsA<Label>> LabelExt for O {
-    fn get_angle(&self) -> f64 {
+    fn angle(&self) -> f64 {
         unsafe { ffi::gtk_label_get_angle(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_attributes(&self) -> Option<pango::AttrList> {
+    fn attributes(&self) -> Option<pango::AttrList> {
         unsafe {
             from_glib_none(ffi::gtk_label_get_attributes(
                 self.as_ref().to_glib_none().0,
@@ -813,7 +819,7 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
-    fn get_current_uri(&self) -> Option<glib::GString> {
+    fn current_uri(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_label_get_current_uri(
                 self.as_ref().to_glib_none().0,
@@ -821,23 +827,23 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
-    fn get_ellipsize(&self) -> pango::EllipsizeMode {
+    fn ellipsize(&self) -> pango::EllipsizeMode {
         unsafe { from_glib(ffi::gtk_label_get_ellipsize(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_justify(&self) -> Justification {
+    fn justify(&self) -> Justification {
         unsafe { from_glib(ffi::gtk_label_get_justify(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_label(&self) -> glib::GString {
+    fn label(&self) -> glib::GString {
         unsafe { from_glib_none(ffi::gtk_label_get_label(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_layout(&self) -> Option<pango::Layout> {
+    fn layout(&self) -> Option<pango::Layout> {
         unsafe { from_glib_none(ffi::gtk_label_get_layout(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_layout_offsets(&self) -> (i32, i32) {
+    fn layout_offsets(&self) -> (i32, i32) {
         unsafe {
             let mut x = mem::MaybeUninit::uninit();
             let mut y = mem::MaybeUninit::uninit();
@@ -852,11 +858,11 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
-    fn get_line_wrap(&self) -> bool {
+    fn is_line_wrap(&self) -> bool {
         unsafe { from_glib(ffi::gtk_label_get_line_wrap(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_line_wrap_mode(&self) -> pango::WrapMode {
+    fn line_wrap_mode(&self) -> pango::WrapMode {
         unsafe {
             from_glib(ffi::gtk_label_get_line_wrap_mode(
                 self.as_ref().to_glib_none().0,
@@ -864,19 +870,19 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
-    fn get_lines(&self) -> i32 {
+    fn lines(&self) -> i32 {
         unsafe { ffi::gtk_label_get_lines(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_max_width_chars(&self) -> i32 {
+    fn max_width_chars(&self) -> i32 {
         unsafe { ffi::gtk_label_get_max_width_chars(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_mnemonic_keyval(&self) -> u32 {
+    fn mnemonic_keyval(&self) -> u32 {
         unsafe { ffi::gtk_label_get_mnemonic_keyval(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_mnemonic_widget(&self) -> Option<Widget> {
+    fn mnemonic_widget(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_label_get_mnemonic_widget(
                 self.as_ref().to_glib_none().0,
@@ -884,7 +890,7 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
-    fn get_selectable(&self) -> bool {
+    fn is_selectable(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_label_get_selectable(
                 self.as_ref().to_glib_none().0,
@@ -892,7 +898,7 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
-    fn get_selection_bounds(&self) -> Option<(i32, i32)> {
+    fn selection_bounds(&self) -> Option<(i32, i32)> {
         unsafe {
             let mut start = mem::MaybeUninit::uninit();
             let mut end = mem::MaybeUninit::uninit();
@@ -911,7 +917,7 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
-    fn get_single_line_mode(&self) -> bool {
+    fn is_single_line_mode(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_label_get_single_line_mode(
                 self.as_ref().to_glib_none().0,
@@ -919,11 +925,11 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
-    fn get_text(&self) -> glib::GString {
+    fn text(&self) -> glib::GString {
         unsafe { from_glib_none(ffi::gtk_label_get_text(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_track_visited_links(&self) -> bool {
+    fn tracks_visited_links(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_label_get_track_visited_links(
                 self.as_ref().to_glib_none().0,
@@ -931,7 +937,7 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
-    fn get_use_markup(&self) -> bool {
+    fn uses_markup(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_label_get_use_markup(
                 self.as_ref().to_glib_none().0,
@@ -939,7 +945,7 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
-    fn get_use_underline(&self) -> bool {
+    fn uses_underline(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_label_get_use_underline(
                 self.as_ref().to_glib_none().0,
@@ -947,19 +953,19 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
-    fn get_width_chars(&self) -> i32 {
+    fn width_chars(&self) -> i32 {
         unsafe { ffi::gtk_label_get_width_chars(self.as_ref().to_glib_none().0) }
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    fn get_xalign(&self) -> f32 {
+    fn xalign(&self) -> f32 {
         unsafe { ffi::gtk_label_get_xalign(self.as_ref().to_glib_none().0) }
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    fn get_yalign(&self) -> f32 {
+    fn yalign(&self) -> f32 {
         unsafe { ffi::gtk_label_get_yalign(self.as_ref().to_glib_none().0) }
     }
 
@@ -1126,7 +1132,7 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
-    fn get_property_cursor_position(&self) -> i32 {
+    fn cursor_position(&self) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -1141,7 +1147,7 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
-    fn get_property_selection_bound(&self) -> i32 {
+    fn selection_bound(&self) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -1156,7 +1162,7 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
-    fn get_property_wrap(&self) -> bool {
+    fn wraps(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -1171,7 +1177,7 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
-    fn set_property_wrap(&self, wrap: bool) {
+    fn set_wrap(&self, wrap: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -1181,7 +1187,7 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
-    fn get_property_wrap_mode(&self) -> pango::WrapMode {
+    fn wrap_mode(&self) -> pango::WrapMode {
         unsafe {
             let mut value = glib::Value::from_type(<pango::WrapMode as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -1196,7 +1202,7 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
-    fn set_property_wrap_mode(&self, wrap_mode: pango::WrapMode) {
+    fn set_wrap_mode(&self, wrap_mode: pango::WrapMode) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,

@@ -483,7 +483,7 @@ pub const NONE_TOGGLE_TOOL_BUTTON: Option<&ToggleToolButton> = None;
 
 pub trait ToggleToolButtonExt: 'static {
     #[doc(alias = "gtk_toggle_tool_button_get_active")]
-    fn get_active(&self) -> bool;
+    fn is_active(&self) -> bool;
 
     #[doc(alias = "gtk_toggle_tool_button_set_active")]
     fn set_active(&self, is_active: bool);
@@ -494,7 +494,7 @@ pub trait ToggleToolButtonExt: 'static {
 }
 
 impl<O: IsA<ToggleToolButton>> ToggleToolButtonExt for O {
-    fn get_active(&self) -> bool {
+    fn is_active(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_toggle_tool_button_get_active(
                 self.as_ref().to_glib_none().0,

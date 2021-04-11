@@ -31,11 +31,11 @@ pub const NONE_UNIX_FD_LIST: Option<&UnixFDList> = None;
 
 pub trait UnixFDListExt: 'static {
     #[doc(alias = "g_unix_fd_list_get_length")]
-    fn get_length(&self) -> i32;
+    fn length(&self) -> i32;
 }
 
 impl<O: IsA<UnixFDList>> UnixFDListExt for O {
-    fn get_length(&self) -> i32 {
+    fn length(&self) -> i32 {
         unsafe { ffi::g_unix_fd_list_get_length(self.as_ref().to_glib_none().0) }
     }
 }

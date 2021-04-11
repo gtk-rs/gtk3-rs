@@ -510,19 +510,19 @@ pub const NONE_SCALE_BUTTON: Option<&ScaleButton> = None;
 
 pub trait ScaleButtonExt: 'static {
     #[doc(alias = "gtk_scale_button_get_adjustment")]
-    fn get_adjustment(&self) -> Adjustment;
+    fn adjustment(&self) -> Adjustment;
 
     #[doc(alias = "gtk_scale_button_get_minus_button")]
-    fn get_minus_button(&self) -> Option<Button>;
+    fn minus_button(&self) -> Option<Button>;
 
     #[doc(alias = "gtk_scale_button_get_plus_button")]
-    fn get_plus_button(&self) -> Option<Button>;
+    fn plus_button(&self) -> Option<Button>;
 
     #[doc(alias = "gtk_scale_button_get_popup")]
-    fn get_popup(&self) -> Option<Widget>;
+    fn popup(&self) -> Option<Widget>;
 
     #[doc(alias = "gtk_scale_button_get_value")]
-    fn get_value(&self) -> f64;
+    fn value(&self) -> f64;
 
     #[doc(alias = "gtk_scale_button_set_adjustment")]
     fn set_adjustment<P: IsA<Adjustment>>(&self, adjustment: &P);
@@ -533,11 +533,14 @@ pub trait ScaleButtonExt: 'static {
     #[doc(alias = "gtk_scale_button_set_value")]
     fn set_value(&self, value: f64);
 
-    fn get_property_icons(&self) -> Vec<glib::GString>;
+    #[doc(alias = "get_property_icons")]
+    fn icons(&self) -> Vec<glib::GString>;
 
-    fn get_property_size(&self) -> IconSize;
+    #[doc(alias = "get_property_size")]
+    fn size(&self) -> IconSize;
 
-    fn set_property_size(&self, size: IconSize);
+    #[doc(alias = "set_property_size")]
+    fn set_size(&self, size: IconSize);
 
     fn connect_popdown<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -559,7 +562,7 @@ pub trait ScaleButtonExt: 'static {
 }
 
 impl<O: IsA<ScaleButton>> ScaleButtonExt for O {
-    fn get_adjustment(&self) -> Adjustment {
+    fn adjustment(&self) -> Adjustment {
         unsafe {
             from_glib_none(ffi::gtk_scale_button_get_adjustment(
                 self.as_ref().to_glib_none().0,
@@ -567,7 +570,7 @@ impl<O: IsA<ScaleButton>> ScaleButtonExt for O {
         }
     }
 
-    fn get_minus_button(&self) -> Option<Button> {
+    fn minus_button(&self) -> Option<Button> {
         unsafe {
             from_glib_none(ffi::gtk_scale_button_get_minus_button(
                 self.as_ref().to_glib_none().0,
@@ -575,7 +578,7 @@ impl<O: IsA<ScaleButton>> ScaleButtonExt for O {
         }
     }
 
-    fn get_plus_button(&self) -> Option<Button> {
+    fn plus_button(&self) -> Option<Button> {
         unsafe {
             from_glib_none(ffi::gtk_scale_button_get_plus_button(
                 self.as_ref().to_glib_none().0,
@@ -583,7 +586,7 @@ impl<O: IsA<ScaleButton>> ScaleButtonExt for O {
         }
     }
 
-    fn get_popup(&self) -> Option<Widget> {
+    fn popup(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_scale_button_get_popup(
                 self.as_ref().to_glib_none().0,
@@ -591,7 +594,7 @@ impl<O: IsA<ScaleButton>> ScaleButtonExt for O {
         }
     }
 
-    fn get_value(&self) -> f64 {
+    fn value(&self) -> f64 {
         unsafe { ffi::gtk_scale_button_get_value(self.as_ref().to_glib_none().0) }
     }
 
@@ -616,7 +619,7 @@ impl<O: IsA<ScaleButton>> ScaleButtonExt for O {
         }
     }
 
-    fn get_property_icons(&self) -> Vec<glib::GString> {
+    fn icons(&self) -> Vec<glib::GString> {
         unsafe {
             let mut value =
                 glib::Value::from_type(<Vec<glib::GString> as StaticType>::static_type());
@@ -632,7 +635,7 @@ impl<O: IsA<ScaleButton>> ScaleButtonExt for O {
         }
     }
 
-    fn get_property_size(&self) -> IconSize {
+    fn size(&self) -> IconSize {
         unsafe {
             let mut value = glib::Value::from_type(<IconSize as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -647,7 +650,7 @@ impl<O: IsA<ScaleButton>> ScaleButtonExt for O {
         }
     }
 
-    fn set_property_size(&self, size: IconSize) {
+    fn set_size(&self, size: IconSize) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,

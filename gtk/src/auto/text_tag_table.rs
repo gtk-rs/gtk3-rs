@@ -45,7 +45,7 @@ pub trait TextTagTableExt: 'static {
     fn foreach<P: FnMut(&TextTag)>(&self, func: P);
 
     #[doc(alias = "gtk_text_tag_table_get_size")]
-    fn get_size(&self) -> i32;
+    fn size(&self) -> i32;
 
     #[doc(alias = "gtk_text_tag_table_lookup")]
     fn lookup(&self, name: &str) -> Option<TextTag>;
@@ -91,7 +91,7 @@ impl<O: IsA<TextTagTable>> TextTagTableExt for O {
         }
     }
 
-    fn get_size(&self) -> i32 {
+    fn size(&self) -> i32 {
         unsafe { ffi::gtk_text_tag_table_get_size(self.as_ref().to_glib_none().0) }
     }
 

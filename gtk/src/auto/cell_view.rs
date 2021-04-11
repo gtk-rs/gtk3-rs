@@ -482,16 +482,16 @@ pub const NONE_CELL_VIEW: Option<&CellView> = None;
 
 pub trait CellViewExt: 'static {
     #[doc(alias = "gtk_cell_view_get_displayed_row")]
-    fn get_displayed_row(&self) -> Option<TreePath>;
+    fn displayed_row(&self) -> Option<TreePath>;
 
     #[doc(alias = "gtk_cell_view_get_draw_sensitive")]
-    fn get_draw_sensitive(&self) -> bool;
+    fn draws_sensitive(&self) -> bool;
 
     #[doc(alias = "gtk_cell_view_get_fit_model")]
-    fn get_fit_model(&self) -> bool;
+    fn fits_model(&self) -> bool;
 
     #[doc(alias = "gtk_cell_view_get_model")]
-    fn get_model(&self) -> Option<TreeModel>;
+    fn model(&self) -> Option<TreeModel>;
 
     #[doc(alias = "gtk_cell_view_set_background_rgba")]
     fn set_background_rgba(&self, rgba: &gdk::RGBA);
@@ -508,17 +508,23 @@ pub trait CellViewExt: 'static {
     #[doc(alias = "gtk_cell_view_set_model")]
     fn set_model<P: IsA<TreeModel>>(&self, model: Option<&P>);
 
-    fn set_property_background(&self, background: Option<&str>);
+    #[doc(alias = "set_property_background")]
+    fn set_background(&self, background: Option<&str>);
 
-    fn get_property_background_rgba(&self) -> Option<gdk::RGBA>;
+    #[doc(alias = "get_property_background_rgba")]
+    fn background_rgba(&self) -> Option<gdk::RGBA>;
 
-    fn get_property_background_set(&self) -> bool;
+    #[doc(alias = "get_property_background_set")]
+    fn is_background_set(&self) -> bool;
 
-    fn set_property_background_set(&self, background_set: bool);
+    #[doc(alias = "set_property_background_set")]
+    fn set_background_set(&self, background_set: bool);
 
-    fn get_property_cell_area(&self) -> Option<CellArea>;
+    #[doc(alias = "get_property_cell_area")]
+    fn cell_area(&self) -> Option<CellArea>;
 
-    fn get_property_cell_area_context(&self) -> Option<CellAreaContext>;
+    #[doc(alias = "get_property_cell_area_context")]
+    fn cell_area_context(&self) -> Option<CellAreaContext>;
 
     fn connect_property_background_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -543,7 +549,7 @@ pub trait CellViewExt: 'static {
 }
 
 impl<O: IsA<CellView>> CellViewExt for O {
-    fn get_displayed_row(&self) -> Option<TreePath> {
+    fn displayed_row(&self) -> Option<TreePath> {
         unsafe {
             from_glib_full(ffi::gtk_cell_view_get_displayed_row(
                 self.as_ref().to_glib_none().0,
@@ -551,7 +557,7 @@ impl<O: IsA<CellView>> CellViewExt for O {
         }
     }
 
-    fn get_draw_sensitive(&self) -> bool {
+    fn draws_sensitive(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_cell_view_get_draw_sensitive(
                 self.as_ref().to_glib_none().0,
@@ -559,7 +565,7 @@ impl<O: IsA<CellView>> CellViewExt for O {
         }
     }
 
-    fn get_fit_model(&self) -> bool {
+    fn fits_model(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_cell_view_get_fit_model(
                 self.as_ref().to_glib_none().0,
@@ -567,7 +573,7 @@ impl<O: IsA<CellView>> CellViewExt for O {
         }
     }
 
-    fn get_model(&self) -> Option<TreeModel> {
+    fn model(&self) -> Option<TreeModel> {
         unsafe { from_glib_none(ffi::gtk_cell_view_get_model(self.as_ref().to_glib_none().0)) }
     }
 
@@ -613,7 +619,7 @@ impl<O: IsA<CellView>> CellViewExt for O {
         }
     }
 
-    fn set_property_background(&self, background: Option<&str>) {
+    fn set_background(&self, background: Option<&str>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -623,7 +629,7 @@ impl<O: IsA<CellView>> CellViewExt for O {
         }
     }
 
-    fn get_property_background_rgba(&self) -> Option<gdk::RGBA> {
+    fn background_rgba(&self) -> Option<gdk::RGBA> {
         unsafe {
             let mut value = glib::Value::from_type(<gdk::RGBA as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -637,7 +643,7 @@ impl<O: IsA<CellView>> CellViewExt for O {
         }
     }
 
-    fn get_property_background_set(&self) -> bool {
+    fn is_background_set(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -652,7 +658,7 @@ impl<O: IsA<CellView>> CellViewExt for O {
         }
     }
 
-    fn set_property_background_set(&self, background_set: bool) {
+    fn set_background_set(&self, background_set: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -662,7 +668,7 @@ impl<O: IsA<CellView>> CellViewExt for O {
         }
     }
 
-    fn get_property_cell_area(&self) -> Option<CellArea> {
+    fn cell_area(&self) -> Option<CellArea> {
         unsafe {
             let mut value = glib::Value::from_type(<CellArea as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -676,7 +682,7 @@ impl<O: IsA<CellView>> CellViewExt for O {
         }
     }
 
-    fn get_property_cell_area_context(&self) -> Option<CellAreaContext> {
+    fn cell_area_context(&self) -> Option<CellAreaContext> {
         unsafe {
             let mut value = glib::Value::from_type(<CellAreaContext as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(

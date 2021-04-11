@@ -35,41 +35,41 @@ impl Euler {
     #[cfg(any(feature = "v1_10", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
     #[doc(alias = "graphene_euler_get_alpha")]
-    pub fn get_alpha(&self) -> f32 {
+    pub fn alpha(&self) -> f32 {
         unsafe { ffi::graphene_euler_get_alpha(self.to_glib_none().0) }
     }
 
     #[cfg(any(feature = "v1_10", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
     #[doc(alias = "graphene_euler_get_beta")]
-    pub fn get_beta(&self) -> f32 {
+    pub fn beta(&self) -> f32 {
         unsafe { ffi::graphene_euler_get_beta(self.to_glib_none().0) }
     }
 
     #[cfg(any(feature = "v1_10", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
     #[doc(alias = "graphene_euler_get_gamma")]
-    pub fn get_gamma(&self) -> f32 {
+    pub fn gamma(&self) -> f32 {
         unsafe { ffi::graphene_euler_get_gamma(self.to_glib_none().0) }
     }
 
     #[doc(alias = "graphene_euler_get_order")]
-    pub fn get_order(&self) -> EulerOrder {
+    pub fn order(&self) -> EulerOrder {
         unsafe { from_glib(ffi::graphene_euler_get_order(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "graphene_euler_get_x")]
-    pub fn get_x(&self) -> f32 {
+    pub fn x(&self) -> f32 {
         unsafe { ffi::graphene_euler_get_x(self.to_glib_none().0) }
     }
 
     #[doc(alias = "graphene_euler_get_y")]
-    pub fn get_y(&self) -> f32 {
+    pub fn y(&self) -> f32 {
         unsafe { ffi::graphene_euler_get_y(self.to_glib_none().0) }
     }
 
     #[doc(alias = "graphene_euler_get_z")]
-    pub fn get_z(&self) -> f32 {
+    pub fn z(&self) -> f32 {
         unsafe { ffi::graphene_euler_get_z(self.to_glib_none().0) }
     }
 

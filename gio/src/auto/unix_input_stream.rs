@@ -20,11 +20,11 @@ pub const NONE_UNIX_INPUT_STREAM: Option<&UnixInputStream> = None;
 
 pub trait UnixInputStreamExt: 'static {
     #[doc(alias = "g_unix_input_stream_get_close_fd")]
-    fn get_close_fd(&self) -> bool;
+    fn closes_fd(&self) -> bool;
 }
 
 impl<O: IsA<UnixInputStream>> UnixInputStreamExt for O {
-    fn get_close_fd(&self) -> bool {
+    fn closes_fd(&self) -> bool {
         unsafe {
             from_glib(ffi::g_unix_input_stream_get_close_fd(
                 self.as_ref().to_glib_none().0,

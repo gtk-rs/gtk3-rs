@@ -37,7 +37,7 @@ impl LevelBar {
     }
 
     #[doc(alias = "gtk_level_bar_new_for_interval")]
-    pub fn new_for_interval(min_value: f64, max_value: f64) -> LevelBar {
+    pub fn for_interval(min_value: f64, max_value: f64) -> LevelBar {
         assert_initialized_main_thread!();
         unsafe {
             Widget::from_glib_none(ffi::gtk_level_bar_new_for_interval(min_value, max_value))
@@ -422,22 +422,22 @@ pub trait LevelBarExt: 'static {
     fn add_offset_value(&self, name: &str, value: f64);
 
     #[doc(alias = "gtk_level_bar_get_inverted")]
-    fn get_inverted(&self) -> bool;
+    fn is_inverted(&self) -> bool;
 
     #[doc(alias = "gtk_level_bar_get_max_value")]
-    fn get_max_value(&self) -> f64;
+    fn max_value(&self) -> f64;
 
     #[doc(alias = "gtk_level_bar_get_min_value")]
-    fn get_min_value(&self) -> f64;
+    fn min_value(&self) -> f64;
 
     #[doc(alias = "gtk_level_bar_get_mode")]
-    fn get_mode(&self) -> LevelBarMode;
+    fn mode(&self) -> LevelBarMode;
 
     #[doc(alias = "gtk_level_bar_get_offset_value")]
     fn get_offset_value(&self, name: Option<&str>) -> Option<f64>;
 
     #[doc(alias = "gtk_level_bar_get_value")]
-    fn get_value(&self) -> f64;
+    fn value(&self) -> f64;
 
     #[doc(alias = "gtk_level_bar_remove_offset_value")]
     fn remove_offset_value(&self, name: Option<&str>);
@@ -485,7 +485,7 @@ impl<O: IsA<LevelBar>> LevelBarExt for O {
         }
     }
 
-    fn get_inverted(&self) -> bool {
+    fn is_inverted(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_level_bar_get_inverted(
                 self.as_ref().to_glib_none().0,
@@ -493,15 +493,15 @@ impl<O: IsA<LevelBar>> LevelBarExt for O {
         }
     }
 
-    fn get_max_value(&self) -> f64 {
+    fn max_value(&self) -> f64 {
         unsafe { ffi::gtk_level_bar_get_max_value(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_min_value(&self) -> f64 {
+    fn min_value(&self) -> f64 {
         unsafe { ffi::gtk_level_bar_get_min_value(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_mode(&self) -> LevelBarMode {
+    fn mode(&self) -> LevelBarMode {
         unsafe { from_glib(ffi::gtk_level_bar_get_mode(self.as_ref().to_glib_none().0)) }
     }
 
@@ -522,7 +522,7 @@ impl<O: IsA<LevelBar>> LevelBarExt for O {
         }
     }
 
-    fn get_value(&self) -> f64 {
+    fn value(&self) -> f64 {
         unsafe { ffi::gtk_level_bar_get_value(self.as_ref().to_glib_none().0) }
     }
 

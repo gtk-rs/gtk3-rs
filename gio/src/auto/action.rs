@@ -72,22 +72,22 @@ pub trait ActionExt: 'static {
     fn change_state(&self, value: &glib::Variant);
 
     #[doc(alias = "g_action_get_enabled")]
-    fn get_enabled(&self) -> bool;
+    fn is_enabled(&self) -> bool;
 
     #[doc(alias = "g_action_get_name")]
-    fn get_name(&self) -> glib::GString;
+    fn name(&self) -> glib::GString;
 
     #[doc(alias = "g_action_get_parameter_type")]
-    fn get_parameter_type(&self) -> Option<glib::VariantType>;
+    fn parameter_type(&self) -> Option<glib::VariantType>;
 
     #[doc(alias = "g_action_get_state")]
-    fn get_state(&self) -> Option<glib::Variant>;
+    fn state(&self) -> Option<glib::Variant>;
 
     #[doc(alias = "g_action_get_state_hint")]
-    fn get_state_hint(&self) -> Option<glib::Variant>;
+    fn state_hint(&self) -> Option<glib::Variant>;
 
     #[doc(alias = "g_action_get_state_type")]
-    fn get_state_type(&self) -> Option<glib::VariantType>;
+    fn state_type(&self) -> Option<glib::VariantType>;
 
     fn connect_property_enabled_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -116,15 +116,15 @@ impl<O: IsA<Action>> ActionExt for O {
         }
     }
 
-    fn get_enabled(&self) -> bool {
+    fn is_enabled(&self) -> bool {
         unsafe { from_glib(ffi::g_action_get_enabled(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_name(&self) -> glib::GString {
+    fn name(&self) -> glib::GString {
         unsafe { from_glib_none(ffi::g_action_get_name(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_parameter_type(&self) -> Option<glib::VariantType> {
+    fn parameter_type(&self) -> Option<glib::VariantType> {
         unsafe {
             from_glib_none(ffi::g_action_get_parameter_type(
                 self.as_ref().to_glib_none().0,
@@ -132,15 +132,15 @@ impl<O: IsA<Action>> ActionExt for O {
         }
     }
 
-    fn get_state(&self) -> Option<glib::Variant> {
+    fn state(&self) -> Option<glib::Variant> {
         unsafe { from_glib_full(ffi::g_action_get_state(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_state_hint(&self) -> Option<glib::Variant> {
+    fn state_hint(&self) -> Option<glib::Variant> {
         unsafe { from_glib_full(ffi::g_action_get_state_hint(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_state_type(&self) -> Option<glib::VariantType> {
+    fn state_type(&self) -> Option<glib::VariantType> {
         unsafe { from_glib_none(ffi::g_action_get_state_type(self.as_ref().to_glib_none().0)) }
     }
 

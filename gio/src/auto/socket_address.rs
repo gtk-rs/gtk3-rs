@@ -35,10 +35,10 @@ pub const NONE_SOCKET_ADDRESS: Option<&SocketAddress> = None;
 
 pub trait SocketAddressExt: 'static {
     #[doc(alias = "g_socket_address_get_family")]
-    fn get_family(&self) -> SocketFamily;
+    fn family(&self) -> SocketFamily;
 
     #[doc(alias = "g_socket_address_get_native_size")]
-    fn get_native_size(&self) -> isize;
+    fn native_size(&self) -> isize;
 
     //#[doc(alias = "g_socket_address_to_native")]
     //fn to_native(&self, dest: /*Unimplemented*/Option<Fundamental: Pointer>, destlen: usize) -> Result<(), glib::Error>;
@@ -50,7 +50,7 @@ pub trait SocketAddressExt: 'static {
 }
 
 impl<O: IsA<SocketAddress>> SocketAddressExt for O {
-    fn get_family(&self) -> SocketFamily {
+    fn family(&self) -> SocketFamily {
         unsafe {
             from_glib(ffi::g_socket_address_get_family(
                 self.as_ref().to_glib_none().0,
@@ -58,7 +58,7 @@ impl<O: IsA<SocketAddress>> SocketAddressExt for O {
         }
     }
 
-    fn get_native_size(&self) -> isize {
+    fn native_size(&self) -> isize {
         unsafe { ffi::g_socket_address_get_native_size(self.as_ref().to_glib_none().0) }
     }
 

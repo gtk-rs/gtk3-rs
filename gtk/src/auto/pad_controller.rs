@@ -61,7 +61,8 @@ impl PadController {
         }
     }
 
-    pub fn get_property_action_group(&self) -> Option<gio::ActionGroup> {
+    #[doc(alias = "get_property_action_group")]
+    pub fn action_group(&self) -> Option<gio::ActionGroup> {
         unsafe {
             let mut value = glib::Value::from_type(<gio::ActionGroup as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -75,7 +76,8 @@ impl PadController {
         }
     }
 
-    pub fn get_property_pad(&self) -> Option<gdk::Device> {
+    #[doc(alias = "get_property_pad")]
+    pub fn pad(&self) -> Option<gdk::Device> {
         unsafe {
             let mut value = glib::Value::from_type(<gdk::Device as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(

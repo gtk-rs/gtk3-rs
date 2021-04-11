@@ -16,39 +16,15 @@ glib::wrapper! {
     }
 }
 
-impl fmt::Display for MenuLinkIter {
-    #[inline]
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str(&MenuLinkIterExt::get_name(self))
-    }
-}
-
 pub const NONE_MENU_LINK_ITER: Option<&MenuLinkIter> = None;
 
 pub trait MenuLinkIterExt: 'static {
-    #[doc(alias = "g_menu_link_iter_get_name")]
-    fn get_name(&self) -> glib::GString;
-
     #[doc(alias = "g_menu_link_iter_get_next")]
-    fn get_next(&self) -> Option<(glib::GString, MenuModel)>;
-
-    #[doc(alias = "g_menu_link_iter_get_value")]
-    fn get_value(&self) -> MenuModel;
-
-    #[doc(alias = "g_menu_link_iter_next")]
-    fn next(&self) -> bool;
+    fn next(&self) -> Option<(glib::GString, MenuModel)>;
 }
 
 impl<O: IsA<MenuLinkIter>> MenuLinkIterExt for O {
-    fn get_name(&self) -> glib::GString {
-        unsafe {
-            from_glib_none(ffi::g_menu_link_iter_get_name(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
-    }
-
-    fn get_next(&self) -> Option<(glib::GString, MenuModel)> {
+    fn next(&self) -> Option<(glib::GString, MenuModel)> {
         unsafe {
             let mut out_link = ptr::null();
             let mut value = ptr::null_mut();
@@ -64,16 +40,10 @@ impl<O: IsA<MenuLinkIter>> MenuLinkIterExt for O {
             }
         }
     }
+}
 
-    fn get_value(&self) -> MenuModel {
-        unsafe {
-            from_glib_full(ffi::g_menu_link_iter_get_value(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
-    }
-
-    fn next(&self) -> bool {
-        unsafe { from_glib(ffi::g_menu_link_iter_next(self.as_ref().to_glib_none().0)) }
+impl fmt::Display for MenuLinkIter {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        f.write_str("MenuLinkIter")
     }
 }

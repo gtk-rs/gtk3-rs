@@ -56,7 +56,7 @@ impl GestureStylus {
     }
 
     #[doc(alias = "gtk_gesture_stylus_get_device_tool")]
-    pub fn get_device_tool(&self) -> Option<gdk::DeviceTool> {
+    pub fn device_tool(&self) -> Option<gdk::DeviceTool> {
         unsafe {
             from_glib_none(ffi::gtk_gesture_stylus_get_device_tool(
                 self.to_glib_none().0,

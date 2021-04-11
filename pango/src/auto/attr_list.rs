@@ -54,7 +54,7 @@ impl AttrList {
     #[cfg(any(feature = "v1_44", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
     #[doc(alias = "pango_attr_list_get_attributes")]
-    pub fn get_attributes(&self) -> Vec<Attribute> {
+    pub fn attributes(&self) -> Vec<Attribute> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::pango_attr_list_get_attributes(
                 self.to_glib_none().0,
@@ -63,7 +63,7 @@ impl AttrList {
     }
 
     #[doc(alias = "pango_attr_list_get_iterator")]
-    pub fn get_iterator(&self) -> Option<AttrIterator> {
+    pub fn iterator(&self) -> Option<AttrIterator> {
         unsafe { from_glib_full(ffi::pango_attr_list_get_iterator(self.to_glib_none().0)) }
     }
 

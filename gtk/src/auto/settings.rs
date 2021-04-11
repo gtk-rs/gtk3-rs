@@ -59,224 +59,323 @@ pub trait SettingsExt: 'static {
     #[doc(alias = "gtk_settings_set_string_property")]
     fn set_string_property(&self, name: &str, v_string: &str, origin: &str);
 
-    fn get_property_gtk_alternative_button_order(&self) -> bool;
+    #[doc(alias = "get_property_gtk_alternative_button_order")]
+    fn is_gtk_alternative_button_order(&self) -> bool;
 
-    fn set_property_gtk_alternative_button_order(&self, gtk_alternative_button_order: bool);
+    #[doc(alias = "set_property_gtk_alternative_button_order")]
+    fn set_gtk_alternative_button_order(&self, gtk_alternative_button_order: bool);
 
-    fn get_property_gtk_alternative_sort_arrows(&self) -> bool;
+    #[doc(alias = "get_property_gtk_alternative_sort_arrows")]
+    fn is_gtk_alternative_sort_arrows(&self) -> bool;
 
-    fn set_property_gtk_alternative_sort_arrows(&self, gtk_alternative_sort_arrows: bool);
+    #[doc(alias = "set_property_gtk_alternative_sort_arrows")]
+    fn set_gtk_alternative_sort_arrows(&self, gtk_alternative_sort_arrows: bool);
 
-    fn get_property_gtk_application_prefer_dark_theme(&self) -> bool;
+    #[doc(alias = "get_property_gtk_application_prefer_dark_theme")]
+    fn is_gtk_application_prefer_dark_theme(&self) -> bool;
 
-    fn set_property_gtk_application_prefer_dark_theme(
-        &self,
-        gtk_application_prefer_dark_theme: bool,
-    );
+    #[doc(alias = "set_property_gtk_application_prefer_dark_theme")]
+    fn set_gtk_application_prefer_dark_theme(&self, gtk_application_prefer_dark_theme: bool);
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
-    fn get_property_gtk_cursor_aspect_ratio(&self) -> f32;
+    #[doc(alias = "get_property_gtk_cursor_aspect_ratio")]
+    fn gtk_cursor_aspect_ratio(&self) -> f32;
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
-    fn set_property_gtk_cursor_aspect_ratio(&self, gtk_cursor_aspect_ratio: f32);
+    #[doc(alias = "set_property_gtk_cursor_aspect_ratio")]
+    fn set_gtk_cursor_aspect_ratio(&self, gtk_cursor_aspect_ratio: f32);
 
-    fn get_property_gtk_cursor_blink(&self) -> bool;
+    #[doc(alias = "get_property_gtk_cursor_blink")]
+    fn is_gtk_cursor_blink(&self) -> bool;
 
-    fn set_property_gtk_cursor_blink(&self, gtk_cursor_blink: bool);
+    #[doc(alias = "set_property_gtk_cursor_blink")]
+    fn set_gtk_cursor_blink(&self, gtk_cursor_blink: bool);
 
-    fn get_property_gtk_cursor_blink_time(&self) -> i32;
+    #[doc(alias = "get_property_gtk_cursor_blink_time")]
+    fn gtk_cursor_blink_time(&self) -> i32;
 
-    fn set_property_gtk_cursor_blink_time(&self, gtk_cursor_blink_time: i32);
+    #[doc(alias = "set_property_gtk_cursor_blink_time")]
+    fn set_gtk_cursor_blink_time(&self, gtk_cursor_blink_time: i32);
 
-    fn get_property_gtk_cursor_blink_timeout(&self) -> i32;
+    #[doc(alias = "get_property_gtk_cursor_blink_timeout")]
+    fn gtk_cursor_blink_timeout(&self) -> i32;
 
-    fn set_property_gtk_cursor_blink_timeout(&self, gtk_cursor_blink_timeout: i32);
+    #[doc(alias = "set_property_gtk_cursor_blink_timeout")]
+    fn set_gtk_cursor_blink_timeout(&self, gtk_cursor_blink_timeout: i32);
 
-    fn get_property_gtk_cursor_theme_name(&self) -> Option<glib::GString>;
+    #[doc(alias = "get_property_gtk_cursor_theme_name")]
+    fn gtk_cursor_theme_name(&self) -> Option<glib::GString>;
 
-    fn set_property_gtk_cursor_theme_name(&self, gtk_cursor_theme_name: Option<&str>);
+    #[doc(alias = "set_property_gtk_cursor_theme_name")]
+    fn set_gtk_cursor_theme_name(&self, gtk_cursor_theme_name: Option<&str>);
 
-    fn get_property_gtk_cursor_theme_size(&self) -> i32;
+    #[doc(alias = "get_property_gtk_cursor_theme_size")]
+    fn gtk_cursor_theme_size(&self) -> i32;
 
-    fn set_property_gtk_cursor_theme_size(&self, gtk_cursor_theme_size: i32);
+    #[doc(alias = "set_property_gtk_cursor_theme_size")]
+    fn set_gtk_cursor_theme_size(&self, gtk_cursor_theme_size: i32);
 
-    fn get_property_gtk_decoration_layout(&self) -> Option<glib::GString>;
+    #[doc(alias = "get_property_gtk_decoration_layout")]
+    fn gtk_decoration_layout(&self) -> Option<glib::GString>;
 
-    fn set_property_gtk_decoration_layout(&self, gtk_decoration_layout: Option<&str>);
+    #[doc(alias = "set_property_gtk_decoration_layout")]
+    fn set_gtk_decoration_layout(&self, gtk_decoration_layout: Option<&str>);
 
-    fn get_property_gtk_dialogs_use_header(&self) -> bool;
+    #[doc(alias = "get_property_gtk_dialogs_use_header")]
+    fn is_gtk_dialogs_use_header(&self) -> bool;
 
-    fn set_property_gtk_dialogs_use_header(&self, gtk_dialogs_use_header: bool);
+    #[doc(alias = "set_property_gtk_dialogs_use_header")]
+    fn set_gtk_dialogs_use_header(&self, gtk_dialogs_use_header: bool);
 
-    fn get_property_gtk_dnd_drag_threshold(&self) -> i32;
+    #[doc(alias = "get_property_gtk_dnd_drag_threshold")]
+    fn gtk_dnd_drag_threshold(&self) -> i32;
 
-    fn set_property_gtk_dnd_drag_threshold(&self, gtk_dnd_drag_threshold: i32);
+    #[doc(alias = "set_property_gtk_dnd_drag_threshold")]
+    fn set_gtk_dnd_drag_threshold(&self, gtk_dnd_drag_threshold: i32);
 
-    fn get_property_gtk_double_click_distance(&self) -> i32;
+    #[doc(alias = "get_property_gtk_double_click_distance")]
+    fn gtk_double_click_distance(&self) -> i32;
 
-    fn set_property_gtk_double_click_distance(&self, gtk_double_click_distance: i32);
+    #[doc(alias = "set_property_gtk_double_click_distance")]
+    fn set_gtk_double_click_distance(&self, gtk_double_click_distance: i32);
 
-    fn get_property_gtk_double_click_time(&self) -> i32;
+    #[doc(alias = "get_property_gtk_double_click_time")]
+    fn gtk_double_click_time(&self) -> i32;
 
-    fn set_property_gtk_double_click_time(&self, gtk_double_click_time: i32);
+    #[doc(alias = "set_property_gtk_double_click_time")]
+    fn set_gtk_double_click_time(&self, gtk_double_click_time: i32);
 
-    fn get_property_gtk_enable_accels(&self) -> bool;
+    #[doc(alias = "get_property_gtk_enable_accels")]
+    fn is_gtk_enable_accels(&self) -> bool;
 
-    fn set_property_gtk_enable_accels(&self, gtk_enable_accels: bool);
+    #[doc(alias = "set_property_gtk_enable_accels")]
+    fn set_gtk_enable_accels(&self, gtk_enable_accels: bool);
 
-    fn get_property_gtk_enable_animations(&self) -> bool;
+    #[doc(alias = "get_property_gtk_enable_animations")]
+    fn is_gtk_enable_animations(&self) -> bool;
 
-    fn set_property_gtk_enable_animations(&self, gtk_enable_animations: bool);
+    #[doc(alias = "set_property_gtk_enable_animations")]
+    fn set_gtk_enable_animations(&self, gtk_enable_animations: bool);
 
-    fn get_property_gtk_enable_event_sounds(&self) -> bool;
+    #[doc(alias = "get_property_gtk_enable_event_sounds")]
+    fn is_gtk_enable_event_sounds(&self) -> bool;
 
-    fn set_property_gtk_enable_event_sounds(&self, gtk_enable_event_sounds: bool);
+    #[doc(alias = "set_property_gtk_enable_event_sounds")]
+    fn set_gtk_enable_event_sounds(&self, gtk_enable_event_sounds: bool);
 
-    fn get_property_gtk_enable_input_feedback_sounds(&self) -> bool;
+    #[doc(alias = "get_property_gtk_enable_input_feedback_sounds")]
+    fn is_gtk_enable_input_feedback_sounds(&self) -> bool;
 
-    fn set_property_gtk_enable_input_feedback_sounds(&self, gtk_enable_input_feedback_sounds: bool);
+    #[doc(alias = "set_property_gtk_enable_input_feedback_sounds")]
+    fn set_gtk_enable_input_feedback_sounds(&self, gtk_enable_input_feedback_sounds: bool);
 
-    fn get_property_gtk_enable_primary_paste(&self) -> bool;
+    #[doc(alias = "get_property_gtk_enable_primary_paste")]
+    fn is_gtk_enable_primary_paste(&self) -> bool;
 
-    fn set_property_gtk_enable_primary_paste(&self, gtk_enable_primary_paste: bool);
+    #[doc(alias = "set_property_gtk_enable_primary_paste")]
+    fn set_gtk_enable_primary_paste(&self, gtk_enable_primary_paste: bool);
 
-    fn get_property_gtk_entry_password_hint_timeout(&self) -> u32;
+    #[doc(alias = "get_property_gtk_entry_password_hint_timeout")]
+    fn gtk_entry_password_hint_timeout(&self) -> u32;
 
-    fn set_property_gtk_entry_password_hint_timeout(&self, gtk_entry_password_hint_timeout: u32);
+    #[doc(alias = "set_property_gtk_entry_password_hint_timeout")]
+    fn set_gtk_entry_password_hint_timeout(&self, gtk_entry_password_hint_timeout: u32);
 
-    fn get_property_gtk_entry_select_on_focus(&self) -> bool;
+    #[doc(alias = "get_property_gtk_entry_select_on_focus")]
+    fn is_gtk_entry_select_on_focus(&self) -> bool;
 
-    fn set_property_gtk_entry_select_on_focus(&self, gtk_entry_select_on_focus: bool);
+    #[doc(alias = "set_property_gtk_entry_select_on_focus")]
+    fn set_gtk_entry_select_on_focus(&self, gtk_entry_select_on_focus: bool);
 
-    fn get_property_gtk_error_bell(&self) -> bool;
+    #[doc(alias = "get_property_gtk_error_bell")]
+    fn is_gtk_error_bell(&self) -> bool;
 
-    fn set_property_gtk_error_bell(&self, gtk_error_bell: bool);
+    #[doc(alias = "set_property_gtk_error_bell")]
+    fn set_gtk_error_bell(&self, gtk_error_bell: bool);
 
-    fn get_property_gtk_font_name(&self) -> Option<glib::GString>;
+    #[doc(alias = "get_property_gtk_font_name")]
+    fn gtk_font_name(&self) -> Option<glib::GString>;
 
-    fn set_property_gtk_font_name(&self, gtk_font_name: Option<&str>);
+    #[doc(alias = "set_property_gtk_font_name")]
+    fn set_gtk_font_name(&self, gtk_font_name: Option<&str>);
 
-    fn get_property_gtk_fontconfig_timestamp(&self) -> u32;
+    #[doc(alias = "get_property_gtk_fontconfig_timestamp")]
+    fn gtk_fontconfig_timestamp(&self) -> u32;
 
-    fn set_property_gtk_fontconfig_timestamp(&self, gtk_fontconfig_timestamp: u32);
+    #[doc(alias = "set_property_gtk_fontconfig_timestamp")]
+    fn set_gtk_fontconfig_timestamp(&self, gtk_fontconfig_timestamp: u32);
 
-    fn get_property_gtk_icon_theme_name(&self) -> Option<glib::GString>;
+    #[doc(alias = "get_property_gtk_icon_theme_name")]
+    fn gtk_icon_theme_name(&self) -> Option<glib::GString>;
 
-    fn set_property_gtk_icon_theme_name(&self, gtk_icon_theme_name: Option<&str>);
+    #[doc(alias = "set_property_gtk_icon_theme_name")]
+    fn set_gtk_icon_theme_name(&self, gtk_icon_theme_name: Option<&str>);
 
-    fn get_property_gtk_im_module(&self) -> Option<glib::GString>;
+    #[doc(alias = "get_property_gtk_im_module")]
+    fn gtk_im_module(&self) -> Option<glib::GString>;
 
-    fn set_property_gtk_im_module(&self, gtk_im_module: Option<&str>);
+    #[doc(alias = "set_property_gtk_im_module")]
+    fn set_gtk_im_module(&self, gtk_im_module: Option<&str>);
 
-    fn get_property_gtk_key_theme_name(&self) -> Option<glib::GString>;
+    #[doc(alias = "get_property_gtk_key_theme_name")]
+    fn gtk_key_theme_name(&self) -> Option<glib::GString>;
 
-    fn set_property_gtk_key_theme_name(&self, gtk_key_theme_name: Option<&str>);
+    #[doc(alias = "set_property_gtk_key_theme_name")]
+    fn set_gtk_key_theme_name(&self, gtk_key_theme_name: Option<&str>);
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-    fn get_property_gtk_keynav_use_caret(&self) -> bool;
+    #[doc(alias = "get_property_gtk_keynav_use_caret")]
+    fn is_gtk_keynav_use_caret(&self) -> bool;
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-    fn set_property_gtk_keynav_use_caret(&self, gtk_keynav_use_caret: bool);
+    #[doc(alias = "set_property_gtk_keynav_use_caret")]
+    fn set_gtk_keynav_use_caret(&self, gtk_keynav_use_caret: bool);
 
-    fn get_property_gtk_label_select_on_focus(&self) -> bool;
+    #[doc(alias = "get_property_gtk_label_select_on_focus")]
+    fn is_gtk_label_select_on_focus(&self) -> bool;
 
-    fn set_property_gtk_label_select_on_focus(&self, gtk_label_select_on_focus: bool);
+    #[doc(alias = "set_property_gtk_label_select_on_focus")]
+    fn set_gtk_label_select_on_focus(&self, gtk_label_select_on_focus: bool);
 
-    fn get_property_gtk_long_press_time(&self) -> u32;
+    #[doc(alias = "get_property_gtk_long_press_time")]
+    fn gtk_long_press_time(&self) -> u32;
 
-    fn set_property_gtk_long_press_time(&self, gtk_long_press_time: u32);
+    #[doc(alias = "set_property_gtk_long_press_time")]
+    fn set_gtk_long_press_time(&self, gtk_long_press_time: u32);
 
-    fn get_property_gtk_modules(&self) -> Option<glib::GString>;
+    #[doc(alias = "get_property_gtk_modules")]
+    fn gtk_modules(&self) -> Option<glib::GString>;
 
-    fn set_property_gtk_modules(&self, gtk_modules: Option<&str>);
+    #[doc(alias = "set_property_gtk_modules")]
+    fn set_gtk_modules(&self, gtk_modules: Option<&str>);
 
     #[cfg(any(feature = "v3_24_9", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24_9")))]
-    fn get_property_gtk_overlay_scrolling(&self) -> bool;
+    #[doc(alias = "get_property_gtk_overlay_scrolling")]
+    fn is_gtk_overlay_scrolling(&self) -> bool;
 
     #[cfg(any(feature = "v3_24_9", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24_9")))]
-    fn set_property_gtk_overlay_scrolling(&self, gtk_overlay_scrolling: bool);
+    #[doc(alias = "set_property_gtk_overlay_scrolling")]
+    fn set_gtk_overlay_scrolling(&self, gtk_overlay_scrolling: bool);
 
-    fn get_property_gtk_primary_button_warps_slider(&self) -> bool;
+    #[doc(alias = "get_property_gtk_primary_button_warps_slider")]
+    fn is_gtk_primary_button_warps_slider(&self) -> bool;
 
-    fn set_property_gtk_primary_button_warps_slider(&self, gtk_primary_button_warps_slider: bool);
+    #[doc(alias = "set_property_gtk_primary_button_warps_slider")]
+    fn set_gtk_primary_button_warps_slider(&self, gtk_primary_button_warps_slider: bool);
 
-    fn get_property_gtk_print_backends(&self) -> Option<glib::GString>;
+    #[doc(alias = "get_property_gtk_print_backends")]
+    fn gtk_print_backends(&self) -> Option<glib::GString>;
 
-    fn set_property_gtk_print_backends(&self, gtk_print_backends: Option<&str>);
+    #[doc(alias = "set_property_gtk_print_backends")]
+    fn set_gtk_print_backends(&self, gtk_print_backends: Option<&str>);
 
-    fn get_property_gtk_print_preview_command(&self) -> Option<glib::GString>;
+    #[doc(alias = "get_property_gtk_print_preview_command")]
+    fn gtk_print_preview_command(&self) -> Option<glib::GString>;
 
-    fn set_property_gtk_print_preview_command(&self, gtk_print_preview_command: Option<&str>);
+    #[doc(alias = "set_property_gtk_print_preview_command")]
+    fn set_gtk_print_preview_command(&self, gtk_print_preview_command: Option<&str>);
 
-    fn get_property_gtk_recent_files_enabled(&self) -> bool;
+    #[doc(alias = "get_property_gtk_recent_files_enabled")]
+    fn is_gtk_recent_files_enabled(&self) -> bool;
 
-    fn set_property_gtk_recent_files_enabled(&self, gtk_recent_files_enabled: bool);
+    #[doc(alias = "set_property_gtk_recent_files_enabled")]
+    fn set_gtk_recent_files_enabled(&self, gtk_recent_files_enabled: bool);
 
-    fn get_property_gtk_recent_files_max_age(&self) -> i32;
+    #[doc(alias = "get_property_gtk_recent_files_max_age")]
+    fn gtk_recent_files_max_age(&self) -> i32;
 
-    fn set_property_gtk_recent_files_max_age(&self, gtk_recent_files_max_age: i32);
+    #[doc(alias = "set_property_gtk_recent_files_max_age")]
+    fn set_gtk_recent_files_max_age(&self, gtk_recent_files_max_age: i32);
 
-    fn get_property_gtk_shell_shows_app_menu(&self) -> bool;
+    #[doc(alias = "get_property_gtk_shell_shows_app_menu")]
+    fn is_gtk_shell_shows_app_menu(&self) -> bool;
 
-    fn set_property_gtk_shell_shows_app_menu(&self, gtk_shell_shows_app_menu: bool);
+    #[doc(alias = "set_property_gtk_shell_shows_app_menu")]
+    fn set_gtk_shell_shows_app_menu(&self, gtk_shell_shows_app_menu: bool);
 
-    fn get_property_gtk_shell_shows_desktop(&self) -> bool;
+    #[doc(alias = "get_property_gtk_shell_shows_desktop")]
+    fn is_gtk_shell_shows_desktop(&self) -> bool;
 
-    fn set_property_gtk_shell_shows_desktop(&self, gtk_shell_shows_desktop: bool);
+    #[doc(alias = "set_property_gtk_shell_shows_desktop")]
+    fn set_gtk_shell_shows_desktop(&self, gtk_shell_shows_desktop: bool);
 
-    fn get_property_gtk_shell_shows_menubar(&self) -> bool;
+    #[doc(alias = "get_property_gtk_shell_shows_menubar")]
+    fn is_gtk_shell_shows_menubar(&self) -> bool;
 
-    fn set_property_gtk_shell_shows_menubar(&self, gtk_shell_shows_menubar: bool);
+    #[doc(alias = "set_property_gtk_shell_shows_menubar")]
+    fn set_gtk_shell_shows_menubar(&self, gtk_shell_shows_menubar: bool);
 
-    fn get_property_gtk_sound_theme_name(&self) -> Option<glib::GString>;
+    #[doc(alias = "get_property_gtk_sound_theme_name")]
+    fn gtk_sound_theme_name(&self) -> Option<glib::GString>;
 
-    fn set_property_gtk_sound_theme_name(&self, gtk_sound_theme_name: Option<&str>);
+    #[doc(alias = "set_property_gtk_sound_theme_name")]
+    fn set_gtk_sound_theme_name(&self, gtk_sound_theme_name: Option<&str>);
 
-    fn get_property_gtk_split_cursor(&self) -> bool;
+    #[doc(alias = "get_property_gtk_split_cursor")]
+    fn is_gtk_split_cursor(&self) -> bool;
 
-    fn set_property_gtk_split_cursor(&self, gtk_split_cursor: bool);
+    #[doc(alias = "set_property_gtk_split_cursor")]
+    fn set_gtk_split_cursor(&self, gtk_split_cursor: bool);
 
-    fn get_property_gtk_theme_name(&self) -> Option<glib::GString>;
+    #[doc(alias = "get_property_gtk_theme_name")]
+    fn gtk_theme_name(&self) -> Option<glib::GString>;
 
-    fn set_property_gtk_theme_name(&self, gtk_theme_name: Option<&str>);
+    #[doc(alias = "set_property_gtk_theme_name")]
+    fn set_gtk_theme_name(&self, gtk_theme_name: Option<&str>);
 
-    fn get_property_gtk_titlebar_double_click(&self) -> Option<glib::GString>;
+    #[doc(alias = "get_property_gtk_titlebar_double_click")]
+    fn gtk_titlebar_double_click(&self) -> Option<glib::GString>;
 
-    fn set_property_gtk_titlebar_double_click(&self, gtk_titlebar_double_click: Option<&str>);
+    #[doc(alias = "set_property_gtk_titlebar_double_click")]
+    fn set_gtk_titlebar_double_click(&self, gtk_titlebar_double_click: Option<&str>);
 
-    fn get_property_gtk_titlebar_middle_click(&self) -> Option<glib::GString>;
+    #[doc(alias = "get_property_gtk_titlebar_middle_click")]
+    fn gtk_titlebar_middle_click(&self) -> Option<glib::GString>;
 
-    fn set_property_gtk_titlebar_middle_click(&self, gtk_titlebar_middle_click: Option<&str>);
+    #[doc(alias = "set_property_gtk_titlebar_middle_click")]
+    fn set_gtk_titlebar_middle_click(&self, gtk_titlebar_middle_click: Option<&str>);
 
-    fn get_property_gtk_titlebar_right_click(&self) -> Option<glib::GString>;
+    #[doc(alias = "get_property_gtk_titlebar_right_click")]
+    fn gtk_titlebar_right_click(&self) -> Option<glib::GString>;
 
-    fn set_property_gtk_titlebar_right_click(&self, gtk_titlebar_right_click: Option<&str>);
+    #[doc(alias = "set_property_gtk_titlebar_right_click")]
+    fn set_gtk_titlebar_right_click(&self, gtk_titlebar_right_click: Option<&str>);
 
-    fn get_property_gtk_xft_antialias(&self) -> i32;
+    #[doc(alias = "get_property_gtk_xft_antialias")]
+    fn gtk_xft_antialias(&self) -> i32;
 
-    fn set_property_gtk_xft_antialias(&self, gtk_xft_antialias: i32);
+    #[doc(alias = "set_property_gtk_xft_antialias")]
+    fn set_gtk_xft_antialias(&self, gtk_xft_antialias: i32);
 
-    fn get_property_gtk_xft_dpi(&self) -> i32;
+    #[doc(alias = "get_property_gtk_xft_dpi")]
+    fn gtk_xft_dpi(&self) -> i32;
 
-    fn set_property_gtk_xft_dpi(&self, gtk_xft_dpi: i32);
+    #[doc(alias = "set_property_gtk_xft_dpi")]
+    fn set_gtk_xft_dpi(&self, gtk_xft_dpi: i32);
 
-    fn get_property_gtk_xft_hinting(&self) -> i32;
+    #[doc(alias = "get_property_gtk_xft_hinting")]
+    fn gtk_xft_hinting(&self) -> i32;
 
-    fn set_property_gtk_xft_hinting(&self, gtk_xft_hinting: i32);
+    #[doc(alias = "set_property_gtk_xft_hinting")]
+    fn set_gtk_xft_hinting(&self, gtk_xft_hinting: i32);
 
-    fn get_property_gtk_xft_hintstyle(&self) -> Option<glib::GString>;
+    #[doc(alias = "get_property_gtk_xft_hintstyle")]
+    fn gtk_xft_hintstyle(&self) -> Option<glib::GString>;
 
-    fn set_property_gtk_xft_hintstyle(&self, gtk_xft_hintstyle: Option<&str>);
+    #[doc(alias = "set_property_gtk_xft_hintstyle")]
+    fn set_gtk_xft_hintstyle(&self, gtk_xft_hintstyle: Option<&str>);
 
-    fn get_property_gtk_xft_rgba(&self) -> Option<glib::GString>;
+    #[doc(alias = "get_property_gtk_xft_rgba")]
+    fn gtk_xft_rgba(&self) -> Option<glib::GString>;
 
-    fn set_property_gtk_xft_rgba(&self, gtk_xft_rgba: Option<&str>);
+    #[doc(alias = "set_property_gtk_xft_rgba")]
+    fn set_gtk_xft_rgba(&self, gtk_xft_rgba: Option<&str>);
 
     fn connect_property_gtk_alternative_button_order_notify<F: Fn(&Self) + 'static>(
         &self,
@@ -578,7 +677,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_property_gtk_alternative_button_order(&self) -> bool {
+    fn is_gtk_alternative_button_order(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -593,7 +692,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn set_property_gtk_alternative_button_order(&self, gtk_alternative_button_order: bool) {
+    fn set_gtk_alternative_button_order(&self, gtk_alternative_button_order: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -605,7 +704,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_property_gtk_alternative_sort_arrows(&self) -> bool {
+    fn is_gtk_alternative_sort_arrows(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -620,7 +719,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn set_property_gtk_alternative_sort_arrows(&self, gtk_alternative_sort_arrows: bool) {
+    fn set_gtk_alternative_sort_arrows(&self, gtk_alternative_sort_arrows: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -632,7 +731,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_property_gtk_application_prefer_dark_theme(&self) -> bool {
+    fn is_gtk_application_prefer_dark_theme(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -647,10 +746,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn set_property_gtk_application_prefer_dark_theme(
-        &self,
-        gtk_application_prefer_dark_theme: bool,
-    ) {
+    fn set_gtk_application_prefer_dark_theme(&self, gtk_application_prefer_dark_theme: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -664,7 +760,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
-    fn get_property_gtk_cursor_aspect_ratio(&self) -> f32 {
+    fn gtk_cursor_aspect_ratio(&self) -> f32 {
         unsafe {
             let mut value = glib::Value::from_type(<f32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -681,7 +777,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
-    fn set_property_gtk_cursor_aspect_ratio(&self, gtk_cursor_aspect_ratio: f32) {
+    fn set_gtk_cursor_aspect_ratio(&self, gtk_cursor_aspect_ratio: f32) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -691,7 +787,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_property_gtk_cursor_blink(&self) -> bool {
+    fn is_gtk_cursor_blink(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -706,7 +802,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn set_property_gtk_cursor_blink(&self, gtk_cursor_blink: bool) {
+    fn set_gtk_cursor_blink(&self, gtk_cursor_blink: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -716,7 +812,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_property_gtk_cursor_blink_time(&self) -> i32 {
+    fn gtk_cursor_blink_time(&self) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -731,7 +827,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn set_property_gtk_cursor_blink_time(&self, gtk_cursor_blink_time: i32) {
+    fn set_gtk_cursor_blink_time(&self, gtk_cursor_blink_time: i32) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -741,7 +837,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_property_gtk_cursor_blink_timeout(&self) -> i32 {
+    fn gtk_cursor_blink_timeout(&self) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -756,7 +852,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn set_property_gtk_cursor_blink_timeout(&self, gtk_cursor_blink_timeout: i32) {
+    fn set_gtk_cursor_blink_timeout(&self, gtk_cursor_blink_timeout: i32) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -768,7 +864,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_property_gtk_cursor_theme_name(&self) -> Option<glib::GString> {
+    fn gtk_cursor_theme_name(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -782,7 +878,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn set_property_gtk_cursor_theme_name(&self, gtk_cursor_theme_name: Option<&str>) {
+    fn set_gtk_cursor_theme_name(&self, gtk_cursor_theme_name: Option<&str>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -792,7 +888,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_property_gtk_cursor_theme_size(&self) -> i32 {
+    fn gtk_cursor_theme_size(&self) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -807,7 +903,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn set_property_gtk_cursor_theme_size(&self, gtk_cursor_theme_size: i32) {
+    fn set_gtk_cursor_theme_size(&self, gtk_cursor_theme_size: i32) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -817,7 +913,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_property_gtk_decoration_layout(&self) -> Option<glib::GString> {
+    fn gtk_decoration_layout(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -831,7 +927,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn set_property_gtk_decoration_layout(&self, gtk_decoration_layout: Option<&str>) {
+    fn set_gtk_decoration_layout(&self, gtk_decoration_layout: Option<&str>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -841,7 +937,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_property_gtk_dialogs_use_header(&self) -> bool {
+    fn is_gtk_dialogs_use_header(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -856,7 +952,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn set_property_gtk_dialogs_use_header(&self, gtk_dialogs_use_header: bool) {
+    fn set_gtk_dialogs_use_header(&self, gtk_dialogs_use_header: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -866,7 +962,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_property_gtk_dnd_drag_threshold(&self) -> i32 {
+    fn gtk_dnd_drag_threshold(&self) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -881,7 +977,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn set_property_gtk_dnd_drag_threshold(&self, gtk_dnd_drag_threshold: i32) {
+    fn set_gtk_dnd_drag_threshold(&self, gtk_dnd_drag_threshold: i32) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -891,7 +987,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_property_gtk_double_click_distance(&self) -> i32 {
+    fn gtk_double_click_distance(&self) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -906,7 +1002,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn set_property_gtk_double_click_distance(&self, gtk_double_click_distance: i32) {
+    fn set_gtk_double_click_distance(&self, gtk_double_click_distance: i32) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -918,7 +1014,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_property_gtk_double_click_time(&self) -> i32 {
+    fn gtk_double_click_time(&self) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -933,7 +1029,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn set_property_gtk_double_click_time(&self, gtk_double_click_time: i32) {
+    fn set_gtk_double_click_time(&self, gtk_double_click_time: i32) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -943,7 +1039,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_property_gtk_enable_accels(&self) -> bool {
+    fn is_gtk_enable_accels(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -958,7 +1054,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn set_property_gtk_enable_accels(&self, gtk_enable_accels: bool) {
+    fn set_gtk_enable_accels(&self, gtk_enable_accels: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -968,7 +1064,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_property_gtk_enable_animations(&self) -> bool {
+    fn is_gtk_enable_animations(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -983,7 +1079,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn set_property_gtk_enable_animations(&self, gtk_enable_animations: bool) {
+    fn set_gtk_enable_animations(&self, gtk_enable_animations: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -993,7 +1089,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_property_gtk_enable_event_sounds(&self) -> bool {
+    fn is_gtk_enable_event_sounds(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -1008,7 +1104,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn set_property_gtk_enable_event_sounds(&self, gtk_enable_event_sounds: bool) {
+    fn set_gtk_enable_event_sounds(&self, gtk_enable_event_sounds: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -1018,7 +1114,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_property_gtk_enable_input_feedback_sounds(&self) -> bool {
+    fn is_gtk_enable_input_feedback_sounds(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -1033,10 +1129,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn set_property_gtk_enable_input_feedback_sounds(
-        &self,
-        gtk_enable_input_feedback_sounds: bool,
-    ) {
+    fn set_gtk_enable_input_feedback_sounds(&self, gtk_enable_input_feedback_sounds: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -1048,7 +1141,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_property_gtk_enable_primary_paste(&self) -> bool {
+    fn is_gtk_enable_primary_paste(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -1063,7 +1156,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn set_property_gtk_enable_primary_paste(&self, gtk_enable_primary_paste: bool) {
+    fn set_gtk_enable_primary_paste(&self, gtk_enable_primary_paste: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -1075,7 +1168,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_property_gtk_entry_password_hint_timeout(&self) -> u32 {
+    fn gtk_entry_password_hint_timeout(&self) -> u32 {
         unsafe {
             let mut value = glib::Value::from_type(<u32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -1090,7 +1183,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn set_property_gtk_entry_password_hint_timeout(&self, gtk_entry_password_hint_timeout: u32) {
+    fn set_gtk_entry_password_hint_timeout(&self, gtk_entry_password_hint_timeout: u32) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -1102,7 +1195,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_property_gtk_entry_select_on_focus(&self) -> bool {
+    fn is_gtk_entry_select_on_focus(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -1117,7 +1210,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn set_property_gtk_entry_select_on_focus(&self, gtk_entry_select_on_focus: bool) {
+    fn set_gtk_entry_select_on_focus(&self, gtk_entry_select_on_focus: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -1129,7 +1222,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_property_gtk_error_bell(&self) -> bool {
+    fn is_gtk_error_bell(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -1144,7 +1237,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn set_property_gtk_error_bell(&self, gtk_error_bell: bool) {
+    fn set_gtk_error_bell(&self, gtk_error_bell: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -1154,7 +1247,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_property_gtk_font_name(&self) -> Option<glib::GString> {
+    fn gtk_font_name(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -1168,7 +1261,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn set_property_gtk_font_name(&self, gtk_font_name: Option<&str>) {
+    fn set_gtk_font_name(&self, gtk_font_name: Option<&str>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -1178,7 +1271,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_property_gtk_fontconfig_timestamp(&self) -> u32 {
+    fn gtk_fontconfig_timestamp(&self) -> u32 {
         unsafe {
             let mut value = glib::Value::from_type(<u32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -1193,7 +1286,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn set_property_gtk_fontconfig_timestamp(&self, gtk_fontconfig_timestamp: u32) {
+    fn set_gtk_fontconfig_timestamp(&self, gtk_fontconfig_timestamp: u32) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -1205,7 +1298,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_property_gtk_icon_theme_name(&self) -> Option<glib::GString> {
+    fn gtk_icon_theme_name(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -1219,7 +1312,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn set_property_gtk_icon_theme_name(&self, gtk_icon_theme_name: Option<&str>) {
+    fn set_gtk_icon_theme_name(&self, gtk_icon_theme_name: Option<&str>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -1229,7 +1322,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_property_gtk_im_module(&self) -> Option<glib::GString> {
+    fn gtk_im_module(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -1243,7 +1336,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn set_property_gtk_im_module(&self, gtk_im_module: Option<&str>) {
+    fn set_gtk_im_module(&self, gtk_im_module: Option<&str>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -1253,7 +1346,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_property_gtk_key_theme_name(&self) -> Option<glib::GString> {
+    fn gtk_key_theme_name(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -1267,7 +1360,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn set_property_gtk_key_theme_name(&self, gtk_key_theme_name: Option<&str>) {
+    fn set_gtk_key_theme_name(&self, gtk_key_theme_name: Option<&str>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -1279,7 +1372,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-    fn get_property_gtk_keynav_use_caret(&self) -> bool {
+    fn is_gtk_keynav_use_caret(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -1296,7 +1389,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-    fn set_property_gtk_keynav_use_caret(&self, gtk_keynav_use_caret: bool) {
+    fn set_gtk_keynav_use_caret(&self, gtk_keynav_use_caret: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -1306,7 +1399,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_property_gtk_label_select_on_focus(&self) -> bool {
+    fn is_gtk_label_select_on_focus(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -1321,7 +1414,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn set_property_gtk_label_select_on_focus(&self, gtk_label_select_on_focus: bool) {
+    fn set_gtk_label_select_on_focus(&self, gtk_label_select_on_focus: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -1333,7 +1426,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_property_gtk_long_press_time(&self) -> u32 {
+    fn gtk_long_press_time(&self) -> u32 {
         unsafe {
             let mut value = glib::Value::from_type(<u32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -1348,7 +1441,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn set_property_gtk_long_press_time(&self, gtk_long_press_time: u32) {
+    fn set_gtk_long_press_time(&self, gtk_long_press_time: u32) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -1358,7 +1451,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_property_gtk_modules(&self) -> Option<glib::GString> {
+    fn gtk_modules(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -1372,7 +1465,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn set_property_gtk_modules(&self, gtk_modules: Option<&str>) {
+    fn set_gtk_modules(&self, gtk_modules: Option<&str>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -1384,7 +1477,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
 
     #[cfg(any(feature = "v3_24_9", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24_9")))]
-    fn get_property_gtk_overlay_scrolling(&self) -> bool {
+    fn is_gtk_overlay_scrolling(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -1401,7 +1494,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
 
     #[cfg(any(feature = "v3_24_9", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24_9")))]
-    fn set_property_gtk_overlay_scrolling(&self, gtk_overlay_scrolling: bool) {
+    fn set_gtk_overlay_scrolling(&self, gtk_overlay_scrolling: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -1411,7 +1504,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_property_gtk_primary_button_warps_slider(&self) -> bool {
+    fn is_gtk_primary_button_warps_slider(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -1426,7 +1519,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn set_property_gtk_primary_button_warps_slider(&self, gtk_primary_button_warps_slider: bool) {
+    fn set_gtk_primary_button_warps_slider(&self, gtk_primary_button_warps_slider: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -1438,7 +1531,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_property_gtk_print_backends(&self) -> Option<glib::GString> {
+    fn gtk_print_backends(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -1452,7 +1545,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn set_property_gtk_print_backends(&self, gtk_print_backends: Option<&str>) {
+    fn set_gtk_print_backends(&self, gtk_print_backends: Option<&str>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -1462,7 +1555,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_property_gtk_print_preview_command(&self) -> Option<glib::GString> {
+    fn gtk_print_preview_command(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -1476,7 +1569,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn set_property_gtk_print_preview_command(&self, gtk_print_preview_command: Option<&str>) {
+    fn set_gtk_print_preview_command(&self, gtk_print_preview_command: Option<&str>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -1488,7 +1581,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_property_gtk_recent_files_enabled(&self) -> bool {
+    fn is_gtk_recent_files_enabled(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -1503,7 +1596,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn set_property_gtk_recent_files_enabled(&self, gtk_recent_files_enabled: bool) {
+    fn set_gtk_recent_files_enabled(&self, gtk_recent_files_enabled: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -1515,7 +1608,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_property_gtk_recent_files_max_age(&self) -> i32 {
+    fn gtk_recent_files_max_age(&self) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -1530,7 +1623,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn set_property_gtk_recent_files_max_age(&self, gtk_recent_files_max_age: i32) {
+    fn set_gtk_recent_files_max_age(&self, gtk_recent_files_max_age: i32) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -1542,7 +1635,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_property_gtk_shell_shows_app_menu(&self) -> bool {
+    fn is_gtk_shell_shows_app_menu(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -1557,7 +1650,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn set_property_gtk_shell_shows_app_menu(&self, gtk_shell_shows_app_menu: bool) {
+    fn set_gtk_shell_shows_app_menu(&self, gtk_shell_shows_app_menu: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -1569,7 +1662,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_property_gtk_shell_shows_desktop(&self) -> bool {
+    fn is_gtk_shell_shows_desktop(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -1584,7 +1677,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn set_property_gtk_shell_shows_desktop(&self, gtk_shell_shows_desktop: bool) {
+    fn set_gtk_shell_shows_desktop(&self, gtk_shell_shows_desktop: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -1594,7 +1687,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_property_gtk_shell_shows_menubar(&self) -> bool {
+    fn is_gtk_shell_shows_menubar(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -1609,7 +1702,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn set_property_gtk_shell_shows_menubar(&self, gtk_shell_shows_menubar: bool) {
+    fn set_gtk_shell_shows_menubar(&self, gtk_shell_shows_menubar: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -1619,7 +1712,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_property_gtk_sound_theme_name(&self) -> Option<glib::GString> {
+    fn gtk_sound_theme_name(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -1633,7 +1726,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn set_property_gtk_sound_theme_name(&self, gtk_sound_theme_name: Option<&str>) {
+    fn set_gtk_sound_theme_name(&self, gtk_sound_theme_name: Option<&str>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -1643,7 +1736,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_property_gtk_split_cursor(&self) -> bool {
+    fn is_gtk_split_cursor(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -1658,7 +1751,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn set_property_gtk_split_cursor(&self, gtk_split_cursor: bool) {
+    fn set_gtk_split_cursor(&self, gtk_split_cursor: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -1668,7 +1761,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_property_gtk_theme_name(&self) -> Option<glib::GString> {
+    fn gtk_theme_name(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -1682,7 +1775,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn set_property_gtk_theme_name(&self, gtk_theme_name: Option<&str>) {
+    fn set_gtk_theme_name(&self, gtk_theme_name: Option<&str>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -1692,7 +1785,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_property_gtk_titlebar_double_click(&self) -> Option<glib::GString> {
+    fn gtk_titlebar_double_click(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -1706,7 +1799,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn set_property_gtk_titlebar_double_click(&self, gtk_titlebar_double_click: Option<&str>) {
+    fn set_gtk_titlebar_double_click(&self, gtk_titlebar_double_click: Option<&str>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -1718,7 +1811,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_property_gtk_titlebar_middle_click(&self) -> Option<glib::GString> {
+    fn gtk_titlebar_middle_click(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -1732,7 +1825,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn set_property_gtk_titlebar_middle_click(&self, gtk_titlebar_middle_click: Option<&str>) {
+    fn set_gtk_titlebar_middle_click(&self, gtk_titlebar_middle_click: Option<&str>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -1744,7 +1837,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_property_gtk_titlebar_right_click(&self) -> Option<glib::GString> {
+    fn gtk_titlebar_right_click(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -1758,7 +1851,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn set_property_gtk_titlebar_right_click(&self, gtk_titlebar_right_click: Option<&str>) {
+    fn set_gtk_titlebar_right_click(&self, gtk_titlebar_right_click: Option<&str>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -1768,7 +1861,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_property_gtk_xft_antialias(&self) -> i32 {
+    fn gtk_xft_antialias(&self) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -1783,7 +1876,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn set_property_gtk_xft_antialias(&self, gtk_xft_antialias: i32) {
+    fn set_gtk_xft_antialias(&self, gtk_xft_antialias: i32) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -1793,7 +1886,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_property_gtk_xft_dpi(&self) -> i32 {
+    fn gtk_xft_dpi(&self) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -1808,7 +1901,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn set_property_gtk_xft_dpi(&self, gtk_xft_dpi: i32) {
+    fn set_gtk_xft_dpi(&self, gtk_xft_dpi: i32) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -1818,7 +1911,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_property_gtk_xft_hinting(&self) -> i32 {
+    fn gtk_xft_hinting(&self) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -1833,7 +1926,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn set_property_gtk_xft_hinting(&self, gtk_xft_hinting: i32) {
+    fn set_gtk_xft_hinting(&self, gtk_xft_hinting: i32) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -1843,7 +1936,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_property_gtk_xft_hintstyle(&self) -> Option<glib::GString> {
+    fn gtk_xft_hintstyle(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -1857,7 +1950,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn set_property_gtk_xft_hintstyle(&self, gtk_xft_hintstyle: Option<&str>) {
+    fn set_gtk_xft_hintstyle(&self, gtk_xft_hintstyle: Option<&str>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -1867,7 +1960,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_property_gtk_xft_rgba(&self) -> Option<glib::GString> {
+    fn gtk_xft_rgba(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -1881,7 +1974,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn set_property_gtk_xft_rgba(&self, gtk_xft_rgba: Option<&str>) {
+    fn set_gtk_xft_rgba(&self, gtk_xft_rgba: Option<&str>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,

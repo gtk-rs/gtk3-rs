@@ -99,13 +99,13 @@ pub trait BuilderExt: 'static {
     ) -> Result<(), glib::Error>;
 
     #[doc(alias = "gtk_builder_get_application")]
-    fn get_application(&self) -> Option<Application>;
+    fn application(&self) -> Option<Application>;
 
     #[doc(alias = "gtk_builder_get_objects")]
-    fn get_objects(&self) -> Vec<glib::Object>;
+    fn objects(&self) -> Vec<glib::Object>;
 
     #[doc(alias = "gtk_builder_get_translation_domain")]
-    fn get_translation_domain(&self) -> Option<glib::GString>;
+    fn translation_domain(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_builder_get_type_from_name")]
     fn get_type_from_name(&self, type_name: &str) -> glib::types::Type;
@@ -265,7 +265,7 @@ impl<O: IsA<Builder>> BuilderExt for O {
         }
     }
 
-    fn get_application(&self) -> Option<Application> {
+    fn application(&self) -> Option<Application> {
         unsafe {
             from_glib_none(ffi::gtk_builder_get_application(
                 self.as_ref().to_glib_none().0,
@@ -273,7 +273,7 @@ impl<O: IsA<Builder>> BuilderExt for O {
         }
     }
 
-    fn get_objects(&self) -> Vec<glib::Object> {
+    fn objects(&self) -> Vec<glib::Object> {
         unsafe {
             FromGlibPtrContainer::from_glib_container(ffi::gtk_builder_get_objects(
                 self.as_ref().to_glib_none().0,
@@ -281,7 +281,7 @@ impl<O: IsA<Builder>> BuilderExt for O {
         }
     }
 
-    fn get_translation_domain(&self) -> Option<glib::GString> {
+    fn translation_domain(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_builder_get_translation_domain(
                 self.as_ref().to_glib_none().0,

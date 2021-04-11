@@ -527,11 +527,14 @@ impl FileChooserWidgetBuilder {
 pub const NONE_FILE_CHOOSER_WIDGET: Option<&FileChooserWidget> = None;
 
 pub trait FileChooserWidgetExt: 'static {
-    fn get_property_search_mode(&self) -> bool;
+    #[doc(alias = "get_property_search_mode")]
+    fn is_search_mode(&self) -> bool;
 
-    fn set_property_search_mode(&self, search_mode: bool);
+    #[doc(alias = "set_property_search_mode")]
+    fn set_search_mode(&self, search_mode: bool);
 
-    fn get_property_subtitle(&self) -> Option<glib::GString>;
+    #[doc(alias = "get_property_subtitle")]
+    fn subtitle(&self) -> Option<glib::GString>;
 
     fn connect_desktop_folder<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -587,7 +590,7 @@ pub trait FileChooserWidgetExt: 'static {
 }
 
 impl<O: IsA<FileChooserWidget>> FileChooserWidgetExt for O {
-    fn get_property_search_mode(&self) -> bool {
+    fn is_search_mode(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -602,7 +605,7 @@ impl<O: IsA<FileChooserWidget>> FileChooserWidgetExt for O {
         }
     }
 
-    fn set_property_search_mode(&self, search_mode: bool) {
+    fn set_search_mode(&self, search_mode: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -612,7 +615,7 @@ impl<O: IsA<FileChooserWidget>> FileChooserWidgetExt for O {
         }
     }
 
-    fn get_property_subtitle(&self) -> Option<glib::GString> {
+    fn subtitle(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(

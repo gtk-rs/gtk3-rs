@@ -137,7 +137,7 @@ pub trait SettingsExt: 'static {
     fn get_flags(&self, key: &str) -> u32;
 
     #[doc(alias = "g_settings_get_has_unapplied")]
-    fn get_has_unapplied(&self) -> bool;
+    fn has_unapplied(&self) -> bool;
 
     #[doc(alias = "g_settings_get_int")]
     fn get_int(&self, key: &str) -> i32;
@@ -226,15 +226,20 @@ pub trait SettingsExt: 'static {
     #[doc(alias = "g_settings_set_value")]
     fn set_value(&self, key: &str, value: &glib::Variant) -> Result<(), glib::error::BoolError>;
 
-    fn get_property_backend(&self) -> Option<SettingsBackend>;
+    #[doc(alias = "get_property_backend")]
+    fn backend(&self) -> Option<SettingsBackend>;
 
-    fn get_property_delay_apply(&self) -> bool;
+    #[doc(alias = "get_property_delay_apply")]
+    fn is_delay_apply(&self) -> bool;
 
-    fn get_property_path(&self) -> Option<glib::GString>;
+    #[doc(alias = "get_property_path")]
+    fn path(&self) -> Option<glib::GString>;
 
-    fn get_property_schema_id(&self) -> Option<glib::GString>;
+    #[doc(alias = "get_property_schema_id")]
+    fn schema_id(&self) -> Option<glib::GString>;
 
-    fn get_property_settings_schema(&self) -> Option<SettingsSchema>;
+    #[doc(alias = "get_property_settings_schema")]
+    fn settings_schema(&self) -> Option<SettingsSchema>;
 
     //fn connect_change_event<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId;
 
@@ -346,7 +351,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         unsafe { ffi::g_settings_get_flags(self.as_ref().to_glib_none().0, key.to_glib_none().0) }
     }
 
-    fn get_has_unapplied(&self) -> bool {
+    fn has_unapplied(&self) -> bool {
         unsafe {
             from_glib(ffi::g_settings_get_has_unapplied(
                 self.as_ref().to_glib_none().0,
@@ -602,7 +607,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_property_backend(&self) -> Option<SettingsBackend> {
+    fn backend(&self) -> Option<SettingsBackend> {
         unsafe {
             let mut value = glib::Value::from_type(<SettingsBackend as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -616,7 +621,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_property_delay_apply(&self) -> bool {
+    fn is_delay_apply(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -631,7 +636,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_property_path(&self) -> Option<glib::GString> {
+    fn path(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -645,7 +650,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_property_schema_id(&self) -> Option<glib::GString> {
+    fn schema_id(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -659,7 +664,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_property_settings_schema(&self) -> Option<SettingsSchema> {
+    fn settings_schema(&self) -> Option<SettingsSchema> {
         unsafe {
             let mut value = glib::Value::from_type(<SettingsSchema as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(

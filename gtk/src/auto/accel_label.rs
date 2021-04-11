@@ -551,13 +551,13 @@ pub const NONE_ACCEL_LABEL: Option<&AccelLabel> = None;
 
 pub trait AccelLabelExt: 'static {
     #[doc(alias = "gtk_accel_label_get_accel")]
-    fn get_accel(&self) -> (u32, gdk::ModifierType);
+    fn accel(&self) -> (u32, gdk::ModifierType);
 
     #[doc(alias = "gtk_accel_label_get_accel_widget")]
-    fn get_accel_widget(&self) -> Option<Widget>;
+    fn accel_widget(&self) -> Option<Widget>;
 
     #[doc(alias = "gtk_accel_label_get_accel_width")]
-    fn get_accel_width(&self) -> u32;
+    fn accel_width(&self) -> u32;
 
     #[doc(alias = "gtk_accel_label_refetch")]
     fn refetch(&self) -> bool;
@@ -571,7 +571,8 @@ pub trait AccelLabelExt: 'static {
     #[doc(alias = "gtk_accel_label_set_accel_widget")]
     fn set_accel_widget<P: IsA<Widget>>(&self, accel_widget: Option<&P>);
 
-    fn get_property_accel_closure(&self) -> Option<glib::Closure>;
+    #[doc(alias = "get_property_accel_closure")]
+    fn accel_closure(&self) -> Option<glib::Closure>;
 
     fn connect_property_accel_closure_notify<F: Fn(&Self) + 'static>(
         &self,
@@ -583,7 +584,7 @@ pub trait AccelLabelExt: 'static {
 }
 
 impl<O: IsA<AccelLabel>> AccelLabelExt for O {
-    fn get_accel(&self) -> (u32, gdk::ModifierType) {
+    fn accel(&self) -> (u32, gdk::ModifierType) {
         unsafe {
             let mut accelerator_key = mem::MaybeUninit::uninit();
             let mut accelerator_mods = mem::MaybeUninit::uninit();
@@ -598,7 +599,7 @@ impl<O: IsA<AccelLabel>> AccelLabelExt for O {
         }
     }
 
-    fn get_accel_widget(&self) -> Option<Widget> {
+    fn accel_widget(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_accel_label_get_accel_widget(
                 self.as_ref().to_glib_none().0,
@@ -606,7 +607,7 @@ impl<O: IsA<AccelLabel>> AccelLabelExt for O {
         }
     }
 
-    fn get_accel_width(&self) -> u32 {
+    fn accel_width(&self) -> u32 {
         unsafe { ffi::gtk_accel_label_get_accel_width(self.as_ref().to_glib_none().0) }
     }
 
@@ -642,7 +643,7 @@ impl<O: IsA<AccelLabel>> AccelLabelExt for O {
         }
     }
 
-    fn get_property_accel_closure(&self) -> Option<glib::Closure> {
+    fn accel_closure(&self) -> Option<glib::Closure> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::Closure as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(

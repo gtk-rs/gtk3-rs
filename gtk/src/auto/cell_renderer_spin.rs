@@ -625,17 +625,23 @@ impl CellRendererSpinBuilder {
 pub const NONE_CELL_RENDERER_SPIN: Option<&CellRendererSpin> = None;
 
 pub trait CellRendererSpinExt: 'static {
-    fn get_property_adjustment(&self) -> Option<Adjustment>;
+    #[doc(alias = "get_property_adjustment")]
+    fn adjustment(&self) -> Option<Adjustment>;
 
-    fn set_property_adjustment<P: IsA<Adjustment>>(&self, adjustment: Option<&P>);
+    #[doc(alias = "set_property_adjustment")]
+    fn set_adjustment<P: IsA<Adjustment>>(&self, adjustment: Option<&P>);
 
-    fn get_property_climb_rate(&self) -> f64;
+    #[doc(alias = "get_property_climb_rate")]
+    fn climb_rate(&self) -> f64;
 
-    fn set_property_climb_rate(&self, climb_rate: f64);
+    #[doc(alias = "set_property_climb_rate")]
+    fn set_climb_rate(&self, climb_rate: f64);
 
-    fn get_property_digits(&self) -> u32;
+    #[doc(alias = "get_property_digits")]
+    fn digits(&self) -> u32;
 
-    fn set_property_digits(&self, digits: u32);
+    #[doc(alias = "set_property_digits")]
+    fn set_digits(&self, digits: u32);
 
     fn connect_property_adjustment_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -645,7 +651,7 @@ pub trait CellRendererSpinExt: 'static {
 }
 
 impl<O: IsA<CellRendererSpin>> CellRendererSpinExt for O {
-    fn get_property_adjustment(&self) -> Option<Adjustment> {
+    fn adjustment(&self) -> Option<Adjustment> {
         unsafe {
             let mut value = glib::Value::from_type(<Adjustment as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -659,7 +665,7 @@ impl<O: IsA<CellRendererSpin>> CellRendererSpinExt for O {
         }
     }
 
-    fn set_property_adjustment<P: IsA<Adjustment>>(&self, adjustment: Option<&P>) {
+    fn set_adjustment<P: IsA<Adjustment>>(&self, adjustment: Option<&P>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -669,7 +675,7 @@ impl<O: IsA<CellRendererSpin>> CellRendererSpinExt for O {
         }
     }
 
-    fn get_property_climb_rate(&self) -> f64 {
+    fn climb_rate(&self) -> f64 {
         unsafe {
             let mut value = glib::Value::from_type(<f64 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -684,7 +690,7 @@ impl<O: IsA<CellRendererSpin>> CellRendererSpinExt for O {
         }
     }
 
-    fn set_property_climb_rate(&self, climb_rate: f64) {
+    fn set_climb_rate(&self, climb_rate: f64) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -694,7 +700,7 @@ impl<O: IsA<CellRendererSpin>> CellRendererSpinExt for O {
         }
     }
 
-    fn get_property_digits(&self) -> u32 {
+    fn digits(&self) -> u32 {
         unsafe {
             let mut value = glib::Value::from_type(<u32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -709,7 +715,7 @@ impl<O: IsA<CellRendererSpin>> CellRendererSpinExt for O {
         }
     }
 
-    fn set_property_digits(&self, digits: u32) {
+    fn set_digits(&self, digits: u32) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,

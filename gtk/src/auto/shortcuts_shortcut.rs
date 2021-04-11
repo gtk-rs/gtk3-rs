@@ -35,7 +35,8 @@ glib::wrapper! {
 }
 
 impl ShortcutsShortcut {
-    pub fn set_property_accel_size_group<P: IsA<SizeGroup>>(&self, accel_size_group: Option<&P>) {
+    #[doc(alias = "set_property_accel_size_group")]
+    pub fn set_accel_size_group<P: IsA<SizeGroup>>(&self, accel_size_group: Option<&P>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
@@ -45,7 +46,8 @@ impl ShortcutsShortcut {
         }
     }
 
-    pub fn get_property_accelerator(&self) -> Option<glib::GString> {
+    #[doc(alias = "get_property_accelerator")]
+    pub fn accelerator(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -59,7 +61,8 @@ impl ShortcutsShortcut {
         }
     }
 
-    pub fn set_property_accelerator(&self, accelerator: Option<&str>) {
+    #[doc(alias = "set_property_accelerator")]
+    pub fn set_accelerator(&self, accelerator: Option<&str>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
@@ -71,7 +74,8 @@ impl ShortcutsShortcut {
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    pub fn get_property_action_name(&self) -> Option<glib::GString> {
+    #[doc(alias = "get_property_action_name")]
+    pub fn action_name(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -87,7 +91,8 @@ impl ShortcutsShortcut {
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    pub fn set_property_action_name(&self, action_name: Option<&str>) {
+    #[doc(alias = "set_property_action_name")]
+    pub fn set_action_name(&self, action_name: Option<&str>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
@@ -97,7 +102,8 @@ impl ShortcutsShortcut {
         }
     }
 
-    pub fn get_property_icon(&self) -> Option<gio::Icon> {
+    #[doc(alias = "get_property_icon")]
+    pub fn icon(&self) -> Option<gio::Icon> {
         unsafe {
             let mut value = glib::Value::from_type(<gio::Icon as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -111,7 +117,8 @@ impl ShortcutsShortcut {
         }
     }
 
-    pub fn set_property_icon<P: IsA<gio::Icon>>(&self, icon: Option<&P>) {
+    #[doc(alias = "set_property_icon")]
+    pub fn set_icon<P: IsA<gio::Icon>>(&self, icon: Option<&P>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
@@ -121,7 +128,8 @@ impl ShortcutsShortcut {
         }
     }
 
-    pub fn get_property_icon_set(&self) -> bool {
+    #[doc(alias = "get_property_icon_set")]
+    pub fn is_icon_set(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -136,7 +144,8 @@ impl ShortcutsShortcut {
         }
     }
 
-    pub fn set_property_icon_set(&self, icon_set: bool) {
+    #[doc(alias = "set_property_icon_set")]
+    pub fn set_icon_set(&self, icon_set: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
@@ -146,7 +155,8 @@ impl ShortcutsShortcut {
         }
     }
 
-    pub fn get_property_shortcut_type(&self) -> ShortcutType {
+    #[doc(alias = "get_property_shortcut_type")]
+    pub fn shortcut_type(&self) -> ShortcutType {
         unsafe {
             let mut value = glib::Value::from_type(<ShortcutType as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -161,7 +171,8 @@ impl ShortcutsShortcut {
         }
     }
 
-    pub fn set_property_shortcut_type(&self, shortcut_type: ShortcutType) {
+    #[doc(alias = "set_property_shortcut_type")]
+    pub fn set_shortcut_type(&self, shortcut_type: ShortcutType) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
@@ -171,7 +182,8 @@ impl ShortcutsShortcut {
         }
     }
 
-    pub fn get_property_subtitle(&self) -> Option<glib::GString> {
+    #[doc(alias = "get_property_subtitle")]
+    pub fn subtitle(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -185,7 +197,8 @@ impl ShortcutsShortcut {
         }
     }
 
-    pub fn set_property_subtitle(&self, subtitle: Option<&str>) {
+    #[doc(alias = "set_property_subtitle")]
+    pub fn set_subtitle(&self, subtitle: Option<&str>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
@@ -195,7 +208,8 @@ impl ShortcutsShortcut {
         }
     }
 
-    pub fn get_property_subtitle_set(&self) -> bool {
+    #[doc(alias = "get_property_subtitle_set")]
+    pub fn is_subtitle_set(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -210,7 +224,8 @@ impl ShortcutsShortcut {
         }
     }
 
-    pub fn set_property_subtitle_set(&self, subtitle_set: bool) {
+    #[doc(alias = "set_property_subtitle_set")]
+    pub fn set_subtitle_set(&self, subtitle_set: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
@@ -220,7 +235,8 @@ impl ShortcutsShortcut {
         }
     }
 
-    pub fn get_property_title(&self) -> Option<glib::GString> {
+    #[doc(alias = "get_property_title")]
+    pub fn title(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -234,7 +250,8 @@ impl ShortcutsShortcut {
         }
     }
 
-    pub fn set_property_title(&self, title: Option<&str>) {
+    #[doc(alias = "set_property_title")]
+    pub fn set_title(&self, title: Option<&str>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
@@ -244,7 +261,8 @@ impl ShortcutsShortcut {
         }
     }
 
-    pub fn set_property_title_size_group<P: IsA<SizeGroup>>(&self, title_size_group: Option<&P>) {
+    #[doc(alias = "set_property_title_size_group")]
+    pub fn set_title_size_group<P: IsA<SizeGroup>>(&self, title_size_group: Option<&P>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,

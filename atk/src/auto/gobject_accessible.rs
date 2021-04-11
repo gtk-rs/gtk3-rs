@@ -31,11 +31,11 @@ pub const NONE_GOBJECT_ACCESSIBLE: Option<&GObjectAccessible> = None;
 
 pub trait GObjectAccessibleExt: 'static {
     #[doc(alias = "atk_gobject_accessible_get_object")]
-    fn get_object(&self) -> Option<glib::Object>;
+    fn object(&self) -> Option<glib::Object>;
 }
 
 impl<O: IsA<GObjectAccessible>> GObjectAccessibleExt for O {
-    fn get_object(&self) -> Option<glib::Object> {
+    fn object(&self) -> Option<glib::Object> {
         unsafe {
             from_glib_none(ffi::atk_gobject_accessible_get_object(
                 self.as_ref().to_glib_none().0,

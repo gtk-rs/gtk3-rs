@@ -39,7 +39,8 @@ impl GestureLongPress {
         }
     }
 
-    pub fn get_property_delay_factor(&self) -> f64 {
+    #[doc(alias = "get_property_delay_factor")]
+    pub fn delay_factor(&self) -> f64 {
         unsafe {
             let mut value = glib::Value::from_type(<f64 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -54,7 +55,8 @@ impl GestureLongPress {
         }
     }
 
-    pub fn set_property_delay_factor(&self, delay_factor: f64) {
+    #[doc(alias = "set_property_delay_factor")]
+    pub fn set_delay_factor(&self, delay_factor: f64) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,

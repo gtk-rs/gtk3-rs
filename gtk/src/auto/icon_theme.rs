@@ -58,7 +58,7 @@ pub trait IconThemeExt: 'static {
     fn append_search_path<P: AsRef<std::path::Path>>(&self, path: P);
 
     #[doc(alias = "gtk_icon_theme_get_example_icon_name")]
-    fn get_example_icon_name(&self) -> Option<glib::GString>;
+    fn example_icon_name(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_icon_theme_has_icon")]
     fn has_icon(&self, icon_name: &str) -> bool;
@@ -159,7 +159,7 @@ impl<O: IsA<IconTheme>> IconThemeExt for O {
         }
     }
 
-    fn get_example_icon_name(&self) -> Option<glib::GString> {
+    fn example_icon_name(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_full(ffi::gtk_icon_theme_get_example_icon_name(
                 self.as_ref().to_glib_none().0,

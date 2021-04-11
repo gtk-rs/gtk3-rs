@@ -451,25 +451,25 @@ pub trait GridExt: 'static {
     );
 
     #[doc(alias = "gtk_grid_get_baseline_row")]
-    fn get_baseline_row(&self) -> i32;
+    fn baseline_row(&self) -> i32;
 
     #[doc(alias = "gtk_grid_get_child_at")]
     fn get_child_at(&self, left: i32, top: i32) -> Option<Widget>;
 
     #[doc(alias = "gtk_grid_get_column_homogeneous")]
-    fn get_column_homogeneous(&self) -> bool;
+    fn is_column_homogeneous(&self) -> bool;
 
     #[doc(alias = "gtk_grid_get_column_spacing")]
-    fn get_column_spacing(&self) -> u32;
+    fn column_spacing(&self) -> u32;
 
     #[doc(alias = "gtk_grid_get_row_baseline_position")]
     fn get_row_baseline_position(&self, row: i32) -> BaselinePosition;
 
     #[doc(alias = "gtk_grid_get_row_homogeneous")]
-    fn get_row_homogeneous(&self) -> bool;
+    fn is_row_homogeneous(&self) -> bool;
 
     #[doc(alias = "gtk_grid_get_row_spacing")]
-    fn get_row_spacing(&self) -> u32;
+    fn row_spacing(&self) -> u32;
 
     #[doc(alias = "gtk_grid_insert_column")]
     fn insert_column(&self, position: i32);
@@ -575,7 +575,7 @@ impl<O: IsA<Grid>> GridExt for O {
         }
     }
 
-    fn get_baseline_row(&self) -> i32 {
+    fn baseline_row(&self) -> i32 {
         unsafe { ffi::gtk_grid_get_baseline_row(self.as_ref().to_glib_none().0) }
     }
 
@@ -589,7 +589,7 @@ impl<O: IsA<Grid>> GridExt for O {
         }
     }
 
-    fn get_column_homogeneous(&self) -> bool {
+    fn is_column_homogeneous(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_grid_get_column_homogeneous(
                 self.as_ref().to_glib_none().0,
@@ -597,7 +597,7 @@ impl<O: IsA<Grid>> GridExt for O {
         }
     }
 
-    fn get_column_spacing(&self) -> u32 {
+    fn column_spacing(&self) -> u32 {
         unsafe { ffi::gtk_grid_get_column_spacing(self.as_ref().to_glib_none().0) }
     }
 
@@ -610,7 +610,7 @@ impl<O: IsA<Grid>> GridExt for O {
         }
     }
 
-    fn get_row_homogeneous(&self) -> bool {
+    fn is_row_homogeneous(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_grid_get_row_homogeneous(
                 self.as_ref().to_glib_none().0,
@@ -618,7 +618,7 @@ impl<O: IsA<Grid>> GridExt for O {
         }
     }
 
-    fn get_row_spacing(&self) -> u32 {
+    fn row_spacing(&self) -> u32 {
         unsafe { ffi::gtk_grid_get_row_spacing(self.as_ref().to_glib_none().0) }
     }
 

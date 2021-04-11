@@ -17,7 +17,7 @@ glib::wrapper! {
 
 impl PixbufFormat {
     #[doc(alias = "gdk_pixbuf_format_get_description")]
-    pub fn get_description(&self) -> Option<glib::GString> {
+    pub fn description(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_full(ffi::gdk_pixbuf_format_get_description(mut_override(
                 self.to_glib_none().0,
@@ -26,7 +26,7 @@ impl PixbufFormat {
     }
 
     #[doc(alias = "gdk_pixbuf_format_get_extensions")]
-    pub fn get_extensions(&self) -> Vec<glib::GString> {
+    pub fn extensions(&self) -> Vec<glib::GString> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::gdk_pixbuf_format_get_extensions(
                 mut_override(self.to_glib_none().0),
@@ -35,7 +35,7 @@ impl PixbufFormat {
     }
 
     #[doc(alias = "gdk_pixbuf_format_get_license")]
-    pub fn get_license(&self) -> Option<glib::GString> {
+    pub fn license(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_full(ffi::gdk_pixbuf_format_get_license(mut_override(
                 self.to_glib_none().0,
@@ -44,7 +44,7 @@ impl PixbufFormat {
     }
 
     #[doc(alias = "gdk_pixbuf_format_get_mime_types")]
-    pub fn get_mime_types(&self) -> Vec<glib::GString> {
+    pub fn mime_types(&self) -> Vec<glib::GString> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::gdk_pixbuf_format_get_mime_types(
                 mut_override(self.to_glib_none().0),
@@ -53,7 +53,7 @@ impl PixbufFormat {
     }
 
     #[doc(alias = "gdk_pixbuf_format_get_name")]
-    pub fn get_name(&self) -> Option<glib::GString> {
+    pub fn name(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_full(ffi::gdk_pixbuf_format_get_name(mut_override(
                 self.to_glib_none().0,

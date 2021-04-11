@@ -17,49 +17,49 @@ glib::wrapper! {
 
 impl FontMetrics {
     #[doc(alias = "pango_font_metrics_get_approximate_char_width")]
-    pub fn get_approximate_char_width(&self) -> i32 {
+    pub fn approximate_char_width(&self) -> i32 {
         unsafe { ffi::pango_font_metrics_get_approximate_char_width(self.to_glib_none().0) }
     }
 
     #[doc(alias = "pango_font_metrics_get_approximate_digit_width")]
-    pub fn get_approximate_digit_width(&self) -> i32 {
+    pub fn approximate_digit_width(&self) -> i32 {
         unsafe { ffi::pango_font_metrics_get_approximate_digit_width(self.to_glib_none().0) }
     }
 
     #[doc(alias = "pango_font_metrics_get_ascent")]
-    pub fn get_ascent(&self) -> i32 {
+    pub fn ascent(&self) -> i32 {
         unsafe { ffi::pango_font_metrics_get_ascent(self.to_glib_none().0) }
     }
 
     #[doc(alias = "pango_font_metrics_get_descent")]
-    pub fn get_descent(&self) -> i32 {
+    pub fn descent(&self) -> i32 {
         unsafe { ffi::pango_font_metrics_get_descent(self.to_glib_none().0) }
     }
 
     #[cfg(any(feature = "v1_44", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
     #[doc(alias = "pango_font_metrics_get_height")]
-    pub fn get_height(&self) -> i32 {
+    pub fn height(&self) -> i32 {
         unsafe { ffi::pango_font_metrics_get_height(self.to_glib_none().0) }
     }
 
     #[doc(alias = "pango_font_metrics_get_strikethrough_position")]
-    pub fn get_strikethrough_position(&self) -> i32 {
+    pub fn strikethrough_position(&self) -> i32 {
         unsafe { ffi::pango_font_metrics_get_strikethrough_position(self.to_glib_none().0) }
     }
 
     #[doc(alias = "pango_font_metrics_get_strikethrough_thickness")]
-    pub fn get_strikethrough_thickness(&self) -> i32 {
+    pub fn strikethrough_thickness(&self) -> i32 {
         unsafe { ffi::pango_font_metrics_get_strikethrough_thickness(self.to_glib_none().0) }
     }
 
     #[doc(alias = "pango_font_metrics_get_underline_position")]
-    pub fn get_underline_position(&self) -> i32 {
+    pub fn underline_position(&self) -> i32 {
         unsafe { ffi::pango_font_metrics_get_underline_position(self.to_glib_none().0) }
     }
 
     #[doc(alias = "pango_font_metrics_get_underline_thickness")]
-    pub fn get_underline_thickness(&self) -> i32 {
+    pub fn underline_thickness(&self) -> i32 {
         unsafe { ffi::pango_font_metrics_get_underline_thickness(self.to_glib_none().0) }
     }
 }

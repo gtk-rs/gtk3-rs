@@ -55,17 +55,17 @@ pub trait TlsClientConnectionExt: 'static {
     fn copy_session_state<P: IsA<TlsClientConnection>>(&self, source: &P);
 
     #[doc(alias = "g_tls_client_connection_get_accepted_cas")]
-    fn get_accepted_cas(&self) -> Vec<glib::ByteArray>;
+    fn accepted_cas(&self) -> Vec<glib::ByteArray>;
 
     #[doc(alias = "g_tls_client_connection_get_server_identity")]
-    fn get_server_identity(&self) -> Option<SocketConnectable>;
+    fn server_identity(&self) -> Option<SocketConnectable>;
 
     #[cfg_attr(feature = "v2_56", deprecated)]
     #[doc(alias = "g_tls_client_connection_get_use_ssl3")]
-    fn get_use_ssl3(&self) -> bool;
+    fn uses_ssl3(&self) -> bool;
 
     #[doc(alias = "g_tls_client_connection_get_validation_flags")]
-    fn get_validation_flags(&self) -> TlsCertificateFlags;
+    fn validation_flags(&self) -> TlsCertificateFlags;
 
     #[doc(alias = "g_tls_client_connection_set_server_identity")]
     fn set_server_identity<P: IsA<SocketConnectable>>(&self, identity: &P);
@@ -106,7 +106,7 @@ impl<O: IsA<TlsClientConnection>> TlsClientConnectionExt for O {
         }
     }
 
-    fn get_accepted_cas(&self) -> Vec<glib::ByteArray> {
+    fn accepted_cas(&self) -> Vec<glib::ByteArray> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::g_tls_client_connection_get_accepted_cas(
                 self.as_ref().to_glib_none().0,
@@ -114,7 +114,7 @@ impl<O: IsA<TlsClientConnection>> TlsClientConnectionExt for O {
         }
     }
 
-    fn get_server_identity(&self) -> Option<SocketConnectable> {
+    fn server_identity(&self) -> Option<SocketConnectable> {
         unsafe {
             from_glib_none(ffi::g_tls_client_connection_get_server_identity(
                 self.as_ref().to_glib_none().0,
@@ -122,7 +122,7 @@ impl<O: IsA<TlsClientConnection>> TlsClientConnectionExt for O {
         }
     }
 
-    fn get_use_ssl3(&self) -> bool {
+    fn uses_ssl3(&self) -> bool {
         unsafe {
             from_glib(ffi::g_tls_client_connection_get_use_ssl3(
                 self.as_ref().to_glib_none().0,
@@ -130,7 +130,7 @@ impl<O: IsA<TlsClientConnection>> TlsClientConnectionExt for O {
         }
     }
 
-    fn get_validation_flags(&self) -> TlsCertificateFlags {
+    fn validation_flags(&self) -> TlsCertificateFlags {
         unsafe {
             from_glib(ffi::g_tls_client_connection_get_validation_flags(
                 self.as_ref().to_glib_none().0,

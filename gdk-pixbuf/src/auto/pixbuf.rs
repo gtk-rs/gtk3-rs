@@ -362,32 +362,32 @@ impl Pixbuf {
     }
 
     #[doc(alias = "gdk_pixbuf_get_bits_per_sample")]
-    pub fn get_bits_per_sample(&self) -> i32 {
+    pub fn bits_per_sample(&self) -> i32 {
         unsafe { ffi::gdk_pixbuf_get_bits_per_sample(self.to_glib_none().0) }
     }
 
     #[doc(alias = "gdk_pixbuf_get_byte_length")]
-    pub fn get_byte_length(&self) -> usize {
+    pub fn byte_length(&self) -> usize {
         unsafe { ffi::gdk_pixbuf_get_byte_length(self.to_glib_none().0) }
     }
 
     #[doc(alias = "gdk_pixbuf_get_colorspace")]
-    pub fn get_colorspace(&self) -> Colorspace {
+    pub fn colorspace(&self) -> Colorspace {
         unsafe { from_glib(ffi::gdk_pixbuf_get_colorspace(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_pixbuf_get_has_alpha")]
-    pub fn get_has_alpha(&self) -> bool {
+    pub fn has_alpha(&self) -> bool {
         unsafe { from_glib(ffi::gdk_pixbuf_get_has_alpha(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_pixbuf_get_height")]
-    pub fn get_height(&self) -> i32 {
+    pub fn height(&self) -> i32 {
         unsafe { ffi::gdk_pixbuf_get_height(self.to_glib_none().0) }
     }
 
     #[doc(alias = "gdk_pixbuf_get_n_channels")]
-    pub fn get_n_channels(&self) -> i32 {
+    pub fn n_channels(&self) -> i32 {
         unsafe { ffi::gdk_pixbuf_get_n_channels(self.to_glib_none().0) }
     }
 
@@ -404,17 +404,17 @@ impl Pixbuf {
     //#[cfg(any(feature = "v2_32", feature = "dox"))]
     //#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
     //#[doc(alias = "gdk_pixbuf_get_options")]
-    //pub fn get_options(&self) -> /*Unknown conversion*//*Unimplemented*/HashTable TypeId { ns_id: 0, id: 28 }/TypeId { ns_id: 0, id: 28 } {
+    //pub fn options(&self) -> /*Unknown conversion*//*Unimplemented*/HashTable TypeId { ns_id: 0, id: 28 }/TypeId { ns_id: 0, id: 28 } {
     //    unsafe { TODO: call ffi:gdk_pixbuf_get_options() }
     //}
 
     #[doc(alias = "gdk_pixbuf_get_rowstride")]
-    pub fn get_rowstride(&self) -> i32 {
+    pub fn rowstride(&self) -> i32 {
         unsafe { ffi::gdk_pixbuf_get_rowstride(self.to_glib_none().0) }
     }
 
     #[doc(alias = "gdk_pixbuf_get_width")]
-    pub fn get_width(&self) -> i32 {
+    pub fn width(&self) -> i32 {
         unsafe { ffi::gdk_pixbuf_get_width(self.to_glib_none().0) }
     }
 
@@ -582,7 +582,8 @@ impl Pixbuf {
         }
     }
 
-    pub fn get_property_pixel_bytes(&self) -> Option<glib::Bytes> {
+    #[doc(alias = "get_property_pixel_bytes")]
+    pub fn pixel_bytes(&self) -> Option<glib::Bytes> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::Bytes as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(

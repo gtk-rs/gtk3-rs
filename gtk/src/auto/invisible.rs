@@ -33,7 +33,7 @@ impl Invisible {
     }
 
     #[doc(alias = "gtk_invisible_new_for_screen")]
-    pub fn new_for_screen(screen: &gdk::Screen) -> Invisible {
+    pub fn for_screen(screen: &gdk::Screen) -> Invisible {
         assert_initialized_main_thread!();
         unsafe {
             Widget::from_glib_none(ffi::gtk_invisible_new_for_screen(screen.to_glib_none().0))

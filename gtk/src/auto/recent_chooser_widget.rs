@@ -38,7 +38,7 @@ impl RecentChooserWidget {
     }
 
     #[doc(alias = "gtk_recent_chooser_widget_new_for_manager")]
-    pub fn new_for_manager<P: IsA<RecentManager>>(manager: &P) -> RecentChooserWidget {
+    pub fn for_manager<P: IsA<RecentManager>>(manager: &P) -> RecentChooserWidget {
         skip_assert_initialized!();
         unsafe {
             Widget::from_glib_none(ffi::gtk_recent_chooser_widget_new_for_manager(

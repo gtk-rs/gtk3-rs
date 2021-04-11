@@ -156,31 +156,31 @@ pub trait SocketClientExt: 'static {
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<SocketConnection, glib::Error>> + 'static>>;
 
     #[doc(alias = "g_socket_client_get_enable_proxy")]
-    fn get_enable_proxy(&self) -> bool;
+    fn enables_proxy(&self) -> bool;
 
     #[doc(alias = "g_socket_client_get_family")]
-    fn get_family(&self) -> SocketFamily;
+    fn family(&self) -> SocketFamily;
 
     #[doc(alias = "g_socket_client_get_local_address")]
-    fn get_local_address(&self) -> Option<SocketAddress>;
+    fn local_address(&self) -> Option<SocketAddress>;
 
     #[doc(alias = "g_socket_client_get_protocol")]
-    fn get_protocol(&self) -> SocketProtocol;
+    fn protocol(&self) -> SocketProtocol;
 
     #[doc(alias = "g_socket_client_get_proxy_resolver")]
-    fn get_proxy_resolver(&self) -> ProxyResolver;
+    fn proxy_resolver(&self) -> ProxyResolver;
 
     #[doc(alias = "g_socket_client_get_socket_type")]
-    fn get_socket_type(&self) -> SocketType;
+    fn socket_type(&self) -> SocketType;
 
     #[doc(alias = "g_socket_client_get_timeout")]
-    fn get_timeout(&self) -> u32;
+    fn timeout(&self) -> u32;
 
     #[doc(alias = "g_socket_client_get_tls")]
-    fn get_tls(&self) -> bool;
+    fn is_tls(&self) -> bool;
 
     #[doc(alias = "g_socket_client_get_tls_validation_flags")]
-    fn get_tls_validation_flags(&self) -> TlsCertificateFlags;
+    fn tls_validation_flags(&self) -> TlsCertificateFlags;
 
     #[doc(alias = "g_socket_client_set_enable_proxy")]
     fn set_enable_proxy(&self, enable: bool);
@@ -209,9 +209,11 @@ pub trait SocketClientExt: 'static {
     #[doc(alias = "g_socket_client_set_tls_validation_flags")]
     fn set_tls_validation_flags(&self, flags: TlsCertificateFlags);
 
-    fn get_property_type(&self) -> SocketType;
+    #[doc(alias = "get_property_type")]
+    fn type_(&self) -> SocketType;
 
-    fn set_property_type(&self, type_: SocketType);
+    #[doc(alias = "set_property_type")]
+    fn set_type(&self, type_: SocketType);
 
     fn connect_event<
         F: Fn(&Self, SocketClientEvent, &SocketConnectable, Option<&IOStream>) + 'static,
@@ -598,7 +600,7 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
         }))
     }
 
-    fn get_enable_proxy(&self) -> bool {
+    fn enables_proxy(&self) -> bool {
         unsafe {
             from_glib(ffi::g_socket_client_get_enable_proxy(
                 self.as_ref().to_glib_none().0,
@@ -606,7 +608,7 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
         }
     }
 
-    fn get_family(&self) -> SocketFamily {
+    fn family(&self) -> SocketFamily {
         unsafe {
             from_glib(ffi::g_socket_client_get_family(
                 self.as_ref().to_glib_none().0,
@@ -614,7 +616,7 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
         }
     }
 
-    fn get_local_address(&self) -> Option<SocketAddress> {
+    fn local_address(&self) -> Option<SocketAddress> {
         unsafe {
             from_glib_none(ffi::g_socket_client_get_local_address(
                 self.as_ref().to_glib_none().0,
@@ -622,7 +624,7 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
         }
     }
 
-    fn get_protocol(&self) -> SocketProtocol {
+    fn protocol(&self) -> SocketProtocol {
         unsafe {
             from_glib(ffi::g_socket_client_get_protocol(
                 self.as_ref().to_glib_none().0,
@@ -630,7 +632,7 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
         }
     }
 
-    fn get_proxy_resolver(&self) -> ProxyResolver {
+    fn proxy_resolver(&self) -> ProxyResolver {
         unsafe {
             from_glib_none(ffi::g_socket_client_get_proxy_resolver(
                 self.as_ref().to_glib_none().0,
@@ -638,7 +640,7 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
         }
     }
 
-    fn get_socket_type(&self) -> SocketType {
+    fn socket_type(&self) -> SocketType {
         unsafe {
             from_glib(ffi::g_socket_client_get_socket_type(
                 self.as_ref().to_glib_none().0,
@@ -646,15 +648,15 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
         }
     }
 
-    fn get_timeout(&self) -> u32 {
+    fn timeout(&self) -> u32 {
         unsafe { ffi::g_socket_client_get_timeout(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_tls(&self) -> bool {
+    fn is_tls(&self) -> bool {
         unsafe { from_glib(ffi::g_socket_client_get_tls(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_tls_validation_flags(&self) -> TlsCertificateFlags {
+    fn tls_validation_flags(&self) -> TlsCertificateFlags {
         unsafe {
             from_glib(ffi::g_socket_client_get_tls_validation_flags(
                 self.as_ref().to_glib_none().0,
@@ -725,7 +727,7 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
         }
     }
 
-    fn get_property_type(&self) -> SocketType {
+    fn type_(&self) -> SocketType {
         unsafe {
             let mut value = glib::Value::from_type(<SocketType as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -740,7 +742,7 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
         }
     }
 
-    fn set_property_type(&self, type_: SocketType) {
+    fn set_type(&self, type_: SocketType) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,

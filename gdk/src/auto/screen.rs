@@ -25,24 +25,24 @@ glib::wrapper! {
 impl Screen {
     #[cfg_attr(feature = "v3_22", deprecated)]
     #[doc(alias = "gdk_screen_get_active_window")]
-    pub fn get_active_window(&self) -> Option<Window> {
+    pub fn active_window(&self) -> Option<Window> {
         unsafe { from_glib_full(ffi::gdk_screen_get_active_window(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_screen_get_display")]
-    pub fn get_display(&self) -> Display {
+    pub fn display(&self) -> Display {
         unsafe { from_glib_none(ffi::gdk_screen_get_display(self.to_glib_none().0)) }
     }
 
     #[cfg_attr(feature = "v3_22", deprecated)]
     #[doc(alias = "gdk_screen_get_height")]
-    pub fn get_height(&self) -> i32 {
+    pub fn height(&self) -> i32 {
         unsafe { ffi::gdk_screen_get_height(self.to_glib_none().0) }
     }
 
     #[cfg_attr(feature = "v3_22", deprecated)]
     #[doc(alias = "gdk_screen_get_height_mm")]
-    pub fn get_height_mm(&self) -> i32 {
+    pub fn height_mm(&self) -> i32 {
         unsafe { ffi::gdk_screen_get_height_mm(self.to_glib_none().0) }
     }
 
@@ -119,44 +119,44 @@ impl Screen {
 
     #[cfg_attr(feature = "v3_22", deprecated)]
     #[doc(alias = "gdk_screen_get_n_monitors")]
-    pub fn get_n_monitors(&self) -> i32 {
+    pub fn n_monitors(&self) -> i32 {
         unsafe { ffi::gdk_screen_get_n_monitors(self.to_glib_none().0) }
     }
 
     #[cfg_attr(feature = "v3_22", deprecated)]
     #[doc(alias = "gdk_screen_get_number")]
-    pub fn get_number(&self) -> i32 {
+    pub fn number(&self) -> i32 {
         unsafe { ffi::gdk_screen_get_number(self.to_glib_none().0) }
     }
 
     #[cfg_attr(feature = "v3_22", deprecated)]
     #[doc(alias = "gdk_screen_get_primary_monitor")]
-    pub fn get_primary_monitor(&self) -> i32 {
+    pub fn primary_monitor(&self) -> i32 {
         unsafe { ffi::gdk_screen_get_primary_monitor(self.to_glib_none().0) }
     }
 
     #[doc(alias = "gdk_screen_get_resolution")]
-    pub fn get_resolution(&self) -> f64 {
+    pub fn resolution(&self) -> f64 {
         unsafe { ffi::gdk_screen_get_resolution(self.to_glib_none().0) }
     }
 
     #[doc(alias = "gdk_screen_get_rgba_visual")]
-    pub fn get_rgba_visual(&self) -> Option<Visual> {
+    pub fn rgba_visual(&self) -> Option<Visual> {
         unsafe { from_glib_none(ffi::gdk_screen_get_rgba_visual(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_screen_get_root_window")]
-    pub fn get_root_window(&self) -> Option<Window> {
+    pub fn root_window(&self) -> Option<Window> {
         unsafe { from_glib_none(ffi::gdk_screen_get_root_window(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_screen_get_system_visual")]
-    pub fn get_system_visual(&self) -> Option<Visual> {
+    pub fn system_visual(&self) -> Option<Visual> {
         unsafe { from_glib_none(ffi::gdk_screen_get_system_visual(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_screen_get_toplevel_windows")]
-    pub fn get_toplevel_windows(&self) -> Vec<Window> {
+    pub fn toplevel_windows(&self) -> Vec<Window> {
         unsafe {
             FromGlibPtrContainer::from_glib_container(ffi::gdk_screen_get_toplevel_windows(
                 self.to_glib_none().0,
@@ -166,18 +166,18 @@ impl Screen {
 
     #[cfg_attr(feature = "v3_22", deprecated)]
     #[doc(alias = "gdk_screen_get_width")]
-    pub fn get_width(&self) -> i32 {
+    pub fn width(&self) -> i32 {
         unsafe { ffi::gdk_screen_get_width(self.to_glib_none().0) }
     }
 
     #[cfg_attr(feature = "v3_22", deprecated)]
     #[doc(alias = "gdk_screen_get_width_mm")]
-    pub fn get_width_mm(&self) -> i32 {
+    pub fn width_mm(&self) -> i32 {
         unsafe { ffi::gdk_screen_get_width_mm(self.to_glib_none().0) }
     }
 
     #[doc(alias = "gdk_screen_get_window_stack")]
-    pub fn get_window_stack(&self) -> Vec<Window> {
+    pub fn window_stack(&self) -> Vec<Window> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::gdk_screen_get_window_stack(
                 self.to_glib_none().0,
@@ -227,28 +227,28 @@ impl Screen {
 
     #[cfg_attr(feature = "v3_22", deprecated)]
     #[doc(alias = "gdk_screen_height")]
-    pub fn height() -> i32 {
+    pub fn screen_height() -> i32 {
         assert_initialized_main_thread!();
         unsafe { ffi::gdk_screen_height() }
     }
 
     #[cfg_attr(feature = "v3_22", deprecated)]
     #[doc(alias = "gdk_screen_height_mm")]
-    pub fn height_mm() -> i32 {
+    pub fn screen_height_mm() -> i32 {
         assert_initialized_main_thread!();
         unsafe { ffi::gdk_screen_height_mm() }
     }
 
     #[cfg_attr(feature = "v3_22", deprecated)]
     #[doc(alias = "gdk_screen_width")]
-    pub fn width() -> i32 {
+    pub fn screen_width() -> i32 {
         assert_initialized_main_thread!();
         unsafe { ffi::gdk_screen_width() }
     }
 
     #[cfg_attr(feature = "v3_22", deprecated)]
     #[doc(alias = "gdk_screen_width_mm")]
-    pub fn width_mm() -> i32 {
+    pub fn screen_width_mm() -> i32 {
         assert_initialized_main_thread!();
         unsafe { ffi::gdk_screen_width_mm() }
     }

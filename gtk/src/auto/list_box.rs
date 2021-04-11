@@ -418,10 +418,10 @@ pub trait ListBoxExt: 'static {
     fn drag_unhighlight_row(&self);
 
     #[doc(alias = "gtk_list_box_get_activate_on_single_click")]
-    fn get_activate_on_single_click(&self) -> bool;
+    fn activates_on_single_click(&self) -> bool;
 
     #[doc(alias = "gtk_list_box_get_adjustment")]
-    fn get_adjustment(&self) -> Option<Adjustment>;
+    fn adjustment(&self) -> Option<Adjustment>;
 
     #[doc(alias = "gtk_list_box_get_row_at_index")]
     fn get_row_at_index(&self, index_: i32) -> Option<ListBoxRow>;
@@ -430,13 +430,13 @@ pub trait ListBoxExt: 'static {
     fn get_row_at_y(&self, y: i32) -> Option<ListBoxRow>;
 
     #[doc(alias = "gtk_list_box_get_selected_row")]
-    fn get_selected_row(&self) -> Option<ListBoxRow>;
+    fn selected_row(&self) -> Option<ListBoxRow>;
 
     #[doc(alias = "gtk_list_box_get_selected_rows")]
-    fn get_selected_rows(&self) -> Vec<ListBoxRow>;
+    fn selected_rows(&self) -> Vec<ListBoxRow>;
 
     #[doc(alias = "gtk_list_box_get_selection_mode")]
-    fn get_selection_mode(&self) -> SelectionMode;
+    fn selection_mode(&self) -> SelectionMode;
 
     #[doc(alias = "gtk_list_box_insert")]
     fn insert<P: IsA<Widget>>(&self, child: &P, position: i32);
@@ -596,7 +596,7 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
         }
     }
 
-    fn get_activate_on_single_click(&self) -> bool {
+    fn activates_on_single_click(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_list_box_get_activate_on_single_click(
                 self.as_ref().to_glib_none().0,
@@ -604,7 +604,7 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
         }
     }
 
-    fn get_adjustment(&self) -> Option<Adjustment> {
+    fn adjustment(&self) -> Option<Adjustment> {
         unsafe {
             from_glib_none(ffi::gtk_list_box_get_adjustment(
                 self.as_ref().to_glib_none().0,
@@ -630,7 +630,7 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
         }
     }
 
-    fn get_selected_row(&self) -> Option<ListBoxRow> {
+    fn selected_row(&self) -> Option<ListBoxRow> {
         unsafe {
             from_glib_none(ffi::gtk_list_box_get_selected_row(
                 self.as_ref().to_glib_none().0,
@@ -638,7 +638,7 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
         }
     }
 
-    fn get_selected_rows(&self) -> Vec<ListBoxRow> {
+    fn selected_rows(&self) -> Vec<ListBoxRow> {
         unsafe {
             FromGlibPtrContainer::from_glib_container(ffi::gtk_list_box_get_selected_rows(
                 self.as_ref().to_glib_none().0,
@@ -646,7 +646,7 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
         }
     }
 
-    fn get_selection_mode(&self) -> SelectionMode {
+    fn selection_mode(&self) -> SelectionMode {
         unsafe {
             from_glib(ffi::gtk_list_box_get_selection_mode(
                 self.as_ref().to_glib_none().0,

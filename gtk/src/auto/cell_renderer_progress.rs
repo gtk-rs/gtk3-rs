@@ -247,29 +247,41 @@ impl CellRendererProgressBuilder {
 pub const NONE_CELL_RENDERER_PROGRESS: Option<&CellRendererProgress> = None;
 
 pub trait CellRendererProgressExt: 'static {
-    fn get_property_inverted(&self) -> bool;
+    #[doc(alias = "get_property_inverted")]
+    fn is_inverted(&self) -> bool;
 
-    fn set_property_inverted(&self, inverted: bool);
+    #[doc(alias = "set_property_inverted")]
+    fn set_inverted(&self, inverted: bool);
 
-    fn get_property_pulse(&self) -> i32;
+    #[doc(alias = "get_property_pulse")]
+    fn pulse(&self) -> i32;
 
-    fn set_property_pulse(&self, pulse: i32);
+    #[doc(alias = "set_property_pulse")]
+    fn set_pulse(&self, pulse: i32);
 
-    fn get_property_text(&self) -> Option<glib::GString>;
+    #[doc(alias = "get_property_text")]
+    fn text(&self) -> Option<glib::GString>;
 
-    fn set_property_text(&self, text: Option<&str>);
+    #[doc(alias = "set_property_text")]
+    fn set_text(&self, text: Option<&str>);
 
-    fn get_property_text_xalign(&self) -> f32;
+    #[doc(alias = "get_property_text_xalign")]
+    fn text_xalign(&self) -> f32;
 
-    fn set_property_text_xalign(&self, text_xalign: f32);
+    #[doc(alias = "set_property_text_xalign")]
+    fn set_text_xalign(&self, text_xalign: f32);
 
-    fn get_property_text_yalign(&self) -> f32;
+    #[doc(alias = "get_property_text_yalign")]
+    fn text_yalign(&self) -> f32;
 
-    fn set_property_text_yalign(&self, text_yalign: f32);
+    #[doc(alias = "set_property_text_yalign")]
+    fn set_text_yalign(&self, text_yalign: f32);
 
-    fn get_property_value(&self) -> i32;
+    #[doc(alias = "get_property_value")]
+    fn value(&self) -> i32;
 
-    fn set_property_value(&self, value: i32);
+    #[doc(alias = "set_property_value")]
+    fn set_value(&self, value: i32);
 
     fn connect_property_inverted_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -285,7 +297,7 @@ pub trait CellRendererProgressExt: 'static {
 }
 
 impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
-    fn get_property_inverted(&self) -> bool {
+    fn is_inverted(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -300,7 +312,7 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
         }
     }
 
-    fn set_property_inverted(&self, inverted: bool) {
+    fn set_inverted(&self, inverted: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -310,7 +322,7 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
         }
     }
 
-    fn get_property_pulse(&self) -> i32 {
+    fn pulse(&self) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -325,7 +337,7 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
         }
     }
 
-    fn set_property_pulse(&self, pulse: i32) {
+    fn set_pulse(&self, pulse: i32) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -335,7 +347,7 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
         }
     }
 
-    fn get_property_text(&self) -> Option<glib::GString> {
+    fn text(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -349,7 +361,7 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
         }
     }
 
-    fn set_property_text(&self, text: Option<&str>) {
+    fn set_text(&self, text: Option<&str>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -359,7 +371,7 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
         }
     }
 
-    fn get_property_text_xalign(&self) -> f32 {
+    fn text_xalign(&self) -> f32 {
         unsafe {
             let mut value = glib::Value::from_type(<f32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -374,7 +386,7 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
         }
     }
 
-    fn set_property_text_xalign(&self, text_xalign: f32) {
+    fn set_text_xalign(&self, text_xalign: f32) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -384,7 +396,7 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
         }
     }
 
-    fn get_property_text_yalign(&self) -> f32 {
+    fn text_yalign(&self) -> f32 {
         unsafe {
             let mut value = glib::Value::from_type(<f32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -399,7 +411,7 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
         }
     }
 
-    fn set_property_text_yalign(&self, text_yalign: f32) {
+    fn set_text_yalign(&self, text_yalign: f32) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -409,7 +421,7 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
         }
     }
 
-    fn get_property_value(&self) -> i32 {
+    fn value(&self) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -424,7 +436,7 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
         }
     }
 
-    fn set_property_value(&self, value: i32) {
+    fn set_value(&self, value: i32) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,

@@ -44,7 +44,7 @@ impl Triangle {
     }
 
     #[doc(alias = "graphene_triangle_get_area")]
-    pub fn get_area(&self) -> f32 {
+    pub fn area(&self) -> f32 {
         unsafe { ffi::graphene_triangle_get_area(self.to_glib_none().0) }
     }
 
@@ -66,7 +66,7 @@ impl Triangle {
     }
 
     #[doc(alias = "graphene_triangle_get_bounding_box")]
-    pub fn get_bounding_box(&self) -> Box {
+    pub fn bounding_box(&self) -> Box {
         unsafe {
             let mut res = Box::uninitialized();
             ffi::graphene_triangle_get_bounding_box(
@@ -78,7 +78,7 @@ impl Triangle {
     }
 
     #[doc(alias = "graphene_triangle_get_midpoint")]
-    pub fn get_midpoint(&self) -> Point3D {
+    pub fn midpoint(&self) -> Point3D {
         unsafe {
             let mut res = Point3D::uninitialized();
             ffi::graphene_triangle_get_midpoint(self.to_glib_none().0, res.to_glib_none_mut().0);
@@ -87,7 +87,7 @@ impl Triangle {
     }
 
     #[doc(alias = "graphene_triangle_get_normal")]
-    pub fn get_normal(&self) -> Vec3 {
+    pub fn normal(&self) -> Vec3 {
         unsafe {
             let mut res = Vec3::uninitialized();
             ffi::graphene_triangle_get_normal(self.to_glib_none().0, res.to_glib_none_mut().0);
@@ -96,7 +96,7 @@ impl Triangle {
     }
 
     #[doc(alias = "graphene_triangle_get_plane")]
-    pub fn get_plane(&self) -> Plane {
+    pub fn plane(&self) -> Plane {
         unsafe {
             let mut res = Plane::uninitialized();
             ffi::graphene_triangle_get_plane(self.to_glib_none().0, res.to_glib_none_mut().0);
@@ -105,7 +105,7 @@ impl Triangle {
     }
 
     #[doc(alias = "graphene_triangle_get_points")]
-    pub fn get_points(&self) -> (Point3D, Point3D, Point3D) {
+    pub fn points(&self) -> (Point3D, Point3D, Point3D) {
         unsafe {
             let mut a = Point3D::uninitialized();
             let mut b = Point3D::uninitialized();
@@ -149,7 +149,7 @@ impl Triangle {
     }
 
     #[doc(alias = "graphene_triangle_get_vertices")]
-    pub fn get_vertices(&self) -> (Vec3, Vec3, Vec3) {
+    pub fn vertices(&self) -> (Vec3, Vec3, Vec3) {
         unsafe {
             let mut a = Vec3::uninitialized();
             let mut b = Vec3::uninitialized();

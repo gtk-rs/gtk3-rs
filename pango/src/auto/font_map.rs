@@ -37,7 +37,7 @@ pub trait FontMapExt: 'static {
     fn get_family(&self, name: &str) -> Option<FontFamily>;
 
     #[doc(alias = "pango_font_map_get_serial")]
-    fn get_serial(&self) -> u32;
+    fn serial(&self) -> u32;
 
     #[doc(alias = "pango_font_map_list_families")]
     fn list_families(&self) -> Vec<FontFamily>;
@@ -80,7 +80,7 @@ impl<O: IsA<FontMap>> FontMapExt for O {
         }
     }
 
-    fn get_serial(&self) -> u32 {
+    fn serial(&self) -> u32 {
         unsafe { ffi::pango_font_map_get_serial(self.as_ref().to_glib_none().0) }
     }
 

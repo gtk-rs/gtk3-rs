@@ -31,43 +31,43 @@ pub trait RecentChooserExt: 'static {
     fn add_filter(&self, filter: &RecentFilter);
 
     #[doc(alias = "gtk_recent_chooser_get_current_item")]
-    fn get_current_item(&self) -> Option<RecentInfo>;
+    fn current_item(&self) -> Option<RecentInfo>;
 
     #[doc(alias = "gtk_recent_chooser_get_current_uri")]
-    fn get_current_uri(&self) -> Option<glib::GString>;
+    fn current_uri(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_recent_chooser_get_filter")]
-    fn get_filter(&self) -> Option<RecentFilter>;
+    fn filter(&self) -> Option<RecentFilter>;
 
     #[doc(alias = "gtk_recent_chooser_get_items")]
-    fn get_items(&self) -> Vec<RecentInfo>;
+    fn items(&self) -> Vec<RecentInfo>;
 
     #[doc(alias = "gtk_recent_chooser_get_limit")]
-    fn get_limit(&self) -> i32;
+    fn limit(&self) -> i32;
 
     #[doc(alias = "gtk_recent_chooser_get_local_only")]
-    fn get_local_only(&self) -> bool;
+    fn is_local_only(&self) -> bool;
 
     #[doc(alias = "gtk_recent_chooser_get_select_multiple")]
-    fn get_select_multiple(&self) -> bool;
+    fn selects_multiple(&self) -> bool;
 
     #[doc(alias = "gtk_recent_chooser_get_show_icons")]
-    fn get_show_icons(&self) -> bool;
+    fn shows_icons(&self) -> bool;
 
     #[doc(alias = "gtk_recent_chooser_get_show_not_found")]
-    fn get_show_not_found(&self) -> bool;
+    fn shows_not_found(&self) -> bool;
 
     #[doc(alias = "gtk_recent_chooser_get_show_private")]
-    fn get_show_private(&self) -> bool;
+    fn shows_private(&self) -> bool;
 
     #[doc(alias = "gtk_recent_chooser_get_show_tips")]
-    fn get_show_tips(&self) -> bool;
+    fn shows_tips(&self) -> bool;
 
     #[doc(alias = "gtk_recent_chooser_get_sort_type")]
-    fn get_sort_type(&self) -> RecentSortType;
+    fn sort_type(&self) -> RecentSortType;
 
     #[doc(alias = "gtk_recent_chooser_get_uris")]
-    fn get_uris(&self) -> Vec<glib::GString>;
+    fn uris(&self) -> Vec<glib::GString>;
 
     #[doc(alias = "gtk_recent_chooser_list_filters")]
     fn list_filters(&self) -> Vec<RecentFilter>;
@@ -160,7 +160,7 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
         }
     }
 
-    fn get_current_item(&self) -> Option<RecentInfo> {
+    fn current_item(&self) -> Option<RecentInfo> {
         unsafe {
             from_glib_full(ffi::gtk_recent_chooser_get_current_item(
                 self.as_ref().to_glib_none().0,
@@ -168,7 +168,7 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
         }
     }
 
-    fn get_current_uri(&self) -> Option<glib::GString> {
+    fn current_uri(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_full(ffi::gtk_recent_chooser_get_current_uri(
                 self.as_ref().to_glib_none().0,
@@ -176,7 +176,7 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
         }
     }
 
-    fn get_filter(&self) -> Option<RecentFilter> {
+    fn filter(&self) -> Option<RecentFilter> {
         unsafe {
             from_glib_none(ffi::gtk_recent_chooser_get_filter(
                 self.as_ref().to_glib_none().0,
@@ -184,7 +184,7 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
         }
     }
 
-    fn get_items(&self) -> Vec<RecentInfo> {
+    fn items(&self) -> Vec<RecentInfo> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::gtk_recent_chooser_get_items(
                 self.as_ref().to_glib_none().0,
@@ -192,11 +192,11 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
         }
     }
 
-    fn get_limit(&self) -> i32 {
+    fn limit(&self) -> i32 {
         unsafe { ffi::gtk_recent_chooser_get_limit(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_local_only(&self) -> bool {
+    fn is_local_only(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_recent_chooser_get_local_only(
                 self.as_ref().to_glib_none().0,
@@ -204,7 +204,7 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
         }
     }
 
-    fn get_select_multiple(&self) -> bool {
+    fn selects_multiple(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_recent_chooser_get_select_multiple(
                 self.as_ref().to_glib_none().0,
@@ -212,7 +212,7 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
         }
     }
 
-    fn get_show_icons(&self) -> bool {
+    fn shows_icons(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_recent_chooser_get_show_icons(
                 self.as_ref().to_glib_none().0,
@@ -220,7 +220,7 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
         }
     }
 
-    fn get_show_not_found(&self) -> bool {
+    fn shows_not_found(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_recent_chooser_get_show_not_found(
                 self.as_ref().to_glib_none().0,
@@ -228,7 +228,7 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
         }
     }
 
-    fn get_show_private(&self) -> bool {
+    fn shows_private(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_recent_chooser_get_show_private(
                 self.as_ref().to_glib_none().0,
@@ -236,7 +236,7 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
         }
     }
 
-    fn get_show_tips(&self) -> bool {
+    fn shows_tips(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_recent_chooser_get_show_tips(
                 self.as_ref().to_glib_none().0,
@@ -244,7 +244,7 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
         }
     }
 
-    fn get_sort_type(&self) -> RecentSortType {
+    fn sort_type(&self) -> RecentSortType {
         unsafe {
             from_glib(ffi::gtk_recent_chooser_get_sort_type(
                 self.as_ref().to_glib_none().0,
@@ -252,7 +252,7 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
         }
     }
 
-    fn get_uris(&self) -> Vec<glib::GString> {
+    fn uris(&self) -> Vec<glib::GString> {
         unsafe {
             let mut length = mem::MaybeUninit::uninit();
             let ret = FromGlibContainer::from_glib_full_num(

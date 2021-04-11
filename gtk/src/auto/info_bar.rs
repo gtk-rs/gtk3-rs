@@ -470,21 +470,21 @@ pub trait InfoBarExt: 'static {
     //fn add_buttons(&self, first_button_text: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
 
     #[doc(alias = "gtk_info_bar_get_action_area")]
-    fn get_action_area(&self) -> Option<Box>;
+    fn action_area(&self) -> Option<Box>;
 
     #[doc(alias = "gtk_info_bar_get_content_area")]
-    fn get_content_area(&self) -> Box;
+    fn content_area(&self) -> Box;
 
     #[doc(alias = "gtk_info_bar_get_message_type")]
-    fn get_message_type(&self) -> MessageType;
+    fn message_type(&self) -> MessageType;
 
     #[cfg(any(feature = "v3_22_29", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_29")))]
     #[doc(alias = "gtk_info_bar_get_revealed")]
-    fn get_revealed(&self) -> bool;
+    fn is_revealed(&self) -> bool;
 
     #[doc(alias = "gtk_info_bar_get_show_close_button")]
-    fn get_show_close_button(&self) -> bool;
+    fn shows_close_button(&self) -> bool;
 
     #[doc(alias = "gtk_info_bar_response")]
     fn response(&self, response_id: ResponseType);
@@ -550,7 +550,7 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
     //    unsafe { TODO: call ffi:gtk_info_bar_add_buttons() }
     //}
 
-    fn get_action_area(&self) -> Option<Box> {
+    fn action_area(&self) -> Option<Box> {
         unsafe {
             from_glib_none(ffi::gtk_info_bar_get_action_area(
                 self.as_ref().to_glib_none().0,
@@ -558,7 +558,7 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
         }
     }
 
-    fn get_content_area(&self) -> Box {
+    fn content_area(&self) -> Box {
         unsafe {
             from_glib_none(ffi::gtk_info_bar_get_content_area(
                 self.as_ref().to_glib_none().0,
@@ -566,7 +566,7 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
         }
     }
 
-    fn get_message_type(&self) -> MessageType {
+    fn message_type(&self) -> MessageType {
         unsafe {
             from_glib(ffi::gtk_info_bar_get_message_type(
                 self.as_ref().to_glib_none().0,
@@ -576,7 +576,7 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
 
     #[cfg(any(feature = "v3_22_29", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_29")))]
-    fn get_revealed(&self) -> bool {
+    fn is_revealed(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_info_bar_get_revealed(
                 self.as_ref().to_glib_none().0,
@@ -584,7 +584,7 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
         }
     }
 
-    fn get_show_close_button(&self) -> bool {
+    fn shows_close_button(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_info_bar_get_show_close_button(
                 self.as_ref().to_glib_none().0,

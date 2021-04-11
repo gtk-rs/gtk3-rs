@@ -30,19 +30,19 @@ pub trait ScrollableExt: 'static {
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_scrollable_get_border")]
-    fn get_border(&self) -> Option<Border>;
+    fn border(&self) -> Option<Border>;
 
     #[doc(alias = "gtk_scrollable_get_hadjustment")]
-    fn get_hadjustment(&self) -> Option<Adjustment>;
+    fn hadjustment(&self) -> Option<Adjustment>;
 
     #[doc(alias = "gtk_scrollable_get_hscroll_policy")]
-    fn get_hscroll_policy(&self) -> ScrollablePolicy;
+    fn hscroll_policy(&self) -> ScrollablePolicy;
 
     #[doc(alias = "gtk_scrollable_get_vadjustment")]
-    fn get_vadjustment(&self) -> Option<Adjustment>;
+    fn vadjustment(&self) -> Option<Adjustment>;
 
     #[doc(alias = "gtk_scrollable_get_vscroll_policy")]
-    fn get_vscroll_policy(&self) -> ScrollablePolicy;
+    fn vscroll_policy(&self) -> ScrollablePolicy;
 
     #[doc(alias = "gtk_scrollable_set_hadjustment")]
     fn set_hadjustment<P: IsA<Adjustment>>(&self, hadjustment: Option<&P>);
@@ -74,7 +74,7 @@ pub trait ScrollableExt: 'static {
 impl<O: IsA<Scrollable>> ScrollableExt for O {
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    fn get_border(&self) -> Option<Border> {
+    fn border(&self) -> Option<Border> {
         unsafe {
             let mut border = Border::uninitialized();
             let ret = from_glib(ffi::gtk_scrollable_get_border(
@@ -89,7 +89,7 @@ impl<O: IsA<Scrollable>> ScrollableExt for O {
         }
     }
 
-    fn get_hadjustment(&self) -> Option<Adjustment> {
+    fn hadjustment(&self) -> Option<Adjustment> {
         unsafe {
             from_glib_none(ffi::gtk_scrollable_get_hadjustment(
                 self.as_ref().to_glib_none().0,
@@ -97,7 +97,7 @@ impl<O: IsA<Scrollable>> ScrollableExt for O {
         }
     }
 
-    fn get_hscroll_policy(&self) -> ScrollablePolicy {
+    fn hscroll_policy(&self) -> ScrollablePolicy {
         unsafe {
             from_glib(ffi::gtk_scrollable_get_hscroll_policy(
                 self.as_ref().to_glib_none().0,
@@ -105,7 +105,7 @@ impl<O: IsA<Scrollable>> ScrollableExt for O {
         }
     }
 
-    fn get_vadjustment(&self) -> Option<Adjustment> {
+    fn vadjustment(&self) -> Option<Adjustment> {
         unsafe {
             from_glib_none(ffi::gtk_scrollable_get_vadjustment(
                 self.as_ref().to_glib_none().0,
@@ -113,7 +113,7 @@ impl<O: IsA<Scrollable>> ScrollableExt for O {
         }
     }
 
-    fn get_vscroll_policy(&self) -> ScrollablePolicy {
+    fn vscroll_policy(&self) -> ScrollablePolicy {
         unsafe {
             from_glib(ffi::gtk_scrollable_get_vscroll_policy(
                 self.as_ref().to_glib_none().0,

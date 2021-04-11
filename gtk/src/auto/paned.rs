@@ -425,21 +425,21 @@ pub trait PanedExt: 'static {
     fn add2<P: IsA<Widget>>(&self, child: &P);
 
     #[doc(alias = "gtk_paned_get_child1")]
-    fn get_child1(&self) -> Option<Widget>;
+    fn child1(&self) -> Option<Widget>;
 
     #[doc(alias = "gtk_paned_get_child2")]
-    fn get_child2(&self) -> Option<Widget>;
+    fn child2(&self) -> Option<Widget>;
 
     #[doc(alias = "gtk_paned_get_handle_window")]
-    fn get_handle_window(&self) -> Option<gdk::Window>;
+    fn handle_window(&self) -> Option<gdk::Window>;
 
     #[doc(alias = "gtk_paned_get_position")]
-    fn get_position(&self) -> i32;
+    fn position(&self) -> i32;
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_paned_get_wide_handle")]
-    fn get_wide_handle(&self) -> bool;
+    fn is_wide_handle(&self) -> bool;
 
     #[doc(alias = "gtk_paned_pack1")]
     fn pack1<P: IsA<Widget>>(&self, child: &P, resize: bool, shrink: bool);
@@ -455,13 +455,17 @@ pub trait PanedExt: 'static {
     #[doc(alias = "gtk_paned_set_wide_handle")]
     fn set_wide_handle(&self, wide: bool);
 
-    fn get_property_max_position(&self) -> i32;
+    #[doc(alias = "get_property_max_position")]
+    fn max_position(&self) -> i32;
 
-    fn get_property_min_position(&self) -> i32;
+    #[doc(alias = "get_property_min_position")]
+    fn min_position(&self) -> i32;
 
-    fn get_property_position_set(&self) -> bool;
+    #[doc(alias = "get_property_position_set")]
+    fn is_position_set(&self) -> bool;
 
-    fn set_property_position_set(&self, position_set: bool);
+    #[doc(alias = "set_property_position_set")]
+    fn set_position_set(&self, position_set: bool);
 
     fn get_child_resize<T: IsA<Widget>>(&self, item: &T) -> bool;
 
@@ -539,15 +543,15 @@ impl<O: IsA<Paned>> PanedExt for O {
         }
     }
 
-    fn get_child1(&self) -> Option<Widget> {
+    fn child1(&self) -> Option<Widget> {
         unsafe { from_glib_none(ffi::gtk_paned_get_child1(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_child2(&self) -> Option<Widget> {
+    fn child2(&self) -> Option<Widget> {
         unsafe { from_glib_none(ffi::gtk_paned_get_child2(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_handle_window(&self) -> Option<gdk::Window> {
+    fn handle_window(&self) -> Option<gdk::Window> {
         unsafe {
             from_glib_none(ffi::gtk_paned_get_handle_window(
                 self.as_ref().to_glib_none().0,
@@ -555,13 +559,13 @@ impl<O: IsA<Paned>> PanedExt for O {
         }
     }
 
-    fn get_position(&self) -> i32 {
+    fn position(&self) -> i32 {
         unsafe { ffi::gtk_paned_get_position(self.as_ref().to_glib_none().0) }
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    fn get_wide_handle(&self) -> bool {
+    fn is_wide_handle(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_paned_get_wide_handle(
                 self.as_ref().to_glib_none().0,
@@ -605,7 +609,7 @@ impl<O: IsA<Paned>> PanedExt for O {
         }
     }
 
-    fn get_property_max_position(&self) -> i32 {
+    fn max_position(&self) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -620,7 +624,7 @@ impl<O: IsA<Paned>> PanedExt for O {
         }
     }
 
-    fn get_property_min_position(&self) -> i32 {
+    fn min_position(&self) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -635,7 +639,7 @@ impl<O: IsA<Paned>> PanedExt for O {
         }
     }
 
-    fn get_property_position_set(&self) -> bool {
+    fn is_position_set(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -650,7 +654,7 @@ impl<O: IsA<Paned>> PanedExt for O {
         }
     }
 
-    fn set_property_position_set(&self, position_set: bool) {
+    fn set_position_set(&self, position_set: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,

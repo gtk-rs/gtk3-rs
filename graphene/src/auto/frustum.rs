@@ -44,7 +44,7 @@ impl Frustum {
     }
 
     //#[doc(alias = "graphene_frustum_get_planes")]
-    //pub fn get_planes(&self, planes: /*Unimplemented*/FixedArray TypeId { ns_id: 1, id: 8 }; 6) {
+    //pub fn planes(&self, planes: /*Unimplemented*/FixedArray TypeId { ns_id: 1, id: 8 }; 6) {
     //    unsafe { TODO: call ffi:graphene_frustum_get_planes() }
     //}
 

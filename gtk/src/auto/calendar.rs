@@ -447,19 +447,19 @@ pub trait CalendarExt: 'static {
     fn clear_marks(&self);
 
     #[doc(alias = "gtk_calendar_get_date")]
-    fn get_date(&self) -> (u32, u32, u32);
+    fn date(&self) -> (u32, u32, u32);
 
     #[doc(alias = "gtk_calendar_get_day_is_marked")]
     fn get_day_is_marked(&self, day: u32) -> bool;
 
     #[doc(alias = "gtk_calendar_get_detail_height_rows")]
-    fn get_detail_height_rows(&self) -> i32;
+    fn detail_height_rows(&self) -> i32;
 
     #[doc(alias = "gtk_calendar_get_detail_width_chars")]
-    fn get_detail_width_chars(&self) -> i32;
+    fn detail_width_chars(&self) -> i32;
 
     #[doc(alias = "gtk_calendar_get_display_options")]
-    fn get_display_options(&self) -> CalendarDisplayOptions;
+    fn display_options(&self) -> CalendarDisplayOptions;
 
     #[doc(alias = "gtk_calendar_mark_day")]
     fn mark_day(&self, day: u32);
@@ -485,37 +485,53 @@ pub trait CalendarExt: 'static {
     #[doc(alias = "gtk_calendar_unmark_day")]
     fn unmark_day(&self, day: u32);
 
-    fn get_property_day(&self) -> i32;
+    #[doc(alias = "get_property_day")]
+    fn day(&self) -> i32;
 
-    fn set_property_day(&self, day: i32);
+    #[doc(alias = "set_property_day")]
+    fn set_day(&self, day: i32);
 
-    fn get_property_month(&self) -> i32;
+    #[doc(alias = "get_property_month")]
+    fn month(&self) -> i32;
 
-    fn set_property_month(&self, month: i32);
+    #[doc(alias = "set_property_month")]
+    fn set_month(&self, month: i32);
 
-    fn get_property_no_month_change(&self) -> bool;
+    #[doc(alias = "get_property_no_month_change")]
+    fn is_no_month_change(&self) -> bool;
 
-    fn set_property_no_month_change(&self, no_month_change: bool);
+    #[doc(alias = "set_property_no_month_change")]
+    fn set_no_month_change(&self, no_month_change: bool);
 
-    fn get_property_show_day_names(&self) -> bool;
+    #[doc(alias = "get_property_show_day_names")]
+    fn shows_day_names(&self) -> bool;
 
-    fn set_property_show_day_names(&self, show_day_names: bool);
+    #[doc(alias = "set_property_show_day_names")]
+    fn set_show_day_names(&self, show_day_names: bool);
 
-    fn get_property_show_details(&self) -> bool;
+    #[doc(alias = "get_property_show_details")]
+    fn shows_details(&self) -> bool;
 
-    fn set_property_show_details(&self, show_details: bool);
+    #[doc(alias = "set_property_show_details")]
+    fn set_show_details(&self, show_details: bool);
 
-    fn get_property_show_heading(&self) -> bool;
+    #[doc(alias = "get_property_show_heading")]
+    fn shows_heading(&self) -> bool;
 
-    fn set_property_show_heading(&self, show_heading: bool);
+    #[doc(alias = "set_property_show_heading")]
+    fn set_show_heading(&self, show_heading: bool);
 
-    fn get_property_show_week_numbers(&self) -> bool;
+    #[doc(alias = "get_property_show_week_numbers")]
+    fn shows_week_numbers(&self) -> bool;
 
-    fn set_property_show_week_numbers(&self, show_week_numbers: bool);
+    #[doc(alias = "set_property_show_week_numbers")]
+    fn set_show_week_numbers(&self, show_week_numbers: bool);
 
-    fn get_property_year(&self) -> i32;
+    #[doc(alias = "get_property_year")]
+    fn year(&self) -> i32;
 
-    fn set_property_year(&self, year: i32);
+    #[doc(alias = "set_property_year")]
+    fn set_year(&self, year: i32);
 
     fn connect_day_selected<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -576,7 +592,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
-    fn get_date(&self) -> (u32, u32, u32) {
+    fn date(&self) -> (u32, u32, u32) {
         unsafe {
             let mut year = mem::MaybeUninit::uninit();
             let mut month = mem::MaybeUninit::uninit();
@@ -603,15 +619,15 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
-    fn get_detail_height_rows(&self) -> i32 {
+    fn detail_height_rows(&self) -> i32 {
         unsafe { ffi::gtk_calendar_get_detail_height_rows(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_detail_width_chars(&self) -> i32 {
+    fn detail_width_chars(&self) -> i32 {
         unsafe { ffi::gtk_calendar_get_detail_width_chars(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_display_options(&self) -> CalendarDisplayOptions {
+    fn display_options(&self) -> CalendarDisplayOptions {
         unsafe {
             from_glib(ffi::gtk_calendar_get_display_options(
                 self.as_ref().to_glib_none().0,
@@ -700,7 +716,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
-    fn get_property_day(&self) -> i32 {
+    fn day(&self) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -715,7 +731,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
-    fn set_property_day(&self, day: i32) {
+    fn set_day(&self, day: i32) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -725,7 +741,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
-    fn get_property_month(&self) -> i32 {
+    fn month(&self) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -740,7 +756,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
-    fn set_property_month(&self, month: i32) {
+    fn set_month(&self, month: i32) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -750,7 +766,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
-    fn get_property_no_month_change(&self) -> bool {
+    fn is_no_month_change(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -765,7 +781,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
-    fn set_property_no_month_change(&self, no_month_change: bool) {
+    fn set_no_month_change(&self, no_month_change: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -775,7 +791,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
-    fn get_property_show_day_names(&self) -> bool {
+    fn shows_day_names(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -790,7 +806,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
-    fn set_property_show_day_names(&self, show_day_names: bool) {
+    fn set_show_day_names(&self, show_day_names: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -800,7 +816,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
-    fn get_property_show_details(&self) -> bool {
+    fn shows_details(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -815,7 +831,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
-    fn set_property_show_details(&self, show_details: bool) {
+    fn set_show_details(&self, show_details: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -825,7 +841,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
-    fn get_property_show_heading(&self) -> bool {
+    fn shows_heading(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -840,7 +856,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
-    fn set_property_show_heading(&self, show_heading: bool) {
+    fn set_show_heading(&self, show_heading: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -850,7 +866,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
-    fn get_property_show_week_numbers(&self) -> bool {
+    fn shows_week_numbers(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -865,7 +881,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
-    fn set_property_show_week_numbers(&self, show_week_numbers: bool) {
+    fn set_show_week_numbers(&self, show_week_numbers: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -875,7 +891,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
-    fn get_property_year(&self) -> i32 {
+    fn year(&self) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -890,7 +906,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
-    fn set_property_year(&self, year: i32) {
+    fn set_year(&self, year: i32) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,

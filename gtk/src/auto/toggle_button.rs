@@ -506,13 +506,13 @@ pub const NONE_TOGGLE_BUTTON: Option<&ToggleButton> = None;
 
 pub trait ToggleButtonExt: 'static {
     #[doc(alias = "gtk_toggle_button_get_active")]
-    fn get_active(&self) -> bool;
+    fn is_active(&self) -> bool;
 
     #[doc(alias = "gtk_toggle_button_get_inconsistent")]
-    fn get_inconsistent(&self) -> bool;
+    fn is_inconsistent(&self) -> bool;
 
     #[doc(alias = "gtk_toggle_button_get_mode")]
-    fn get_mode(&self) -> bool;
+    fn is_mode(&self) -> bool;
 
     #[doc(alias = "gtk_toggle_button_set_active")]
     fn set_active(&self, is_active: bool);
@@ -526,9 +526,11 @@ pub trait ToggleButtonExt: 'static {
     #[doc(alias = "gtk_toggle_button_toggled")]
     fn toggled(&self);
 
-    fn get_property_draw_indicator(&self) -> bool;
+    #[doc(alias = "get_property_draw_indicator")]
+    fn draws_indicator(&self) -> bool;
 
-    fn set_property_draw_indicator(&self, draw_indicator: bool);
+    #[doc(alias = "set_property_draw_indicator")]
+    fn set_draw_indicator(&self, draw_indicator: bool);
 
     fn connect_toggled<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -544,7 +546,7 @@ pub trait ToggleButtonExt: 'static {
 }
 
 impl<O: IsA<ToggleButton>> ToggleButtonExt for O {
-    fn get_active(&self) -> bool {
+    fn is_active(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_toggle_button_get_active(
                 self.as_ref().to_glib_none().0,
@@ -552,7 +554,7 @@ impl<O: IsA<ToggleButton>> ToggleButtonExt for O {
         }
     }
 
-    fn get_inconsistent(&self) -> bool {
+    fn is_inconsistent(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_toggle_button_get_inconsistent(
                 self.as_ref().to_glib_none().0,
@@ -560,7 +562,7 @@ impl<O: IsA<ToggleButton>> ToggleButtonExt for O {
         }
     }
 
-    fn get_mode(&self) -> bool {
+    fn is_mode(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_toggle_button_get_mode(
                 self.as_ref().to_glib_none().0,
@@ -598,7 +600,7 @@ impl<O: IsA<ToggleButton>> ToggleButtonExt for O {
         }
     }
 
-    fn get_property_draw_indicator(&self) -> bool {
+    fn draws_indicator(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -613,7 +615,7 @@ impl<O: IsA<ToggleButton>> ToggleButtonExt for O {
         }
     }
 
-    fn set_property_draw_indicator(&self, draw_indicator: bool) {
+    fn set_draw_indicator(&self, draw_indicator: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,

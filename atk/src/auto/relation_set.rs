@@ -47,7 +47,7 @@ pub trait RelationSetExt: 'static {
     fn contains_target<P: IsA<Object>>(&self, relationship: RelationType, target: &P) -> bool;
 
     #[doc(alias = "atk_relation_set_get_n_relations")]
-    fn get_n_relations(&self) -> i32;
+    fn n_relations(&self) -> i32;
 
     #[doc(alias = "atk_relation_set_get_relation")]
     fn get_relation(&self, i: i32) -> Option<Relation>;
@@ -98,7 +98,7 @@ impl<O: IsA<RelationSet>> RelationSetExt for O {
         }
     }
 
-    fn get_n_relations(&self) -> i32 {
+    fn n_relations(&self) -> i32 {
         unsafe { ffi::atk_relation_set_get_n_relations(self.as_ref().to_glib_none().0) }
     }
 

@@ -31,12 +31,12 @@ impl LayoutIter {
     }
 
     #[doc(alias = "pango_layout_iter_get_baseline")]
-    pub fn get_baseline(&mut self) -> i32 {
+    pub fn baseline(&mut self) -> i32 {
         unsafe { ffi::pango_layout_iter_get_baseline(self.to_glib_none_mut().0) }
     }
 
     #[doc(alias = "pango_layout_iter_get_char_extents")]
-    pub fn get_char_extents(&mut self) -> Rectangle {
+    pub fn char_extents(&mut self) -> Rectangle {
         unsafe {
             let mut logical_rect = Rectangle::uninitialized();
             ffi::pango_layout_iter_get_char_extents(
@@ -48,7 +48,7 @@ impl LayoutIter {
     }
 
     #[doc(alias = "pango_layout_iter_get_cluster_extents")]
-    pub fn get_cluster_extents(&mut self) -> (Rectangle, Rectangle) {
+    pub fn cluster_extents(&mut self) -> (Rectangle, Rectangle) {
         unsafe {
             let mut ink_rect = Rectangle::uninitialized();
             let mut logical_rect = Rectangle::uninitialized();
@@ -62,17 +62,17 @@ impl LayoutIter {
     }
 
     #[doc(alias = "pango_layout_iter_get_index")]
-    pub fn get_index(&mut self) -> i32 {
+    pub fn index(&mut self) -> i32 {
         unsafe { ffi::pango_layout_iter_get_index(self.to_glib_none_mut().0) }
     }
 
     #[doc(alias = "pango_layout_iter_get_layout")]
-    pub fn get_layout(&mut self) -> Option<Layout> {
+    pub fn layout(&mut self) -> Option<Layout> {
         unsafe { from_glib_none(ffi::pango_layout_iter_get_layout(self.to_glib_none_mut().0)) }
     }
 
     #[doc(alias = "pango_layout_iter_get_layout_extents")]
-    pub fn get_layout_extents(&mut self) -> (Rectangle, Rectangle) {
+    pub fn layout_extents(&mut self) -> (Rectangle, Rectangle) {
         unsafe {
             let mut ink_rect = Rectangle::uninitialized();
             let mut logical_rect = Rectangle::uninitialized();
@@ -86,12 +86,12 @@ impl LayoutIter {
     }
 
     #[doc(alias = "pango_layout_iter_get_line")]
-    pub fn get_line(&mut self) -> Option<LayoutLine> {
+    pub fn line(&mut self) -> Option<LayoutLine> {
         unsafe { from_glib_none(ffi::pango_layout_iter_get_line(self.to_glib_none_mut().0)) }
     }
 
     #[doc(alias = "pango_layout_iter_get_line_extents")]
-    pub fn get_line_extents(&mut self) -> (Rectangle, Rectangle) {
+    pub fn line_extents(&mut self) -> (Rectangle, Rectangle) {
         unsafe {
             let mut ink_rect = Rectangle::uninitialized();
             let mut logical_rect = Rectangle::uninitialized();
@@ -105,7 +105,7 @@ impl LayoutIter {
     }
 
     #[doc(alias = "pango_layout_iter_get_line_readonly")]
-    pub fn get_line_readonly(&mut self) -> Option<LayoutLine> {
+    pub fn line_readonly(&mut self) -> Option<LayoutLine> {
         unsafe {
             from_glib_none(ffi::pango_layout_iter_get_line_readonly(
                 self.to_glib_none_mut().0,
@@ -114,7 +114,7 @@ impl LayoutIter {
     }
 
     #[doc(alias = "pango_layout_iter_get_line_yrange")]
-    pub fn get_line_yrange(&mut self) -> (i32, i32) {
+    pub fn line_yrange(&mut self) -> (i32, i32) {
         unsafe {
             let mut y0_ = mem::MaybeUninit::uninit();
             let mut y1_ = mem::MaybeUninit::uninit();
@@ -130,12 +130,12 @@ impl LayoutIter {
     }
 
     #[doc(alias = "pango_layout_iter_get_run")]
-    pub fn get_run(&mut self) -> Option<LayoutRun> {
+    pub fn run(&mut self) -> Option<LayoutRun> {
         unsafe { from_glib_none(ffi::pango_layout_iter_get_run(self.to_glib_none_mut().0)) }
     }
 
     #[doc(alias = "pango_layout_iter_get_run_extents")]
-    pub fn get_run_extents(&mut self) -> (Rectangle, Rectangle) {
+    pub fn run_extents(&mut self) -> (Rectangle, Rectangle) {
         unsafe {
             let mut ink_rect = Rectangle::uninitialized();
             let mut logical_rect = Rectangle::uninitialized();
@@ -149,7 +149,7 @@ impl LayoutIter {
     }
 
     #[doc(alias = "pango_layout_iter_get_run_readonly")]
-    pub fn get_run_readonly(&mut self) -> Option<LayoutRun> {
+    pub fn run_readonly(&mut self) -> Option<LayoutRun> {
         unsafe {
             from_glib_none(ffi::pango_layout_iter_get_run_readonly(
                 self.to_glib_none_mut().0,

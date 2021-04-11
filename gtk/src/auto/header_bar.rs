@@ -453,22 +453,22 @@ pub const NONE_HEADER_BAR: Option<&HeaderBar> = None;
 
 pub trait HeaderBarExt: 'static {
     #[doc(alias = "gtk_header_bar_get_custom_title")]
-    fn get_custom_title(&self) -> Option<Widget>;
+    fn custom_title(&self) -> Option<Widget>;
 
     #[doc(alias = "gtk_header_bar_get_decoration_layout")]
-    fn get_decoration_layout(&self) -> Option<glib::GString>;
+    fn decoration_layout(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_header_bar_get_has_subtitle")]
-    fn get_has_subtitle(&self) -> bool;
+    fn has_subtitle(&self) -> bool;
 
     #[doc(alias = "gtk_header_bar_get_show_close_button")]
-    fn get_show_close_button(&self) -> bool;
+    fn shows_close_button(&self) -> bool;
 
     #[doc(alias = "gtk_header_bar_get_subtitle")]
-    fn get_subtitle(&self) -> Option<glib::GString>;
+    fn subtitle(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_header_bar_get_title")]
-    fn get_title(&self) -> Option<glib::GString>;
+    fn title(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_header_bar_pack_end")]
     fn pack_end<P: IsA<Widget>>(&self, child: &P);
@@ -494,13 +494,17 @@ pub trait HeaderBarExt: 'static {
     #[doc(alias = "gtk_header_bar_set_title")]
     fn set_title(&self, title: Option<&str>);
 
-    fn get_property_decoration_layout_set(&self) -> bool;
+    #[doc(alias = "get_property_decoration_layout_set")]
+    fn is_decoration_layout_set(&self) -> bool;
 
-    fn set_property_decoration_layout_set(&self, decoration_layout_set: bool);
+    #[doc(alias = "set_property_decoration_layout_set")]
+    fn set_decoration_layout_set(&self, decoration_layout_set: bool);
 
-    fn get_property_spacing(&self) -> i32;
+    #[doc(alias = "get_property_spacing")]
+    fn spacing(&self) -> i32;
 
-    fn set_property_spacing(&self, spacing: i32);
+    #[doc(alias = "set_property_spacing")]
+    fn set_spacing(&self, spacing: i32);
 
     fn get_child_pack_type<T: IsA<Widget>>(&self, item: &T) -> PackType;
 
@@ -539,7 +543,7 @@ pub trait HeaderBarExt: 'static {
 }
 
 impl<O: IsA<HeaderBar>> HeaderBarExt for O {
-    fn get_custom_title(&self) -> Option<Widget> {
+    fn custom_title(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_header_bar_get_custom_title(
                 self.as_ref().to_glib_none().0,
@@ -547,7 +551,7 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         }
     }
 
-    fn get_decoration_layout(&self) -> Option<glib::GString> {
+    fn decoration_layout(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_header_bar_get_decoration_layout(
                 self.as_ref().to_glib_none().0,
@@ -555,7 +559,7 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         }
     }
 
-    fn get_has_subtitle(&self) -> bool {
+    fn has_subtitle(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_header_bar_get_has_subtitle(
                 self.as_ref().to_glib_none().0,
@@ -563,7 +567,7 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         }
     }
 
-    fn get_show_close_button(&self) -> bool {
+    fn shows_close_button(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_header_bar_get_show_close_button(
                 self.as_ref().to_glib_none().0,
@@ -571,7 +575,7 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         }
     }
 
-    fn get_subtitle(&self) -> Option<glib::GString> {
+    fn subtitle(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_header_bar_get_subtitle(
                 self.as_ref().to_glib_none().0,
@@ -579,7 +583,7 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         }
     }
 
-    fn get_title(&self) -> Option<glib::GString> {
+    fn title(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_header_bar_get_title(
                 self.as_ref().to_glib_none().0,
@@ -653,7 +657,7 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         }
     }
 
-    fn get_property_decoration_layout_set(&self) -> bool {
+    fn is_decoration_layout_set(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -668,7 +672,7 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         }
     }
 
-    fn set_property_decoration_layout_set(&self, decoration_layout_set: bool) {
+    fn set_decoration_layout_set(&self, decoration_layout_set: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -678,7 +682,7 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         }
     }
 
-    fn get_property_spacing(&self) -> i32 {
+    fn spacing(&self) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -693,7 +697,7 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         }
     }
 
-    fn set_property_spacing(&self, spacing: i32) {
+    fn set_spacing(&self, spacing: i32) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,

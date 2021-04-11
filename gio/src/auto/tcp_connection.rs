@@ -25,7 +25,7 @@ pub const NONE_TCP_CONNECTION: Option<&TcpConnection> = None;
 
 pub trait TcpConnectionExt: 'static {
     #[doc(alias = "g_tcp_connection_get_graceful_disconnect")]
-    fn get_graceful_disconnect(&self) -> bool;
+    fn is_graceful_disconnect(&self) -> bool;
 
     #[doc(alias = "g_tcp_connection_set_graceful_disconnect")]
     fn set_graceful_disconnect(&self, graceful_disconnect: bool);
@@ -37,7 +37,7 @@ pub trait TcpConnectionExt: 'static {
 }
 
 impl<O: IsA<TcpConnection>> TcpConnectionExt for O {
-    fn get_graceful_disconnect(&self) -> bool {
+    fn is_graceful_disconnect(&self) -> bool {
         unsafe {
             from_glib(ffi::g_tcp_connection_get_graceful_disconnect(
                 self.as_ref().to_glib_none().0,

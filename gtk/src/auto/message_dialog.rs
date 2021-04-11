@@ -707,30 +707,40 @@ pub trait MessageDialogExt: 'static {
     //fn format_secondary_text(&self, message_format: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
 
     #[doc(alias = "gtk_message_dialog_get_message_area")]
-    fn get_message_area(&self) -> Widget;
+    fn message_area(&self) -> Widget;
 
     #[doc(alias = "gtk_message_dialog_set_markup")]
     fn set_markup(&self, str: &str);
 
-    fn get_property_message_type(&self) -> MessageType;
+    #[doc(alias = "get_property_message_type")]
+    fn message_type(&self) -> MessageType;
 
-    fn set_property_message_type(&self, message_type: MessageType);
+    #[doc(alias = "set_property_message_type")]
+    fn set_message_type(&self, message_type: MessageType);
 
-    fn get_property_secondary_text(&self) -> Option<glib::GString>;
+    #[doc(alias = "get_property_secondary_text")]
+    fn secondary_text(&self) -> Option<glib::GString>;
 
-    fn set_property_secondary_text(&self, secondary_text: Option<&str>);
+    #[doc(alias = "set_property_secondary_text")]
+    fn set_secondary_text(&self, secondary_text: Option<&str>);
 
-    fn get_property_secondary_use_markup(&self) -> bool;
+    #[doc(alias = "get_property_secondary_use_markup")]
+    fn is_secondary_use_markup(&self) -> bool;
 
-    fn set_property_secondary_use_markup(&self, secondary_use_markup: bool);
+    #[doc(alias = "set_property_secondary_use_markup")]
+    fn set_secondary_use_markup(&self, secondary_use_markup: bool);
 
-    fn get_property_text(&self) -> Option<glib::GString>;
+    #[doc(alias = "get_property_text")]
+    fn text(&self) -> Option<glib::GString>;
 
-    fn set_property_text(&self, text: Option<&str>);
+    #[doc(alias = "set_property_text")]
+    fn set_text(&self, text: Option<&str>);
 
-    fn get_property_use_markup(&self) -> bool;
+    #[doc(alias = "get_property_use_markup")]
+    fn uses_markup(&self) -> bool;
 
-    fn set_property_use_markup(&self, use_markup: bool);
+    #[doc(alias = "set_property_use_markup")]
+    fn set_use_markup(&self, use_markup: bool);
 
     fn connect_property_message_area_notify<F: Fn(&Self) + 'static>(&self, f: F)
         -> SignalHandlerId;
@@ -762,7 +772,7 @@ impl<O: IsA<MessageDialog>> MessageDialogExt for O {
     //    unsafe { TODO: call ffi:gtk_message_dialog_format_secondary_text() }
     //}
 
-    fn get_message_area(&self) -> Widget {
+    fn message_area(&self) -> Widget {
         unsafe {
             from_glib_none(ffi::gtk_message_dialog_get_message_area(
                 self.as_ref().to_glib_none().0,
@@ -779,7 +789,7 @@ impl<O: IsA<MessageDialog>> MessageDialogExt for O {
         }
     }
 
-    fn get_property_message_type(&self) -> MessageType {
+    fn message_type(&self) -> MessageType {
         unsafe {
             let mut value = glib::Value::from_type(<MessageType as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -794,7 +804,7 @@ impl<O: IsA<MessageDialog>> MessageDialogExt for O {
         }
     }
 
-    fn set_property_message_type(&self, message_type: MessageType) {
+    fn set_message_type(&self, message_type: MessageType) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -804,7 +814,7 @@ impl<O: IsA<MessageDialog>> MessageDialogExt for O {
         }
     }
 
-    fn get_property_secondary_text(&self) -> Option<glib::GString> {
+    fn secondary_text(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -818,7 +828,7 @@ impl<O: IsA<MessageDialog>> MessageDialogExt for O {
         }
     }
 
-    fn set_property_secondary_text(&self, secondary_text: Option<&str>) {
+    fn set_secondary_text(&self, secondary_text: Option<&str>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -828,7 +838,7 @@ impl<O: IsA<MessageDialog>> MessageDialogExt for O {
         }
     }
 
-    fn get_property_secondary_use_markup(&self) -> bool {
+    fn is_secondary_use_markup(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -843,7 +853,7 @@ impl<O: IsA<MessageDialog>> MessageDialogExt for O {
         }
     }
 
-    fn set_property_secondary_use_markup(&self, secondary_use_markup: bool) {
+    fn set_secondary_use_markup(&self, secondary_use_markup: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -853,7 +863,7 @@ impl<O: IsA<MessageDialog>> MessageDialogExt for O {
         }
     }
 
-    fn get_property_text(&self) -> Option<glib::GString> {
+    fn text(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -867,7 +877,7 @@ impl<O: IsA<MessageDialog>> MessageDialogExt for O {
         }
     }
 
-    fn set_property_text(&self, text: Option<&str>) {
+    fn set_text(&self, text: Option<&str>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -877,7 +887,7 @@ impl<O: IsA<MessageDialog>> MessageDialogExt for O {
         }
     }
 
-    fn get_property_use_markup(&self) -> bool {
+    fn uses_markup(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -892,7 +902,7 @@ impl<O: IsA<MessageDialog>> MessageDialogExt for O {
         }
     }
 
-    fn set_property_use_markup(&self, use_markup: bool) {
+    fn set_use_markup(&self, use_markup: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,

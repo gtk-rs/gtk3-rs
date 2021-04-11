@@ -33,19 +33,19 @@ pub const NONE_VOLUME_MONITOR: Option<&VolumeMonitor> = None;
 
 pub trait VolumeMonitorExt: 'static {
     #[doc(alias = "g_volume_monitor_get_connected_drives")]
-    fn get_connected_drives(&self) -> Vec<Drive>;
+    fn connected_drives(&self) -> Vec<Drive>;
 
     #[doc(alias = "g_volume_monitor_get_mount_for_uuid")]
     fn get_mount_for_uuid(&self, uuid: &str) -> Option<Mount>;
 
     #[doc(alias = "g_volume_monitor_get_mounts")]
-    fn get_mounts(&self) -> Vec<Mount>;
+    fn mounts(&self) -> Vec<Mount>;
 
     #[doc(alias = "g_volume_monitor_get_volume_for_uuid")]
     fn get_volume_for_uuid(&self, uuid: &str) -> Option<Volume>;
 
     #[doc(alias = "g_volume_monitor_get_volumes")]
-    fn get_volumes(&self) -> Vec<Volume>;
+    fn volumes(&self) -> Vec<Volume>;
 
     fn connect_drive_changed<F: Fn(&Self, &Drive) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -73,7 +73,7 @@ pub trait VolumeMonitorExt: 'static {
 }
 
 impl<O: IsA<VolumeMonitor>> VolumeMonitorExt for O {
-    fn get_connected_drives(&self) -> Vec<Drive> {
+    fn connected_drives(&self) -> Vec<Drive> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::g_volume_monitor_get_connected_drives(
                 self.as_ref().to_glib_none().0,
@@ -90,7 +90,7 @@ impl<O: IsA<VolumeMonitor>> VolumeMonitorExt for O {
         }
     }
 
-    fn get_mounts(&self) -> Vec<Mount> {
+    fn mounts(&self) -> Vec<Mount> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::g_volume_monitor_get_mounts(
                 self.as_ref().to_glib_none().0,
@@ -107,7 +107,7 @@ impl<O: IsA<VolumeMonitor>> VolumeMonitorExt for O {
         }
     }
 
-    fn get_volumes(&self) -> Vec<Volume> {
+    fn volumes(&self) -> Vec<Volume> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::g_volume_monitor_get_volumes(
                 self.as_ref().to_glib_none().0,

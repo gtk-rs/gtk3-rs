@@ -42,7 +42,8 @@ impl ModelButton {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    pub fn get_property_active(&self) -> bool {
+    #[doc(alias = "get_property_active")]
+    pub fn is_active(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -59,7 +60,8 @@ impl ModelButton {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    pub fn set_property_active(&self, active: bool) {
+    #[doc(alias = "set_property_active")]
+    pub fn set_active(&self, active: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
@@ -71,7 +73,8 @@ impl ModelButton {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    pub fn get_property_centered(&self) -> bool {
+    #[doc(alias = "get_property_centered")]
+    pub fn is_centered(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -88,7 +91,8 @@ impl ModelButton {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    pub fn set_property_centered(&self, centered: bool) {
+    #[doc(alias = "set_property_centered")]
+    pub fn set_centered(&self, centered: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
@@ -100,7 +104,8 @@ impl ModelButton {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    pub fn get_property_icon(&self) -> Option<gio::Icon> {
+    #[doc(alias = "get_property_icon")]
+    pub fn icon(&self) -> Option<gio::Icon> {
         unsafe {
             let mut value = glib::Value::from_type(<gio::Icon as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -116,7 +121,8 @@ impl ModelButton {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    pub fn set_property_icon<P: IsA<gio::Icon>>(&self, icon: Option<&P>) {
+    #[doc(alias = "set_property_icon")]
+    pub fn set_icon<P: IsA<gio::Icon>>(&self, icon: Option<&P>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
@@ -128,7 +134,8 @@ impl ModelButton {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    pub fn get_property_iconic(&self) -> bool {
+    #[doc(alias = "get_property_iconic")]
+    pub fn is_iconic(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -145,7 +152,8 @@ impl ModelButton {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    pub fn set_property_iconic(&self, iconic: bool) {
+    #[doc(alias = "set_property_iconic")]
+    pub fn set_iconic(&self, iconic: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
@@ -157,7 +165,8 @@ impl ModelButton {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    pub fn get_property_inverted(&self) -> bool {
+    #[doc(alias = "get_property_inverted")]
+    pub fn is_inverted(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -174,7 +183,8 @@ impl ModelButton {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    pub fn set_property_inverted(&self, inverted: bool) {
+    #[doc(alias = "set_property_inverted")]
+    pub fn set_inverted(&self, inverted: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
@@ -186,7 +196,8 @@ impl ModelButton {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    pub fn get_property_menu_name(&self) -> Option<glib::GString> {
+    #[doc(alias = "get_property_menu_name")]
+    pub fn menu_name(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -202,7 +213,8 @@ impl ModelButton {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    pub fn set_property_menu_name(&self, menu_name: Option<&str>) {
+    #[doc(alias = "set_property_menu_name")]
+    pub fn set_menu_name(&self, menu_name: Option<&str>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
@@ -214,7 +226,8 @@ impl ModelButton {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    pub fn get_property_role(&self) -> ButtonRole {
+    #[doc(alias = "get_property_role")]
+    pub fn role(&self) -> ButtonRole {
         unsafe {
             let mut value = glib::Value::from_type(<ButtonRole as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -231,7 +244,8 @@ impl ModelButton {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    pub fn set_property_role(&self, role: ButtonRole) {
+    #[doc(alias = "set_property_role")]
+    pub fn set_role(&self, role: ButtonRole) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
@@ -243,7 +257,8 @@ impl ModelButton {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    pub fn get_property_text(&self) -> Option<glib::GString> {
+    #[doc(alias = "get_property_text")]
+    pub fn text(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -259,7 +274,8 @@ impl ModelButton {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    pub fn set_property_text(&self, text: Option<&str>) {
+    #[doc(alias = "set_property_text")]
+    pub fn set_text(&self, text: Option<&str>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
@@ -271,7 +287,8 @@ impl ModelButton {
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
-    pub fn get_property_use_markup(&self) -> bool {
+    #[doc(alias = "get_property_use_markup")]
+    pub fn uses_markup(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -288,7 +305,8 @@ impl ModelButton {
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
-    pub fn set_property_use_markup(&self, use_markup: bool) {
+    #[doc(alias = "set_property_use_markup")]
+    pub fn set_use_markup(&self, use_markup: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,

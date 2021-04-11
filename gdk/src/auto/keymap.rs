@@ -25,12 +25,12 @@ glib::wrapper! {
 
 impl Keymap {
     #[doc(alias = "gdk_keymap_get_caps_lock_state")]
-    pub fn get_caps_lock_state(&self) -> bool {
+    pub fn is_caps_locked(&self) -> bool {
         unsafe { from_glib(ffi::gdk_keymap_get_caps_lock_state(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_keymap_get_direction")]
-    pub fn get_direction(&self) -> pango::Direction {
+    pub fn direction(&self) -> pango::Direction {
         unsafe { from_glib(ffi::gdk_keymap_get_direction(self.to_glib_none().0)) }
     }
 
@@ -45,19 +45,19 @@ impl Keymap {
     }
 
     #[doc(alias = "gdk_keymap_get_modifier_state")]
-    pub fn get_modifier_state(&self) -> u32 {
+    pub fn modifier_state(&self) -> u32 {
         unsafe { ffi::gdk_keymap_get_modifier_state(self.to_glib_none().0) }
     }
 
     #[doc(alias = "gdk_keymap_get_num_lock_state")]
-    pub fn get_num_lock_state(&self) -> bool {
+    pub fn is_num_locked(&self) -> bool {
         unsafe { from_glib(ffi::gdk_keymap_get_num_lock_state(self.to_glib_none().0)) }
     }
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gdk_keymap_get_scroll_lock_state")]
-    pub fn get_scroll_lock_state(&self) -> bool {
+    pub fn is_scroll_locked(&self) -> bool {
         unsafe { from_glib(ffi::gdk_keymap_get_scroll_lock_state(self.to_glib_none().0)) }
     }
 

@@ -52,7 +52,7 @@ impl PlacesSidebar {
     }
 
     #[doc(alias = "gtk_places_sidebar_get_local_only")]
-    pub fn get_local_only(&self) -> bool {
+    pub fn is_local_only(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_places_sidebar_get_local_only(
                 self.to_glib_none().0,
@@ -61,7 +61,7 @@ impl PlacesSidebar {
     }
 
     #[doc(alias = "gtk_places_sidebar_get_location")]
-    pub fn get_location(&self) -> Option<gio::File> {
+    pub fn location(&self) -> Option<gio::File> {
         unsafe { from_glib_full(ffi::gtk_places_sidebar_get_location(self.to_glib_none().0)) }
     }
 
@@ -76,7 +76,7 @@ impl PlacesSidebar {
     }
 
     #[doc(alias = "gtk_places_sidebar_get_open_flags")]
-    pub fn get_open_flags(&self) -> PlacesOpenFlags {
+    pub fn open_flags(&self) -> PlacesOpenFlags {
         unsafe {
             from_glib(ffi::gtk_places_sidebar_get_open_flags(
                 self.to_glib_none().0,
@@ -86,7 +86,7 @@ impl PlacesSidebar {
 
     #[cfg_attr(feature = "v3_18", deprecated)]
     #[doc(alias = "gtk_places_sidebar_get_show_connect_to_server")]
-    pub fn get_show_connect_to_server(&self) -> bool {
+    pub fn shows_connect_to_server(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_places_sidebar_get_show_connect_to_server(
                 self.to_glib_none().0,
@@ -95,7 +95,7 @@ impl PlacesSidebar {
     }
 
     #[doc(alias = "gtk_places_sidebar_get_show_desktop")]
-    pub fn get_show_desktop(&self) -> bool {
+    pub fn shows_desktop(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_places_sidebar_get_show_desktop(
                 self.to_glib_none().0,
@@ -104,7 +104,7 @@ impl PlacesSidebar {
     }
 
     #[doc(alias = "gtk_places_sidebar_get_show_enter_location")]
-    pub fn get_show_enter_location(&self) -> bool {
+    pub fn shows_enter_location(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_places_sidebar_get_show_enter_location(
                 self.to_glib_none().0,
@@ -115,7 +115,7 @@ impl PlacesSidebar {
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gtk_places_sidebar_get_show_other_locations")]
-    pub fn get_show_other_locations(&self) -> bool {
+    pub fn shows_other_locations(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_places_sidebar_get_show_other_locations(
                 self.to_glib_none().0,
@@ -126,7 +126,7 @@ impl PlacesSidebar {
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gtk_places_sidebar_get_show_recent")]
-    pub fn get_show_recent(&self) -> bool {
+    pub fn shows_recent(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_places_sidebar_get_show_recent(
                 self.to_glib_none().0,
@@ -137,7 +137,7 @@ impl PlacesSidebar {
     #[cfg(any(feature = "v3_22_26", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_26")))]
     #[doc(alias = "gtk_places_sidebar_get_show_starred_location")]
-    pub fn get_show_starred_location(&self) -> bool {
+    pub fn shows_starred_location(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_places_sidebar_get_show_starred_location(
                 self.to_glib_none().0,
@@ -148,7 +148,7 @@ impl PlacesSidebar {
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gtk_places_sidebar_get_show_trash")]
-    pub fn get_show_trash(&self) -> bool {
+    pub fn shows_trash(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_places_sidebar_get_show_trash(
                 self.to_glib_none().0,
@@ -284,7 +284,8 @@ impl PlacesSidebar {
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
-    pub fn get_property_populate_all(&self) -> bool {
+    #[doc(alias = "get_property_populate_all")]
+    pub fn populates_all(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -301,7 +302,8 @@ impl PlacesSidebar {
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
-    pub fn set_property_populate_all(&self, populate_all: bool) {
+    #[doc(alias = "set_property_populate_all")]
+    pub fn set_populate_all(&self, populate_all: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,

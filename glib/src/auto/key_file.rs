@@ -92,7 +92,7 @@ impl KeyFile {
     }
 
     #[doc(alias = "g_key_file_get_groups")]
-    pub fn get_groups(&self) -> (Vec<crate::GString>, usize) {
+    pub fn groups(&self) -> (Vec<crate::GString>, usize) {
         unsafe {
             let mut length = mem::MaybeUninit::uninit();
             let ret = FromGlibPtrContainer::from_glib_full(ffi::g_key_file_get_groups(
@@ -203,7 +203,7 @@ impl KeyFile {
     }
 
     #[doc(alias = "g_key_file_get_start_group")]
-    pub fn get_start_group(&self) -> Option<crate::GString> {
+    pub fn start_group(&self) -> Option<crate::GString> {
         unsafe { from_glib_full(ffi::g_key_file_get_start_group(self.to_glib_none().0)) }
     }
 

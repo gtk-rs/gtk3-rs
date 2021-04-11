@@ -26,29 +26,29 @@ pub const NONE_TLS_BACKEND: Option<&TlsBackend> = None;
 
 pub trait TlsBackendExt: 'static {
     #[doc(alias = "g_tls_backend_get_certificate_type")]
-    fn get_certificate_type(&self) -> glib::types::Type;
+    fn certificate_type(&self) -> glib::types::Type;
 
     #[doc(alias = "g_tls_backend_get_client_connection_type")]
-    fn get_client_connection_type(&self) -> glib::types::Type;
+    fn client_connection_type(&self) -> glib::types::Type;
 
     #[doc(alias = "g_tls_backend_get_default_database")]
-    fn get_default_database(&self) -> TlsDatabase;
+    fn default_database(&self) -> TlsDatabase;
 
     #[cfg(any(feature = "v2_48", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     #[doc(alias = "g_tls_backend_get_dtls_client_connection_type")]
-    fn get_dtls_client_connection_type(&self) -> glib::types::Type;
+    fn dtls_client_connection_type(&self) -> glib::types::Type;
 
     #[cfg(any(feature = "v2_48", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     #[doc(alias = "g_tls_backend_get_dtls_server_connection_type")]
-    fn get_dtls_server_connection_type(&self) -> glib::types::Type;
+    fn dtls_server_connection_type(&self) -> glib::types::Type;
 
     #[doc(alias = "g_tls_backend_get_file_database_type")]
-    fn get_file_database_type(&self) -> glib::types::Type;
+    fn file_database_type(&self) -> glib::types::Type;
 
     #[doc(alias = "g_tls_backend_get_server_connection_type")]
-    fn get_server_connection_type(&self) -> glib::types::Type;
+    fn server_connection_type(&self) -> glib::types::Type;
 
     #[cfg(any(feature = "v2_60", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
@@ -65,7 +65,7 @@ pub trait TlsBackendExt: 'static {
 }
 
 impl<O: IsA<TlsBackend>> TlsBackendExt for O {
-    fn get_certificate_type(&self) -> glib::types::Type {
+    fn certificate_type(&self) -> glib::types::Type {
         unsafe {
             from_glib(ffi::g_tls_backend_get_certificate_type(
                 self.as_ref().to_glib_none().0,
@@ -73,7 +73,7 @@ impl<O: IsA<TlsBackend>> TlsBackendExt for O {
         }
     }
 
-    fn get_client_connection_type(&self) -> glib::types::Type {
+    fn client_connection_type(&self) -> glib::types::Type {
         unsafe {
             from_glib(ffi::g_tls_backend_get_client_connection_type(
                 self.as_ref().to_glib_none().0,
@@ -81,7 +81,7 @@ impl<O: IsA<TlsBackend>> TlsBackendExt for O {
         }
     }
 
-    fn get_default_database(&self) -> TlsDatabase {
+    fn default_database(&self) -> TlsDatabase {
         unsafe {
             from_glib_full(ffi::g_tls_backend_get_default_database(
                 self.as_ref().to_glib_none().0,
@@ -91,7 +91,7 @@ impl<O: IsA<TlsBackend>> TlsBackendExt for O {
 
     #[cfg(any(feature = "v2_48", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
-    fn get_dtls_client_connection_type(&self) -> glib::types::Type {
+    fn dtls_client_connection_type(&self) -> glib::types::Type {
         unsafe {
             from_glib(ffi::g_tls_backend_get_dtls_client_connection_type(
                 self.as_ref().to_glib_none().0,
@@ -101,7 +101,7 @@ impl<O: IsA<TlsBackend>> TlsBackendExt for O {
 
     #[cfg(any(feature = "v2_48", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
-    fn get_dtls_server_connection_type(&self) -> glib::types::Type {
+    fn dtls_server_connection_type(&self) -> glib::types::Type {
         unsafe {
             from_glib(ffi::g_tls_backend_get_dtls_server_connection_type(
                 self.as_ref().to_glib_none().0,
@@ -109,7 +109,7 @@ impl<O: IsA<TlsBackend>> TlsBackendExt for O {
         }
     }
 
-    fn get_file_database_type(&self) -> glib::types::Type {
+    fn file_database_type(&self) -> glib::types::Type {
         unsafe {
             from_glib(ffi::g_tls_backend_get_file_database_type(
                 self.as_ref().to_glib_none().0,
@@ -117,7 +117,7 @@ impl<O: IsA<TlsBackend>> TlsBackendExt for O {
         }
     }
 
-    fn get_server_connection_type(&self) -> glib::types::Type {
+    fn server_connection_type(&self) -> glib::types::Type {
         unsafe {
             from_glib(ffi::g_tls_backend_get_server_connection_type(
                 self.as_ref().to_glib_none().0,

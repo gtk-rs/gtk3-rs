@@ -146,33 +146,33 @@ pub trait ApplicationExt: 'static {
     fn bind_busy_property<P: IsA<glib::Object>>(&self, object: &P, property: &str);
 
     #[doc(alias = "g_application_get_application_id")]
-    fn get_application_id(&self) -> Option<glib::GString>;
+    fn application_id(&self) -> Option<glib::GString>;
 
     #[doc(alias = "g_application_get_dbus_connection")]
-    fn get_dbus_connection(&self) -> Option<DBusConnection>;
+    fn dbus_connection(&self) -> Option<DBusConnection>;
 
     #[doc(alias = "g_application_get_dbus_object_path")]
-    fn get_dbus_object_path(&self) -> Option<glib::GString>;
+    fn dbus_object_path(&self) -> Option<glib::GString>;
 
     #[doc(alias = "g_application_get_flags")]
-    fn get_flags(&self) -> ApplicationFlags;
+    fn flags(&self) -> ApplicationFlags;
 
     #[doc(alias = "g_application_get_inactivity_timeout")]
-    fn get_inactivity_timeout(&self) -> u32;
+    fn inactivity_timeout(&self) -> u32;
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     #[doc(alias = "g_application_get_is_busy")]
-    fn get_is_busy(&self) -> bool;
+    fn is_busy(&self) -> bool;
 
     #[doc(alias = "g_application_get_is_registered")]
-    fn get_is_registered(&self) -> bool;
+    fn is_registered(&self) -> bool;
 
     #[doc(alias = "g_application_get_is_remote")]
-    fn get_is_remote(&self) -> bool;
+    fn is_remote(&self) -> bool;
 
     #[doc(alias = "g_application_get_resource_base_path")]
-    fn get_resource_base_path(&self) -> Option<glib::GString>;
+    fn resource_base_path(&self) -> Option<glib::GString>;
 
     #[doc(alias = "g_application_hold")]
     fn hold(&self);
@@ -236,7 +236,8 @@ pub trait ApplicationExt: 'static {
     #[doc(alias = "g_application_withdraw_notification")]
     fn withdraw_notification(&self, id: &str);
 
-    fn set_property_action_group<P: IsA<ActionGroup>>(&self, action_group: Option<&P>);
+    #[doc(alias = "set_property_action_group")]
+    fn set_action_group<P: IsA<ActionGroup>>(&self, action_group: Option<&P>);
 
     fn connect_activate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -339,7 +340,7 @@ impl<O: IsA<Application>> ApplicationExt for O {
         }
     }
 
-    fn get_application_id(&self) -> Option<glib::GString> {
+    fn application_id(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::g_application_get_application_id(
                 self.as_ref().to_glib_none().0,
@@ -347,7 +348,7 @@ impl<O: IsA<Application>> ApplicationExt for O {
         }
     }
 
-    fn get_dbus_connection(&self) -> Option<DBusConnection> {
+    fn dbus_connection(&self) -> Option<DBusConnection> {
         unsafe {
             from_glib_none(ffi::g_application_get_dbus_connection(
                 self.as_ref().to_glib_none().0,
@@ -355,7 +356,7 @@ impl<O: IsA<Application>> ApplicationExt for O {
         }
     }
 
-    fn get_dbus_object_path(&self) -> Option<glib::GString> {
+    fn dbus_object_path(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::g_application_get_dbus_object_path(
                 self.as_ref().to_glib_none().0,
@@ -363,17 +364,17 @@ impl<O: IsA<Application>> ApplicationExt for O {
         }
     }
 
-    fn get_flags(&self) -> ApplicationFlags {
+    fn flags(&self) -> ApplicationFlags {
         unsafe { from_glib(ffi::g_application_get_flags(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_inactivity_timeout(&self) -> u32 {
+    fn inactivity_timeout(&self) -> u32 {
         unsafe { ffi::g_application_get_inactivity_timeout(self.as_ref().to_glib_none().0) }
     }
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
-    fn get_is_busy(&self) -> bool {
+    fn is_busy(&self) -> bool {
         unsafe {
             from_glib(ffi::g_application_get_is_busy(
                 self.as_ref().to_glib_none().0,
@@ -381,7 +382,7 @@ impl<O: IsA<Application>> ApplicationExt for O {
         }
     }
 
-    fn get_is_registered(&self) -> bool {
+    fn is_registered(&self) -> bool {
         unsafe {
             from_glib(ffi::g_application_get_is_registered(
                 self.as_ref().to_glib_none().0,
@@ -389,7 +390,7 @@ impl<O: IsA<Application>> ApplicationExt for O {
         }
     }
 
-    fn get_is_remote(&self) -> bool {
+    fn is_remote(&self) -> bool {
         unsafe {
             from_glib(ffi::g_application_get_is_remote(
                 self.as_ref().to_glib_none().0,
@@ -397,7 +398,7 @@ impl<O: IsA<Application>> ApplicationExt for O {
         }
     }
 
-    fn get_resource_base_path(&self) -> Option<glib::GString> {
+    fn resource_base_path(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::g_application_get_resource_base_path(
                 self.as_ref().to_glib_none().0,
@@ -566,7 +567,7 @@ impl<O: IsA<Application>> ApplicationExt for O {
         }
     }
 
-    fn set_property_action_group<P: IsA<ActionGroup>>(&self, action_group: Option<&P>) {
+    fn set_action_group<P: IsA<ActionGroup>>(&self, action_group: Option<&P>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,

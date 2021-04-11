@@ -68,17 +68,17 @@ pub const NONE_NETWORK_ADDRESS: Option<&NetworkAddress> = None;
 
 pub trait NetworkAddressExt: 'static {
     #[doc(alias = "g_network_address_get_hostname")]
-    fn get_hostname(&self) -> glib::GString;
+    fn hostname(&self) -> glib::GString;
 
     #[doc(alias = "g_network_address_get_port")]
-    fn get_port(&self) -> u16;
+    fn port(&self) -> u16;
 
     #[doc(alias = "g_network_address_get_scheme")]
-    fn get_scheme(&self) -> Option<glib::GString>;
+    fn scheme(&self) -> Option<glib::GString>;
 }
 
 impl<O: IsA<NetworkAddress>> NetworkAddressExt for O {
-    fn get_hostname(&self) -> glib::GString {
+    fn hostname(&self) -> glib::GString {
         unsafe {
             from_glib_none(ffi::g_network_address_get_hostname(
                 self.as_ref().to_glib_none().0,
@@ -86,11 +86,11 @@ impl<O: IsA<NetworkAddress>> NetworkAddressExt for O {
         }
     }
 
-    fn get_port(&self) -> u16 {
+    fn port(&self) -> u16 {
         unsafe { ffi::g_network_address_get_port(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_scheme(&self) -> Option<glib::GString> {
+    fn scheme(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::g_network_address_get_scheme(
                 self.as_ref().to_glib_none().0,

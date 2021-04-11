@@ -50,9 +50,11 @@ impl TlsServerConnection {
 pub const NONE_TLS_SERVER_CONNECTION: Option<&TlsServerConnection> = None;
 
 pub trait TlsServerConnectionExt: 'static {
-    fn get_property_authentication_mode(&self) -> TlsAuthenticationMode;
+    #[doc(alias = "get_property_authentication_mode")]
+    fn authentication_mode(&self) -> TlsAuthenticationMode;
 
-    fn set_property_authentication_mode(&self, authentication_mode: TlsAuthenticationMode);
+    #[doc(alias = "set_property_authentication_mode")]
+    fn set_authentication_mode(&self, authentication_mode: TlsAuthenticationMode);
 
     fn connect_property_authentication_mode_notify<F: Fn(&Self) + 'static>(
         &self,
@@ -61,7 +63,7 @@ pub trait TlsServerConnectionExt: 'static {
 }
 
 impl<O: IsA<TlsServerConnection>> TlsServerConnectionExt for O {
-    fn get_property_authentication_mode(&self) -> TlsAuthenticationMode {
+    fn authentication_mode(&self) -> TlsAuthenticationMode {
         unsafe {
             let mut value =
                 glib::Value::from_type(<TlsAuthenticationMode as StaticType>::static_type());
@@ -77,7 +79,7 @@ impl<O: IsA<TlsServerConnection>> TlsServerConnectionExt for O {
         }
     }
 
-    fn set_property_authentication_mode(&self, authentication_mode: TlsAuthenticationMode) {
+    fn set_authentication_mode(&self, authentication_mode: TlsAuthenticationMode) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,

@@ -664,10 +664,10 @@ pub trait DialogExt: 'static {
     //fn add_buttons(&self, first_button_text: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
 
     #[doc(alias = "gtk_dialog_get_content_area")]
-    fn get_content_area(&self) -> Box;
+    fn content_area(&self) -> Box;
 
     #[doc(alias = "gtk_dialog_get_header_bar")]
-    fn get_header_bar(&self) -> Option<HeaderBar>;
+    fn header_bar(&self) -> Option<HeaderBar>;
 
     #[doc(alias = "gtk_dialog_get_response_for_widget")]
     fn get_response_for_widget<P: IsA<Widget>>(&self, widget: &P) -> ResponseType;
@@ -687,7 +687,8 @@ pub trait DialogExt: 'static {
     #[doc(alias = "gtk_dialog_set_response_sensitive")]
     fn set_response_sensitive(&self, response_id: ResponseType, setting: bool);
 
-    fn get_property_use_header_bar(&self) -> i32;
+    #[doc(alias = "get_property_use_header_bar")]
+    fn use_header_bar(&self) -> i32;
 
     fn connect_close<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -721,7 +722,7 @@ impl<O: IsA<Dialog>> DialogExt for O {
     //    unsafe { TODO: call ffi:gtk_dialog_add_buttons() }
     //}
 
-    fn get_content_area(&self) -> Box {
+    fn content_area(&self) -> Box {
         unsafe {
             from_glib_none(ffi::gtk_dialog_get_content_area(
                 self.as_ref().to_glib_none().0,
@@ -729,7 +730,7 @@ impl<O: IsA<Dialog>> DialogExt for O {
         }
     }
 
-    fn get_header_bar(&self) -> Option<HeaderBar> {
+    fn header_bar(&self) -> Option<HeaderBar> {
         unsafe {
             from_glib_none(ffi::gtk_dialog_get_header_bar(
                 self.as_ref().to_glib_none().0,
@@ -784,7 +785,7 @@ impl<O: IsA<Dialog>> DialogExt for O {
         }
     }
 
-    fn get_property_use_header_bar(&self) -> i32 {
+    fn use_header_bar(&self) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(

@@ -107,10 +107,10 @@ pub const NONE_DATA_INPUT_STREAM: Option<&DataInputStream> = None;
 
 pub trait DataInputStreamExt: 'static {
     #[doc(alias = "g_data_input_stream_get_byte_order")]
-    fn get_byte_order(&self) -> DataStreamByteOrder;
+    fn byte_order(&self) -> DataStreamByteOrder;
 
     #[doc(alias = "g_data_input_stream_get_newline_type")]
-    fn get_newline_type(&self) -> DataStreamNewlineType;
+    fn newline_type(&self) -> DataStreamNewlineType;
 
     #[doc(alias = "g_data_input_stream_read_byte")]
     fn read_byte<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<u8, glib::Error>;
@@ -149,7 +149,7 @@ pub trait DataInputStreamExt: 'static {
 }
 
 impl<O: IsA<DataInputStream>> DataInputStreamExt for O {
-    fn get_byte_order(&self) -> DataStreamByteOrder {
+    fn byte_order(&self) -> DataStreamByteOrder {
         unsafe {
             from_glib(ffi::g_data_input_stream_get_byte_order(
                 self.as_ref().to_glib_none().0,
@@ -157,7 +157,7 @@ impl<O: IsA<DataInputStream>> DataInputStreamExt for O {
         }
     }
 
-    fn get_newline_type(&self) -> DataStreamNewlineType {
+    fn newline_type(&self) -> DataStreamNewlineType {
         unsafe {
             from_glib(ffi::g_data_input_stream_get_newline_type(
                 self.as_ref().to_glib_none().0,

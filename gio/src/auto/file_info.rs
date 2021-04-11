@@ -158,59 +158,59 @@ impl FileInfo {
     }
 
     #[doc(alias = "g_file_info_get_content_type")]
-    pub fn get_content_type(&self) -> Option<glib::GString> {
+    pub fn content_type(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::g_file_info_get_content_type(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_file_info_get_deletion_date")]
-    pub fn get_deletion_date(&self) -> Option<glib::DateTime> {
+    pub fn deletion_date(&self) -> Option<glib::DateTime> {
         unsafe { from_glib_full(ffi::g_file_info_get_deletion_date(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_file_info_get_display_name")]
-    pub fn get_display_name(&self) -> glib::GString {
+    pub fn display_name(&self) -> glib::GString {
         unsafe { from_glib_none(ffi::g_file_info_get_display_name(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_file_info_get_edit_name")]
-    pub fn get_edit_name(&self) -> glib::GString {
+    pub fn edit_name(&self) -> glib::GString {
         unsafe { from_glib_none(ffi::g_file_info_get_edit_name(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_file_info_get_etag")]
-    pub fn get_etag(&self) -> Option<glib::GString> {
+    pub fn etag(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::g_file_info_get_etag(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_file_info_get_file_type")]
-    pub fn get_file_type(&self) -> FileType {
+    pub fn file_type(&self) -> FileType {
         unsafe { from_glib(ffi::g_file_info_get_file_type(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_file_info_get_icon")]
-    pub fn get_icon(&self) -> Option<Icon> {
+    pub fn icon(&self) -> Option<Icon> {
         unsafe { from_glib_none(ffi::g_file_info_get_icon(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_file_info_get_is_backup")]
-    pub fn get_is_backup(&self) -> bool {
+    pub fn is_backup(&self) -> bool {
         unsafe { from_glib(ffi::g_file_info_get_is_backup(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_file_info_get_is_hidden")]
-    pub fn get_is_hidden(&self) -> bool {
+    pub fn is_hidden(&self) -> bool {
         unsafe { from_glib(ffi::g_file_info_get_is_hidden(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_file_info_get_is_symlink")]
-    pub fn get_is_symlink(&self) -> bool {
+    pub fn is_symlink(&self) -> bool {
         unsafe { from_glib(ffi::g_file_info_get_is_symlink(self.to_glib_none().0)) }
     }
 
     #[cfg(any(feature = "v2_62", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_62")))]
     #[doc(alias = "g_file_info_get_modification_date_time")]
-    pub fn get_modification_date_time(&self) -> Option<glib::DateTime> {
+    pub fn modification_date_time(&self) -> Option<glib::DateTime> {
         unsafe {
             from_glib_full(ffi::g_file_info_get_modification_date_time(
                 self.to_glib_none().0,
@@ -219,27 +219,27 @@ impl FileInfo {
     }
 
     #[doc(alias = "g_file_info_get_name")]
-    pub fn get_name(&self) -> std::path::PathBuf {
+    pub fn name(&self) -> std::path::PathBuf {
         unsafe { from_glib_none(ffi::g_file_info_get_name(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_file_info_get_size")]
-    pub fn get_size(&self) -> i64 {
+    pub fn size(&self) -> i64 {
         unsafe { ffi::g_file_info_get_size(self.to_glib_none().0) }
     }
 
     #[doc(alias = "g_file_info_get_sort_order")]
-    pub fn get_sort_order(&self) -> i32 {
+    pub fn sort_order(&self) -> i32 {
         unsafe { ffi::g_file_info_get_sort_order(self.to_glib_none().0) }
     }
 
     #[doc(alias = "g_file_info_get_symbolic_icon")]
-    pub fn get_symbolic_icon(&self) -> Option<Icon> {
+    pub fn symbolic_icon(&self) -> Option<Icon> {
         unsafe { from_glib_none(ffi::g_file_info_get_symbolic_icon(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_file_info_get_symlink_target")]
-    pub fn get_symlink_target(&self) -> Option<glib::GString> {
+    pub fn symlink_target(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::g_file_info_get_symlink_target(self.to_glib_none().0)) }
     }
 

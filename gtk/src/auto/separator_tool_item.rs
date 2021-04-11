@@ -418,7 +418,7 @@ pub const NONE_SEPARATOR_TOOL_ITEM: Option<&SeparatorToolItem> = None;
 
 pub trait SeparatorToolItemExt: 'static {
     #[doc(alias = "gtk_separator_tool_item_get_draw")]
-    fn get_draw(&self) -> bool;
+    fn draws(&self) -> bool;
 
     #[doc(alias = "gtk_separator_tool_item_set_draw")]
     fn set_draw(&self, draw: bool);
@@ -427,7 +427,7 @@ pub trait SeparatorToolItemExt: 'static {
 }
 
 impl<O: IsA<SeparatorToolItem>> SeparatorToolItemExt for O {
-    fn get_draw(&self) -> bool {
+    fn draws(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_separator_tool_item_get_draw(
                 self.as_ref().to_glib_none().0,

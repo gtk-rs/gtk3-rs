@@ -43,7 +43,7 @@ pub trait VfsExt: 'static {
     fn get_file_for_uri(&self, uri: &str) -> File;
 
     #[doc(alias = "g_vfs_get_supported_uri_schemes")]
-    fn get_supported_uri_schemes(&self) -> Vec<glib::GString>;
+    fn supported_uri_schemes(&self) -> Vec<glib::GString>;
 
     #[doc(alias = "g_vfs_is_active")]
     fn is_active(&self) -> bool;
@@ -86,7 +86,7 @@ impl<O: IsA<Vfs>> VfsExt for O {
         }
     }
 
-    fn get_supported_uri_schemes(&self) -> Vec<glib::GString> {
+    fn supported_uri_schemes(&self) -> Vec<glib::GString> {
         unsafe {
             FromGlibPtrContainer::from_glib_none(ffi::g_vfs_get_supported_uri_schemes(
                 self.as_ref().to_glib_none().0,

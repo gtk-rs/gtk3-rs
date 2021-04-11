@@ -85,7 +85,7 @@ pub const NONE_DATA_OUTPUT_STREAM: Option<&DataOutputStream> = None;
 
 pub trait DataOutputStreamExt: 'static {
     #[doc(alias = "g_data_output_stream_get_byte_order")]
-    fn get_byte_order(&self) -> DataStreamByteOrder;
+    fn byte_order(&self) -> DataStreamByteOrder;
 
     #[doc(alias = "g_data_output_stream_put_byte")]
     fn put_byte<P: IsA<Cancellable>>(
@@ -150,7 +150,7 @@ pub trait DataOutputStreamExt: 'static {
 }
 
 impl<O: IsA<DataOutputStream>> DataOutputStreamExt for O {
-    fn get_byte_order(&self) -> DataStreamByteOrder {
+    fn byte_order(&self) -> DataStreamByteOrder {
         unsafe {
             from_glib(ffi::g_data_output_stream_get_byte_order(
                 self.as_ref().to_glib_none().0,

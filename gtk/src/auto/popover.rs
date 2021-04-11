@@ -468,30 +468,30 @@ pub trait PopoverExt: 'static {
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "gtk_popover_get_constrain_to")]
-    fn get_constrain_to(&self) -> PopoverConstraint;
+    fn constrain_to(&self) -> PopoverConstraint;
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gtk_popover_get_default_widget")]
-    fn get_default_widget(&self) -> Option<Widget>;
+    fn default_widget(&self) -> Option<Widget>;
 
     #[doc(alias = "gtk_popover_get_modal")]
-    fn get_modal(&self) -> bool;
+    fn is_modal(&self) -> bool;
 
     #[doc(alias = "gtk_popover_get_pointing_to")]
-    fn get_pointing_to(&self) -> Option<gdk::Rectangle>;
+    fn pointing_to(&self) -> Option<gdk::Rectangle>;
 
     #[doc(alias = "gtk_popover_get_position")]
-    fn get_position(&self) -> PositionType;
+    fn position(&self) -> PositionType;
 
     #[doc(alias = "gtk_popover_get_relative_to")]
-    fn get_relative_to(&self) -> Option<Widget>;
+    fn relative_to(&self) -> Option<Widget>;
 
     #[cfg_attr(feature = "v3_22", deprecated)]
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_popover_get_transitions_enabled")]
-    fn get_transitions_enabled(&self) -> bool;
+    fn is_transitions_enabled(&self) -> bool;
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
@@ -572,7 +572,7 @@ impl<O: IsA<Popover>> PopoverExt for O {
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-    fn get_constrain_to(&self) -> PopoverConstraint {
+    fn constrain_to(&self) -> PopoverConstraint {
         unsafe {
             from_glib(ffi::gtk_popover_get_constrain_to(
                 self.as_ref().to_glib_none().0,
@@ -582,7 +582,7 @@ impl<O: IsA<Popover>> PopoverExt for O {
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
-    fn get_default_widget(&self) -> Option<Widget> {
+    fn default_widget(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_popover_get_default_widget(
                 self.as_ref().to_glib_none().0,
@@ -590,11 +590,11 @@ impl<O: IsA<Popover>> PopoverExt for O {
         }
     }
 
-    fn get_modal(&self) -> bool {
+    fn is_modal(&self) -> bool {
         unsafe { from_glib(ffi::gtk_popover_get_modal(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_pointing_to(&self) -> Option<gdk::Rectangle> {
+    fn pointing_to(&self) -> Option<gdk::Rectangle> {
         unsafe {
             let mut rect = gdk::Rectangle::uninitialized();
             let ret = from_glib(ffi::gtk_popover_get_pointing_to(
@@ -609,7 +609,7 @@ impl<O: IsA<Popover>> PopoverExt for O {
         }
     }
 
-    fn get_position(&self) -> PositionType {
+    fn position(&self) -> PositionType {
         unsafe {
             from_glib(ffi::gtk_popover_get_position(
                 self.as_ref().to_glib_none().0,
@@ -617,7 +617,7 @@ impl<O: IsA<Popover>> PopoverExt for O {
         }
     }
 
-    fn get_relative_to(&self) -> Option<Widget> {
+    fn relative_to(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_popover_get_relative_to(
                 self.as_ref().to_glib_none().0,
@@ -627,7 +627,7 @@ impl<O: IsA<Popover>> PopoverExt for O {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    fn get_transitions_enabled(&self) -> bool {
+    fn is_transitions_enabled(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_popover_get_transitions_enabled(
                 self.as_ref().to_glib_none().0,

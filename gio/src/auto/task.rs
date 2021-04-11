@@ -38,46 +38,46 @@ impl Task {
     //}
 
     #[doc(alias = "g_task_get_cancellable")]
-    pub fn get_cancellable(&self) -> Cancellable {
+    pub fn cancellable(&self) -> Cancellable {
         unsafe { from_glib_none(ffi::g_task_get_cancellable(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_task_get_check_cancellable")]
-    pub fn get_check_cancellable(&self) -> bool {
+    pub fn is_check_cancellable(&self) -> bool {
         unsafe { from_glib(ffi::g_task_get_check_cancellable(self.to_glib_none().0)) }
     }
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     #[doc(alias = "g_task_get_completed")]
-    pub fn get_completed(&self) -> bool {
+    pub fn is_completed(&self) -> bool {
         unsafe { from_glib(ffi::g_task_get_completed(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_task_get_context")]
-    pub fn get_context(&self) -> glib::MainContext {
+    pub fn context(&self) -> glib::MainContext {
         unsafe { from_glib_none(ffi::g_task_get_context(self.to_glib_none().0)) }
     }
 
     #[cfg(any(feature = "v2_60", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     #[doc(alias = "g_task_get_name")]
-    pub fn get_name(&self) -> Option<glib::GString> {
+    pub fn name(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::g_task_get_name(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_task_get_return_on_cancel")]
-    pub fn get_return_on_cancel(&self) -> bool {
+    pub fn is_return_on_cancel(&self) -> bool {
         unsafe { from_glib(ffi::g_task_get_return_on_cancel(self.to_glib_none().0)) }
     }
 
     //#[doc(alias = "g_task_get_source_tag")]
-    //pub fn get_source_tag(&self) -> /*Unimplemented*/Option<Fundamental: Pointer> {
+    //pub fn source_tag(&self) -> /*Unimplemented*/Option<Fundamental: Pointer> {
     //    unsafe { TODO: call ffi:g_task_get_source_tag() }
     //}
 
     //#[doc(alias = "g_task_get_task_data")]
-    //pub fn get_task_data(&self) -> /*Unimplemented*/Option<Fundamental: Pointer> {
+    //pub fn task_data(&self) -> /*Unimplemented*/Option<Fundamental: Pointer> {
     //    unsafe { TODO: call ffi:g_task_get_task_data() }
     //}
 

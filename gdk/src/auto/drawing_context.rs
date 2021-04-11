@@ -16,7 +16,7 @@ glib::wrapper! {
 
 impl DrawingContext {
     #[doc(alias = "gdk_drawing_context_get_cairo_context")]
-    pub fn get_cairo_context(&self) -> Option<cairo::Context> {
+    pub fn cairo_context(&self) -> Option<cairo::Context> {
         unsafe {
             from_glib_none(ffi::gdk_drawing_context_get_cairo_context(
                 self.to_glib_none().0,
@@ -25,12 +25,12 @@ impl DrawingContext {
     }
 
     #[doc(alias = "gdk_drawing_context_get_clip")]
-    pub fn get_clip(&self) -> Option<cairo::Region> {
+    pub fn clip(&self) -> Option<cairo::Region> {
         unsafe { from_glib_full(ffi::gdk_drawing_context_get_clip(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_drawing_context_get_window")]
-    pub fn get_window(&self) -> Option<Window> {
+    pub fn window(&self) -> Option<Window> {
         unsafe { from_glib_none(ffi::gdk_drawing_context_get_window(self.to_glib_none().0)) }
     }
 

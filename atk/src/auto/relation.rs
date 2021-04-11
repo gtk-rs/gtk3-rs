@@ -43,17 +43,19 @@ pub trait RelationExt: 'static {
     fn add_target<P: IsA<Object>>(&self, target: &P);
 
     #[doc(alias = "atk_relation_get_relation_type")]
-    fn get_relation_type(&self) -> RelationType;
+    fn relation_type(&self) -> RelationType;
 
     #[doc(alias = "atk_relation_get_target")]
-    fn get_target(&self) -> Vec<Object>;
+    fn target(&self) -> Vec<Object>;
 
     #[doc(alias = "atk_relation_remove_target")]
     fn remove_target<P: IsA<Object>>(&self, target: &P) -> bool;
 
-    fn set_property_relation_type(&self, relation_type: RelationType);
+    #[doc(alias = "set_property_relation_type")]
+    fn set_relation_type(&self, relation_type: RelationType);
 
-    fn set_property_target(&self, target: Option<&glib::ValueArray>);
+    #[doc(alias = "set_property_target")]
+    fn set_target(&self, target: Option<&glib::ValueArray>);
 
     fn connect_property_relation_type_notify<F: Fn(&Self) + 'static>(
         &self,
@@ -73,7 +75,7 @@ impl<O: IsA<Relation>> RelationExt for O {
         }
     }
 
-    fn get_relation_type(&self) -> RelationType {
+    fn relation_type(&self) -> RelationType {
         unsafe {
             from_glib(ffi::atk_relation_get_relation_type(
                 self.as_ref().to_glib_none().0,
@@ -81,7 +83,7 @@ impl<O: IsA<Relation>> RelationExt for O {
         }
     }
 
-    fn get_target(&self) -> Vec<Object> {
+    fn target(&self) -> Vec<Object> {
         unsafe {
             FromGlibPtrContainer::from_glib_none(ffi::atk_relation_get_target(
                 self.as_ref().to_glib_none().0,
@@ -98,7 +100,7 @@ impl<O: IsA<Relation>> RelationExt for O {
         }
     }
 
-    fn set_property_relation_type(&self, relation_type: RelationType) {
+    fn set_relation_type(&self, relation_type: RelationType) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -108,7 +110,7 @@ impl<O: IsA<Relation>> RelationExt for O {
         }
     }
 
-    fn set_property_target(&self, target: Option<&glib::ValueArray>) {
+    fn set_target(&self, target: Option<&glib::ValueArray>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,

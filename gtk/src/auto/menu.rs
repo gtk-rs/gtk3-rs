@@ -541,22 +541,22 @@ pub trait GtkMenuExt: 'static {
     fn detach(&self);
 
     #[doc(alias = "gtk_menu_get_accel_group")]
-    fn get_accel_group(&self) -> Option<AccelGroup>;
+    fn accel_group(&self) -> Option<AccelGroup>;
 
     #[doc(alias = "gtk_menu_get_accel_path")]
-    fn get_accel_path(&self) -> Option<glib::GString>;
+    fn accel_path(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_menu_get_active")]
-    fn get_active(&self) -> Option<Widget>;
+    fn active(&self) -> Option<Widget>;
 
     #[doc(alias = "gtk_menu_get_attach_widget")]
-    fn get_attach_widget(&self) -> Option<Widget>;
+    fn attach_widget(&self) -> Option<Widget>;
 
     #[doc(alias = "gtk_menu_get_monitor")]
-    fn get_monitor(&self) -> i32;
+    fn monitor(&self) -> i32;
 
     #[doc(alias = "gtk_menu_get_reserve_toggle_size")]
-    fn get_reserve_toggle_size(&self) -> bool;
+    fn must_reserve_toggle_size(&self) -> bool;
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
@@ -628,37 +628,46 @@ pub trait GtkMenuExt: 'static {
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    fn get_property_anchor_hints(&self) -> gdk::AnchorHints;
+    #[doc(alias = "get_property_anchor_hints")]
+    fn anchor_hints(&self) -> gdk::AnchorHints;
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    fn set_property_anchor_hints(&self, anchor_hints: gdk::AnchorHints);
+    #[doc(alias = "set_property_anchor_hints")]
+    fn set_anchor_hints(&self, anchor_hints: gdk::AnchorHints);
 
-    fn set_property_attach_widget<P: IsA<Widget>>(&self, attach_widget: Option<&P>);
-
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    fn get_property_menu_type_hint(&self) -> gdk::WindowTypeHint;
+    #[doc(alias = "set_property_attach_widget")]
+    fn set_attach_widget<P: IsA<Widget>>(&self, attach_widget: Option<&P>);
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    fn set_property_menu_type_hint(&self, menu_type_hint: gdk::WindowTypeHint);
+    #[doc(alias = "get_property_menu_type_hint")]
+    fn menu_type_hint(&self) -> gdk::WindowTypeHint;
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    fn get_property_rect_anchor_dx(&self) -> i32;
+    #[doc(alias = "set_property_menu_type_hint")]
+    fn set_menu_type_hint(&self, menu_type_hint: gdk::WindowTypeHint);
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    fn set_property_rect_anchor_dx(&self, rect_anchor_dx: i32);
+    #[doc(alias = "get_property_rect_anchor_dx")]
+    fn rect_anchor_dx(&self) -> i32;
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    fn get_property_rect_anchor_dy(&self) -> i32;
+    #[doc(alias = "set_property_rect_anchor_dx")]
+    fn set_rect_anchor_dx(&self, rect_anchor_dx: i32);
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    fn set_property_rect_anchor_dy(&self, rect_anchor_dy: i32);
+    #[doc(alias = "get_property_rect_anchor_dy")]
+    fn rect_anchor_dy(&self) -> i32;
+
+    #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[doc(alias = "set_property_rect_anchor_dy")]
+    fn set_rect_anchor_dy(&self, rect_anchor_dy: i32);
 
     fn get_item_bottom_attach<T: IsA<MenuItem>>(&self, item: &T) -> i32;
 
@@ -760,7 +769,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
         }
     }
 
-    fn get_accel_group(&self) -> Option<AccelGroup> {
+    fn accel_group(&self) -> Option<AccelGroup> {
         unsafe {
             from_glib_none(ffi::gtk_menu_get_accel_group(
                 self.as_ref().to_glib_none().0,
@@ -768,15 +777,15 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
         }
     }
 
-    fn get_accel_path(&self) -> Option<glib::GString> {
+    fn accel_path(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::gtk_menu_get_accel_path(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_active(&self) -> Option<Widget> {
+    fn active(&self) -> Option<Widget> {
         unsafe { from_glib_none(ffi::gtk_menu_get_active(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_attach_widget(&self) -> Option<Widget> {
+    fn attach_widget(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_menu_get_attach_widget(
                 self.as_ref().to_glib_none().0,
@@ -784,11 +793,11 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
         }
     }
 
-    fn get_monitor(&self) -> i32 {
+    fn monitor(&self) -> i32 {
         unsafe { ffi::gtk_menu_get_monitor(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_reserve_toggle_size(&self) -> bool {
+    fn must_reserve_toggle_size(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_menu_get_reserve_toggle_size(
                 self.as_ref().to_glib_none().0,
@@ -937,7 +946,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    fn get_property_anchor_hints(&self) -> gdk::AnchorHints {
+    fn anchor_hints(&self) -> gdk::AnchorHints {
         unsafe {
             let mut value = glib::Value::from_type(<gdk::AnchorHints as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -954,7 +963,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    fn set_property_anchor_hints(&self, anchor_hints: gdk::AnchorHints) {
+    fn set_anchor_hints(&self, anchor_hints: gdk::AnchorHints) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -964,7 +973,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
         }
     }
 
-    fn set_property_attach_widget<P: IsA<Widget>>(&self, attach_widget: Option<&P>) {
+    fn set_attach_widget<P: IsA<Widget>>(&self, attach_widget: Option<&P>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -976,7 +985,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    fn get_property_menu_type_hint(&self) -> gdk::WindowTypeHint {
+    fn menu_type_hint(&self) -> gdk::WindowTypeHint {
         unsafe {
             let mut value =
                 glib::Value::from_type(<gdk::WindowTypeHint as StaticType>::static_type());
@@ -994,7 +1003,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    fn set_property_menu_type_hint(&self, menu_type_hint: gdk::WindowTypeHint) {
+    fn set_menu_type_hint(&self, menu_type_hint: gdk::WindowTypeHint) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -1006,7 +1015,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    fn get_property_rect_anchor_dx(&self) -> i32 {
+    fn rect_anchor_dx(&self) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -1023,7 +1032,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    fn set_property_rect_anchor_dx(&self, rect_anchor_dx: i32) {
+    fn set_rect_anchor_dx(&self, rect_anchor_dx: i32) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -1035,7 +1044,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    fn get_property_rect_anchor_dy(&self) -> i32 {
+    fn rect_anchor_dy(&self) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -1052,7 +1061,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    fn set_property_rect_anchor_dy(&self, rect_anchor_dy: i32) {
+    fn set_rect_anchor_dy(&self, rect_anchor_dy: i32) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,

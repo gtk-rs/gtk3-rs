@@ -58,7 +58,7 @@ impl TimeZone {
     #[cfg(any(feature = "v2_58", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_58")))]
     #[doc(alias = "g_time_zone_get_identifier")]
-    pub fn get_identifier(&self) -> crate::GString {
+    pub fn identifier(&self) -> crate::GString {
         unsafe { from_glib_none(ffi::g_time_zone_get_identifier(self.to_glib_none().0)) }
     }
 

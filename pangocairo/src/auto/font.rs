@@ -18,11 +18,11 @@ pub const NONE_FONT: Option<&Font> = None;
 
 pub trait FontExt: 'static {
     #[doc(alias = "pango_cairo_font_get_scaled_font")]
-    fn get_scaled_font(&self) -> Option<cairo::ScaledFont>;
+    fn scaled_font(&self) -> Option<cairo::ScaledFont>;
 }
 
 impl<O: IsA<Font>> FontExt for O {
-    fn get_scaled_font(&self) -> Option<cairo::ScaledFont> {
+    fn scaled_font(&self) -> Option<cairo::ScaledFont> {
         unsafe {
             from_glib_none(ffi::pango_cairo_font_get_scaled_font(
                 self.as_ref().to_glib_none().0,

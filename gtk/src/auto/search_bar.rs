@@ -403,10 +403,10 @@ pub trait SearchBarExt: 'static {
     fn connect_entry<P: IsA<Entry>>(&self, entry: &P);
 
     #[doc(alias = "gtk_search_bar_get_search_mode")]
-    fn get_search_mode(&self) -> bool;
+    fn is_search_mode(&self) -> bool;
 
     #[doc(alias = "gtk_search_bar_get_show_close_button")]
-    fn get_show_close_button(&self) -> bool;
+    fn shows_close_button(&self) -> bool;
 
     #[doc(alias = "gtk_search_bar_handle_event")]
     fn handle_event(&self, event: &gdk::Event) -> bool;
@@ -417,9 +417,11 @@ pub trait SearchBarExt: 'static {
     #[doc(alias = "gtk_search_bar_set_show_close_button")]
     fn set_show_close_button(&self, visible: bool);
 
-    fn get_property_search_mode_enabled(&self) -> bool;
+    #[doc(alias = "get_property_search_mode_enabled")]
+    fn is_search_mode_enabled(&self) -> bool;
 
-    fn set_property_search_mode_enabled(&self, search_mode_enabled: bool);
+    #[doc(alias = "set_property_search_mode_enabled")]
+    fn set_search_mode_enabled(&self, search_mode_enabled: bool);
 
     fn connect_property_search_mode_enabled_notify<F: Fn(&Self) + 'static>(
         &self,
@@ -442,7 +444,7 @@ impl<O: IsA<SearchBar>> SearchBarExt for O {
         }
     }
 
-    fn get_search_mode(&self) -> bool {
+    fn is_search_mode(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_search_bar_get_search_mode(
                 self.as_ref().to_glib_none().0,
@@ -450,7 +452,7 @@ impl<O: IsA<SearchBar>> SearchBarExt for O {
         }
     }
 
-    fn get_show_close_button(&self) -> bool {
+    fn shows_close_button(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_search_bar_get_show_close_button(
                 self.as_ref().to_glib_none().0,
@@ -485,7 +487,7 @@ impl<O: IsA<SearchBar>> SearchBarExt for O {
         }
     }
 
-    fn get_property_search_mode_enabled(&self) -> bool {
+    fn is_search_mode_enabled(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -500,7 +502,7 @@ impl<O: IsA<SearchBar>> SearchBarExt for O {
         }
     }
 
-    fn set_property_search_mode_enabled(&self, search_mode_enabled: bool) {
+    fn set_search_mode_enabled(&self, search_mode_enabled: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,

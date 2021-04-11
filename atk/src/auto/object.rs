@@ -35,37 +35,37 @@ pub trait AtkObjectExt: 'static {
     #[cfg(any(feature = "v2_34", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
     #[doc(alias = "atk_object_get_accessible_id")]
-    fn get_accessible_id(&self) -> Option<glib::GString>;
+    fn accessible_id(&self) -> Option<glib::GString>;
 
     //#[doc(alias = "atk_object_get_attributes")]
-    //fn get_attributes(&self) -> /*Ignored*/Option<AttributeSet>;
+    //fn attributes(&self) -> /*Ignored*/Option<AttributeSet>;
 
     #[doc(alias = "atk_object_get_description")]
-    fn get_description(&self) -> Option<glib::GString>;
+    fn description(&self) -> Option<glib::GString>;
 
     #[doc(alias = "atk_object_get_index_in_parent")]
-    fn get_index_in_parent(&self) -> i32;
+    fn index_in_parent(&self) -> i32;
 
     #[doc(alias = "atk_object_get_layer")]
-    fn get_layer(&self) -> Layer;
+    fn layer(&self) -> Layer;
 
     #[doc(alias = "atk_object_get_mdi_zorder")]
-    fn get_mdi_zorder(&self) -> i32;
+    fn mdi_zorder(&self) -> i32;
 
     #[doc(alias = "atk_object_get_n_accessible_children")]
-    fn get_n_accessible_children(&self) -> i32;
+    fn n_accessible_children(&self) -> i32;
 
     #[doc(alias = "atk_object_get_name")]
-    fn get_name(&self) -> Option<glib::GString>;
+    fn name(&self) -> Option<glib::GString>;
 
     #[doc(alias = "atk_object_get_object_locale")]
-    fn get_object_locale(&self) -> Option<glib::GString>;
+    fn object_locale(&self) -> Option<glib::GString>;
 
     #[doc(alias = "atk_object_get_parent")]
-    fn get_parent(&self) -> Option<Object>;
+    fn parent(&self) -> Option<Object>;
 
     #[doc(alias = "atk_object_get_role")]
-    fn get_role(&self) -> Role;
+    fn role(&self) -> Role;
 
     //#[doc(alias = "atk_object_initialize")]
     //fn initialize(&self, data: /*Unimplemented*/Option<Fundamental: Pointer>);
@@ -105,77 +105,98 @@ pub trait AtkObjectExt: 'static {
     #[doc(alias = "atk_object_set_role")]
     fn set_role(&self, role: Role);
 
-    fn get_property_accessible_component_layer(&self) -> i32;
+    #[doc(alias = "get_property_accessible_component_layer")]
+    fn accessible_component_layer(&self) -> i32;
 
-    fn get_property_accessible_component_mdi_zorder(&self) -> i32;
+    #[doc(alias = "get_property_accessible_component_mdi_zorder")]
+    fn accessible_component_mdi_zorder(&self) -> i32;
 
-    fn get_property_accessible_description(&self) -> Option<glib::GString>;
+    #[doc(alias = "get_property_accessible_description")]
+    fn accessible_description(&self) -> Option<glib::GString>;
 
-    fn set_property_accessible_description(&self, accessible_description: Option<&str>);
+    #[doc(alias = "set_property_accessible_description")]
+    fn set_accessible_description(&self, accessible_description: Option<&str>);
 
-    fn get_property_accessible_hypertext_nlinks(&self) -> i32;
+    #[doc(alias = "get_property_accessible_hypertext_nlinks")]
+    fn accessible_hypertext_nlinks(&self) -> i32;
 
-    fn get_property_accessible_name(&self) -> Option<glib::GString>;
+    #[doc(alias = "get_property_accessible_name")]
+    fn accessible_name(&self) -> Option<glib::GString>;
 
-    fn set_property_accessible_name(&self, accessible_name: Option<&str>);
+    #[doc(alias = "set_property_accessible_name")]
+    fn set_accessible_name(&self, accessible_name: Option<&str>);
 
-    fn get_property_accessible_parent(&self) -> Option<Object>;
+    #[doc(alias = "get_property_accessible_parent")]
+    fn accessible_parent(&self) -> Option<Object>;
 
-    fn set_property_accessible_parent<P: IsA<Object>>(&self, accessible_parent: Option<&P>);
+    #[doc(alias = "set_property_accessible_parent")]
+    fn set_accessible_parent<P: IsA<Object>>(&self, accessible_parent: Option<&P>);
 
-    fn get_property_accessible_role(&self) -> Role;
+    #[doc(alias = "get_property_accessible_role")]
+    fn accessible_role(&self) -> Role;
 
-    fn set_property_accessible_role(&self, accessible_role: Role);
+    #[doc(alias = "set_property_accessible_role")]
+    fn set_accessible_role(&self, accessible_role: Role);
 
-    fn get_property_accessible_table_caption(&self) -> Option<glib::GString>;
+    #[doc(alias = "get_property_accessible_table_caption")]
+    fn accessible_table_caption(&self) -> Option<glib::GString>;
 
-    fn set_property_accessible_table_caption(&self, accessible_table_caption: Option<&str>);
+    #[doc(alias = "set_property_accessible_table_caption")]
+    fn set_accessible_table_caption(&self, accessible_table_caption: Option<&str>);
 
-    fn get_property_accessible_table_caption_object(&self) -> Option<Object>;
+    #[doc(alias = "get_property_accessible_table_caption_object")]
+    fn accessible_table_caption_object(&self) -> Option<Object>;
 
-    fn set_property_accessible_table_caption_object<P: IsA<Object>>(
+    #[doc(alias = "set_property_accessible_table_caption_object")]
+    fn set_accessible_table_caption_object<P: IsA<Object>>(
         &self,
         accessible_table_caption_object: Option<&P>,
     );
 
-    fn get_property_accessible_table_column_description(&self) -> Option<glib::GString>;
+    #[doc(alias = "get_property_accessible_table_column_description")]
+    fn accessible_table_column_description(&self) -> Option<glib::GString>;
 
-    fn set_property_accessible_table_column_description(
+    #[doc(alias = "set_property_accessible_table_column_description")]
+    fn set_accessible_table_column_description(
         &self,
         accessible_table_column_description: Option<&str>,
     );
 
-    fn get_property_accessible_table_column_header(&self) -> Option<Object>;
+    #[doc(alias = "get_property_accessible_table_column_header")]
+    fn accessible_table_column_header(&self) -> Option<Object>;
 
-    fn set_property_accessible_table_column_header<P: IsA<Object>>(
+    #[doc(alias = "set_property_accessible_table_column_header")]
+    fn set_accessible_table_column_header<P: IsA<Object>>(
         &self,
         accessible_table_column_header: Option<&P>,
     );
 
-    fn get_property_accessible_table_row_description(&self) -> Option<glib::GString>;
+    #[doc(alias = "get_property_accessible_table_row_description")]
+    fn accessible_table_row_description(&self) -> Option<glib::GString>;
 
-    fn set_property_accessible_table_row_description(
-        &self,
-        accessible_table_row_description: Option<&str>,
-    );
+    #[doc(alias = "set_property_accessible_table_row_description")]
+    fn set_accessible_table_row_description(&self, accessible_table_row_description: Option<&str>);
 
-    fn get_property_accessible_table_row_header(&self) -> Option<Object>;
+    #[doc(alias = "get_property_accessible_table_row_header")]
+    fn accessible_table_row_header(&self) -> Option<Object>;
 
-    fn set_property_accessible_table_row_header<P: IsA<Object>>(
+    #[doc(alias = "set_property_accessible_table_row_header")]
+    fn set_accessible_table_row_header<P: IsA<Object>>(
         &self,
         accessible_table_row_header: Option<&P>,
     );
 
-    fn get_property_accessible_table_summary(&self) -> Option<Object>;
+    #[doc(alias = "get_property_accessible_table_summary")]
+    fn accessible_table_summary(&self) -> Option<Object>;
 
-    fn set_property_accessible_table_summary<P: IsA<Object>>(
-        &self,
-        accessible_table_summary: Option<&P>,
-    );
+    #[doc(alias = "set_property_accessible_table_summary")]
+    fn set_accessible_table_summary<P: IsA<Object>>(&self, accessible_table_summary: Option<&P>);
 
-    fn get_property_accessible_value(&self) -> f64;
+    #[doc(alias = "get_property_accessible_value")]
+    fn accessible_value(&self) -> f64;
 
-    fn set_property_accessible_value(&self, accessible_value: f64);
+    #[doc(alias = "set_property_accessible_value")]
+    fn set_accessible_value(&self, accessible_value: f64);
 
     fn connect_active_descendant_changed<F: Fn(&Self, &Object) + 'static>(
         &self,
@@ -288,7 +309,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
 
     #[cfg(any(feature = "v2_34", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
-    fn get_accessible_id(&self) -> Option<glib::GString> {
+    fn accessible_id(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::atk_object_get_accessible_id(
                 self.as_ref().to_glib_none().0,
@@ -296,11 +317,11 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    //fn get_attributes(&self) -> /*Ignored*/Option<AttributeSet> {
+    //fn attributes(&self) -> /*Ignored*/Option<AttributeSet> {
     //    unsafe { TODO: call ffi:atk_object_get_attributes() }
     //}
 
-    fn get_description(&self) -> Option<glib::GString> {
+    fn description(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::atk_object_get_description(
                 self.as_ref().to_glib_none().0,
@@ -308,27 +329,27 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn get_index_in_parent(&self) -> i32 {
+    fn index_in_parent(&self) -> i32 {
         unsafe { ffi::atk_object_get_index_in_parent(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_layer(&self) -> Layer {
+    fn layer(&self) -> Layer {
         unsafe { from_glib(ffi::atk_object_get_layer(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_mdi_zorder(&self) -> i32 {
+    fn mdi_zorder(&self) -> i32 {
         unsafe { ffi::atk_object_get_mdi_zorder(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_n_accessible_children(&self) -> i32 {
+    fn n_accessible_children(&self) -> i32 {
         unsafe { ffi::atk_object_get_n_accessible_children(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_name(&self) -> Option<glib::GString> {
+    fn name(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::atk_object_get_name(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_object_locale(&self) -> Option<glib::GString> {
+    fn object_locale(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::atk_object_get_object_locale(
                 self.as_ref().to_glib_none().0,
@@ -336,11 +357,11 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn get_parent(&self) -> Option<Object> {
+    fn parent(&self) -> Option<Object> {
         unsafe { from_glib_none(ffi::atk_object_get_parent(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_role(&self) -> Role {
+    fn role(&self) -> Role {
         unsafe { from_glib(ffi::atk_object_get_role(self.as_ref().to_glib_none().0)) }
     }
 
@@ -438,7 +459,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn get_property_accessible_component_layer(&self) -> i32 {
+    fn accessible_component_layer(&self) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -453,7 +474,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn get_property_accessible_component_mdi_zorder(&self) -> i32 {
+    fn accessible_component_mdi_zorder(&self) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -468,7 +489,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn get_property_accessible_description(&self) -> Option<glib::GString> {
+    fn accessible_description(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -482,7 +503,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn set_property_accessible_description(&self, accessible_description: Option<&str>) {
+    fn set_accessible_description(&self, accessible_description: Option<&str>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -492,7 +513,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn get_property_accessible_hypertext_nlinks(&self) -> i32 {
+    fn accessible_hypertext_nlinks(&self) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -507,7 +528,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn get_property_accessible_name(&self) -> Option<glib::GString> {
+    fn accessible_name(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -521,7 +542,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn set_property_accessible_name(&self, accessible_name: Option<&str>) {
+    fn set_accessible_name(&self, accessible_name: Option<&str>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -531,7 +552,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn get_property_accessible_parent(&self) -> Option<Object> {
+    fn accessible_parent(&self) -> Option<Object> {
         unsafe {
             let mut value = glib::Value::from_type(<Object as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -545,7 +566,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn set_property_accessible_parent<P: IsA<Object>>(&self, accessible_parent: Option<&P>) {
+    fn set_accessible_parent<P: IsA<Object>>(&self, accessible_parent: Option<&P>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -555,7 +576,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn get_property_accessible_role(&self) -> Role {
+    fn accessible_role(&self) -> Role {
         unsafe {
             let mut value = glib::Value::from_type(<Role as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -570,7 +591,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn set_property_accessible_role(&self, accessible_role: Role) {
+    fn set_accessible_role(&self, accessible_role: Role) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -580,7 +601,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn get_property_accessible_table_caption(&self) -> Option<glib::GString> {
+    fn accessible_table_caption(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -594,7 +615,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn set_property_accessible_table_caption(&self, accessible_table_caption: Option<&str>) {
+    fn set_accessible_table_caption(&self, accessible_table_caption: Option<&str>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -604,7 +625,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn get_property_accessible_table_caption_object(&self) -> Option<Object> {
+    fn accessible_table_caption_object(&self) -> Option<Object> {
         unsafe {
             let mut value = glib::Value::from_type(<Object as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -618,7 +639,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn set_property_accessible_table_caption_object<P: IsA<Object>>(
+    fn set_accessible_table_caption_object<P: IsA<Object>>(
         &self,
         accessible_table_caption_object: Option<&P>,
     ) {
@@ -633,7 +654,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn get_property_accessible_table_column_description(&self) -> Option<glib::GString> {
+    fn accessible_table_column_description(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -647,7 +668,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn set_property_accessible_table_column_description(
+    fn set_accessible_table_column_description(
         &self,
         accessible_table_column_description: Option<&str>,
     ) {
@@ -662,7 +683,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn get_property_accessible_table_column_header(&self) -> Option<Object> {
+    fn accessible_table_column_header(&self) -> Option<Object> {
         unsafe {
             let mut value = glib::Value::from_type(<Object as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -676,7 +697,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn set_property_accessible_table_column_header<P: IsA<Object>>(
+    fn set_accessible_table_column_header<P: IsA<Object>>(
         &self,
         accessible_table_column_header: Option<&P>,
     ) {
@@ -691,7 +712,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn get_property_accessible_table_row_description(&self) -> Option<glib::GString> {
+    fn accessible_table_row_description(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -705,10 +726,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn set_property_accessible_table_row_description(
-        &self,
-        accessible_table_row_description: Option<&str>,
-    ) {
+    fn set_accessible_table_row_description(&self, accessible_table_row_description: Option<&str>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -720,7 +738,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn get_property_accessible_table_row_header(&self) -> Option<Object> {
+    fn accessible_table_row_header(&self) -> Option<Object> {
         unsafe {
             let mut value = glib::Value::from_type(<Object as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -734,7 +752,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn set_property_accessible_table_row_header<P: IsA<Object>>(
+    fn set_accessible_table_row_header<P: IsA<Object>>(
         &self,
         accessible_table_row_header: Option<&P>,
     ) {
@@ -749,7 +767,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn get_property_accessible_table_summary(&self) -> Option<Object> {
+    fn accessible_table_summary(&self) -> Option<Object> {
         unsafe {
             let mut value = glib::Value::from_type(<Object as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -763,10 +781,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn set_property_accessible_table_summary<P: IsA<Object>>(
-        &self,
-        accessible_table_summary: Option<&P>,
-    ) {
+    fn set_accessible_table_summary<P: IsA<Object>>(&self, accessible_table_summary: Option<&P>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -776,7 +791,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn get_property_accessible_value(&self) -> f64 {
+    fn accessible_value(&self) -> f64 {
         unsafe {
             let mut value = glib::Value::from_type(<f64 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -791,7 +806,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn set_property_accessible_value(&self, accessible_value: f64) {
+    fn set_accessible_value(&self, accessible_value: f64) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,

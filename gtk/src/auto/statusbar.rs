@@ -423,7 +423,7 @@ pub trait StatusbarExt: 'static {
     fn get_context_id(&self, context_description: &str) -> u32;
 
     #[doc(alias = "gtk_statusbar_get_message_area")]
-    fn get_message_area(&self) -> Option<Box>;
+    fn message_area(&self) -> Option<Box>;
 
     #[doc(alias = "gtk_statusbar_pop")]
     fn pop(&self, context_id: u32);
@@ -452,7 +452,7 @@ impl<O: IsA<Statusbar>> StatusbarExt for O {
         }
     }
 
-    fn get_message_area(&self) -> Option<Box> {
+    fn message_area(&self) -> Option<Box> {
         unsafe {
             from_glib_none(ffi::gtk_statusbar_get_message_area(
                 self.as_ref().to_glib_none().0,

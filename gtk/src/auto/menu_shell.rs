@@ -53,13 +53,13 @@ pub trait MenuShellExt: 'static {
     fn deselect(&self);
 
     #[doc(alias = "gtk_menu_shell_get_parent_shell")]
-    fn get_parent_shell(&self) -> Option<Widget>;
+    fn parent_shell(&self) -> Option<Widget>;
 
     #[doc(alias = "gtk_menu_shell_get_selected_item")]
-    fn get_selected_item(&self) -> Option<Widget>;
+    fn selected_item(&self) -> Option<Widget>;
 
     #[doc(alias = "gtk_menu_shell_get_take_focus")]
-    fn get_take_focus(&self) -> bool;
+    fn takes_focus(&self) -> bool;
 
     #[doc(alias = "gtk_menu_shell_insert")]
     fn insert<P: IsA<Widget>>(&self, child: &P, position: i32);
@@ -163,7 +163,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
         }
     }
 
-    fn get_parent_shell(&self) -> Option<Widget> {
+    fn parent_shell(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_menu_shell_get_parent_shell(
                 self.as_ref().to_glib_none().0,
@@ -171,7 +171,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
         }
     }
 
-    fn get_selected_item(&self) -> Option<Widget> {
+    fn selected_item(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_menu_shell_get_selected_item(
                 self.as_ref().to_glib_none().0,
@@ -179,7 +179,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
         }
     }
 
-    fn get_take_focus(&self) -> bool {
+    fn takes_focus(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_menu_shell_get_take_focus(
                 self.as_ref().to_glib_none().0,
