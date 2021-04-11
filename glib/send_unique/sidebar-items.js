@@ -1,1 +1,0 @@
-initSidebarItems({"struct":[["BorrowError",""],["Ref",""],["SendUniqueCell","Allows sending reference counted objects that don’t implement `Send` to other threads as long as only a single reference to the object exists."]],"trait":[["SendUnique","Like `Send` but only if we have the unique reference to the object"]]});

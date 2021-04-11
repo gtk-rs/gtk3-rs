@@ -1,1 +1,0 @@
-initSidebarItems({"trait":[["Downgrade","Trait for generalizing downgrading a strong reference to a weak reference."],["Upgrade","Trait for generalizing upgrading a weak reference to a strong reference."]]});
