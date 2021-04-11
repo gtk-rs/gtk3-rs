@@ -161,6 +161,8 @@ pub use gdk_pixbuf;
 pub use gio;
 pub use glib;
 pub use pango;
+#[cfg(feature = "gdkx11")]
+pub use gdkx11;
 
 #[doc(hidden)]
 pub use field_offset::*;
