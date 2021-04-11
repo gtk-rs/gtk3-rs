@@ -391,7 +391,7 @@ generate_builder = true
 [[object]]
 name = "Gtk.Application"
 status = "generate"
-generate_builder = true
+generate_builder = false # generated manually
 trait_name = "GtkApplicationExt"
 builder_postprocess = "Application::register_startup_hook(&ret);"
 manual_traits = ["gio::ApplicationExtManual"]

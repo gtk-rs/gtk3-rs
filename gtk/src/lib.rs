@@ -266,6 +266,7 @@ pub use gdk::Rectangle as Allocation;
 pub use gdk::Rectangle;
 
 pub use crate::app_chooser::AppChooser;
+pub use crate::application::ApplicationBuilder;
 pub use crate::border::Border;
 pub use crate::entry_buffer::EntryBuffer;
 pub use crate::page_range::PageRange;
