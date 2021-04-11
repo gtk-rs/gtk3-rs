@@ -83,7 +83,7 @@ impl Device {
 
     #[cfg(any(feature = "script", feature = "dox"))]
     #[doc(alias = "cairo_script_get_mode")]
-    pub fn get_mode(&self) -> ScriptMode {
+    pub fn mode(&self) -> ScriptMode {
         unsafe { ScriptMode::from(ffi::cairo_script_get_mode(self.to_raw_none())) }
     }
 
@@ -145,7 +145,7 @@ impl Device {
     }
 
     #[doc(alias = "cairo_device_get_type")]
-    pub fn get_type(&self) -> DeviceType {
+    pub fn type_(&self) -> DeviceType {
         unsafe { DeviceType::from(ffi::cairo_device_get_type(self.to_raw_none())) }
     }
 
@@ -196,7 +196,7 @@ impl Device {
     #[doc(alias = "cairo_xlib_device_debug_cap_xrender_version")]
     pub fn debug_cap_xrender_version(&self, major_version: i32, minor_version: i32) {
         unsafe {
-            match self.get_type() {
+            match self.type_() {
                 DeviceType::Xlib => {
                     #[cfg(feature = "xlib")]
                     {
@@ -234,7 +234,7 @@ impl Device {
     #[doc(alias = "cairo_xlib_device_debug_get_precision")]
     pub fn debug_get_precision(&self) -> i32 {
         unsafe {
-            match self.get_type() {
+            match self.type_() {
                 DeviceType::Xlib => {
                     #[cfg(feature = "xlib")]
                     {
@@ -264,7 +264,7 @@ impl Device {
     #[doc(alias = "cairo_xlib_device_debug_set_precision")]
     pub fn debug_set_precision(&self, precision: i32) {
         unsafe {
-            match self.get_type() {
+            match self.type_() {
                 DeviceType::Xlib => {
                     #[cfg(feature = "xlib")]
                     {

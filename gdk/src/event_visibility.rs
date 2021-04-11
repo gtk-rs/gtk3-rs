@@ -9,7 +9,7 @@ event_wrapper!(EventVisibility, GdkEventVisibility);
 event_subtype!(EventVisibility, ffi::GDK_VISIBILITY_NOTIFY);
 
 impl EventVisibility {
-    pub fn get_state(&self) -> crate::VisibilityState {
+    pub fn state(&self) -> crate::VisibilityState {
         unsafe { from_glib(self.as_ref().state) }
     }
 }

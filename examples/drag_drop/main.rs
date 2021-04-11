@@ -33,7 +33,7 @@ fn build_ui(application: &gtk::Application) {
     let label = gtk::Label::new(Some("Drop here"));
     label.drag_dest_set(gtk::DestDefaults::ALL, &targets, gdk::DragAction::COPY);
     label.connect_drag_data_received(|w, _, _, _, s, _, _| {
-        w.set_text(&s.get_text().expect("Couldn't get text"));
+        w.set_text(&s.text().expect("Couldn't get text"));
     });
 
     // Stack the button and label horizontally

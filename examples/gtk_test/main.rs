@@ -35,7 +35,7 @@ fn build_ui(application: &gtk::Application) {
 
     let scale: Scale = builder.get_object("scale").expect("Couldn't get scale");
     scale.connect_format_value(|scale, value| {
-        let digits = scale.get_digits() as usize;
+        let digits = scale.digits() as usize;
         format!("<{:.*}>", digits, value)
     });
 
@@ -43,7 +43,7 @@ fn build_ui(application: &gtk::Application) {
         .get_object("spin_button")
         .expect("Couldn't get spin_button");
     spin_button.connect_input(|spin_button| {
-        let text = spin_button.get_text();
+        let text = spin_button.text();
         println!("spin_button_input: \"{}\"", text);
         match text.parse::<f64>() {
             Ok(value) if value >= 90. => {
@@ -120,7 +120,7 @@ fn build_ui(application: &gtk::Application) {
 
         dialog.connect_response(|dialog, response| {
             if response == ResponseType::Ok {
-                let files = dialog.get_filenames();
+                let files = dialog.filenames();
                 println!("Files: {:?}", files);
             }
             dialog.close();
@@ -143,7 +143,7 @@ fn build_ui(application: &gtk::Application) {
 
     let switch: Switch = builder.get_object("switch").expect("Couldn't get switch");
     switch.connect_changed_active(glib::clone!(@weak entry => move |switch| {
-        if switch.get_active() {
+        if switch.active() {
             entry.set_text("Switch On");
         } else {
             entry.set_text("Switch Off");
@@ -158,11 +158,11 @@ fn build_ui(application: &gtk::Application) {
 
     window.connect_key_press_event(
         glib::clone!(@weak entry => @default-return Inhibit(false), move |_, key| {
-            let keyval = key.get_keyval();
-            let keystate = key.get_state();
+            let keyval = key.keyval();
+            let keystate = key.state();
 
             println!("key pressed: {} / {:?}", keyval, keystate);
-            println!("text: {}", entry.get_text());
+            println!("text: {}", entry.text());
 
             if keystate.intersects(gdk::ModifierType::CONTROL_MASK) {
                 println!("You pressed Ctrl!");
@@ -176,10 +176,7 @@ fn build_ui(application: &gtk::Application) {
 }
 
 fn about_clicked(button: &Button, dialog: &AboutDialog) {
-    if let Some(window) = button
-        .get_toplevel()
-        .and_then(|w| w.downcast::<Window>().ok())
-    {
+    if let Some(window) = button.toplevel().and_then(|w| w.downcast::<Window>().ok()) {
         dialog.set_transient_for(Some(&window));
     }
 
@@ -190,9 +187,9 @@ fn about_clicked(button: &Button, dialog: &AboutDialog) {
         gtk::Inhibit(true)
     });
 
-    println!("Authors: {:?}", dialog.get_authors());
-    println!("Artists: {:?}", dialog.get_artists());
-    println!("Documenters: {:?}", dialog.get_documenters());
+    println!("Authors: {:?}", dialog.authors());
+    println!("Artists: {:?}", dialog.artists());
+    println!("Documenters: {:?}", dialog.documenters());
 
     dialog.show_all();
 }

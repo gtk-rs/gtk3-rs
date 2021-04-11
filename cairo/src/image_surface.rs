@@ -87,7 +87,7 @@ impl ImageSurface {
     }
 
     #[doc(alias = "cairo_image_surface_get_data")]
-    pub fn get_data(&mut self) -> Result<ImageSurfaceData, BorrowError> {
+    pub fn data(&mut self) -> Result<ImageSurfaceData, BorrowError> {
         unsafe {
             if ffi::cairo_surface_get_reference_count(self.to_raw_none()) > 1 {
                 return Err(BorrowError::NonExclusive);
@@ -117,29 +117,29 @@ impl ImageSurface {
             if ptr.is_null() || is_finished(self) {
                 return Err(BorrowError::from(Error::SurfaceFinished));
             }
-            let len = self.get_height() as usize * self.get_stride() as usize;
+            let len = self.height() as usize * self.stride() as usize;
             f(slice::from_raw_parts(ptr, len));
         }
         Ok(())
     }
 
     #[doc(alias = "cairo_image_surface_get_format")]
-    pub fn get_format(&self) -> Format {
+    pub fn format(&self) -> Format {
         unsafe { Format::from(ffi::cairo_image_surface_get_format(self.to_raw_none())) }
     }
 
     #[doc(alias = "cairo_image_surface_get_height")]
-    pub fn get_height(&self) -> i32 {
+    pub fn height(&self) -> i32 {
         unsafe { ffi::cairo_image_surface_get_height(self.to_raw_none()) }
     }
 
     #[doc(alias = "cairo_image_surface_get_stride")]
-    pub fn get_stride(&self) -> i32 {
+    pub fn stride(&self) -> i32 {
         unsafe { ffi::cairo_image_surface_get_stride(self.to_raw_none()) }
     }
 
     #[doc(alias = "cairo_image_surface_get_width")]
-    pub fn get_width(&self) -> i32 {
+    pub fn width(&self) -> i32 {
         unsafe { ffi::cairo_image_surface_get_width(self.to_raw_none()) }
     }
 }
@@ -156,7 +156,7 @@ impl<'a> ImageSurfaceData<'a> {
         unsafe {
             let ptr = ffi::cairo_image_surface_get_data(surface.to_raw_none());
             debug_assert!(!ptr.is_null());
-            let len = (surface.get_stride() as usize) * (surface.get_height() as usize);
+            let len = (surface.stride() as usize) * (surface.height() as usize);
             ImageSurfaceData {
                 surface,
                 slice: slice::from_raw_parts_mut(ptr, len),
@@ -234,6 +234,6 @@ mod tests {
 
         surf.finish();
 
-        assert!(surf.get_data().is_err());
+        assert!(surf.data().is_err());
     }
 }

@@ -44,12 +44,12 @@ impl Pattern {
     }
 
     #[doc(alias = "cairo_pattern_get_type")]
-    pub fn get_type(&self) -> PatternType {
+    pub fn type_(&self) -> PatternType {
         unsafe { ffi::cairo_pattern_get_type(self.pointer).into() }
     }
 
     #[doc(alias = "cairo_pattern_get_reference_count")]
-    pub fn get_reference_count(&self) -> isize {
+    pub fn reference_count(&self) -> isize {
         unsafe { ffi::cairo_pattern_get_reference_count(self.pointer) as isize }
     }
 
@@ -59,7 +59,7 @@ impl Pattern {
     }
 
     #[doc(alias = "cairo_pattern_get_extend")]
-    pub fn get_extend(&self) -> Extend {
+    pub fn extend(&self) -> Extend {
         unsafe { Extend::from(ffi::cairo_pattern_get_extend(self.pointer)) }
     }
 
@@ -69,7 +69,7 @@ impl Pattern {
     }
 
     #[doc(alias = "cairo_pattern_get_filter")]
-    pub fn get_filter(&self) -> Filter {
+    pub fn filter(&self) -> Filter {
         unsafe { Filter::from(ffi::cairo_pattern_get_filter(self.pointer)) }
     }
 
@@ -79,7 +79,7 @@ impl Pattern {
     }
 
     #[doc(alias = "cairo_pattern_get_matrix")]
-    pub fn get_matrix(&self) -> Matrix {
+    pub fn matrix(&self) -> Matrix {
         let mut matrix = Matrix::null();
         unsafe {
             ffi::cairo_pattern_get_matrix(self.pointer, matrix.mut_ptr());
@@ -113,7 +113,7 @@ macro_rules! convert {
             type Error = $source;
 
             fn try_from(pattern: $source) -> Result<Self, $source> {
-                if $( pattern.get_type() == PatternType::$variant )||+ {
+                if $( pattern.type_() == PatternType::$variant )||+ {
                     $(
                         let pattern = $intermediate(pattern);
                     )*
@@ -176,7 +176,7 @@ impl SolidPattern {
     }
 
     #[doc(alias = "cairo_pattern_get_rgba")]
-    pub fn get_rgba(&self) -> (f64, f64, f64, f64) {
+    pub fn rgba(&self) -> (f64, f64, f64, f64) {
         unsafe {
             let mut red = 0.0;
             let mut green = 0.0;
@@ -214,7 +214,7 @@ impl Gradient {
     }
 
     #[doc(alias = "cairo_pattern_get_color_stop_count")]
-    pub fn get_color_stop_count(&self) -> isize {
+    pub fn color_stop_count(&self) -> isize {
         unsafe {
             let mut count = 0;
             let status = ffi::cairo_pattern_get_color_stop_count(self.pointer, &mut count);
@@ -285,7 +285,7 @@ impl LinearGradient {
     }
 
     #[doc(alias = "cairo_pattern_get_linear_points")]
-    pub fn get_linear_points(&self) -> (f64, f64, f64, f64) {
+    pub fn linear_points(&self) -> (f64, f64, f64, f64) {
         unsafe {
             let mut x0 = 0.0;
             let mut y0 = 0.0;
@@ -318,7 +318,7 @@ impl RadialGradient {
     }
 
     #[doc(alias = "cairo_pattern_get_radial_circles")]
-    pub fn get_radial_circles(&self) -> (f64, f64, f64, f64, f64, f64) {
+    pub fn radial_circles(&self) -> (f64, f64, f64, f64, f64, f64) {
         unsafe {
             let mut x0 = 0.0;
             let mut y0 = 0.0;
@@ -355,7 +355,7 @@ impl SurfacePattern {
     }
 
     #[doc(alias = "cairo_pattern_get_surface")]
-    pub fn get_surface(&self) -> Surface {
+    pub fn surface(&self) -> Surface {
         unsafe {
             let mut surface_ptr: *mut cairo_surface_t = ptr::null_mut();
             let status = ffi::cairo_pattern_get_surface(self.pointer, &mut surface_ptr);
@@ -490,7 +490,7 @@ impl Mesh {
     }
 
     #[doc(alias = "cairo_mesh_pattern_get_patch_count")]
-    pub fn get_patch_count(&self) -> usize {
+    pub fn patch_count(&self) -> usize {
         let mut count: c_uint = 0;
         unsafe {
             let status = ffi::cairo_mesh_pattern_get_patch_count(self.pointer, &mut count);

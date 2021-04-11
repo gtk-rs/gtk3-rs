@@ -104,7 +104,7 @@ impl ThreadPool {
     }
 
     #[doc(alias = "g_thread_pool_get_max_threads")]
-    pub fn get_max_threads(&self) -> Option<u32> {
+    pub fn max_threads(&self) -> Option<u32> {
         unsafe {
             let max_threads = ffi::g_thread_pool_get_max_threads(self.0.as_ptr());
             if max_threads == -1 {
@@ -116,12 +116,12 @@ impl ThreadPool {
     }
 
     #[doc(alias = "g_thread_pool_get_num_threads")]
-    pub fn get_num_threads(&self) -> u32 {
+    pub fn num_threads(&self) -> u32 {
         unsafe { ffi::g_thread_pool_get_num_threads(self.0.as_ptr()) }
     }
 
     #[doc(alias = "g_thread_pool_unprocessed")]
-    pub fn get_unprocessed(&self) -> u32 {
+    pub fn unprocessed(&self) -> u32 {
         unsafe { ffi::g_thread_pool_unprocessed(self.0.as_ptr()) }
     }
 

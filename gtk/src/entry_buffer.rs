@@ -47,17 +47,17 @@ impl EntryBuffer {
     }
 
     #[doc(alias = "gtk_entry_buffer_get_bytes")]
-    pub fn get_bytes(&self) -> u32 {
+    pub fn bytes(&self) -> u32 {
         unsafe { ffi::gtk_entry_buffer_get_bytes(self.to_glib_none().0) as u32 }
     }
 
     #[doc(alias = "gtk_entry_buffer_get_length")]
-    pub fn get_length(&self) -> u16 {
+    pub fn length(&self) -> u16 {
         unsafe { to_u16!(ffi::gtk_entry_buffer_get_length(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gtk_entry_buffer_get_max_length")]
-    pub fn get_max_length(&self) -> Option<u16> {
+    pub fn max_length(&self) -> Option<u16> {
         unsafe {
             match ffi::gtk_entry_buffer_get_max_length(self.to_glib_none().0) {
                 0 => None,
@@ -67,7 +67,7 @@ impl EntryBuffer {
     }
 
     #[doc(alias = "gtk_entry_buffer_get_text")]
-    pub fn get_text(&self) -> String {
+    pub fn text(&self) -> String {
         unsafe { from_glib_none(ffi::gtk_entry_buffer_get_text(self.to_glib_none().0)) }
     }
 

@@ -56,7 +56,7 @@ unsafe impl Sync for ParamSpec {}
 impl ParamSpec {
     pub fn downcast<T: ParamSpecType>(self) -> Result<T, ParamSpec> {
         unsafe {
-            if self.get_type() == T::static_type() {
+            if self.type_() == T::static_type() {
                 Ok(from_glib_full(self.to_glib_full()))
             } else {
                 Err(self)
@@ -66,7 +66,7 @@ impl ParamSpec {
 
     pub fn downcast_ref<T: ParamSpecType>(&self) -> Option<&T> {
         unsafe {
-            if self.get_type() == T::static_type() {
+            if self.type_() == T::static_type() {
                 Some(&*(self as *const ParamSpec as *const T))
             } else {
                 None
@@ -74,7 +74,7 @@ impl ParamSpec {
         }
     }
 
-    pub fn get_type(&self) -> Type {
+    pub fn type_(&self) -> Type {
         unsafe {
             let ptr = self.to_glib_none().0;
 
@@ -82,20 +82,20 @@ impl ParamSpec {
         }
     }
 
-    pub fn get_value_type(&self) -> crate::Type {
+    pub fn value_type(&self) -> crate::Type {
         unsafe { from_glib((*self.to_glib_none().0).value_type) }
     }
 
-    pub fn get_owner_type(&self) -> crate::Type {
+    pub fn owner_type(&self) -> crate::Type {
         unsafe { from_glib((*self.to_glib_none().0).owner_type) }
     }
 
-    pub fn get_flags(&self) -> ParamFlags {
+    pub fn flags(&self) -> ParamFlags {
         unsafe { from_glib((*self.to_glib_none().0).flags) }
     }
 
     #[doc(alias = "g_param_spec_get_blurb")]
-    pub fn get_blurb(&self) -> &str {
+    pub fn blurb(&self) -> &str {
         unsafe {
             CStr::from_ptr(gobject_ffi::g_param_spec_get_blurb(self.to_glib_none().0))
                 .to_str()
@@ -104,7 +104,7 @@ impl ParamSpec {
     }
 
     #[doc(alias = "g_param_spec_get_default_value")]
-    pub fn get_default_value(&self) -> &Value {
+    pub fn default_value(&self) -> &Value {
         unsafe {
             &*(gobject_ffi::g_param_spec_get_default_value(self.to_glib_none().0)
                 as *const crate::Value)
@@ -112,7 +112,7 @@ impl ParamSpec {
     }
 
     #[doc(alias = "g_param_spec_get_name")]
-    pub fn get_name<'a>(&self) -> &'a str {
+    pub fn name<'a>(&self) -> &'a str {
         unsafe {
             CStr::from_ptr(gobject_ffi::g_param_spec_get_name(self.to_glib_none().0))
                 .to_str()
@@ -123,7 +123,7 @@ impl ParamSpec {
     #[cfg(any(feature = "v2_46", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
     #[doc(alias = "g_param_spec_get_name_quark")]
-    pub fn get_name_quark(&self) -> crate::Quark {
+    pub fn name_quark(&self) -> crate::Quark {
         unsafe {
             from_glib(gobject_ffi::g_param_spec_get_name_quark(
                 self.to_glib_none().0,
@@ -132,7 +132,7 @@ impl ParamSpec {
     }
 
     #[doc(alias = "g_param_spec_get_nick")]
-    pub fn get_nick(&self) -> &str {
+    pub fn nick(&self) -> &str {
         unsafe {
             CStr::from_ptr(gobject_ffi::g_param_spec_get_nick(self.to_glib_none().0))
                 .to_str()
@@ -145,7 +145,7 @@ impl ParamSpec {
     //}
 
     #[doc(alias = "g_param_spec_get_redirect_target")]
-    pub fn get_redirect_target(&self) -> Option<ParamSpec> {
+    pub fn redirect_target(&self) -> Option<ParamSpec> {
         unsafe {
             from_glib_none(gobject_ffi::g_param_spec_get_redirect_target(
                 self.to_glib_none().0,
@@ -840,7 +840,7 @@ macro_rules! define_param_spec {
 macro_rules! define_param_spec_default {
     ($rust_type:ident, $value_type:ty, $from_glib:expr) => {
         impl $rust_type {
-            pub fn get_default_value(&self) -> $value_type {
+            pub fn default_value(&self) -> $value_type {
                 unsafe {
                     let ptr = self.to_glib_none().0;
                     $from_glib((*ptr).default_value)
@@ -853,14 +853,14 @@ macro_rules! define_param_spec_default {
 macro_rules! define_param_spec_min_max {
     ($rust_type:ident, $value_type:ty, $from_glib:expr) => {
         impl $rust_type {
-            pub fn get_minimum(&self) -> $value_type {
+            pub fn minimum(&self) -> $value_type {
                 unsafe {
                     let ptr = self.to_glib_none().0;
                     $from_glib((*ptr).minimum)
                 }
             }
 
-            pub fn get_maximum(&self) -> $value_type {
+            pub fn maximum(&self) -> $value_type {
                 unsafe {
                     let ptr = self.to_glib_none().0;
                     $from_glib((*ptr).maximum)
@@ -978,7 +978,7 @@ define_param_spec!(
 define_param_spec_default!(ParamSpecEnum, i32, |x| x);
 
 impl ParamSpecEnum {
-    pub fn get_enum_class(&self) -> crate::EnumClass {
+    pub fn enum_class(&self) -> crate::EnumClass {
         unsafe {
             let ptr = self.to_glib_none().0;
 
@@ -1000,7 +1000,7 @@ define_param_spec!(
 define_param_spec_default!(ParamSpecFlags, u32, |x| x);
 
 impl ParamSpecFlags {
-    pub fn get_flags_class(&self) -> crate::FlagsClass {
+    pub fn flags_class(&self) -> crate::FlagsClass {
         unsafe {
             let ptr = self.to_glib_none().0;
 
@@ -1076,7 +1076,7 @@ define_param_spec!(
 );
 
 impl ParamSpecValueArray {
-    pub fn get_element_spec(&self) -> Option<ParamSpec> {
+    pub fn element_spec(&self) -> Option<ParamSpec> {
         unsafe {
             let ptr = self.to_glib_none().0;
 
@@ -1084,7 +1084,7 @@ impl ParamSpecValueArray {
         }
     }
 
-    pub fn get_fixed_n_elements(&self) -> u32 {
+    pub fn fixed_n_elements(&self) -> u32 {
         unsafe {
             let ptr = self.to_glib_none().0;
 
@@ -1108,7 +1108,7 @@ define_param_spec!(
 );
 
 impl ParamSpecOverride {
-    pub fn get_overridden(&self) -> ParamSpec {
+    pub fn overridden(&self) -> ParamSpec {
         unsafe {
             let ptr = self.to_glib_none().0;
 
@@ -1138,7 +1138,7 @@ define_param_spec_default!(
 );
 
 impl ParamSpecVariant {
-    pub fn get_type(&self) -> Option<&crate::VariantTy> {
+    pub fn type_(&self) -> Option<&crate::VariantTy> {
         unsafe {
             let ptr = self.to_glib_none().0;
 
@@ -1165,23 +1165,23 @@ mod tests {
             ParamFlags::READWRITE,
         );
 
-        assert_eq!(pspec.get_name(), "name");
-        assert_eq!(pspec.get_nick(), "nick");
-        assert_eq!(pspec.get_blurb(), "blurb");
-        let default_value = pspec.get_default_value();
+        assert_eq!(pspec.name(), "name");
+        assert_eq!(pspec.nick(), "nick");
+        assert_eq!(pspec.blurb(), "blurb");
+        let default_value = pspec.default_value();
         assert_eq!(default_value.get::<&str>().unwrap(), Some("default"));
-        assert_eq!(pspec.get_flags(), ParamFlags::READWRITE);
-        assert_eq!(pspec.get_value_type(), Type::STRING);
-        assert_eq!(pspec.get_type(), ParamSpecString::static_type());
+        assert_eq!(pspec.flags(), ParamFlags::READWRITE);
+        assert_eq!(pspec.value_type(), Type::STRING);
+        assert_eq!(pspec.type_(), ParamSpecString::static_type());
 
         let pspec_ref = pspec
             .downcast_ref::<ParamSpecString>()
             .expect("Not a string param spec");
-        assert_eq!(pspec_ref.get_default_value(), Some("default"));
+        assert_eq!(pspec_ref.default_value(), Some("default"));
 
         let pspec = pspec
             .downcast::<ParamSpecString>()
             .expect("Not a string param spec");
-        assert_eq!(pspec.get_default_value(), Some("default"));
+        assert_eq!(pspec.default_value(), Some("default"));
     }
 }

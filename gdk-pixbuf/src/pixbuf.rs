@@ -289,7 +289,7 @@ impl Pixbuf {
     #[allow(clippy::mut_from_ref)]
     #[allow(clippy::missing_safety_doc)]
     #[doc(alias = "gdk_pixbuf_get_pixels_with_length")]
-    pub unsafe fn get_pixels(&self) -> &mut [u8] {
+    pub unsafe fn pixels(&self) -> &mut [u8] {
         let mut len = 0;
         let ptr = ffi::gdk_pixbuf_get_pixels_with_length(self.to_glib_none().0, &mut len);
         slice::from_raw_parts_mut(ptr, len as usize)
@@ -297,21 +297,21 @@ impl Pixbuf {
 
     pub fn put_pixel(&self, x: u32, y: u32, red: u8, green: u8, blue: u8, alpha: u8) {
         assert!(
-            x < self.get_width() as u32,
+            x < self.width() as u32,
             "x must be less than the pixbuf's width"
         );
         assert!(
-            y < self.get_height() as u32,
+            y < self.height() as u32,
             "y must be less than the pixbuf's height"
         );
 
         unsafe {
             let x = x as usize;
             let y = y as usize;
-            let n_channels = self.get_n_channels() as usize;
+            let n_channels = self.n_channels() as usize;
             assert!(n_channels == 3 || n_channels == 4);
-            let rowstride = self.get_rowstride() as usize;
-            let pixels = self.get_pixels();
+            let rowstride = self.rowstride() as usize;
+            let pixels = self.pixels();
             let pos = y * rowstride + x * n_channels;
 
             pixels[pos] = red;

@@ -78,7 +78,7 @@ fn build_ui(application: &gtk::Application) {
             dialog.set_default_response(ResponseType::Close);
             dialog.connect_response(|dialog, _| dialog.close());
 
-            let content_area = dialog.get_content_area();
+            let content_area = dialog.content_area();
 
             // Similarly to the label and spin button inside the listbox, the text entry
             // and spin button in the edit dialog are connected via property bindings to
@@ -134,7 +134,7 @@ fn build_ui(application: &gtk::Application) {
                 &[("Ok", ResponseType::Ok), ("Cancel", ResponseType::Cancel)]);
             dialog.set_default_response(ResponseType::Ok);
 
-            let content_area = dialog.get_content_area();
+            let content_area = dialog.content_area();
 
             let entry = gtk::Entry::new();
             entry.connect_activate(clone!(@weak dialog => move |_| {
@@ -146,9 +146,9 @@ fn build_ui(application: &gtk::Application) {
             content_area.add(&spin_button);
 
             dialog.connect_response(clone!(@weak model, @weak entry, @weak spin_button => move |dialog, resp| {
-                let text = entry.get_text();
+                let text = entry.text();
                 if !text.is_empty() && resp == ResponseType::Ok {
-                    model.append(&RowData::new(&text, spin_button.get_value() as u32));
+                    model.append(&RowData::new(&text, spin_button.value() as u32));
                 }
                 dialog.close();
             }));
@@ -163,10 +163,10 @@ fn build_ui(application: &gtk::Application) {
     // model is immediately reflected in the listbox.
     let delete_button = gtk::Button::with_label("Delete");
     delete_button.connect_clicked(clone!(@weak model, @weak listbox => move |_| {
-        let selected = listbox.get_selected_row();
+        let selected = listbox.selected_row();
 
         if let Some(selected) = selected {
-            let idx = selected.get_index();
+            let idx = selected.index();
             model.remove(idx as u32);
         }
     }));

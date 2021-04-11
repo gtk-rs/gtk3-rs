@@ -65,7 +65,7 @@ unsafe extern "C" fn get_property<T: ObjectImpl>(
     pspec: *mut gobject_ffi::GParamSpec,
 ) {
     let instance = &*(obj as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
 
     let v = imp.get_property(
         &from_glib_borrow::<_, Object>(obj).unsafe_cast_ref(),
@@ -93,7 +93,7 @@ unsafe extern "C" fn set_property<T: ObjectImpl>(
     pspec: *mut gobject_ffi::GParamSpec,
 ) {
     let instance = &*(obj as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
     imp.set_property(
         &from_glib_borrow::<_, Object>(obj).unsafe_cast_ref(),
         id as usize,
@@ -104,20 +104,20 @@ unsafe extern "C" fn set_property<T: ObjectImpl>(
 
 unsafe extern "C" fn constructed<T: ObjectImpl>(obj: *mut gobject_ffi::GObject) {
     let instance = &*(obj as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
 
     imp.constructed(&from_glib_borrow::<_, Object>(obj).unsafe_cast_ref());
 }
 
 unsafe extern "C" fn dispose<T: ObjectImpl>(obj: *mut gobject_ffi::GObject) {
     let instance = &*(obj as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
 
     imp.dispose(&from_glib_borrow::<_, Object>(obj).unsafe_cast_ref());
 
     // Chain up to the parent's dispose.
     let data = T::type_data();
-    let parent_class = data.as_ref().get_parent_class() as *mut gobject_ffi::GObjectClass;
+    let parent_class = data.as_ref().parent_class() as *mut gobject_ffi::GObjectClass;
     if let Some(ref func) = (*parent_class).dispose {
         func(obj);
     }
@@ -196,7 +196,7 @@ impl<T: ObjectImpl> ObjectImplExt for T {
     fn parent_constructed(&self, obj: &Self::Type) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gobject_ffi::GObjectClass;
+            let parent_class = data.as_ref().parent_class() as *mut gobject_ffi::GObjectClass;
 
             if let Some(ref func) = (*parent_class).constructed {
                 func(obj.unsafe_cast_ref::<Object>().to_glib_none().0);
@@ -211,7 +211,7 @@ impl<T: ObjectImpl> ObjectImplExt for T {
     ) -> Option<Value> {
         unsafe {
             super::types::signal_chain_from_overridden(
-                self.get_instance().as_ptr() as *mut _,
+                self.instance().as_ptr() as *mut _,
                 token,
                 values,
             )
@@ -356,7 +356,7 @@ mod test {
                 value: &Value,
                 pspec: &crate::ParamSpec,
             ) {
-                match pspec.get_name() {
+                match pspec.name() {
                     "name" => {
                         let name = value
                             .get()
@@ -384,7 +384,7 @@ mod test {
                 _id: usize,
                 pspec: &crate::ParamSpec,
             ) -> Value {
-                match pspec.get_name() {
+                match pspec.name() {
                     "name" => self.name.borrow().to_value(),
                     "construct-name" => self.construct_name.borrow().to_value(),
                     "constructed" => self.constructed.borrow().to_value(),
@@ -395,7 +395,7 @@ mod test {
             fn constructed(&self, obj: &Self::Type) {
                 self.parent_constructed(obj);
 
-                assert_eq!(obj, &self.get_instance());
+                assert_eq!(obj, &self.instance());
                 assert_eq!(self as *const _, Self::from_instance(obj) as *const _);
 
                 *self.constructed.borrow_mut() = true;
@@ -436,7 +436,7 @@ mod test {
         let type_ = SimpleObject::static_type();
         let obj = Object::with_type(type_, &[]).expect("Object::new failed");
 
-        assert!(obj.get_type().is_a(Dummy::static_type()));
+        assert!(obj.type_().is_a(Dummy::static_type()));
 
         assert_eq!(
             obj.get_property("constructed")
@@ -456,7 +456,7 @@ mod test {
         let obj: ChildObject = Object::new(&[]).expect("Object::new failed");
 
         let imp = imp::ChildObject::from_instance(&obj);
-        assert_eq!(obj, imp.get_instance());
+        assert_eq!(obj, imp.instance());
     }
 
     #[test]

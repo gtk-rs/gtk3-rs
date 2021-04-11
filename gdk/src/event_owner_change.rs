@@ -9,23 +9,23 @@ event_wrapper!(EventOwnerChange, GdkEventOwnerChange);
 event_subtype!(EventOwnerChange, ffi::GDK_OWNER_CHANGE);
 
 impl EventOwnerChange {
-    pub fn get_owner(&self) -> Option<crate::Window> {
+    pub fn owner(&self) -> Option<crate::Window> {
         unsafe { from_glib_none(self.as_ref().owner) }
     }
 
-    pub fn get_reason(&self) -> crate::OwnerChange {
+    pub fn reason(&self) -> crate::OwnerChange {
         unsafe { from_glib(self.as_ref().reason) }
     }
 
-    pub fn get_selection(&self) -> crate::Atom {
+    pub fn selection(&self) -> crate::Atom {
         unsafe { from_glib_none(self.as_ref().selection as *mut _) }
     }
 
-    pub fn get_time(&self) -> u32 {
+    pub fn time(&self) -> u32 {
         self.as_ref().time
     }
 
-    pub fn get_selection_time(&self) -> u32 {
+    pub fn selection_time(&self) -> u32 {
         self.as_ref().selection_time
     }
 }

@@ -121,7 +121,7 @@ impl EnumClass {
     }
 
     /// Gets all `EnumValue` of this `EnumClass`.
-    pub fn get_values(&self) -> Vec<EnumValue> {
+    pub fn values(&self) -> Vec<EnumValue> {
         unsafe {
             let n = (*self.0).n_values;
             let mut res = Vec::with_capacity(n as usize);
@@ -171,17 +171,17 @@ unsafe impl Sync for EnumValue {}
 
 impl EnumValue {
     /// Get integer value corresponding to the value.
-    pub fn get_value(&self) -> i32 {
+    pub fn value(&self) -> i32 {
         unsafe { (*self.0).value }
     }
 
     /// Get name corresponding to the value.
-    pub fn get_name(&self) -> &str {
+    pub fn name(&self) -> &str {
         unsafe { CStr::from_ptr((*self.0).value_name).to_str().unwrap() }
     }
 
     /// Get nick corresponding to the value.
-    pub fn get_nick(&self) -> &str {
+    pub fn nick(&self) -> &str {
         unsafe { CStr::from_ptr((*self.0).value_nick).to_str().unwrap() }
     }
 
@@ -204,14 +204,14 @@ impl EnumValue {
     }
 
     /// Get `EnumClass` to which the enum value belongs.
-    pub fn get_class(&self) -> &EnumClass {
+    pub fn class(&self) -> &EnumClass {
         &self.1
     }
 }
 
 impl PartialEq for EnumValue {
     fn eq(&self, other: &Self) -> bool {
-        self.get_value().eq(&other.get_value())
+        self.value().eq(&other.value())
     }
 }
 
@@ -219,13 +219,13 @@ impl Eq for EnumValue {}
 
 impl PartialOrd for EnumValue {
     fn partial_cmp(&self, other: &Self) -> Option<cmp::Ordering> {
-        self.get_value().partial_cmp(&other.get_value())
+        self.value().partial_cmp(&other.value())
     }
 }
 
 impl Ord for EnumValue {
     fn cmp(&self, other: &Self) -> cmp::Ordering {
-        self.get_value().cmp(&other.get_value())
+        self.value().cmp(&other.value())
     }
 }
 
@@ -311,7 +311,7 @@ impl FlagsClass {
     }
 
     /// Gets all `FlagsValue` of this `FlagsClass`.
-    pub fn get_values(&self) -> Vec<FlagsValue> {
+    pub fn values(&self) -> Vec<FlagsValue> {
         unsafe {
             let n = (*self.0).n_values;
             let mut res = Vec::with_capacity(n as usize);
@@ -358,7 +358,7 @@ impl FlagsClass {
 
             if let Some(f) = self.get_value_by_name(name) {
                 let flags = gobject_ffi::g_value_get_flags(value.to_glib_none().0);
-                flags & f.get_value() != 0
+                flags & f.value() != 0
             } else {
                 false
             }
@@ -374,7 +374,7 @@ impl FlagsClass {
 
             if let Some(f) = self.get_value_by_nick(nick) {
                 let flags = gobject_ffi::g_value_get_flags(value.to_glib_none().0);
-                flags & f.get_value() != 0
+                flags & f.value() != 0
             } else {
                 false
             }
@@ -395,7 +395,7 @@ impl FlagsClass {
 
             if let Some(f) = self.get_value(f) {
                 let flags = gobject_ffi::g_value_get_flags(value.to_glib_none().0);
-                gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, flags | f.get_value());
+                gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, flags | f.value());
                 Ok(value)
             } else {
                 Err(value)
@@ -416,7 +416,7 @@ impl FlagsClass {
 
             if let Some(f) = self.get_value_by_name(name) {
                 let flags = gobject_ffi::g_value_get_flags(value.to_glib_none().0);
-                gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, flags | f.get_value());
+                gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, flags | f.value());
                 Ok(value)
             } else {
                 Err(value)
@@ -437,7 +437,7 @@ impl FlagsClass {
 
             if let Some(f) = self.get_value_by_nick(nick) {
                 let flags = gobject_ffi::g_value_get_flags(value.to_glib_none().0);
-                gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, flags | f.get_value());
+                gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, flags | f.value());
                 Ok(value)
             } else {
                 Err(value)
@@ -458,7 +458,7 @@ impl FlagsClass {
 
             if let Some(f) = self.get_value(f) {
                 let flags = gobject_ffi::g_value_get_flags(value.to_glib_none().0);
-                gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, flags & !f.get_value());
+                gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, flags & !f.value());
                 Ok(value)
             } else {
                 Err(value)
@@ -479,7 +479,7 @@ impl FlagsClass {
 
             if let Some(f) = self.get_value_by_name(name) {
                 let flags = gobject_ffi::g_value_get_flags(value.to_glib_none().0);
-                gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, flags & !f.get_value());
+                gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, flags & !f.value());
                 Ok(value)
             } else {
                 Err(value)
@@ -500,7 +500,7 @@ impl FlagsClass {
 
             if let Some(f) = self.get_value_by_nick(nick) {
                 let flags = gobject_ffi::g_value_get_flags(value.to_glib_none().0);
-                gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, flags & !f.get_value());
+                gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, flags & !f.value());
                 Ok(value)
             } else {
                 Err(value)
@@ -548,17 +548,17 @@ unsafe impl Sync for FlagsValue {}
 
 impl FlagsValue {
     /// Get integer value corresponding to the value.
-    pub fn get_value(&self) -> u32 {
+    pub fn value(&self) -> u32 {
         unsafe { (*self.0).value }
     }
 
     /// Get name corresponding to the value.
-    pub fn get_name(&self) -> &str {
+    pub fn name(&self) -> &str {
         unsafe { CStr::from_ptr((*self.0).value_name).to_str().unwrap() }
     }
 
     /// Get nick corresponding to the value.
-    pub fn get_nick(&self) -> &str {
+    pub fn nick(&self) -> &str {
         unsafe { CStr::from_ptr((*self.0).value_nick).to_str().unwrap() }
     }
 
@@ -578,8 +578,8 @@ impl FlagsValue {
             let mut res = Vec::new();
             if let Some(flags_class) = flags_class {
                 let f = gobject_ffi::g_value_get_flags(value.to_glib_none().0);
-                for v in flags_class.get_values() {
-                    if v.get_value() & f != 0 {
+                for v in flags_class.values() {
+                    if v.value() & f != 0 {
                         res.push(v);
                     }
                 }
@@ -589,14 +589,14 @@ impl FlagsValue {
     }
 
     /// Get `FlagsClass` to which the flags value belongs.
-    pub fn get_class(&self) -> &FlagsClass {
+    pub fn class(&self) -> &FlagsClass {
         &self.1
     }
 }
 
 impl PartialEq for FlagsValue {
     fn eq(&self, other: &Self) -> bool {
-        self.get_value().eq(&other.get_value())
+        self.value().eq(&other.value())
     }
 }
 

@@ -86,7 +86,7 @@ fn add_actions(
     let switch_action = gio::SimpleAction::new_stateful("switch", None, &false.to_variant());
     switch_action.connect_activate(glib::clone!(@weak switch => move |g, _| {
         let mut is_active = false;
-        if let Some(g) = g.get_state() {
+        if let Some(g) = g.state() {
             is_active = g.get().expect("couldn't get bool");
             // We update the state of the toggle.
             switch.set_active(!is_active);
@@ -98,7 +98,7 @@ fn add_actions(
     // The same goes the around way: if we update the switch state, we need to update the menu
     // item's state.
     switch.connect_property_active_notify(glib::clone!(@weak switch_action => move |s| {
-        switch_action.change_state(&s.get_active().to_variant());
+        switch_action.change_state(&s.active().to_variant());
     }));
 
     let sub_another = gio::SimpleAction::new("sub_another", None);

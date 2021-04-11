@@ -164,11 +164,11 @@ mod tests {
         assert!(r.is_ok());
 
         let mut surface = r.unwrap();
-        assert!(surface.get_width() == 1);
-        assert!(surface.get_height() == 1);
-        assert!(surface.get_format() == Format::Rgb24);
+        assert!(surface.width() == 1);
+        assert!(surface.height() == 1);
+        assert!(surface.format() == Format::Rgb24);
 
-        let data = surface.get_data().unwrap();
+        let data = surface.data().unwrap();
         assert!(data.len() >= 3);
 
         let slice = &data[0..3];

@@ -55,7 +55,7 @@ impl<T: ContainerImpl> ContainerImplExt for T {
     fn parent_add(&self, container: &Self::Type, widget: &Widget) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkContainerClass;
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkContainerClass;
             if let Some(f) = (*parent_class).add {
                 f(
                     container.unsafe_cast_ref::<Container>().to_glib_none().0,
@@ -68,7 +68,7 @@ impl<T: ContainerImpl> ContainerImplExt for T {
     fn parent_remove(&self, container: &Self::Type, widget: &Widget) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkContainerClass;
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkContainerClass;
             if let Some(f) = (*parent_class).remove {
                 f(
                     container.unsafe_cast_ref::<Container>().to_glib_none().0,
@@ -81,7 +81,7 @@ impl<T: ContainerImpl> ContainerImplExt for T {
     fn parent_check_resize(&self, container: &Self::Type) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkContainerClass;
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkContainerClass;
             if let Some(f) = (*parent_class).check_resize {
                 f(container.unsafe_cast_ref::<Container>().to_glib_none().0)
             }
@@ -91,7 +91,7 @@ impl<T: ContainerImpl> ContainerImplExt for T {
     fn parent_set_focus_child(&self, container: &Self::Type, widget: Option<&Widget>) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkContainerClass;
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkContainerClass;
             if let Some(f) = (*parent_class).set_focus_child {
                 f(
                     container.unsafe_cast_ref::<Container>().to_glib_none().0,
@@ -104,7 +104,7 @@ impl<T: ContainerImpl> ContainerImplExt for T {
     fn parent_child_type(&self, container: &Self::Type) -> glib::Type {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkContainerClass;
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkContainerClass;
             if let Some(f) = (*parent_class).child_type {
                 from_glib(f(container.unsafe_cast_ref::<Container>().to_glib_none().0))
             } else {
@@ -116,7 +116,7 @@ impl<T: ContainerImpl> ContainerImplExt for T {
     fn parent_get_path_for_child(&self, container: &Self::Type, widget: &Widget) -> WidgetPath {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkContainerClass;
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkContainerClass;
             let f = (*parent_class)
                 .get_path_for_child
                 .expect("No parent class impl for \"get_path_for_child\"");
@@ -130,7 +130,7 @@ impl<T: ContainerImpl> ContainerImplExt for T {
     fn parent_forall(&self, container: &Self::Type, include_internals: bool, callback: &Callback) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkContainerClass;
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkContainerClass;
             if let Some(f) = (*parent_class).forall {
                 f(
                     container.unsafe_cast_ref::<Container>().to_glib_none().0,
@@ -167,7 +167,7 @@ unsafe extern "C" fn container_add<T: ContainerImpl>(
     wdgtptr: *mut ffi::GtkWidget,
 ) {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
     let wrap: Borrowed<Container> = from_glib_borrow(ptr);
     let widget: Borrowed<Widget> = from_glib_borrow(wdgtptr);
 
@@ -179,7 +179,7 @@ unsafe extern "C" fn container_remove<T: ContainerImpl>(
     wdgtptr: *mut ffi::GtkWidget,
 ) {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
     let wrap: Borrowed<Container> = from_glib_borrow(ptr);
     let widget: Borrowed<Widget> = from_glib_borrow(wdgtptr);
 
@@ -188,7 +188,7 @@ unsafe extern "C" fn container_remove<T: ContainerImpl>(
 
 unsafe extern "C" fn container_check_resize<T: ContainerImpl>(ptr: *mut ffi::GtkContainer) {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
     let wrap: Borrowed<Container> = from_glib_borrow(ptr);
 
     imp.check_resize(wrap.unsafe_cast_ref())
@@ -199,7 +199,7 @@ unsafe extern "C" fn container_set_focus_child<T: ContainerImpl>(
     wdgtptr: *mut ffi::GtkWidget,
 ) {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
     let wrap: Borrowed<Container> = from_glib_borrow(ptr);
     let widget: Borrowed<Option<Widget>> = from_glib_borrow(wdgtptr);
 
@@ -210,7 +210,7 @@ unsafe extern "C" fn container_child_type<T: ContainerImpl>(
     ptr: *mut ffi::GtkContainer,
 ) -> glib::ffi::GType {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
     let wrap: Borrowed<Container> = from_glib_borrow(ptr);
 
     imp.child_type(wrap.unsafe_cast_ref()).to_glib()
@@ -221,7 +221,7 @@ unsafe extern "C" fn container_get_path_for_child<T: ContainerImpl>(
     wdgtptr: *mut ffi::GtkWidget,
 ) -> *mut ffi::GtkWidgetPath {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
     let wrap: Borrowed<Container> = from_glib_borrow(ptr);
     let widget: Borrowed<Widget> = from_glib_borrow(wdgtptr);
 
@@ -239,7 +239,7 @@ unsafe extern "C" fn container_forall<T: ObjectSubclass>(
     T: ContainerImpl,
 {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
     let wrap: Borrowed<Container> = from_glib_borrow(ptr);
     let callback = Callback {
         callback,

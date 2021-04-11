@@ -9,15 +9,15 @@ event_wrapper!(EventPadGroupMode, GdkEventPadGroupMode);
 event_subtype!(EventPadGroupMode, ffi::GDK_PAD_GROUP_MODE);
 
 impl EventPadGroupMode {
-    pub fn get_time(&self) -> u32 {
+    pub fn time(&self) -> u32 {
         self.as_ref().time
     }
 
-    pub fn get_group(&self) -> u32 {
+    pub fn group(&self) -> u32 {
         self.as_ref().group
     }
 
-    pub fn get_mode(&self) -> u32 {
+    pub fn mode(&self) -> u32 {
         self.as_ref().mode
     }
 }

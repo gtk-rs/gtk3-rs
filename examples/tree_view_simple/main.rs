@@ -62,8 +62,8 @@ fn build_ui(application: &gtk::Application) {
     // The closure responds to selection changes by connection to "::cursor-changed" signal,
     // that gets emitted when the cursor moves (focus changes).
     tree.connect_cursor_changed(move |tree_view| {
-        let selection = tree_view.get_selection();
-        if let Some((model, iter)) = selection.get_selected() {
+        let selection = tree_view.selection();
+        if let Some((model, iter)) = selection.selected() {
             // Now getting back the values from the row corresponding to the
             // iterator `iter`.
             //

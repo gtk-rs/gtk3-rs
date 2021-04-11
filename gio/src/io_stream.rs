@@ -17,13 +17,13 @@ use std::pin::Pin;
 pub trait IOStreamExtManual: Sized + IsA<IOStream> {
     fn into_async_read_write(self) -> Result<IOStreamAsyncReadWrite<Self>, Self> {
         let write = self
-            .get_output_stream()
+            .output_stream()
             .dynamic_cast::<PollableOutputStream>()
             .ok()
             .and_then(|s| s.into_async_write().ok());
 
         let read = self
-            .get_input_stream()
+            .input_stream()
             .dynamic_cast::<PollableInputStream>()
             .ok()
             .and_then(|s| s.into_async_read().ok());

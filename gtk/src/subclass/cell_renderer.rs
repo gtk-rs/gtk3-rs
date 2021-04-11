@@ -192,7 +192,7 @@ impl<T: CellRendererImpl> CellRendererImplExt for T {
     fn parent_get_request_mode(&self, renderer: &Self::Type) -> SizeRequestMode {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkCellRendererClass;
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkCellRendererClass;
             let f = (*parent_class).get_request_mode.unwrap();
             from_glib(f(renderer
                 .unsafe_cast_ref::<CellRenderer>()
@@ -208,7 +208,7 @@ impl<T: CellRendererImpl> CellRendererImplExt for T {
     ) -> (i32, i32) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkCellRendererClass;
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkCellRendererClass;
             let f = (*parent_class).get_preferred_width.unwrap();
 
             let mut minimum_size = mem::MaybeUninit::uninit();
@@ -231,7 +231,7 @@ impl<T: CellRendererImpl> CellRendererImplExt for T {
     ) -> (i32, i32) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkCellRendererClass;
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkCellRendererClass;
             let f = (*parent_class).get_preferred_width_for_height.unwrap();
 
             let mut minimum_size = mem::MaybeUninit::uninit();
@@ -253,7 +253,7 @@ impl<T: CellRendererImpl> CellRendererImplExt for T {
     ) -> (i32, i32) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkCellRendererClass;
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkCellRendererClass;
             let f = (*parent_class).get_preferred_height.unwrap();
             let mut minimum_size = mem::MaybeUninit::uninit();
             let mut natural_size = mem::MaybeUninit::uninit();
@@ -274,7 +274,7 @@ impl<T: CellRendererImpl> CellRendererImplExt for T {
     ) -> (i32, i32) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkCellRendererClass;
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkCellRendererClass;
             let f = (*parent_class).get_preferred_height_for_width.unwrap();
             let mut minimum_size = mem::MaybeUninit::uninit();
             let mut natural_size = mem::MaybeUninit::uninit();
@@ -298,7 +298,7 @@ impl<T: CellRendererImpl> CellRendererImplExt for T {
     ) -> gdk::Rectangle {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkCellRendererClass;
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkCellRendererClass;
             let mut aligned_area = gdk::Rectangle::uninitialized();
             let f = (*parent_class).get_aligned_area.unwrap();
             f(
@@ -323,7 +323,7 @@ impl<T: CellRendererImpl> CellRendererImplExt for T {
     ) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkCellRendererClass;
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkCellRendererClass;
             if let Some(f) = (*parent_class).render {
                 f(
                     renderer.unsafe_cast_ref::<CellRenderer>().to_glib_none().0,
@@ -349,7 +349,7 @@ impl<T: CellRendererImpl> CellRendererImplExt for T {
     ) -> bool {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkCellRendererClass;
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkCellRendererClass;
             if let Some(f) = (*parent_class).activate {
                 from_glib(f(
                     renderer.unsafe_cast_ref::<CellRenderer>().to_glib_none().0,
@@ -378,7 +378,7 @@ impl<T: CellRendererImpl> CellRendererImplExt for T {
     ) -> Option<CellEditable> {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkCellRendererClass;
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkCellRendererClass;
             if let Some(f) = (*parent_class).start_editing {
                 from_glib_none(f(
                     renderer.unsafe_cast_ref::<CellRenderer>().to_glib_none().0,
@@ -398,7 +398,7 @@ impl<T: CellRendererImpl> CellRendererImplExt for T {
     fn parent_editing_canceled(&self, renderer: &Self::Type) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkCellRendererClass;
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkCellRendererClass;
             if let Some(f) = (*parent_class).editing_canceled {
                 f(renderer.unsafe_cast_ref::<CellRenderer>().to_glib_none().0)
             }
@@ -408,7 +408,7 @@ impl<T: CellRendererImpl> CellRendererImplExt for T {
     fn parent_editing_started(&self, renderer: &Self::Type, editable: &CellEditable, path: &str) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkCellRendererClass;
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkCellRendererClass;
             if let Some(f) = (*parent_class).editing_started {
                 f(
                     renderer.unsafe_cast_ref::<CellRenderer>().to_glib_none().0,
@@ -449,7 +449,7 @@ unsafe extern "C" fn cell_renderer_get_request_mode<T: CellRendererImpl>(
     ptr: *mut ffi::GtkCellRenderer,
 ) -> ffi::GtkSizeRequestMode {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
     let wrap: Borrowed<CellRenderer> = from_glib_borrow(ptr);
 
     imp.get_request_mode(wrap.unsafe_cast_ref()).to_glib()
@@ -462,7 +462,7 @@ unsafe extern "C" fn cell_renderer_get_preferred_width<T: CellRendererImpl>(
     natptr: *mut c_int,
 ) {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
     let wrap: Borrowed<CellRenderer> = from_glib_borrow(ptr);
     let widget: Borrowed<Widget> = from_glib_borrow(wdgtptr);
 
@@ -483,7 +483,7 @@ unsafe extern "C" fn cell_renderer_get_preferred_height_for_width<T: CellRendere
     nat_height_ptr: *mut c_int,
 ) {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
     let wrap: Borrowed<CellRenderer> = from_glib_borrow(ptr);
     let widget: Borrowed<Widget> = from_glib_borrow(wdgtptr);
 
@@ -504,7 +504,7 @@ unsafe extern "C" fn cell_renderer_get_preferred_height<T: CellRendererImpl>(
     natptr: *mut c_int,
 ) {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
     let wrap: Borrowed<CellRenderer> = from_glib_borrow(ptr);
     let widget: Borrowed<Widget> = from_glib_borrow(wdgtptr);
 
@@ -525,7 +525,7 @@ unsafe extern "C" fn cell_renderer_get_preferred_width_for_height<T: CellRendere
     nat_width_ptr: *mut c_int,
 ) {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
     let wrap: Borrowed<CellRenderer> = from_glib_borrow(ptr);
     let widget: Borrowed<Widget> = from_glib_borrow(wdgtptr);
 
@@ -547,7 +547,7 @@ unsafe extern "C" fn cell_renderer_get_aligned_area<T: CellRendererImpl>(
     alignedptr: *mut gdk::ffi::GdkRectangle,
 ) {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
     let wrap: Borrowed<CellRenderer> = from_glib_borrow(ptr);
     let widget: Borrowed<Widget> = from_glib_borrow(wdgtptr);
 
@@ -569,7 +569,7 @@ unsafe extern "C" fn cell_renderer_render<T: CellRendererImpl>(
     flags: ffi::GtkCellRendererState,
 ) {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
     let wrap: Borrowed<CellRenderer> = from_glib_borrow(ptr);
     let widget: Borrowed<Widget> = from_glib_borrow(wdgtptr);
     let cr: Borrowed<cairo::Context> = from_glib_borrow(crptr);
@@ -594,7 +594,7 @@ unsafe extern "C" fn cell_renderer_activate<T: CellRendererImpl>(
     flags: ffi::GtkCellRendererState,
 ) -> glib::ffi::gboolean {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
     let wrap: Borrowed<CellRenderer> = from_glib_borrow(ptr);
     let widget: Borrowed<Widget> = from_glib_borrow(wdgtptr);
     let evt: Borrowed<Option<gdk::Event>> = from_glib_borrow(evtptr);
@@ -621,7 +621,7 @@ unsafe extern "C" fn cell_renderer_start_editing<T: CellRendererImpl>(
     flags: ffi::GtkCellRendererState,
 ) -> *mut ffi::GtkCellEditable {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
     let wrap: Borrowed<CellRenderer> = from_glib_borrow(ptr);
     let widget: Borrowed<Widget> = from_glib_borrow(wdgtptr);
     let evt: Borrowed<Option<gdk::Event>> = from_glib_borrow(evtptr);
@@ -643,7 +643,7 @@ unsafe extern "C" fn cell_renderer_editing_canceled<T: CellRendererImpl>(
     ptr: *mut ffi::GtkCellRenderer,
 ) {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
     let wrap: Borrowed<CellRenderer> = from_glib_borrow(ptr);
 
     imp.editing_canceled(wrap.unsafe_cast_ref());
@@ -655,7 +655,7 @@ unsafe extern "C" fn cell_renderer_editing_started<T: CellRendererImpl>(
     pathptr: *const c_char,
 ) {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
     let wrap: Borrowed<CellRenderer> = from_glib_borrow(ptr);
     let editable = from_glib_borrow(editableptr);
 

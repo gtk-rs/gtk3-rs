@@ -31,20 +31,20 @@
 //!
 //! // `get_str` tries to borrow a string slice.
 //! let hello = "Hello!".to_variant();
-//! assert_eq!(hello.get_str(), Some("Hello!"));
-//! assert_eq!(num.get_str(), None);
+//! assert_eq!(hello.str(), Some("Hello!"));
+//! assert_eq!(num.str(), None);
 //!
 //! // Variant carrying a Variant
 //! let variant = Variant::variant(&hello);
-//! let variant = variant.get_variant().unwrap();
-//! assert_eq!(variant.get_str(), Some("Hello!"));
+//! let variant = variant.variant().unwrap();
+//! assert_eq!(variant.str(), Some("Hello!"));
 //!
 //! // Variant carrying an array
 //! let array = ["Hello".to_variant(), "there!".to_variant()];
 //! let variant = Variant::array::<&str>(&array);
 //! assert_eq!(variant.n_children(), 2);
-//! assert_eq!(variant.get_child_value(0).get_str(), Some("Hello"));
-//! assert_eq!(variant.get_child_value(1).get_str(), Some("there!"));
+//! assert_eq!(variant.get_child_value(0).str(), Some("Hello"));
+//! assert_eq!(variant.get_child_value(1).str(), Some("there!"));
 //!
 //! // You can also convert from and to a Vec
 //! let array = vec!["Hello", "there!"].to_variant();
@@ -178,7 +178,7 @@ impl Variant {
     ///
     /// Returns `Some` if self contains a `Variant`.
     #[inline]
-    pub fn get_variant(&self) -> Option<Variant> {
+    pub fn variant(&self) -> Option<Variant> {
         unsafe { from_glib_none(ffi::g_variant_get_variant(self.to_glib_none().0)) }
     }
 
@@ -199,7 +199,7 @@ impl Variant {
     ///
     /// Returns `Some` if the variant has a string type (`s`, `o` or `g` type
     /// strings).
-    pub fn get_str(&self) -> Option<&str> {
+    pub fn str(&self) -> Option<&str> {
         unsafe {
             match self.type_().to_str() {
                 "s" | "o" | "g" => {
@@ -295,7 +295,7 @@ impl Variant {
     }
 
     /// Returns the serialised form of a GVariant instance.
-    pub fn get_data_as_bytes(&self) -> Bytes {
+    pub fn data_as_bytes(&self) -> Bytes {
         unsafe { from_glib_full(ffi::g_variant_get_data_as_bytes(self.to_glib_none().0)) }
     }
 
@@ -497,7 +497,7 @@ impl ToVariant for String {
 
 impl FromVariant for String {
     fn from_variant(variant: &Variant) -> Option<Self> {
-        variant.get_str().map(String::from)
+        variant.str().map(String::from)
     }
 }
 
@@ -717,7 +717,7 @@ impl ToVariant for Variant {
 
 impl FromVariant for Variant {
     fn from_variant(variant: &Variant) -> Option<Self> {
-        variant.get_variant()
+        variant.variant()
     }
 }
 
@@ -868,7 +868,7 @@ mod tests {
     fn test_str() {
         let s = "this is a test";
         let v = s.to_variant();
-        assert_eq!(v.get_str(), Some(s));
+        assert_eq!(v.str(), Some(s));
     }
 
     #[test]

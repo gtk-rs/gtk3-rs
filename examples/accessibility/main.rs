@@ -11,7 +11,7 @@ fn build_ui(application: &gtk::Application) {
     let label = gtk::Label::new(Some("0"));
     let vbox = gtk::Box::new(gtk::Orientation::Vertical, 0);
 
-    if let (Some(button_obj), Some(label_obj)) = (button.get_accessible(), label.get_accessible()) {
+    if let (Some(button_obj), Some(label_obj)) = (button.accessible(), label.accessible()) {
         // We set the description
         button_obj.set_description("Button to increase label value");
 
@@ -30,7 +30,7 @@ fn build_ui(application: &gtk::Application) {
     window.add(&vbox);
 
     button.connect_clicked(move |_| {
-        let value = label.get_text().parse().unwrap_or(0) + 1;
+        let value = label.text().parse().unwrap_or(0) + 1;
         label.set_text(&value.to_string());
     });
 

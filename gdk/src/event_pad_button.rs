@@ -12,19 +12,19 @@ event_subtype!(
 );
 
 impl EventPadButton {
-    pub fn get_time(&self) -> u32 {
+    pub fn time(&self) -> u32 {
         self.as_ref().time
     }
 
-    pub fn get_group(&self) -> u32 {
+    pub fn group(&self) -> u32 {
         self.as_ref().group
     }
 
-    pub fn get_button(&self) -> u32 {
+    pub fn button(&self) -> u32 {
         self.as_ref().button
     }
 
-    pub fn get_mode(&self) -> u32 {
+    pub fn mode(&self) -> u32 {
         self.as_ref().mode
     }
 }

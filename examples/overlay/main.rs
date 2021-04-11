@@ -6,7 +6,7 @@ use gtk::prelude::*;
 use gtk::{gdk, gio, glib};
 
 fn button_clicked(button: &gtk::Button, overlay_text: &gtk::Label) {
-    overlay_text.set_text(&button.get_label().expect("Couldn't get button label"));
+    overlay_text.set_text(&button.label().expect("Couldn't get button label"));
 }
 
 fn build_ui(application: &gtk::Application) {

@@ -377,7 +377,7 @@ impl State {
         }
     }
 
-    fn get_pending(
+    fn pending(
         &mut self,
     ) -> &mut Pin<
         Box<
@@ -434,10 +434,10 @@ impl<T: IsA<InputStream>> InputStreamAsyncBufRead<T> {
             _ => panic!("Invalid state"),
         };
 
-        self.state.get_pending()
+        self.state.pending()
     }
 
-    fn get_data(&self) -> Poll<io::Result<&[u8]>> {
+    fn data(&self) -> Poll<io::Result<&[u8]>> {
         if let State::HasData {
             ref buffer,
             valid: (i, j),
@@ -470,7 +470,7 @@ impl<T: IsA<InputStream>> InputStreamAsyncBufRead<T> {
                 io::ErrorKind::from(kind),
                 BufReadError::Failed,
             ))),
-            State::HasData { .. } => self.get_data(),
+            State::HasData { .. } => self.data(),
             State::Transitioning => panic!("Invalid state"),
             State::Waiting { .. } | State::Reading { .. } => {
                 let pending = self.set_reading();
@@ -481,7 +481,7 @@ impl<T: IsA<InputStream>> InputStreamAsyncBufRead<T> {
                             Poll::Ready(Ok(&[]))
                         } else {
                             self.set_has_data(buffer, (0, res));
-                            self.get_data()
+                            self.data()
                         }
                     }
                     Poll::Ready(Err((_, err))) => {

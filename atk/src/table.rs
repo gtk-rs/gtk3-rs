@@ -6,14 +6,14 @@ use glib::translate::*;
 
 pub trait TableExtManual: 'static {
     #[doc(alias = "atk_table_get_selected_columns")]
-    fn get_selected_columns(&self) -> Vec<i32>;
+    fn selected_columns(&self) -> Vec<i32>;
 
     #[doc(alias = "atk_table_get_selected_rows")]
-    fn get_selected_rows(&self) -> Vec<i32>;
+    fn selected_rows(&self) -> Vec<i32>;
 }
 
 impl<O: IsA<Table>> TableExtManual for O {
-    fn get_selected_columns(&self) -> Vec<i32> {
+    fn selected_columns(&self) -> Vec<i32> {
         unsafe {
             let mut selected = ::std::ptr::null_mut();
             let nb =
@@ -26,7 +26,7 @@ impl<O: IsA<Table>> TableExtManual for O {
         }
     }
 
-    fn get_selected_rows(&self) -> Vec<i32> {
+    fn selected_rows(&self) -> Vec<i32> {
         unsafe {
             let mut selected = ::std::ptr::null_mut();
             let nb =

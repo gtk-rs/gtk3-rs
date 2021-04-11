@@ -61,7 +61,7 @@ pub trait WidgetExtManual: 'static {
     fn add_events(&self, events: gdk::EventMask);
 
     #[doc(alias = "gtk_widget_get_events")]
-    fn get_events(&self) -> gdk::EventMask;
+    fn events(&self) -> gdk::EventMask;
 
     #[doc(alias = "gtk_widget_set_events")]
     fn set_events(&self, events: gdk::EventMask);
@@ -249,7 +249,7 @@ impl<O: IsA<Widget>> WidgetExtManual for O {
         }
     }
 
-    fn get_events(&self) -> gdk::EventMask {
+    fn events(&self) -> gdk::EventMask {
         unsafe { from_glib(ffi::gtk_widget_get_events(self.as_ref().to_glib_none().0) as u32) }
     }
 

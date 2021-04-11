@@ -101,7 +101,7 @@ impl SvgSurface {
 
     #[cfg(any(all(feature = "svg", feature = "v1_16"), feature = "dox"))]
     #[doc(alias = "cairo_svg_surface_get_document_unit")]
-    pub fn get_document_unit(&self) -> SvgUnit {
+    pub fn document_unit(&self) -> SvgUnit {
         unsafe {
             SvgUnit::from(ffi::cairo_svg_surface_get_document_unit(
                 self.0.to_raw_none(),

@@ -10,15 +10,15 @@ event_wrapper!(EventExpose, GdkEventExpose);
 event_subtype!(EventExpose, ffi::GDK_EXPOSE | ffi::GDK_DAMAGE);
 
 impl EventExpose {
-    pub fn get_region(&self) -> Option<cairo::Region> {
+    pub fn region(&self) -> Option<cairo::Region> {
         unsafe { from_glib_none(self.as_ref().region) }
     }
 
-    pub fn get_count(&self) -> u32 {
+    pub fn count(&self) -> u32 {
         self.as_ref().count as u32
     }
 
-    pub fn get_area(&self) -> Rectangle {
+    pub fn area(&self) -> Rectangle {
         unsafe { from_glib_none(&self.as_ref().area as *const _) }
     }
 }

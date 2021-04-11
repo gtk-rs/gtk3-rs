@@ -15,17 +15,17 @@ glib::wrapper! {
 
 pub trait AppChooserExt: 'static {
     #[doc(alias = "gtk_app_chooser_get_app_info")]
-    fn get_app_info(&self) -> Option<AppInfo>;
+    fn app_info(&self) -> Option<AppInfo>;
 
     #[doc(alias = "gtk_app_chooser_get_content_type")]
-    fn get_content_type(&self) -> Option<String>;
+    fn content_type(&self) -> Option<String>;
 
     #[doc(alias = "gtk_app_chooser_refresh")]
     fn refresh(&self);
 }
 
 impl<O: IsA<AppChooser>> AppChooserExt for O {
-    fn get_app_info(&self) -> Option<AppInfo> {
+    fn app_info(&self) -> Option<AppInfo> {
         unsafe {
             from_glib_full(ffi::gtk_app_chooser_get_app_info(
                 self.as_ref().to_glib_none().0,
@@ -33,7 +33,7 @@ impl<O: IsA<AppChooser>> AppChooserExt for O {
         }
     }
 
-    fn get_content_type(&self) -> Option<String> {
+    fn content_type(&self) -> Option<String> {
         unsafe {
             from_glib_full(ffi::gtk_app_chooser_get_content_type(
                 self.as_ref().to_glib_none().0,

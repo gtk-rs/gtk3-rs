@@ -62,7 +62,7 @@ impl<T: ListBoxImpl> ListBoxImplExt for T {
     fn list_box_activate_cursor_row(&self, list_box: &Self::Type) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkListBoxClass;
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkListBoxClass;
             if let Some(f) = (*parent_class).activate_cursor_row {
                 f(list_box.unsafe_cast_ref::<ListBox>().to_glib_none().0)
             }
@@ -72,7 +72,7 @@ impl<T: ListBoxImpl> ListBoxImplExt for T {
     fn list_box_move_cursor(&self, list_box: &Self::Type, step: MovementStep, count: i32) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkListBoxClass;
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkListBoxClass;
             if let Some(f) = (*parent_class).move_cursor {
                 f(
                     list_box.unsafe_cast_ref::<ListBox>().to_glib_none().0,
@@ -86,7 +86,7 @@ impl<T: ListBoxImpl> ListBoxImplExt for T {
     fn list_box_row_activated(&self, list_box: &Self::Type, row: &ListBoxRow) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkListBoxClass;
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkListBoxClass;
             if let Some(f) = (*parent_class).row_activated {
                 f(
                     list_box.unsafe_cast_ref::<ListBox>().to_glib_none().0,
@@ -99,7 +99,7 @@ impl<T: ListBoxImpl> ListBoxImplExt for T {
     fn list_box_row_selected(&self, list_box: &Self::Type, row: Option<&ListBoxRow>) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkListBoxClass;
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkListBoxClass;
             if let Some(f) = (*parent_class).row_selected {
                 f(
                     list_box.unsafe_cast_ref::<ListBox>().to_glib_none().0,
@@ -112,7 +112,7 @@ impl<T: ListBoxImpl> ListBoxImplExt for T {
     fn list_box_select_all(&self, list_box: &Self::Type) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkListBoxClass;
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkListBoxClass;
             if let Some(f) = (*parent_class).select_all {
                 f(list_box.unsafe_cast_ref::<ListBox>().to_glib_none().0)
             }
@@ -122,7 +122,7 @@ impl<T: ListBoxImpl> ListBoxImplExt for T {
     fn list_box_selected_rows_changed(&self, list_box: &Self::Type) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkListBoxClass;
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkListBoxClass;
             if let Some(f) = (*parent_class).selected_rows_changed {
                 f(list_box.unsafe_cast_ref::<ListBox>().to_glib_none().0)
             }
@@ -132,7 +132,7 @@ impl<T: ListBoxImpl> ListBoxImplExt for T {
     fn list_box_toggle_cursor_row(&self, list_box: &Self::Type) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkListBoxClass;
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkListBoxClass;
             if let Some(f) = (*parent_class).toggle_cursor_row {
                 f(list_box.unsafe_cast_ref::<ListBox>().to_glib_none().0)
             }
@@ -142,7 +142,7 @@ impl<T: ListBoxImpl> ListBoxImplExt for T {
     fn list_box_unselect_all(&self, list_box: &Self::Type) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkListBoxClass;
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkListBoxClass;
             if let Some(f) = (*parent_class).unselect_all {
                 f(list_box.unsafe_cast_ref::<ListBox>().to_glib_none().0)
             }
@@ -172,7 +172,7 @@ unsafe impl<T: ListBoxImpl> IsSubclassable<T> for ListBox {
 
 unsafe extern "C" fn list_box_activate_cursor_row<T: ListBoxImpl>(ptr: *mut ffi::GtkListBox) {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
     let wrap: Borrowed<ListBox> = from_glib_borrow(ptr);
 
     imp.activate_cursor_row(wrap.unsafe_cast_ref())
@@ -184,7 +184,7 @@ unsafe extern "C" fn list_box_move_cursor<T: ListBoxImpl>(
     count: c_int,
 ) {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
     let wrap: Borrowed<ListBox> = from_glib_borrow(ptr);
 
     imp.move_cursor(wrap.unsafe_cast_ref(), from_glib(step), count)
@@ -195,7 +195,7 @@ unsafe extern "C" fn list_box_row_activated<T: ListBoxImpl>(
     rowptr: *mut ffi::GtkListBoxRow,
 ) {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
     let wrap: Borrowed<ListBox> = from_glib_borrow(ptr);
     let row: Borrowed<ListBoxRow> = from_glib_borrow(rowptr);
 
@@ -207,7 +207,7 @@ unsafe extern "C" fn list_box_row_selected<T: ListBoxImpl>(
     rowptr: *mut ffi::GtkListBoxRow,
 ) {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
     let wrap: Borrowed<ListBox> = from_glib_borrow(ptr);
     let row: Borrowed<Option<ListBoxRow>> = from_glib_borrow(rowptr);
 
@@ -216,7 +216,7 @@ unsafe extern "C" fn list_box_row_selected<T: ListBoxImpl>(
 
 unsafe extern "C" fn list_box_select_all<T: ListBoxImpl>(ptr: *mut ffi::GtkListBox) {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
     let wrap: Borrowed<ListBox> = from_glib_borrow(ptr);
 
     imp.select_all(wrap.unsafe_cast_ref())
@@ -224,7 +224,7 @@ unsafe extern "C" fn list_box_select_all<T: ListBoxImpl>(ptr: *mut ffi::GtkListB
 
 unsafe extern "C" fn list_box_selected_rows_changed<T: ListBoxImpl>(ptr: *mut ffi::GtkListBox) {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
     let wrap: Borrowed<ListBox> = from_glib_borrow(ptr);
 
     imp.selected_rows_changed(wrap.unsafe_cast_ref())
@@ -232,7 +232,7 @@ unsafe extern "C" fn list_box_selected_rows_changed<T: ListBoxImpl>(ptr: *mut ff
 
 unsafe extern "C" fn list_box_toggle_cursor_row<T: ListBoxImpl>(ptr: *mut ffi::GtkListBox) {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
     let wrap: Borrowed<ListBox> = from_glib_borrow(ptr);
 
     imp.toggle_cursor_row(wrap.unsafe_cast_ref())
@@ -240,7 +240,7 @@ unsafe extern "C" fn list_box_toggle_cursor_row<T: ListBoxImpl>(ptr: *mut ffi::G
 
 unsafe extern "C" fn list_box_unselect_all<T: ListBoxImpl>(ptr: *mut ffi::GtkListBox) {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
     let wrap: Borrowed<ListBox> = from_glib_borrow(ptr);
 
     imp.unselect_all(wrap.unsafe_cast_ref())

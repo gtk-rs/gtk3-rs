@@ -12,7 +12,7 @@ use std::ptr;
 
 impl Device {
     #[doc(alias = "gdk_device_get_axis")]
-    pub fn get_axis(&self, axes: &mut [f64], use_: AxisUse, value: &mut f64) -> bool {
+    pub fn is_axis(&self, axes: &mut [f64], use_: AxisUse, value: &mut f64) -> bool {
         unsafe {
             from_glib(ffi::gdk_device_get_axis(
                 self.to_glib_none().0,

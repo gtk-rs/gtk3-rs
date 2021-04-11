@@ -6,7 +6,7 @@ use std::mem;
 
 impl SelectionData {
     #[doc(alias = "gtk_selection_data_get_data_with_length")]
-    pub fn get_data(&self) -> Vec<u8> {
+    pub fn data(&self) -> Vec<u8> {
         unsafe {
             let mut length = mem::MaybeUninit::uninit();
             FromGlibContainer::from_glib_none_num(

@@ -41,17 +41,17 @@ fn build_ui(application: &gtk::Application) {
     // the URL list we're looking for.
     text_view.connect_drag_data_received(|w, _, _, _, d, _, _| {
         // Get the text buffer for the TextView and clear it to make it ready to accept new text.
-        let buffer = w.get_buffer().unwrap();
+        let buffer = w.buffer().unwrap();
         buffer.set_text("");
 
         // Since we only accept `text/uri-list`s here, we don't need to check first, we can simply
         // iterate through all of the accepted URIs.
-        for file in d.get_uris() {
+        for file in d.uris() {
             let file = gio::File::new_for_uri(&file);
             let display_name = if file.is_native() {
-                file.get_path().unwrap().display().to_string()
+                file.path().unwrap().display().to_string()
             } else {
-                file.get_uri().into()
+                file.uri().into()
             };
             let bulleted_file_path = format!(" • {}\n", &display_name);
             // We make sure to always insert this at the end of the text buffer so they're in

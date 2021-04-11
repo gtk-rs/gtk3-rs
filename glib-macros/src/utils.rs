@@ -36,7 +36,7 @@ fn parse_attribute(meta: &NestedMeta) -> Result<(String, String)> {
         _ => bail!("wrong meta type"),
     };
 
-    let ident = match meta.path.get_ident() {
+    let ident = match meta.path.ident() {
         None => bail!("missing ident"),
         Some(ident) => ident,
     };

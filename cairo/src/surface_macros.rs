@@ -10,7 +10,7 @@ macro_rules! declare_surface {
             type Error = Surface;
 
             fn try_from(surface: Surface) -> Result<$surf_name, Surface> {
-                if surface.get_type() == $surf_type {
+                if surface.type_() == $surf_type {
                     Ok($surf_name(surface))
                 } else {
                     Err(surface)

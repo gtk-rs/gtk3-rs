@@ -467,7 +467,7 @@ enum BlockKind {
 }
 
 impl BlockKind {
-    fn get_closure(self) -> Option<Vec<TokenTree>> {
+    fn closure(self) -> Option<Vec<TokenTree>> {
         match self {
             Self::AsyncBlock => None,
             Self::Closure(c) | Self::ClosureWrappingAsync(c) | Self::AsyncClosure(c) => Some(c),
@@ -669,7 +669,7 @@ fn build_closure(
     }
 
     let is_async_closure_kind = matches!(kind, BlockKind::AsyncClosure(_));
-    if let Some(closure) = kind.get_closure() {
+    if let Some(closure) = kind.closure() {
         if is_async_closure_kind {
             ret.push(TokenTree::Ident(Ident::new("async", Span::call_site())));
         }

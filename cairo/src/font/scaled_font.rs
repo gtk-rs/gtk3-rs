@@ -83,12 +83,12 @@ impl ScaledFont {
     }
 
     #[doc(alias = "cairo_scaled_font_get_type")]
-    pub fn get_type(&self) -> FontType {
+    pub fn type_(&self) -> FontType {
         unsafe { FontType::from(ffi::cairo_scaled_font_get_type(self.to_raw_none())) }
     }
 
     #[doc(alias = "cairo_scaled_font_get_reference_count")]
-    pub fn get_reference_count(&self) -> usize {
+    pub fn reference_count(&self) -> usize {
         unsafe { ffi::cairo_scaled_font_get_reference_count(self.to_raw_none()) as usize }
     }
 
@@ -206,12 +206,12 @@ impl ScaledFont {
     }
 
     #[doc(alias = "cairo_scaled_font_get_font_face")]
-    pub fn get_font_face(&self) -> FontFace {
+    pub fn font_face(&self) -> FontFace {
         unsafe { FontFace::from_raw_none(ffi::cairo_scaled_font_get_font_face(self.to_raw_none())) }
     }
 
     #[doc(alias = "cairo_scaled_font_get_font_options")]
-    pub fn get_font_options(&self) -> FontOptions {
+    pub fn font_options(&self) -> FontOptions {
         let options = FontOptions::new();
 
         unsafe {
@@ -222,7 +222,7 @@ impl ScaledFont {
     }
 
     #[doc(alias = "cairo_scaled_font_get_font_matrix")]
-    pub fn get_font_matrix(&self) -> Matrix {
+    pub fn font_matrix(&self) -> Matrix {
         let mut matrix = Matrix::null();
 
         unsafe { ffi::cairo_scaled_font_get_font_matrix(self.to_raw_none(), matrix.mut_ptr()) }
@@ -231,7 +231,7 @@ impl ScaledFont {
     }
 
     #[doc(alias = "cairo_scaled_font_get_ctm")]
-    pub fn get_ctm(&self) -> Matrix {
+    pub fn ctm(&self) -> Matrix {
         let mut matrix = Matrix::null();
 
         unsafe { ffi::cairo_scaled_font_get_ctm(self.to_raw_none(), matrix.mut_ptr()) }
@@ -240,7 +240,7 @@ impl ScaledFont {
     }
 
     #[doc(alias = "cairo_scaled_font_get_scale_matrix")]
-    pub fn get_scale_matrix(&self) -> Matrix {
+    pub fn scale_matrix(&self) -> Matrix {
         let mut matrix = Matrix::null();
 
         unsafe { ffi::cairo_scaled_font_get_scale_matrix(self.to_raw_none(), matrix.mut_ptr()) }

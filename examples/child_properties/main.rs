@@ -22,7 +22,7 @@ fn build_ui(application: &gtk::Application) {
     vbox.add(&minus_button);
 
     minus_button.connect_clicked(glib::clone!(@weak counter_label => move |_| {
-        let nb = counter_label.get_text()
+        let nb = counter_label.text()
             .parse()
             .unwrap_or(0);
         if nb > 0 {
@@ -30,7 +30,7 @@ fn build_ui(application: &gtk::Application) {
         }
     }));
     plus_button.connect_clicked(glib::clone!(@weak counter_label => move |_| {
-        let nb = counter_label.get_text()
+        let nb = counter_label.text()
             .parse()
             .unwrap_or(0);
         counter_label.set_text(&format!("{}", nb + 1));

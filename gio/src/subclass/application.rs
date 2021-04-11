@@ -150,7 +150,7 @@ impl<T: ApplicationImpl> ApplicationImplExt for T {
     fn parent_activate(&self, application: &Self::Type) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GApplicationClass;
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GApplicationClass;
             let f = (*parent_class)
                 .activate
                 .expect("No parent class implementation for \"activate\"");
@@ -164,7 +164,7 @@ impl<T: ApplicationImpl> ApplicationImplExt for T {
     fn parent_after_emit(&self, application: &Self::Type, platform_data: &glib::Variant) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GApplicationClass;
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GApplicationClass;
             let f = (*parent_class)
                 .after_emit
                 .expect("No parent class implementation for \"after_emit\"");
@@ -181,7 +181,7 @@ impl<T: ApplicationImpl> ApplicationImplExt for T {
     fn parent_before_emit(&self, application: &Self::Type, platform_data: &glib::Variant) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GApplicationClass;
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GApplicationClass;
             let f = (*parent_class)
                 .before_emit
                 .expect("No parent class implementation for \"before_emit\"");
@@ -202,7 +202,7 @@ impl<T: ApplicationImpl> ApplicationImplExt for T {
     ) -> i32 {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GApplicationClass;
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GApplicationClass;
             let f = (*parent_class)
                 .command_line
                 .expect("No parent class implementation for \"command_line\"");
@@ -223,7 +223,7 @@ impl<T: ApplicationImpl> ApplicationImplExt for T {
     ) -> Option<i32> {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GApplicationClass;
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GApplicationClass;
             let f = (*parent_class)
                 .local_command_line
                 .expect("No parent class implementation for \"local_command_line\"");
@@ -249,7 +249,7 @@ impl<T: ApplicationImpl> ApplicationImplExt for T {
     fn parent_open(&self, application: &Self::Type, files: &[crate::File], hint: &str) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GApplicationClass;
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GApplicationClass;
             let f = (*parent_class)
                 .open
                 .expect("No parent class implementation for \"open\"");
@@ -268,7 +268,7 @@ impl<T: ApplicationImpl> ApplicationImplExt for T {
     fn parent_quit_mainloop(&self, application: &Self::Type) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GApplicationClass;
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GApplicationClass;
             let f = (*parent_class)
                 .quit_mainloop
                 .expect("No parent class implementation for \"quit_mainloop\"");
@@ -282,7 +282,7 @@ impl<T: ApplicationImpl> ApplicationImplExt for T {
     fn parent_run_mainloop(&self, application: &Self::Type) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GApplicationClass;
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GApplicationClass;
             let f = (*parent_class)
                 .run_mainloop
                 .expect("No parent class implementation for \"run_mainloop\"");
@@ -296,7 +296,7 @@ impl<T: ApplicationImpl> ApplicationImplExt for T {
     fn parent_shutdown(&self, application: &Self::Type) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GApplicationClass;
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GApplicationClass;
             let f = (*parent_class)
                 .shutdown
                 .expect("No parent class implementation for \"shutdown\"");
@@ -310,7 +310,7 @@ impl<T: ApplicationImpl> ApplicationImplExt for T {
     fn parent_startup(&self, application: &Self::Type) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GApplicationClass;
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GApplicationClass;
             let f = (*parent_class)
                 .startup
                 .expect("No parent class implementation for \"startup\"");
@@ -324,7 +324,7 @@ impl<T: ApplicationImpl> ApplicationImplExt for T {
     fn parent_handle_local_options(&self, application: &Self::Type, options: &VariantDict) -> i32 {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GApplicationClass;
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GApplicationClass;
             if let Some(f) = (*parent_class).handle_local_options {
                 f(
                     application
@@ -366,7 +366,7 @@ unsafe impl<T: ApplicationImpl> IsSubclassable<T> for Application {
 
 unsafe extern "C" fn application_activate<T: ApplicationImpl>(ptr: *mut ffi::GApplication) {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
     let wrap: Borrowed<Application> = from_glib_borrow(ptr);
 
     imp.activate(wrap.unsafe_cast_ref())
@@ -377,7 +377,7 @@ unsafe extern "C" fn application_after_emit<T: ApplicationImpl>(
     platform_data: *mut glib::ffi::GVariant,
 ) {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
     let wrap: Borrowed<Application> = from_glib_borrow(ptr);
 
     imp.after_emit(wrap.unsafe_cast_ref(), &from_glib_borrow(platform_data))
@@ -387,7 +387,7 @@ unsafe extern "C" fn application_before_emit<T: ApplicationImpl>(
     platform_data: *mut glib::ffi::GVariant,
 ) {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
     let wrap: Borrowed<Application> = from_glib_borrow(ptr);
 
     imp.before_emit(wrap.unsafe_cast_ref(), &from_glib_borrow(platform_data))
@@ -397,7 +397,7 @@ unsafe extern "C" fn application_command_line<T: ApplicationImpl>(
     command_line: *mut ffi::GApplicationCommandLine,
 ) -> i32 {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
     let wrap: Borrowed<Application> = from_glib_borrow(ptr);
 
     imp.command_line(wrap.unsafe_cast_ref(), &from_glib_borrow(command_line))
@@ -408,7 +408,7 @@ unsafe extern "C" fn application_local_command_line<T: ApplicationImpl>(
     exit_status: *mut i32,
 ) -> glib::ffi::gboolean {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
     let wrap: Borrowed<Application> = from_glib_borrow(ptr);
 
     let mut args = ArgumentList::new(arguments);
@@ -430,7 +430,7 @@ unsafe extern "C" fn application_open<T: ApplicationImpl>(
     hint: *const c_char,
 ) {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
     let wrap: Borrowed<Application> = from_glib_borrow(ptr);
 
     let files: Vec<crate::File> = FromGlibContainer::from_glib_none_num(files, num_files as usize);
@@ -442,28 +442,28 @@ unsafe extern "C" fn application_open<T: ApplicationImpl>(
 }
 unsafe extern "C" fn application_quit_mainloop<T: ApplicationImpl>(ptr: *mut ffi::GApplication) {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
     let wrap: Borrowed<Application> = from_glib_borrow(ptr);
 
     imp.quit_mainloop(wrap.unsafe_cast_ref())
 }
 unsafe extern "C" fn application_run_mainloop<T: ApplicationImpl>(ptr: *mut ffi::GApplication) {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
     let wrap: Borrowed<Application> = from_glib_borrow(ptr);
 
     imp.run_mainloop(wrap.unsafe_cast_ref())
 }
 unsafe extern "C" fn application_shutdown<T: ApplicationImpl>(ptr: *mut ffi::GApplication) {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
     let wrap: Borrowed<Application> = from_glib_borrow(ptr);
 
     imp.shutdown(wrap.unsafe_cast_ref())
 }
 unsafe extern "C" fn application_startup<T: ApplicationImpl>(ptr: *mut ffi::GApplication) {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
     let wrap: Borrowed<Application> = from_glib_borrow(ptr);
 
     imp.startup(wrap.unsafe_cast_ref())
@@ -474,7 +474,7 @@ unsafe extern "C" fn application_handle_local_options<T: ApplicationImpl>(
     options: *mut glib::ffi::GVariantDict,
 ) -> c_int {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
     let wrap: Borrowed<Application> = from_glib_borrow(ptr);
 
     imp.handle_local_options(wrap.unsafe_cast_ref(), &from_glib_borrow(options))
@@ -532,7 +532,7 @@ mod tests {
                 _application: &Self::Type,
                 cmd_line: &crate::ApplicationCommandLine,
             ) -> i32 {
-                let arguments = cmd_line.get_arguments();
+                let arguments = cmd_line.arguments();
 
                 for arg in arguments {
                     // TODO: we need https://github.com/rust-lang/rust/issues/49802

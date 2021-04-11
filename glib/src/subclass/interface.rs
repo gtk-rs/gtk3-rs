@@ -125,7 +125,7 @@ pub trait ObjectInterfaceExt: ObjectInterface {
     ///
     /// This will panic if `obj` does not implement the interface.
     fn from_instance<T: IsA<Object>>(obj: &T) -> &Self {
-        assert!(obj.as_ref().get_type().is_a(Self::get_type()));
+        assert!(obj.as_ref().type_().is_a(Self::get_type()));
 
         unsafe {
             let klass = (*(obj.as_ptr() as *const gobject_ffi::GTypeInstance)).g_class;

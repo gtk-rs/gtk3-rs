@@ -65,7 +65,7 @@ impl<T: InputStreamImpl> InputStreamImplExt for T {
     ) -> Result<usize, Error> {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GInputStreamClass;
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GInputStreamClass;
             let f = (*parent_class)
                 .read_fn
                 .expect("No parent class implementation for \"read\"");
@@ -95,7 +95,7 @@ impl<T: InputStreamImpl> InputStreamImplExt for T {
     ) -> Result<(), Error> {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GInputStreamClass;
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GInputStreamClass;
             let mut err = ptr::null_mut();
             if let Some(f) = (*parent_class).close_fn {
                 if from_glib(f(
@@ -121,7 +121,7 @@ impl<T: InputStreamImpl> InputStreamImplExt for T {
     ) -> Result<usize, Error> {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GInputStreamClass;
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GInputStreamClass;
             let mut err = ptr::null_mut();
             let f = (*parent_class)
                 .skip
@@ -172,7 +172,7 @@ unsafe extern "C" fn stream_read<T: InputStreamImpl>(
     assert!(count <= isize::MAX as usize);
 
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
     let wrap: Borrowed<InputStream> = from_glib_borrow(ptr);
 
     match imp.read(
@@ -200,7 +200,7 @@ unsafe extern "C" fn stream_close<T: InputStreamImpl>(
     err: *mut *mut glib::ffi::GError,
 ) -> glib::ffi::gboolean {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
     let wrap: Borrowed<InputStream> = from_glib_borrow(ptr);
 
     match imp.close(
@@ -228,7 +228,7 @@ unsafe extern "C" fn stream_skip<T: InputStreamImpl>(
     assert!(count <= isize::MAX as usize);
 
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
     let wrap: Borrowed<InputStream> = from_glib_borrow(ptr);
 
     match imp.skip(

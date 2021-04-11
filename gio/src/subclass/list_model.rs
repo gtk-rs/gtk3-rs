@@ -89,7 +89,7 @@ where
     <T as ObjectSubclass>::Type: IsA<glib::Object>,
 {
     let instance = &*(list_model as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
     let wrap = from_glib_borrow::<_, ListModel>(list_model);
 
     let type_ = imp.get_item_type(wrap.unsafe_cast_ref()).to_glib();
@@ -117,7 +117,7 @@ where
     <T as ObjectSubclass>::Type: IsA<glib::Object>,
 {
     let instance = &*(list_model as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
 
     imp.get_n_items(from_glib_borrow::<_, ListModel>(list_model).unsafe_cast_ref())
 }
@@ -130,7 +130,7 @@ where
     <T as ObjectSubclass>::Type: IsA<glib::Object>,
 {
     let instance = &*(list_model as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
     let wrap = from_glib_borrow::<_, ListModel>(list_model);
 
     let item = imp.get_item(wrap.unsafe_cast_ref(), position);
@@ -138,7 +138,7 @@ where
     if let Some(ref i) = item {
         let type_ = imp.get_item_type(wrap.unsafe_cast_ref());
         assert!(
-            type_.is_a(i.get_type()),
+            type_.is_a(i.type_()),
             "All ListModel items should be of the same type"
         );
     };

@@ -63,14 +63,14 @@ fn derive_genum() {
 
     let e = glib::EnumClass::new(t).expect("EnumClass::new failed");
     let v = e.get_value(0).expect("EnumClass::get_value(0) failed");
-    assert_eq!(v.get_name(), "Goat");
-    assert_eq!(v.get_nick(), "goat");
+    assert_eq!(v.name(), "Goat");
+    assert_eq!(v.nick(), "goat");
     let v = e.get_value(1).expect("EnumClass::get_value(1) failed");
-    assert_eq!(v.get_name(), "The Dog");
-    assert_eq!(v.get_nick(), "dog");
+    assert_eq!(v.name(), "The Dog");
+    assert_eq!(v.nick(), "dog");
     let v = e.get_value(5).expect("EnumClass::get_value(5) failed");
-    assert_eq!(v.get_name(), "The Cat");
-    assert_eq!(v.get_nick(), "chat");
+    assert_eq!(v.name(), "The Cat");
+    assert_eq!(v.nick(), "chat");
     assert_eq!(e.get_value(2), None);
 }
 
@@ -154,14 +154,14 @@ fn attr_gflags() {
 
     let e = glib::FlagsClass::new(t).expect("FlagsClass::new failed");
     let v = e.get_value(1).expect("FlagsClass::get_value(1) failed");
-    assert_eq!(v.get_name(), "Flag A");
-    assert_eq!(v.get_nick(), "nick-a");
+    assert_eq!(v.name(), "Flag A");
+    assert_eq!(v.nick(), "nick-a");
     let v = e.get_value(2).expect("FlagsClass::get_value(2) failed");
-    assert_eq!(v.get_name(), "Flag B");
-    assert_eq!(v.get_nick(), "b");
+    assert_eq!(v.name(), "Flag B");
+    assert_eq!(v.nick(), "b");
     let v = e.get_value(4).expect("FlagsClass::get_value(4) failed");
-    assert_eq!(v.get_name(), "C");
-    assert_eq!(v.get_nick(), "c");
+    assert_eq!(v.name(), "C");
+    assert_eq!(v.nick(), "c");
 
     assert!(e.get_value_by_name("Flag A").is_some());
     assert!(e.get_value_by_name("Flag B").is_some());

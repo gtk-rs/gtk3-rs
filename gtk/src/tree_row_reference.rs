@@ -20,7 +20,7 @@ impl TreeRowReference {
     ) {
         assert_initialized_main_thread!();
         assert!(
-            iter.is_some() || path.get_depth() == 0,
+            iter.is_some() || path.depth() == 0,
             "If 'iter' is None, 'path' must point to the root."
         );
         ffi::gtk_tree_row_reference_reordered(

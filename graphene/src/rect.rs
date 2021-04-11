@@ -6,7 +6,7 @@ use glib::translate::*;
 
 impl Rect {
     #[doc(alias = "graphene_rect_get_vertices")]
-    pub fn get_vertices(&self) -> [Vec2; 4] {
+    pub fn vertices(&self) -> [Vec2; 4] {
         unsafe {
             let mut out: [ffi::graphene_vec2_t; 4] = std::mem::uninitialized();
             ffi::graphene_rect_get_vertices(self.to_glib_none().0, &mut out as *mut _);

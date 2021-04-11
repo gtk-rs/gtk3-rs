@@ -23,7 +23,7 @@ impl<T: PlugImpl> PlugImplExt for T {
     fn parent_embedded(&self, plug: &Self::Type) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkPlugClass;
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkPlugClass;
             if let Some(f) = (*parent_class).embedded {
                 f(plug.unsafe_cast_ref::<Plug>().to_glib_none().0)
             }
@@ -46,7 +46,7 @@ unsafe impl<T: PlugImpl> IsSubclassable<T> for Plug {
 
 unsafe extern "C" fn plug_embedded<T: PlugImpl>(ptr: *mut ffi::GtkPlug) {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
     let wrap: Borrowed<Plug> = from_glib_borrow(ptr);
 
     imp.embedded(wrap.unsafe_cast_ref())

@@ -7,7 +7,7 @@ use glib::translate::*;
 
 impl Box {
     #[doc(alias = "graphene_box_get_vertices")]
-    pub fn get_vertices(&self) -> [Vec3; 8] {
+    pub fn vertices(&self) -> [Vec3; 8] {
         unsafe {
             let mut out: [ffi::graphene_vec3_t; 8] = std::mem::uninitialized();
             ffi::graphene_box_get_vertices(self.to_glib_none().0, &mut out as *mut _);

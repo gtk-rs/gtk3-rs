@@ -173,7 +173,7 @@ impl Context {
         self.status()
     }
 
-    pub fn get_target(&self) -> Surface {
+    pub fn target(&self) -> Surface {
         unsafe { Surface::from_raw_none(ffi::cairo_get_target(self.0.as_ptr())) }
     }
 
@@ -193,7 +193,7 @@ impl Context {
         unsafe { ffi::cairo_pop_group_to_source(self.0.as_ptr()) }
     }
 
-    pub fn get_group_target(&self) -> Surface {
+    pub fn group_target(&self) -> Surface {
         unsafe { Surface::from_raw_none(ffi::cairo_get_group_target(self.0.as_ptr())) }
     }
 
@@ -212,7 +212,7 @@ impl Context {
         self.status().expect("Failed to set source");
     }
 
-    pub fn get_source(&self) -> Pattern {
+    pub fn source(&self) -> Pattern {
         unsafe { Pattern::from_raw_none(ffi::cairo_get_source(self.0.as_ptr())) }
     }
 
@@ -227,7 +227,7 @@ impl Context {
         self.status().expect("Failed to set antialias");
     }
 
-    pub fn get_antialias(&self) -> Antialias {
+    pub fn antialias(&self) -> Antialias {
         unsafe { Antialias::from(ffi::cairo_get_antialias(self.0.as_ptr())) }
     }
 
@@ -243,12 +243,12 @@ impl Context {
         self.status().expect("Failed to set a dash"); //Possible invalid dashes value
     }
 
-    pub fn get_dash_count(&self) -> i32 {
+    pub fn dash_count(&self) -> i32 {
         unsafe { ffi::cairo_get_dash_count(self.0.as_ptr()) }
     }
 
-    pub fn get_dash(&self) -> (Vec<f64>, f64) {
-        let dash_count = self.get_dash_count() as usize;
+    pub fn dash(&self) -> (Vec<f64>, f64) {
+        let dash_count = self.dash_count() as usize;
         let mut dashes: Vec<f64> = Vec::with_capacity(dash_count);
         let mut offset: f64 = 0.0;
 
@@ -259,13 +259,13 @@ impl Context {
         }
     }
 
-    pub fn get_dash_dashes(&self) -> Vec<f64> {
-        let (dashes, _) = self.get_dash();
+    pub fn dash_dashes(&self) -> Vec<f64> {
+        let (dashes, _) = self.dash();
         dashes
     }
 
-    pub fn get_dash_offset(&self) -> f64 {
-        let (_, offset) = self.get_dash();
+    pub fn dash_offset(&self) -> f64 {
+        let (_, offset) = self.dash();
         offset
     }
 
@@ -276,7 +276,7 @@ impl Context {
         self.status().expect("Failed to set fill rule");
     }
 
-    pub fn get_fill_rule(&self) -> FillRule {
+    pub fn fill_rule(&self) -> FillRule {
         unsafe { FillRule::from(ffi::cairo_get_fill_rule(self.0.as_ptr())) }
     }
 
@@ -285,7 +285,7 @@ impl Context {
         self.status().expect("Failed to set line cap");
     }
 
-    pub fn get_line_cap(&self) -> LineCap {
+    pub fn line_cap(&self) -> LineCap {
         unsafe { LineCap::from(ffi::cairo_get_line_cap(self.0.as_ptr())) }
     }
 
@@ -294,7 +294,7 @@ impl Context {
         self.status().expect("Failed to set line join");
     }
 
-    pub fn get_line_join(&self) -> LineJoin {
+    pub fn line_join(&self) -> LineJoin {
         unsafe { LineJoin::from(ffi::cairo_get_line_join(self.0.as_ptr())) }
     }
 
@@ -303,7 +303,7 @@ impl Context {
         self.status().expect("Failed to set line width");
     }
 
-    pub fn get_line_width(&self) -> f64 {
+    pub fn line_width(&self) -> f64 {
         unsafe { ffi::cairo_get_line_width(self.0.as_ptr()) }
     }
 
@@ -312,7 +312,7 @@ impl Context {
         self.status().expect("Failed to set miter limit");
     }
 
-    pub fn get_miter_limit(&self) -> f64 {
+    pub fn miter_limit(&self) -> f64 {
         unsafe { ffi::cairo_get_miter_limit(self.0.as_ptr()) }
     }
 
@@ -322,7 +322,7 @@ impl Context {
         }
     }
 
-    pub fn get_operator(&self) -> Operator {
+    pub fn operator(&self) -> Operator {
         unsafe { Operator::from(ffi::cairo_get_operator(self.0.as_ptr())) }
     }
 
@@ -331,7 +331,7 @@ impl Context {
         self.status().expect("Failed to set tolerance");
     }
 
-    pub fn get_tolerance(&self) -> f64 {
+    pub fn tolerance(&self) -> f64 {
         unsafe { ffi::cairo_get_tolerance(self.0.as_ptr()) }
     }
 
@@ -450,7 +450,7 @@ impl Context {
         unsafe { ffi::cairo_show_page(self.0.as_ptr()) }
     }
 
-    pub fn get_reference_count(&self) -> u32 {
+    pub fn reference_count(&self) -> u32 {
         unsafe { ffi::cairo_get_reference_count(self.0.as_ptr()) }
     }
 
@@ -480,7 +480,7 @@ impl Context {
         }
     }
 
-    pub fn get_matrix(&self) -> Matrix {
+    pub fn matrix(&self) -> Matrix {
         let mut matrix = Matrix::null();
         unsafe {
             ffi::cairo_get_matrix(self.0.as_ptr(), matrix.mut_ptr());
@@ -543,7 +543,7 @@ impl Context {
         unsafe { ffi::cairo_set_font_matrix(self.0.as_ptr(), matrix.ptr()) }
     }
 
-    pub fn get_font_matrix(&self) -> Matrix {
+    pub fn font_matrix(&self) -> Matrix {
         let mut matrix = Matrix::null();
         unsafe {
             ffi::cairo_get_font_matrix(self.0.as_ptr(), matrix.mut_ptr());
@@ -555,7 +555,7 @@ impl Context {
         unsafe { ffi::cairo_set_font_options(self.0.as_ptr(), options.to_raw_none()) }
     }
 
-    pub fn get_font_options(&self) -> FontOptions {
+    pub fn font_options(&self) -> FontOptions {
         let out = FontOptions::new();
         unsafe {
             ffi::cairo_get_font_options(self.0.as_ptr(), out.to_raw_none());
@@ -567,7 +567,7 @@ impl Context {
         unsafe { ffi::cairo_set_font_face(self.0.as_ptr(), font_face.to_raw_none()) }
     }
 
-    pub fn get_font_face(&self) -> FontFace {
+    pub fn font_face(&self) -> FontFace {
         unsafe { FontFace::from_raw_none(ffi::cairo_get_font_face(self.0.as_ptr())) }
     }
 
@@ -575,7 +575,7 @@ impl Context {
         unsafe { ffi::cairo_set_scaled_font(self.0.as_ptr(), scaled_font.to_raw_none()) }
     }
 
-    pub fn get_scaled_font(&self) -> ScaledFont {
+    pub fn scaled_font(&self) -> ScaledFont {
         unsafe { ScaledFont::from_raw_none(ffi::cairo_get_scaled_font(self.0.as_ptr())) }
     }
 
@@ -685,7 +685,7 @@ impl Context {
         unsafe { ffi::cairo_has_current_point(self.0.as_ptr()).as_bool() }
     }
 
-    pub fn get_current_point(&self) -> (f64, f64) {
+    pub fn current_point(&self) -> (f64, f64) {
         unsafe {
             let mut x = 0.0;
             let mut y = 0.0;
@@ -804,7 +804,7 @@ mod tests {
     #[test]
     fn drop_non_reference_pattern_from_ctx() {
         let ctx = create_ctx();
-        ctx.get_source();
+        ctx.source();
     }
 
     #[test]

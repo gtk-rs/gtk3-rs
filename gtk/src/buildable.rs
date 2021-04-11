@@ -6,14 +6,14 @@ use glib::IsA;
 
 pub trait BuildableExtManual: 'static {
     #[doc(alias = "gtk_buildable_get_name")]
-    fn get_buildable_name(&self) -> Option<String>;
+    fn buildable_name(&self) -> Option<String>;
 
     #[doc(alias = "gtk_buildable_set_name")]
     fn set_buildable_name(&self, name: &str);
 }
 
 impl<O: IsA<Buildable>> BuildableExtManual for O {
-    fn get_buildable_name(&self) -> Option<String> {
+    fn buildable_name(&self) -> Option<String> {
         unsafe { from_glib_none(ffi::gtk_buildable_get_name(self.as_ref().to_glib_none().0)) }
     }
 

@@ -12,11 +12,11 @@ event_subtype!(
 );
 
 impl EventProximity {
-    pub fn get_time(&self) -> u32 {
+    pub fn time(&self) -> u32 {
         self.as_ref().time
     }
 
-    pub fn get_device(&self) -> Option<crate::Device> {
+    pub fn device(&self) -> Option<crate::Device> {
         unsafe { from_glib_none(self.as_ref().device) }
     }
 }

@@ -315,7 +315,7 @@ impl fmt::Debug for ObjectRef {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         let type_ = unsafe {
             let klass = (*self.inner.as_ptr()).g_type_instance.g_class as *const ObjectClass;
-            (&*klass).get_type()
+            (&*klass).type_()
         };
 
         f.debug_struct("ObjectRef")
@@ -1079,12 +1079,9 @@ impl Object {
         let params = properties
             .iter()
             .map(|(name, value)| {
-                let pspec = pspecs
-                    .iter()
-                    .find(|p| p.get_name() == *name)
-                    .ok_or_else(|| {
-                        bool_error!("Can't find property '{}' for type '{}'", name, type_)
-                    })?;
+                let pspec = pspecs.iter().find(|p| p.name() == *name).ok_or_else(|| {
+                    bool_error!("Can't find property '{}' for type '{}'", name, type_)
+                })?;
 
                 let mut value = value.to_value();
                 validate_property_type(type_, true, &pspec, &mut value)?;
@@ -1105,12 +1102,9 @@ impl Object {
         let params = properties
             .iter()
             .map(|(name, value)| {
-                let pspec = pspecs
-                    .iter()
-                    .find(|p| p.get_name() == *name)
-                    .ok_or_else(|| {
-                        bool_error!("Can't find property '{}' for type '{}'", name, type_)
-                    })?;
+                let pspec = pspecs.iter().find(|p| p.name() == *name).ok_or_else(|| {
+                    bool_error!("Can't find property '{}' for type '{}'", name, type_)
+                })?;
 
                 let mut value = value.clone();
                 validate_property_type(type_, true, &pspec, &mut value)?;
@@ -1172,9 +1166,9 @@ pub trait ObjectExt: ObjectType {
     /// Returns `true` if the object is an instance of (can be cast to) `T`.
     fn is<T: StaticType>(&self) -> bool;
 
-    fn get_type(&self) -> Type;
-    fn get_object_class(&self) -> &ObjectClass;
-    fn get_class(&self) -> &Class<Self>
+    fn type_(&self) -> Type;
+    fn object_class(&self) -> &ObjectClass;
+    fn class(&self) -> &Class<Self>
     where
         Self: IsClass;
     fn get_class_of<T: IsClass>(&self) -> Option<&Class<T>>;
@@ -1366,14 +1360,14 @@ pub trait ObjectExt: ObjectType {
 
 impl<T: ObjectType> ObjectExt for T {
     fn is<U: StaticType>(&self) -> bool {
-        self.get_type().is_a(U::static_type())
+        self.type_().is_a(U::static_type())
     }
 
-    fn get_type(&self) -> Type {
-        self.get_object_class().get_type()
+    fn type_(&self) -> Type {
+        self.object_class().type_()
     }
 
-    fn get_object_class(&self) -> &ObjectClass {
+    fn object_class(&self) -> &ObjectClass {
         unsafe {
             let obj: *mut gobject_ffi::GObject = self.as_object_ref().to_glib_none().0;
             let klass = (*obj).g_type_instance.g_class as *const ObjectClass;
@@ -1381,7 +1375,7 @@ impl<T: ObjectType> ObjectExt for T {
         }
     }
 
-    fn get_class(&self) -> &Class<Self>
+    fn class(&self) -> &Class<Self>
     where
         Self: IsClass,
     {
@@ -1405,7 +1399,7 @@ impl<T: ObjectType> ObjectExt for T {
     }
 
     fn get_interface<U: IsInterface>(&self) -> Option<InterfaceRef<U>> {
-        Interface::from_class(self.get_object_class())
+        Interface::from_class(self.object_class())
     }
 
     fn set_properties(&self, property_values: &[(&str, &dyn ToValue)]) -> Result<(), BoolError> {
@@ -1416,19 +1410,12 @@ impl<T: ObjectType> ObjectExt for T {
         let params = property_values
             .iter()
             .map(|&(name, value)| {
-                let pspec = pspecs
-                    .iter()
-                    .find(|p| p.get_name() == name)
-                    .ok_or_else(|| {
-                        bool_error!(
-                            "Can't find property '{}' for type '{}'",
-                            name,
-                            self.get_type()
-                        )
-                    })?;
+                let pspec = pspecs.iter().find(|p| p.name() == name).ok_or_else(|| {
+                    bool_error!("Can't find property '{}' for type '{}'", name, self.type_())
+                })?;
 
                 let mut value = value.to_value();
-                validate_property_type(self.get_type(), false, &pspec, &mut value)?;
+                validate_property_type(self.type_(), false, &pspec, &mut value)?;
                 Ok((CString::new(name).unwrap(), value))
             })
             .collect::<Result<smallvec::SmallVec<[_; 10]>, _>>()?;
@@ -1457,19 +1444,12 @@ impl<T: ObjectType> ObjectExt for T {
         let params = property_values
             .iter()
             .map(|(name, value)| {
-                let pspec = pspecs
-                    .iter()
-                    .find(|p| p.get_name() == *name)
-                    .ok_or_else(|| {
-                        bool_error!(
-                            "Can't find property '{}' for type '{}'",
-                            name,
-                            self.get_type()
-                        )
-                    })?;
+                let pspec = pspecs.iter().find(|p| p.name() == *name).ok_or_else(|| {
+                    bool_error!("Can't find property '{}' for type '{}'", name, self.type_())
+                })?;
 
                 let mut value = value.clone();
-                validate_property_type(self.get_type(), false, &pspec, &mut value)?;
+                validate_property_type(self.type_(), false, &pspec, &mut value)?;
                 Ok((CString::new(*name).unwrap(), value))
             })
             .collect::<Result<smallvec::SmallVec<[_; 10]>, _>>()?;
@@ -1500,13 +1480,13 @@ impl<T: ObjectType> ObjectExt for T {
                 return Err(bool_error!(
                     "property '{}' of type '{}' not found",
                     property_name,
-                    self.get_type()
+                    self.type_()
                 ));
             }
         };
 
         let mut property_value = value.to_value();
-        validate_property_type(self.get_type(), false, &pspec, &mut property_value)?;
+        validate_property_type(self.type_(), false, &pspec, &mut property_value)?;
         unsafe {
             gobject_ffi::g_object_set_property(
                 self.as_object_ref().to_glib_none().0,
@@ -1531,13 +1511,13 @@ impl<T: ObjectType> ObjectExt for T {
                 return Err(bool_error!(
                     "property '{}' of type '{}' not found",
                     property_name,
-                    self.get_type()
+                    self.type_()
                 ));
             }
         };
 
         let mut property_value = value.clone();
-        validate_property_type(self.get_type(), false, &pspec, &mut property_value)?;
+        validate_property_type(self.type_(), false, &pspec, &mut property_value)?;
         unsafe {
             gobject_ffi::g_object_set_property(
                 self.as_object_ref().to_glib_none().0,
@@ -1558,21 +1538,21 @@ impl<T: ObjectType> ObjectExt for T {
                 return Err(bool_error!(
                     "property '{}' of type '{}' not found",
                     property_name,
-                    self.get_type()
+                    self.type_()
                 ));
             }
         };
 
-        if !pspec.get_flags().contains(crate::ParamFlags::READABLE) {
+        if !pspec.flags().contains(crate::ParamFlags::READABLE) {
             return Err(bool_error!(
                 "property '{}' of type '{}' is not readable",
                 property_name,
-                self.get_type()
+                self.type_()
             ));
         }
 
         unsafe {
-            let mut value = Value::from_type(pspec.get_value_type());
+            let mut value = Value::from_type(pspec.value_type());
             gobject_ffi::g_object_get_property(
                 self.as_object_ref().to_glib_none().0,
                 property_name.to_glib_none().0,
@@ -1584,7 +1564,7 @@ impl<T: ObjectType> ObjectExt for T {
                 bool_error!(
                     "Failed to get property value for property '{}' of type '{}'",
                     property_name,
-                    self.get_type()
+                    self.type_()
                 )
             })
         }
@@ -1751,19 +1731,19 @@ impl<T: ObjectType> ObjectExt for T {
     }
 
     fn has_property<'a, N: Into<&'a str>>(&self, property_name: N, type_: Option<Type>) -> bool {
-        self.get_object_class().has_property(property_name, type_)
+        self.object_class().has_property(property_name, type_)
     }
 
     fn get_property_type<'a, N: Into<&'a str>>(&self, property_name: N) -> Option<Type> {
-        self.get_object_class().get_property_type(property_name)
+        self.object_class().get_property_type(property_name)
     }
 
     fn find_property<'a, N: Into<&'a str>>(&self, property_name: N) -> Option<crate::ParamSpec> {
-        self.get_object_class().find_property(property_name)
+        self.object_class().find_property(property_name)
     }
 
     fn list_properties(&self) -> Vec<crate::ParamSpec> {
-        self.get_object_class().list_properties()
+        self.object_class().list_properties()
     }
 
     fn connect<'a, N, F>(
@@ -1841,7 +1821,7 @@ impl<T: ObjectType> ObjectExt for T {
         F: Fn(&[Value]) -> Option<Value>,
     {
         let signal_name: &str = signal_name.into();
-        let type_ = self.get_type();
+        let type_ = self.type_();
         let (signal_id, details) = SignalId::parse_name(signal_name, type_, true)
             .ok_or_else(|| bool_error!("Signal '{}' of type '{}' not found", signal_name, type_))?;
         self.connect_unsafe_id(signal_id, Some(details), after, callback)
@@ -1858,7 +1838,7 @@ impl<T: ObjectType> ObjectExt for T {
         F: Fn(&[Value]) -> Option<Value>,
     {
         let signal_query = signal_id.query();
-        let type_ = self.get_type();
+        let type_ = self.type_();
         let return_type: Type = signal_query.return_type().into();
         let signal_name = signal_id.name();
 
@@ -1916,7 +1896,7 @@ impl<T: ObjectType> ObjectExt for T {
                     );
                 });
 
-                let actual_type = opt_obj.map_or_else(|| ret.type_(), |obj| obj.get_type());
+                let actual_type = opt_obj.map_or_else(|| ret.type_(), |obj| obj.type_());
                 if !actual_type.is_a(return_type) {
                     panic!(
                         "Signal '{}' of type '{}' required return value of type '{}' but got '{}' (actual '{}')",
@@ -1954,11 +1934,11 @@ impl<T: ObjectType> ObjectExt for T {
     fn emit(&self, signal_id: SignalId, args: &[&dyn ToValue]) -> Result<Option<Value>, BoolError> {
         let signal_query = signal_id.query();
         unsafe {
-            let type_ = self.get_type();
+            let type_ = self.type_();
 
             let self_v = {
                 let mut v = Value::uninitialized();
-                gobject_ffi::g_value_init(v.to_glib_none_mut().0, self.get_type().to_glib());
+                gobject_ffi::g_value_init(v.to_glib_none_mut().0, self.type_().to_glib());
                 gobject_ffi::g_value_set_object(
                     v.to_glib_none_mut().0,
                     self.as_object_ref().to_glib_none().0,
@@ -2003,11 +1983,11 @@ impl<T: ObjectType> ObjectExt for T {
         assert!(signal_query.flags().contains(crate::SignalFlags::DETAILED));
 
         unsafe {
-            let type_ = self.get_type();
+            let type_ = self.type_();
 
             let self_v = {
                 let mut v = Value::uninitialized();
-                gobject_ffi::g_value_init(v.to_glib_none_mut().0, self.get_type().to_glib());
+                gobject_ffi::g_value_init(v.to_glib_none_mut().0, self.type_().to_glib());
                 gobject_ffi::g_value_set_object(
                     v.to_glib_none_mut().0,
                     self.as_object_ref().to_glib_none().0,
@@ -2048,7 +2028,7 @@ impl<T: ObjectType> ObjectExt for T {
         args: &[&dyn ToValue],
     ) -> Result<Option<Value>, BoolError> {
         let signal_name: &str = signal_name.into();
-        let type_ = self.get_type();
+        let type_ = self.type_();
         let signal_id = SignalId::lookup(signal_name, type_)
             .ok_or_else(|| bool_error!("Signal '{}' of type '{}' not found", signal_name, type_))?;
         self.emit(signal_id, args)
@@ -2090,13 +2070,13 @@ impl<T: ObjectType> ObjectExt for T {
         args: &[Value],
     ) -> Result<Option<Value>, BoolError> {
         unsafe {
-            let type_ = self.get_type();
+            let type_ = self.type_();
 
             let signal_query = signal_id.query();
 
             let self_v = {
                 let mut v = Value::uninitialized();
-                gobject_ffi::g_value_init(v.to_glib_none_mut().0, self.get_type().to_glib());
+                gobject_ffi::g_value_init(v.to_glib_none_mut().0, self.type_().to_glib());
                 gobject_ffi::g_value_set_object(
                     v.to_glib_none_mut().0,
                     self.as_object_ref().to_glib_none().0,
@@ -2134,7 +2114,7 @@ impl<T: ObjectType> ObjectExt for T {
         args: &[Value],
     ) -> Result<Option<Value>, BoolError> {
         let signal_name: &str = signal_name.into();
-        let type_ = self.get_type();
+        let type_ = self.type_();
         let signal_id = SignalId::lookup(signal_name, type_)
             .ok_or_else(|| bool_error!("Signal '{}' of type '{}' not found", signal_name, type_))?;
         self.emit_with_values(signal_id, args)
@@ -2150,11 +2130,11 @@ impl<T: ObjectType> ObjectExt for T {
         assert!(signal_query.flags().contains(crate::SignalFlags::DETAILED));
 
         unsafe {
-            let type_ = self.get_type();
+            let type_ = self.type_();
 
             let self_v = {
                 let mut v = Value::uninitialized();
-                gobject_ffi::g_value_init(v.to_glib_none_mut().0, self.get_type().to_glib());
+                gobject_ffi::g_value_init(v.to_glib_none_mut().0, self.type_().to_glib());
                 gobject_ffi::g_value_set_object(
                     v.to_glib_none_mut().0,
                     self.as_object_ref().to_glib_none().0,
@@ -2195,15 +2175,12 @@ fn validate_property_type(
     pspec: &crate::ParamSpec,
     property_value: &mut Value,
 ) -> Result<(), BoolError> {
-    if !pspec.get_flags().contains(crate::ParamFlags::WRITABLE)
-        || (!allow_construct_only
-            && pspec
-                .get_flags()
-                .contains(crate::ParamFlags::CONSTRUCT_ONLY))
+    if !pspec.flags().contains(crate::ParamFlags::WRITABLE)
+        || (!allow_construct_only && pspec.flags().contains(crate::ParamFlags::CONSTRUCT_ONLY))
     {
         return Err(bool_error!(
             "property '{}' of type '{}' is not writable",
-            pspec.get_name(),
+            pspec.name(),
             type_
         ));
     }
@@ -2215,7 +2192,7 @@ fn validate_property_type(
         // value type is a subtype of the property type
         let valid_type: bool = from_glib(gobject_ffi::g_type_check_value_holds(
             mut_override(property_value.to_glib_none().0),
-            pspec.get_value_type().to_glib(),
+            pspec.value_type().to_glib(),
         ));
 
         // If it's not directly a valid type but an object type, we check if the
@@ -2225,32 +2202,32 @@ fn validate_property_type(
         if !valid_type && property_value.type_().is_a(Object::static_type()) {
             match property_value.get::<Object>() {
                 Ok(Some(obj)) => {
-                    if obj.get_type().is_a(pspec.get_value_type()) {
-                        property_value.0.g_type = pspec.get_value_type().to_glib();
+                    if obj.type_().is_a(pspec.value_type()) {
+                        property_value.0.g_type = pspec.value_type().to_glib();
                     } else {
                         return Err(
                             bool_error!(
                                 "property '{}' of type '{}' can't be set from the given object type (expected: '{}', got: '{}')",
-                                pspec.get_name(),
+                                pspec.name(),
                                 type_,
-                                pspec.get_value_type(),
-                                obj.get_type(),
+                                pspec.value_type(),
+                                obj.type_(),
                             )
                         );
                     }
                 }
                 Ok(None) => {
                     // If the value is None then the type is compatible too
-                    property_value.0.g_type = pspec.get_value_type().to_glib();
+                    property_value.0.g_type = pspec.value_type().to_glib();
                 }
                 Err(_) => unreachable!("property_value type conformity already checked"),
             }
         } else if !valid_type {
             return Err(bool_error!(format!(
                 "property '{}' of type '{}' can't be set from the given type (expected: '{}', got: '{}')",
-                pspec.get_name(),
+                pspec.name(),
                 type_,
-                pspec.get_value_type(),
+                pspec.value_type(),
                 property_value.type_(),
             )));
         }
@@ -2259,13 +2236,11 @@ fn validate_property_type(
             pspec.to_glib_none().0,
             property_value.to_glib_none_mut().0,
         ));
-        let change_allowed = pspec
-            .get_flags()
-            .contains(crate::ParamFlags::LAX_VALIDATION);
+        let change_allowed = pspec.flags().contains(crate::ParamFlags::LAX_VALIDATION);
         if changed && !change_allowed {
             return Err(bool_error!(
                 "property '{}' of type '{}' can't be set from given value, it is invalid or out of range",
-                pspec.get_name(),
+                pspec.name(),
                 type_,
             ));
         }
@@ -2302,7 +2277,7 @@ fn validate_signal_arguments(
         if arg.type_().is_a(Object::static_type()) {
             match arg.get::<Object>() {
                 Ok(Some(obj)) => {
-                    if obj.get_type().is_a(param_type) {
+                    if obj.type_().is_a(param_type) {
                         arg.0.g_type = param_type.to_glib();
                     } else {
                         return Err(
@@ -2358,7 +2333,7 @@ impl ObjectClass {
 
     pub fn get_property_type<'a, N: Into<&'a str>>(&self, property_name: N) -> Option<Type> {
         self.find_property(property_name)
-            .map(|pspec| pspec.get_value_type())
+            .map(|pspec| pspec.value_type())
     }
 
     pub fn find_property<'a, N: Into<&'a str>>(
@@ -2646,7 +2621,7 @@ impl<T: IsClass> Class<T> {
     ///
     /// This is not equivalent to `T::static_type()` but is the type of the subclass of `T` where
     /// this class belongs to.
-    pub fn get_type(&self) -> Type {
+    pub fn type_(&self) -> Type {
         unsafe {
             // This also works for interfaces because they also have the type
             // as the first struct field.
@@ -2683,7 +2658,7 @@ impl<T: IsClass> Class<T> {
     where
         U: IsA<T>,
     {
-        if !self.get_type().is_a(U::static_type()) {
+        if !self.type_().is_a(U::static_type()) {
             return None;
         }
 
@@ -2699,7 +2674,7 @@ impl<T: IsClass> Class<T> {
     where
         U: IsA<T>,
     {
-        if !self.get_type().is_a(U::static_type()) {
+        if !self.type_().is_a(U::static_type()) {
             return None;
         }
 
@@ -2830,7 +2805,7 @@ impl<T: IsInterface> Interface<T> {
     /// Get the type id for this interface.
     ///
     /// This is equivalent to `T::static_type()`.
-    pub fn get_type(&self) -> Type {
+    pub fn type_(&self) -> Type {
         unsafe {
             let klass = self as *const _ as *const gobject_ffi::GTypeInterface;
             from_glib((*klass).g_type)
@@ -2841,7 +2816,7 @@ impl<T: IsInterface> Interface<T> {
     ///
     /// This is not equivalent to `T::static_type()` but is the type id of the type this specific
     /// interface belongs to.
-    pub fn get_instance_type(&self) -> Type {
+    pub fn instance_type(&self) -> Type {
         unsafe {
             // This also works for interfaces because they also have the type
             // as the first struct field.
@@ -2854,7 +2829,7 @@ impl<T: IsInterface> Interface<T> {
     ///
     /// This will return `None` if `klass` is not implementing `Self`.
     pub fn from_class<U: IsClass>(klass: &Class<U>) -> Option<InterfaceRef<T>> {
-        if !klass.get_type().is_a(T::static_type()) {
+        if !klass.type_().is_a(T::static_type()) {
             return None;
         }
 

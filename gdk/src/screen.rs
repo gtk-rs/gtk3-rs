@@ -5,7 +5,7 @@ use glib::translate::*;
 
 impl Screen {
     #[doc(alias = "gdk_screen_get_font_options")]
-    pub fn get_font_options(&self) -> Option<cairo::FontOptions> {
+    pub fn font_options(&self) -> Option<cairo::FontOptions> {
         unsafe {
             from_glib_none(mut_override(ffi::gdk_screen_get_font_options(
                 self.to_glib_none().0,
