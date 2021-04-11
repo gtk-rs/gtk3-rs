@@ -12,6 +12,19 @@ use std::cell::RefCell;
 use std::rc::Rc;
 
 impl Application {
+    #[doc(alias = "gtk_application_new")]
+    pub fn new(application_id: Option<&str>, flags: ApplicationFlags) -> Application {
+        skip_assert_initialized!();
+        let app: Application = unsafe {
+            from_glib_full(ffi::gtk_application_new(
+                application_id.to_glib_none().0,
+                flags.to_glib(),
+            ))
+        };
+        Application::register_startup_hook(&app);
+        app
+    }
+
     pub(crate) fn register_startup_hook(app: &Application) {
         skip_assert_initialized!();
         let signalid: Rc<RefCell<Option<SignalHandlerId>>> = Rc::new(RefCell::new(None));
@@ -29,22 +42,5 @@ impl Application {
             });
             *signalid.borrow_mut() = Some(id);
         }
-    }
-
-    #[doc(alias = "gtk_application_new")]
-    pub fn new(
-        application_id: Option<&str>,
-        flags: ApplicationFlags,
-    ) -> Result<Application, glib::BoolError> {
-        skip_assert_initialized!();
-        let app: Application = unsafe {
-            Option::from_glib_full(ffi::gtk_application_new(
-                application_id.to_glib_none().0,
-                flags.to_glib(),
-            ))
-            .ok_or_else(|| glib::bool_error!("Failed to create application"))?
-        };
-        Application::register_startup_hook(&app);
-        Ok(app)
     }
 }

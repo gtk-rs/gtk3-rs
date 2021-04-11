@@ -61,8 +61,7 @@
 //!
 //! fn main() {
 //!     let uiapp = gtk::Application::new(Some("org.gtkrsnotes.demo"),
-//!                                       gio::ApplicationFlags::FLAGS_NONE)
-//!                                  .expect("Application::new failed");
+//!                                       gio::ApplicationFlags::FLAGS_NONE);
 //!     uiapp.connect_activate(|app| {
 //!         // We create the main window.
 //!         let win = gtk::ApplicationWindow::new(app);

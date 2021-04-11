@@ -5,8 +5,7 @@ use gtk::prelude::*;
 use gtk::{ApplicationWindow, Builder, Button, Grid};
 fn main() {
     let application =
-        gtk::Application::new(Some("com.github.gtk-rs.examples.grid"), Default::default())
-            .expect("Initialization failed...");
+        gtk::Application::new(Some("com.github.gtk-rs.examples.grid"), Default::default());
 
     application.connect_activate(build_ui);
 

@@ -14,8 +14,7 @@ fn main() {
     let application = gtk::Application::new(
         Some("com.github.gtk-rs.examples.gtktest"),
         Default::default(),
-    )
-    .expect("Initialization failed...");
+    );
 
     application.connect_activate(build_ui);
 

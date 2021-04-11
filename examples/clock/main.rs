@@ -36,8 +36,7 @@ fn build_ui(application: &gtk::Application) {
 
 fn main() {
     let application =
-        gtk::Application::new(Some("com.github.gtk-rs.examples.clock"), Default::default())
-            .expect("Initialization failed...");
+        gtk::Application::new(Some("com.github.gtk-rs.examples.clock"), Default::default());
 
     application.connect_activate(build_ui);
 

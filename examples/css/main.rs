@@ -2,8 +2,7 @@ use gtk::prelude::*;
 use gtk::{gdk, gio};
 
 fn main() {
-    let application = gtk::Application::new(Some("com.github.css"), gio::ApplicationFlags::empty())
-        .expect("Initialization failed...");
+    let application = gtk::Application::new(Some("com.github.css"), gio::ApplicationFlags::empty());
 
     application.connect_startup(|app| {
         // The CSS "magic" happens here.

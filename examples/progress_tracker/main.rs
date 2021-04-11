@@ -12,8 +12,7 @@ pub fn main() {
     let application = gtk::Application::new(
         Some("com.github.progress-tracker"),
         gio::ApplicationFlags::empty(),
-    )
-    .expect("initialization failed");
+    );
 
     application.connect_startup(|app| {
         let application = Application::new(app);
