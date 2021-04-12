@@ -142,6 +142,22 @@ generate = [
 
 ignore = [
     "Gtk.Activatable",
+    #deprecated since 3.14
+    "Gtk.Alignment",
+    #deprecated since 3.14
+    "Gtk.Arrow",
+    #deprecated since 3.10
+    "Gtk.IconFactory",
+    #deprecated since 3.10
+    "Gtk.IconSet",
+    #deprecated since 3.10
+    "Gtk.IconSource",
+    #deprecated since 3.10
+    "Gtk.ImageMenuItem",
+    #deprecated since 3.14
+    "Gtk.StatusIcon",
+    #deprecated since 3.8
+    "Gtk.SymbolicColor",
 ]
 
 manual = [
@@ -364,12 +380,6 @@ status = "generate"
 generate_builder = true
 
 [[object]]
-name = "Gtk.Alignment"
-#deprecated since 3.14
-status = "ignore"
-generate_builder = true
-
-[[object]]
 name = "Gtk.AppChooserButton"
 status = "generate"
 generate_builder = true
@@ -406,12 +416,6 @@ generate_builder = true
     [[object.function]]
     name = "new"
     ignore = true
-
-[[object]]
-name = "Gtk.Arrow"
-#deprecated since 3.14
-status = "ignore"
-ignore_builder = true
 
 [[object]]
 name = "Gtk.AspectFrame"
@@ -1153,21 +1157,6 @@ generate_builder = true
     type = "gint"
 
 [[object]]
-name = "Gtk.IconFactory"
-#deprecated since 3.10
-status = "ignore"
-
-[[object]]
-name = "Gtk.IconSet"
-#deprecated since 3.10
-status = "ignore"
-
-[[object]]
-name = "Gtk.IconSource"
-#deprecated since 3.10
-status = "ignore"
-
-[[object]]
 name = "Gtk.IconTheme"
 status = "generate"
     [[object.function]]
@@ -1236,12 +1225,6 @@ generate_builder = true
     name = "get_stock"
     # wrong out parameter mutability and deprecated anyway
     ignore = true
-
-[[object]]
-name = "Gtk.ImageMenuItem"
-#deprecated since 3.10
-status = "ignore"
-generate_builder = true
 
 [[object]]
 name = "Gtk.IMContext"
@@ -2066,12 +2049,6 @@ status = "generate"
 generate_builder = true
 
 [[object]]
-name = "Gtk.StatusIcon"
-#deprecated since 3.14
-status = "ignore"
-generate_builder = true
-
-[[object]]
 name = "Gtk.StyleContext"
 status = "generate"
 generate_builder = true
@@ -2093,11 +2070,6 @@ manual_traits = ["SwitchExtManual"]
     [[object.signal]]
     name = "state-set"
     inhibit = true
-
-[[object]]
-name = "Gtk.SymbolicColor"
-#deprecated since 3.8
-status = "ignore"
 
 [[object]]
 name = "Gtk.TargetList"
