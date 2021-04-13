@@ -34,7 +34,7 @@ impl TabArray {
     //}
 
     #[doc(alias = "pango_tab_array_get_positions_in_pixels")]
-    pub fn get_positions_in_pixels(&mut self) -> bool {
+    pub fn is_positions_in_pixels(&mut self) -> bool {
         unsafe {
             from_glib(ffi::pango_tab_array_get_positions_in_pixels(
                 self.to_glib_none_mut().0,
@@ -43,7 +43,7 @@ impl TabArray {
     }
 
     #[doc(alias = "pango_tab_array_get_size")]
-    pub fn get_size(&mut self) -> i32 {
+    pub fn size(&mut self) -> i32 {
         unsafe { ffi::pango_tab_array_get_size(self.to_glib_none_mut().0) }
     }
 
@@ -65,7 +65,7 @@ impl TabArray {
     }
 
     //#[doc(alias = "pango_tab_array_get_tabs")]
-    //pub fn get_tabs(&mut self, locations: Vec<i32>) -> TabAlign {
+    //pub fn tabs(&mut self, locations: Vec<i32>) -> TabAlign {
     //    unsafe { TODO: call ffi:pango_tab_array_get_tabs() }
     //}
 

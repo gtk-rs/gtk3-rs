@@ -7,7 +7,7 @@ use glib::translate::*;
 
 impl Frustum {
     #[doc(alias = "graphene_frustum_get_planes")]
-    pub fn get_planes(&self) -> [Plane; 6] {
+    pub fn planes(&self) -> [Plane; 6] {
         unsafe {
             let mut out: [ffi::graphene_plane_t; 6] = std::mem::uninitialized();
             ffi::graphene_frustum_get_planes(self.to_glib_none().0, &mut out as *mut _);

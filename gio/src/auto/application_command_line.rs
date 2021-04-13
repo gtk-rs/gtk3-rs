@@ -29,28 +29,28 @@ pub trait ApplicationCommandLineExt: 'static {
     fn create_file_for_arg<P: AsRef<std::ffi::OsStr>>(&self, arg: P) -> File;
 
     #[doc(alias = "g_application_command_line_get_arguments")]
-    fn get_arguments(&self) -> Vec<std::ffi::OsString>;
+    fn arguments(&self) -> Vec<std::ffi::OsString>;
 
     #[doc(alias = "g_application_command_line_get_cwd")]
-    fn get_cwd(&self) -> Option<std::path::PathBuf>;
+    fn cwd(&self) -> Option<std::path::PathBuf>;
 
     #[doc(alias = "g_application_command_line_get_environ")]
-    fn get_environ(&self) -> Vec<std::ffi::OsString>;
+    fn environ(&self) -> Vec<std::ffi::OsString>;
 
     #[doc(alias = "g_application_command_line_get_exit_status")]
-    fn get_exit_status(&self) -> i32;
+    fn exit_status(&self) -> i32;
 
     #[doc(alias = "g_application_command_line_get_is_remote")]
-    fn get_is_remote(&self) -> bool;
+    fn is_remote(&self) -> bool;
 
     #[doc(alias = "g_application_command_line_get_options_dict")]
-    fn get_options_dict(&self) -> glib::VariantDict;
+    fn options_dict(&self) -> glib::VariantDict;
 
     #[doc(alias = "g_application_command_line_get_platform_data")]
-    fn get_platform_data(&self) -> Option<glib::Variant>;
+    fn platform_data(&self) -> Option<glib::Variant>;
 
     #[doc(alias = "g_application_command_line_get_stdin")]
-    fn get_stdin(&self) -> Option<InputStream>;
+    fn stdin(&self) -> Option<InputStream>;
 
     #[doc(alias = "g_application_command_line_getenv")]
     fn getenv<P: AsRef<std::ffi::OsStr>>(&self, name: P) -> Option<glib::GString>;
@@ -77,7 +77,7 @@ impl<O: IsA<ApplicationCommandLine>> ApplicationCommandLineExt for O {
         }
     }
 
-    fn get_arguments(&self) -> Vec<std::ffi::OsString> {
+    fn arguments(&self) -> Vec<std::ffi::OsString> {
         unsafe {
             let mut argc = mem::MaybeUninit::uninit();
             let ret = FromGlibContainer::from_glib_full_num(
@@ -91,7 +91,7 @@ impl<O: IsA<ApplicationCommandLine>> ApplicationCommandLineExt for O {
         }
     }
 
-    fn get_cwd(&self) -> Option<std::path::PathBuf> {
+    fn cwd(&self) -> Option<std::path::PathBuf> {
         unsafe {
             from_glib_none(ffi::g_application_command_line_get_cwd(
                 self.as_ref().to_glib_none().0,
@@ -99,7 +99,7 @@ impl<O: IsA<ApplicationCommandLine>> ApplicationCommandLineExt for O {
         }
     }
 
-    fn get_environ(&self) -> Vec<std::ffi::OsString> {
+    fn environ(&self) -> Vec<std::ffi::OsString> {
         unsafe {
             FromGlibPtrContainer::from_glib_none(ffi::g_application_command_line_get_environ(
                 self.as_ref().to_glib_none().0,
@@ -107,11 +107,11 @@ impl<O: IsA<ApplicationCommandLine>> ApplicationCommandLineExt for O {
         }
     }
 
-    fn get_exit_status(&self) -> i32 {
+    fn exit_status(&self) -> i32 {
         unsafe { ffi::g_application_command_line_get_exit_status(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_is_remote(&self) -> bool {
+    fn is_remote(&self) -> bool {
         unsafe {
             from_glib(ffi::g_application_command_line_get_is_remote(
                 self.as_ref().to_glib_none().0,
@@ -119,7 +119,7 @@ impl<O: IsA<ApplicationCommandLine>> ApplicationCommandLineExt for O {
         }
     }
 
-    fn get_options_dict(&self) -> glib::VariantDict {
+    fn options_dict(&self) -> glib::VariantDict {
         unsafe {
             from_glib_none(ffi::g_application_command_line_get_options_dict(
                 self.as_ref().to_glib_none().0,
@@ -127,7 +127,7 @@ impl<O: IsA<ApplicationCommandLine>> ApplicationCommandLineExt for O {
         }
     }
 
-    fn get_platform_data(&self) -> Option<glib::Variant> {
+    fn platform_data(&self) -> Option<glib::Variant> {
         unsafe {
             from_glib_full(ffi::g_application_command_line_get_platform_data(
                 self.as_ref().to_glib_none().0,
@@ -135,7 +135,7 @@ impl<O: IsA<ApplicationCommandLine>> ApplicationCommandLineExt for O {
         }
     }
 
-    fn get_stdin(&self) -> Option<InputStream> {
+    fn stdin(&self) -> Option<InputStream> {
         unsafe {
             from_glib_full(ffi::g_application_command_line_get_stdin(
                 self.as_ref().to_glib_none().0,

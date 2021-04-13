@@ -68,7 +68,7 @@ pub trait TreeSortableExtManual: 'static {
     fn set_sort_func<F>(&self, sort_column_id: SortColumn, sort_func: F)
     where
         F: Fn(&TreeModel, &TreeIter, &TreeIter) -> Ordering + 'static;
-    fn get_sort_column_id(&self) -> Option<(SortColumn, SortType)>;
+    fn sort_column_id(&self) -> Option<(SortColumn, SortType)>;
     fn set_sort_column_id(&self, sort_column_id: SortColumn, order: SortType);
     fn set_unsorted(&self);
 }
@@ -84,7 +84,7 @@ where
 
 impl<O: IsA<TreeSortable>> TreeSortableExtManual for O {
     #[inline]
-    fn get_sort_column_id(&self) -> Option<(SortColumn, SortType)> {
+    fn sort_column_id(&self) -> Option<(SortColumn, SortType)> {
         unsafe {
             let mut sort_column_id = mem::MaybeUninit::uninit();
             let mut order = mem::MaybeUninit::uninit();

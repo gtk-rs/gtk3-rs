@@ -504,7 +504,7 @@ pub const NONE_RADIO_MENU_ITEM: Option<&RadioMenuItem> = None;
 
 pub trait RadioMenuItemExt: 'static {
     #[doc(alias = "gtk_radio_menu_item_get_group")]
-    fn get_group(&self) -> Vec<RadioMenuItem>;
+    fn group(&self) -> Vec<RadioMenuItem>;
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
@@ -515,7 +515,7 @@ pub trait RadioMenuItemExt: 'static {
 }
 
 impl<O: IsA<RadioMenuItem>> RadioMenuItemExt for O {
-    fn get_group(&self) -> Vec<RadioMenuItem> {
+    fn group(&self) -> Vec<RadioMenuItem> {
         unsafe {
             FromGlibPtrContainer::from_glib_none(ffi::gtk_radio_menu_item_get_group(
                 self.as_ref().to_glib_none().0,

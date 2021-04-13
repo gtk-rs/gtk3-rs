@@ -23,15 +23,15 @@ impl TargetEntry {
         }
     }
 
-    pub fn get_target(&self) -> &str {
+    pub fn target(&self) -> &str {
         &self.target
     }
 
-    pub fn get_flags(&self) -> TargetFlags {
+    pub fn flags(&self) -> TargetFlags {
         self.flags
     }
 
-    pub fn get_info(&self) -> u32 {
+    pub fn info(&self) -> u32 {
         self.info
     }
 }

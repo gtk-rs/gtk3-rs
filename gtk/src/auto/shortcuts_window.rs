@@ -641,13 +641,17 @@ impl ShortcutsWindowBuilder {
 pub const NONE_SHORTCUTS_WINDOW: Option<&ShortcutsWindow> = None;
 
 pub trait ShortcutsWindowExt: 'static {
-    fn get_property_section_name(&self) -> Option<glib::GString>;
+    #[doc(alias = "get_property_section_name")]
+    fn section_name(&self) -> Option<glib::GString>;
 
-    fn set_property_section_name(&self, section_name: Option<&str>);
+    #[doc(alias = "set_property_section_name")]
+    fn set_section_name(&self, section_name: Option<&str>);
 
-    fn get_property_view_name(&self) -> Option<glib::GString>;
+    #[doc(alias = "get_property_view_name")]
+    fn view_name(&self) -> Option<glib::GString>;
 
-    fn set_property_view_name(&self, view_name: Option<&str>);
+    #[doc(alias = "set_property_view_name")]
+    fn set_view_name(&self, view_name: Option<&str>);
 
     fn connect_close<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -664,7 +668,7 @@ pub trait ShortcutsWindowExt: 'static {
 }
 
 impl<O: IsA<ShortcutsWindow>> ShortcutsWindowExt for O {
-    fn get_property_section_name(&self) -> Option<glib::GString> {
+    fn section_name(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -678,7 +682,7 @@ impl<O: IsA<ShortcutsWindow>> ShortcutsWindowExt for O {
         }
     }
 
-    fn set_property_section_name(&self, section_name: Option<&str>) {
+    fn set_section_name(&self, section_name: Option<&str>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -688,7 +692,7 @@ impl<O: IsA<ShortcutsWindow>> ShortcutsWindowExt for O {
         }
     }
 
-    fn get_property_view_name(&self) -> Option<glib::GString> {
+    fn view_name(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -702,7 +706,7 @@ impl<O: IsA<ShortcutsWindow>> ShortcutsWindowExt for O {
         }
     }
 
-    fn set_property_view_name(&self, view_name: Option<&str>) {
+    fn set_view_name(&self, view_name: Option<&str>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,

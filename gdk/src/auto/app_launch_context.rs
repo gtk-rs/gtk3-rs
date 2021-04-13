@@ -60,7 +60,8 @@ impl AppLaunchContext {
         }
     }
 
-    pub fn get_property_display(&self) -> Option<Display> {
+    #[doc(alias = "get_property_display")]
+    pub fn display(&self) -> Option<Display> {
         unsafe {
             let mut value = glib::Value::from_type(<Display as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(

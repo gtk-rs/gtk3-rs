@@ -8,7 +8,7 @@ use gtk::cairo::{Context, FontSlant, FontWeight};
 fn build_ui(application: &gtk::Application) {
     drawable(application, 500, 500, |_, cr| {
         cr.set_dash(&[3., 2., 1.], 1.);
-        assert_eq!(cr.get_dash(), (vec![3., 2., 1.], 1.));
+        assert_eq!(cr.dash(), (vec![3., 2., 1.], 1.));
 
         cr.scale(500f64, 500f64);
 

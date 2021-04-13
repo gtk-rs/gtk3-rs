@@ -366,9 +366,11 @@ pub trait SpinnerExt: 'static {
     #[doc(alias = "gtk_spinner_stop")]
     fn stop(&self);
 
-    fn get_property_active(&self) -> bool;
+    #[doc(alias = "get_property_active")]
+    fn is_active(&self) -> bool;
 
-    fn set_property_active(&self, active: bool);
+    #[doc(alias = "set_property_active")]
+    fn set_active(&self, active: bool);
 
     fn connect_property_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
@@ -386,7 +388,7 @@ impl<O: IsA<Spinner>> SpinnerExt for O {
         }
     }
 
-    fn get_property_active(&self) -> bool {
+    fn is_active(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -401,7 +403,7 @@ impl<O: IsA<Spinner>> SpinnerExt for O {
         }
     }
 
-    fn set_property_active(&self, active: bool) {
+    fn set_active(&self, active: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,

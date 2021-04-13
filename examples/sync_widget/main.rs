@@ -12,8 +12,8 @@ fn build_ui(application: &gtk::Application) {
     let spin_button: gtk::SpinButton = builder
         .get_object("spin_button")
         .expect("Couldn't get spin_button");
-    let slider_adj = slider.get_adjustment();
-    let spin_button_adj = spin_button.get_adjustment();
+    let slider_adj = slider.adjustment();
+    let spin_button_adj = spin_button.adjustment();
     slider_adj
         .bind_property("value", &spin_button_adj, "value")
         .flags(

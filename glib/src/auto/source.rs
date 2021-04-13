@@ -47,32 +47,32 @@ impl Source {
     }
 
     #[doc(alias = "g_source_get_can_recurse")]
-    pub fn get_can_recurse(&self) -> bool {
+    pub fn can_recurse(&self) -> bool {
         unsafe { from_glib(ffi::g_source_get_can_recurse(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_source_get_context")]
-    pub fn get_context(&self) -> Option<MainContext> {
+    pub fn context(&self) -> Option<MainContext> {
         unsafe { from_glib_none(ffi::g_source_get_context(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_source_get_name")]
-    pub fn get_name(&self) -> Option<crate::GString> {
+    pub fn name(&self) -> Option<crate::GString> {
         unsafe { from_glib_none(ffi::g_source_get_name(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_source_get_priority")]
-    pub fn get_priority(&self) -> i32 {
+    pub fn priority(&self) -> i32 {
         unsafe { ffi::g_source_get_priority(self.to_glib_none().0) }
     }
 
     #[doc(alias = "g_source_get_ready_time")]
-    pub fn get_ready_time(&self) -> i64 {
+    pub fn ready_time(&self) -> i64 {
         unsafe { ffi::g_source_get_ready_time(self.to_glib_none().0) }
     }
 
     #[doc(alias = "g_source_get_time")]
-    pub fn get_time(&self) -> i64 {
+    pub fn time(&self) -> i64 {
         unsafe { ffi::g_source_get_time(self.to_glib_none().0) }
     }
 

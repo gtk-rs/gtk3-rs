@@ -160,31 +160,31 @@ pub trait EntryCompletionExt: 'static {
     fn delete_action(&self, index_: i32);
 
     #[doc(alias = "gtk_entry_completion_get_completion_prefix")]
-    fn get_completion_prefix(&self) -> Option<glib::GString>;
+    fn completion_prefix(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_entry_completion_get_inline_completion")]
-    fn get_inline_completion(&self) -> bool;
+    fn is_inline_completion(&self) -> bool;
 
     #[doc(alias = "gtk_entry_completion_get_inline_selection")]
-    fn get_inline_selection(&self) -> bool;
+    fn is_inline_selection(&self) -> bool;
 
     #[doc(alias = "gtk_entry_completion_get_minimum_key_length")]
-    fn get_minimum_key_length(&self) -> i32;
+    fn minimum_key_length(&self) -> i32;
 
     #[doc(alias = "gtk_entry_completion_get_model")]
-    fn get_model(&self) -> Option<TreeModel>;
+    fn model(&self) -> Option<TreeModel>;
 
     #[doc(alias = "gtk_entry_completion_get_popup_completion")]
-    fn get_popup_completion(&self) -> bool;
+    fn is_popup_completion(&self) -> bool;
 
     #[doc(alias = "gtk_entry_completion_get_popup_set_width")]
-    fn get_popup_set_width(&self) -> bool;
+    fn is_popup_set_width(&self) -> bool;
 
     #[doc(alias = "gtk_entry_completion_get_popup_single_match")]
-    fn get_popup_single_match(&self) -> bool;
+    fn is_popup_single_match(&self) -> bool;
 
     #[doc(alias = "gtk_entry_completion_get_text_column")]
-    fn get_text_column(&self) -> i32;
+    fn text_column(&self) -> i32;
 
     #[doc(alias = "gtk_entry_completion_insert_action_markup")]
     fn insert_action_markup(&self, index_: i32, markup: &str);
@@ -222,7 +222,8 @@ pub trait EntryCompletionExt: 'static {
     #[doc(alias = "gtk_entry_completion_set_text_column")]
     fn set_text_column(&self, column: i32);
 
-    fn get_property_cell_area(&self) -> Option<CellArea>;
+    #[doc(alias = "get_property_cell_area")]
+    fn cell_area(&self) -> Option<CellArea>;
 
     fn connect_action_activated<F: Fn(&Self, i32) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -304,7 +305,7 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
         }
     }
 
-    fn get_completion_prefix(&self) -> Option<glib::GString> {
+    fn completion_prefix(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_entry_completion_get_completion_prefix(
                 self.as_ref().to_glib_none().0,
@@ -312,7 +313,7 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
         }
     }
 
-    fn get_inline_completion(&self) -> bool {
+    fn is_inline_completion(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_entry_completion_get_inline_completion(
                 self.as_ref().to_glib_none().0,
@@ -320,7 +321,7 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
         }
     }
 
-    fn get_inline_selection(&self) -> bool {
+    fn is_inline_selection(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_entry_completion_get_inline_selection(
                 self.as_ref().to_glib_none().0,
@@ -328,11 +329,11 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
         }
     }
 
-    fn get_minimum_key_length(&self) -> i32 {
+    fn minimum_key_length(&self) -> i32 {
         unsafe { ffi::gtk_entry_completion_get_minimum_key_length(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_model(&self) -> Option<TreeModel> {
+    fn model(&self) -> Option<TreeModel> {
         unsafe {
             from_glib_none(ffi::gtk_entry_completion_get_model(
                 self.as_ref().to_glib_none().0,
@@ -340,7 +341,7 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
         }
     }
 
-    fn get_popup_completion(&self) -> bool {
+    fn is_popup_completion(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_entry_completion_get_popup_completion(
                 self.as_ref().to_glib_none().0,
@@ -348,7 +349,7 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
         }
     }
 
-    fn get_popup_set_width(&self) -> bool {
+    fn is_popup_set_width(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_entry_completion_get_popup_set_width(
                 self.as_ref().to_glib_none().0,
@@ -356,7 +357,7 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
         }
     }
 
-    fn get_popup_single_match(&self) -> bool {
+    fn is_popup_single_match(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_entry_completion_get_popup_single_match(
                 self.as_ref().to_glib_none().0,
@@ -364,7 +365,7 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
         }
     }
 
-    fn get_text_column(&self) -> i32 {
+    fn text_column(&self) -> i32 {
         unsafe { ffi::gtk_entry_completion_get_text_column(self.as_ref().to_glib_none().0) }
     }
 
@@ -500,7 +501,7 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
         }
     }
 
-    fn get_property_cell_area(&self) -> Option<CellArea> {
+    fn cell_area(&self) -> Option<CellArea> {
         unsafe {
             let mut value = glib::Value::from_type(<CellArea as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(

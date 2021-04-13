@@ -19,11 +19,11 @@ pub const NONE_HYPERLINK_IMPL: Option<&HyperlinkImpl> = None;
 
 pub trait HyperlinkImplExt: 'static {
     #[doc(alias = "atk_hyperlink_impl_get_hyperlink")]
-    fn get_hyperlink(&self) -> Option<Hyperlink>;
+    fn hyperlink(&self) -> Option<Hyperlink>;
 }
 
 impl<O: IsA<HyperlinkImpl>> HyperlinkImplExt for O {
-    fn get_hyperlink(&self) -> Option<Hyperlink> {
+    fn hyperlink(&self) -> Option<Hyperlink> {
         unsafe {
             from_glib_full(ffi::atk_hyperlink_impl_get_hyperlink(
                 self.as_ref().to_glib_none().0,

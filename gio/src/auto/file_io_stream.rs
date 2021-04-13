@@ -26,7 +26,7 @@ pub const NONE_FILE_IO_STREAM: Option<&FileIOStream> = None;
 
 pub trait FileIOStreamExt: 'static {
     #[doc(alias = "g_file_io_stream_get_etag")]
-    fn get_etag(&self) -> Option<glib::GString>;
+    fn etag(&self) -> Option<glib::GString>;
 
     #[doc(alias = "g_file_io_stream_query_info")]
     fn query_info<P: IsA<Cancellable>>(
@@ -55,7 +55,7 @@ pub trait FileIOStreamExt: 'static {
 }
 
 impl<O: IsA<FileIOStream>> FileIOStreamExt for O {
-    fn get_etag(&self) -> Option<glib::GString> {
+    fn etag(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_full(ffi::g_file_io_stream_get_etag(
                 self.as_ref().to_glib_none().0,

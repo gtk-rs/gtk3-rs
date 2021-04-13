@@ -420,10 +420,10 @@ pub const NONE_MENU_BAR: Option<&MenuBar> = None;
 
 pub trait MenuBarExt: 'static {
     #[doc(alias = "gtk_menu_bar_get_child_pack_direction")]
-    fn get_child_pack_direction(&self) -> PackDirection;
+    fn child_pack_direction(&self) -> PackDirection;
 
     #[doc(alias = "gtk_menu_bar_get_pack_direction")]
-    fn get_pack_direction(&self) -> PackDirection;
+    fn pack_direction(&self) -> PackDirection;
 
     #[doc(alias = "gtk_menu_bar_set_child_pack_direction")]
     fn set_child_pack_direction(&self, child_pack_dir: PackDirection);
@@ -443,7 +443,7 @@ pub trait MenuBarExt: 'static {
 }
 
 impl<O: IsA<MenuBar>> MenuBarExt for O {
-    fn get_child_pack_direction(&self) -> PackDirection {
+    fn child_pack_direction(&self) -> PackDirection {
         unsafe {
             from_glib(ffi::gtk_menu_bar_get_child_pack_direction(
                 self.as_ref().to_glib_none().0,
@@ -451,7 +451,7 @@ impl<O: IsA<MenuBar>> MenuBarExt for O {
         }
     }
 
-    fn get_pack_direction(&self) -> PackDirection {
+    fn pack_direction(&self) -> PackDirection {
         unsafe {
             from_glib(ffi::gtk_menu_bar_get_pack_direction(
                 self.as_ref().to_glib_none().0,

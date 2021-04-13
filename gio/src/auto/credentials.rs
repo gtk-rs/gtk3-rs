@@ -28,7 +28,7 @@ impl Credentials {
     #[cfg(any(unix, feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(unix)))]
     #[doc(alias = "g_credentials_get_unix_pid")]
-    pub fn get_unix_pid(&self) -> Result<i32, glib::Error> {
+    pub fn unix_pid(&self) -> Result<i32, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = ffi::g_credentials_get_unix_pid(self.to_glib_none().0, &mut error);
@@ -43,7 +43,7 @@ impl Credentials {
     #[cfg(any(unix, feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(unix)))]
     #[doc(alias = "g_credentials_get_unix_user")]
-    pub fn get_unix_user(&self) -> Result<u32, glib::Error> {
+    pub fn unix_user(&self) -> Result<u32, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = ffi::g_credentials_get_unix_user(self.to_glib_none().0, &mut error);

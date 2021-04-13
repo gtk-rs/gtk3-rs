@@ -261,7 +261,7 @@ pub trait FileExt: 'static {
     ) -> Result<Mount, glib::Error>;
 
     #[doc(alias = "g_file_get_basename")]
-    fn get_basename(&self) -> Option<std::path::PathBuf>;
+    fn basename(&self) -> Option<std::path::PathBuf>;
 
     #[doc(alias = "g_file_get_child")]
     fn get_child<P: AsRef<std::path::Path>>(&self, name: P) -> File;
@@ -270,22 +270,22 @@ pub trait FileExt: 'static {
     fn get_child_for_display_name(&self, display_name: &str) -> Result<File, glib::Error>;
 
     #[doc(alias = "g_file_get_parent")]
-    fn get_parent(&self) -> Option<File>;
+    fn parent(&self) -> Option<File>;
 
     #[doc(alias = "g_file_get_parse_name")]
-    fn get_parse_name(&self) -> glib::GString;
+    fn parse_name(&self) -> glib::GString;
 
     #[doc(alias = "g_file_get_path")]
-    fn get_path(&self) -> Option<std::path::PathBuf>;
+    fn path(&self) -> Option<std::path::PathBuf>;
 
     #[doc(alias = "g_file_get_relative_path")]
     fn get_relative_path<P: IsA<File>>(&self, descendant: &P) -> Option<std::path::PathBuf>;
 
     #[doc(alias = "g_file_get_uri")]
-    fn get_uri(&self) -> glib::GString;
+    fn uri(&self) -> glib::GString;
 
     #[doc(alias = "g_file_get_uri_scheme")]
-    fn get_uri_scheme(&self) -> Option<glib::GString>;
+    fn uri_scheme(&self) -> Option<glib::GString>;
 
     #[doc(alias = "g_file_has_parent")]
     fn has_parent<P: IsA<File>>(&self, parent: Option<&P>) -> bool;
@@ -1418,7 +1418,7 @@ impl<O: IsA<File>> FileExt for O {
         }
     }
 
-    fn get_basename(&self) -> Option<std::path::PathBuf> {
+    fn basename(&self) -> Option<std::path::PathBuf> {
         unsafe { from_glib_full(ffi::g_file_get_basename(self.as_ref().to_glib_none().0)) }
     }
 
@@ -1447,15 +1447,15 @@ impl<O: IsA<File>> FileExt for O {
         }
     }
 
-    fn get_parent(&self) -> Option<File> {
+    fn parent(&self) -> Option<File> {
         unsafe { from_glib_full(ffi::g_file_get_parent(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_parse_name(&self) -> glib::GString {
+    fn parse_name(&self) -> glib::GString {
         unsafe { from_glib_full(ffi::g_file_get_parse_name(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_path(&self) -> Option<std::path::PathBuf> {
+    fn path(&self) -> Option<std::path::PathBuf> {
         unsafe { from_glib_full(ffi::g_file_get_path(self.as_ref().to_glib_none().0)) }
     }
 
@@ -1468,11 +1468,11 @@ impl<O: IsA<File>> FileExt for O {
         }
     }
 
-    fn get_uri(&self) -> glib::GString {
+    fn uri(&self) -> glib::GString {
         unsafe { from_glib_full(ffi::g_file_get_uri(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_uri_scheme(&self) -> Option<glib::GString> {
+    fn uri_scheme(&self) -> Option<glib::GString> {
         unsafe { from_glib_full(ffi::g_file_get_uri_scheme(self.as_ref().to_glib_none().0)) }
     }
 

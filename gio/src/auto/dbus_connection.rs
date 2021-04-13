@@ -38,7 +38,7 @@ glib::wrapper! {
 
 impl DBusConnection {
     #[doc(alias = "g_dbus_connection_new_for_address_sync")]
-    pub fn new_for_address_sync<P: IsA<Cancellable>>(
+    pub fn for_address_sync<P: IsA<Cancellable>>(
         address: &str,
         flags: DBusConnectionFlags,
         observer: Option<&DBusAuthObserver>,
@@ -536,7 +536,7 @@ impl DBusConnection {
     }
 
     #[doc(alias = "g_dbus_connection_get_capabilities")]
-    pub fn get_capabilities(&self) -> DBusCapabilityFlags {
+    pub fn capabilities(&self) -> DBusCapabilityFlags {
         unsafe {
             from_glib(ffi::g_dbus_connection_get_capabilities(
                 self.to_glib_none().0,
@@ -545,7 +545,7 @@ impl DBusConnection {
     }
 
     #[doc(alias = "g_dbus_connection_get_exit_on_close")]
-    pub fn get_exit_on_close(&self) -> bool {
+    pub fn exits_on_close(&self) -> bool {
         unsafe {
             from_glib(ffi::g_dbus_connection_get_exit_on_close(
                 self.to_glib_none().0,
@@ -556,22 +556,22 @@ impl DBusConnection {
     #[cfg(any(feature = "v2_60", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     #[doc(alias = "g_dbus_connection_get_flags")]
-    pub fn get_flags(&self) -> DBusConnectionFlags {
+    pub fn flags(&self) -> DBusConnectionFlags {
         unsafe { from_glib(ffi::g_dbus_connection_get_flags(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_dbus_connection_get_guid")]
-    pub fn get_guid(&self) -> glib::GString {
+    pub fn guid(&self) -> glib::GString {
         unsafe { from_glib_none(ffi::g_dbus_connection_get_guid(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_dbus_connection_get_last_serial")]
-    pub fn get_last_serial(&self) -> u32 {
+    pub fn last_serial(&self) -> u32 {
         unsafe { ffi::g_dbus_connection_get_last_serial(self.to_glib_none().0) }
     }
 
     #[doc(alias = "g_dbus_connection_get_peer_credentials")]
-    pub fn get_peer_credentials(&self) -> Option<Credentials> {
+    pub fn peer_credentials(&self) -> Option<Credentials> {
         unsafe {
             from_glib_none(ffi::g_dbus_connection_get_peer_credentials(
                 self.to_glib_none().0,
@@ -580,12 +580,12 @@ impl DBusConnection {
     }
 
     #[doc(alias = "g_dbus_connection_get_stream")]
-    pub fn get_stream(&self) -> IOStream {
+    pub fn stream(&self) -> IOStream {
         unsafe { from_glib_none(ffi::g_dbus_connection_get_stream(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_dbus_connection_get_unique_name")]
-    pub fn get_unique_name(&self) -> Option<glib::GString> {
+    pub fn unique_name(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::g_dbus_connection_get_unique_name(
                 self.to_glib_none().0,
@@ -747,21 +747,6 @@ impl DBusConnection {
     pub fn start_message_processing(&self) {
         unsafe {
             ffi::g_dbus_connection_start_message_processing(self.to_glib_none().0);
-        }
-    }
-
-    pub fn get_property_closed(&self) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"closed\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `closed` getter")
-                .unwrap()
         }
     }
 

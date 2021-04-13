@@ -157,7 +157,7 @@ impl Surface {
     }
 
     #[doc(alias = "cairo_surface_get_device")]
-    pub fn get_device(&self) -> Option<Device> {
+    pub fn device(&self) -> Option<Device> {
         unsafe {
             let device = ffi::cairo_surface_get_device(self.to_raw_none());
             if device.is_null() {
@@ -174,7 +174,7 @@ impl Surface {
     }
 
     #[doc(alias = "cairo_surface_get_device_offset")]
-    pub fn get_device_offset(&self) -> (f64, f64) {
+    pub fn device_offset(&self) -> (f64, f64) {
         let mut x_offset = 0.0f64;
         let mut y_offset = 0.0f64;
         unsafe {
@@ -191,7 +191,7 @@ impl Surface {
 
     #[cfg(any(feature = "v1_14", feature = "dox"))]
     #[doc(alias = "cairo_surface_get_device_scale")]
-    pub fn get_device_scale(&self) -> (f64, f64) {
+    pub fn device_scale(&self) -> (f64, f64) {
         let mut x_scale = 0.0f64;
         let mut y_scale = 0.0f64;
         unsafe {
@@ -212,7 +212,7 @@ impl Surface {
     }
 
     #[doc(alias = "cairo_surface_get_fallback_resolution")]
-    pub fn get_fallback_resolution(&self) -> (f64, f64) {
+    pub fn fallback_resolution(&self) -> (f64, f64) {
         let mut x_pixels_per_inch = 0.0f64;
         let mut y_pixels_per_inch = 0.0f64;
         unsafe {
@@ -354,7 +354,7 @@ impl Surface {
     }
 
     #[doc(alias = "cairo_surface_get_type")]
-    pub fn get_type(&self) -> SurfaceType {
+    pub fn type_(&self) -> SurfaceType {
         unsafe { SurfaceType::from(ffi::cairo_surface_get_type(self.0.as_ptr())) }
     }
 }

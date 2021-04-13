@@ -475,21 +475,29 @@ pub trait AspectFrameExt: 'static {
     #[doc(alias = "gtk_aspect_frame_set")]
     fn set(&self, xalign: f32, yalign: f32, ratio: f32, obey_child: bool);
 
-    fn get_property_obey_child(&self) -> bool;
+    #[doc(alias = "get_property_obey_child")]
+    fn is_obey_child(&self) -> bool;
 
-    fn set_property_obey_child(&self, obey_child: bool);
+    #[doc(alias = "set_property_obey_child")]
+    fn set_obey_child(&self, obey_child: bool);
 
-    fn get_property_ratio(&self) -> f32;
+    #[doc(alias = "get_property_ratio")]
+    fn ratio(&self) -> f32;
 
-    fn set_property_ratio(&self, ratio: f32);
+    #[doc(alias = "set_property_ratio")]
+    fn set_ratio(&self, ratio: f32);
 
-    fn get_property_xalign(&self) -> f32;
+    #[doc(alias = "get_property_xalign")]
+    fn xalign(&self) -> f32;
 
-    fn set_property_xalign(&self, xalign: f32);
+    #[doc(alias = "set_property_xalign")]
+    fn set_xalign(&self, xalign: f32);
 
-    fn get_property_yalign(&self) -> f32;
+    #[doc(alias = "get_property_yalign")]
+    fn yalign(&self) -> f32;
 
-    fn set_property_yalign(&self, yalign: f32);
+    #[doc(alias = "set_property_yalign")]
+    fn set_yalign(&self, yalign: f32);
 
     fn connect_property_obey_child_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -513,7 +521,7 @@ impl<O: IsA<AspectFrame>> AspectFrameExt for O {
         }
     }
 
-    fn get_property_obey_child(&self) -> bool {
+    fn is_obey_child(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -528,7 +536,7 @@ impl<O: IsA<AspectFrame>> AspectFrameExt for O {
         }
     }
 
-    fn set_property_obey_child(&self, obey_child: bool) {
+    fn set_obey_child(&self, obey_child: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -538,7 +546,7 @@ impl<O: IsA<AspectFrame>> AspectFrameExt for O {
         }
     }
 
-    fn get_property_ratio(&self) -> f32 {
+    fn ratio(&self) -> f32 {
         unsafe {
             let mut value = glib::Value::from_type(<f32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -553,7 +561,7 @@ impl<O: IsA<AspectFrame>> AspectFrameExt for O {
         }
     }
 
-    fn set_property_ratio(&self, ratio: f32) {
+    fn set_ratio(&self, ratio: f32) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -563,7 +571,7 @@ impl<O: IsA<AspectFrame>> AspectFrameExt for O {
         }
     }
 
-    fn get_property_xalign(&self) -> f32 {
+    fn xalign(&self) -> f32 {
         unsafe {
             let mut value = glib::Value::from_type(<f32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -578,7 +586,7 @@ impl<O: IsA<AspectFrame>> AspectFrameExt for O {
         }
     }
 
-    fn set_property_xalign(&self, xalign: f32) {
+    fn set_xalign(&self, xalign: f32) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -588,7 +596,7 @@ impl<O: IsA<AspectFrame>> AspectFrameExt for O {
         }
     }
 
-    fn get_property_yalign(&self) -> f32 {
+    fn yalign(&self) -> f32 {
         unsafe {
             let mut value = glib::Value::from_type(<f32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -603,7 +611,7 @@ impl<O: IsA<AspectFrame>> AspectFrameExt for O {
         }
     }
 
-    fn set_property_yalign(&self, yalign: f32) {
+    fn set_yalign(&self, yalign: f32) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,

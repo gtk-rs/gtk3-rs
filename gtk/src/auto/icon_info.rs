@@ -22,10 +22,7 @@ glib::wrapper! {
 
 impl IconInfo {
     #[doc(alias = "gtk_icon_info_new_for_pixbuf")]
-    pub fn new_for_pixbuf<P: IsA<IconTheme>>(
-        icon_theme: &P,
-        pixbuf: &gdk_pixbuf::Pixbuf,
-    ) -> IconInfo {
+    pub fn for_pixbuf<P: IsA<IconTheme>>(icon_theme: &P, pixbuf: &gdk_pixbuf::Pixbuf) -> IconInfo {
         skip_assert_initialized!();
         unsafe {
             from_glib_full(ffi::gtk_icon_info_new_for_pixbuf(
@@ -36,17 +33,17 @@ impl IconInfo {
     }
 
     #[doc(alias = "gtk_icon_info_get_base_scale")]
-    pub fn get_base_scale(&self) -> i32 {
+    pub fn base_scale(&self) -> i32 {
         unsafe { ffi::gtk_icon_info_get_base_scale(self.to_glib_none().0) }
     }
 
     #[doc(alias = "gtk_icon_info_get_base_size")]
-    pub fn get_base_size(&self) -> i32 {
+    pub fn base_size(&self) -> i32 {
         unsafe { ffi::gtk_icon_info_get_base_size(self.to_glib_none().0) }
     }
 
     #[doc(alias = "gtk_icon_info_get_filename")]
-    pub fn get_filename(&self) -> Option<std::path::PathBuf> {
+    pub fn filename(&self) -> Option<std::path::PathBuf> {
         unsafe { from_glib_none(ffi::gtk_icon_info_get_filename(self.to_glib_none().0)) }
     }
 

@@ -633,14 +633,14 @@ pub const NONE_OFFSCREEN_WINDOW: Option<&OffscreenWindow> = None;
 
 pub trait OffscreenWindowExt: 'static {
     #[doc(alias = "gtk_offscreen_window_get_pixbuf")]
-    fn get_pixbuf(&self) -> Option<gdk_pixbuf::Pixbuf>;
+    fn pixbuf(&self) -> Option<gdk_pixbuf::Pixbuf>;
 
     #[doc(alias = "gtk_offscreen_window_get_surface")]
-    fn get_surface(&self) -> Option<cairo::Surface>;
+    fn surface(&self) -> Option<cairo::Surface>;
 }
 
 impl<O: IsA<OffscreenWindow>> OffscreenWindowExt for O {
-    fn get_pixbuf(&self) -> Option<gdk_pixbuf::Pixbuf> {
+    fn pixbuf(&self) -> Option<gdk_pixbuf::Pixbuf> {
         unsafe {
             from_glib_full(ffi::gtk_offscreen_window_get_pixbuf(
                 self.as_ref().to_glib_none().0,
@@ -648,7 +648,7 @@ impl<O: IsA<OffscreenWindow>> OffscreenWindowExt for O {
         }
     }
 
-    fn get_surface(&self) -> Option<cairo::Surface> {
+    fn surface(&self) -> Option<cairo::Surface> {
         unsafe {
             from_glib_none(ffi::gtk_offscreen_window_get_surface(
                 self.as_ref().to_glib_none().0,

@@ -70,25 +70,25 @@ pub trait DriveExt: 'static {
     fn enumerate_identifiers(&self) -> Vec<glib::GString>;
 
     #[doc(alias = "g_drive_get_icon")]
-    fn get_icon(&self) -> Icon;
+    fn icon(&self) -> Icon;
 
     #[doc(alias = "g_drive_get_identifier")]
     fn get_identifier(&self, kind: &str) -> Option<glib::GString>;
 
     #[doc(alias = "g_drive_get_name")]
-    fn get_name(&self) -> glib::GString;
+    fn name(&self) -> glib::GString;
 
     #[doc(alias = "g_drive_get_sort_key")]
-    fn get_sort_key(&self) -> Option<glib::GString>;
+    fn sort_key(&self) -> Option<glib::GString>;
 
     #[doc(alias = "g_drive_get_start_stop_type")]
-    fn get_start_stop_type(&self) -> DriveStartStopType;
+    fn start_stop_type(&self) -> DriveStartStopType;
 
     #[doc(alias = "g_drive_get_symbolic_icon")]
-    fn get_symbolic_icon(&self) -> Icon;
+    fn symbolic_icon(&self) -> Icon;
 
     #[doc(alias = "g_drive_get_volumes")]
-    fn get_volumes(&self) -> Vec<Volume>;
+    fn volumes(&self) -> Vec<Volume>;
 
     #[doc(alias = "g_drive_has_media")]
     fn has_media(&self) -> bool;
@@ -266,7 +266,7 @@ impl<O: IsA<Drive>> DriveExt for O {
         }
     }
 
-    fn get_icon(&self) -> Icon {
+    fn icon(&self) -> Icon {
         unsafe { from_glib_full(ffi::g_drive_get_icon(self.as_ref().to_glib_none().0)) }
     }
 
@@ -279,15 +279,15 @@ impl<O: IsA<Drive>> DriveExt for O {
         }
     }
 
-    fn get_name(&self) -> glib::GString {
+    fn name(&self) -> glib::GString {
         unsafe { from_glib_full(ffi::g_drive_get_name(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_sort_key(&self) -> Option<glib::GString> {
+    fn sort_key(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::g_drive_get_sort_key(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_start_stop_type(&self) -> DriveStartStopType {
+    fn start_stop_type(&self) -> DriveStartStopType {
         unsafe {
             from_glib(ffi::g_drive_get_start_stop_type(
                 self.as_ref().to_glib_none().0,
@@ -295,7 +295,7 @@ impl<O: IsA<Drive>> DriveExt for O {
         }
     }
 
-    fn get_symbolic_icon(&self) -> Icon {
+    fn symbolic_icon(&self) -> Icon {
         unsafe {
             from_glib_full(ffi::g_drive_get_symbolic_icon(
                 self.as_ref().to_glib_none().0,
@@ -303,7 +303,7 @@ impl<O: IsA<Drive>> DriveExt for O {
         }
     }
 
-    fn get_volumes(&self) -> Vec<Volume> {
+    fn volumes(&self) -> Vec<Volume> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::g_drive_get_volumes(
                 self.as_ref().to_glib_none().0,

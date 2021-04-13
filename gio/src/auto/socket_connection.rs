@@ -86,13 +86,13 @@ pub trait SocketConnectionExt: 'static {
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>>;
 
     #[doc(alias = "g_socket_connection_get_local_address")]
-    fn get_local_address(&self) -> Result<SocketAddress, glib::Error>;
+    fn local_address(&self) -> Result<SocketAddress, glib::Error>;
 
     #[doc(alias = "g_socket_connection_get_remote_address")]
-    fn get_remote_address(&self) -> Result<SocketAddress, glib::Error>;
+    fn remote_address(&self) -> Result<SocketAddress, glib::Error>;
 
     #[doc(alias = "g_socket_connection_get_socket")]
-    fn get_socket(&self) -> Socket;
+    fn socket(&self) -> Socket;
 
     #[doc(alias = "g_socket_connection_is_connected")]
     fn is_connected(&self) -> bool;
@@ -176,7 +176,7 @@ impl<O: IsA<SocketConnection>> SocketConnectionExt for O {
         }))
     }
 
-    fn get_local_address(&self) -> Result<SocketAddress, glib::Error> {
+    fn local_address(&self) -> Result<SocketAddress, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = ffi::g_socket_connection_get_local_address(
@@ -191,7 +191,7 @@ impl<O: IsA<SocketConnection>> SocketConnectionExt for O {
         }
     }
 
-    fn get_remote_address(&self) -> Result<SocketAddress, glib::Error> {
+    fn remote_address(&self) -> Result<SocketAddress, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = ffi::g_socket_connection_get_remote_address(
@@ -206,7 +206,7 @@ impl<O: IsA<SocketConnection>> SocketConnectionExt for O {
         }
     }
 
-    fn get_socket(&self) -> Socket {
+    fn socket(&self) -> Socket {
         unsafe {
             from_glib_none(ffi::g_socket_connection_get_socket(
                 self.as_ref().to_glib_none().0,

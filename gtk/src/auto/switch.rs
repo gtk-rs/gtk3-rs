@@ -390,10 +390,10 @@ pub const NONE_SWITCH: Option<&Switch> = None;
 
 pub trait SwitchExt: 'static {
     #[doc(alias = "gtk_switch_get_active")]
-    fn get_active(&self) -> bool;
+    fn is_active(&self) -> bool;
 
     #[doc(alias = "gtk_switch_get_state")]
-    fn get_state(&self) -> bool;
+    fn state(&self) -> bool;
 
     #[doc(alias = "gtk_switch_set_active")]
     fn set_active(&self, is_active: bool);
@@ -416,11 +416,11 @@ pub trait SwitchExt: 'static {
 }
 
 impl<O: IsA<Switch>> SwitchExt for O {
-    fn get_active(&self) -> bool {
+    fn is_active(&self) -> bool {
         unsafe { from_glib(ffi::gtk_switch_get_active(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_state(&self) -> bool {
+    fn state(&self) -> bool {
         unsafe { from_glib(ffi::gtk_switch_get_state(self.as_ref().to_glib_none().0)) }
     }
 

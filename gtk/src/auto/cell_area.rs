@@ -170,16 +170,16 @@ pub trait CellAreaExt: 'static {
     ) -> (CellRenderer, gdk::Rectangle);
 
     #[doc(alias = "gtk_cell_area_get_current_path_string")]
-    fn get_current_path_string(&self) -> Option<glib::GString>;
+    fn current_path_string(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_cell_area_get_edit_widget")]
-    fn get_edit_widget(&self) -> Option<CellEditable>;
+    fn edit_widget(&self) -> Option<CellEditable>;
 
     #[doc(alias = "gtk_cell_area_get_edited_cell")]
-    fn get_edited_cell(&self) -> Option<CellRenderer>;
+    fn edited_cell(&self) -> Option<CellRenderer>;
 
     #[doc(alias = "gtk_cell_area_get_focus_cell")]
-    fn get_focus_cell(&self) -> Option<CellRenderer>;
+    fn focus_cell(&self) -> Option<CellRenderer>;
 
     #[doc(alias = "gtk_cell_area_get_focus_from_sibling")]
     fn get_focus_from_sibling<P: IsA<CellRenderer>>(&self, renderer: &P) -> Option<CellRenderer>;
@@ -218,7 +218,7 @@ pub trait CellAreaExt: 'static {
     ) -> (i32, i32);
 
     #[doc(alias = "gtk_cell_area_get_request_mode")]
-    fn get_request_mode(&self) -> SizeRequestMode;
+    fn request_mode(&self) -> SizeRequestMode;
 
     #[doc(alias = "gtk_cell_area_has_renderer")]
     fn has_renderer<P: IsA<CellRenderer>>(&self, renderer: &P) -> bool;
@@ -629,7 +629,7 @@ impl<O: IsA<CellArea>> CellAreaExt for O {
         }
     }
 
-    fn get_current_path_string(&self) -> Option<glib::GString> {
+    fn current_path_string(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_cell_area_get_current_path_string(
                 self.as_ref().to_glib_none().0,
@@ -637,7 +637,7 @@ impl<O: IsA<CellArea>> CellAreaExt for O {
         }
     }
 
-    fn get_edit_widget(&self) -> Option<CellEditable> {
+    fn edit_widget(&self) -> Option<CellEditable> {
         unsafe {
             from_glib_none(ffi::gtk_cell_area_get_edit_widget(
                 self.as_ref().to_glib_none().0,
@@ -645,7 +645,7 @@ impl<O: IsA<CellArea>> CellAreaExt for O {
         }
     }
 
-    fn get_edited_cell(&self) -> Option<CellRenderer> {
+    fn edited_cell(&self) -> Option<CellRenderer> {
         unsafe {
             from_glib_none(ffi::gtk_cell_area_get_edited_cell(
                 self.as_ref().to_glib_none().0,
@@ -653,7 +653,7 @@ impl<O: IsA<CellArea>> CellAreaExt for O {
         }
     }
 
-    fn get_focus_cell(&self) -> Option<CellRenderer> {
+    fn focus_cell(&self) -> Option<CellRenderer> {
         unsafe {
             from_glib_none(ffi::gtk_cell_area_get_focus_cell(
                 self.as_ref().to_glib_none().0,
@@ -767,7 +767,7 @@ impl<O: IsA<CellArea>> CellAreaExt for O {
         }
     }
 
-    fn get_request_mode(&self) -> SizeRequestMode {
+    fn request_mode(&self) -> SizeRequestMode {
         unsafe {
             from_glib(ffi::gtk_cell_area_get_request_mode(
                 self.as_ref().to_glib_none().0,

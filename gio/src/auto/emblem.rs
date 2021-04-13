@@ -33,12 +33,12 @@ impl Emblem {
     }
 
     #[doc(alias = "g_emblem_get_icon")]
-    pub fn get_icon(&self) -> Icon {
+    pub fn icon(&self) -> Icon {
         unsafe { from_glib_none(ffi::g_emblem_get_icon(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_emblem_get_origin")]
-    pub fn get_origin(&self) -> EmblemOrigin {
+    pub fn origin(&self) -> EmblemOrigin {
         unsafe { from_glib(ffi::g_emblem_get_origin(self.to_glib_none().0)) }
     }
 }

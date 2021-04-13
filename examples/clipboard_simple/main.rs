@@ -76,22 +76,22 @@ fn build_ui(application: &gtk::Application) {
         let mut s = String::new();
         GLOBAL.with(|global| {
             if let Some(ref ui) = *global.borrow() {
-                if ui.button_a1.get_active() {
+                if ui.button_a1.is_active() {
                     s.push('1');
                 } else {
                     s.push('0');
                 }
-                if ui.button_a2.get_active() {
+                if ui.button_a2.is_active() {
                     s.push('1');
                 } else {
                     s.push('0');
                 }
-                if ui.button_b1.get_active() {
+                if ui.button_b1.is_active() {
                     s.push('1');
                 } else {
                     s.push('0');
                 }
-                if ui.button_b2.get_active() {
+                if ui.button_b2.is_active() {
                     s.push('1');
                 } else {
                     s.push('0');

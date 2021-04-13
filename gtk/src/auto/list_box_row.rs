@@ -422,16 +422,16 @@ pub trait ListBoxRowExt: 'static {
     fn changed(&self);
 
     #[doc(alias = "gtk_list_box_row_get_activatable")]
-    fn get_activatable(&self) -> bool;
+    fn is_activatable(&self) -> bool;
 
     #[doc(alias = "gtk_list_box_row_get_header")]
-    fn get_header(&self) -> Option<Widget>;
+    fn header(&self) -> Option<Widget>;
 
     #[doc(alias = "gtk_list_box_row_get_index")]
-    fn get_index(&self) -> i32;
+    fn index(&self) -> i32;
 
     #[doc(alias = "gtk_list_box_row_get_selectable")]
-    fn get_selectable(&self) -> bool;
+    fn is_selectable(&self) -> bool;
 
     #[doc(alias = "gtk_list_box_row_is_selected")]
     fn is_selected(&self) -> bool;
@@ -461,7 +461,7 @@ impl<O: IsA<ListBoxRow>> ListBoxRowExt for O {
         }
     }
 
-    fn get_activatable(&self) -> bool {
+    fn is_activatable(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_list_box_row_get_activatable(
                 self.as_ref().to_glib_none().0,
@@ -469,7 +469,7 @@ impl<O: IsA<ListBoxRow>> ListBoxRowExt for O {
         }
     }
 
-    fn get_header(&self) -> Option<Widget> {
+    fn header(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_list_box_row_get_header(
                 self.as_ref().to_glib_none().0,
@@ -477,11 +477,11 @@ impl<O: IsA<ListBoxRow>> ListBoxRowExt for O {
         }
     }
 
-    fn get_index(&self) -> i32 {
+    fn index(&self) -> i32 {
         unsafe { ffi::gtk_list_box_row_get_index(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_selectable(&self) -> bool {
+    fn is_selectable(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_list_box_row_get_selectable(
                 self.as_ref().to_glib_none().0,

@@ -456,7 +456,7 @@ pub trait NotebookExt: 'static {
     fn get_action_widget(&self, pack_type: PackType) -> Option<Widget>;
 
     #[doc(alias = "gtk_notebook_get_group_name")]
-    fn get_group_name(&self) -> Option<glib::GString>;
+    fn group_name(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_notebook_get_menu_label")]
     fn get_menu_label<P: IsA<Widget>>(&self, child: &P) -> Option<Widget>;
@@ -465,13 +465,13 @@ pub trait NotebookExt: 'static {
     fn get_menu_label_text<P: IsA<Widget>>(&self, child: &P) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_notebook_get_scrollable")]
-    fn get_scrollable(&self) -> bool;
+    fn is_scrollable(&self) -> bool;
 
     #[doc(alias = "gtk_notebook_get_show_border")]
-    fn get_show_border(&self) -> bool;
+    fn shows_border(&self) -> bool;
 
     #[doc(alias = "gtk_notebook_get_show_tabs")]
-    fn get_show_tabs(&self) -> bool;
+    fn shows_tabs(&self) -> bool;
 
     #[doc(alias = "gtk_notebook_get_tab_detachable")]
     fn get_tab_detachable<P: IsA<Widget>>(&self, child: &P) -> bool;
@@ -483,7 +483,7 @@ pub trait NotebookExt: 'static {
     fn get_tab_label_text<P: IsA<Widget>>(&self, child: &P) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_notebook_get_tab_pos")]
-    fn get_tab_pos(&self) -> PositionType;
+    fn tab_pos(&self) -> PositionType;
 
     #[doc(alias = "gtk_notebook_get_tab_reorderable")]
     fn get_tab_reorderable<P: IsA<Widget>>(&self, child: &P) -> bool;
@@ -536,13 +536,17 @@ pub trait NotebookExt: 'static {
     #[doc(alias = "gtk_notebook_set_tab_reorderable")]
     fn set_tab_reorderable<P: IsA<Widget>>(&self, child: &P, reorderable: bool);
 
-    fn get_property_enable_popup(&self) -> bool;
+    #[doc(alias = "get_property_enable_popup")]
+    fn enables_popup(&self) -> bool;
 
-    fn set_property_enable_popup(&self, enable_popup: bool);
+    #[doc(alias = "set_property_enable_popup")]
+    fn set_enable_popup(&self, enable_popup: bool);
 
-    fn get_property_page(&self) -> i32;
+    #[doc(alias = "get_property_page")]
+    fn page(&self) -> i32;
 
-    fn set_property_page(&self, page: i32);
+    #[doc(alias = "set_property_page")]
+    fn set_page(&self, page: i32);
 
     #[doc(hidden)]
     fn get_child_detachable<T: IsA<Widget>>(&self, item: &T) -> bool;
@@ -669,7 +673,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
-    fn get_group_name(&self) -> Option<glib::GString> {
+    fn group_name(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_notebook_get_group_name(
                 self.as_ref().to_glib_none().0,
@@ -695,7 +699,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
-    fn get_scrollable(&self) -> bool {
+    fn is_scrollable(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_notebook_get_scrollable(
                 self.as_ref().to_glib_none().0,
@@ -703,7 +707,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
-    fn get_show_border(&self) -> bool {
+    fn shows_border(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_notebook_get_show_border(
                 self.as_ref().to_glib_none().0,
@@ -711,7 +715,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
-    fn get_show_tabs(&self) -> bool {
+    fn shows_tabs(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_notebook_get_show_tabs(
                 self.as_ref().to_glib_none().0,
@@ -746,7 +750,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
-    fn get_tab_pos(&self) -> PositionType {
+    fn tab_pos(&self) -> PositionType {
         unsafe {
             from_glib(ffi::gtk_notebook_get_tab_pos(
                 self.as_ref().to_glib_none().0,
@@ -893,7 +897,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
-    fn get_property_enable_popup(&self) -> bool {
+    fn enables_popup(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -908,7 +912,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
-    fn set_property_enable_popup(&self, enable_popup: bool) {
+    fn set_enable_popup(&self, enable_popup: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -918,7 +922,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
-    fn get_property_page(&self) -> i32 {
+    fn page(&self) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -933,7 +937,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
-    fn set_property_page(&self, page: i32) {
+    fn set_page(&self, page: i32) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,

@@ -40,7 +40,7 @@ impl QuartzSurface {
     }
 
     #[doc(alias = "cairo_quartz_surface_get_cg_context")]
-    pub fn get_cg_context(&self) -> CGContextRef {
+    pub fn cg_context(&self) -> CGContextRef {
         unsafe { ffi::cairo_quartz_surface_get_cg_context(self.to_raw_none()) }
     }
 }

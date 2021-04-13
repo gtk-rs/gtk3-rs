@@ -52,7 +52,7 @@ impl<O: IsA<InetAddress>> InetAddressExtManual for O {
     /// Returns `None` in case the address has a native size different than 4 and 16.
     #[doc(alias = "g_inet_address_to_bytes")]
     fn to_bytes(&self) -> Option<InetAddressBytes<'_>> {
-        let size = self.get_native_size();
+        let size = self.native_size();
         unsafe {
             let bytes = ffi::g_inet_address_to_bytes(self.as_ref().to_glib_none().0);
             if size == 4 {
@@ -77,7 +77,7 @@ impl From<IpAddr> for InetAddress {
 
 impl From<InetAddress> for IpAddr {
     fn from(addr: InetAddress) -> IpAddr {
-        let size = addr.get_native_size();
+        let size = addr.native_size();
         unsafe {
             let bytes = ffi::g_inet_address_to_bytes(addr.to_glib_none().0);
             if size == 4 {

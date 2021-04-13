@@ -70,13 +70,13 @@ pub trait PixbufLoaderExt: 'static {
     fn close(&self) -> Result<(), glib::Error>;
 
     #[doc(alias = "gdk_pixbuf_loader_get_animation")]
-    fn get_animation(&self) -> Option<PixbufAnimation>;
+    fn animation(&self) -> Option<PixbufAnimation>;
 
     #[doc(alias = "gdk_pixbuf_loader_get_format")]
-    fn get_format(&self) -> Option<PixbufFormat>;
+    fn format(&self) -> Option<PixbufFormat>;
 
     #[doc(alias = "gdk_pixbuf_loader_get_pixbuf")]
-    fn get_pixbuf(&self) -> Option<Pixbuf>;
+    fn pixbuf(&self) -> Option<Pixbuf>;
 
     #[doc(alias = "gdk_pixbuf_loader_set_size")]
     fn set_size(&self, width: i32, height: i32);
@@ -112,7 +112,7 @@ impl<O: IsA<PixbufLoader>> PixbufLoaderExt for O {
         }
     }
 
-    fn get_animation(&self) -> Option<PixbufAnimation> {
+    fn animation(&self) -> Option<PixbufAnimation> {
         unsafe {
             from_glib_none(ffi::gdk_pixbuf_loader_get_animation(
                 self.as_ref().to_glib_none().0,
@@ -120,7 +120,7 @@ impl<O: IsA<PixbufLoader>> PixbufLoaderExt for O {
         }
     }
 
-    fn get_format(&self) -> Option<PixbufFormat> {
+    fn format(&self) -> Option<PixbufFormat> {
         unsafe {
             from_glib_none(ffi::gdk_pixbuf_loader_get_format(
                 self.as_ref().to_glib_none().0,
@@ -128,7 +128,7 @@ impl<O: IsA<PixbufLoader>> PixbufLoaderExt for O {
         }
     }
 
-    fn get_pixbuf(&self) -> Option<Pixbuf> {
+    fn pixbuf(&self) -> Option<Pixbuf> {
         unsafe {
             from_glib_none(ffi::gdk_pixbuf_loader_get_pixbuf(
                 self.as_ref().to_glib_none().0,

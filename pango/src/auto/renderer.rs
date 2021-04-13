@@ -74,13 +74,13 @@ pub trait RendererExt: 'static {
     fn get_color(&self, part: RenderPart) -> Option<Color>;
 
     #[doc(alias = "pango_renderer_get_layout")]
-    fn get_layout(&self) -> Option<Layout>;
+    fn layout(&self) -> Option<Layout>;
 
     #[doc(alias = "pango_renderer_get_layout_line")]
-    fn get_layout_line(&self) -> Option<LayoutLine>;
+    fn layout_line(&self) -> Option<LayoutLine>;
 
     #[doc(alias = "pango_renderer_get_matrix")]
-    fn get_matrix(&self) -> Option<Matrix>;
+    fn matrix(&self) -> Option<Matrix>;
 
     #[doc(alias = "pango_renderer_part_changed")]
     fn part_changed(&self, part: RenderPart);
@@ -232,7 +232,7 @@ impl<O: IsA<Renderer>> RendererExt for O {
         }
     }
 
-    fn get_layout(&self) -> Option<Layout> {
+    fn layout(&self) -> Option<Layout> {
         unsafe {
             from_glib_none(ffi::pango_renderer_get_layout(
                 self.as_ref().to_glib_none().0,
@@ -240,7 +240,7 @@ impl<O: IsA<Renderer>> RendererExt for O {
         }
     }
 
-    fn get_layout_line(&self) -> Option<LayoutLine> {
+    fn layout_line(&self) -> Option<LayoutLine> {
         unsafe {
             from_glib_none(ffi::pango_renderer_get_layout_line(
                 self.as_ref().to_glib_none().0,
@@ -248,7 +248,7 @@ impl<O: IsA<Renderer>> RendererExt for O {
         }
     }
 
-    fn get_matrix(&self) -> Option<Matrix> {
+    fn matrix(&self) -> Option<Matrix> {
         unsafe {
             from_glib_none(ffi::pango_renderer_get_matrix(
                 self.as_ref().to_glib_none().0,

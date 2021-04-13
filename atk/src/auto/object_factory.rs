@@ -22,7 +22,7 @@ pub trait ObjectFactoryExt: 'static {
     fn create_accessible<P: IsA<glib::Object>>(&self, obj: &P) -> Option<Object>;
 
     #[doc(alias = "atk_object_factory_get_accessible_type")]
-    fn get_accessible_type(&self) -> glib::types::Type;
+    fn accessible_type(&self) -> glib::types::Type;
 
     #[doc(alias = "atk_object_factory_invalidate")]
     fn invalidate(&self);
@@ -38,7 +38,7 @@ impl<O: IsA<ObjectFactory>> ObjectFactoryExt for O {
         }
     }
 
-    fn get_accessible_type(&self) -> glib::types::Type {
+    fn accessible_type(&self) -> glib::types::Type {
         unsafe {
             from_glib(ffi::atk_object_factory_get_accessible_type(
                 self.as_ref().to_glib_none().0,

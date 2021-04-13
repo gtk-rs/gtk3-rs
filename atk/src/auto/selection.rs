@@ -30,7 +30,7 @@ pub trait SelectionExt: 'static {
     fn clear_selection(&self) -> bool;
 
     #[doc(alias = "atk_selection_get_selection_count")]
-    fn get_selection_count(&self) -> i32;
+    fn selection_count(&self) -> i32;
 
     #[doc(alias = "atk_selection_is_child_selected")]
     fn is_child_selected(&self, i: i32) -> bool;
@@ -65,7 +65,7 @@ impl<O: IsA<Selection>> SelectionExt for O {
         }
     }
 
-    fn get_selection_count(&self) -> i32 {
+    fn selection_count(&self) -> i32 {
         unsafe { ffi::atk_selection_get_selection_count(self.as_ref().to_glib_none().0) }
     }
 

@@ -43,7 +43,7 @@ impl<T: IOStreamImpl> IOStreamImplExt for T {
     fn parent_get_input_stream(&self, stream: &Self::Type) -> InputStream {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GIOStreamClass;
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GIOStreamClass;
             let f = (*parent_class)
                 .get_input_stream
                 .expect("No parent class implementation for \"get_input_stream\"");
@@ -54,7 +54,7 @@ impl<T: IOStreamImpl> IOStreamImplExt for T {
     fn parent_get_output_stream(&self, stream: &Self::Type) -> OutputStream {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GIOStreamClass;
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GIOStreamClass;
             let f = (*parent_class)
                 .get_output_stream
                 .expect("No parent class implementation for \"get_output_stream\"");
@@ -69,7 +69,7 @@ impl<T: IOStreamImpl> IOStreamImplExt for T {
     ) -> Result<(), Error> {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GIOStreamClass;
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GIOStreamClass;
             let mut err = ptr::null_mut();
             if let Some(f) = (*parent_class).close_fn {
                 if from_glib(f(
@@ -112,7 +112,7 @@ unsafe extern "C" fn stream_get_input_stream<T: IOStreamImpl>(
     ptr: *mut ffi::GIOStream,
 ) -> *mut ffi::GInputStream {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
     let wrap: Borrowed<IOStream> = from_glib_borrow(ptr);
 
     let ret = imp.get_input_stream(wrap.unsafe_cast_ref());
@@ -135,7 +135,7 @@ unsafe extern "C" fn stream_get_output_stream<T: IOStreamImpl>(
     ptr: *mut ffi::GIOStream,
 ) -> *mut ffi::GOutputStream {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
     let wrap: Borrowed<IOStream> = from_glib_borrow(ptr);
 
     let ret = imp.get_output_stream(wrap.unsafe_cast_ref());
@@ -160,7 +160,7 @@ unsafe extern "C" fn stream_close<T: IOStreamImpl>(
     err: *mut *mut glib::ffi::GError,
 ) -> glib::ffi::gboolean {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
     let wrap: Borrowed<IOStream> = from_glib_borrow(ptr);
 
     match imp.close(

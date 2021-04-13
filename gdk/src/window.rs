@@ -48,7 +48,7 @@ impl Default for WindowAttr {
 }
 
 impl WindowAttr {
-    fn get_mask(&self) -> u32 {
+    fn mask(&self) -> u32 {
         let mut mask: ffi::GdkWindowAttributesType = 0;
         if self.title.is_some() {
             mask |= ffi::GDK_WA_TITLE;
@@ -118,7 +118,7 @@ impl Window {
             from_glib_full(ffi::gdk_window_new(
                 parent.to_glib_none().0,
                 attributes.to_glib_none().0,
-                attributes.get_mask() as c_int,
+                attributes.mask() as c_int,
             ))
         }
     }
@@ -190,7 +190,7 @@ pub trait WindowExtManual: 'static {
     ) -> Option<gdk_pixbuf::Pixbuf>;
 
     #[doc(alias = "gdk_window_get_background_pattern")]
-    fn get_background_pattern(&self) -> Option<cairo::Pattern>;
+    fn background_pattern(&self) -> Option<cairo::Pattern>;
 
     #[doc(alias = "gdk_window_set_background_pattern")]
     fn set_background_pattern(&self, pattern: Option<&cairo::Pattern>);
@@ -260,7 +260,7 @@ impl<O: IsA<Window>> WindowExtManual for O {
         }
     }
 
-    fn get_background_pattern(&self) -> Option<cairo::Pattern> {
+    fn background_pattern(&self) -> Option<cairo::Pattern> {
         unsafe {
             let ret = ffi::gdk_window_get_background_pattern(self.as_ref().to_glib_none().0);
             if ret.is_null() {

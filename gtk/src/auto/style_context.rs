@@ -159,10 +159,10 @@ pub trait StyleContextExt: 'static {
     fn get_color(&self, state: StateFlags) -> gdk::RGBA;
 
     #[doc(alias = "gtk_style_context_get_frame_clock")]
-    fn get_frame_clock(&self) -> Option<gdk::FrameClock>;
+    fn frame_clock(&self) -> Option<gdk::FrameClock>;
 
     #[doc(alias = "gtk_style_context_get_junction_sides")]
-    fn get_junction_sides(&self) -> JunctionSides;
+    fn junction_sides(&self) -> JunctionSides;
 
     #[doc(alias = "gtk_style_context_get_margin")]
     fn get_margin(&self, state: StateFlags) -> Border;
@@ -171,25 +171,25 @@ pub trait StyleContextExt: 'static {
     fn get_padding(&self, state: StateFlags) -> Border;
 
     #[doc(alias = "gtk_style_context_get_parent")]
-    fn get_parent(&self) -> Option<StyleContext>;
+    fn parent(&self) -> Option<StyleContext>;
 
     #[doc(alias = "gtk_style_context_get_path")]
-    fn get_path(&self) -> Option<WidgetPath>;
+    fn path(&self) -> Option<WidgetPath>;
 
     #[doc(alias = "gtk_style_context_get_property")]
     fn get_property(&self, property: &str, state: StateFlags) -> glib::Value;
 
     #[doc(alias = "gtk_style_context_get_scale")]
-    fn get_scale(&self) -> i32;
+    fn scale(&self) -> i32;
 
     #[doc(alias = "gtk_style_context_get_screen")]
-    fn get_screen(&self) -> Option<gdk::Screen>;
+    fn screen(&self) -> Option<gdk::Screen>;
 
     #[doc(alias = "gtk_style_context_get_section")]
     fn get_section(&self, property: &str) -> Option<CssSection>;
 
     #[doc(alias = "gtk_style_context_get_state")]
-    fn get_state(&self) -> StateFlags;
+    fn state(&self) -> StateFlags;
 
     //#[doc(alias = "gtk_style_context_get_style")]
     //fn get_style(&self, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
@@ -254,13 +254,17 @@ pub trait StyleContextExt: 'static {
     #[doc(alias = "gtk_style_context_to_string")]
     fn to_string(&self, flags: StyleContextPrintFlags) -> Option<glib::GString>;
 
-    fn get_property_direction(&self) -> TextDirection;
+    #[doc(alias = "get_property_direction")]
+    fn direction(&self) -> TextDirection;
 
-    fn set_property_direction(&self, direction: TextDirection);
+    #[doc(alias = "set_property_direction")]
+    fn set_direction(&self, direction: TextDirection);
 
-    fn get_property_paint_clock(&self) -> Option<gdk::FrameClock>;
+    #[doc(alias = "get_property_paint_clock")]
+    fn paint_clock(&self) -> Option<gdk::FrameClock>;
 
-    fn set_property_paint_clock(&self, paint_clock: Option<&gdk::FrameClock>);
+    #[doc(alias = "set_property_paint_clock")]
+    fn set_paint_clock(&self, paint_clock: Option<&gdk::FrameClock>);
 
     fn connect_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -345,7 +349,7 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
         }
     }
 
-    fn get_frame_clock(&self) -> Option<gdk::FrameClock> {
+    fn frame_clock(&self) -> Option<gdk::FrameClock> {
         unsafe {
             from_glib_none(ffi::gtk_style_context_get_frame_clock(
                 self.as_ref().to_glib_none().0,
@@ -353,7 +357,7 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
         }
     }
 
-    fn get_junction_sides(&self) -> JunctionSides {
+    fn junction_sides(&self) -> JunctionSides {
         unsafe {
             from_glib(ffi::gtk_style_context_get_junction_sides(
                 self.as_ref().to_glib_none().0,
@@ -385,7 +389,7 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
         }
     }
 
-    fn get_parent(&self) -> Option<StyleContext> {
+    fn parent(&self) -> Option<StyleContext> {
         unsafe {
             from_glib_none(ffi::gtk_style_context_get_parent(
                 self.as_ref().to_glib_none().0,
@@ -393,7 +397,7 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
         }
     }
 
-    fn get_path(&self) -> Option<WidgetPath> {
+    fn path(&self) -> Option<WidgetPath> {
         unsafe {
             from_glib_none(ffi::gtk_style_context_get_path(
                 self.as_ref().to_glib_none().0,
@@ -414,11 +418,11 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
         }
     }
 
-    fn get_scale(&self) -> i32 {
+    fn scale(&self) -> i32 {
         unsafe { ffi::gtk_style_context_get_scale(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_screen(&self) -> Option<gdk::Screen> {
+    fn screen(&self) -> Option<gdk::Screen> {
         unsafe {
             from_glib_none(ffi::gtk_style_context_get_screen(
                 self.as_ref().to_glib_none().0,
@@ -435,7 +439,7 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
         }
     }
 
-    fn get_state(&self) -> StateFlags {
+    fn state(&self) -> StateFlags {
         unsafe {
             from_glib(ffi::gtk_style_context_get_state(
                 self.as_ref().to_glib_none().0,
@@ -604,7 +608,7 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
         }
     }
 
-    fn get_property_direction(&self) -> TextDirection {
+    fn direction(&self) -> TextDirection {
         unsafe {
             let mut value = glib::Value::from_type(<TextDirection as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -619,7 +623,7 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
         }
     }
 
-    fn set_property_direction(&self, direction: TextDirection) {
+    fn set_direction(&self, direction: TextDirection) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -629,7 +633,7 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
         }
     }
 
-    fn get_property_paint_clock(&self) -> Option<gdk::FrameClock> {
+    fn paint_clock(&self) -> Option<gdk::FrameClock> {
         unsafe {
             let mut value = glib::Value::from_type(<gdk::FrameClock as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -643,7 +647,7 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
         }
     }
 
-    fn set_property_paint_clock(&self, paint_clock: Option<&gdk::FrameClock>) {
+    fn set_paint_clock(&self, paint_clock: Option<&gdk::FrameClock>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,

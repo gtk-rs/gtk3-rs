@@ -29,22 +29,22 @@ impl SrvTarget {
     }
 
     #[doc(alias = "g_srv_target_get_hostname")]
-    pub fn get_hostname(&mut self) -> glib::GString {
+    pub fn hostname(&mut self) -> glib::GString {
         unsafe { from_glib_none(ffi::g_srv_target_get_hostname(self.to_glib_none_mut().0)) }
     }
 
     #[doc(alias = "g_srv_target_get_port")]
-    pub fn get_port(&mut self) -> u16 {
+    pub fn port(&mut self) -> u16 {
         unsafe { ffi::g_srv_target_get_port(self.to_glib_none_mut().0) }
     }
 
     #[doc(alias = "g_srv_target_get_priority")]
-    pub fn get_priority(&mut self) -> u16 {
+    pub fn priority(&mut self) -> u16 {
         unsafe { ffi::g_srv_target_get_priority(self.to_glib_none_mut().0) }
     }
 
     #[doc(alias = "g_srv_target_get_weight")]
-    pub fn get_weight(&mut self) -> u16 {
+    pub fn weight(&mut self) -> u16 {
         unsafe { ffi::g_srv_target_get_weight(self.to_glib_none_mut().0) }
     }
 

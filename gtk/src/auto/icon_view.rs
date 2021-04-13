@@ -605,7 +605,7 @@ pub trait IconViewExt: 'static {
     fn create_drag_icon(&self, path: &TreePath) -> Option<cairo::Surface>;
 
     #[doc(alias = "gtk_icon_view_get_activate_on_single_click")]
-    fn get_activate_on_single_click(&self) -> bool;
+    fn activates_on_single_click(&self) -> bool;
 
     #[doc(alias = "gtk_icon_view_get_cell_rect")]
     fn get_cell_rect<P: IsA<CellRenderer>>(
@@ -615,13 +615,13 @@ pub trait IconViewExt: 'static {
     ) -> Option<gdk::Rectangle>;
 
     #[doc(alias = "gtk_icon_view_get_column_spacing")]
-    fn get_column_spacing(&self) -> i32;
+    fn column_spacing(&self) -> i32;
 
     #[doc(alias = "gtk_icon_view_get_columns")]
-    fn get_columns(&self) -> i32;
+    fn columns(&self) -> i32;
 
     #[doc(alias = "gtk_icon_view_get_cursor")]
-    fn get_cursor(&self) -> Option<(TreePath, CellRenderer)>;
+    fn cursor(&self) -> Option<(TreePath, CellRenderer)>;
 
     #[doc(alias = "gtk_icon_view_get_dest_item_at_pos")]
     fn get_dest_item_at_pos(
@@ -631,7 +631,7 @@ pub trait IconViewExt: 'static {
     ) -> Option<(TreePath, IconViewDropPosition)>;
 
     #[doc(alias = "gtk_icon_view_get_drag_dest_item")]
-    fn get_drag_dest_item(&self) -> (TreePath, IconViewDropPosition);
+    fn drag_dest_item(&self) -> (TreePath, IconViewDropPosition);
 
     #[doc(alias = "gtk_icon_view_get_item_at_pos")]
     fn get_item_at_pos(&self, x: i32, y: i32) -> Option<(TreePath, CellRenderer)>;
@@ -640,52 +640,52 @@ pub trait IconViewExt: 'static {
     fn get_item_column(&self, path: &TreePath) -> i32;
 
     #[doc(alias = "gtk_icon_view_get_item_orientation")]
-    fn get_item_orientation(&self) -> Orientation;
+    fn item_orientation(&self) -> Orientation;
 
     #[doc(alias = "gtk_icon_view_get_item_padding")]
-    fn get_item_padding(&self) -> i32;
+    fn item_padding(&self) -> i32;
 
     #[doc(alias = "gtk_icon_view_get_item_row")]
     fn get_item_row(&self, path: &TreePath) -> i32;
 
     #[doc(alias = "gtk_icon_view_get_item_width")]
-    fn get_item_width(&self) -> i32;
+    fn item_width(&self) -> i32;
 
     #[doc(alias = "gtk_icon_view_get_margin")]
-    fn get_margin(&self) -> i32;
+    fn margin(&self) -> i32;
 
     #[doc(alias = "gtk_icon_view_get_markup_column")]
-    fn get_markup_column(&self) -> i32;
+    fn markup_column(&self) -> i32;
 
     #[doc(alias = "gtk_icon_view_get_model")]
-    fn get_model(&self) -> Option<TreeModel>;
+    fn model(&self) -> Option<TreeModel>;
 
     #[doc(alias = "gtk_icon_view_get_path_at_pos")]
     fn get_path_at_pos(&self, x: i32, y: i32) -> Option<TreePath>;
 
     #[doc(alias = "gtk_icon_view_get_pixbuf_column")]
-    fn get_pixbuf_column(&self) -> i32;
+    fn pixbuf_column(&self) -> i32;
 
     #[doc(alias = "gtk_icon_view_get_reorderable")]
-    fn get_reorderable(&self) -> bool;
+    fn is_reorderable(&self) -> bool;
 
     #[doc(alias = "gtk_icon_view_get_row_spacing")]
-    fn get_row_spacing(&self) -> i32;
+    fn row_spacing(&self) -> i32;
 
     #[doc(alias = "gtk_icon_view_get_selected_items")]
-    fn get_selected_items(&self) -> Vec<TreePath>;
+    fn selected_items(&self) -> Vec<TreePath>;
 
     #[doc(alias = "gtk_icon_view_get_selection_mode")]
-    fn get_selection_mode(&self) -> SelectionMode;
+    fn selection_mode(&self) -> SelectionMode;
 
     #[doc(alias = "gtk_icon_view_get_spacing")]
-    fn get_spacing(&self) -> i32;
+    fn spacing(&self) -> i32;
 
     #[doc(alias = "gtk_icon_view_get_text_column")]
-    fn get_text_column(&self) -> i32;
+    fn text_column(&self) -> i32;
 
     #[doc(alias = "gtk_icon_view_get_tooltip_column")]
-    fn get_tooltip_column(&self) -> i32;
+    fn tooltip_column(&self) -> i32;
 
     #[doc(alias = "gtk_icon_view_get_tooltip_context")]
     fn get_tooltip_context(
@@ -696,7 +696,7 @@ pub trait IconViewExt: 'static {
     ) -> Option<(TreeModel, TreePath, TreeIter)>;
 
     #[doc(alias = "gtk_icon_view_get_visible_range")]
-    fn get_visible_range(&self) -> Option<(TreePath, TreePath)>;
+    fn visible_range(&self) -> Option<(TreePath, TreePath)>;
 
     #[doc(alias = "gtk_icon_view_item_activated")]
     fn item_activated(&self, path: &TreePath);
@@ -798,7 +798,8 @@ pub trait IconViewExt: 'static {
     #[doc(alias = "gtk_icon_view_unset_model_drag_source")]
     fn unset_model_drag_source(&self);
 
-    fn get_property_cell_area(&self) -> Option<CellArea>;
+    #[doc(alias = "get_property_cell_area")]
+    fn cell_area(&self) -> Option<CellArea>;
 
     fn connect_activate_cursor_item<F: Fn(&Self) -> bool + 'static>(&self, f: F)
         -> SignalHandlerId;
@@ -914,7 +915,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
         }
     }
 
-    fn get_activate_on_single_click(&self) -> bool {
+    fn activates_on_single_click(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_icon_view_get_activate_on_single_click(
                 self.as_ref().to_glib_none().0,
@@ -943,15 +944,15 @@ impl<O: IsA<IconView>> IconViewExt for O {
         }
     }
 
-    fn get_column_spacing(&self) -> i32 {
+    fn column_spacing(&self) -> i32 {
         unsafe { ffi::gtk_icon_view_get_column_spacing(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_columns(&self) -> i32 {
+    fn columns(&self) -> i32 {
         unsafe { ffi::gtk_icon_view_get_columns(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_cursor(&self) -> Option<(TreePath, CellRenderer)> {
+    fn cursor(&self) -> Option<(TreePath, CellRenderer)> {
         unsafe {
             let mut path = ptr::null_mut();
             let mut cell = ptr::null_mut();
@@ -992,7 +993,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
         }
     }
 
-    fn get_drag_dest_item(&self) -> (TreePath, IconViewDropPosition) {
+    fn drag_dest_item(&self) -> (TreePath, IconViewDropPosition) {
         unsafe {
             let mut path = ptr::null_mut();
             let mut pos = mem::MaybeUninit::uninit();
@@ -1034,7 +1035,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
         }
     }
 
-    fn get_item_orientation(&self) -> Orientation {
+    fn item_orientation(&self) -> Orientation {
         unsafe {
             from_glib(ffi::gtk_icon_view_get_item_orientation(
                 self.as_ref().to_glib_none().0,
@@ -1042,7 +1043,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
         }
     }
 
-    fn get_item_padding(&self) -> i32 {
+    fn item_padding(&self) -> i32 {
         unsafe { ffi::gtk_icon_view_get_item_padding(self.as_ref().to_glib_none().0) }
     }
 
@@ -1055,19 +1056,19 @@ impl<O: IsA<IconView>> IconViewExt for O {
         }
     }
 
-    fn get_item_width(&self) -> i32 {
+    fn item_width(&self) -> i32 {
         unsafe { ffi::gtk_icon_view_get_item_width(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_margin(&self) -> i32 {
+    fn margin(&self) -> i32 {
         unsafe { ffi::gtk_icon_view_get_margin(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_markup_column(&self) -> i32 {
+    fn markup_column(&self) -> i32 {
         unsafe { ffi::gtk_icon_view_get_markup_column(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_model(&self) -> Option<TreeModel> {
+    fn model(&self) -> Option<TreeModel> {
         unsafe { from_glib_none(ffi::gtk_icon_view_get_model(self.as_ref().to_glib_none().0)) }
     }
 
@@ -1081,11 +1082,11 @@ impl<O: IsA<IconView>> IconViewExt for O {
         }
     }
 
-    fn get_pixbuf_column(&self) -> i32 {
+    fn pixbuf_column(&self) -> i32 {
         unsafe { ffi::gtk_icon_view_get_pixbuf_column(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_reorderable(&self) -> bool {
+    fn is_reorderable(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_icon_view_get_reorderable(
                 self.as_ref().to_glib_none().0,
@@ -1093,11 +1094,11 @@ impl<O: IsA<IconView>> IconViewExt for O {
         }
     }
 
-    fn get_row_spacing(&self) -> i32 {
+    fn row_spacing(&self) -> i32 {
         unsafe { ffi::gtk_icon_view_get_row_spacing(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_selected_items(&self) -> Vec<TreePath> {
+    fn selected_items(&self) -> Vec<TreePath> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::gtk_icon_view_get_selected_items(
                 self.as_ref().to_glib_none().0,
@@ -1105,7 +1106,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
         }
     }
 
-    fn get_selection_mode(&self) -> SelectionMode {
+    fn selection_mode(&self) -> SelectionMode {
         unsafe {
             from_glib(ffi::gtk_icon_view_get_selection_mode(
                 self.as_ref().to_glib_none().0,
@@ -1113,15 +1114,15 @@ impl<O: IsA<IconView>> IconViewExt for O {
         }
     }
 
-    fn get_spacing(&self) -> i32 {
+    fn spacing(&self) -> i32 {
         unsafe { ffi::gtk_icon_view_get_spacing(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_text_column(&self) -> i32 {
+    fn text_column(&self) -> i32 {
         unsafe { ffi::gtk_icon_view_get_text_column(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_tooltip_column(&self) -> i32 {
+    fn tooltip_column(&self) -> i32 {
         unsafe { ffi::gtk_icon_view_get_tooltip_column(self.as_ref().to_glib_none().0) }
     }
 
@@ -1152,7 +1153,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
         }
     }
 
-    fn get_visible_range(&self) -> Option<(TreePath, TreePath)> {
+    fn visible_range(&self) -> Option<(TreePath, TreePath)> {
         unsafe {
             let mut start_path = ptr::null_mut();
             let mut end_path = ptr::null_mut();
@@ -1424,7 +1425,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
         }
     }
 
-    fn get_property_cell_area(&self) -> Option<CellArea> {
+    fn cell_area(&self) -> Option<CellArea> {
         unsafe {
             let mut value = glib::Value::from_type(<CellArea as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(

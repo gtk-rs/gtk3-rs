@@ -35,7 +35,7 @@ pub const NONE_MEMORY_OUTPUT_STREAM: Option<&MemoryOutputStream> = None;
 
 pub trait MemoryOutputStreamExt: 'static {
     #[doc(alias = "g_memory_output_stream_get_data_size")]
-    fn get_data_size(&self) -> usize;
+    fn data_size(&self) -> usize;
 
     #[doc(alias = "g_memory_output_stream_steal_as_bytes")]
     fn steal_as_bytes(&self) -> glib::Bytes;
@@ -44,7 +44,7 @@ pub trait MemoryOutputStreamExt: 'static {
 }
 
 impl<O: IsA<MemoryOutputStream>> MemoryOutputStreamExt for O {
-    fn get_data_size(&self) -> usize {
+    fn data_size(&self) -> usize {
         unsafe { ffi::g_memory_output_stream_get_data_size(self.as_ref().to_glib_none().0) }
     }
 

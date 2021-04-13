@@ -16,12 +16,12 @@ crate::wrapper! {
 
 impl Binding {
     #[doc(alias = "g_binding_get_flags")]
-    pub fn get_flags(&self) -> BindingFlags {
+    pub fn flags(&self) -> BindingFlags {
         unsafe { from_glib(gobject_ffi::g_binding_get_flags(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_binding_get_source_property")]
-    pub fn get_source_property(&self) -> crate::GString {
+    pub fn source_property(&self) -> crate::GString {
         unsafe {
             from_glib_none(gobject_ffi::g_binding_get_source_property(
                 self.to_glib_none().0,
@@ -30,7 +30,7 @@ impl Binding {
     }
 
     #[doc(alias = "g_binding_get_target_property")]
-    pub fn get_target_property(&self) -> crate::GString {
+    pub fn target_property(&self) -> crate::GString {
         unsafe {
             from_glib_none(gobject_ffi::g_binding_get_target_property(
                 self.to_glib_none().0,

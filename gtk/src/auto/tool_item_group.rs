@@ -425,28 +425,28 @@ pub const NONE_TOOL_ITEM_GROUP: Option<&ToolItemGroup> = None;
 
 pub trait ToolItemGroupExt: 'static {
     #[doc(alias = "gtk_tool_item_group_get_collapsed")]
-    fn get_collapsed(&self) -> bool;
+    fn is_collapsed(&self) -> bool;
 
     #[doc(alias = "gtk_tool_item_group_get_drop_item")]
     fn get_drop_item(&self, x: i32, y: i32) -> Option<ToolItem>;
 
     #[doc(alias = "gtk_tool_item_group_get_ellipsize")]
-    fn get_ellipsize(&self) -> pango::EllipsizeMode;
+    fn ellipsize(&self) -> pango::EllipsizeMode;
 
     #[doc(alias = "gtk_tool_item_group_get_header_relief")]
-    fn get_header_relief(&self) -> ReliefStyle;
+    fn header_relief(&self) -> ReliefStyle;
 
     #[doc(alias = "gtk_tool_item_group_get_item_position")]
     fn get_item_position<P: IsA<ToolItem>>(&self, item: &P) -> i32;
 
     #[doc(alias = "gtk_tool_item_group_get_label")]
-    fn get_label(&self) -> Option<glib::GString>;
+    fn label(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_tool_item_group_get_label_widget")]
-    fn get_label_widget(&self) -> Option<Widget>;
+    fn label_widget(&self) -> Option<Widget>;
 
     #[doc(alias = "gtk_tool_item_group_get_n_items")]
-    fn get_n_items(&self) -> u32;
+    fn n_items(&self) -> u32;
 
     #[doc(alias = "gtk_tool_item_group_get_nth_item")]
     fn get_nth_item(&self, index: u32) -> Option<ToolItem>;
@@ -504,7 +504,7 @@ pub trait ToolItemGroupExt: 'static {
 }
 
 impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
-    fn get_collapsed(&self) -> bool {
+    fn is_collapsed(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_tool_item_group_get_collapsed(
                 self.as_ref().to_glib_none().0,
@@ -522,7 +522,7 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
         }
     }
 
-    fn get_ellipsize(&self) -> pango::EllipsizeMode {
+    fn ellipsize(&self) -> pango::EllipsizeMode {
         unsafe {
             from_glib(ffi::gtk_tool_item_group_get_ellipsize(
                 self.as_ref().to_glib_none().0,
@@ -530,7 +530,7 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
         }
     }
 
-    fn get_header_relief(&self) -> ReliefStyle {
+    fn header_relief(&self) -> ReliefStyle {
         unsafe {
             from_glib(ffi::gtk_tool_item_group_get_header_relief(
                 self.as_ref().to_glib_none().0,
@@ -547,7 +547,7 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
         }
     }
 
-    fn get_label(&self) -> Option<glib::GString> {
+    fn label(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_tool_item_group_get_label(
                 self.as_ref().to_glib_none().0,
@@ -555,7 +555,7 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
         }
     }
 
-    fn get_label_widget(&self) -> Option<Widget> {
+    fn label_widget(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_tool_item_group_get_label_widget(
                 self.as_ref().to_glib_none().0,
@@ -563,7 +563,7 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
         }
     }
 
-    fn get_n_items(&self) -> u32 {
+    fn n_items(&self) -> u32 {
         unsafe { ffi::gtk_tool_item_group_get_n_items(self.as_ref().to_glib_none().0) }
     }
 

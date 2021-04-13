@@ -26,28 +26,28 @@ pub const NONE_VALUE: Option<&Value> = None;
 
 pub trait ValueExt: 'static {
     #[doc(alias = "atk_value_get_current_value")]
-    fn get_current_value(&self) -> glib::Value;
+    fn current_value(&self) -> glib::Value;
 
     #[doc(alias = "atk_value_get_increment")]
-    fn get_increment(&self) -> f64;
+    fn increment(&self) -> f64;
 
     #[doc(alias = "atk_value_get_maximum_value")]
-    fn get_maximum_value(&self) -> glib::Value;
+    fn maximum_value(&self) -> glib::Value;
 
     #[doc(alias = "atk_value_get_minimum_increment")]
-    fn get_minimum_increment(&self) -> glib::Value;
+    fn minimum_increment(&self) -> glib::Value;
 
     #[doc(alias = "atk_value_get_minimum_value")]
-    fn get_minimum_value(&self) -> glib::Value;
+    fn minimum_value(&self) -> glib::Value;
 
     #[doc(alias = "atk_value_get_range")]
-    fn get_range(&self) -> Option<Range>;
+    fn range(&self) -> Option<Range>;
 
     #[doc(alias = "atk_value_get_sub_ranges")]
-    fn get_sub_ranges(&self) -> Vec<Range>;
+    fn sub_ranges(&self) -> Vec<Range>;
 
     #[doc(alias = "atk_value_get_value_and_text")]
-    fn get_value_and_text(&self) -> (f64, glib::GString);
+    fn value_and_text(&self) -> (f64, glib::GString);
 
     #[doc(alias = "atk_value_set_current_value")]
     fn set_current_value(&self, value: &glib::Value) -> bool;
@@ -59,7 +59,7 @@ pub trait ValueExt: 'static {
 }
 
 impl<O: IsA<Value>> ValueExt for O {
-    fn get_current_value(&self) -> glib::Value {
+    fn current_value(&self) -> glib::Value {
         unsafe {
             let mut value = glib::Value::uninitialized();
             ffi::atk_value_get_current_value(
@@ -70,11 +70,11 @@ impl<O: IsA<Value>> ValueExt for O {
         }
     }
 
-    fn get_increment(&self) -> f64 {
+    fn increment(&self) -> f64 {
         unsafe { ffi::atk_value_get_increment(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_maximum_value(&self) -> glib::Value {
+    fn maximum_value(&self) -> glib::Value {
         unsafe {
             let mut value = glib::Value::uninitialized();
             ffi::atk_value_get_maximum_value(
@@ -85,7 +85,7 @@ impl<O: IsA<Value>> ValueExt for O {
         }
     }
 
-    fn get_minimum_increment(&self) -> glib::Value {
+    fn minimum_increment(&self) -> glib::Value {
         unsafe {
             let mut value = glib::Value::uninitialized();
             ffi::atk_value_get_minimum_increment(
@@ -96,7 +96,7 @@ impl<O: IsA<Value>> ValueExt for O {
         }
     }
 
-    fn get_minimum_value(&self) -> glib::Value {
+    fn minimum_value(&self) -> glib::Value {
         unsafe {
             let mut value = glib::Value::uninitialized();
             ffi::atk_value_get_minimum_value(
@@ -107,11 +107,11 @@ impl<O: IsA<Value>> ValueExt for O {
         }
     }
 
-    fn get_range(&self) -> Option<Range> {
+    fn range(&self) -> Option<Range> {
         unsafe { from_glib_full(ffi::atk_value_get_range(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_sub_ranges(&self) -> Vec<Range> {
+    fn sub_ranges(&self) -> Vec<Range> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::atk_value_get_sub_ranges(
                 self.as_ref().to_glib_none().0,
@@ -119,7 +119,7 @@ impl<O: IsA<Value>> ValueExt for O {
         }
     }
 
-    fn get_value_and_text(&self) -> (f64, glib::GString) {
+    fn value_and_text(&self) -> (f64, glib::GString) {
         unsafe {
             let mut value = mem::MaybeUninit::uninit();
             let mut text = ptr::null_mut();

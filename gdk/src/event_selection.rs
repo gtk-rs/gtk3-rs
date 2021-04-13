@@ -12,23 +12,23 @@ event_subtype!(
 );
 
 impl EventSelection {
-    pub fn get_selection(&self) -> crate::Atom {
+    pub fn selection(&self) -> crate::Atom {
         unsafe { from_glib_none(self.as_ref().selection as *mut _) }
     }
 
-    pub fn get_target(&self) -> crate::Atom {
+    pub fn target(&self) -> crate::Atom {
         unsafe { from_glib_none(self.as_ref().target as *mut _) }
     }
 
-    pub fn get_property(&self) -> crate::Atom {
+    pub fn property(&self) -> crate::Atom {
         unsafe { from_glib_none(self.as_ref().property as *mut _) }
     }
 
-    pub fn get_time(&self) -> u32 {
+    pub fn time(&self) -> u32 {
         self.as_ref().time
     }
 
-    pub fn get_requestor(&self) -> Option<crate::Window> {
+    pub fn requestor(&self) -> Option<crate::Window> {
         unsafe { from_glib_none(self.as_ref().requestor) }
     }
 }

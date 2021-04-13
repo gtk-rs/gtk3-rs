@@ -40,15 +40,17 @@ impl TlsFileDatabase {
 pub const NONE_TLS_FILE_DATABASE: Option<&TlsFileDatabase> = None;
 
 pub trait TlsFileDatabaseExt: 'static {
-    fn get_property_anchors(&self) -> Option<glib::GString>;
+    #[doc(alias = "get_property_anchors")]
+    fn anchors(&self) -> Option<glib::GString>;
 
-    fn set_property_anchors(&self, anchors: Option<&str>);
+    #[doc(alias = "set_property_anchors")]
+    fn set_anchors(&self, anchors: Option<&str>);
 
     fn connect_property_anchors_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<TlsFileDatabase>> TlsFileDatabaseExt for O {
-    fn get_property_anchors(&self) -> Option<glib::GString> {
+    fn anchors(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -62,7 +64,7 @@ impl<O: IsA<TlsFileDatabase>> TlsFileDatabaseExt for O {
         }
     }
 
-    fn set_property_anchors(&self, anchors: Option<&str>) {
+    fn set_anchors(&self, anchors: Option<&str>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,

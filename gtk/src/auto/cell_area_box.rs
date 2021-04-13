@@ -88,7 +88,7 @@ pub const NONE_CELL_AREA_BOX: Option<&CellAreaBox> = None;
 
 pub trait CellAreaBoxExt: 'static {
     #[doc(alias = "gtk_cell_area_box_get_spacing")]
-    fn get_spacing(&self) -> i32;
+    fn spacing(&self) -> i32;
 
     #[doc(alias = "gtk_cell_area_box_pack_end")]
     fn pack_end<P: IsA<CellRenderer>>(&self, renderer: &P, expand: bool, align: bool, fixed: bool);
@@ -109,7 +109,7 @@ pub trait CellAreaBoxExt: 'static {
 }
 
 impl<O: IsA<CellAreaBox>> CellAreaBoxExt for O {
-    fn get_spacing(&self) -> i32 {
+    fn spacing(&self) -> i32 {
         unsafe { ffi::gtk_cell_area_box_get_spacing(self.as_ref().to_glib_none().0) }
     }
 

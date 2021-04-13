@@ -447,15 +447,17 @@ impl ColorChooserWidgetBuilder {
 pub const NONE_COLOR_CHOOSER_WIDGET: Option<&ColorChooserWidget> = None;
 
 pub trait ColorChooserWidgetExt: 'static {
-    fn get_property_show_editor(&self) -> bool;
+    #[doc(alias = "get_property_show_editor")]
+    fn shows_editor(&self) -> bool;
 
-    fn set_property_show_editor(&self, show_editor: bool);
+    #[doc(alias = "set_property_show_editor")]
+    fn set_show_editor(&self, show_editor: bool);
 
     fn connect_property_show_editor_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<ColorChooserWidget>> ColorChooserWidgetExt for O {
-    fn get_property_show_editor(&self) -> bool {
+    fn shows_editor(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -470,7 +472,7 @@ impl<O: IsA<ColorChooserWidget>> ColorChooserWidgetExt for O {
         }
     }
 
-    fn set_property_show_editor(&self, show_editor: bool) {
+    fn set_show_editor(&self, show_editor: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,

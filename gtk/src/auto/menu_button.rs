@@ -542,22 +542,22 @@ pub const NONE_MENU_BUTTON: Option<&MenuButton> = None;
 
 pub trait MenuButtonExt: 'static {
     #[doc(alias = "gtk_menu_button_get_align_widget")]
-    fn get_align_widget(&self) -> Option<Widget>;
+    fn align_widget(&self) -> Option<Widget>;
 
     #[doc(alias = "gtk_menu_button_get_direction")]
-    fn get_direction(&self) -> ArrowType;
+    fn direction(&self) -> ArrowType;
 
     #[doc(alias = "gtk_menu_button_get_menu_model")]
-    fn get_menu_model(&self) -> Option<gio::MenuModel>;
+    fn menu_model(&self) -> Option<gio::MenuModel>;
 
     #[doc(alias = "gtk_menu_button_get_popover")]
-    fn get_popover(&self) -> Option<Popover>;
+    fn popover(&self) -> Option<Popover>;
 
     #[doc(alias = "gtk_menu_button_get_popup")]
-    fn get_popup(&self) -> Option<Menu>;
+    fn popup(&self) -> Option<Menu>;
 
     #[doc(alias = "gtk_menu_button_get_use_popover")]
-    fn get_use_popover(&self) -> bool;
+    fn uses_popover(&self) -> bool;
 
     #[doc(alias = "gtk_menu_button_set_align_widget")]
     fn set_align_widget<P: IsA<Widget>>(&self, align_widget: Option<&P>);
@@ -592,7 +592,7 @@ pub trait MenuButtonExt: 'static {
 }
 
 impl<O: IsA<MenuButton>> MenuButtonExt for O {
-    fn get_align_widget(&self) -> Option<Widget> {
+    fn align_widget(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_menu_button_get_align_widget(
                 self.as_ref().to_glib_none().0,
@@ -600,7 +600,7 @@ impl<O: IsA<MenuButton>> MenuButtonExt for O {
         }
     }
 
-    fn get_direction(&self) -> ArrowType {
+    fn direction(&self) -> ArrowType {
         unsafe {
             from_glib(ffi::gtk_menu_button_get_direction(
                 self.as_ref().to_glib_none().0,
@@ -608,7 +608,7 @@ impl<O: IsA<MenuButton>> MenuButtonExt for O {
         }
     }
 
-    fn get_menu_model(&self) -> Option<gio::MenuModel> {
+    fn menu_model(&self) -> Option<gio::MenuModel> {
         unsafe {
             from_glib_none(ffi::gtk_menu_button_get_menu_model(
                 self.as_ref().to_glib_none().0,
@@ -616,7 +616,7 @@ impl<O: IsA<MenuButton>> MenuButtonExt for O {
         }
     }
 
-    fn get_popover(&self) -> Option<Popover> {
+    fn popover(&self) -> Option<Popover> {
         unsafe {
             from_glib_none(ffi::gtk_menu_button_get_popover(
                 self.as_ref().to_glib_none().0,
@@ -624,7 +624,7 @@ impl<O: IsA<MenuButton>> MenuButtonExt for O {
         }
     }
 
-    fn get_popup(&self) -> Option<Menu> {
+    fn popup(&self) -> Option<Menu> {
         unsafe {
             from_glib_none(ffi::gtk_menu_button_get_popup(
                 self.as_ref().to_glib_none().0,
@@ -632,7 +632,7 @@ impl<O: IsA<MenuButton>> MenuButtonExt for O {
         }
     }
 
-    fn get_use_popover(&self) -> bool {
+    fn uses_popover(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_menu_button_get_use_popover(
                 self.as_ref().to_glib_none().0,

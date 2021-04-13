@@ -409,16 +409,16 @@ pub const NONE_REVEALER: Option<&Revealer> = None;
 
 pub trait RevealerExt: 'static {
     #[doc(alias = "gtk_revealer_get_child_revealed")]
-    fn get_child_revealed(&self) -> bool;
+    fn is_child_revealed(&self) -> bool;
 
     #[doc(alias = "gtk_revealer_get_reveal_child")]
-    fn get_reveal_child(&self) -> bool;
+    fn reveals_child(&self) -> bool;
 
     #[doc(alias = "gtk_revealer_get_transition_duration")]
-    fn get_transition_duration(&self) -> u32;
+    fn transition_duration(&self) -> u32;
 
     #[doc(alias = "gtk_revealer_get_transition_type")]
-    fn get_transition_type(&self) -> RevealerTransitionType;
+    fn transition_type(&self) -> RevealerTransitionType;
 
     #[doc(alias = "gtk_revealer_set_reveal_child")]
     fn set_reveal_child(&self, reveal_child: bool);
@@ -449,7 +449,7 @@ pub trait RevealerExt: 'static {
 }
 
 impl<O: IsA<Revealer>> RevealerExt for O {
-    fn get_child_revealed(&self) -> bool {
+    fn is_child_revealed(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_revealer_get_child_revealed(
                 self.as_ref().to_glib_none().0,
@@ -457,7 +457,7 @@ impl<O: IsA<Revealer>> RevealerExt for O {
         }
     }
 
-    fn get_reveal_child(&self) -> bool {
+    fn reveals_child(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_revealer_get_reveal_child(
                 self.as_ref().to_glib_none().0,
@@ -465,11 +465,11 @@ impl<O: IsA<Revealer>> RevealerExt for O {
         }
     }
 
-    fn get_transition_duration(&self) -> u32 {
+    fn transition_duration(&self) -> u32 {
         unsafe { ffi::gtk_revealer_get_transition_duration(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_transition_type(&self) -> RevealerTransitionType {
+    fn transition_type(&self) -> RevealerTransitionType {
         unsafe {
             from_glib(ffi::gtk_revealer_get_transition_type(
                 self.as_ref().to_glib_none().0,

@@ -42,21 +42,20 @@ pub const NONE_UNIX_SOCKET_ADDRESS: Option<&UnixSocketAddress> = None;
 
 pub trait UnixSocketAddressExt: 'static {
     #[doc(alias = "g_unix_socket_address_get_address_type")]
-    fn get_address_type(&self) -> UnixSocketAddressType;
+    fn address_type(&self) -> UnixSocketAddressType;
 
     #[doc(alias = "g_unix_socket_address_get_is_abstract")]
-    fn get_is_abstract(&self) -> bool;
+    fn is_abstract(&self) -> bool;
 
     #[doc(alias = "g_unix_socket_address_get_path_len")]
-    fn get_path_len(&self) -> usize;
+    fn path_len(&self) -> usize;
 
-    fn get_property_abstract(&self) -> bool;
-
-    fn get_property_path_as_array(&self) -> Option<glib::ByteArray>;
+    #[doc(alias = "get_property_path_as_array")]
+    fn path_as_array(&self) -> Option<glib::ByteArray>;
 }
 
 impl<O: IsA<UnixSocketAddress>> UnixSocketAddressExt for O {
-    fn get_address_type(&self) -> UnixSocketAddressType {
+    fn address_type(&self) -> UnixSocketAddressType {
         unsafe {
             from_glib(ffi::g_unix_socket_address_get_address_type(
                 self.as_ref().to_glib_none().0,
@@ -64,7 +63,7 @@ impl<O: IsA<UnixSocketAddress>> UnixSocketAddressExt for O {
         }
     }
 
-    fn get_is_abstract(&self) -> bool {
+    fn is_abstract(&self) -> bool {
         unsafe {
             from_glib(ffi::g_unix_socket_address_get_is_abstract(
                 self.as_ref().to_glib_none().0,
@@ -72,26 +71,11 @@ impl<O: IsA<UnixSocketAddress>> UnixSocketAddressExt for O {
         }
     }
 
-    fn get_path_len(&self) -> usize {
+    fn path_len(&self) -> usize {
         unsafe { ffi::g_unix_socket_address_get_path_len(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_property_abstract(&self) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"abstract\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `abstract` getter")
-                .unwrap()
-        }
-    }
-
-    fn get_property_path_as_array(&self) -> Option<glib::ByteArray> {
+    fn path_as_array(&self) -> Option<glib::ByteArray> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::ByteArray as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(

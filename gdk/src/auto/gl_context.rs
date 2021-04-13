@@ -19,17 +19,17 @@ glib::wrapper! {
 
 impl GLContext {
     #[doc(alias = "gdk_gl_context_get_debug_enabled")]
-    pub fn get_debug_enabled(&self) -> bool {
+    pub fn is_debug_enabled(&self) -> bool {
         unsafe { from_glib(ffi::gdk_gl_context_get_debug_enabled(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_gl_context_get_display")]
-    pub fn get_display(&self) -> Option<Display> {
+    pub fn display(&self) -> Option<Display> {
         unsafe { from_glib_none(ffi::gdk_gl_context_get_display(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_gl_context_get_forward_compatible")]
-    pub fn get_forward_compatible(&self) -> bool {
+    pub fn is_forward_compatible(&self) -> bool {
         unsafe {
             from_glib(ffi::gdk_gl_context_get_forward_compatible(
                 self.to_glib_none().0,
@@ -38,7 +38,7 @@ impl GLContext {
     }
 
     #[doc(alias = "gdk_gl_context_get_required_version")]
-    pub fn get_required_version(&self) -> (i32, i32) {
+    pub fn required_version(&self) -> (i32, i32) {
         unsafe {
             let mut major = mem::MaybeUninit::uninit();
             let mut minor = mem::MaybeUninit::uninit();
@@ -54,7 +54,7 @@ impl GLContext {
     }
 
     #[doc(alias = "gdk_gl_context_get_shared_context")]
-    pub fn get_shared_context(&self) -> Option<GLContext> {
+    pub fn shared_context(&self) -> Option<GLContext> {
         unsafe {
             from_glib_none(ffi::gdk_gl_context_get_shared_context(
                 self.to_glib_none().0,
@@ -65,12 +65,12 @@ impl GLContext {
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gdk_gl_context_get_use_es")]
-    pub fn get_use_es(&self) -> bool {
+    pub fn uses_es(&self) -> bool {
         unsafe { from_glib(ffi::gdk_gl_context_get_use_es(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_gl_context_get_version")]
-    pub fn get_version(&self) -> (i32, i32) {
+    pub fn version(&self) -> (i32, i32) {
         unsafe {
             let mut major = mem::MaybeUninit::uninit();
             let mut minor = mem::MaybeUninit::uninit();
@@ -86,7 +86,7 @@ impl GLContext {
     }
 
     #[doc(alias = "gdk_gl_context_get_window")]
-    pub fn get_window(&self) -> Option<Window> {
+    pub fn window(&self) -> Option<Window> {
         unsafe { from_glib_none(ffi::gdk_gl_context_get_window(self.to_glib_none().0)) }
     }
 

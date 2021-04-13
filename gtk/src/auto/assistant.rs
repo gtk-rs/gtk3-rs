@@ -657,10 +657,10 @@ pub trait AssistantExt: 'static {
     fn commit(&self);
 
     #[doc(alias = "gtk_assistant_get_current_page")]
-    fn get_current_page(&self) -> i32;
+    fn current_page(&self) -> i32;
 
     #[doc(alias = "gtk_assistant_get_n_pages")]
-    fn get_n_pages(&self) -> i32;
+    fn n_pages(&self) -> i32;
 
     #[doc(alias = "gtk_assistant_get_nth_page")]
     fn get_nth_page(&self, page_num: i32) -> Option<Widget>;
@@ -720,7 +720,8 @@ pub trait AssistantExt: 'static {
     #[doc(alias = "gtk_assistant_update_buttons_state")]
     fn update_buttons_state(&self);
 
-    fn get_property_use_header_bar(&self) -> i32;
+    #[doc(alias = "get_property_use_header_bar")]
+    fn use_header_bar(&self) -> i32;
 
     fn get_child_complete<T: IsA<Widget>>(&self, item: &T) -> bool;
 
@@ -776,11 +777,11 @@ impl<O: IsA<Assistant>> AssistantExt for O {
         }
     }
 
-    fn get_current_page(&self) -> i32 {
+    fn current_page(&self) -> i32 {
         unsafe { ffi::gtk_assistant_get_current_page(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_n_pages(&self) -> i32 {
+    fn n_pages(&self) -> i32 {
         unsafe { ffi::gtk_assistant_get_n_pages(self.as_ref().to_glib_none().0) }
     }
 
@@ -966,7 +967,7 @@ impl<O: IsA<Assistant>> AssistantExt for O {
         }
     }
 
-    fn get_property_use_header_bar(&self) -> i32 {
+    fn use_header_bar(&self) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(

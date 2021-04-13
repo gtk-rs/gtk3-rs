@@ -517,22 +517,26 @@ pub const NONE_COLOR_BUTTON: Option<&ColorButton> = None;
 
 pub trait ColorButtonExt: 'static {
     #[doc(alias = "gtk_color_button_get_title")]
-    fn get_title(&self) -> Option<glib::GString>;
+    fn title(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_color_button_set_title")]
     fn set_title(&self, title: &str);
 
-    fn get_property_alpha(&self) -> u32;
+    #[doc(alias = "get_property_alpha")]
+    fn alpha(&self) -> u32;
 
-    fn set_property_alpha(&self, alpha: u32);
-
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-    fn get_property_show_editor(&self) -> bool;
+    #[doc(alias = "set_property_alpha")]
+    fn set_alpha(&self, alpha: u32);
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-    fn set_property_show_editor(&self, show_editor: bool);
+    #[doc(alias = "get_property_show_editor")]
+    fn shows_editor(&self) -> bool;
+
+    #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[doc(alias = "set_property_show_editor")]
+    fn set_show_editor(&self, show_editor: bool);
 
     fn connect_color_set<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -550,7 +554,7 @@ pub trait ColorButtonExt: 'static {
 }
 
 impl<O: IsA<ColorButton>> ColorButtonExt for O {
-    fn get_title(&self) -> Option<glib::GString> {
+    fn title(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_color_button_get_title(
                 self.as_ref().to_glib_none().0,
@@ -564,7 +568,7 @@ impl<O: IsA<ColorButton>> ColorButtonExt for O {
         }
     }
 
-    fn get_property_alpha(&self) -> u32 {
+    fn alpha(&self) -> u32 {
         unsafe {
             let mut value = glib::Value::from_type(<u32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -579,7 +583,7 @@ impl<O: IsA<ColorButton>> ColorButtonExt for O {
         }
     }
 
-    fn set_property_alpha(&self, alpha: u32) {
+    fn set_alpha(&self, alpha: u32) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -591,7 +595,7 @@ impl<O: IsA<ColorButton>> ColorButtonExt for O {
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-    fn get_property_show_editor(&self) -> bool {
+    fn shows_editor(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -608,7 +612,7 @@ impl<O: IsA<ColorButton>> ColorButtonExt for O {
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-    fn set_property_show_editor(&self, show_editor: bool) {
+    fn set_show_editor(&self, show_editor: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,

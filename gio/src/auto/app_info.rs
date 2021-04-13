@@ -221,28 +221,28 @@ pub trait AppInfoExt: 'static {
     fn equal<P: IsA<AppInfo>>(&self, appinfo2: &P) -> bool;
 
     #[doc(alias = "g_app_info_get_commandline")]
-    fn get_commandline(&self) -> Option<std::path::PathBuf>;
+    fn commandline(&self) -> Option<std::path::PathBuf>;
 
     #[doc(alias = "g_app_info_get_description")]
-    fn get_description(&self) -> Option<glib::GString>;
+    fn description(&self) -> Option<glib::GString>;
 
     #[doc(alias = "g_app_info_get_display_name")]
-    fn get_display_name(&self) -> glib::GString;
+    fn display_name(&self) -> glib::GString;
 
     #[doc(alias = "g_app_info_get_executable")]
-    fn get_executable(&self) -> std::path::PathBuf;
+    fn executable(&self) -> std::path::PathBuf;
 
     #[doc(alias = "g_app_info_get_icon")]
-    fn get_icon(&self) -> Option<Icon>;
+    fn icon(&self) -> Option<Icon>;
 
     #[doc(alias = "g_app_info_get_id")]
-    fn get_id(&self) -> Option<glib::GString>;
+    fn id(&self) -> Option<glib::GString>;
 
     #[doc(alias = "g_app_info_get_name")]
-    fn get_name(&self) -> glib::GString;
+    fn name(&self) -> glib::GString;
 
     #[doc(alias = "g_app_info_get_supported_types")]
-    fn get_supported_types(&self) -> Vec<glib::GString>;
+    fn supported_types(&self) -> Vec<glib::GString>;
 
     #[doc(alias = "g_app_info_launch")]
     fn launch<P: IsA<AppLaunchContext>>(
@@ -329,7 +329,7 @@ impl<O: IsA<AppInfo>> AppInfoExt for O {
         }
     }
 
-    fn get_commandline(&self) -> Option<std::path::PathBuf> {
+    fn commandline(&self) -> Option<std::path::PathBuf> {
         unsafe {
             from_glib_none(ffi::g_app_info_get_commandline(
                 self.as_ref().to_glib_none().0,
@@ -337,7 +337,7 @@ impl<O: IsA<AppInfo>> AppInfoExt for O {
         }
     }
 
-    fn get_description(&self) -> Option<glib::GString> {
+    fn description(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::g_app_info_get_description(
                 self.as_ref().to_glib_none().0,
@@ -345,7 +345,7 @@ impl<O: IsA<AppInfo>> AppInfoExt for O {
         }
     }
 
-    fn get_display_name(&self) -> glib::GString {
+    fn display_name(&self) -> glib::GString {
         unsafe {
             from_glib_none(ffi::g_app_info_get_display_name(
                 self.as_ref().to_glib_none().0,
@@ -353,7 +353,7 @@ impl<O: IsA<AppInfo>> AppInfoExt for O {
         }
     }
 
-    fn get_executable(&self) -> std::path::PathBuf {
+    fn executable(&self) -> std::path::PathBuf {
         unsafe {
             from_glib_none(ffi::g_app_info_get_executable(
                 self.as_ref().to_glib_none().0,
@@ -361,19 +361,19 @@ impl<O: IsA<AppInfo>> AppInfoExt for O {
         }
     }
 
-    fn get_icon(&self) -> Option<Icon> {
+    fn icon(&self) -> Option<Icon> {
         unsafe { from_glib_none(ffi::g_app_info_get_icon(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_id(&self) -> Option<glib::GString> {
+    fn id(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::g_app_info_get_id(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_name(&self) -> glib::GString {
+    fn name(&self) -> glib::GString {
         unsafe { from_glib_none(ffi::g_app_info_get_name(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_supported_types(&self) -> Vec<glib::GString> {
+    fn supported_types(&self) -> Vec<glib::GString> {
         unsafe {
             FromGlibPtrContainer::from_glib_none(ffi::g_app_info_get_supported_types(
                 self.as_ref().to_glib_none().0,

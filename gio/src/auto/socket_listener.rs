@@ -134,9 +134,11 @@ pub trait SocketListenerExt: 'static {
     #[doc(alias = "g_socket_listener_set_backlog")]
     fn set_backlog(&self, listen_backlog: i32);
 
-    fn get_property_listen_backlog(&self) -> i32;
+    #[doc(alias = "get_property_listen_backlog")]
+    fn listen_backlog(&self) -> i32;
 
-    fn set_property_listen_backlog(&self, listen_backlog: i32);
+    #[doc(alias = "set_property_listen_backlog")]
+    fn set_listen_backlog(&self, listen_backlog: i32);
 
     #[cfg(any(feature = "v2_46", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
@@ -417,7 +419,7 @@ impl<O: IsA<SocketListener>> SocketListenerExt for O {
         }
     }
 
-    fn get_property_listen_backlog(&self) -> i32 {
+    fn listen_backlog(&self) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -432,7 +434,7 @@ impl<O: IsA<SocketListener>> SocketListenerExt for O {
         }
     }
 
-    fn set_property_listen_backlog(&self, listen_backlog: i32) {
+    fn set_listen_backlog(&self, listen_backlog: i32) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,

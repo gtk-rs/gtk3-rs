@@ -54,45 +54,46 @@ pub trait InetAddressExt: 'static {
     fn equal<P: IsA<InetAddress>>(&self, other_address: &P) -> bool;
 
     #[doc(alias = "g_inet_address_get_family")]
-    fn get_family(&self) -> SocketFamily;
+    fn family(&self) -> SocketFamily;
 
     #[doc(alias = "g_inet_address_get_is_any")]
-    fn get_is_any(&self) -> bool;
+    fn is_any(&self) -> bool;
 
     #[doc(alias = "g_inet_address_get_is_link_local")]
-    fn get_is_link_local(&self) -> bool;
+    fn is_link_local(&self) -> bool;
 
     #[doc(alias = "g_inet_address_get_is_loopback")]
-    fn get_is_loopback(&self) -> bool;
+    fn is_loopback(&self) -> bool;
 
     #[doc(alias = "g_inet_address_get_is_mc_global")]
-    fn get_is_mc_global(&self) -> bool;
+    fn is_mc_global(&self) -> bool;
 
     #[doc(alias = "g_inet_address_get_is_mc_link_local")]
-    fn get_is_mc_link_local(&self) -> bool;
+    fn is_mc_link_local(&self) -> bool;
 
     #[doc(alias = "g_inet_address_get_is_mc_node_local")]
-    fn get_is_mc_node_local(&self) -> bool;
+    fn is_mc_node_local(&self) -> bool;
 
     #[doc(alias = "g_inet_address_get_is_mc_org_local")]
-    fn get_is_mc_org_local(&self) -> bool;
+    fn is_mc_org_local(&self) -> bool;
 
     #[doc(alias = "g_inet_address_get_is_mc_site_local")]
-    fn get_is_mc_site_local(&self) -> bool;
+    fn is_mc_site_local(&self) -> bool;
 
     #[doc(alias = "g_inet_address_get_is_multicast")]
-    fn get_is_multicast(&self) -> bool;
+    fn is_multicast(&self) -> bool;
 
     #[doc(alias = "g_inet_address_get_is_site_local")]
-    fn get_is_site_local(&self) -> bool;
+    fn is_site_local(&self) -> bool;
 
     #[doc(alias = "g_inet_address_get_native_size")]
-    fn get_native_size(&self) -> usize;
+    fn native_size(&self) -> usize;
 
     #[doc(alias = "g_inet_address_to_string")]
     fn to_str(&self) -> glib::GString;
 
-    //fn get_property_bytes(&self) -> /*Unimplemented*/Fundamental: Pointer;
+    //#[doc(alias = "get_property_bytes")]
+    //fn bytes(&self) -> /*Unimplemented*/Fundamental: Pointer;
 
     fn connect_property_is_any_notify<F: Fn(&Self) + Send + Sync + 'static>(
         &self,
@@ -155,7 +156,7 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
         }
     }
 
-    fn get_family(&self) -> SocketFamily {
+    fn family(&self) -> SocketFamily {
         unsafe {
             from_glib(ffi::g_inet_address_get_family(
                 self.as_ref().to_glib_none().0,
@@ -163,7 +164,7 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
         }
     }
 
-    fn get_is_any(&self) -> bool {
+    fn is_any(&self) -> bool {
         unsafe {
             from_glib(ffi::g_inet_address_get_is_any(
                 self.as_ref().to_glib_none().0,
@@ -171,7 +172,7 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
         }
     }
 
-    fn get_is_link_local(&self) -> bool {
+    fn is_link_local(&self) -> bool {
         unsafe {
             from_glib(ffi::g_inet_address_get_is_link_local(
                 self.as_ref().to_glib_none().0,
@@ -179,7 +180,7 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
         }
     }
 
-    fn get_is_loopback(&self) -> bool {
+    fn is_loopback(&self) -> bool {
         unsafe {
             from_glib(ffi::g_inet_address_get_is_loopback(
                 self.as_ref().to_glib_none().0,
@@ -187,7 +188,7 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
         }
     }
 
-    fn get_is_mc_global(&self) -> bool {
+    fn is_mc_global(&self) -> bool {
         unsafe {
             from_glib(ffi::g_inet_address_get_is_mc_global(
                 self.as_ref().to_glib_none().0,
@@ -195,7 +196,7 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
         }
     }
 
-    fn get_is_mc_link_local(&self) -> bool {
+    fn is_mc_link_local(&self) -> bool {
         unsafe {
             from_glib(ffi::g_inet_address_get_is_mc_link_local(
                 self.as_ref().to_glib_none().0,
@@ -203,7 +204,7 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
         }
     }
 
-    fn get_is_mc_node_local(&self) -> bool {
+    fn is_mc_node_local(&self) -> bool {
         unsafe {
             from_glib(ffi::g_inet_address_get_is_mc_node_local(
                 self.as_ref().to_glib_none().0,
@@ -211,7 +212,7 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
         }
     }
 
-    fn get_is_mc_org_local(&self) -> bool {
+    fn is_mc_org_local(&self) -> bool {
         unsafe {
             from_glib(ffi::g_inet_address_get_is_mc_org_local(
                 self.as_ref().to_glib_none().0,
@@ -219,7 +220,7 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
         }
     }
 
-    fn get_is_mc_site_local(&self) -> bool {
+    fn is_mc_site_local(&self) -> bool {
         unsafe {
             from_glib(ffi::g_inet_address_get_is_mc_site_local(
                 self.as_ref().to_glib_none().0,
@@ -227,7 +228,7 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
         }
     }
 
-    fn get_is_multicast(&self) -> bool {
+    fn is_multicast(&self) -> bool {
         unsafe {
             from_glib(ffi::g_inet_address_get_is_multicast(
                 self.as_ref().to_glib_none().0,
@@ -235,7 +236,7 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
         }
     }
 
-    fn get_is_site_local(&self) -> bool {
+    fn is_site_local(&self) -> bool {
         unsafe {
             from_glib(ffi::g_inet_address_get_is_site_local(
                 self.as_ref().to_glib_none().0,
@@ -243,7 +244,7 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
         }
     }
 
-    fn get_native_size(&self) -> usize {
+    fn native_size(&self) -> usize {
         unsafe { ffi::g_inet_address_get_native_size(self.as_ref().to_glib_none().0) }
     }
 
@@ -255,7 +256,7 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
         }
     }
 
-    //fn get_property_bytes(&self) -> /*Unimplemented*/Fundamental: Pointer {
+    //fn bytes(&self) -> /*Unimplemented*/Fundamental: Pointer {
     //    unsafe {
     //        let mut value = glib::Value::from_type(</*Unknown type*/ as StaticType>::static_type());
     //        glib::gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut glib::gobject_ffi::GObject, b"bytes\0".as_ptr() as *const _, value.to_glib_none_mut().0);

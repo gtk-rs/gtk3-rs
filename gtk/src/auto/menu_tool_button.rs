@@ -484,7 +484,7 @@ pub const NONE_MENU_TOOL_BUTTON: Option<&MenuToolButton> = None;
 
 pub trait MenuToolButtonExt: 'static {
     #[doc(alias = "gtk_menu_tool_button_get_menu")]
-    fn get_menu(&self) -> Option<Widget>;
+    fn menu(&self) -> Option<Widget>;
 
     #[doc(alias = "gtk_menu_tool_button_set_arrow_tooltip_markup")]
     fn set_arrow_tooltip_markup(&self, markup: &str);
@@ -501,7 +501,7 @@ pub trait MenuToolButtonExt: 'static {
 }
 
 impl<O: IsA<MenuToolButton>> MenuToolButtonExt for O {
-    fn get_menu(&self) -> Option<Widget> {
+    fn menu(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_menu_tool_button_get_menu(
                 self.as_ref().to_glib_none().0,

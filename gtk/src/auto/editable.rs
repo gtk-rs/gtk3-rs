@@ -34,13 +34,13 @@ pub trait EditableExt: 'static {
     fn get_chars(&self, start_pos: i32, end_pos: i32) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_editable_get_editable")]
-    fn get_editable(&self) -> bool;
+    fn is_editable(&self) -> bool;
 
     #[doc(alias = "gtk_editable_get_position")]
-    fn get_position(&self) -> i32;
+    fn position(&self) -> i32;
 
     #[doc(alias = "gtk_editable_get_selection_bounds")]
-    fn get_selection_bounds(&self) -> Option<(i32, i32)>;
+    fn selection_bounds(&self) -> Option<(i32, i32)>;
 
     #[doc(alias = "gtk_editable_insert_text")]
     fn insert_text(&self, new_text: &str, position: &mut i32);
@@ -93,7 +93,7 @@ impl<O: IsA<Editable>> EditableExt for O {
         }
     }
 
-    fn get_editable(&self) -> bool {
+    fn is_editable(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_editable_get_editable(
                 self.as_ref().to_glib_none().0,
@@ -101,11 +101,11 @@ impl<O: IsA<Editable>> EditableExt for O {
         }
     }
 
-    fn get_position(&self) -> i32 {
+    fn position(&self) -> i32 {
         unsafe { ffi::gtk_editable_get_position(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_selection_bounds(&self) -> Option<(i32, i32)> {
+    fn selection_bounds(&self) -> Option<(i32, i32)> {
         unsafe {
             let mut start_pos = mem::MaybeUninit::uninit();
             let mut end_pos = mem::MaybeUninit::uninit();

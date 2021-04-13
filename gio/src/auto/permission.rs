@@ -41,13 +41,13 @@ pub trait PermissionExt: 'static {
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>>;
 
     #[doc(alias = "g_permission_get_allowed")]
-    fn get_allowed(&self) -> bool;
+    fn is_allowed(&self) -> bool;
 
     #[doc(alias = "g_permission_get_can_acquire")]
-    fn get_can_acquire(&self) -> bool;
+    fn can_acquire(&self) -> bool;
 
     #[doc(alias = "g_permission_get_can_release")]
-    fn get_can_release(&self) -> bool;
+    fn can_release(&self) -> bool;
 
     #[doc(alias = "g_permission_impl_update")]
     fn impl_update(&self, allowed: bool, can_acquire: bool, can_release: bool);
@@ -137,7 +137,7 @@ impl<O: IsA<Permission>> PermissionExt for O {
         }))
     }
 
-    fn get_allowed(&self) -> bool {
+    fn is_allowed(&self) -> bool {
         unsafe {
             from_glib(ffi::g_permission_get_allowed(
                 self.as_ref().to_glib_none().0,
@@ -145,7 +145,7 @@ impl<O: IsA<Permission>> PermissionExt for O {
         }
     }
 
-    fn get_can_acquire(&self) -> bool {
+    fn can_acquire(&self) -> bool {
         unsafe {
             from_glib(ffi::g_permission_get_can_acquire(
                 self.as_ref().to_glib_none().0,
@@ -153,7 +153,7 @@ impl<O: IsA<Permission>> PermissionExt for O {
         }
     }
 
-    fn get_can_release(&self) -> bool {
+    fn can_release(&self) -> bool {
         unsafe {
             from_glib(ffi::g_permission_get_can_release(
                 self.as_ref().to_glib_none().0,

@@ -444,18 +444,20 @@ pub const NONE_STACK_SWITCHER: Option<&StackSwitcher> = None;
 
 pub trait StackSwitcherExt: 'static {
     #[doc(alias = "gtk_stack_switcher_get_stack")]
-    fn get_stack(&self) -> Option<Stack>;
+    fn stack(&self) -> Option<Stack>;
 
     #[doc(alias = "gtk_stack_switcher_set_stack")]
     fn set_stack<P: IsA<Stack>>(&self, stack: Option<&P>);
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-    fn get_property_icon_size(&self) -> i32;
+    #[doc(alias = "get_property_icon_size")]
+    fn icon_size(&self) -> i32;
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-    fn set_property_icon_size(&self, icon_size: i32);
+    #[doc(alias = "set_property_icon_size")]
+    fn set_icon_size(&self, icon_size: i32);
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
@@ -465,7 +467,7 @@ pub trait StackSwitcherExt: 'static {
 }
 
 impl<O: IsA<StackSwitcher>> StackSwitcherExt for O {
-    fn get_stack(&self) -> Option<Stack> {
+    fn stack(&self) -> Option<Stack> {
         unsafe {
             from_glib_none(ffi::gtk_stack_switcher_get_stack(
                 self.as_ref().to_glib_none().0,
@@ -484,7 +486,7 @@ impl<O: IsA<StackSwitcher>> StackSwitcherExt for O {
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-    fn get_property_icon_size(&self) -> i32 {
+    fn icon_size(&self) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -501,7 +503,7 @@ impl<O: IsA<StackSwitcher>> StackSwitcherExt for O {
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-    fn set_property_icon_size(&self, icon_size: i32) {
+    fn set_icon_size(&self, icon_size: i32) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,

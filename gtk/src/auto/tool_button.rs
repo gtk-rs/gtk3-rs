@@ -474,19 +474,19 @@ pub const NONE_TOOL_BUTTON: Option<&ToolButton> = None;
 
 pub trait ToolButtonExt: 'static {
     #[doc(alias = "gtk_tool_button_get_icon_name")]
-    fn get_icon_name(&self) -> Option<glib::GString>;
+    fn icon_name(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_tool_button_get_icon_widget")]
-    fn get_icon_widget(&self) -> Option<Widget>;
+    fn icon_widget(&self) -> Option<Widget>;
 
     #[doc(alias = "gtk_tool_button_get_label")]
-    fn get_label(&self) -> Option<glib::GString>;
+    fn label(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_tool_button_get_label_widget")]
-    fn get_label_widget(&self) -> Option<Widget>;
+    fn label_widget(&self) -> Option<Widget>;
 
     #[doc(alias = "gtk_tool_button_get_use_underline")]
-    fn get_use_underline(&self) -> bool;
+    fn uses_underline(&self) -> bool;
 
     #[doc(alias = "gtk_tool_button_set_icon_name")]
     fn set_icon_name(&self, icon_name: Option<&str>);
@@ -523,7 +523,7 @@ pub trait ToolButtonExt: 'static {
 }
 
 impl<O: IsA<ToolButton>> ToolButtonExt for O {
-    fn get_icon_name(&self) -> Option<glib::GString> {
+    fn icon_name(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_tool_button_get_icon_name(
                 self.as_ref().to_glib_none().0,
@@ -531,7 +531,7 @@ impl<O: IsA<ToolButton>> ToolButtonExt for O {
         }
     }
 
-    fn get_icon_widget(&self) -> Option<Widget> {
+    fn icon_widget(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_tool_button_get_icon_widget(
                 self.as_ref().to_glib_none().0,
@@ -539,7 +539,7 @@ impl<O: IsA<ToolButton>> ToolButtonExt for O {
         }
     }
 
-    fn get_label(&self) -> Option<glib::GString> {
+    fn label(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_tool_button_get_label(
                 self.as_ref().to_glib_none().0,
@@ -547,7 +547,7 @@ impl<O: IsA<ToolButton>> ToolButtonExt for O {
         }
     }
 
-    fn get_label_widget(&self) -> Option<Widget> {
+    fn label_widget(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_tool_button_get_label_widget(
                 self.as_ref().to_glib_none().0,
@@ -555,7 +555,7 @@ impl<O: IsA<ToolButton>> ToolButtonExt for O {
         }
     }
 
-    fn get_use_underline(&self) -> bool {
+    fn uses_underline(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_tool_button_get_use_underline(
                 self.as_ref().to_glib_none().0,

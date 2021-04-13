@@ -102,7 +102,7 @@ fn build_ui(application: &gtk::Application) {
         p.show_all();
     });
     check_item.connect_toggled(|w| {
-        w.set_label(if w.get_active() {
+        w.set_label(if w.is_active() {
             "Checked"
         } else {
             "Unchecked"

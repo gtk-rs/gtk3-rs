@@ -399,10 +399,10 @@ pub const NONE_EVENT_BOX: Option<&EventBox> = None;
 
 pub trait EventBoxExt: 'static {
     #[doc(alias = "gtk_event_box_get_above_child")]
-    fn get_above_child(&self) -> bool;
+    fn is_above_child(&self) -> bool;
 
     #[doc(alias = "gtk_event_box_get_visible_window")]
-    fn get_visible_window(&self) -> bool;
+    fn is_visible_window(&self) -> bool;
 
     #[doc(alias = "gtk_event_box_set_above_child")]
     fn set_above_child(&self, above_child: bool);
@@ -419,7 +419,7 @@ pub trait EventBoxExt: 'static {
 }
 
 impl<O: IsA<EventBox>> EventBoxExt for O {
-    fn get_above_child(&self) -> bool {
+    fn is_above_child(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_event_box_get_above_child(
                 self.as_ref().to_glib_none().0,
@@ -427,7 +427,7 @@ impl<O: IsA<EventBox>> EventBoxExt for O {
         }
     }
 
-    fn get_visible_window(&self) -> bool {
+    fn is_visible_window(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_event_box_get_visible_window(
                 self.as_ref().to_glib_none().0,

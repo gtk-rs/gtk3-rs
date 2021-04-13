@@ -30,7 +30,7 @@ pub trait TableExt: 'static {
     fn add_row_selection(&self, row: i32) -> bool;
 
     #[doc(alias = "atk_table_get_caption")]
-    fn get_caption(&self) -> Option<Object>;
+    fn caption(&self) -> Option<Object>;
 
     #[doc(alias = "atk_table_get_column_at_index")]
     fn get_column_at_index(&self, index_: i32) -> i32;
@@ -48,10 +48,10 @@ pub trait TableExt: 'static {
     fn get_index_at(&self, row: i32, column: i32) -> i32;
 
     #[doc(alias = "atk_table_get_n_columns")]
-    fn get_n_columns(&self) -> i32;
+    fn n_columns(&self) -> i32;
 
     #[doc(alias = "atk_table_get_n_rows")]
-    fn get_n_rows(&self) -> i32;
+    fn n_rows(&self) -> i32;
 
     #[doc(alias = "atk_table_get_row_at_index")]
     fn get_row_at_index(&self, index_: i32) -> i32;
@@ -66,7 +66,7 @@ pub trait TableExt: 'static {
     fn get_row_header(&self, row: i32) -> Option<Object>;
 
     #[doc(alias = "atk_table_get_summary")]
-    fn get_summary(&self) -> Option<Object>;
+    fn summary(&self) -> Option<Object>;
 
     #[doc(alias = "atk_table_is_column_selected")]
     fn is_column_selected(&self, column: i32) -> bool;
@@ -138,7 +138,7 @@ impl<O: IsA<Table>> TableExt for O {
         }
     }
 
-    fn get_caption(&self) -> Option<Object> {
+    fn caption(&self) -> Option<Object> {
         unsafe { from_glib_none(ffi::atk_table_get_caption(self.as_ref().to_glib_none().0)) }
     }
 
@@ -172,11 +172,11 @@ impl<O: IsA<Table>> TableExt for O {
         unsafe { ffi::atk_table_get_index_at(self.as_ref().to_glib_none().0, row, column) }
     }
 
-    fn get_n_columns(&self) -> i32 {
+    fn n_columns(&self) -> i32 {
         unsafe { ffi::atk_table_get_n_columns(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_n_rows(&self) -> i32 {
+    fn n_rows(&self) -> i32 {
         unsafe { ffi::atk_table_get_n_rows(self.as_ref().to_glib_none().0) }
     }
 
@@ -206,7 +206,7 @@ impl<O: IsA<Table>> TableExt for O {
         }
     }
 
-    fn get_summary(&self) -> Option<Object> {
+    fn summary(&self) -> Option<Object> {
         unsafe { from_glib_full(ffi::atk_table_get_summary(self.as_ref().to_glib_none().0)) }
     }
 

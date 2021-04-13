@@ -58,7 +58,7 @@ impl WidgetPath {
     }
 
     #[doc(alias = "gtk_widget_path_get_object_type")]
-    pub fn get_object_type(&self) -> glib::types::Type {
+    pub fn object_type(&self) -> glib::types::Type {
         unsafe { from_glib(ffi::gtk_widget_path_get_object_type(self.to_glib_none().0)) }
     }
 

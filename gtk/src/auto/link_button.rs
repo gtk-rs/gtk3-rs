@@ -483,10 +483,10 @@ pub const NONE_LINK_BUTTON: Option<&LinkButton> = None;
 
 pub trait LinkButtonExt: 'static {
     #[doc(alias = "gtk_link_button_get_uri")]
-    fn get_uri(&self) -> Option<glib::GString>;
+    fn uri(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_link_button_get_visited")]
-    fn get_visited(&self) -> bool;
+    fn is_visited(&self) -> bool;
 
     #[doc(alias = "gtk_link_button_set_uri")]
     fn set_uri(&self, uri: &str);
@@ -505,11 +505,11 @@ pub trait LinkButtonExt: 'static {
 }
 
 impl<O: IsA<LinkButton>> LinkButtonExt for O {
-    fn get_uri(&self) -> Option<glib::GString> {
+    fn uri(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::gtk_link_button_get_uri(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_visited(&self) -> bool {
+    fn is_visited(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_link_button_get_visited(
                 self.as_ref().to_glib_none().0,

@@ -438,13 +438,13 @@ pub trait ToolbarExt: 'static {
     fn get_item_index<P: IsA<ToolItem>>(&self, item: &P) -> i32;
 
     #[doc(alias = "gtk_toolbar_get_n_items")]
-    fn get_n_items(&self) -> i32;
+    fn n_items(&self) -> i32;
 
     #[doc(alias = "gtk_toolbar_get_nth_item")]
     fn get_nth_item(&self, n: i32) -> Option<ToolItem>;
 
     #[doc(alias = "gtk_toolbar_get_show_arrow")]
-    fn get_show_arrow(&self) -> bool;
+    fn shows_arrow(&self) -> bool;
 
     #[doc(alias = "gtk_toolbar_insert")]
     fn insert<P: IsA<ToolItem>>(&self, item: &P, pos: i32);
@@ -467,13 +467,17 @@ pub trait ToolbarExt: 'static {
     #[doc(alias = "gtk_toolbar_unset_style")]
     fn unset_style(&self);
 
-    fn get_property_icon_size_set(&self) -> bool;
+    #[doc(alias = "get_property_icon_size_set")]
+    fn is_icon_size_set(&self) -> bool;
 
-    fn set_property_icon_size_set(&self, icon_size_set: bool);
+    #[doc(alias = "set_property_icon_size_set")]
+    fn set_icon_size_set(&self, icon_size_set: bool);
 
-    fn get_property_toolbar_style(&self) -> ToolbarStyle;
+    #[doc(alias = "get_property_toolbar_style")]
+    fn toolbar_style(&self) -> ToolbarStyle;
 
-    fn set_property_toolbar_style(&self, toolbar_style: ToolbarStyle);
+    #[doc(alias = "set_property_toolbar_style")]
+    fn set_toolbar_style(&self, toolbar_style: ToolbarStyle);
 
     fn get_item_expand<T: IsA<Widget>>(&self, item: &T) -> bool;
 
@@ -531,7 +535,7 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
         }
     }
 
-    fn get_n_items(&self) -> i32 {
+    fn n_items(&self) -> i32 {
         unsafe { ffi::gtk_toolbar_get_n_items(self.as_ref().to_glib_none().0) }
     }
 
@@ -544,7 +548,7 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
         }
     }
 
-    fn get_show_arrow(&self) -> bool {
+    fn shows_arrow(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_toolbar_get_show_arrow(
                 self.as_ref().to_glib_none().0,
@@ -602,7 +606,7 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
         }
     }
 
-    fn get_property_icon_size_set(&self) -> bool {
+    fn is_icon_size_set(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -617,7 +621,7 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
         }
     }
 
-    fn set_property_icon_size_set(&self, icon_size_set: bool) {
+    fn set_icon_size_set(&self, icon_size_set: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -627,7 +631,7 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
         }
     }
 
-    fn get_property_toolbar_style(&self) -> ToolbarStyle {
+    fn toolbar_style(&self) -> ToolbarStyle {
         unsafe {
             let mut value = glib::Value::from_type(<ToolbarStyle as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -642,7 +646,7 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
         }
     }
 
-    fn set_property_toolbar_style(&self, toolbar_style: ToolbarStyle) {
+    fn set_toolbar_style(&self, toolbar_style: ToolbarStyle) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,

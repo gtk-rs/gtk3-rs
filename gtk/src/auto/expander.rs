@@ -459,29 +459,29 @@ pub const NONE_EXPANDER: Option<&Expander> = None;
 
 pub trait ExpanderExt: 'static {
     #[doc(alias = "gtk_expander_get_expanded")]
-    fn get_expanded(&self) -> bool;
+    fn is_expanded(&self) -> bool;
 
     #[doc(alias = "gtk_expander_get_label")]
-    fn get_label(&self) -> Option<glib::GString>;
+    fn label(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_expander_get_label_fill")]
-    fn get_label_fill(&self) -> bool;
+    fn is_label_fill(&self) -> bool;
 
     #[doc(alias = "gtk_expander_get_label_widget")]
-    fn get_label_widget(&self) -> Option<Widget>;
+    fn label_widget(&self) -> Option<Widget>;
 
     #[doc(alias = "gtk_expander_get_resize_toplevel")]
-    fn get_resize_toplevel(&self) -> bool;
+    fn resizes_toplevel(&self) -> bool;
 
     #[cfg_attr(feature = "v3_20", deprecated)]
     #[doc(alias = "gtk_expander_get_spacing")]
-    fn get_spacing(&self) -> i32;
+    fn spacing(&self) -> i32;
 
     #[doc(alias = "gtk_expander_get_use_markup")]
-    fn get_use_markup(&self) -> bool;
+    fn uses_markup(&self) -> bool;
 
     #[doc(alias = "gtk_expander_get_use_underline")]
-    fn get_use_underline(&self) -> bool;
+    fn uses_underline(&self) -> bool;
 
     #[doc(alias = "gtk_expander_set_expanded")]
     fn set_expanded(&self, expanded: bool);
@@ -538,7 +538,7 @@ pub trait ExpanderExt: 'static {
 }
 
 impl<O: IsA<Expander>> ExpanderExt for O {
-    fn get_expanded(&self) -> bool {
+    fn is_expanded(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_expander_get_expanded(
                 self.as_ref().to_glib_none().0,
@@ -546,11 +546,11 @@ impl<O: IsA<Expander>> ExpanderExt for O {
         }
     }
 
-    fn get_label(&self) -> Option<glib::GString> {
+    fn label(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::gtk_expander_get_label(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_label_fill(&self) -> bool {
+    fn is_label_fill(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_expander_get_label_fill(
                 self.as_ref().to_glib_none().0,
@@ -558,7 +558,7 @@ impl<O: IsA<Expander>> ExpanderExt for O {
         }
     }
 
-    fn get_label_widget(&self) -> Option<Widget> {
+    fn label_widget(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_expander_get_label_widget(
                 self.as_ref().to_glib_none().0,
@@ -566,7 +566,7 @@ impl<O: IsA<Expander>> ExpanderExt for O {
         }
     }
 
-    fn get_resize_toplevel(&self) -> bool {
+    fn resizes_toplevel(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_expander_get_resize_toplevel(
                 self.as_ref().to_glib_none().0,
@@ -574,11 +574,11 @@ impl<O: IsA<Expander>> ExpanderExt for O {
         }
     }
 
-    fn get_spacing(&self) -> i32 {
+    fn spacing(&self) -> i32 {
         unsafe { ffi::gtk_expander_get_spacing(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_use_markup(&self) -> bool {
+    fn uses_markup(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_expander_get_use_markup(
                 self.as_ref().to_glib_none().0,
@@ -586,7 +586,7 @@ impl<O: IsA<Expander>> ExpanderExt for O {
         }
     }
 
-    fn get_use_underline(&self) -> bool {
+    fn uses_underline(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_expander_get_use_underline(
                 self.as_ref().to_glib_none().0,

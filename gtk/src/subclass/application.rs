@@ -30,7 +30,7 @@ impl<T: GtkApplicationImpl> GtkApplicationImplExt for T {
     fn parent_window_added(&self, application: &Self::Type, window: &Window) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkApplicationClass;
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkApplicationClass;
             if let Some(f) = (*parent_class).window_added {
                 f(
                     application
@@ -46,7 +46,7 @@ impl<T: GtkApplicationImpl> GtkApplicationImplExt for T {
     fn parent_window_removed(&self, application: &Self::Type, window: &Window) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkApplicationClass;
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkApplicationClass;
             if let Some(f) = (*parent_class).window_removed {
                 f(
                     application
@@ -67,7 +67,7 @@ unsafe impl<T: GtkApplicationImpl> IsSubclassable<T> for Application {
             wptr: *mut ffi::GtkWindow,
         ) {
             let instance = &*(ptr as *mut T::Instance);
-            let imp = instance.get_impl();
+            let imp = instance.impl_();
             let wrap: Borrowed<Application> = from_glib_borrow(ptr);
 
             imp.window_added(wrap.unsafe_cast_ref(), &from_glib_borrow(wptr))
@@ -77,7 +77,7 @@ unsafe impl<T: GtkApplicationImpl> IsSubclassable<T> for Application {
             wptr: *mut ffi::GtkWindow,
         ) {
             let instance = &*(ptr as *mut T::Instance);
-            let imp = instance.get_impl();
+            let imp = instance.impl_();
             let wrap: Borrowed<Application> = from_glib_borrow(ptr);
 
             imp.window_removed(wrap.unsafe_cast_ref(), &from_glib_borrow(wptr))
@@ -87,7 +87,7 @@ unsafe impl<T: GtkApplicationImpl> IsSubclassable<T> for Application {
             ptr: *mut gio::ffi::GApplication,
         ) {
             let instance = &*(ptr as *mut T::Instance);
-            let imp = instance.get_impl();
+            let imp = instance.impl_();
             let wrap: Borrowed<gio::Application> = from_glib_borrow(ptr);
             crate::rt::set_initialized();
             imp.startup(wrap.unsafe_cast_ref())

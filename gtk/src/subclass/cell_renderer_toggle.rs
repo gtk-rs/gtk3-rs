@@ -24,8 +24,7 @@ impl<T: CellRendererToggleImpl> CellRendererToggleImplExt for T {
     fn parent_toggled(&self, renderer: &Self::Type, path: &str) {
         unsafe {
             let data = T::type_data();
-            let parent_class =
-                data.as_ref().get_parent_class() as *mut ffi::GtkCellRendererToggleClass;
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkCellRendererToggleClass;
             if let Some(f) = (*parent_class).toggled {
                 f(
                     renderer
@@ -57,7 +56,7 @@ unsafe extern "C" fn cell_renderer_toggle_toggled<T: CellRendererToggleImpl>(
     path: *const c_char,
 ) {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
     let wrap: Borrowed<CellRendererToggle> = from_glib_borrow(ptr);
 
     imp.toggled(wrap.unsafe_cast_ref(), &GString::from_glib_borrow(path))

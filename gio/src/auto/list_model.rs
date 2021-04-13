@@ -26,10 +26,10 @@ pub trait ListModelExt: 'static {
     //fn get_item(&self, position: u32) -> /*Unimplemented*/Option<Fundamental: Pointer>;
 
     #[doc(alias = "g_list_model_get_item_type")]
-    fn get_item_type(&self) -> glib::types::Type;
+    fn item_type(&self) -> glib::types::Type;
 
     #[doc(alias = "g_list_model_get_n_items")]
-    fn get_n_items(&self) -> u32;
+    fn n_items(&self) -> u32;
 
     #[doc(alias = "g_list_model_get_object")]
     fn get_object(&self, position: u32) -> Option<glib::Object>;
@@ -48,7 +48,7 @@ impl<O: IsA<ListModel>> ListModelExt for O {
     //    unsafe { TODO: call ffi:g_list_model_get_item() }
     //}
 
-    fn get_item_type(&self) -> glib::types::Type {
+    fn item_type(&self) -> glib::types::Type {
         unsafe {
             from_glib(ffi::g_list_model_get_item_type(
                 self.as_ref().to_glib_none().0,
@@ -56,7 +56,7 @@ impl<O: IsA<ListModel>> ListModelExt for O {
         }
     }
 
-    fn get_n_items(&self) -> u32 {
+    fn n_items(&self) -> u32 {
         unsafe { ffi::g_list_model_get_n_items(self.as_ref().to_glib_none().0) }
     }
 

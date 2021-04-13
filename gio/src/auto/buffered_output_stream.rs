@@ -103,10 +103,10 @@ pub const NONE_BUFFERED_OUTPUT_STREAM: Option<&BufferedOutputStream> = None;
 
 pub trait BufferedOutputStreamExt: 'static {
     #[doc(alias = "g_buffered_output_stream_get_auto_grow")]
-    fn get_auto_grow(&self) -> bool;
+    fn auto_grows(&self) -> bool;
 
     #[doc(alias = "g_buffered_output_stream_get_buffer_size")]
-    fn get_buffer_size(&self) -> usize;
+    fn buffer_size(&self) -> usize;
 
     #[doc(alias = "g_buffered_output_stream_set_auto_grow")]
     fn set_auto_grow(&self, auto_grow: bool);
@@ -120,7 +120,7 @@ pub trait BufferedOutputStreamExt: 'static {
 }
 
 impl<O: IsA<BufferedOutputStream>> BufferedOutputStreamExt for O {
-    fn get_auto_grow(&self) -> bool {
+    fn auto_grows(&self) -> bool {
         unsafe {
             from_glib(ffi::g_buffered_output_stream_get_auto_grow(
                 self.as_ref().to_glib_none().0,
@@ -128,7 +128,7 @@ impl<O: IsA<BufferedOutputStream>> BufferedOutputStreamExt for O {
         }
     }
 
-    fn get_buffer_size(&self) -> usize {
+    fn buffer_size(&self) -> usize {
         unsafe { ffi::g_buffered_output_stream_get_buffer_size(self.as_ref().to_glib_none().0) }
     }
 

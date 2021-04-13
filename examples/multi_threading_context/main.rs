@@ -43,7 +43,7 @@ fn build_ui(application: &gtk::Application) {
 
     // Attach receiver to the main context and set the text buffer text from here
     let text_buffer = text_view
-        .get_buffer()
+        .buffer()
         .expect("Couldn't get buffer from text_view");
     rx.attach(None, move |text| {
         text_buffer.set_text(&text);

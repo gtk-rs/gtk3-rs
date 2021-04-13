@@ -18,7 +18,7 @@ glib::wrapper! {
 
 impl SettingsSchema {
     #[doc(alias = "g_settings_schema_get_id")]
-    pub fn get_id(&self) -> glib::GString {
+    pub fn id(&self) -> glib::GString {
         unsafe { from_glib_none(ffi::g_settings_schema_get_id(self.to_glib_none().0)) }
     }
 
@@ -33,7 +33,7 @@ impl SettingsSchema {
     }
 
     #[doc(alias = "g_settings_schema_get_path")]
-    pub fn get_path(&self) -> Option<glib::GString> {
+    pub fn path(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::g_settings_schema_get_path(self.to_glib_none().0)) }
     }
 

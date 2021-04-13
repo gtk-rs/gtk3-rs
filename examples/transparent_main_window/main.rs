@@ -34,8 +34,8 @@ fn main() {
 }
 
 fn set_visual(window: &ApplicationWindow, _screen: Option<&gdk::Screen>) {
-    if let Some(screen) = window.get_screen() {
-        if let Some(ref visual) = screen.get_rgba_visual() {
+    if let Some(screen) = window.screen() {
+        if let Some(ref visual) = screen.rgba_visual() {
             window.set_visual(Some(visual)); // crucial for transparency
         }
     }

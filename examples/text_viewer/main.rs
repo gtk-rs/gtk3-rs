@@ -35,7 +35,7 @@ pub fn build_ui(application: &gtk::Application) {
         ]);
         file_chooser.connect_response(glib::clone!(@weak text_view => move |file_chooser, response| {
             if response == gtk::ResponseType::Ok {
-                let filename = file_chooser.get_filename().expect("Couldn't get filename");
+                let filename = file_chooser.filename().expect("Couldn't get filename");
                 let file = File::open(&filename).expect("Couldn't open file");
 
                 let mut reader = BufReader::new(file);
@@ -43,7 +43,7 @@ pub fn build_ui(application: &gtk::Application) {
                 let _ = reader.read_to_string(&mut contents);
 
                 text_view
-                    .get_buffer()
+                    .buffer()
                     .expect("Couldn't get window")
                     .set_text(&contents);
             }

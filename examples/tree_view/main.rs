@@ -84,15 +84,15 @@ fn build_ui(application: &gtk::Application) {
 
     // selection and path manipulation
 
-    let left_selection = left_tree.get_selection();
+    let left_selection = left_tree.selection();
     left_selection.connect_changed(glib::clone!(@weak right_tree => move |tree_selection| {
-        let (left_model, iter) = tree_selection.get_selected().expect("Couldn't get selected");
+        let (left_model, iter) = tree_selection.selected().expect("Couldn't get selected");
         let mut path = left_model.get_path(&iter).expect("Couldn't get path");
         // get the top-level element path
-        while path.get_depth() > 1 {
+        while path.depth() > 1 {
             path.up();
         }
-        right_tree.get_selection().select_path(&path);
+        right_tree.selection().select_path(&path);
     }));
 
     // display the panes

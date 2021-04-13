@@ -79,7 +79,7 @@ impl<T: OutputStreamImpl> OutputStreamImplExt for T {
     ) -> Result<usize, Error> {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GOutputStreamClass;
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GOutputStreamClass;
             let f = (*parent_class)
                 .write_fn
                 .expect("No parent class implementation for \"write\"");
@@ -109,7 +109,7 @@ impl<T: OutputStreamImpl> OutputStreamImplExt for T {
     ) -> Result<(), Error> {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GOutputStreamClass;
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GOutputStreamClass;
             let mut err = ptr::null_mut();
             if let Some(f) = (*parent_class).close_fn {
                 if from_glib(f(
@@ -134,7 +134,7 @@ impl<T: OutputStreamImpl> OutputStreamImplExt for T {
     ) -> Result<(), Error> {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GOutputStreamClass;
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GOutputStreamClass;
             let mut err = ptr::null_mut();
             if let Some(f) = (*parent_class).flush {
                 if from_glib(f(
@@ -161,7 +161,7 @@ impl<T: OutputStreamImpl> OutputStreamImplExt for T {
     ) -> Result<usize, Error> {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GOutputStreamClass;
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GOutputStreamClass;
             let mut err = ptr::null_mut();
             let f = (*parent_class)
                 .splice
@@ -213,7 +213,7 @@ unsafe extern "C" fn stream_write<T: OutputStreamImpl>(
     assert!(count <= isize::MAX as usize);
 
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
     let wrap: Borrowed<OutputStream> = from_glib_borrow(ptr);
 
     match imp.write(
@@ -241,7 +241,7 @@ unsafe extern "C" fn stream_close<T: OutputStreamImpl>(
     err: *mut *mut glib::ffi::GError,
 ) -> glib::ffi::gboolean {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
     let wrap: Borrowed<OutputStream> = from_glib_borrow(ptr);
 
     match imp.close(
@@ -264,7 +264,7 @@ unsafe extern "C" fn stream_flush<T: OutputStreamImpl>(
     err: *mut *mut glib::ffi::GError,
 ) -> glib::ffi::gboolean {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
     let wrap: Borrowed<OutputStream> = from_glib_borrow(ptr);
 
     match imp.flush(
@@ -289,7 +289,7 @@ unsafe extern "C" fn stream_splice<T: OutputStreamImpl>(
     err: *mut *mut glib::ffi::GError,
 ) -> isize {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
     let wrap: Borrowed<OutputStream> = from_glib_borrow(ptr);
 
     match imp.splice(

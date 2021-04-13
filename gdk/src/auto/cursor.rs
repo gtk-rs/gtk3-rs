@@ -25,7 +25,7 @@ impl Cursor {
     }
 
     #[doc(alias = "gdk_cursor_new_for_display")]
-    pub fn new_for_display(display: &Display, cursor_type: CursorType) -> Cursor {
+    pub fn for_display(display: &Display, cursor_type: CursorType) -> Cursor {
         skip_assert_initialized!();
         unsafe {
             from_glib_full(ffi::gdk_cursor_new_for_display(
@@ -73,22 +73,22 @@ impl Cursor {
     }
 
     #[doc(alias = "gdk_cursor_get_cursor_type")]
-    pub fn get_cursor_type(&self) -> CursorType {
+    pub fn cursor_type(&self) -> CursorType {
         unsafe { from_glib(ffi::gdk_cursor_get_cursor_type(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_cursor_get_display")]
-    pub fn get_display(&self) -> Display {
+    pub fn display(&self) -> Display {
         unsafe { from_glib_none(ffi::gdk_cursor_get_display(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_cursor_get_image")]
-    pub fn get_image(&self) -> Option<gdk_pixbuf::Pixbuf> {
+    pub fn image(&self) -> Option<gdk_pixbuf::Pixbuf> {
         unsafe { from_glib_full(ffi::gdk_cursor_get_image(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_cursor_get_surface")]
-    pub fn get_surface(&self) -> (Option<cairo::Surface>, f64, f64) {
+    pub fn surface(&self) -> (Option<cairo::Surface>, f64, f64) {
         unsafe {
             let mut x_hot = mem::MaybeUninit::uninit();
             let mut y_hot = mem::MaybeUninit::uninit();

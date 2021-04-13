@@ -42,9 +42,8 @@ pub trait FileMonitorExt: 'static {
     #[doc(alias = "g_file_monitor_set_rate_limit")]
     fn set_rate_limit(&self, limit_msecs: i32);
 
-    fn get_property_cancelled(&self) -> bool;
-
-    fn get_property_rate_limit(&self) -> i32;
+    #[doc(alias = "get_property_rate_limit")]
+    fn rate_limit(&self) -> i32;
 
     fn connect_changed<F: Fn(&Self, &File, Option<&File>, FileMonitorEvent) + 'static>(
         &self,
@@ -91,22 +90,7 @@ impl<O: IsA<FileMonitor>> FileMonitorExt for O {
         }
     }
 
-    fn get_property_cancelled(&self) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"cancelled\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `cancelled` getter")
-                .unwrap()
-        }
-    }
-
-    fn get_property_rate_limit(&self) -> i32 {
+    fn rate_limit(&self) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(

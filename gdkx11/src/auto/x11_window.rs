@@ -30,12 +30,12 @@ impl X11Window {
     }
 
     #[doc(alias = "gdk_x11_window_get_desktop")]
-    pub fn get_desktop(&self) -> u32 {
+    pub fn desktop(&self) -> u32 {
         unsafe { ffi::gdk_x11_window_get_desktop(self.to_glib_none().0) }
     }
 
     #[doc(alias = "gdk_x11_window_get_xid")]
-    pub fn get_xid(&self) -> xlib::Window {
+    pub fn xid(&self) -> xlib::Window {
         unsafe { ffi::gdk_x11_window_get_xid(self.to_glib_none().0) }
     }
 

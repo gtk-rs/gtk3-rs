@@ -39,12 +39,13 @@ pub trait EmblemedIconExt: 'static {
     fn clear_emblems(&self);
 
     #[doc(alias = "g_emblemed_icon_get_emblems")]
-    fn get_emblems(&self) -> Vec<Emblem>;
+    fn emblems(&self) -> Vec<Emblem>;
 
     #[doc(alias = "g_emblemed_icon_get_icon")]
-    fn get_icon(&self) -> Icon;
+    fn icon(&self) -> Icon;
 
-    fn get_property_gicon(&self) -> Option<Icon>;
+    #[doc(alias = "get_property_gicon")]
+    fn gicon(&self) -> Option<Icon>;
 }
 
 impl<O: IsA<EmblemedIcon>> EmblemedIconExt for O {
@@ -63,7 +64,7 @@ impl<O: IsA<EmblemedIcon>> EmblemedIconExt for O {
         }
     }
 
-    fn get_emblems(&self) -> Vec<Emblem> {
+    fn emblems(&self) -> Vec<Emblem> {
         unsafe {
             FromGlibPtrContainer::from_glib_none(ffi::g_emblemed_icon_get_emblems(
                 self.as_ref().to_glib_none().0,
@@ -71,7 +72,7 @@ impl<O: IsA<EmblemedIcon>> EmblemedIconExt for O {
         }
     }
 
-    fn get_icon(&self) -> Icon {
+    fn icon(&self) -> Icon {
         unsafe {
             from_glib_none(ffi::g_emblemed_icon_get_icon(
                 self.as_ref().to_glib_none().0,
@@ -79,7 +80,7 @@ impl<O: IsA<EmblemedIcon>> EmblemedIconExt for O {
         }
     }
 
-    fn get_property_gicon(&self) -> Option<Icon> {
+    fn gicon(&self) -> Option<Icon> {
         unsafe {
             let mut value = glib::Value::from_type(<Icon as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(

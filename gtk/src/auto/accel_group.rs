@@ -65,10 +65,10 @@ pub trait AccelGroupExt: 'static {
     //fn find(&self, find_func: /*Unimplemented*/FnMut(/*Ignored*/AccelKey, &glib::Closure) -> bool, data: /*Unimplemented*/Option<Fundamental: Pointer>) -> /*Ignored*/Option<AccelKey>;
 
     #[doc(alias = "gtk_accel_group_get_is_locked")]
-    fn get_is_locked(&self) -> bool;
+    fn is_locked(&self) -> bool;
 
     #[doc(alias = "gtk_accel_group_get_modifier_mask")]
-    fn get_modifier_mask(&self) -> gdk::ModifierType;
+    fn modifier_mask(&self) -> gdk::ModifierType;
 
     #[doc(alias = "gtk_accel_group_lock")]
     fn lock(&self);
@@ -140,7 +140,7 @@ impl<O: IsA<AccelGroup>> AccelGroupExt for O {
     //    unsafe { TODO: call ffi:gtk_accel_group_find() }
     //}
 
-    fn get_is_locked(&self) -> bool {
+    fn is_locked(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_accel_group_get_is_locked(
                 self.as_ref().to_glib_none().0,
@@ -148,7 +148,7 @@ impl<O: IsA<AccelGroup>> AccelGroupExt for O {
         }
     }
 
-    fn get_modifier_mask(&self) -> gdk::ModifierType {
+    fn modifier_mask(&self) -> gdk::ModifierType {
         unsafe {
             from_glib(ffi::gtk_accel_group_get_modifier_mask(
                 self.as_ref().to_glib_none().0,

@@ -26,7 +26,7 @@ fn build_ui(application: &gtk::Application) {
     windows_title_entry.set_placeholder_text(Some("Update all sub-windows' title"));
     windows_title_entry.connect_changed(glib::clone!(@weak windows => move |windows_title_entry| {
         // When the entry's text is updated, we update the title of every sub windows.
-        let text = windows_title_entry.get_buffer().get_text();
+        let text = windows_title_entry.buffer().text();
         for window in windows.borrow().values() {
             if let Some(w) = window.upgrade() {
                 w.set_title(&text)
@@ -44,7 +44,7 @@ fn build_ui(application: &gtk::Application) {
         glib::clone!(@weak windows_title_entry, @weak entry, @weak application => move |_| {
             let new_id = generate_new_id(&windows.borrow());
             create_sub_window(&application,
-                              &windows_title_entry.get_buffer().get_text(),
+                              &windows_title_entry.buffer().text(),
                               &entry,
                               new_id,
                               &windows);
@@ -107,7 +107,7 @@ fn create_sub_window(
     let button = gtk::Button::with_label(&format!("Notify main window with id {}!", id));
     button.connect_clicked(glib::clone!(@weak main_window_entry => move |_| {
         // When the button is clicked, let's write it on the main window's entry!
-        main_window_entry.get_buffer().set_text(&format!("sub window {} clicked", id));
+        main_window_entry.buffer().set_text(&format!("sub window {} clicked", id));
     }));
     window.add(&button);
 

@@ -417,16 +417,16 @@ pub const NONE_BOX: Option<&Box> = None;
 
 pub trait BoxExt: 'static {
     #[doc(alias = "gtk_box_get_baseline_position")]
-    fn get_baseline_position(&self) -> BaselinePosition;
+    fn baseline_position(&self) -> BaselinePosition;
 
     #[doc(alias = "gtk_box_get_center_widget")]
-    fn get_center_widget(&self) -> Option<Widget>;
+    fn center_widget(&self) -> Option<Widget>;
 
     #[doc(alias = "gtk_box_get_homogeneous")]
-    fn get_homogeneous(&self) -> bool;
+    fn is_homogeneous(&self) -> bool;
 
     #[doc(alias = "gtk_box_get_spacing")]
-    fn get_spacing(&self) -> i32;
+    fn spacing(&self) -> i32;
 
     #[doc(alias = "gtk_box_pack_end")]
     fn pack_end<P: IsA<Widget>>(&self, child: &P, expand: bool, fill: bool, padding: u32);
@@ -501,7 +501,7 @@ pub trait BoxExt: 'static {
 }
 
 impl<O: IsA<Box>> BoxExt for O {
-    fn get_baseline_position(&self) -> BaselinePosition {
+    fn baseline_position(&self) -> BaselinePosition {
         unsafe {
             from_glib(ffi::gtk_box_get_baseline_position(
                 self.as_ref().to_glib_none().0,
@@ -509,7 +509,7 @@ impl<O: IsA<Box>> BoxExt for O {
         }
     }
 
-    fn get_center_widget(&self) -> Option<Widget> {
+    fn center_widget(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_box_get_center_widget(
                 self.as_ref().to_glib_none().0,
@@ -517,11 +517,11 @@ impl<O: IsA<Box>> BoxExt for O {
         }
     }
 
-    fn get_homogeneous(&self) -> bool {
+    fn is_homogeneous(&self) -> bool {
         unsafe { from_glib(ffi::gtk_box_get_homogeneous(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_spacing(&self) -> i32 {
+    fn spacing(&self) -> i32 {
         unsafe { ffi::gtk_box_get_spacing(self.as_ref().to_glib_none().0) }
     }
 

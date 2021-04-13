@@ -46,32 +46,32 @@ impl Layout {
     }
 
     #[doc(alias = "pango_layout_get_alignment")]
-    pub fn get_alignment(&self) -> Alignment {
+    pub fn alignment(&self) -> Alignment {
         unsafe { from_glib(ffi::pango_layout_get_alignment(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "pango_layout_get_attributes")]
-    pub fn get_attributes(&self) -> Option<AttrList> {
+    pub fn attributes(&self) -> Option<AttrList> {
         unsafe { from_glib_none(ffi::pango_layout_get_attributes(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "pango_layout_get_auto_dir")]
-    pub fn get_auto_dir(&self) -> bool {
+    pub fn is_auto_dir(&self) -> bool {
         unsafe { from_glib(ffi::pango_layout_get_auto_dir(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "pango_layout_get_baseline")]
-    pub fn get_baseline(&self) -> i32 {
+    pub fn baseline(&self) -> i32 {
         unsafe { ffi::pango_layout_get_baseline(self.to_glib_none().0) }
     }
 
     #[doc(alias = "pango_layout_get_character_count")]
-    pub fn get_character_count(&self) -> i32 {
+    pub fn character_count(&self) -> i32 {
         unsafe { ffi::pango_layout_get_character_count(self.to_glib_none().0) }
     }
 
     #[doc(alias = "pango_layout_get_context")]
-    pub fn get_context(&self) -> Option<Context> {
+    pub fn context(&self) -> Option<Context> {
         unsafe { from_glib_none(ffi::pango_layout_get_context(self.to_glib_none().0)) }
     }
 
@@ -103,12 +103,12 @@ impl Layout {
     }
 
     #[doc(alias = "pango_layout_get_ellipsize")]
-    pub fn get_ellipsize(&self) -> EllipsizeMode {
+    pub fn ellipsize(&self) -> EllipsizeMode {
         unsafe { from_glib(ffi::pango_layout_get_ellipsize(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "pango_layout_get_extents")]
-    pub fn get_extents(&self) -> (Rectangle, Rectangle) {
+    pub fn extents(&self) -> (Rectangle, Rectangle) {
         unsafe {
             let mut ink_rect = Rectangle::uninitialized();
             let mut logical_rect = Rectangle::uninitialized();
@@ -122,7 +122,7 @@ impl Layout {
     }
 
     #[doc(alias = "pango_layout_get_font_description")]
-    pub fn get_font_description(&self) -> Option<FontDescription> {
+    pub fn font_description(&self) -> Option<FontDescription> {
         unsafe {
             from_glib_none(ffi::pango_layout_get_font_description(
                 self.to_glib_none().0,
@@ -131,22 +131,22 @@ impl Layout {
     }
 
     #[doc(alias = "pango_layout_get_height")]
-    pub fn get_height(&self) -> i32 {
+    pub fn height(&self) -> i32 {
         unsafe { ffi::pango_layout_get_height(self.to_glib_none().0) }
     }
 
     #[doc(alias = "pango_layout_get_indent")]
-    pub fn get_indent(&self) -> i32 {
+    pub fn indent(&self) -> i32 {
         unsafe { ffi::pango_layout_get_indent(self.to_glib_none().0) }
     }
 
     #[doc(alias = "pango_layout_get_iter")]
-    pub fn get_iter(&self) -> Option<LayoutIter> {
+    pub fn iter(&self) -> Option<LayoutIter> {
         unsafe { from_glib_full(ffi::pango_layout_get_iter(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "pango_layout_get_justify")]
-    pub fn get_justify(&self) -> bool {
+    pub fn is_justify(&self) -> bool {
         unsafe { from_glib(ffi::pango_layout_get_justify(self.to_glib_none().0)) }
     }
 
@@ -156,7 +156,7 @@ impl Layout {
     }
 
     #[doc(alias = "pango_layout_get_line_count")]
-    pub fn get_line_count(&self) -> i32 {
+    pub fn line_count(&self) -> i32 {
         unsafe { ffi::pango_layout_get_line_count(self.to_glib_none().0) }
     }
 
@@ -173,19 +173,19 @@ impl Layout {
     #[cfg(any(feature = "v1_44", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
     #[doc(alias = "pango_layout_get_line_spacing")]
-    pub fn get_line_spacing(&self) -> f32 {
+    pub fn line_spacing(&self) -> f32 {
         unsafe { ffi::pango_layout_get_line_spacing(self.to_glib_none().0) }
     }
 
     #[doc(alias = "pango_layout_get_lines")]
-    pub fn get_lines(&self) -> Vec<LayoutLine> {
+    pub fn lines(&self) -> Vec<LayoutLine> {
         unsafe {
             FromGlibPtrContainer::from_glib_none(ffi::pango_layout_get_lines(self.to_glib_none().0))
         }
     }
 
     #[doc(alias = "pango_layout_get_lines_readonly")]
-    pub fn get_lines_readonly(&self) -> Vec<LayoutLine> {
+    pub fn lines_readonly(&self) -> Vec<LayoutLine> {
         unsafe {
             FromGlibPtrContainer::from_glib_none(ffi::pango_layout_get_lines_readonly(
                 self.to_glib_none().0,
@@ -194,17 +194,17 @@ impl Layout {
     }
 
     //#[doc(alias = "pango_layout_get_log_attrs")]
-    //pub fn get_log_attrs(&self, attrs: /*Ignored*/Vec<LogAttr>) -> i32 {
+    //pub fn log_attrs(&self, attrs: /*Ignored*/Vec<LogAttr>) -> i32 {
     //    unsafe { TODO: call ffi:pango_layout_get_log_attrs() }
     //}
 
     //#[doc(alias = "pango_layout_get_log_attrs_readonly")]
-    //pub fn get_log_attrs_readonly(&self) -> /*Ignored*/Vec<LogAttr> {
+    //pub fn log_attrs_readonly(&self) -> /*Ignored*/Vec<LogAttr> {
     //    unsafe { TODO: call ffi:pango_layout_get_log_attrs_readonly() }
     //}
 
     #[doc(alias = "pango_layout_get_pixel_extents")]
-    pub fn get_pixel_extents(&self) -> (Rectangle, Rectangle) {
+    pub fn pixel_extents(&self) -> (Rectangle, Rectangle) {
         unsafe {
             let mut ink_rect = Rectangle::uninitialized();
             let mut logical_rect = Rectangle::uninitialized();
@@ -218,7 +218,7 @@ impl Layout {
     }
 
     #[doc(alias = "pango_layout_get_pixel_size")]
-    pub fn get_pixel_size(&self) -> (i32, i32) {
+    pub fn pixel_size(&self) -> (i32, i32) {
         unsafe {
             let mut width = mem::MaybeUninit::uninit();
             let mut height = mem::MaybeUninit::uninit();
@@ -234,12 +234,12 @@ impl Layout {
     }
 
     #[doc(alias = "pango_layout_get_serial")]
-    pub fn get_serial(&self) -> u32 {
+    pub fn serial(&self) -> u32 {
         unsafe { ffi::pango_layout_get_serial(self.to_glib_none().0) }
     }
 
     #[doc(alias = "pango_layout_get_single_paragraph_mode")]
-    pub fn get_single_paragraph_mode(&self) -> bool {
+    pub fn is_single_paragraph_mode(&self) -> bool {
         unsafe {
             from_glib(ffi::pango_layout_get_single_paragraph_mode(
                 self.to_glib_none().0,
@@ -248,7 +248,7 @@ impl Layout {
     }
 
     #[doc(alias = "pango_layout_get_size")]
-    pub fn get_size(&self) -> (i32, i32) {
+    pub fn size(&self) -> (i32, i32) {
         unsafe {
             let mut width = mem::MaybeUninit::uninit();
             let mut height = mem::MaybeUninit::uninit();
@@ -264,32 +264,32 @@ impl Layout {
     }
 
     #[doc(alias = "pango_layout_get_spacing")]
-    pub fn get_spacing(&self) -> i32 {
+    pub fn spacing(&self) -> i32 {
         unsafe { ffi::pango_layout_get_spacing(self.to_glib_none().0) }
     }
 
     #[doc(alias = "pango_layout_get_tabs")]
-    pub fn get_tabs(&self) -> Option<TabArray> {
+    pub fn tabs(&self) -> Option<TabArray> {
         unsafe { from_glib_full(ffi::pango_layout_get_tabs(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "pango_layout_get_text")]
-    pub fn get_text(&self) -> Option<glib::GString> {
+    pub fn text(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::pango_layout_get_text(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "pango_layout_get_unknown_glyphs_count")]
-    pub fn get_unknown_glyphs_count(&self) -> i32 {
+    pub fn unknown_glyphs_count(&self) -> i32 {
         unsafe { ffi::pango_layout_get_unknown_glyphs_count(self.to_glib_none().0) }
     }
 
     #[doc(alias = "pango_layout_get_width")]
-    pub fn get_width(&self) -> i32 {
+    pub fn width(&self) -> i32 {
         unsafe { ffi::pango_layout_get_width(self.to_glib_none().0) }
     }
 
     #[doc(alias = "pango_layout_get_wrap")]
-    pub fn get_wrap(&self) -> WrapMode {
+    pub fn wrap(&self) -> WrapMode {
         unsafe { from_glib(ffi::pango_layout_get_wrap(self.to_glib_none().0)) }
     }
 

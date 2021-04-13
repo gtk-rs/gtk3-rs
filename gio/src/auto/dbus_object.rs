@@ -27,10 +27,10 @@ pub trait DBusObjectExt: 'static {
     fn get_interface(&self, interface_name: &str) -> Option<DBusInterface>;
 
     #[doc(alias = "g_dbus_object_get_interfaces")]
-    fn get_interfaces(&self) -> Vec<DBusInterface>;
+    fn interfaces(&self) -> Vec<DBusInterface>;
 
     #[doc(alias = "g_dbus_object_get_object_path")]
-    fn get_object_path(&self) -> glib::GString;
+    fn object_path(&self) -> glib::GString;
 
     fn connect_interface_added<F: Fn(&Self, &DBusInterface) + 'static>(
         &self,
@@ -53,7 +53,7 @@ impl<O: IsA<DBusObject>> DBusObjectExt for O {
         }
     }
 
-    fn get_interfaces(&self) -> Vec<DBusInterface> {
+    fn interfaces(&self) -> Vec<DBusInterface> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::g_dbus_object_get_interfaces(
                 self.as_ref().to_glib_none().0,
@@ -61,7 +61,7 @@ impl<O: IsA<DBusObject>> DBusObjectExt for O {
         }
     }
 
-    fn get_object_path(&self) -> glib::GString {
+    fn object_path(&self) -> glib::GString {
         unsafe {
             from_glib_none(ffi::g_dbus_object_get_object_path(
                 self.as_ref().to_glib_none().0,

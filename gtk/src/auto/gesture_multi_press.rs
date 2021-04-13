@@ -40,7 +40,7 @@ impl GestureMultiPress {
     }
 
     #[doc(alias = "gtk_gesture_multi_press_get_area")]
-    pub fn get_area(&self) -> Option<gdk::Rectangle> {
+    pub fn area(&self) -> Option<gdk::Rectangle> {
         unsafe {
             let mut rect = gdk::Rectangle::uninitialized();
             let ret = from_glib(ffi::gtk_gesture_multi_press_get_area(

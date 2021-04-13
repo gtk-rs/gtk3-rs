@@ -60,7 +60,7 @@ impl Ray {
     }
 
     #[doc(alias = "graphene_ray_get_direction")]
-    pub fn get_direction(&self) -> Vec3 {
+    pub fn direction(&self) -> Vec3 {
         unsafe {
             let mut direction = Vec3::uninitialized();
             ffi::graphene_ray_get_direction(self.to_glib_none().0, direction.to_glib_none_mut().0);
@@ -83,7 +83,7 @@ impl Ray {
     }
 
     #[doc(alias = "graphene_ray_get_origin")]
-    pub fn get_origin(&self) -> Point3D {
+    pub fn origin(&self) -> Point3D {
         unsafe {
             let mut origin = Point3D::uninitialized();
             ffi::graphene_ray_get_origin(self.to_glib_none().0, origin.to_glib_none_mut().0);

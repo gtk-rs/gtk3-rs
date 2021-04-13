@@ -70,11 +70,11 @@ impl UnixSocketAddress {
 
 pub trait UnixSocketAddressExtManual {
     #[doc(alias = "g_unix_socket_address_get_path")]
-    fn get_path(&self) -> Option<UnixSocketAddressPath>;
+    fn path(&self) -> Option<UnixSocketAddressPath>;
 }
 
 impl<O: IsA<UnixSocketAddress>> UnixSocketAddressExtManual for O {
-    fn get_path(&self) -> Option<UnixSocketAddressPath> {
+    fn path(&self) -> Option<UnixSocketAddressPath> {
         use self::UnixSocketAddressPath::*;
 
         let path = unsafe {
@@ -82,10 +82,10 @@ impl<O: IsA<UnixSocketAddress>> UnixSocketAddressExtManual for O {
             if path.is_null() {
                 &[]
             } else {
-                slice::from_raw_parts(path as *const u8, self.get_path_len())
+                slice::from_raw_parts(path as *const u8, self.path_len())
             }
         };
-        match self.get_address_type() {
+        match self.address_type() {
             UnixSocketAddressType::Anonymous => Some(Anonymous),
             #[cfg(not(feature = "dox"))]
             UnixSocketAddressType::Path => Some(Path(path::Path::new(OsStr::from_bytes(path)))),

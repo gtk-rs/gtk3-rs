@@ -15,29 +15,29 @@ event_subtype!(
 );
 
 impl EventButton {
-    pub fn get_position(&self) -> (f64, f64) {
+    pub fn position(&self) -> (f64, f64) {
         let x = self.as_ref().x;
         let y = self.as_ref().y;
         (x, y)
     }
 
-    pub fn get_state(&self) -> crate::ModifierType {
+    pub fn state(&self) -> crate::ModifierType {
         unsafe { from_glib(self.as_ref().state) }
     }
 
-    pub fn get_time(&self) -> u32 {
+    pub fn time(&self) -> u32 {
         self.as_ref().time
     }
 
-    pub fn get_button(&self) -> u32 {
+    pub fn button(&self) -> u32 {
         self.as_ref().button
     }
 
-    pub fn get_device(&self) -> Option<crate::Device> {
+    pub fn device(&self) -> Option<crate::Device> {
         unsafe { from_glib_none(self.as_ref().device) }
     }
 
-    pub fn get_axes(&self) -> Option<(f64, f64)> {
+    pub fn axes(&self) -> Option<(f64, f64)> {
         let axes = self.as_ref().axes;
 
         if axes.is_null() {
@@ -47,7 +47,7 @@ impl EventButton {
         }
     }
 
-    pub fn get_root(&self) -> (f64, f64) {
+    pub fn root(&self) -> (f64, f64) {
         let x_root = self.as_ref().x_root;
         let y_root = self.as_ref().y_root;
         (x_root, y_root)

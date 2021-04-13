@@ -44,7 +44,7 @@ impl X11Display {
     }
 
     #[doc(alias = "gdk_x11_display_get_startup_notification_id")]
-    pub fn get_startup_notification_id(&self) -> Option<glib::GString> {
+    pub fn startup_notification_id(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gdk_x11_display_get_startup_notification_id(
                 self.to_glib_none().0,
@@ -53,7 +53,7 @@ impl X11Display {
     }
 
     #[doc(alias = "gdk_x11_display_get_user_time")]
-    pub fn get_user_time(&self) -> u32 {
+    pub fn user_time(&self) -> u32 {
         unsafe { ffi::gdk_x11_display_get_user_time(self.to_glib_none().0) }
     }
 

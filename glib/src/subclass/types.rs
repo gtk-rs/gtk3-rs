@@ -50,10 +50,10 @@ pub unsafe trait InstanceStruct: Sized + 'static {
     /// is the implementor of [`ObjectImpl`] or subtraits.
     ///
     /// [`ObjectImpl`]: ../object/trait.ObjectImpl.html
-    fn get_impl(&self) -> &Self::Type {
+    fn impl_(&self) -> &Self::Type {
         unsafe {
             let data = Self::Type::type_data();
-            let private_offset = data.as_ref().get_impl_offset();
+            let private_offset = data.as_ref().impl_offset();
             let ptr: *const u8 = self as *const _ as *const u8;
             let imp_ptr = ptr.offset(private_offset);
             let imp = imp_ptr as *const Self::Type;
@@ -63,7 +63,7 @@ pub unsafe trait InstanceStruct: Sized + 'static {
     }
 
     /// Returns the class struct for this specific instance.
-    fn get_class(&self) -> &<Self::Type as ObjectSubclass>::Class {
+    fn class(&self) -> &<Self::Type as ObjectSubclass>::Class {
         unsafe { &**(self as *const _ as *const *const <Self::Type as ObjectSubclass>::Class) }
     }
 
@@ -281,7 +281,7 @@ unsafe impl Sync for TypeData {}
 
 impl TypeData {
     /// Returns the type ID.
-    pub fn get_type(&self) -> Type {
+    pub fn type_(&self) -> Type {
         self.type_
     }
 
@@ -289,7 +289,7 @@ impl TypeData {
     ///
     /// This is used for chaining up to the parent class' implementation
     /// of virtual methods.
-    pub fn get_parent_class(&self) -> ffi::gpointer {
+    pub fn parent_class(&self) -> ffi::gpointer {
         debug_assert!(!self.parent_class.is_null());
         self.parent_class
     }
@@ -362,7 +362,7 @@ impl TypeData {
 
     /// Returns the offset of the private implementation struct in bytes relative to the beginning
     /// of the instance struct.
-    pub fn get_impl_offset(&self) -> isize {
+    pub fn impl_offset(&self) -> isize {
         self.private_offset + self.private_imp_offset
     }
 }
@@ -496,7 +496,7 @@ pub trait ObjectSubclass: ObjectSubclassType + Sized + 'static {
 /// Extension methods for all `ObjectSubclass` impls.
 pub trait ObjectSubclassExt: ObjectSubclass {
     /// Returns the corresponding object instance.
-    fn get_instance(&self) -> Self::Type;
+    fn instance(&self) -> Self::Type;
 
     /// Returns the implementation from an instance.
     fn from_instance(obj: &Self::Type) -> &Self;
@@ -508,13 +508,13 @@ pub trait ObjectSubclassExt: ObjectSubclass {
 }
 
 impl<T: ObjectSubclass> ObjectSubclassExt for T {
-    fn get_instance(&self) -> Self::Type {
+    fn instance(&self) -> Self::Type {
         unsafe {
             let data = Self::type_data();
-            let type_ = data.as_ref().get_type();
+            let type_ = data.as_ref().type_();
             assert!(type_.is_valid());
 
-            let offset = -data.as_ref().get_impl_offset();
+            let offset = -data.as_ref().impl_offset();
 
             let ptr = self as *const Self as *const u8;
             let ptr = ptr.offset(offset);
@@ -535,7 +535,7 @@ impl<T: ObjectSubclass> ObjectSubclassExt for T {
     fn from_instance(obj: &Self::Type) -> &Self {
         unsafe {
             let ptr = obj.as_ptr() as *const Self::Instance;
-            (*ptr).get_impl()
+            (*ptr).impl_()
         }
     }
 
@@ -545,7 +545,7 @@ impl<T: ObjectSubclass> ObjectSubclassExt for T {
     fn get_instance_data<U: Any + Send + Sync + 'static>(&self, type_: Type) -> Option<&U> {
         unsafe {
             let type_data = Self::type_data();
-            let self_type_ = type_data.as_ref().get_type();
+            let self_type_ = type_data.as_ref().type_();
             assert!(self_type_.is_valid());
 
             let offset = -type_data.as_ref().private_imp_offset;
@@ -600,7 +600,7 @@ impl<T: ObjectSubclass> InitializingObject<T> {
     pub fn set_instance_data<U: Any + Send + Sync + 'static>(&mut self, type_: Type, data: U) {
         unsafe {
             let type_data = T::type_data();
-            let self_type_ = type_data.as_ref().get_type();
+            let self_type_ = type_data.as_ref().type_();
             assert!(self_type_.is_valid());
 
             let offset = type_data.as_ref().private_offset;
@@ -707,7 +707,7 @@ unsafe extern "C" fn finalize<T: ObjectSubclass>(obj: *mut gobject_ffi::GObject)
     }
 
     // Chain up to the parent class' finalize implementation, if any.
-    let parent_class = &*(data.as_ref().get_parent_class() as *const gobject_ffi::GObjectClass);
+    let parent_class = &*(data.as_ref().parent_class() as *const gobject_ffi::GObjectClass);
     if let Some(ref func) = parent_class.finalize {
         func(obj);
     }

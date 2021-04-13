@@ -37,7 +37,7 @@ pub trait FileChooserExt: 'static {
     fn add_shortcut_folder_uri(&self, uri: &str) -> Result<(), glib::Error>;
 
     #[doc(alias = "gtk_file_chooser_get_action")]
-    fn get_action(&self) -> FileChooserAction;
+    fn action(&self) -> FileChooserAction;
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
@@ -45,73 +45,73 @@ pub trait FileChooserExt: 'static {
     fn get_choice(&self, id: &str) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_file_chooser_get_create_folders")]
-    fn get_create_folders(&self) -> bool;
+    fn creates_folders(&self) -> bool;
 
     #[doc(alias = "gtk_file_chooser_get_current_folder")]
-    fn get_current_folder(&self) -> Option<std::path::PathBuf>;
+    fn current_folder(&self) -> Option<std::path::PathBuf>;
 
     #[doc(alias = "gtk_file_chooser_get_current_folder_file")]
-    fn get_current_folder_file(&self) -> Option<gio::File>;
+    fn current_folder_file(&self) -> Option<gio::File>;
 
     #[doc(alias = "gtk_file_chooser_get_current_folder_uri")]
-    fn get_current_folder_uri(&self) -> Option<glib::GString>;
+    fn current_folder_uri(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_file_chooser_get_current_name")]
-    fn get_current_name(&self) -> Option<glib::GString>;
+    fn current_name(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_file_chooser_get_do_overwrite_confirmation")]
-    fn get_do_overwrite_confirmation(&self) -> bool;
+    fn does_overwrite_confirmation(&self) -> bool;
 
     #[doc(alias = "gtk_file_chooser_get_extra_widget")]
-    fn get_extra_widget(&self) -> Option<Widget>;
+    fn extra_widget(&self) -> Option<Widget>;
 
     #[doc(alias = "gtk_file_chooser_get_file")]
-    fn get_file(&self) -> Option<gio::File>;
+    fn file(&self) -> Option<gio::File>;
 
     #[doc(alias = "gtk_file_chooser_get_filename")]
-    fn get_filename(&self) -> Option<std::path::PathBuf>;
+    fn filename(&self) -> Option<std::path::PathBuf>;
 
     #[doc(alias = "gtk_file_chooser_get_filenames")]
-    fn get_filenames(&self) -> Vec<std::path::PathBuf>;
+    fn filenames(&self) -> Vec<std::path::PathBuf>;
 
     #[doc(alias = "gtk_file_chooser_get_files")]
-    fn get_files(&self) -> Vec<gio::File>;
+    fn files(&self) -> Vec<gio::File>;
 
     #[doc(alias = "gtk_file_chooser_get_filter")]
-    fn get_filter(&self) -> Option<FileFilter>;
+    fn filter(&self) -> Option<FileFilter>;
 
     #[doc(alias = "gtk_file_chooser_get_local_only")]
-    fn get_local_only(&self) -> bool;
+    fn is_local_only(&self) -> bool;
 
     #[doc(alias = "gtk_file_chooser_get_preview_file")]
-    fn get_preview_file(&self) -> Option<gio::File>;
+    fn preview_file(&self) -> Option<gio::File>;
 
     #[doc(alias = "gtk_file_chooser_get_preview_filename")]
-    fn get_preview_filename(&self) -> Option<std::path::PathBuf>;
+    fn preview_filename(&self) -> Option<std::path::PathBuf>;
 
     #[doc(alias = "gtk_file_chooser_get_preview_uri")]
-    fn get_preview_uri(&self) -> Option<glib::GString>;
+    fn preview_uri(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_file_chooser_get_preview_widget")]
-    fn get_preview_widget(&self) -> Option<Widget>;
+    fn preview_widget(&self) -> Option<Widget>;
 
     #[doc(alias = "gtk_file_chooser_get_preview_widget_active")]
-    fn get_preview_widget_active(&self) -> bool;
+    fn is_preview_widget_active(&self) -> bool;
 
     #[doc(alias = "gtk_file_chooser_get_select_multiple")]
-    fn get_select_multiple(&self) -> bool;
+    fn selects_multiple(&self) -> bool;
 
     #[doc(alias = "gtk_file_chooser_get_show_hidden")]
-    fn get_show_hidden(&self) -> bool;
+    fn shows_hidden(&self) -> bool;
 
     #[doc(alias = "gtk_file_chooser_get_uri")]
-    fn get_uri(&self) -> Option<glib::GString>;
+    fn uri(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_file_chooser_get_uris")]
-    fn get_uris(&self) -> Vec<glib::GString>;
+    fn uris(&self) -> Vec<glib::GString>;
 
     #[doc(alias = "gtk_file_chooser_get_use_preview_label")]
-    fn get_use_preview_label(&self) -> bool;
+    fn uses_preview_label(&self) -> bool;
 
     #[doc(alias = "gtk_file_chooser_list_filters")]
     fn list_filters(&self) -> Vec<FileFilter>;
@@ -316,7 +316,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         }
     }
 
-    fn get_action(&self) -> FileChooserAction {
+    fn action(&self) -> FileChooserAction {
         unsafe {
             from_glib(ffi::gtk_file_chooser_get_action(
                 self.as_ref().to_glib_none().0,
@@ -335,7 +335,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         }
     }
 
-    fn get_create_folders(&self) -> bool {
+    fn creates_folders(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_file_chooser_get_create_folders(
                 self.as_ref().to_glib_none().0,
@@ -343,7 +343,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         }
     }
 
-    fn get_current_folder(&self) -> Option<std::path::PathBuf> {
+    fn current_folder(&self) -> Option<std::path::PathBuf> {
         unsafe {
             from_glib_full(ffi::gtk_file_chooser_get_current_folder(
                 self.as_ref().to_glib_none().0,
@@ -351,7 +351,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         }
     }
 
-    fn get_current_folder_file(&self) -> Option<gio::File> {
+    fn current_folder_file(&self) -> Option<gio::File> {
         unsafe {
             from_glib_full(ffi::gtk_file_chooser_get_current_folder_file(
                 self.as_ref().to_glib_none().0,
@@ -359,7 +359,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         }
     }
 
-    fn get_current_folder_uri(&self) -> Option<glib::GString> {
+    fn current_folder_uri(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_full(ffi::gtk_file_chooser_get_current_folder_uri(
                 self.as_ref().to_glib_none().0,
@@ -367,7 +367,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         }
     }
 
-    fn get_current_name(&self) -> Option<glib::GString> {
+    fn current_name(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_full(ffi::gtk_file_chooser_get_current_name(
                 self.as_ref().to_glib_none().0,
@@ -375,7 +375,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         }
     }
 
-    fn get_do_overwrite_confirmation(&self) -> bool {
+    fn does_overwrite_confirmation(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_file_chooser_get_do_overwrite_confirmation(
                 self.as_ref().to_glib_none().0,
@@ -383,7 +383,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         }
     }
 
-    fn get_extra_widget(&self) -> Option<Widget> {
+    fn extra_widget(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_file_chooser_get_extra_widget(
                 self.as_ref().to_glib_none().0,
@@ -391,7 +391,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         }
     }
 
-    fn get_file(&self) -> Option<gio::File> {
+    fn file(&self) -> Option<gio::File> {
         unsafe {
             from_glib_full(ffi::gtk_file_chooser_get_file(
                 self.as_ref().to_glib_none().0,
@@ -399,7 +399,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         }
     }
 
-    fn get_filename(&self) -> Option<std::path::PathBuf> {
+    fn filename(&self) -> Option<std::path::PathBuf> {
         unsafe {
             from_glib_full(ffi::gtk_file_chooser_get_filename(
                 self.as_ref().to_glib_none().0,
@@ -407,7 +407,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         }
     }
 
-    fn get_filenames(&self) -> Vec<std::path::PathBuf> {
+    fn filenames(&self) -> Vec<std::path::PathBuf> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::gtk_file_chooser_get_filenames(
                 self.as_ref().to_glib_none().0,
@@ -415,7 +415,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         }
     }
 
-    fn get_files(&self) -> Vec<gio::File> {
+    fn files(&self) -> Vec<gio::File> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::gtk_file_chooser_get_files(
                 self.as_ref().to_glib_none().0,
@@ -423,7 +423,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         }
     }
 
-    fn get_filter(&self) -> Option<FileFilter> {
+    fn filter(&self) -> Option<FileFilter> {
         unsafe {
             from_glib_none(ffi::gtk_file_chooser_get_filter(
                 self.as_ref().to_glib_none().0,
@@ -431,7 +431,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         }
     }
 
-    fn get_local_only(&self) -> bool {
+    fn is_local_only(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_file_chooser_get_local_only(
                 self.as_ref().to_glib_none().0,
@@ -439,7 +439,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         }
     }
 
-    fn get_preview_file(&self) -> Option<gio::File> {
+    fn preview_file(&self) -> Option<gio::File> {
         unsafe {
             from_glib_full(ffi::gtk_file_chooser_get_preview_file(
                 self.as_ref().to_glib_none().0,
@@ -447,7 +447,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         }
     }
 
-    fn get_preview_filename(&self) -> Option<std::path::PathBuf> {
+    fn preview_filename(&self) -> Option<std::path::PathBuf> {
         unsafe {
             from_glib_full(ffi::gtk_file_chooser_get_preview_filename(
                 self.as_ref().to_glib_none().0,
@@ -455,7 +455,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         }
     }
 
-    fn get_preview_uri(&self) -> Option<glib::GString> {
+    fn preview_uri(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_full(ffi::gtk_file_chooser_get_preview_uri(
                 self.as_ref().to_glib_none().0,
@@ -463,7 +463,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         }
     }
 
-    fn get_preview_widget(&self) -> Option<Widget> {
+    fn preview_widget(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_file_chooser_get_preview_widget(
                 self.as_ref().to_glib_none().0,
@@ -471,7 +471,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         }
     }
 
-    fn get_preview_widget_active(&self) -> bool {
+    fn is_preview_widget_active(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_file_chooser_get_preview_widget_active(
                 self.as_ref().to_glib_none().0,
@@ -479,7 +479,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         }
     }
 
-    fn get_select_multiple(&self) -> bool {
+    fn selects_multiple(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_file_chooser_get_select_multiple(
                 self.as_ref().to_glib_none().0,
@@ -487,7 +487,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         }
     }
 
-    fn get_show_hidden(&self) -> bool {
+    fn shows_hidden(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_file_chooser_get_show_hidden(
                 self.as_ref().to_glib_none().0,
@@ -495,7 +495,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         }
     }
 
-    fn get_uri(&self) -> Option<glib::GString> {
+    fn uri(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_full(ffi::gtk_file_chooser_get_uri(
                 self.as_ref().to_glib_none().0,
@@ -503,7 +503,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         }
     }
 
-    fn get_uris(&self) -> Vec<glib::GString> {
+    fn uris(&self) -> Vec<glib::GString> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::gtk_file_chooser_get_uris(
                 self.as_ref().to_glib_none().0,
@@ -511,7 +511,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         }
     }
 
-    fn get_use_preview_label(&self) -> bool {
+    fn uses_preview_label(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_file_chooser_get_use_preview_label(
                 self.as_ref().to_glib_none().0,

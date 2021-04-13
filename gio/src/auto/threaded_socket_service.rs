@@ -26,7 +26,8 @@ glib::wrapper! {
 pub const NONE_THREADED_SOCKET_SERVICE: Option<&ThreadedSocketService> = None;
 
 pub trait ThreadedSocketServiceExt: 'static {
-    fn get_property_max_threads(&self) -> i32;
+    #[doc(alias = "get_property_max_threads")]
+    fn max_threads(&self) -> i32;
 
     fn connect_run<F: Fn(&Self, &SocketConnection, Option<&glib::Object>) -> bool + 'static>(
         &self,
@@ -35,7 +36,7 @@ pub trait ThreadedSocketServiceExt: 'static {
 }
 
 impl<O: IsA<ThreadedSocketService>> ThreadedSocketServiceExt for O {
-    fn get_property_max_threads(&self) -> i32 {
+    fn max_threads(&self) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(

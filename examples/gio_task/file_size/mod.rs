@@ -51,11 +51,11 @@ impl FileSize {
                 .query_info_async_future("*", gio::FileQueryInfoFlags::NONE, glib::PRIORITY_DEFAULT)
                 .await
                 .unwrap()
-                .get_size();
+                .size();
 
             let source_object = task
                 .upcast_ref::<gio::AsyncResult>()
-                .get_source_object()
+                .source_object()
                 .unwrap();
 
             let source_object =

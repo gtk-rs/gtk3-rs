@@ -58,7 +58,7 @@ impl ObjectImpl for RowData {
         value: &glib::Value,
         pspec: &glib::ParamSpec,
     ) {
-        match pspec.get_name() {
+        match pspec.name() {
             "name" => {
                 let name = value
                     .get()
@@ -76,7 +76,7 @@ impl ObjectImpl for RowData {
     }
 
     fn get_property(&self, _obj: &Self::Type, _id: usize, pspec: &glib::ParamSpec) -> glib::Value {
-        match pspec.get_name() {
+        match pspec.name() {
             "name" => self.name.borrow().to_value(),
             "count" => self.count.borrow().to_value(),
             _ => unimplemented!(),

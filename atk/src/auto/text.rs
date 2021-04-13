@@ -45,22 +45,22 @@ pub trait TextExt: 'static {
     ) -> Vec<TextRange>;
 
     #[doc(alias = "atk_text_get_caret_offset")]
-    fn get_caret_offset(&self) -> i32;
+    fn caret_offset(&self) -> i32;
 
     #[doc(alias = "atk_text_get_character_at_offset")]
     fn get_character_at_offset(&self, offset: i32) -> char;
 
     #[doc(alias = "atk_text_get_character_count")]
-    fn get_character_count(&self) -> i32;
+    fn character_count(&self) -> i32;
 
     #[doc(alias = "atk_text_get_character_extents")]
     fn get_character_extents(&self, offset: i32, coords: CoordType) -> (i32, i32, i32, i32);
 
     //#[doc(alias = "atk_text_get_default_attributes")]
-    //fn get_default_attributes(&self) -> /*Ignored*/Option<AttributeSet>;
+    //fn default_attributes(&self) -> /*Ignored*/Option<AttributeSet>;
 
     #[doc(alias = "atk_text_get_n_selections")]
-    fn get_n_selections(&self) -> i32;
+    fn n_selections(&self) -> i32;
 
     #[doc(alias = "atk_text_get_offset_at_point")]
     fn get_offset_at_point(&self, x: i32, y: i32, coords: CoordType) -> i32;
@@ -170,7 +170,7 @@ impl<O: IsA<Text>> TextExt for O {
         }
     }
 
-    fn get_caret_offset(&self) -> i32 {
+    fn caret_offset(&self) -> i32 {
         unsafe { ffi::atk_text_get_caret_offset(self.as_ref().to_glib_none().0) }
     }
 
@@ -184,7 +184,7 @@ impl<O: IsA<Text>> TextExt for O {
         }
     }
 
-    fn get_character_count(&self) -> i32 {
+    fn character_count(&self) -> i32 {
         unsafe { ffi::atk_text_get_character_count(self.as_ref().to_glib_none().0) }
     }
 
@@ -211,11 +211,11 @@ impl<O: IsA<Text>> TextExt for O {
         }
     }
 
-    //fn get_default_attributes(&self) -> /*Ignored*/Option<AttributeSet> {
+    //fn default_attributes(&self) -> /*Ignored*/Option<AttributeSet> {
     //    unsafe { TODO: call ffi:atk_text_get_default_attributes() }
     //}
 
-    fn get_n_selections(&self) -> i32 {
+    fn n_selections(&self) -> i32 {
         unsafe { ffi::atk_text_get_n_selections(self.as_ref().to_glib_none().0) }
     }
 

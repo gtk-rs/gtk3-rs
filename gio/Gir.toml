@@ -81,11 +81,8 @@ generate = [
     "Gio.MemoryMonitor",
     "Gio.MemoryMonitorWarningLevel",
     "Gio.Menu",
-    "Gio.MenuAttributeIter",
     "Gio.MenuItem",
-    "Gio.MenuLinkIter",
     "Gio.MenuModel",
-    "Gio.Mount",
     "Gio.MountMountFlags",
     "Gio.MountOperation",
     "Gio.MountOperationResult",
@@ -147,7 +144,6 @@ generate = [
     "Gio.TlsPasswordFlags",
     "Gio.TlsRehandshakeMode",
     "Gio.TlsServerConnection",
-    "Gio.Volume",
     "Gio.VolumeMonitor",
     "Gio.ZlibCompressor",
     "Gio.ZlibCompressorFormat",
@@ -304,6 +300,9 @@ generate_builder = true
 name = "Gio.BufferedOutputStream"
 status = "generate"
 generate_builder = true
+    [[object.function]]
+    name = "get_auto_grow"
+    rename = "auto_grows"
 
 [[object]]
 name = "Gio.BytesIcon"
@@ -719,6 +718,46 @@ status = "generate"
     ignore = true
 
 [[object]]
+name = "Gio.MenuAttributeIter"
+status = "generate"
+    [[object.function]]
+    name = "get_name"
+    # Users shoud use `next` (automatically renamed from `get_next`).
+    ignore= true
+    [[object.function]]
+    name = "get_value"
+    # Users shoud use `next` (automatically renamed from `get_next`).
+    ignore= true
+    [[object.function]]
+    name = "next"
+    # this one advances the iter and returns a boolean
+    # `get_next` (which will be automatically renamed as `next`)
+    # matches what we expect from an iterator in Rust.
+    ignore= true
+
+[[object]]
+name = "Gio.MenuLinkIter"
+status = "generate"
+    [[object.function]]
+    name = "get_name"
+    # Users shoud use `next` (automatically renamed from `get_next`).
+    ignore= true
+    [[object.function]]
+    name = "get_value"
+    # Users shoud use `next` (automatically renamed from `get_next`).
+    ignore= true
+    [[object.function]]
+    name = "next"
+    # this one advances the iter and returns a boolean
+    # `get_next` (which will be automatically renamed as `next`)
+    # matches what we expect from an iterator in Rust.
+    ignore= true
+
+[[object]]
+name = "Gio.Mount"
+status = "generate"
+
+[[object]]
 name = "Gio.NetworkAddress"
 status = "generate"
 concurrency = "send+sync"
@@ -884,6 +923,20 @@ status = "generate"
     [[object.function]]
     name = "communicate_utf8_async"
     manual = true
+    [[object.function]]
+    name = "get_if_exited"
+    # NOTE: this might be controversial:
+    # the C fct is named after the WIFEXITED macro
+    # but this seems like a nicer name to use in Rust:
+    # if suprocess.has_exited() ...
+    rename = "has_exited"
+    [[object.function]]
+    name = "get_if_signaled"
+    # NOTE: this might be controversial:
+    # the C fct is named after the WIFSIGNALED macro
+    # but this seems like a nicer name to use in Rust:
+    # if suprocess.has_signaled() ...
+    rename = "has_signaled"
     [[object.function]]
     name = "send_signal"
     cfg_condition = "not(windows)"
@@ -1169,11 +1222,30 @@ status = "generate"
 concurrency = "send+sync"
 
 [[object]]
+name = "Gio.Volume"
+status = "generate"
+    [[object.function]]
+    name = "get_icon"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "get_mount"
+    # Avoid clash with the `mount` operation.
+    bypass_auto_rename = true
+    [[object.function]]
+    name = "get_name"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "get_symbolic_icon"
+        [object.function.return]
+        nullable = false
+
+[[object]]
 name = "Gio.Win32InputStream"
 status = "manual"
 cfg_condition = "windows"
 manual_traits = ["Win32InputStreamExtManual"]
-
 
 [[object]]
 name = "Gio.Win32OutputStream"

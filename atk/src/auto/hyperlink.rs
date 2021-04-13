@@ -26,16 +26,16 @@ pub const NONE_HYPERLINK: Option<&Hyperlink> = None;
 
 pub trait HyperlinkExt: 'static {
     #[doc(alias = "atk_hyperlink_get_end_index")]
-    fn get_end_index(&self) -> i32;
+    fn end_index(&self) -> i32;
 
     #[doc(alias = "atk_hyperlink_get_n_anchors")]
-    fn get_n_anchors(&self) -> i32;
+    fn n_anchors(&self) -> i32;
 
     #[doc(alias = "atk_hyperlink_get_object")]
     fn get_object(&self, i: i32) -> Option<Object>;
 
     #[doc(alias = "atk_hyperlink_get_start_index")]
-    fn get_start_index(&self) -> i32;
+    fn start_index(&self) -> i32;
 
     #[doc(alias = "atk_hyperlink_get_uri")]
     fn get_uri(&self, i: i32) -> Option<glib::GString>;
@@ -46,7 +46,8 @@ pub trait HyperlinkExt: 'static {
     #[doc(alias = "atk_hyperlink_is_valid")]
     fn is_valid(&self) -> bool;
 
-    fn get_property_number_of_anchors(&self) -> i32;
+    #[doc(alias = "get_property_number_of_anchors")]
+    fn number_of_anchors(&self) -> i32;
 
     fn connect_link_activated<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -61,11 +62,11 @@ pub trait HyperlinkExt: 'static {
 }
 
 impl<O: IsA<Hyperlink>> HyperlinkExt for O {
-    fn get_end_index(&self) -> i32 {
+    fn end_index(&self) -> i32 {
         unsafe { ffi::atk_hyperlink_get_end_index(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_n_anchors(&self) -> i32 {
+    fn n_anchors(&self) -> i32 {
         unsafe { ffi::atk_hyperlink_get_n_anchors(self.as_ref().to_glib_none().0) }
     }
 
@@ -78,7 +79,7 @@ impl<O: IsA<Hyperlink>> HyperlinkExt for O {
         }
     }
 
-    fn get_start_index(&self) -> i32 {
+    fn start_index(&self) -> i32 {
         unsafe { ffi::atk_hyperlink_get_start_index(self.as_ref().to_glib_none().0) }
     }
 
@@ -99,7 +100,7 @@ impl<O: IsA<Hyperlink>> HyperlinkExt for O {
         unsafe { from_glib(ffi::atk_hyperlink_is_valid(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_property_number_of_anchors(&self) -> i32 {
+    fn number_of_anchors(&self) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(

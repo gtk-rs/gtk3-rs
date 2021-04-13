@@ -530,19 +530,19 @@ pub trait ImageExt: 'static {
     fn clear(&self);
 
     #[doc(alias = "gtk_image_get_animation")]
-    fn get_animation(&self) -> Option<gdk_pixbuf::PixbufAnimation>;
+    fn animation(&self) -> Option<gdk_pixbuf::PixbufAnimation>;
 
     #[doc(alias = "gtk_image_get_gicon")]
-    fn get_gicon(&self) -> (gio::Icon, IconSize);
+    fn gicon(&self) -> (gio::Icon, IconSize);
 
     #[doc(alias = "gtk_image_get_pixbuf")]
-    fn get_pixbuf(&self) -> Option<gdk_pixbuf::Pixbuf>;
+    fn pixbuf(&self) -> Option<gdk_pixbuf::Pixbuf>;
 
     #[doc(alias = "gtk_image_get_pixel_size")]
-    fn get_pixel_size(&self) -> i32;
+    fn pixel_size(&self) -> i32;
 
     #[doc(alias = "gtk_image_get_storage_type")]
-    fn get_storage_type(&self) -> ImageType;
+    fn storage_type(&self) -> ImageType;
 
     #[doc(alias = "gtk_image_set_from_animation")]
     fn set_from_animation<P: IsA<gdk_pixbuf::PixbufAnimation>>(&self, animation: &P);
@@ -568,40 +568,56 @@ pub trait ImageExt: 'static {
     #[doc(alias = "gtk_image_set_pixel_size")]
     fn set_pixel_size(&self, pixel_size: i32);
 
-    fn get_property_file(&self) -> Option<glib::GString>;
+    #[doc(alias = "get_property_file")]
+    fn file(&self) -> Option<glib::GString>;
 
-    fn set_property_file(&self, file: Option<&str>);
+    #[doc(alias = "set_property_file")]
+    fn set_file(&self, file: Option<&str>);
 
-    fn set_property_gicon<P: IsA<gio::Icon>>(&self, gicon: Option<&P>);
+    #[doc(alias = "set_property_gicon")]
+    fn set_gicon<P: IsA<gio::Icon>>(&self, gicon: Option<&P>);
 
-    fn get_property_icon_name(&self) -> Option<glib::GString>;
+    #[doc(alias = "get_property_icon_name")]
+    fn icon_name(&self) -> Option<glib::GString>;
 
-    fn set_property_icon_name(&self, icon_name: Option<&str>);
+    #[doc(alias = "set_property_icon_name")]
+    fn set_icon_name(&self, icon_name: Option<&str>);
 
-    fn get_property_icon_size(&self) -> i32;
+    #[doc(alias = "get_property_icon_size")]
+    fn icon_size(&self) -> i32;
 
-    fn set_property_icon_size(&self, icon_size: i32);
+    #[doc(alias = "set_property_icon_size")]
+    fn set_icon_size(&self, icon_size: i32);
 
-    fn set_property_pixbuf(&self, pixbuf: Option<&gdk_pixbuf::Pixbuf>);
+    #[doc(alias = "set_property_pixbuf")]
+    fn set_pixbuf(&self, pixbuf: Option<&gdk_pixbuf::Pixbuf>);
 
-    fn get_property_pixbuf_animation(&self) -> Option<gdk_pixbuf::PixbufAnimation>;
+    #[doc(alias = "get_property_pixbuf_animation")]
+    fn pixbuf_animation(&self) -> Option<gdk_pixbuf::PixbufAnimation>;
 
-    fn set_property_pixbuf_animation<P: IsA<gdk_pixbuf::PixbufAnimation>>(
+    #[doc(alias = "set_property_pixbuf_animation")]
+    fn set_pixbuf_animation<P: IsA<gdk_pixbuf::PixbufAnimation>>(
         &self,
         pixbuf_animation: Option<&P>,
     );
 
-    fn get_property_resource(&self) -> Option<glib::GString>;
+    #[doc(alias = "get_property_resource")]
+    fn resource(&self) -> Option<glib::GString>;
 
-    fn set_property_resource(&self, resource: Option<&str>);
+    #[doc(alias = "set_property_resource")]
+    fn set_resource(&self, resource: Option<&str>);
 
-    fn get_property_surface(&self) -> Option<cairo::Surface>;
+    #[doc(alias = "get_property_surface")]
+    fn surface(&self) -> Option<cairo::Surface>;
 
-    fn set_property_surface(&self, surface: Option<&cairo::Surface>);
+    #[doc(alias = "set_property_surface")]
+    fn set_surface(&self, surface: Option<&cairo::Surface>);
 
-    fn get_property_use_fallback(&self) -> bool;
+    #[doc(alias = "get_property_use_fallback")]
+    fn uses_fallback(&self) -> bool;
 
-    fn set_property_use_fallback(&self, use_fallback: bool);
+    #[doc(alias = "set_property_use_fallback")]
+    fn set_use_fallback(&self, use_fallback: bool);
 
     fn connect_property_file_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -638,11 +654,11 @@ impl<O: IsA<Image>> ImageExt for O {
         }
     }
 
-    fn get_animation(&self) -> Option<gdk_pixbuf::PixbufAnimation> {
+    fn animation(&self) -> Option<gdk_pixbuf::PixbufAnimation> {
         unsafe { from_glib_none(ffi::gtk_image_get_animation(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_gicon(&self) -> (gio::Icon, IconSize) {
+    fn gicon(&self) -> (gio::Icon, IconSize) {
         unsafe {
             let mut gicon = ptr::null_mut();
             let mut size = mem::MaybeUninit::uninit();
@@ -656,15 +672,15 @@ impl<O: IsA<Image>> ImageExt for O {
         }
     }
 
-    fn get_pixbuf(&self) -> Option<gdk_pixbuf::Pixbuf> {
+    fn pixbuf(&self) -> Option<gdk_pixbuf::Pixbuf> {
         unsafe { from_glib_none(ffi::gtk_image_get_pixbuf(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_pixel_size(&self) -> i32 {
+    fn pixel_size(&self) -> i32 {
         unsafe { ffi::gtk_image_get_pixel_size(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_storage_type(&self) -> ImageType {
+    fn storage_type(&self) -> ImageType {
         unsafe {
             from_glib(ffi::gtk_image_get_storage_type(
                 self.as_ref().to_glib_none().0,
@@ -740,7 +756,7 @@ impl<O: IsA<Image>> ImageExt for O {
         }
     }
 
-    fn get_property_file(&self) -> Option<glib::GString> {
+    fn file(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -754,7 +770,7 @@ impl<O: IsA<Image>> ImageExt for O {
         }
     }
 
-    fn set_property_file(&self, file: Option<&str>) {
+    fn set_file(&self, file: Option<&str>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -764,7 +780,7 @@ impl<O: IsA<Image>> ImageExt for O {
         }
     }
 
-    fn set_property_gicon<P: IsA<gio::Icon>>(&self, gicon: Option<&P>) {
+    fn set_gicon<P: IsA<gio::Icon>>(&self, gicon: Option<&P>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -774,7 +790,7 @@ impl<O: IsA<Image>> ImageExt for O {
         }
     }
 
-    fn get_property_icon_name(&self) -> Option<glib::GString> {
+    fn icon_name(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -788,7 +804,7 @@ impl<O: IsA<Image>> ImageExt for O {
         }
     }
 
-    fn set_property_icon_name(&self, icon_name: Option<&str>) {
+    fn set_icon_name(&self, icon_name: Option<&str>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -798,7 +814,7 @@ impl<O: IsA<Image>> ImageExt for O {
         }
     }
 
-    fn get_property_icon_size(&self) -> i32 {
+    fn icon_size(&self) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -813,7 +829,7 @@ impl<O: IsA<Image>> ImageExt for O {
         }
     }
 
-    fn set_property_icon_size(&self, icon_size: i32) {
+    fn set_icon_size(&self, icon_size: i32) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -823,7 +839,7 @@ impl<O: IsA<Image>> ImageExt for O {
         }
     }
 
-    fn set_property_pixbuf(&self, pixbuf: Option<&gdk_pixbuf::Pixbuf>) {
+    fn set_pixbuf(&self, pixbuf: Option<&gdk_pixbuf::Pixbuf>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -833,7 +849,7 @@ impl<O: IsA<Image>> ImageExt for O {
         }
     }
 
-    fn get_property_pixbuf_animation(&self) -> Option<gdk_pixbuf::PixbufAnimation> {
+    fn pixbuf_animation(&self) -> Option<gdk_pixbuf::PixbufAnimation> {
         unsafe {
             let mut value =
                 glib::Value::from_type(<gdk_pixbuf::PixbufAnimation as StaticType>::static_type());
@@ -848,7 +864,7 @@ impl<O: IsA<Image>> ImageExt for O {
         }
     }
 
-    fn set_property_pixbuf_animation<P: IsA<gdk_pixbuf::PixbufAnimation>>(
+    fn set_pixbuf_animation<P: IsA<gdk_pixbuf::PixbufAnimation>>(
         &self,
         pixbuf_animation: Option<&P>,
     ) {
@@ -861,7 +877,7 @@ impl<O: IsA<Image>> ImageExt for O {
         }
     }
 
-    fn get_property_resource(&self) -> Option<glib::GString> {
+    fn resource(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -875,7 +891,7 @@ impl<O: IsA<Image>> ImageExt for O {
         }
     }
 
-    fn set_property_resource(&self, resource: Option<&str>) {
+    fn set_resource(&self, resource: Option<&str>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -885,7 +901,7 @@ impl<O: IsA<Image>> ImageExt for O {
         }
     }
 
-    fn get_property_surface(&self) -> Option<cairo::Surface> {
+    fn surface(&self) -> Option<cairo::Surface> {
         unsafe {
             let mut value = glib::Value::from_type(<cairo::Surface as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -899,7 +915,7 @@ impl<O: IsA<Image>> ImageExt for O {
         }
     }
 
-    fn set_property_surface(&self, surface: Option<&cairo::Surface>) {
+    fn set_surface(&self, surface: Option<&cairo::Surface>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -909,7 +925,7 @@ impl<O: IsA<Image>> ImageExt for O {
         }
     }
 
-    fn get_property_use_fallback(&self) -> bool {
+    fn uses_fallback(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -924,7 +940,7 @@ impl<O: IsA<Image>> ImageExt for O {
         }
     }
 
-    fn set_property_use_fallback(&self, use_fallback: bool) {
+    fn set_use_fallback(&self, use_fallback: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,

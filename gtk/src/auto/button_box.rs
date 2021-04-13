@@ -432,7 +432,7 @@ pub trait ButtonBoxExt: 'static {
     fn get_child_secondary<P: IsA<Widget>>(&self, child: &P) -> bool;
 
     #[doc(alias = "gtk_button_box_get_layout")]
-    fn get_layout(&self) -> ButtonBoxStyle;
+    fn layout(&self) -> ButtonBoxStyle;
 
     #[doc(alias = "gtk_button_box_set_child_non_homogeneous")]
     fn set_child_non_homogeneous<P: IsA<Widget>>(&self, child: &P, non_homogeneous: bool);
@@ -443,9 +443,11 @@ pub trait ButtonBoxExt: 'static {
     #[doc(alias = "gtk_button_box_set_layout")]
     fn set_layout(&self, layout_style: ButtonBoxStyle);
 
-    fn get_property_layout_style(&self) -> ButtonBoxStyle;
+    #[doc(alias = "get_property_layout_style")]
+    fn layout_style(&self) -> ButtonBoxStyle;
 
-    fn set_property_layout_style(&self, layout_style: ButtonBoxStyle);
+    #[doc(alias = "set_property_layout_style")]
+    fn set_layout_style(&self, layout_style: ButtonBoxStyle);
 
     fn connect_property_layout_style_notify<F: Fn(&Self) + 'static>(&self, f: F)
         -> SignalHandlerId;
@@ -470,7 +472,7 @@ impl<O: IsA<ButtonBox>> ButtonBoxExt for O {
         }
     }
 
-    fn get_layout(&self) -> ButtonBoxStyle {
+    fn layout(&self) -> ButtonBoxStyle {
         unsafe {
             from_glib(ffi::gtk_button_box_get_layout(
                 self.as_ref().to_glib_none().0,
@@ -504,7 +506,7 @@ impl<O: IsA<ButtonBox>> ButtonBoxExt for O {
         }
     }
 
-    fn get_property_layout_style(&self) -> ButtonBoxStyle {
+    fn layout_style(&self) -> ButtonBoxStyle {
         unsafe {
             let mut value = glib::Value::from_type(<ButtonBoxStyle as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -519,7 +521,7 @@ impl<O: IsA<ButtonBox>> ButtonBoxExt for O {
         }
     }
 
-    fn set_property_layout_style(&self, layout_style: ButtonBoxStyle) {
+    fn set_layout_style(&self, layout_style: ButtonBoxStyle) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,

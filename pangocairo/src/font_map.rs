@@ -6,11 +6,11 @@ use glib::translate::*;
 
 pub trait FontMapExtManual {
     #[doc(alias = "pango_cairo_font_map_get_font_type")]
-    fn get_font_type(&self) -> cairo::FontType;
+    fn font_type(&self) -> cairo::FontType;
 }
 
 impl<O: IsA<FontMap>> FontMapExtManual for O {
-    fn get_font_type(&self) -> cairo::FontType {
+    fn font_type(&self) -> cairo::FontType {
         unsafe { ffi::pango_cairo_font_map_get_font_type(self.as_ref().to_glib_none().0).into() }
     }
 }

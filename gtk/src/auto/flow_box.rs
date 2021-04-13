@@ -468,7 +468,7 @@ pub trait FlowBoxExt: 'static {
     );
 
     #[doc(alias = "gtk_flow_box_get_activate_on_single_click")]
-    fn get_activate_on_single_click(&self) -> bool;
+    fn activates_on_single_click(&self) -> bool;
 
     #[doc(alias = "gtk_flow_box_get_child_at_index")]
     fn get_child_at_index(&self, idx: i32) -> Option<FlowBoxChild>;
@@ -479,25 +479,25 @@ pub trait FlowBoxExt: 'static {
     fn get_child_at_pos(&self, x: i32, y: i32) -> Option<FlowBoxChild>;
 
     #[doc(alias = "gtk_flow_box_get_column_spacing")]
-    fn get_column_spacing(&self) -> u32;
+    fn column_spacing(&self) -> u32;
 
     #[doc(alias = "gtk_flow_box_get_homogeneous")]
-    fn get_homogeneous(&self) -> bool;
+    fn is_homogeneous(&self) -> bool;
 
     #[doc(alias = "gtk_flow_box_get_max_children_per_line")]
-    fn get_max_children_per_line(&self) -> u32;
+    fn max_children_per_line(&self) -> u32;
 
     #[doc(alias = "gtk_flow_box_get_min_children_per_line")]
-    fn get_min_children_per_line(&self) -> u32;
+    fn min_children_per_line(&self) -> u32;
 
     #[doc(alias = "gtk_flow_box_get_row_spacing")]
-    fn get_row_spacing(&self) -> u32;
+    fn row_spacing(&self) -> u32;
 
     #[doc(alias = "gtk_flow_box_get_selected_children")]
-    fn get_selected_children(&self) -> Vec<FlowBoxChild>;
+    fn selected_children(&self) -> Vec<FlowBoxChild>;
 
     #[doc(alias = "gtk_flow_box_get_selection_mode")]
-    fn get_selection_mode(&self) -> SelectionMode;
+    fn selection_mode(&self) -> SelectionMode;
 
     #[doc(alias = "gtk_flow_box_insert")]
     fn insert<P: IsA<Widget>>(&self, widget: &P, position: i32);
@@ -662,7 +662,7 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         }
     }
 
-    fn get_activate_on_single_click(&self) -> bool {
+    fn activates_on_single_click(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_flow_box_get_activate_on_single_click(
                 self.as_ref().to_glib_none().0,
@@ -691,11 +691,11 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         }
     }
 
-    fn get_column_spacing(&self) -> u32 {
+    fn column_spacing(&self) -> u32 {
         unsafe { ffi::gtk_flow_box_get_column_spacing(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_homogeneous(&self) -> bool {
+    fn is_homogeneous(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_flow_box_get_homogeneous(
                 self.as_ref().to_glib_none().0,
@@ -703,19 +703,19 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         }
     }
 
-    fn get_max_children_per_line(&self) -> u32 {
+    fn max_children_per_line(&self) -> u32 {
         unsafe { ffi::gtk_flow_box_get_max_children_per_line(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_min_children_per_line(&self) -> u32 {
+    fn min_children_per_line(&self) -> u32 {
         unsafe { ffi::gtk_flow_box_get_min_children_per_line(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_row_spacing(&self) -> u32 {
+    fn row_spacing(&self) -> u32 {
         unsafe { ffi::gtk_flow_box_get_row_spacing(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_selected_children(&self) -> Vec<FlowBoxChild> {
+    fn selected_children(&self) -> Vec<FlowBoxChild> {
         unsafe {
             FromGlibPtrContainer::from_glib_container(ffi::gtk_flow_box_get_selected_children(
                 self.as_ref().to_glib_none().0,
@@ -723,7 +723,7 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         }
     }
 
-    fn get_selection_mode(&self) -> SelectionMode {
+    fn selection_mode(&self) -> SelectionMode {
         unsafe {
             from_glib(ffi::gtk_flow_box_get_selection_mode(
                 self.as_ref().to_glib_none().0,

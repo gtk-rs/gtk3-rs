@@ -21,11 +21,11 @@ pub const NONE_BIN: Option<&Bin> = None;
 
 pub trait BinExt: 'static {
     #[doc(alias = "gtk_bin_get_child")]
-    fn get_child(&self) -> Option<Widget>;
+    fn child(&self) -> Option<Widget>;
 }
 
 impl<O: IsA<Bin>> BinExt for O {
-    fn get_child(&self) -> Option<Widget> {
+    fn child(&self) -> Option<Widget> {
         unsafe { from_glib_none(ffi::gtk_bin_get_child(self.as_ref().to_glib_none().0)) }
     }
 }

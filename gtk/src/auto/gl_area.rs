@@ -428,30 +428,30 @@ pub trait GLAreaExt: 'static {
     fn attach_buffers(&self);
 
     #[doc(alias = "gtk_gl_area_get_auto_render")]
-    fn get_auto_render(&self) -> bool;
+    fn is_auto_render(&self) -> bool;
 
     #[doc(alias = "gtk_gl_area_get_context")]
-    fn get_context(&self) -> Option<gdk::GLContext>;
+    fn context(&self) -> Option<gdk::GLContext>;
 
     #[doc(alias = "gtk_gl_area_get_error")]
-    fn get_error(&self) -> Option<glib::Error>;
+    fn error(&self) -> Option<glib::Error>;
 
     #[doc(alias = "gtk_gl_area_get_has_alpha")]
-    fn get_has_alpha(&self) -> bool;
+    fn has_alpha(&self) -> bool;
 
     #[doc(alias = "gtk_gl_area_get_has_depth_buffer")]
-    fn get_has_depth_buffer(&self) -> bool;
+    fn has_depth_buffer(&self) -> bool;
 
     #[doc(alias = "gtk_gl_area_get_has_stencil_buffer")]
-    fn get_has_stencil_buffer(&self) -> bool;
+    fn has_stencil_buffer(&self) -> bool;
 
     #[doc(alias = "gtk_gl_area_get_required_version")]
-    fn get_required_version(&self) -> (i32, i32);
+    fn required_version(&self) -> (i32, i32);
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gtk_gl_area_get_use_es")]
-    fn get_use_es(&self) -> bool;
+    fn uses_es(&self) -> bool;
 
     #[doc(alias = "gtk_gl_area_make_current")]
     fn make_current(&self);
@@ -538,7 +538,7 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
         }
     }
 
-    fn get_auto_render(&self) -> bool {
+    fn is_auto_render(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_gl_area_get_auto_render(
                 self.as_ref().to_glib_none().0,
@@ -546,15 +546,15 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
         }
     }
 
-    fn get_context(&self) -> Option<gdk::GLContext> {
+    fn context(&self) -> Option<gdk::GLContext> {
         unsafe { from_glib_none(ffi::gtk_gl_area_get_context(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_error(&self) -> Option<glib::Error> {
+    fn error(&self) -> Option<glib::Error> {
         unsafe { from_glib_none(ffi::gtk_gl_area_get_error(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_has_alpha(&self) -> bool {
+    fn has_alpha(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_gl_area_get_has_alpha(
                 self.as_ref().to_glib_none().0,
@@ -562,7 +562,7 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
         }
     }
 
-    fn get_has_depth_buffer(&self) -> bool {
+    fn has_depth_buffer(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_gl_area_get_has_depth_buffer(
                 self.as_ref().to_glib_none().0,
@@ -570,7 +570,7 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
         }
     }
 
-    fn get_has_stencil_buffer(&self) -> bool {
+    fn has_stencil_buffer(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_gl_area_get_has_stencil_buffer(
                 self.as_ref().to_glib_none().0,
@@ -578,7 +578,7 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
         }
     }
 
-    fn get_required_version(&self) -> (i32, i32) {
+    fn required_version(&self) -> (i32, i32) {
         unsafe {
             let mut major = mem::MaybeUninit::uninit();
             let mut minor = mem::MaybeUninit::uninit();
@@ -595,7 +595,7 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    fn get_use_es(&self) -> bool {
+    fn uses_es(&self) -> bool {
         unsafe { from_glib(ffi::gtk_gl_area_get_use_es(self.as_ref().to_glib_none().0)) }
     }
 

@@ -54,7 +54,7 @@ impl ThemedIcon {
     }
 
     #[doc(alias = "g_themed_icon_get_names")]
-    pub fn get_names(&self) -> Vec<glib::GString> {
+    pub fn names(&self) -> Vec<glib::GString> {
         unsafe {
             FromGlibPtrContainer::from_glib_none(ffi::g_themed_icon_get_names(
                 self.to_glib_none().0,
@@ -69,7 +69,8 @@ impl ThemedIcon {
         }
     }
 
-    pub fn get_property_use_default_fallbacks(&self) -> bool {
+    #[doc(alias = "get_property_use_default_fallbacks")]
+    pub fn uses_default_fallbacks(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(

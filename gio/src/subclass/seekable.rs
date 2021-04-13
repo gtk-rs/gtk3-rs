@@ -173,7 +173,7 @@ unsafe impl<T: SeekableImpl> IsImplementable<T> for Seekable {
 
 unsafe extern "C" fn seekable_tell<T: SeekableImpl>(seekable: *mut ffi::GSeekable) -> i64 {
     let instance = &*(seekable as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
 
     imp.tell(from_glib_borrow::<_, Seekable>(seekable).unsafe_cast_ref())
 }
@@ -182,7 +182,7 @@ unsafe extern "C" fn seekable_can_seek<T: SeekableImpl>(
     seekable: *mut ffi::GSeekable,
 ) -> glib::ffi::gboolean {
     let instance = &*(seekable as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
 
     imp.can_seek(from_glib_borrow::<_, Seekable>(seekable).unsafe_cast_ref())
         .to_glib()
@@ -196,7 +196,7 @@ unsafe extern "C" fn seekable_seek<T: SeekableImpl>(
     err: *mut *mut glib::ffi::GError,
 ) -> glib::ffi::gboolean {
     let instance = &*(seekable as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
 
     match imp.seek(
         from_glib_borrow::<_, Seekable>(seekable).unsafe_cast_ref(),
@@ -218,7 +218,7 @@ unsafe extern "C" fn seekable_can_truncate<T: SeekableImpl>(
     seekable: *mut ffi::GSeekable,
 ) -> glib::ffi::gboolean {
     let instance = &*(seekable as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
 
     imp.can_truncate(from_glib_borrow::<_, Seekable>(seekable).unsafe_cast_ref())
         .to_glib()
@@ -231,7 +231,7 @@ unsafe extern "C" fn seekable_truncate<T: SeekableImpl>(
     err: *mut *mut glib::ffi::GError,
 ) -> glib::ffi::gboolean {
     let instance = &*(seekable as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.impl_();
 
     match imp.truncate(
         from_glib_borrow::<_, Seekable>(seekable).unsafe_cast_ref(),

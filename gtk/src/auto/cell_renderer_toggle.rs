@@ -229,13 +229,13 @@ pub const NONE_CELL_RENDERER_TOGGLE: Option<&CellRendererToggle> = None;
 
 pub trait CellRendererToggleExt: 'static {
     #[doc(alias = "gtk_cell_renderer_toggle_get_activatable")]
-    fn get_activatable(&self) -> bool;
+    fn is_activatable(&self) -> bool;
 
     #[doc(alias = "gtk_cell_renderer_toggle_get_active")]
-    fn get_active(&self) -> bool;
+    fn is_active(&self) -> bool;
 
     #[doc(alias = "gtk_cell_renderer_toggle_get_radio")]
-    fn get_radio(&self) -> bool;
+    fn is_radio(&self) -> bool;
 
     #[doc(alias = "gtk_cell_renderer_toggle_set_activatable")]
     fn set_activatable(&self, setting: bool);
@@ -246,13 +246,17 @@ pub trait CellRendererToggleExt: 'static {
     #[doc(alias = "gtk_cell_renderer_toggle_set_radio")]
     fn set_radio(&self, radio: bool);
 
-    fn get_property_inconsistent(&self) -> bool;
+    #[doc(alias = "get_property_inconsistent")]
+    fn is_inconsistent(&self) -> bool;
 
-    fn set_property_inconsistent(&self, inconsistent: bool);
+    #[doc(alias = "set_property_inconsistent")]
+    fn set_inconsistent(&self, inconsistent: bool);
 
-    fn get_property_indicator_size(&self) -> i32;
+    #[doc(alias = "get_property_indicator_size")]
+    fn indicator_size(&self) -> i32;
 
-    fn set_property_indicator_size(&self, indicator_size: i32);
+    #[doc(alias = "set_property_indicator_size")]
+    fn set_indicator_size(&self, indicator_size: i32);
 
     fn connect_toggled<F: Fn(&Self, TreePath) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -272,7 +276,7 @@ pub trait CellRendererToggleExt: 'static {
 }
 
 impl<O: IsA<CellRendererToggle>> CellRendererToggleExt for O {
-    fn get_activatable(&self) -> bool {
+    fn is_activatable(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_cell_renderer_toggle_get_activatable(
                 self.as_ref().to_glib_none().0,
@@ -280,7 +284,7 @@ impl<O: IsA<CellRendererToggle>> CellRendererToggleExt for O {
         }
     }
 
-    fn get_active(&self) -> bool {
+    fn is_active(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_cell_renderer_toggle_get_active(
                 self.as_ref().to_glib_none().0,
@@ -288,7 +292,7 @@ impl<O: IsA<CellRendererToggle>> CellRendererToggleExt for O {
         }
     }
 
-    fn get_radio(&self) -> bool {
+    fn is_radio(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_cell_renderer_toggle_get_radio(
                 self.as_ref().to_glib_none().0,
@@ -323,7 +327,7 @@ impl<O: IsA<CellRendererToggle>> CellRendererToggleExt for O {
         }
     }
 
-    fn get_property_inconsistent(&self) -> bool {
+    fn is_inconsistent(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -338,7 +342,7 @@ impl<O: IsA<CellRendererToggle>> CellRendererToggleExt for O {
         }
     }
 
-    fn set_property_inconsistent(&self, inconsistent: bool) {
+    fn set_inconsistent(&self, inconsistent: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -348,7 +352,7 @@ impl<O: IsA<CellRendererToggle>> CellRendererToggleExt for O {
         }
     }
 
-    fn get_property_indicator_size(&self) -> i32 {
+    fn indicator_size(&self) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -363,7 +367,7 @@ impl<O: IsA<CellRendererToggle>> CellRendererToggleExt for O {
         }
     }
 
-    fn set_property_indicator_size(&self, indicator_size: i32) {
+    fn set_indicator_size(&self, indicator_size: i32) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,

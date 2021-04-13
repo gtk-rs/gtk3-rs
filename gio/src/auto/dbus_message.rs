@@ -100,32 +100,32 @@ impl DBusMessage {
     }
 
     #[doc(alias = "g_dbus_message_get_arg0")]
-    pub fn get_arg0(&self) -> Option<glib::GString> {
+    pub fn arg0(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::g_dbus_message_get_arg0(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_dbus_message_get_body")]
-    pub fn get_body(&self) -> Option<glib::Variant> {
+    pub fn body(&self) -> Option<glib::Variant> {
         unsafe { from_glib_none(ffi::g_dbus_message_get_body(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_dbus_message_get_byte_order")]
-    pub fn get_byte_order(&self) -> DBusMessageByteOrder {
+    pub fn byte_order(&self) -> DBusMessageByteOrder {
         unsafe { from_glib(ffi::g_dbus_message_get_byte_order(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_dbus_message_get_destination")]
-    pub fn get_destination(&self) -> Option<glib::GString> {
+    pub fn destination(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::g_dbus_message_get_destination(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_dbus_message_get_error_name")]
-    pub fn get_error_name(&self) -> Option<glib::GString> {
+    pub fn error_name(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::g_dbus_message_get_error_name(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_dbus_message_get_flags")]
-    pub fn get_flags(&self) -> DBusMessageFlags {
+    pub fn flags(&self) -> DBusMessageFlags {
         unsafe { from_glib(ffi::g_dbus_message_get_flags(self.to_glib_none().0)) }
     }
 
@@ -140,61 +140,61 @@ impl DBusMessage {
     }
 
     #[doc(alias = "g_dbus_message_get_interface")]
-    pub fn get_interface(&self) -> Option<glib::GString> {
+    pub fn interface(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::g_dbus_message_get_interface(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_dbus_message_get_locked")]
-    pub fn get_locked(&self) -> bool {
+    pub fn is_locked(&self) -> bool {
         unsafe { from_glib(ffi::g_dbus_message_get_locked(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_dbus_message_get_member")]
-    pub fn get_member(&self) -> Option<glib::GString> {
+    pub fn member(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::g_dbus_message_get_member(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_dbus_message_get_message_type")]
-    pub fn get_message_type(&self) -> DBusMessageType {
+    pub fn message_type(&self) -> DBusMessageType {
         unsafe { from_glib(ffi::g_dbus_message_get_message_type(self.to_glib_none().0)) }
     }
 
     #[cfg(any(unix, feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(unix)))]
     #[doc(alias = "g_dbus_message_get_num_unix_fds")]
-    pub fn get_num_unix_fds(&self) -> u32 {
+    pub fn num_unix_fds(&self) -> u32 {
         unsafe { ffi::g_dbus_message_get_num_unix_fds(self.to_glib_none().0) }
     }
 
     #[doc(alias = "g_dbus_message_get_path")]
-    pub fn get_path(&self) -> Option<glib::GString> {
+    pub fn path(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::g_dbus_message_get_path(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_dbus_message_get_reply_serial")]
-    pub fn get_reply_serial(&self) -> u32 {
+    pub fn reply_serial(&self) -> u32 {
         unsafe { ffi::g_dbus_message_get_reply_serial(self.to_glib_none().0) }
     }
 
     #[doc(alias = "g_dbus_message_get_sender")]
-    pub fn get_sender(&self) -> Option<glib::GString> {
+    pub fn sender(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::g_dbus_message_get_sender(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_dbus_message_get_serial")]
-    pub fn get_serial(&self) -> u32 {
+    pub fn serial(&self) -> u32 {
         unsafe { ffi::g_dbus_message_get_serial(self.to_glib_none().0) }
     }
 
     #[doc(alias = "g_dbus_message_get_signature")]
-    pub fn get_signature(&self) -> glib::GString {
+    pub fn signature(&self) -> glib::GString {
         unsafe { from_glib_none(ffi::g_dbus_message_get_signature(self.to_glib_none().0)) }
     }
 
     #[cfg(any(unix, feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(unix)))]
     #[doc(alias = "g_dbus_message_get_unix_fd_list")]
-    pub fn get_unix_fd_list(&self) -> Option<UnixFDList> {
+    pub fn unix_fd_list(&self) -> Option<UnixFDList> {
         unsafe { from_glib_none(ffi::g_dbus_message_get_unix_fd_list(self.to_glib_none().0)) }
     }
 

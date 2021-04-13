@@ -591,22 +591,22 @@ pub const NONE_FONT_BUTTON: Option<&FontButton> = None;
 pub trait FontButtonExt: 'static {
     #[cfg_attr(feature = "v3_22", deprecated)]
     #[doc(alias = "gtk_font_button_get_font_name")]
-    fn get_font_name(&self) -> Option<glib::GString>;
+    fn font_name(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_font_button_get_show_size")]
-    fn get_show_size(&self) -> bool;
+    fn shows_size(&self) -> bool;
 
     #[doc(alias = "gtk_font_button_get_show_style")]
-    fn get_show_style(&self) -> bool;
+    fn shows_style(&self) -> bool;
 
     #[doc(alias = "gtk_font_button_get_title")]
-    fn get_title(&self) -> Option<glib::GString>;
+    fn title(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_font_button_get_use_font")]
-    fn get_use_font(&self) -> bool;
+    fn uses_font(&self) -> bool;
 
     #[doc(alias = "gtk_font_button_get_use_size")]
-    fn get_use_size(&self) -> bool;
+    fn uses_size(&self) -> bool;
 
     #[cfg_attr(feature = "v3_22", deprecated)]
     #[doc(alias = "gtk_font_button_set_font_name")]
@@ -644,7 +644,7 @@ pub trait FontButtonExt: 'static {
 }
 
 impl<O: IsA<FontButton>> FontButtonExt for O {
-    fn get_font_name(&self) -> Option<glib::GString> {
+    fn font_name(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_font_button_get_font_name(
                 self.as_ref().to_glib_none().0,
@@ -652,7 +652,7 @@ impl<O: IsA<FontButton>> FontButtonExt for O {
         }
     }
 
-    fn get_show_size(&self) -> bool {
+    fn shows_size(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_font_button_get_show_size(
                 self.as_ref().to_glib_none().0,
@@ -660,7 +660,7 @@ impl<O: IsA<FontButton>> FontButtonExt for O {
         }
     }
 
-    fn get_show_style(&self) -> bool {
+    fn shows_style(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_font_button_get_show_style(
                 self.as_ref().to_glib_none().0,
@@ -668,7 +668,7 @@ impl<O: IsA<FontButton>> FontButtonExt for O {
         }
     }
 
-    fn get_title(&self) -> Option<glib::GString> {
+    fn title(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_font_button_get_title(
                 self.as_ref().to_glib_none().0,
@@ -676,7 +676,7 @@ impl<O: IsA<FontButton>> FontButtonExt for O {
         }
     }
 
-    fn get_use_font(&self) -> bool {
+    fn uses_font(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_font_button_get_use_font(
                 self.as_ref().to_glib_none().0,
@@ -684,7 +684,7 @@ impl<O: IsA<FontButton>> FontButtonExt for O {
         }
     }
 
-    fn get_use_size(&self) -> bool {
+    fn uses_size(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_font_button_get_use_size(
                 self.as_ref().to_glib_none().0,

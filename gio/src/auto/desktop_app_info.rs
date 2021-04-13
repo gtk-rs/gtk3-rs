@@ -66,7 +66,7 @@ impl DesktopAppInfo {
     }
 
     #[doc(alias = "g_desktop_app_info_get_categories")]
-    pub fn get_categories(&self) -> Option<glib::GString> {
+    pub fn categories(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::g_desktop_app_info_get_categories(
                 self.to_glib_none().0,
@@ -75,12 +75,12 @@ impl DesktopAppInfo {
     }
 
     #[doc(alias = "g_desktop_app_info_get_filename")]
-    pub fn get_filename(&self) -> Option<std::path::PathBuf> {
+    pub fn filename(&self) -> Option<std::path::PathBuf> {
         unsafe { from_glib_none(ffi::g_desktop_app_info_get_filename(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_desktop_app_info_get_generic_name")]
-    pub fn get_generic_name(&self) -> Option<glib::GString> {
+    pub fn generic_name(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::g_desktop_app_info_get_generic_name(
                 self.to_glib_none().0,
@@ -89,12 +89,12 @@ impl DesktopAppInfo {
     }
 
     #[doc(alias = "g_desktop_app_info_get_is_hidden")]
-    pub fn get_is_hidden(&self) -> bool {
+    pub fn is_hidden(&self) -> bool {
         unsafe { from_glib(ffi::g_desktop_app_info_get_is_hidden(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_desktop_app_info_get_keywords")]
-    pub fn get_keywords(&self) -> Vec<glib::GString> {
+    pub fn keywords(&self) -> Vec<glib::GString> {
         unsafe {
             FromGlibPtrContainer::from_glib_none(ffi::g_desktop_app_info_get_keywords(
                 self.to_glib_none().0,
@@ -115,7 +115,7 @@ impl DesktopAppInfo {
     }
 
     #[doc(alias = "g_desktop_app_info_get_nodisplay")]
-    pub fn get_nodisplay(&self) -> bool {
+    pub fn is_nodisplay(&self) -> bool {
         unsafe { from_glib(ffi::g_desktop_app_info_get_nodisplay(self.to_glib_none().0)) }
     }
 
@@ -130,7 +130,7 @@ impl DesktopAppInfo {
     }
 
     #[doc(alias = "g_desktop_app_info_get_startup_wm_class")]
-    pub fn get_startup_wm_class(&self) -> Option<glib::GString> {
+    pub fn startup_wm_class(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::g_desktop_app_info_get_startup_wm_class(
                 self.to_glib_none().0,

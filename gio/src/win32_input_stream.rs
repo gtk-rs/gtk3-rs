@@ -19,11 +19,11 @@ pub const NONE_WIN32_INPUT_STREAM: Option<&Win32InputStream> = None;
 
 pub trait Win32InputStreamExt: 'static {
     #[doc(alias = "g_win32_input_stream_get_close_handle")]
-    fn get_close_handle(&self) -> bool;
+    fn closes_handle(&self) -> bool;
 }
 
 impl<O: IsA<Win32InputStream>> Win32InputStreamExt for O {
-    fn get_close_handle(&self) -> bool {
+    fn closes_handle(&self) -> bool {
         unsafe {
             from_glib(ffi::g_win32_input_stream_get_close_handle(
                 self.as_ref().to_glib_none().0,

@@ -67,23 +67,23 @@ pub trait ContainerExt: 'static {
     fn foreach<P: FnMut(&Widget)>(&self, callback: P);
 
     #[doc(alias = "gtk_container_get_border_width")]
-    fn get_border_width(&self) -> u32;
+    fn border_width(&self) -> u32;
 
     #[doc(alias = "gtk_container_get_children")]
-    fn get_children(&self) -> Vec<Widget>;
+    fn children(&self) -> Vec<Widget>;
 
     //#[cfg_attr(feature = "v3_24", deprecated)]
     //#[doc(alias = "gtk_container_get_focus_chain")]
-    //fn get_focus_chain(&self, focusable_widgets: /*Unimplemented*/Vec<Widget>) -> bool;
+    //fn focus_chain(&self, focusable_widgets: /*Unimplemented*/Vec<Widget>) -> bool;
 
     #[doc(alias = "gtk_container_get_focus_child")]
-    fn get_focus_child(&self) -> Option<Widget>;
+    fn focus_child(&self) -> Option<Widget>;
 
     #[doc(alias = "gtk_container_get_focus_hadjustment")]
-    fn get_focus_hadjustment(&self) -> Option<Adjustment>;
+    fn focus_hadjustment(&self) -> Option<Adjustment>;
 
     #[doc(alias = "gtk_container_get_focus_vadjustment")]
-    fn get_focus_vadjustment(&self) -> Option<Adjustment>;
+    fn focus_vadjustment(&self) -> Option<Adjustment>;
 
     #[doc(alias = "gtk_container_get_path_for_child")]
     fn get_path_for_child<P: IsA<Widget>>(&self, child: &P) -> Option<WidgetPath>;
@@ -114,11 +114,14 @@ pub trait ContainerExt: 'static {
     #[doc(alias = "gtk_container_unset_focus_chain")]
     fn unset_focus_chain(&self);
 
-    fn set_property_child<P: IsA<Widget>>(&self, child: Option<&P>);
+    #[doc(alias = "set_property_child")]
+    fn set_child<P: IsA<Widget>>(&self, child: Option<&P>);
 
-    fn get_property_resize_mode(&self) -> ResizeMode;
+    #[doc(alias = "get_property_resize_mode")]
+    fn resize_mode(&self) -> ResizeMode;
 
-    fn set_property_resize_mode(&self, resize_mode: ResizeMode);
+    #[doc(alias = "set_property_resize_mode")]
+    fn set_resize_mode(&self, resize_mode: ResizeMode);
 
     fn connect_add<F: Fn(&Self, &Widget) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -244,11 +247,11 @@ impl<O: IsA<Container>> ContainerExt for O {
         }
     }
 
-    fn get_border_width(&self) -> u32 {
+    fn border_width(&self) -> u32 {
         unsafe { ffi::gtk_container_get_border_width(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_children(&self) -> Vec<Widget> {
+    fn children(&self) -> Vec<Widget> {
         unsafe {
             FromGlibPtrContainer::from_glib_container(ffi::gtk_container_get_children(
                 self.as_ref().to_glib_none().0,
@@ -256,11 +259,11 @@ impl<O: IsA<Container>> ContainerExt for O {
         }
     }
 
-    //fn get_focus_chain(&self, focusable_widgets: /*Unimplemented*/Vec<Widget>) -> bool {
+    //fn focus_chain(&self, focusable_widgets: /*Unimplemented*/Vec<Widget>) -> bool {
     //    unsafe { TODO: call ffi:gtk_container_get_focus_chain() }
     //}
 
-    fn get_focus_child(&self) -> Option<Widget> {
+    fn focus_child(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_container_get_focus_child(
                 self.as_ref().to_glib_none().0,
@@ -268,7 +271,7 @@ impl<O: IsA<Container>> ContainerExt for O {
         }
     }
 
-    fn get_focus_hadjustment(&self) -> Option<Adjustment> {
+    fn focus_hadjustment(&self) -> Option<Adjustment> {
         unsafe {
             from_glib_none(ffi::gtk_container_get_focus_hadjustment(
                 self.as_ref().to_glib_none().0,
@@ -276,7 +279,7 @@ impl<O: IsA<Container>> ContainerExt for O {
         }
     }
 
-    fn get_focus_vadjustment(&self) -> Option<Adjustment> {
+    fn focus_vadjustment(&self) -> Option<Adjustment> {
         unsafe {
             from_glib_none(ffi::gtk_container_get_focus_vadjustment(
                 self.as_ref().to_glib_none().0,
@@ -360,7 +363,7 @@ impl<O: IsA<Container>> ContainerExt for O {
         }
     }
 
-    fn set_property_child<P: IsA<Widget>>(&self, child: Option<&P>) {
+    fn set_child<P: IsA<Widget>>(&self, child: Option<&P>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -370,7 +373,7 @@ impl<O: IsA<Container>> ContainerExt for O {
         }
     }
 
-    fn get_property_resize_mode(&self) -> ResizeMode {
+    fn resize_mode(&self) -> ResizeMode {
         unsafe {
             let mut value = glib::Value::from_type(<ResizeMode as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -385,7 +388,7 @@ impl<O: IsA<Container>> ContainerExt for O {
         }
     }
 
-    fn set_property_resize_mode(&self, resize_mode: ResizeMode) {
+    fn set_resize_mode(&self, resize_mode: ResizeMode) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,

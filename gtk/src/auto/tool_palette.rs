@@ -504,10 +504,10 @@ pub trait ToolPaletteExt: 'static {
     fn get_group_position<P: IsA<ToolItemGroup>>(&self, group: &P) -> i32;
 
     #[doc(alias = "gtk_tool_palette_get_icon_size")]
-    fn get_icon_size(&self) -> IconSize;
+    fn icon_size(&self) -> IconSize;
 
     #[doc(alias = "gtk_tool_palette_get_style")]
-    fn get_style(&self) -> ToolbarStyle;
+    fn style(&self) -> ToolbarStyle;
 
     #[doc(alias = "gtk_tool_palette_set_drag_source")]
     fn set_drag_source(&self, targets: ToolPaletteDragTargets);
@@ -533,13 +533,17 @@ pub trait ToolPaletteExt: 'static {
     #[doc(alias = "gtk_tool_palette_unset_style")]
     fn unset_style(&self);
 
-    fn get_property_icon_size_set(&self) -> bool;
+    #[doc(alias = "get_property_icon_size_set")]
+    fn is_icon_size_set(&self) -> bool;
 
-    fn set_property_icon_size_set(&self, icon_size_set: bool);
+    #[doc(alias = "set_property_icon_size_set")]
+    fn set_icon_size_set(&self, icon_size_set: bool);
 
-    fn get_property_toolbar_style(&self) -> ToolbarStyle;
+    #[doc(alias = "get_property_toolbar_style")]
+    fn toolbar_style(&self) -> ToolbarStyle;
 
-    fn set_property_toolbar_style(&self, toolbar_style: ToolbarStyle);
+    #[doc(alias = "set_property_toolbar_style")]
+    fn set_toolbar_style(&self, toolbar_style: ToolbarStyle);
 
     fn connect_property_icon_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -629,7 +633,7 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
         }
     }
 
-    fn get_icon_size(&self) -> IconSize {
+    fn icon_size(&self) -> IconSize {
         unsafe {
             from_glib(ffi::gtk_tool_palette_get_icon_size(
                 self.as_ref().to_glib_none().0,
@@ -637,7 +641,7 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
         }
     }
 
-    fn get_style(&self) -> ToolbarStyle {
+    fn style(&self) -> ToolbarStyle {
         unsafe {
             from_glib(ffi::gtk_tool_palette_get_style(
                 self.as_ref().to_glib_none().0,
@@ -711,7 +715,7 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
         }
     }
 
-    fn get_property_icon_size_set(&self) -> bool {
+    fn is_icon_size_set(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -726,7 +730,7 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
         }
     }
 
-    fn set_property_icon_size_set(&self, icon_size_set: bool) {
+    fn set_icon_size_set(&self, icon_size_set: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -736,7 +740,7 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
         }
     }
 
-    fn get_property_toolbar_style(&self) -> ToolbarStyle {
+    fn toolbar_style(&self) -> ToolbarStyle {
         unsafe {
             let mut value = glib::Value::from_type(<ToolbarStyle as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -751,7 +755,7 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
         }
     }
 
-    fn set_property_toolbar_style(&self, toolbar_style: ToolbarStyle) {
+    fn set_toolbar_style(&self, toolbar_style: ToolbarStyle) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,

@@ -23,7 +23,7 @@ pub trait DBusInterfaceExt: 'static {
     fn get(&self) -> Option<DBusObject>;
 
     #[doc(alias = "g_dbus_interface_get_info")]
-    fn get_info(&self) -> DBusInterfaceInfo;
+    fn info(&self) -> DBusInterfaceInfo;
 
     #[doc(alias = "g_dbus_interface_set_object")]
     fn set_object<P: IsA<DBusObject>>(&self, object: Option<&P>);
@@ -38,7 +38,7 @@ impl<O: IsA<DBusInterface>> DBusInterfaceExt for O {
         }
     }
 
-    fn get_info(&self) -> DBusInterfaceInfo {
+    fn info(&self) -> DBusInterfaceInfo {
         unsafe {
             from_glib_none(ffi::g_dbus_interface_get_info(
                 self.as_ref().to_glib_none().0,

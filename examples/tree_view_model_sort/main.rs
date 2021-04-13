@@ -40,8 +40,8 @@ fn build_ui(application: &gtk::Application) {
             .expect("Sorted path does not correspond to real path");
         println!(
             "Clicked on sorted: {:?}, real: {:?}",
-            path.get_indices(),
-            real_path.get_indices()
+            path.indices(),
+            real_path.indices()
         );
     });
 

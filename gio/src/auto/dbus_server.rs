@@ -53,17 +53,17 @@ impl DBusServer {
     }
 
     #[doc(alias = "g_dbus_server_get_client_address")]
-    pub fn get_client_address(&self) -> glib::GString {
+    pub fn client_address(&self) -> glib::GString {
         unsafe { from_glib_none(ffi::g_dbus_server_get_client_address(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_dbus_server_get_flags")]
-    pub fn get_flags(&self) -> DBusServerFlags {
+    pub fn flags(&self) -> DBusServerFlags {
         unsafe { from_glib(ffi::g_dbus_server_get_flags(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_dbus_server_get_guid")]
-    pub fn get_guid(&self) -> glib::GString {
+    pub fn guid(&self) -> glib::GString {
         unsafe { from_glib_none(ffi::g_dbus_server_get_guid(self.to_glib_none().0)) }
     }
 
@@ -86,22 +86,8 @@ impl DBusServer {
         }
     }
 
-    pub fn get_property_active(&self) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"active\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `active` getter")
-                .unwrap()
-        }
-    }
-
-    pub fn get_property_address(&self) -> Option<glib::GString> {
+    #[doc(alias = "get_property_address")]
+    pub fn address(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -115,7 +101,8 @@ impl DBusServer {
         }
     }
 
-    pub fn get_property_authentication_observer(&self) -> Option<DBusAuthObserver> {
+    #[doc(alias = "get_property_authentication_observer")]
+    pub fn authentication_observer(&self) -> Option<DBusAuthObserver> {
         unsafe {
             let mut value = glib::Value::from_type(<DBusAuthObserver as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(

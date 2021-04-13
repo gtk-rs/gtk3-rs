@@ -19,10 +19,10 @@ pub const NONE_ASYNC_RESULT: Option<&AsyncResult> = None;
 
 pub trait AsyncResultExt: 'static {
     #[doc(alias = "g_async_result_get_source_object")]
-    fn get_source_object(&self) -> Option<glib::Object>;
+    fn source_object(&self) -> Option<glib::Object>;
 
     //#[doc(alias = "g_async_result_get_user_data")]
-    //fn get_user_data(&self) -> /*Unimplemented*/Option<Fundamental: Pointer>;
+    //fn user_data(&self) -> /*Unimplemented*/Option<Fundamental: Pointer>;
 
     //#[doc(alias = "g_async_result_is_tagged")]
     //fn is_tagged(&self, source_tag: /*Unimplemented*/Option<Fundamental: Pointer>) -> bool;
@@ -32,7 +32,7 @@ pub trait AsyncResultExt: 'static {
 }
 
 impl<O: IsA<AsyncResult>> AsyncResultExt for O {
-    fn get_source_object(&self) -> Option<glib::Object> {
+    fn source_object(&self) -> Option<glib::Object> {
         unsafe {
             from_glib_full(ffi::g_async_result_get_source_object(
                 self.as_ref().to_glib_none().0,
@@ -40,7 +40,7 @@ impl<O: IsA<AsyncResult>> AsyncResultExt for O {
         }
     }
 
-    //fn get_user_data(&self) -> /*Unimplemented*/Option<Fundamental: Pointer> {
+    //fn user_data(&self) -> /*Unimplemented*/Option<Fundamental: Pointer> {
     //    unsafe { TODO: call ffi:g_async_result_get_user_data() }
     //}
 

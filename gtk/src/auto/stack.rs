@@ -474,35 +474,35 @@ pub trait StackExt: 'static {
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_stack_get_hhomogeneous")]
-    fn get_hhomogeneous(&self) -> bool;
+    fn is_hhomogeneous(&self) -> bool;
 
     #[doc(alias = "gtk_stack_get_homogeneous")]
-    fn get_homogeneous(&self) -> bool;
+    fn is_homogeneous(&self) -> bool;
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gtk_stack_get_interpolate_size")]
-    fn get_interpolate_size(&self) -> bool;
+    fn interpolates_size(&self) -> bool;
 
     #[doc(alias = "gtk_stack_get_transition_duration")]
-    fn get_transition_duration(&self) -> u32;
+    fn transition_duration(&self) -> u32;
 
     #[doc(alias = "gtk_stack_get_transition_running")]
-    fn get_transition_running(&self) -> bool;
+    fn is_transition_running(&self) -> bool;
 
     #[doc(alias = "gtk_stack_get_transition_type")]
-    fn get_transition_type(&self) -> StackTransitionType;
+    fn transition_type(&self) -> StackTransitionType;
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_stack_get_vhomogeneous")]
-    fn get_vhomogeneous(&self) -> bool;
+    fn is_vhomogeneous(&self) -> bool;
 
     #[doc(alias = "gtk_stack_get_visible_child")]
-    fn get_visible_child(&self) -> Option<Widget>;
+    fn visible_child(&self) -> Option<Widget>;
 
     #[doc(alias = "gtk_stack_get_visible_child_name")]
-    fn get_visible_child_name(&self) -> Option<glib::GString>;
+    fn visible_child_name(&self) -> Option<glib::GString>;
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
@@ -637,7 +637,7 @@ impl<O: IsA<Stack>> StackExt for O {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    fn get_hhomogeneous(&self) -> bool {
+    fn is_hhomogeneous(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_stack_get_hhomogeneous(
                 self.as_ref().to_glib_none().0,
@@ -645,7 +645,7 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
-    fn get_homogeneous(&self) -> bool {
+    fn is_homogeneous(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_stack_get_homogeneous(
                 self.as_ref().to_glib_none().0,
@@ -655,7 +655,7 @@ impl<O: IsA<Stack>> StackExt for O {
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
-    fn get_interpolate_size(&self) -> bool {
+    fn interpolates_size(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_stack_get_interpolate_size(
                 self.as_ref().to_glib_none().0,
@@ -663,11 +663,11 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
-    fn get_transition_duration(&self) -> u32 {
+    fn transition_duration(&self) -> u32 {
         unsafe { ffi::gtk_stack_get_transition_duration(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_transition_running(&self) -> bool {
+    fn is_transition_running(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_stack_get_transition_running(
                 self.as_ref().to_glib_none().0,
@@ -675,7 +675,7 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
-    fn get_transition_type(&self) -> StackTransitionType {
+    fn transition_type(&self) -> StackTransitionType {
         unsafe {
             from_glib(ffi::gtk_stack_get_transition_type(
                 self.as_ref().to_glib_none().0,
@@ -685,7 +685,7 @@ impl<O: IsA<Stack>> StackExt for O {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    fn get_vhomogeneous(&self) -> bool {
+    fn is_vhomogeneous(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_stack_get_vhomogeneous(
                 self.as_ref().to_glib_none().0,
@@ -693,7 +693,7 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
-    fn get_visible_child(&self) -> Option<Widget> {
+    fn visible_child(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_stack_get_visible_child(
                 self.as_ref().to_glib_none().0,
@@ -701,7 +701,7 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
-    fn get_visible_child_name(&self) -> Option<glib::GString> {
+    fn visible_child_name(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_stack_get_visible_child_name(
                 self.as_ref().to_glib_none().0,

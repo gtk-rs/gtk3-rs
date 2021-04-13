@@ -627,17 +627,23 @@ impl CellRendererComboBuilder {
 pub const NONE_CELL_RENDERER_COMBO: Option<&CellRendererCombo> = None;
 
 pub trait CellRendererComboExt: 'static {
-    fn get_property_has_entry(&self) -> bool;
+    #[doc(alias = "get_property_has_entry")]
+    fn has_entry(&self) -> bool;
 
-    fn set_property_has_entry(&self, has_entry: bool);
+    #[doc(alias = "set_property_has_entry")]
+    fn set_has_entry(&self, has_entry: bool);
 
-    fn get_property_model(&self) -> Option<TreeModel>;
+    #[doc(alias = "get_property_model")]
+    fn model(&self) -> Option<TreeModel>;
 
-    fn set_property_model<P: IsA<TreeModel>>(&self, model: Option<&P>);
+    #[doc(alias = "set_property_model")]
+    fn set_model<P: IsA<TreeModel>>(&self, model: Option<&P>);
 
-    fn get_property_text_column(&self) -> i32;
+    #[doc(alias = "get_property_text_column")]
+    fn text_column(&self) -> i32;
 
-    fn set_property_text_column(&self, text_column: i32);
+    #[doc(alias = "set_property_text_column")]
+    fn set_text_column(&self, text_column: i32);
 
     fn connect_changed<F: Fn(&Self, TreePath, &TreeIter) + 'static>(&self, f: F)
         -> SignalHandlerId;
@@ -650,7 +656,7 @@ pub trait CellRendererComboExt: 'static {
 }
 
 impl<O: IsA<CellRendererCombo>> CellRendererComboExt for O {
-    fn get_property_has_entry(&self) -> bool {
+    fn has_entry(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -665,7 +671,7 @@ impl<O: IsA<CellRendererCombo>> CellRendererComboExt for O {
         }
     }
 
-    fn set_property_has_entry(&self, has_entry: bool) {
+    fn set_has_entry(&self, has_entry: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -675,7 +681,7 @@ impl<O: IsA<CellRendererCombo>> CellRendererComboExt for O {
         }
     }
 
-    fn get_property_model(&self) -> Option<TreeModel> {
+    fn model(&self) -> Option<TreeModel> {
         unsafe {
             let mut value = glib::Value::from_type(<TreeModel as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -689,7 +695,7 @@ impl<O: IsA<CellRendererCombo>> CellRendererComboExt for O {
         }
     }
 
-    fn set_property_model<P: IsA<TreeModel>>(&self, model: Option<&P>) {
+    fn set_model<P: IsA<TreeModel>>(&self, model: Option<&P>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -699,7 +705,7 @@ impl<O: IsA<CellRendererCombo>> CellRendererComboExt for O {
         }
     }
 
-    fn get_property_text_column(&self) -> i32 {
+    fn text_column(&self) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -714,7 +720,7 @@ impl<O: IsA<CellRendererCombo>> CellRendererComboExt for O {
         }
     }
 
-    fn set_property_text_column(&self, text_column: i32) {
+    fn set_text_column(&self, text_column: i32) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,

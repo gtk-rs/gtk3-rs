@@ -555,13 +555,13 @@ pub trait AppChooserButtonExt: 'static {
     fn append_separator(&self);
 
     #[doc(alias = "gtk_app_chooser_button_get_heading")]
-    fn get_heading(&self) -> Option<glib::GString>;
+    fn heading(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_app_chooser_button_get_show_default_item")]
-    fn get_show_default_item(&self) -> bool;
+    fn shows_default_item(&self) -> bool;
 
     #[doc(alias = "gtk_app_chooser_button_get_show_dialog_item")]
-    fn get_show_dialog_item(&self) -> bool;
+    fn shows_dialog_item(&self) -> bool;
 
     #[doc(alias = "gtk_app_chooser_button_set_active_custom_item")]
     fn set_active_custom_item(&self, name: &str);
@@ -612,7 +612,7 @@ impl<O: IsA<AppChooserButton>> AppChooserButtonExt for O {
         }
     }
 
-    fn get_heading(&self) -> Option<glib::GString> {
+    fn heading(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_app_chooser_button_get_heading(
                 self.as_ref().to_glib_none().0,
@@ -620,7 +620,7 @@ impl<O: IsA<AppChooserButton>> AppChooserButtonExt for O {
         }
     }
 
-    fn get_show_default_item(&self) -> bool {
+    fn shows_default_item(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_app_chooser_button_get_show_default_item(
                 self.as_ref().to_glib_none().0,
@@ -628,7 +628,7 @@ impl<O: IsA<AppChooserButton>> AppChooserButtonExt for O {
         }
     }
 
-    fn get_show_dialog_item(&self) -> bool {
+    fn shows_dialog_item(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_app_chooser_button_get_show_dialog_item(
                 self.as_ref().to_glib_none().0,

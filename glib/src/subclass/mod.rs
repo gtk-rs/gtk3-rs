@@ -102,14 +102,14 @@
 //!             use once_cell::sync::Lazy;
 //!             static PROPERTIES: Lazy<Vec<glib::ParamSpec>> = Lazy::new(|| {
 //!                 vec![
-//!                     glib::ParamSpec::string(
+//!                     glib::ParamSpec::new_string(
 //!                         "name",
 //!                         "Name",
 //!                         "Name of this object",
 //!                         None,
 //!                         glib::ParamFlags::READWRITE,
 //!                     ),
-//!                     glib::ParamSpec::enum_(
+//!                     glib::ParamSpec::new_enum(
 //!                         "animal",
 //!                         "Animal",
 //!                         "Animal",
@@ -117,7 +117,7 @@
 //!                         Animal::default() as i32,
 //!                         glib::ParamFlags::READWRITE,
 //!                     ),
-//!                     glib::ParamSpec::flags(
+//!                     glib::ParamSpec::new_flags(
 //!                         "flags",
 //!                         "Flags",
 //!                         "Flags",
@@ -134,7 +134,7 @@
 //!         // Called whenever a property is set on this instance. The id
 //!         // is the same as the index of the property in the PROPERTIES array.
 //!         fn set_property(&self, _obj: &Self::Type, _id: usize, value: &glib::Value, pspec: &glib::ParamSpec) {
-//!             match pspec.get_name() {
+//!             match pspec.name() {
 //!                 "name" => {
 //!                     let name = value
 //!                         .get()
@@ -160,7 +160,7 @@
 //!         // Called whenever a property is retrieved from this instance. The id
 //!         // is the same as the index of the property in the PROPERTIES array.
 //!         fn get_property(&self, _obj: &Self::Type, _id: usize, pspec: &glib::ParamSpec) -> glib::Value {
-//!             match pspec.get_name() {
+//!             match pspec.name() {
 //!                 "name" => self.name.borrow().to_value(),
 //!                 "animal" => self.animal.get().to_value(),
 //!                 "flags" => self.flags.get().to_value(),

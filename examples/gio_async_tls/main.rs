@@ -24,13 +24,13 @@ async fn run() -> Result<(), Box<dyn Error>> {
 
     // Get the input/output streams and convert them to the AsyncRead and AsyncWrite adapters
     let ostream = connection
-        .get_output_stream()
+        .output_stream()
         .dynamic_cast::<gio::PollableOutputStream>()
         .unwrap();
     let write = ostream.into_async_write().unwrap();
 
     let istream = connection
-        .get_input_stream()
+        .input_stream()
         .dynamic_cast::<gio::PollableInputStream>()
         .unwrap();
     let read = istream.into_async_read().unwrap();

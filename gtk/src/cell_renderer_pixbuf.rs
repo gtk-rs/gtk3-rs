@@ -8,13 +8,13 @@ use glib::StaticType;
 use glib::Value;
 
 pub trait CellRendererPixbufExtManual: 'static {
-    fn get_property_stock_size(&self) -> IconSize;
+    fn property_stock_size(&self) -> IconSize;
 
     fn set_property_stock_size(&self, stock_size: IconSize);
 }
 
 impl<O: IsA<CellRendererPixbuf> + IsA<glib::object::Object>> CellRendererPixbufExtManual for O {
-    fn get_property_stock_size(&self) -> IconSize {
+    fn property_stock_size(&self) -> IconSize {
         unsafe {
             let mut value = Value::from_type(<u32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(

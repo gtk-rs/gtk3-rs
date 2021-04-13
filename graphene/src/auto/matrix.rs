@@ -98,38 +98,38 @@ impl Matrix {
     }
 
     #[doc(alias = "graphene_matrix_get_x_scale")]
-    pub fn get_x_scale(&self) -> f32 {
+    pub fn x_scale(&self) -> f32 {
         unsafe { ffi::graphene_matrix_get_x_scale(self.to_glib_none().0) }
     }
 
     #[cfg(any(feature = "v1_10", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
     #[doc(alias = "graphene_matrix_get_x_translation")]
-    pub fn get_x_translation(&self) -> f32 {
+    pub fn x_translation(&self) -> f32 {
         unsafe { ffi::graphene_matrix_get_x_translation(self.to_glib_none().0) }
     }
 
     #[doc(alias = "graphene_matrix_get_y_scale")]
-    pub fn get_y_scale(&self) -> f32 {
+    pub fn y_scale(&self) -> f32 {
         unsafe { ffi::graphene_matrix_get_y_scale(self.to_glib_none().0) }
     }
 
     #[cfg(any(feature = "v1_10", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
     #[doc(alias = "graphene_matrix_get_y_translation")]
-    pub fn get_y_translation(&self) -> f32 {
+    pub fn y_translation(&self) -> f32 {
         unsafe { ffi::graphene_matrix_get_y_translation(self.to_glib_none().0) }
     }
 
     #[doc(alias = "graphene_matrix_get_z_scale")]
-    pub fn get_z_scale(&self) -> f32 {
+    pub fn z_scale(&self) -> f32 {
         unsafe { ffi::graphene_matrix_get_z_scale(self.to_glib_none().0) }
     }
 
     #[cfg(any(feature = "v1_10", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
     #[doc(alias = "graphene_matrix_get_z_translation")]
-    pub fn get_z_translation(&self) -> f32 {
+    pub fn z_translation(&self) -> f32 {
         unsafe { ffi::graphene_matrix_get_z_translation(self.to_glib_none().0) }
     }
 

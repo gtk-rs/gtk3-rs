@@ -468,19 +468,19 @@ pub trait GtkMenuItemExt: 'static {
     fn deselect(&self);
 
     #[doc(alias = "gtk_menu_item_get_accel_path")]
-    fn get_accel_path(&self) -> Option<glib::GString>;
+    fn accel_path(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_menu_item_get_label")]
-    fn get_label(&self) -> Option<glib::GString>;
+    fn label(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_menu_item_get_reserve_indicator")]
-    fn get_reserve_indicator(&self) -> bool;
+    fn must_reserve_indicator(&self) -> bool;
 
     #[doc(alias = "gtk_menu_item_get_submenu")]
-    fn get_submenu(&self) -> Option<Widget>;
+    fn submenu(&self) -> Option<Widget>;
 
     #[doc(alias = "gtk_menu_item_get_use_underline")]
-    fn get_use_underline(&self) -> bool;
+    fn uses_underline(&self) -> bool;
 
     #[doc(alias = "gtk_menu_item_select")]
     fn select(&self);
@@ -506,9 +506,11 @@ pub trait GtkMenuItemExt: 'static {
     #[doc(alias = "gtk_menu_item_toggle_size_request")]
     fn toggle_size_request(&self, requisition: &mut i32);
 
-    fn get_property_right_justified(&self) -> bool;
+    #[doc(alias = "get_property_right_justified")]
+    fn is_right_justified(&self) -> bool;
 
-    fn set_property_right_justified(&self, right_justified: bool);
+    #[doc(alias = "set_property_right_justified")]
+    fn set_right_justified(&self, right_justified: bool);
 
     fn connect_activate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -548,7 +550,7 @@ impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
         }
     }
 
-    fn get_accel_path(&self) -> Option<glib::GString> {
+    fn accel_path(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_menu_item_get_accel_path(
                 self.as_ref().to_glib_none().0,
@@ -556,11 +558,11 @@ impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
         }
     }
 
-    fn get_label(&self) -> Option<glib::GString> {
+    fn label(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::gtk_menu_item_get_label(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_reserve_indicator(&self) -> bool {
+    fn must_reserve_indicator(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_menu_item_get_reserve_indicator(
                 self.as_ref().to_glib_none().0,
@@ -568,7 +570,7 @@ impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
         }
     }
 
-    fn get_submenu(&self) -> Option<Widget> {
+    fn submenu(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_menu_item_get_submenu(
                 self.as_ref().to_glib_none().0,
@@ -576,7 +578,7 @@ impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
         }
     }
 
-    fn get_use_underline(&self) -> bool {
+    fn uses_underline(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_menu_item_get_use_underline(
                 self.as_ref().to_glib_none().0,
@@ -641,7 +643,7 @@ impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
         }
     }
 
-    fn get_property_right_justified(&self) -> bool {
+    fn is_right_justified(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -656,7 +658,7 @@ impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
         }
     }
 
-    fn set_property_right_justified(&self, right_justified: bool) {
+    fn set_right_justified(&self, right_justified: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,

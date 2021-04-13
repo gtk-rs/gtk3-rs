@@ -46,14 +46,14 @@ glib::wrapper! {
 
 impl Device {
     #[doc(alias = "gdk_device_get_associated_device")]
-    pub fn get_associated_device(&self) -> Option<Device> {
+    pub fn associated_device(&self) -> Option<Device> {
         unsafe { from_glib_none(ffi::gdk_device_get_associated_device(self.to_glib_none().0)) }
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gdk_device_get_axes")]
-    pub fn get_axes(&self) -> AxisFlags {
+    pub fn axes(&self) -> AxisFlags {
         unsafe { from_glib(ffi::gdk_device_get_axes(self.to_glib_none().0)) }
     }
 
@@ -73,17 +73,17 @@ impl Device {
     //}
 
     #[doc(alias = "gdk_device_get_device_type")]
-    pub fn get_device_type(&self) -> DeviceType {
+    pub fn device_type(&self) -> DeviceType {
         unsafe { from_glib(ffi::gdk_device_get_device_type(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_device_get_display")]
-    pub fn get_display(&self) -> Display {
+    pub fn display(&self) -> Display {
         unsafe { from_glib_none(ffi::gdk_device_get_display(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_device_get_has_cursor")]
-    pub fn get_has_cursor(&self) -> bool {
+    pub fn has_cursor(&self) -> bool {
         unsafe { from_glib(ffi::gdk_device_get_has_cursor(self.to_glib_none().0)) }
     }
 
@@ -109,32 +109,32 @@ impl Device {
     }
 
     #[doc(alias = "gdk_device_get_last_event_window")]
-    pub fn get_last_event_window(&self) -> Option<Window> {
+    pub fn last_event_window(&self) -> Option<Window> {
         unsafe { from_glib_none(ffi::gdk_device_get_last_event_window(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_device_get_mode")]
-    pub fn get_mode(&self) -> InputMode {
+    pub fn mode(&self) -> InputMode {
         unsafe { from_glib(ffi::gdk_device_get_mode(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_device_get_n_axes")]
-    pub fn get_n_axes(&self) -> i32 {
+    pub fn n_axes(&self) -> i32 {
         unsafe { ffi::gdk_device_get_n_axes(self.to_glib_none().0) }
     }
 
     #[doc(alias = "gdk_device_get_n_keys")]
-    pub fn get_n_keys(&self) -> i32 {
+    pub fn n_keys(&self) -> i32 {
         unsafe { ffi::gdk_device_get_n_keys(self.to_glib_none().0) }
     }
 
     #[doc(alias = "gdk_device_get_name")]
-    pub fn get_name(&self) -> Option<glib::GString> {
+    pub fn name(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::gdk_device_get_name(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_device_get_position")]
-    pub fn get_position(&self) -> (Screen, i32, i32) {
+    pub fn position(&self) -> (Screen, i32, i32) {
         unsafe {
             let mut screen = ptr::null_mut();
             let mut x = mem::MaybeUninit::uninit();
@@ -152,7 +152,7 @@ impl Device {
     }
 
     #[doc(alias = "gdk_device_get_position_double")]
-    pub fn get_position_double(&self) -> (Screen, f64, f64) {
+    pub fn position_double(&self) -> (Screen, f64, f64) {
         unsafe {
             let mut screen = ptr::null_mut();
             let mut x = mem::MaybeUninit::uninit();
@@ -172,19 +172,19 @@ impl Device {
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gdk_device_get_product_id")]
-    pub fn get_product_id(&self) -> Option<glib::GString> {
+    pub fn product_id(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::gdk_device_get_product_id(self.to_glib_none().0)) }
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "gdk_device_get_seat")]
-    pub fn get_seat(&self) -> Option<Seat> {
+    pub fn seat(&self) -> Option<Seat> {
         unsafe { from_glib_none(ffi::gdk_device_get_seat(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_device_get_source")]
-    pub fn get_source(&self) -> InputSource {
+    pub fn source(&self) -> InputSource {
         unsafe { from_glib(ffi::gdk_device_get_source(self.to_glib_none().0)) }
     }
 
@@ -196,12 +196,12 @@ impl Device {
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gdk_device_get_vendor_id")]
-    pub fn get_vendor_id(&self) -> Option<glib::GString> {
+    pub fn vendor_id(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::gdk_device_get_vendor_id(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_device_get_window_at_position")]
-    pub fn get_window_at_position(&self) -> (Option<Window>, i32, i32) {
+    pub fn window_at_position(&self) -> (Option<Window>, i32, i32) {
         unsafe {
             let mut win_x = mem::MaybeUninit::uninit();
             let mut win_y = mem::MaybeUninit::uninit();
@@ -217,7 +217,7 @@ impl Device {
     }
 
     #[doc(alias = "gdk_device_get_window_at_position_double")]
-    pub fn get_window_at_position_double(&self) -> (Option<Window>, f64, f64) {
+    pub fn window_at_position_double(&self) -> (Option<Window>, f64, f64) {
         unsafe {
             let mut win_x = mem::MaybeUninit::uninit();
             let mut win_y = mem::MaybeUninit::uninit();
@@ -313,7 +313,8 @@ impl Device {
         }
     }
 
-    pub fn get_property_device_manager(&self) -> Option<DeviceManager> {
+    #[doc(alias = "get_property_device_manager")]
+    pub fn device_manager(&self) -> Option<DeviceManager> {
         unsafe {
             let mut value = glib::Value::from_type(<DeviceManager as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -327,7 +328,8 @@ impl Device {
         }
     }
 
-    pub fn get_property_input_mode(&self) -> InputMode {
+    #[doc(alias = "get_property_input_mode")]
+    pub fn input_mode(&self) -> InputMode {
         unsafe {
             let mut value = glib::Value::from_type(<InputMode as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -342,7 +344,8 @@ impl Device {
         }
     }
 
-    pub fn set_property_input_mode(&self, input_mode: InputMode) {
+    #[doc(alias = "set_property_input_mode")]
+    pub fn set_input_mode(&self, input_mode: InputMode) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
@@ -352,7 +355,8 @@ impl Device {
         }
     }
 
-    pub fn get_property_input_source(&self) -> InputSource {
+    #[doc(alias = "get_property_input_source")]
+    pub fn input_source(&self) -> InputSource {
         unsafe {
             let mut value = glib::Value::from_type(<InputSource as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -369,7 +373,8 @@ impl Device {
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-    pub fn get_property_num_touches(&self) -> u32 {
+    #[doc(alias = "get_property_num_touches")]
+    pub fn num_touches(&self) -> u32 {
         unsafe {
             let mut value = glib::Value::from_type(<u32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -386,7 +391,8 @@ impl Device {
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-    pub fn set_property_seat(&self, seat: Option<&Seat>) {
+    #[doc(alias = "set_property_seat")]
+    pub fn set_seat(&self, seat: Option<&Seat>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
@@ -398,7 +404,8 @@ impl Device {
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    pub fn get_property_tool(&self) -> Option<DeviceTool> {
+    #[doc(alias = "get_property_tool")]
+    pub fn tool(&self) -> Option<DeviceTool> {
         unsafe {
             let mut value = glib::Value::from_type(<DeviceTool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -412,7 +419,8 @@ impl Device {
         }
     }
 
-    pub fn get_property_type(&self) -> DeviceType {
+    #[doc(alias = "get_property_type")]
+    pub fn type_(&self) -> DeviceType {
         unsafe {
             let mut value = glib::Value::from_type(<DeviceType as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(

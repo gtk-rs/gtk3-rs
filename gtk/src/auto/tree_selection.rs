@@ -32,22 +32,22 @@ pub trait TreeSelectionExt: 'static {
     fn count_selected_rows(&self) -> i32;
 
     #[doc(alias = "gtk_tree_selection_get_mode")]
-    fn get_mode(&self) -> SelectionMode;
+    fn mode(&self) -> SelectionMode;
 
     //#[doc(alias = "gtk_tree_selection_get_select_function")]
-    //fn get_select_function(&self) -> Option<Box_<dyn Fn(&TreeSelection, &TreeModel, &TreePath, bool) -> bool + 'static>>;
+    //fn select_function(&self) -> Option<Box_<dyn Fn(&TreeSelection, &TreeModel, &TreePath, bool) -> bool + 'static>>;
 
     #[doc(alias = "gtk_tree_selection_get_selected")]
-    fn get_selected(&self) -> Option<(TreeModel, TreeIter)>;
+    fn selected(&self) -> Option<(TreeModel, TreeIter)>;
 
     #[doc(alias = "gtk_tree_selection_get_selected_rows")]
-    fn get_selected_rows(&self) -> (Vec<TreePath>, TreeModel);
+    fn selected_rows(&self) -> (Vec<TreePath>, TreeModel);
 
     #[doc(alias = "gtk_tree_selection_get_tree_view")]
-    fn get_tree_view(&self) -> Option<TreeView>;
+    fn tree_view(&self) -> Option<TreeView>;
 
     //#[doc(alias = "gtk_tree_selection_get_user_data")]
-    //fn get_user_data(&self) -> /*Unimplemented*/Option<Fundamental: Pointer>;
+    //fn user_data(&self) -> /*Unimplemented*/Option<Fundamental: Pointer>;
 
     #[doc(alias = "gtk_tree_selection_iter_is_selected")]
     fn iter_is_selected(&self, iter: &TreeIter) -> bool;
@@ -101,7 +101,7 @@ impl<O: IsA<TreeSelection>> TreeSelectionExt for O {
         unsafe { ffi::gtk_tree_selection_count_selected_rows(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_mode(&self) -> SelectionMode {
+    fn mode(&self) -> SelectionMode {
         unsafe {
             from_glib(ffi::gtk_tree_selection_get_mode(
                 self.as_ref().to_glib_none().0,
@@ -109,11 +109,11 @@ impl<O: IsA<TreeSelection>> TreeSelectionExt for O {
         }
     }
 
-    //fn get_select_function(&self) -> Option<Box_<dyn Fn(&TreeSelection, &TreeModel, &TreePath, bool) -> bool + 'static>> {
+    //fn select_function(&self) -> Option<Box_<dyn Fn(&TreeSelection, &TreeModel, &TreePath, bool) -> bool + 'static>> {
     //    unsafe { TODO: call ffi:gtk_tree_selection_get_select_function() }
     //}
 
-    fn get_selected(&self) -> Option<(TreeModel, TreeIter)> {
+    fn selected(&self) -> Option<(TreeModel, TreeIter)> {
         unsafe {
             let mut model = ptr::null_mut();
             let mut iter = TreeIter::uninitialized();
@@ -130,7 +130,7 @@ impl<O: IsA<TreeSelection>> TreeSelectionExt for O {
         }
     }
 
-    fn get_selected_rows(&self) -> (Vec<TreePath>, TreeModel) {
+    fn selected_rows(&self) -> (Vec<TreePath>, TreeModel) {
         unsafe {
             let mut model = ptr::null_mut();
             let ret =
@@ -142,7 +142,7 @@ impl<O: IsA<TreeSelection>> TreeSelectionExt for O {
         }
     }
 
-    fn get_tree_view(&self) -> Option<TreeView> {
+    fn tree_view(&self) -> Option<TreeView> {
         unsafe {
             from_glib_none(ffi::gtk_tree_selection_get_tree_view(
                 self.as_ref().to_glib_none().0,
@@ -150,7 +150,7 @@ impl<O: IsA<TreeSelection>> TreeSelectionExt for O {
         }
     }
 
-    //fn get_user_data(&self) -> /*Unimplemented*/Option<Fundamental: Pointer> {
+    //fn user_data(&self) -> /*Unimplemented*/Option<Fundamental: Pointer> {
     //    unsafe { TODO: call ffi:gtk_tree_selection_get_user_data() }
     //}
 

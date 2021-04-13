@@ -9,11 +9,11 @@ event_wrapper!(EventWindowState, GdkEventWindowState);
 event_subtype!(EventWindowState, ffi::GDK_WINDOW_STATE);
 
 impl EventWindowState {
-    pub fn get_changed_mask(&self) -> crate::WindowState {
+    pub fn changed_mask(&self) -> crate::WindowState {
         unsafe { from_glib(self.as_ref().changed_mask) }
     }
 
-    pub fn get_new_window_state(&self) -> crate::WindowState {
+    pub fn new_window_state(&self) -> crate::WindowState {
         unsafe { from_glib(self.as_ref().new_window_state) }
     }
 }

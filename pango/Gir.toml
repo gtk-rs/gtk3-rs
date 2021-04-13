@@ -215,6 +215,9 @@ status = "generate"
     name = "copy_static"
     ignore = true
     [[object.function]]
+    name = "get_size_is_absolute"
+    rename = "is_size_absolute"
+    [[object.function]]
     name = "merge_static"
     ignore = true
 

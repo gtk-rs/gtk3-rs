@@ -7,7 +7,7 @@ use crate::ObjectType;
 use crate::StaticType;
 
 impl Binding {
-    pub fn get_source(&self) -> Option<Object> {
+    pub fn source(&self) -> Option<Object> {
         unsafe {
             let mut value = crate::Value::from_type(<Object as StaticType>::static_type());
             crate::gobject_ffi::g_object_get_property(
@@ -21,7 +21,7 @@ impl Binding {
         }
     }
 
-    pub fn get_target(&self) -> Option<Object> {
+    pub fn target(&self) -> Option<Object> {
         unsafe {
             let mut value = crate::Value::from_type(<Object as StaticType>::static_type());
             crate::gobject_ffi::g_object_get_property(

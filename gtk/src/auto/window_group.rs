@@ -40,7 +40,7 @@ pub trait WindowGroupExt: 'static {
     fn get_current_device_grab(&self, device: &gdk::Device) -> Option<Widget>;
 
     #[doc(alias = "gtk_window_group_get_current_grab")]
-    fn get_current_grab(&self) -> Option<Widget>;
+    fn current_grab(&self) -> Option<Widget>;
 
     #[doc(alias = "gtk_window_group_list_windows")]
     fn list_windows(&self) -> Vec<Window>;
@@ -68,7 +68,7 @@ impl<O: IsA<WindowGroup>> WindowGroupExt for O {
         }
     }
 
-    fn get_current_grab(&self) -> Option<Widget> {
+    fn current_grab(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_window_group_get_current_grab(
                 self.as_ref().to_glib_none().0,

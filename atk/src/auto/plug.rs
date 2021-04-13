@@ -35,11 +35,11 @@ pub const NONE_PLUG: Option<&Plug> = None;
 
 pub trait AtkPlugExt: 'static {
     #[doc(alias = "atk_plug_get_id")]
-    fn get_id(&self) -> Option<glib::GString>;
+    fn id(&self) -> Option<glib::GString>;
 }
 
 impl<O: IsA<Plug>> AtkPlugExt for O {
-    fn get_id(&self) -> Option<glib::GString> {
+    fn id(&self) -> Option<glib::GString> {
         unsafe { from_glib_full(ffi::atk_plug_get_id(self.as_ref().to_glib_none().0)) }
     }
 }

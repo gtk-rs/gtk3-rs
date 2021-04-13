@@ -384,10 +384,10 @@ pub trait GtkSocketExt: 'static {
     fn add_id(&self, window: xlib::Window);
 
     #[doc(alias = "gtk_socket_get_id")]
-    fn get_id(&self) -> xlib::Window;
+    fn id(&self) -> xlib::Window;
 
     #[doc(alias = "gtk_socket_get_plug_window")]
-    fn get_plug_window(&self) -> Option<gdk::Window>;
+    fn plug_window(&self) -> Option<gdk::Window>;
 
     fn connect_plug_added<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -401,11 +401,11 @@ impl<O: IsA<Socket>> GtkSocketExt for O {
         }
     }
 
-    fn get_id(&self) -> xlib::Window {
+    fn id(&self) -> xlib::Window {
         unsafe { ffi::gtk_socket_get_id(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_plug_window(&self) -> Option<gdk::Window> {
+    fn plug_window(&self) -> Option<gdk::Window> {
         unsafe {
             from_glib_none(ffi::gtk_socket_get_plug_window(
                 self.as_ref().to_glib_none().0,

@@ -393,7 +393,7 @@ pub const NONE_STACK_SIDEBAR: Option<&StackSidebar> = None;
 
 pub trait StackSidebarExt: 'static {
     #[doc(alias = "gtk_stack_sidebar_get_stack")]
-    fn get_stack(&self) -> Option<Stack>;
+    fn stack(&self) -> Option<Stack>;
 
     #[doc(alias = "gtk_stack_sidebar_set_stack")]
     fn set_stack<P: IsA<Stack>>(&self, stack: &P);
@@ -406,7 +406,7 @@ pub trait StackSidebarExt: 'static {
 }
 
 impl<O: IsA<StackSidebar>> StackSidebarExt for O {
-    fn get_stack(&self) -> Option<Stack> {
+    fn stack(&self) -> Option<Stack> {
         unsafe {
             from_glib_none(ffi::gtk_stack_sidebar_get_stack(
                 self.as_ref().to_glib_none().0,

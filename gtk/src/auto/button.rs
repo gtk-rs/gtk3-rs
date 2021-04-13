@@ -491,31 +491,31 @@ pub trait ButtonExt: 'static {
     fn clicked(&self);
 
     #[doc(alias = "gtk_button_get_always_show_image")]
-    fn get_always_show_image(&self) -> bool;
+    fn must_always_show_image(&self) -> bool;
 
     #[doc(alias = "gtk_button_get_event_window")]
-    fn get_event_window(&self) -> Option<gdk::Window>;
+    fn event_window(&self) -> Option<gdk::Window>;
 
     #[cfg_attr(feature = "v3_20", deprecated)]
     #[cfg(any(not(feature = "v3_20"), feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(not(feature = "v3_20"))))]
     #[doc(alias = "gtk_button_get_focus_on_click")]
-    fn get_focus_on_click(&self) -> bool;
+    fn gets_focus_on_click(&self) -> bool;
 
     #[doc(alias = "gtk_button_get_image")]
-    fn get_image(&self) -> Option<Widget>;
+    fn image(&self) -> Option<Widget>;
 
     #[doc(alias = "gtk_button_get_image_position")]
-    fn get_image_position(&self) -> PositionType;
+    fn image_position(&self) -> PositionType;
 
     #[doc(alias = "gtk_button_get_label")]
-    fn get_label(&self) -> Option<glib::GString>;
+    fn label(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_button_get_relief")]
-    fn get_relief(&self) -> ReliefStyle;
+    fn relief(&self) -> ReliefStyle;
 
     #[doc(alias = "gtk_button_get_use_underline")]
-    fn get_use_underline(&self) -> bool;
+    fn uses_underline(&self) -> bool;
 
     #[doc(alias = "gtk_button_set_always_show_image")]
     fn set_always_show_image(&self, always_show: bool);
@@ -578,7 +578,7 @@ impl<O: IsA<Button>> ButtonExt for O {
         }
     }
 
-    fn get_always_show_image(&self) -> bool {
+    fn must_always_show_image(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_button_get_always_show_image(
                 self.as_ref().to_glib_none().0,
@@ -586,7 +586,7 @@ impl<O: IsA<Button>> ButtonExt for O {
         }
     }
 
-    fn get_event_window(&self) -> Option<gdk::Window> {
+    fn event_window(&self) -> Option<gdk::Window> {
         unsafe {
             from_glib_none(ffi::gtk_button_get_event_window(
                 self.as_ref().to_glib_none().0,
@@ -596,7 +596,7 @@ impl<O: IsA<Button>> ButtonExt for O {
 
     #[cfg(any(not(feature = "v3_20"), feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(not(feature = "v3_20"))))]
-    fn get_focus_on_click(&self) -> bool {
+    fn gets_focus_on_click(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_button_get_focus_on_click(
                 self.as_ref().to_glib_none().0,
@@ -604,11 +604,11 @@ impl<O: IsA<Button>> ButtonExt for O {
         }
     }
 
-    fn get_image(&self) -> Option<Widget> {
+    fn image(&self) -> Option<Widget> {
         unsafe { from_glib_none(ffi::gtk_button_get_image(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_image_position(&self) -> PositionType {
+    fn image_position(&self) -> PositionType {
         unsafe {
             from_glib(ffi::gtk_button_get_image_position(
                 self.as_ref().to_glib_none().0,
@@ -616,15 +616,15 @@ impl<O: IsA<Button>> ButtonExt for O {
         }
     }
 
-    fn get_label(&self) -> Option<glib::GString> {
+    fn label(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::gtk_button_get_label(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_relief(&self) -> ReliefStyle {
+    fn relief(&self) -> ReliefStyle {
         unsafe { from_glib(ffi::gtk_button_get_relief(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_use_underline(&self) -> bool {
+    fn uses_underline(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_button_get_use_underline(
                 self.as_ref().to_glib_none().0,

@@ -17,17 +17,17 @@ glib::wrapper! {
 
 impl FrameTimings {
     #[doc(alias = "gdk_frame_timings_get_complete")]
-    pub fn get_complete(&self) -> bool {
+    pub fn is_complete(&self) -> bool {
         unsafe { from_glib(ffi::gdk_frame_timings_get_complete(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_frame_timings_get_frame_counter")]
-    pub fn get_frame_counter(&self) -> i64 {
+    pub fn frame_counter(&self) -> i64 {
         unsafe { ffi::gdk_frame_timings_get_frame_counter(self.to_glib_none().0) }
     }
 
     #[doc(alias = "gdk_frame_timings_get_frame_time")]
-    pub fn get_frame_time(&self) -> i64 {
+    pub fn frame_time(&self) -> i64 {
         unsafe { ffi::gdk_frame_timings_get_frame_time(self.to_glib_none().0) }
     }
 }

@@ -38,34 +38,34 @@ glib::wrapper! {
 
 impl DragContext {
     #[doc(alias = "gdk_drag_context_get_actions")]
-    pub fn get_actions(&self) -> DragAction {
+    pub fn actions(&self) -> DragAction {
         unsafe { from_glib(ffi::gdk_drag_context_get_actions(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_drag_context_get_dest_window")]
-    pub fn get_dest_window(&self) -> Window {
+    pub fn dest_window(&self) -> Window {
         unsafe { from_glib_none(ffi::gdk_drag_context_get_dest_window(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_drag_context_get_device")]
-    pub fn get_device(&self) -> Device {
+    pub fn device(&self) -> Device {
         unsafe { from_glib_none(ffi::gdk_drag_context_get_device(self.to_glib_none().0)) }
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "gdk_drag_context_get_drag_window")]
-    pub fn get_drag_window(&self) -> Option<Window> {
+    pub fn drag_window(&self) -> Option<Window> {
         unsafe { from_glib_none(ffi::gdk_drag_context_get_drag_window(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_drag_context_get_protocol")]
-    pub fn get_protocol(&self) -> DragProtocol {
+    pub fn protocol(&self) -> DragProtocol {
         unsafe { from_glib(ffi::gdk_drag_context_get_protocol(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_drag_context_get_selected_action")]
-    pub fn get_selected_action(&self) -> DragAction {
+    pub fn selected_action(&self) -> DragAction {
         unsafe {
             from_glib(ffi::gdk_drag_context_get_selected_action(
                 self.to_glib_none().0,
@@ -74,7 +74,7 @@ impl DragContext {
     }
 
     #[doc(alias = "gdk_drag_context_get_source_window")]
-    pub fn get_source_window(&self) -> Window {
+    pub fn source_window(&self) -> Window {
         unsafe {
             from_glib_none(ffi::gdk_drag_context_get_source_window(
                 self.to_glib_none().0,
@@ -83,7 +83,7 @@ impl DragContext {
     }
 
     #[doc(alias = "gdk_drag_context_get_suggested_action")]
-    pub fn get_suggested_action(&self) -> DragAction {
+    pub fn suggested_action(&self) -> DragAction {
         unsafe {
             from_glib(ffi::gdk_drag_context_get_suggested_action(
                 self.to_glib_none().0,

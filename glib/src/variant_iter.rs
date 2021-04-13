@@ -67,14 +67,14 @@ mod tests {
 
     #[test]
     fn test_variant_iter_variant() {
-        let v = Variant::variant(&"foo".to_string().to_variant());
+        let v = Variant::from_variant(&"foo".to_string().to_variant());
         let vec: Vec<String> = v.iter().map(|i| i.get().unwrap()).collect();
         assert_eq!(vec, vec!["foo".to_string()]);
     }
 
     #[test]
     fn test_variant_iter_array() {
-        let v = Variant::array::<String>(&[
+        let v = Variant::from_array::<String>(&[
             "foo".to_string().to_variant(),
             "bar".to_string().to_variant(),
         ]);
@@ -84,7 +84,7 @@ mod tests {
 
     #[test]
     fn test_variant_iter_tuple() {
-        let v = Variant::tuple(&[
+        let v = Variant::from_tuple(&[
             "foo".to_string().to_variant(),
             "bar".to_string().to_variant(),
         ]);

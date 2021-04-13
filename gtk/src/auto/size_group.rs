@@ -74,13 +74,13 @@ pub trait SizeGroupExt: 'static {
 
     #[cfg_attr(feature = "v3_22", deprecated)]
     #[doc(alias = "gtk_size_group_get_ignore_hidden")]
-    fn get_ignore_hidden(&self) -> bool;
+    fn ignores_hidden(&self) -> bool;
 
     #[doc(alias = "gtk_size_group_get_mode")]
-    fn get_mode(&self) -> SizeGroupMode;
+    fn mode(&self) -> SizeGroupMode;
 
     #[doc(alias = "gtk_size_group_get_widgets")]
-    fn get_widgets(&self) -> Vec<Widget>;
+    fn widgets(&self) -> Vec<Widget>;
 
     #[doc(alias = "gtk_size_group_remove_widget")]
     fn remove_widget<P: IsA<Widget>>(&self, widget: &P);
@@ -111,7 +111,7 @@ impl<O: IsA<SizeGroup>> SizeGroupExt for O {
         }
     }
 
-    fn get_ignore_hidden(&self) -> bool {
+    fn ignores_hidden(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_size_group_get_ignore_hidden(
                 self.as_ref().to_glib_none().0,
@@ -119,11 +119,11 @@ impl<O: IsA<SizeGroup>> SizeGroupExt for O {
         }
     }
 
-    fn get_mode(&self) -> SizeGroupMode {
+    fn mode(&self) -> SizeGroupMode {
         unsafe { from_glib(ffi::gtk_size_group_get_mode(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_widgets(&self) -> Vec<Widget> {
+    fn widgets(&self) -> Vec<Widget> {
         unsafe {
             FromGlibPtrContainer::from_glib_none(ffi::gtk_size_group_get_widgets(
                 self.as_ref().to_glib_none().0,

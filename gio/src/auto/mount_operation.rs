@@ -39,37 +39,37 @@ pub const NONE_MOUNT_OPERATION: Option<&MountOperation> = None;
 
 pub trait MountOperationExt: 'static {
     #[doc(alias = "g_mount_operation_get_anonymous")]
-    fn get_anonymous(&self) -> bool;
+    fn is_anonymous(&self) -> bool;
 
     #[doc(alias = "g_mount_operation_get_choice")]
-    fn get_choice(&self) -> i32;
+    fn choice(&self) -> i32;
 
     #[doc(alias = "g_mount_operation_get_domain")]
-    fn get_domain(&self) -> Option<glib::GString>;
+    fn domain(&self) -> Option<glib::GString>;
 
     #[cfg(any(feature = "v2_58", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_58")))]
     #[doc(alias = "g_mount_operation_get_is_tcrypt_hidden_volume")]
-    fn get_is_tcrypt_hidden_volume(&self) -> bool;
+    fn is_tcrypt_hidden_volume(&self) -> bool;
 
     #[cfg(any(feature = "v2_58", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_58")))]
     #[doc(alias = "g_mount_operation_get_is_tcrypt_system_volume")]
-    fn get_is_tcrypt_system_volume(&self) -> bool;
+    fn is_tcrypt_system_volume(&self) -> bool;
 
     #[doc(alias = "g_mount_operation_get_password")]
-    fn get_password(&self) -> Option<glib::GString>;
+    fn password(&self) -> Option<glib::GString>;
 
     #[doc(alias = "g_mount_operation_get_password_save")]
-    fn get_password_save(&self) -> PasswordSave;
+    fn password_save(&self) -> PasswordSave;
 
     #[cfg(any(feature = "v2_58", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_58")))]
     #[doc(alias = "g_mount_operation_get_pim")]
-    fn get_pim(&self) -> u32;
+    fn pim(&self) -> u32;
 
     #[doc(alias = "g_mount_operation_get_username")]
-    fn get_username(&self) -> Option<glib::GString>;
+    fn username(&self) -> Option<glib::GString>;
 
     #[doc(alias = "g_mount_operation_reply")]
     fn reply(&self, result: MountOperationResult);
@@ -160,7 +160,7 @@ pub trait MountOperationExt: 'static {
 }
 
 impl<O: IsA<MountOperation>> MountOperationExt for O {
-    fn get_anonymous(&self) -> bool {
+    fn is_anonymous(&self) -> bool {
         unsafe {
             from_glib(ffi::g_mount_operation_get_anonymous(
                 self.as_ref().to_glib_none().0,
@@ -168,11 +168,11 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
         }
     }
 
-    fn get_choice(&self) -> i32 {
+    fn choice(&self) -> i32 {
         unsafe { ffi::g_mount_operation_get_choice(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_domain(&self) -> Option<glib::GString> {
+    fn domain(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::g_mount_operation_get_domain(
                 self.as_ref().to_glib_none().0,
@@ -182,7 +182,7 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
 
     #[cfg(any(feature = "v2_58", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_58")))]
-    fn get_is_tcrypt_hidden_volume(&self) -> bool {
+    fn is_tcrypt_hidden_volume(&self) -> bool {
         unsafe {
             from_glib(ffi::g_mount_operation_get_is_tcrypt_hidden_volume(
                 self.as_ref().to_glib_none().0,
@@ -192,7 +192,7 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
 
     #[cfg(any(feature = "v2_58", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_58")))]
-    fn get_is_tcrypt_system_volume(&self) -> bool {
+    fn is_tcrypt_system_volume(&self) -> bool {
         unsafe {
             from_glib(ffi::g_mount_operation_get_is_tcrypt_system_volume(
                 self.as_ref().to_glib_none().0,
@@ -200,7 +200,7 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
         }
     }
 
-    fn get_password(&self) -> Option<glib::GString> {
+    fn password(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::g_mount_operation_get_password(
                 self.as_ref().to_glib_none().0,
@@ -208,7 +208,7 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
         }
     }
 
-    fn get_password_save(&self) -> PasswordSave {
+    fn password_save(&self) -> PasswordSave {
         unsafe {
             from_glib(ffi::g_mount_operation_get_password_save(
                 self.as_ref().to_glib_none().0,
@@ -218,11 +218,11 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
 
     #[cfg(any(feature = "v2_58", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_58")))]
-    fn get_pim(&self) -> u32 {
+    fn pim(&self) -> u32 {
         unsafe { ffi::g_mount_operation_get_pim(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_username(&self) -> Option<glib::GString> {
+    fn username(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::g_mount_operation_get_username(
                 self.as_ref().to_glib_none().0,

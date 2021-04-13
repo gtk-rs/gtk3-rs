@@ -515,16 +515,18 @@ impl VolumeButtonBuilder {
 pub const NONE_VOLUME_BUTTON: Option<&VolumeButton> = None;
 
 pub trait VolumeButtonExt: 'static {
-    fn get_property_use_symbolic(&self) -> bool;
+    #[doc(alias = "get_property_use_symbolic")]
+    fn uses_symbolic(&self) -> bool;
 
-    fn set_property_use_symbolic(&self, use_symbolic: bool);
+    #[doc(alias = "set_property_use_symbolic")]
+    fn set_use_symbolic(&self, use_symbolic: bool);
 
     fn connect_property_use_symbolic_notify<F: Fn(&Self) + 'static>(&self, f: F)
         -> SignalHandlerId;
 }
 
 impl<O: IsA<VolumeButton>> VolumeButtonExt for O {
-    fn get_property_use_symbolic(&self) -> bool {
+    fn uses_symbolic(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
@@ -539,7 +541,7 @@ impl<O: IsA<VolumeButton>> VolumeButtonExt for O {
         }
     }
 
-    fn set_property_use_symbolic(&self, use_symbolic: bool) {
+    fn set_use_symbolic(&self, use_symbolic: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,

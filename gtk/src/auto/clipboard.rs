@@ -28,19 +28,19 @@ impl Clipboard {
     }
 
     #[doc(alias = "gtk_clipboard_get_display")]
-    pub fn get_display(&self) -> Option<gdk::Display> {
+    pub fn display(&self) -> Option<gdk::Display> {
         unsafe { from_glib_none(ffi::gtk_clipboard_get_display(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gtk_clipboard_get_owner")]
-    pub fn get_owner(&self) -> Option<glib::Object> {
+    pub fn owner(&self) -> Option<glib::Object> {
         unsafe { from_glib_none(ffi::gtk_clipboard_get_owner(self.to_glib_none().0)) }
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gtk_clipboard_get_selection")]
-    pub fn get_selection(&self) -> Option<gdk::Atom> {
+    pub fn selection(&self) -> Option<gdk::Atom> {
         unsafe { from_glib_none(ffi::gtk_clipboard_get_selection(self.to_glib_none().0)) }
     }
 

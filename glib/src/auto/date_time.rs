@@ -286,59 +286,59 @@ impl DateTime {
     }
 
     #[doc(alias = "g_date_time_get_day_of_month")]
-    pub fn get_day_of_month(&self) -> i32 {
+    pub fn day_of_month(&self) -> i32 {
         unsafe { ffi::g_date_time_get_day_of_month(self.to_glib_none().0) }
     }
 
     #[doc(alias = "g_date_time_get_day_of_week")]
-    pub fn get_day_of_week(&self) -> i32 {
+    pub fn day_of_week(&self) -> i32 {
         unsafe { ffi::g_date_time_get_day_of_week(self.to_glib_none().0) }
     }
 
     #[doc(alias = "g_date_time_get_day_of_year")]
-    pub fn get_day_of_year(&self) -> i32 {
+    pub fn day_of_year(&self) -> i32 {
         unsafe { ffi::g_date_time_get_day_of_year(self.to_glib_none().0) }
     }
 
     #[doc(alias = "g_date_time_get_hour")]
-    pub fn get_hour(&self) -> i32 {
+    pub fn hour(&self) -> i32 {
         unsafe { ffi::g_date_time_get_hour(self.to_glib_none().0) }
     }
 
     #[doc(alias = "g_date_time_get_microsecond")]
-    pub fn get_microsecond(&self) -> i32 {
+    pub fn microsecond(&self) -> i32 {
         unsafe { ffi::g_date_time_get_microsecond(self.to_glib_none().0) }
     }
 
     #[doc(alias = "g_date_time_get_minute")]
-    pub fn get_minute(&self) -> i32 {
+    pub fn minute(&self) -> i32 {
         unsafe { ffi::g_date_time_get_minute(self.to_glib_none().0) }
     }
 
     #[doc(alias = "g_date_time_get_month")]
-    pub fn get_month(&self) -> i32 {
+    pub fn month(&self) -> i32 {
         unsafe { ffi::g_date_time_get_month(self.to_glib_none().0) }
     }
 
     #[doc(alias = "g_date_time_get_second")]
-    pub fn get_second(&self) -> i32 {
+    pub fn second(&self) -> i32 {
         unsafe { ffi::g_date_time_get_second(self.to_glib_none().0) }
     }
 
     #[doc(alias = "g_date_time_get_seconds")]
-    pub fn get_seconds(&self) -> f64 {
+    pub fn seconds(&self) -> f64 {
         unsafe { ffi::g_date_time_get_seconds(self.to_glib_none().0) }
     }
 
     #[cfg(any(feature = "v2_58", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_58")))]
     #[doc(alias = "g_date_time_get_timezone")]
-    pub fn get_timezone(&self) -> TimeZone {
+    pub fn timezone(&self) -> TimeZone {
         unsafe { from_glib_none(ffi::g_date_time_get_timezone(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_date_time_get_timezone_abbreviation")]
-    pub fn get_timezone_abbreviation(&self) -> crate::GString {
+    pub fn timezone_abbreviation(&self) -> crate::GString {
         unsafe {
             from_glib_none(ffi::g_date_time_get_timezone_abbreviation(
                 self.to_glib_none().0,
@@ -347,27 +347,27 @@ impl DateTime {
     }
 
     #[doc(alias = "g_date_time_get_utc_offset")]
-    pub fn get_utc_offset(&self) -> TimeSpan {
+    pub fn utc_offset(&self) -> TimeSpan {
         unsafe { ffi::g_date_time_get_utc_offset(self.to_glib_none().0) }
     }
 
     #[doc(alias = "g_date_time_get_week_numbering_year")]
-    pub fn get_week_numbering_year(&self) -> i32 {
+    pub fn week_numbering_year(&self) -> i32 {
         unsafe { ffi::g_date_time_get_week_numbering_year(self.to_glib_none().0) }
     }
 
     #[doc(alias = "g_date_time_get_week_of_year")]
-    pub fn get_week_of_year(&self) -> i32 {
+    pub fn week_of_year(&self) -> i32 {
         unsafe { ffi::g_date_time_get_week_of_year(self.to_glib_none().0) }
     }
 
     #[doc(alias = "g_date_time_get_year")]
-    pub fn get_year(&self) -> i32 {
+    pub fn year(&self) -> i32 {
         unsafe { ffi::g_date_time_get_year(self.to_glib_none().0) }
     }
 
     #[doc(alias = "g_date_time_get_ymd")]
-    pub fn get_ymd(&self) -> (i32, i32, i32) {
+    pub fn ymd(&self) -> (i32, i32, i32) {
         unsafe {
             let mut year = mem::MaybeUninit::uninit();
             let mut month = mem::MaybeUninit::uninit();

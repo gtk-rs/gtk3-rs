@@ -11,7 +11,6 @@ use glib::object::IsA;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-use glib::StaticType;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
@@ -51,10 +50,10 @@ pub trait IOStreamExt: 'static {
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>>;
 
     #[doc(alias = "g_io_stream_get_input_stream")]
-    fn get_input_stream(&self) -> InputStream;
+    fn input_stream(&self) -> InputStream;
 
     #[doc(alias = "g_io_stream_get_output_stream")]
-    fn get_output_stream(&self) -> OutputStream;
+    fn output_stream(&self) -> OutputStream;
 
     #[doc(alias = "g_io_stream_has_pending")]
     fn has_pending(&self) -> bool;
@@ -64,8 +63,6 @@ pub trait IOStreamExt: 'static {
 
     #[doc(alias = "g_io_stream_set_pending")]
     fn set_pending(&self) -> Result<(), glib::Error>;
-
-    fn get_property_closed(&self) -> bool;
 
     fn connect_property_closed_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
@@ -143,7 +140,7 @@ impl<O: IsA<IOStream>> IOStreamExt for O {
         }))
     }
 
-    fn get_input_stream(&self) -> InputStream {
+    fn input_stream(&self) -> InputStream {
         unsafe {
             from_glib_none(ffi::g_io_stream_get_input_stream(
                 self.as_ref().to_glib_none().0,
@@ -151,7 +148,7 @@ impl<O: IsA<IOStream>> IOStreamExt for O {
         }
     }
 
-    fn get_output_stream(&self) -> OutputStream {
+    fn output_stream(&self) -> OutputStream {
         unsafe {
             from_glib_none(ffi::g_io_stream_get_output_stream(
                 self.as_ref().to_glib_none().0,
@@ -176,21 +173,6 @@ impl<O: IsA<IOStream>> IOStreamExt for O {
             } else {
                 Err(from_glib_full(error))
             }
-        }
-    }
-
-    fn get_property_closed(&self) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"closed\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `closed` getter")
-                .unwrap()
         }
     }
 

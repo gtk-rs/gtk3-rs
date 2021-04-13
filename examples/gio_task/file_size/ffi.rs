@@ -40,11 +40,11 @@ pub unsafe extern "C" fn my_file_size_get_file_size_async(
             .query_info_async_future("*", gio::FileQueryInfoFlags::NONE, glib::PRIORITY_DEFAULT)
             .await
             .unwrap()
-            .get_size();
+            .size();
 
         let source_object = task
             .upcast_ref::<gio::AsyncResult>()
-            .get_source_object()
+            .source_object()
             .unwrap();
 
         let source_object = super::imp::FileSize::from_instance(

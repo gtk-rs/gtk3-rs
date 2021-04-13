@@ -62,7 +62,7 @@ pub trait GdkContextExt {
         height: i32,
     );
 
-    fn get_clip_rectangle(&self) -> Option<Rectangle>;
+    fn clip_rectangle(&self) -> Option<Rectangle>;
 
     fn set_source_rgba(&self, rgba: &RGBA);
 
@@ -108,7 +108,7 @@ impl GdkContextExt for Context {
         );
     }
 
-    fn get_clip_rectangle(&self) -> Option<Rectangle> {
+    fn clip_rectangle(&self) -> Option<Rectangle> {
         unsafe {
             let mut rectangle = Rectangle::uninitialized();
             if from_glib(ffi::gdk_cairo_get_clip_rectangle(

@@ -49,20 +49,20 @@ pub const NONE_INET_SOCKET_ADDRESS: Option<&InetSocketAddress> = None;
 
 pub trait InetSocketAddressExt: 'static {
     #[doc(alias = "g_inet_socket_address_get_address")]
-    fn get_address(&self) -> InetAddress;
+    fn address(&self) -> InetAddress;
 
     #[doc(alias = "g_inet_socket_address_get_flowinfo")]
-    fn get_flowinfo(&self) -> u32;
+    fn flowinfo(&self) -> u32;
 
     #[doc(alias = "g_inet_socket_address_get_port")]
-    fn get_port(&self) -> u16;
+    fn port(&self) -> u16;
 
     #[doc(alias = "g_inet_socket_address_get_scope_id")]
-    fn get_scope_id(&self) -> u32;
+    fn scope_id(&self) -> u32;
 }
 
 impl<O: IsA<InetSocketAddress>> InetSocketAddressExt for O {
-    fn get_address(&self) -> InetAddress {
+    fn address(&self) -> InetAddress {
         unsafe {
             from_glib_none(ffi::g_inet_socket_address_get_address(
                 self.as_ref().to_glib_none().0,
@@ -70,15 +70,15 @@ impl<O: IsA<InetSocketAddress>> InetSocketAddressExt for O {
         }
     }
 
-    fn get_flowinfo(&self) -> u32 {
+    fn flowinfo(&self) -> u32 {
         unsafe { ffi::g_inet_socket_address_get_flowinfo(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_port(&self) -> u16 {
+    fn port(&self) -> u16 {
         unsafe { ffi::g_inet_socket_address_get_port(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_scope_id(&self) -> u32 {
+    fn scope_id(&self) -> u32 {
         unsafe { ffi::g_inet_socket_address_get_scope_id(self.as_ref().to_glib_none().0) }
     }
 }

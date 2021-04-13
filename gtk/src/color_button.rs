@@ -12,7 +12,7 @@ pub trait ColorButtonExtManual: 'static {
     fn with_color(color: &gdk::Color) -> ColorButton;
 
     #[doc(alias = "gtk_color_button_get_color")]
-    fn get_color(&self) -> gdk::Color;
+    fn color(&self) -> gdk::Color;
 
     #[doc(alias = "gtk_color_button_set_color")]
     fn set_color(&self, color: &gdk::Color);
@@ -24,7 +24,7 @@ impl<O: IsA<ColorButton>> ColorButtonExtManual for O {
         unsafe { Widget::from_glib_none(ffi::gtk_color_button_new_with_color(color)).unsafe_cast() }
     }
 
-    fn get_color(&self) -> gdk::Color {
+    fn color(&self) -> gdk::Color {
         unsafe {
             let mut color = mem::MaybeUninit::uninit();
             ffi::gtk_color_button_get_color(self.as_ref().to_glib_none().0, color.as_mut_ptr());

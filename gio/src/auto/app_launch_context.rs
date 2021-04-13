@@ -41,7 +41,7 @@ pub trait AppLaunchContextExt: 'static {
     fn get_display<P: IsA<AppInfo>>(&self, info: &P, files: &[File]) -> Option<glib::GString>;
 
     #[doc(alias = "g_app_launch_context_get_environment")]
-    fn get_environment(&self) -> Vec<std::ffi::OsString>;
+    fn environment(&self) -> Vec<std::ffi::OsString>;
 
     #[doc(alias = "g_app_launch_context_get_startup_notify_id")]
     fn get_startup_notify_id<P: IsA<AppInfo>>(
@@ -78,7 +78,7 @@ impl<O: IsA<AppLaunchContext>> AppLaunchContextExt for O {
         }
     }
 
-    fn get_environment(&self) -> Vec<std::ffi::OsString> {
+    fn environment(&self) -> Vec<std::ffi::OsString> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::g_app_launch_context_get_environment(
                 self.as_ref().to_glib_none().0,

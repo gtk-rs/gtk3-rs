@@ -39,7 +39,7 @@ pub trait MenuModelExt: 'static {
     fn get_item_link(&self, item_index: i32, link: &str) -> Option<MenuModel>;
 
     #[doc(alias = "g_menu_model_get_n_items")]
-    fn get_n_items(&self) -> i32;
+    fn n_items(&self) -> i32;
 
     #[doc(alias = "g_menu_model_is_mutable")]
     fn is_mutable(&self) -> bool;
@@ -88,7 +88,7 @@ impl<O: IsA<MenuModel>> MenuModelExt for O {
         }
     }
 
-    fn get_n_items(&self) -> i32 {
+    fn n_items(&self) -> i32 {
         unsafe { ffi::g_menu_model_get_n_items(self.as_ref().to_glib_none().0) }
     }
 

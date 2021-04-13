@@ -54,7 +54,7 @@ impl MainContext {
     //}
 
     //#[doc(alias = "g_main_context_get_poll_func")]
-    //pub fn get_poll_func(&self) -> /*Unimplemented*/Fn(/*Ignored*/PollFD, u32, i32) -> i32 {
+    //pub fn poll_func(&self) -> /*Unimplemented*/Fn(/*Ignored*/PollFD, u32, i32) -> i32 {
     //    unsafe { TODO: call ffi:g_main_context_get_poll_func() }
     //}
 
