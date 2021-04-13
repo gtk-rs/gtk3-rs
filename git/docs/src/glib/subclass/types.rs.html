@@ -881,10 +881,10 @@
     <span class="doccomment">/// is the implementor of [`ObjectImpl`] or subtraits.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`ObjectImpl`]: ../object/trait.ObjectImpl.html</span>
-    <span class="kw">fn</span> <span class="ident">get_impl</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span> {
+    <span class="kw">fn</span> <span class="ident">impl_</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="self">Self</span><span class="ident">::Type::type_data</span>();
-            <span class="kw">let</span> <span class="ident">private_offset</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_impl_offset</span>();
+            <span class="kw">let</span> <span class="ident">private_offset</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">impl_offset</span>();
             <span class="kw">let</span> <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">u8</span> <span class="op">=</span> <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">u8</span>;
             <span class="kw">let</span> <span class="ident">imp_ptr</span> <span class="op">=</span> <span class="ident">ptr</span>.<span class="ident">offset</span>(<span class="ident">private_offset</span>);
             <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="ident">imp_ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="self">Self</span><span class="ident">::Type</span>;
@@ -894,7 +894,7 @@
     }
 
     <span class="doccomment">/// Returns the class struct for this specific instance.</span>
-    <span class="kw">fn</span> <span class="ident">get_class</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::Type</span> <span class="kw">as</span> <span class="ident">ObjectSubclass</span><span class="op">&gt;</span><span class="ident">::Class</span> {
+    <span class="kw">fn</span> <span class="ident">class</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::Type</span> <span class="kw">as</span> <span class="ident">ObjectSubclass</span><span class="op">&gt;</span><span class="ident">::Class</span> {
         <span class="kw">unsafe</span> { <span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="kw-2">*</span>(<span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="op">&lt;</span><span class="self">Self</span><span class="ident">::Type</span> <span class="kw">as</span> <span class="ident">ObjectSubclass</span><span class="op">&gt;</span><span class="ident">::Class</span>) }
     }
 
@@ -1112,7 +1112,7 @@
 
 <span class="kw">impl</span> <span class="ident">TypeData</span> {
     <span class="doccomment">/// Returns the type ID.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Type</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">type_</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Type</span> {
         <span class="self">self</span>.<span class="ident">type_</span>
     }
 
@@ -1120,7 +1120,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is used for chaining up to the parent class&#39; implementation</span>
     <span class="doccomment">/// of virtual methods.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_parent_class</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::gpointer</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">parent_class</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::gpointer</span> {
         <span class="macro">debug_assert!</span>(<span class="op">!</span><span class="self">self</span>.<span class="ident">parent_class</span>.<span class="ident">is_null</span>());
         <span class="self">self</span>.<span class="ident">parent_class</span>
     }
@@ -1193,7 +1193,7 @@
 
     <span class="doccomment">/// Returns the offset of the private implementation struct in bytes relative to the beginning</span>
     <span class="doccomment">/// of the instance struct.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_impl_offset</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">isize</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">impl_offset</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">isize</span> {
         <span class="self">self</span>.<span class="ident">private_offset</span> <span class="op">+</span> <span class="self">self</span>.<span class="ident">private_imp_offset</span>
     }
 }
@@ -1327,7 +1327,7 @@
 <span class="doccomment">/// Extension methods for all `ObjectSubclass` impls.</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ObjectSubclassExt</span>: <span class="ident">ObjectSubclass</span> {
     <span class="doccomment">/// Returns the corresponding object instance.</span>
-    <span class="kw">fn</span> <span class="ident">get_instance</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Type</span>;
+    <span class="kw">fn</span> <span class="ident">instance</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Type</span>;
 
     <span class="doccomment">/// Returns the implementation from an instance.</span>
     <span class="kw">fn</span> <span class="ident">from_instance</span>(<span class="ident">obj</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="self">Self</span>;
@@ -1339,13 +1339,13 @@
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ObjectSubclass</span><span class="op">&gt;</span> <span class="ident">ObjectSubclassExt</span> <span class="kw">for</span> <span class="ident">T</span> {
-    <span class="kw">fn</span> <span class="ident">get_instance</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Type</span> {
+    <span class="kw">fn</span> <span class="ident">instance</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Type</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="self">Self</span><span class="ident">::type_data</span>();
-            <span class="kw">let</span> <span class="ident">type_</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_type</span>();
+            <span class="kw">let</span> <span class="ident">type_</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">type_</span>();
             <span class="macro">assert!</span>(<span class="ident">type_</span>.<span class="ident">is_valid</span>());
 
-            <span class="kw">let</span> <span class="ident">offset</span> <span class="op">=</span> <span class="op">-</span><span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_impl_offset</span>();
+            <span class="kw">let</span> <span class="ident">offset</span> <span class="op">=</span> <span class="op">-</span><span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">impl_offset</span>();
 
             <span class="kw">let</span> <span class="ident">ptr</span> <span class="op">=</span> <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="self">Self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">u8</span>;
             <span class="kw">let</span> <span class="ident">ptr</span> <span class="op">=</span> <span class="ident">ptr</span>.<span class="ident">offset</span>(<span class="ident">offset</span>);
@@ -1366,7 +1366,7 @@
     <span class="kw">fn</span> <span class="ident">from_instance</span>(<span class="ident">obj</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="self">Self</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">ptr</span> <span class="op">=</span> <span class="ident">obj</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="self">Self</span><span class="ident">::Instance</span>;
-            (<span class="kw-2">*</span><span class="ident">ptr</span>).<span class="ident">get_impl</span>()
+            (<span class="kw-2">*</span><span class="ident">ptr</span>).<span class="ident">impl_</span>()
         }
     }
 
@@ -1376,7 +1376,7 @@
     <span class="kw">fn</span> <span class="ident">get_instance_data</span><span class="op">&lt;</span><span class="ident">U</span>: <span class="ident">Any</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">type_</span>: <span class="ident">Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">U</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">type_data</span> <span class="op">=</span> <span class="self">Self</span><span class="ident">::type_data</span>();
-            <span class="kw">let</span> <span class="ident">self_type_</span> <span class="op">=</span> <span class="ident">type_data</span>.<span class="ident">as_ref</span>().<span class="ident">get_type</span>();
+            <span class="kw">let</span> <span class="ident">self_type_</span> <span class="op">=</span> <span class="ident">type_data</span>.<span class="ident">as_ref</span>().<span class="ident">type_</span>();
             <span class="macro">assert!</span>(<span class="ident">self_type_</span>.<span class="ident">is_valid</span>());
 
             <span class="kw">let</span> <span class="ident">offset</span> <span class="op">=</span> <span class="op">-</span><span class="ident">type_data</span>.<span class="ident">as_ref</span>().<span class="ident">private_imp_offset</span>;
@@ -1431,7 +1431,7 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_instance_data</span><span class="op">&lt;</span><span class="ident">U</span>: <span class="ident">Any</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">type_</span>: <span class="ident">Type</span>, <span class="ident">data</span>: <span class="ident">U</span>) {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">type_data</span> <span class="op">=</span> <span class="ident">T::type_data</span>();
-            <span class="kw">let</span> <span class="ident">self_type_</span> <span class="op">=</span> <span class="ident">type_data</span>.<span class="ident">as_ref</span>().<span class="ident">get_type</span>();
+            <span class="kw">let</span> <span class="ident">self_type_</span> <span class="op">=</span> <span class="ident">type_data</span>.<span class="ident">as_ref</span>().<span class="ident">type_</span>();
             <span class="macro">assert!</span>(<span class="ident">self_type_</span>.<span class="ident">is_valid</span>());
 
             <span class="kw">let</span> <span class="ident">offset</span> <span class="op">=</span> <span class="ident">type_data</span>.<span class="ident">as_ref</span>().<span class="ident">private_offset</span>;
@@ -1538,7 +1538,7 @@
     }
 
     <span class="comment">// Chain up to the parent class&#39; finalize implementation, if any.</span>
-    <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">gobject_ffi::GObjectClass</span>);
+    <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">gobject_ffi::GObjectClass</span>);
     <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">func</span>) <span class="op">=</span> <span class="ident">parent_class</span>.<span class="ident">finalize</span> {
         <span class="ident">func</span>(<span class="ident">obj</span>);
     }

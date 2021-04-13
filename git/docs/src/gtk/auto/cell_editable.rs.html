@@ -293,11 +293,11 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_cell_editable_start_editing&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">start_editing</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">event</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">gdk::Event</span><span class="op">&gt;</span>);
 
-    <span class="doccomment">/// Indicates whether editing on the cell has been canceled.</span>
-    <span class="kw">fn</span> <span class="ident">get_property_editing_canceled</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_property_editing_canceled&quot;</span>)]</span>
+    <span class="kw">fn</span> <span class="ident">is_editing_canceled</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
-    <span class="doccomment">/// Indicates whether editing on the cell has been canceled.</span>
-    <span class="kw">fn</span> <span class="ident">set_property_editing_canceled</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">editing_canceled</span>: <span class="ident">bool</span>);
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;set_property_editing_canceled&quot;</span>)]</span>
+    <span class="kw">fn</span> <span class="ident">set_editing_canceled</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">editing_canceled</span>: <span class="ident">bool</span>);
 
     <span class="doccomment">/// This signal is a sign for the cell renderer to update its</span>
     <span class="doccomment">/// value from the `cell_editable`.</span>
@@ -354,7 +354,7 @@
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">get_property_editing_canceled</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">fn</span> <span class="ident">is_editing_canceled</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::from_type</span>(<span class="op">&lt;</span><span class="ident">bool</span> <span class="kw">as</span> <span class="ident">StaticType</span><span class="op">&gt;</span><span class="ident">::static_type</span>());
             <span class="ident">glib::gobject_ffi::g_object_get_property</span>(
@@ -369,7 +369,7 @@
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">set_property_editing_canceled</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">editing_canceled</span>: <span class="ident">bool</span>) {
+    <span class="kw">fn</span> <span class="ident">set_editing_canceled</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">editing_canceled</span>: <span class="ident">bool</span>) {
         <span class="kw">unsafe</span> {
             <span class="ident">glib::gobject_ffi::g_object_set_property</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib::gobject_ffi::GObject</span>,

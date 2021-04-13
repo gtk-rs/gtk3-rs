@@ -117,7 +117,7 @@
             <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">Surface</span>;
 
             <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">surface</span>: <span class="ident">Surface</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">surf_name</span>, <span class="ident">Surface</span><span class="op">&gt;</span> {
-                <span class="kw">if</span> <span class="ident">surface</span>.<span class="ident">get_type</span>() <span class="op">=</span><span class="op">=</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">surf_type</span> {
+                <span class="kw">if</span> <span class="ident">surface</span>.<span class="ident">type_</span>() <span class="op">=</span><span class="op">=</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">surf_type</span> {
                     <span class="prelude-val">Ok</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">surf_name</span>(<span class="ident">surface</span>))
                 } <span class="kw">else</span> {
                     <span class="prelude-val">Err</span>(<span class="ident">surface</span>)

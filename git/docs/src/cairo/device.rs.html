@@ -450,7 +450,7 @@
 
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;script&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_script_get_mode&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_mode</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ScriptMode</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">mode</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ScriptMode</span> {
         <span class="kw">unsafe</span> { <span class="ident">ScriptMode::from</span>(<span class="ident">ffi::cairo_script_get_mode</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>())) }
     }
 
@@ -512,7 +512,7 @@
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_device_get_type&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DeviceType</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">type_</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DeviceType</span> {
         <span class="kw">unsafe</span> { <span class="ident">DeviceType::from</span>(<span class="ident">ffi::cairo_device_get_type</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>())) }
     }
 
@@ -563,7 +563,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_xlib_device_debug_cap_xrender_version&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">debug_cap_xrender_version</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">major_version</span>: <span class="ident">i32</span>, <span class="ident">minor_version</span>: <span class="ident">i32</span>) {
         <span class="kw">unsafe</span> {
-            <span class="kw">match</span> <span class="self">self</span>.<span class="ident">get_type</span>() {
+            <span class="kw">match</span> <span class="self">self</span>.<span class="ident">type_</span>() {
                 <span class="ident">DeviceType::Xlib</span> <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;xlib&quot;</span>)]</span>
                     {
@@ -601,7 +601,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_xlib_device_debug_get_precision&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">debug_get_precision</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">match</span> <span class="self">self</span>.<span class="ident">get_type</span>() {
+            <span class="kw">match</span> <span class="self">self</span>.<span class="ident">type_</span>() {
                 <span class="ident">DeviceType::Xlib</span> <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;xlib&quot;</span>)]</span>
                     {
@@ -631,7 +631,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_xlib_device_debug_set_precision&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">debug_set_precision</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">precision</span>: <span class="ident">i32</span>) {
         <span class="kw">unsafe</span> {
-            <span class="kw">match</span> <span class="self">self</span>.<span class="ident">get_type</span>() {
+            <span class="kw">match</span> <span class="self">self</span>.<span class="ident">type_</span>() {
                 <span class="ident">DeviceType::Xlib</span> <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;xlib&quot;</span>)]</span>
                     {

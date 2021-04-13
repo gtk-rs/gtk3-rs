@@ -719,7 +719,7 @@
     <span class="ident">pspec</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_ffi::GParamSpec</span>,
 ) {
     <span class="kw">let</span> <span class="ident">instance</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">obj</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T::Instance</span>);
-    <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="ident">instance</span>.<span class="ident">get_impl</span>();
+    <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="ident">instance</span>.<span class="ident">impl_</span>();
 
     <span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">imp</span>.<span class="ident">get_property</span>(
         <span class="kw-2">&amp;</span><span class="ident">from_glib_borrow</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="ident">Object</span><span class="op">&gt;</span>(<span class="ident">obj</span>).<span class="ident">unsafe_cast_ref</span>(),
@@ -747,7 +747,7 @@
     <span class="ident">pspec</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_ffi::GParamSpec</span>,
 ) {
     <span class="kw">let</span> <span class="ident">instance</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">obj</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T::Instance</span>);
-    <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="ident">instance</span>.<span class="ident">get_impl</span>();
+    <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="ident">instance</span>.<span class="ident">impl_</span>();
     <span class="ident">imp</span>.<span class="ident">set_property</span>(
         <span class="kw-2">&amp;</span><span class="ident">from_glib_borrow</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="ident">Object</span><span class="op">&gt;</span>(<span class="ident">obj</span>).<span class="ident">unsafe_cast_ref</span>(),
         <span class="ident">id</span> <span class="kw">as</span> <span class="ident">usize</span>,
@@ -758,20 +758,20 @@
 
 <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">constructed</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ObjectImpl</span><span class="op">&gt;</span>(<span class="ident">obj</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_ffi::GObject</span>) {
     <span class="kw">let</span> <span class="ident">instance</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">obj</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T::Instance</span>);
-    <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="ident">instance</span>.<span class="ident">get_impl</span>();
+    <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="ident">instance</span>.<span class="ident">impl_</span>();
 
     <span class="ident">imp</span>.<span class="ident">constructed</span>(<span class="kw-2">&amp;</span><span class="ident">from_glib_borrow</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="ident">Object</span><span class="op">&gt;</span>(<span class="ident">obj</span>).<span class="ident">unsafe_cast_ref</span>());
 }
 
 <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">dispose</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ObjectImpl</span><span class="op">&gt;</span>(<span class="ident">obj</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_ffi::GObject</span>) {
     <span class="kw">let</span> <span class="ident">instance</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">obj</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T::Instance</span>);
-    <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="ident">instance</span>.<span class="ident">get_impl</span>();
+    <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="ident">instance</span>.<span class="ident">impl_</span>();
 
     <span class="ident">imp</span>.<span class="ident">dispose</span>(<span class="kw-2">&amp;</span><span class="ident">from_glib_borrow</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="ident">Object</span><span class="op">&gt;</span>(<span class="ident">obj</span>).<span class="ident">unsafe_cast_ref</span>());
 
     <span class="comment">// Chain up to the parent&#39;s dispose.</span>
     <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">T::type_data</span>();
-    <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_ffi::GObjectClass</span>;
+    <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_ffi::GObjectClass</span>;
     <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">func</span>) <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">parent_class</span>).<span class="ident">dispose</span> {
         <span class="ident">func</span>(<span class="ident">obj</span>);
     }
@@ -850,7 +850,7 @@
     <span class="kw">fn</span> <span class="ident">parent_constructed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">obj</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">T::type_data</span>();
-            <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_ffi::GObjectClass</span>;
+            <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_ffi::GObjectClass</span>;
 
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">func</span>) <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">parent_class</span>).<span class="ident">constructed</span> {
                 <span class="ident">func</span>(<span class="ident">obj</span>.<span class="ident">unsafe_cast_ref</span>::<span class="op">&lt;</span><span class="ident">Object</span><span class="op">&gt;</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>);
@@ -865,7 +865,7 @@
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Value</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">super</span><span class="ident">::types::signal_chain_from_overridden</span>(
-                <span class="self">self</span>.<span class="ident">get_instance</span>().<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
+                <span class="self">self</span>.<span class="ident">instance</span>().<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
                 <span class="ident">token</span>,
                 <span class="ident">values</span>,
             )
@@ -969,28 +969,28 @@
                 <span class="kw">use</span> <span class="ident">once_cell::sync::Lazy</span>;
                 <span class="kw">static</span> <span class="ident">PROPERTIES</span>: <span class="ident">Lazy</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ParamSpec</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Lazy::new</span>(<span class="op">|</span><span class="op">|</span> {
                     <span class="macro">vec!</span>[
-                        <span class="kw">crate</span><span class="ident">::ParamSpec::string</span>(
+                        <span class="kw">crate</span><span class="ident">::ParamSpec::new_string</span>(
                             <span class="string">&quot;name&quot;</span>,
                             <span class="string">&quot;Name&quot;</span>,
                             <span class="string">&quot;Name of this object&quot;</span>,
                             <span class="prelude-val">None</span>,
                             <span class="kw">crate</span><span class="ident">::ParamFlags::READWRITE</span>,
                         ),
-                        <span class="kw">crate</span><span class="ident">::ParamSpec::string</span>(
+                        <span class="kw">crate</span><span class="ident">::ParamSpec::new_string</span>(
                             <span class="string">&quot;construct-name&quot;</span>,
                             <span class="string">&quot;Construct Name&quot;</span>,
                             <span class="string">&quot;Construct Name of this object&quot;</span>,
                             <span class="prelude-val">None</span>,
                             <span class="kw">crate</span><span class="ident">::ParamFlags::READWRITE</span> <span class="op">|</span> <span class="kw">crate</span><span class="ident">::ParamFlags::CONSTRUCT_ONLY</span>,
                         ),
-                        <span class="kw">crate</span><span class="ident">::ParamSpec::boolean</span>(
+                        <span class="kw">crate</span><span class="ident">::ParamSpec::new_boolean</span>(
                             <span class="string">&quot;constructed&quot;</span>,
                             <span class="string">&quot;Constructed&quot;</span>,
                             <span class="string">&quot;True if the constructed() virtual method was called&quot;</span>,
                             <span class="bool-val">false</span>,
                             <span class="kw">crate</span><span class="ident">::ParamFlags::READABLE</span>,
                         ),
-                        <span class="kw">crate</span><span class="ident">::ParamSpec::object</span>(
+                        <span class="kw">crate</span><span class="ident">::ParamSpec::new_object</span>(
                             <span class="string">&quot;child&quot;</span>,
                             <span class="string">&quot;Child&quot;</span>,
                             <span class="string">&quot;Child object&quot;</span>,
@@ -1010,7 +1010,7 @@
                 <span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">Value</span>,
                 <span class="ident">pspec</span>: <span class="kw-2">&amp;</span><span class="kw">crate</span><span class="ident">::ParamSpec</span>,
             ) {
-                <span class="kw">match</span> <span class="ident">pspec</span>.<span class="ident">get_name</span>() {
+                <span class="kw">match</span> <span class="ident">pspec</span>.<span class="ident">name</span>() {
                     <span class="string">&quot;name&quot;</span> <span class="op">=</span><span class="op">&gt;</span> {
                         <span class="kw">let</span> <span class="ident">name</span> <span class="op">=</span> <span class="ident">value</span>
                             .<span class="ident">get</span>()
@@ -1038,7 +1038,7 @@
                 <span class="ident">_id</span>: <span class="ident">usize</span>,
                 <span class="ident">pspec</span>: <span class="kw-2">&amp;</span><span class="kw">crate</span><span class="ident">::ParamSpec</span>,
             ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Value</span> {
-                <span class="kw">match</span> <span class="ident">pspec</span>.<span class="ident">get_name</span>() {
+                <span class="kw">match</span> <span class="ident">pspec</span>.<span class="ident">name</span>() {
                     <span class="string">&quot;name&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">name</span>.<span class="ident">borrow</span>().<span class="ident">to_value</span>(),
                     <span class="string">&quot;construct-name&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">construct_name</span>.<span class="ident">borrow</span>().<span class="ident">to_value</span>(),
                     <span class="string">&quot;constructed&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">constructed</span>.<span class="ident">borrow</span>().<span class="ident">to_value</span>(),
@@ -1049,7 +1049,7 @@
             <span class="kw">fn</span> <span class="ident">constructed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">obj</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) {
                 <span class="self">self</span>.<span class="ident">parent_constructed</span>(<span class="ident">obj</span>);
 
-                <span class="macro">assert_eq!</span>(<span class="ident">obj</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">get_instance</span>());
+                <span class="macro">assert_eq!</span>(<span class="ident">obj</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">instance</span>());
                 <span class="macro">assert_eq!</span>(<span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>, <span class="self">Self</span><span class="ident">::from_instance</span>(<span class="ident">obj</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>);
 
                 <span class="kw-2">*</span><span class="self">self</span>.<span class="ident">constructed</span>.<span class="ident">borrow_mut</span>() <span class="op">=</span> <span class="bool-val">true</span>;
@@ -1090,7 +1090,7 @@
         <span class="kw">let</span> <span class="ident">type_</span> <span class="op">=</span> <span class="ident">SimpleObject::static_type</span>();
         <span class="kw">let</span> <span class="ident">obj</span> <span class="op">=</span> <span class="ident">Object::with_type</span>(<span class="ident">type_</span>, <span class="kw-2">&amp;</span>[]).<span class="ident">expect</span>(<span class="string">&quot;Object::new failed&quot;</span>);
 
-        <span class="macro">assert!</span>(<span class="ident">obj</span>.<span class="ident">get_type</span>().<span class="ident">is_a</span>(<span class="ident">Dummy::static_type</span>()));
+        <span class="macro">assert!</span>(<span class="ident">obj</span>.<span class="ident">type_</span>().<span class="ident">is_a</span>(<span class="ident">Dummy::static_type</span>()));
 
         <span class="macro">assert_eq!</span>(
             <span class="ident">obj</span>.<span class="ident">get_property</span>(<span class="string">&quot;constructed&quot;</span>)
@@ -1110,7 +1110,7 @@
         <span class="kw">let</span> <span class="ident">obj</span>: <span class="ident">ChildObject</span> <span class="op">=</span> <span class="ident">Object::new</span>(<span class="kw-2">&amp;</span>[]).<span class="ident">expect</span>(<span class="string">&quot;Object::new failed&quot;</span>);
 
         <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="ident">imp::ChildObject::from_instance</span>(<span class="kw-2">&amp;</span><span class="ident">obj</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">obj</span>, <span class="ident">imp</span>.<span class="ident">get_instance</span>());
+        <span class="macro">assert_eq!</span>(<span class="ident">obj</span>, <span class="ident">imp</span>.<span class="ident">instance</span>());
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>

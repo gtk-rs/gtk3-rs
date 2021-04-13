@@ -875,7 +875,7 @@
 
 <span class="kw">impl</span> <span class="kw">crate</span><span class="ident">::device::Device</span> {
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_xcb_device_get_connection&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_connection</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">XCBConnection</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">connection</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">XCBConnection</span> {
         <span class="kw">unsafe</span> {
             <span class="ident">XCBConnection::from_raw_full</span>(<span class="ident">ffi::cairo_xcb_device_get_connection</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>()))
         }

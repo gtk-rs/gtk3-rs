@@ -309,7 +309,7 @@
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_ps_surface_get_eps&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_eps</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_eps</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_ps_surface_get_eps</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">to_raw_none</span>()).<span class="ident">as_bool</span>() }
     }
 
@@ -399,7 +399,7 @@
         <span class="kw">let</span> <span class="ident">buffer</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span> <span class="op">=</span> <span class="macro">vec!</span>[];
         <span class="kw">let</span> <span class="ident">surface</span> <span class="op">=</span> <span class="ident">PsSurface::for_stream</span>(<span class="number">100.</span>, <span class="number">100.</span>, <span class="ident">buffer</span>).<span class="ident">unwrap</span>();
         <span class="ident">surface</span>.<span class="ident">set_eps</span>(<span class="bool-val">true</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">surface</span>.<span class="ident">get_eps</span>(), <span class="bool-val">true</span>);
+        <span class="macro">assert!</span>(<span class="ident">surface</span>.<span class="ident">is_eps</span>());
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>

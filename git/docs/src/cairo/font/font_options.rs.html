@@ -268,7 +268,7 @@
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_font_options_get_antialias&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_antialias</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Antialias</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">antialias</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Antialias</span> {
         <span class="kw">unsafe</span> { <span class="ident">Antialias::from</span>(<span class="ident">ffi::cairo_font_options_get_antialias</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>())) }
     }
 
@@ -278,7 +278,7 @@
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_font_options_get_subpixel_order&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_subpixel_order</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SubpixelOrder</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">subpixel_order</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SubpixelOrder</span> {
         <span class="kw">unsafe</span> {
             <span class="ident">SubpixelOrder::from</span>(<span class="ident">ffi::cairo_font_options_get_subpixel_order</span>(
                 <span class="self">self</span>.<span class="ident">to_raw_none</span>(),
@@ -292,7 +292,7 @@
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_font_options_get_hint_style&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_hint_style</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">HintStyle</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">hint_style</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">HintStyle</span> {
         <span class="kw">unsafe</span> { <span class="ident">HintStyle::from</span>(<span class="ident">ffi::cairo_font_options_get_hint_style</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>())) }
     }
 
@@ -302,13 +302,13 @@
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_font_options_get_hint_metrics&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_hint_metrics</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">HintMetrics</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">hint_metrics</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">HintMetrics</span> {
         <span class="kw">unsafe</span> { <span class="ident">HintMetrics::from</span>(<span class="ident">ffi::cairo_font_options_get_hint_metrics</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>())) }
     }
 
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v1_16&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_font_options_get_variations&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_variations</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">variations</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> { <span class="ident">to_optional_string</span>(<span class="ident">ffi::cairo_font_options_get_variations</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>())) }
     }
 

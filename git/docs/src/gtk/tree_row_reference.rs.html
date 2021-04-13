@@ -89,7 +89,7 @@
     ) {
         <span class="macro">assert_initialized_main_thread!</span>();
         <span class="macro">assert!</span>(
-            <span class="ident">iter</span>.<span class="ident">is_some</span>() <span class="op">|</span><span class="op">|</span> <span class="ident">path</span>.<span class="ident">get_depth</span>() <span class="op">=</span><span class="op">=</span> <span class="number">0</span>,
+            <span class="ident">iter</span>.<span class="ident">is_some</span>() <span class="op">|</span><span class="op">|</span> <span class="ident">path</span>.<span class="ident">depth</span>() <span class="op">=</span><span class="op">=</span> <span class="number">0</span>,
             <span class="string">&quot;If &#39;iter&#39; is None, &#39;path&#39; must point to the root.&quot;</span>
         );
         <span class="ident">ffi::gtk_tree_row_reference_reordered</span>(

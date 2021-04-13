@@ -1433,45 +1433,6 @@
 <span id="1430">1430</span>
 <span id="1431">1431</span>
 <span id="1432">1432</span>
-<span id="1433">1433</span>
-<span id="1434">1434</span>
-<span id="1435">1435</span>
-<span id="1436">1436</span>
-<span id="1437">1437</span>
-<span id="1438">1438</span>
-<span id="1439">1439</span>
-<span id="1440">1440</span>
-<span id="1441">1441</span>
-<span id="1442">1442</span>
-<span id="1443">1443</span>
-<span id="1444">1444</span>
-<span id="1445">1445</span>
-<span id="1446">1446</span>
-<span id="1447">1447</span>
-<span id="1448">1448</span>
-<span id="1449">1449</span>
-<span id="1450">1450</span>
-<span id="1451">1451</span>
-<span id="1452">1452</span>
-<span id="1453">1453</span>
-<span id="1454">1454</span>
-<span id="1455">1455</span>
-<span id="1456">1456</span>
-<span id="1457">1457</span>
-<span id="1458">1458</span>
-<span id="1459">1459</span>
-<span id="1460">1460</span>
-<span id="1461">1461</span>
-<span id="1462">1462</span>
-<span id="1463">1463</span>
-<span id="1464">1464</span>
-<span id="1465">1465</span>
-<span id="1466">1466</span>
-<span id="1467">1467</span>
-<span id="1468">1468</span>
-<span id="1469">1469</span>
-<span id="1470">1470</span>
-<span id="1471">1471</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -1669,7 +1630,7 @@
         <span class="self">self</span>.<span class="ident">status</span>()
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_target</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Surface</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">target</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Surface</span> {
         <span class="kw">unsafe</span> { <span class="ident">Surface::from_raw_none</span>(<span class="ident">ffi::cairo_get_target</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>())) }
     }
 
@@ -1747,7 +1708,7 @@
         <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_pop_group_to_source</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_group_target</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Surface</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">group_target</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Surface</span> {
         <span class="kw">unsafe</span> { <span class="ident">Surface::from_raw_none</span>(<span class="ident">ffi::cairo_get_group_target</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>())) }
     }
 
@@ -1793,8 +1754,7 @@
         <span class="self">self</span>.<span class="ident">status</span>().<span class="ident">expect</span>(<span class="string">&quot;Failed to set source&quot;</span>);
     }
 
-    <span class="doccomment">/// Gets the current source pattern for self.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_source</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pattern</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">source</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pattern</span> {
         <span class="kw">unsafe</span> { <span class="ident">Pattern::from_raw_none</span>(<span class="ident">ffi::cairo_get_source</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>())) }
     }
 
@@ -1816,8 +1776,7 @@
         <span class="self">self</span>.<span class="ident">status</span>().<span class="ident">expect</span>(<span class="string">&quot;Failed to set antialias&quot;</span>);
     }
 
-    <span class="doccomment">/// Gets the current shape antialiasing mode, as set by Context::set_antialias().</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_antialias</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Antialias</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">antialias</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Antialias</span> {
         <span class="kw">unsafe</span> { <span class="ident">Antialias::from</span>(<span class="ident">ffi::cairo_get_antialias</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>())) }
     }
 
@@ -1852,16 +1811,12 @@
         <span class="self">self</span>.<span class="ident">status</span>().<span class="ident">expect</span>(<span class="string">&quot;Failed to set a dash&quot;</span>); <span class="comment">//Possible invalid dashes value</span>
     }
 
-    <span class="doccomment">/// This function returns the length of the dash array in self (0 if dashing is not</span>
-    <span class="doccomment">/// currently in effect).</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_dash_count</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">dash_count</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
         <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_get_dash_count</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
     }
 
-    <span class="doccomment">/// Gets the current dash array. If not NULL, dashes should be big enough to hold at</span>
-    <span class="doccomment">/// least the number of values returned by Context::get_dash_count().</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_dash</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">f64</span><span class="op">&gt;</span>, <span class="ident">f64</span>) {
-        <span class="kw">let</span> <span class="ident">dash_count</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_dash_count</span>() <span class="kw">as</span> <span class="ident">usize</span>;
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">dash</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">f64</span><span class="op">&gt;</span>, <span class="ident">f64</span>) {
+        <span class="kw">let</span> <span class="ident">dash_count</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">dash_count</span>() <span class="kw">as</span> <span class="ident">usize</span>;
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">dashes</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">f64</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Vec::with_capacity</span>(<span class="ident">dash_count</span>);
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">offset</span>: <span class="ident">f64</span> <span class="op">=</span> <span class="number">0.0</span>;
 
@@ -1872,13 +1827,13 @@
         }
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_dash_dashes</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">f64</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> (<span class="ident">dashes</span>, <span class="kw">_</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_dash</span>();
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">dash_dashes</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">f64</span><span class="op">&gt;</span> {
+        <span class="kw">let</span> (<span class="ident">dashes</span>, <span class="kw">_</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">dash</span>();
         <span class="ident">dashes</span>
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_dash_offset</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f64</span> {
-        <span class="kw">let</span> (<span class="kw">_</span>, <span class="ident">offset</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_dash</span>();
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">dash_offset</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f64</span> {
+        <span class="kw">let</span> (<span class="kw">_</span>, <span class="ident">offset</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">dash</span>();
         <span class="ident">offset</span>
     }
 
@@ -1895,8 +1850,7 @@
         <span class="self">self</span>.<span class="ident">status</span>().<span class="ident">expect</span>(<span class="string">&quot;Failed to set fill rule&quot;</span>);
     }
 
-    <span class="doccomment">/// Gets the current fill rule, as set by Context::set_fill_rule().</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_fill_rule</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FillRule</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">fill_rule</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FillRule</span> {
         <span class="kw">unsafe</span> { <span class="ident">FillRule::from</span>(<span class="ident">ffi::cairo_get_fill_rule</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>())) }
     }
 
@@ -1913,8 +1867,7 @@
         <span class="self">self</span>.<span class="ident">status</span>().<span class="ident">expect</span>(<span class="string">&quot;Failed to set line cap&quot;</span>);
     }
 
-    <span class="doccomment">/// Gets the current line cap style, as set by Context::set_line_cap().</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_line_cap</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">LineCap</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">line_cap</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">LineCap</span> {
         <span class="kw">unsafe</span> { <span class="ident">LineCap::from</span>(<span class="ident">ffi::cairo_get_line_cap</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>())) }
     }
 
@@ -1931,8 +1884,7 @@
         <span class="self">self</span>.<span class="ident">status</span>().<span class="ident">expect</span>(<span class="string">&quot;Failed to set line join&quot;</span>);
     }
 
-    <span class="doccomment">/// Gets the current line join style, as set by Context::set_line_join().</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_line_join</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">LineJoin</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">line_join</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">LineJoin</span> {
         <span class="kw">unsafe</span> { <span class="ident">LineJoin::from</span>(<span class="ident">ffi::cairo_get_line_join</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>())) }
     }
 
@@ -1957,10 +1909,7 @@
         <span class="self">self</span>.<span class="ident">status</span>().<span class="ident">expect</span>(<span class="string">&quot;Failed to set line width&quot;</span>);
     }
 
-    <span class="doccomment">/// This function returns the current line width value exactly as set by</span>
-    <span class="doccomment">/// Context::set_line_width(). Note that the value is unchanged even if the CTM has changed</span>
-    <span class="doccomment">/// between the calls to Context::set_line_width() and Context::get_line_width().</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_line_width</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f64</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">line_width</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f64</span> {
         <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_get_line_width</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
     }
 
@@ -1985,8 +1934,7 @@
         <span class="self">self</span>.<span class="ident">status</span>().<span class="ident">expect</span>(<span class="string">&quot;Failed to set miter limit&quot;</span>);
     }
 
-    <span class="doccomment">/// Gets the current miter limit, as set by Contextset_miter_limit().</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_miter_limit</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f64</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">miter_limit</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f64</span> {
         <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_get_miter_limit</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
     }
 
@@ -1996,7 +1944,7 @@
         }
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_operator</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Operator</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">operator</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Operator</span> {
         <span class="kw">unsafe</span> { <span class="ident">Operator::from</span>(<span class="ident">ffi::cairo_get_operator</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>())) }
     }
 
@@ -2013,8 +1961,7 @@
         <span class="self">self</span>.<span class="ident">status</span>().<span class="ident">expect</span>(<span class="string">&quot;Failed to set tolerance&quot;</span>);
     }
 
-    <span class="doccomment">/// Gets the current tolerance value, as set by Context::set_tolerance().</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_tolerance</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f64</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">tolerance</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f64</span> {
         <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_get_tolerance</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
     }
 
@@ -2274,8 +2221,7 @@
         <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_show_page</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
     }
 
-    <span class="doccomment">/// Returns the current reference count of self.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_reference_count</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">reference_count</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
         <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_get_reference_count</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
     }
 
@@ -2317,7 +2263,7 @@
         }
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_matrix</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Matrix</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">matrix</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Matrix</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">matrix</span> <span class="op">=</span> <span class="ident">Matrix::null</span>();
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::cairo_get_matrix</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">matrix</span>.<span class="ident">mut_ptr</span>());
@@ -2432,8 +2378,7 @@
         <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_set_font_matrix</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">matrix</span>.<span class="ident">ptr</span>()) }
     }
 
-    <span class="doccomment">/// Stores the current font matrix into matrix . See Context::set_font_matrix().</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_font_matrix</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Matrix</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">font_matrix</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Matrix</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">matrix</span> <span class="op">=</span> <span class="ident">Matrix::null</span>();
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::cairo_get_font_matrix</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">matrix</span>.<span class="ident">mut_ptr</span>());
@@ -2449,10 +2394,7 @@
         <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_set_font_options</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">options</span>.<span class="ident">to_raw_none</span>()) }
     }
 
-    <span class="doccomment">/// Retrieves font rendering options set via Context::set_font_options. Note that the returned</span>
-    <span class="doccomment">/// options do not include any options derived from the underlying surface; they are literally</span>
-    <span class="doccomment">/// the options passed to Context::set_font_options().</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_font_options</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FontOptions</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">font_options</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FontOptions</span> {
         <span class="kw">let</span> <span class="ident">out</span> <span class="op">=</span> <span class="ident">FontOptions::new</span>();
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::cairo_get_font_options</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">out</span>.<span class="ident">to_raw_none</span>());
@@ -2466,8 +2408,7 @@
         <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_set_font_face</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">font_face</span>.<span class="ident">to_raw_none</span>()) }
     }
 
-    <span class="doccomment">/// Gets the current font face for a Context object.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_font_face</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FontFace</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">font_face</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FontFace</span> {
         <span class="kw">unsafe</span> { <span class="ident">FontFace::from_raw_none</span>(<span class="ident">ffi::cairo_get_font_face</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>())) }
     }
 
@@ -2479,8 +2420,7 @@
         <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_set_scaled_font</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">scaled_font</span>.<span class="ident">to_raw_none</span>()) }
     }
 
-    <span class="doccomment">/// Gets the current scaled font for a Context.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_scaled_font</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ScaledFont</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">scaled_font</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ScaledFont</span> {
         <span class="kw">unsafe</span> { <span class="ident">ScaledFont::from_raw_none</span>(<span class="ident">ffi::cairo_get_scaled_font</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>())) }
     }
 
@@ -2660,25 +2600,7 @@
         <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_has_current_point</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()).<span class="ident">as_bool</span>() }
     }
 
-    <span class="doccomment">/// Gets the current point of the current path, which is conceptually the final</span>
-    <span class="doccomment">/// point reached by the path so far.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// The current point is returned in the user-space coordinate system. If there is</span>
-    <span class="doccomment">/// no defined current point or if cr is in an error status, x and y will both be set</span>
-    <span class="doccomment">/// to 0.0. It is possible to check this in advance with cairo_has_current_point().</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Most path construction functions alter the current point. See the following for</span>
-    <span class="doccomment">/// details on how they affect the current point: Context::new_path(),</span>
-    <span class="doccomment">/// Context::new_sub_path(), Context::append_path(), Context::close_path(),</span>
-    <span class="doccomment">/// Context::move_to(), Context::line_to(), Context::curve_to(), cairo_rel_move_to(),</span>
-    <span class="doccomment">/// Context::rel_line_to(), Context::rel_curve_to(), Context::arc(),</span>
-    <span class="doccomment">/// Context::arc_negative(), Context::rectangle(), Context::text_path(),</span>
-    <span class="doccomment">/// Context::glyph_path(), Context::stroke_to_path().</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Some functions use and alter the current point but do not otherwise change current path: Context::show_text().</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Some functions unset the current path and as a result, current point: Context::fill(), Context::stroke().</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_current_point</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">f64</span>, <span class="ident">f64</span>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">current_point</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">f64</span>, <span class="ident">f64</span>) {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">x</span> <span class="op">=</span> <span class="number">0.0</span>;
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">y</span> <span class="op">=</span> <span class="number">0.0</span>;
@@ -2921,7 +2843,7 @@
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">drop_non_reference_pattern_from_ctx</span>() {
         <span class="kw">let</span> <span class="ident">ctx</span> <span class="op">=</span> <span class="ident">create_ctx</span>();
-        <span class="ident">ctx</span>.<span class="ident">get_source</span>();
+        <span class="ident">ctx</span>.<span class="ident">source</span>();
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>

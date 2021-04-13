@@ -358,12 +358,12 @@
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_scaled_font_get_type&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FontType</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">type_</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FontType</span> {
         <span class="kw">unsafe</span> { <span class="ident">FontType::from</span>(<span class="ident">ffi::cairo_scaled_font_get_type</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>())) }
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_scaled_font_get_reference_count&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_reference_count</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">reference_count</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span> {
         <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_scaled_font_get_reference_count</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>()) <span class="kw">as</span> <span class="ident">usize</span> }
     }
 
@@ -481,12 +481,12 @@
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_scaled_font_get_font_face&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_font_face</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FontFace</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">font_face</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FontFace</span> {
         <span class="kw">unsafe</span> { <span class="ident">FontFace::from_raw_none</span>(<span class="ident">ffi::cairo_scaled_font_get_font_face</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>())) }
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_scaled_font_get_font_options&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_font_options</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FontOptions</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">font_options</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FontOptions</span> {
         <span class="kw">let</span> <span class="ident">options</span> <span class="op">=</span> <span class="ident">FontOptions::new</span>();
 
         <span class="kw">unsafe</span> {
@@ -497,7 +497,7 @@
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_scaled_font_get_font_matrix&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_font_matrix</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Matrix</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">font_matrix</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Matrix</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">matrix</span> <span class="op">=</span> <span class="ident">Matrix::null</span>();
 
         <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_scaled_font_get_font_matrix</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>(), <span class="ident">matrix</span>.<span class="ident">mut_ptr</span>()) }
@@ -506,7 +506,7 @@
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_scaled_font_get_ctm&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_ctm</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Matrix</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">ctm</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Matrix</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">matrix</span> <span class="op">=</span> <span class="ident">Matrix::null</span>();
 
         <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_scaled_font_get_ctm</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>(), <span class="ident">matrix</span>.<span class="ident">mut_ptr</span>()) }
@@ -515,7 +515,7 @@
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_scaled_font_get_scale_matrix&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_scale_matrix</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Matrix</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">scale_matrix</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Matrix</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">matrix</span> <span class="op">=</span> <span class="ident">Matrix::null</span>();
 
         <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_scaled_font_get_scale_matrix</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>(), <span class="ident">matrix</span>.<span class="ident">mut_ptr</span>()) }

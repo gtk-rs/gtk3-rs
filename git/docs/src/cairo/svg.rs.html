@@ -367,7 +367,7 @@
 
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">all</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;svg&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v1_16&quot;</span>), <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_svg_surface_get_document_unit&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_document_unit</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SvgUnit</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">document_unit</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SvgUnit</span> {
         <span class="kw">unsafe</span> {
             <span class="ident">SvgUnit::from</span>(<span class="ident">ffi::cairo_svg_surface_get_document_unit</span>(
                 <span class="self">self</span>.<span class="number">0</span>.<span class="ident">to_raw_none</span>(),

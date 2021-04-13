@@ -99,14 +99,14 @@ string-typed “name” property.</p>
             <span class="kw">use</span> <span class="ident">once_cell::sync::Lazy</span>;
             <span class="kw">static</span> <span class="ident">PROPERTIES</span>: <span class="ident">Lazy</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">glib::ParamSpec</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Lazy::new</span>(<span class="op">|</span><span class="op">|</span> {
                 <span class="macro">vec!</span>[
-                    <span class="ident">glib::ParamSpec::string</span>(
+                    <span class="ident">glib::ParamSpec::new_string</span>(
                         <span class="string">&quot;name&quot;</span>,
                         <span class="string">&quot;Name&quot;</span>,
                         <span class="string">&quot;Name of this object&quot;</span>,
                         <span class="prelude-val">None</span>,
                         <span class="ident">glib::ParamFlags::READWRITE</span>,
                     ),
-                    <span class="ident">glib::ParamSpec::enum_</span>(
+                    <span class="ident">glib::ParamSpec::new_enum</span>(
                         <span class="string">&quot;animal&quot;</span>,
                         <span class="string">&quot;Animal&quot;</span>,
                         <span class="string">&quot;Animal&quot;</span>,
@@ -114,7 +114,7 @@ string-typed “name” property.</p>
                         <span class="ident">Animal::default</span>() <span class="kw">as</span> <span class="ident">i32</span>,
                         <span class="ident">glib::ParamFlags::READWRITE</span>,
                     ),
-                    <span class="ident">glib::ParamSpec::flags</span>(
+                    <span class="ident">glib::ParamSpec::new_flags</span>(
                         <span class="string">&quot;flags&quot;</span>,
                         <span class="string">&quot;Flags&quot;</span>,
                         <span class="string">&quot;Flags&quot;</span>,
@@ -131,7 +131,7 @@ string-typed “name” property.</p>
         <span class="comment">// Called whenever a property is set on this instance. The id</span>
         <span class="comment">// is the same as the index of the property in the PROPERTIES array.</span>
         <span class="kw">fn</span> <span class="ident">set_property</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">_obj</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>, <span class="ident">_id</span>: <span class="ident">usize</span>, <span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">glib::Value</span>, <span class="ident">pspec</span>: <span class="kw-2">&amp;</span><span class="ident">glib::ParamSpec</span>) {
-            <span class="kw">match</span> <span class="ident">pspec</span>.<span class="ident">get_name</span>() {
+            <span class="kw">match</span> <span class="ident">pspec</span>.<span class="ident">name</span>() {
                 <span class="string">&quot;name&quot;</span> <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="kw">let</span> <span class="ident">name</span> <span class="op">=</span> <span class="ident">value</span>
                         .<span class="ident">get</span>()
@@ -157,7 +157,7 @@ string-typed “name” property.</p>
         <span class="comment">// Called whenever a property is retrieved from this instance. The id</span>
         <span class="comment">// is the same as the index of the property in the PROPERTIES array.</span>
         <span class="kw">fn</span> <span class="ident">get_property</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">_obj</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>, <span class="ident">_id</span>: <span class="ident">usize</span>, <span class="ident">pspec</span>: <span class="kw-2">&amp;</span><span class="ident">glib::ParamSpec</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span> {
-            <span class="kw">match</span> <span class="ident">pspec</span>.<span class="ident">get_name</span>() {
+            <span class="kw">match</span> <span class="ident">pspec</span>.<span class="ident">name</span>() {
                 <span class="string">&quot;name&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">name</span>.<span class="ident">borrow</span>().<span class="ident">to_value</span>(),
                 <span class="string">&quot;animal&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">animal</span>.<span class="ident">get</span>().<span class="ident">to_value</span>(),
                 <span class="string">&quot;flags&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">flags</span>.<span class="ident">get</span>().<span class="ident">to_value</span>(),

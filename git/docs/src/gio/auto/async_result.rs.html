@@ -94,10 +94,10 @@
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">AsyncResultExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_async_result_get_source_object&quot;</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">get_source_object</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::Object</span><span class="op">&gt;</span>;
+    <span class="kw">fn</span> <span class="ident">source_object</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::Object</span><span class="op">&gt;</span>;
 
     <span class="comment">//#[doc(alias = &quot;g_async_result_get_user_data&quot;)]</span>
-    <span class="comment">//fn get_user_data(&amp;self) -&gt; /*Unimplemented*/Option&lt;Fundamental: Pointer&gt;;</span>
+    <span class="comment">//fn user_data(&amp;self) -&gt; /*Unimplemented*/Option&lt;Fundamental: Pointer&gt;;</span>
 
     <span class="comment">//#[doc(alias = &quot;g_async_result_is_tagged&quot;)]</span>
     <span class="comment">//fn is_tagged(&amp;self, source_tag: /*Unimplemented*/Option&lt;Fundamental: Pointer&gt;) -&gt; bool;</span>
@@ -107,7 +107,7 @@
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">O</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">AsyncResult</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="ident">AsyncResultExt</span> <span class="kw">for</span> <span class="ident">O</span> {
-    <span class="kw">fn</span> <span class="ident">get_source_object</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::Object</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">source_object</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::Object</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_async_result_get_source_object</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -115,7 +115,7 @@
         }
     }
 
-    <span class="comment">//fn get_user_data(&amp;self) -&gt; /*Unimplemented*/Option&lt;Fundamental: Pointer&gt; {</span>
+    <span class="comment">//fn user_data(&amp;self) -&gt; /*Unimplemented*/Option&lt;Fundamental: Pointer&gt; {</span>
     <span class="comment">//    unsafe { TODO: call ffi:g_async_result_get_user_data() }</span>
     <span class="comment">//}</span>
 

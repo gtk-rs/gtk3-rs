@@ -449,17 +449,6 @@
 <span id="446">446</span>
 <span id="447">447</span>
 <span id="448">448</span>
-<span id="449">449</span>
-<span id="450">450</span>
-<span id="451">451</span>
-<span id="452">452</span>
-<span id="453">453</span>
-<span id="454">454</span>
-<span id="455">455</span>
-<span id="456">456</span>
-<span id="457">457</span>
-<span id="458">458</span>
-<span id="459">459</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -660,19 +649,8 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_widget_add_events&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">add_events</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">events</span>: <span class="ident">gdk::EventMask</span>);
 
-    <span class="doccomment">/// Returns the event mask (see `gdk::EventMask`) for the widget. These are the</span>
-    <span class="doccomment">/// events that the widget will receive.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Note: Internally, the widget event mask will be the logical OR of the event</span>
-    <span class="doccomment">/// mask set through `Widget::set_events` or `Widget::add_events`, and the</span>
-    <span class="doccomment">/// event mask necessary to cater for every `EventController` created for the</span>
-    <span class="doccomment">/// widget.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Returns</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// event mask for `self`</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_widget_get_events&quot;</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">get_events</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">gdk::EventMask</span>;
+    <span class="kw">fn</span> <span class="ident">events</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">gdk::EventMask</span>;
 
     <span class="doccomment">/// Sets the event mask (see `gdk::EventMask`) for a widget. The event</span>
     <span class="doccomment">/// mask determines which events a widget will receive. Keep in mind</span>
@@ -884,7 +862,7 @@
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">get_events</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">gdk::EventMask</span> {
+    <span class="kw">fn</span> <span class="ident">events</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">gdk::EventMask</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::gtk_widget_get_events</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>) <span class="kw">as</span> <span class="ident">u32</span>) }
     }
 

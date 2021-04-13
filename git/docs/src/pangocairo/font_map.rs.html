@@ -74,11 +74,6 @@
 <span id="71">71</span>
 <span id="72">72</span>
 <span id="73">73</span>
-<span id="74">74</span>
-<span id="75">75</span>
-<span id="76">76</span>
-<span id="77">77</span>
-<span id="78">78</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -87,17 +82,12 @@
 <span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">FontMapExtManual</span> {
-    <span class="doccomment">/// Gets the type of Cairo font backend that `self` uses.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Returns</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// the `cairo::FontType` cairo font backend type</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_cairo_font_map_get_font_type&quot;</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">get_font_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">cairo::FontType</span>;
+    <span class="kw">fn</span> <span class="ident">font_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">cairo::FontType</span>;
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">O</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">FontMap</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="ident">FontMapExtManual</span> <span class="kw">for</span> <span class="ident">O</span> {
-    <span class="kw">fn</span> <span class="ident">get_font_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">cairo::FontType</span> {
+    <span class="kw">fn</span> <span class="ident">font_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">cairo::FontType</span> {
         <span class="kw">unsafe</span> { <span class="ident">ffi::pango_cairo_font_map_get_font_type</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>).<span class="ident">into</span>() }
     }
 }

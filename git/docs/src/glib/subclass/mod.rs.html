@@ -376,14 +376,14 @@
 <span class="doccomment">//!             use once_cell::sync::Lazy;</span>
 <span class="doccomment">//!             static PROPERTIES: Lazy&lt;Vec&lt;glib::ParamSpec&gt;&gt; = Lazy::new(|| {</span>
 <span class="doccomment">//!                 vec![</span>
-<span class="doccomment">//!                     glib::ParamSpec::string(</span>
+<span class="doccomment">//!                     glib::ParamSpec::new_string(</span>
 <span class="doccomment">//!                         &quot;name&quot;,</span>
 <span class="doccomment">//!                         &quot;Name&quot;,</span>
 <span class="doccomment">//!                         &quot;Name of this object&quot;,</span>
 <span class="doccomment">//!                         None,</span>
 <span class="doccomment">//!                         glib::ParamFlags::READWRITE,</span>
 <span class="doccomment">//!                     ),</span>
-<span class="doccomment">//!                     glib::ParamSpec::enum_(</span>
+<span class="doccomment">//!                     glib::ParamSpec::new_enum(</span>
 <span class="doccomment">//!                         &quot;animal&quot;,</span>
 <span class="doccomment">//!                         &quot;Animal&quot;,</span>
 <span class="doccomment">//!                         &quot;Animal&quot;,</span>
@@ -391,7 +391,7 @@
 <span class="doccomment">//!                         Animal::default() as i32,</span>
 <span class="doccomment">//!                         glib::ParamFlags::READWRITE,</span>
 <span class="doccomment">//!                     ),</span>
-<span class="doccomment">//!                     glib::ParamSpec::flags(</span>
+<span class="doccomment">//!                     glib::ParamSpec::new_flags(</span>
 <span class="doccomment">//!                         &quot;flags&quot;,</span>
 <span class="doccomment">//!                         &quot;Flags&quot;,</span>
 <span class="doccomment">//!                         &quot;Flags&quot;,</span>
@@ -408,7 +408,7 @@
 <span class="doccomment">//!         // Called whenever a property is set on this instance. The id</span>
 <span class="doccomment">//!         // is the same as the index of the property in the PROPERTIES array.</span>
 <span class="doccomment">//!         fn set_property(&amp;self, _obj: &amp;Self::Type, _id: usize, value: &amp;glib::Value, pspec: &amp;glib::ParamSpec) {</span>
-<span class="doccomment">//!             match pspec.get_name() {</span>
+<span class="doccomment">//!             match pspec.name() {</span>
 <span class="doccomment">//!                 &quot;name&quot; =&gt; {</span>
 <span class="doccomment">//!                     let name = value</span>
 <span class="doccomment">//!                         .get()</span>
@@ -434,7 +434,7 @@
 <span class="doccomment">//!         // Called whenever a property is retrieved from this instance. The id</span>
 <span class="doccomment">//!         // is the same as the index of the property in the PROPERTIES array.</span>
 <span class="doccomment">//!         fn get_property(&amp;self, _obj: &amp;Self::Type, _id: usize, pspec: &amp;glib::ParamSpec) -&gt; glib::Value {</span>
-<span class="doccomment">//!             match pspec.get_name() {</span>
+<span class="doccomment">//!             match pspec.name() {</span>
 <span class="doccomment">//!                 &quot;name&quot; =&gt; self.name.borrow().to_value(),</span>
 <span class="doccomment">//!                 &quot;animal&quot; =&gt; self.animal.get().to_value(),</span>
 <span class="doccomment">//!                 &quot;flags&quot; =&gt; self.flags.get().to_value(),</span>

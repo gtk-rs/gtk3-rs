@@ -118,13 +118,13 @@
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">IOStreamExtManual</span>: <span class="ident">Sized</span> <span class="op">+</span> <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">IOStream</span><span class="op">&gt;</span> {
     <span class="kw">fn</span> <span class="ident">into_async_read_write</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">IOStreamAsyncReadWrite</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>, <span class="self">Self</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">write</span> <span class="op">=</span> <span class="self">self</span>
-            .<span class="ident">get_output_stream</span>()
+            .<span class="ident">output_stream</span>()
             .<span class="ident">dynamic_cast</span>::<span class="op">&lt;</span><span class="ident">PollableOutputStream</span><span class="op">&gt;</span>()
             .<span class="ident">ok</span>()
             .<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="ident">s</span>.<span class="ident">into_async_write</span>().<span class="ident">ok</span>());
 
         <span class="kw">let</span> <span class="ident">read</span> <span class="op">=</span> <span class="self">self</span>
-            .<span class="ident">get_input_stream</span>()
+            .<span class="ident">input_stream</span>()
             .<span class="ident">dynamic_cast</span>::<span class="op">&lt;</span><span class="ident">PollableInputStream</span><span class="op">&gt;</span>()
             .<span class="ident">ok</span>()
             .<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="ident">s</span>.<span class="ident">into_async_read</span>().<span class="ident">ok</span>());
