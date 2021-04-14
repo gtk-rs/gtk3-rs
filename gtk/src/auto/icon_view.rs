@@ -1475,7 +1475,6 @@ impl<O: IsA<IconView>> IconViewExt for O {
         res.unwrap()
             .get()
             .expect("Return Value for `emit_activate_cursor_item`")
-            .unwrap()
     }
 
     fn connect_item_activated<F: Fn(&Self, &TreePath) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -1551,7 +1550,6 @@ impl<O: IsA<IconView>> IconViewExt for O {
         res.unwrap()
             .get()
             .expect("Return Value for `emit_move_cursor`")
-            .unwrap()
     }
 
     fn connect_select_all<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

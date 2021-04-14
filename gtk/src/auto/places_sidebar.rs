@@ -296,7 +296,6 @@ impl PlacesSidebar {
             value
                 .get()
                 .expect("Return Value for property `populate-all` getter")
-                .unwrap()
         }
     }
 
@@ -308,7 +307,7 @@ impl PlacesSidebar {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"populate-all\0".as_ptr() as *const _,
-                glib::Value::from(&populate_all).to_glib_none().0,
+                populate_all.to_value().to_glib_none().0,
             );
         }
     }
@@ -324,7 +323,6 @@ impl PlacesSidebar {
             value
                 .get()
                 .expect("Return Value for property `show-other-locations` getter")
-                .unwrap()
         }
     }
 
@@ -333,7 +331,7 @@ impl PlacesSidebar {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"show-other-locations\0".as_ptr() as *const _,
-                glib::Value::from(&show_other_locations).to_glib_none().0,
+                show_other_locations.to_value().to_glib_none().0,
             );
         }
     }
@@ -349,7 +347,6 @@ impl PlacesSidebar {
             value
                 .get()
                 .expect("Return Value for property `show-recent` getter")
-                .unwrap()
         }
     }
 
@@ -358,7 +355,7 @@ impl PlacesSidebar {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"show-recent\0".as_ptr() as *const _,
-                glib::Value::from(&show_recent).to_glib_none().0,
+                show_recent.to_value().to_glib_none().0,
             );
         }
     }
@@ -374,7 +371,6 @@ impl PlacesSidebar {
             value
                 .get()
                 .expect("Return Value for property `show-trash` getter")
-                .unwrap()
         }
     }
 
@@ -383,7 +379,7 @@ impl PlacesSidebar {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"show-trash\0".as_ptr() as *const _,
-                glib::Value::from(&show_trash).to_glib_none().0,
+                show_trash.to_value().to_glib_none().0,
             );
         }
     }

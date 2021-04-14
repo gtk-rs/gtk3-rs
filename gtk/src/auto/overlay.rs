@@ -458,7 +458,6 @@ impl<O: IsA<Overlay>> OverlayExt for O {
             value
                 .get()
                 .expect("Return Value for property `index` getter")
-                .unwrap()
         }
     }
 
@@ -468,7 +467,7 @@ impl<O: IsA<Overlay>> OverlayExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"index\0".as_ptr() as *const _,
-                glib::Value::from(&index).to_glib_none().0,
+                index.to_value().to_glib_none().0,
             );
         }
     }

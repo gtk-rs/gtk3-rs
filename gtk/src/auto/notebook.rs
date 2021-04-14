@@ -908,7 +908,6 @@ impl<O: IsA<Notebook>> NotebookExt for O {
             value
                 .get()
                 .expect("Return Value for property `enable-popup` getter")
-                .unwrap()
         }
     }
 
@@ -917,7 +916,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"enable-popup\0".as_ptr() as *const _,
-                glib::Value::from(&enable_popup).to_glib_none().0,
+                enable_popup.to_value().to_glib_none().0,
             );
         }
     }
@@ -933,7 +932,6 @@ impl<O: IsA<Notebook>> NotebookExt for O {
             value
                 .get()
                 .expect("Return Value for property `page` getter")
-                .unwrap()
         }
     }
 
@@ -942,7 +940,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"page\0".as_ptr() as *const _,
-                glib::Value::from(&page).to_glib_none().0,
+                page.to_value().to_glib_none().0,
             );
         }
     }
@@ -960,7 +958,6 @@ impl<O: IsA<Notebook>> NotebookExt for O {
             value
                 .get()
                 .expect("Return Value for property `detachable` getter")
-                .unwrap()
         }
     }
 
@@ -971,7 +968,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"detachable\0".as_ptr() as *const _,
-                glib::Value::from(&detachable).to_glib_none().0,
+                detachable.to_value().to_glib_none().0,
             );
         }
     }
@@ -999,7 +996,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"menu-label\0".as_ptr() as *const _,
-                glib::Value::from(menu_label).to_glib_none().0,
+                menu_label.to_value().to_glib_none().0,
             );
         }
     }
@@ -1017,7 +1014,6 @@ impl<O: IsA<Notebook>> NotebookExt for O {
             value
                 .get()
                 .expect("Return Value for property `position` getter")
-                .unwrap()
         }
     }
 
@@ -1028,7 +1024,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"position\0".as_ptr() as *const _,
-                glib::Value::from(&position).to_glib_none().0,
+                position.to_value().to_glib_none().0,
             );
         }
     }
@@ -1046,7 +1042,6 @@ impl<O: IsA<Notebook>> NotebookExt for O {
             value
                 .get()
                 .expect("Return Value for property `reorderable` getter")
-                .unwrap()
         }
     }
 
@@ -1057,7 +1052,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"reorderable\0".as_ptr() as *const _,
-                glib::Value::from(&reorderable).to_glib_none().0,
+                reorderable.to_value().to_glib_none().0,
             );
         }
     }
@@ -1075,7 +1070,6 @@ impl<O: IsA<Notebook>> NotebookExt for O {
             value
                 .get()
                 .expect("Return Value for property `tab-expand` getter")
-                .unwrap()
         }
     }
 
@@ -1086,7 +1080,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"tab-expand\0".as_ptr() as *const _,
-                glib::Value::from(&tab_expand).to_glib_none().0,
+                tab_expand.to_value().to_glib_none().0,
             );
         }
     }
@@ -1104,7 +1098,6 @@ impl<O: IsA<Notebook>> NotebookExt for O {
             value
                 .get()
                 .expect("Return Value for property `tab-fill` getter")
-                .unwrap()
         }
     }
 
@@ -1115,7 +1108,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"tab-fill\0".as_ptr() as *const _,
-                glib::Value::from(&tab_fill).to_glib_none().0,
+                tab_fill.to_value().to_glib_none().0,
             );
         }
     }
@@ -1143,7 +1136,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"tab-label\0".as_ptr() as *const _,
-                glib::Value::from(tab_label).to_glib_none().0,
+                tab_label.to_value().to_glib_none().0,
             );
         }
     }
@@ -1185,7 +1178,6 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         res.unwrap()
             .get()
             .expect("Return Value for `emit_change_current_page`")
-            .unwrap()
     }
 
     fn connect_create_window<F: Fn(&Self, &Widget, i32, i32) -> Notebook + 'static>(
@@ -1269,7 +1261,6 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         res.unwrap()
             .get()
             .expect("Return Value for `emit_focus_tab`")
-            .unwrap()
     }
 
     fn connect_move_focus_out<F: Fn(&Self, DirectionType) + 'static>(
@@ -1446,7 +1437,6 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         res.unwrap()
             .get()
             .expect("Return Value for `emit_reorder_tab`")
-            .unwrap()
     }
 
     fn connect_select_page<F: Fn(&Self, bool) -> bool + 'static>(&self, f: F) -> SignalHandlerId {
@@ -1487,7 +1477,6 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         res.unwrap()
             .get()
             .expect("Return Value for `emit_select_page`")
-            .unwrap()
     }
 
     fn connect_switch_page<F: Fn(&Self, &Widget, u32) + 'static>(&self, f: F) -> SignalHandlerId {

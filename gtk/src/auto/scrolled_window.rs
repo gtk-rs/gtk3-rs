@@ -1042,7 +1042,6 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
             value
                 .get()
                 .expect("Return Value for property `hscrollbar-policy` getter")
-                .unwrap()
         }
     }
 
@@ -1051,7 +1050,7 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"hscrollbar-policy\0".as_ptr() as *const _,
-                glib::Value::from(&hscrollbar_policy).to_glib_none().0,
+                hscrollbar_policy.to_value().to_glib_none().0,
             );
         }
     }
@@ -1067,7 +1066,6 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
             value
                 .get()
                 .expect("Return Value for property `vscrollbar-policy` getter")
-                .unwrap()
         }
     }
 
@@ -1076,7 +1074,7 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"vscrollbar-policy\0".as_ptr() as *const _,
-                glib::Value::from(&vscrollbar_policy).to_glib_none().0,
+                vscrollbar_policy.to_value().to_glib_none().0,
             );
         }
     }
@@ -1092,7 +1090,6 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
             value
                 .get()
                 .expect("Return Value for property `window-placement` getter")
-                .unwrap()
         }
     }
 
@@ -1101,7 +1098,7 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"window-placement\0".as_ptr() as *const _,
-                glib::Value::from(&window_placement).to_glib_none().0,
+                window_placement.to_value().to_glib_none().0,
             );
         }
     }
@@ -1248,7 +1245,6 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         res.unwrap()
             .get()
             .expect("Return Value for `emit_scroll_child`")
-            .unwrap()
     }
 
     fn connect_property_hadjustment_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

@@ -617,7 +617,6 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
             value
                 .get()
                 .expect("Return Value for property `icon-size-set` getter")
-                .unwrap()
         }
     }
 
@@ -626,7 +625,7 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"icon-size-set\0".as_ptr() as *const _,
-                glib::Value::from(&icon_size_set).to_glib_none().0,
+                icon_size_set.to_value().to_glib_none().0,
             );
         }
     }
@@ -642,7 +641,6 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
             value
                 .get()
                 .expect("Return Value for property `toolbar-style` getter")
-                .unwrap()
         }
     }
 
@@ -651,7 +649,7 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"toolbar-style\0".as_ptr() as *const _,
-                glib::Value::from(&toolbar_style).to_glib_none().0,
+                toolbar_style.to_value().to_glib_none().0,
             );
         }
     }
@@ -668,7 +666,6 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
             value
                 .get()
                 .expect("Return Value for property `expand` getter")
-                .unwrap()
         }
     }
 
@@ -678,7 +675,7 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"expand\0".as_ptr() as *const _,
-                glib::Value::from(&expand).to_glib_none().0,
+                expand.to_value().to_glib_none().0,
             );
         }
     }
@@ -695,7 +692,6 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
             value
                 .get()
                 .expect("Return Value for property `homogeneous` getter")
-                .unwrap()
         }
     }
 
@@ -705,7 +701,7 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"homogeneous\0".as_ptr() as *const _,
-                glib::Value::from(&homogeneous).to_glib_none().0,
+                homogeneous.to_value().to_glib_none().0,
             );
         }
     }
@@ -751,7 +747,6 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
         res.unwrap()
             .get()
             .expect("Return Value for `emit_focus_home_or_end`")
-            .unwrap()
     }
 
     fn connect_orientation_changed<F: Fn(&Self, Orientation) + 'static>(

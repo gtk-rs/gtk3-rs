@@ -164,6 +164,12 @@ fn derive_gboxed_nullable() {
     assert_eq!(&b, v.get::<Option<&MyNullableBoxed>>().unwrap().unwrap());
     assert_eq!(b, v.get::<Option<MyNullableBoxed>>().unwrap().unwrap());
 
+    let b = Some(MyNullableBoxed(String::from("def")));
+    let v = (&b).to_value();
+    let b = b.unwrap();
+    assert_eq!(&b, v.get::<Option<&MyNullableBoxed>>().unwrap().unwrap());
+    assert_eq!(b, v.get::<Option<MyNullableBoxed>>().unwrap().unwrap());
+
     let b: Option<MyNullableBoxed> = None;
     let v = b.to_value();
     assert_eq!(None, v.get::<Option<&MyNullableBoxed>>().unwrap());

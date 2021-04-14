@@ -12,6 +12,7 @@ use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
+use glib::ToValue;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
@@ -75,7 +76,6 @@ impl<O: IsA<TlsServerConnection>> TlsServerConnectionExt for O {
             value
                 .get()
                 .expect("Return Value for property `authentication-mode` getter")
-                .unwrap()
         }
     }
 
@@ -84,7 +84,7 @@ impl<O: IsA<TlsServerConnection>> TlsServerConnectionExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"authentication-mode\0".as_ptr() as *const _,
-                glib::Value::from(&authentication_mode).to_glib_none().0,
+                authentication_mode.to_value().to_glib_none().0,
             );
         }
     }

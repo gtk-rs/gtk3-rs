@@ -978,7 +978,6 @@ impl<O: IsA<Assistant>> AssistantExt for O {
             value
                 .get()
                 .expect("Return Value for property `use-header-bar` getter")
-                .unwrap()
         }
     }
 
@@ -994,7 +993,6 @@ impl<O: IsA<Assistant>> AssistantExt for O {
             value
                 .get()
                 .expect("Return Value for property `complete` getter")
-                .unwrap()
         }
     }
 
@@ -1004,7 +1002,7 @@ impl<O: IsA<Assistant>> AssistantExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"complete\0".as_ptr() as *const _,
-                glib::Value::from(&complete).to_glib_none().0,
+                complete.to_value().to_glib_none().0,
             );
         }
     }
@@ -1021,7 +1019,6 @@ impl<O: IsA<Assistant>> AssistantExt for O {
             value
                 .get()
                 .expect("Return Value for property `has-padding` getter")
-                .unwrap()
         }
     }
 
@@ -1031,7 +1028,7 @@ impl<O: IsA<Assistant>> AssistantExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"has-padding\0".as_ptr() as *const _,
-                glib::Value::from(&has_padding).to_glib_none().0,
+                has_padding.to_value().to_glib_none().0,
             );
         }
     }
@@ -1049,7 +1046,6 @@ impl<O: IsA<Assistant>> AssistantExt for O {
             value
                 .get()
                 .expect("Return Value for property `page-type` getter")
-                .unwrap()
         }
     }
 
@@ -1059,7 +1055,7 @@ impl<O: IsA<Assistant>> AssistantExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"page-type\0".as_ptr() as *const _,
-                glib::Value::from(&page_type).to_glib_none().0,
+                page_type.to_value().to_glib_none().0,
             );
         }
     }
@@ -1085,7 +1081,7 @@ impl<O: IsA<Assistant>> AssistantExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"title\0".as_ptr() as *const _,
-                glib::Value::from(title).to_glib_none().0,
+                title.to_value().to_glib_none().0,
             );
         }
     }

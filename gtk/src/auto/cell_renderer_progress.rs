@@ -308,7 +308,6 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
             value
                 .get()
                 .expect("Return Value for property `inverted` getter")
-                .unwrap()
         }
     }
 
@@ -317,7 +316,7 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"inverted\0".as_ptr() as *const _,
-                glib::Value::from(&inverted).to_glib_none().0,
+                inverted.to_value().to_glib_none().0,
             );
         }
     }
@@ -333,7 +332,6 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
             value
                 .get()
                 .expect("Return Value for property `pulse` getter")
-                .unwrap()
         }
     }
 
@@ -342,7 +340,7 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"pulse\0".as_ptr() as *const _,
-                glib::Value::from(&pulse).to_glib_none().0,
+                pulse.to_value().to_glib_none().0,
             );
         }
     }
@@ -366,7 +364,7 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"text\0".as_ptr() as *const _,
-                glib::Value::from(text).to_glib_none().0,
+                text.to_value().to_glib_none().0,
             );
         }
     }
@@ -382,7 +380,6 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
             value
                 .get()
                 .expect("Return Value for property `text-xalign` getter")
-                .unwrap()
         }
     }
 
@@ -391,7 +388,7 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"text-xalign\0".as_ptr() as *const _,
-                glib::Value::from(&text_xalign).to_glib_none().0,
+                text_xalign.to_value().to_glib_none().0,
             );
         }
     }
@@ -407,7 +404,6 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
             value
                 .get()
                 .expect("Return Value for property `text-yalign` getter")
-                .unwrap()
         }
     }
 
@@ -416,7 +412,7 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"text-yalign\0".as_ptr() as *const _,
-                glib::Value::from(&text_yalign).to_glib_none().0,
+                text_yalign.to_value().to_glib_none().0,
             );
         }
     }
@@ -432,7 +428,6 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
             value
                 .get()
                 .expect("Return Value for property `value` getter")
-                .unwrap()
         }
     }
 
@@ -441,7 +436,7 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"value\0".as_ptr() as *const _,
-                glib::Value::from(&value).to_glib_none().0,
+                value.to_value().to_glib_none().0,
             );
         }
     }

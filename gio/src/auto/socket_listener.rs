@@ -18,6 +18,7 @@ use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
+use glib::ToValue;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
@@ -430,7 +431,6 @@ impl<O: IsA<SocketListener>> SocketListenerExt for O {
             value
                 .get()
                 .expect("Return Value for property `listen-backlog` getter")
-                .unwrap()
         }
     }
 
@@ -439,7 +439,7 @@ impl<O: IsA<SocketListener>> SocketListenerExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"listen-backlog\0".as_ptr() as *const _,
-                glib::Value::from(&listen_backlog).to_glib_none().0,
+                listen_backlog.to_value().to_glib_none().0,
             );
         }
     }

@@ -14,6 +14,7 @@ use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
+use glib::ToValue;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
@@ -470,7 +471,6 @@ impl<O: IsA<Object>> AtkObjectExt for O {
             value
                 .get()
                 .expect("Return Value for property `accessible-component-layer` getter")
-                .unwrap()
         }
     }
 
@@ -485,7 +485,6 @@ impl<O: IsA<Object>> AtkObjectExt for O {
             value
                 .get()
                 .expect("Return Value for property `accessible-component-mdi-zorder` getter")
-                .unwrap()
         }
     }
 
@@ -508,7 +507,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"accessible-description\0".as_ptr() as *const _,
-                glib::Value::from(accessible_description).to_glib_none().0,
+                accessible_description.to_value().to_glib_none().0,
             );
         }
     }
@@ -524,7 +523,6 @@ impl<O: IsA<Object>> AtkObjectExt for O {
             value
                 .get()
                 .expect("Return Value for property `accessible-hypertext-nlinks` getter")
-                .unwrap()
         }
     }
 
@@ -547,7 +545,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"accessible-name\0".as_ptr() as *const _,
-                glib::Value::from(accessible_name).to_glib_none().0,
+                accessible_name.to_value().to_glib_none().0,
             );
         }
     }
@@ -571,7 +569,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"accessible-parent\0".as_ptr() as *const _,
-                glib::Value::from(accessible_parent).to_glib_none().0,
+                accessible_parent.to_value().to_glib_none().0,
             );
         }
     }
@@ -587,7 +585,6 @@ impl<O: IsA<Object>> AtkObjectExt for O {
             value
                 .get()
                 .expect("Return Value for property `accessible-role` getter")
-                .unwrap()
         }
     }
 
@@ -596,7 +593,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"accessible-role\0".as_ptr() as *const _,
-                glib::Value::from(&accessible_role).to_glib_none().0,
+                accessible_role.to_value().to_glib_none().0,
             );
         }
     }
@@ -620,7 +617,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"accessible-table-caption\0".as_ptr() as *const _,
-                glib::Value::from(accessible_table_caption).to_glib_none().0,
+                accessible_table_caption.to_value().to_glib_none().0,
             );
         }
     }
@@ -647,9 +644,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"accessible-table-caption-object\0".as_ptr() as *const _,
-                glib::Value::from(accessible_table_caption_object)
-                    .to_glib_none()
-                    .0,
+                accessible_table_caption_object.to_value().to_glib_none().0,
             );
         }
     }
@@ -676,7 +671,8 @@ impl<O: IsA<Object>> AtkObjectExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"accessible-table-column-description\0".as_ptr() as *const _,
-                glib::Value::from(accessible_table_column_description)
+                accessible_table_column_description
+                    .to_value()
                     .to_glib_none()
                     .0,
             );
@@ -705,9 +701,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"accessible-table-column-header\0".as_ptr() as *const _,
-                glib::Value::from(accessible_table_column_header)
-                    .to_glib_none()
-                    .0,
+                accessible_table_column_header.to_value().to_glib_none().0,
             );
         }
     }
@@ -731,9 +725,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"accessible-table-row-description\0".as_ptr() as *const _,
-                glib::Value::from(accessible_table_row_description)
-                    .to_glib_none()
-                    .0,
+                accessible_table_row_description.to_value().to_glib_none().0,
             );
         }
     }
@@ -760,9 +752,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"accessible-table-row-header\0".as_ptr() as *const _,
-                glib::Value::from(accessible_table_row_header)
-                    .to_glib_none()
-                    .0,
+                accessible_table_row_header.to_value().to_glib_none().0,
             );
         }
     }
@@ -786,7 +776,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"accessible-table-summary\0".as_ptr() as *const _,
-                glib::Value::from(accessible_table_summary).to_glib_none().0,
+                accessible_table_summary.to_value().to_glib_none().0,
             );
         }
     }
@@ -802,7 +792,6 @@ impl<O: IsA<Object>> AtkObjectExt for O {
             value
                 .get()
                 .expect("Return Value for property `accessible-value` getter")
-                .unwrap()
         }
     }
 
@@ -811,7 +800,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"accessible-value\0".as_ptr() as *const _,
-                glib::Value::from(&accessible_value).to_glib_none().0,
+                accessible_value.to_value().to_glib_none().0,
             );
         }
     }

@@ -1143,7 +1143,6 @@ impl<O: IsA<Label>> LabelExt for O {
             value
                 .get()
                 .expect("Return Value for property `cursor-position` getter")
-                .unwrap()
         }
     }
 
@@ -1158,7 +1157,6 @@ impl<O: IsA<Label>> LabelExt for O {
             value
                 .get()
                 .expect("Return Value for property `selection-bound` getter")
-                .unwrap()
         }
     }
 
@@ -1173,7 +1171,6 @@ impl<O: IsA<Label>> LabelExt for O {
             value
                 .get()
                 .expect("Return Value for property `wrap` getter")
-                .unwrap()
         }
     }
 
@@ -1182,7 +1179,7 @@ impl<O: IsA<Label>> LabelExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"wrap\0".as_ptr() as *const _,
-                glib::Value::from(&wrap).to_glib_none().0,
+                wrap.to_value().to_glib_none().0,
             );
         }
     }
@@ -1198,7 +1195,6 @@ impl<O: IsA<Label>> LabelExt for O {
             value
                 .get()
                 .expect("Return Value for property `wrap-mode` getter")
-                .unwrap()
         }
     }
 
@@ -1207,7 +1203,7 @@ impl<O: IsA<Label>> LabelExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"wrap-mode\0".as_ptr() as *const _,
-                glib::Value::from(&wrap_mode).to_glib_none().0,
+                wrap_mode.to_value().to_glib_none().0,
             );
         }
     }

@@ -957,7 +957,6 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
             value
                 .get()
                 .expect("Return Value for property `anchor-hints` getter")
-                .unwrap()
         }
     }
 
@@ -968,7 +967,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"anchor-hints\0".as_ptr() as *const _,
-                glib::Value::from(&anchor_hints).to_glib_none().0,
+                anchor_hints.to_value().to_glib_none().0,
             );
         }
     }
@@ -978,7 +977,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"attach-widget\0".as_ptr() as *const _,
-                glib::Value::from(attach_widget).to_glib_none().0,
+                attach_widget.to_value().to_glib_none().0,
             );
         }
     }
@@ -997,7 +996,6 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
             value
                 .get()
                 .expect("Return Value for property `menu-type-hint` getter")
-                .unwrap()
         }
     }
 
@@ -1008,7 +1006,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"menu-type-hint\0".as_ptr() as *const _,
-                glib::Value::from(&menu_type_hint).to_glib_none().0,
+                menu_type_hint.to_value().to_glib_none().0,
             );
         }
     }
@@ -1026,7 +1024,6 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
             value
                 .get()
                 .expect("Return Value for property `rect-anchor-dx` getter")
-                .unwrap()
         }
     }
 
@@ -1037,7 +1034,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"rect-anchor-dx\0".as_ptr() as *const _,
-                glib::Value::from(&rect_anchor_dx).to_glib_none().0,
+                rect_anchor_dx.to_value().to_glib_none().0,
             );
         }
     }
@@ -1055,7 +1052,6 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
             value
                 .get()
                 .expect("Return Value for property `rect-anchor-dy` getter")
-                .unwrap()
         }
     }
 
@@ -1066,7 +1062,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"rect-anchor-dy\0".as_ptr() as *const _,
-                glib::Value::from(&rect_anchor_dy).to_glib_none().0,
+                rect_anchor_dy.to_value().to_glib_none().0,
             );
         }
     }
@@ -1083,7 +1079,6 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
             value
                 .get()
                 .expect("Return Value for property `bottom-attach` getter")
-                .unwrap()
         }
     }
 
@@ -1093,7 +1088,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"bottom-attach\0".as_ptr() as *const _,
-                glib::Value::from(&bottom_attach).to_glib_none().0,
+                bottom_attach.to_value().to_glib_none().0,
             );
         }
     }
@@ -1110,7 +1105,6 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
             value
                 .get()
                 .expect("Return Value for property `left-attach` getter")
-                .unwrap()
         }
     }
 
@@ -1120,7 +1114,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"left-attach\0".as_ptr() as *const _,
-                glib::Value::from(&left_attach).to_glib_none().0,
+                left_attach.to_value().to_glib_none().0,
             );
         }
     }
@@ -1137,7 +1131,6 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
             value
                 .get()
                 .expect("Return Value for property `right-attach` getter")
-                .unwrap()
         }
     }
 
@@ -1147,7 +1140,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"right-attach\0".as_ptr() as *const _,
-                glib::Value::from(&right_attach).to_glib_none().0,
+                right_attach.to_value().to_glib_none().0,
             );
         }
     }
@@ -1164,7 +1157,6 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
             value
                 .get()
                 .expect("Return Value for property `top-attach` getter")
-                .unwrap()
         }
     }
 
@@ -1174,7 +1166,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"top-attach\0".as_ptr() as *const _,
-                glib::Value::from(&top_attach).to_glib_none().0,
+                top_attach.to_value().to_glib_none().0,
             );
         }
     }

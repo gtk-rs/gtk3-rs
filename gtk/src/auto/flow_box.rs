@@ -1065,7 +1065,6 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         res.unwrap()
             .get()
             .expect("Return Value for `emit_move_cursor`")
-            .unwrap()
     }
 
     fn connect_select_all<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

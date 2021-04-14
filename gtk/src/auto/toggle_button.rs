@@ -611,7 +611,6 @@ impl<O: IsA<ToggleButton>> ToggleButtonExt for O {
             value
                 .get()
                 .expect("Return Value for property `draw-indicator` getter")
-                .unwrap()
         }
     }
 
@@ -620,7 +619,7 @@ impl<O: IsA<ToggleButton>> ToggleButtonExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"draw-indicator\0".as_ptr() as *const _,
-                glib::Value::from(&draw_indicator).to_glib_none().0,
+                draw_indicator.to_value().to_glib_none().0,
             );
         }
     }

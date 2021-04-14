@@ -30,6 +30,7 @@ use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
+use glib::ToValue;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem;
@@ -2950,7 +2951,6 @@ impl<O: IsA<Widget>> WidgetExt for O {
             value
                 .get()
                 .expect("Return Value for property `composite-child` getter")
-                .unwrap()
         }
     }
 
@@ -2965,7 +2965,6 @@ impl<O: IsA<Widget>> WidgetExt for O {
             value
                 .get()
                 .expect("Return Value for property `expand` getter")
-                .unwrap()
         }
     }
 
@@ -2974,7 +2973,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"expand\0".as_ptr() as *const _,
-                glib::Value::from(&expand).to_glib_none().0,
+                expand.to_value().to_glib_none().0,
             );
         }
     }
@@ -2984,7 +2983,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"has-default\0".as_ptr() as *const _,
-                glib::Value::from(&has_default).to_glib_none().0,
+                has_default.to_value().to_glib_none().0,
             );
         }
     }
@@ -2994,7 +2993,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"has-focus\0".as_ptr() as *const _,
-                glib::Value::from(&has_focus).to_glib_none().0,
+                has_focus.to_value().to_glib_none().0,
             );
         }
     }
@@ -3010,7 +3009,6 @@ impl<O: IsA<Widget>> WidgetExt for O {
             value
                 .get()
                 .expect("Return Value for property `height-request` getter")
-                .unwrap()
         }
     }
 
@@ -3019,7 +3017,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"height-request\0".as_ptr() as *const _,
-                glib::Value::from(&height_request).to_glib_none().0,
+                height_request.to_value().to_glib_none().0,
             );
         }
     }
@@ -3029,7 +3027,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"is-focus\0".as_ptr() as *const _,
-                glib::Value::from(&is_focus).to_glib_none().0,
+                is_focus.to_value().to_glib_none().0,
             );
         }
     }
@@ -3045,7 +3043,6 @@ impl<O: IsA<Widget>> WidgetExt for O {
             value
                 .get()
                 .expect("Return Value for property `margin` getter")
-                .unwrap()
         }
     }
 
@@ -3054,7 +3051,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"margin\0".as_ptr() as *const _,
-                glib::Value::from(&margin).to_glib_none().0,
+                margin.to_value().to_glib_none().0,
             );
         }
     }
@@ -3070,7 +3067,6 @@ impl<O: IsA<Widget>> WidgetExt for O {
             value
                 .get()
                 .expect("Return Value for property `width-request` getter")
-                .unwrap()
         }
     }
 
@@ -3079,7 +3075,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"width-request\0".as_ptr() as *const _,
-                glib::Value::from(&width_request).to_glib_none().0,
+                width_request.to_value().to_glib_none().0,
             );
         }
     }
@@ -4524,7 +4520,6 @@ impl<O: IsA<Widget>> WidgetExt for O {
         res.unwrap()
             .get()
             .expect("Return Value for `emit_popup_menu`")
-            .unwrap()
     }
 
     fn connect_property_notify_event<
@@ -5019,7 +5014,6 @@ impl<O: IsA<Widget>> WidgetExt for O {
         res.unwrap()
             .get()
             .expect("Return Value for `emit_show_help`")
-            .unwrap()
     }
 
     fn connect_size_allocate<F: Fn(&Self, &Allocation) + 'static>(&self, f: F) -> SignalHandlerId {

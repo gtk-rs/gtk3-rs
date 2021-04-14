@@ -543,7 +543,6 @@ impl<O: IsA<Layout>> LayoutExt for O {
             value
                 .get()
                 .expect("Return Value for property `height` getter")
-                .unwrap()
         }
     }
 
@@ -552,7 +551,7 @@ impl<O: IsA<Layout>> LayoutExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"height\0".as_ptr() as *const _,
-                glib::Value::from(&height).to_glib_none().0,
+                height.to_value().to_glib_none().0,
             );
         }
     }
@@ -568,7 +567,6 @@ impl<O: IsA<Layout>> LayoutExt for O {
             value
                 .get()
                 .expect("Return Value for property `width` getter")
-                .unwrap()
         }
     }
 
@@ -577,7 +575,7 @@ impl<O: IsA<Layout>> LayoutExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"width\0".as_ptr() as *const _,
-                glib::Value::from(&width).to_glib_none().0,
+                width.to_value().to_glib_none().0,
             );
         }
     }
@@ -591,10 +589,7 @@ impl<O: IsA<Layout>> LayoutExt for O {
                 b"x\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
-            value
-                .get()
-                .expect("Return Value for property `x` getter")
-                .unwrap()
+            value.get().expect("Return Value for property `x` getter")
         }
     }
 
@@ -604,7 +599,7 @@ impl<O: IsA<Layout>> LayoutExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"x\0".as_ptr() as *const _,
-                glib::Value::from(&x).to_glib_none().0,
+                x.to_value().to_glib_none().0,
             );
         }
     }
@@ -618,10 +613,7 @@ impl<O: IsA<Layout>> LayoutExt for O {
                 b"y\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
-            value
-                .get()
-                .expect("Return Value for property `y` getter")
-                .unwrap()
+            value.get().expect("Return Value for property `y` getter")
         }
     }
 
@@ -631,7 +623,7 @@ impl<O: IsA<Layout>> LayoutExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"y\0".as_ptr() as *const _,
-                glib::Value::from(&y).to_glib_none().0,
+                y.to_value().to_glib_none().0,
             );
         }
     }

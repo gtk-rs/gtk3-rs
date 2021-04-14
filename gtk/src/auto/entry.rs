@@ -1927,7 +1927,6 @@ impl<O: IsA<Entry>> EntryExt for O {
             value
                 .get()
                 .expect("Return Value for property `caps-lock-warning` getter")
-                .unwrap()
         }
     }
 
@@ -1936,7 +1935,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"caps-lock-warning\0".as_ptr() as *const _,
-                glib::Value::from(&caps_lock_warning).to_glib_none().0,
+                caps_lock_warning.to_value().to_glib_none().0,
             );
         }
     }
@@ -1952,7 +1951,6 @@ impl<O: IsA<Entry>> EntryExt for O {
             value
                 .get()
                 .expect("Return Value for property `cursor-position` getter")
-                .unwrap()
         }
     }
 
@@ -1967,7 +1965,6 @@ impl<O: IsA<Entry>> EntryExt for O {
             value
                 .get()
                 .expect("Return Value for property `enable-emoji-completion` getter")
-                .unwrap()
         }
     }
 
@@ -1976,7 +1973,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"enable-emoji-completion\0".as_ptr() as *const _,
-                glib::Value::from(&enable_emoji_completion).to_glib_none().0,
+                enable_emoji_completion.to_value().to_glib_none().0,
             );
         }
     }
@@ -2000,7 +1997,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"im-module\0".as_ptr() as *const _,
-                glib::Value::from(im_module).to_glib_none().0,
+                im_module.to_value().to_glib_none().0,
             );
         }
     }
@@ -2016,7 +2013,6 @@ impl<O: IsA<Entry>> EntryExt for O {
             value
                 .get()
                 .expect("Return Value for property `invisible-char-set` getter")
-                .unwrap()
         }
     }
 
@@ -2025,7 +2021,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"invisible-char-set\0".as_ptr() as *const _,
-                glib::Value::from(&invisible_char_set).to_glib_none().0,
+                invisible_char_set.to_value().to_glib_none().0,
             );
         }
     }
@@ -2041,7 +2037,6 @@ impl<O: IsA<Entry>> EntryExt for O {
             value
                 .get()
                 .expect("Return Value for property `populate-all` getter")
-                .unwrap()
         }
     }
 
@@ -2050,7 +2045,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"populate-all\0".as_ptr() as *const _,
-                glib::Value::from(&populate_all).to_glib_none().0,
+                populate_all.to_value().to_glib_none().0,
             );
         }
     }
@@ -2066,7 +2061,6 @@ impl<O: IsA<Entry>> EntryExt for O {
             value
                 .get()
                 .expect("Return Value for property `primary-icon-activatable` getter")
-                .unwrap()
         }
     }
 
@@ -2075,9 +2069,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"primary-icon-activatable\0".as_ptr() as *const _,
-                glib::Value::from(&primary_icon_activatable)
-                    .to_glib_none()
-                    .0,
+                primary_icon_activatable.to_value().to_glib_none().0,
             );
         }
     }
@@ -2101,7 +2093,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"primary-icon-gicon\0".as_ptr() as *const _,
-                glib::Value::from(primary_icon_gicon).to_glib_none().0,
+                primary_icon_gicon.to_value().to_glib_none().0,
             );
         }
     }
@@ -2125,7 +2117,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"primary-icon-name\0".as_ptr() as *const _,
-                glib::Value::from(primary_icon_name).to_glib_none().0,
+                primary_icon_name.to_value().to_glib_none().0,
             );
         }
     }
@@ -2150,7 +2142,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"primary-icon-pixbuf\0".as_ptr() as *const _,
-                glib::Value::from(primary_icon_pixbuf).to_glib_none().0,
+                primary_icon_pixbuf.to_value().to_glib_none().0,
             );
         }
     }
@@ -2166,7 +2158,6 @@ impl<O: IsA<Entry>> EntryExt for O {
             value
                 .get()
                 .expect("Return Value for property `primary-icon-sensitive` getter")
-                .unwrap()
         }
     }
 
@@ -2175,7 +2166,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"primary-icon-sensitive\0".as_ptr() as *const _,
-                glib::Value::from(&primary_icon_sensitive).to_glib_none().0,
+                primary_icon_sensitive.to_value().to_glib_none().0,
             );
         }
     }
@@ -2191,7 +2182,6 @@ impl<O: IsA<Entry>> EntryExt for O {
             value
                 .get()
                 .expect("Return Value for property `primary-icon-storage-type` getter")
-                .unwrap()
         }
     }
 
@@ -2214,9 +2204,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"primary-icon-tooltip-markup\0".as_ptr() as *const _,
-                glib::Value::from(primary_icon_tooltip_markup)
-                    .to_glib_none()
-                    .0,
+                primary_icon_tooltip_markup.to_value().to_glib_none().0,
             );
         }
     }
@@ -2240,9 +2228,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"primary-icon-tooltip-text\0".as_ptr() as *const _,
-                glib::Value::from(primary_icon_tooltip_text)
-                    .to_glib_none()
-                    .0,
+                primary_icon_tooltip_text.to_value().to_glib_none().0,
             );
         }
     }
@@ -2258,7 +2244,6 @@ impl<O: IsA<Entry>> EntryExt for O {
             value
                 .get()
                 .expect("Return Value for property `scroll-offset` getter")
-                .unwrap()
         }
     }
 
@@ -2273,7 +2258,6 @@ impl<O: IsA<Entry>> EntryExt for O {
             value
                 .get()
                 .expect("Return Value for property `secondary-icon-activatable` getter")
-                .unwrap()
         }
     }
 
@@ -2282,9 +2266,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"secondary-icon-activatable\0".as_ptr() as *const _,
-                glib::Value::from(&secondary_icon_activatable)
-                    .to_glib_none()
-                    .0,
+                secondary_icon_activatable.to_value().to_glib_none().0,
             );
         }
     }
@@ -2308,7 +2290,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"secondary-icon-gicon\0".as_ptr() as *const _,
-                glib::Value::from(secondary_icon_gicon).to_glib_none().0,
+                secondary_icon_gicon.to_value().to_glib_none().0,
             );
         }
     }
@@ -2332,7 +2314,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"secondary-icon-name\0".as_ptr() as *const _,
-                glib::Value::from(secondary_icon_name).to_glib_none().0,
+                secondary_icon_name.to_value().to_glib_none().0,
             );
         }
     }
@@ -2357,7 +2339,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"secondary-icon-pixbuf\0".as_ptr() as *const _,
-                glib::Value::from(secondary_icon_pixbuf).to_glib_none().0,
+                secondary_icon_pixbuf.to_value().to_glib_none().0,
             );
         }
     }
@@ -2373,7 +2355,6 @@ impl<O: IsA<Entry>> EntryExt for O {
             value
                 .get()
                 .expect("Return Value for property `secondary-icon-sensitive` getter")
-                .unwrap()
         }
     }
 
@@ -2382,9 +2363,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"secondary-icon-sensitive\0".as_ptr() as *const _,
-                glib::Value::from(&secondary_icon_sensitive)
-                    .to_glib_none()
-                    .0,
+                secondary_icon_sensitive.to_value().to_glib_none().0,
             );
         }
     }
@@ -2400,7 +2379,6 @@ impl<O: IsA<Entry>> EntryExt for O {
             value
                 .get()
                 .expect("Return Value for property `secondary-icon-storage-type` getter")
-                .unwrap()
         }
     }
 
@@ -2423,9 +2401,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"secondary-icon-tooltip-markup\0".as_ptr() as *const _,
-                glib::Value::from(secondary_icon_tooltip_markup)
-                    .to_glib_none()
-                    .0,
+                secondary_icon_tooltip_markup.to_value().to_glib_none().0,
             );
         }
     }
@@ -2449,9 +2425,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"secondary-icon-tooltip-text\0".as_ptr() as *const _,
-                glib::Value::from(secondary_icon_tooltip_text)
-                    .to_glib_none()
-                    .0,
+                secondary_icon_tooltip_text.to_value().to_glib_none().0,
             );
         }
     }
@@ -2467,7 +2441,6 @@ impl<O: IsA<Entry>> EntryExt for O {
             value
                 .get()
                 .expect("Return Value for property `selection-bound` getter")
-                .unwrap()
         }
     }
 
@@ -2482,7 +2455,6 @@ impl<O: IsA<Entry>> EntryExt for O {
             value
                 .get()
                 .expect("Return Value for property `shadow-type` getter")
-                .unwrap()
         }
     }
 
@@ -2491,7 +2463,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"shadow-type\0".as_ptr() as *const _,
-                glib::Value::from(&shadow_type).to_glib_none().0,
+                shadow_type.to_value().to_glib_none().0,
             );
         }
     }
@@ -2507,7 +2479,6 @@ impl<O: IsA<Entry>> EntryExt for O {
             value
                 .get()
                 .expect("Return Value for property `show-emoji-icon` getter")
-                .unwrap()
         }
     }
 
@@ -2516,7 +2487,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"show-emoji-icon\0".as_ptr() as *const _,
-                glib::Value::from(&show_emoji_icon).to_glib_none().0,
+                show_emoji_icon.to_value().to_glib_none().0,
             );
         }
     }
@@ -2532,7 +2503,6 @@ impl<O: IsA<Entry>> EntryExt for O {
             value
                 .get()
                 .expect("Return Value for property `truncate-multiline` getter")
-                .unwrap()
         }
     }
 
@@ -2541,7 +2511,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"truncate-multiline\0".as_ptr() as *const _,
-                glib::Value::from(&truncate_multiline).to_glib_none().0,
+                truncate_multiline.to_value().to_glib_none().0,
             );
         }
     }
@@ -2557,7 +2527,6 @@ impl<O: IsA<Entry>> EntryExt for O {
             value
                 .get()
                 .expect("Return Value for property `xalign` getter")
-                .unwrap()
         }
     }
 
@@ -2566,7 +2535,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"xalign\0".as_ptr() as *const _,
-                glib::Value::from(&xalign).to_glib_none().0,
+                xalign.to_value().to_glib_none().0,
             );
         }
     }

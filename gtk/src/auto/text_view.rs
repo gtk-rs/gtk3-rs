@@ -1729,7 +1729,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"im-module\0".as_ptr() as *const _,
-                glib::Value::from(im_module).to_glib_none().0,
+                im_module.to_value().to_glib_none().0,
             );
         }
     }
@@ -1745,7 +1745,6 @@ impl<O: IsA<TextView>> TextViewExt for O {
             value
                 .get()
                 .expect("Return Value for property `monospace` getter")
-                .unwrap()
         }
     }
 
@@ -1754,7 +1753,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"monospace\0".as_ptr() as *const _,
-                glib::Value::from(&monospace).to_glib_none().0,
+                monospace.to_value().to_glib_none().0,
             );
         }
     }
@@ -1770,7 +1769,6 @@ impl<O: IsA<TextView>> TextViewExt for O {
             value
                 .get()
                 .expect("Return Value for property `populate-all` getter")
-                .unwrap()
         }
     }
 
@@ -1779,7 +1777,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"populate-all\0".as_ptr() as *const _,
-                glib::Value::from(&populate_all).to_glib_none().0,
+                populate_all.to_value().to_glib_none().0,
             );
         }
     }

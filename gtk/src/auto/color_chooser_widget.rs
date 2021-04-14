@@ -468,7 +468,6 @@ impl<O: IsA<ColorChooserWidget>> ColorChooserWidgetExt for O {
             value
                 .get()
                 .expect("Return Value for property `show-editor` getter")
-                .unwrap()
         }
     }
 
@@ -477,7 +476,7 @@ impl<O: IsA<ColorChooserWidget>> ColorChooserWidgetExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"show-editor\0".as_ptr() as *const _,
-                glib::Value::from(&show_editor).to_glib_none().0,
+                show_editor.to_value().to_glib_none().0,
             );
         }
     }

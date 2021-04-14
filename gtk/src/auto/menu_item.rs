@@ -654,7 +654,6 @@ impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
             value
                 .get()
                 .expect("Return Value for property `right-justified` getter")
-                .unwrap()
         }
     }
 
@@ -663,7 +662,7 @@ impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"right-justified\0".as_ptr() as *const _,
-                glib::Value::from(&right_justified).to_glib_none().0,
+                right_justified.to_value().to_glib_none().0,
             );
         }
     }

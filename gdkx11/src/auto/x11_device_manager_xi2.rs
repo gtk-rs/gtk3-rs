@@ -32,7 +32,6 @@ impl X11DeviceManagerXI2 {
             value
                 .get()
                 .expect("Return Value for property `major` getter")
-                .unwrap()
         }
     }
 
@@ -48,7 +47,6 @@ impl X11DeviceManagerXI2 {
             value
                 .get()
                 .expect("Return Value for property `minor` getter")
-                .unwrap()
         }
     }
 
@@ -64,7 +62,6 @@ impl X11DeviceManagerXI2 {
             value
                 .get()
                 .expect("Return Value for property `opcode` getter")
-                .unwrap()
         }
     }
 }

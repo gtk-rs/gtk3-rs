@@ -1958,7 +1958,6 @@ impl<O: IsA<Window>> GtkWindowExt for O {
             value
                 .get()
                 .expect("Return Value for property `default-height` getter")
-                .unwrap()
         }
     }
 
@@ -1967,7 +1966,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"default-height\0".as_ptr() as *const _,
-                glib::Value::from(&default_height).to_glib_none().0,
+                default_height.to_value().to_glib_none().0,
             );
         }
     }
@@ -1983,7 +1982,6 @@ impl<O: IsA<Window>> GtkWindowExt for O {
             value
                 .get()
                 .expect("Return Value for property `default-width` getter")
-                .unwrap()
         }
     }
 
@@ -1992,7 +1990,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"default-width\0".as_ptr() as *const _,
-                glib::Value::from(&default_width).to_glib_none().0,
+                default_width.to_value().to_glib_none().0,
             );
         }
     }
@@ -2008,7 +2006,6 @@ impl<O: IsA<Window>> GtkWindowExt for O {
             value
                 .get()
                 .expect("Return Value for property `type` getter")
-                .unwrap()
         }
     }
 
@@ -2023,7 +2020,6 @@ impl<O: IsA<Window>> GtkWindowExt for O {
             value
                 .get()
                 .expect("Return Value for property `window-position` getter")
-                .unwrap()
         }
     }
 
@@ -2032,7 +2028,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"window-position\0".as_ptr() as *const _,
-                glib::Value::from(&window_position).to_glib_none().0,
+                window_position.to_value().to_glib_none().0,
             );
         }
     }
@@ -2140,7 +2136,6 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         res.unwrap()
             .get()
             .expect("Return Value for `emit_enable_debugging`")
-            .unwrap()
     }
 
     fn connect_keys_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

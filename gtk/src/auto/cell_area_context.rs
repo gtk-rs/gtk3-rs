@@ -9,6 +9,7 @@ use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
+use glib::ToValue;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem;
@@ -217,7 +218,6 @@ impl<O: IsA<CellAreaContext>> CellAreaContextExt for O {
             value
                 .get()
                 .expect("Return Value for property `minimum-height` getter")
-                .unwrap()
         }
     }
 
@@ -232,7 +232,6 @@ impl<O: IsA<CellAreaContext>> CellAreaContextExt for O {
             value
                 .get()
                 .expect("Return Value for property `minimum-width` getter")
-                .unwrap()
         }
     }
 
@@ -247,7 +246,6 @@ impl<O: IsA<CellAreaContext>> CellAreaContextExt for O {
             value
                 .get()
                 .expect("Return Value for property `natural-height` getter")
-                .unwrap()
         }
     }
 
@@ -262,7 +260,6 @@ impl<O: IsA<CellAreaContext>> CellAreaContextExt for O {
             value
                 .get()
                 .expect("Return Value for property `natural-width` getter")
-                .unwrap()
         }
     }
 

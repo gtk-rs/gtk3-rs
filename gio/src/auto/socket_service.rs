@@ -9,6 +9,9 @@ use glib::object::IsA;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
+#[cfg(any(feature = "v2_46", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
+use glib::ToValue;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
@@ -89,7 +92,7 @@ impl<O: IsA<SocketService>> SocketServiceExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"active\0".as_ptr() as *const _,
-                glib::Value::from(&active).to_glib_none().0,
+                active.to_value().to_glib_none().0,
             );
         }
     }

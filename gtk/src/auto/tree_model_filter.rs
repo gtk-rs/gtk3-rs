@@ -9,6 +9,7 @@ use crate::TreePath;
 use glib::object::IsA;
 use glib::translate::*;
 use glib::StaticType;
+use glib::ToValue;
 use std::boxed::Box as Box_;
 use std::fmt;
 

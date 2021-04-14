@@ -653,7 +653,6 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
             value
                 .get()
                 .expect("Return Value for property `expand` getter")
-                .unwrap()
         }
     }
 
@@ -663,7 +662,7 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"expand\0".as_ptr() as *const _,
-                glib::Value::from(&expand).to_glib_none().0,
+                expand.to_value().to_glib_none().0,
             );
         }
     }
@@ -680,7 +679,6 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
             value
                 .get()
                 .expect("Return Value for property `fill` getter")
-                .unwrap()
         }
     }
 
@@ -690,7 +688,7 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"fill\0".as_ptr() as *const _,
-                glib::Value::from(&fill).to_glib_none().0,
+                fill.to_value().to_glib_none().0,
             );
         }
     }
@@ -707,7 +705,6 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
             value
                 .get()
                 .expect("Return Value for property `homogeneous` getter")
-                .unwrap()
         }
     }
 
@@ -717,7 +714,7 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"homogeneous\0".as_ptr() as *const _,
-                glib::Value::from(&homogeneous).to_glib_none().0,
+                homogeneous.to_value().to_glib_none().0,
             );
         }
     }
@@ -734,7 +731,6 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
             value
                 .get()
                 .expect("Return Value for property `new-row` getter")
-                .unwrap()
         }
     }
 
@@ -744,7 +740,7 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"new-row\0".as_ptr() as *const _,
-                glib::Value::from(&new_row).to_glib_none().0,
+                new_row.to_value().to_glib_none().0,
             );
         }
     }

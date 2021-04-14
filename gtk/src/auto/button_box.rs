@@ -517,7 +517,6 @@ impl<O: IsA<ButtonBox>> ButtonBoxExt for O {
             value
                 .get()
                 .expect("Return Value for property `layout-style` getter")
-                .unwrap()
         }
     }
 
@@ -526,7 +525,7 @@ impl<O: IsA<ButtonBox>> ButtonBoxExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"layout-style\0".as_ptr() as *const _,
-                glib::Value::from(&layout_style).to_glib_none().0,
+                layout_style.to_value().to_glib_none().0,
             );
         }
     }

@@ -30,6 +30,7 @@ use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
+use glib::ToValue;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem;
@@ -340,7 +341,6 @@ impl Device {
             value
                 .get()
                 .expect("Return Value for property `input-mode` getter")
-                .unwrap()
         }
     }
 
@@ -350,7 +350,7 @@ impl Device {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"input-mode\0".as_ptr() as *const _,
-                glib::Value::from(&input_mode).to_glib_none().0,
+                input_mode.to_value().to_glib_none().0,
             );
         }
     }
@@ -367,7 +367,6 @@ impl Device {
             value
                 .get()
                 .expect("Return Value for property `input-source` getter")
-                .unwrap()
         }
     }
 
@@ -385,7 +384,6 @@ impl Device {
             value
                 .get()
                 .expect("Return Value for property `num-touches` getter")
-                .unwrap()
         }
     }
 
@@ -397,7 +395,7 @@ impl Device {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"seat\0".as_ptr() as *const _,
-                glib::Value::from(seat).to_glib_none().0,
+                seat.to_value().to_glib_none().0,
             );
         }
     }
@@ -431,7 +429,6 @@ impl Device {
             value
                 .get()
                 .expect("Return Value for property `type` getter")
-                .unwrap()
         }
     }
 

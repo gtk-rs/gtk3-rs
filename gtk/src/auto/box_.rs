@@ -646,7 +646,6 @@ impl<O: IsA<Box>> BoxExt for O {
             value
                 .get()
                 .expect("Return Value for property `expand` getter")
-                .unwrap()
         }
     }
 
@@ -657,7 +656,7 @@ impl<O: IsA<Box>> BoxExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"expand\0".as_ptr() as *const _,
-                glib::Value::from(&expand).to_glib_none().0,
+                expand.to_value().to_glib_none().0,
             );
         }
     }
@@ -675,7 +674,6 @@ impl<O: IsA<Box>> BoxExt for O {
             value
                 .get()
                 .expect("Return Value for property `fill` getter")
-                .unwrap()
         }
     }
 
@@ -686,7 +684,7 @@ impl<O: IsA<Box>> BoxExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"fill\0".as_ptr() as *const _,
-                glib::Value::from(&fill).to_glib_none().0,
+                fill.to_value().to_glib_none().0,
             );
         }
     }
@@ -704,7 +702,6 @@ impl<O: IsA<Box>> BoxExt for O {
             value
                 .get()
                 .expect("Return Value for property `pack-type` getter")
-                .unwrap()
         }
     }
 
@@ -715,7 +712,7 @@ impl<O: IsA<Box>> BoxExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"pack-type\0".as_ptr() as *const _,
-                glib::Value::from(&pack_type).to_glib_none().0,
+                pack_type.to_value().to_glib_none().0,
             );
         }
     }
@@ -733,7 +730,6 @@ impl<O: IsA<Box>> BoxExt for O {
             value
                 .get()
                 .expect("Return Value for property `padding` getter")
-                .unwrap()
         }
     }
 
@@ -744,7 +740,7 @@ impl<O: IsA<Box>> BoxExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"padding\0".as_ptr() as *const _,
-                glib::Value::from(&padding).to_glib_none().0,
+                padding.to_value().to_glib_none().0,
             );
         }
     }
@@ -761,7 +757,6 @@ impl<O: IsA<Box>> BoxExt for O {
             value
                 .get()
                 .expect("Return Value for property `position` getter")
-                .unwrap()
         }
     }
 
@@ -771,7 +766,7 @@ impl<O: IsA<Box>> BoxExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"position\0".as_ptr() as *const _,
-                glib::Value::from(&position).to_glib_none().0,
+                position.to_value().to_glib_none().0,
             );
         }
     }
