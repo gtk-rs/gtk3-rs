@@ -38,8 +38,8 @@ pub trait ActionGroupImpl: ObjectImpl {
         self.parent_change_action_state(action_group, action_name, value)
     }
 
-    fn is_action_enabled(&self, action_group: &Self::Type, action_name: &str) -> bool {
-        self.parent_get_action_enabled(action_group, action_name)
+    fn action_is_enabled(&self, action_group: &Self::Type, action_name: &str) -> bool {
+        self.parent_action_is_enabled(action_group, action_name)
     }
 
     fn get_action_parameter_type(
@@ -115,7 +115,7 @@ pub trait ActionGroupImplExt: ObjectSubclass {
         action_name: &str,
         value: &Variant,
     );
-    fn parent_get_action_enabled(&self, action_group: &Self::Type, action_name: &str) -> bool;
+    fn parent_action_is_enabled(&self, action_group: &Self::Type, action_name: &str) -> bool;
     fn parent_get_action_parameter_type(
         &self,
         action_group: &Self::Type,
@@ -287,7 +287,7 @@ impl<T: ActionGroupImpl> ActionGroupImplExt for T {
         }
     }
 
-    fn parent_get_action_enabled(&self, action_group: &Self::Type, action_name: &str) -> bool {
+    fn parent_action_is_enabled(&self, action_group: &Self::Type, action_name: &str) -> bool {
         unsafe {
             let type_data = Self::type_data();
             let parent_iface = type_data.as_ref().get_parent_interface::<ActionGroup>()
@@ -295,7 +295,7 @@ impl<T: ActionGroupImpl> ActionGroupImplExt for T {
 
             let func = (*parent_iface)
                 .get_action_enabled
-                .expect("no parent \"get_action_enabled\" implementation");
+                .expect("no parent \"action_is_enabled\" implementation");
             let ret = func(
                 action_group
                     .unsafe_cast_ref::<ActionGroup>()
@@ -542,7 +542,7 @@ unsafe extern "C" fn action_group_get_action_enabled<T: ActionGroupImpl>(
     let imp = instance.impl_();
     let action_name = GString::from_glib_borrow(action_nameptr);
 
-    imp.is_action_enabled(
+    imp.action_is_enabled(
         from_glib_borrow::<_, ActionGroup>(action_group).unsafe_cast_ref(),
         &action_name,
     )

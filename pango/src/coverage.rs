@@ -11,7 +11,7 @@ glib::wrapper! {
     pub struct Coverage(Object<ffi::PangoCoverage>);
 
     match fn {
-        get_type => || ffi::pango_coverage_get_type(),
+        type_ => || ffi::pango_coverage_get_type(),
     }
 }
 

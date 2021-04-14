@@ -28,7 +28,7 @@ glib::wrapper! {
             ptr
         },
         free => |ptr| ffi::cairo_font_options_destroy(ptr),
-        get_type => || ffi::gobject::cairo_gobject_font_options_get_type(),
+        type_ => || ffi::gobject::cairo_gobject_font_options_get_type(),
     }
 }
 

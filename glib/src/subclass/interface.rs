@@ -166,7 +166,7 @@ unsafe extern "C" fn interface_init<T: ObjectInterface>(
 ///
 /// This must be called only once and will panic on a second call.
 ///
-/// The [`object_interface!`] macro will create a `get_type()` function around this, which will
+/// The [`object_interface!`] macro will create a `type_()` function around this, which will
 /// ensure that it's only ever called once.
 ///
 /// [`object_interface!`]: ../../macro.object_interface.html

@@ -13,7 +13,7 @@ wrapper! {
     match fn {
         copy => |ptr| gobject_ffi::g_value_array_copy(mut_override(ptr)),
         free => |ptr| gobject_ffi::g_value_array_free(ptr),
-        get_type => || gobject_ffi::g_value_array_get_type(),
+        type_ => || gobject_ffi::g_value_array_get_type(),
     }
 }
 

@@ -13,13 +13,13 @@ pub trait ListModelImpl: ObjectImpl {
 }
 
 pub trait ListModelImplExt: ObjectSubclass {
-    fn parent_get_item_type(&self, list_model: &Self::Type) -> glib::Type;
-    fn parent_get_n_items(&self, list_model: &Self::Type) -> u32;
-    fn parent_get_item(&self, list_model: &Self::Type, position: u32) -> Option<glib::Object>;
+    fn parent_item_type(&self, list_model: &Self::Type) -> glib::Type;
+    fn parent_n_items(&self, list_model: &Self::Type) -> u32;
+    fn parent_item(&self, list_model: &Self::Type, position: u32) -> Option<glib::Object>;
 }
 
 impl<T: ListModelImpl> ListModelImplExt for T {
-    fn parent_get_item_type(&self, list_model: &Self::Type) -> glib::Type {
+    fn parent_item_type(&self, list_model: &Self::Type) -> glib::Type {
         unsafe {
             let type_data = Self::type_data();
             let parent_iface = type_data.as_ref().get_parent_interface::<ListModel>()
@@ -27,13 +27,13 @@ impl<T: ListModelImpl> ListModelImplExt for T {
 
             let func = (*parent_iface)
                 .get_item_type
-                .expect("no parent \"get_item_type\" implementation");
+                .expect("no parent \"item_type\" implementation");
             let ret = func(list_model.unsafe_cast_ref::<ListModel>().to_glib_none().0);
             from_glib(ret)
         }
     }
 
-    fn parent_get_n_items(&self, list_model: &Self::Type) -> u32 {
+    fn parent_n_items(&self, list_model: &Self::Type) -> u32 {
         unsafe {
             let type_data = Self::type_data();
             let parent_iface = type_data.as_ref().get_parent_interface::<ListModel>()
@@ -41,12 +41,12 @@ impl<T: ListModelImpl> ListModelImplExt for T {
 
             let func = (*parent_iface)
                 .get_n_items
-                .expect("no parent \"get_n_items\" implementation");
+                .expect("no parent \"n_items\" implementation");
             func(list_model.unsafe_cast_ref::<ListModel>().to_glib_none().0)
         }
     }
 
-    fn parent_get_item(&self, list_model: &Self::Type, position: u32) -> Option<glib::Object> {
+    fn parent_item(&self, list_model: &Self::Type, position: u32) -> Option<glib::Object> {
         unsafe {
             let type_data = Self::type_data();
             let parent_iface = type_data.as_ref().get_parent_interface::<ListModel>()

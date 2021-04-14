@@ -18,7 +18,7 @@ wrapper! {
         free => |ptr| ffi::g_date_free(ptr),
         init => |_ptr| (),
         clear => |ptr| ffi::g_date_clear(ptr, 1),
-        get_type => || ffi::g_date_get_type(),
+        type_ => || ffi::g_date_get_type(),
     }
 }
 

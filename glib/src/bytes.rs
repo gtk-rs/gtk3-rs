@@ -30,7 +30,7 @@ wrapper! {
     match fn {
         ref => |ptr| ffi::g_bytes_ref(ptr),
         unref => |ptr| ffi::g_bytes_unref(ptr),
-        get_type => || ffi::g_bytes_get_type(),
+        type_ => || ffi::g_bytes_get_type(),
     }
 }
 

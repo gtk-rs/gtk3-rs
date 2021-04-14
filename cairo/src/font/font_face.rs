@@ -21,7 +21,7 @@ glib::wrapper! {
     match fn {
         ref => |ptr| ffi::cairo_font_face_reference(ptr),
         unref => |ptr| ffi::cairo_font_face_destroy(ptr),
-        get_type => || ffi::gobject::cairo_gobject_font_face_get_type(),
+        type_ => || ffi::gobject::cairo_gobject_font_face_get_type(),
     }
 }
 

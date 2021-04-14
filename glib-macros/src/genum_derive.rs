@@ -82,7 +82,7 @@ pub fn impl_genum(input: &syn::DeriveInput) -> TokenStream {
             e
         ),
     };
-    let get_type = format_ident!("{}_get_type", name.to_string().to_snake_case());
+    let get_type = format_ident!("{}_type", name.to_string().to_snake_case());
     let from_glib = gen_enum_from_glib(name, enum_variants);
     let (genum_values, nb_genum_values) = gen_genum_values(name, enum_variants);
 

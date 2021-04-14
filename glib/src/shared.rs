@@ -14,7 +14,7 @@ use std::ptr;
 macro_rules! glib_shared_wrapper {
     ([$($attr:meta)*] $name:ident, $ffi_name:ty, @ref $ref_arg:ident $ref_expr:expr,
      @unref $unref_arg:ident $unref_expr:expr,
-     @get_type $get_type_expr:expr) => {
+     @type_ $get_type_expr:expr) => {
         $crate::glib_shared_wrapper!([$($attr)*] $name, $ffi_name, @ref $ref_arg $ref_expr,
             @unref $unref_arg $unref_expr);
 

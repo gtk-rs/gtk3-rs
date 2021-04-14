@@ -189,20 +189,20 @@ pub trait WidgetImpl: WidgetImplExt + ObjectImpl {
     //     self.parent_can_activate_accel(widget, signal_id)
     // }
 
-    fn get_request_mode(&self, widget: &Self::Type) -> SizeRequestMode {
-        self.parent_get_request_mode(widget)
+    fn request_mode(&self, widget: &Self::Type) -> SizeRequestMode {
+        self.parent_request_mode(widget)
     }
 
-    fn get_preferred_width(&self, widget: &Self::Type) -> (i32, i32) {
-        self.parent_get_preferred_width(widget)
+    fn preferred_width(&self, widget: &Self::Type) -> (i32, i32) {
+        self.parent_preferred_width(widget)
     }
 
     fn get_preferred_width_for_height(&self, widget: &Self::Type, height: i32) -> (i32, i32) {
         self.parent_get_preferred_width_for_height(widget, height)
     }
 
-    fn get_preferred_height(&self, widget: &Self::Type) -> (i32, i32) {
-        self.parent_get_preferred_height(widget)
+    fn preferred_height(&self, widget: &Self::Type) -> (i32, i32) {
+        self.parent_preferred_height(widget)
     }
 
     fn get_preferred_height_for_width(&self, widget: &Self::Type, width: i32) -> (i32, i32) {
@@ -332,11 +332,11 @@ pub trait WidgetImplExt: ObjectSubclass {
         time: u32,
     ) -> Inhibit;
     fn parent_draw(&self, widget: &Self::Type, cr: &cairo::Context) -> Inhibit;
-    fn parent_get_request_mode(&self, widget: &Self::Type) -> SizeRequestMode;
-    fn parent_get_preferred_width(&self, widget: &Self::Type) -> (i32, i32);
+    fn parent_request_mode(&self, widget: &Self::Type) -> SizeRequestMode;
+    fn parent_preferred_width(&self, widget: &Self::Type) -> (i32, i32);
     fn parent_get_preferred_width_for_height(&self, widget: &Self::Type, height: i32)
         -> (i32, i32);
-    fn parent_get_preferred_height(&self, widget: &Self::Type) -> (i32, i32);
+    fn parent_preferred_height(&self, widget: &Self::Type) -> (i32, i32);
     fn parent_get_preferred_height_for_width(&self, widget: &Self::Type, width: i32) -> (i32, i32);
     fn parent_size_allocate(&self, widget: &Self::Type, allocation: &Allocation);
     fn parent_realize(&self, widget: &Self::Type);
@@ -474,7 +474,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
     //     unsafe {
     //         let data = T::type_data();
     //         let parent_class =
-    //             data.as_ref().get_parent_class() as *mut ffi::GtkWidgetClass;
+    //             data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
     //         let f = (*parent_class)
     //             .can_activate_accel
     //             .expect("No parent class impl for \"can_activate_accel\"");
@@ -826,7 +826,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
         }
     }
 
-    fn parent_get_request_mode(&self, widget: &Self::Type) -> SizeRequestMode {
+    fn parent_request_mode(&self, widget: &Self::Type) -> SizeRequestMode {
         unsafe {
             let data = T::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
@@ -835,7 +835,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
         }
     }
 
-    fn parent_get_preferred_width(&self, widget: &Self::Type) -> (i32, i32) {
+    fn parent_preferred_width(&self, widget: &Self::Type) -> (i32, i32) {
         unsafe {
             let data = T::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
@@ -873,7 +873,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
             (minimum_size.assume_init(), natural_size.assume_init())
         }
     }
-    fn parent_get_preferred_height(&self, widget: &Self::Type) -> (i32, i32) {
+    fn parent_preferred_height(&self, widget: &Self::Type) -> (i32, i32) {
         unsafe {
             let data = T::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
@@ -1477,7 +1477,7 @@ unsafe extern "C" fn widget_get_request_mode<T: WidgetImpl>(
     let imp = instance.impl_();
     let wrap: Borrowed<Widget> = from_glib_borrow(ptr);
 
-    imp.get_request_mode(wrap.unsafe_cast_ref()).to_glib()
+    imp.request_mode(wrap.unsafe_cast_ref()).to_glib()
 }
 
 unsafe extern "C" fn widget_get_preferred_height<T: WidgetImpl>(
@@ -1489,7 +1489,7 @@ unsafe extern "C" fn widget_get_preferred_height<T: WidgetImpl>(
     let imp = instance.impl_();
     let wrap: Borrowed<Widget> = from_glib_borrow(ptr);
 
-    let (min_size, nat_size) = imp.get_preferred_height(wrap.unsafe_cast_ref());
+    let (min_size, nat_size) = imp.preferred_height(wrap.unsafe_cast_ref());
     if !minptr.is_null() {
         *minptr = min_size;
     }
@@ -1525,7 +1525,7 @@ unsafe extern "C" fn widget_get_preferred_width<T: WidgetImpl>(
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.impl_();
     let wrap: Borrowed<Widget> = from_glib_borrow(ptr);
-    let (min_size, nat_size) = imp.get_preferred_width(wrap.unsafe_cast_ref());
+    let (min_size, nat_size) = imp.preferred_width(wrap.unsafe_cast_ref());
     if !minptr.is_null() {
         *minptr = min_size;
     }

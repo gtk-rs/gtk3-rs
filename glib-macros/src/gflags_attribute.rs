@@ -115,7 +115,7 @@ pub fn impl_gflags(input: &DeriveInput, gtype_name: &LitStr) -> TokenStream {
 
     let bitflags = gen_bitflags(name, visibility, enum_variants, &crate_ident);
 
-    let get_type = format_ident!("{}_get_type", name.to_string().to_snake_case());
+    let get_type = format_ident!("{}_type", name.to_string().to_snake_case());
     let (gflags_values, nb_gflags_values) = gen_gflags_values(name, enum_variants);
 
     quote! {

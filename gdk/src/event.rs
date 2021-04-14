@@ -27,7 +27,7 @@ glib::wrapper! {
     match fn {
         copy => |ptr| ffi::gdk_event_copy(ptr),
         free => |ptr| ffi::gdk_event_free(ptr),
-        get_type => || ffi::gdk_event_get_type(),
+        type_ => || ffi::gdk_event_get_type(),
     }
 }
 

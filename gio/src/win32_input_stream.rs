@@ -11,7 +11,7 @@ glib::wrapper! {
     pub struct Win32InputStream(Object<ffi::GWin32InputStream, ffi::GWin32InputStreamClass>) @extends InputStream;
 
     match fn {
-        get_type => || ffi::g_win32_input_stream_get_type(),
+        type_ => || ffi::g_win32_input_stream_get_type(),
     }
 }
 

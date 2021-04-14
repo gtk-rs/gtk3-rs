@@ -22,7 +22,7 @@ wrapper! {
             gobject_ffi::g_closure_sink(ptr);
         },
         unref => |ptr| gobject_ffi::g_closure_unref(ptr),
-        get_type => || gobject_ffi::g_closure_get_type(),
+        type_ => || gobject_ffi::g_closure_get_type(),
     }
 }
 

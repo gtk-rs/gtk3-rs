@@ -9,7 +9,7 @@ glib::wrapper! {
     pub struct AppChooser(Interface<ffi::GtkAppChooser>) @requires Widget;
 
     match fn {
-        get_type => || ffi::gtk_app_chooser_get_type(),
+        type_ => || ffi::gtk_app_chooser_get_type(),
     }
 }
 

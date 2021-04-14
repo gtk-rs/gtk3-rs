@@ -159,7 +159,7 @@
 //!
 //!         // Called whenever a property is retrieved from this instance. The id
 //!         // is the same as the index of the property in the PROPERTIES array.
-//!         fn get_property(&self, _obj: &Self::Type, _id: usize, pspec: &glib::ParamSpec) -> glib::Value {
+//!         fn property(&self, _obj: &Self::Type, _id: usize, pspec: &glib::ParamSpec) -> glib::Value {
 //!             match pspec.name() {
 //!                 "name" => self.name.borrow().to_value(),
 //!                 "animal" => self.animal.get().to_value(),
@@ -195,20 +195,20 @@
 //!     let obj = SimpleObject::new();
 //!
 //!     // Get the name property and change its value.
-//!     assert_eq!(obj.get_property("name").unwrap().get::<&str>(), Ok(None));
+//!     assert_eq!(obj.property("name").unwrap().get::<&str>(), Ok(None));
 //!     obj.set_property("name", &"test").unwrap();
 //!     assert_eq!(
 //!         obj.get_property("name").unwrap().get::<&str>(),
 //!         Ok(Some("test"))
 //!     );
 //!
-//!     assert_eq!(obj.get_property("animal").unwrap().get::<Animal>(), Ok(Some(Animal::Goat)));
+//!     assert_eq!(obj.property("animal").unwrap().get::<Animal>(), Ok(Some(Animal::Goat)));
 //!     obj.set_property("animal", &Animal::Cat).unwrap();
-//!     assert_eq!(obj.get_property("animal").unwrap().get::<Animal>(), Ok(Some(Animal::Cat)));
+//!     assert_eq!(obj.property("animal").unwrap().get::<Animal>(), Ok(Some(Animal::Cat)));
 //!
-//!     assert_eq!(obj.get_property("flags").unwrap().get::<MyFlags>(), Ok(Some(MyFlags::A)));
+//!     assert_eq!(obj.property("flags").unwrap().get::<MyFlags>(), Ok(Some(MyFlags::A)));
 //!     obj.set_property("flags", &MyFlags::B).unwrap();
-//!     assert_eq!(obj.get_property("flags").unwrap().get::<MyFlags>(), Ok(Some(MyFlags::B)));
+//!     assert_eq!(obj.property("flags").unwrap().get::<MyFlags>(), Ok(Some(MyFlags::B)));
 //! }
 //! ```
 //!
@@ -227,7 +227,7 @@
 //! struct MyBoxed(String);
 //!
 //! pub fn main() {
-//!     assert!(MyBoxed::get_type().is_valid());
+//!     assert!(MyBoxed::type_().is_valid());
 //!
 //!     let b = MyBoxed(String::from("abc"));
 //!     let v = b.to_value();

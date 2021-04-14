@@ -277,7 +277,7 @@ pub fn gerror_domain_derive(input: TokenStream) -> TokenStream {
     gen.into()
 }
 
-/// Derive macro for defining a [`BoxedType`]`::get_type` function and
+/// Derive macro for defining a [`BoxedType`]`::type_` function and
 /// the [`glib::Value`] traits.
 ///
 /// # Example
@@ -330,7 +330,7 @@ pub fn gshared_boxed_derive(input: TokenStream) -> TokenStream {
 }
 
 /// Attribute macro for defining flags using the `bitflags` crate.
-/// This macro will also define a `GFlags::get_type` function and
+/// This macro will also define a `GFlags::type_` function and
 /// the [`glib::Value`] traits.
 ///
 /// The expected `GType` name has to be passed as macro attribute.
@@ -370,7 +370,7 @@ pub fn gflags(attr: TokenStream, item: TokenStream) -> TokenStream {
 
 /// Macro for boilerplate of [`ObjectSubclass`] implementations.
 ///
-/// This adds implementations for the `type_data()` and `get_type()` methods,
+/// This adds implementations for the `type_data()` and `type_()` methods,
 /// which should probably never be defined differently.
 ///
 /// It provides default values for the `Instance`, `Class`, and `Interfaces`
@@ -449,7 +449,7 @@ pub fn object_interface(_attr: TokenStream, item: TokenStream) -> TokenStream {
 ///     }
 ///
 ///     pub fn flip(&self) {
-///         self.0.set_angle(180.0 - self.0.get_angle());
+///         self.0.set_angle(180.0 - self.0.angle());
 ///     }
 /// }
 ///

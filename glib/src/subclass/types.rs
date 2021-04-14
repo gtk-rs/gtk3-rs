@@ -717,7 +717,7 @@ unsafe extern "C" fn finalize<T: ObjectSubclass>(obj: *mut gobject_ffi::GObject)
 ///
 /// This must be called only once and will panic on a second call.
 ///
-/// The [`object_subclass!`] macro will create a `get_type()` function around this, which will
+/// The [`object_subclass!`] macro will create a `type_()` function around this, which will
 /// ensure that it's only ever called once.
 ///
 /// [`object_subclass!`]: ../../macro.object_subclass.html

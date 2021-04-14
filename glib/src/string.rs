@@ -18,7 +18,7 @@ wrapper! {
     match fn {
         copy => |ptr| gobject_ffi::g_boxed_copy(ffi::g_gstring_get_type(), ptr as *mut _) as *mut ffi::GString,
         free => |ptr| gobject_ffi::g_boxed_free(ffi::g_gstring_get_type(), ptr as *mut _),
-        get_type => || ffi::g_gstring_get_type(),
+        type_ => || ffi::g_gstring_get_type(),
     }
 }
 
