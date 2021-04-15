@@ -47,15 +47,15 @@ pub trait ActionGroupImpl: ObjectImpl {
         action_group: &Self::Type,
         action_name: &str,
     ) -> Option<VariantType> {
-        self.parent_get_action_parameter_type(action_group, action_name)
+        self.parent_action_parameter_type(action_group, action_name)
     }
 
     fn action_state(&self, action_group: &Self::Type, action_name: &str) -> Option<Variant> {
-        self.parent_get_action_state(action_group, action_name)
+        self.parent_action_state(action_group, action_name)
     }
 
     fn action_state_hint(&self, action_group: &Self::Type, action_name: &str) -> Option<Variant> {
-        self.parent_get_action_state_hint(action_group, action_name)
+        self.parent_action_state_hint(action_group, action_name)
     }
 
     fn action_state_type(
@@ -63,7 +63,7 @@ pub trait ActionGroupImpl: ObjectImpl {
         action_group: &Self::Type,
         action_name: &str,
     ) -> Option<VariantType> {
-        self.parent_get_action_state_type(action_group, action_name)
+        self.parent_action_state_type(action_group, action_name)
     }
 
     fn has_action(&self, action_group: &Self::Type, action_name: &str) -> bool {
@@ -112,22 +112,18 @@ pub trait ActionGroupImplExt: ObjectSubclass {
         value: &Variant,
     );
     fn parent_action_is_enabled(&self, action_group: &Self::Type, action_name: &str) -> bool;
-    fn parent_get_action_parameter_type(
+    fn parent_action_parameter_type(
         &self,
         action_group: &Self::Type,
         action_name: &str,
     ) -> Option<VariantType>;
-    fn parent_get_action_state(
+    fn parent_action_state(&self, action_group: &Self::Type, action_name: &str) -> Option<Variant>;
+    fn parent_action_state_hint(
         &self,
         action_group: &Self::Type,
         action_name: &str,
     ) -> Option<Variant>;
-    fn parent_get_action_state_hint(
-        &self,
-        action_group: &Self::Type,
-        action_name: &str,
-    ) -> Option<Variant>;
-    fn parent_get_action_state_type(
+    fn parent_action_state_type(
         &self,
         action_group: &Self::Type,
         action_name: &str,
@@ -303,7 +299,7 @@ impl<T: ActionGroupImpl> ActionGroupImplExt for T {
         }
     }
 
-    fn parent_get_action_parameter_type(
+    fn parent_action_parameter_type(
         &self,
         action_group: &Self::Type,
         action_name: &str,
@@ -327,11 +323,7 @@ impl<T: ActionGroupImpl> ActionGroupImplExt for T {
         }
     }
 
-    fn parent_get_action_state(
-        &self,
-        action_group: &Self::Type,
-        action_name: &str,
-    ) -> Option<Variant> {
+    fn parent_action_state(&self, action_group: &Self::Type, action_name: &str) -> Option<Variant> {
         unsafe {
             let type_data = Self::type_data();
             let parent_iface = type_data.as_ref().parent_interface::<ActionGroup>()
@@ -351,7 +343,7 @@ impl<T: ActionGroupImpl> ActionGroupImplExt for T {
         }
     }
 
-    fn parent_get_action_state_hint(
+    fn parent_action_state_hint(
         &self,
         action_group: &Self::Type,
         action_name: &str,
@@ -375,7 +367,7 @@ impl<T: ActionGroupImpl> ActionGroupImplExt for T {
         }
     }
 
-    fn parent_get_action_state_type(
+    fn parent_action_state_type(
         &self,
         action_group: &Self::Type,
         action_name: &str,

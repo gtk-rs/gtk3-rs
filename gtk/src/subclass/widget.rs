@@ -198,7 +198,7 @@ pub trait WidgetImpl: WidgetImplExt + ObjectImpl {
     }
 
     fn preferred_width_for_height(&self, widget: &Self::Type, height: i32) -> (i32, i32) {
-        self.parent_get_preferred_width_for_height(widget, height)
+        self.parent_preferred_width_for_height(widget, height)
     }
 
     fn preferred_height(&self, widget: &Self::Type) -> (i32, i32) {
@@ -206,7 +206,7 @@ pub trait WidgetImpl: WidgetImplExt + ObjectImpl {
     }
 
     fn preferred_height_for_width(&self, widget: &Self::Type, width: i32) -> (i32, i32) {
-        self.parent_get_preferred_height_for_width(widget, width)
+        self.parent_preferred_height_for_width(widget, width)
     }
 
     fn size_allocate(&self, widget: &Self::Type, allocation: &Allocation) {
@@ -334,10 +334,9 @@ pub trait WidgetImplExt: ObjectSubclass {
     fn parent_draw(&self, widget: &Self::Type, cr: &cairo::Context) -> Inhibit;
     fn parent_request_mode(&self, widget: &Self::Type) -> SizeRequestMode;
     fn parent_preferred_width(&self, widget: &Self::Type) -> (i32, i32);
-    fn parent_get_preferred_width_for_height(&self, widget: &Self::Type, height: i32)
-        -> (i32, i32);
+    fn parent_preferred_width_for_height(&self, widget: &Self::Type, height: i32) -> (i32, i32);
     fn parent_preferred_height(&self, widget: &Self::Type) -> (i32, i32);
-    fn parent_get_preferred_height_for_width(&self, widget: &Self::Type, width: i32) -> (i32, i32);
+    fn parent_preferred_height_for_width(&self, widget: &Self::Type, width: i32) -> (i32, i32);
     fn parent_size_allocate(&self, widget: &Self::Type, allocation: &Allocation);
     fn parent_realize(&self, widget: &Self::Type);
     fn parent_unrealize(&self, widget: &Self::Type);
@@ -852,11 +851,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
         }
     }
 
-    fn parent_get_preferred_width_for_height(
-        &self,
-        widget: &Self::Type,
-        height: i32,
-    ) -> (i32, i32) {
+    fn parent_preferred_width_for_height(&self, widget: &Self::Type, height: i32) -> (i32, i32) {
         unsafe {
             let data = T::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
@@ -888,7 +883,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
             (minimum_size.assume_init(), natural_size.assume_init())
         }
     }
-    fn parent_get_preferred_height_for_width(&self, widget: &Self::Type, width: i32) -> (i32, i32) {
+    fn parent_preferred_height_for_width(&self, widget: &Self::Type, width: i32) -> (i32, i32) {
         unsafe {
             let data = T::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
@@ -1714,7 +1709,7 @@ pub unsafe trait WidgetClassSubclassExt: ClassStruct {
             widget_class,
             name.to_glib_none().0,
             false as glib::ffi::gboolean,
-            private_offset + (offset.byte_offset() as isize),
+            private_offset + (offset.get_byte_offset() as isize),
         )
     }
 }

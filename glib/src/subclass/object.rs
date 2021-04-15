@@ -147,7 +147,7 @@ unsafe impl<T: ObjectImpl> IsSubclassable<T> for Object {
     fn class_init(class: &mut crate::Class<Self>) {
         let klass = class.as_mut();
         klass.set_property = Some(set_property::<T>);
-        klass.get_property = Some(get_property::<T>);
+        klass.get_property = Some(property::<T>);
         klass.constructed = Some(constructed::<T>);
         klass.dispose = Some(dispose::<T>);
 

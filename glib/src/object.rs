@@ -22,7 +22,7 @@ use crate::SignalHandlerId;
 use crate::Type;
 use crate::Value;
 
-use crate::get_thread_id;
+use crate::thread_id;
 
 #[doc(hidden)]
 pub use gobject_ffi::GObject;

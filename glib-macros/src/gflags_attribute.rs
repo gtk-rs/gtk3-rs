@@ -159,11 +159,11 @@ pub fn impl_gflags(input: &DeriveInput, gtype_name: &LitStr) -> TokenStream {
 
         impl #crate_ident::StaticType for #name {
             fn static_type() -> #crate_ident::Type {
-                #type_()
+                #get_type()
             }
         }
 
-        fn #type_() -> #crate_ident::Type {
+        fn #get_type() -> #crate_ident::Type {
             static ONCE: std::sync::Once = std::sync::Once::new();
             static mut TYPE: #crate_ident::Type = #crate_ident::Type::INVALID;
 

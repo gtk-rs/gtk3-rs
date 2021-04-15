@@ -56,7 +56,7 @@ macro_rules! gvalue_impl {
 
         impl glib::types::StaticType for $name {
             fn static_type() -> glib::types::Type {
-                unsafe { from_glib($type_()) }
+                unsafe { from_glib($get_type()) }
             }
         }
 
@@ -153,7 +153,7 @@ mod user_data;
 mod constants;
 pub use crate::constants::*;
 mod utils;
-pub use crate::utils::{debug_reset_static_data, get_version_string, Version};
+pub use crate::utils::{debug_reset_static_data, version_string, Version};
 mod context;
 mod device;
 mod enums;

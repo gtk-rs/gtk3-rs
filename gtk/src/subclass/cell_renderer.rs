@@ -31,11 +31,11 @@ pub trait CellRendererImpl: CellRendererImplExt + ObjectImpl {
         widget: &P,
         height: i32,
     ) -> (i32, i32) {
-        self.parent_get_preferred_width_for_height(renderer, widget, height)
+        self.parent_preferred_width_for_height(renderer, widget, height)
     }
 
     fn preferred_height<P: IsA<Widget>>(&self, renderer: &Self::Type, widget: &P) -> (i32, i32) {
-        self.parent_get_preferred_height(renderer, widget)
+        self.parent_preferred_height(renderer, widget)
     }
 
     fn preferred_height_for_width<P: IsA<Widget>>(
@@ -127,13 +127,13 @@ pub trait CellRendererImplExt: ObjectSubclass {
         renderer: &Self::Type,
         widget: &P,
     ) -> (i32, i32);
-    fn parent_get_preferred_width_for_height<P: IsA<Widget>>(
+    fn parent_preferred_width_for_height<P: IsA<Widget>>(
         &self,
         renderer: &Self::Type,
         widget: &P,
         height: i32,
     ) -> (i32, i32);
-    fn parent_get_preferred_height<P: IsA<Widget>>(
+    fn parent_preferred_height<P: IsA<Widget>>(
         &self,
         renderer: &Self::Type,
         widget: &P,
@@ -219,7 +219,7 @@ impl<T: CellRendererImpl> CellRendererImplExt for T {
         }
     }
 
-    fn parent_get_preferred_width_for_height<P: IsA<Widget>>(
+    fn parent_preferred_width_for_height<P: IsA<Widget>>(
         &self,
         renderer: &Self::Type,
         widget: &P,
@@ -242,7 +242,7 @@ impl<T: CellRendererImpl> CellRendererImplExt for T {
             (minimum_size.assume_init(), natural_size.assume_init())
         }
     }
-    fn parent_get_preferred_height<P: IsA<Widget>>(
+    fn parent_preferred_height<P: IsA<Widget>>(
         &self,
         renderer: &Self::Type,
         widget: &P,

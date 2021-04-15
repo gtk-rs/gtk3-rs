@@ -15,7 +15,7 @@ macro_rules! gvalue_impl {
     ($name:ty, $get_type:expr) => {
         impl glib::types::StaticType for $name {
             fn static_type() -> glib::Type {
-                unsafe { from_glib($type_()) }
+                unsafe { from_glib($get_type()) }
             }
         }
 

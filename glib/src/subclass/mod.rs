@@ -198,7 +198,7 @@
 //!     assert_eq!(obj.property("name").unwrap().get::<&str>(), Ok(None));
 //!     obj.set_property("name", &"test").unwrap();
 //!     assert_eq!(
-//!         obj.get_property("name").unwrap().get::<&str>(),
+//!         obj.property("name").unwrap().get::<&str>(),
 //!         Ok(Some("test"))
 //!     );
 //!

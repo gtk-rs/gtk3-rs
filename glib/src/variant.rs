@@ -438,7 +438,7 @@ macro_rules! impl_numeric {
             fn from_variant(variant: &Variant) -> Option<Self> {
                 unsafe {
                     if variant.is::<Self>() {
-                        Some(ffi::$fn_(variant.to_glib_none().0))
+                        Some(ffi::$get_fn(variant.to_glib_none().0))
                     } else {
                         None
                     }

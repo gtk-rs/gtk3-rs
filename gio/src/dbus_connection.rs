@@ -84,7 +84,8 @@ impl DBusConnection {
                     let object_path = args[2].get::<&str>().unwrap().unwrap();
                     let interface_name = args[3].get::<&str>().unwrap().unwrap();
                     let property_name = args[4].get::<&str>().unwrap().unwrap();
-                    let result = property(conn, sender, object_path, interface_name, property_name);
+                    let result =
+                        get_property(conn, sender, object_path, interface_name, property_name);
                     Some(result.to_value())
                 })
                 .to_glib_none()

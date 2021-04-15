@@ -359,7 +359,7 @@ impl Pixbuf {
     ) {
         let cancellable = cancellable.map(|p| p.as_ref());
         let user_data: Box<Q> = Box::new(callback);
-        unsafe extern "C" fn file_info_async_trampoline<
+        unsafe extern "C" fn get_file_info_async_trampoline<
             Q: FnOnce(Result<Option<(PixbufFormat, i32, i32)>, Error>) + Send + 'static,
         >(
             _source_object: *mut glib::gobject_ffi::GObject,
