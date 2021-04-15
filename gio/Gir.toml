@@ -522,6 +522,10 @@ name = "Gio.DesktopAppInfo"
 status = "generate"
 cfg_condition = "all(not(windows),not(target_os = \"macos\"))"
     [[object.function]]
+    name = "get_boolean"
+    # Retrieves the boolean value of a key
+    rename = "boolean"
+    [[object.function]]
     name = "search"
     # returns vec of string
     manual = true
@@ -581,6 +585,10 @@ status = "generate"
 [[object]]
 name = "Gio.FileInfo"
 status = "generate"
+    [[object.function]]
+    name = "get_attribute_boolean"
+    # Retrieves the boolean value of an attribute
+    rename = "boolean"
     [[object.function]]
     name = "get_modification_time"
     # use SystemTime
@@ -837,6 +845,10 @@ status = "generate"
     [[object.function]]
     name = "bind_with_mapping"
     manual = true
+    [[object.function]]
+    name = "get_boolean"
+    # Retrieves the boolean value of a setting
+    rename = "boolean"
 
 [[object]]
 name = "Gio.SettingsSchemaKey"

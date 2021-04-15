@@ -515,6 +515,12 @@ generate_builder = true
 name = "Gtk.ButtonBox"
 status = "generate"
 generate_builder = true
+    [[object.function]]
+    name = "get_child_non_homogeneous"
+    rename = "child_is_non_homogeneous"
+    [[object.function]]
+    name = "get_child_secondary"
+    rename = "child_is_secondary"
 
 [[object]]
 name = "Gtk.ButtonRole"
@@ -525,6 +531,9 @@ version = "3.16"
 name = "Gtk.Calendar"
 status = "generate"
 generate_builder = true
+    [[object.function]]
+    name = "get_day_is_marked"
+    rename = "day_is_marked"
 
 [[object]]
 name = "Gtk.CellArea"
@@ -1732,6 +1741,10 @@ generate_builder = true
 name = "Gtk.PrintSettings"
 status = "generate"
     [[object.function]]
+    name = "get_bool"
+    # Retrieves the bool value of a setting
+    rename = "bool"
+    [[object.function]]
     name = "get_paper_size"
         [object.function.return]
         nullable = false
@@ -2599,6 +2612,9 @@ generate_builder = true
     name = "get_selection"
         [object.function.return]
         nullable = false
+    [[object.function]]
+    name = "get_hover_expand"
+    rename = "hover_expands"
     [[object.signal]]
     pattern = ".+"
         [[object.signal.parameter]]
@@ -2659,6 +2675,9 @@ manual_traits = ["WidgetExtManual"]
     name = "get_clipboard"
         [object.function.return]
         nullable = false
+    [[object.function]]
+    name = "get_device_enabled"
+    rename = "device_is_enabled"
     [[object.function]]
     name = "intersect"
     manual = true
