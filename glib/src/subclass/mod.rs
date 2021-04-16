@@ -249,6 +249,8 @@ pub mod object;
 #[macro_use]
 pub mod boxed;
 
+pub mod shared;
+
 pub mod signal;
 
 pub mod prelude {
@@ -256,6 +258,7 @@ pub mod prelude {
     pub use super::boxed::BoxedType;
     pub use super::interface::{ObjectInterface, ObjectInterfaceExt, ObjectInterfaceType};
     pub use super::object::{ObjectClassSubclassExt, ObjectImpl, ObjectImplExt};
+    pub use super::shared::{RefCounted, SharedType};
     pub use super::types::{
         ClassStruct, InstanceStruct, IsImplementable, IsSubclassable, ObjectSubclass,
         ObjectSubclassExt, ObjectSubclassType,

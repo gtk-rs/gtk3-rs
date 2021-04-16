@@ -4,7 +4,7 @@ __Rust__ bindings and wrappers for __GDKX11__, part of [gtk-rs](https://github.c
 
 ## Minimum supported Rust version
 
-Currently, the minimum supported Rust version is `1.48.0`.
+Currently, the minimum supported Rust version is `1.51.0`.
 
 ## Documentation
 

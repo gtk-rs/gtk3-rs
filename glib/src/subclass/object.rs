@@ -224,6 +224,9 @@ mod test {
     use super::super::super::object::ObjectExt;
     use super::super::super::value::{ToValue, Value};
     use super::*;
+    // We rename the current crate as glib, since the macros in glib-macros
+    // generate the glib namespace through the crate_ident_new utility,
+    // and that returns `glib` (and not `crate`) when called inside the glib crate
     use crate as glib;
     use crate::StaticType;
 

@@ -5,7 +5,7 @@
 use glib::prelude::*;
 use glib::subclass::prelude::*;
 use glib::translate::{FromGlib, ToGlib};
-use glib::{gflags, GBoxed, GEnum, GErrorDomain};
+use glib::{gflags, GBoxed, GEnum, GErrorDomain, GSharedBoxed};
 
 #[test]
 fn derive_gerror_domain() {
@@ -20,6 +20,72 @@ fn derive_gerror_domain() {
     let err = glib::Error::new(TestError::Bad, "oh no!");
     assert!(err.is::<TestError>());
     assert!(matches!(err.kind::<TestError>(), Some(TestError::Bad)));
+}
+
+#[test]
+fn derive_shared_arc() {
+    #[derive(Debug, Eq, PartialEq, Clone)]
+    struct MyInnerShared {
+        foo: String,
+    }
+    #[derive(Debug, Eq, PartialEq, Clone, GSharedBoxed)]
+    #[gshared_boxed(type_name = "MySharedType")]
+    struct MyShared(std::sync::Arc<MyInnerShared>);
+
+    assert_eq!(MyShared::get_type().name(), "MySharedType");
+
+    let p = MyShared(std::sync::Arc::new(MyInnerShared {
+        foo: String::from("bar"),
+    }));
+
+    assert_eq!(std::sync::Arc::strong_count(&p.0), 1);
+    let v = p.to_value();
+    assert_eq!(std::sync::Arc::strong_count(&p.0), 2);
+    let p_clone = v.get::<MyShared>().unwrap().unwrap();
+    assert_eq!(std::sync::Arc::strong_count(&p.0), 3);
+    drop(p_clone);
+    assert_eq!(std::sync::Arc::strong_count(&p.0), 2);
+    drop(v);
+    assert_eq!(std::sync::Arc::strong_count(&p.0), 1);
+}
+
+#[test]
+fn derive_shared_arc_nullable() {
+    #[derive(Debug, Eq, PartialEq, Clone)]
+    struct MyInnerNullableShared {
+        foo: String,
+    }
+    #[derive(Clone, Debug, PartialEq, Eq, GSharedBoxed)]
+    #[gshared_boxed(type_name = "MyNullableSharedType", nullable)]
+    struct MyNullableShared(std::sync::Arc<MyInnerNullableShared>);
+
+    assert_eq!(MyNullableShared::get_type().name(), "MyNullableSharedType");
+
+    let p = MyNullableShared(std::sync::Arc::new(MyInnerNullableShared {
+        foo: String::from("bar"),
+    }));
+
+    assert_eq!(std::sync::Arc::strong_count(&p.0), 1);
+    let _v = p.to_value();
+    assert_eq!(std::sync::Arc::strong_count(&p.0), 2);
+
+    let p = Some(MyNullableShared(std::sync::Arc::new(
+        MyInnerNullableShared {
+            foo: String::from("foo"),
+        },
+    )));
+
+    assert_eq!(std::sync::Arc::strong_count(&p.as_ref().unwrap().0), 1);
+    let v = p.to_value();
+    assert_eq!(std::sync::Arc::strong_count(&p.as_ref().unwrap().0), 2);
+    assert_eq!(
+        p.as_ref().unwrap().0.foo,
+        v.get::<MyNullableShared>().unwrap().unwrap().0.foo
+    );
+
+    let b: Option<MyNullableShared> = None;
+    let v = b.to_value();
+    assert_eq!(None, v.get::<MyNullableShared>().unwrap());
 }
 
 #[test]
