@@ -29,9 +29,8 @@ fn build_ui(application: &gtk::Application) {
         .build();
 
     button.connect_clicked(glib::clone!(@weak window => move |_| {
-            glib::MainContext::default().spawn_local(dialog(window.clone()));
-        }
-    ));
+        glib::MainContext::default().spawn_local(dialog(window));
+    }));
 }
 
 async fn dialog<W: IsA<gtk::Window>>(window: W) {
