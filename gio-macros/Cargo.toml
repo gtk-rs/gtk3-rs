@@ -1,0 +1,24 @@
+[package]
+name = "gio-macros"
+documentation = "https://gtk-rs.org/docs/gio-macros/"
+homepage = "https://gtk-rs.org/"
+authors = ["The Gtk-rs Project Developers"]
+description = "Rust bindings for the Gio library, proc macros crate"
+version = "0.13.0"
+keywords = ["glib", "gtk-rs", "gnome", "GUI"]
+repository = "https://github.com/gtk-rs/gtk-rs"
+license = "MIT"
+edition = "2018"
+
+[dependencies]
+syn = { version = "1", features = ["full"] }
+quote = "1"
+proc-macro2 = "1"
+darling = "0.12"
+
+[lib]
+proc-macro = true
+
+[dev-dependencies]
+glib = { path = "../glib" }
+gio = { path = "../gio" }

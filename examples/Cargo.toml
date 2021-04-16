@@ -52,6 +52,9 @@ name = "builder_pattern"
 path = "builder_pattern/main.rs"
 
 [[bin]]
+name = "actions"
+
+[[bin]]
 name = "cairo_png"
 path = "cairo_png/main.rs"
 required-features = ["cairo"]

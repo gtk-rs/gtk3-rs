@@ -52,6 +52,7 @@ futures-channel = "0.3"
 futures-io = "0.3"
 ffi = { package = "gio-sys", path = "sys" }
 glib = { path = "../glib" }
+gio-macros = { path = "../gio-macros" }
 thiserror = "1"
 
 [dev-dependencies]

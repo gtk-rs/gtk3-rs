@@ -59,6 +59,9 @@ jobs:
       - run: cargo run --release -- --no-manual-traits ../glib-macros
         working-directory: checker
         if: matrix.rust == 'nightly' && matrix.conf.name == 'glib'
+      - run: cargo run --release -- --no-manual-traits ../gio-macros
+        working-directory: checker
+        if: matrix.rust == 'nightly' && matrix.conf.name == 'gio'
       - run: cargo run --release -- --no-manual-traits ../gtk3-macros
         working-directory: checker
         if: matrix.rust == 'nightly' && matrix.conf.name == 'glib'
@@ -135,6 +138,11 @@ jobs:
         run: xvfb-run --auto-servernum cargo test --manifest-path glib-macros/Cargo.toml
       - name: "glib-macros: build"
         run: cargo build --manifest-path glib-macros/Cargo.toml
+      # gio-macros
+      - name: "gio-macros: tests"
+        run: cargo test --manifest-path gio-macros/Cargo.toml
+      - name: "gio-macros: build"
+        run: cargo build --manifest-path gio-macros/Cargo.toml
       # examples
       - name: "examples"
         run: cargo build --manifest-path examples/Cargo.toml --bins --examples --all-features

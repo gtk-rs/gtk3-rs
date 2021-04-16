@@ -12,6 +12,7 @@ members = [
   "gdkx11/sys",
   "gio",
   "gio/sys",
+  "gio-macros",
   "glib",
   "glib/gobject-sys",
   "glib/sys",
