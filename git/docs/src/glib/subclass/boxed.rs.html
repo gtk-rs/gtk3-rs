@@ -93,6 +93,8 @@
 <span id="90">90</span>
 <span id="91">91</span>
 <span id="92">92</span>
+<span id="93">93</span>
+<span id="94">94</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -163,7 +165,9 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">test</span> {
     <span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
-    <span class="comment">// GBoxed macro assumes &#39;glib&#39; is in scope</span>
+    <span class="comment">// We rename the current crate as glib, since the macros in glib-macros</span>
+    <span class="comment">// generate the glib namespace through the crate_ident_new utility,</span>
+    <span class="comment">// and that returns `glib` (and not `crate`) when called inside the glib crate</span>
     <span class="kw">use</span> <span class="kw">crate</span> <span class="kw">as</span> <span class="ident">glib</span>;
     <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::value::ToValue</span>;
 

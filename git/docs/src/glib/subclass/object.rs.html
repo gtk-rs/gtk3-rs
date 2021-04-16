@@ -651,6 +651,9 @@
 <span id="648">648</span>
 <span id="649">649</span>
 <span id="650">650</span>
+<span id="651">651</span>
+<span id="652">652</span>
+<span id="653">653</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -878,6 +881,9 @@
     <span class="kw">use</span> <span class="kw">super</span>::<span class="kw">super</span>::<span class="kw">super</span><span class="ident">::object::ObjectExt</span>;
     <span class="kw">use</span> <span class="kw">super</span>::<span class="kw">super</span>::<span class="kw">super</span><span class="ident">::value</span>::{<span class="ident">ToValue</span>, <span class="ident">Value</span>};
     <span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
+    <span class="comment">// We rename the current crate as glib, since the macros in glib-macros</span>
+    <span class="comment">// generate the glib namespace through the crate_ident_new utility,</span>
+    <span class="comment">// and that returns `glib` (and not `crate`) when called inside the glib crate</span>
     <span class="kw">use</span> <span class="kw">crate</span> <span class="kw">as</span> <span class="ident">glib</span>;
     <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::StaticType</span>;
 
