@@ -4,7 +4,7 @@ __Rust__ bindings and wrappers for __GLib__, part of [gtk-rs](https://github.com
 
 ## Minimum supported Rust version
 
-Currently, the minimum supported Rust version is `1.48.0`.
+Currently, the minimum supported Rust version is `1.51.0`.
 
 ## Documentation
 

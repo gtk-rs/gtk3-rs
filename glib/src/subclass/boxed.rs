@@ -67,7 +67,9 @@ pub fn register_boxed_type<T: BoxedType>() -> crate::Type {
 #[cfg(test)]
 mod test {
     use super::*;
-    // GBoxed macro assumes 'glib' is in scope
+    // We rename the current crate as glib, since the macros in glib-macros
+    // generate the glib namespace through the crate_ident_new utility,
+    // and that returns `glib` (and not `crate`) when called inside the glib crate
     use crate as glib;
     use crate::value::ToValue;
 

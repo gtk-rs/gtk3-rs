@@ -3,6 +3,7 @@
 mod clone;
 mod downgrade_derive;
 mod gboxed_derive;
+mod gboxed_shared_derive;
 mod genum_derive;
 mod gerror_domain_derive;
 mod gflags_attribute;
@@ -297,6 +298,34 @@ pub fn gerror_domain_derive(input: TokenStream) -> TokenStream {
 pub fn gboxed_derive(input: TokenStream) -> TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
     let gen = gboxed_derive::impl_gboxed(&input);
+    gen.into()
+}
+
+/// Derive macro for defining a [`SharedType`]`::get_type` function and
+/// the [`glib::Value`] traits.
+///
+/// # Example
+///
+/// ```
+/// use glib::prelude::*;
+/// use glib::subclass::prelude::*;
+///
+/// #[derive(Clone, Debug, PartialEq, Eq)]
+/// struct MySharedInner {
+///   foo: String,
+/// }
+/// #[derive(Clone, Debug, PartialEq, Eq, glib::GSharedBoxed)]
+/// #[gshared_boxed(type_name = "MyShared")]
+/// struct MyShared(std::sync::Arc<MySharedInner>);
+/// ```
+///
+/// [`SharedType`]: subclass/shared/trait.SharedType.html
+/// [`glib::Value`]: value/struct.Value.html
+#[proc_macro_derive(GSharedBoxed, attributes(gshared_boxed))]
+#[proc_macro_error]
+pub fn gshared_boxed_derive(input: TokenStream) -> TokenStream {
+    let input = parse_macro_input!(input as DeriveInput);
+    let gen = gboxed_shared_derive::impl_gshared_boxed(&input);
     gen.into()
 }
 
