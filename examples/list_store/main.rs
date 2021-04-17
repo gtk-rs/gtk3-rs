@@ -63,9 +63,9 @@ fn build_ui(application: &gtk::Application) {
 
     glib::timeout_add_local(
         Duration::from_millis(80),
-        glib::clone!(@weak model => @default-return glib::Continue(false), move || {
+        glib::clone!(@weak model => @default-return glib::source::Control::Remove, move || {
             spinner_timeout(&model);
-            glib::Continue(false)
+            glib::source::Control::Remove
         }),
     );
 }
@@ -297,7 +297,7 @@ fn add_columns(model: &Rc<gtk::ListStore>, treeview: &gtk::TreeView) {
     }
 }
 
-fn spinner_timeout(model: &gtk::ListStore) -> Continue {
+fn spinner_timeout(model: &gtk::ListStore) -> glib::source::Control {
     let iter = model.iter_first().unwrap();
     let pulse = model
         .get_value(&iter, Columns::Pulse as i32)
@@ -314,5 +314,5 @@ fn spinner_timeout(model: &gtk::ListStore) -> Continue {
     model.set_value(&iter, Columns::Pulse as i32 as u32, &pulse.to_value());
     model.set_value(&iter, Columns::Active as i32 as u32, &true.to_value());
 
-    Continue(true)
+    glib::source::Control::Continue
 }

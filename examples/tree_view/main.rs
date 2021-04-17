@@ -59,12 +59,12 @@ fn build_ui(application: &gtk::Application) {
         .map_err(|err| {
             let msg = err.to_string();
             glib::idle_add_local(
-                glib::clone!(@weak window => @default-return glib::Continue(false), move || {
+                glib::clone!(@weak window => @default-return glib::source::Control::Remove, move || {
                     let dialog = MessageDialog::new(Some(&window), DialogFlags::MODAL,
                         MessageType::Error, ButtonsType::Ok, &msg);
                     dialog.connect_response(|dialog, _| dialog.close());
                     dialog.show_all();
-                    Continue(false)
+                    glib::source::Control::Remove
                 }),
             );
         })

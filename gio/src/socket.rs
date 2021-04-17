@@ -4,6 +4,7 @@ use crate::Cancellable;
 use crate::Socket;
 use crate::SocketAddress;
 use glib::object::{Cast, IsA};
+use glib::source::Control;
 use glib::translate::*;
 use std::cell::RefCell;
 use std::mem::transmute;
@@ -114,7 +115,7 @@ pub trait SocketExtManual: Sized {
         func: F,
     ) -> glib::Source
     where
-        F: FnMut(&Self, glib::IOCondition) -> glib::Continue + 'static,
+        F: FnMut(&Self, glib::IOCondition) -> Control + 'static,
         C: IsA<Cancellable>;
 
     fn create_source_future<C: IsA<Cancellable>>(
@@ -331,12 +332,12 @@ impl<O: IsA<Socket>> SocketExtManual for O {
         func: F,
     ) -> glib::Source
     where
-        F: FnMut(&Self, glib::IOCondition) -> glib::Continue + 'static,
+        F: FnMut(&Self, glib::IOCondition) -> Control + 'static,
         C: IsA<Cancellable>,
     {
         unsafe extern "C" fn trampoline<
             O: IsA<Socket>,
-            F: FnMut(&O, glib::IOCondition) -> glib::Continue + 'static,
+            F: FnMut(&O, glib::IOCondition) -> Control + 'static,
         >(
             socket: *mut ffi::GSocket,
             condition: glib::ffi::GIOCondition,
@@ -399,7 +400,7 @@ impl<O: IsA<Socket>> SocketExtManual for O {
                 priority,
                 move |_, condition| {
                     let _ = send.take().unwrap().send(condition);
-                    glib::Continue(false)
+                    Control::Remove
                 },
             )
         }))
@@ -423,9 +424,9 @@ impl<O: IsA<Socket>> SocketExtManual for O {
                 priority,
                 move |_, condition| {
                     if send.as_ref().unwrap().unbounded_send(condition).is_err() {
-                        glib::Continue(false)
+                        Control::Remove
                     } else {
-                        glib::Continue(true)
+                        Control::Continue
                     }
                 },
             )

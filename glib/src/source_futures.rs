@@ -10,7 +10,7 @@ use std::pin;
 use std::pin::Pin;
 use std::time::Duration;
 
-use crate::Continue;
+use crate::Control;
 use crate::MainContext;
 use crate::Priority;
 use crate::Source;
@@ -120,7 +120,7 @@ pub fn timeout_future_with_priority(
         let mut send = Some(send);
         crate::timeout_source_new(value, None, priority, move || {
             let _ = send.take().unwrap().send(());
-            Continue(false)
+            Control::Remove
         })
     }))
 }
@@ -143,7 +143,7 @@ pub fn timeout_future_seconds_with_priority(
         let mut send = Some(send);
         crate::timeout_source_new_seconds(value, None, priority, move || {
             let _ = send.take().unwrap().send(());
-            Continue(false)
+            Control::Remove
         })
     }))
 }
@@ -198,7 +198,7 @@ pub fn unix_signal_future_with_priority(
         let mut send = Some(send);
         crate::unix_signal_source_new(signum, None, priority, move || {
             let _ = send.take().unwrap().send(());
-            Continue(false)
+            Control::Remove
         })
     }))
 }
@@ -308,9 +308,9 @@ pub fn interval_stream_with_priority(
     Box::pin(SourceStream::new(move |send| {
         crate::timeout_source_new(value, None, priority, move || {
             if send.unbounded_send(()).is_err() {
-                Continue(false)
+                Control::Remove
             } else {
-                Continue(true)
+                Control::Continue
             }
         })
     }))
@@ -333,9 +333,9 @@ pub fn interval_stream_seconds_with_priority(
     Box::pin(SourceStream::new(move |send| {
         crate::timeout_source_new_seconds(value, None, priority, move || {
             if send.unbounded_send(()).is_err() {
-                Continue(false)
+                Control::Remove
             } else {
-                Continue(true)
+                Control::Continue
             }
         })
     }))
@@ -362,9 +362,9 @@ pub fn unix_signal_stream_with_priority(
     Box::pin(SourceStream::new(move |send| {
         crate::unix_signal_source_new(signum, None, priority, move || {
             if send.unbounded_send(()).is_err() {
-                Continue(false)
+                Control::Remove
             } else {
-                Continue(true)
+                Control::Continue
             }
         })
     }))

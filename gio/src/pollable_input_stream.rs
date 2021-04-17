@@ -6,6 +6,7 @@ use crate::PollableInputStreamExt;
 use futures_core::task::{Context, Poll};
 use futures_io::AsyncRead;
 use glib::object::{Cast, IsA};
+use glib::source::Control;
 use glib::translate::*;
 use std::cell::RefCell;
 use std::io;
@@ -24,7 +25,7 @@ pub trait PollableInputStreamExtManual: Sized {
         func: F,
     ) -> glib::Source
     where
-        F: FnMut(&Self) -> glib::Continue + 'static,
+        F: FnMut(&Self) -> Control + 'static,
         C: IsA<Cancellable>;
 
     fn create_source_future<C: IsA<Cancellable>>(
@@ -66,12 +67,12 @@ impl<O: IsA<PollableInputStream>> PollableInputStreamExtManual for O {
         func: F,
     ) -> glib::Source
     where
-        F: FnMut(&Self) -> glib::Continue + 'static,
+        F: FnMut(&Self) -> Control + 'static,
         C: IsA<Cancellable>,
     {
         unsafe extern "C" fn trampoline<
             O: IsA<PollableInputStream>,
-            F: FnMut(&O) -> glib::Continue + 'static,
+            F: FnMut(&O) -> Control + 'static,
         >(
             stream: *mut ffi::GPollableInputStream,
             func: glib::ffi::gpointer,
@@ -148,7 +149,7 @@ impl<O: IsA<PollableInputStream>> PollableInputStreamExtManual for O {
             let mut send = Some(send);
             obj.create_source(cancellable.as_ref(), None, priority, move |_| {
                 let _ = send.take().unwrap().send(());
-                glib::Continue(false)
+                Control::Remove
             })
         }))
     }
@@ -164,9 +165,9 @@ impl<O: IsA<PollableInputStream>> PollableInputStreamExtManual for O {
         Box::pin(glib::SourceStream::new(move |send| {
             obj.create_source(cancellable.as_ref(), None, priority, move |_| {
                 if send.unbounded_send(()).is_err() {
-                    glib::Continue(false)
+                    Control::Remove
                 } else {
-                    glib::Continue(true)
+                    Control::Continue
                 }
             })
         }))
@@ -212,7 +213,7 @@ impl<T: IsA<PollableInputStream>> AsyncRead for InputStreamAsyncRead<T> {
                             if let Some(waker) = waker.take() {
                                 waker.wake();
                             }
-                            glib::Continue(false)
+                            Control::Remove
                         },
                     );
                     let main_context = glib::MainContext::ref_thread_default();

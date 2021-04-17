@@ -1,7 +1,7 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
 use crate::translate::{mut_override, FromGlibPtrFull, ToGlib};
-use crate::Continue;
+use crate::Control;
 use crate::MainContext;
 use crate::Priority;
 use crate::Source;
@@ -200,14 +200,14 @@ impl<T> Channel<T> {
 }
 
 #[repr(C)]
-struct ChannelSource<T, F: FnMut(T) -> Continue + 'static> {
+struct ChannelSource<T, F: FnMut(T) -> Control + 'static> {
     source: ffi::GSource,
     source_funcs: Option<Box<ffi::GSourceFuncs>>,
     channel: Option<Channel<T>>,
     callback: Option<ThreadGuard<F>>,
 }
 
-unsafe extern "C" fn dispatch<T, F: FnMut(T) -> Continue + 'static>(
+unsafe extern "C" fn dispatch<T, F: FnMut(T) -> Control + 'static>(
     source: *mut ffi::GSource,
     callback: ffi::GSourceFunc,
     _user_data: ffi::gpointer,
@@ -239,7 +239,7 @@ unsafe extern "C" fn dispatch<T, F: FnMut(T) -> Continue + 'static>(
             Err(mpsc::TryRecvError::Empty) => break,
             Err(mpsc::TryRecvError::Disconnected) => return ffi::G_SOURCE_REMOVE,
             Ok(item) => {
-                if callback(item) == Continue(false) {
+                if callback(item) == Control::Remove {
                     return ffi::G_SOURCE_REMOVE;
                 }
             }
@@ -249,7 +249,7 @@ unsafe extern "C" fn dispatch<T, F: FnMut(T) -> Continue + 'static>(
     ffi::G_SOURCE_CONTINUE
 }
 
-unsafe extern "C" fn finalize<T, F: FnMut(T) -> Continue + 'static>(source: *mut ffi::GSource) {
+unsafe extern "C" fn finalize<T, F: FnMut(T) -> Control + 'static>(source: *mut ffi::GSource) {
     let source = &mut *(source as *mut ChannelSource<T, F>);
 
     // Drop all memory we own by taking it out of the Options
@@ -412,7 +412,7 @@ impl<T> Receiver<T> {
     ///
     /// This function panics if called from a thread that is not the owner of the provided
     /// `context`, or, if `None` is provided, of the thread default main context.
-    pub fn attach<F: FnMut(T) -> Continue + 'static>(
+    pub fn attach<F: FnMut(T) -> Control + 'static>(
         mut self,
         context: Option<&MainContext>,
         func: F,
@@ -546,9 +546,9 @@ mod tests {
             *sum_clone.borrow_mut() += item;
             if *sum_clone.borrow() == 6 {
                 l_clone.quit();
-                Continue(false)
+                Control::Remove
             } else {
-                Continue(true)
+                Control::Continue
             }
         });
 
@@ -580,8 +580,7 @@ mod tests {
         let helper = Helper(l.clone());
         receiver.attach(Some(&c), move |_| {
             let _ = helper;
-
-            Continue(true)
+            Control::Continue
         });
 
         drop(sender);
@@ -605,7 +604,7 @@ mod tests {
 
         let (sender, receiver) = MainContext::channel::<i32>(Priority::default());
 
-        let source_id = receiver.attach(Some(&c), move |_| Continue(true));
+        let source_id = receiver.attach(Some(&c), move |_| Control::Continue);
 
         let source = c.find_source_by_id(&source_id).unwrap();
         source.destroy();
@@ -632,7 +631,7 @@ mod tests {
         let helper = Helper(dropped.clone());
         let source_id = receiver.attach(Some(&c), move |_| {
             let _helper = &helper;
-            Continue(true)
+            Control::Continue
         });
 
         let source = c.find_source_by_id(&source_id).unwrap();
@@ -661,9 +660,9 @@ mod tests {
             *sum_clone.borrow_mut() += item;
             if *sum_clone.borrow() == 6 {
                 l_clone.quit();
-                Continue(false)
+                Control::Remove
             } else {
-                Continue(true)
+                Control::Continue
             }
         });
 
@@ -710,9 +709,9 @@ mod tests {
             *sum_clone.borrow_mut() += item;
             if *sum_clone.borrow() == 6 {
                 l_clone.quit();
-                Continue(false)
+                Control::Remove
             } else {
-                Continue(true)
+                Control::Continue
             }
         });
 
@@ -821,7 +820,7 @@ mod tests {
                     Err(mpsc::RecvTimeoutError::Disconnected)
                 );
                 l_clone.quit();
-                Continue(false)
+                Control::Remove
             } else {
                 // But as we didn't consume the next one yet, there must be no
                 // other item available yet
@@ -829,7 +828,7 @@ mod tests {
                     wait_receiver.recv_timeout(time::Duration::from_millis(50)),
                     Err(mpsc::RecvTimeoutError::Timeout)
                 );
-                Continue(true)
+                Control::Continue
             }
         });
         l.run();

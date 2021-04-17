@@ -66,7 +66,7 @@ impl Application {
                     let _ = tx.send(None);
                 });
 
-                rx.attach(None, glib::clone!(@weak active, @weak widgets => @default-return glib::Continue(false), move |value| match value {
+                rx.attach(None, glib::clone!(@weak active, @weak widgets => @default-return glib::source::Control::Remove, move |value| match value {
                     Some(value) => {
                         widgets
                             .main_view
@@ -78,20 +78,20 @@ impl Application {
                                 .view_stack
                                 .set_visible_child(&widgets.complete_view.container);
 
-                            glib::timeout_add_local(Duration::from_millis(1500), glib::clone!(@weak widgets => @default-return glib::Continue(false), move || {
+                            glib::timeout_add_local(Duration::from_millis(1500), glib::clone!(@weak widgets => @default-return glib::source::Control::Remove, move || {
                                 widgets.main_view.progress.set_fraction(0.0);
                                 widgets
                                     .view_stack
                                     .set_visible_child(&widgets.main_view.container);
-                                glib::Continue(false)
+                                glib::source::Control::Remove
                             }));
                         }
 
-                        glib::Continue(true)
+                        glib::source::Control::Continue
                     }
                     None => {
                         active.set(false);
-                        glib::Continue(false)
+                        glib::source::Control::Remove
                     }
                 }));
             }),
