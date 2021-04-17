@@ -749,7 +749,7 @@ impl ParamSpec {
     }
 }
 
-pub trait ParamSpecType:
+pub unsafe trait ParamSpecType:
     StaticType + FromGlibPtrFull<*mut gobject_ffi::GParamSpec> + 'static
 {
 }
@@ -814,7 +814,7 @@ macro_rules! define_param_spec {
             }
         }
 
-        impl ParamSpecType for $rust_type {}
+        unsafe impl ParamSpecType for $rust_type {}
 
         #[doc(hidden)]
         impl FromGlibPtrFull<*mut gobject_ffi::GParamSpec> for $rust_type {

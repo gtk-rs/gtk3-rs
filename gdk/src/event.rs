@@ -400,7 +400,7 @@ impl fmt::Debug for Event {
 }
 
 /// A helper trait implemented by all event subtypes.
-pub trait FromEvent: Sized {
+pub unsafe trait FromEvent: Sized {
     fn is(ev: &Event) -> bool;
     fn from(ev: Event) -> Result<Self, Event>;
 }
@@ -482,7 +482,7 @@ event_wrapper!(Event, GdkEventAny);
 
 macro_rules! event_subtype {
     ($name:ident, $($ty:path)|+) => {
-        impl crate::event::FromEvent for $name {
+        unsafe impl crate::event::FromEvent for $name {
             #[inline]
             fn is(ev: &crate::event::Event) -> bool {
                 skip_assert_initialized!();
@@ -516,7 +516,7 @@ macro_rules! event_subtype {
     };
 }
 
-impl FromEvent for Event {
+unsafe impl FromEvent for Event {
     #[inline]
     fn is(_ev: &Event) -> bool {
         skip_assert_initialized!();
