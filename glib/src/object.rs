@@ -1194,7 +1194,7 @@ pub trait ObjectExt: ObjectType {
     fn set_property<'a, N: Into<&'a str>, V: ToValue>(
         &self,
         property_name: N,
-        value: &V,
+        value: V,
     ) -> Result<(), BoolError>;
     fn set_property_from_value<'a, N: Into<&'a str>>(
         &self,
@@ -1487,7 +1487,7 @@ impl<T: ObjectType> ObjectExt for T {
     fn set_property<'a, N: Into<&'a str>, V: ToValue>(
         &self,
         property_name: N,
-        value: &V,
+        value: V,
     ) -> Result<(), BoolError> {
         let property_name = property_name.into();
 
