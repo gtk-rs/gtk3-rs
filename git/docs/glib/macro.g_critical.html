@@ -7,7 +7,7 @@
     (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">log_domain</span>:<span class="ident">expr</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">format</span>:<span class="ident">literal</span> $(,)<span class="question-mark">?</span>) <span class="op">=</span><span class="op">&gt;</span> { ... };
 }</pre></div>
 </div><div class="docblock"><p>Macro used to log using GLib logging system. It uses <a href="https://developer.gnome.org/glib/stable/glib-Message-Logging.html#g-log">g_log</a>.</p>
-<p>It is the same as calling the <a href="../glib/macro.g_log.html" title="g_log!"><code>g_log!</code></a> macro with <a href="../glib/enum.LogLevel.html#variant.Critical" title="LogLevel::Critical"><code>LogLevel::Critical</code></a>.</p>
+<p>It is the same as calling the <a href="macro.g_log.html" title="g_log!"><code>g_log!</code></a> macro with <a href="enum.LogLevel.html#variant.Critical" title="LogLevel::Critical"><code>LogLevel::Critical</code></a>.</p>
 <p>Example:</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
@@ -27,5 +27,5 @@
 <span class="macro">g_critical!</span>(<span class="string">&quot;test&quot;</span>, <span class="string">&quot;test: {} {}&quot;</span>, <span class="ident">x</span>, <span class="string">&quot;a&quot;</span>);
 <span class="comment">// trailing commas work as well:</span>
 <span class="macro">g_critical!</span>(<span class="string">&quot;test&quot;</span>, <span class="string">&quot;test: {} {}&quot;</span>, <span class="ident">x</span>, <span class="string">&quot;a&quot;</span>,);</pre></div>
-</div></section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../" data-current-crate="glib" data-search-js="../search-index.js"></div>
+</div></section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../" data-current-crate="glib" data-search-index-js="../search-index.js" data-search-js="../search.js"></div>
     <script src="../main.js"></script></body></html>
