@@ -32,7 +32,6 @@ generate = [
     "GLib.UriFlags",
     "GLib.UriHideFlags",
     "GLib.UriParamsFlags",
-    "GLib.UriParamsIter",
 ]
 
 ignore = [
