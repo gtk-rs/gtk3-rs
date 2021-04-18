@@ -98,7 +98,7 @@ pub fn impl_genum(input: &syn::DeriveInput) -> TokenStream {
         impl #crate_ident::translate::TryFromGlib<i32> for #name {
             type Error = i32;
 
-            fn try_from_glib(value: i32) -> Result<Self, i32> {
+            unsafe fn try_from_glib(value: i32) -> Result<Self, i32> {
                 let from_glib = || {
                     #from_glib
                 };

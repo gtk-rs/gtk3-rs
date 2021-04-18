@@ -53,7 +53,7 @@
 //! # }
 //! impl TryFromGlib<libc::c_uint> for SpecialU32 {
 //!     type Error = GlibNoneError;
-//!     fn try_from_glib(val: libc::c_uint) -> Result<Self, GlibNoneError> {
+//!     unsafe fn try_from_glib(val: libc::c_uint) -> Result<Self, GlibNoneError> {
 //!         if val == SpecialU32::GLIB_NONE {
 //!             return Err(GlibNoneError);
 //!         }
@@ -73,7 +73,7 @@
 //! struct U32(u32);
 //! impl TryFromGlib<libc::c_long> for U32 {
 //!     type Error = TryFromIntError;
-//!     fn try_from_glib(val: libc::c_long) -> Result<Self, TryFromIntError> {
+//!     unsafe fn try_from_glib(val: libc::c_long) -> Result<Self, TryFromIntError> {
 //!         Ok(U32(u32::try_from(val)?))
 //!     }
 //! }
@@ -1172,7 +1172,7 @@ impl FromGlib<i32> for Ordering {
 /// Translate from a Glib type which can result in an undefined and/or invalid value.
 pub trait TryFromGlib<G: Copy>: Sized {
     type Error;
-    fn try_from_glib(val: G) -> Result<Self, Self::Error>;
+    unsafe fn try_from_glib(val: G) -> Result<Self, Self::Error>;
 }
 
 /// Error type for [`TryFromGlib`] when the Glib value is None.
@@ -2451,7 +2451,7 @@ mod tests {
 
         impl TryFromGlib<libc::c_uint> for SpecialU32 {
             type Error = GlibNoneError;
-            fn try_from_glib(val: libc::c_uint) -> Result<Self, GlibNoneError> {
+            unsafe fn try_from_glib(val: libc::c_uint) -> Result<Self, GlibNoneError> {
                 if val == SpecialU32::GLIB_NONE {
                     return Err(GlibNoneError);
                 }
@@ -2460,10 +2460,10 @@ mod tests {
             }
         }
 
-        assert_eq!(SpecialU32::try_from_glib(0), Ok(SpecialU32(0)));
-        assert_eq!(SpecialU32::try_from_glib(42), Ok(SpecialU32(42)));
+        assert_eq!(unsafe { SpecialU32::try_from_glib(0) }, Ok(SpecialU32(0)));
+        assert_eq!(unsafe { SpecialU32::try_from_glib(42) }, Ok(SpecialU32(42)));
         assert_eq!(
-            SpecialU32::try_from_glib(SpecialU32::GLIB_NONE),
+            unsafe { SpecialU32::try_from_glib(SpecialU32::GLIB_NONE) },
             Err(GlibNoneError)
         );
 
@@ -2488,15 +2488,15 @@ mod tests {
 
         impl TryFromGlib<libc::c_long> for U32 {
             type Error = TryFromIntError;
-            fn try_from_glib(val: libc::c_long) -> Result<Self, TryFromIntError> {
+            unsafe fn try_from_glib(val: libc::c_long) -> Result<Self, TryFromIntError> {
                 Ok(U32(u32::try_from(val)?))
             }
         }
 
-        assert_eq!(U32::try_from_glib(0), Ok(U32(0)));
-        assert_eq!(U32::try_from_glib(42), Ok(U32(42)));
-        assert!(U32::try_from_glib(-1).is_err());
-        assert!(U32::try_from_glib(-42).is_err());
+        assert_eq!(unsafe { U32::try_from_glib(0) }, Ok(U32(0)));
+        assert_eq!(unsafe { U32::try_from_glib(42) }, Ok(U32(42)));
+        assert!(unsafe { U32::try_from_glib(-1) }.is_err());
+        assert!(unsafe { U32::try_from_glib(-42) }.is_err());
     }
 
     #[test]
@@ -2523,7 +2523,7 @@ mod tests {
 
         impl TryFromGlib<libc::c_long> for SpecialU32 {
             type Error = GlibNoneOrInvalidError<TryFromIntError>;
-            fn try_from_glib(
+            unsafe fn try_from_glib(
                 val: libc::c_long,
             ) -> Result<Self, GlibNoneOrInvalidError<TryFromIntError>> {
                 if val == SpecialU32::GLIB_NONE {
@@ -2534,12 +2534,14 @@ mod tests {
             }
         }
 
-        assert_eq!(SpecialU32::try_from_glib(0), Ok(SpecialU32(0)));
-        assert_eq!(SpecialU32::try_from_glib(42), Ok(SpecialU32(42)));
-        assert!(SpecialU32::try_from_glib(SpecialU32::GLIB_NONE)
+        assert_eq!(unsafe { SpecialU32::try_from_glib(0) }, Ok(SpecialU32(0)));
+        assert_eq!(unsafe { SpecialU32::try_from_glib(42) }, Ok(SpecialU32(42)));
+        assert!(unsafe { SpecialU32::try_from_glib(SpecialU32::GLIB_NONE) }
             .unwrap_err()
             .is_none());
-        assert!(SpecialU32::try_from_glib(-42).unwrap_err().is_invalid());
+        assert!(unsafe { SpecialU32::try_from_glib(-42) }
+            .unwrap_err()
+            .is_invalid());
 
         assert_eq!(
             unsafe { Result::<Option<SpecialU32>, _>::from_glib(0) },
