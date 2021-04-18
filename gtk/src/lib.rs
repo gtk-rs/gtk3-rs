@@ -3,118 +3,129 @@
 #![allow(clippy::needless_doctest_main)]
 #![allow(clippy::upper_case_acronyms)]
 
-//! # GTK+ 3 bindings
+//! # Rust GTK 3 bindings
 //!
-//! This library contains safe Rust bindings for [GTK+ 3](http://www.gtk.org), a
-//! multi-platform GUI toolkit. It's a part of [Gtk-rs](http://gtk-rs.org/).
+//! This library contains safe Rust bindings for [GTK 3](http://www.gtk.org), a
+//! multi-platform GUI toolkit. It is a part of [Gtk-rs](http://gtk-rs.org/).
 //!
-//! The library is a work in progress: expect missing bindings and breaking
-//! changes. A steadily increasing share of the code is machine-generated from
-//! `GObject` introspection metadata. The API docs were converted from the
-//! upstream ones so until they've all been reviewed there will be incongruities
-//! with actual Rust APIs.
+//! The library is a work in progress. Expect breaking changes between releases.
+//! Most of this documentation is generated from the C API.
+//! Until all parts of the documentation have been reviewed there will be incongruities
+//! with the actual Rust API.
 //!
-//! See also:
+//! See also
 //!
 //! - [Gtk-rs documentation overview](https://gtk-rs.org/docs-src/)
 //!
-//! - [General `GLib` family types and object system overview](../glib/index.html)
+//! - [General `GLib` family types and object system overview](mod@glib)
 //!
-//! - [GTK+ documentation](https://www.gtk.org/docs/)
+//! - [GTK documentation](https://www.gtk.org/docs/)
 //!
-//! # Hello World
+//! # "Hello, World!" example program
+//!
+//! GTK needs to be initialized before use by calling [`fn@init`]. Creating an
+//! [`struct@Application`] will call [`fn@init`] for you.
 //!
 //! ```no_run
 //! use gtk::prelude::*;
-//! use gtk::{ButtonsType, DialogFlags, MessageType, MessageDialog, Window};
+//! use gtk::{ApplicationBuilder, ApplicationWindowBuilder};
 //!
 //! fn main() {
-//!     if gtk::init().is_err() {
-//!         println!("Failed to initialize GTK.");
-//!         return;
-//!     }
-//!     MessageDialog::new(None::<&Window>,
-//!                        DialogFlags::empty(),
-//!                        MessageType::Info,
-//!                        ButtonsType::Ok,
-//!                        "Hello World").run();
-//! }
-//! ```
+//!     let app = ApplicationBuilder::new()
+//!         .application_id("org.example.HelloWorld")
+//!         .build();
 //!
-//! # Initialization
-//!
-//! GTK+ needs to be initialized before use by calling [`init`](fn.init.html) or
-//! [`Application::new`](struct.Application.html#method.new). You only need to
-//! do it once and there is no 'finalize'.
-//!
-//! # The main loop
-//!
-//! In a typical GTK+ application you set up the UI, assign signal handlers
-//! and run the main event loop:
-//!
-//! ```no_run
-//! // To import all needed traits.
-//! use gtk::prelude::*;
-//! use gio::prelude::*;
-//!
-//! use std::env;
-//!
-//! fn main() {
-//!     let uiapp = gtk::Application::new(Some("org.gtkrsnotes.demo"),
-//!                                       gio::ApplicationFlags::FLAGS_NONE);
-//!     uiapp.connect_activate(|app| {
+//!     app.connect_activate(|app| {
 //!         // We create the main window.
-//!         let win = gtk::ApplicationWindow::new(app);
-//!
-//!         // Then we set its size and a title.
-//!         win.set_default_size(320, 200);
-//!         win.set_title("Basic example");
+//!         let win = ApplicationWindowBuilder::new()
+//!             .application(app)
+//!             .default_width(320)
+//!             .default_height(200)
+//!             .title("Hello, World!")
+//!             .build();
 //!
 //!         // Don't forget to make all widgets visible.
 //!         win.show_all();
 //!     });
-//!     uiapp.run();
+//!
+//!     app.run();
+//! }
+//! ```
+//!
+//! # The main loop
+//!
+//! In a typical GTK application you set up the UI, assign signal handlers
+//! and run the main event loop.
+//!
+//! ```no_run
+
+//! use gtk::prelude::*;
+//! use gtk::{ApplicationBuilder, ApplicationWindowBuilder, Button};
+//!
+//! fn main() {
+//!     let application = ApplicationBuilder::new()
+//!         .application_id("com.example.FirstGtkApp")
+//!         .build();
+//!
+//!     application.connect_activate(|app| {
+//!         let window = ApplicationWindowBuilder::new()
+//!             .application(app)
+//!             .title("First GTK Program")
+//!             .default_width(350)
+//!             .default_height(70)
+//!             .build();
+//!
+//!         let button = Button::with_label("Click me!");
+//!         button.connect_clicked(|_| {
+//!             eprintln!("Clicked!");
+//!         });
+//!         window.add(&button);
+//!
+//!         window.show_all();
+//!     });
+//!
+//!     application.run();
 //! }
 //! ```
 //!
 //! # Threads
 //!
-//! GTK+ is not thread-safe. Accordingly, none of this crate's structs implement
-//! `Send` or `Sync`.
+//! GTK is not thread-safe. Accordingly, none of this crate's structs implement
+//! [`Send`] or [`Sync`].
 //!
-//! The thread where `init` was called is considered the main thread. OS X has
-//! its own notion of the main thread and `init` must be called on that thread.
-//! After successful initialization, calling any `gtk` or `gdk` functions
-//! (including `init`) from other threads will `panic`.
+//! The thread where [`fn@init`] was called is considered the main thread. OS X has
+//! its own notion of the main thread and [`fn@init`] must be called on that thread.
+//! After successful initialization, calling any [`gtk`](mod@crate) or [`mod@gdk`] functions
+//! (including [`fn@init`]) from other threads will `panic`.
 //!
 //! Any thread can schedule a closure to be run by the main loop on the main
-//! thread via [`glib::idle_add`](../glib/source/fn.idle_add.html) or
-//! [`glib::timeout_add`](../glib/source/fn.timeout_add.html). This crate has
-//! versions of those functions without the `Send` bound, which may only be
-//! called from the main thread: [`idle_add`](fn.idle_add.html),
-//! [`timeout_add`](fn.timeout_add.html).
+//! thread via [`fn@glib::idle_add`] or [`fn@glib::timeout_add`]. While
+//! working with GTK you might need the [`fn@glib::idle_add_local`]
+//! or [`fn@glib::timeout_add_local`] version without the
+//! [`Send`] bound. Those may only be called from the main thread.
 //!
 //! # Panics
 //!
-//! This and the `gdk` crate have some run-time safety and contract checks:
+//! The [`gtk`](mod@crate) and [`mod@gdk`] crates have some run-time safety and contract checks.
 //!
-//! - Any constructor or free function will panic if called before `init` or on
+//! - Any constructor or free function will panic if called before [`fn@init`] or on
 //! a non-main thread.
 //!
-//! - Any `&str` or `&Path` parameter with an interior null (`\0`) character will
+//! - Any [`&str`] or [`&Path`](std::path::Path) parameter with an interior null (`\0`) character will
 //! cause a panic.
 //!
 //! - Some functions will panic if supplied out-of-range integer parameters. All
-//! such cases will be documented individually but they're not yet.
+//! such cases will be documented individually but they are not yet.
 //!
-//! **A panic in a closure will abort the process.**
+//! - A panic in a closure that handles signals or in any other closure passed
+//! to a [`gtk`](mod@crate) function will abort the process.
 //!
-//! # Crate features
+//! # Features
 //!
 //! ## Library versions
 //!
-//! By default this crate provides only GTK+ 3.14 APIs. You can access more
-//! modern APIs by selecting one of the following features: `v3_14`, `v3_16`, etc.
+//! By default this crate provides only GTK 3.14 APIs. You can access additional
+//! functionality by selecting one of the `v3_16`, `v3_18`, etc. features.
 //!
 //! `Cargo.toml` example:
 //!
@@ -124,11 +135,11 @@
 //! features = ["v3_16"]
 //! ```
 //!
-//! **Take care when choosing the version to target: some of your users might
-//! not have easy access to the latest ones.** The higher the version, the fewer
+//! Take care when choosing the version to target: some of your users might
+//! not have easy access to the latest ones. The higher the version, the fewer
 //! users will have it installed.
 //!
-//! ## Lgpl-docs
+//! ## LGPL-docs
 //!
 //! The Gtk-rs crates come with API docs missing because of licensing
 //! incompatibilty. You can embed those docs locally via the `embed-lgpl-docs`
@@ -140,9 +151,9 @@
 //!
 //! Its counterpart `purge-lgpl-docs` removes those docs regardless of edits.
 //!
-//! These features **rewrite the crate sources** so it's sufficient to enable
-//! them once. **Omitting them in the following cargo invocations will not undo
-//! their effects!**
+//! These features rewrite the crate sources so it is sufficient to enable
+//! them once. Omitting them in the following cargo invocations will not undo
+//! their effects!
 
 #![allow(clippy::new_without_default)]
 #![allow(clippy::type_complexity)]
