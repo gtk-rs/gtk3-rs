@@ -9,7 +9,7 @@ use std::mem;
 
 impl UnixMountEntry {
     #[doc(alias = "g_unix_mount_at")]
-    pub fn new_at<P: AsRef<std::path::Path>>(mount_path: P) -> (UnixMountEntry, u64) {
+    pub fn new_at<P: AsRef<std::path::Path>>(mount_path: P) -> (Option<UnixMountEntry>, u64) {
         unsafe {
             let mut time_read = mem::MaybeUninit::uninit();
             let ret = from_glib_full(ffi::g_unix_mount_at(
@@ -24,7 +24,7 @@ impl UnixMountEntry {
     #[cfg(any(feature = "v2_52", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_52")))]
     #[doc(alias = "g_unix_mount_for")]
-    pub fn new_for<P: AsRef<std::path::Path>>(file_path: P) -> (UnixMountEntry, u64) {
+    pub fn new_for<P: AsRef<std::path::Path>>(file_path: P) -> (Option<UnixMountEntry>, u64) {
         unsafe {
             let mut time_read = mem::MaybeUninit::uninit();
             let ret = from_glib_full(ffi::g_unix_mount_for(
