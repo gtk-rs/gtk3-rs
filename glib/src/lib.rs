@@ -278,3 +278,15 @@ impl<T> Drop for ThreadGuard<T> {
 }
 
 unsafe impl<T> Send for ThreadGuard<T> {}
+
+/// Helper macro to retrieve the function pointer in the parent class when chaining up
+#[macro_export]
+macro_rules! parent_fn {
+    ($obj_type:ty, $parent_class:path, $fn_name:ident) => {
+        unsafe {
+            let data = <$obj_type>::type_data();
+            let parent_class = data.as_ref().parent_class() as *mut $parent_class;
+            (*parent_class).$fn_name
+        }
+    }
+}

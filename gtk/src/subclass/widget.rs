@@ -353,12 +353,9 @@ pub trait WidgetImplExt: ObjectSubclass {
 
 impl<T: WidgetImpl> WidgetImplExt for T {
     fn parent_adjust_baseline_allocation(&self, widget: &Self::Type, baseline: &mut i32) {
+        let f = glib::parent_fn!(T, ffi::GtkWidgetClass, adjust_baseline_allocation)
+            .expect("No parent class impl for \"adjust_baseline_allocation\"");
         unsafe {
-            let data = T::type_data();
-            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
-            let f = (*parent_class)
-                .adjust_baseline_allocation
-                .expect("No parent class impl for \"adjust_baseline_allocation\"");
             f(
                 widget.unsafe_cast_ref::<Widget>().to_glib_none().0,
                 baseline,
@@ -372,12 +369,9 @@ impl<T: WidgetImpl> WidgetImplExt for T {
         minimum_baseline: &mut i32,
         natural_baseline: &mut i32,
     ) {
+        let f = glib::parent_fn!(T, ffi::GtkWidgetClass, adjust_baseline_request)
+            .expect("No parent class impl for \"adjust_baseline_request\"");
         unsafe {
-            let data = T::type_data();
-            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
-            let f = (*parent_class)
-                .adjust_baseline_request
-                .expect("No parent class impl for \"adjust_baseline_request\"");
             f(
                 widget.unsafe_cast_ref::<Widget>().to_glib_none().0,
                 minimum_baseline,
@@ -395,12 +389,9 @@ impl<T: WidgetImpl> WidgetImplExt for T {
         allocated_pos: &mut i32,
         allocated_size: &mut i32,
     ) {
+        let f = glib::parent_fn!(T, ffi::GtkWidgetClass, adjust_size_allocation)
+            .expect("No parent class impl for \"adjust_size_allocation\"");
         unsafe {
-            let data = T::type_data();
-            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
-            let f = (*parent_class)
-                .adjust_size_allocation
-                .expect("No parent class impl for \"adjust_size_allocation\"");
             f(
                 widget.unsafe_cast_ref::<Widget>().to_glib_none().0,
                 orientation.to_glib(),
@@ -419,12 +410,9 @@ impl<T: WidgetImpl> WidgetImplExt for T {
         minimum_size: &mut i32,
         natural_size: &mut i32,
     ) {
+        let f = glib::parent_fn!(T, ffi::GtkWidgetClass, adjust_size_request)
+            .expect("No parent class impl for \"adjust_size_request\"");
         unsafe {
-            let data = T::type_data();
-            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
-            let f = (*parent_class)
-                .adjust_size_request
-                .expect("No parent class impl for \"adjust_size_request\"");
             f(
                 widget.unsafe_cast_ref::<Widget>().to_glib_none().0,
                 orientation.to_glib(),
@@ -436,17 +424,13 @@ impl<T: WidgetImpl> WidgetImplExt for T {
 
     fn parent_button_press_event(&self, widget: &Self::Type, event: &gdk::EventButton) -> Inhibit {
         unsafe {
-            let data = T::type_data();
-            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
-            if let Some(f) = (*parent_class).button_press_event {
+            glib::parent_fn!(T, ffi::GtkWidgetClass, button_press_event).map_or(Inhibit(false), |f| {
                 let ev_glib = glib::translate::mut_override(event.to_glib_none().0);
                 Inhibit(from_glib(f(
                     widget.unsafe_cast_ref::<Widget>().to_glib_none().0,
                     ev_glib,
                 )))
-            } else {
-                Inhibit(false)
-            }
+            })
         }
     }
 
@@ -456,27 +440,19 @@ impl<T: WidgetImpl> WidgetImplExt for T {
         event: &gdk::EventButton,
     ) -> Inhibit {
         unsafe {
-            let data = T::type_data();
-            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
-            if let Some(f) = (*parent_class).button_release_event {
+            glib::parent_fn!(T, ffi::GtkWidgetClass, button_release_event).map_or(Inhibit(false), |f| {
                 let ev_glib = glib::translate::mut_override(event.to_glib_none().0);
                 Inhibit(from_glib(f(
                     widget.unsafe_cast_ref::<Widget>().to_glib_none().0,
                     ev_glib,
                 )))
-            } else {
-                Inhibit(false)
-            }
+            })
         }
     }
 
     // fn parent_can_activate_accel(&self, widget: &Self::Type, signal_id: u32) -> bool {
     //     unsafe {
-    //         let data = T::type_data();
-    //         let parent_class =
-    //             data.as_ref().get_parent_class() as *mut ffi::GtkWidgetClass;
-    //         let f = (*parent_class)
-    //             .can_activate_accel
+    //         let f = glib::parent_fn!(T, ffi::GtkWidgetClass, can_activate_accel)
     //             .expect("No parent class impl for \"can_activate_accel\"");
     //         f(widget.unsafe_cast_ref::<Widget>().to_glib_none().0, signal_id) != 0
     //     }
@@ -484,9 +460,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
 
     fn parent_child_notify(&self, widget: &Self::Type, child_property: &glib::ParamSpec) {
         unsafe {
-            let data = T::type_data();
-            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
-            if let Some(f) = (*parent_class).child_notify {
+            if let Some(f) = glib::parent_fn!(T, ffi::GtkWidgetClass, child_notify) {
                 let pspec_glib = glib::translate::mut_override(child_property.to_glib_none().0);
                 f(
                     widget.unsafe_cast_ref::<Widget>().to_glib_none().0,
@@ -498,9 +472,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
 
     fn parent_composited_changed(&self, widget: &Self::Type) {
         unsafe {
-            let data = T::type_data();
-            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
-            if let Some(f) = (*parent_class).composited_changed {
+            if let Some(f) = glib::parent_fn!(T, ffi::GtkWidgetClass, composited_changed) {
                 f(widget.unsafe_cast_ref::<Widget>().to_glib_none().0)
             }
         }
