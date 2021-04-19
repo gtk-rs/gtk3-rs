@@ -9,7 +9,6 @@ documentation = "https://gtk-rs.org/docs/graphene/"
 version = "0.13.0"
 description = "Rust bindings for the Graphene library"
 repository = "https://github.com/gtk-rs/gtk-rs"
-build = "build.rs"
 exclude = [
     "gir-files/*",
 ]
@@ -22,16 +21,9 @@ name = "graphene"
 default = ["v1_10"]
 v1_10 = ["ffi/v1_10"]
 dox = ["ffi/dox", "glib/dox"]
-purge-lgpl-docs = ["gtk-rs-lgpl-docs"]
-embed-lgpl-docs = ["gtk-rs-lgpl-docs"]
 
 [package.metadata.docs.rs]
-features = ["dox", "embed-lgpl-docs"]
-
-[build-dependencies.gtk-rs-lgpl-docs]
-version = "0.1.3"
-optional = true
-git = "https://github.com/gtk-rs/lgpl-docs"
+features = ["dox"]
 
 [dependencies]
 libc = "0.2"

@@ -137,22 +137,6 @@
 //! Take care when choosing the version to target: some of your users might
 //! not have easy access to the latest ones. The higher the version, the fewer
 //! users will have it installed.
-//!
-//! ## LGPL-docs
-//!
-//! The Gtk-rs crates come with API docs missing because of licensing
-//! incompatibilty. You can embed those docs locally via the `embed-lgpl-docs`
-//! feature, e.g.
-//!
-//! ```shell
-//! > cargo doc --features embed-lgpl-docs
-//! ```
-//!
-//! Its counterpart `purge-lgpl-docs` removes those docs regardless of edits.
-//!
-//! These features rewrite the crate sources so it is sufficient to enable
-//! them once. Omitting them in the following cargo invocations will not undo
-//! their effects!
 
 #![allow(clippy::new_without_default)]
 #![allow(clippy::type_complexity)]

@@ -65,19 +65,6 @@ jobs:
       - run: ./check_init_asserts ../${{matrix.conf.name}}
         working-directory: checker
         if: matrix.rust == 'nightly' && (matrix.conf.name == 'atk' || matrix.conf.name == 'gdk' || matrix.conf.name == 'gdkx11' || matrix.conf.name == 'gtk')
-      # rustdoc-stripper
-      - name: doc add
-        run: cargo build --manifest-path ${{ matrix.conf.name }}/Cargo.toml --features "dox,embed-lgpl-docs"
-        if: matrix.rust == 'nightly' && matrix.conf.name != 'glib'
-      - name: doc removal
-        run: cargo build --manifest-path ${{ matrix.conf.name }}/Cargo.toml --features "purge-lgpl-docs"
-        if: matrix.rust == 'nightly' && matrix.conf.name != 'glib'
-      - name: glib doc check
-        run: cargo build --manifest-path ${{ matrix.conf.name }}/Cargo.toml --features "dox"
-        if: matrix.rust == 'nightly' && matrix.conf.name == 'glib'
-      - name: check diff
-        run: git diff -R --exit-code
-        if: matrix.rust == 'nightly'
       # tests run
       - name: tests nightly
         run: xvfb-run --auto-servernum cargo test --manifest-path ${{ matrix.conf.name }}/Cargo.toml ${{ matrix.conf.nightly }}

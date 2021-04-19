@@ -9,7 +9,6 @@ documentation = "https://gtk-rs.org/docs/gdk_pixbuf/"
 version = "0.13.0"
 description = "Rust bindings for the GdkPixbuf library"
 repository = "https://github.com/gtk-rs/gtk-rs"
-build = "build.rs"
 exclude = [
     "gir-files/*",
 ]
@@ -24,16 +23,9 @@ v2_36 = ["v2_32", "ffi/v2_36"]
 v2_36_8 = ["v2_36", "ffi/v2_36_8"]
 v2_40 = ["v2_36_8", "ffi/v2_40"]
 dox = ["glib/dox", "ffi/dox"]
-purge-lgpl-docs = ["gtk-rs-lgpl-docs"]
-embed-lgpl-docs = ["gtk-rs-lgpl-docs"]
 
 [package.metadata.docs.rs]
-features = ["dox", "embed-lgpl-docs"]
-
-[build-dependencies.gtk-rs-lgpl-docs]
-version = "0.1"
-optional = true
-git = "https://github.com/gtk-rs/lgpl-docs"
+features = ["dox"]
 
 [dependencies]
 libc = "0.2"
