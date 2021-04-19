@@ -389,11 +389,11 @@ pub trait ActionBarExt: 'static {
     #[doc(alias = "gtk_action_bar_set_center_widget")]
     fn set_center_widget<P: IsA<Widget>>(&self, center_widget: Option<&P>);
 
-    fn get_child_pack_type<T: IsA<Widget>>(&self, item: &T) -> PackType;
+    fn child_pack_type<T: IsA<Widget>>(&self, item: &T) -> PackType;
 
     fn set_child_pack_type<T: IsA<Widget>>(&self, item: &T, pack_type: PackType);
 
-    fn get_child_position<T: IsA<Widget>>(&self, item: &T) -> i32;
+    fn child_position<T: IsA<Widget>>(&self, item: &T) -> i32;
 
     fn set_child_position<T: IsA<Widget>>(&self, item: &T, position: i32);
 }
@@ -434,7 +434,7 @@ impl<O: IsA<ActionBar>> ActionBarExt for O {
         }
     }
 
-    fn get_child_pack_type<T: IsA<Widget>>(&self, item: &T) -> PackType {
+    fn child_pack_type<T: IsA<Widget>>(&self, item: &T) -> PackType {
         unsafe {
             let mut value = glib::Value::from_type(<PackType as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
@@ -461,7 +461,7 @@ impl<O: IsA<ActionBar>> ActionBarExt for O {
         }
     }
 
-    fn get_child_position<T: IsA<Widget>>(&self, item: &T) -> i32 {
+    fn child_position<T: IsA<Widget>>(&self, item: &T) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(

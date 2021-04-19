@@ -472,19 +472,19 @@ pub trait ToolItemGroupExt: 'static {
     #[doc(alias = "gtk_tool_item_group_set_label_widget")]
     fn set_label_widget<P: IsA<Widget>>(&self, label_widget: &P);
 
-    fn get_item_expand<T: IsA<ToolItem>>(&self, item: &T) -> bool;
+    fn item_expands<T: IsA<ToolItem>>(&self, item: &T) -> bool;
 
     fn set_item_expand<T: IsA<ToolItem>>(&self, item: &T, expand: bool);
 
-    fn get_item_fill<T: IsA<ToolItem>>(&self, item: &T) -> bool;
+    fn item_fills<T: IsA<ToolItem>>(&self, item: &T) -> bool;
 
     fn set_item_fill<T: IsA<ToolItem>>(&self, item: &T, fill: bool);
 
-    fn get_item_homogeneous<T: IsA<ToolItem>>(&self, item: &T) -> bool;
+    fn item_is_homogeneous<T: IsA<ToolItem>>(&self, item: &T) -> bool;
 
     fn set_item_homogeneous<T: IsA<ToolItem>>(&self, item: &T, homogeneous: bool);
 
-    fn get_item_new_row<T: IsA<ToolItem>>(&self, item: &T) -> bool;
+    fn item_is_new_row<T: IsA<ToolItem>>(&self, item: &T) -> bool;
 
     fn set_item_new_row<T: IsA<ToolItem>>(&self, item: &T, new_row: bool);
 
@@ -641,7 +641,7 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
         }
     }
 
-    fn get_item_expand<T: IsA<ToolItem>>(&self, item: &T) -> bool {
+    fn item_expands<T: IsA<ToolItem>>(&self, item: &T) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
@@ -668,7 +668,7 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
         }
     }
 
-    fn get_item_fill<T: IsA<ToolItem>>(&self, item: &T) -> bool {
+    fn item_fills<T: IsA<ToolItem>>(&self, item: &T) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
@@ -695,7 +695,7 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
         }
     }
 
-    fn get_item_homogeneous<T: IsA<ToolItem>>(&self, item: &T) -> bool {
+    fn item_is_homogeneous<T: IsA<ToolItem>>(&self, item: &T) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
@@ -722,7 +722,7 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
         }
     }
 
-    fn get_item_new_row<T: IsA<ToolItem>>(&self, item: &T) -> bool {
+    fn item_is_new_row<T: IsA<ToolItem>>(&self, item: &T) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(

@@ -479,11 +479,11 @@ pub trait ToolbarExt: 'static {
     #[doc(alias = "set_property_toolbar_style")]
     fn set_toolbar_style(&self, toolbar_style: ToolbarStyle);
 
-    fn get_item_expand<T: IsA<Widget>>(&self, item: &T) -> bool;
+    fn item_expands<T: IsA<Widget>>(&self, item: &T) -> bool;
 
     fn set_item_expand<T: IsA<Widget>>(&self, item: &T, expand: bool);
 
-    fn get_item_homogeneous<T: IsA<Widget>>(&self, item: &T) -> bool;
+    fn item_is_homogeneous<T: IsA<Widget>>(&self, item: &T) -> bool;
 
     fn set_item_homogeneous<T: IsA<Widget>>(&self, item: &T, homogeneous: bool);
 
@@ -656,7 +656,7 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
         }
     }
 
-    fn get_item_expand<T: IsA<Widget>>(&self, item: &T) -> bool {
+    fn item_expands<T: IsA<Widget>>(&self, item: &T) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
@@ -683,7 +683,7 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
         }
     }
 
-    fn get_item_homogeneous<T: IsA<Widget>>(&self, item: &T) -> bool {
+    fn item_is_homogeneous<T: IsA<Widget>>(&self, item: &T) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(

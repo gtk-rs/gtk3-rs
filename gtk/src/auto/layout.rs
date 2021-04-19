@@ -467,11 +467,11 @@ pub trait LayoutExt: 'static {
     #[doc(alias = "set_property_width")]
     fn set_width(&self, width: u32);
 
-    fn get_child_x<T: IsA<Widget>>(&self, item: &T) -> i32;
+    fn child_x<T: IsA<Widget>>(&self, item: &T) -> i32;
 
     fn set_child_x<T: IsA<Widget>>(&self, item: &T, x: i32);
 
-    fn get_child_y<T: IsA<Widget>>(&self, item: &T) -> i32;
+    fn child_y<T: IsA<Widget>>(&self, item: &T) -> i32;
 
     fn set_child_y<T: IsA<Widget>>(&self, item: &T, y: i32);
 
@@ -582,7 +582,7 @@ impl<O: IsA<Layout>> LayoutExt for O {
         }
     }
 
-    fn get_child_x<T: IsA<Widget>>(&self, item: &T) -> i32 {
+    fn child_x<T: IsA<Widget>>(&self, item: &T) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
@@ -609,7 +609,7 @@ impl<O: IsA<Layout>> LayoutExt for O {
         }
     }
 
-    fn get_child_y<T: IsA<Widget>>(&self, item: &T) -> i32 {
+    fn child_y<T: IsA<Widget>>(&self, item: &T) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(

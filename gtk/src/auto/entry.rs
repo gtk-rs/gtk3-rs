@@ -792,7 +792,7 @@ pub trait EntryExt: 'static {
     fn has_frame(&self) -> bool;
 
     #[doc(alias = "gtk_entry_get_icon_activatable")]
-    fn get_icon_activatable(&self, icon_pos: EntryIconPosition) -> bool;
+    fn icon_is_activatable(&self, icon_pos: EntryIconPosition) -> bool;
 
     #[doc(alias = "gtk_entry_get_icon_area")]
     fn get_icon_area(&self, icon_pos: EntryIconPosition) -> gdk::Rectangle;
@@ -810,7 +810,7 @@ pub trait EntryExt: 'static {
     fn get_icon_pixbuf(&self, icon_pos: EntryIconPosition) -> Option<gdk_pixbuf::Pixbuf>;
 
     #[doc(alias = "gtk_entry_get_icon_sensitive")]
-    fn get_icon_sensitive(&self, icon_pos: EntryIconPosition) -> bool;
+    fn icon_is_sensitive(&self, icon_pos: EntryIconPosition) -> bool;
 
     #[doc(alias = "gtk_entry_get_icon_storage_type")]
     fn get_icon_storage_type(&self, icon_pos: EntryIconPosition) -> ImageType;
@@ -1450,7 +1450,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         unsafe { from_glib(ffi::gtk_entry_get_has_frame(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_icon_activatable(&self, icon_pos: EntryIconPosition) -> bool {
+    fn icon_is_activatable(&self, icon_pos: EntryIconPosition) -> bool {
         unsafe {
             from_glib(ffi::gtk_entry_get_icon_activatable(
                 self.as_ref().to_glib_none().0,
@@ -1502,7 +1502,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn get_icon_sensitive(&self, icon_pos: EntryIconPosition) -> bool {
+    fn icon_is_sensitive(&self, icon_pos: EntryIconPosition) -> bool {
         unsafe {
             from_glib(ffi::gtk_entry_get_icon_sensitive(
                 self.as_ref().to_glib_none().0,

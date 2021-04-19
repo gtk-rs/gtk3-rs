@@ -73,7 +73,7 @@ impl PopoverMenu {
         }
     }
 
-    pub fn get_child_position<T: IsA<Widget>>(&self, item: &T) -> i32 {
+    pub fn child_position<T: IsA<Widget>>(&self, item: &T) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
@@ -100,7 +100,7 @@ impl PopoverMenu {
         }
     }
 
-    pub fn get_child_submenu<T: IsA<Widget>>(&self, item: &T) -> Option<glib::GString> {
+    pub fn child_submenu<T: IsA<Widget>>(&self, item: &T) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(

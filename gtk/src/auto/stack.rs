@@ -541,23 +541,23 @@ pub trait StackExt: 'static {
 
     fn set_property_interpolate_size(&self, interpolate_size: bool);
 
-    fn get_child_icon_name<T: IsA<Widget>>(&self, item: &T) -> Option<glib::GString>;
+    fn child_icon_name<T: IsA<Widget>>(&self, item: &T) -> Option<glib::GString>;
 
     fn set_child_icon_name<T: IsA<Widget>>(&self, item: &T, icon_name: Option<&str>);
 
-    fn get_child_name<T: IsA<Widget>>(&self, item: &T) -> Option<glib::GString>;
+    fn child_name<T: IsA<Widget>>(&self, item: &T) -> Option<glib::GString>;
 
     fn set_child_name<T: IsA<Widget>>(&self, item: &T, name: Option<&str>);
 
-    fn get_child_needs_attention<T: IsA<Widget>>(&self, item: &T) -> bool;
+    fn child_needs_attention<T: IsA<Widget>>(&self, item: &T) -> bool;
 
     fn set_child_needs_attention<T: IsA<Widget>>(&self, item: &T, needs_attention: bool);
 
-    fn get_child_position<T: IsA<Widget>>(&self, item: &T) -> i32;
+    fn child_position<T: IsA<Widget>>(&self, item: &T) -> i32;
 
     fn set_child_position<T: IsA<Widget>>(&self, item: &T, position: i32);
 
-    fn get_child_title<T: IsA<Widget>>(&self, item: &T) -> Option<glib::GString>;
+    fn child_title<T: IsA<Widget>>(&self, item: &T) -> Option<glib::GString>;
 
     fn set_child_title<T: IsA<Widget>>(&self, item: &T, title: Option<&str>);
 
@@ -810,7 +810,7 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
-    fn get_child_icon_name<T: IsA<Widget>>(&self, item: &T) -> Option<glib::GString> {
+    fn child_icon_name<T: IsA<Widget>>(&self, item: &T) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
@@ -836,7 +836,7 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
-    fn get_child_name<T: IsA<Widget>>(&self, item: &T) -> Option<glib::GString> {
+    fn child_name<T: IsA<Widget>>(&self, item: &T) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
@@ -862,7 +862,7 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
-    fn get_child_needs_attention<T: IsA<Widget>>(&self, item: &T) -> bool {
+    fn child_needs_attention<T: IsA<Widget>>(&self, item: &T) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
@@ -889,7 +889,7 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
-    fn get_child_position<T: IsA<Widget>>(&self, item: &T) -> i32 {
+    fn child_position<T: IsA<Widget>>(&self, item: &T) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
@@ -916,7 +916,7 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
-    fn get_child_title<T: IsA<Widget>>(&self, item: &T) -> Option<glib::GString> {
+    fn child_title<T: IsA<Widget>>(&self, item: &T) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(

@@ -394,7 +394,7 @@ pub trait OverlayExt: 'static {
     #[doc(alias = "gtk_overlay_set_overlay_pass_through")]
     fn set_overlay_pass_through<P: IsA<Widget>>(&self, widget: &P, pass_through: bool);
 
-    fn get_child_index<T: IsA<Widget>>(&self, item: &T) -> i32;
+    fn child_index<T: IsA<Widget>>(&self, item: &T) -> i32;
 
     fn set_child_index<T: IsA<Widget>>(&self, item: &T, index: i32);
 
@@ -446,7 +446,7 @@ impl<O: IsA<Overlay>> OverlayExt for O {
         }
     }
 
-    fn get_child_index<T: IsA<Widget>>(&self, item: &T) -> i32 {
+    fn child_index<T: IsA<Widget>>(&self, item: &T) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(

@@ -666,12 +666,12 @@ pub trait AssistantExt: 'static {
     fn get_nth_page(&self, page_num: i32) -> Option<Widget>;
 
     #[doc(alias = "gtk_assistant_get_page_complete")]
-    fn get_page_complete<P: IsA<Widget>>(&self, page: &P) -> bool;
+    fn page_is_complete<P: IsA<Widget>>(&self, page: &P) -> bool;
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gtk_assistant_get_page_has_padding")]
-    fn get_page_has_padding<P: IsA<Widget>>(&self, page: &P) -> bool;
+    fn page_has_padding<P: IsA<Widget>>(&self, page: &P) -> bool;
 
     #[doc(alias = "gtk_assistant_get_page_title")]
     fn get_page_title<P: IsA<Widget>>(&self, page: &P) -> Option<glib::GString>;
@@ -723,19 +723,19 @@ pub trait AssistantExt: 'static {
     #[doc(alias = "get_property_use_header_bar")]
     fn use_header_bar(&self) -> i32;
 
-    fn get_child_complete<T: IsA<Widget>>(&self, item: &T) -> bool;
+    fn child_is_complete<T: IsA<Widget>>(&self, item: &T) -> bool;
 
     fn set_child_complete<T: IsA<Widget>>(&self, item: &T, complete: bool);
 
-    fn get_child_has_padding<T: IsA<Widget>>(&self, item: &T) -> bool;
+    fn child_has_padding<T: IsA<Widget>>(&self, item: &T) -> bool;
 
     fn set_child_has_padding<T: IsA<Widget>>(&self, item: &T, has_padding: bool);
 
-    fn get_child_page_type<T: IsA<Widget>>(&self, item: &T) -> AssistantPageType;
+    fn child_page_type<T: IsA<Widget>>(&self, item: &T) -> AssistantPageType;
 
     fn set_child_page_type<T: IsA<Widget>>(&self, item: &T, page_type: AssistantPageType);
 
-    fn get_child_title<T: IsA<Widget>>(&self, item: &T) -> Option<glib::GString>;
+    fn child_title<T: IsA<Widget>>(&self, item: &T) -> Option<glib::GString>;
 
     fn set_child_title<T: IsA<Widget>>(&self, item: &T, title: Option<&str>);
 
@@ -794,7 +794,7 @@ impl<O: IsA<Assistant>> AssistantExt for O {
         }
     }
 
-    fn get_page_complete<P: IsA<Widget>>(&self, page: &P) -> bool {
+    fn page_is_complete<P: IsA<Widget>>(&self, page: &P) -> bool {
         unsafe {
             from_glib(ffi::gtk_assistant_get_page_complete(
                 self.as_ref().to_glib_none().0,
@@ -805,7 +805,7 @@ impl<O: IsA<Assistant>> AssistantExt for O {
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
-    fn get_page_has_padding<P: IsA<Widget>>(&self, page: &P) -> bool {
+    fn page_has_padding<P: IsA<Widget>>(&self, page: &P) -> bool {
         unsafe {
             from_glib(ffi::gtk_assistant_get_page_has_padding(
                 self.as_ref().to_glib_none().0,
@@ -982,7 +982,7 @@ impl<O: IsA<Assistant>> AssistantExt for O {
         }
     }
 
-    fn get_child_complete<T: IsA<Widget>>(&self, item: &T) -> bool {
+    fn child_is_complete<T: IsA<Widget>>(&self, item: &T) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
@@ -1009,7 +1009,7 @@ impl<O: IsA<Assistant>> AssistantExt for O {
         }
     }
 
-    fn get_child_has_padding<T: IsA<Widget>>(&self, item: &T) -> bool {
+    fn child_has_padding<T: IsA<Widget>>(&self, item: &T) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
@@ -1036,7 +1036,7 @@ impl<O: IsA<Assistant>> AssistantExt for O {
         }
     }
 
-    fn get_child_page_type<T: IsA<Widget>>(&self, item: &T) -> AssistantPageType {
+    fn child_page_type<T: IsA<Widget>>(&self, item: &T) -> AssistantPageType {
         unsafe {
             let mut value =
                 glib::Value::from_type(<AssistantPageType as StaticType>::static_type());
@@ -1064,7 +1064,7 @@ impl<O: IsA<Assistant>> AssistantExt for O {
         }
     }
 
-    fn get_child_title<T: IsA<Widget>>(&self, item: &T) -> Option<glib::GString> {
+    fn child_title<T: IsA<Widget>>(&self, item: &T) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(

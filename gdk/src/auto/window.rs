@@ -458,7 +458,7 @@ impl Window {
     }
 
     #[doc(alias = "gdk_window_get_event_compression")]
-    pub fn is_event_compression(&self) -> bool {
+    pub fn does_event_compression(&self) -> bool {
         unsafe { from_glib(ffi::gdk_window_get_event_compression(self.to_glib_none().0)) }
     }
 

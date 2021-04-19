@@ -463,30 +463,30 @@ pub trait BoxExt: 'static {
     fn set_spacing(&self, spacing: i32);
 
     #[doc(hidden)]
-    fn get_child_expand<T: IsA<Widget>>(&self, item: &T) -> bool;
+    fn child_expands<T: IsA<Widget>>(&self, item: &T) -> bool;
 
     #[doc(hidden)]
     fn set_child_expand<T: IsA<Widget>>(&self, item: &T, expand: bool);
 
     #[doc(hidden)]
-    fn get_child_fill<T: IsA<Widget>>(&self, item: &T) -> bool;
+    fn child_fills<T: IsA<Widget>>(&self, item: &T) -> bool;
 
     #[doc(hidden)]
     fn set_child_fill<T: IsA<Widget>>(&self, item: &T, fill: bool);
 
     #[doc(hidden)]
-    fn get_child_pack_type<T: IsA<Widget>>(&self, item: &T) -> PackType;
+    fn child_pack_type<T: IsA<Widget>>(&self, item: &T) -> PackType;
 
     #[doc(hidden)]
     fn set_child_pack_type<T: IsA<Widget>>(&self, item: &T, pack_type: PackType);
 
     #[doc(hidden)]
-    fn get_child_padding<T: IsA<Widget>>(&self, item: &T) -> u32;
+    fn child_padding<T: IsA<Widget>>(&self, item: &T) -> u32;
 
     #[doc(hidden)]
     fn set_child_padding<T: IsA<Widget>>(&self, item: &T, padding: u32);
 
-    fn get_child_position<T: IsA<Widget>>(&self, item: &T) -> i32;
+    fn child_position<T: IsA<Widget>>(&self, item: &T) -> i32;
 
     fn set_child_position<T: IsA<Widget>>(&self, item: &T, position: i32);
 
@@ -634,7 +634,7 @@ impl<O: IsA<Box>> BoxExt for O {
     }
 
     #[doc(hidden)]
-    fn get_child_expand<T: IsA<Widget>>(&self, item: &T) -> bool {
+    fn child_expands<T: IsA<Widget>>(&self, item: &T) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
@@ -663,7 +663,7 @@ impl<O: IsA<Box>> BoxExt for O {
     }
 
     #[doc(hidden)]
-    fn get_child_fill<T: IsA<Widget>>(&self, item: &T) -> bool {
+    fn child_fills<T: IsA<Widget>>(&self, item: &T) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
@@ -692,7 +692,7 @@ impl<O: IsA<Box>> BoxExt for O {
     }
 
     #[doc(hidden)]
-    fn get_child_pack_type<T: IsA<Widget>>(&self, item: &T) -> PackType {
+    fn child_pack_type<T: IsA<Widget>>(&self, item: &T) -> PackType {
         unsafe {
             let mut value = glib::Value::from_type(<PackType as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
@@ -721,7 +721,7 @@ impl<O: IsA<Box>> BoxExt for O {
     }
 
     #[doc(hidden)]
-    fn get_child_padding<T: IsA<Widget>>(&self, item: &T) -> u32 {
+    fn child_padding<T: IsA<Widget>>(&self, item: &T) -> u32 {
         unsafe {
             let mut value = glib::Value::from_type(<u32 as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
@@ -749,7 +749,7 @@ impl<O: IsA<Box>> BoxExt for O {
         }
     }
 
-    fn get_child_position<T: IsA<Widget>>(&self, item: &T) -> i32 {
+    fn child_position<T: IsA<Widget>>(&self, item: &T) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
