@@ -58,18 +58,3 @@ thiserror = "1"
 futures-util = { version = "0.3", features = ["io"] }
 gir-format-check = "^0.1"
 serial_test = "0.5"
-
-[[test]]
-name = "futures"
-path = "tests/futures.rs"
-edition = "2018"
-# Defining one [[test]] disable test targets auto discovery =
-# TODO: remove once crate has been ported to 2018 and tests/futures.rs removed =
-
-[[test]]
-name = "std_io_copy"
-path = "tests/std_io_copy.rs"
-
-[[test]]
-name = "check_gir"
-path = "tests/check_gir.rs"
