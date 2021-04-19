@@ -149,13 +149,11 @@ pub fn parse_item_attributes(attr_name: &str, attrs: &[Attribute]) -> Result<Vec
 }
 
 pub fn crate_ident_new() -> Ident {
-    let crate_name = match crate_name("glib") {
-        Ok(x) => x,
-        Err(_) => {
-            // In case we use it directly from glib itself (it cannot find glib as a dependency
-            // in this case)
-            "glib".to_owned()
-        }
+    use proc_macro_crate::FoundCrate;
+
+    let crate_name = match crate_name("glib").expect("missing glib dependency in `Cargo.toml`") {
+        FoundCrate::Name(name) => name,
+        FoundCrate::Itself => "glib".to_owned(),
     };
 
     Ident::new(&crate_name, Span::call_site())
