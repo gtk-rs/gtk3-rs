@@ -12,8 +12,6 @@
 //! would often amount to duplicating the Rust Standard Library or other utility
 //! crates.
 //!
-//! The library is a work in progress. Expect breaking changes between releases.
-//!
 //! # Dynamic typing
 //!
 //! Most types in the GLib family have [`Type`] identifiers.
