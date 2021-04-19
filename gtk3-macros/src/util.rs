@@ -4,9 +4,11 @@ use proc_macro2::{Ident, Span};
 use proc_macro_crate::crate_name;
 
 pub fn crate_ident_new() -> Ident {
-    let crate_name = match crate_name("gtk") {
-        Ok(x) => x,
-        Err(_) => "gtk".to_owned(),
+    use proc_macro_crate::FoundCrate;
+
+    let crate_name = match crate_name("gtk").expect("missing gtk dependency in `Cargo.toml`") {
+        FoundCrate::Name(name) => name,
+        FoundCrate::Itself => "gtk".to_owned(),
     };
 
     Ident::new(&crate_name, Span::call_site())
