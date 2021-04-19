@@ -11,7 +11,7 @@ glib::wrapper! {
     pub struct StateSet(Object<ffi::AtkStateSet, ffi::AtkStateSetClass>);
 
     match fn {
-        get_type => || ffi::atk_state_set_get_type(),
+        type_ => || ffi::atk_state_set_get_type(),
     }
 }
 

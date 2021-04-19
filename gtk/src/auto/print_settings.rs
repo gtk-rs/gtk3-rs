@@ -20,7 +20,7 @@ glib::wrapper! {
     pub struct PrintSettings(Object<ffi::GtkPrintSettings>);
 
     match fn {
-        get_type => || ffi::gtk_print_settings_get_type(),
+        type_ => || ffi::gtk_print_settings_get_type(),
     }
 }
 

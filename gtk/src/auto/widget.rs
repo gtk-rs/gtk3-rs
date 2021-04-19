@@ -39,7 +39,7 @@ glib::wrapper! {
     pub struct Widget(Object<ffi::GtkWidget, ffi::GtkWidgetClass>) @implements Buildable;
 
     match fn {
-        get_type => || ffi::gtk_widget_get_type(),
+        type_ => || ffi::gtk_widget_get_type(),
     }
 }
 

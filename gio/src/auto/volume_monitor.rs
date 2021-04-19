@@ -18,7 +18,7 @@ glib::wrapper! {
     pub struct VolumeMonitor(Object<ffi::GVolumeMonitor, ffi::GVolumeMonitorClass>);
 
     match fn {
-        get_type => || ffi::g_volume_monitor_get_type(),
+        type_ => || ffi::g_volume_monitor_get_type(),
     }
 }
 

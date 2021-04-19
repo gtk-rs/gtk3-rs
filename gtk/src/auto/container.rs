@@ -21,7 +21,7 @@ glib::wrapper! {
     pub struct Container(Object<ffi::GtkContainer, ffi::GtkContainerClass>) @extends Widget, @implements Buildable;
 
     match fn {
-        get_type => || ffi::gtk_container_get_type(),
+        type_ => || ffi::gtk_container_get_type(),
     }
 }
 

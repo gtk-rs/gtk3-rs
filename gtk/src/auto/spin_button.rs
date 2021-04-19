@@ -35,7 +35,7 @@ glib::wrapper! {
     pub struct SpinButton(Object<ffi::GtkSpinButton, ffi::GtkSpinButtonClass>) @extends Entry, Widget, @implements Buildable, CellEditable, Editable, Orientable;
 
     match fn {
-        get_type => || ffi::gtk_spin_button_get_type(),
+        type_ => || ffi::gtk_spin_button_get_type(),
     }
 }
 

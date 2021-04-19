@@ -32,7 +32,7 @@ glib::wrapper! {
     pub struct VolumeButton(Object<ffi::GtkVolumeButton, ffi::GtkVolumeButtonClass>) @extends ScaleButton, Button, Bin, Container, Widget, @implements Buildable, Actionable, Orientable;
 
     match fn {
-        get_type => || ffi::gtk_volume_button_get_type(),
+        type_ => || ffi::gtk_volume_button_get_type(),
     }
 }
 

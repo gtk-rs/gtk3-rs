@@ -8,7 +8,7 @@ glib::wrapper! {
     pub struct EngineLang(Object<ffi::PangoEngineLang, ffi::PangoEngineLangClass>);
 
     match fn {
-        get_type => || ffi::pango_engine_lang_get_type(),
+        type_ => || ffi::pango_engine_lang_get_type(),
     }
 }
 

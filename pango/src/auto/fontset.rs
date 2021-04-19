@@ -12,7 +12,7 @@ glib::wrapper! {
     pub struct Fontset(Object<ffi::PangoFontset, ffi::PangoFontsetClass>);
 
     match fn {
-        get_type => || ffi::pango_fontset_get_type(),
+        type_ => || ffi::pango_fontset_get_type(),
     }
 }
 

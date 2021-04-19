@@ -17,7 +17,7 @@ glib::wrapper! {
     pub struct FileEnumerator(Object<ffi::GFileEnumerator, ffi::GFileEnumeratorClass>);
 
     match fn {
-        get_type => || ffi::g_file_enumerator_get_type(),
+        type_ => || ffi::g_file_enumerator_get_type(),
     }
 }
 

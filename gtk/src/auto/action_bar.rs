@@ -20,7 +20,7 @@ glib::wrapper! {
     pub struct ActionBar(Object<ffi::GtkActionBar, ffi::GtkActionBarClass>) @extends Bin, Container, Widget, @implements Buildable;
 
     match fn {
-        get_type => || ffi::gtk_action_bar_get_type(),
+        type_ => || ffi::gtk_action_bar_get_type(),
     }
 }
 

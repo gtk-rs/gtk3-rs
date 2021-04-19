@@ -20,7 +20,7 @@ glib::wrapper! {
     pub struct BufferedOutputStream(Object<ffi::GBufferedOutputStream, ffi::GBufferedOutputStreamClass>) @extends FilterOutputStream, OutputStream, @implements Seekable;
 
     match fn {
-        get_type => || ffi::g_buffered_output_stream_get_type(),
+        type_ => || ffi::g_buffered_output_stream_get_type(),
     }
 }
 

@@ -10,7 +10,7 @@ glib::wrapper! {
     pub struct FontMap(Interface<ffi::PangoCairoFontMap>) @requires pango::FontMap;
 
     match fn {
-        get_type => || ffi::pango_cairo_font_map_get_type(),
+        type_ => || ffi::pango_cairo_font_map_get_type(),
     }
 }
 

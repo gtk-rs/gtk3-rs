@@ -28,7 +28,7 @@ glib::wrapper! {
     pub struct Plug(Object<ffi::GtkPlug, ffi::GtkPlugClass>) @extends Window, Bin, Container, Widget, @implements Buildable;
 
     match fn {
-        get_type => || ffi::gtk_plug_get_type(),
+        type_ => || ffi::gtk_plug_get_type(),
     }
 }
 

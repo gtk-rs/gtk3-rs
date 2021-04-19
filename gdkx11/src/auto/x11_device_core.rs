@@ -8,7 +8,7 @@ glib::wrapper! {
     pub struct X11DeviceCore(Object<ffi::GdkX11DeviceCore, ffi::GdkX11DeviceCoreClass>) @extends gdk::Device;
 
     match fn {
-        get_type => || ffi::gdk_x11_device_core_get_type(),
+        type_ => || ffi::gdk_x11_device_core_get_type(),
     }
 }
 

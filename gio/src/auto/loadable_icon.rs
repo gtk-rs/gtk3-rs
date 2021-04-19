@@ -17,7 +17,7 @@ glib::wrapper! {
     pub struct LoadableIcon(Interface<ffi::GLoadableIcon, ffi::GLoadableIconIface>) @requires Icon;
 
     match fn {
-        get_type => || ffi::g_loadable_icon_get_type(),
+        type_ => || ffi::g_loadable_icon_get_type(),
     }
 }
 

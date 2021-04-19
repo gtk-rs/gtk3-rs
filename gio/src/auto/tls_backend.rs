@@ -11,7 +11,7 @@ glib::wrapper! {
     pub struct TlsBackend(Interface<ffi::GTlsBackend, ffi::GTlsBackendInterface>);
 
     match fn {
-        get_type => || ffi::g_tls_backend_get_type(),
+        type_ => || ffi::g_tls_backend_get_type(),
     }
 }
 

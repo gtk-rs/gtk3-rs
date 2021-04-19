@@ -16,7 +16,7 @@ glib::wrapper! {
     pub struct FilterOutputStream(Object<ffi::GFilterOutputStream, ffi::GFilterOutputStreamClass>) @extends OutputStream;
 
     match fn {
-        get_type => || ffi::g_filter_output_stream_get_type(),
+        type_ => || ffi::g_filter_output_stream_get_type(),
     }
 }
 

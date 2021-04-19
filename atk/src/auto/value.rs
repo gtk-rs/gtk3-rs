@@ -18,7 +18,7 @@ glib::wrapper! {
     pub struct Value(Interface<ffi::AtkValue, ffi::AtkValueIface>);
 
     match fn {
-        get_type => || ffi::atk_value_get_type(),
+        type_ => || ffi::atk_value_get_type(),
     }
 }
 

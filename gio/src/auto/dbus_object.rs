@@ -16,7 +16,7 @@ glib::wrapper! {
     pub struct DBusObject(Interface<ffi::GDBusObject, ffi::GDBusObjectIface>);
 
     match fn {
-        get_type => || ffi::g_dbus_object_get_type(),
+        type_ => || ffi::g_dbus_object_get_type(),
     }
 }
 

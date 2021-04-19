@@ -35,7 +35,7 @@ glib::wrapper! {
     pub struct ToolPalette(Object<ffi::GtkToolPalette, ffi::GtkToolPaletteClass>) @extends Container, Widget, @implements Buildable, Orientable, Scrollable;
 
     match fn {
-        get_type => || ffi::gtk_tool_palette_get_type(),
+        type_ => || ffi::gtk_tool_palette_get_type(),
     }
 }
 

@@ -19,7 +19,7 @@ glib::wrapper! {
     pub struct Application(Object<ffi::GtkApplication, ffi::GtkApplicationClass>) @extends gio::Application, @implements gio::ActionGroup, gio::ActionMap;
 
     match fn {
-        get_type => || ffi::gtk_application_get_type(),
+        type_ => || ffi::gtk_application_get_type(),
     }
 }
 

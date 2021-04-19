@@ -30,7 +30,7 @@ glib::wrapper! {
     pub struct FileChooserButton(Object<ffi::GtkFileChooserButton, ffi::GtkFileChooserButtonClass>) @extends Box, Container, Widget, @implements Buildable, Orientable, FileChooser;
 
     match fn {
-        get_type => || ffi::gtk_file_chooser_button_get_type(),
+        type_ => || ffi::gtk_file_chooser_button_get_type(),
     }
 }
 

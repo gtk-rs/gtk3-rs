@@ -11,7 +11,7 @@ glib::wrapper! {
     pub struct DBusMenuModel(Object<ffi::GDBusMenuModel>) @extends MenuModel;
 
     match fn {
-        get_type => || ffi::g_dbus_menu_model_get_type(),
+        type_ => || ffi::g_dbus_menu_model_get_type(),
     }
 }
 

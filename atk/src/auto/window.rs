@@ -16,7 +16,7 @@ glib::wrapper! {
     pub struct Window(Interface<ffi::AtkWindow, ffi::AtkWindowIface>) @requires Object;
 
     match fn {
-        get_type => || ffi::atk_window_get_type(),
+        type_ => || ffi::atk_window_get_type(),
     }
 }
 

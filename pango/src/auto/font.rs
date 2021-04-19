@@ -21,7 +21,7 @@ glib::wrapper! {
     pub struct Font(Object<ffi::PangoFont, ffi::PangoFontClass>);
 
     match fn {
-        get_type => || ffi::pango_font_get_type(),
+        type_ => || ffi::pango_font_get_type(),
     }
 }
 

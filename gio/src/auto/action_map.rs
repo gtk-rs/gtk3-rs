@@ -11,7 +11,7 @@ glib::wrapper! {
     pub struct ActionMap(Interface<ffi::GActionMap, ffi::GActionMapInterface>);
 
     match fn {
-        get_type => || ffi::g_action_map_get_type(),
+        type_ => || ffi::g_action_map_get_type(),
     }
 }
 

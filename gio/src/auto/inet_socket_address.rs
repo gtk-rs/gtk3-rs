@@ -14,7 +14,7 @@ glib::wrapper! {
     pub struct InetSocketAddress(Object<ffi::GInetSocketAddress, ffi::GInetSocketAddressClass>) @extends SocketAddress, @implements SocketConnectable;
 
     match fn {
-        get_type => || ffi::g_inet_socket_address_get_type(),
+        type_ => || ffi::g_inet_socket_address_get_type(),
     }
 }
 

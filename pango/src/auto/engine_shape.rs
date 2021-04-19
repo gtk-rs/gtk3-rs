@@ -8,7 +8,7 @@ glib::wrapper! {
     pub struct EngineShape(Object<ffi::PangoEngineShape, ffi::PangoEngineShapeClass>);
 
     match fn {
-        get_type => || ffi::pango_engine_shape_get_type(),
+        type_ => || ffi::pango_engine_shape_get_type(),
     }
 }
 

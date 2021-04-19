@@ -39,7 +39,7 @@ glib::wrapper! {
     pub struct TreeView(Object<ffi::GtkTreeView, ffi::GtkTreeViewClass>) @extends Container, Widget, @implements Buildable, Scrollable;
 
     match fn {
-        get_type => || ffi::gtk_tree_view_get_type(),
+        type_ => || ffi::gtk_tree_view_get_type(),
     }
 }
 

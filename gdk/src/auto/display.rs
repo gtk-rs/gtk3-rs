@@ -28,7 +28,7 @@ glib::wrapper! {
     pub struct Display(Object<ffi::GdkDisplay>);
 
     match fn {
-        get_type => || ffi::gdk_display_get_type(),
+        type_ => || ffi::gdk_display_get_type(),
     }
 }
 

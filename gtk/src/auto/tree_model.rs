@@ -18,7 +18,7 @@ glib::wrapper! {
     pub struct TreeModel(Interface<ffi::GtkTreeModel, ffi::GtkTreeModelIface>);
 
     match fn {
-        get_type => || ffi::gtk_tree_model_get_type(),
+        type_ => || ffi::gtk_tree_model_get_type(),
     }
 }
 

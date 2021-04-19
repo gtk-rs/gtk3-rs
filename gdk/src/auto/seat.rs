@@ -24,7 +24,7 @@ glib::wrapper! {
     pub struct Seat(Object<ffi::GdkSeat>);
 
     match fn {
-        get_type => || ffi::gdk_seat_get_type(),
+        type_ => || ffi::gdk_seat_get_type(),
     }
 }
 

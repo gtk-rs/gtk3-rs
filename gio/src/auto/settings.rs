@@ -19,7 +19,7 @@ glib::wrapper! {
     pub struct Settings(Object<ffi::GSettings, ffi::GSettingsClass>);
 
     match fn {
-        get_type => || ffi::g_settings_get_type(),
+        type_ => || ffi::g_settings_get_type(),
     }
 }
 

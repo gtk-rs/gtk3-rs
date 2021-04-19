@@ -12,7 +12,7 @@ glib::wrapper! {
     pub struct StyleProperties(Object<ffi::GtkStyleProperties, ffi::GtkStylePropertiesClass>) @implements StyleProvider;
 
     match fn {
-        get_type => || ffi::gtk_style_properties_get_type(),
+        type_ => || ffi::gtk_style_properties_get_type(),
     }
 }
 

@@ -12,7 +12,7 @@ glib::wrapper! {
     pub struct DevicePad(Interface<ffi::GdkDevicePad, ffi::GdkDevicePadInterface>) @requires Device;
 
     match fn {
-        get_type => || ffi::gdk_device_pad_get_type(),
+        type_ => || ffi::gdk_device_pad_get_type(),
     }
 }
 

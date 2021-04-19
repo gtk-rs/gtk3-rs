@@ -43,7 +43,7 @@ glib::wrapper! {
     pub struct TextView(Object<ffi::GtkTextView, ffi::GtkTextViewClass>) @extends Container, Widget, @implements Buildable, Scrollable;
 
     match fn {
-        get_type => || ffi::gtk_text_view_get_type(),
+        type_ => || ffi::gtk_text_view_get_type(),
     }
 }
 

@@ -13,7 +13,7 @@ glib::wrapper! {
     match fn {
         ref => |ptr| ffi::pango_attr_list_ref(ptr),
         unref => |ptr| ffi::pango_attr_list_unref(ptr),
-        get_type => || ffi::pango_attr_list_get_type(),
+        type_ => || ffi::pango_attr_list_get_type(),
     }
 }
 

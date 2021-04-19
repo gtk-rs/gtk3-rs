@@ -20,7 +20,7 @@ glib::wrapper! {
     pub struct RecentManager(Object<ffi::GtkRecentManager, ffi::GtkRecentManagerClass>);
 
     match fn {
-        get_type => || ffi::gtk_recent_manager_get_type(),
+        type_ => || ffi::gtk_recent_manager_get_type(),
     }
 }
 

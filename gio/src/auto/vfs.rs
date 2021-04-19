@@ -14,7 +14,7 @@ glib::wrapper! {
     pub struct Vfs(Object<ffi::GVfs, ffi::GVfsClass>);
 
     match fn {
-        get_type => || ffi::g_vfs_get_type(),
+        type_ => || ffi::g_vfs_get_type(),
     }
 }
 

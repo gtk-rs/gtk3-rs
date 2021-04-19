@@ -18,7 +18,7 @@ glib::wrapper! {
     pub struct FontMap(Object<ffi::PangoFontMap, ffi::PangoFontMapClass>);
 
     match fn {
-        get_type => || ffi::pango_font_map_get_type(),
+        type_ => || ffi::pango_font_map_get_type(),
     }
 }
 

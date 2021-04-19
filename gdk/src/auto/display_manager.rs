@@ -15,7 +15,7 @@ glib::wrapper! {
     pub struct DisplayManager(Object<ffi::GdkDisplayManager>);
 
     match fn {
-        get_type => || ffi::gdk_display_manager_get_type(),
+        type_ => || ffi::gdk_display_manager_get_type(),
     }
 }
 

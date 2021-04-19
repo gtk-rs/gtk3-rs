@@ -11,7 +11,7 @@ glib::wrapper! {
     pub struct TextChildAnchor(Object<ffi::GtkTextChildAnchor, ffi::GtkTextChildAnchorClass>);
 
     match fn {
-        get_type => || ffi::gtk_text_child_anchor_get_type(),
+        type_ => || ffi::gtk_text_child_anchor_get_type(),
     }
 }
 

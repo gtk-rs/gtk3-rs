@@ -14,7 +14,7 @@ glib::wrapper! {
     pub struct AppInfoMonitor(Object<ffi::GAppInfoMonitor>);
 
     match fn {
-        get_type => || ffi::g_app_info_monitor_get_type(),
+        type_ => || ffi::g_app_info_monitor_get_type(),
     }
 }
 

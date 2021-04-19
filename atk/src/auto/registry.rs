@@ -11,7 +11,7 @@ glib::wrapper! {
     pub struct Registry(Object<ffi::AtkRegistry, ffi::AtkRegistryClass>);
 
     match fn {
-        get_type => || ffi::atk_registry_get_type(),
+        type_ => || ffi::atk_registry_get_type(),
     }
 }
 

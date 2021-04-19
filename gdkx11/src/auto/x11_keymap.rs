@@ -9,7 +9,7 @@ glib::wrapper! {
     pub struct X11Keymap(Object<ffi::GdkX11Keymap, ffi::GdkX11KeymapClass>) @extends gdk::Keymap;
 
     match fn {
-        get_type => || ffi::gdk_x11_keymap_get_type(),
+        type_ => || ffi::gdk_x11_keymap_get_type(),
     }
 }
 

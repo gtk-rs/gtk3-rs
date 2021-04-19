@@ -24,7 +24,7 @@ glib::wrapper! {
     pub struct FlowBoxChild(Object<ffi::GtkFlowBoxChild, ffi::GtkFlowBoxChildClass>) @extends Bin, Container, Widget, @implements Buildable;
 
     match fn {
-        get_type => || ffi::gtk_flow_box_child_get_type(),
+        type_ => || ffi::gtk_flow_box_child_get_type(),
     }
 }
 

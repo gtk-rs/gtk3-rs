@@ -25,7 +25,7 @@ glib::wrapper! {
     pub struct Resolver(Object<ffi::GResolver, ffi::GResolverClass>);
 
     match fn {
-        get_type => || ffi::g_resolver_get_type(),
+        type_ => || ffi::g_resolver_get_type(),
     }
 }
 

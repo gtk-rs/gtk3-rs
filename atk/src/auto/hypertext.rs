@@ -16,7 +16,7 @@ glib::wrapper! {
     pub struct Hypertext(Interface<ffi::AtkHypertext, ffi::AtkHypertextIface>);
 
     match fn {
-        get_type => || ffi::atk_hypertext_get_type(),
+        type_ => || ffi::atk_hypertext_get_type(),
     }
 }
 

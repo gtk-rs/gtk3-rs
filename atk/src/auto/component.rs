@@ -23,7 +23,7 @@ glib::wrapper! {
     pub struct Component(Interface<ffi::AtkComponent, ffi::AtkComponentIface>);
 
     match fn {
-        get_type => || ffi::atk_component_get_type(),
+        type_ => || ffi::atk_component_get_type(),
     }
 }
 

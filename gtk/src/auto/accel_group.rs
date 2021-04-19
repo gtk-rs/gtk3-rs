@@ -15,7 +15,7 @@ glib::wrapper! {
     pub struct AccelGroup(Object<ffi::GtkAccelGroup, ffi::GtkAccelGroupClass>);
 
     match fn {
-        get_type => || ffi::gtk_accel_group_get_type(),
+        type_ => || ffi::gtk_accel_group_get_type(),
     }
 }
 

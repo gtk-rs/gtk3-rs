@@ -19,7 +19,7 @@ glib::wrapper! {
     pub struct Overlay(Object<ffi::GtkOverlay, ffi::GtkOverlayClass>) @extends Bin, Container, Widget, @implements Buildable;
 
     match fn {
-        get_type => || ffi::gtk_overlay_get_type(),
+        type_ => || ffi::gtk_overlay_get_type(),
     }
 }
 

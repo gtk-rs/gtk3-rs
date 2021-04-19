@@ -11,7 +11,7 @@ glib::wrapper! {
     pub struct AsyncResult(Interface<ffi::GAsyncResult, ffi::GAsyncResultIface>);
 
     match fn {
-        get_type => || ffi::g_async_result_get_type(),
+        type_ => || ffi::g_async_result_get_type(),
     }
 }
 

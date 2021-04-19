@@ -26,7 +26,7 @@ glib::wrapper! {
     pub struct Volume(Interface<ffi::GVolume, ffi::GVolumeIface>);
 
     match fn {
-        get_type => || ffi::g_volume_get_type(),
+        type_ => || ffi::g_volume_get_type(),
     }
 }
 

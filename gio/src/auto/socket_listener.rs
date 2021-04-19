@@ -28,7 +28,7 @@ glib::wrapper! {
     pub struct SocketListener(Object<ffi::GSocketListener, ffi::GSocketListenerClass>);
 
     match fn {
-        get_type => || ffi::g_socket_listener_get_type(),
+        type_ => || ffi::g_socket_listener_get_type(),
     }
 }
 

@@ -28,7 +28,7 @@ glib::wrapper! {
     pub struct ShortcutsSection(Object<ffi::GtkShortcutsSection, ffi::GtkShortcutsSectionClass>) @extends Box, Container, Widget, @implements Buildable, Orientable;
 
     match fn {
-        get_type => || ffi::gtk_shortcuts_section_get_type(),
+        type_ => || ffi::gtk_shortcuts_section_get_type(),
     }
 }
 

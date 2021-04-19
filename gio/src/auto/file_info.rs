@@ -15,7 +15,7 @@ glib::wrapper! {
     pub struct FileInfo(Object<ffi::GFileInfo, ffi::GFileInfoClass>);
 
     match fn {
-        get_type => || ffi::g_file_info_get_type(),
+        type_ => || ffi::g_file_info_get_type(),
     }
 }
 

@@ -21,7 +21,7 @@ glib::wrapper! {
     pub struct TlsServerConnection(Interface<ffi::GTlsServerConnection, ffi::GTlsServerConnectionInterface>) @requires TlsConnection, IOStream;
 
     match fn {
-        get_type => || ffi::g_tls_server_connection_get_type(),
+        type_ => || ffi::g_tls_server_connection_get_type(),
     }
 }
 

@@ -29,7 +29,7 @@ glib::wrapper! {
     pub struct Toolbar(Object<ffi::GtkToolbar, ffi::GtkToolbarClass>) @extends Container, Widget, @implements Buildable, Orientable, ToolShell;
 
     match fn {
-        get_type => || ffi::gtk_toolbar_get_type(),
+        type_ => || ffi::gtk_toolbar_get_type(),
     }
 }
 

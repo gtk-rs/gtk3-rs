@@ -18,7 +18,7 @@ glib::wrapper! {
     pub struct CellAreaContext(Object<ffi::GtkCellAreaContext, ffi::GtkCellAreaContextClass>);
 
     match fn {
-        get_type => || ffi::gtk_cell_area_context_get_type(),
+        type_ => || ffi::gtk_cell_area_context_get_type(),
     }
 }
 

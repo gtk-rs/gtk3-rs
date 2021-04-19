@@ -17,7 +17,7 @@ glib::wrapper! {
     pub struct MenuModel(Object<ffi::GMenuModel, ffi::GMenuModelClass>);
 
     match fn {
-        get_type => || ffi::g_menu_model_get_type(),
+        type_ => || ffi::g_menu_model_get_type(),
     }
 }
 

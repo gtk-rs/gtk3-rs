@@ -14,7 +14,7 @@ glib::wrapper! {
     match fn {
         copy => |ptr| ffi::pango_matrix_copy(ptr),
         free => |ptr| ffi::pango_matrix_free(ptr),
-        get_type => || ffi::pango_matrix_get_type(),
+        type_ => || ffi::pango_matrix_get_type(),
     }
 }
 

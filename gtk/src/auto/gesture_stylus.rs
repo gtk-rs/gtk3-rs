@@ -21,7 +21,7 @@ glib::wrapper! {
     pub struct GestureStylus(Object<ffi::GtkGestureStylus, ffi::GtkGestureStylusClass>) @extends GestureSingle, Gesture, EventController;
 
     match fn {
-        get_type => || ffi::gtk_gesture_stylus_get_type(),
+        type_ => || ffi::gtk_gesture_stylus_get_type(),
     }
 }
 

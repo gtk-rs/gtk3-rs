@@ -19,7 +19,7 @@ glib::wrapper! {
     pub struct Permission(Object<ffi::GPermission, ffi::GPermissionClass>);
 
     match fn {
-        get_type => || ffi::g_permission_get_type(),
+        type_ => || ffi::g_permission_get_type(),
     }
 }
 

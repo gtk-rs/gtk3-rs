@@ -31,7 +31,7 @@ glib::wrapper! {
     pub struct Window(Object<ffi::GtkWindow, ffi::GtkWindowClass>) @extends Bin, Container, Widget, @implements Buildable;
 
     match fn {
-        get_type => || ffi::gtk_window_get_type(),
+        type_ => || ffi::gtk_window_get_type(),
     }
 }
 

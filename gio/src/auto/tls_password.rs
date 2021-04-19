@@ -16,7 +16,7 @@ glib::wrapper! {
     pub struct TlsPassword(Object<ffi::GTlsPassword, ffi::GTlsPasswordClass>);
 
     match fn {
-        get_type => || ffi::g_tls_password_get_type(),
+        type_ => || ffi::g_tls_password_get_type(),
     }
 }
 

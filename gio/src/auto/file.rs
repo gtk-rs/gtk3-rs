@@ -34,7 +34,7 @@ glib::wrapper! {
     pub struct File(Interface<ffi::GFile, ffi::GFileIface>);
 
     match fn {
-        get_type => || ffi::g_file_get_type(),
+        type_ => || ffi::g_file_get_type(),
     }
 }
 

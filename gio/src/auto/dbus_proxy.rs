@@ -29,7 +29,7 @@ glib::wrapper! {
     pub struct DBusProxy(Object<ffi::GDBusProxy, ffi::GDBusProxyClass>) @implements DBusInterface;
 
     match fn {
-        get_type => || ffi::g_dbus_proxy_get_type(),
+        type_ => || ffi::g_dbus_proxy_get_type(),
     }
 }
 

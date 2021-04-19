@@ -39,7 +39,7 @@ glib::wrapper! {
     pub struct IconView(Object<ffi::GtkIconView, ffi::GtkIconViewClass>) @extends Container, Widget, @implements Buildable, CellLayout, Scrollable;
 
     match fn {
-        get_type => || ffi::gtk_icon_view_get_type(),
+        type_ => || ffi::gtk_icon_view_get_type(),
     }
 }
 

@@ -13,7 +13,7 @@ glib::wrapper! {
     match fn {
         ref => |ptr| ffi::g_settings_schema_source_ref(ptr),
         unref => |ptr| ffi::g_settings_schema_source_unref(ptr),
-        get_type => || ffi::g_settings_schema_source_get_type(),
+        type_ => || ffi::g_settings_schema_source_get_type(),
     }
 }
 

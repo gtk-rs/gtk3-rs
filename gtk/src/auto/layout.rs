@@ -26,7 +26,7 @@ glib::wrapper! {
     pub struct Layout(Object<ffi::GtkLayout, ffi::GtkLayoutClass>) @extends Container, Widget, @implements Buildable, Scrollable;
 
     match fn {
-        get_type => || ffi::gtk_layout_get_type(),
+        type_ => || ffi::gtk_layout_get_type(),
     }
 }
 

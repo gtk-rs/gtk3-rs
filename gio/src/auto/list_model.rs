@@ -15,7 +15,7 @@ glib::wrapper! {
     pub struct ListModel(Interface<ffi::GListModel, ffi::GListModelInterface>);
 
     match fn {
-        get_type => || ffi::g_list_model_get_type(),
+        type_ => || ffi::g_list_model_get_type(),
     }
 }
 

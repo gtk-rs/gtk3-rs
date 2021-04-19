@@ -29,7 +29,7 @@ glib::wrapper! {
     pub struct Assistant(Object<ffi::GtkAssistant, ffi::GtkAssistantClass>) @extends Window, Bin, Container, Widget, @implements Buildable;
 
     match fn {
-        get_type => || ffi::gtk_assistant_get_type(),
+        type_ => || ffi::gtk_assistant_get_type(),
     }
 }
 

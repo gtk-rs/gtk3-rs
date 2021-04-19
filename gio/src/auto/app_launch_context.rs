@@ -17,7 +17,7 @@ glib::wrapper! {
     pub struct AppLaunchContext(Object<ffi::GAppLaunchContext, ffi::GAppLaunchContextClass>);
 
     match fn {
-        get_type => || ffi::g_app_launch_context_get_type(),
+        type_ => || ffi::g_app_launch_context_get_type(),
     }
 }
 

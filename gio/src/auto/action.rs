@@ -16,7 +16,7 @@ glib::wrapper! {
     pub struct Action(Interface<ffi::GAction, ffi::GActionInterface>);
 
     match fn {
-        get_type => || ffi::g_action_get_type(),
+        type_ => || ffi::g_action_get_type(),
     }
 }
 

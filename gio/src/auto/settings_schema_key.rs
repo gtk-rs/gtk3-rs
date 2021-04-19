@@ -14,7 +14,7 @@ glib::wrapper! {
     match fn {
         ref => |ptr| ffi::g_settings_schema_key_ref(ptr),
         unref => |ptr| ffi::g_settings_schema_key_unref(ptr),
-        get_type => || ffi::g_settings_schema_key_get_type(),
+        type_ => || ffi::g_settings_schema_key_get_type(),
     }
 }
 

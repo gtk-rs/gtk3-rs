@@ -18,7 +18,7 @@ crate::wrapper! {
     match fn {
         ref => |ptr| ffi::g_key_file_ref(ptr),
         unref => |ptr| ffi::g_key_file_unref(ptr),
-        get_type => || ffi::g_key_file_get_type(),
+        type_ => || ffi::g_key_file_get_type(),
     }
 }
 

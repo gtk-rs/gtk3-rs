@@ -10,7 +10,7 @@ glib::wrapper! {
     pub struct UnixFDList(Object<ffi::GUnixFDList, ffi::GUnixFDListClass>);
 
     match fn {
-        get_type => || ffi::g_unix_fd_list_get_type(),
+        type_ => || ffi::g_unix_fd_list_get_type(),
     }
 }
 

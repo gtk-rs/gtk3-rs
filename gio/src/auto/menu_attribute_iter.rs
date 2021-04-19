@@ -11,7 +11,7 @@ glib::wrapper! {
     pub struct MenuAttributeIter(Object<ffi::GMenuAttributeIter, ffi::GMenuAttributeIterClass>);
 
     match fn {
-        get_type => || ffi::g_menu_attribute_iter_get_type(),
+        type_ => || ffi::g_menu_attribute_iter_get_type(),
     }
 }
 

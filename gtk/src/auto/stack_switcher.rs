@@ -27,7 +27,7 @@ glib::wrapper! {
     pub struct StackSwitcher(Object<ffi::GtkStackSwitcher, ffi::GtkStackSwitcherClass>) @extends Box, Container, Widget, @implements Buildable, Orientable;
 
     match fn {
-        get_type => || ffi::gtk_stack_switcher_get_type(),
+        type_ => || ffi::gtk_stack_switcher_get_type(),
     }
 }
 

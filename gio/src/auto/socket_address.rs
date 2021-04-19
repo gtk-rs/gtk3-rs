@@ -17,7 +17,7 @@ glib::wrapper! {
     pub struct SocketAddress(Object<ffi::GSocketAddress, ffi::GSocketAddressClass>) @implements SocketConnectable;
 
     match fn {
-        get_type => || ffi::g_socket_address_get_type(),
+        type_ => || ffi::g_socket_address_get_type(),
     }
 }
 

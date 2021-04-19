@@ -19,7 +19,7 @@ glib::wrapper! {
     pub struct Keymap(Object<ffi::GdkKeymap>);
 
     match fn {
-        get_type => || ffi::gdk_keymap_get_type(),
+        type_ => || ffi::gdk_keymap_get_type(),
     }
 }
 

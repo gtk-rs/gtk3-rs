@@ -21,7 +21,7 @@ glib::wrapper! {
     pub struct IOStream(Object<ffi::GIOStream, ffi::GIOStreamClass>);
 
     match fn {
-        get_type => || ffi::g_io_stream_get_type(),
+        type_ => || ffi::g_io_stream_get_type(),
     }
 }
 

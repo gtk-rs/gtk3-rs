@@ -27,7 +27,7 @@ glib::wrapper! {
     pub struct RadioMenuItem(Object<ffi::GtkRadioMenuItem, ffi::GtkRadioMenuItemClass>) @extends CheckMenuItem, MenuItem, Bin, Container, Widget, @implements Buildable, Actionable;
 
     match fn {
-        get_type => || ffi::gtk_radio_menu_item_get_type(),
+        type_ => || ffi::gtk_radio_menu_item_get_type(),
     }
 }
 

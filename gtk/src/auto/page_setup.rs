@@ -13,7 +13,7 @@ glib::wrapper! {
     pub struct PageSetup(Object<ffi::GtkPageSetup>);
 
     match fn {
-        get_type => || ffi::gtk_page_setup_get_type(),
+        type_ => || ffi::gtk_page_setup_get_type(),
     }
 }
 

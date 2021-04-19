@@ -31,7 +31,7 @@ glib::wrapper! {
         free => |ptr| glib::gobject_ffi::g_boxed_free(ffi::graphene_ray_get_type(), ptr as *mut _),
         init => |_ptr| (),
         clear => |_ptr| (),
-        get_type => || ffi::graphene_ray_get_type(),
+        type_ => || ffi::graphene_ray_get_type(),
     }
 }
 

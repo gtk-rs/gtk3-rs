@@ -24,7 +24,7 @@ glib::wrapper! {
     pub struct NoOpObject(Object<ffi::AtkNoOpObject, ffi::AtkNoOpObjectClass>) @extends Object, @implements Action, Component, Document, EditableText, Hypertext, Image, Selection, Table, TableCell, Text, Value, Window;
 
     match fn {
-        get_type => || ffi::atk_no_op_object_get_type(),
+        type_ => || ffi::atk_no_op_object_get_type(),
     }
 }
 

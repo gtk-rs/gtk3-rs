@@ -17,7 +17,7 @@ glib::wrapper! {
     pub struct Pixbuf(Object<ffi::GdkPixbuf>) @implements gio::Icon, gio::LoadableIcon;
 
     match fn {
-        get_type => || ffi::gdk_pixbuf_get_type(),
+        type_ => || ffi::gdk_pixbuf_get_type(),
     }
 }
 

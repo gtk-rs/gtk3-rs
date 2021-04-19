@@ -19,7 +19,7 @@ glib::wrapper! {
     pub struct Renderer(Object<ffi::PangoRenderer, ffi::PangoRendererClass>);
 
     match fn {
-        get_type => || ffi::pango_renderer_get_type(),
+        type_ => || ffi::pango_renderer_get_type(),
     }
 }
 

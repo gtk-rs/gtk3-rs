@@ -26,7 +26,7 @@ glib::wrapper! {
     pub struct TlsConnection(Object<ffi::GTlsConnection, ffi::GTlsConnectionClass>) @extends IOStream;
 
     match fn {
-        get_type => || ffi::g_tls_connection_get_type(),
+        type_ => || ffi::g_tls_connection_get_type(),
     }
 }
 

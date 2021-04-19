@@ -17,7 +17,7 @@ glib::wrapper! {
     pub struct DesktopAppInfo(Object<ffi::GDesktopAppInfo, ffi::GDesktopAppInfoClass>) @implements AppInfo;
 
     match fn {
-        get_type => || ffi::g_desktop_app_info_get_type(),
+        type_ => || ffi::g_desktop_app_info_get_type(),
     }
 }
 

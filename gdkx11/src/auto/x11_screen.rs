@@ -16,7 +16,7 @@ glib::wrapper! {
     pub struct X11Screen(Object<ffi::GdkX11Screen, ffi::GdkX11ScreenClass>) @extends gdk::Screen;
 
     match fn {
-        get_type => || ffi::gdk_x11_screen_get_type(),
+        type_ => || ffi::gdk_x11_screen_get_type(),
     }
 }
 

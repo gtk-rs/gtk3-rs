@@ -31,7 +31,7 @@ glib::wrapper! {
     pub struct Dialog(Object<ffi::GtkDialog, ffi::GtkDialogClass>) @extends Window, Bin, Container, Widget, @implements Buildable;
 
     match fn {
-        get_type => || ffi::gtk_dialog_get_type(),
+        type_ => || ffi::gtk_dialog_get_type(),
     }
 }
 

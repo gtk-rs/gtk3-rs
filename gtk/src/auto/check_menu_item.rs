@@ -26,7 +26,7 @@ glib::wrapper! {
     pub struct CheckMenuItem(Object<ffi::GtkCheckMenuItem, ffi::GtkCheckMenuItemClass>) @extends MenuItem, Bin, Container, Widget, @implements Buildable, Actionable;
 
     match fn {
-        get_type => || ffi::gtk_check_menu_item_get_type(),
+        type_ => || ffi::gtk_check_menu_item_get_type(),
     }
 }
 

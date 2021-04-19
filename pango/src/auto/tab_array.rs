@@ -13,7 +13,7 @@ glib::wrapper! {
     match fn {
         copy => |ptr| ffi::pango_tab_array_copy(mut_override(ptr)),
         free => |ptr| ffi::pango_tab_array_free(ptr),
-        get_type => || ffi::pango_tab_array_get_type(),
+        type_ => || ffi::pango_tab_array_get_type(),
     }
 }
 

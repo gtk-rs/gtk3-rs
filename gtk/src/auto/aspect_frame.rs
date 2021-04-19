@@ -25,7 +25,7 @@ glib::wrapper! {
     pub struct AspectFrame(Object<ffi::GtkAspectFrame, ffi::GtkAspectFrameClass>) @extends Frame, Bin, Container, Widget, @implements Buildable;
 
     match fn {
-        get_type => || ffi::gtk_aspect_frame_get_type(),
+        type_ => || ffi::gtk_aspect_frame_get_type(),
     }
 }
 

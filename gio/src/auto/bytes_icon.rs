@@ -11,7 +11,7 @@ glib::wrapper! {
     pub struct BytesIcon(Object<ffi::GBytesIcon>) @implements Icon, LoadableIcon;
 
     match fn {
-        get_type => || ffi::g_bytes_icon_get_type(),
+        type_ => || ffi::g_bytes_icon_get_type(),
     }
 }
 

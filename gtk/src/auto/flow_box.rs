@@ -29,7 +29,7 @@ glib::wrapper! {
     pub struct FlowBox(Object<ffi::GtkFlowBox, ffi::GtkFlowBoxClass>) @extends Container, Widget, @implements Buildable, Orientable;
 
     match fn {
-        get_type => || ffi::gtk_flow_box_get_type(),
+        type_ => || ffi::gtk_flow_box_get_type(),
     }
 }
 

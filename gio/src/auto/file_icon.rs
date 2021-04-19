@@ -13,7 +13,7 @@ glib::wrapper! {
     pub struct FileIcon(Object<ffi::GFileIcon, ffi::GFileIconClass>) @implements Icon, LoadableIcon;
 
     match fn {
-        get_type => || ffi::g_file_icon_get_type(),
+        type_ => || ffi::g_file_icon_get_type(),
     }
 }
 

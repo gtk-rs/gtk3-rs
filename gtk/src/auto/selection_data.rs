@@ -15,7 +15,7 @@ glib::wrapper! {
     match fn {
         copy => |ptr| ffi::gtk_selection_data_copy(ptr),
         free => |ptr| ffi::gtk_selection_data_free(ptr),
-        get_type => || ffi::gtk_selection_data_get_type(),
+        type_ => || ffi::gtk_selection_data_get_type(),
     }
 }
 

@@ -19,7 +19,7 @@ glib::wrapper! {
     pub struct Separator(Object<ffi::GtkSeparator, ffi::GtkSeparatorClass>) @extends Widget, @implements Buildable, Orientable;
 
     match fn {
-        get_type => || ffi::gtk_separator_get_type(),
+        type_ => || ffi::gtk_separator_get_type(),
     }
 }
 

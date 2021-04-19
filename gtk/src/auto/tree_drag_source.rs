@@ -12,7 +12,7 @@ glib::wrapper! {
     pub struct TreeDragSource(Interface<ffi::GtkTreeDragSource, ffi::GtkTreeDragSourceIface>);
 
     match fn {
-        get_type => || ffi::gtk_tree_drag_source_get_type(),
+        type_ => || ffi::gtk_tree_drag_source_get_type(),
     }
 }
 

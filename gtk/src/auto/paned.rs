@@ -26,7 +26,7 @@ glib::wrapper! {
     pub struct Paned(Object<ffi::GtkPaned, ffi::GtkPanedClass>) @extends Container, Widget, @implements Buildable, Orientable;
 
     match fn {
-        get_type => || ffi::gtk_paned_get_type(),
+        type_ => || ffi::gtk_paned_get_type(),
     }
 }
 

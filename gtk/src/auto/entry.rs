@@ -36,7 +36,7 @@ glib::wrapper! {
     pub struct Entry(Object<ffi::GtkEntry, ffi::GtkEntryClass>) @extends Widget, @implements Buildable, CellEditable, Editable;
 
     match fn {
-        get_type => || ffi::gtk_entry_get_type(),
+        type_ => || ffi::gtk_entry_get_type(),
     }
 }
 

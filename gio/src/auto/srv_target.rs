@@ -11,7 +11,7 @@ glib::wrapper! {
     match fn {
         copy => |ptr| ffi::g_srv_target_copy(mut_override(ptr)),
         free => |ptr| ffi::g_srv_target_free(ptr),
-        get_type => || ffi::g_srv_target_get_type(),
+        type_ => || ffi::g_srv_target_get_type(),
     }
 }
 

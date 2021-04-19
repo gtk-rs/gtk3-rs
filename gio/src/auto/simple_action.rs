@@ -15,7 +15,7 @@ glib::wrapper! {
     pub struct SimpleAction(Object<ffi::GSimpleAction>) @implements Action;
 
     match fn {
-        get_type => || ffi::g_simple_action_get_type(),
+        type_ => || ffi::g_simple_action_get_type(),
     }
 }
 

@@ -23,7 +23,7 @@ glib::wrapper! {
     pub struct Layout(Object<ffi::PangoLayout, ffi::PangoLayoutClass>);
 
     match fn {
-        get_type => || ffi::pango_layout_get_type(),
+        type_ => || ffi::pango_layout_get_type(),
     }
 }
 

@@ -11,7 +11,7 @@ glib::wrapper! {
     pub struct RecentFilter(Object<ffi::GtkRecentFilter>) @implements Buildable;
 
     match fn {
-        get_type => || ffi::gtk_recent_filter_get_type(),
+        type_ => || ffi::gtk_recent_filter_get_type(),
     }
 }
 

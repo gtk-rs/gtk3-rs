@@ -21,7 +21,7 @@ glib::wrapper! {
     pub struct Spinner(Object<ffi::GtkSpinner, ffi::GtkSpinnerClass>) @extends Widget, @implements Buildable;
 
     match fn {
-        get_type => || ffi::gtk_spinner_get_type(),
+        type_ => || ffi::gtk_spinner_get_type(),
     }
 }
 

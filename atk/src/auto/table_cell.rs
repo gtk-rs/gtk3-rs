@@ -12,7 +12,7 @@ glib::wrapper! {
     pub struct TableCell(Interface<ffi::AtkTableCell, ffi::AtkTableCellIface>) @requires Object;
 
     match fn {
-        get_type => || ffi::atk_table_cell_get_type(),
+        type_ => || ffi::atk_table_cell_get_type(),
     }
 }
 

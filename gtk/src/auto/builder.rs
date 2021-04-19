@@ -18,7 +18,7 @@ glib::wrapper! {
     pub struct Builder(Object<ffi::GtkBuilder, ffi::GtkBuilderClass>);
 
     match fn {
-        get_type => || ffi::gtk_builder_get_type(),
+        type_ => || ffi::gtk_builder_get_type(),
     }
 }
 

@@ -11,7 +11,7 @@ glib::wrapper! {
     match fn {
         copy => |ptr| ffi::gdk_pixbuf_format_copy(ptr),
         free => |ptr| ffi::gdk_pixbuf_format_free(ptr),
-        get_type => || ffi::gdk_pixbuf_format_get_type(),
+        type_ => || ffi::gdk_pixbuf_format_get_type(),
     }
 }
 

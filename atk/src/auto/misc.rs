@@ -10,7 +10,7 @@ glib::wrapper! {
     pub struct Misc(Object<ffi::AtkMisc, ffi::AtkMiscClass>);
 
     match fn {
-        get_type => || ffi::atk_misc_get_type(),
+        type_ => || ffi::atk_misc_get_type(),
     }
 }
 

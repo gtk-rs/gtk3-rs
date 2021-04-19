@@ -12,7 +12,7 @@ crate::wrapper! {
     match fn {
         ref => |ptr| ffi::g_time_zone_ref(ptr),
         unref => |ptr| ffi::g_time_zone_unref(ptr),
-        get_type => || ffi::g_time_zone_get_type(),
+        type_ => || ffi::g_time_zone_get_type(),
     }
 }
 

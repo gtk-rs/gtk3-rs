@@ -26,7 +26,7 @@ glib::wrapper! {
     pub struct DBusMessage(Object<ffi::GDBusMessage>);
 
     match fn {
-        get_type => || ffi::g_dbus_message_get_type(),
+        type_ => || ffi::g_dbus_message_get_type(),
     }
 }
 

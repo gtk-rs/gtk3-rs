@@ -27,7 +27,7 @@ glib::wrapper! {
     pub struct Socket(Object<ffi::GSocket, ffi::GSocketClass>);
 
     match fn {
-        get_type => || ffi::g_socket_get_type(),
+        type_ => || ffi::g_socket_get_type(),
     }
 }
 

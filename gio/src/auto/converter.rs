@@ -10,7 +10,7 @@ glib::wrapper! {
     pub struct Converter(Interface<ffi::GConverter, ffi::GConverterIface>);
 
     match fn {
-        get_type => || ffi::g_converter_get_type(),
+        type_ => || ffi::g_converter_get_type(),
     }
 }
 

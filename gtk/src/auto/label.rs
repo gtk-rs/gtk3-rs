@@ -27,7 +27,7 @@ glib::wrapper! {
     pub struct Label(Object<ffi::GtkLabel, ffi::GtkLabelClass>) @extends Misc, Widget, @implements Buildable;
 
     match fn {
-        get_type => || ffi::gtk_label_get_type(),
+        type_ => || ffi::gtk_label_get_type(),
     }
 }
 

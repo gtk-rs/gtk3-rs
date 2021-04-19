@@ -18,7 +18,7 @@ glib::wrapper! {
     pub struct MemoryOutputStream(Object<ffi::GMemoryOutputStream, ffi::GMemoryOutputStreamClass>) @extends OutputStream, @implements PollableOutputStream, Seekable;
 
     match fn {
-        get_type => || ffi::g_memory_output_stream_get_type(),
+        type_ => || ffi::g_memory_output_stream_get_type(),
     }
 }
 

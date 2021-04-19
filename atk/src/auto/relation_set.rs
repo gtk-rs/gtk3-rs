@@ -13,7 +13,7 @@ glib::wrapper! {
     pub struct RelationSet(Object<ffi::AtkRelationSet, ffi::AtkRelationSetClass>);
 
     match fn {
-        get_type => || ffi::atk_relation_set_get_type(),
+        type_ => || ffi::atk_relation_set_get_type(),
     }
 }
 

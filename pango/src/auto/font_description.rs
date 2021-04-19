@@ -19,7 +19,7 @@ glib::wrapper! {
     match fn {
         copy => |ptr| ffi::pango_font_description_copy(ptr),
         free => |ptr| ffi::pango_font_description_free(ptr),
-        get_type => || ffi::pango_font_description_get_type(),
+        type_ => || ffi::pango_font_description_get_type(),
     }
 }
 

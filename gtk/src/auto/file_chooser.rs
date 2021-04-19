@@ -20,7 +20,7 @@ glib::wrapper! {
     pub struct FileChooser(Interface<ffi::GtkFileChooser>);
 
     match fn {
-        get_type => || ffi::gtk_file_chooser_get_type(),
+        type_ => || ffi::gtk_file_chooser_get_type(),
     }
 }
 

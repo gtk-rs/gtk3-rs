@@ -25,7 +25,7 @@ glib::wrapper! {
     pub struct Text(Interface<ffi::AtkText, ffi::AtkTextIface>);
 
     match fn {
-        get_type => || ffi::atk_text_get_type(),
+        type_ => || ffi::atk_text_get_type(),
     }
 }
 

@@ -27,7 +27,7 @@ glib::wrapper! {
     pub struct ButtonBox(Object<ffi::GtkButtonBox, ffi::GtkButtonBoxClass>) @extends Box, Container, Widget, @implements Buildable, Orientable;
 
     match fn {
-        get_type => || ffi::gtk_button_box_get_type(),
+        type_ => || ffi::gtk_button_box_get_type(),
     }
 }
 

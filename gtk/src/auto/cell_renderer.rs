@@ -25,7 +25,7 @@ glib::wrapper! {
     pub struct CellRenderer(Object<ffi::GtkCellRenderer, ffi::GtkCellRendererClass>);
 
     match fn {
-        get_type => || ffi::gtk_cell_renderer_get_type(),
+        type_ => || ffi::gtk_cell_renderer_get_type(),
     }
 }
 

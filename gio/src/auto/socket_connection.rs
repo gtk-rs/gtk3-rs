@@ -20,7 +20,7 @@ glib::wrapper! {
     pub struct SocketConnection(Object<ffi::GSocketConnection, ffi::GSocketConnectionClass>) @extends IOStream;
 
     match fn {
-        get_type => || ffi::g_socket_connection_get_type(),
+        type_ => || ffi::g_socket_connection_get_type(),
     }
 }
 

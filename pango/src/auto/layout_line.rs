@@ -14,7 +14,7 @@ glib::wrapper! {
     match fn {
         ref => |ptr| ffi::pango_layout_line_ref(ptr),
         unref => |ptr| ffi::pango_layout_line_unref(ptr),
-        get_type => || ffi::pango_layout_line_get_type(),
+        type_ => || ffi::pango_layout_line_get_type(),
     }
 }
 

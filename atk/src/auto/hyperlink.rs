@@ -18,7 +18,7 @@ glib::wrapper! {
     pub struct Hyperlink(Object<ffi::AtkHyperlink, ffi::AtkHyperlinkClass>) @implements Action;
 
     match fn {
-        get_type => || ffi::atk_hyperlink_get_type(),
+        type_ => || ffi::atk_hyperlink_get_type(),
     }
 }
 

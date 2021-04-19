@@ -13,7 +13,7 @@ glib::wrapper! {
     match fn {
         copy => |ptr| ffi::gtk_paper_size_copy(mut_override(ptr)),
         free => |ptr| ffi::gtk_paper_size_free(ptr),
-        get_type => || ffi::gtk_paper_size_get_type(),
+        type_ => || ffi::gtk_paper_size_get_type(),
     }
 }
 

@@ -24,7 +24,7 @@ glib::wrapper! {
     pub struct SearchBar(Object<ffi::GtkSearchBar, ffi::GtkSearchBarClass>) @extends Bin, Container, Widget, @implements Buildable;
 
     match fn {
-        get_type => || ffi::gtk_search_bar_get_type(),
+        type_ => || ffi::gtk_search_bar_get_type(),
     }
 }
 

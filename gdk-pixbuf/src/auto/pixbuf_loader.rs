@@ -19,7 +19,7 @@ glib::wrapper! {
     pub struct PixbufLoader(Object<ffi::GdkPixbufLoader, ffi::GdkPixbufLoaderClass>);
 
     match fn {
-        get_type => || ffi::gdk_pixbuf_loader_get_type(),
+        type_ => || ffi::gdk_pixbuf_loader_get_type(),
     }
 }
 

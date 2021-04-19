@@ -12,7 +12,7 @@ glib::wrapper! {
     pub struct Menu(Object<ffi::GMenu>) @extends MenuModel;
 
     match fn {
-        get_type => || ffi::g_menu_get_type(),
+        type_ => || ffi::g_menu_get_type(),
     }
 }
 

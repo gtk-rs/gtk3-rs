@@ -17,7 +17,7 @@ glib::wrapper! {
     pub struct Proxy(Interface<ffi::GProxy, ffi::GProxyInterface>);
 
     match fn {
-        get_type => || ffi::g_proxy_get_type(),
+        type_ => || ffi::g_proxy_get_type(),
     }
 }
 

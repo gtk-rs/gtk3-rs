@@ -12,7 +12,7 @@ glib::wrapper! {
     match fn {
         copy => |ptr| ffi::pango_glyph_item_copy(mut_override(ptr)),
         free => |ptr| ffi::pango_glyph_item_free(ptr),
-        get_type => || ffi::pango_glyph_item_get_type(),
+        type_ => || ffi::pango_glyph_item_get_type(),
     }
 }
 

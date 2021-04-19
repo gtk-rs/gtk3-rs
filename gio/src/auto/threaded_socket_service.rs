@@ -19,7 +19,7 @@ glib::wrapper! {
     pub struct ThreadedSocketService(Object<ffi::GThreadedSocketService, ffi::GThreadedSocketServiceClass>) @extends SocketService, SocketListener;
 
     match fn {
-        get_type => || ffi::g_threaded_socket_service_get_type(),
+        type_ => || ffi::g_threaded_socket_service_get_type(),
     }
 }
 

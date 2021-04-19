@@ -23,7 +23,7 @@ glib::wrapper! {
     pub struct NetworkMonitor(Interface<ffi::GNetworkMonitor, ffi::GNetworkMonitorInterface>);
 
     match fn {
-        get_type => || ffi::g_network_monitor_get_type(),
+        type_ => || ffi::g_network_monitor_get_type(),
     }
 }
 

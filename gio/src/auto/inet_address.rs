@@ -16,7 +16,7 @@ glib::wrapper! {
     pub struct InetAddress(Object<ffi::GInetAddress, ffi::GInetAddressClass>);
 
     match fn {
-        get_type => || ffi::g_inet_address_get_type(),
+        type_ => || ffi::g_inet_address_get_type(),
     }
 }
 

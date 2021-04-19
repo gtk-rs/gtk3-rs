@@ -17,7 +17,7 @@ glib::wrapper! {
     pub struct ConverterOutputStream(Object<ffi::GConverterOutputStream, ffi::GConverterOutputStreamClass>) @extends FilterOutputStream, OutputStream, @implements PollableOutputStream;
 
     match fn {
-        get_type => || ffi::g_converter_output_stream_get_type(),
+        type_ => || ffi::g_converter_output_stream_get_type(),
     }
 }
 

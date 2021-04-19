@@ -11,7 +11,7 @@ glib::wrapper! {
     match fn {
         copy => |ptr| ffi::atk_range_copy(mut_override(ptr)),
         free => |ptr| ffi::atk_range_free(ptr),
-        get_type => || ffi::atk_range_get_type(),
+        type_ => || ffi::atk_range_get_type(),
     }
 }
 

@@ -13,7 +13,7 @@ glib::wrapper! {
     pub struct DeviceTool(Object<ffi::GdkDeviceTool>);
 
     match fn {
-        get_type => || ffi::gdk_device_tool_get_type(),
+        type_ => || ffi::gdk_device_tool_get_type(),
     }
 }
 

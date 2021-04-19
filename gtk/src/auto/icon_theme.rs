@@ -18,7 +18,7 @@ glib::wrapper! {
     pub struct IconTheme(Object<ffi::GtkIconTheme, ffi::GtkIconThemeClass>);
 
     match fn {
-        get_type => || ffi::gtk_icon_theme_get_type(),
+        type_ => || ffi::gtk_icon_theme_get_type(),
     }
 }
 

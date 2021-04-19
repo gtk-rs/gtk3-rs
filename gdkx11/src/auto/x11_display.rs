@@ -14,7 +14,7 @@ glib::wrapper! {
     pub struct X11Display(Object<ffi::GdkX11Display, ffi::GdkX11DisplayClass>) @extends gdk::Display;
 
     match fn {
-        get_type => || ffi::gdk_x11_display_get_type(),
+        type_ => || ffi::gdk_x11_display_get_type(),
     }
 }
 

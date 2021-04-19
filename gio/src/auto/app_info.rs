@@ -27,7 +27,7 @@ glib::wrapper! {
     pub struct AppInfo(Interface<ffi::GAppInfo, ffi::GAppInfoIface>);
 
     match fn {
-        get_type => || ffi::g_app_info_get_type(),
+        type_ => || ffi::g_app_info_get_type(),
     }
 }
 

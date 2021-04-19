@@ -16,7 +16,7 @@ glib::wrapper! {
     pub struct MemoryMonitor(Interface<ffi::GMemoryMonitor, ffi::GMemoryMonitorInterface>);
 
     match fn {
-        get_type => || ffi::g_memory_monitor_get_type(),
+        type_ => || ffi::g_memory_monitor_get_type(),
     }
 }
 

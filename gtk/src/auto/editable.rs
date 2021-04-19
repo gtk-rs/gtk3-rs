@@ -11,7 +11,7 @@ glib::wrapper! {
     pub struct Editable(Interface<ffi::GtkEditable, ffi::GtkEditableInterface>);
 
     match fn {
-        get_type => || ffi::gtk_editable_get_type(),
+        type_ => || ffi::gtk_editable_get_type(),
     }
 }
 

@@ -13,7 +13,7 @@ glib::wrapper! {
     pub struct Visual(Object<ffi::GdkVisual>);
 
     match fn {
-        get_type => || ffi::gdk_visual_get_type(),
+        type_ => || ffi::gdk_visual_get_type(),
     }
 }
 

@@ -23,7 +23,7 @@ glib::wrapper! {
     pub struct Stack(Object<ffi::GtkStack, ffi::GtkStackClass>) @extends Container, Widget, @implements Buildable;
 
     match fn {
-        get_type => || ffi::gtk_stack_get_type(),
+        type_ => || ffi::gtk_stack_get_type(),
     }
 }
 

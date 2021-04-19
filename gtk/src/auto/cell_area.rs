@@ -29,7 +29,7 @@ glib::wrapper! {
     pub struct CellArea(Object<ffi::GtkCellArea, ffi::GtkCellAreaClass>) @implements Buildable, CellLayout;
 
     match fn {
-        get_type => || ffi::gtk_cell_area_get_type(),
+        type_ => || ffi::gtk_cell_area_get_type(),
     }
 }
 

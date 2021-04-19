@@ -10,7 +10,7 @@ glib::wrapper! {
     pub struct Credentials(Object<ffi::GCredentials, ffi::GCredentialsClass>);
 
     match fn {
-        get_type => || ffi::g_credentials_get_type(),
+        type_ => || ffi::g_credentials_get_type(),
     }
 }
 

@@ -29,7 +29,7 @@ glib::wrapper! {
     pub struct ColorChooserDialog(Object<ffi::GtkColorChooserDialog, ffi::GtkColorChooserDialogClass>) @extends Dialog, Window, Bin, Container, Widget, @implements Buildable, ColorChooser;
 
     match fn {
-        get_type => || ffi::gtk_color_chooser_dialog_get_type(),
+        type_ => || ffi::gtk_color_chooser_dialog_get_type(),
     }
 }
 

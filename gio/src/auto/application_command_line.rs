@@ -18,7 +18,7 @@ glib::wrapper! {
     pub struct ApplicationCommandLine(Object<ffi::GApplicationCommandLine, ffi::GApplicationCommandLineClass>);
 
     match fn {
-        get_type => || ffi::g_application_command_line_get_type(),
+        type_ => || ffi::g_application_command_line_get_type(),
     }
 }
 

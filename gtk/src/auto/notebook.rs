@@ -27,7 +27,7 @@ glib::wrapper! {
     pub struct Notebook(Object<ffi::GtkNotebook, ffi::GtkNotebookClass>) @extends Container, Widget, @implements Buildable;
 
     match fn {
-        get_type => || ffi::gtk_notebook_get_type(),
+        type_ => || ffi::gtk_notebook_get_type(),
     }
 }
 

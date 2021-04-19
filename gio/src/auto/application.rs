@@ -26,7 +26,7 @@ glib::wrapper! {
     pub struct Application(Object<ffi::GApplication, ffi::GApplicationClass>) @implements ActionGroup, ActionMap;
 
     match fn {
-        get_type => || ffi::g_application_get_type(),
+        type_ => || ffi::g_application_get_type(),
     }
 }
 

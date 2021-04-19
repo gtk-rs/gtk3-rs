@@ -19,7 +19,7 @@ glib::wrapper! {
     pub struct PropertyAction(Object<ffi::GPropertyAction>) @implements Action;
 
     match fn {
-        get_type => || ffi::g_property_action_get_type(),
+        type_ => || ffi::g_property_action_get_type(),
     }
 }
 

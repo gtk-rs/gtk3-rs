@@ -12,7 +12,7 @@ glib::wrapper! {
     pub struct Image(Interface<ffi::AtkImage, ffi::AtkImageIface>);
 
     match fn {
-        get_type => || ffi::atk_image_get_type(),
+        type_ => || ffi::atk_image_get_type(),
     }
 }
 

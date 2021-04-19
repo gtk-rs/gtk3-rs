@@ -14,7 +14,7 @@ glib::wrapper! {
     pub struct FilenameCompleter(Object<ffi::GFilenameCompleter, ffi::GFilenameCompleterClass>);
 
     match fn {
-        get_type => || ffi::g_filename_completer_get_type(),
+        type_ => || ffi::g_filename_completer_get_type(),
     }
 }
 

@@ -18,7 +18,7 @@ glib::wrapper! {
     pub struct Fixed(Object<ffi::GtkFixed, ffi::GtkFixedClass>) @extends Container, Widget, @implements Buildable;
 
     match fn {
-        get_type => || ffi::gtk_fixed_get_type(),
+        type_ => || ffi::gtk_fixed_get_type(),
     }
 }
 

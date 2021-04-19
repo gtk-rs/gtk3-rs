@@ -23,7 +23,7 @@ glib::wrapper! {
     pub struct Range(Object<ffi::GtkRange, ffi::GtkRangeClass>) @extends Widget, @implements Buildable, Orientable;
 
     match fn {
-        get_type => || ffi::gtk_range_get_type(),
+        type_ => || ffi::gtk_range_get_type(),
     }
 }
 

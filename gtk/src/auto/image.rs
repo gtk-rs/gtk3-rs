@@ -26,7 +26,7 @@ glib::wrapper! {
     pub struct Image(Object<ffi::GtkImage, ffi::GtkImageClass>) @extends Misc, Widget, @implements Buildable;
 
     match fn {
-        get_type => || ffi::gtk_image_get_type(),
+        type_ => || ffi::gtk_image_get_type(),
     }
 }
 

@@ -19,7 +19,7 @@ glib::wrapper! {
     pub struct TlsInteraction(Object<ffi::GTlsInteraction, ffi::GTlsInteractionClass>);
 
     match fn {
-        get_type => || ffi::g_tls_interaction_get_type(),
+        type_ => || ffi::g_tls_interaction_get_type(),
     }
 }
 

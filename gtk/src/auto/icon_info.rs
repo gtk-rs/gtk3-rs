@@ -16,7 +16,7 @@ glib::wrapper! {
     pub struct IconInfo(Object<ffi::GtkIconInfo, ffi::GtkIconInfoClass>);
 
     match fn {
-        get_type => || ffi::gtk_icon_info_get_type(),
+        type_ => || ffi::gtk_icon_info_get_type(),
     }
 }
 

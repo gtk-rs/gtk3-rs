@@ -25,7 +25,7 @@ glib::wrapper! {
     pub struct Drive(Interface<ffi::GDrive, ffi::GDriveIface>);
 
     match fn {
-        get_type => || ffi::g_drive_get_type(),
+        type_ => || ffi::g_drive_get_type(),
     }
 }
 

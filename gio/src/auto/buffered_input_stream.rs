@@ -25,7 +25,7 @@ glib::wrapper! {
     pub struct BufferedInputStream(Object<ffi::GBufferedInputStream, ffi::GBufferedInputStreamClass>) @extends FilterInputStream, InputStream, @implements Seekable;
 
     match fn {
-        get_type => || ffi::g_buffered_input_stream_get_type(),
+        type_ => || ffi::g_buffered_input_stream_get_type(),
     }
 }
 

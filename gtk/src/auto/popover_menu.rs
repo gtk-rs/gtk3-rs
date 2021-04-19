@@ -29,7 +29,7 @@ glib::wrapper! {
     pub struct PopoverMenu(Object<ffi::GtkPopoverMenu, ffi::GtkPopoverMenuClass>) @extends Popover, Bin, Container, Widget, @implements Buildable;
 
     match fn {
-        get_type => || ffi::gtk_popover_menu_get_type(),
+        type_ => || ffi::gtk_popover_menu_get_type(),
     }
 }
 

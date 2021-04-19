@@ -13,7 +13,7 @@ glib::wrapper! {
     pub struct GLContext(Object<ffi::GdkGLContext>);
 
     match fn {
-        get_type => || ffi::gdk_gl_context_get_type(),
+        type_ => || ffi::gdk_gl_context_get_type(),
     }
 }
 

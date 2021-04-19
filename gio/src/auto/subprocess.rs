@@ -18,7 +18,7 @@ glib::wrapper! {
     pub struct Subprocess(Object<ffi::GSubprocess>);
 
     match fn {
-        get_type => || ffi::g_subprocess_get_type(),
+        type_ => || ffi::g_subprocess_get_type(),
     }
 }
 

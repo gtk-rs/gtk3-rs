@@ -50,7 +50,7 @@ glib::wrapper! {
     pub struct Window(Object<ffi::GdkWindow, ffi::GdkWindowClass>);
 
     match fn {
-        get_type => || ffi::gdk_window_get_type(),
+        type_ => || ffi::gdk_window_get_type(),
     }
 }
 

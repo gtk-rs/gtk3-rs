@@ -26,7 +26,7 @@ glib::wrapper! {
     pub struct ToggleToolButton(Object<ffi::GtkToggleToolButton, ffi::GtkToggleToolButtonClass>) @extends ToolButton, ToolItem, Bin, Container, Widget, @implements Buildable, Actionable;
 
     match fn {
-        get_type => || ffi::gtk_toggle_tool_button_get_type(),
+        type_ => || ffi::gtk_toggle_tool_button_get_type(),
     }
 }
 

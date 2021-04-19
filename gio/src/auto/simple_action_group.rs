@@ -11,7 +11,7 @@ glib::wrapper! {
     pub struct SimpleActionGroup(Object<ffi::GSimpleActionGroup, ffi::GSimpleActionGroupClass>) @implements ActionGroup, ActionMap;
 
     match fn {
-        get_type => || ffi::g_simple_action_group_get_type(),
+        type_ => || ffi::g_simple_action_group_get_type(),
     }
 }
 

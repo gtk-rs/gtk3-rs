@@ -13,7 +13,7 @@ glib::wrapper! {
     pub struct FontFamily(Object<ffi::PangoFontFamily, ffi::PangoFontFamilyClass>);
 
     match fn {
-        get_type => || ffi::pango_font_family_get_type(),
+        type_ => || ffi::pango_font_family_get_type(),
     }
 }
 

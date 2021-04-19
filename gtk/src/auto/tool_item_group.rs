@@ -25,7 +25,7 @@ glib::wrapper! {
     pub struct ToolItemGroup(Object<ffi::GtkToolItemGroup, ffi::GtkToolItemGroupClass>) @extends Container, Widget, @implements Buildable, ToolShell;
 
     match fn {
-        get_type => || ffi::gtk_tool_item_group_get_type(),
+        type_ => || ffi::gtk_tool_item_group_get_type(),
     }
 }
 

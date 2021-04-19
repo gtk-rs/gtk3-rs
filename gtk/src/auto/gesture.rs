@@ -19,7 +19,7 @@ glib::wrapper! {
     pub struct Gesture(Object<ffi::GtkGesture, ffi::GtkGestureClass>) @extends EventController;
 
     match fn {
-        get_type => || ffi::gtk_gesture_get_type(),
+        type_ => || ffi::gtk_gesture_get_type(),
     }
 }
 

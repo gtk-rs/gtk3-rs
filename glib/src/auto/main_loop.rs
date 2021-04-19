@@ -12,7 +12,7 @@ crate::wrapper! {
     match fn {
         ref => |ptr| ffi::g_main_loop_ref(ptr),
         unref => |ptr| ffi::g_main_loop_unref(ptr),
-        get_type => || ffi::g_main_loop_get_type(),
+        type_ => || ffi::g_main_loop_get_type(),
     }
 }
 

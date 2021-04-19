@@ -18,7 +18,7 @@ glib::wrapper! {
     pub struct FileIOStream(Object<ffi::GFileIOStream, ffi::GFileIOStreamClass>) @extends IOStream, @implements Seekable;
 
     match fn {
-        get_type => || ffi::g_file_io_stream_get_type(),
+        type_ => || ffi::g_file_io_stream_get_type(),
     }
 }
 

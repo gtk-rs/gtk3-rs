@@ -8,7 +8,7 @@ glib::wrapper! {
     pub struct X11DeviceManagerCore(Object<ffi::GdkX11DeviceManagerCore, ffi::GdkX11DeviceManagerCoreClass>) @extends gdk::DeviceManager;
 
     match fn {
-        get_type => || ffi::gdk_x11_device_manager_core_get_type(),
+        type_ => || ffi::gdk_x11_device_manager_core_get_type(),
     }
 }
 

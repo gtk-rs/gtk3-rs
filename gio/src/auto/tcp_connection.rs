@@ -17,7 +17,7 @@ glib::wrapper! {
     pub struct TcpConnection(Object<ffi::GTcpConnection, ffi::GTcpConnectionClass>) @extends SocketConnection, IOStream;
 
     match fn {
-        get_type => || ffi::g_tcp_connection_get_type(),
+        type_ => || ffi::g_tcp_connection_get_type(),
     }
 }
 

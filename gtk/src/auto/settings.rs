@@ -17,7 +17,7 @@ glib::wrapper! {
     pub struct Settings(Object<ffi::GtkSettings, ffi::GtkSettingsClass>) @implements StyleProvider;
 
     match fn {
-        get_type => || ffi::gtk_settings_get_type(),
+        type_ => || ffi::gtk_settings_get_type(),
     }
 }
 

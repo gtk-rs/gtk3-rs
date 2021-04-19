@@ -16,7 +16,7 @@ glib::wrapper! {
     match fn {
         copy => |ptr| ffi::pango_glyph_string_copy(mut_override(ptr)),
         free => |ptr| ffi::pango_glyph_string_free(ptr),
-        get_type => || ffi::pango_glyph_string_get_type(),
+        type_ => || ffi::pango_glyph_string_get_type(),
     }
 }
 

@@ -16,7 +16,7 @@ glib::wrapper! {
     pub struct Cancellable(Object<ffi::GCancellable, ffi::GCancellableClass>);
 
     match fn {
-        get_type => || ffi::g_cancellable_get_type(),
+        type_ => || ffi::g_cancellable_get_type(),
     }
 }
 

@@ -23,7 +23,7 @@ glib::wrapper! {
     pub struct Calendar(Object<ffi::GtkCalendar, ffi::GtkCalendarClass>) @extends Widget, @implements Buildable;
 
     match fn {
-        get_type => || ffi::gtk_calendar_get_type(),
+        type_ => || ffi::gtk_calendar_get_type(),
     }
 }
 

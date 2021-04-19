@@ -17,7 +17,7 @@ glib::wrapper! {
     pub struct Relation(Object<ffi::AtkRelation, ffi::AtkRelationClass>);
 
     match fn {
-        get_type => || ffi::atk_relation_get_type(),
+        type_ => || ffi::atk_relation_get_type(),
     }
 }
 

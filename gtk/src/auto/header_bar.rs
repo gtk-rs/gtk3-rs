@@ -23,7 +23,7 @@ glib::wrapper! {
     pub struct HeaderBar(Object<ffi::GtkHeaderBar, ffi::GtkHeaderBarClass>) @extends Container, Widget, @implements Buildable;
 
     match fn {
-        get_type => || ffi::gtk_header_bar_get_type(),
+        type_ => || ffi::gtk_header_bar_get_type(),
     }
 }
 

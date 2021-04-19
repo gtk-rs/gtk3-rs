@@ -28,7 +28,7 @@ glib::wrapper! {
     pub struct ColorButton(Object<ffi::GtkColorButton, ffi::GtkColorButtonClass>) @extends Button, Bin, Container, Widget, @implements Buildable, Actionable, ColorChooser;
 
     match fn {
-        get_type => || ffi::gtk_color_button_get_type(),
+        type_ => || ffi::gtk_color_button_get_type(),
     }
 }
 

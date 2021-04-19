@@ -16,7 +16,7 @@ glib::wrapper! {
     pub struct FrameClock(Object<ffi::GdkFrameClock, ffi::GdkFrameClockClass>);
 
     match fn {
-        get_type => || ffi::gdk_frame_clock_get_type(),
+        type_ => || ffi::gdk_frame_clock_get_type(),
     }
 }
 

@@ -25,7 +25,7 @@ glib::wrapper! {
     pub struct Frame(Object<ffi::GtkFrame, ffi::GtkFrameClass>) @extends Bin, Container, Widget, @implements Buildable;
 
     match fn {
-        get_type => || ffi::gtk_frame_get_type(),
+        type_ => || ffi::gtk_frame_get_type(),
     }
 }
 
