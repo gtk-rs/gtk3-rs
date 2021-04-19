@@ -47,7 +47,7 @@ impl Ray {
     }
 
     #[doc(alias = "graphene_ray_get_closest_point_to_point")]
-    pub fn get_closest_point_to_point(&self, p: &Point3D) -> Point3D {
+    pub fn closest_point_to_point(&self, p: &Point3D) -> Point3D {
         unsafe {
             let mut res = Point3D::uninitialized();
             ffi::graphene_ray_get_closest_point_to_point(
@@ -69,14 +69,14 @@ impl Ray {
     }
 
     #[doc(alias = "graphene_ray_get_distance_to_plane")]
-    pub fn get_distance_to_plane(&self, p: &Plane) -> f32 {
+    pub fn distance_to_plane(&self, p: &Plane) -> f32 {
         unsafe {
             ffi::graphene_ray_get_distance_to_plane(self.to_glib_none().0, p.to_glib_none().0)
         }
     }
 
     #[doc(alias = "graphene_ray_get_distance_to_point")]
-    pub fn get_distance_to_point(&self, p: &Point3D) -> f32 {
+    pub fn distance_to_point(&self, p: &Point3D) -> f32 {
         unsafe {
             ffi::graphene_ray_get_distance_to_point(self.to_glib_none().0, p.to_glib_none().0)
         }
@@ -92,7 +92,7 @@ impl Ray {
     }
 
     #[doc(alias = "graphene_ray_get_position_at")]
-    pub fn get_position_at(&self, t: f32) -> Point3D {
+    pub fn position_at(&self, t: f32) -> Point3D {
         unsafe {
             let mut position = Point3D::uninitialized();
             ffi::graphene_ray_get_position_at(

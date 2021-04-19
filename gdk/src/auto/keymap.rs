@@ -35,7 +35,7 @@ impl Keymap {
     }
 
     #[doc(alias = "gdk_keymap_get_modifier_mask")]
-    pub fn get_modifier_mask(&self, intent: ModifierIntent) -> ModifierType {
+    pub fn modifier_mask(&self, intent: ModifierIntent) -> ModifierType {
         unsafe {
             from_glib(ffi::gdk_keymap_get_modifier_mask(
                 self.to_glib_none().0,
@@ -112,13 +112,13 @@ impl Keymap {
 
     #[cfg_attr(feature = "v3_22", deprecated)]
     #[doc(alias = "gdk_keymap_get_default")]
-    pub fn get_default() -> Option<Keymap> {
+    pub fn default() -> Option<Keymap> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gdk_keymap_get_default()) }
     }
 
     #[doc(alias = "gdk_keymap_get_for_display")]
-    pub fn get_for_display(display: &Display) -> Option<Keymap> {
+    pub fn for_display(display: &Display) -> Option<Keymap> {
         skip_assert_initialized!();
         unsafe { from_glib_none(ffi::gdk_keymap_get_for_display(display.to_glib_none().0)) }
     }

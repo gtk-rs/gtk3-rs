@@ -37,7 +37,7 @@ pub trait ComponentExt: 'static {
     fn alpha(&self) -> f64;
 
     #[doc(alias = "atk_component_get_extents")]
-    fn get_extents(&self, coord_type: CoordType) -> (i32, i32, i32, i32);
+    fn extents(&self, coord_type: CoordType) -> (i32, i32, i32, i32);
 
     #[doc(alias = "atk_component_get_layer")]
     fn layer(&self) -> Layer;
@@ -46,7 +46,7 @@ pub trait ComponentExt: 'static {
     fn mdi_zorder(&self) -> i32;
 
     #[doc(alias = "atk_component_get_position")]
-    fn get_position(&self, coord_type: CoordType) -> (i32, i32);
+    fn position(&self, coord_type: CoordType) -> (i32, i32);
 
     #[doc(alias = "atk_component_get_size")]
     fn size(&self) -> (i32, i32);
@@ -95,7 +95,7 @@ impl<O: IsA<Component>> ComponentExt for O {
         unsafe { ffi::atk_component_get_alpha(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_extents(&self, coord_type: CoordType) -> (i32, i32, i32, i32) {
+    fn extents(&self, coord_type: CoordType) -> (i32, i32, i32, i32) {
         unsafe {
             let mut x = mem::MaybeUninit::uninit();
             let mut y = mem::MaybeUninit::uninit();
@@ -125,7 +125,7 @@ impl<O: IsA<Component>> ComponentExt for O {
         unsafe { ffi::atk_component_get_mdi_zorder(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_position(&self, coord_type: CoordType) -> (i32, i32) {
+    fn position(&self, coord_type: CoordType) -> (i32, i32) {
         unsafe {
             let mut x = mem::MaybeUninit::uninit();
             let mut y = mem::MaybeUninit::uninit();

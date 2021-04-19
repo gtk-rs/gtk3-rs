@@ -23,7 +23,7 @@ pub trait FontsetExt: 'static {
     fn foreach<P: FnMut(&Fontset, &Font) -> bool>(&self, func: P);
 
     #[doc(alias = "pango_fontset_get_font")]
-    fn get_font(&self, wc: u32) -> Option<Font>;
+    fn font(&self, wc: u32) -> Option<Font>;
 
     #[doc(alias = "pango_fontset_get_metrics")]
     fn metrics(&self) -> Option<FontMetrics>;
@@ -54,7 +54,7 @@ impl<O: IsA<Fontset>> FontsetExt for O {
         }
     }
 
-    fn get_font(&self, wc: u32) -> Option<Font> {
+    fn font(&self, wc: u32) -> Option<Font> {
         unsafe {
             from_glib_full(ffi::pango_fontset_get_font(
                 self.as_ref().to_glib_none().0,

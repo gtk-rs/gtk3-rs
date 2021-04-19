@@ -670,10 +670,10 @@ pub trait DialogExt: 'static {
     fn header_bar(&self) -> Option<HeaderBar>;
 
     #[doc(alias = "gtk_dialog_get_response_for_widget")]
-    fn get_response_for_widget<P: IsA<Widget>>(&self, widget: &P) -> ResponseType;
+    fn response_for_widget<P: IsA<Widget>>(&self, widget: &P) -> ResponseType;
 
     #[doc(alias = "gtk_dialog_get_widget_for_response")]
-    fn get_widget_for_response(&self, response_id: ResponseType) -> Option<Widget>;
+    fn widget_for_response(&self, response_id: ResponseType) -> Option<Widget>;
 
     #[doc(alias = "gtk_dialog_response")]
     fn response(&self, response_id: ResponseType);
@@ -738,7 +738,7 @@ impl<O: IsA<Dialog>> DialogExt for O {
         }
     }
 
-    fn get_response_for_widget<P: IsA<Widget>>(&self, widget: &P) -> ResponseType {
+    fn response_for_widget<P: IsA<Widget>>(&self, widget: &P) -> ResponseType {
         unsafe {
             from_glib(ffi::gtk_dialog_get_response_for_widget(
                 self.as_ref().to_glib_none().0,
@@ -747,7 +747,7 @@ impl<O: IsA<Dialog>> DialogExt for O {
         }
     }
 
-    fn get_widget_for_response(&self, response_id: ResponseType) -> Option<Widget> {
+    fn widget_for_response(&self, response_id: ResponseType) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_dialog_get_widget_for_response(
                 self.as_ref().to_glib_none().0,

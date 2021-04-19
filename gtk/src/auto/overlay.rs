@@ -382,7 +382,7 @@ pub trait OverlayExt: 'static {
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gtk_overlay_get_overlay_pass_through")]
-    fn get_overlay_pass_through<P: IsA<Widget>>(&self, widget: &P) -> bool;
+    fn is_overlay_pass_through<P: IsA<Widget>>(&self, widget: &P) -> bool;
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
@@ -413,7 +413,7 @@ impl<O: IsA<Overlay>> OverlayExt for O {
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
-    fn get_overlay_pass_through<P: IsA<Widget>>(&self, widget: &P) -> bool {
+    fn is_overlay_pass_through<P: IsA<Widget>>(&self, widget: &P) -> bool {
         unsafe {
             from_glib(ffi::gtk_overlay_get_overlay_pass_through(
                 self.as_ref().to_glib_none().0,

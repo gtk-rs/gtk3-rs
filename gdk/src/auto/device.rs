@@ -58,17 +58,17 @@ impl Device {
     }
 
     //#[doc(alias = "gdk_device_get_axis")]
-    //pub fn get_axis(&self, axes: &[f64], use_: AxisUse) -> Option<f64> {
+    //pub fn axis(&self, axes: &[f64], use_: AxisUse) -> Option<f64> {
     //    unsafe { TODO: call ffi:gdk_device_get_axis() }
     //}
 
     #[doc(alias = "gdk_device_get_axis_use")]
-    pub fn get_axis_use(&self, index_: u32) -> AxisUse {
+    pub fn axis_use(&self, index_: u32) -> AxisUse {
         unsafe { from_glib(ffi::gdk_device_get_axis_use(self.to_glib_none().0, index_)) }
     }
 
     //#[doc(alias = "gdk_device_get_axis_value")]
-    //pub fn get_axis_value(&self, axes: &[f64], axis_label: &Atom) -> Option<f64> {
+    //pub fn axis_value(&self, axes: &[f64], axis_label: &Atom) -> Option<f64> {
     //    unsafe { TODO: call ffi:gdk_device_get_axis_value() }
     //}
 
@@ -88,7 +88,7 @@ impl Device {
     }
 
     #[doc(alias = "gdk_device_get_key")]
-    pub fn get_key(&self, index_: u32) -> Option<(u32, ModifierType)> {
+    pub fn key(&self, index_: u32) -> Option<(u32, ModifierType)> {
         unsafe {
             let mut keyval = mem::MaybeUninit::uninit();
             let mut modifiers = mem::MaybeUninit::uninit();
@@ -189,7 +189,7 @@ impl Device {
     }
 
     //#[doc(alias = "gdk_device_get_state")]
-    //pub fn get_state(&self, window: &Window, axes: &[f64]) -> ModifierType {
+    //pub fn state(&self, window: &Window, axes: &[f64]) -> ModifierType {
     //    unsafe { TODO: call ffi:gdk_device_get_state() }
     //}
 

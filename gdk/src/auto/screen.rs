@@ -48,13 +48,13 @@ impl Screen {
 
     #[cfg_attr(feature = "v3_22", deprecated)]
     #[doc(alias = "gdk_screen_get_monitor_at_point")]
-    pub fn get_monitor_at_point(&self, x: i32, y: i32) -> i32 {
+    pub fn monitor_at_point(&self, x: i32, y: i32) -> i32 {
         unsafe { ffi::gdk_screen_get_monitor_at_point(self.to_glib_none().0, x, y) }
     }
 
     #[cfg_attr(feature = "v3_22", deprecated)]
     #[doc(alias = "gdk_screen_get_monitor_at_window")]
-    pub fn get_monitor_at_window(&self, window: &Window) -> i32 {
+    pub fn monitor_at_window(&self, window: &Window) -> i32 {
         unsafe {
             ffi::gdk_screen_get_monitor_at_window(self.to_glib_none().0, window.to_glib_none().0)
         }
@@ -62,7 +62,7 @@ impl Screen {
 
     #[cfg_attr(feature = "v3_22", deprecated)]
     #[doc(alias = "gdk_screen_get_monitor_geometry")]
-    pub fn get_monitor_geometry(&self, monitor_num: i32) -> Rectangle {
+    pub fn monitor_geometry(&self, monitor_num: i32) -> Rectangle {
         unsafe {
             let mut dest = Rectangle::uninitialized();
             ffi::gdk_screen_get_monitor_geometry(
@@ -76,13 +76,13 @@ impl Screen {
 
     #[cfg_attr(feature = "v3_22", deprecated)]
     #[doc(alias = "gdk_screen_get_monitor_height_mm")]
-    pub fn get_monitor_height_mm(&self, monitor_num: i32) -> i32 {
+    pub fn monitor_height_mm(&self, monitor_num: i32) -> i32 {
         unsafe { ffi::gdk_screen_get_monitor_height_mm(self.to_glib_none().0, monitor_num) }
     }
 
     #[cfg_attr(feature = "v3_22", deprecated)]
     #[doc(alias = "gdk_screen_get_monitor_plug_name")]
-    pub fn get_monitor_plug_name(&self, monitor_num: i32) -> Option<glib::GString> {
+    pub fn monitor_plug_name(&self, monitor_num: i32) -> Option<glib::GString> {
         unsafe {
             from_glib_full(ffi::gdk_screen_get_monitor_plug_name(
                 self.to_glib_none().0,
@@ -93,19 +93,19 @@ impl Screen {
 
     #[cfg_attr(feature = "v3_22", deprecated)]
     #[doc(alias = "gdk_screen_get_monitor_scale_factor")]
-    pub fn get_monitor_scale_factor(&self, monitor_num: i32) -> i32 {
+    pub fn monitor_scale_factor(&self, monitor_num: i32) -> i32 {
         unsafe { ffi::gdk_screen_get_monitor_scale_factor(self.to_glib_none().0, monitor_num) }
     }
 
     #[cfg_attr(feature = "v3_22", deprecated)]
     #[doc(alias = "gdk_screen_get_monitor_width_mm")]
-    pub fn get_monitor_width_mm(&self, monitor_num: i32) -> i32 {
+    pub fn monitor_width_mm(&self, monitor_num: i32) -> i32 {
         unsafe { ffi::gdk_screen_get_monitor_width_mm(self.to_glib_none().0, monitor_num) }
     }
 
     #[cfg_attr(feature = "v3_22", deprecated)]
     #[doc(alias = "gdk_screen_get_monitor_workarea")]
-    pub fn get_monitor_workarea(&self, monitor_num: i32) -> Rectangle {
+    pub fn monitor_workarea(&self, monitor_num: i32) -> Rectangle {
         unsafe {
             let mut dest = Rectangle::uninitialized();
             ffi::gdk_screen_get_monitor_workarea(
@@ -220,7 +220,7 @@ impl Screen {
     }
 
     #[doc(alias = "gdk_screen_get_default")]
-    pub fn get_default() -> Option<Screen> {
+    pub fn default() -> Option<Screen> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gdk_screen_get_default()) }
     }

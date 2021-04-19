@@ -48,7 +48,7 @@ impl TabArray {
     }
 
     #[doc(alias = "pango_tab_array_get_tab")]
-    pub fn get_tab(&mut self, tab_index: i32) -> (TabAlign, i32) {
+    pub fn tab(&mut self, tab_index: i32) -> (TabAlign, i32) {
         unsafe {
             let mut alignment = mem::MaybeUninit::uninit();
             let mut location = mem::MaybeUninit::uninit();

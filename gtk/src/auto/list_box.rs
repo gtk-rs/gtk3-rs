@@ -424,10 +424,10 @@ pub trait ListBoxExt: 'static {
     fn adjustment(&self) -> Option<Adjustment>;
 
     #[doc(alias = "gtk_list_box_get_row_at_index")]
-    fn get_row_at_index(&self, index_: i32) -> Option<ListBoxRow>;
+    fn row_at_index(&self, index_: i32) -> Option<ListBoxRow>;
 
     #[doc(alias = "gtk_list_box_get_row_at_y")]
-    fn get_row_at_y(&self, y: i32) -> Option<ListBoxRow>;
+    fn row_at_y(&self, y: i32) -> Option<ListBoxRow>;
 
     #[doc(alias = "gtk_list_box_get_selected_row")]
     fn selected_row(&self) -> Option<ListBoxRow>;
@@ -612,7 +612,7 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
         }
     }
 
-    fn get_row_at_index(&self, index_: i32) -> Option<ListBoxRow> {
+    fn row_at_index(&self, index_: i32) -> Option<ListBoxRow> {
         unsafe {
             from_glib_none(ffi::gtk_list_box_get_row_at_index(
                 self.as_ref().to_glib_none().0,
@@ -621,7 +621,7 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
         }
     }
 
-    fn get_row_at_y(&self, y: i32) -> Option<ListBoxRow> {
+    fn row_at_y(&self, y: i32) -> Option<ListBoxRow> {
         unsafe {
             from_glib_none(ffi::gtk_list_box_get_row_at_y(
                 self.as_ref().to_glib_none().0,

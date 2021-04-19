@@ -163,7 +163,7 @@ pub enum AttrType {
 
 impl AttrType {
     #[doc(alias = "pango_attr_type_get_name")]
-    pub fn get_name(self) -> Option<glib::GString> {
+    pub fn name(self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::pango_attr_type_get_name(self.to_glib())) }
     }
 }
@@ -771,12 +771,12 @@ pub enum Gravity {
 
 impl Gravity {
     #[doc(alias = "pango_gravity_get_for_matrix")]
-    pub fn get_for_matrix(matrix: Option<&Matrix>) -> Gravity {
+    pub fn for_matrix(matrix: Option<&Matrix>) -> Gravity {
         unsafe { from_glib(ffi::pango_gravity_get_for_matrix(matrix.to_glib_none().0)) }
     }
 
     #[doc(alias = "pango_gravity_get_for_script")]
-    pub fn get_for_script(script: Script, base_gravity: Gravity, hint: GravityHint) -> Gravity {
+    pub fn for_script(script: Script, base_gravity: Gravity, hint: GravityHint) -> Gravity {
         unsafe {
             from_glib(ffi::pango_gravity_get_for_script(
                 script.to_glib(),
@@ -787,7 +787,7 @@ impl Gravity {
     }
 
     #[doc(alias = "pango_gravity_get_for_script_and_width")]
-    pub fn get_for_script_and_width(
+    pub fn for_script_and_width(
         script: Script,
         wide: bool,
         base_gravity: Gravity,
@@ -1390,7 +1390,7 @@ impl Script {
     }
 
     #[doc(alias = "pango_script_get_sample_language")]
-    pub fn get_sample_language(self) -> Option<Language> {
+    pub fn sample_language(self) -> Option<Language> {
         unsafe { from_glib_full(ffi::pango_script_get_sample_language(self.to_glib())) }
     }
 }

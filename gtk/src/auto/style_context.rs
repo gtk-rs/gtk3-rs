@@ -146,17 +146,17 @@ pub trait StyleContextExt: 'static {
 
     #[cfg_attr(feature = "v3_16", deprecated)]
     #[doc(alias = "gtk_style_context_get_background_color")]
-    fn get_background_color(&self, state: StateFlags) -> gdk::RGBA;
+    fn background_color(&self, state: StateFlags) -> gdk::RGBA;
 
     #[doc(alias = "gtk_style_context_get_border")]
-    fn get_border(&self, state: StateFlags) -> Border;
+    fn border(&self, state: StateFlags) -> Border;
 
     #[cfg_attr(feature = "v3_16", deprecated)]
     #[doc(alias = "gtk_style_context_get_border_color")]
-    fn get_border_color(&self, state: StateFlags) -> gdk::RGBA;
+    fn border_color(&self, state: StateFlags) -> gdk::RGBA;
 
     #[doc(alias = "gtk_style_context_get_color")]
-    fn get_color(&self, state: StateFlags) -> gdk::RGBA;
+    fn color(&self, state: StateFlags) -> gdk::RGBA;
 
     #[doc(alias = "gtk_style_context_get_frame_clock")]
     fn frame_clock(&self) -> Option<gdk::FrameClock>;
@@ -165,10 +165,10 @@ pub trait StyleContextExt: 'static {
     fn junction_sides(&self) -> JunctionSides;
 
     #[doc(alias = "gtk_style_context_get_margin")]
-    fn get_margin(&self, state: StateFlags) -> Border;
+    fn margin(&self, state: StateFlags) -> Border;
 
     #[doc(alias = "gtk_style_context_get_padding")]
-    fn get_padding(&self, state: StateFlags) -> Border;
+    fn padding(&self, state: StateFlags) -> Border;
 
     #[doc(alias = "gtk_style_context_get_parent")]
     fn parent(&self) -> Option<StyleContext>;
@@ -177,7 +177,7 @@ pub trait StyleContextExt: 'static {
     fn path(&self) -> Option<WidgetPath>;
 
     #[doc(alias = "gtk_style_context_get_property")]
-    fn get_property(&self, property: &str, state: StateFlags) -> glib::Value;
+    fn property(&self, property: &str, state: StateFlags) -> glib::Value;
 
     #[doc(alias = "gtk_style_context_get_scale")]
     fn scale(&self) -> i32;
@@ -186,22 +186,22 @@ pub trait StyleContextExt: 'static {
     fn screen(&self) -> Option<gdk::Screen>;
 
     #[doc(alias = "gtk_style_context_get_section")]
-    fn get_section(&self, property: &str) -> Option<CssSection>;
+    fn section(&self, property: &str) -> Option<CssSection>;
 
     #[doc(alias = "gtk_style_context_get_state")]
     fn state(&self) -> StateFlags;
 
     //#[doc(alias = "gtk_style_context_get_style")]
-    //fn get_style(&self, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
+    //fn style(&self, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
 
     #[doc(alias = "gtk_style_context_get_style_property")]
-    fn get_style_property(&self, property_name: &str) -> glib::Value;
+    fn style_property(&self, property_name: &str) -> glib::Value;
 
     //#[doc(alias = "gtk_style_context_get_style_valist")]
-    //fn get_style_valist(&self, args: /*Unknown conversion*//*Unimplemented*/Unsupported);
+    //fn style_valist(&self, args: /*Unknown conversion*//*Unimplemented*/Unsupported);
 
     //#[doc(alias = "gtk_style_context_get_valist")]
-    //fn get_valist(&self, state: StateFlags, args: /*Unknown conversion*//*Unimplemented*/Unsupported);
+    //fn valist(&self, state: StateFlags, args: /*Unknown conversion*//*Unimplemented*/Unsupported);
 
     #[doc(alias = "gtk_style_context_has_class")]
     fn has_class(&self, class_name: &str) -> bool;
@@ -301,7 +301,7 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
     //    unsafe { TODO: call ffi:gtk_style_context_get() }
     //}
 
-    fn get_background_color(&self, state: StateFlags) -> gdk::RGBA {
+    fn background_color(&self, state: StateFlags) -> gdk::RGBA {
         unsafe {
             let mut color = gdk::RGBA::uninitialized();
             ffi::gtk_style_context_get_background_color(
@@ -313,7 +313,7 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
         }
     }
 
-    fn get_border(&self, state: StateFlags) -> Border {
+    fn border(&self, state: StateFlags) -> Border {
         unsafe {
             let mut border = Border::uninitialized();
             ffi::gtk_style_context_get_border(
@@ -325,7 +325,7 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
         }
     }
 
-    fn get_border_color(&self, state: StateFlags) -> gdk::RGBA {
+    fn border_color(&self, state: StateFlags) -> gdk::RGBA {
         unsafe {
             let mut color = gdk::RGBA::uninitialized();
             ffi::gtk_style_context_get_border_color(
@@ -337,7 +337,7 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
         }
     }
 
-    fn get_color(&self, state: StateFlags) -> gdk::RGBA {
+    fn color(&self, state: StateFlags) -> gdk::RGBA {
         unsafe {
             let mut color = gdk::RGBA::uninitialized();
             ffi::gtk_style_context_get_color(
@@ -365,7 +365,7 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
         }
     }
 
-    fn get_margin(&self, state: StateFlags) -> Border {
+    fn margin(&self, state: StateFlags) -> Border {
         unsafe {
             let mut margin = Border::uninitialized();
             ffi::gtk_style_context_get_margin(
@@ -377,7 +377,7 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
         }
     }
 
-    fn get_padding(&self, state: StateFlags) -> Border {
+    fn padding(&self, state: StateFlags) -> Border {
         unsafe {
             let mut padding = Border::uninitialized();
             ffi::gtk_style_context_get_padding(
@@ -405,7 +405,7 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
         }
     }
 
-    fn get_property(&self, property: &str, state: StateFlags) -> glib::Value {
+    fn property(&self, property: &str, state: StateFlags) -> glib::Value {
         unsafe {
             let mut value = glib::Value::uninitialized();
             ffi::gtk_style_context_get_property(
@@ -430,7 +430,7 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
         }
     }
 
-    fn get_section(&self, property: &str) -> Option<CssSection> {
+    fn section(&self, property: &str) -> Option<CssSection> {
         unsafe {
             from_glib_none(ffi::gtk_style_context_get_section(
                 self.as_ref().to_glib_none().0,
@@ -447,11 +447,11 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
         }
     }
 
-    //fn get_style(&self, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
+    //fn style(&self, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
     //    unsafe { TODO: call ffi:gtk_style_context_get_style() }
     //}
 
-    fn get_style_property(&self, property_name: &str) -> glib::Value {
+    fn style_property(&self, property_name: &str) -> glib::Value {
         unsafe {
             let mut value = glib::Value::uninitialized();
             ffi::gtk_style_context_get_style_property(
@@ -463,11 +463,11 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
         }
     }
 
-    //fn get_style_valist(&self, args: /*Unknown conversion*//*Unimplemented*/Unsupported) {
+    //fn style_valist(&self, args: /*Unknown conversion*//*Unimplemented*/Unsupported) {
     //    unsafe { TODO: call ffi:gtk_style_context_get_style_valist() }
     //}
 
-    //fn get_valist(&self, state: StateFlags, args: /*Unknown conversion*//*Unimplemented*/Unsupported) {
+    //fn valist(&self, state: StateFlags, args: /*Unknown conversion*//*Unimplemented*/Unsupported) {
     //    unsafe { TODO: call ffi:gtk_style_context_get_valist() }
     //}
 

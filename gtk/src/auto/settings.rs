@@ -23,13 +23,13 @@ glib::wrapper! {
 
 impl Settings {
     #[doc(alias = "gtk_settings_get_default")]
-    pub fn get_default() -> Option<Settings> {
+    pub fn default() -> Option<Settings> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gtk_settings_get_default()) }
     }
 
     #[doc(alias = "gtk_settings_get_for_screen")]
-    pub fn get_for_screen(screen: &gdk::Screen) -> Option<Settings> {
+    pub fn for_screen(screen: &gdk::Screen) -> Option<Settings> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gtk_settings_get_for_screen(screen.to_glib_none().0)) }
     }

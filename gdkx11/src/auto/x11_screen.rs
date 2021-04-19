@@ -27,7 +27,7 @@ impl X11Screen {
     }
 
     #[doc(alias = "gdk_x11_screen_get_monitor_output")]
-    pub fn get_monitor_output(&self, monitor_num: i32) -> xlib::XID {
+    pub fn monitor_output(&self, monitor_num: i32) -> xlib::XID {
         unsafe { ffi::gdk_x11_screen_get_monitor_output(self.to_glib_none().0, monitor_num) }
     }
 

@@ -38,7 +38,7 @@ impl GestureStylus {
     }
 
     #[doc(alias = "gtk_gesture_stylus_get_axis")]
-    pub fn get_axis(&self, axis: gdk::AxisUse) -> Option<f64> {
+    pub fn axis(&self, axis: gdk::AxisUse) -> Option<f64> {
         unsafe {
             let mut value = mem::MaybeUninit::uninit();
             let ret = from_glib(ffi::gtk_gesture_stylus_get_axis(

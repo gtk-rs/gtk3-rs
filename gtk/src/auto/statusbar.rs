@@ -420,7 +420,7 @@ pub const NONE_STATUSBAR: Option<&Statusbar> = None;
 
 pub trait StatusbarExt: 'static {
     #[doc(alias = "gtk_statusbar_get_context_id")]
-    fn get_context_id(&self, context_description: &str) -> u32;
+    fn context_id(&self, context_description: &str) -> u32;
 
     #[doc(alias = "gtk_statusbar_get_message_area")]
     fn message_area(&self) -> Option<Box>;
@@ -443,7 +443,7 @@ pub trait StatusbarExt: 'static {
 }
 
 impl<O: IsA<Statusbar>> StatusbarExt for O {
-    fn get_context_id(&self, context_description: &str) -> u32 {
+    fn context_id(&self, context_description: &str) -> u32 {
         unsafe {
             ffi::gtk_statusbar_get_context_id(
                 self.as_ref().to_glib_none().0,

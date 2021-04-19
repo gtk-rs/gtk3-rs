@@ -264,10 +264,10 @@ pub trait FileExt: 'static {
     fn basename(&self) -> Option<std::path::PathBuf>;
 
     #[doc(alias = "g_file_get_child")]
-    fn get_child<P: AsRef<std::path::Path>>(&self, name: P) -> File;
+    fn child<P: AsRef<std::path::Path>>(&self, name: P) -> File;
 
     #[doc(alias = "g_file_get_child_for_display_name")]
-    fn get_child_for_display_name(&self, display_name: &str) -> Result<File, glib::Error>;
+    fn child_for_display_name(&self, display_name: &str) -> Result<File, glib::Error>;
 
     #[doc(alias = "g_file_get_parent")]
     fn parent(&self) -> Option<File>;
@@ -279,7 +279,7 @@ pub trait FileExt: 'static {
     fn path(&self) -> Option<std::path::PathBuf>;
 
     #[doc(alias = "g_file_get_relative_path")]
-    fn get_relative_path<P: IsA<File>>(&self, descendant: &P) -> Option<std::path::PathBuf>;
+    fn relative_path<P: IsA<File>>(&self, descendant: &P) -> Option<std::path::PathBuf>;
 
     #[doc(alias = "g_file_get_uri")]
     fn uri(&self) -> glib::GString;
@@ -1422,7 +1422,7 @@ impl<O: IsA<File>> FileExt for O {
         unsafe { from_glib_full(ffi::g_file_get_basename(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_child<P: AsRef<std::path::Path>>(&self, name: P) -> File {
+    fn child<P: AsRef<std::path::Path>>(&self, name: P) -> File {
         unsafe {
             from_glib_full(ffi::g_file_get_child(
                 self.as_ref().to_glib_none().0,
@@ -1431,7 +1431,7 @@ impl<O: IsA<File>> FileExt for O {
         }
     }
 
-    fn get_child_for_display_name(&self, display_name: &str) -> Result<File, glib::Error> {
+    fn child_for_display_name(&self, display_name: &str) -> Result<File, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = ffi::g_file_get_child_for_display_name(
@@ -1459,7 +1459,7 @@ impl<O: IsA<File>> FileExt for O {
         unsafe { from_glib_full(ffi::g_file_get_path(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_relative_path<P: IsA<File>>(&self, descendant: &P) -> Option<std::path::PathBuf> {
+    fn relative_path<P: IsA<File>>(&self, descendant: &P) -> Option<std::path::PathBuf> {
         unsafe {
             from_glib_full(ffi::g_file_get_relative_path(
                 self.as_ref().to_glib_none().0,

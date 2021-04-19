@@ -33,19 +33,19 @@ pub trait TableExt: 'static {
     fn caption(&self) -> Option<Object>;
 
     #[doc(alias = "atk_table_get_column_at_index")]
-    fn get_column_at_index(&self, index_: i32) -> i32;
+    fn column_at_index(&self, index_: i32) -> i32;
 
     #[doc(alias = "atk_table_get_column_description")]
-    fn get_column_description(&self, column: i32) -> Option<glib::GString>;
+    fn column_description(&self, column: i32) -> Option<glib::GString>;
 
     #[doc(alias = "atk_table_get_column_extent_at")]
-    fn get_column_extent_at(&self, row: i32, column: i32) -> i32;
+    fn column_extent_at(&self, row: i32, column: i32) -> i32;
 
     #[doc(alias = "atk_table_get_column_header")]
-    fn get_column_header(&self, column: i32) -> Option<Object>;
+    fn column_header(&self, column: i32) -> Option<Object>;
 
     #[doc(alias = "atk_table_get_index_at")]
-    fn get_index_at(&self, row: i32, column: i32) -> i32;
+    fn index_at(&self, row: i32, column: i32) -> i32;
 
     #[doc(alias = "atk_table_get_n_columns")]
     fn n_columns(&self) -> i32;
@@ -54,16 +54,16 @@ pub trait TableExt: 'static {
     fn n_rows(&self) -> i32;
 
     #[doc(alias = "atk_table_get_row_at_index")]
-    fn get_row_at_index(&self, index_: i32) -> i32;
+    fn row_at_index(&self, index_: i32) -> i32;
 
     #[doc(alias = "atk_table_get_row_description")]
-    fn get_row_description(&self, row: i32) -> Option<glib::GString>;
+    fn row_description(&self, row: i32) -> Option<glib::GString>;
 
     #[doc(alias = "atk_table_get_row_extent_at")]
-    fn get_row_extent_at(&self, row: i32, column: i32) -> i32;
+    fn row_extent_at(&self, row: i32, column: i32) -> i32;
 
     #[doc(alias = "atk_table_get_row_header")]
-    fn get_row_header(&self, row: i32) -> Option<Object>;
+    fn row_header(&self, row: i32) -> Option<Object>;
 
     #[doc(alias = "atk_table_get_summary")]
     fn summary(&self) -> Option<Object>;
@@ -142,11 +142,11 @@ impl<O: IsA<Table>> TableExt for O {
         unsafe { from_glib_none(ffi::atk_table_get_caption(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_column_at_index(&self, index_: i32) -> i32 {
+    fn column_at_index(&self, index_: i32) -> i32 {
         unsafe { ffi::atk_table_get_column_at_index(self.as_ref().to_glib_none().0, index_) }
     }
 
-    fn get_column_description(&self, column: i32) -> Option<glib::GString> {
+    fn column_description(&self, column: i32) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::atk_table_get_column_description(
                 self.as_ref().to_glib_none().0,
@@ -155,11 +155,11 @@ impl<O: IsA<Table>> TableExt for O {
         }
     }
 
-    fn get_column_extent_at(&self, row: i32, column: i32) -> i32 {
+    fn column_extent_at(&self, row: i32, column: i32) -> i32 {
         unsafe { ffi::atk_table_get_column_extent_at(self.as_ref().to_glib_none().0, row, column) }
     }
 
-    fn get_column_header(&self, column: i32) -> Option<Object> {
+    fn column_header(&self, column: i32) -> Option<Object> {
         unsafe {
             from_glib_none(ffi::atk_table_get_column_header(
                 self.as_ref().to_glib_none().0,
@@ -168,7 +168,7 @@ impl<O: IsA<Table>> TableExt for O {
         }
     }
 
-    fn get_index_at(&self, row: i32, column: i32) -> i32 {
+    fn index_at(&self, row: i32, column: i32) -> i32 {
         unsafe { ffi::atk_table_get_index_at(self.as_ref().to_glib_none().0, row, column) }
     }
 
@@ -180,11 +180,11 @@ impl<O: IsA<Table>> TableExt for O {
         unsafe { ffi::atk_table_get_n_rows(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_row_at_index(&self, index_: i32) -> i32 {
+    fn row_at_index(&self, index_: i32) -> i32 {
         unsafe { ffi::atk_table_get_row_at_index(self.as_ref().to_glib_none().0, index_) }
     }
 
-    fn get_row_description(&self, row: i32) -> Option<glib::GString> {
+    fn row_description(&self, row: i32) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::atk_table_get_row_description(
                 self.as_ref().to_glib_none().0,
@@ -193,11 +193,11 @@ impl<O: IsA<Table>> TableExt for O {
         }
     }
 
-    fn get_row_extent_at(&self, row: i32, column: i32) -> i32 {
+    fn row_extent_at(&self, row: i32, column: i32) -> i32 {
         unsafe { ffi::atk_table_get_row_extent_at(self.as_ref().to_glib_none().0, row, column) }
     }
 
-    fn get_row_header(&self, row: i32) -> Option<Object> {
+    fn row_header(&self, row: i32) -> Option<Object> {
         unsafe {
             from_glib_none(ffi::atk_table_get_row_header(
                 self.as_ref().to_glib_none().0,

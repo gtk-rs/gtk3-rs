@@ -469,7 +469,7 @@ pub trait StackExt: 'static {
     fn add_titled<P: IsA<Widget>>(&self, child: &P, name: &str, title: &str);
 
     #[doc(alias = "gtk_stack_get_child_by_name")]
-    fn get_child_by_name(&self, name: &str) -> Option<Widget>;
+    fn child_by_name(&self, name: &str) -> Option<Widget>;
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
@@ -626,7 +626,7 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
-    fn get_child_by_name(&self, name: &str) -> Option<Widget> {
+    fn child_by_name(&self, name: &str) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_stack_get_child_by_name(
                 self.as_ref().to_glib_none().0,

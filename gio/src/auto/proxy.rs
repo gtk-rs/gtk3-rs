@@ -23,7 +23,7 @@ glib::wrapper! {
 
 impl Proxy {
     #[doc(alias = "g_proxy_get_default_for_protocol")]
-    pub fn get_default_for_protocol(protocol: &str) -> Option<Proxy> {
+    pub fn default_for_protocol(protocol: &str) -> Option<Proxy> {
         unsafe {
             from_glib_full(ffi::g_proxy_get_default_for_protocol(
                 protocol.to_glib_none().0,

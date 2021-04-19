@@ -105,7 +105,7 @@ impl PaperSize {
     }
 
     #[doc(alias = "gtk_paper_size_get_default_bottom_margin")]
-    pub fn get_default_bottom_margin(&self, unit: Unit) -> f64 {
+    pub fn default_bottom_margin(&self, unit: Unit) -> f64 {
         unsafe {
             ffi::gtk_paper_size_get_default_bottom_margin(
                 mut_override(self.to_glib_none().0),
@@ -115,7 +115,7 @@ impl PaperSize {
     }
 
     #[doc(alias = "gtk_paper_size_get_default_left_margin")]
-    pub fn get_default_left_margin(&self, unit: Unit) -> f64 {
+    pub fn default_left_margin(&self, unit: Unit) -> f64 {
         unsafe {
             ffi::gtk_paper_size_get_default_left_margin(
                 mut_override(self.to_glib_none().0),
@@ -125,7 +125,7 @@ impl PaperSize {
     }
 
     #[doc(alias = "gtk_paper_size_get_default_right_margin")]
-    pub fn get_default_right_margin(&self, unit: Unit) -> f64 {
+    pub fn default_right_margin(&self, unit: Unit) -> f64 {
         unsafe {
             ffi::gtk_paper_size_get_default_right_margin(
                 mut_override(self.to_glib_none().0),
@@ -135,7 +135,7 @@ impl PaperSize {
     }
 
     #[doc(alias = "gtk_paper_size_get_default_top_margin")]
-    pub fn get_default_top_margin(&self, unit: Unit) -> f64 {
+    pub fn default_top_margin(&self, unit: Unit) -> f64 {
         unsafe {
             ffi::gtk_paper_size_get_default_top_margin(
                 mut_override(self.to_glib_none().0),
@@ -154,7 +154,7 @@ impl PaperSize {
     }
 
     #[doc(alias = "gtk_paper_size_get_height")]
-    pub fn get_height(&self, unit: Unit) -> f64 {
+    pub fn height(&self, unit: Unit) -> f64 {
         unsafe {
             ffi::gtk_paper_size_get_height(mut_override(self.to_glib_none().0), unit.to_glib())
         }
@@ -179,7 +179,7 @@ impl PaperSize {
     }
 
     #[doc(alias = "gtk_paper_size_get_width")]
-    pub fn get_width(&self, unit: Unit) -> f64 {
+    pub fn width(&self, unit: Unit) -> f64 {
         unsafe {
             ffi::gtk_paper_size_get_width(mut_override(self.to_glib_none().0), unit.to_glib())
         }
@@ -241,13 +241,13 @@ impl PaperSize {
     }
 
     #[doc(alias = "gtk_paper_size_get_default")]
-    pub fn get_default() -> Option<glib::GString> {
+    pub fn default() -> Option<glib::GString> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gtk_paper_size_get_default()) }
     }
 
     #[doc(alias = "gtk_paper_size_get_paper_sizes")]
-    pub fn get_paper_sizes(include_custom: bool) -> Vec<PaperSize> {
+    pub fn paper_sizes(include_custom: bool) -> Vec<PaperSize> {
         assert_initialized_main_thread!();
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::gtk_paper_size_get_paper_sizes(

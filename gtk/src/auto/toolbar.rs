@@ -432,16 +432,16 @@ pub const NONE_TOOLBAR: Option<&Toolbar> = None;
 
 pub trait ToolbarExt: 'static {
     #[doc(alias = "gtk_toolbar_get_drop_index")]
-    fn get_drop_index(&self, x: i32, y: i32) -> i32;
+    fn drop_index(&self, x: i32, y: i32) -> i32;
 
     #[doc(alias = "gtk_toolbar_get_item_index")]
-    fn get_item_index<P: IsA<ToolItem>>(&self, item: &P) -> i32;
+    fn item_index<P: IsA<ToolItem>>(&self, item: &P) -> i32;
 
     #[doc(alias = "gtk_toolbar_get_n_items")]
     fn n_items(&self) -> i32;
 
     #[doc(alias = "gtk_toolbar_get_nth_item")]
-    fn get_nth_item(&self, n: i32) -> Option<ToolItem>;
+    fn nth_item(&self, n: i32) -> Option<ToolItem>;
 
     #[doc(alias = "gtk_toolbar_get_show_arrow")]
     fn shows_arrow(&self) -> bool;
@@ -522,11 +522,11 @@ pub trait ToolbarExt: 'static {
 }
 
 impl<O: IsA<Toolbar>> ToolbarExt for O {
-    fn get_drop_index(&self, x: i32, y: i32) -> i32 {
+    fn drop_index(&self, x: i32, y: i32) -> i32 {
         unsafe { ffi::gtk_toolbar_get_drop_index(self.as_ref().to_glib_none().0, x, y) }
     }
 
-    fn get_item_index<P: IsA<ToolItem>>(&self, item: &P) -> i32 {
+    fn item_index<P: IsA<ToolItem>>(&self, item: &P) -> i32 {
         unsafe {
             ffi::gtk_toolbar_get_item_index(
                 self.as_ref().to_glib_none().0,
@@ -539,7 +539,7 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
         unsafe { ffi::gtk_toolbar_get_n_items(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_nth_item(&self, n: i32) -> Option<ToolItem> {
+    fn nth_item(&self, n: i32) -> Option<ToolItem> {
         unsafe {
             from_glib_none(ffi::gtk_toolbar_get_nth_item(
                 self.as_ref().to_glib_none().0,

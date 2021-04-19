@@ -70,7 +70,7 @@ pub fn find_paragraph_boundary(text: &str) -> (i32, i32) {
 }
 
 //#[doc(alias = "pango_get_log_attrs")]
-//pub fn get_log_attrs(text: &str, level: i32, language: &mut Language, log_attrs: /*Ignored*/&[&LogAttr]) {
+//pub fn log_attrs(text: &str, level: i32, language: &mut Language, log_attrs: /*Ignored*/&[&LogAttr]) {
 //    unsafe { TODO: call ffi:pango_get_log_attrs() }
 //}
 

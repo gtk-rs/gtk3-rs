@@ -23,7 +23,7 @@ pub trait FontFamilyExt: 'static {
     #[cfg(any(feature = "v1_46", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_46")))]
     #[doc(alias = "pango_font_family_get_face")]
-    fn get_face(&self, name: Option<&str>) -> Option<FontFace>;
+    fn face(&self, name: Option<&str>) -> Option<FontFace>;
 
     #[doc(alias = "pango_font_family_get_name")]
     fn name(&self) -> Option<glib::GString>;
@@ -43,7 +43,7 @@ pub trait FontFamilyExt: 'static {
 impl<O: IsA<FontFamily>> FontFamilyExt for O {
     #[cfg(any(feature = "v1_46", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_46")))]
-    fn get_face(&self, name: Option<&str>) -> Option<FontFace> {
+    fn face(&self, name: Option<&str>) -> Option<FontFace> {
         unsafe {
             from_glib_none(ffi::pango_font_family_get_face(
                 self.as_ref().to_glib_none().0,

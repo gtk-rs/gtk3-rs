@@ -16,7 +16,7 @@ glib::wrapper! {
 
 impl Misc {
     #[doc(alias = "atk_misc_get_instance")]
-    pub fn get_instance() -> Option<Misc> {
+    pub fn instance() -> Option<Misc> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::atk_misc_get_instance()) }
     }

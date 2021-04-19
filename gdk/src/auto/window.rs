@@ -326,7 +326,7 @@ impl Window {
     }
 
     //#[doc(alias = "gdk_window_get_children_with_user_data")]
-    //pub fn get_children_with_user_data(&self, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> Vec<Window> {
+    //pub fn children_with_user_data(&self, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> Vec<Window> {
     //    unsafe { TODO: call ffi:gdk_window_get_children_with_user_data() }
     //}
 
@@ -364,7 +364,7 @@ impl Window {
     }
 
     #[doc(alias = "gdk_window_get_device_cursor")]
-    pub fn get_device_cursor(&self, device: &Device) -> Option<Cursor> {
+    pub fn device_cursor(&self, device: &Device) -> Option<Cursor> {
         unsafe {
             from_glib_none(ffi::gdk_window_get_device_cursor(
                 self.to_glib_none().0,
@@ -374,7 +374,7 @@ impl Window {
     }
 
     #[doc(alias = "gdk_window_get_device_events")]
-    pub fn get_device_events(&self, device: &Device) -> EventMask {
+    pub fn device_events(&self, device: &Device) -> EventMask {
         unsafe {
             from_glib(ffi::gdk_window_get_device_events(
                 self.to_glib_none().0,
@@ -384,7 +384,7 @@ impl Window {
     }
 
     #[doc(alias = "gdk_window_get_device_position")]
-    pub fn get_device_position(&self, device: &Device) -> (Option<Window>, i32, i32, ModifierType) {
+    pub fn device_position(&self, device: &Device) -> (Option<Window>, i32, i32, ModifierType) {
         unsafe {
             let mut x = mem::MaybeUninit::uninit();
             let mut y = mem::MaybeUninit::uninit();
@@ -404,7 +404,7 @@ impl Window {
     }
 
     #[doc(alias = "gdk_window_get_device_position_double")]
-    pub fn get_device_position_double(
+    pub fn device_position_double(
         &self,
         device: &Device,
     ) -> (Option<Window>, f64, f64, ModifierType) {
@@ -566,7 +566,7 @@ impl Window {
     }
 
     #[doc(alias = "gdk_window_get_root_coords")]
-    pub fn get_root_coords(&self, x: i32, y: i32) -> (i32, i32) {
+    pub fn root_coords(&self, x: i32, y: i32) -> (i32, i32) {
         unsafe {
             let mut root_x = mem::MaybeUninit::uninit();
             let mut root_y = mem::MaybeUninit::uninit();
@@ -606,7 +606,7 @@ impl Window {
     }
 
     #[doc(alias = "gdk_window_get_source_events")]
-    pub fn get_source_events(&self, source: InputSource) -> EventMask {
+    pub fn source_events(&self, source: InputSource) -> EventMask {
         unsafe {
             from_glib(ffi::gdk_window_get_source_events(
                 self.to_glib_none().0,

@@ -46,7 +46,7 @@ impl DesktopAppInfo {
     }
 
     #[doc(alias = "g_desktop_app_info_get_action_name")]
-    pub fn get_action_name(&self, action_name: &str) -> glib::GString {
+    pub fn action_name(&self, action_name: &str) -> glib::GString {
         unsafe {
             from_glib_full(ffi::g_desktop_app_info_get_action_name(
                 self.to_glib_none().0,
@@ -56,7 +56,7 @@ impl DesktopAppInfo {
     }
 
     #[doc(alias = "g_desktop_app_info_get_boolean")]
-    pub fn get_boolean(&self, key: &str) -> bool {
+    pub fn boolean(&self, key: &str) -> bool {
         unsafe {
             from_glib(ffi::g_desktop_app_info_get_boolean(
                 self.to_glib_none().0,
@@ -105,7 +105,7 @@ impl DesktopAppInfo {
     #[cfg(any(feature = "v2_56", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
     #[doc(alias = "g_desktop_app_info_get_locale_string")]
-    pub fn get_locale_string(&self, key: &str) -> Option<glib::GString> {
+    pub fn locale_string(&self, key: &str) -> Option<glib::GString> {
         unsafe {
             from_glib_full(ffi::g_desktop_app_info_get_locale_string(
                 self.to_glib_none().0,
@@ -120,7 +120,7 @@ impl DesktopAppInfo {
     }
 
     #[doc(alias = "g_desktop_app_info_get_show_in")]
-    pub fn get_show_in(&self, desktop_env: Option<&str>) -> bool {
+    pub fn shows_in(&self, desktop_env: Option<&str>) -> bool {
         unsafe {
             from_glib(ffi::g_desktop_app_info_get_show_in(
                 self.to_glib_none().0,
@@ -139,7 +139,7 @@ impl DesktopAppInfo {
     }
 
     #[doc(alias = "g_desktop_app_info_get_string")]
-    pub fn get_string(&self, key: &str) -> Option<glib::GString> {
+    pub fn string(&self, key: &str) -> Option<glib::GString> {
         unsafe {
             from_glib_full(ffi::g_desktop_app_info_get_string(
                 self.to_glib_none().0,
@@ -151,7 +151,7 @@ impl DesktopAppInfo {
     #[cfg(any(feature = "v2_60", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     #[doc(alias = "g_desktop_app_info_get_string_list")]
-    pub fn get_string_list(&self, key: &str) -> Vec<glib::GString> {
+    pub fn string_list(&self, key: &str) -> Vec<glib::GString> {
         unsafe {
             let mut length = mem::MaybeUninit::uninit();
             let ret = FromGlibContainer::from_glib_full_num(
@@ -270,7 +270,7 @@ impl DesktopAppInfo {
     }
 
     #[doc(alias = "g_desktop_app_info_get_implementations")]
-    pub fn get_implementations(interface: &str) -> Vec<DesktopAppInfo> {
+    pub fn implementations(interface: &str) -> Vec<DesktopAppInfo> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::g_desktop_app_info_get_implementations(
                 interface.to_glib_none().0,

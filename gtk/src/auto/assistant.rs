@@ -663,7 +663,7 @@ pub trait AssistantExt: 'static {
     fn n_pages(&self) -> i32;
 
     #[doc(alias = "gtk_assistant_get_nth_page")]
-    fn get_nth_page(&self, page_num: i32) -> Option<Widget>;
+    fn nth_page(&self, page_num: i32) -> Option<Widget>;
 
     #[doc(alias = "gtk_assistant_get_page_complete")]
     fn page_is_complete<P: IsA<Widget>>(&self, page: &P) -> bool;
@@ -674,10 +674,10 @@ pub trait AssistantExt: 'static {
     fn page_has_padding<P: IsA<Widget>>(&self, page: &P) -> bool;
 
     #[doc(alias = "gtk_assistant_get_page_title")]
-    fn get_page_title<P: IsA<Widget>>(&self, page: &P) -> Option<glib::GString>;
+    fn page_title<P: IsA<Widget>>(&self, page: &P) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_assistant_get_page_type")]
-    fn get_page_type<P: IsA<Widget>>(&self, page: &P) -> AssistantPageType;
+    fn page_type<P: IsA<Widget>>(&self, page: &P) -> AssistantPageType;
 
     #[doc(alias = "gtk_assistant_insert_page")]
     fn insert_page<P: IsA<Widget>>(&self, page: &P, position: i32) -> i32;
@@ -785,7 +785,7 @@ impl<O: IsA<Assistant>> AssistantExt for O {
         unsafe { ffi::gtk_assistant_get_n_pages(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_nth_page(&self, page_num: i32) -> Option<Widget> {
+    fn nth_page(&self, page_num: i32) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_assistant_get_nth_page(
                 self.as_ref().to_glib_none().0,
@@ -814,7 +814,7 @@ impl<O: IsA<Assistant>> AssistantExt for O {
         }
     }
 
-    fn get_page_title<P: IsA<Widget>>(&self, page: &P) -> Option<glib::GString> {
+    fn page_title<P: IsA<Widget>>(&self, page: &P) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_assistant_get_page_title(
                 self.as_ref().to_glib_none().0,
@@ -823,7 +823,7 @@ impl<O: IsA<Assistant>> AssistantExt for O {
         }
     }
 
-    fn get_page_type<P: IsA<Widget>>(&self, page: &P) -> AssistantPageType {
+    fn page_type<P: IsA<Widget>>(&self, page: &P) -> AssistantPageType {
         unsafe {
             from_glib(ffi::gtk_assistant_get_page_type(
                 self.as_ref().to_glib_none().0,

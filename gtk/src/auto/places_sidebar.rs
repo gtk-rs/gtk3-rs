@@ -66,7 +66,7 @@ impl PlacesSidebar {
     }
 
     #[doc(alias = "gtk_places_sidebar_get_nth_bookmark")]
-    pub fn get_nth_bookmark(&self, n: i32) -> Option<gio::File> {
+    pub fn nth_bookmark(&self, n: i32) -> Option<gio::File> {
         unsafe {
             from_glib_full(ffi::gtk_places_sidebar_get_nth_bookmark(
                 self.to_glib_none().0,

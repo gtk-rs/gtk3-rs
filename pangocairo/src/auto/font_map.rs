@@ -16,7 +16,7 @@ glib::wrapper! {
 
 impl FontMap {
     #[doc(alias = "pango_cairo_font_map_get_default")]
-    pub fn get_default() -> Option<pango::FontMap> {
+    pub fn default() -> Option<pango::FontMap> {
         unsafe { from_glib_none(ffi::pango_cairo_font_map_get_default()) }
     }
 }

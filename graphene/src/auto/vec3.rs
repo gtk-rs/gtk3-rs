@@ -116,7 +116,7 @@ impl Vec3 {
     }
 
     #[doc(alias = "graphene_vec3_get_xyzw")]
-    pub fn get_xyzw(&self, w: f32) -> Vec4 {
+    pub fn xyzw(&self, w: f32) -> Vec4 {
         unsafe {
             let mut res = Vec4::uninitialized();
             ffi::graphene_vec3_get_xyzw(self.to_glib_none().0, w, res.to_glib_none_mut().0);

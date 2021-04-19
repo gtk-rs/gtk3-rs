@@ -130,7 +130,7 @@ impl DBusMessage {
     }
 
     #[doc(alias = "g_dbus_message_get_header")]
-    pub fn get_header(&self, header_field: DBusMessageHeaderField) -> Option<glib::Variant> {
+    pub fn header(&self, header_field: DBusMessageHeaderField) -> Option<glib::Variant> {
         unsafe {
             from_glib_none(ffi::g_dbus_message_get_header(
                 self.to_glib_none().0,

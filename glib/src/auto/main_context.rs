@@ -133,7 +133,7 @@ impl MainContext {
     }
 
     #[doc(alias = "g_main_context_get_thread_default")]
-    pub fn get_thread_default() -> Option<MainContext> {
+    pub fn thread_default() -> Option<MainContext> {
         unsafe { from_glib_none(ffi::g_main_context_get_thread_default()) }
     }
 

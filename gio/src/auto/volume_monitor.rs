@@ -36,13 +36,13 @@ pub trait VolumeMonitorExt: 'static {
     fn connected_drives(&self) -> Vec<Drive>;
 
     #[doc(alias = "g_volume_monitor_get_mount_for_uuid")]
-    fn get_mount_for_uuid(&self, uuid: &str) -> Option<Mount>;
+    fn mount_for_uuid(&self, uuid: &str) -> Option<Mount>;
 
     #[doc(alias = "g_volume_monitor_get_mounts")]
     fn mounts(&self) -> Vec<Mount>;
 
     #[doc(alias = "g_volume_monitor_get_volume_for_uuid")]
-    fn get_volume_for_uuid(&self, uuid: &str) -> Option<Volume>;
+    fn volume_for_uuid(&self, uuid: &str) -> Option<Volume>;
 
     #[doc(alias = "g_volume_monitor_get_volumes")]
     fn volumes(&self) -> Vec<Volume>;
@@ -81,7 +81,7 @@ impl<O: IsA<VolumeMonitor>> VolumeMonitorExt for O {
         }
     }
 
-    fn get_mount_for_uuid(&self, uuid: &str) -> Option<Mount> {
+    fn mount_for_uuid(&self, uuid: &str) -> Option<Mount> {
         unsafe {
             from_glib_full(ffi::g_volume_monitor_get_mount_for_uuid(
                 self.as_ref().to_glib_none().0,
@@ -98,7 +98,7 @@ impl<O: IsA<VolumeMonitor>> VolumeMonitorExt for O {
         }
     }
 
-    fn get_volume_for_uuid(&self, uuid: &str) -> Option<Volume> {
+    fn volume_for_uuid(&self, uuid: &str) -> Option<Volume> {
         unsafe {
             from_glib_full(ffi::g_volume_monitor_get_volume_for_uuid(
                 self.as_ref().to_glib_none().0,

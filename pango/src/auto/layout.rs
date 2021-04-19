@@ -76,7 +76,7 @@ impl Layout {
     }
 
     #[doc(alias = "pango_layout_get_cursor_pos")]
-    pub fn get_cursor_pos(&self, index_: i32) -> (Rectangle, Rectangle) {
+    pub fn cursor_pos(&self, index_: i32) -> (Rectangle, Rectangle) {
         unsafe {
             let mut strong_pos = Rectangle::uninitialized();
             let mut weak_pos = Rectangle::uninitialized();
@@ -93,7 +93,7 @@ impl Layout {
     #[cfg(any(feature = "v1_46", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_46")))]
     #[doc(alias = "pango_layout_get_direction")]
-    pub fn get_direction(&self, index: i32) -> Direction {
+    pub fn direction(&self, index: i32) -> Direction {
         unsafe {
             from_glib(ffi::pango_layout_get_direction(
                 self.to_glib_none().0,
@@ -151,7 +151,7 @@ impl Layout {
     }
 
     #[doc(alias = "pango_layout_get_line")]
-    pub fn get_line(&self, line: i32) -> Option<LayoutLine> {
+    pub fn line(&self, line: i32) -> Option<LayoutLine> {
         unsafe { from_glib_none(ffi::pango_layout_get_line(self.to_glib_none().0, line)) }
     }
 
@@ -161,7 +161,7 @@ impl Layout {
     }
 
     #[doc(alias = "pango_layout_get_line_readonly")]
-    pub fn get_line_readonly(&self, line: i32) -> Option<LayoutLine> {
+    pub fn line_readonly(&self, line: i32) -> Option<LayoutLine> {
         unsafe {
             from_glib_none(ffi::pango_layout_get_line_readonly(
                 self.to_glib_none().0,

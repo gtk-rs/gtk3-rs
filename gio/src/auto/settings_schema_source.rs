@@ -70,7 +70,7 @@ impl SettingsSchemaSource {
     }
 
     #[doc(alias = "g_settings_schema_source_get_default")]
-    pub fn get_default() -> Option<SettingsSchemaSource> {
+    pub fn default() -> Option<SettingsSchemaSource> {
         unsafe { from_glib_none(ffi::g_settings_schema_source_get_default()) }
     }
 }

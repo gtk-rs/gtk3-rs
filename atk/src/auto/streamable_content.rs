@@ -18,20 +18,20 @@ pub const NONE_STREAMABLE_CONTENT: Option<&StreamableContent> = None;
 
 pub trait StreamableContentExt: 'static {
     #[doc(alias = "atk_streamable_content_get_mime_type")]
-    fn get_mime_type(&self, i: i32) -> Option<glib::GString>;
+    fn mime_type(&self, i: i32) -> Option<glib::GString>;
 
     #[doc(alias = "atk_streamable_content_get_n_mime_types")]
     fn n_mime_types(&self) -> i32;
 
     //#[doc(alias = "atk_streamable_content_get_stream")]
-    //fn get_stream(&self, mime_type: &str) -> /*Ignored*/Option<glib::IOChannel>;
+    //fn stream(&self, mime_type: &str) -> /*Ignored*/Option<glib::IOChannel>;
 
     #[doc(alias = "atk_streamable_content_get_uri")]
-    fn get_uri(&self, mime_type: &str) -> Option<glib::GString>;
+    fn uri(&self, mime_type: &str) -> Option<glib::GString>;
 }
 
 impl<O: IsA<StreamableContent>> StreamableContentExt for O {
-    fn get_mime_type(&self, i: i32) -> Option<glib::GString> {
+    fn mime_type(&self, i: i32) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::atk_streamable_content_get_mime_type(
                 self.as_ref().to_glib_none().0,
@@ -44,11 +44,11 @@ impl<O: IsA<StreamableContent>> StreamableContentExt for O {
         unsafe { ffi::atk_streamable_content_get_n_mime_types(self.as_ref().to_glib_none().0) }
     }
 
-    //fn get_stream(&self, mime_type: &str) -> /*Ignored*/Option<glib::IOChannel> {
+    //fn stream(&self, mime_type: &str) -> /*Ignored*/Option<glib::IOChannel> {
     //    unsafe { TODO: call ffi:atk_streamable_content_get_stream() }
     //}
 
-    fn get_uri(&self, mime_type: &str) -> Option<glib::GString> {
+    fn uri(&self, mime_type: &str) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::atk_streamable_content_get_uri(
                 self.as_ref().to_glib_none().0,

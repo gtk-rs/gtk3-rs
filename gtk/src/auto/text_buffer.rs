@@ -177,28 +177,28 @@ pub trait TextBufferExt: 'static {
     fn get_insert(&self) -> Option<TextMark>;
 
     #[doc(alias = "gtk_text_buffer_get_iter_at_child_anchor")]
-    fn get_iter_at_child_anchor<P: IsA<TextChildAnchor>>(&self, anchor: &P) -> TextIter;
+    fn iter_at_child_anchor<P: IsA<TextChildAnchor>>(&self, anchor: &P) -> TextIter;
 
     #[doc(alias = "gtk_text_buffer_get_iter_at_line")]
-    fn get_iter_at_line(&self, line_number: i32) -> TextIter;
+    fn iter_at_line(&self, line_number: i32) -> TextIter;
 
     #[doc(alias = "gtk_text_buffer_get_iter_at_line_index")]
-    fn get_iter_at_line_index(&self, line_number: i32, byte_index: i32) -> TextIter;
+    fn iter_at_line_index(&self, line_number: i32, byte_index: i32) -> TextIter;
 
     #[doc(alias = "gtk_text_buffer_get_iter_at_line_offset")]
-    fn get_iter_at_line_offset(&self, line_number: i32, char_offset: i32) -> TextIter;
+    fn iter_at_line_offset(&self, line_number: i32, char_offset: i32) -> TextIter;
 
     #[doc(alias = "gtk_text_buffer_get_iter_at_mark")]
-    fn get_iter_at_mark<P: IsA<TextMark>>(&self, mark: &P) -> TextIter;
+    fn iter_at_mark<P: IsA<TextMark>>(&self, mark: &P) -> TextIter;
 
     #[doc(alias = "gtk_text_buffer_get_iter_at_offset")]
-    fn get_iter_at_offset(&self, char_offset: i32) -> TextIter;
+    fn iter_at_offset(&self, char_offset: i32) -> TextIter;
 
     #[doc(alias = "gtk_text_buffer_get_line_count")]
     fn line_count(&self) -> i32;
 
     #[doc(alias = "gtk_text_buffer_get_mark")]
-    fn get_mark(&self, name: &str) -> Option<TextMark>;
+    fn mark(&self, name: &str) -> Option<TextMark>;
 
     #[doc(alias = "gtk_text_buffer_get_modified")]
     fn is_modified(&self) -> bool;
@@ -216,7 +216,7 @@ pub trait TextBufferExt: 'static {
     fn serialize_formats(&self) -> Vec<gdk::Atom>;
 
     #[doc(alias = "gtk_text_buffer_get_slice")]
-    fn get_slice(
+    fn slice(
         &self,
         start: &TextIter,
         end: &TextIter,
@@ -230,7 +230,7 @@ pub trait TextBufferExt: 'static {
     fn tag_table(&self) -> Option<TextTagTable>;
 
     #[doc(alias = "gtk_text_buffer_get_text")]
-    fn get_text(
+    fn text(
         &self,
         start: &TextIter,
         end: &TextIter,
@@ -662,7 +662,7 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
         }
     }
 
-    fn get_iter_at_child_anchor<P: IsA<TextChildAnchor>>(&self, anchor: &P) -> TextIter {
+    fn iter_at_child_anchor<P: IsA<TextChildAnchor>>(&self, anchor: &P) -> TextIter {
         unsafe {
             let mut iter = TextIter::uninitialized();
             ffi::gtk_text_buffer_get_iter_at_child_anchor(
@@ -674,7 +674,7 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
         }
     }
 
-    fn get_iter_at_line(&self, line_number: i32) -> TextIter {
+    fn iter_at_line(&self, line_number: i32) -> TextIter {
         unsafe {
             let mut iter = TextIter::uninitialized();
             ffi::gtk_text_buffer_get_iter_at_line(
@@ -686,7 +686,7 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
         }
     }
 
-    fn get_iter_at_line_index(&self, line_number: i32, byte_index: i32) -> TextIter {
+    fn iter_at_line_index(&self, line_number: i32, byte_index: i32) -> TextIter {
         unsafe {
             let mut iter = TextIter::uninitialized();
             ffi::gtk_text_buffer_get_iter_at_line_index(
@@ -699,7 +699,7 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
         }
     }
 
-    fn get_iter_at_line_offset(&self, line_number: i32, char_offset: i32) -> TextIter {
+    fn iter_at_line_offset(&self, line_number: i32, char_offset: i32) -> TextIter {
         unsafe {
             let mut iter = TextIter::uninitialized();
             ffi::gtk_text_buffer_get_iter_at_line_offset(
@@ -712,7 +712,7 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
         }
     }
 
-    fn get_iter_at_mark<P: IsA<TextMark>>(&self, mark: &P) -> TextIter {
+    fn iter_at_mark<P: IsA<TextMark>>(&self, mark: &P) -> TextIter {
         unsafe {
             let mut iter = TextIter::uninitialized();
             ffi::gtk_text_buffer_get_iter_at_mark(
@@ -724,7 +724,7 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
         }
     }
 
-    fn get_iter_at_offset(&self, char_offset: i32) -> TextIter {
+    fn iter_at_offset(&self, char_offset: i32) -> TextIter {
         unsafe {
             let mut iter = TextIter::uninitialized();
             ffi::gtk_text_buffer_get_iter_at_offset(
@@ -740,7 +740,7 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
         unsafe { ffi::gtk_text_buffer_get_line_count(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_mark(&self, name: &str) -> Option<TextMark> {
+    fn mark(&self, name: &str) -> Option<TextMark> {
         unsafe {
             from_glib_none(ffi::gtk_text_buffer_get_mark(
                 self.as_ref().to_glib_none().0,
@@ -804,7 +804,7 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
         }
     }
 
-    fn get_slice(
+    fn slice(
         &self,
         start: &TextIter,
         end: &TextIter,
@@ -839,7 +839,7 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
         }
     }
 
-    fn get_text(
+    fn text(
         &self,
         start: &TextIter,
         end: &TextIter,

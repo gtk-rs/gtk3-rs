@@ -42,7 +42,7 @@ impl Application {
     }
 
     #[doc(alias = "g_application_get_default")]
-    pub fn get_default() -> Option<Application> {
+    pub fn default() -> Option<Application> {
         unsafe { from_glib_none(ffi::g_application_get_default()) }
     }
 

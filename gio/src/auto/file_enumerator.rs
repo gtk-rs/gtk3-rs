@@ -41,7 +41,7 @@ pub trait FileEnumeratorExt: 'static {
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>>;
 
     #[doc(alias = "g_file_enumerator_get_child")]
-    fn get_child(&self, info: &FileInfo) -> File;
+    fn child(&self, info: &FileInfo) -> File;
 
     #[doc(alias = "g_file_enumerator_get_container")]
     fn container(&self) -> File;
@@ -147,7 +147,7 @@ impl<O: IsA<FileEnumerator>> FileEnumeratorExt for O {
         }))
     }
 
-    fn get_child(&self, info: &FileInfo) -> File {
+    fn child(&self, info: &FileInfo) -> File {
         unsafe {
             from_glib_full(ffi::g_file_enumerator_get_child(
                 self.as_ref().to_glib_none().0,

@@ -341,7 +341,7 @@ pub trait DBusProxyExt: 'static {
     ) -> Result<(glib::Variant, UnixFDList), glib::Error>;
 
     #[doc(alias = "g_dbus_proxy_get_cached_property")]
-    fn get_cached_property(&self, property_name: &str) -> Option<glib::Variant>;
+    fn cached_property(&self, property_name: &str) -> Option<glib::Variant>;
 
     #[doc(alias = "g_dbus_proxy_get_cached_property_names")]
     fn cached_property_names(&self) -> Vec<glib::GString>;
@@ -647,7 +647,7 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
         }
     }
 
-    fn get_cached_property(&self, property_name: &str) -> Option<glib::Variant> {
+    fn cached_property(&self, property_name: &str) -> Option<glib::Variant> {
         unsafe {
             from_glib_full(ffi::g_dbus_proxy_get_cached_property(
                 self.as_ref().to_glib_none().0,

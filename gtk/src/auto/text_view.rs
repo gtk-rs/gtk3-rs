@@ -682,7 +682,7 @@ pub trait TextViewExt: 'static {
     fn accepts_tab(&self) -> bool;
 
     #[doc(alias = "gtk_text_view_get_border_window_size")]
-    fn get_border_window_size(&self, type_: TextWindowType) -> i32;
+    fn border_window_size(&self, type_: TextWindowType) -> i32;
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
@@ -693,7 +693,7 @@ pub trait TextViewExt: 'static {
     fn buffer(&self) -> Option<TextBuffer>;
 
     #[doc(alias = "gtk_text_view_get_cursor_locations")]
-    fn get_cursor_locations(&self, iter: Option<&TextIter>) -> (gdk::Rectangle, gdk::Rectangle);
+    fn cursor_locations(&self, iter: Option<&TextIter>) -> (gdk::Rectangle, gdk::Rectangle);
 
     #[doc(alias = "gtk_text_view_get_cursor_visible")]
     fn is_cursor_visible(&self) -> bool;
@@ -714,13 +714,13 @@ pub trait TextViewExt: 'static {
     fn input_purpose(&self) -> InputPurpose;
 
     #[doc(alias = "gtk_text_view_get_iter_at_location")]
-    fn get_iter_at_location(&self, x: i32, y: i32) -> Option<TextIter>;
+    fn iter_at_location(&self, x: i32, y: i32) -> Option<TextIter>;
 
     #[doc(alias = "gtk_text_view_get_iter_at_position")]
-    fn get_iter_at_position(&self, x: i32, y: i32) -> Option<(TextIter, i32)>;
+    fn iter_at_position(&self, x: i32, y: i32) -> Option<(TextIter, i32)>;
 
     #[doc(alias = "gtk_text_view_get_iter_location")]
-    fn get_iter_location(&self, iter: &TextIter) -> gdk::Rectangle;
+    fn iter_location(&self, iter: &TextIter) -> gdk::Rectangle;
 
     #[doc(alias = "gtk_text_view_get_justification")]
     fn justification(&self) -> Justification;
@@ -729,10 +729,10 @@ pub trait TextViewExt: 'static {
     fn left_margin(&self) -> i32;
 
     #[doc(alias = "gtk_text_view_get_line_at_y")]
-    fn get_line_at_y(&self, y: i32) -> (TextIter, i32);
+    fn line_at_y(&self, y: i32) -> (TextIter, i32);
 
     #[doc(alias = "gtk_text_view_get_line_yrange")]
-    fn get_line_yrange(&self, iter: &TextIter) -> (i32, i32);
+    fn line_yrange(&self, iter: &TextIter) -> (i32, i32);
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
@@ -766,10 +766,10 @@ pub trait TextViewExt: 'static {
     fn visible_rect(&self) -> gdk::Rectangle;
 
     #[doc(alias = "gtk_text_view_get_window")]
-    fn get_window(&self, win: TextWindowType) -> Option<gdk::Window>;
+    fn window(&self, win: TextWindowType) -> Option<gdk::Window>;
 
     #[doc(alias = "gtk_text_view_get_window_type")]
-    fn get_window_type(&self, window: &gdk::Window) -> TextWindowType;
+    fn window_type(&self, window: &gdk::Window) -> TextWindowType;
 
     #[doc(alias = "gtk_text_view_get_wrap_mode")]
     fn wrap_mode(&self) -> WrapMode;
@@ -1160,7 +1160,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
         }
     }
 
-    fn get_border_window_size(&self, type_: TextWindowType) -> i32 {
+    fn border_window_size(&self, type_: TextWindowType) -> i32 {
         unsafe {
             ffi::gtk_text_view_get_border_window_size(
                 self.as_ref().to_glib_none().0,
@@ -1183,7 +1183,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
         }
     }
 
-    fn get_cursor_locations(&self, iter: Option<&TextIter>) -> (gdk::Rectangle, gdk::Rectangle) {
+    fn cursor_locations(&self, iter: Option<&TextIter>) -> (gdk::Rectangle, gdk::Rectangle) {
         unsafe {
             let mut strong = gdk::Rectangle::uninitialized();
             let mut weak = gdk::Rectangle::uninitialized();
@@ -1241,7 +1241,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
         }
     }
 
-    fn get_iter_at_location(&self, x: i32, y: i32) -> Option<TextIter> {
+    fn iter_at_location(&self, x: i32, y: i32) -> Option<TextIter> {
         unsafe {
             let mut iter = TextIter::uninitialized();
             let ret = from_glib(ffi::gtk_text_view_get_iter_at_location(
@@ -1258,7 +1258,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
         }
     }
 
-    fn get_iter_at_position(&self, x: i32, y: i32) -> Option<(TextIter, i32)> {
+    fn iter_at_position(&self, x: i32, y: i32) -> Option<(TextIter, i32)> {
         unsafe {
             let mut iter = TextIter::uninitialized();
             let mut trailing = mem::MaybeUninit::uninit();
@@ -1278,7 +1278,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
         }
     }
 
-    fn get_iter_location(&self, iter: &TextIter) -> gdk::Rectangle {
+    fn iter_location(&self, iter: &TextIter) -> gdk::Rectangle {
         unsafe {
             let mut location = gdk::Rectangle::uninitialized();
             ffi::gtk_text_view_get_iter_location(
@@ -1302,7 +1302,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
         unsafe { ffi::gtk_text_view_get_left_margin(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_line_at_y(&self, y: i32) -> (TextIter, i32) {
+    fn line_at_y(&self, y: i32) -> (TextIter, i32) {
         unsafe {
             let mut target_iter = TextIter::uninitialized();
             let mut line_top = mem::MaybeUninit::uninit();
@@ -1317,7 +1317,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
         }
     }
 
-    fn get_line_yrange(&self, iter: &TextIter) -> (i32, i32) {
+    fn line_yrange(&self, iter: &TextIter) -> (i32, i32) {
         unsafe {
             let mut y = mem::MaybeUninit::uninit();
             let mut height = mem::MaybeUninit::uninit();
@@ -1388,7 +1388,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
         }
     }
 
-    fn get_window(&self, win: TextWindowType) -> Option<gdk::Window> {
+    fn window(&self, win: TextWindowType) -> Option<gdk::Window> {
         unsafe {
             from_glib_none(ffi::gtk_text_view_get_window(
                 self.as_ref().to_glib_none().0,
@@ -1397,7 +1397,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
         }
     }
 
-    fn get_window_type(&self, window: &gdk::Window) -> TextWindowType {
+    fn window_type(&self, window: &gdk::Window) -> TextWindowType {
         unsafe {
             from_glib(ffi::gtk_text_view_get_window_type(
                 self.as_ref().to_glib_none().0,

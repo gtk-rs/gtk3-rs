@@ -23,7 +23,7 @@ pub const NONE_LIST_MODEL: Option<&ListModel> = None;
 
 pub trait ListModelExt: 'static {
     //#[doc(alias = "g_list_model_get_item")]
-    //fn get_item(&self, position: u32) -> /*Unimplemented*/Option<Fundamental: Pointer>;
+    //fn item(&self, position: u32) -> /*Unimplemented*/Option<Fundamental: Pointer>;
 
     #[doc(alias = "g_list_model_get_item_type")]
     fn item_type(&self) -> glib::types::Type;
@@ -32,7 +32,7 @@ pub trait ListModelExt: 'static {
     fn n_items(&self) -> u32;
 
     #[doc(alias = "g_list_model_get_object")]
-    fn get_object(&self, position: u32) -> Option<glib::Object>;
+    fn object(&self, position: u32) -> Option<glib::Object>;
 
     #[doc(alias = "g_list_model_items_changed")]
     fn items_changed(&self, position: u32, removed: u32, added: u32);
@@ -44,7 +44,7 @@ pub trait ListModelExt: 'static {
 }
 
 impl<O: IsA<ListModel>> ListModelExt for O {
-    //fn get_item(&self, position: u32) -> /*Unimplemented*/Option<Fundamental: Pointer> {
+    //fn item(&self, position: u32) -> /*Unimplemented*/Option<Fundamental: Pointer> {
     //    unsafe { TODO: call ffi:g_list_model_get_item() }
     //}
 
@@ -60,7 +60,7 @@ impl<O: IsA<ListModel>> ListModelExt for O {
         unsafe { ffi::g_list_model_get_n_items(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_object(&self, position: u32) -> Option<glib::Object> {
+    fn object(&self, position: u32) -> Option<glib::Object> {
         unsafe {
             from_glib_full(ffi::g_list_model_get_object(
                 self.as_ref().to_glib_none().0,

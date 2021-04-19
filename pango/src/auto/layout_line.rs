@@ -60,7 +60,7 @@ impl LayoutLine {
     }
 
     #[doc(alias = "pango_layout_line_get_x_ranges")]
-    pub fn get_x_ranges(&self, start_index: i32, end_index: i32) -> Vec<i32> {
+    pub fn x_ranges(&self, start_index: i32, end_index: i32) -> Vec<i32> {
         unsafe {
             let mut ranges = ptr::null_mut();
             let mut n_ranges = mem::MaybeUninit::uninit();

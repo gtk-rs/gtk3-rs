@@ -156,7 +156,7 @@ impl GLContext {
     }
 
     #[doc(alias = "gdk_gl_context_get_current")]
-    pub fn get_current() -> Option<GLContext> {
+    pub fn current() -> Option<GLContext> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gdk_gl_context_get_current()) }
     }

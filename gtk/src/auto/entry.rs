@@ -795,31 +795,31 @@ pub trait EntryExt: 'static {
     fn icon_is_activatable(&self, icon_pos: EntryIconPosition) -> bool;
 
     #[doc(alias = "gtk_entry_get_icon_area")]
-    fn get_icon_area(&self, icon_pos: EntryIconPosition) -> gdk::Rectangle;
+    fn icon_area(&self, icon_pos: EntryIconPosition) -> gdk::Rectangle;
 
     #[doc(alias = "gtk_entry_get_icon_at_pos")]
-    fn get_icon_at_pos(&self, x: i32, y: i32) -> i32;
+    fn icon_at_pos(&self, x: i32, y: i32) -> i32;
 
     #[doc(alias = "gtk_entry_get_icon_gicon")]
-    fn get_icon_gicon(&self, icon_pos: EntryIconPosition) -> Option<gio::Icon>;
+    fn icon_gicon(&self, icon_pos: EntryIconPosition) -> Option<gio::Icon>;
 
     #[doc(alias = "gtk_entry_get_icon_name")]
-    fn get_icon_name(&self, icon_pos: EntryIconPosition) -> Option<glib::GString>;
+    fn icon_name(&self, icon_pos: EntryIconPosition) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_entry_get_icon_pixbuf")]
-    fn get_icon_pixbuf(&self, icon_pos: EntryIconPosition) -> Option<gdk_pixbuf::Pixbuf>;
+    fn icon_pixbuf(&self, icon_pos: EntryIconPosition) -> Option<gdk_pixbuf::Pixbuf>;
 
     #[doc(alias = "gtk_entry_get_icon_sensitive")]
     fn icon_is_sensitive(&self, icon_pos: EntryIconPosition) -> bool;
 
     #[doc(alias = "gtk_entry_get_icon_storage_type")]
-    fn get_icon_storage_type(&self, icon_pos: EntryIconPosition) -> ImageType;
+    fn icon_storage_type(&self, icon_pos: EntryIconPosition) -> ImageType;
 
     #[doc(alias = "gtk_entry_get_icon_tooltip_markup")]
-    fn get_icon_tooltip_markup(&self, icon_pos: EntryIconPosition) -> Option<glib::GString>;
+    fn icon_tooltip_markup(&self, icon_pos: EntryIconPosition) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_entry_get_icon_tooltip_text")]
-    fn get_icon_tooltip_text(&self, icon_pos: EntryIconPosition) -> Option<glib::GString>;
+    fn icon_tooltip_text(&self, icon_pos: EntryIconPosition) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_entry_get_input_hints")]
     fn input_hints(&self) -> InputHints;
@@ -1459,7 +1459,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn get_icon_area(&self, icon_pos: EntryIconPosition) -> gdk::Rectangle {
+    fn icon_area(&self, icon_pos: EntryIconPosition) -> gdk::Rectangle {
         unsafe {
             let mut icon_area = gdk::Rectangle::uninitialized();
             ffi::gtk_entry_get_icon_area(
@@ -1471,11 +1471,11 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn get_icon_at_pos(&self, x: i32, y: i32) -> i32 {
+    fn icon_at_pos(&self, x: i32, y: i32) -> i32 {
         unsafe { ffi::gtk_entry_get_icon_at_pos(self.as_ref().to_glib_none().0, x, y) }
     }
 
-    fn get_icon_gicon(&self, icon_pos: EntryIconPosition) -> Option<gio::Icon> {
+    fn icon_gicon(&self, icon_pos: EntryIconPosition) -> Option<gio::Icon> {
         unsafe {
             from_glib_none(ffi::gtk_entry_get_icon_gicon(
                 self.as_ref().to_glib_none().0,
@@ -1484,7 +1484,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn get_icon_name(&self, icon_pos: EntryIconPosition) -> Option<glib::GString> {
+    fn icon_name(&self, icon_pos: EntryIconPosition) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_entry_get_icon_name(
                 self.as_ref().to_glib_none().0,
@@ -1493,7 +1493,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn get_icon_pixbuf(&self, icon_pos: EntryIconPosition) -> Option<gdk_pixbuf::Pixbuf> {
+    fn icon_pixbuf(&self, icon_pos: EntryIconPosition) -> Option<gdk_pixbuf::Pixbuf> {
         unsafe {
             from_glib_none(ffi::gtk_entry_get_icon_pixbuf(
                 self.as_ref().to_glib_none().0,
@@ -1511,7 +1511,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn get_icon_storage_type(&self, icon_pos: EntryIconPosition) -> ImageType {
+    fn icon_storage_type(&self, icon_pos: EntryIconPosition) -> ImageType {
         unsafe {
             from_glib(ffi::gtk_entry_get_icon_storage_type(
                 self.as_ref().to_glib_none().0,
@@ -1520,7 +1520,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn get_icon_tooltip_markup(&self, icon_pos: EntryIconPosition) -> Option<glib::GString> {
+    fn icon_tooltip_markup(&self, icon_pos: EntryIconPosition) -> Option<glib::GString> {
         unsafe {
             from_glib_full(ffi::gtk_entry_get_icon_tooltip_markup(
                 self.as_ref().to_glib_none().0,
@@ -1529,7 +1529,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn get_icon_tooltip_text(&self, icon_pos: EntryIconPosition) -> Option<glib::GString> {
+    fn icon_tooltip_text(&self, icon_pos: EntryIconPosition) -> Option<glib::GString> {
         unsafe {
             from_glib_full(ffi::gtk_entry_get_icon_tooltip_text(
                 self.as_ref().to_glib_none().0,

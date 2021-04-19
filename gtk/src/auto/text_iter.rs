@@ -597,7 +597,7 @@ impl TextIter {
     }
 
     #[doc(alias = "gtk_text_iter_get_slice")]
-    pub fn get_slice(&self, end: &TextIter) -> Option<glib::GString> {
+    pub fn slice(&self, end: &TextIter) -> Option<glib::GString> {
         unsafe {
             from_glib_full(ffi::gtk_text_iter_get_slice(
                 self.to_glib_none().0,
@@ -616,7 +616,7 @@ impl TextIter {
     }
 
     #[doc(alias = "gtk_text_iter_get_text")]
-    pub fn get_text(&self, end: &TextIter) -> Option<glib::GString> {
+    pub fn text(&self, end: &TextIter) -> Option<glib::GString> {
         unsafe {
             from_glib_full(ffi::gtk_text_iter_get_text(
                 self.to_glib_none().0,
@@ -626,7 +626,7 @@ impl TextIter {
     }
 
     #[doc(alias = "gtk_text_iter_get_toggled_tags")]
-    pub fn get_toggled_tags(&self, toggled_on: bool) -> Vec<TextTag> {
+    pub fn toggled_tags(&self, toggled_on: bool) -> Vec<TextTag> {
         unsafe {
             FromGlibPtrContainer::from_glib_container(ffi::gtk_text_iter_get_toggled_tags(
                 self.to_glib_none().0,
@@ -646,7 +646,7 @@ impl TextIter {
     }
 
     #[doc(alias = "gtk_text_iter_get_visible_slice")]
-    pub fn get_visible_slice(&self, end: &TextIter) -> Option<glib::GString> {
+    pub fn visible_slice(&self, end: &TextIter) -> Option<glib::GString> {
         unsafe {
             from_glib_full(ffi::gtk_text_iter_get_visible_slice(
                 self.to_glib_none().0,
@@ -656,7 +656,7 @@ impl TextIter {
     }
 
     #[doc(alias = "gtk_text_iter_get_visible_text")]
-    pub fn get_visible_text(&self, end: &TextIter) -> Option<glib::GString> {
+    pub fn visible_text(&self, end: &TextIter) -> Option<glib::GString> {
         unsafe {
             from_glib_full(ffi::gtk_text_iter_get_visible_text(
                 self.to_glib_none().0,

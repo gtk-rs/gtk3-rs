@@ -50,7 +50,7 @@ impl Menu {
     }
 
     #[doc(alias = "gtk_menu_get_for_attach_widget")]
-    pub fn get_for_attach_widget<P: IsA<Widget>>(widget: &P) -> Vec<Widget> {
+    pub fn for_attach_widget<P: IsA<Widget>>(widget: &P) -> Vec<Widget> {
         skip_assert_initialized!();
         unsafe {
             FromGlibPtrContainer::from_glib_none(ffi::gtk_menu_get_for_attach_widget(

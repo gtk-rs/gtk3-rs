@@ -305,13 +305,13 @@ impl Clipboard {
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_clipboard_get_default")]
-    pub fn get_default(display: &gdk::Display) -> Option<Clipboard> {
+    pub fn default(display: &gdk::Display) -> Option<Clipboard> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gtk_clipboard_get_default(display.to_glib_none().0)) }
     }
 
     #[doc(alias = "gtk_clipboard_get_for_display")]
-    pub fn get_for_display(display: &gdk::Display, selection: &gdk::Atom) -> Clipboard {
+    pub fn for_display(display: &gdk::Display, selection: &gdk::Atom) -> Clipboard {
         assert_initialized_main_thread!();
         unsafe {
             from_glib_none(ffi::gtk_clipboard_get_for_display(

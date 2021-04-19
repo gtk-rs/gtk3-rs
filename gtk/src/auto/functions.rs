@@ -273,25 +273,25 @@ pub fn false_() -> bool {
 }
 
 #[doc(alias = "gtk_get_binary_age")]
-pub fn get_binary_age() -> u32 {
+pub fn binary_age() -> u32 {
     skip_assert_initialized!();
     unsafe { ffi::gtk_get_binary_age() }
 }
 
 #[doc(alias = "gtk_get_current_event")]
-pub fn get_current_event() -> Option<gdk::Event> {
+pub fn current_event() -> Option<gdk::Event> {
     assert_initialized_main_thread!();
     unsafe { from_glib_full(ffi::gtk_get_current_event()) }
 }
 
 #[doc(alias = "gtk_get_current_event_device")]
-pub fn get_current_event_device() -> Option<gdk::Device> {
+pub fn current_event_device() -> Option<gdk::Device> {
     assert_initialized_main_thread!();
     unsafe { from_glib_none(ffi::gtk_get_current_event_device()) }
 }
 
 #[doc(alias = "gtk_get_current_event_state")]
-pub fn get_current_event_state() -> Option<gdk::ModifierType> {
+pub fn current_event_state() -> Option<gdk::ModifierType> {
     assert_initialized_main_thread!();
     unsafe {
         let mut state = mem::MaybeUninit::uninit();
@@ -306,61 +306,61 @@ pub fn get_current_event_state() -> Option<gdk::ModifierType> {
 }
 
 #[doc(alias = "gtk_get_current_event_time")]
-pub fn get_current_event_time() -> u32 {
+pub fn current_event_time() -> u32 {
     assert_initialized_main_thread!();
     unsafe { ffi::gtk_get_current_event_time() }
 }
 
 #[doc(alias = "gtk_get_debug_flags")]
-pub fn get_debug_flags() -> u32 {
+pub fn debug_flags() -> u32 {
     assert_initialized_main_thread!();
     unsafe { ffi::gtk_get_debug_flags() }
 }
 
 #[doc(alias = "gtk_get_default_language")]
-pub fn get_default_language() -> Option<pango::Language> {
+pub fn default_language() -> Option<pango::Language> {
     assert_initialized_main_thread!();
     unsafe { from_glib_none(ffi::gtk_get_default_language()) }
 }
 
 #[doc(alias = "gtk_get_event_widget")]
-pub fn get_event_widget(event: &mut gdk::Event) -> Option<Widget> {
+pub fn event_widget(event: &mut gdk::Event) -> Option<Widget> {
     assert_initialized_main_thread!();
     unsafe { from_glib_none(ffi::gtk_get_event_widget(event.to_glib_none_mut().0)) }
 }
 
 #[doc(alias = "gtk_get_interface_age")]
-pub fn get_interface_age() -> u32 {
+pub fn interface_age() -> u32 {
     skip_assert_initialized!();
     unsafe { ffi::gtk_get_interface_age() }
 }
 
 #[doc(alias = "gtk_get_locale_direction")]
-pub fn get_locale_direction() -> TextDirection {
+pub fn locale_direction() -> TextDirection {
     assert_initialized_main_thread!();
     unsafe { from_glib(ffi::gtk_get_locale_direction()) }
 }
 
 #[doc(alias = "gtk_get_major_version")]
-pub fn get_major_version() -> u32 {
+pub fn major_version() -> u32 {
     skip_assert_initialized!();
     unsafe { ffi::gtk_get_major_version() }
 }
 
 #[doc(alias = "gtk_get_micro_version")]
-pub fn get_micro_version() -> u32 {
+pub fn micro_version() -> u32 {
     skip_assert_initialized!();
     unsafe { ffi::gtk_get_micro_version() }
 }
 
 #[doc(alias = "gtk_get_minor_version")]
-pub fn get_minor_version() -> u32 {
+pub fn minor_version() -> u32 {
     skip_assert_initialized!();
     unsafe { ffi::gtk_get_minor_version() }
 }
 
 //#[doc(alias = "gtk_get_option_group")]
-//pub fn get_option_group(open_default_display: bool) -> /*Ignored*/Option<glib::OptionGroup> {
+//pub fn option_group(open_default_display: bool) -> /*Ignored*/Option<glib::OptionGroup> {
 //    unsafe { TODO: call ffi:gtk_get_option_group() }
 //}
 

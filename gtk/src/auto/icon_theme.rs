@@ -30,13 +30,13 @@ impl IconTheme {
     }
 
     #[doc(alias = "gtk_icon_theme_get_default")]
-    pub fn get_default() -> Option<IconTheme> {
+    pub fn default() -> Option<IconTheme> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gtk_icon_theme_get_default()) }
     }
 
     #[doc(alias = "gtk_icon_theme_get_for_screen")]
-    pub fn get_for_screen(screen: &gdk::Screen) -> Option<IconTheme> {
+    pub fn for_screen(screen: &gdk::Screen) -> Option<IconTheme> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gtk_icon_theme_get_for_screen(screen.to_glib_none().0)) }
     }

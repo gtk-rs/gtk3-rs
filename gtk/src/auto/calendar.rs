@@ -450,7 +450,7 @@ pub trait CalendarExt: 'static {
     fn date(&self) -> (u32, u32, u32);
 
     #[doc(alias = "gtk_calendar_get_day_is_marked")]
-    fn get_day_is_marked(&self, day: u32) -> bool;
+    fn day_is_marked(&self, day: u32) -> bool;
 
     #[doc(alias = "gtk_calendar_get_detail_height_rows")]
     fn detail_height_rows(&self) -> i32;
@@ -610,7 +610,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
-    fn get_day_is_marked(&self, day: u32) -> bool {
+    fn day_is_marked(&self, day: u32) -> bool {
         unsafe {
             from_glib(ffi::gtk_calendar_get_day_is_marked(
                 self.as_ref().to_glib_none().0,

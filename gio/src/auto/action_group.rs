@@ -41,19 +41,19 @@ pub trait ActionGroupExt: 'static {
     fn change_action_state(&self, action_name: &str, value: &glib::Variant);
 
     #[doc(alias = "g_action_group_get_action_enabled")]
-    fn get_action_enabled(&self, action_name: &str) -> bool;
+    fn is_action_enabled(&self, action_name: &str) -> bool;
 
     #[doc(alias = "g_action_group_get_action_parameter_type")]
-    fn get_action_parameter_type(&self, action_name: &str) -> Option<glib::VariantType>;
+    fn action_parameter_type(&self, action_name: &str) -> Option<glib::VariantType>;
 
     #[doc(alias = "g_action_group_get_action_state")]
-    fn get_action_state(&self, action_name: &str) -> Option<glib::Variant>;
+    fn action_state(&self, action_name: &str) -> Option<glib::Variant>;
 
     #[doc(alias = "g_action_group_get_action_state_hint")]
-    fn get_action_state_hint(&self, action_name: &str) -> Option<glib::Variant>;
+    fn action_state_hint(&self, action_name: &str) -> Option<glib::Variant>;
 
     #[doc(alias = "g_action_group_get_action_state_type")]
-    fn get_action_state_type(&self, action_name: &str) -> Option<glib::VariantType>;
+    fn action_state_type(&self, action_name: &str) -> Option<glib::VariantType>;
 
     #[doc(alias = "g_action_group_has_action")]
     fn has_action(&self, action_name: &str) -> bool;
@@ -145,7 +145,7 @@ impl<O: IsA<ActionGroup>> ActionGroupExt for O {
         }
     }
 
-    fn get_action_enabled(&self, action_name: &str) -> bool {
+    fn is_action_enabled(&self, action_name: &str) -> bool {
         unsafe {
             from_glib(ffi::g_action_group_get_action_enabled(
                 self.as_ref().to_glib_none().0,
@@ -154,7 +154,7 @@ impl<O: IsA<ActionGroup>> ActionGroupExt for O {
         }
     }
 
-    fn get_action_parameter_type(&self, action_name: &str) -> Option<glib::VariantType> {
+    fn action_parameter_type(&self, action_name: &str) -> Option<glib::VariantType> {
         unsafe {
             from_glib_none(ffi::g_action_group_get_action_parameter_type(
                 self.as_ref().to_glib_none().0,
@@ -163,7 +163,7 @@ impl<O: IsA<ActionGroup>> ActionGroupExt for O {
         }
     }
 
-    fn get_action_state(&self, action_name: &str) -> Option<glib::Variant> {
+    fn action_state(&self, action_name: &str) -> Option<glib::Variant> {
         unsafe {
             from_glib_full(ffi::g_action_group_get_action_state(
                 self.as_ref().to_glib_none().0,
@@ -172,7 +172,7 @@ impl<O: IsA<ActionGroup>> ActionGroupExt for O {
         }
     }
 
-    fn get_action_state_hint(&self, action_name: &str) -> Option<glib::Variant> {
+    fn action_state_hint(&self, action_name: &str) -> Option<glib::Variant> {
         unsafe {
             from_glib_full(ffi::g_action_group_get_action_state_hint(
                 self.as_ref().to_glib_none().0,
@@ -181,7 +181,7 @@ impl<O: IsA<ActionGroup>> ActionGroupExt for O {
         }
     }
 
-    fn get_action_state_type(&self, action_name: &str) -> Option<glib::VariantType> {
+    fn action_state_type(&self, action_name: &str) -> Option<glib::VariantType> {
         unsafe {
             from_glib_none(ffi::g_action_group_get_action_state_type(
                 self.as_ref().to_glib_none().0,

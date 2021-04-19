@@ -31,13 +31,13 @@ impl CssProvider {
 
     #[cfg_attr(feature = "v3_24", deprecated)]
     #[doc(alias = "gtk_css_provider_get_default")]
-    pub fn get_default() -> Option<CssProvider> {
+    pub fn default() -> Option<CssProvider> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gtk_css_provider_get_default()) }
     }
 
     #[doc(alias = "gtk_css_provider_get_named")]
-    pub fn get_named(name: &str, variant: Option<&str>) -> Option<CssProvider> {
+    pub fn named(name: &str, variant: Option<&str>) -> Option<CssProvider> {
         assert_initialized_main_thread!();
         unsafe {
             from_glib_none(ffi::gtk_css_provider_get_named(

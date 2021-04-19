@@ -78,12 +78,12 @@ impl PageSetup {
     }
 
     #[doc(alias = "gtk_page_setup_get_bottom_margin")]
-    pub fn get_bottom_margin(&self, unit: Unit) -> f64 {
+    pub fn bottom_margin(&self, unit: Unit) -> f64 {
         unsafe { ffi::gtk_page_setup_get_bottom_margin(self.to_glib_none().0, unit.to_glib()) }
     }
 
     #[doc(alias = "gtk_page_setup_get_left_margin")]
-    pub fn get_left_margin(&self, unit: Unit) -> f64 {
+    pub fn left_margin(&self, unit: Unit) -> f64 {
         unsafe { ffi::gtk_page_setup_get_left_margin(self.to_glib_none().0, unit.to_glib()) }
     }
 
@@ -93,17 +93,17 @@ impl PageSetup {
     }
 
     #[doc(alias = "gtk_page_setup_get_page_height")]
-    pub fn get_page_height(&self, unit: Unit) -> f64 {
+    pub fn page_height(&self, unit: Unit) -> f64 {
         unsafe { ffi::gtk_page_setup_get_page_height(self.to_glib_none().0, unit.to_glib()) }
     }
 
     #[doc(alias = "gtk_page_setup_get_page_width")]
-    pub fn get_page_width(&self, unit: Unit) -> f64 {
+    pub fn page_width(&self, unit: Unit) -> f64 {
         unsafe { ffi::gtk_page_setup_get_page_width(self.to_glib_none().0, unit.to_glib()) }
     }
 
     #[doc(alias = "gtk_page_setup_get_paper_height")]
-    pub fn get_paper_height(&self, unit: Unit) -> f64 {
+    pub fn paper_height(&self, unit: Unit) -> f64 {
         unsafe { ffi::gtk_page_setup_get_paper_height(self.to_glib_none().0, unit.to_glib()) }
     }
 
@@ -113,17 +113,17 @@ impl PageSetup {
     }
 
     #[doc(alias = "gtk_page_setup_get_paper_width")]
-    pub fn get_paper_width(&self, unit: Unit) -> f64 {
+    pub fn paper_width(&self, unit: Unit) -> f64 {
         unsafe { ffi::gtk_page_setup_get_paper_width(self.to_glib_none().0, unit.to_glib()) }
     }
 
     #[doc(alias = "gtk_page_setup_get_right_margin")]
-    pub fn get_right_margin(&self, unit: Unit) -> f64 {
+    pub fn right_margin(&self, unit: Unit) -> f64 {
         unsafe { ffi::gtk_page_setup_get_right_margin(self.to_glib_none().0, unit.to_glib()) }
     }
 
     #[doc(alias = "gtk_page_setup_get_top_margin")]
-    pub fn get_top_margin(&self, unit: Unit) -> f64 {
+    pub fn top_margin(&self, unit: Unit) -> f64 {
         unsafe { ffi::gtk_page_setup_get_top_margin(self.to_glib_none().0, unit.to_glib()) }
     }
 

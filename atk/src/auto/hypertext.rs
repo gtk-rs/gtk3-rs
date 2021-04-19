@@ -24,10 +24,10 @@ pub const NONE_HYPERTEXT: Option<&Hypertext> = None;
 
 pub trait HypertextExt: 'static {
     #[doc(alias = "atk_hypertext_get_link")]
-    fn get_link(&self, link_index: i32) -> Option<Hyperlink>;
+    fn link(&self, link_index: i32) -> Option<Hyperlink>;
 
     #[doc(alias = "atk_hypertext_get_link_index")]
-    fn get_link_index(&self, char_index: i32) -> i32;
+    fn link_index(&self, char_index: i32) -> i32;
 
     #[doc(alias = "atk_hypertext_get_n_links")]
     fn n_links(&self) -> i32;
@@ -36,7 +36,7 @@ pub trait HypertextExt: 'static {
 }
 
 impl<O: IsA<Hypertext>> HypertextExt for O {
-    fn get_link(&self, link_index: i32) -> Option<Hyperlink> {
+    fn link(&self, link_index: i32) -> Option<Hyperlink> {
         unsafe {
             from_glib_none(ffi::atk_hypertext_get_link(
                 self.as_ref().to_glib_none().0,
@@ -45,7 +45,7 @@ impl<O: IsA<Hypertext>> HypertextExt for O {
         }
     }
 
-    fn get_link_index(&self, char_index: i32) -> i32 {
+    fn link_index(&self, char_index: i32) -> i32 {
         unsafe { ffi::atk_hypertext_get_link_index(self.as_ref().to_glib_none().0, char_index) }
     }
 

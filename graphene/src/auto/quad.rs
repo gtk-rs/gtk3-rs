@@ -40,7 +40,7 @@ impl Quad {
     }
 
     #[doc(alias = "graphene_quad_get_point")]
-    pub fn get_point(&self, index_: u32) -> Option<Point> {
+    pub fn point(&self, index_: u32) -> Option<Point> {
         unsafe { from_glib_none(ffi::graphene_quad_get_point(self.to_glib_none().0, index_)) }
     }
 
