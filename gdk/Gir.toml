@@ -159,9 +159,6 @@ status = "generate"
     #manual trait
     ignore = true
     [[object.function]]
-    name = "get_event_compression"
-    rename = "compresses_events"
-    [[object.function]]
     name = "get_default_root_window"
     #manual trait
     ignore = true
@@ -446,6 +443,9 @@ manual_traits = ["WindowExtManual"]
     name = "get_effective_toplevel"
         [object.function.return]
         nullable = false
+    [[object.function]]
+    name = "get_event_compression"
+    rename = "does_event_compression"
     [[object.function]]
     name = "get_display"
         [object.function.return]

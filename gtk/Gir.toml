@@ -438,6 +438,12 @@ generate_builder = true
     [[object.child_prop]]
     name = "title"
     type = "utf8"
+    [[object.function]]
+    name = "get_page_has_padding"
+    rename = "page_has_padding"
+    [[object.function]]
+    name = "get_page_complete"
+    rename = "page_is_complete"
 
 [[object]]
 name = "Gtk.Box"
@@ -465,6 +471,12 @@ generate_builder = true
     [[object.property]]
     name = "baseline-position"
     version = "3.10"
+    [[object.function]]
+    name = "get_child_non_homogeneous"
+    rename = "child_is_non_homogeneous"
+    [[object.function]]
+    name = "get_child_secondary"
+    rename = "child_is_secondary"
 
 [[object]]
 name = "Gtk.Buildable"
@@ -853,6 +865,12 @@ manual_traits = ["EntryExtManual"]
     name = "get_buffer"
         [object.function.return]
         nullable = false
+    [[object.function]]
+    name = "get_icon_activatable"
+    rename = "icon_is_activatable"
+    [[object.function]]
+    name = "get_icon_sensitive"
+    rename = "icon_is_sensitive"
     [[object.function]]
     name = "get_invisible_char"
     manual = true
@@ -1511,6 +1529,12 @@ manual_traits = ["NotebookExtManual"]
     manual = true
     doc_trait_name = "NotebookExtManual"
     [[object.function]]
+    name = "get_tab_detachable"
+    rename = "tab_is_detachable"
+    [[object.function]]
+    name = "get_tab_reorderable"
+    rename = "tab_is_reorderable"
+    [[object.function]]
     name = "insert_page"
     manual = true
     doc_trait_name = "NotebookExtManual"
@@ -1560,10 +1584,12 @@ manual_traits = ["NotebookExtManual"]
     doc_hidden=true
     [[object.child_prop]]
     name = "tab-expand"
+    rename_getter = "tab_expands"
     type = "gboolean"
     doc_hidden=true
     [[object.child_prop]]
     name = "tab-fill"
+    rename_getter = "tab_fills"
     type = "gboolean"
     doc_hidden=true
     [[object.child_prop]]
