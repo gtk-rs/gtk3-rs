@@ -21,7 +21,7 @@ use syn::{parse_macro_input, DeriveInput};
 /// Specify that `MyWidget` is using a composite template and load the
 /// template file the `composite_template.ui` file.
 ///
-/// ```
+/// ```compile_fail
 /// use gtk::prelude::*;
 /// use gtk::CompositeTemplate;
 ///
