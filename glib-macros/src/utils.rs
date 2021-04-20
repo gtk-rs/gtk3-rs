@@ -148,24 +148,21 @@ pub fn parse_item_attributes(attr_name: &str, attrs: &[Attribute]) -> Result<Vec
     Ok(v)
 }
 
-const KNOWN_GLIB_EXPORTS: [&str; 14] = [
+const KNOWN_GLIB_EXPORTS: [&str; 10] = [
     // Current Re-exports from gtk-rs
     "gtk",
     "gio",
     "gdk",
-    "gdk-pixbuf",
-    "gdkx11",
-    "graphene",
     "pango",
-    "pangocairo",
+    "graphene-rs",
     // Current Re-exports from gtk4-rs
     "gtk4",
     "gsk4",
     "gdk4",
-    "gdk4-wayland",
-    "gdk4-x11",
     // Special Request
     "gstreamer",
+    // Re-export may fail
+    "cairo-rs",
 ];
 
 pub fn crate_ident_new() -> TokenStream {
