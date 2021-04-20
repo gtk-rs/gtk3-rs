@@ -259,7 +259,7 @@
             <span class="ident">e</span>
         ),
     };
-    <span class="kw">let</span> <span class="ident">get_type</span> <span class="op">=</span> <span class="macro">format_ident!</span>(<span class="string">&quot;{}_get_type&quot;</span>, <span class="ident">name</span>.<span class="ident">to_string</span>().<span class="ident">to_snake_case</span>());
+    <span class="kw">let</span> <span class="ident">get_type</span> <span class="op">=</span> <span class="macro">format_ident!</span>(<span class="string">&quot;{}_type&quot;</span>, <span class="ident">name</span>.<span class="ident">to_string</span>().<span class="ident">to_snake_case</span>());
     <span class="kw">let</span> <span class="ident">from_glib</span> <span class="op">=</span> <span class="ident">gen_enum_from_glib</span>(<span class="ident">name</span>, <span class="ident">enum_variants</span>);
     <span class="kw">let</span> (<span class="ident">genum_values</span>, <span class="ident">nb_genum_values</span>) <span class="op">=</span> <span class="ident">gen_genum_values</span>(<span class="ident">name</span>, <span class="ident">enum_variants</span>);
 

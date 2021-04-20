@@ -1004,7 +1004,7 @@
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ApplicationWindow</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkApplicationWindow</span>, <span class="ident">ffi::GtkApplicationWindowClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Window</span>, <span class="ident">Bin</span>, <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>, <span class="ident">gio::ActionGroup</span>, <span class="ident">gio::ActionMap</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
-        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::gtk_application_window_get_type</span>(),
+        <span class="ident">type_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::gtk_application_window_get_type</span>(),
     }
 }
 

@@ -52,11 +52,11 @@
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">PixbufAnimationExtManual</span> {
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_pixbuf_animation_get_iter&quot;</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">get_iter</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">start_time</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SystemTime</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">PixbufAnimationIter</span>;
+    <span class="kw">fn</span> <span class="ident">iter</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">start_time</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SystemTime</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">PixbufAnimationIter</span>;
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">PixbufAnimation</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="ident">PixbufAnimationExtManual</span> <span class="kw">for</span> <span class="ident">T</span> {
-    <span class="kw">fn</span> <span class="ident">get_iter</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">start_time</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SystemTime</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">PixbufAnimationIter</span> {
+    <span class="kw">fn</span> <span class="ident">iter</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">start_time</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SystemTime</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">PixbufAnimationIter</span> {
         <span class="kw">let</span> <span class="ident">start_time</span> <span class="op">=</span> <span class="ident">start_time</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> {
             <span class="kw">let</span> <span class="ident">diff</span> <span class="op">=</span> <span class="ident">s</span>
                 .<span class="ident">duration_since</span>(<span class="ident">SystemTime::UNIX_EPOCH</span>)

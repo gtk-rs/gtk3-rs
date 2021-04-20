@@ -196,12 +196,12 @@
 <span class="kw">use</span> <span class="ident">once_cell::sync::Lazy</span>;
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">IOStreamImpl</span>: <span class="ident">ObjectImpl</span> <span class="op">+</span> <span class="ident">IOStreamImplExt</span> <span class="op">+</span> <span class="ident">Send</span> {
-    <span class="kw">fn</span> <span class="ident">get_input_stream</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">stream</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">InputStream</span> {
-        <span class="self">self</span>.<span class="ident">parent_get_input_stream</span>(<span class="ident">stream</span>)
+    <span class="kw">fn</span> <span class="ident">input_stream</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">stream</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">InputStream</span> {
+        <span class="self">self</span>.<span class="ident">parent_input_stream</span>(<span class="ident">stream</span>)
     }
 
-    <span class="kw">fn</span> <span class="ident">get_output_stream</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">stream</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">OutputStream</span> {
-        <span class="self">self</span>.<span class="ident">parent_get_output_stream</span>(<span class="ident">stream</span>)
+    <span class="kw">fn</span> <span class="ident">output_stream</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">stream</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">OutputStream</span> {
+        <span class="self">self</span>.<span class="ident">parent_output_stream</span>(<span class="ident">stream</span>)
     }
 
     <span class="kw">fn</span> <span class="ident">close</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">stream</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>, <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">Cancellable</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
@@ -210,9 +210,9 @@
 }
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">IOStreamImplExt</span>: <span class="ident">ObjectSubclass</span> {
-    <span class="kw">fn</span> <span class="ident">parent_get_input_stream</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">stream</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">InputStream</span>;
+    <span class="kw">fn</span> <span class="ident">parent_input_stream</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">stream</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">InputStream</span>;
 
-    <span class="kw">fn</span> <span class="ident">parent_get_output_stream</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">stream</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">OutputStream</span>;
+    <span class="kw">fn</span> <span class="ident">parent_output_stream</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">stream</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">OutputStream</span>;
 
     <span class="kw">fn</span> <span class="ident">parent_close</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -222,24 +222,24 @@
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">IOStreamImpl</span><span class="op">&gt;</span> <span class="ident">IOStreamImplExt</span> <span class="kw">for</span> <span class="ident">T</span> {
-    <span class="kw">fn</span> <span class="ident">parent_get_input_stream</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">stream</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">InputStream</span> {
+    <span class="kw">fn</span> <span class="ident">parent_input_stream</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">stream</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">InputStream</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">T::type_data</span>();
             <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::GIOStreamClass</span>;
             <span class="kw">let</span> <span class="ident">f</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">parent_class</span>)
                 .<span class="ident">get_input_stream</span>
-                .<span class="ident">expect</span>(<span class="string">&quot;No parent class implementation for \&quot;get_input_stream\&quot;&quot;</span>);
+                .<span class="ident">expect</span>(<span class="string">&quot;No parent class implementation for \&quot;input_stream\&quot;&quot;</span>);
             <span class="ident">from_glib_none</span>(<span class="ident">f</span>(<span class="ident">stream</span>.<span class="ident">unsafe_cast_ref</span>::<span class="op">&lt;</span><span class="ident">IOStream</span><span class="op">&gt;</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>))
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">parent_get_output_stream</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">stream</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">OutputStream</span> {
+    <span class="kw">fn</span> <span class="ident">parent_output_stream</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">stream</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">OutputStream</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">T::type_data</span>();
             <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::GIOStreamClass</span>;
             <span class="kw">let</span> <span class="ident">f</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">parent_class</span>)
                 .<span class="ident">get_output_stream</span>
-                .<span class="ident">expect</span>(<span class="string">&quot;No parent class implementation for \&quot;get_output_stream\&quot;&quot;</span>);
+                .<span class="ident">expect</span>(<span class="string">&quot;No parent class implementation for \&quot;output_stream\&quot;&quot;</span>);
             <span class="ident">from_glib_none</span>(<span class="ident">f</span>(<span class="ident">stream</span>.<span class="ident">unsafe_cast_ref</span>::<span class="op">&lt;</span><span class="ident">IOStream</span><span class="op">&gt;</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>))
         }
     }
@@ -297,12 +297,12 @@
     <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="ident">instance</span>.<span class="ident">impl_</span>();
     <span class="kw">let</span> <span class="ident">wrap</span>: <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">IOStream</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">ptr</span>);
 
-    <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">imp</span>.<span class="ident">get_input_stream</span>(<span class="ident">wrap</span>.<span class="ident">unsafe_cast_ref</span>());
+    <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">imp</span>.<span class="ident">input_stream</span>(<span class="ident">wrap</span>.<span class="ident">unsafe_cast_ref</span>());
 
     <span class="comment">// Ensure that a) the stream stays alive as long as the IO stream instance and</span>
     <span class="comment">// b) that the same stream is returned every time. This is a requirement by the</span>
     <span class="comment">// IO stream API.</span>
-    <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">old_stream</span>) <span class="op">=</span> <span class="ident">wrap</span>.<span class="ident">get_qdata</span>::<span class="op">&lt;</span><span class="ident">InputStream</span><span class="op">&gt;</span>(<span class="kw-2">*</span><span class="ident">INPUT_STREAM_QUARK</span>) {
+    <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">old_stream</span>) <span class="op">=</span> <span class="ident">wrap</span>.<span class="ident">qdata</span>::<span class="op">&lt;</span><span class="ident">InputStream</span><span class="op">&gt;</span>(<span class="kw-2">*</span><span class="ident">INPUT_STREAM_QUARK</span>) {
         <span class="macro">assert_eq!</span>(
             <span class="ident">old_stream</span>.<span class="ident">as_ref</span>(),
             <span class="kw-2">&amp;</span><span class="ident">ret</span>,
@@ -320,12 +320,12 @@
     <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="ident">instance</span>.<span class="ident">impl_</span>();
     <span class="kw">let</span> <span class="ident">wrap</span>: <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">IOStream</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">ptr</span>);
 
-    <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">imp</span>.<span class="ident">get_output_stream</span>(<span class="ident">wrap</span>.<span class="ident">unsafe_cast_ref</span>());
+    <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">imp</span>.<span class="ident">output_stream</span>(<span class="ident">wrap</span>.<span class="ident">unsafe_cast_ref</span>());
 
     <span class="comment">// Ensure that a) the stream stays alive as long as the IO stream instance and</span>
     <span class="comment">// b) that the same stream is returned every time. This is a requirement by the</span>
     <span class="comment">// IO stream API.</span>
-    <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">old_stream</span>) <span class="op">=</span> <span class="ident">wrap</span>.<span class="ident">get_qdata</span>::<span class="op">&lt;</span><span class="ident">OutputStream</span><span class="op">&gt;</span>(<span class="kw-2">*</span><span class="ident">OUTPUT_STREAM_QUARK</span>) {
+    <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">old_stream</span>) <span class="op">=</span> <span class="ident">wrap</span>.<span class="ident">qdata</span>::<span class="op">&lt;</span><span class="ident">OutputStream</span><span class="op">&gt;</span>(<span class="kw-2">*</span><span class="ident">OUTPUT_STREAM_QUARK</span>) {
         <span class="macro">assert_eq!</span>(
             <span class="ident">old_stream</span>.<span class="ident">as_ref</span>(),
             <span class="kw-2">&amp;</span><span class="ident">ret</span>,

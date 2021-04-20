@@ -314,7 +314,7 @@
     <span class="doccomment">/// This is usually defined via the [`Shared!`] derive macro.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`Shared!`]: ../../derive.Shared.html</span>
-    <span class="kw">fn</span> <span class="ident">get_type</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span><span class="ident">::Type</span>;
+    <span class="kw">fn</span> <span class="ident">type_</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span><span class="ident">::Type</span>;
 
     <span class="doccomment">/// Converts the SharedType into its inner RefCountedType</span>
     <span class="kw">fn</span> <span class="ident">into_refcounted</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::RefCountedType</span>;
@@ -384,13 +384,13 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_register</span>() {
-        <span class="macro">assert_ne!</span>(<span class="kw">crate</span><span class="ident">::Type::INVALID</span>, <span class="ident">MySharedArc::get_type</span>());
-        <span class="macro">assert_ne!</span>(<span class="kw">crate</span><span class="ident">::Type::INVALID</span>, <span class="ident">MySharedRc::get_type</span>());
+        <span class="macro">assert_ne!</span>(<span class="kw">crate</span><span class="ident">::Type::INVALID</span>, <span class="ident">MySharedArc::type_</span>());
+        <span class="macro">assert_ne!</span>(<span class="kw">crate</span><span class="ident">::Type::INVALID</span>, <span class="ident">MySharedRc::type_</span>());
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_value_arc</span>() {
-        <span class="macro">assert_ne!</span>(<span class="kw">crate</span><span class="ident">::Type::INVALID</span>, <span class="ident">MySharedArc::get_type</span>());
+        <span class="macro">assert_ne!</span>(<span class="kw">crate</span><span class="ident">::Type::INVALID</span>, <span class="ident">MySharedArc::type_</span>());
 
         <span class="kw">let</span> <span class="ident">b</span> <span class="op">=</span> <span class="ident">MySharedArc::from_refcounted</span>(<span class="ident">std::sync::Arc::new</span>(<span class="ident">MySharedInner</span> {
             <span class="ident">foo</span>: <span class="ident">String::from</span>(<span class="string">&quot;abc&quot;</span>),
@@ -402,7 +402,7 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_value_rc</span>() {
-        <span class="macro">assert_ne!</span>(<span class="kw">crate</span><span class="ident">::Type::INVALID</span>, <span class="ident">MySharedRc::get_type</span>());
+        <span class="macro">assert_ne!</span>(<span class="kw">crate</span><span class="ident">::Type::INVALID</span>, <span class="ident">MySharedRc::type_</span>());
 
         <span class="kw">let</span> <span class="ident">b</span> <span class="op">=</span> <span class="ident">MySharedRc::from_refcounted</span>(<span class="ident">std::rc::Rc::new</span>(<span class="ident">MySharedInner</span> {
             <span class="ident">foo</span>: <span class="ident">String::from</span>(<span class="string">&quot;abc&quot;</span>),
@@ -414,7 +414,7 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">same_ffi_pointer_arc</span>() {
-        <span class="macro">assert_ne!</span>(<span class="kw">crate</span><span class="ident">::Type::INVALID</span>, <span class="ident">MySharedArc::get_type</span>());
+        <span class="macro">assert_ne!</span>(<span class="kw">crate</span><span class="ident">::Type::INVALID</span>, <span class="ident">MySharedArc::type_</span>());
 
         <span class="kw">let</span> <span class="ident">b</span> <span class="op">=</span> <span class="ident">MySharedArc::from_refcounted</span>(<span class="ident">std::sync::Arc::new</span>(<span class="ident">MySharedInner</span> {
             <span class="ident">foo</span>: <span class="ident">String::from</span>(<span class="string">&quot;abc&quot;</span>),
@@ -438,7 +438,7 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">same_ffi_pointer_rc</span>() {
-        <span class="macro">assert_ne!</span>(<span class="kw">crate</span><span class="ident">::Type::INVALID</span>, <span class="ident">MySharedRc::get_type</span>());
+        <span class="macro">assert_ne!</span>(<span class="kw">crate</span><span class="ident">::Type::INVALID</span>, <span class="ident">MySharedRc::type_</span>());
 
         <span class="kw">let</span> <span class="ident">b</span> <span class="op">=</span> <span class="ident">MySharedRc::from_refcounted</span>(<span class="ident">std::rc::Rc::new</span>(<span class="ident">MySharedInner</span> {
             <span class="ident">foo</span>: <span class="ident">String::from</span>(<span class="string">&quot;abc&quot;</span>),

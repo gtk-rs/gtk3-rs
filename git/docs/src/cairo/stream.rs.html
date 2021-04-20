@@ -393,7 +393,7 @@
         <span class="self">self</span>.<span class="ident">finish</span>();
 
         <span class="kw">let</span> <span class="ident">env</span> <span class="op">=</span> <span class="self">self</span>
-            .<span class="ident">get_user_data_ptr</span>(<span class="kw-2">&amp;</span><span class="ident">STREAM_CALLBACK_ENVIRONMENT</span>)
+            .<span class="ident">user_data_ptr</span>(<span class="kw-2">&amp;</span><span class="ident">STREAM_CALLBACK_ENVIRONMENT</span>)
             .<span class="ident">expect</span>(<span class="string">&quot;surface without an output stream&quot;</span>);
 
         <span class="comment">// Safety: since `STREAM_CALLBACK_ENVIRONMENT` is private and we never</span>

@@ -752,7 +752,7 @@
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MenuShell</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkMenuShell</span>, <span class="ident">ffi::GtkMenuShellClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
-        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::gtk_menu_shell_get_type</span>(),
+        <span class="ident">type_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::gtk_menu_shell_get_type</span>(),
     }
 }
 

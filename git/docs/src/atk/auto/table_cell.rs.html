@@ -165,7 +165,7 @@
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TableCell</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi::AtkTableCell</span>, <span class="ident">ffi::AtkTableCellIface</span><span class="op">&gt;</span>) @<span class="ident">requires</span> <span class="ident">Object</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
-        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::atk_table_cell_get_type</span>(),
+        <span class="ident">type_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::atk_table_cell_get_type</span>(),
     }
 }
 

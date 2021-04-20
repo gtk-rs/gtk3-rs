@@ -124,7 +124,7 @@
     <span class="kw">match</span> <span class="kw">fn</span> {
         <span class="ident">copy</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">ffi::pango_glyph_item_copy</span>(<span class="ident">mut_override</span>(<span class="ident">ptr</span>)),
         <span class="ident">free</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">ffi::pango_glyph_item_free</span>(<span class="ident">ptr</span>),
-        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::pango_glyph_item_get_type</span>(),
+        <span class="ident">type_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::pango_glyph_item_get_type</span>(),
     }
 }
 
@@ -168,7 +168,7 @@
     }
 
     <span class="comment">//#[doc(alias = &quot;pango_glyph_item_get_logical_widths&quot;)]</span>
-    <span class="comment">//pub fn get_logical_widths(&amp;mut self, text: &amp;str, logical_widths: &amp;[i32]) {</span>
+    <span class="comment">//pub fn logical_widths(&amp;mut self, text: &amp;str, logical_widths: &amp;[i32]) {</span>
     <span class="comment">//    unsafe { TODO: call ffi:pango_glyph_item_get_logical_widths() }</span>
     <span class="comment">//}</span>
 

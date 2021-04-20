@@ -1060,7 +1060,7 @@
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">AppChooserWidget</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkAppChooserWidget</span>, <span class="ident">ffi::GtkAppChooserWidgetClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Box</span>, <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>, <span class="ident">Orientable</span>, <span class="ident">AppChooser</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
-        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::gtk_app_chooser_widget_get_type</span>(),
+        <span class="ident">type_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::gtk_app_chooser_widget_get_type</span>(),
     }
 }
 

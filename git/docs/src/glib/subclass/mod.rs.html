@@ -436,7 +436,7 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//!         // Called whenever a property is retrieved from this instance. The id</span>
 <span class="doccomment">//!         // is the same as the index of the property in the PROPERTIES array.</span>
-<span class="doccomment">//!         fn get_property(&amp;self, _obj: &amp;Self::Type, _id: usize, pspec: &amp;glib::ParamSpec) -&gt; glib::Value {</span>
+<span class="doccomment">//!         fn property(&amp;self, _obj: &amp;Self::Type, _id: usize, pspec: &amp;glib::ParamSpec) -&gt; glib::Value {</span>
 <span class="doccomment">//!             match pspec.name() {</span>
 <span class="doccomment">//!                 &quot;name&quot; =&gt; self.name.borrow().to_value(),</span>
 <span class="doccomment">//!                 &quot;animal&quot; =&gt; self.animal.get().to_value(),</span>
@@ -472,20 +472,20 @@
 <span class="doccomment">//!     let obj = SimpleObject::new();</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//!     // Get the name property and change its value.</span>
-<span class="doccomment">//!     assert_eq!(obj.get_property(&quot;name&quot;).unwrap().get::&lt;&amp;str&gt;(), Ok(None));</span>
+<span class="doccomment">//!     assert_eq!(obj.property(&quot;name&quot;).unwrap().get::&lt;&amp;str&gt;(), Ok(None));</span>
 <span class="doccomment">//!     obj.set_property(&quot;name&quot;, &amp;&quot;test&quot;).unwrap();</span>
 <span class="doccomment">//!     assert_eq!(</span>
-<span class="doccomment">//!         obj.get_property(&quot;name&quot;).unwrap().get::&lt;&amp;str&gt;(),</span>
+<span class="doccomment">//!         obj.property(&quot;name&quot;).unwrap().get::&lt;&amp;str&gt;(),</span>
 <span class="doccomment">//!         Ok(Some(&quot;test&quot;))</span>
 <span class="doccomment">//!     );</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//!     assert_eq!(obj.get_property(&quot;animal&quot;).unwrap().get::&lt;Animal&gt;(), Ok(Some(Animal::Goat)));</span>
+<span class="doccomment">//!     assert_eq!(obj.property(&quot;animal&quot;).unwrap().get::&lt;Animal&gt;(), Ok(Some(Animal::Goat)));</span>
 <span class="doccomment">//!     obj.set_property(&quot;animal&quot;, &amp;Animal::Cat).unwrap();</span>
-<span class="doccomment">//!     assert_eq!(obj.get_property(&quot;animal&quot;).unwrap().get::&lt;Animal&gt;(), Ok(Some(Animal::Cat)));</span>
+<span class="doccomment">//!     assert_eq!(obj.property(&quot;animal&quot;).unwrap().get::&lt;Animal&gt;(), Ok(Some(Animal::Cat)));</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//!     assert_eq!(obj.get_property(&quot;flags&quot;).unwrap().get::&lt;MyFlags&gt;(), Ok(Some(MyFlags::A)));</span>
+<span class="doccomment">//!     assert_eq!(obj.property(&quot;flags&quot;).unwrap().get::&lt;MyFlags&gt;(), Ok(Some(MyFlags::A)));</span>
 <span class="doccomment">//!     obj.set_property(&quot;flags&quot;, &amp;MyFlags::B).unwrap();</span>
-<span class="doccomment">//!     assert_eq!(obj.get_property(&quot;flags&quot;).unwrap().get::&lt;MyFlags&gt;(), Ok(Some(MyFlags::B)));</span>
+<span class="doccomment">//!     assert_eq!(obj.property(&quot;flags&quot;).unwrap().get::&lt;MyFlags&gt;(), Ok(Some(MyFlags::B)));</span>
 <span class="doccomment">//! }</span>
 <span class="doccomment">//! ```</span>
 <span class="doccomment">//!</span>
@@ -504,7 +504,7 @@
 <span class="doccomment">//! struct MyBoxed(String);</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! pub fn main() {</span>
-<span class="doccomment">//!     assert!(MyBoxed::get_type().is_valid());</span>
+<span class="doccomment">//!     assert!(MyBoxed::type_().is_valid());</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//!     let b = MyBoxed(String::from(&quot;abc&quot;));</span>
 <span class="doccomment">//!     let v = b.to_value();</span>

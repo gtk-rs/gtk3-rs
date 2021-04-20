@@ -643,15 +643,6 @@
 <span id="640">640</span>
 <span id="641">641</span>
 <span id="642">642</span>
-<span id="643">643</span>
-<span id="644">644</span>
-<span id="645">645</span>
-<span id="646">646</span>
-<span id="647">647</span>
-<span id="648">648</span>
-<span id="649">649</span>
-<span id="650">650</span>
-<span id="651">651</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -888,22 +879,13 @@
         <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">C</span><span class="op">&gt;</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">usize</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// Returns the underlying OS socket object. On unix this</span>
-    <span class="doccomment">/// is a socket file descriptor, and on Windows this is</span>
-    <span class="doccomment">/// a Winsock2 SOCKET handle. This may be useful for</span>
-    <span class="doccomment">/// doing platform specific or otherwise unusual operations</span>
-    <span class="doccomment">/// on the socket.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Returns</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// the file descriptor of the socket.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">unix</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">unix</span>)))]</span>
-    <span class="kw">fn</span> <span class="ident">get_fd</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">FromRawFd</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">T</span>;
+    <span class="kw">fn</span> <span class="ident">fd</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">FromRawFd</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">T</span>;
 
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">windows</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">windows</span>)))]</span>
-    <span class="kw">fn</span> <span class="ident">get_socket</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">FromRawSocket</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">T</span>;
+    <span class="kw">fn</span> <span class="ident">socket</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">FromRawSocket</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">T</span>;
 
     <span class="doccomment">/// Creates a `glib::Source` that can be attached to a `glib::MainContext` to monitor</span>
     <span class="doccomment">/// for the availability of the specified `condition` on the socket. The `glib::Source`</span>
@@ -1138,13 +1120,13 @@
 
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">unix</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">unix</span>)))]</span>
-    <span class="kw">fn</span> <span class="ident">get_fd</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">FromRawFd</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">T</span> {
+    <span class="kw">fn</span> <span class="ident">fd</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">FromRawFd</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">T</span> {
         <span class="kw">unsafe</span> { <span class="ident">FromRawFd::from_raw_fd</span>(<span class="ident">ffi::g_socket_get_fd</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">windows</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">windows</span>)))]</span>
-    <span class="kw">fn</span> <span class="ident">get_socket</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">FromRawSocket</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">T</span> {
+    <span class="kw">fn</span> <span class="ident">socket</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">FromRawSocket</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">T</span> {
         <span class="kw">unsafe</span> {
             <span class="ident">FromRawSocket::from_raw_socket</span>(<span class="ident">ffi::g_socket_get_fd</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>) <span class="kw">as</span> <span class="kw">_</span>)
         }

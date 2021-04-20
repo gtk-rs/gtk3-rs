@@ -1587,7 +1587,7 @@
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Window</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GdkWindow</span>, <span class="ident">ffi::GdkWindowClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
-        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::gdk_window_get_type</span>(),
+        <span class="ident">type_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::gdk_window_get_type</span>(),
     }
 }
 
@@ -1863,7 +1863,7 @@
     }
 
     <span class="comment">//#[doc(alias = &quot;gdk_window_get_children_with_user_data&quot;)]</span>
-    <span class="comment">//pub fn get_children_with_user_data(&amp;self, user_data: /*Unimplemented*/Option&lt;Fundamental: Pointer&gt;) -&gt; Vec&lt;Window&gt; {</span>
+    <span class="comment">//pub fn children_with_user_data(&amp;self, user_data: /*Unimplemented*/Option&lt;Fundamental: Pointer&gt;) -&gt; Vec&lt;Window&gt; {</span>
     <span class="comment">//    unsafe { TODO: call ffi:gdk_window_get_children_with_user_data() }</span>
     <span class="comment">//}</span>
 
@@ -1901,7 +1901,7 @@
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_get_device_cursor&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_device_cursor</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">device</span>: <span class="kw-2">&amp;</span><span class="ident">Device</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Cursor</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">device_cursor</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">device</span>: <span class="kw-2">&amp;</span><span class="ident">Device</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Cursor</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="ident">from_glib_none</span>(<span class="ident">ffi::gdk_window_get_device_cursor</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -1911,7 +1911,7 @@
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_get_device_events&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_device_events</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">device</span>: <span class="kw-2">&amp;</span><span class="ident">Device</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">EventMask</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">device_events</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">device</span>: <span class="kw-2">&amp;</span><span class="ident">Device</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">EventMask</span> {
         <span class="kw">unsafe</span> {
             <span class="ident">from_glib</span>(<span class="ident">ffi::gdk_window_get_device_events</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -1921,7 +1921,7 @@
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_get_device_position&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_device_position</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">device</span>: <span class="kw-2">&amp;</span><span class="ident">Device</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Window</span><span class="op">&gt;</span>, <span class="ident">i32</span>, <span class="ident">i32</span>, <span class="ident">ModifierType</span>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">device_position</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">device</span>: <span class="kw-2">&amp;</span><span class="ident">Device</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Window</span><span class="op">&gt;</span>, <span class="ident">i32</span>, <span class="ident">i32</span>, <span class="ident">ModifierType</span>) {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">x</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">y</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
@@ -1941,7 +1941,7 @@
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_get_device_position_double&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_device_position_double</span>(
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">device_position_double</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">device</span>: <span class="kw-2">&amp;</span><span class="ident">Device</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> (<span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Window</span><span class="op">&gt;</span>, <span class="ident">f64</span>, <span class="ident">f64</span>, <span class="ident">ModifierType</span>) {
@@ -1995,7 +1995,7 @@
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_get_event_compression&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_event_compression</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">does_event_compression</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::gdk_window_get_event_compression</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
@@ -2103,7 +2103,7 @@
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_get_root_coords&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_root_coords</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">x</span>: <span class="ident">i32</span>, <span class="ident">y</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">i32</span>, <span class="ident">i32</span>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">root_coords</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">x</span>: <span class="ident">i32</span>, <span class="ident">y</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">i32</span>, <span class="ident">i32</span>) {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">root_x</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">root_y</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
@@ -2143,7 +2143,7 @@
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_get_source_events&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_source_events</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">source</span>: <span class="ident">InputSource</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">EventMask</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">source_events</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">source</span>: <span class="ident">InputSource</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">EventMask</span> {
         <span class="kw">unsafe</span> {
             <span class="ident">from_glib</span>(<span class="ident">ffi::gdk_window_get_source_events</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,

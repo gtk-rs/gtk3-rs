@@ -225,11 +225,11 @@
         }
 
         <span class="doccomment">/// Return the user data previously attached to `self` with the given `key`, if any.</span>
-        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_user_data</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">user_data</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
             <span class="kw-2">&amp;</span><span class="self">self</span>,
             <span class="ident">key</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="kw">crate</span><span class="ident">::UserDataKey</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
         ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">std::rc::Rc</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-            <span class="kw">let</span> <span class="ident">ptr</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_user_data_ptr</span>(<span class="ident">key</span>)<span class="question-mark">?</span>.<span class="ident">as_ptr</span>();
+            <span class="kw">let</span> <span class="ident">ptr</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">user_data_ptr</span>(<span class="ident">key</span>)<span class="question-mark">?</span>.<span class="ident">as_ptr</span>();
 
             <span class="comment">// Safety:</span>
             <span class="comment">//</span>
@@ -250,7 +250,7 @@
         <span class="doccomment">/// The pointer is valid when it is returned from this method,</span>
         <span class="doccomment">/// until the cairo object that `self` represents is destroyed</span>
         <span class="doccomment">/// or `remove_user_data` or `set_user_data` is called with the same key.</span>
-        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_user_data_ptr</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">user_data_ptr</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
             <span class="kw-2">&amp;</span><span class="self">self</span>,
             <span class="ident">key</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="kw">crate</span><span class="ident">::UserDataKey</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
         ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">std::ptr::NonNull</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span> {

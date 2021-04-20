@@ -312,7 +312,7 @@
 
     <span class="kw">let</span> <span class="ident">bitflags</span> <span class="op">=</span> <span class="ident">gen_bitflags</span>(<span class="ident">name</span>, <span class="ident">visibility</span>, <span class="ident">enum_variants</span>, <span class="kw-2">&amp;</span><span class="ident">crate_ident</span>);
 
-    <span class="kw">let</span> <span class="ident">get_type</span> <span class="op">=</span> <span class="macro">format_ident!</span>(<span class="string">&quot;{}_get_type&quot;</span>, <span class="ident">name</span>.<span class="ident">to_string</span>().<span class="ident">to_snake_case</span>());
+    <span class="kw">let</span> <span class="ident">get_type</span> <span class="op">=</span> <span class="macro">format_ident!</span>(<span class="string">&quot;{}_type&quot;</span>, <span class="ident">name</span>.<span class="ident">to_string</span>().<span class="ident">to_snake_case</span>());
     <span class="kw">let</span> (<span class="ident">gflags_values</span>, <span class="ident">nb_gflags_values</span>) <span class="op">=</span> <span class="ident">gen_gflags_values</span>(<span class="ident">name</span>, <span class="ident">enum_variants</span>);
 
     <span class="macro">quote!</span> {

@@ -157,7 +157,7 @@
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ConverterInputStream</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GConverterInputStream</span>, <span class="ident">ffi::GConverterInputStreamClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">FilterInputStream</span>, <span class="ident">InputStream</span>, @<span class="ident">implements</span> <span class="ident">PollableInputStream</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
-        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::g_converter_input_stream_get_type</span>(),
+        <span class="ident">type_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::g_converter_input_stream_get_type</span>(),
     }
 }
 

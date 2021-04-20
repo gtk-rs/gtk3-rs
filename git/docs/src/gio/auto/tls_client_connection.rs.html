@@ -395,7 +395,7 @@
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TlsClientConnection</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi::GTlsClientConnection</span>, <span class="ident">ffi::GTlsClientConnectionInterface</span><span class="op">&gt;</span>) @<span class="ident">requires</span> <span class="ident">TlsConnection</span>, <span class="ident">IOStream</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
-        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::g_tls_client_connection_get_type</span>(),
+        <span class="ident">type_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::g_tls_client_connection_get_type</span>(),
     }
 }
 

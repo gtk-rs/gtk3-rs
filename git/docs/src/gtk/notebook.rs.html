@@ -400,15 +400,6 @@
 <span id="397">397</span>
 <span id="398">398</span>
 <span id="399">399</span>
-<span id="400">400</span>
-<span id="401">401</span>
-<span id="402">402</span>
-<span id="403">403</span>
-<span id="404">404</span>
-<span id="405">405</span>
-<span id="406">406</span>
-<span id="407">407</span>
-<span id="408">408</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -470,17 +461,8 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_notebook_get_n_pages&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">n_pages</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span>;
 
-    <span class="doccomment">/// Returns the child widget contained in page number `page_num`.</span>
-    <span class="doccomment">/// ## `page_num`</span>
-    <span class="doccomment">/// the index of a page in the notebook, or -1</span>
-    <span class="doccomment">///  to get the last page</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Returns</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// the child widget, or `None` if `page_num`</span>
-    <span class="doccomment">/// is out of bounds</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_notebook_get_nth_page&quot;</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">get_nth_page</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">page_num</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span>;
+    <span class="kw">fn</span> <span class="ident">nth_page</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">page_num</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Insert a page into `self` at the given position.</span>
     <span class="doccomment">/// ## `child`</span>
@@ -686,7 +668,7 @@
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">get_nth_page</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">page_num</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">nth_page</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">page_num</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="ident">from_glib_none</span>(<span class="ident">ffi::gtk_notebook_get_nth_page</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,

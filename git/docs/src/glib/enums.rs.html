@@ -691,7 +691,6 @@
 <span id="688">688</span>
 <span id="689">689</span>
 <span id="690">690</span>
-<span id="691">691</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -772,7 +771,7 @@
     <span class="doccomment">/// Returns `None` if the enum does not contain any value</span>
     <span class="doccomment">/// with `value`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_enum_get_value&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">value</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">EnumValue</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">value</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">EnumValue</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">gobject_ffi::g_enum_get_value</span>(<span class="self">self</span>.<span class="number">0</span>, <span class="ident">value</span>);
             <span class="kw">if</span> <span class="ident">v</span>.<span class="ident">is_null</span>() {
@@ -788,7 +787,7 @@
     <span class="doccomment">/// Returns `None` if the enum does not contain any value</span>
     <span class="doccomment">/// with name `name`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_enum_get_value_by_name&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_value_by_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">EnumValue</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">value_by_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">EnumValue</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">gobject_ffi::g_enum_get_value_by_name</span>(<span class="self">self</span>.<span class="number">0</span>, <span class="ident">name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
             <span class="kw">if</span> <span class="ident">v</span>.<span class="ident">is_null</span>() {
@@ -804,7 +803,7 @@
     <span class="doccomment">/// Returns `None` if the enum does not contain any value</span>
     <span class="doccomment">/// with nick `nick`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_enum_get_value_by_nick&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_value_by_nick</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">nick</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">EnumValue</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">value_by_nick</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">nick</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">EnumValue</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">gobject_ffi::g_enum_get_value_by_nick</span>(<span class="self">self</span>.<span class="number">0</span>, <span class="ident">nick</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
             <span class="kw">if</span> <span class="ident">v</span>.<span class="ident">is_null</span>() {
@@ -829,17 +828,17 @@
 
     <span class="doccomment">/// Converts integer `value` to a `Value`, if part of the enum.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">value</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Value</span><span class="op">&gt;</span> {
-        <span class="self">self</span>.<span class="ident">get_value</span>(<span class="ident">value</span>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">v</span><span class="op">|</span> <span class="ident">v</span>.<span class="ident">to_value</span>())
+        <span class="self">self</span>.<span class="ident">value</span>(<span class="ident">value</span>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">v</span><span class="op">|</span> <span class="ident">v</span>.<span class="ident">to_value</span>())
     }
 
     <span class="doccomment">/// Converts string name `name` to a `Value`, if part of the enum.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_value_by_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Value</span><span class="op">&gt;</span> {
-        <span class="self">self</span>.<span class="ident">get_value_by_name</span>(<span class="ident">name</span>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">v</span><span class="op">|</span> <span class="ident">v</span>.<span class="ident">to_value</span>())
+        <span class="self">self</span>.<span class="ident">value_by_name</span>(<span class="ident">name</span>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">v</span><span class="op">|</span> <span class="ident">v</span>.<span class="ident">to_value</span>())
     }
 
     <span class="doccomment">/// Converts string nick `nick` to a `Value`, if part of the enum.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_value_by_nick</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">nick</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Value</span><span class="op">&gt;</span> {
-        <span class="self">self</span>.<span class="ident">get_value_by_nick</span>(<span class="ident">nick</span>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">v</span><span class="op">|</span> <span class="ident">v</span>.<span class="ident">to_value</span>())
+        <span class="self">self</span>.<span class="ident">value_by_nick</span>(<span class="ident">nick</span>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">v</span><span class="op">|</span> <span class="ident">v</span>.<span class="ident">to_value</span>())
     }
 }
 
@@ -893,8 +892,7 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">EnumValue</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">enum_class</span> <span class="op">=</span> <span class="ident">EnumClass::new</span>(<span class="ident">value</span>.<span class="ident">type_</span>());
-            <span class="ident">enum_class</span>
-                .<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">get_value</span>(<span class="ident">gobject_ffi::g_value_get_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)))
+            <span class="ident">enum_class</span>.<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">value</span>(<span class="ident">gobject_ffi::g_value_get_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)))
         }
     }
 
@@ -962,7 +960,7 @@
     <span class="doccomment">/// Returns `None` if the flags do not contain any value</span>
     <span class="doccomment">/// with `value`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_flags_get_first_value&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">value</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">FlagsValue</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">value</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">FlagsValue</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">gobject_ffi::g_flags_get_first_value</span>(<span class="self">self</span>.<span class="number">0</span>, <span class="ident">value</span>);
             <span class="kw">if</span> <span class="ident">v</span>.<span class="ident">is_null</span>() {
@@ -978,7 +976,7 @@
     <span class="doccomment">/// Returns `None` if the flags do not contain any value</span>
     <span class="doccomment">/// with name `name`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_flags_get_value_by_name&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_value_by_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">FlagsValue</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">value_by_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">FlagsValue</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">gobject_ffi::g_flags_get_value_by_name</span>(<span class="self">self</span>.<span class="number">0</span>, <span class="ident">name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
             <span class="kw">if</span> <span class="ident">v</span>.<span class="ident">is_null</span>() {
@@ -994,7 +992,7 @@
     <span class="doccomment">/// Returns `None` if the flags do not contain any value</span>
     <span class="doccomment">/// with nick `nick`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_flags_get_value_by_nick&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_value_by_nick</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">nick</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">FlagsValue</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">value_by_nick</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">nick</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">FlagsValue</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">gobject_ffi::g_flags_get_value_by_nick</span>(<span class="self">self</span>.<span class="number">0</span>, <span class="ident">nick</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
             <span class="kw">if</span> <span class="ident">v</span>.<span class="ident">is_null</span>() {
@@ -1019,17 +1017,17 @@
 
     <span class="doccomment">/// Converts integer `value` to a `Value`, if part of the flags.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">value</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Value</span><span class="op">&gt;</span> {
-        <span class="self">self</span>.<span class="ident">get_value</span>(<span class="ident">value</span>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">v</span><span class="op">|</span> <span class="ident">v</span>.<span class="ident">to_value</span>())
+        <span class="self">self</span>.<span class="ident">value</span>(<span class="ident">value</span>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">v</span><span class="op">|</span> <span class="ident">v</span>.<span class="ident">to_value</span>())
     }
 
     <span class="doccomment">/// Converts string name `name` to a `Value`, if part of the flags.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_value_by_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Value</span><span class="op">&gt;</span> {
-        <span class="self">self</span>.<span class="ident">get_value_by_name</span>(<span class="ident">name</span>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">v</span><span class="op">|</span> <span class="ident">v</span>.<span class="ident">to_value</span>())
+        <span class="self">self</span>.<span class="ident">value_by_name</span>(<span class="ident">name</span>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">v</span><span class="op">|</span> <span class="ident">v</span>.<span class="ident">to_value</span>())
     }
 
     <span class="doccomment">/// Converts string nick `nick` to a `Value`, if part of the flags.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_value_by_nick</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">nick</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Value</span><span class="op">&gt;</span> {
-        <span class="self">self</span>.<span class="ident">get_value_by_nick</span>(<span class="ident">nick</span>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">v</span><span class="op">|</span> <span class="ident">v</span>.<span class="ident">to_value</span>())
+        <span class="self">self</span>.<span class="ident">value_by_nick</span>(<span class="ident">nick</span>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">v</span><span class="op">|</span> <span class="ident">v</span>.<span class="ident">to_value</span>())
     }
 
     <span class="doccomment">/// Checks if the flags corresponding to integer `f` is set in `value`.</span>
@@ -1051,7 +1049,7 @@
                 <span class="kw">return</span> <span class="bool-val">false</span>;
             }
 
-            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">f</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_value_by_name</span>(<span class="ident">name</span>) {
+            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">f</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">value_by_name</span>(<span class="ident">name</span>) {
                 <span class="kw">let</span> <span class="ident">flags</span> <span class="op">=</span> <span class="ident">gobject_ffi::g_value_get_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
                 <span class="ident">flags</span> <span class="op">&amp;</span> <span class="ident">f</span>.<span class="ident">value</span>() <span class="op">!</span><span class="op">=</span> <span class="number">0</span>
             } <span class="kw">else</span> {
@@ -1067,7 +1065,7 @@
                 <span class="kw">return</span> <span class="bool-val">false</span>;
             }
 
-            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">f</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_value_by_nick</span>(<span class="ident">nick</span>) {
+            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">f</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">value_by_nick</span>(<span class="ident">nick</span>) {
                 <span class="kw">let</span> <span class="ident">flags</span> <span class="op">=</span> <span class="ident">gobject_ffi::g_value_get_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
                 <span class="ident">flags</span> <span class="op">&amp;</span> <span class="ident">f</span>.<span class="ident">value</span>() <span class="op">!</span><span class="op">=</span> <span class="number">0</span>
             } <span class="kw">else</span> {
@@ -1088,7 +1086,7 @@
                 <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">value</span>);
             }
 
-            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">f</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_value</span>(<span class="ident">f</span>) {
+            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">f</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">value</span>(<span class="ident">f</span>) {
                 <span class="kw">let</span> <span class="ident">flags</span> <span class="op">=</span> <span class="ident">gobject_ffi::g_value_get_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
                 <span class="ident">gobject_ffi::g_value_set_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">flags</span> <span class="op">|</span> <span class="ident">f</span>.<span class="ident">value</span>());
                 <span class="prelude-val">Ok</span>(<span class="ident">value</span>)
@@ -1109,7 +1107,7 @@
                 <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">value</span>);
             }
 
-            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">f</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_value_by_name</span>(<span class="ident">name</span>) {
+            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">f</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">value_by_name</span>(<span class="ident">name</span>) {
                 <span class="kw">let</span> <span class="ident">flags</span> <span class="op">=</span> <span class="ident">gobject_ffi::g_value_get_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
                 <span class="ident">gobject_ffi::g_value_set_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">flags</span> <span class="op">|</span> <span class="ident">f</span>.<span class="ident">value</span>());
                 <span class="prelude-val">Ok</span>(<span class="ident">value</span>)
@@ -1130,7 +1128,7 @@
                 <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">value</span>);
             }
 
-            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">f</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_value_by_nick</span>(<span class="ident">nick</span>) {
+            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">f</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">value_by_nick</span>(<span class="ident">nick</span>) {
                 <span class="kw">let</span> <span class="ident">flags</span> <span class="op">=</span> <span class="ident">gobject_ffi::g_value_get_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
                 <span class="ident">gobject_ffi::g_value_set_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">flags</span> <span class="op">|</span> <span class="ident">f</span>.<span class="ident">value</span>());
                 <span class="prelude-val">Ok</span>(<span class="ident">value</span>)
@@ -1151,7 +1149,7 @@
                 <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">value</span>);
             }
 
-            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">f</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_value</span>(<span class="ident">f</span>) {
+            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">f</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">value</span>(<span class="ident">f</span>) {
                 <span class="kw">let</span> <span class="ident">flags</span> <span class="op">=</span> <span class="ident">gobject_ffi::g_value_get_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
                 <span class="ident">gobject_ffi::g_value_set_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">flags</span> <span class="op">&amp;</span> <span class="op">!</span><span class="ident">f</span>.<span class="ident">value</span>());
                 <span class="prelude-val">Ok</span>(<span class="ident">value</span>)
@@ -1172,7 +1170,7 @@
                 <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">value</span>);
             }
 
-            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">f</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_value_by_name</span>(<span class="ident">name</span>) {
+            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">f</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">value_by_name</span>(<span class="ident">name</span>) {
                 <span class="kw">let</span> <span class="ident">flags</span> <span class="op">=</span> <span class="ident">gobject_ffi::g_value_get_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
                 <span class="ident">gobject_ffi::g_value_set_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">flags</span> <span class="op">&amp;</span> <span class="op">!</span><span class="ident">f</span>.<span class="ident">value</span>());
                 <span class="prelude-val">Ok</span>(<span class="ident">value</span>)
@@ -1193,7 +1191,7 @@
                 <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">value</span>);
             }
 
-            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">f</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_value_by_nick</span>(<span class="ident">nick</span>) {
+            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">f</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">value_by_nick</span>(<span class="ident">nick</span>) {
                 <span class="kw">let</span> <span class="ident">flags</span> <span class="op">=</span> <span class="ident">gobject_ffi::g_value_get_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
                 <span class="ident">gobject_ffi::g_value_set_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">flags</span> <span class="op">&amp;</span> <span class="op">!</span><span class="ident">f</span>.<span class="ident">value</span>());
                 <span class="prelude-val">Ok</span>(<span class="ident">value</span>)
@@ -1303,7 +1301,7 @@
 <span class="doccomment">/// object again:</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// ```ignore</span>
-<span class="doccomment">/// let flags = obj.get_property(&quot;flags&quot;).unwrap();</span>
+<span class="doccomment">/// let flags = obj.property(&quot;flags&quot;).unwrap();</span>
 <span class="doccomment">/// let flags_class = FlagsClass::new(flags.type_()).unwrap();</span>
 <span class="doccomment">/// let flags = flags_class.builder_with_value(flags).unwrap()</span>
 <span class="doccomment">///     .unset_by_nick(&quot;some-flag&quot;)</span>

@@ -157,49 +157,49 @@
 <span class="kw">use</span> <span class="ident">once_cell::sync::Lazy</span>;
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ListModelImpl</span>: <span class="ident">ObjectImpl</span> {
-    <span class="kw">fn</span> <span class="ident">get_item_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_model</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Type</span>;
-    <span class="kw">fn</span> <span class="ident">get_n_items</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_model</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span>;
-    <span class="kw">fn</span> <span class="ident">get_item</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_model</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>, <span class="ident">position</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::Object</span><span class="op">&gt;</span>;
+    <span class="kw">fn</span> <span class="ident">item_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_model</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Type</span>;
+    <span class="kw">fn</span> <span class="ident">n_items</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_model</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span>;
+    <span class="kw">fn</span> <span class="ident">item</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_model</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>, <span class="ident">position</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::Object</span><span class="op">&gt;</span>;
 }
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ListModelImplExt</span>: <span class="ident">ObjectSubclass</span> {
-    <span class="kw">fn</span> <span class="ident">parent_get_item_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_model</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Type</span>;
-    <span class="kw">fn</span> <span class="ident">parent_get_n_items</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_model</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span>;
-    <span class="kw">fn</span> <span class="ident">parent_get_item</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_model</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>, <span class="ident">position</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::Object</span><span class="op">&gt;</span>;
+    <span class="kw">fn</span> <span class="ident">parent_item_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_model</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Type</span>;
+    <span class="kw">fn</span> <span class="ident">parent_n_items</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_model</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span>;
+    <span class="kw">fn</span> <span class="ident">parent_item</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_model</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>, <span class="ident">position</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::Object</span><span class="op">&gt;</span>;
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ListModelImpl</span><span class="op">&gt;</span> <span class="ident">ListModelImplExt</span> <span class="kw">for</span> <span class="ident">T</span> {
-    <span class="kw">fn</span> <span class="ident">parent_get_item_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_model</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Type</span> {
+    <span class="kw">fn</span> <span class="ident">parent_item_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_model</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Type</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">type_data</span> <span class="op">=</span> <span class="self">Self</span><span class="ident">::type_data</span>();
-            <span class="kw">let</span> <span class="ident">parent_iface</span> <span class="op">=</span> <span class="ident">type_data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_interface</span>::<span class="op">&lt;</span><span class="ident">ListModel</span><span class="op">&gt;</span>()
+            <span class="kw">let</span> <span class="ident">parent_iface</span> <span class="op">=</span> <span class="ident">type_data</span>.<span class="ident">as_ref</span>().<span class="ident">parent_interface</span>::<span class="op">&lt;</span><span class="ident">ListModel</span><span class="op">&gt;</span>()
                 <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ffi::GListModelInterface</span>;
 
             <span class="kw">let</span> <span class="ident">func</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">parent_iface</span>)
                 .<span class="ident">get_item_type</span>
-                .<span class="ident">expect</span>(<span class="string">&quot;no parent \&quot;get_item_type\&quot; implementation&quot;</span>);
+                .<span class="ident">expect</span>(<span class="string">&quot;no parent \&quot;item_type\&quot; implementation&quot;</span>);
             <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">func</span>(<span class="ident">list_model</span>.<span class="ident">unsafe_cast_ref</span>::<span class="op">&lt;</span><span class="ident">ListModel</span><span class="op">&gt;</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>);
             <span class="ident">from_glib</span>(<span class="ident">ret</span>)
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">parent_get_n_items</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_model</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
+    <span class="kw">fn</span> <span class="ident">parent_n_items</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_model</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">type_data</span> <span class="op">=</span> <span class="self">Self</span><span class="ident">::type_data</span>();
-            <span class="kw">let</span> <span class="ident">parent_iface</span> <span class="op">=</span> <span class="ident">type_data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_interface</span>::<span class="op">&lt;</span><span class="ident">ListModel</span><span class="op">&gt;</span>()
+            <span class="kw">let</span> <span class="ident">parent_iface</span> <span class="op">=</span> <span class="ident">type_data</span>.<span class="ident">as_ref</span>().<span class="ident">parent_interface</span>::<span class="op">&lt;</span><span class="ident">ListModel</span><span class="op">&gt;</span>()
                 <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ffi::GListModelInterface</span>;
 
             <span class="kw">let</span> <span class="ident">func</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">parent_iface</span>)
                 .<span class="ident">get_n_items</span>
-                .<span class="ident">expect</span>(<span class="string">&quot;no parent \&quot;get_n_items\&quot; implementation&quot;</span>);
+                .<span class="ident">expect</span>(<span class="string">&quot;no parent \&quot;n_items\&quot; implementation&quot;</span>);
             <span class="ident">func</span>(<span class="ident">list_model</span>.<span class="ident">unsafe_cast_ref</span>::<span class="op">&lt;</span><span class="ident">ListModel</span><span class="op">&gt;</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>)
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">parent_get_item</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_model</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>, <span class="ident">position</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::Object</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">parent_item</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">list_model</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>, <span class="ident">position</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::Object</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">type_data</span> <span class="op">=</span> <span class="self">Self</span><span class="ident">::type_data</span>();
-            <span class="kw">let</span> <span class="ident">parent_iface</span> <span class="op">=</span> <span class="ident">type_data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_interface</span>::<span class="op">&lt;</span><span class="ident">ListModel</span><span class="op">&gt;</span>()
+            <span class="kw">let</span> <span class="ident">parent_iface</span> <span class="op">=</span> <span class="ident">type_data</span>.<span class="ident">as_ref</span>().<span class="ident">parent_interface</span>::<span class="op">&lt;</span><span class="ident">ListModel</span><span class="op">&gt;</span>()
                 <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ffi::GListModelInterface</span>;
 
             <span class="kw">let</span> <span class="ident">func</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">parent_iface</span>)
@@ -242,10 +242,10 @@
     <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="ident">instance</span>.<span class="ident">impl_</span>();
     <span class="kw">let</span> <span class="ident">wrap</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="ident">ListModel</span><span class="op">&gt;</span>(<span class="ident">list_model</span>);
 
-    <span class="kw">let</span> <span class="ident">type_</span> <span class="op">=</span> <span class="ident">imp</span>.<span class="ident">get_item_type</span>(<span class="ident">wrap</span>.<span class="ident">unsafe_cast_ref</span>()).<span class="ident">to_glib</span>();
+    <span class="kw">let</span> <span class="ident">type_</span> <span class="op">=</span> <span class="ident">imp</span>.<span class="ident">item_type</span>(<span class="ident">wrap</span>.<span class="ident">unsafe_cast_ref</span>()).<span class="ident">to_glib</span>();
 
     <span class="comment">// Store the type so we can enforce that it doesn&#39;t change.</span>
-    <span class="kw">match</span> <span class="ident">wrap</span>.<span class="ident">get_qdata</span>(<span class="kw-2">*</span><span class="ident">LIST_ITEM_TYPE_QUARK</span>) {
+    <span class="kw">match</span> <span class="ident">wrap</span>.<span class="ident">qdata</span>(<span class="kw-2">*</span><span class="ident">LIST_ITEM_TYPE_QUARK</span>) {
         <span class="prelude-val">Some</span>(<span class="ident">old_type</span>) <span class="op">=</span><span class="op">&gt;</span> {
             <span class="macro">assert_eq!</span>(
                 <span class="ident">type_</span>,
@@ -269,7 +269,7 @@
     <span class="kw">let</span> <span class="ident">instance</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">list_model</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T::Instance</span>);
     <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="ident">instance</span>.<span class="ident">impl_</span>();
 
-    <span class="ident">imp</span>.<span class="ident">get_n_items</span>(<span class="ident">from_glib_borrow</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="ident">ListModel</span><span class="op">&gt;</span>(<span class="ident">list_model</span>).<span class="ident">unsafe_cast_ref</span>())
+    <span class="ident">imp</span>.<span class="ident">n_items</span>(<span class="ident">from_glib_borrow</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="ident">ListModel</span><span class="op">&gt;</span>(<span class="ident">list_model</span>).<span class="ident">unsafe_cast_ref</span>())
 }
 
 <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">list_model_get_item</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ListModelImpl</span><span class="op">&gt;</span>(
@@ -283,10 +283,10 @@
     <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="ident">instance</span>.<span class="ident">impl_</span>();
     <span class="kw">let</span> <span class="ident">wrap</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="ident">ListModel</span><span class="op">&gt;</span>(<span class="ident">list_model</span>);
 
-    <span class="kw">let</span> <span class="ident">item</span> <span class="op">=</span> <span class="ident">imp</span>.<span class="ident">get_item</span>(<span class="ident">wrap</span>.<span class="ident">unsafe_cast_ref</span>(), <span class="ident">position</span>);
+    <span class="kw">let</span> <span class="ident">item</span> <span class="op">=</span> <span class="ident">imp</span>.<span class="ident">item</span>(<span class="ident">wrap</span>.<span class="ident">unsafe_cast_ref</span>(), <span class="ident">position</span>);
 
     <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">i</span>) <span class="op">=</span> <span class="ident">item</span> {
-        <span class="kw">let</span> <span class="ident">type_</span> <span class="op">=</span> <span class="ident">imp</span>.<span class="ident">get_item_type</span>(<span class="ident">wrap</span>.<span class="ident">unsafe_cast_ref</span>());
+        <span class="kw">let</span> <span class="ident">type_</span> <span class="op">=</span> <span class="ident">imp</span>.<span class="ident">item_type</span>(<span class="ident">wrap</span>.<span class="ident">unsafe_cast_ref</span>());
         <span class="macro">assert!</span>(
             <span class="ident">type_</span>.<span class="ident">is_a</span>(<span class="ident">i</span>.<span class="ident">type_</span>()),
             <span class="string">&quot;All ListModel items should be of the same type&quot;</span>

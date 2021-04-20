@@ -396,7 +396,7 @@
         <span class="kw">unsafe</span> { <span class="self">Self</span><span class="ident">::from_raw_full</span>(<span class="ident">ffi::cairo_region_copy</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>())) }
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_extents</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">rectangle</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">RectangleInt</span>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">extents</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">rectangle</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">RectangleInt</span>) {
         <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_region_get_extents</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">rectangle</span>.<span class="ident">to_raw_none</span>()) }
     }
 
@@ -404,7 +404,7 @@
         <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_region_num_rectangles</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_rectangle</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">nth</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">RectangleInt</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">rectangle</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">nth</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">RectangleInt</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">rectangle</span>: <span class="ident">RectangleInt</span> <span class="op">=</span> <span class="ident">::std::mem::zeroed</span>();
             <span class="ident">ffi::cairo_region_get_rectangle</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(), <span class="ident">nth</span>, <span class="ident">rectangle</span>.<span class="ident">to_raw_none</span>());

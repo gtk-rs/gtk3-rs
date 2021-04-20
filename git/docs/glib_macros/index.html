@@ -5,14 +5,14 @@
 <table><tr class="module-item"><td><a class="macro" href="macro.clone.html" title="glib_macros::clone macro">clone</a></td><td class="docblock-short"><p>Macro for passing variables as strong or weak references into a closure.</p>
 </td></tr></table><h2 id="attributes" class="section-header"><a href="#attributes">Attribute Macros</a></h2>
 <table><tr class="module-item"><td><a class="attr" href="attr.gflags.html" title="glib_macros::gflags attr">gflags</a></td><td class="docblock-short"><p>Attribute macro for defining flags using the <code>bitflags</code> crate.
-This macro will also define a <code>GFlags::get_type</code> function and
+This macro will also define a <code>GFlags::type_</code> function and
 the <a href="value/struct.Value.html"><code>glib::Value</code></a> traits.</p>
 </td></tr><tr class="module-item"><td><a class="attr" href="attr.object_interface.html" title="glib_macros::object_interface attr">object_interface</a></td><td class="docblock-short"><p>Macro for boilerplate of <a href="interface/types/trait.ObjectInterface.html"><code>ObjectInterface</code></a> implementations.</p>
 </td></tr><tr class="module-item"><td><a class="attr" href="attr.object_subclass.html" title="glib_macros::object_subclass attr">object_subclass</a></td><td class="docblock-short"><p>Macro for boilerplate of <a href="subclass/types/trait.ObjectSubclass.html"><code>ObjectSubclass</code></a> implementations.</p>
 </td></tr></table><h2 id="derives" class="section-header"><a href="#derives">Derive Macros</a></h2>
 <table><tr class="module-item"><td><a class="derive" href="derive.Downgrade.html" title="glib_macros::Downgrade derive">Downgrade</a></td><td class="docblock-short"><p>Macro for deriving implementations of <a href="clone/trait.Downgrade.html"><code>glib::clone::Downgrade</code></a> and
 <a href="clone/trait.Upgrade.html"><code>glib::clone::Upgrade</code></a> traits and a weak type.</p>
-</td></tr><tr class="module-item"><td><a class="derive" href="derive.GBoxed.html" title="glib_macros::GBoxed derive">GBoxed</a></td><td class="docblock-short"><p>Derive macro for defining a <a href="subclass/boxed/trait.BoxedType.html"><code>BoxedType</code></a><code>::get_type</code> function and
+</td></tr><tr class="module-item"><td><a class="derive" href="derive.GBoxed.html" title="glib_macros::GBoxed derive">GBoxed</a></td><td class="docblock-short"><p>Derive macro for defining a <a href="subclass/boxed/trait.BoxedType.html"><code>BoxedType</code></a><code>::type_</code> function and
 the <a href="value/struct.Value.html"><code>glib::Value</code></a> traits.</p>
 </td></tr><tr class="module-item"><td><a class="derive" href="derive.GEnum.html" title="glib_macros::GEnum derive">GEnum</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="derive" href="derive.GErrorDomain.html" title="glib_macros::GErrorDomain derive">GErrorDomain</a></td><td class="docblock-short"><p>Derive macro for defining a GLib error domain and its associated
 <a href="error/trait.ErrorDomain.html"><code>ErrorDomain</code></a> trait.</p>

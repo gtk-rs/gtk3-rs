@@ -532,10 +532,6 @@
 <span id="529">529</span>
 <span id="530">530</span>
 <span id="531">531</span>
-<span id="532">532</span>
-<span id="533">533</span>
-<span id="534">534</span>
-<span id="535">535</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -766,7 +762,7 @@
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_pattern_get_color_stop_rgba&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_color_stop_rgba</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">index</span>: <span class="ident">isize</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">f64</span>, <span class="ident">f64</span>, <span class="ident">f64</span>, <span class="ident">f64</span>, <span class="ident">f64</span>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">color_stop_rgba</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">index</span>: <span class="ident">isize</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">f64</span>, <span class="ident">f64</span>, <span class="ident">f64</span>, <span class="ident">f64</span>, <span class="ident">f64</span>) {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">offset</span> <span class="op">=</span> <span class="number">0.0</span>;
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">red</span> <span class="op">=</span> <span class="number">0.0</span>;
@@ -951,7 +947,7 @@
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_mesh_pattern_get_control_point&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_control_point</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">patch_num</span>: <span class="ident">usize</span>, <span class="ident">corner</span>: <span class="ident">MeshCorner</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">f64</span>, <span class="ident">f64</span>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">control_point</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">patch_num</span>: <span class="ident">usize</span>, <span class="ident">corner</span>: <span class="ident">MeshCorner</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">f64</span>, <span class="ident">f64</span>) {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">x</span>: <span class="ident">c_double</span> <span class="op">=</span> <span class="number">0.0</span>;
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">y</span>: <span class="ident">c_double</span> <span class="op">=</span> <span class="number">0.0</span>;
 
@@ -1005,11 +1001,7 @@
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_mesh_pattern_get_corner_color_rgba&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_corner_color_rgba</span>(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">patch_num</span>: <span class="ident">usize</span>,
-        <span class="ident">corner</span>: <span class="ident">MeshCorner</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">f64</span>, <span class="ident">f64</span>, <span class="ident">f64</span>, <span class="ident">f64</span>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">corner_color_rgba</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">patch_num</span>: <span class="ident">usize</span>, <span class="ident">corner</span>: <span class="ident">MeshCorner</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">f64</span>, <span class="ident">f64</span>, <span class="ident">f64</span>, <span class="ident">f64</span>) {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">red</span>: <span class="ident">c_double</span> <span class="op">=</span> <span class="number">0.0</span>;
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">green</span>: <span class="ident">c_double</span> <span class="op">=</span> <span class="number">0.0</span>;
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">blue</span>: <span class="ident">c_double</span> <span class="op">=</span> <span class="number">0.0</span>;
@@ -1041,7 +1033,7 @@
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_mesh_pattern_get_path&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_path</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">patch_num</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Path</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">path</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">patch_num</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Path</span> {
         <span class="kw">let</span> <span class="ident">path</span>: <span class="ident">Path</span> <span class="op">=</span> <span class="kw">unsafe</span> {
             <span class="ident">Path::from_raw_full</span>(<span class="ident">ffi::cairo_mesh_pattern_get_path</span>(
                 <span class="self">self</span>.<span class="ident">pointer</span>,

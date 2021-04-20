@@ -141,7 +141,7 @@
     <span class="kw">match</span> <span class="kw">fn</span> {
         <span class="ident">copy</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">gobject_ffi::g_value_array_copy</span>(<span class="ident">mut_override</span>(<span class="ident">ptr</span>)),
         <span class="ident">free</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">gobject_ffi::g_value_array_free</span>(<span class="ident">ptr</span>),
-        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">gobject_ffi::g_value_array_get_type</span>(),
+        <span class="ident">type_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">gobject_ffi::g_value_array_get_type</span>(),
     }
 }
 
@@ -166,7 +166,7 @@
         <span class="ident">value</span>.<span class="number">1</span>.<span class="ident">n_values</span> <span class="kw">as</span> <span class="ident">usize</span>
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_nth</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">index_</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Value</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">nth</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">index_</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Value</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="ident">from_glib_none</span>(<span class="ident">gobject_ffi::g_value_array_get_nth</span>(
                 <span class="ident">mut_override</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>),

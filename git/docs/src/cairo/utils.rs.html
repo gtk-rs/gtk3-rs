@@ -83,7 +83,7 @@
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_version_string&quot;</span>)]</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_version_string</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">version_string</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span> {
     <span class="kw">unsafe</span> {
         <span class="kw">let</span> <span class="ident">ptr</span> <span class="op">=</span> <span class="ident">ffi::cairo_version_string</span>();
         <span class="ident">CStr::from_ptr</span>(<span class="ident">ptr</span>)
@@ -101,7 +101,7 @@
 
 <span class="kw">impl</span> <span class="ident">Version</span> {
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_version&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_version</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Version</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">version</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Version</span> {
         <span class="kw">let</span> <span class="ident">version</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_version</span>() };
         <span class="ident">Version</span> {
             <span class="ident">major</span>: (<span class="ident">version</span> <span class="op">/</span> <span class="number">10_000</span> <span class="op">%</span> <span class="number">100</span>) <span class="kw">as</span> <span class="kw">_</span>,
@@ -123,7 +123,7 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">check_versions</span>() {
-        <span class="macro">assert_eq!</span>(<span class="ident">get_version_string</span>(), <span class="ident">Version::get_version</span>().<span class="ident">to_string</span>());
+        <span class="macro">assert_eq!</span>(<span class="ident">version_string</span>(), <span class="ident">Version::version</span>().<span class="ident">to_string</span>());
     }
 }
 </pre></div>

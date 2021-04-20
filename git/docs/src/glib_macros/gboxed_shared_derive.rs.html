@@ -311,7 +311,7 @@
 
             <span class="kw">type</span> <span class="ident">RefCountedType</span> <span class="op">=</span> #<span class="ident">refcounted_type</span>;
 
-            <span class="kw">fn</span> <span class="ident">get_type</span>() <span class="op">-</span><span class="op">&gt;</span> #<span class="ident">crate_ident::Type</span> {
+            <span class="kw">fn</span> <span class="ident">type_</span>() <span class="op">-</span><span class="op">&gt;</span> #<span class="ident">crate_ident::Type</span> {
                 <span class="kw">static</span> <span class="kw-2">mut</span> <span class="ident">TYPE_</span>: #<span class="ident">crate_ident::Type</span> <span class="op">=</span> #<span class="ident">crate_ident::Type::INVALID</span>;
                 <span class="kw">static</span> <span class="ident">ONCE</span>: <span class="ident">::std::sync::Once</span> <span class="op">=</span> <span class="ident">::std::sync::Once::new</span>();
 
@@ -336,7 +336,7 @@
 
         <span class="kw">impl</span> #<span class="ident">crate_ident::StaticType</span> <span class="kw">for</span> #<span class="ident">name</span> {
             <span class="kw">fn</span> <span class="ident">static_type</span>() <span class="op">-</span><span class="op">&gt;</span> #<span class="ident">crate_ident::Type</span> {
-                <span class="op">&lt;</span>#<span class="ident">name</span> <span class="kw">as</span> #<span class="ident">crate_ident::subclass::shared::SharedType</span><span class="op">&gt;</span><span class="ident">::get_type</span>()
+                <span class="op">&lt;</span>#<span class="ident">name</span> <span class="kw">as</span> #<span class="ident">crate_ident::subclass::shared::SharedType</span><span class="op">&gt;</span><span class="ident">::type_</span>()
             }
         }
 

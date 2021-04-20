@@ -176,7 +176,7 @@
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ThreadedSocketService</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GThreadedSocketService</span>, <span class="ident">ffi::GThreadedSocketServiceClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">SocketService</span>, <span class="ident">SocketListener</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
-        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::g_threaded_socket_service_get_type</span>(),
+        <span class="ident">type_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::g_threaded_socket_service_get_type</span>(),
     }
 }
 

@@ -445,7 +445,7 @@
         <span class="ident">free</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">ffi::g_date_free</span>(<span class="ident">ptr</span>),
         <span class="ident">init</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">_ptr</span><span class="op">|</span> (),
         <span class="ident">clear</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">ffi::g_date_clear</span>(<span class="ident">ptr</span>, <span class="number">1</span>),
-        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::g_date_get_type</span>(),
+        <span class="ident">type_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::g_date_get_type</span>(),
     }
 }
 
@@ -742,17 +742,17 @@
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_get_days_in_month&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_days_in_month</span>(<span class="ident">month</span>: <span class="ident">DateMonth</span>, <span class="ident">year</span>: <span class="ident">DateYear</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u8</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">days_in_month</span>(<span class="ident">month</span>: <span class="ident">DateMonth</span>, <span class="ident">year</span>: <span class="ident">DateYear</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u8</span> {
         <span class="kw">unsafe</span> { <span class="ident">ffi::g_date_get_days_in_month</span>(<span class="ident">month</span>.<span class="ident">to_glib</span>(), <span class="ident">year</span>) }
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_get_monday_weeks_in_year&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_monday_weeks_in_year</span>(<span class="ident">year</span>: <span class="ident">DateYear</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u8</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">monday_weeks_in_year</span>(<span class="ident">year</span>: <span class="ident">DateYear</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u8</span> {
         <span class="kw">unsafe</span> { <span class="ident">ffi::g_date_get_monday_weeks_in_year</span>(<span class="ident">year</span>) }
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_get_sunday_weeks_in_year&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_sunday_weeks_in_year</span>(<span class="ident">year</span>: <span class="ident">DateYear</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u8</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">sunday_weeks_in_year</span>(<span class="ident">year</span>: <span class="ident">DateYear</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u8</span> {
         <span class="kw">unsafe</span> { <span class="ident">ffi::g_date_get_sunday_weeks_in_year</span>(<span class="ident">year</span>) }
     }
 

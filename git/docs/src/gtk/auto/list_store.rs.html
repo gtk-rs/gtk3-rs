@@ -608,7 +608,7 @@
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ListStore</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkListStore</span>, <span class="ident">ffi::GtkListStoreClass</span><span class="op">&gt;</span>) @<span class="ident">implements</span> <span class="ident">Buildable</span>, <span class="ident">TreeDragDest</span>, <span class="ident">TreeDragSource</span>, <span class="ident">TreeModel</span>, <span class="ident">TreeSortable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
-        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::gtk_list_store_get_type</span>(),
+        <span class="ident">type_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::gtk_list_store_get_type</span>(),
     }
 }
 

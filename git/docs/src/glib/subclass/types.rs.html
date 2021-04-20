@@ -1134,7 +1134,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This function panics if the type to which the `TypeData` belongs does not implement the</span>
     <span class="doccomment">/// given interface or was not registered yet.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_parent_interface</span><span class="op">&lt;</span><span class="ident">I</span>: <span class="kw">crate</span><span class="ident">::object::IsInterface</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::gpointer</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">parent_interface</span><span class="op">&lt;</span><span class="ident">I</span>: <span class="kw">crate</span><span class="ident">::object::IsInterface</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::gpointer</span> {
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">parent_ifaces</span> {
             <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">unreachable!</span>(<span class="string">&quot;No parent interfaces&quot;</span>),
             <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">parent_ifaces</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="ident">parent_ifaces</span>
@@ -1146,7 +1146,7 @@
     <span class="doccomment">/// Returns a pointer to the class implementation specific data.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is used for class implementations to store additional data.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_class_data</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Any</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">type_</span>: <span class="ident">Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">T</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">class_data</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Any</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">type_</span>: <span class="ident">Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">T</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">class_data</span> {
             <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
             <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">data</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">data</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">type_</span>).<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">ptr</span>.<span class="ident">downcast_ref</span>()),
@@ -1158,7 +1158,7 @@
     <span class="doccomment">/// # Safety</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This can only be used while the type is being initialized.</span>
-    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">get_class_data_mut</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Any</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
+    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">class_data_mut</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Any</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
         <span class="ident">type_</span>: <span class="ident">Type</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">T</span><span class="op">&gt;</span> {
@@ -1208,7 +1208,7 @@
     <span class="doccomment">/// Returns the `glib::Type` ID of the subclass.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This will register the type with the type system on the first call.</span>
-    <span class="kw">fn</span> <span class="ident">get_type</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Type</span>;
+    <span class="kw">fn</span> <span class="ident">type_</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Type</span>;
 }
 
 <span class="doccomment">/// The central trait for subclassing a `GObject` type.</span>
@@ -1335,7 +1335,7 @@
     <span class="doccomment">/// Returns a pointer to the instance implementation specific data.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is used for the subclassing infrastructure to store additional instance data.</span>
-    <span class="kw">fn</span> <span class="ident">get_instance_data</span><span class="op">&lt;</span><span class="ident">U</span>: <span class="ident">Any</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">type_</span>: <span class="ident">Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">U</span><span class="op">&gt;</span>;
+    <span class="kw">fn</span> <span class="ident">instance_data</span><span class="op">&lt;</span><span class="ident">U</span>: <span class="ident">Any</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">type_</span>: <span class="ident">Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">U</span><span class="op">&gt;</span>;
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ObjectSubclass</span><span class="op">&gt;</span> <span class="ident">ObjectSubclassExt</span> <span class="kw">for</span> <span class="ident">T</span> {
@@ -1373,7 +1373,7 @@
     <span class="doccomment">/// Returns a pointer to the instance implementation specific data.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is used for the subclassing infrastructure to store additional instance data.</span>
-    <span class="kw">fn</span> <span class="ident">get_instance_data</span><span class="op">&lt;</span><span class="ident">U</span>: <span class="ident">Any</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">type_</span>: <span class="ident">Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">U</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">instance_data</span><span class="op">&lt;</span><span class="ident">U</span>: <span class="ident">Any</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">type_</span>: <span class="ident">Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">U</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">type_data</span> <span class="op">=</span> <span class="self">Self</span><span class="ident">::type_data</span>();
             <span class="kw">let</span> <span class="ident">self_type_</span> <span class="op">=</span> <span class="ident">type_data</span>.<span class="ident">as_ref</span>().<span class="ident">type_</span>();
@@ -1548,7 +1548,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// This must be called only once and will panic on a second call.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// The [`object_subclass!`] macro will create a `get_type()` function around this, which will</span>
+<span class="doccomment">/// The [`object_subclass!`] macro will create a `type_()` function around this, which will</span>
 <span class="doccomment">/// ensure that it&#39;s only ever called once.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// [`object_subclass!`]: ../../macro.object_subclass.html</span>

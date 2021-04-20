@@ -779,7 +779,7 @@
     <span class="ident">gen</span>.<span class="ident">into</span>()
 }
 
-<span class="doccomment">/// Derive macro for defining a [`BoxedType`]`::get_type` function and</span>
+<span class="doccomment">/// Derive macro for defining a [`BoxedType`]`::type_` function and</span>
 <span class="doccomment">/// the [`glib::Value`] traits.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Example</span>
@@ -832,7 +832,7 @@
 }
 
 <span class="doccomment">/// Attribute macro for defining flags using the `bitflags` crate.</span>
-<span class="doccomment">/// This macro will also define a `GFlags::get_type` function and</span>
+<span class="doccomment">/// This macro will also define a `GFlags::type_` function and</span>
 <span class="doccomment">/// the [`glib::Value`] traits.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// The expected `GType` name has to be passed as macro attribute.</span>
@@ -872,7 +872,7 @@
 
 <span class="doccomment">/// Macro for boilerplate of [`ObjectSubclass`] implementations.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// This adds implementations for the `type_data()` and `get_type()` methods,</span>
+<span class="doccomment">/// This adds implementations for the `type_data()` and `type_()` methods,</span>
 <span class="doccomment">/// which should probably never be defined differently.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// It provides default values for the `Instance`, `Class`, and `Interfaces`</span>
@@ -951,7 +951,7 @@
 <span class="doccomment">///     }</span>
 <span class="doccomment">///</span>
 <span class="doccomment">///     pub fn flip(&amp;self) {</span>
-<span class="doccomment">///         self.0.set_angle(180.0 - self.0.get_angle());</span>
+<span class="doccomment">///         self.0.set_angle(180.0 - self.0.angle());</span>
 <span class="doccomment">///     }</span>
 <span class="doccomment">/// }</span>
 <span class="doccomment">///</span>
