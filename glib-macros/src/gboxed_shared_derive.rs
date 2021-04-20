@@ -5,7 +5,7 @@ use proc_macro2::{Ident, TokenStream};
 use proc_macro_error::abort_call_site;
 use quote::quote;
 
-fn gen_impl_set_value_optional(name: &Ident, crate_ident: &Ident) -> TokenStream {
+fn gen_impl_set_value_optional(name: &Ident, crate_ident: &TokenStream) -> TokenStream {
     let refcounted_type_prefix = refcounted_type_prefix(name, crate_ident);
 
     quote! {
@@ -25,7 +25,7 @@ fn gen_impl_set_value_optional(name: &Ident, crate_ident: &Ident) -> TokenStream
     }
 }
 
-fn gen_impl_from_value(name: &Ident, crate_ident: &Ident) -> TokenStream {
+fn gen_impl_from_value(name: &Ident, crate_ident: &TokenStream) -> TokenStream {
     let refcounted_type_prefix = refcounted_type_prefix(name, crate_ident);
 
     quote! {
@@ -41,7 +41,7 @@ fn gen_impl_from_value(name: &Ident, crate_ident: &Ident) -> TokenStream {
     }
 }
 
-fn gen_ptr_to_option(name: &Ident, nullable: bool, crate_ident: &Ident) -> TokenStream {
+fn gen_ptr_to_option(name: &Ident, nullable: bool, crate_ident: &TokenStream) -> TokenStream {
     let refcounted_type_prefix = refcounted_type_prefix(name, crate_ident);
 
     if nullable {
@@ -79,7 +79,7 @@ fn refcounted_type(input: &syn::DeriveInput) -> Option<&syn::TypePath> {
     Some(refcounted)
 }
 
-fn refcounted_type_prefix(name: &Ident, crate_ident: &Ident) -> proc_macro2::TokenStream {
+fn refcounted_type_prefix(name: &Ident, crate_ident: &TokenStream) -> proc_macro2::TokenStream {
     quote! {
         <<#name as #crate_ident::subclass::shared::SharedType>::RefCountedType as #crate_ident::subclass::shared::RefCounted>
     }
