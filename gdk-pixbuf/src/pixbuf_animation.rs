@@ -10,11 +10,11 @@ use std::time::SystemTime;
 
 pub trait PixbufAnimationExtManual {
     #[doc(alias = "gdk_pixbuf_animation_get_iter")]
-    fn get_iter(&self, start_time: Option<SystemTime>) -> PixbufAnimationIter;
+    fn iter(&self, start_time: Option<SystemTime>) -> PixbufAnimationIter;
 }
 
 impl<T: IsA<PixbufAnimation>> PixbufAnimationExtManual for T {
-    fn get_iter(&self, start_time: Option<SystemTime>) -> PixbufAnimationIter {
+    fn iter(&self, start_time: Option<SystemTime>) -> PixbufAnimationIter {
         let start_time = start_time.map(|s| {
             let diff = s
                 .duration_since(SystemTime::UNIX_EPOCH)

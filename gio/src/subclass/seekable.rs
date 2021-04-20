@@ -55,7 +55,7 @@ impl<T: SeekableImpl> SeekableImplExt for T {
         unsafe {
             let type_data = Self::type_data();
             let parent_iface =
-                type_data.as_ref().get_parent_interface::<Seekable>() as *const ffi::GSeekableIface;
+                type_data.as_ref().parent_interface::<Seekable>() as *const ffi::GSeekableIface;
 
             let func = (*parent_iface)
                 .tell
@@ -68,7 +68,7 @@ impl<T: SeekableImpl> SeekableImplExt for T {
         unsafe {
             let type_data = Self::type_data();
             let parent_iface =
-                type_data.as_ref().get_parent_interface::<Seekable>() as *const ffi::GSeekableIface;
+                type_data.as_ref().parent_interface::<Seekable>() as *const ffi::GSeekableIface;
 
             let func = (*parent_iface)
                 .can_seek
@@ -88,7 +88,7 @@ impl<T: SeekableImpl> SeekableImplExt for T {
         unsafe {
             let type_data = Self::type_data();
             let parent_iface =
-                type_data.as_ref().get_parent_interface::<Seekable>() as *const ffi::GSeekableIface;
+                type_data.as_ref().parent_interface::<Seekable>() as *const ffi::GSeekableIface;
 
             let func = (*parent_iface)
                 .seek
@@ -115,7 +115,7 @@ impl<T: SeekableImpl> SeekableImplExt for T {
         unsafe {
             let type_data = Self::type_data();
             let parent_iface =
-                type_data.as_ref().get_parent_interface::<Seekable>() as *const ffi::GSeekableIface;
+                type_data.as_ref().parent_interface::<Seekable>() as *const ffi::GSeekableIface;
 
             let func = (*parent_iface)
                 .can_truncate
@@ -134,7 +134,7 @@ impl<T: SeekableImpl> SeekableImplExt for T {
         unsafe {
             let type_data = Self::type_data();
             let parent_iface =
-                type_data.as_ref().get_parent_interface::<Seekable>() as *const ffi::GSeekableIface;
+                type_data.as_ref().parent_interface::<Seekable>() as *const ffi::GSeekableIface;
 
             let func = (*parent_iface)
                 .truncate_fn

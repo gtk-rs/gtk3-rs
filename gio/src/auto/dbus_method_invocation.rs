@@ -19,7 +19,7 @@ glib::wrapper! {
     pub struct DBusMethodInvocation(Object<ffi::GDBusMethodInvocation>);
 
     match fn {
-        get_type => || ffi::g_dbus_method_invocation_get_type(),
+        type_ => || ffi::g_dbus_method_invocation_get_type(),
     }
 }
 

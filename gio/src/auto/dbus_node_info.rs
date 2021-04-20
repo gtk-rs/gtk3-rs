@@ -13,7 +13,7 @@ glib::wrapper! {
     match fn {
         ref => |ptr| ffi::g_dbus_node_info_ref(ptr),
         unref => |ptr| ffi::g_dbus_node_info_unref(ptr),
-        get_type => || ffi::g_dbus_node_info_get_type(),
+        type_ => || ffi::g_dbus_node_info_get_type(),
     }
 }
 

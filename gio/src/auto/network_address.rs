@@ -12,7 +12,7 @@ glib::wrapper! {
     pub struct NetworkAddress(Object<ffi::GNetworkAddress, ffi::GNetworkAddressClass>) @implements SocketConnectable;
 
     match fn {
-        get_type => || ffi::g_network_address_get_type(),
+        type_ => || ffi::g_network_address_get_type(),
     }
 }
 

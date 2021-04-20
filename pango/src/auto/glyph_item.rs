@@ -12,7 +12,7 @@ glib::wrapper! {
     match fn {
         copy => |ptr| ffi::pango_glyph_item_copy(mut_override(ptr)),
         free => |ptr| ffi::pango_glyph_item_free(ptr),
-        get_type => || ffi::pango_glyph_item_get_type(),
+        type_ => || ffi::pango_glyph_item_get_type(),
     }
 }
 
@@ -29,7 +29,7 @@ impl GlyphItem {
     }
 
     //#[doc(alias = "pango_glyph_item_get_logical_widths")]
-    //pub fn get_logical_widths(&mut self, text: &str, logical_widths: &[i32]) {
+    //pub fn logical_widths(&mut self, text: &str, logical_widths: &[i32]) {
     //    unsafe { TODO: call ffi:pango_glyph_item_get_logical_widths() }
     //}
 

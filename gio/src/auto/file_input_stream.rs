@@ -18,7 +18,7 @@ glib::wrapper! {
     pub struct FileInputStream(Object<ffi::GFileInputStream, ffi::GFileInputStreamClass>) @extends InputStream, @implements Seekable;
 
     match fn {
-        get_type => || ffi::g_file_input_stream_get_type(),
+        type_ => || ffi::g_file_input_stream_get_type(),
     }
 }
 

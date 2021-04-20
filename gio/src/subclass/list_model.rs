@@ -7,49 +7,49 @@ use glib::{Cast, IsA, ObjectExt};
 use once_cell::sync::Lazy;
 
 pub trait ListModelImpl: ObjectImpl {
-    fn get_item_type(&self, list_model: &Self::Type) -> glib::Type;
-    fn get_n_items(&self, list_model: &Self::Type) -> u32;
-    fn get_item(&self, list_model: &Self::Type, position: u32) -> Option<glib::Object>;
+    fn item_type(&self, list_model: &Self::Type) -> glib::Type;
+    fn n_items(&self, list_model: &Self::Type) -> u32;
+    fn item(&self, list_model: &Self::Type, position: u32) -> Option<glib::Object>;
 }
 
 pub trait ListModelImplExt: ObjectSubclass {
-    fn parent_get_item_type(&self, list_model: &Self::Type) -> glib::Type;
-    fn parent_get_n_items(&self, list_model: &Self::Type) -> u32;
-    fn parent_get_item(&self, list_model: &Self::Type, position: u32) -> Option<glib::Object>;
+    fn parent_item_type(&self, list_model: &Self::Type) -> glib::Type;
+    fn parent_n_items(&self, list_model: &Self::Type) -> u32;
+    fn parent_item(&self, list_model: &Self::Type, position: u32) -> Option<glib::Object>;
 }
 
 impl<T: ListModelImpl> ListModelImplExt for T {
-    fn parent_get_item_type(&self, list_model: &Self::Type) -> glib::Type {
+    fn parent_item_type(&self, list_model: &Self::Type) -> glib::Type {
         unsafe {
             let type_data = Self::type_data();
-            let parent_iface = type_data.as_ref().get_parent_interface::<ListModel>()
+            let parent_iface = type_data.as_ref().parent_interface::<ListModel>()
                 as *const ffi::GListModelInterface;
 
             let func = (*parent_iface)
                 .get_item_type
-                .expect("no parent \"get_item_type\" implementation");
+                .expect("no parent \"item_type\" implementation");
             let ret = func(list_model.unsafe_cast_ref::<ListModel>().to_glib_none().0);
             from_glib(ret)
         }
     }
 
-    fn parent_get_n_items(&self, list_model: &Self::Type) -> u32 {
+    fn parent_n_items(&self, list_model: &Self::Type) -> u32 {
         unsafe {
             let type_data = Self::type_data();
-            let parent_iface = type_data.as_ref().get_parent_interface::<ListModel>()
+            let parent_iface = type_data.as_ref().parent_interface::<ListModel>()
                 as *const ffi::GListModelInterface;
 
             let func = (*parent_iface)
                 .get_n_items
-                .expect("no parent \"get_n_items\" implementation");
+                .expect("no parent \"n_items\" implementation");
             func(list_model.unsafe_cast_ref::<ListModel>().to_glib_none().0)
         }
     }
 
-    fn parent_get_item(&self, list_model: &Self::Type, position: u32) -> Option<glib::Object> {
+    fn parent_item(&self, list_model: &Self::Type, position: u32) -> Option<glib::Object> {
         unsafe {
             let type_data = Self::type_data();
-            let parent_iface = type_data.as_ref().get_parent_interface::<ListModel>()
+            let parent_iface = type_data.as_ref().parent_interface::<ListModel>()
                 as *const ffi::GListModelInterface;
 
             let func = (*parent_iface)
@@ -92,10 +92,10 @@ where
     let imp = instance.impl_();
     let wrap = from_glib_borrow::<_, ListModel>(list_model);
 
-    let type_ = imp.get_item_type(wrap.unsafe_cast_ref()).to_glib();
+    let type_ = imp.item_type(wrap.unsafe_cast_ref()).to_glib();
 
     // Store the type so we can enforce that it doesn't change.
-    match wrap.get_qdata(*LIST_ITEM_TYPE_QUARK) {
+    match wrap.qdata(*LIST_ITEM_TYPE_QUARK) {
         Some(old_type) => {
             assert_eq!(
                 type_,
@@ -119,7 +119,7 @@ where
     let instance = &*(list_model as *mut T::Instance);
     let imp = instance.impl_();
 
-    imp.get_n_items(from_glib_borrow::<_, ListModel>(list_model).unsafe_cast_ref())
+    imp.n_items(from_glib_borrow::<_, ListModel>(list_model).unsafe_cast_ref())
 }
 
 unsafe extern "C" fn list_model_get_item<T: ListModelImpl>(
@@ -133,10 +133,10 @@ where
     let imp = instance.impl_();
     let wrap = from_glib_borrow::<_, ListModel>(list_model);
 
-    let item = imp.get_item(wrap.unsafe_cast_ref(), position);
+    let item = imp.item(wrap.unsafe_cast_ref(), position);
 
     if let Some(ref i) = item {
-        let type_ = imp.get_item_type(wrap.unsafe_cast_ref());
+        let type_ = imp.item_type(wrap.unsafe_cast_ref());
         assert!(
             type_.is_a(i.type_()),
             "All ListModel items should be of the same type"

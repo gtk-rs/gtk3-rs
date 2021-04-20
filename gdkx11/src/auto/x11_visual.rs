@@ -8,7 +8,7 @@ glib::wrapper! {
     pub struct X11Visual(Object<ffi::GdkX11Visual, ffi::GdkX11VisualClass>) @extends gdk::Visual;
 
     match fn {
-        get_type => || ffi::gdk_x11_visual_get_type(),
+        type_ => || ffi::gdk_x11_visual_get_type(),
     }
 }
 

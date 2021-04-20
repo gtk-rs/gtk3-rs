@@ -23,7 +23,7 @@ glib::wrapper! {
     pub struct OffscreenWindow(Object<ffi::GtkOffscreenWindow, ffi::GtkOffscreenWindowClass>) @extends Window, Bin, Container, Widget, @implements Buildable;
 
     match fn {
-        get_type => || ffi::gtk_offscreen_window_get_type(),
+        type_ => || ffi::gtk_offscreen_window_get_type(),
     }
 }
 

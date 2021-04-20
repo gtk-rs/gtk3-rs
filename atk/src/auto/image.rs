@@ -12,7 +12,7 @@ glib::wrapper! {
     pub struct Image(Interface<ffi::AtkImage, ffi::AtkImageIface>);
 
     match fn {
-        get_type => || ffi::atk_image_get_type(),
+        type_ => || ffi::atk_image_get_type(),
     }
 }
 
@@ -26,7 +26,7 @@ pub trait AtkImageExt: 'static {
     fn image_locale(&self) -> Option<glib::GString>;
 
     #[doc(alias = "atk_image_get_image_position")]
-    fn get_image_position(&self, coord_type: CoordType) -> (i32, i32);
+    fn image_position(&self, coord_type: CoordType) -> (i32, i32);
 
     #[doc(alias = "atk_image_get_image_size")]
     fn image_size(&self) -> (i32, i32);
@@ -52,7 +52,7 @@ impl<O: IsA<Image>> AtkImageExt for O {
         }
     }
 
-    fn get_image_position(&self, coord_type: CoordType) -> (i32, i32) {
+    fn image_position(&self, coord_type: CoordType) -> (i32, i32) {
         unsafe {
             let mut x = mem::MaybeUninit::uninit();
             let mut y = mem::MaybeUninit::uninit();

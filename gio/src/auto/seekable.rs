@@ -12,7 +12,7 @@ glib::wrapper! {
     pub struct Seekable(Interface<ffi::GSeekable, ffi::GSeekableIface>);
 
     match fn {
-        get_type => || ffi::g_seekable_get_type(),
+        type_ => || ffi::g_seekable_get_type(),
     }
 }
 

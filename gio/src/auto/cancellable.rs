@@ -16,7 +16,7 @@ glib::wrapper! {
     pub struct Cancellable(Object<ffi::GCancellable, ffi::GCancellableClass>);
 
     match fn {
-        get_type => || ffi::g_cancellable_get_type(),
+        type_ => || ffi::g_cancellable_get_type(),
     }
 }
 
@@ -27,7 +27,7 @@ impl Cancellable {
     }
 
     #[doc(alias = "g_cancellable_get_current")]
-    pub fn get_current() -> Option<Cancellable> {
+    pub fn current() -> Option<Cancellable> {
         unsafe { from_glib_none(ffi::g_cancellable_get_current()) }
     }
 }

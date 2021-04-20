@@ -22,7 +22,7 @@ use crate::SignalHandlerId;
 use crate::Type;
 use crate::Value;
 
-use crate::get_thread_id;
+use crate::thread_id;
 
 #[doc(hidden)]
 pub use gobject_ffi::GObject;
@@ -608,7 +608,7 @@ macro_rules! glib_weak_impl {
 /// ObjectType implementations for Object types. See `wrapper!`.
 #[macro_export]
 macro_rules! glib_object_wrapper {
-    (@generic_impl [$($attr:meta)*] $name:ident, $ffi_name:ty, $ffi_class_name:ty, @get_type $get_type_expr:expr) => {
+    (@generic_impl [$($attr:meta)*] $name:ident, $ffi_name:ty, $ffi_class_name:ty, @type_ $get_type_expr:expr) => {
         $(#[$attr])*
         // Always derive Hash/Ord (and below impl Debug, PartialEq, Eq, PartialOrd) for object
         // types. Due to inheritance and up/downcasting we must implement these by pointer or
@@ -1000,18 +1000,18 @@ macro_rules! glib_object_wrapper {
 
     // This case is only for glib::Object itself below. All other cases have glib::Object in its
     // parent class list
-    (@object [$($attr:meta)*] $name:ident, $ffi_name:ty, $ffi_class_name:ty, @get_type $get_type_expr:expr) => {
+    (@object [$($attr:meta)*] $name:ident, $ffi_name:ty, $ffi_class_name:ty, @type_ $get_type_expr:expr) => {
         $crate::glib_object_wrapper!(@generic_impl [$($attr)*] $name, $ffi_name, $ffi_class_name,
-            @get_type $get_type_expr);
+            @type_ $get_type_expr);
 
         #[doc(hidden)]
         unsafe impl $crate::object::IsClass for $name { }
     };
 
     (@object [$($attr:meta)*] $name:ident, $ffi_name:ty, $ffi_class_name:ty,
-        @get_type $get_type_expr:expr, @extends [$($extends:tt)*], @implements [$($implements:tt)*]) => {
+        @type_ $get_type_expr:expr, @extends [$($extends:tt)*], @implements [$($implements:tt)*]) => {
         $crate::glib_object_wrapper!(@generic_impl [$($attr)*] $name, $ffi_name, $ffi_class_name,
-            @get_type $get_type_expr);
+            @type_ $get_type_expr);
         $crate::glib_object_wrapper!(@munch_first_impl $name, $($extends)*);
         $crate::glib_object_wrapper!(@munch_impls $name, $($implements)*);
 
@@ -1030,9 +1030,9 @@ macro_rules! glib_object_wrapper {
     };
 
     (@interface [$($attr:meta)*] $name:ident, $ffi_name:ty, $ffi_class_name:ty,
-        @get_type $get_type_expr:expr, @requires [$($requires:tt)*]) => {
+        @type_ $get_type_expr:expr, @requires [$($requires:tt)*]) => {
         $crate::glib_object_wrapper!(@generic_impl [$($attr)*] $name, $ffi_name, $ffi_class_name,
-            @get_type $get_type_expr);
+            @type_ $get_type_expr);
         $crate::glib_object_wrapper!(@munch_impls $name, $($requires)*);
 
         #[doc(hidden)]
@@ -1052,7 +1052,7 @@ macro_rules! glib_object_wrapper {
 
 glib_object_wrapper!(@object
     [doc = "The base class in the object hierarchy."]
-    Object, GObject, GObjectClass, @get_type gobject_ffi::g_object_get_type()
+    Object, GObject, GObjectClass, @type_ gobject_ffi::g_object_get_type()
 );
 pub type ObjectClass = Class<Object>;
 
@@ -1171,8 +1171,8 @@ pub trait ObjectExt: ObjectType {
     fn class(&self) -> &Class<Self>
     where
         Self: IsClass;
-    fn get_class_of<T: IsClass>(&self) -> Option<&Class<T>>;
-    fn get_interface<T: IsInterface>(&self) -> Option<InterfaceRef<T>>;
+    fn class_of<T: IsClass>(&self) -> Option<&Class<T>>;
+    fn interface<T: IsInterface>(&self) -> Option<InterfaceRef<T>>;
 
     fn set_property<'a, N: Into<&'a str>, V: ToValue>(
         &self,
@@ -1187,9 +1187,9 @@ pub trait ObjectExt: ObjectType {
     fn set_properties(&self, property_values: &[(&str, &dyn ToValue)]) -> Result<(), BoolError>;
     fn set_properties_from_value(&self, property_values: &[(&str, Value)])
         -> Result<(), BoolError>;
-    fn get_property<'a, N: Into<&'a str>>(&self, property_name: N) -> Result<Value, BoolError>;
+    fn property<'a, N: Into<&'a str>>(&self, property_name: N) -> Result<Value, BoolError>;
     fn has_property<'a, N: Into<&'a str>>(&self, property_name: N, type_: Option<Type>) -> bool;
-    fn get_property_type<'a, N: Into<&'a str>>(&self, property_name: N) -> Option<Type>;
+    fn property_type<'a, N: Into<&'a str>>(&self, property_name: N) -> Option<Type>;
     fn find_property<'a, N: Into<&'a str>>(&self, property_name: N) -> Option<crate::ParamSpec>;
     fn list_properties(&self) -> Vec<crate::ParamSpec>;
 
@@ -1204,7 +1204,7 @@ pub trait ObjectExt: ObjectType {
     /// `set_qdata`, `steal_qdata`, `set_data` or `steal_data`.
     ///
     /// The caller is responsible for ensuring the returned value is of a suitable type
-    unsafe fn get_qdata<QD: 'static>(&self, key: Quark) -> Option<ptr::NonNull<QD>>;
+    unsafe fn qdata<QD: 'static>(&self, key: Quark) -> Option<ptr::NonNull<QD>>;
 
     /// # Safety
     ///
@@ -1222,7 +1222,7 @@ pub trait ObjectExt: ObjectType {
     /// `set_qdata`, `steal_qdata`, `set_data` or `steal_data`.
     ///
     /// The caller is responsible for ensuring the returned value is of a suitable type
-    unsafe fn get_data<QD: 'static>(&self, key: &str) -> Option<ptr::NonNull<QD>>;
+    unsafe fn data<QD: 'static>(&self, key: &str) -> Option<ptr::NonNull<QD>>;
 
     /// # Safety
     ///
@@ -1386,7 +1386,7 @@ impl<T: ObjectType> ObjectExt for T {
         }
     }
 
-    fn get_class_of<U: IsClass>(&self) -> Option<&Class<U>> {
+    fn class_of<U: IsClass>(&self) -> Option<&Class<U>> {
         if !self.is::<U>() {
             return None;
         }
@@ -1398,7 +1398,7 @@ impl<T: ObjectType> ObjectExt for T {
         }
     }
 
-    fn get_interface<U: IsInterface>(&self) -> Option<InterfaceRef<U>> {
+    fn interface<U: IsInterface>(&self) -> Option<InterfaceRef<U>> {
         Interface::from_class(self.object_class())
     }
 
@@ -1529,7 +1529,7 @@ impl<T: ObjectType> ObjectExt for T {
         Ok(())
     }
 
-    fn get_property<'a, N: Into<&'a str>>(&self, property_name: N) -> Result<Value, BoolError> {
+    fn property<'a, N: Into<&'a str>>(&self, property_name: N) -> Result<Value, BoolError> {
         let property_name = property_name.into();
 
         let pspec = match self.find_property(property_name) {
@@ -1586,7 +1586,7 @@ impl<T: ObjectType> ObjectExt for T {
         );
     }
 
-    unsafe fn get_qdata<QD: 'static>(&self, key: Quark) -> Option<ptr::NonNull<QD>> {
+    unsafe fn qdata<QD: 'static>(&self, key: Quark) -> Option<ptr::NonNull<QD>> {
         ptr::NonNull::new(gobject_ffi::g_object_get_qdata(
             self.as_object_ref().to_glib_none().0,
             key.to_glib(),
@@ -1608,8 +1608,8 @@ impl<T: ObjectType> ObjectExt for T {
         self.set_qdata::<QD>(Quark::from_string(key), value)
     }
 
-    unsafe fn get_data<QD: 'static>(&self, key: &str) -> Option<ptr::NonNull<QD>> {
-        self.get_qdata::<QD>(Quark::from_string(key))
+    unsafe fn data<QD: 'static>(&self, key: &str) -> Option<ptr::NonNull<QD>> {
+        self.qdata::<QD>(Quark::from_string(key))
     }
 
     unsafe fn steal_data<QD: 'static>(&self, key: &str) -> Option<QD> {
@@ -1734,8 +1734,8 @@ impl<T: ObjectType> ObjectExt for T {
         self.object_class().has_property(property_name, type_)
     }
 
-    fn get_property_type<'a, N: Into<&'a str>>(&self, property_name: N) -> Option<Type> {
-        self.object_class().get_property_type(property_name)
+    fn property_type<'a, N: Into<&'a str>>(&self, property_name: N) -> Option<Type> {
+        self.object_class().property_type(property_name)
     }
 
     fn find_property<'a, N: Into<&'a str>>(&self, property_name: N) -> Option<crate::ParamSpec> {
@@ -2322,7 +2322,7 @@ impl ObjectClass {
         type_: Option<Type>,
     ) -> bool {
         let property_name = property_name.into();
-        let ptype = self.get_property_type(property_name);
+        let ptype = self.property_type(property_name);
 
         match (ptype, type_) {
             (None, _) => false,
@@ -2331,7 +2331,7 @@ impl ObjectClass {
         }
     }
 
-    pub fn get_property_type<'a, N: Into<&'a str>>(&self, property_name: N) -> Option<Type> {
+    pub fn property_type<'a, N: Into<&'a str>>(&self, property_name: N) -> Option<Type> {
         self.find_property(property_name)
             .map(|pspec| pspec.value_type())
     }
@@ -2368,7 +2368,7 @@ wrapper! {
     pub struct InitiallyUnowned(Object<gobject_ffi::GInitiallyUnowned, gobject_ffi::GInitiallyUnownedClass>);
 
     match fn {
-        get_type => || gobject_ffi::g_initially_unowned_get_type(),
+        type_ => || gobject_ffi::g_initially_unowned_get_type(),
     }
 }
 
@@ -2459,7 +2459,7 @@ impl<T: ObjectType> SendWeakRef<T> {
     }
 
     pub fn into_weak_ref(self) -> WeakRef<T> {
-        if self.1.is_some() && self.1 != Some(get_thread_id()) {
+        if self.1.is_some() && self.1 != Some(thread_id()) {
             panic!("SendWeakRef dereferenced on a different thread");
         }
 
@@ -2471,7 +2471,7 @@ impl<T: ObjectType> ops::Deref for SendWeakRef<T> {
     type Target = WeakRef<T>;
 
     fn deref(&self) -> &WeakRef<T> {
-        if self.1.is_some() && self.1 != Some(get_thread_id()) {
+        if self.1.is_some() && self.1 != Some(thread_id()) {
             panic!("SendWeakRef dereferenced on a different thread");
         }
 
@@ -2494,7 +2494,7 @@ impl<T: ObjectType> Default for SendWeakRef<T> {
 
 impl<T: ObjectType> From<WeakRef<T>> for SendWeakRef<T> {
     fn from(v: WeakRef<T>) -> SendWeakRef<T> {
-        SendWeakRef(v, Some(get_thread_id()))
+        SendWeakRef(v, Some(thread_id()))
     }
 }
 
@@ -2941,7 +2941,7 @@ mod tests {
         let obj: Object = Object::new(&[]).unwrap();
         unsafe {
             obj.set_data::<String>("foo", "hello".into());
-            let data = obj.get_data::<String>("foo").unwrap();
+            let data = obj.data::<String>("foo").unwrap();
             assert_eq!(data.as_ref(), "hello");
             let data2 = obj.steal_data::<String>("foo").unwrap();
             assert_eq!(data2, "hello");

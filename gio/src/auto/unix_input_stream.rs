@@ -12,7 +12,7 @@ glib::wrapper! {
     pub struct UnixInputStream(Object<ffi::GUnixInputStream, ffi::GUnixInputStreamClass>) @extends InputStream, @implements PollableInputStream;
 
     match fn {
-        get_type => || ffi::g_unix_input_stream_get_type(),
+        type_ => || ffi::g_unix_input_stream_get_type(),
     }
 }
 

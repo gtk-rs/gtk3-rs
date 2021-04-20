@@ -13,7 +13,7 @@ glib::wrapper! {
     pub struct EmblemedIcon(Object<ffi::GEmblemedIcon, ffi::GEmblemedIconClass>) @implements Icon;
 
     match fn {
-        get_type => || ffi::g_emblemed_icon_get_type(),
+        type_ => || ffi::g_emblemed_icon_get_type(),
     }
 }
 

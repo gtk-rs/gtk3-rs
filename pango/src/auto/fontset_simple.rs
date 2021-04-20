@@ -13,7 +13,7 @@ glib::wrapper! {
     pub struct FontsetSimple(Object<ffi::PangoFontsetSimple, ffi::PangoFontsetSimpleClass>) @extends Fontset;
 
     match fn {
-        get_type => || ffi::pango_fontset_simple_get_type(),
+        type_ => || ffi::pango_fontset_simple_get_type(),
     }
 }
 

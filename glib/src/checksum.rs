@@ -61,7 +61,7 @@ mod tests {
     }
 
     #[test]
-    fn get_digest() {
+    fn digest() {
         let mut cs = Checksum::new(CS_TYPE).unwrap();
         cs.update(b"hello world!");
         let vec = cs.digest();

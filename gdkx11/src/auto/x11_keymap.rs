@@ -9,13 +9,13 @@ glib::wrapper! {
     pub struct X11Keymap(Object<ffi::GdkX11Keymap, ffi::GdkX11KeymapClass>) @extends gdk::Keymap;
 
     match fn {
-        get_type => || ffi::gdk_x11_keymap_get_type(),
+        type_ => || ffi::gdk_x11_keymap_get_type(),
     }
 }
 
 impl X11Keymap {
     #[doc(alias = "gdk_x11_keymap_get_group_for_state")]
-    pub fn get_group_for_state(&self, state: u32) -> i32 {
+    pub fn group_for_state(&self, state: u32) -> i32 {
         unsafe { ffi::gdk_x11_keymap_get_group_for_state(self.to_glib_none().0, state) }
     }
 

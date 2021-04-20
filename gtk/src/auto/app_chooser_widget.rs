@@ -28,7 +28,7 @@ glib::wrapper! {
     pub struct AppChooserWidget(Object<ffi::GtkAppChooserWidget, ffi::GtkAppChooserWidgetClass>) @extends Box, Container, Widget, @implements Buildable, Orientable, AppChooser;
 
     match fn {
-        get_type => || ffi::gtk_app_chooser_widget_get_type(),
+        type_ => || ffi::gtk_app_chooser_widget_get_type(),
     }
 }
 

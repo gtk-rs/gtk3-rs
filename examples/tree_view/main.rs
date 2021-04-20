@@ -87,7 +87,7 @@ fn build_ui(application: &gtk::Application) {
     let left_selection = left_tree.selection();
     left_selection.connect_changed(glib::clone!(@weak right_tree => move |tree_selection| {
         let (left_model, iter) = tree_selection.selected().expect("Couldn't get selected");
-        let mut path = left_model.get_path(&iter).expect("Couldn't get path");
+        let mut path = left_model.path(&iter).expect("Couldn't get path");
         // get the top-level element path
         while path.depth() > 1 {
             path.up();

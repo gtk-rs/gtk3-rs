@@ -11,7 +11,7 @@ glib::wrapper! {
     pub struct PollableInputStream(Interface<ffi::GPollableInputStream, ffi::GPollableInputStreamInterface>) @requires InputStream;
 
     match fn {
-        get_type => || ffi::g_pollable_input_stream_get_type(),
+        type_ => || ffi::g_pollable_input_stream_get_type(),
     }
 }
 

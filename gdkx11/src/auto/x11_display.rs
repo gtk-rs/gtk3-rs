@@ -14,7 +14,7 @@ glib::wrapper! {
     pub struct X11Display(Object<ffi::GdkX11Display, ffi::GdkX11DisplayClass>) @extends gdk::Display;
 
     match fn {
-        get_type => || ffi::gdk_x11_display_get_type(),
+        type_ => || ffi::gdk_x11_display_get_type(),
     }
 }
 
@@ -155,7 +155,7 @@ impl X11Display {
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gdk_x11_display_get_glx_version")]
-    pub fn get_glx_version<P: IsA<gdk::Display>>(display: &P) -> Option<(i32, i32)> {
+    pub fn glx_version<P: IsA<gdk::Display>>(display: &P) -> Option<(i32, i32)> {
         assert_initialized_main_thread!();
         unsafe {
             let mut major = mem::MaybeUninit::uninit();

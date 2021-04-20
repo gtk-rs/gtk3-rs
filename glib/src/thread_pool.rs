@@ -133,7 +133,7 @@ impl ThreadPool {
     }
 
     #[doc(alias = "g_thread_pool_get_max_unused_threads")]
-    pub fn get_max_unused_threads() -> Option<u32> {
+    pub fn max_unused_threads() -> Option<u32> {
         unsafe {
             let max_unused_threads = ffi::g_thread_pool_get_max_unused_threads();
             if max_unused_threads == -1 {
@@ -145,7 +145,7 @@ impl ThreadPool {
     }
 
     #[doc(alias = "g_thread_pool_get_num_unused_threads")]
-    pub fn get_num_unused_threads() -> u32 {
+    pub fn num_unused_threads() -> u32 {
         unsafe { ffi::g_thread_pool_get_num_unused_threads() }
     }
 
@@ -162,7 +162,7 @@ impl ThreadPool {
     }
 
     #[doc(alias = "g_thread_pool_get_max_idle_time")]
-    pub fn get_max_idle_time() -> u32 {
+    pub fn max_idle_time() -> u32 {
         unsafe { ffi::g_thread_pool_get_max_idle_time() }
     }
 }

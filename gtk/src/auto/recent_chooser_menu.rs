@@ -29,7 +29,7 @@ glib::wrapper! {
     pub struct RecentChooserMenu(Object<ffi::GtkRecentChooserMenu, ffi::GtkRecentChooserMenuClass>) @extends Menu, MenuShell, Container, Widget, @implements Buildable, RecentChooser;
 
     match fn {
-        get_type => || ffi::gtk_recent_chooser_menu_get_type(),
+        type_ => || ffi::gtk_recent_chooser_menu_get_type(),
     }
 }
 

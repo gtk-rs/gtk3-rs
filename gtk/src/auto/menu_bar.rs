@@ -24,7 +24,7 @@ glib::wrapper! {
     pub struct MenuBar(Object<ffi::GtkMenuBar, ffi::GtkMenuBarClass>) @extends MenuShell, Container, Widget, @implements Buildable;
 
     match fn {
-        get_type => || ffi::gtk_menu_bar_get_type(),
+        type_ => || ffi::gtk_menu_bar_get_type(),
     }
 }
 

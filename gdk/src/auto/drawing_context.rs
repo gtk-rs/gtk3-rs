@@ -10,7 +10,7 @@ glib::wrapper! {
     pub struct DrawingContext(Object<ffi::GdkDrawingContext, ffi::GdkDrawingContextClass>);
 
     match fn {
-        get_type => || ffi::gdk_drawing_context_get_type(),
+        type_ => || ffi::gdk_drawing_context_get_type(),
     }
 }
 

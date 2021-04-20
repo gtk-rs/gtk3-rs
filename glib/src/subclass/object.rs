@@ -36,7 +36,7 @@ pub trait ObjectImpl: ObjectSubclass + ObjectImplExt {
     ///
     /// This is called whenever the property value of the specific subclass with the
     /// given index should be returned.
-    fn get_property(&self, _obj: &Self::Type, _id: usize, _pspec: &ParamSpec) -> Value {
+    fn property(&self, _obj: &Self::Type, _id: usize, _pspec: &ParamSpec) -> Value {
         unimplemented!()
     }
 
@@ -58,7 +58,7 @@ pub trait ObjectImpl: ObjectSubclass + ObjectImplExt {
     fn dispose(&self, _obj: &Self::Type) {}
 }
 
-unsafe extern "C" fn get_property<T: ObjectImpl>(
+unsafe extern "C" fn property<T: ObjectImpl>(
     obj: *mut gobject_ffi::GObject,
     id: u32,
     value: *mut gobject_ffi::GValue,
@@ -67,7 +67,7 @@ unsafe extern "C" fn get_property<T: ObjectImpl>(
     let instance = &*(obj as *mut T::Instance);
     let imp = instance.impl_();
 
-    let v = imp.get_property(
+    let v = imp.property(
         &from_glib_borrow::<_, Object>(obj).unsafe_cast_ref(),
         id as usize,
         &from_glib_borrow(pspec),
@@ -147,7 +147,7 @@ unsafe impl<T: ObjectImpl> IsSubclassable<T> for Object {
     fn class_init(class: &mut crate::Class<Self>) {
         let klass = class.as_mut();
         klass.set_property = Some(set_property::<T>);
-        klass.get_property = Some(get_property::<T>);
+        klass.get_property = Some(property::<T>);
         klass.constructed = Some(constructed::<T>);
         klass.dispose = Some(dispose::<T>);
 
@@ -170,7 +170,7 @@ unsafe impl<T: ObjectImpl> IsSubclassable<T> for Object {
             }
         }
 
-        let type_ = T::get_type();
+        let type_ = T::type_();
         let signals = <T as ObjectImpl>::signals();
         for signal in signals {
             signal.register(type_);
@@ -305,7 +305,7 @@ mod test {
                         super::Signal::builder(
                             "create-child-object",
                             &[],
-                            ChildObject::get_type().into(),
+                            ChildObject::type_().into(),
                         )
                         .build(),
                     ]
@@ -381,12 +381,7 @@ mod test {
                 }
             }
 
-            fn get_property(
-                &self,
-                _obj: &Self::Type,
-                _id: usize,
-                pspec: &crate::ParamSpec,
-            ) -> Value {
+            fn property(&self, _obj: &Self::Type, _id: usize, pspec: &crate::ParamSpec) -> Value {
                 match pspec.name() {
                     "name" => self.name.borrow().to_value(),
                     "construct-name" => self.construct_name.borrow().to_value(),
@@ -442,7 +437,7 @@ mod test {
         assert!(obj.type_().is_a(Dummy::static_type()));
 
         assert_eq!(
-            obj.get_property("constructed")
+            obj.property("constructed")
                 .expect("Failed to get 'constructed' property")
                 .get_some::<bool>()
                 .expect("Failed to get bool from 'constructed' property"),
@@ -471,7 +466,7 @@ mod test {
         .expect("Object::new failed");
 
         assert_eq!(
-            obj.get_property("construct-name")
+            obj.property("construct-name")
                 .expect("Failed to get 'construct-name' property")
                 .get::<&str>()
                 .expect("Failed to get str from 'construct-name' property"),
@@ -485,7 +480,7 @@ mod test {
             "property 'construct-name' of type 'SimpleObject' is not writable",
         );
         assert_eq!(
-            obj.get_property("construct-name")
+            obj.property("construct-name")
                 .expect("Failed to get 'construct-name' property")
                 .get::<&str>()
                 .expect("Failed to get str from 'construct-name' property"),
@@ -493,7 +488,7 @@ mod test {
         );
 
         assert_eq!(
-            obj.get_property("name")
+            obj.property("name")
                 .expect("Failed to get 'name' property")
                 .get::<&str>()
                 .expect("Failed to get str from 'name' property"),
@@ -501,7 +496,7 @@ mod test {
         );
         assert!(obj.set_property("name", &"test").is_ok());
         assert_eq!(
-            obj.get_property("name")
+            obj.property("name")
                 .expect("Failed to get 'name' property")
                 .get::<&str>()
                 .expect("Failed to get str from 'name' property"),
@@ -574,7 +569,7 @@ mod test {
         .expect("Failed to connect on 'name-changed'");
 
         assert_eq!(
-            obj.get_property("name")
+            obj.property("name")
                 .expect("Failed to get 'name' property")
                 .get::<&str>()
                 .expect("Failed to get str from 'name' property"),

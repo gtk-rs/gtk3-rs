@@ -16,7 +16,7 @@ glib::wrapper! {
     pub struct ThemedIcon(Object<ffi::GThemedIcon, ffi::GThemedIconClass>) @implements Icon;
 
     match fn {
-        get_type => || ffi::g_themed_icon_get_type(),
+        type_ => || ffi::g_themed_icon_get_type(),
     }
 }
 

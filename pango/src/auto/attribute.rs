@@ -14,7 +14,7 @@ glib::wrapper! {
     match fn {
         copy => |ptr| ffi::pango_attribute_copy(ptr),
         free => |ptr| ffi::pango_attribute_destroy(ptr),
-        get_type => || ffi::pango_attribute_get_type(),
+        type_ => || ffi::pango_attribute_get_type(),
     }
 }
 

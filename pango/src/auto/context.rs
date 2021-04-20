@@ -23,7 +23,7 @@ glib::wrapper! {
     pub struct Context(Object<ffi::PangoContext, ffi::PangoContextClass>);
 
     match fn {
-        get_type => || ffi::pango_context_get_type(),
+        type_ => || ffi::pango_context_get_type(),
     }
 }
 
@@ -85,7 +85,7 @@ impl Context {
     }
 
     #[doc(alias = "pango_context_get_metrics")]
-    pub fn get_metrics(
+    pub fn metrics(
         &self,
         desc: Option<&FontDescription>,
         language: Option<&Language>,

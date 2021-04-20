@@ -23,7 +23,7 @@ pub trait BoxedType: Clone + Sized + 'static {
     /// This is usually defined via the [`GBoxed!`] derive macro.
     ///
     /// [`GBoxed!`]: ../../derive.GBoxed.html
-    fn get_type() -> crate::Type;
+    fn type_() -> crate::Type;
 }
 
 /// Register a boxed `glib::Type` ID for `T`.
@@ -79,12 +79,12 @@ mod test {
 
     #[test]
     fn test_register() {
-        assert!(MyBoxed::get_type().is_valid());
+        assert!(MyBoxed::type_().is_valid());
     }
 
     #[test]
     fn test_value() {
-        assert!(MyBoxed::get_type().is_valid());
+        assert!(MyBoxed::type_().is_valid());
 
         let b = MyBoxed(String::from("abc"));
         let v = b.to_value();

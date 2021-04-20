@@ -22,7 +22,7 @@ glib::wrapper! {
     pub struct Object(Object<ffi::AtkObject, ffi::AtkObjectClass>);
 
     match fn {
-        get_type => || ffi::atk_object_get_type(),
+        type_ => || ffi::atk_object_get_type(),
     }
 }
 

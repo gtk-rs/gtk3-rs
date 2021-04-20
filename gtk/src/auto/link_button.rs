@@ -27,7 +27,7 @@ glib::wrapper! {
     pub struct LinkButton(Object<ffi::GtkLinkButton, ffi::GtkLinkButtonClass>) @extends Button, Bin, Container, Widget, @implements Buildable, Actionable;
 
     match fn {
-        get_type => || ffi::gtk_link_button_get_type(),
+        type_ => || ffi::gtk_link_button_get_type(),
     }
 }
 

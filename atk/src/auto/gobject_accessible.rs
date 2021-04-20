@@ -11,7 +11,7 @@ glib::wrapper! {
     pub struct GObjectAccessible(Object<ffi::AtkGObjectAccessible, ffi::AtkGObjectAccessibleClass>) @extends Object;
 
     match fn {
-        get_type => || ffi::atk_gobject_accessible_get_type(),
+        type_ => || ffi::atk_gobject_accessible_get_type(),
     }
 }
 

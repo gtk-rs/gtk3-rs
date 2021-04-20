@@ -173,15 +173,15 @@ mod tests {
         assert!(!is_same_context(&a, &b));
 
         a.with_thread_default(|| {
-            let t = MainContext::get_thread_default().unwrap();
+            let t = MainContext::thread_default().unwrap();
             assert!(is_same_context(&a, &t));
 
             b.with_thread_default(|| {
-                let t = MainContext::get_thread_default().unwrap();
+                let t = MainContext::thread_default().unwrap();
                 assert!(is_same_context(&b, &t));
             });
 
-            let t = MainContext::get_thread_default().unwrap();
+            let t = MainContext::thread_default().unwrap();
             assert!(is_same_context(&a, &t));
         });
     }
@@ -194,7 +194,7 @@ mod tests {
         assert!(!is_same_context(&a, &b));
 
         a.with_thread_default(|| {
-            let t = MainContext::get_thread_default().unwrap();
+            let t = MainContext::thread_default().unwrap();
             assert!(is_same_context(&a, &t));
 
             let result = panic::catch_unwind(|| {
@@ -204,7 +204,7 @@ mod tests {
             });
             assert!(result.is_err());
 
-            let t = MainContext::get_thread_default().unwrap();
+            let t = MainContext::thread_default().unwrap();
             assert!(is_same_context(&a, &t));
         });
     }

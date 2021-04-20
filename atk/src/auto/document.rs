@@ -15,7 +15,7 @@ glib::wrapper! {
     pub struct Document(Interface<ffi::AtkDocument, ffi::AtkDocumentIface>);
 
     match fn {
-        get_type => || ffi::atk_document_get_type(),
+        type_ => || ffi::atk_document_get_type(),
     }
 }
 
@@ -23,7 +23,7 @@ pub const NONE_DOCUMENT: Option<&Document> = None;
 
 pub trait DocumentExt: 'static {
     #[doc(alias = "atk_document_get_attribute_value")]
-    fn get_attribute_value(&self, attribute_name: &str) -> Option<glib::GString>;
+    fn attribute_value(&self, attribute_name: &str) -> Option<glib::GString>;
 
     //#[doc(alias = "atk_document_get_attributes")]
     //fn attributes(&self) -> /*Ignored*/Option<AttributeSet>;
@@ -53,7 +53,7 @@ pub trait DocumentExt: 'static {
 }
 
 impl<O: IsA<Document>> DocumentExt for O {
-    fn get_attribute_value(&self, attribute_name: &str) -> Option<glib::GString> {
+    fn attribute_value(&self, attribute_name: &str) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::atk_document_get_attribute_value(
                 self.as_ref().to_glib_none().0,

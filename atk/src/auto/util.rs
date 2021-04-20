@@ -8,7 +8,7 @@ glib::wrapper! {
     pub struct Util(Object<ffi::AtkUtil, ffi::AtkUtilClass>);
 
     match fn {
-        get_type => || ffi::atk_util_get_type(),
+        type_ => || ffi::atk_util_get_type(),
     }
 }
 

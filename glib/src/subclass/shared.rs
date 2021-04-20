@@ -81,7 +81,7 @@ pub trait SharedType: Clone + Sized + 'static {
     /// This is usually defined via the [`Shared!`] derive macro.
     ///
     /// [`Shared!`]: ../../derive.Shared.html
-    fn get_type() -> crate::Type;
+    fn type_() -> crate::Type;
 
     /// Converts the SharedType into its inner RefCountedType
     fn into_refcounted(self) -> Self::RefCountedType;
@@ -151,13 +151,13 @@ mod test {
 
     #[test]
     fn test_register() {
-        assert_ne!(crate::Type::INVALID, MySharedArc::get_type());
-        assert_ne!(crate::Type::INVALID, MySharedRc::get_type());
+        assert_ne!(crate::Type::INVALID, MySharedArc::type_());
+        assert_ne!(crate::Type::INVALID, MySharedRc::type_());
     }
 
     #[test]
     fn test_value_arc() {
-        assert_ne!(crate::Type::INVALID, MySharedArc::get_type());
+        assert_ne!(crate::Type::INVALID, MySharedArc::type_());
 
         let b = MySharedArc::from_refcounted(std::sync::Arc::new(MySharedInner {
             foo: String::from("abc"),
@@ -169,7 +169,7 @@ mod test {
 
     #[test]
     fn test_value_rc() {
-        assert_ne!(crate::Type::INVALID, MySharedRc::get_type());
+        assert_ne!(crate::Type::INVALID, MySharedRc::type_());
 
         let b = MySharedRc::from_refcounted(std::rc::Rc::new(MySharedInner {
             foo: String::from("abc"),
@@ -181,7 +181,7 @@ mod test {
 
     #[test]
     fn same_ffi_pointer_arc() {
-        assert_ne!(crate::Type::INVALID, MySharedArc::get_type());
+        assert_ne!(crate::Type::INVALID, MySharedArc::type_());
 
         let b = MySharedArc::from_refcounted(std::sync::Arc::new(MySharedInner {
             foo: String::from("abc"),
@@ -205,7 +205,7 @@ mod test {
 
     #[test]
     fn same_ffi_pointer_rc() {
-        assert_ne!(crate::Type::INVALID, MySharedRc::get_type());
+        assert_ne!(crate::Type::INVALID, MySharedRc::type_());
 
         let b = MySharedRc::from_refcounted(std::rc::Rc::new(MySharedInner {
             foo: String::from("abc"),

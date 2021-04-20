@@ -17,7 +17,7 @@ glib::wrapper! {
     pub struct DeviceManager(Object<ffi::GdkDeviceManager>);
 
     match fn {
-        get_type => || ffi::gdk_device_manager_get_type(),
+        type_ => || ffi::gdk_device_manager_get_type(),
     }
 }
 

@@ -26,7 +26,7 @@ glib::wrapper! {
     pub struct ToolButton(Object<ffi::GtkToolButton, ffi::GtkToolButtonClass>) @extends ToolItem, Bin, Container, Widget, @implements Buildable, Actionable;
 
     match fn {
-        get_type => || ffi::gtk_tool_button_get_type(),
+        type_ => || ffi::gtk_tool_button_get_type(),
     }
 }
 

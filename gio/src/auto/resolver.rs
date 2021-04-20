@@ -25,7 +25,7 @@ glib::wrapper! {
     pub struct Resolver(Object<ffi::GResolver, ffi::GResolverClass>);
 
     match fn {
-        get_type => || ffi::g_resolver_get_type(),
+        type_ => || ffi::g_resolver_get_type(),
     }
 }
 
@@ -41,7 +41,7 @@ impl Resolver {
     //}
 
     #[doc(alias = "g_resolver_get_default")]
-    pub fn get_default() -> Resolver {
+    pub fn default() -> Resolver {
         unsafe { from_glib_full(ffi::g_resolver_get_default()) }
     }
 }

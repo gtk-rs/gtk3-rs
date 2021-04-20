@@ -9,7 +9,7 @@ glib::wrapper! {
     pub struct PixbufAnimationIter(Object<ffi::GdkPixbufAnimationIter>);
 
     match fn {
-        get_type => || ffi::gdk_pixbuf_animation_iter_get_type(),
+        type_ => || ffi::gdk_pixbuf_animation_iter_get_type(),
     }
 }
 

@@ -17,7 +17,7 @@ glib::wrapper! {
     pub struct Actionable(Interface<ffi::GtkActionable, ffi::GtkActionableInterface>) @requires Widget, Buildable;
 
     match fn {
-        get_type => || ffi::gtk_actionable_get_type(),
+        type_ => || ffi::gtk_actionable_get_type(),
     }
 }
 

@@ -11,7 +11,7 @@ glib::wrapper! {
     pub struct Editable(Interface<ffi::GtkEditable, ffi::GtkEditableInterface>);
 
     match fn {
-        get_type => || ffi::gtk_editable_get_type(),
+        type_ => || ffi::gtk_editable_get_type(),
     }
 }
 
@@ -31,7 +31,7 @@ pub trait EditableExt: 'static {
     fn delete_text(&self, start_pos: i32, end_pos: i32);
 
     #[doc(alias = "gtk_editable_get_chars")]
-    fn get_chars(&self, start_pos: i32, end_pos: i32) -> Option<glib::GString>;
+    fn chars(&self, start_pos: i32, end_pos: i32) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_editable_get_editable")]
     fn is_editable(&self) -> bool;
@@ -83,7 +83,7 @@ impl<O: IsA<Editable>> EditableExt for O {
         }
     }
 
-    fn get_chars(&self, start_pos: i32, end_pos: i32) -> Option<glib::GString> {
+    fn chars(&self, start_pos: i32, end_pos: i32) -> Option<glib::GString> {
         unsafe {
             from_glib_full(ffi::gtk_editable_get_chars(
                 self.as_ref().to_glib_none().0,

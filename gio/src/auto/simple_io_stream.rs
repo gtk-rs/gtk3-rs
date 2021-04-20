@@ -14,7 +14,7 @@ glib::wrapper! {
     pub struct SimpleIOStream(Object<ffi::GSimpleIOStream>) @extends IOStream;
 
     match fn {
-        get_type => || ffi::g_simple_io_stream_get_type(),
+        type_ => || ffi::g_simple_io_stream_get_type(),
     }
 }
 

@@ -35,14 +35,14 @@ impl AsRawFd for UnixOutputStream {
 
 pub trait UnixOutputStreamExtManual: Sized {
     #[doc(alias = "g_unix_output_stream_get_fd")]
-    fn get_fd<T: FromRawFd>(&self) -> T;
+    fn fd<T: FromRawFd>(&self) -> T;
 
     #[doc(alias = "g_unix_output_stream_set_close_fd")]
     unsafe fn set_close_fd(&self, close_fd: bool);
 }
 
 impl<O: IsA<UnixOutputStream>> UnixOutputStreamExtManual for O {
-    fn get_fd<T: FromRawFd>(&self) -> T {
+    fn fd<T: FromRawFd>(&self) -> T {
         unsafe {
             T::from_raw_fd(ffi::g_unix_output_stream_get_fd(
                 self.as_ref().to_glib_none().0,

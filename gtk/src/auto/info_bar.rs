@@ -30,7 +30,7 @@ glib::wrapper! {
     pub struct InfoBar(Object<ffi::GtkInfoBar, ffi::GtkInfoBarClass>) @extends Box, Container, Widget, @implements Buildable, Orientable;
 
     match fn {
-        get_type => || ffi::gtk_info_bar_get_type(),
+        type_ => || ffi::gtk_info_bar_get_type(),
     }
 }
 

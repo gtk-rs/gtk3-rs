@@ -11,7 +11,7 @@ glib::wrapper! {
     pub struct ObjectFactory(Object<ffi::AtkObjectFactory, ffi::AtkObjectFactoryClass>);
 
     match fn {
-        get_type => || ffi::atk_object_factory_get_type(),
+        type_ => || ffi::atk_object_factory_get_type(),
     }
 }
 

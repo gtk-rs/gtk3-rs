@@ -23,7 +23,7 @@ wrapper! {
     match fn {
         ref => |ptr| ffi::g_variant_dict_ref(ptr),
         unref => |ptr| ffi::g_variant_dict_unref(ptr),
-        get_type => || ffi::g_variant_dict_get_type(),
+        type_ => || ffi::g_variant_dict_get_type(),
     }
 }
 

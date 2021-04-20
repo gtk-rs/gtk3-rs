@@ -17,7 +17,7 @@ glib::wrapper! {
     pub struct MenuModel(Object<ffi::GMenuModel, ffi::GMenuModelClass>);
 
     match fn {
-        get_type => || ffi::g_menu_model_get_type(),
+        type_ => || ffi::g_menu_model_get_type(),
     }
 }
 
@@ -25,10 +25,10 @@ pub const NONE_MENU_MODEL: Option<&MenuModel> = None;
 
 pub trait MenuModelExt: 'static {
     //#[doc(alias = "g_menu_model_get_item_attribute")]
-    //fn get_item_attribute(&self, item_index: i32, attribute: &str, format_string: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> bool;
+    //fn is_item_attribute(&self, item_index: i32, attribute: &str, format_string: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> bool;
 
     #[doc(alias = "g_menu_model_get_item_attribute_value")]
-    fn get_item_attribute_value(
+    fn item_attribute_value(
         &self,
         item_index: i32,
         attribute: &str,
@@ -36,7 +36,7 @@ pub trait MenuModelExt: 'static {
     ) -> Option<glib::Variant>;
 
     #[doc(alias = "g_menu_model_get_item_link")]
-    fn get_item_link(&self, item_index: i32, link: &str) -> Option<MenuModel>;
+    fn item_link(&self, item_index: i32, link: &str) -> Option<MenuModel>;
 
     #[doc(alias = "g_menu_model_get_n_items")]
     fn n_items(&self) -> i32;
@@ -58,11 +58,11 @@ pub trait MenuModelExt: 'static {
 }
 
 impl<O: IsA<MenuModel>> MenuModelExt for O {
-    //fn get_item_attribute(&self, item_index: i32, attribute: &str, format_string: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> bool {
+    //fn is_item_attribute(&self, item_index: i32, attribute: &str, format_string: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> bool {
     //    unsafe { TODO: call ffi:g_menu_model_get_item_attribute() }
     //}
 
-    fn get_item_attribute_value(
+    fn item_attribute_value(
         &self,
         item_index: i32,
         attribute: &str,
@@ -78,7 +78,7 @@ impl<O: IsA<MenuModel>> MenuModelExt for O {
         }
     }
 
-    fn get_item_link(&self, item_index: i32, link: &str) -> Option<MenuModel> {
+    fn item_link(&self, item_index: i32, link: &str) -> Option<MenuModel> {
         unsafe {
             from_glib_full(ffi::g_menu_model_get_item_link(
                 self.as_ref().to_glib_none().0,

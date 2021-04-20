@@ -11,7 +11,7 @@ glib::wrapper! {
     pub struct SocketConnectable(Interface<ffi::GSocketConnectable, ffi::GSocketConnectableIface>);
 
     match fn {
-        get_type => || ffi::g_socket_connectable_get_type(),
+        type_ => || ffi::g_socket_connectable_get_type(),
     }
 }
 

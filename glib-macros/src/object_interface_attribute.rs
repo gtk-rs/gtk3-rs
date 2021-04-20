@@ -51,7 +51,7 @@ pub fn impl_object_interface(input: &syn::ItemImpl) -> TokenStream {
         }
 
         unsafe impl #crate_ident::subclass::interface::ObjectInterfaceType for #self_ty {
-            fn get_type() -> #crate_ident::Type {
+            fn type_() -> #crate_ident::Type {
                 static ONCE: std::sync::Once = std::sync::Once::new();
                 static mut TYPE: #crate_ident::Type = #crate_ident::Type::INVALID;
 

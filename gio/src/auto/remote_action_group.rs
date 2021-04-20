@@ -11,7 +11,7 @@ glib::wrapper! {
     pub struct RemoteActionGroup(Interface<ffi::GRemoteActionGroup, ffi::GRemoteActionGroupInterface>) @requires ActionGroup;
 
     match fn {
-        get_type => || ffi::g_remote_action_group_get_type(),
+        type_ => || ffi::g_remote_action_group_get_type(),
     }
 }
 

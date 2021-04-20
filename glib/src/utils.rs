@@ -11,12 +11,12 @@ use std::ptr;
 /// Same as [`get_prgname()`].
 ///
 /// [`get_prgname()`]: fn.get_prgname.html
-pub fn get_program_name() -> Option<String> {
-    get_prgname()
+pub fn program_name() -> Option<String> {
+    prgname()
 }
 
 #[doc(alias = "g_get_prgname")]
-pub fn get_prgname() -> Option<String> {
+pub fn prgname() -> Option<String> {
     unsafe { from_glib_none(ffi::g_get_prgname()) }
 }
 
@@ -86,7 +86,7 @@ pub fn environ_getenv<K: AsRef<OsStr>>(envp: &[OsString], variable: K) -> Option
 }
 
 #[doc(alias = "g_get_user_name")]
-pub fn get_user_name() -> Option<OsString> {
+pub fn user_name() -> Option<OsString> {
     #[cfg(not(all(windows, target_arch = "x86")))]
     use ffi::g_get_user_name;
     #[cfg(all(windows, target_arch = "x86"))]
@@ -96,7 +96,7 @@ pub fn get_user_name() -> Option<OsString> {
 }
 
 #[doc(alias = "g_get_real_name")]
-pub fn get_real_name() -> Option<OsString> {
+pub fn real_name() -> Option<OsString> {
     #[cfg(not(all(windows, target_arch = "x86")))]
     use ffi::g_get_real_name;
     #[cfg(all(windows, target_arch = "x86"))]
@@ -106,7 +106,7 @@ pub fn get_real_name() -> Option<OsString> {
 }
 
 #[doc(alias = "g_get_current_dir")]
-pub fn get_current_dir() -> Option<PathBuf> {
+pub fn current_dir() -> Option<PathBuf> {
     #[cfg(not(windows))]
     use ffi::g_get_current_dir;
     #[cfg(windows)]
@@ -167,7 +167,7 @@ pub fn find_program_in_path<P: AsRef<Path>>(program: P) -> Option<PathBuf> {
 }
 
 #[doc(alias = "g_get_home_dir")]
-pub fn get_home_dir() -> Option<std::path::PathBuf> {
+pub fn home_dir() -> Option<std::path::PathBuf> {
     #[cfg(not(all(windows, target_arch = "x86")))]
     use ffi::g_get_home_dir;
     #[cfg(all(windows, target_arch = "x86"))]
@@ -177,7 +177,7 @@ pub fn get_home_dir() -> Option<std::path::PathBuf> {
 }
 
 #[doc(alias = "g_get_tmp_dir")]
-pub fn get_tmp_dir() -> Option<std::path::PathBuf> {
+pub fn tmp_dir() -> Option<std::path::PathBuf> {
     #[cfg(not(all(windows, target_arch = "x86")))]
     use ffi::g_get_tmp_dir;
     #[cfg(all(windows, target_arch = "x86"))]
@@ -221,7 +221,7 @@ mod tests {
         assert_eq!(env::var_os(VAR_NAME), Some(val.into()));
         assert_eq!(crate::getenv(VAR_NAME), Some(val.into()));
 
-        let environ = crate::get_environ();
+        let environ = crate::environ();
         assert_eq!(crate::environ_getenv(&environ, VAR_NAME), Some(val.into()));
     }
 

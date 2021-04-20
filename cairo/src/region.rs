@@ -144,7 +144,7 @@ impl Region {
         unsafe { Self::from_raw_full(ffi::cairo_region_copy(self.0.as_ptr())) }
     }
 
-    pub fn get_extents(&self, rectangle: &mut RectangleInt) {
+    pub fn extents(&self, rectangle: &mut RectangleInt) {
         unsafe { ffi::cairo_region_get_extents(self.0.as_ptr(), rectangle.to_raw_none()) }
     }
 
@@ -152,7 +152,7 @@ impl Region {
         unsafe { ffi::cairo_region_num_rectangles(self.0.as_ptr()) }
     }
 
-    pub fn get_rectangle(&self, nth: i32) -> RectangleInt {
+    pub fn rectangle(&self, nth: i32) -> RectangleInt {
         unsafe {
             let rectangle: RectangleInt = ::std::mem::zeroed();
             ffi::cairo_region_get_rectangle(self.0.as_ptr(), nth, rectangle.to_raw_none());

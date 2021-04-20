@@ -20,7 +20,7 @@ glib::wrapper! {
     pub struct RecentChooser(Interface<ffi::GtkRecentChooser, ffi::GtkRecentChooserIface>);
 
     match fn {
-        get_type => || ffi::gtk_recent_chooser_get_type(),
+        type_ => || ffi::gtk_recent_chooser_get_type(),
     }
 }
 

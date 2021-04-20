@@ -17,7 +17,7 @@ glib::wrapper! {
     pub struct ToolShell(Interface<ffi::GtkToolShell, ffi::GtkToolShellIface>) @requires Widget, Buildable;
 
     match fn {
-        get_type => || ffi::gtk_tool_shell_get_type(),
+        type_ => || ffi::gtk_tool_shell_get_type(),
     }
 }
 

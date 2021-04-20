@@ -18,7 +18,7 @@ glib::wrapper! {
     pub struct InetAddressMask(Object<ffi::GInetAddressMask, ffi::GInetAddressMaskClass>);
 
     match fn {
-        get_type => || ffi::g_inet_address_mask_get_type(),
+        type_ => || ffi::g_inet_address_mask_get_type(),
     }
 }
 

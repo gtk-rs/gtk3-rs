@@ -19,7 +19,7 @@ glib::wrapper! {
     pub struct Overlay(Object<ffi::GtkOverlay, ffi::GtkOverlayClass>) @extends Bin, Container, Widget, @implements Buildable;
 
     match fn {
-        get_type => || ffi::gtk_overlay_get_type(),
+        type_ => || ffi::gtk_overlay_get_type(),
     }
 }
 
@@ -382,7 +382,7 @@ pub trait OverlayExt: 'static {
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gtk_overlay_get_overlay_pass_through")]
-    fn get_overlay_pass_through<P: IsA<Widget>>(&self, widget: &P) -> bool;
+    fn is_overlay_pass_through<P: IsA<Widget>>(&self, widget: &P) -> bool;
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
@@ -394,7 +394,7 @@ pub trait OverlayExt: 'static {
     #[doc(alias = "gtk_overlay_set_overlay_pass_through")]
     fn set_overlay_pass_through<P: IsA<Widget>>(&self, widget: &P, pass_through: bool);
 
-    fn get_child_index<T: IsA<Widget>>(&self, item: &T) -> i32;
+    fn child_index<T: IsA<Widget>>(&self, item: &T) -> i32;
 
     fn set_child_index<T: IsA<Widget>>(&self, item: &T, index: i32);
 
@@ -413,7 +413,7 @@ impl<O: IsA<Overlay>> OverlayExt for O {
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
-    fn get_overlay_pass_through<P: IsA<Widget>>(&self, widget: &P) -> bool {
+    fn is_overlay_pass_through<P: IsA<Widget>>(&self, widget: &P) -> bool {
         unsafe {
             from_glib(ffi::gtk_overlay_get_overlay_pass_through(
                 self.as_ref().to_glib_none().0,
@@ -446,7 +446,7 @@ impl<O: IsA<Overlay>> OverlayExt for O {
         }
     }
 
-    fn get_child_index<T: IsA<Widget>>(&self, item: &T) -> i32 {
+    fn child_index<T: IsA<Widget>>(&self, item: &T) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(

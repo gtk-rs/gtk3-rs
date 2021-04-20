@@ -68,7 +68,7 @@ impl<T: SendUnique> SendUniqueCell<T> {
         // how often we borrowed it
         if self.obj.is_unique() {
             if *thread == None {
-                *thread = Some((crate::get_thread_id(), 1));
+                *thread = Some((crate::thread_id(), 1));
             } else {
                 thread.as_mut().unwrap().1 += 1;
             }
@@ -84,7 +84,7 @@ impl<T: SendUnique> SendUniqueCell<T> {
 
         // If the object is not unique, we can only borrow it
         // from the thread that currently has it borrowed
-        if thread.as_ref().unwrap().0 != crate::get_thread_id() {
+        if thread.as_ref().unwrap().0 != crate::thread_id() {
             return Err(BorrowError);
         }
 

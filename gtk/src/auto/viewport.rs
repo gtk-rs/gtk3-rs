@@ -27,7 +27,7 @@ glib::wrapper! {
     pub struct Viewport(Object<ffi::GtkViewport, ffi::GtkViewportClass>) @extends Bin, Container, Widget, @implements Buildable, Scrollable;
 
     match fn {
-        get_type => || ffi::gtk_viewport_get_type(),
+        type_ => || ffi::gtk_viewport_get_type(),
     }
 }
 

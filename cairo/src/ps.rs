@@ -40,7 +40,7 @@ impl PsSurface {
     for_stream_constructors!(cairo_ps_surface_create_for_stream);
 
     #[doc(alias = "cairo_ps_get_levels")]
-    pub fn get_levels() -> impl Iterator<Item = PsLevel> {
+    pub fn levels() -> impl Iterator<Item = PsLevel> {
         let lvls_slice = unsafe {
             let mut vers_ptr = ptr::null_mut();
             let mut num_vers = mem::MaybeUninit::uninit();
@@ -136,7 +136,7 @@ mod test {
 
     #[test]
     fn levels() {
-        assert!(PsSurface::get_levels().any(|v| v == PsLevel::_2));
+        assert!(PsSurface::levels().any(|v| v == PsLevel::_2));
     }
 
     #[test]

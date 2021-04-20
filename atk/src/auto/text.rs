@@ -25,7 +25,7 @@ glib::wrapper! {
     pub struct Text(Interface<ffi::AtkText, ffi::AtkTextIface>);
 
     match fn {
-        get_type => || ffi::atk_text_get_type(),
+        type_ => || ffi::atk_text_get_type(),
     }
 }
 
@@ -36,7 +36,7 @@ pub trait TextExt: 'static {
     fn add_selection(&self, start_offset: i32, end_offset: i32) -> bool;
 
     #[doc(alias = "atk_text_get_bounded_ranges")]
-    fn get_bounded_ranges(
+    fn bounded_ranges(
         &self,
         rect: &mut TextRectangle,
         coord_type: CoordType,
@@ -48,13 +48,13 @@ pub trait TextExt: 'static {
     fn caret_offset(&self) -> i32;
 
     #[doc(alias = "atk_text_get_character_at_offset")]
-    fn get_character_at_offset(&self, offset: i32) -> char;
+    fn character_at_offset(&self, offset: i32) -> char;
 
     #[doc(alias = "atk_text_get_character_count")]
     fn character_count(&self) -> i32;
 
     #[doc(alias = "atk_text_get_character_extents")]
-    fn get_character_extents(&self, offset: i32, coords: CoordType) -> (i32, i32, i32, i32);
+    fn character_extents(&self, offset: i32, coords: CoordType) -> (i32, i32, i32, i32);
 
     //#[doc(alias = "atk_text_get_default_attributes")]
     //fn default_attributes(&self) -> /*Ignored*/Option<AttributeSet>;
@@ -63,10 +63,10 @@ pub trait TextExt: 'static {
     fn n_selections(&self) -> i32;
 
     #[doc(alias = "atk_text_get_offset_at_point")]
-    fn get_offset_at_point(&self, x: i32, y: i32, coords: CoordType) -> i32;
+    fn offset_at_point(&self, x: i32, y: i32, coords: CoordType) -> i32;
 
     #[doc(alias = "atk_text_get_range_extents")]
-    fn get_range_extents(
+    fn range_extents(
         &self,
         start_offset: i32,
         end_offset: i32,
@@ -74,27 +74,24 @@ pub trait TextExt: 'static {
     ) -> TextRectangle;
 
     //#[doc(alias = "atk_text_get_run_attributes")]
-    //fn get_run_attributes(&self, offset: i32) -> (/*Ignored*/AttributeSet, i32, i32);
+    //fn run_attributes(&self, offset: i32) -> (/*Ignored*/AttributeSet, i32, i32);
 
     #[doc(alias = "atk_text_get_selection")]
-    fn get_selection(&self, selection_num: i32) -> (glib::GString, i32, i32);
+    fn selection(&self, selection_num: i32) -> (glib::GString, i32, i32);
 
     #[doc(alias = "atk_text_get_string_at_offset")]
-    fn get_string_at_offset(
+    fn string_at_offset(
         &self,
         offset: i32,
         granularity: TextGranularity,
     ) -> (Option<glib::GString>, i32, i32);
 
     #[doc(alias = "atk_text_get_text")]
-    fn get_text(&self, start_offset: i32, end_offset: i32) -> Option<glib::GString>;
+    fn text(&self, start_offset: i32, end_offset: i32) -> Option<glib::GString>;
 
     #[doc(alias = "atk_text_get_text_at_offset")]
-    fn get_text_at_offset(
-        &self,
-        offset: i32,
-        boundary_type: TextBoundary,
-    ) -> (glib::GString, i32, i32);
+    fn text_at_offset(&self, offset: i32, boundary_type: TextBoundary)
+        -> (glib::GString, i32, i32);
 
     #[doc(alias = "atk_text_remove_selection")]
     fn remove_selection(&self, selection_num: i32) -> bool;
@@ -152,7 +149,7 @@ impl<O: IsA<Text>> TextExt for O {
         }
     }
 
-    fn get_bounded_ranges(
+    fn bounded_ranges(
         &self,
         rect: &mut TextRectangle,
         coord_type: CoordType,
@@ -174,7 +171,7 @@ impl<O: IsA<Text>> TextExt for O {
         unsafe { ffi::atk_text_get_caret_offset(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_character_at_offset(&self, offset: i32) -> char {
+    fn character_at_offset(&self, offset: i32) -> char {
         unsafe {
             std::convert::TryFrom::try_from(ffi::atk_text_get_character_at_offset(
                 self.as_ref().to_glib_none().0,
@@ -188,7 +185,7 @@ impl<O: IsA<Text>> TextExt for O {
         unsafe { ffi::atk_text_get_character_count(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_character_extents(&self, offset: i32, coords: CoordType) -> (i32, i32, i32, i32) {
+    fn character_extents(&self, offset: i32, coords: CoordType) -> (i32, i32, i32, i32) {
         unsafe {
             let mut x = mem::MaybeUninit::uninit();
             let mut y = mem::MaybeUninit::uninit();
@@ -219,7 +216,7 @@ impl<O: IsA<Text>> TextExt for O {
         unsafe { ffi::atk_text_get_n_selections(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_offset_at_point(&self, x: i32, y: i32, coords: CoordType) -> i32 {
+    fn offset_at_point(&self, x: i32, y: i32, coords: CoordType) -> i32 {
         unsafe {
             ffi::atk_text_get_offset_at_point(
                 self.as_ref().to_glib_none().0,
@@ -230,7 +227,7 @@ impl<O: IsA<Text>> TextExt for O {
         }
     }
 
-    fn get_range_extents(
+    fn range_extents(
         &self,
         start_offset: i32,
         end_offset: i32,
@@ -249,11 +246,11 @@ impl<O: IsA<Text>> TextExt for O {
         }
     }
 
-    //fn get_run_attributes(&self, offset: i32) -> (/*Ignored*/AttributeSet, i32, i32) {
+    //fn run_attributes(&self, offset: i32) -> (/*Ignored*/AttributeSet, i32, i32) {
     //    unsafe { TODO: call ffi:atk_text_get_run_attributes() }
     //}
 
-    fn get_selection(&self, selection_num: i32) -> (glib::GString, i32, i32) {
+    fn selection(&self, selection_num: i32) -> (glib::GString, i32, i32) {
         unsafe {
             let mut start_offset = mem::MaybeUninit::uninit();
             let mut end_offset = mem::MaybeUninit::uninit();
@@ -269,7 +266,7 @@ impl<O: IsA<Text>> TextExt for O {
         }
     }
 
-    fn get_string_at_offset(
+    fn string_at_offset(
         &self,
         offset: i32,
         granularity: TextGranularity,
@@ -290,7 +287,7 @@ impl<O: IsA<Text>> TextExt for O {
         }
     }
 
-    fn get_text(&self, start_offset: i32, end_offset: i32) -> Option<glib::GString> {
+    fn text(&self, start_offset: i32, end_offset: i32) -> Option<glib::GString> {
         unsafe {
             from_glib_full(ffi::atk_text_get_text(
                 self.as_ref().to_glib_none().0,
@@ -300,7 +297,7 @@ impl<O: IsA<Text>> TextExt for O {
         }
     }
 
-    fn get_text_at_offset(
+    fn text_at_offset(
         &self,
         offset: i32,
         boundary_type: TextBoundary,

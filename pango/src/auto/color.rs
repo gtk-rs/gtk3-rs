@@ -15,7 +15,7 @@ glib::wrapper! {
     match fn {
         copy => |ptr| ffi::pango_color_copy(ptr),
         free => |ptr| ffi::pango_color_free(ptr),
-        get_type => || ffi::pango_color_get_type(),
+        type_ => || ffi::pango_color_get_type(),
     }
 }
 

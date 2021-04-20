@@ -21,7 +21,7 @@ glib::wrapper! {
     pub struct DBusServer(Object<ffi::GDBusServer>);
 
     match fn {
-        get_type => || ffi::g_dbus_server_get_type(),
+        type_ => || ffi::g_dbus_server_get_type(),
     }
 }
 

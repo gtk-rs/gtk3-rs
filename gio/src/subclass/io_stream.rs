@@ -14,12 +14,12 @@ use std::ptr;
 use once_cell::sync::Lazy;
 
 pub trait IOStreamImpl: ObjectImpl + IOStreamImplExt + Send {
-    fn get_input_stream(&self, stream: &Self::Type) -> InputStream {
-        self.parent_get_input_stream(stream)
+    fn input_stream(&self, stream: &Self::Type) -> InputStream {
+        self.parent_input_stream(stream)
     }
 
-    fn get_output_stream(&self, stream: &Self::Type) -> OutputStream {
-        self.parent_get_output_stream(stream)
+    fn output_stream(&self, stream: &Self::Type) -> OutputStream {
+        self.parent_output_stream(stream)
     }
 
     fn close(&self, stream: &Self::Type, cancellable: Option<&Cancellable>) -> Result<(), Error> {
@@ -28,9 +28,9 @@ pub trait IOStreamImpl: ObjectImpl + IOStreamImplExt + Send {
 }
 
 pub trait IOStreamImplExt: ObjectSubclass {
-    fn parent_get_input_stream(&self, stream: &Self::Type) -> InputStream;
+    fn parent_input_stream(&self, stream: &Self::Type) -> InputStream;
 
-    fn parent_get_output_stream(&self, stream: &Self::Type) -> OutputStream;
+    fn parent_output_stream(&self, stream: &Self::Type) -> OutputStream;
 
     fn parent_close(
         &self,
@@ -40,24 +40,24 @@ pub trait IOStreamImplExt: ObjectSubclass {
 }
 
 impl<T: IOStreamImpl> IOStreamImplExt for T {
-    fn parent_get_input_stream(&self, stream: &Self::Type) -> InputStream {
+    fn parent_input_stream(&self, stream: &Self::Type) -> InputStream {
         unsafe {
             let data = T::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GIOStreamClass;
             let f = (*parent_class)
                 .get_input_stream
-                .expect("No parent class implementation for \"get_input_stream\"");
+                .expect("No parent class implementation for \"input_stream\"");
             from_glib_none(f(stream.unsafe_cast_ref::<IOStream>().to_glib_none().0))
         }
     }
 
-    fn parent_get_output_stream(&self, stream: &Self::Type) -> OutputStream {
+    fn parent_output_stream(&self, stream: &Self::Type) -> OutputStream {
         unsafe {
             let data = T::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GIOStreamClass;
             let f = (*parent_class)
                 .get_output_stream
-                .expect("No parent class implementation for \"get_output_stream\"");
+                .expect("No parent class implementation for \"output_stream\"");
             from_glib_none(f(stream.unsafe_cast_ref::<IOStream>().to_glib_none().0))
         }
     }
@@ -115,12 +115,12 @@ unsafe extern "C" fn stream_get_input_stream<T: IOStreamImpl>(
     let imp = instance.impl_();
     let wrap: Borrowed<IOStream> = from_glib_borrow(ptr);
 
-    let ret = imp.get_input_stream(wrap.unsafe_cast_ref());
+    let ret = imp.input_stream(wrap.unsafe_cast_ref());
 
     // Ensure that a) the stream stays alive as long as the IO stream instance and
     // b) that the same stream is returned every time. This is a requirement by the
     // IO stream API.
-    if let Some(old_stream) = wrap.get_qdata::<InputStream>(*INPUT_STREAM_QUARK) {
+    if let Some(old_stream) = wrap.qdata::<InputStream>(*INPUT_STREAM_QUARK) {
         assert_eq!(
             old_stream.as_ref(),
             &ret,
@@ -138,12 +138,12 @@ unsafe extern "C" fn stream_get_output_stream<T: IOStreamImpl>(
     let imp = instance.impl_();
     let wrap: Borrowed<IOStream> = from_glib_borrow(ptr);
 
-    let ret = imp.get_output_stream(wrap.unsafe_cast_ref());
+    let ret = imp.output_stream(wrap.unsafe_cast_ref());
 
     // Ensure that a) the stream stays alive as long as the IO stream instance and
     // b) that the same stream is returned every time. This is a requirement by the
     // IO stream API.
-    if let Some(old_stream) = wrap.get_qdata::<OutputStream>(*OUTPUT_STREAM_QUARK) {
+    if let Some(old_stream) = wrap.qdata::<OutputStream>(*OUTPUT_STREAM_QUARK) {
         assert_eq!(
             old_stream.as_ref(),
             &ret,

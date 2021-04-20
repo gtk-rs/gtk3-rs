@@ -14,7 +14,7 @@ glib::wrapper! {
     pub struct PixbufAnimation(Object<ffi::GdkPixbufAnimation, ffi::GdkPixbufAnimationClass>);
 
     match fn {
-        get_type => || ffi::gdk_pixbuf_animation_get_type(),
+        type_ => || ffi::gdk_pixbuf_animation_get_type(),
     }
 }
 

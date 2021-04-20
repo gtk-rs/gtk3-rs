@@ -11,7 +11,7 @@ glib::wrapper! {
     pub struct NoOpObjectFactory(Object<ffi::AtkNoOpObjectFactory, ffi::AtkNoOpObjectFactoryClass>) @extends ObjectFactory;
 
     match fn {
-        get_type => || ffi::atk_no_op_object_factory_get_type(),
+        type_ => || ffi::atk_no_op_object_factory_get_type(),
     }
 }
 

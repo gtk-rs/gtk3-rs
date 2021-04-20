@@ -24,7 +24,7 @@ glib::wrapper! {
     pub struct CheckButton(Object<ffi::GtkCheckButton, ffi::GtkCheckButtonClass>) @extends ToggleButton, Button, Bin, Container, Widget, @implements Buildable, Actionable;
 
     match fn {
-        get_type => || ffi::gtk_check_button_get_type(),
+        type_ => || ffi::gtk_check_button_get_type(),
     }
 }
 

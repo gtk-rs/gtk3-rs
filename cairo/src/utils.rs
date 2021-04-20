@@ -17,7 +17,7 @@ pub fn status_to_result(status: ffi::cairo_status_t) -> Result<(), Error> {
 }
 
 #[doc(alias = "cairo_version_string")]
-pub fn get_version_string() -> &'static str {
+pub fn version_string() -> &'static str {
     unsafe {
         let ptr = ffi::cairo_version_string();
         CStr::from_ptr(ptr)
@@ -35,7 +35,7 @@ pub struct Version {
 
 impl Version {
     #[doc(alias = "cairo_version")]
-    pub fn get_version() -> Version {
+    pub fn version() -> Version {
         let version = unsafe { ffi::cairo_version() };
         Version {
             major: (version / 10_000 % 100) as _,
@@ -57,6 +57,6 @@ mod tests {
 
     #[test]
     fn check_versions() {
-        assert_eq!(get_version_string(), Version::get_version().to_string());
+        assert_eq!(version_string(), Version::version().to_string());
     }
 }

@@ -30,7 +30,7 @@ glib::wrapper! {
     pub struct SocketClient(Object<ffi::GSocketClient, ffi::GSocketClientClass>);
 
     match fn {
-        get_type => || ffi::g_socket_client_get_type(),
+        type_ => || ffi::g_socket_client_get_type(),
     }
 }
 

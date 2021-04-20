@@ -12,7 +12,7 @@ glib::wrapper! {
     pub struct MenuItem(Object<ffi::GMenuItem>);
 
     match fn {
-        get_type => || ffi::g_menu_item_get_type(),
+        type_ => || ffi::g_menu_item_get_type(),
     }
 }
 
@@ -58,12 +58,12 @@ impl MenuItem {
     }
 
     //#[doc(alias = "g_menu_item_get_attribute")]
-    //pub fn get_attribute(&self, attribute: &str, format_string: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> bool {
+    //pub fn is_attribute(&self, attribute: &str, format_string: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> bool {
     //    unsafe { TODO: call ffi:g_menu_item_get_attribute() }
     //}
 
     #[doc(alias = "g_menu_item_get_attribute_value")]
-    pub fn get_attribute_value(
+    pub fn attribute_value(
         &self,
         attribute: &str,
         expected_type: Option<&glib::VariantTy>,
@@ -78,7 +78,7 @@ impl MenuItem {
     }
 
     #[doc(alias = "g_menu_item_get_link")]
-    pub fn get_link(&self, link: &str) -> Option<MenuModel> {
+    pub fn link(&self, link: &str) -> Option<MenuModel> {
         unsafe {
             from_glib_full(ffi::g_menu_item_get_link(
                 self.to_glib_none().0,

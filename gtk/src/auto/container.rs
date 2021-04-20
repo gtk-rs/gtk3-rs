@@ -21,7 +21,7 @@ glib::wrapper! {
     pub struct Container(Object<ffi::GtkContainer, ffi::GtkContainerClass>) @extends Widget, @implements Buildable;
 
     match fn {
-        get_type => || ffi::gtk_container_get_type(),
+        type_ => || ffi::gtk_container_get_type(),
     }
 }
 
@@ -86,7 +86,7 @@ pub trait ContainerExt: 'static {
     fn focus_vadjustment(&self) -> Option<Adjustment>;
 
     #[doc(alias = "gtk_container_get_path_for_child")]
-    fn get_path_for_child<P: IsA<Widget>>(&self, child: &P) -> Option<WidgetPath>;
+    fn path_for_child<P: IsA<Widget>>(&self, child: &P) -> Option<WidgetPath>;
 
     #[doc(alias = "gtk_container_propagate_draw")]
     fn propagate_draw<P: IsA<Widget>>(&self, child: &P, cr: &cairo::Context);
@@ -287,7 +287,7 @@ impl<O: IsA<Container>> ContainerExt for O {
         }
     }
 
-    fn get_path_for_child<P: IsA<Widget>>(&self, child: &P) -> Option<WidgetPath> {
+    fn path_for_child<P: IsA<Widget>>(&self, child: &P) -> Option<WidgetPath> {
         unsafe {
             from_glib_full(ffi::gtk_container_get_path_for_child(
                 self.as_ref().to_glib_none().0,

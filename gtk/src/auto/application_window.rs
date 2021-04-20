@@ -30,7 +30,7 @@ glib::wrapper! {
     pub struct ApplicationWindow(Object<ffi::GtkApplicationWindow, ffi::GtkApplicationWindowClass>) @extends Window, Bin, Container, Widget, @implements Buildable, gio::ActionGroup, gio::ActionMap;
 
     match fn {
-        get_type => || ffi::gtk_application_window_get_type(),
+        type_ => || ffi::gtk_application_window_get_type(),
     }
 }
 

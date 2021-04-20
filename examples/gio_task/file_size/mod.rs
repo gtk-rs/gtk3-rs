@@ -22,7 +22,7 @@ impl FileSize {
         *simple_object.size.borrow()
     }
 
-    pub fn get_file_size_async<Q: FnOnce(i64, &FileSize) + 'static>(
+    pub fn file_size_async<Q: FnOnce(i64, &FileSize) + 'static>(
         &self,
         cancellable: Option<&gio::Cancellable>,
         callback: Q,

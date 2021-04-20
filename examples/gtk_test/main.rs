@@ -24,23 +24,23 @@ fn main() {
 fn build_ui(application: &gtk::Application) {
     println!(
         "Major: {}, Minor: {}",
-        gtk::get_major_version(),
-        gtk::get_minor_version()
+        gtk::major_version(),
+        gtk::minor_version()
     );
     let glade_src = include_str!("gtk_test.ui");
     let builder = Builder::from_string(glade_src);
 
-    let spinner: Spinner = builder.get_object("spinner").expect("Couldn't get spinner");
+    let spinner: Spinner = builder.object("spinner").expect("Couldn't get spinner");
     spinner.start();
 
-    let scale: Scale = builder.get_object("scale").expect("Couldn't get scale");
+    let scale: Scale = builder.object("scale").expect("Couldn't get scale");
     scale.connect_format_value(|scale, value| {
         let digits = scale.digits() as usize;
         format!("<{:.*}>", digits, value)
     });
 
     let spin_button: SpinButton = builder
-        .get_object("spin_button")
+        .object("spin_button")
         .expect("Couldn't get spin_button");
     spin_button.connect_input(|spin_button| {
         let text = spin_button.text();
@@ -59,11 +59,11 @@ fn build_ui(application: &gtk::Application) {
         }
     });
 
-    let window: ApplicationWindow = builder.get_object("window").expect("Couldn't get window");
+    let window: ApplicationWindow = builder.object("window").expect("Couldn't get window");
     window.set_application(Some(application));
 
-    let button: Button = builder.get_object("button").expect("Couldn't get button");
-    let entry: Entry = builder.get_object("entry").expect("Couldn't get entry");
+    let button: Button = builder.object("button").expect("Couldn't get button");
+    let entry: Entry = builder.object("entry").expect("Couldn't get entry");
 
     button.connect_clicked(glib::clone!(@weak window, @weak entry => move |_| {
         let dialog = Dialog::with_buttons(Some("Hello!"),
@@ -81,7 +81,7 @@ fn build_ui(application: &gtk::Application) {
     }));
 
     let button_font: Button = builder
-        .get_object("button_font")
+        .object("button_font")
         .expect("Couldn't get button_font");
     button_font.connect_clicked(glib::clone!(@weak window => move |_| {
         let dialog = FontChooserDialog::new(Some("Font chooser test"), Some(&window));
@@ -91,7 +91,7 @@ fn build_ui(application: &gtk::Application) {
     }));
 
     let button_recent: Button = builder
-        .get_object("button_recent")
+        .object("button_recent")
         .expect("Couldn't get button_recent");
     button_recent.connect_clicked(glib::clone!(@weak window => move |_| {
         let dialog = RecentChooserDialog::new(Some("Recent chooser test"), Some(&window));
@@ -105,7 +105,7 @@ fn build_ui(application: &gtk::Application) {
     }));
 
     let file_button: Button = builder
-        .get_object("file_button")
+        .object("file_button")
         .expect("Couldn't get file_button");
     file_button.connect_clicked(glib::clone!(@weak window => move |_| {
         // entry.set_text("Clicked!");
@@ -129,7 +129,7 @@ fn build_ui(application: &gtk::Application) {
     }));
 
     let app_button: Button = builder
-        .get_object("app_button")
+        .object("app_button")
         .expect("Couldn't get app_button");
     app_button.connect_clicked(glib::clone!(@weak window => move |_| {
         // entry.set_text("Clicked!");
@@ -141,7 +141,7 @@ fn build_ui(application: &gtk::Application) {
         dialog.show_all();
     }));
 
-    let switch: Switch = builder.get_object("switch").expect("Couldn't get switch");
+    let switch: Switch = builder.object("switch").expect("Couldn't get switch");
     switch.connect_changed_active(glib::clone!(@weak entry => move |switch| {
         if switch.is_active() {
             entry.set_text("Switch On");
@@ -151,9 +151,9 @@ fn build_ui(application: &gtk::Application) {
     }));
 
     let button_about: Button = builder
-        .get_object("button_about")
+        .object("button_about")
         .expect("Couldn't get button_about");
-    let dialog: AboutDialog = builder.get_object("dialog").expect("Couldn't get dialog");
+    let dialog: AboutDialog = builder.object("dialog").expect("Couldn't get dialog");
     button_about.connect_clicked(move |x| about_clicked(x, &dialog));
 
     window.connect_key_press_event(

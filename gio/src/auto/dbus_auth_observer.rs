@@ -17,7 +17,7 @@ glib::wrapper! {
     pub struct DBusAuthObserver(Object<ffi::GDBusAuthObserver>);
 
     match fn {
-        get_type => || ffi::g_dbus_auth_observer_get_type(),
+        type_ => || ffi::g_dbus_auth_observer_get_type(),
     }
 }
 

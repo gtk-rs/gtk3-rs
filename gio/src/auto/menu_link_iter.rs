@@ -12,7 +12,7 @@ glib::wrapper! {
     pub struct MenuLinkIter(Object<ffi::GMenuLinkIter, ffi::GMenuLinkIterClass>);
 
     match fn {
-        get_type => || ffi::g_menu_link_iter_get_type(),
+        type_ => || ffi::g_menu_link_iter_get_type(),
     }
 }
 

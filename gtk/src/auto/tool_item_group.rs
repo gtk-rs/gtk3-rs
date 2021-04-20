@@ -25,7 +25,7 @@ glib::wrapper! {
     pub struct ToolItemGroup(Object<ffi::GtkToolItemGroup, ffi::GtkToolItemGroupClass>) @extends Container, Widget, @implements Buildable, ToolShell;
 
     match fn {
-        get_type => || ffi::gtk_tool_item_group_get_type(),
+        type_ => || ffi::gtk_tool_item_group_get_type(),
     }
 }
 
@@ -428,7 +428,7 @@ pub trait ToolItemGroupExt: 'static {
     fn is_collapsed(&self) -> bool;
 
     #[doc(alias = "gtk_tool_item_group_get_drop_item")]
-    fn get_drop_item(&self, x: i32, y: i32) -> Option<ToolItem>;
+    fn drop_item(&self, x: i32, y: i32) -> Option<ToolItem>;
 
     #[doc(alias = "gtk_tool_item_group_get_ellipsize")]
     fn ellipsize(&self) -> pango::EllipsizeMode;
@@ -437,7 +437,7 @@ pub trait ToolItemGroupExt: 'static {
     fn header_relief(&self) -> ReliefStyle;
 
     #[doc(alias = "gtk_tool_item_group_get_item_position")]
-    fn get_item_position<P: IsA<ToolItem>>(&self, item: &P) -> i32;
+    fn item_position<P: IsA<ToolItem>>(&self, item: &P) -> i32;
 
     #[doc(alias = "gtk_tool_item_group_get_label")]
     fn label(&self) -> Option<glib::GString>;
@@ -449,7 +449,7 @@ pub trait ToolItemGroupExt: 'static {
     fn n_items(&self) -> u32;
 
     #[doc(alias = "gtk_tool_item_group_get_nth_item")]
-    fn get_nth_item(&self, index: u32) -> Option<ToolItem>;
+    fn nth_item(&self, index: u32) -> Option<ToolItem>;
 
     #[doc(alias = "gtk_tool_item_group_insert")]
     fn insert<P: IsA<ToolItem>>(&self, item: &P, position: i32);
@@ -472,19 +472,19 @@ pub trait ToolItemGroupExt: 'static {
     #[doc(alias = "gtk_tool_item_group_set_label_widget")]
     fn set_label_widget<P: IsA<Widget>>(&self, label_widget: &P);
 
-    fn get_item_expand<T: IsA<ToolItem>>(&self, item: &T) -> bool;
+    fn item_expands<T: IsA<ToolItem>>(&self, item: &T) -> bool;
 
     fn set_item_expand<T: IsA<ToolItem>>(&self, item: &T, expand: bool);
 
-    fn get_item_fill<T: IsA<ToolItem>>(&self, item: &T) -> bool;
+    fn item_fills<T: IsA<ToolItem>>(&self, item: &T) -> bool;
 
     fn set_item_fill<T: IsA<ToolItem>>(&self, item: &T, fill: bool);
 
-    fn get_item_homogeneous<T: IsA<ToolItem>>(&self, item: &T) -> bool;
+    fn item_is_homogeneous<T: IsA<ToolItem>>(&self, item: &T) -> bool;
 
     fn set_item_homogeneous<T: IsA<ToolItem>>(&self, item: &T, homogeneous: bool);
 
-    fn get_item_new_row<T: IsA<ToolItem>>(&self, item: &T) -> bool;
+    fn item_is_new_row<T: IsA<ToolItem>>(&self, item: &T) -> bool;
 
     fn set_item_new_row<T: IsA<ToolItem>>(&self, item: &T, new_row: bool);
 
@@ -512,7 +512,7 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
         }
     }
 
-    fn get_drop_item(&self, x: i32, y: i32) -> Option<ToolItem> {
+    fn drop_item(&self, x: i32, y: i32) -> Option<ToolItem> {
         unsafe {
             from_glib_none(ffi::gtk_tool_item_group_get_drop_item(
                 self.as_ref().to_glib_none().0,
@@ -538,7 +538,7 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
         }
     }
 
-    fn get_item_position<P: IsA<ToolItem>>(&self, item: &P) -> i32 {
+    fn item_position<P: IsA<ToolItem>>(&self, item: &P) -> i32 {
         unsafe {
             ffi::gtk_tool_item_group_get_item_position(
                 self.as_ref().to_glib_none().0,
@@ -567,7 +567,7 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
         unsafe { ffi::gtk_tool_item_group_get_n_items(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_nth_item(&self, index: u32) -> Option<ToolItem> {
+    fn nth_item(&self, index: u32) -> Option<ToolItem> {
         unsafe {
             from_glib_none(ffi::gtk_tool_item_group_get_nth_item(
                 self.as_ref().to_glib_none().0,
@@ -641,7 +641,7 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
         }
     }
 
-    fn get_item_expand<T: IsA<ToolItem>>(&self, item: &T) -> bool {
+    fn item_expands<T: IsA<ToolItem>>(&self, item: &T) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
@@ -668,7 +668,7 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
         }
     }
 
-    fn get_item_fill<T: IsA<ToolItem>>(&self, item: &T) -> bool {
+    fn item_fills<T: IsA<ToolItem>>(&self, item: &T) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
@@ -695,7 +695,7 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
         }
     }
 
-    fn get_item_homogeneous<T: IsA<ToolItem>>(&self, item: &T) -> bool {
+    fn item_is_homogeneous<T: IsA<ToolItem>>(&self, item: &T) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
@@ -722,7 +722,7 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
         }
     }
 
-    fn get_item_new_row<T: IsA<ToolItem>>(&self, item: &T) -> bool {
+    fn item_is_new_row<T: IsA<ToolItem>>(&self, item: &T) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(

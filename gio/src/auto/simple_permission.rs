@@ -11,7 +11,7 @@ glib::wrapper! {
     pub struct SimplePermission(Object<ffi::GSimplePermission>) @extends Permission;
 
     match fn {
-        get_type => || ffi::g_simple_permission_get_type(),
+        type_ => || ffi::g_simple_permission_get_type(),
     }
 }
 

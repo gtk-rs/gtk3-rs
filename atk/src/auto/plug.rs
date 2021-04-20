@@ -13,7 +13,7 @@ glib::wrapper! {
     pub struct Plug(Object<ffi::AtkPlug, ffi::AtkPlugClass>) @extends Object, @implements Component;
 
     match fn {
-        get_type => || ffi::atk_plug_get_type(),
+        type_ => || ffi::atk_plug_get_type(),
     }
 }
 

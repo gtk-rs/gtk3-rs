@@ -18,7 +18,7 @@ glib::wrapper! {
     pub struct Hyperlink(Object<ffi::AtkHyperlink, ffi::AtkHyperlinkClass>) @implements Action;
 
     match fn {
-        get_type => || ffi::atk_hyperlink_get_type(),
+        type_ => || ffi::atk_hyperlink_get_type(),
     }
 }
 
@@ -32,13 +32,13 @@ pub trait HyperlinkExt: 'static {
     fn n_anchors(&self) -> i32;
 
     #[doc(alias = "atk_hyperlink_get_object")]
-    fn get_object(&self, i: i32) -> Option<Object>;
+    fn object(&self, i: i32) -> Option<Object>;
 
     #[doc(alias = "atk_hyperlink_get_start_index")]
     fn start_index(&self) -> i32;
 
     #[doc(alias = "atk_hyperlink_get_uri")]
-    fn get_uri(&self, i: i32) -> Option<glib::GString>;
+    fn uri(&self, i: i32) -> Option<glib::GString>;
 
     #[doc(alias = "atk_hyperlink_is_inline")]
     fn is_inline(&self) -> bool;
@@ -70,7 +70,7 @@ impl<O: IsA<Hyperlink>> HyperlinkExt for O {
         unsafe { ffi::atk_hyperlink_get_n_anchors(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_object(&self, i: i32) -> Option<Object> {
+    fn object(&self, i: i32) -> Option<Object> {
         unsafe {
             from_glib_none(ffi::atk_hyperlink_get_object(
                 self.as_ref().to_glib_none().0,
@@ -83,7 +83,7 @@ impl<O: IsA<Hyperlink>> HyperlinkExt for O {
         unsafe { ffi::atk_hyperlink_get_start_index(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_uri(&self, i: i32) -> Option<glib::GString> {
+    fn uri(&self, i: i32) -> Option<glib::GString> {
         unsafe {
             from_glib_full(ffi::atk_hyperlink_get_uri(
                 self.as_ref().to_glib_none().0,

@@ -23,7 +23,7 @@ glib::wrapper! {
     pub struct DataOutputStream(Object<ffi::GDataOutputStream, ffi::GDataOutputStreamClass>) @extends FilterOutputStream, OutputStream, @implements Seekable;
 
     match fn {
-        get_type => || ffi::g_data_output_stream_get_type(),
+        type_ => || ffi::g_data_output_stream_get_type(),
     }
 }
 

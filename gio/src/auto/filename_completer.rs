@@ -14,7 +14,7 @@ glib::wrapper! {
     pub struct FilenameCompleter(Object<ffi::GFilenameCompleter, ffi::GFilenameCompleterClass>);
 
     match fn {
-        get_type => || ffi::g_filename_completer_get_type(),
+        type_ => || ffi::g_filename_completer_get_type(),
     }
 }
 
@@ -25,7 +25,7 @@ impl FilenameCompleter {
     }
 
     #[doc(alias = "g_filename_completer_get_completion_suffix")]
-    pub fn get_completion_suffix(&self, initial_text: &str) -> Option<glib::GString> {
+    pub fn completion_suffix(&self, initial_text: &str) -> Option<glib::GString> {
         unsafe {
             from_glib_full(ffi::g_filename_completer_get_completion_suffix(
                 self.to_glib_none().0,
@@ -35,7 +35,7 @@ impl FilenameCompleter {
     }
 
     #[doc(alias = "g_filename_completer_get_completions")]
-    pub fn get_completions(&self, initial_text: &str) -> Vec<glib::GString> {
+    pub fn completions(&self, initial_text: &str) -> Vec<glib::GString> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::g_filename_completer_get_completions(
                 self.to_glib_none().0,

@@ -27,7 +27,7 @@ glib::wrapper! {
     pub struct RecentChooserDialog(Object<ffi::GtkRecentChooserDialog, ffi::GtkRecentChooserDialogClass>) @extends Dialog, Window, Bin, Container, Widget, @implements Buildable, RecentChooser;
 
     match fn {
-        get_type => || ffi::gtk_recent_chooser_dialog_get_type(),
+        type_ => || ffi::gtk_recent_chooser_dialog_get_type(),
     }
 }
 

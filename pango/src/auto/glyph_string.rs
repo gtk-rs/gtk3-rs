@@ -16,7 +16,7 @@ glib::wrapper! {
     match fn {
         copy => |ptr| ffi::pango_glyph_string_copy(mut_override(ptr)),
         free => |ptr| ffi::pango_glyph_string_free(ptr),
-        get_type => || ffi::pango_glyph_string_get_type(),
+        type_ => || ffi::pango_glyph_string_get_type(),
     }
 }
 
@@ -64,7 +64,7 @@ impl GlyphString {
     }
 
     //#[doc(alias = "pango_glyph_string_get_logical_widths")]
-    //pub fn get_logical_widths(&mut self, text: &str, embedding_level: i32, logical_widths: &[i32]) {
+    //pub fn logical_widths(&mut self, text: &str, embedding_level: i32, logical_widths: &[i32]) {
     //    unsafe { TODO: call ffi:pango_glyph_string_get_logical_widths() }
     //}
 

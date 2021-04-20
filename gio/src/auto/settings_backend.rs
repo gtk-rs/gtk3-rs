@@ -10,7 +10,7 @@ glib::wrapper! {
     pub struct SettingsBackend(Object<ffi::GSettingsBackend, ffi::GSettingsBackendClass>);
 
     match fn {
-        get_type => || ffi::g_settings_backend_get_type(),
+        type_ => || ffi::g_settings_backend_get_type(),
     }
 }
 
@@ -21,7 +21,7 @@ impl SettingsBackend {
     //}
 
     #[doc(alias = "g_settings_backend_get_default")]
-    pub fn get_default() -> SettingsBackend {
+    pub fn default() -> SettingsBackend {
         unsafe { from_glib_full(ffi::g_settings_backend_get_default()) }
     }
 }

@@ -11,7 +11,7 @@ glib::wrapper! {
     pub struct Registry(Object<ffi::AtkRegistry, ffi::AtkRegistryClass>);
 
     match fn {
-        get_type => || ffi::atk_registry_get_type(),
+        type_ => || ffi::atk_registry_get_type(),
     }
 }
 
@@ -19,17 +19,17 @@ pub const NONE_REGISTRY: Option<&Registry> = None;
 
 pub trait RegistryExt: 'static {
     #[doc(alias = "atk_registry_get_factory")]
-    fn get_factory(&self, type_: glib::types::Type) -> Option<ObjectFactory>;
+    fn factory(&self, type_: glib::types::Type) -> Option<ObjectFactory>;
 
     #[doc(alias = "atk_registry_get_factory_type")]
-    fn get_factory_type(&self, type_: glib::types::Type) -> glib::types::Type;
+    fn factory_type(&self, type_: glib::types::Type) -> glib::types::Type;
 
     #[doc(alias = "atk_registry_set_factory_type")]
     fn set_factory_type(&self, type_: glib::types::Type, factory_type: glib::types::Type);
 }
 
 impl<O: IsA<Registry>> RegistryExt for O {
-    fn get_factory(&self, type_: glib::types::Type) -> Option<ObjectFactory> {
+    fn factory(&self, type_: glib::types::Type) -> Option<ObjectFactory> {
         unsafe {
             from_glib_none(ffi::atk_registry_get_factory(
                 self.as_ref().to_glib_none().0,
@@ -38,7 +38,7 @@ impl<O: IsA<Registry>> RegistryExt for O {
         }
     }
 
-    fn get_factory_type(&self, type_: glib::types::Type) -> glib::types::Type {
+    fn factory_type(&self, type_: glib::types::Type) -> glib::types::Type {
         unsafe {
             from_glib(ffi::atk_registry_get_factory_type(
                 self.as_ref().to_glib_none().0,

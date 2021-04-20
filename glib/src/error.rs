@@ -19,7 +19,7 @@ wrapper! {
     match fn {
         copy => |ptr| ffi::g_error_copy(ptr),
         free => |ptr| ffi::g_error_free(ptr),
-        get_type => || ffi::g_error_get_type(),
+        type_ => || ffi::g_error_get_type(),
     }
 }
 

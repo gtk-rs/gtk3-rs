@@ -28,7 +28,7 @@ glib::wrapper! {
     pub struct ToolItem(Object<ffi::GtkToolItem, ffi::GtkToolItemClass>) @extends Bin, Container, Widget, @implements Buildable;
 
     match fn {
-        get_type => || ffi::gtk_tool_item_get_type(),
+        type_ => || ffi::gtk_tool_item_get_type(),
     }
 }
 
@@ -431,7 +431,7 @@ pub trait ToolItemExt: 'static {
     fn orientation(&self) -> Orientation;
 
     #[doc(alias = "gtk_tool_item_get_proxy_menu_item")]
-    fn get_proxy_menu_item(&self, menu_item_id: &str) -> Option<Widget>;
+    fn proxy_menu_item(&self, menu_item_id: &str) -> Option<Widget>;
 
     #[doc(alias = "gtk_tool_item_get_relief_style")]
     fn relief_style(&self) -> ReliefStyle;
@@ -557,7 +557,7 @@ impl<O: IsA<ToolItem>> ToolItemExt for O {
         }
     }
 
-    fn get_proxy_menu_item(&self, menu_item_id: &str) -> Option<Widget> {
+    fn proxy_menu_item(&self, menu_item_id: &str) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_tool_item_get_proxy_menu_item(
                 self.as_ref().to_glib_none().0,

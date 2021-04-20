@@ -19,7 +19,7 @@ glib::wrapper! {
     pub struct Renderer(Object<ffi::PangoRenderer, ffi::PangoRendererClass>);
 
     match fn {
-        get_type => || ffi::pango_renderer_get_type(),
+        type_ => || ffi::pango_renderer_get_type(),
     }
 }
 
@@ -68,10 +68,10 @@ pub trait RendererExt: 'static {
     #[cfg(any(feature = "v1_38", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_38")))]
     #[doc(alias = "pango_renderer_get_alpha")]
-    fn get_alpha(&self, part: RenderPart) -> u16;
+    fn alpha(&self, part: RenderPart) -> u16;
 
     #[doc(alias = "pango_renderer_get_color")]
-    fn get_color(&self, part: RenderPart) -> Option<Color>;
+    fn color(&self, part: RenderPart) -> Option<Color>;
 
     #[doc(alias = "pango_renderer_get_layout")]
     fn layout(&self) -> Option<Layout>;
@@ -219,11 +219,11 @@ impl<O: IsA<Renderer>> RendererExt for O {
 
     #[cfg(any(feature = "v1_38", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_38")))]
-    fn get_alpha(&self, part: RenderPart) -> u16 {
+    fn alpha(&self, part: RenderPart) -> u16 {
         unsafe { ffi::pango_renderer_get_alpha(self.as_ref().to_glib_none().0, part.to_glib()) }
     }
 
-    fn get_color(&self, part: RenderPart) -> Option<Color> {
+    fn color(&self, part: RenderPart) -> Option<Color> {
         unsafe {
             from_glib_none(ffi::pango_renderer_get_color(
                 self.as_ref().to_glib_none().0,

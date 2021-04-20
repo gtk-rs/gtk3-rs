@@ -15,7 +15,7 @@ glib::wrapper! {
     match fn {
         ref => |ptr| ffi::g_resource_ref(ptr),
         unref => |ptr| ffi::g_resource_unref(ptr),
-        get_type => || ffi::g_resource_get_type(),
+        type_ => || ffi::g_resource_get_type(),
     }
 }
 
@@ -43,7 +43,7 @@ impl Resource {
     }
 
     #[doc(alias = "g_resource_get_info")]
-    pub fn get_info(
+    pub fn info(
         &self,
         path: &str,
         lookup_flags: ResourceLookupFlags,

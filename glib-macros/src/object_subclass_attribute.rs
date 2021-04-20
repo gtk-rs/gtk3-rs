@@ -104,7 +104,7 @@ pub fn impl_object_subclass(input: &syn::ItemImpl) -> TokenStream {
                 unsafe { std::ptr::NonNull::new_unchecked(&mut DATA) }
             }
 
-            fn get_type() -> #crate_ident::Type {
+            fn type_() -> #crate_ident::Type {
                 static ONCE: std::sync::Once = std::sync::Once::new();
 
                 ONCE.call_once(|| {

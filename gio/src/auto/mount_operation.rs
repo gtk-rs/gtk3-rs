@@ -18,7 +18,7 @@ glib::wrapper! {
     pub struct MountOperation(Object<ffi::GMountOperation, ffi::GMountOperationClass>);
 
     match fn {
-        get_type => || ffi::g_mount_operation_get_type(),
+        type_ => || ffi::g_mount_operation_get_type(),
     }
 }
 

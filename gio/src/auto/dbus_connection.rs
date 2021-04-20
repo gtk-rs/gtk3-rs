@@ -32,7 +32,7 @@ glib::wrapper! {
     pub struct DBusConnection(Object<ffi::GDBusConnection>);
 
     match fn {
-        get_type => || ffi::g_dbus_connection_get_type(),
+        type_ => || ffi::g_dbus_connection_get_type(),
     }
 }
 

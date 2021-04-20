@@ -13,7 +13,7 @@ glib::wrapper! {
     pub struct Socket(Object<ffi::AtkSocket, ffi::AtkSocketClass>) @extends Object, @implements Component;
 
     match fn {
-        get_type => || ffi::atk_socket_get_type(),
+        type_ => || ffi::atk_socket_get_type(),
     }
 }
 

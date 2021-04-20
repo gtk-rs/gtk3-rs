@@ -12,7 +12,7 @@ glib::wrapper! {
     pub struct X11Window(Object<ffi::GdkX11Window, ffi::GdkX11WindowClass>) @extends gdk::Window;
 
     match fn {
-        get_type => || ffi::gdk_x11_window_get_type(),
+        type_ => || ffi::gdk_x11_window_get_type(),
     }
 }
 

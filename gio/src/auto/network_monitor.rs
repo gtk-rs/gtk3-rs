@@ -23,13 +23,13 @@ glib::wrapper! {
     pub struct NetworkMonitor(Interface<ffi::GNetworkMonitor, ffi::GNetworkMonitorInterface>);
 
     match fn {
-        get_type => || ffi::g_network_monitor_get_type(),
+        type_ => || ffi::g_network_monitor_get_type(),
     }
 }
 
 impl NetworkMonitor {
     #[doc(alias = "g_network_monitor_get_default")]
-    pub fn get_default() -> NetworkMonitor {
+    pub fn default() -> NetworkMonitor {
         unsafe { from_glib_none(ffi::g_network_monitor_get_default()) }
     }
 }

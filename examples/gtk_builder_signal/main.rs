@@ -7,10 +7,10 @@ fn build_ui(application: &gtk::Application) {
     let glade_src = include_str!("builder_signal.ui");
     let builder = Builder::from_string(glade_src);
 
-    let window: ApplicationWindow = builder.get_object("window1").expect("Couldn't get window1");
+    let window: ApplicationWindow = builder.object("window1").expect("Couldn't get window1");
     window.set_application(Some(application));
     let dialog: MessageDialog = builder
-        .get_object("messagedialog1")
+        .object("messagedialog1")
         .expect("Couldn't get messagedialog1");
     dialog.connect_delete_event(|dialog, _| {
         dialog.hide();

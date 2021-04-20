@@ -13,7 +13,7 @@ glib::wrapper! {
     pub struct RelationSet(Object<ffi::AtkRelationSet, ffi::AtkRelationSetClass>);
 
     match fn {
-        get_type => || ffi::atk_relation_set_get_type(),
+        type_ => || ffi::atk_relation_set_get_type(),
     }
 }
 
@@ -50,10 +50,10 @@ pub trait RelationSetExt: 'static {
     fn n_relations(&self) -> i32;
 
     #[doc(alias = "atk_relation_set_get_relation")]
-    fn get_relation(&self, i: i32) -> Option<Relation>;
+    fn relation(&self, i: i32) -> Option<Relation>;
 
     #[doc(alias = "atk_relation_set_get_relation_by_type")]
-    fn get_relation_by_type(&self, relationship: RelationType) -> Option<Relation>;
+    fn relation_by_type(&self, relationship: RelationType) -> Option<Relation>;
 
     #[doc(alias = "atk_relation_set_remove")]
     fn remove<P: IsA<Relation>>(&self, relation: &P);
@@ -102,7 +102,7 @@ impl<O: IsA<RelationSet>> RelationSetExt for O {
         unsafe { ffi::atk_relation_set_get_n_relations(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_relation(&self, i: i32) -> Option<Relation> {
+    fn relation(&self, i: i32) -> Option<Relation> {
         unsafe {
             from_glib_none(ffi::atk_relation_set_get_relation(
                 self.as_ref().to_glib_none().0,
@@ -111,7 +111,7 @@ impl<O: IsA<RelationSet>> RelationSetExt for O {
         }
     }
 
-    fn get_relation_by_type(&self, relationship: RelationType) -> Option<Relation> {
+    fn relation_by_type(&self, relationship: RelationType) -> Option<Relation> {
         unsafe {
             from_glib_none(ffi::atk_relation_set_get_relation_by_type(
                 self.as_ref().to_glib_none().0,

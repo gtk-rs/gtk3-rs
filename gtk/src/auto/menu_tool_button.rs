@@ -27,7 +27,7 @@ glib::wrapper! {
     pub struct MenuToolButton(Object<ffi::GtkMenuToolButton, ffi::GtkMenuToolButtonClass>) @extends ToolButton, ToolItem, Bin, Container, Widget, @implements Buildable, Actionable;
 
     match fn {
-        get_type => || ffi::gtk_menu_tool_button_get_type(),
+        type_ => || ffi::gtk_menu_tool_button_get_type(),
     }
 }
 

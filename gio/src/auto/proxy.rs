@@ -17,13 +17,13 @@ glib::wrapper! {
     pub struct Proxy(Interface<ffi::GProxy, ffi::GProxyInterface>);
 
     match fn {
-        get_type => || ffi::g_proxy_get_type(),
+        type_ => || ffi::g_proxy_get_type(),
     }
 }
 
 impl Proxy {
     #[doc(alias = "g_proxy_get_default_for_protocol")]
-    pub fn get_default_for_protocol(protocol: &str) -> Option<Proxy> {
+    pub fn default_for_protocol(protocol: &str) -> Option<Proxy> {
         unsafe {
             from_glib_full(ffi::g_proxy_get_default_for_protocol(
                 protocol.to_glib_none().0,

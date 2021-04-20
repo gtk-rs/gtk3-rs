@@ -30,7 +30,7 @@ glib::wrapper! {
     pub struct AppChooserButton(Object<ffi::GtkAppChooserButton, ffi::GtkAppChooserButtonClass>) @extends ComboBox, Bin, Container, Widget, @implements Buildable, CellEditable, CellLayout, AppChooser;
 
     match fn {
-        get_type => || ffi::gtk_app_chooser_button_get_type(),
+        type_ => || ffi::gtk_app_chooser_button_get_type(),
     }
 }
 

@@ -17,7 +17,7 @@ glib::wrapper! {
     pub struct SocketService(Object<ffi::GSocketService, ffi::GSocketServiceClass>) @extends SocketListener;
 
     match fn {
-        get_type => || ffi::g_socket_service_get_type(),
+        type_ => || ffi::g_socket_service_get_type(),
     }
 }
 

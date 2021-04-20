@@ -19,7 +19,7 @@ glib::wrapper! {
     pub struct CharsetConverter(Object<ffi::GCharsetConverter, ffi::GCharsetConverterClass>) @implements Converter;
 
     match fn {
-        get_type => || ffi::g_charset_converter_get_type(),
+        type_ => || ffi::g_charset_converter_get_type(),
     }
 }
 

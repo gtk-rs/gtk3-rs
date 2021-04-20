@@ -18,7 +18,7 @@ glib::wrapper! {
     pub struct Builder(Object<ffi::GtkBuilder, ffi::GtkBuilderClass>);
 
     match fn {
-        get_type => || ffi::gtk_builder_get_type(),
+        type_ => || ffi::gtk_builder_get_type(),
     }
 }
 
@@ -108,7 +108,7 @@ pub trait BuilderExt: 'static {
     fn translation_domain(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_builder_get_type_from_name")]
-    fn get_type_from_name(&self, type_name: &str) -> glib::types::Type;
+    fn type_from_name(&self, type_name: &str) -> glib::types::Type;
 
     //#[doc(alias = "gtk_builder_lookup_callback_symbol")]
     //fn lookup_callback_symbol(&self, callback_name: &str) -> Option<Box_<dyn Fn() + 'static>>;
@@ -289,7 +289,7 @@ impl<O: IsA<Builder>> BuilderExt for O {
         }
     }
 
-    fn get_type_from_name(&self, type_name: &str) -> glib::types::Type {
+    fn type_from_name(&self, type_name: &str) -> glib::types::Type {
         unsafe {
             from_glib(ffi::gtk_builder_get_type_from_name(
                 self.as_ref().to_glib_none().0,

@@ -13,7 +13,7 @@ glib::wrapper! {
     pub struct Bin(Object<ffi::GtkBin, ffi::GtkBinClass>) @extends Container, Widget, @implements Buildable;
 
     match fn {
-        get_type => || ffi::gtk_bin_get_type(),
+        type_ => || ffi::gtk_bin_get_type(),
     }
 }
 

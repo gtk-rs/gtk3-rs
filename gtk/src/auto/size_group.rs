@@ -20,7 +20,7 @@ glib::wrapper! {
     pub struct SizeGroup(Object<ffi::GtkSizeGroup, ffi::GtkSizeGroupClass>) @implements Buildable;
 
     match fn {
-        get_type => || ffi::gtk_size_group_get_type(),
+        type_ => || ffi::gtk_size_group_get_type(),
     }
 }
 

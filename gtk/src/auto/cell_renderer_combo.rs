@@ -23,7 +23,7 @@ glib::wrapper! {
     pub struct CellRendererCombo(Object<ffi::GtkCellRendererCombo, ffi::GtkCellRendererComboClass>) @extends CellRendererText, CellRenderer;
 
     match fn {
-        get_type => || ffi::gtk_cell_renderer_combo_get_type(),
+        type_ => || ffi::gtk_cell_renderer_combo_get_type(),
     }
 }
 

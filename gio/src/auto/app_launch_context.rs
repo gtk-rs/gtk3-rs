@@ -17,7 +17,7 @@ glib::wrapper! {
     pub struct AppLaunchContext(Object<ffi::GAppLaunchContext, ffi::GAppLaunchContextClass>);
 
     match fn {
-        get_type => || ffi::g_app_launch_context_get_type(),
+        type_ => || ffi::g_app_launch_context_get_type(),
     }
 }
 
@@ -38,17 +38,14 @@ pub const NONE_APP_LAUNCH_CONTEXT: Option<&AppLaunchContext> = None;
 
 pub trait AppLaunchContextExt: 'static {
     #[doc(alias = "g_app_launch_context_get_display")]
-    fn get_display<P: IsA<AppInfo>>(&self, info: &P, files: &[File]) -> Option<glib::GString>;
+    fn display<P: IsA<AppInfo>>(&self, info: &P, files: &[File]) -> Option<glib::GString>;
 
     #[doc(alias = "g_app_launch_context_get_environment")]
     fn environment(&self) -> Vec<std::ffi::OsString>;
 
     #[doc(alias = "g_app_launch_context_get_startup_notify_id")]
-    fn get_startup_notify_id<P: IsA<AppInfo>>(
-        &self,
-        info: &P,
-        files: &[File],
-    ) -> Option<glib::GString>;
+    fn startup_notify_id<P: IsA<AppInfo>>(&self, info: &P, files: &[File])
+        -> Option<glib::GString>;
 
     #[doc(alias = "g_app_launch_context_launch_failed")]
     fn launch_failed(&self, startup_notify_id: &str);
@@ -68,7 +65,7 @@ pub trait AppLaunchContextExt: 'static {
 }
 
 impl<O: IsA<AppLaunchContext>> AppLaunchContextExt for O {
-    fn get_display<P: IsA<AppInfo>>(&self, info: &P, files: &[File]) -> Option<glib::GString> {
+    fn display<P: IsA<AppInfo>>(&self, info: &P, files: &[File]) -> Option<glib::GString> {
         unsafe {
             from_glib_full(ffi::g_app_launch_context_get_display(
                 self.as_ref().to_glib_none().0,
@@ -86,7 +83,7 @@ impl<O: IsA<AppLaunchContext>> AppLaunchContextExt for O {
         }
     }
 
-    fn get_startup_notify_id<P: IsA<AppInfo>>(
+    fn startup_notify_id<P: IsA<AppInfo>>(
         &self,
         info: &P,
         files: &[File],

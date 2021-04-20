@@ -18,7 +18,7 @@ glib::wrapper! {
         free => |ptr| glib::gobject_ffi::g_boxed_free(ffi::graphene_triangle_get_type(), ptr as *mut _),
         init => |_ptr| (),
         clear => |_ptr| (),
-        get_type => || ffi::graphene_triangle_get_type(),
+        type_ => || ffi::graphene_triangle_get_type(),
     }
 }
 
@@ -49,7 +49,7 @@ impl Triangle {
     }
 
     #[doc(alias = "graphene_triangle_get_barycoords")]
-    pub fn get_barycoords(&self, p: Option<&Point3D>) -> Option<Vec2> {
+    pub fn barycoords(&self, p: Option<&Point3D>) -> Option<Vec2> {
         unsafe {
             let mut res = Vec2::uninitialized();
             let ret = from_glib(ffi::graphene_triangle_get_barycoords(
@@ -123,13 +123,7 @@ impl Triangle {
     #[cfg(any(feature = "v1_10", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
     #[doc(alias = "graphene_triangle_get_uv")]
-    pub fn get_uv(
-        &self,
-        p: Option<&Point3D>,
-        uv_a: &Vec2,
-        uv_b: &Vec2,
-        uv_c: &Vec2,
-    ) -> Option<Vec2> {
+    pub fn uv(&self, p: Option<&Point3D>, uv_a: &Vec2, uv_b: &Vec2, uv_c: &Vec2) -> Option<Vec2> {
         unsafe {
             let mut res = Vec2::uninitialized();
             let ret = from_glib(ffi::graphene_triangle_get_uv(

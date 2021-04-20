@@ -14,7 +14,7 @@ impl Screen {
     }
 
     #[doc(alias = "gdk_screen_get_setting")]
-    pub fn get_setting(&self, name: &str) -> Option<glib::Value> {
+    pub fn setting(&self, name: &str) -> Option<glib::Value> {
         unsafe {
             let mut value = glib::Value::uninitialized();
             let done: bool = from_glib(ffi::gdk_screen_get_setting(

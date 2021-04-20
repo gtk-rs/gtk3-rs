@@ -26,7 +26,7 @@ glib::wrapper! {
     pub struct RecentChooserWidget(Object<ffi::GtkRecentChooserWidget, ffi::GtkRecentChooserWidgetClass>) @extends Box, Container, Widget, @implements Buildable, Orientable, RecentChooser;
 
     match fn {
-        get_type => || ffi::gtk_recent_chooser_widget_get_type(),
+        type_ => || ffi::gtk_recent_chooser_widget_get_type(),
     }
 }
 

@@ -29,7 +29,7 @@ glib::wrapper! {
     pub struct FlowBox(Object<ffi::GtkFlowBox, ffi::GtkFlowBoxClass>) @extends Container, Widget, @implements Buildable, Orientable;
 
     match fn {
-        get_type => || ffi::gtk_flow_box_get_type(),
+        type_ => || ffi::gtk_flow_box_get_type(),
     }
 }
 
@@ -471,12 +471,12 @@ pub trait FlowBoxExt: 'static {
     fn activates_on_single_click(&self) -> bool;
 
     #[doc(alias = "gtk_flow_box_get_child_at_index")]
-    fn get_child_at_index(&self, idx: i32) -> Option<FlowBoxChild>;
+    fn child_at_index(&self, idx: i32) -> Option<FlowBoxChild>;
 
     #[cfg(any(feature = "v3_22_6", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_6")))]
     #[doc(alias = "gtk_flow_box_get_child_at_pos")]
-    fn get_child_at_pos(&self, x: i32, y: i32) -> Option<FlowBoxChild>;
+    fn child_at_pos(&self, x: i32, y: i32) -> Option<FlowBoxChild>;
 
     #[doc(alias = "gtk_flow_box_get_column_spacing")]
     fn column_spacing(&self) -> u32;
@@ -670,7 +670,7 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         }
     }
 
-    fn get_child_at_index(&self, idx: i32) -> Option<FlowBoxChild> {
+    fn child_at_index(&self, idx: i32) -> Option<FlowBoxChild> {
         unsafe {
             from_glib_none(ffi::gtk_flow_box_get_child_at_index(
                 self.as_ref().to_glib_none().0,
@@ -681,7 +681,7 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
 
     #[cfg(any(feature = "v3_22_6", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_6")))]
-    fn get_child_at_pos(&self, x: i32, y: i32) -> Option<FlowBoxChild> {
+    fn child_at_pos(&self, x: i32, y: i32) -> Option<FlowBoxChild> {
         unsafe {
             from_glib_none(ffi::gtk_flow_box_get_child_at_pos(
                 self.as_ref().to_glib_none().0,

@@ -25,7 +25,7 @@ glib::wrapper! {
     pub struct LevelBar(Object<ffi::GtkLevelBar, ffi::GtkLevelBarClass>) @extends Widget, @implements Buildable, Orientable;
 
     match fn {
-        get_type => || ffi::gtk_level_bar_get_type(),
+        type_ => || ffi::gtk_level_bar_get_type(),
     }
 }
 
@@ -434,7 +434,7 @@ pub trait LevelBarExt: 'static {
     fn mode(&self) -> LevelBarMode;
 
     #[doc(alias = "gtk_level_bar_get_offset_value")]
-    fn get_offset_value(&self, name: Option<&str>) -> Option<f64>;
+    fn offset_value(&self, name: Option<&str>) -> Option<f64>;
 
     #[doc(alias = "gtk_level_bar_get_value")]
     fn value(&self) -> f64;
@@ -505,7 +505,7 @@ impl<O: IsA<LevelBar>> LevelBarExt for O {
         unsafe { from_glib(ffi::gtk_level_bar_get_mode(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_offset_value(&self, name: Option<&str>) -> Option<f64> {
+    fn offset_value(&self, name: Option<&str>) -> Option<f64> {
         unsafe {
             let mut value = mem::MaybeUninit::uninit();
             let ret = from_glib(ffi::gtk_level_bar_get_offset_value(

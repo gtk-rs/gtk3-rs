@@ -10,7 +10,7 @@ glib::wrapper! {
     pub struct X11Cursor(Object<ffi::GdkX11Cursor, ffi::GdkX11CursorClass>) @extends gdk::Cursor;
 
     match fn {
-        get_type => || ffi::gdk_x11_cursor_get_type(),
+        type_ => || ffi::gdk_x11_cursor_get_type(),
     }
 }
 

@@ -16,7 +16,7 @@ glib::wrapper! {
     match fn {
         copy => |ptr| ffi::pango_attr_iterator_copy(mut_override(ptr)),
         free => |ptr| ffi::pango_attr_iterator_destroy(ptr),
-        get_type => || ffi::pango_attr_iterator_get_type(),
+        type_ => || ffi::pango_attr_iterator_get_type(),
     }
 }
 

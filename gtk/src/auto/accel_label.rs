@@ -25,7 +25,7 @@ glib::wrapper! {
     pub struct AccelLabel(Object<ffi::GtkAccelLabel, ffi::GtkAccelLabelClass>) @extends Label, Misc, Widget, @implements Buildable;
 
     match fn {
-        get_type => || ffi::gtk_accel_label_get_type(),
+        type_ => || ffi::gtk_accel_label_get_type(),
     }
 }
 

@@ -9,6 +9,6 @@ glib::wrapper! {
     match fn {
         copy => |ptr| glib::gobject_ffi::g_boxed_copy(ffi::atk_text_range_get_type(), ptr as *mut _) as *mut ffi::AtkTextRange,
         free => |ptr| glib::gobject_ffi::g_boxed_free(ffi::atk_text_range_get_type(), ptr as *mut _),
-        get_type => || ffi::atk_text_range_get_type(),
+        type_ => || ffi::atk_text_range_get_type(),
     }
 }

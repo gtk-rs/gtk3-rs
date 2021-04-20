@@ -15,7 +15,7 @@ glib::wrapper! {
     pub struct ProxyAddress(Object<ffi::GProxyAddress, ffi::GProxyAddressClass>) @extends InetSocketAddress, SocketAddress, @implements SocketConnectable;
 
     match fn {
-        get_type => || ffi::g_proxy_address_get_type(),
+        type_ => || ffi::g_proxy_address_get_type(),
     }
 }
 

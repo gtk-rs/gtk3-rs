@@ -22,7 +22,7 @@ glib::wrapper! {
     pub struct SeparatorMenuItem(Object<ffi::GtkSeparatorMenuItem, ffi::GtkSeparatorMenuItemClass>) @extends MenuItem, Bin, Container, Widget, @implements Buildable, Actionable;
 
     match fn {
-        get_type => || ffi::gtk_separator_menu_item_get_type(),
+        type_ => || ffi::gtk_separator_menu_item_get_type(),
     }
 }
 

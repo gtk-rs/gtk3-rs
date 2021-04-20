@@ -16,7 +16,7 @@ glib::wrapper! {
     pub struct PixbufSimpleAnim(Object<ffi::GdkPixbufSimpleAnim, ffi::GdkPixbufSimpleAnimClass>) @extends PixbufAnimation;
 
     match fn {
-        get_type => || ffi::gdk_pixbuf_simple_anim_get_type(),
+        type_ => || ffi::gdk_pixbuf_simple_anim_get_type(),
     }
 }
 

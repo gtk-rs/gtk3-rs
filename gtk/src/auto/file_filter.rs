@@ -11,7 +11,7 @@ glib::wrapper! {
     pub struct FileFilter(Object<ffi::GtkFileFilter>) @implements Buildable;
 
     match fn {
-        get_type => || ffi::gtk_file_filter_get_type(),
+        type_ => || ffi::gtk_file_filter_get_type(),
     }
 }
 

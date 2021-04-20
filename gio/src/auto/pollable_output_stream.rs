@@ -13,7 +13,7 @@ glib::wrapper! {
     pub struct PollableOutputStream(Interface<ffi::GPollableOutputStream, ffi::GPollableOutputStreamInterface>) @requires OutputStream;
 
     match fn {
-        get_type => || ffi::g_pollable_output_stream_get_type(),
+        type_ => || ffi::g_pollable_output_stream_get_type(),
     }
 }
 

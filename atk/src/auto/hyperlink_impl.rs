@@ -11,7 +11,7 @@ glib::wrapper! {
     pub struct HyperlinkImpl(Interface<ffi::AtkHyperlinkImpl, ffi::AtkHyperlinkImplIface>);
 
     match fn {
-        get_type => || ffi::atk_hyperlink_impl_get_type(),
+        type_ => || ffi::atk_hyperlink_impl_get_type(),
     }
 }
 

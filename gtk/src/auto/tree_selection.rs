@@ -21,7 +21,7 @@ glib::wrapper! {
     pub struct TreeSelection(Object<ffi::GtkTreeSelection, ffi::GtkTreeSelectionClass>);
 
     match fn {
-        get_type => || ffi::gtk_tree_selection_get_type(),
+        type_ => || ffi::gtk_tree_selection_get_type(),
     }
 }
 

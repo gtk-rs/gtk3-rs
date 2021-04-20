@@ -121,7 +121,7 @@ impl Surface {
         self.finish();
 
         let env = self
-            .get_user_data_ptr(&STREAM_CALLBACK_ENVIRONMENT)
+            .user_data_ptr(&STREAM_CALLBACK_ENVIRONMENT)
             .expect("surface without an output stream");
 
         // Safety: since `STREAM_CALLBACK_ENVIRONMENT` is private and we never

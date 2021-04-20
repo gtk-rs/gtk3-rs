@@ -12,7 +12,7 @@ glib::wrapper! {
     pub struct DBusActionGroup(Object<ffi::GDBusActionGroup>) @implements ActionGroup, RemoteActionGroup;
 
     match fn {
-        get_type => || ffi::g_dbus_action_group_get_type(),
+        type_ => || ffi::g_dbus_action_group_get_type(),
     }
 }
 

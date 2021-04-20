@@ -31,7 +31,7 @@ glib::wrapper! {
     pub struct MenuButton(Object<ffi::GtkMenuButton, ffi::GtkMenuButtonClass>) @extends ToggleButton, Button, Bin, Container, Widget, @implements Buildable, Actionable;
 
     match fn {
-        get_type => || ffi::gtk_menu_button_get_type(),
+        type_ => || ffi::gtk_menu_button_get_type(),
     }
 }
 

@@ -23,7 +23,7 @@ glib::wrapper! {
     pub struct EventBox(Object<ffi::GtkEventBox, ffi::GtkEventBoxClass>) @extends Bin, Container, Widget, @implements Buildable;
 
     match fn {
-        get_type => || ffi::gtk_event_box_get_type(),
+        type_ => || ffi::gtk_event_box_get_type(),
     }
 }
 

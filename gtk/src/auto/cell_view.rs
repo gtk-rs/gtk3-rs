@@ -28,7 +28,7 @@ glib::wrapper! {
     pub struct CellView(Object<ffi::GtkCellView, ffi::GtkCellViewClass>) @extends Widget, @implements Buildable, CellLayout, Orientable;
 
     match fn {
-        get_type => || ffi::gtk_cell_view_get_type(),
+        type_ => || ffi::gtk_cell_view_get_type(),
     }
 }
 

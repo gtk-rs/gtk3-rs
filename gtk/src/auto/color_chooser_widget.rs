@@ -27,7 +27,7 @@ glib::wrapper! {
     pub struct ColorChooserWidget(Object<ffi::GtkColorChooserWidget, ffi::GtkColorChooserWidgetClass>) @extends Box, Container, Widget, @implements Buildable, Orientable, ColorChooser;
 
     match fn {
-        get_type => || ffi::gtk_color_chooser_widget_get_type(),
+        type_ => || ffi::gtk_color_chooser_widget_get_type(),
     }
 }
 

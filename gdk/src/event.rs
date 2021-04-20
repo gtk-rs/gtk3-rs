@@ -27,7 +27,7 @@ glib::wrapper! {
     match fn {
         copy => |ptr| ffi::gdk_event_copy(ptr),
         free => |ptr| ffi::gdk_event_free(ptr),
-        get_type => || ffi::gdk_event_get_type(),
+        type_ => || ffi::gdk_event_get_type(),
     }
 }
 
@@ -93,7 +93,7 @@ impl Event {
     }
 
     #[doc(alias = "gdk_event_get_axis")]
-    pub fn get_axis(&self, axis_use: AxisUse) -> Option<f64> {
+    pub fn axis(&self, axis_use: AxisUse) -> Option<f64> {
         let mut value = 0f64;
         if unsafe {
             from_glib(ffi::gdk_event_get_axis(

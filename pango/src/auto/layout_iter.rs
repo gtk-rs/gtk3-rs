@@ -16,7 +16,7 @@ glib::wrapper! {
     match fn {
         copy => |ptr| ffi::pango_layout_iter_copy(mut_override(ptr)),
         free => |ptr| ffi::pango_layout_iter_free(ptr),
-        get_type => || ffi::pango_layout_iter_get_type(),
+        type_ => || ffi::pango_layout_iter_get_type(),
     }
 }
 

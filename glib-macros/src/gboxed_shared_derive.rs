@@ -126,7 +126,7 @@ pub fn impl_gshared_boxed(input: &syn::DeriveInput) -> proc_macro2::TokenStream 
 
             type RefCountedType = #refcounted_type;
 
-            fn get_type() -> #crate_ident::Type {
+            fn type_() -> #crate_ident::Type {
                 static mut TYPE_: #crate_ident::Type = #crate_ident::Type::INVALID;
                 static ONCE: ::std::sync::Once = ::std::sync::Once::new();
 
@@ -151,7 +151,7 @@ pub fn impl_gshared_boxed(input: &syn::DeriveInput) -> proc_macro2::TokenStream 
 
         impl #crate_ident::StaticType for #name {
             fn static_type() -> #crate_ident::Type {
-                <#name as #crate_ident::subclass::shared::SharedType>::get_type()
+                <#name as #crate_ident::subclass::shared::SharedType>::type_()
             }
         }
 

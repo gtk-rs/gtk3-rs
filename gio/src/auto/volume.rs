@@ -26,7 +26,7 @@ glib::wrapper! {
     pub struct Volume(Interface<ffi::GVolume, ffi::GVolumeIface>);
 
     match fn {
-        get_type => || ffi::g_volume_get_type(),
+        type_ => || ffi::g_volume_get_type(),
     }
 }
 
@@ -71,7 +71,7 @@ pub trait VolumeExt: 'static {
     fn icon(&self) -> Icon;
 
     #[doc(alias = "g_volume_get_identifier")]
-    fn get_identifier(&self, kind: &str) -> Option<glib::GString>;
+    fn identifier(&self, kind: &str) -> Option<glib::GString>;
 
     #[doc(alias = "g_volume_get_mount")]
     fn get_mount(&self) -> Option<Mount>;
@@ -215,7 +215,7 @@ impl<O: IsA<Volume>> VolumeExt for O {
         unsafe { from_glib_full(ffi::g_volume_get_icon(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_identifier(&self, kind: &str) -> Option<glib::GString> {
+    fn identifier(&self, kind: &str) -> Option<glib::GString> {
         unsafe {
             from_glib_full(ffi::g_volume_get_identifier(
                 self.as_ref().to_glib_none().0,

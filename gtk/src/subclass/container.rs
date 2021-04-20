@@ -32,8 +32,8 @@ pub trait ContainerImpl: ContainerImplExt + WidgetImpl {
         self.parent_child_type(container)
     }
 
-    fn get_path_for_child(&self, container: &Self::Type, widget: &Widget) -> WidgetPath {
-        self.parent_get_path_for_child(container, widget)
+    fn path_for_child(&self, container: &Self::Type, widget: &Widget) -> WidgetPath {
+        self.parent_path_for_child(container, widget)
     }
 
     fn forall(&self, container: &Self::Type, include_internals: bool, callback: &Callback) {
@@ -47,7 +47,7 @@ pub trait ContainerImplExt: ObjectSubclass {
     fn parent_check_resize(&self, container: &Self::Type);
     fn parent_set_focus_child(&self, container: &Self::Type, widget: Option<&Widget>);
     fn parent_child_type(&self, container: &Self::Type) -> glib::Type;
-    fn parent_get_path_for_child(&self, container: &Self::Type, widget: &Widget) -> WidgetPath;
+    fn parent_path_for_child(&self, container: &Self::Type, widget: &Widget) -> WidgetPath;
     fn parent_forall(&self, container: &Self::Type, include_internals: bool, callback: &Callback);
 }
 
@@ -113,7 +113,7 @@ impl<T: ContainerImpl> ContainerImplExt for T {
         }
     }
 
-    fn parent_get_path_for_child(&self, container: &Self::Type, widget: &Widget) -> WidgetPath {
+    fn parent_path_for_child(&self, container: &Self::Type, widget: &Widget) -> WidgetPath {
         unsafe {
             let data = T::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkContainerClass;
@@ -225,7 +225,7 @@ unsafe extern "C" fn container_get_path_for_child<T: ContainerImpl>(
     let wrap: Borrowed<Container> = from_glib_borrow(ptr);
     let widget: Borrowed<Widget> = from_glib_borrow(wdgtptr);
 
-    imp.get_path_for_child(wrap.unsafe_cast_ref(), &widget)
+    imp.path_for_child(wrap.unsafe_cast_ref(), &widget)
         .to_glib_none()
         .0
 }

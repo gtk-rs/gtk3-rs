@@ -22,7 +22,7 @@ glib::wrapper! {
     pub struct GLArea(Object<ffi::GtkGLArea, ffi::GtkGLAreaClass>) @extends Widget, @implements Buildable;
 
     match fn {
-        get_type => || ffi::gtk_gl_area_get_type(),
+        type_ => || ffi::gtk_gl_area_get_type(),
     }
 }
 

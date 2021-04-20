@@ -12,7 +12,7 @@ glib::wrapper! {
     pub struct Notification(Object<ffi::GNotification>);
 
     match fn {
-        get_type => || ffi::g_notification_get_type(),
+        type_ => || ffi::g_notification_get_type(),
     }
 }
 

@@ -22,7 +22,7 @@ glib::wrapper! {
     pub struct EntryCompletion(Object<ffi::GtkEntryCompletion, ffi::GtkEntryCompletionClass>) @implements Buildable, CellLayout;
 
     match fn {
-        get_type => || ffi::gtk_entry_completion_get_type(),
+        type_ => || ffi::gtk_entry_completion_get_type(),
     }
 }
 

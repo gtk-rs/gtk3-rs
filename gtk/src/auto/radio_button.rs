@@ -29,7 +29,7 @@ glib::wrapper! {
     pub struct RadioButton(Object<ffi::GtkRadioButton, ffi::GtkRadioButtonClass>) @extends CheckButton, ToggleButton, Button, Bin, Container, Widget, @implements Buildable, Actionable;
 
     match fn {
-        get_type => || ffi::gtk_radio_button_get_type(),
+        type_ => || ffi::gtk_radio_button_get_type(),
     }
 }
 

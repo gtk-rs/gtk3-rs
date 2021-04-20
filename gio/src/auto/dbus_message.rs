@@ -26,7 +26,7 @@ glib::wrapper! {
     pub struct DBusMessage(Object<ffi::GDBusMessage>);
 
     match fn {
-        get_type => || ffi::g_dbus_message_get_type(),
+        type_ => || ffi::g_dbus_message_get_type(),
     }
 }
 
@@ -130,7 +130,7 @@ impl DBusMessage {
     }
 
     #[doc(alias = "g_dbus_message_get_header")]
-    pub fn get_header(&self, header_field: DBusMessageHeaderField) -> Option<glib::Variant> {
+    pub fn header(&self, header_field: DBusMessageHeaderField) -> Option<glib::Variant> {
         unsafe {
             from_glib_none(ffi::g_dbus_message_get_header(
                 self.to_glib_none().0,

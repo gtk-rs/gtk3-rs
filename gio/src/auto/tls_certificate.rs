@@ -14,7 +14,7 @@ glib::wrapper! {
     pub struct TlsCertificate(Object<ffi::GTlsCertificate, ffi::GTlsCertificateClass>);
 
     match fn {
-        get_type => || ffi::g_tls_certificate_get_type(),
+        type_ => || ffi::g_tls_certificate_get_type(),
     }
 }
 

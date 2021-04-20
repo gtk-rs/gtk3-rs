@@ -199,7 +199,7 @@ fn check_tokens(
     Ok(())
 }
 
-fn get_full_ident(parts: &mut Peekable<ProcIter>, borrow_kind: BorrowKind) -> String {
+fn full_ident(parts: &mut Peekable<ProcIter>, borrow_kind: BorrowKind) -> String {
     let mut name = String::new();
     let mut prev_is_ident = false;
 
@@ -244,7 +244,7 @@ fn get_full_ident(parts: &mut Peekable<ProcIter>, borrow_kind: BorrowKind) -> St
     name
 }
 
-fn get_keyword(parts: &mut Peekable<ProcIter>) -> String {
+fn keyword(parts: &mut Peekable<ProcIter>) -> String {
     let mut ret = String::new();
     let mut prev_is_ident = false;
     let mut stored = false;
@@ -278,7 +278,7 @@ fn get_keyword(parts: &mut Peekable<ProcIter>) -> String {
 }
 
 fn parse_ident(parts: &mut Peekable<ProcIter>, elements: &mut Vec<ElemToClone>) {
-    let borrow_kind = match get_keyword(parts).as_str() {
+    let borrow_kind = match keyword(parts).as_str() {
         "strong" => BorrowKind::Strong,
         "weak" => BorrowKind::Weak,
         "weak-allow-none" => BorrowKind::WeakAllowNone,
@@ -289,7 +289,7 @@ fn parse_ident(parts: &mut Peekable<ProcIter>, elements: &mut Vec<ElemToClone>) 
             k,
         ),
     };
-    let name = get_full_ident(parts, borrow_kind);
+    let name = full_ident(parts, borrow_kind);
     let alias = match parts.peek() {
         Some(TokenTree::Ident(p)) if p.to_string() == "as" => {
             parts.next();
@@ -361,7 +361,7 @@ fn group_to_string(g: &Group) -> String {
     )
 }
 
-fn get_expr(parts: &mut Peekable<ProcIter>) -> String {
+fn expr(parts: &mut Peekable<ProcIter>) -> String {
     let mut ret = String::new();
     let mut total = 0;
     match parts.next() {
@@ -407,7 +407,7 @@ fn get_expr(parts: &mut Peekable<ProcIter>) -> String {
     }
 }
 
-fn get_return_kind(parts: &mut Peekable<ProcIter>) -> WrapperKind {
+fn return_kind(parts: &mut Peekable<ProcIter>) -> WrapperKind {
     match check_tokens(
         &[SimpleToken::Ident("default"), SimpleToken::Punct("-")],
         parts,
@@ -432,7 +432,7 @@ fn get_return_kind(parts: &mut Peekable<ProcIter>) -> WrapperKind {
         Some(x) => panic!("Unknown token `{}` after `@default-`", x.to_string()),
         None => panic!("Unexpected end after `@default-`"),
     }
-    WrapperKind::DefaultReturn(get_expr(parts))
+    WrapperKind::DefaultReturn(expr(parts))
 }
 
 fn parse_return_kind(parts: &mut Peekable<ProcIter>) -> Option<WrapperKind> {
@@ -442,7 +442,7 @@ fn parse_return_kind(parts: &mut Peekable<ProcIter>) -> Option<WrapperKind> {
         _ => return None,
     }
     parts.next();
-    let ret = get_return_kind(parts);
+    let ret = return_kind(parts);
     match check_tokens(&[SimpleToken::Punct(",")], parts) {
         Err(TokenCheck::UnexpectedToken(_, unexpected_token)) => {
             panic!(
@@ -500,7 +500,7 @@ fn check_async_syntax(parts: &mut Peekable<ProcIter>) -> BlockKind {
     match parts.peek() {
         Some(TokenTree::Punct(p)) if p.to_string() == "|" => {
             parts.next();
-            BlockKind::AsyncClosure(get_closure(parts))
+            BlockKind::AsyncClosure(closure(parts))
         }
         Some(TokenTree::Punct(p)) => {
             panic!(
@@ -525,7 +525,7 @@ fn check_before_closure(parts: &mut Peekable<ProcIter>) -> BlockKind {
         Some(TokenTree::Ident(i)) if i.to_string() == "move" => false,
         Some(TokenTree::Ident(i)) if i.to_string() == "async" => true,
         Some(TokenTree::Ident(i)) if i.to_string() == "default" => {
-            let ret = get_return_kind(parts);
+            let ret = return_kind(parts);
             panic!("Missing `@` before `{}`", ret.keyword());
         }
         Some(TokenTree::Punct(p)) if p.to_string() == "|" => {
@@ -542,7 +542,7 @@ fn check_before_closure(parts: &mut Peekable<ProcIter>) -> BlockKind {
         Some(x) => panic!("Expected closure, found `{}`", x.to_string()),
         None => panic!("Expected closure"),
     }
-    let closure = get_closure(parts);
+    let closure = closure(parts);
     match parts.peek() {
         Some(TokenTree::Ident(i)) if i.to_string() == "async" => {
             parts.next();
@@ -571,7 +571,7 @@ fn check_before_closure(parts: &mut Peekable<ProcIter>) -> BlockKind {
     }
 }
 
-fn get_closure(parts: &mut Peekable<ProcIter>) -> Vec<TokenTree> {
+fn closure(parts: &mut Peekable<ProcIter>) -> Vec<TokenTree> {
     let mut ret = Vec::new();
 
     loop {

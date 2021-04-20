@@ -663,19 +663,19 @@ pub fn format_size_full(size: u64, flags: FormatSizeFlags) -> crate::GString {
 //}
 
 #[doc(alias = "g_get_application_name")]
-pub fn get_application_name() -> Option<crate::GString> {
+pub fn application_name() -> Option<crate::GString> {
     unsafe { from_glib_none(ffi::g_get_application_name()) }
 }
 
 #[doc(alias = "g_get_codeset")]
-pub fn get_codeset() -> crate::GString {
+pub fn codeset() -> crate::GString {
     unsafe { from_glib_full(ffi::g_get_codeset()) }
 }
 
 #[cfg(any(feature = "v2_62", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_62")))]
 #[doc(alias = "g_get_console_charset")]
-pub fn get_console_charset() -> Option<crate::GString> {
+pub fn console_charset() -> Option<crate::GString> {
     unsafe {
         let mut charset = ptr::null();
         let ret = from_glib(ffi::g_get_console_charset(&mut charset));
@@ -689,29 +689,29 @@ pub fn get_console_charset() -> Option<crate::GString> {
 
 //#[cfg_attr(feature = "v2_62", deprecated)]
 //#[doc(alias = "g_get_current_time")]
-//pub fn get_current_time(result: /*Ignored*/&mut TimeVal) {
+//pub fn current_time(result: /*Ignored*/&mut TimeVal) {
 //    unsafe { TODO: call ffi:g_get_current_time() }
 //}
 
 #[doc(alias = "g_get_environ")]
-pub fn get_environ() -> Vec<std::ffi::OsString> {
+pub fn environ() -> Vec<std::ffi::OsString> {
     unsafe { FromGlibPtrContainer::from_glib_full(ffi::g_get_environ()) }
 }
 
 #[doc(alias = "g_get_host_name")]
-pub fn get_host_name() -> crate::GString {
+pub fn host_name() -> crate::GString {
     unsafe { from_glib_none(ffi::g_get_host_name()) }
 }
 
 #[doc(alias = "g_get_language_names")]
-pub fn get_language_names() -> Vec<crate::GString> {
+pub fn language_names() -> Vec<crate::GString> {
     unsafe { FromGlibPtrContainer::from_glib_none(ffi::g_get_language_names()) }
 }
 
 #[cfg(any(feature = "v2_58", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_58")))]
 #[doc(alias = "g_get_language_names_with_category")]
-pub fn get_language_names_with_category(category_name: &str) -> Vec<crate::GString> {
+pub fn language_names_with_category(category_name: &str) -> Vec<crate::GString> {
     unsafe {
         FromGlibPtrContainer::from_glib_none(ffi::g_get_language_names_with_category(
             category_name.to_glib_none().0,
@@ -720,66 +720,66 @@ pub fn get_language_names_with_category(category_name: &str) -> Vec<crate::GStri
 }
 
 #[doc(alias = "g_get_locale_variants")]
-pub fn get_locale_variants(locale: &str) -> Vec<crate::GString> {
+pub fn locale_variants(locale: &str) -> Vec<crate::GString> {
     unsafe {
         FromGlibPtrContainer::from_glib_full(ffi::g_get_locale_variants(locale.to_glib_none().0))
     }
 }
 
 #[doc(alias = "g_get_monotonic_time")]
-pub fn get_monotonic_time() -> i64 {
+pub fn monotonic_time() -> i64 {
     unsafe { ffi::g_get_monotonic_time() }
 }
 
 #[doc(alias = "g_get_num_processors")]
-pub fn get_num_processors() -> u32 {
+pub fn num_processors() -> u32 {
     unsafe { ffi::g_get_num_processors() }
 }
 
 #[cfg(any(feature = "v2_64", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
 #[doc(alias = "g_get_os_info")]
-pub fn get_os_info(key_name: &str) -> Option<crate::GString> {
+pub fn os_info(key_name: &str) -> Option<crate::GString> {
     unsafe { from_glib_full(ffi::g_get_os_info(key_name.to_glib_none().0)) }
 }
 
 #[doc(alias = "g_get_real_time")]
-pub fn get_real_time() -> i64 {
+pub fn real_time() -> i64 {
     unsafe { ffi::g_get_real_time() }
 }
 
 #[doc(alias = "g_get_system_config_dirs")]
-pub fn get_system_config_dirs() -> Vec<std::path::PathBuf> {
+pub fn system_config_dirs() -> Vec<std::path::PathBuf> {
     unsafe { FromGlibPtrContainer::from_glib_none(ffi::g_get_system_config_dirs()) }
 }
 
 #[doc(alias = "g_get_system_data_dirs")]
-pub fn get_system_data_dirs() -> Vec<std::path::PathBuf> {
+pub fn system_data_dirs() -> Vec<std::path::PathBuf> {
     unsafe { FromGlibPtrContainer::from_glib_none(ffi::g_get_system_data_dirs()) }
 }
 
 #[doc(alias = "g_get_user_cache_dir")]
-pub fn get_user_cache_dir() -> std::path::PathBuf {
+pub fn user_cache_dir() -> std::path::PathBuf {
     unsafe { from_glib_none(ffi::g_get_user_cache_dir()) }
 }
 
 #[doc(alias = "g_get_user_config_dir")]
-pub fn get_user_config_dir() -> std::path::PathBuf {
+pub fn user_config_dir() -> std::path::PathBuf {
     unsafe { from_glib_none(ffi::g_get_user_config_dir()) }
 }
 
 #[doc(alias = "g_get_user_data_dir")]
-pub fn get_user_data_dir() -> std::path::PathBuf {
+pub fn user_data_dir() -> std::path::PathBuf {
     unsafe { from_glib_none(ffi::g_get_user_data_dir()) }
 }
 
 #[doc(alias = "g_get_user_runtime_dir")]
-pub fn get_user_runtime_dir() -> std::path::PathBuf {
+pub fn user_runtime_dir() -> std::path::PathBuf {
     unsafe { from_glib_none(ffi::g_get_user_runtime_dir()) }
 }
 
 #[doc(alias = "g_get_user_special_dir")]
-pub fn get_user_special_dir(directory: UserDirectory) -> std::path::PathBuf {
+pub fn user_special_dir(directory: UserDirectory) -> std::path::PathBuf {
     unsafe { from_glib_none(ffi::g_get_user_special_dir(directory.to_glib())) }
 }
 

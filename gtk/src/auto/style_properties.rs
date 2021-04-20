@@ -12,7 +12,7 @@ glib::wrapper! {
     pub struct StyleProperties(Object<ffi::GtkStyleProperties, ffi::GtkStylePropertiesClass>) @implements StyleProvider;
 
     match fn {
-        get_type => || ffi::gtk_style_properties_get_type(),
+        type_ => || ffi::gtk_style_properties_get_type(),
     }
 }
 
@@ -44,11 +44,11 @@ pub trait StylePropertiesExt: 'static {
 
     #[cfg_attr(feature = "v3_16", deprecated)]
     #[doc(alias = "gtk_style_properties_get_property")]
-    fn get_property(&self, property: &str, state: StateFlags) -> Option<glib::Value>;
+    fn property(&self, property: &str, state: StateFlags) -> Option<glib::Value>;
 
     //#[cfg_attr(feature = "v3_16", deprecated)]
     //#[doc(alias = "gtk_style_properties_get_valist")]
-    //fn get_valist(&self, state: StateFlags, args: /*Unknown conversion*//*Unimplemented*/Unsupported);
+    //fn valist(&self, state: StateFlags, args: /*Unknown conversion*//*Unimplemented*/Unsupported);
 
     #[cfg_attr(feature = "v3_16", deprecated)]
     #[doc(alias = "gtk_style_properties_merge")]
@@ -82,7 +82,7 @@ impl<O: IsA<StyleProperties>> StylePropertiesExt for O {
     //    unsafe { TODO: call ffi:gtk_style_properties_get() }
     //}
 
-    fn get_property(&self, property: &str, state: StateFlags) -> Option<glib::Value> {
+    fn property(&self, property: &str, state: StateFlags) -> Option<glib::Value> {
         unsafe {
             let mut value = glib::Value::uninitialized();
             let ret = from_glib(ffi::gtk_style_properties_get_property(
@@ -99,7 +99,7 @@ impl<O: IsA<StyleProperties>> StylePropertiesExt for O {
         }
     }
 
-    //fn get_valist(&self, state: StateFlags, args: /*Unknown conversion*//*Unimplemented*/Unsupported) {
+    //fn valist(&self, state: StateFlags, args: /*Unknown conversion*//*Unimplemented*/Unsupported) {
     //    unsafe { TODO: call ffi:gtk_style_properties_get_valist() }
     //}
 

@@ -24,7 +24,7 @@ glib::wrapper! {
     pub struct SeparatorToolItem(Object<ffi::GtkSeparatorToolItem, ffi::GtkSeparatorToolItemClass>) @extends ToolItem, Bin, Container, Widget, @implements Buildable;
 
     match fn {
-        get_type => || ffi::gtk_separator_tool_item_get_type(),
+        type_ => || ffi::gtk_separator_tool_item_get_type(),
     }
 }
 

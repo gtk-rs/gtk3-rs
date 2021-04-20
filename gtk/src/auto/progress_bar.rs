@@ -23,7 +23,7 @@ glib::wrapper! {
     pub struct ProgressBar(Object<ffi::GtkProgressBar, ffi::GtkProgressBarClass>) @extends Widget, @implements Buildable, Orientable;
 
     match fn {
-        get_type => || ffi::gtk_progress_bar_get_type(),
+        type_ => || ffi::gtk_progress_bar_get_type(),
     }
 }
 

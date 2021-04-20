@@ -11,7 +11,7 @@ crate::wrapper! {
     match fn {
         ref => |ptr| ffi::g_main_context_ref(ptr),
         unref => |ptr| ffi::g_main_context_unref(ptr),
-        get_type => || ffi::g_main_context_get_type(),
+        type_ => || ffi::g_main_context_get_type(),
     }
 }
 
@@ -133,7 +133,7 @@ impl MainContext {
     }
 
     #[doc(alias = "g_main_context_get_thread_default")]
-    pub fn get_thread_default() -> Option<MainContext> {
+    pub fn thread_default() -> Option<MainContext> {
         unsafe { from_glib_none(ffi::g_main_context_get_thread_default()) }
     }
 

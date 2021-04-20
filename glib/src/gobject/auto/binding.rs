@@ -10,7 +10,7 @@ crate::wrapper! {
     pub struct Binding(Object<gobject_ffi::GBinding>);
 
     match fn {
-        get_type => || gobject_ffi::g_binding_get_type(),
+        type_ => || gobject_ffi::g_binding_get_type(),
     }
 }
 

@@ -21,7 +21,7 @@ glib::wrapper! {
     pub struct DBusInterfaceSkeleton(Object<ffi::GDBusInterfaceSkeleton, ffi::GDBusInterfaceSkeletonClass>) @implements DBusInterface;
 
     match fn {
-        get_type => || ffi::g_dbus_interface_skeleton_get_type(),
+        type_ => || ffi::g_dbus_interface_skeleton_get_type(),
     }
 }
 

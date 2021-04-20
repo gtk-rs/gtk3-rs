@@ -23,7 +23,7 @@ impl<'a> BindingBuilder<'a> {
         self
     }
 
-    pub fn get_mapping<F: Fn(&glib::Variant, glib::Type) -> Option<glib::Value> + 'static>(
+    pub fn mapping<F: Fn(&glib::Variant, glib::Type) -> Option<glib::Value> + 'static>(
         mut self,
         f: F,
     ) -> Self {
@@ -121,7 +121,7 @@ pub trait SettingsExtManual {
 
 impl<O: IsA<Settings>> SettingsExtManual for O {
     fn get<U: FromVariant>(&self, key: &str) -> U {
-        let val = self.get_value(key);
+        let val = self.value(key);
         FromVariant::from_variant(&val).unwrap_or_else(|| {
             panic!(
                 "Type mismatch: Expected '{}' got '{}'",

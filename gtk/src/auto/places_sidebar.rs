@@ -30,7 +30,7 @@ glib::wrapper! {
     pub struct PlacesSidebar(Object<ffi::GtkPlacesSidebar, ffi::GtkPlacesSidebarClass>) @extends ScrolledWindow, Bin, Container, Widget, @implements Buildable;
 
     match fn {
-        get_type => || ffi::gtk_places_sidebar_get_type(),
+        type_ => || ffi::gtk_places_sidebar_get_type(),
     }
 }
 
@@ -66,7 +66,7 @@ impl PlacesSidebar {
     }
 
     #[doc(alias = "gtk_places_sidebar_get_nth_bookmark")]
-    pub fn get_nth_bookmark(&self, n: i32) -> Option<gio::File> {
+    pub fn nth_bookmark(&self, n: i32) -> Option<gio::File> {
         unsafe {
             from_glib_full(ffi::gtk_places_sidebar_get_nth_bookmark(
                 self.to_glib_none().0,

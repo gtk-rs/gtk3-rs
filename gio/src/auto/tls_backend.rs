@@ -11,13 +11,13 @@ glib::wrapper! {
     pub struct TlsBackend(Interface<ffi::GTlsBackend, ffi::GTlsBackendInterface>);
 
     match fn {
-        get_type => || ffi::g_tls_backend_get_type(),
+        type_ => || ffi::g_tls_backend_get_type(),
     }
 }
 
 impl TlsBackend {
     #[doc(alias = "g_tls_backend_get_default")]
-    pub fn get_default() -> TlsBackend {
+    pub fn default() -> TlsBackend {
         unsafe { from_glib_none(ffi::g_tls_backend_get_default()) }
     }
 }

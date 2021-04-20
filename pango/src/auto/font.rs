@@ -21,7 +21,7 @@ glib::wrapper! {
     pub struct Font(Object<ffi::PangoFont, ffi::PangoFontClass>);
 
     match fn {
-        get_type => || ffi::pango_font_get_type(),
+        type_ => || ffi::pango_font_get_type(),
     }
 }
 
@@ -38,7 +38,7 @@ pub trait FontExt: 'static {
     fn find_shaper(&self, language: &Language, ch: u32) -> Option<EngineShape>;
 
     #[doc(alias = "pango_font_get_coverage")]
-    fn get_coverage(&self, language: &Language) -> Option<Coverage>;
+    fn coverage(&self, language: &Language) -> Option<Coverage>;
 
     #[cfg(any(feature = "v1_46", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_46")))]
@@ -54,7 +54,7 @@ pub trait FontExt: 'static {
     fn font_map(&self) -> Option<FontMap>;
 
     #[doc(alias = "pango_font_get_glyph_extents")]
-    fn get_glyph_extents(&self, glyph: Glyph) -> (Rectangle, Rectangle);
+    fn glyph_extents(&self, glyph: Glyph) -> (Rectangle, Rectangle);
 
     //#[cfg(any(feature = "v1_44", feature = "dox"))]
     //#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
@@ -62,7 +62,7 @@ pub trait FontExt: 'static {
     //fn hb_font(&self) -> /*Ignored*/Option<harf_buzz::font_t>;
 
     #[doc(alias = "pango_font_get_metrics")]
-    fn get_metrics(&self, language: Option<&Language>) -> Option<FontMetrics>;
+    fn metrics(&self, language: Option<&Language>) -> Option<FontMetrics>;
 
     #[cfg(any(feature = "v1_44", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
@@ -93,7 +93,7 @@ impl<O: IsA<Font>> FontExt for O {
         }
     }
 
-    fn get_coverage(&self, language: &Language) -> Option<Coverage> {
+    fn coverage(&self, language: &Language) -> Option<Coverage> {
         unsafe {
             from_glib_full(ffi::pango_font_get_coverage(
                 self.as_ref().to_glib_none().0,
@@ -118,7 +118,7 @@ impl<O: IsA<Font>> FontExt for O {
         unsafe { from_glib_none(ffi::pango_font_get_font_map(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_glyph_extents(&self, glyph: Glyph) -> (Rectangle, Rectangle) {
+    fn glyph_extents(&self, glyph: Glyph) -> (Rectangle, Rectangle) {
         unsafe {
             let mut ink_rect = Rectangle::uninitialized();
             let mut logical_rect = Rectangle::uninitialized();
@@ -138,7 +138,7 @@ impl<O: IsA<Font>> FontExt for O {
     //    unsafe { TODO: call ffi:pango_font_get_hb_font() }
     //}
 
-    fn get_metrics(&self, language: Option<&Language>) -> Option<FontMetrics> {
+    fn metrics(&self, language: Option<&Language>) -> Option<FontMetrics> {
         unsafe {
             from_glib_full(ffi::pango_font_get_metrics(
                 self.as_ref().to_glib_none().0,

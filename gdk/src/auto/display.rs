@@ -28,7 +28,7 @@ glib::wrapper! {
     pub struct Display(Object<ffi::GdkDisplay>);
 
     match fn {
-        get_type => || ffi::gdk_display_get_type(),
+        type_ => || ffi::gdk_display_get_type(),
     }
 }
 
@@ -125,7 +125,7 @@ impl Display {
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gdk_display_get_monitor")]
-    pub fn get_monitor(&self, monitor_num: i32) -> Option<Monitor> {
+    pub fn monitor(&self, monitor_num: i32) -> Option<Monitor> {
         unsafe {
             from_glib_none(ffi::gdk_display_get_monitor(
                 self.to_glib_none().0,
@@ -137,7 +137,7 @@ impl Display {
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gdk_display_get_monitor_at_point")]
-    pub fn get_monitor_at_point(&self, x: i32, y: i32) -> Option<Monitor> {
+    pub fn monitor_at_point(&self, x: i32, y: i32) -> Option<Monitor> {
         unsafe {
             from_glib_none(ffi::gdk_display_get_monitor_at_point(
                 self.to_glib_none().0,
@@ -150,7 +150,7 @@ impl Display {
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gdk_display_get_monitor_at_window")]
-    pub fn get_monitor_at_window(&self, window: &Window) -> Option<Monitor> {
+    pub fn monitor_at_window(&self, window: &Window) -> Option<Monitor> {
         unsafe {
             from_glib_none(ffi::gdk_display_get_monitor_at_window(
                 self.to_glib_none().0,
@@ -180,7 +180,7 @@ impl Display {
 
     #[cfg_attr(feature = "v3_20", deprecated)]
     #[doc(alias = "gdk_display_get_screen")]
-    pub fn get_screen(&self, screen_num: i32) -> Screen {
+    pub fn screen(&self, screen_num: i32) -> Screen {
         unsafe {
             from_glib_none(ffi::gdk_display_get_screen(
                 self.to_glib_none().0,
@@ -334,7 +334,7 @@ impl Display {
     }
 
     #[doc(alias = "gdk_display_get_default")]
-    pub fn get_default() -> Option<Display> {
+    pub fn default() -> Option<Display> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gdk_display_get_default()) }
     }

@@ -77,7 +77,7 @@ impl EnumClass {
     /// Returns `None` if the enum does not contain any value
     /// with `value`.
     #[doc(alias = "g_enum_get_value")]
-    pub fn get_value(&self, value: i32) -> Option<EnumValue> {
+    pub fn value(&self, value: i32) -> Option<EnumValue> {
         unsafe {
             let v = gobject_ffi::g_enum_get_value(self.0, value);
             if v.is_null() {
@@ -93,7 +93,7 @@ impl EnumClass {
     /// Returns `None` if the enum does not contain any value
     /// with name `name`.
     #[doc(alias = "g_enum_get_value_by_name")]
-    pub fn get_value_by_name(&self, name: &str) -> Option<EnumValue> {
+    pub fn value_by_name(&self, name: &str) -> Option<EnumValue> {
         unsafe {
             let v = gobject_ffi::g_enum_get_value_by_name(self.0, name.to_glib_none().0);
             if v.is_null() {
@@ -109,7 +109,7 @@ impl EnumClass {
     /// Returns `None` if the enum does not contain any value
     /// with nick `nick`.
     #[doc(alias = "g_enum_get_value_by_nick")]
-    pub fn get_value_by_nick(&self, nick: &str) -> Option<EnumValue> {
+    pub fn value_by_nick(&self, nick: &str) -> Option<EnumValue> {
         unsafe {
             let v = gobject_ffi::g_enum_get_value_by_nick(self.0, nick.to_glib_none().0);
             if v.is_null() {
@@ -134,17 +134,17 @@ impl EnumClass {
 
     /// Converts integer `value` to a `Value`, if part of the enum.
     pub fn to_value(&self, value: i32) -> Option<Value> {
-        self.get_value(value).map(|v| v.to_value())
+        self.value(value).map(|v| v.to_value())
     }
 
     /// Converts string name `name` to a `Value`, if part of the enum.
     pub fn to_value_by_name(&self, name: &str) -> Option<Value> {
-        self.get_value_by_name(name).map(|v| v.to_value())
+        self.value_by_name(name).map(|v| v.to_value())
     }
 
     /// Converts string nick `nick` to a `Value`, if part of the enum.
     pub fn to_value_by_nick(&self, nick: &str) -> Option<Value> {
-        self.get_value_by_nick(nick).map(|v| v.to_value())
+        self.value_by_nick(nick).map(|v| v.to_value())
     }
 }
 
@@ -198,8 +198,7 @@ impl EnumValue {
     pub fn from_value(value: &Value) -> Option<EnumValue> {
         unsafe {
             let enum_class = EnumClass::new(value.type_());
-            enum_class
-                .and_then(|e| e.get_value(gobject_ffi::g_value_get_enum(value.to_glib_none().0)))
+            enum_class.and_then(|e| e.value(gobject_ffi::g_value_get_enum(value.to_glib_none().0)))
         }
     }
 
@@ -267,7 +266,7 @@ impl FlagsClass {
     /// Returns `None` if the flags do not contain any value
     /// with `value`.
     #[doc(alias = "g_flags_get_first_value")]
-    pub fn get_value(&self, value: u32) -> Option<FlagsValue> {
+    pub fn value(&self, value: u32) -> Option<FlagsValue> {
         unsafe {
             let v = gobject_ffi::g_flags_get_first_value(self.0, value);
             if v.is_null() {
@@ -283,7 +282,7 @@ impl FlagsClass {
     /// Returns `None` if the flags do not contain any value
     /// with name `name`.
     #[doc(alias = "g_flags_get_value_by_name")]
-    pub fn get_value_by_name(&self, name: &str) -> Option<FlagsValue> {
+    pub fn value_by_name(&self, name: &str) -> Option<FlagsValue> {
         unsafe {
             let v = gobject_ffi::g_flags_get_value_by_name(self.0, name.to_glib_none().0);
             if v.is_null() {
@@ -299,7 +298,7 @@ impl FlagsClass {
     /// Returns `None` if the flags do not contain any value
     /// with nick `nick`.
     #[doc(alias = "g_flags_get_value_by_nick")]
-    pub fn get_value_by_nick(&self, nick: &str) -> Option<FlagsValue> {
+    pub fn value_by_nick(&self, nick: &str) -> Option<FlagsValue> {
         unsafe {
             let v = gobject_ffi::g_flags_get_value_by_nick(self.0, nick.to_glib_none().0);
             if v.is_null() {
@@ -324,17 +323,17 @@ impl FlagsClass {
 
     /// Converts integer `value` to a `Value`, if part of the flags.
     pub fn to_value(&self, value: u32) -> Option<Value> {
-        self.get_value(value).map(|v| v.to_value())
+        self.value(value).map(|v| v.to_value())
     }
 
     /// Converts string name `name` to a `Value`, if part of the flags.
     pub fn to_value_by_name(&self, name: &str) -> Option<Value> {
-        self.get_value_by_name(name).map(|v| v.to_value())
+        self.value_by_name(name).map(|v| v.to_value())
     }
 
     /// Converts string nick `nick` to a `Value`, if part of the flags.
     pub fn to_value_by_nick(&self, nick: &str) -> Option<Value> {
-        self.get_value_by_nick(nick).map(|v| v.to_value())
+        self.value_by_nick(nick).map(|v| v.to_value())
     }
 
     /// Checks if the flags corresponding to integer `f` is set in `value`.
@@ -356,7 +355,7 @@ impl FlagsClass {
                 return false;
             }
 
-            if let Some(f) = self.get_value_by_name(name) {
+            if let Some(f) = self.value_by_name(name) {
                 let flags = gobject_ffi::g_value_get_flags(value.to_glib_none().0);
                 flags & f.value() != 0
             } else {
@@ -372,7 +371,7 @@ impl FlagsClass {
                 return false;
             }
 
-            if let Some(f) = self.get_value_by_nick(nick) {
+            if let Some(f) = self.value_by_nick(nick) {
                 let flags = gobject_ffi::g_value_get_flags(value.to_glib_none().0);
                 flags & f.value() != 0
             } else {
@@ -393,7 +392,7 @@ impl FlagsClass {
                 return Err(value);
             }
 
-            if let Some(f) = self.get_value(f) {
+            if let Some(f) = self.value(f) {
                 let flags = gobject_ffi::g_value_get_flags(value.to_glib_none().0);
                 gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, flags | f.value());
                 Ok(value)
@@ -414,7 +413,7 @@ impl FlagsClass {
                 return Err(value);
             }
 
-            if let Some(f) = self.get_value_by_name(name) {
+            if let Some(f) = self.value_by_name(name) {
                 let flags = gobject_ffi::g_value_get_flags(value.to_glib_none().0);
                 gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, flags | f.value());
                 Ok(value)
@@ -435,7 +434,7 @@ impl FlagsClass {
                 return Err(value);
             }
 
-            if let Some(f) = self.get_value_by_nick(nick) {
+            if let Some(f) = self.value_by_nick(nick) {
                 let flags = gobject_ffi::g_value_get_flags(value.to_glib_none().0);
                 gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, flags | f.value());
                 Ok(value)
@@ -456,7 +455,7 @@ impl FlagsClass {
                 return Err(value);
             }
 
-            if let Some(f) = self.get_value(f) {
+            if let Some(f) = self.value(f) {
                 let flags = gobject_ffi::g_value_get_flags(value.to_glib_none().0);
                 gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, flags & !f.value());
                 Ok(value)
@@ -477,7 +476,7 @@ impl FlagsClass {
                 return Err(value);
             }
 
-            if let Some(f) = self.get_value_by_name(name) {
+            if let Some(f) = self.value_by_name(name) {
                 let flags = gobject_ffi::g_value_get_flags(value.to_glib_none().0);
                 gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, flags & !f.value());
                 Ok(value)
@@ -498,7 +497,7 @@ impl FlagsClass {
                 return Err(value);
             }
 
-            if let Some(f) = self.get_value_by_nick(nick) {
+            if let Some(f) = self.value_by_nick(nick) {
                 let flags = gobject_ffi::g_value_get_flags(value.to_glib_none().0);
                 gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, flags & !f.value());
                 Ok(value)
@@ -608,7 +607,7 @@ impl Eq for FlagsValue {}
 /// object again:
 ///
 /// ```ignore
-/// let flags = obj.get_property("flags").unwrap();
+/// let flags = obj.property("flags").unwrap();
 /// let flags_class = FlagsClass::new(flags.type_()).unwrap();
 /// let flags = flags_class.builder_with_value(flags).unwrap()
 ///     .unset_by_nick("some-flag")

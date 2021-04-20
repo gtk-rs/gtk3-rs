@@ -16,7 +16,7 @@ glib::wrapper! {
     match fn {
         copy => |ptr| ffi::g_unix_mount_point_copy(mut_override(ptr)),
         free => |ptr| ffi::g_unix_mount_point_free(ptr),
-        get_type => || ffi::g_unix_mount_point_get_type(),
+        type_ => || ffi::g_unix_mount_point_get_type(),
     }
 }
 

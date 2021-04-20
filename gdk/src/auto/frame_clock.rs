@@ -16,7 +16,7 @@ glib::wrapper! {
     pub struct FrameClock(Object<ffi::GdkFrameClock, ffi::GdkFrameClockClass>);
 
     match fn {
-        get_type => || ffi::gdk_frame_clock_get_type(),
+        type_ => || ffi::gdk_frame_clock_get_type(),
     }
 }
 
@@ -60,7 +60,7 @@ impl FrameClock {
     }
 
     #[doc(alias = "gdk_frame_clock_get_timings")]
-    pub fn get_timings(&self, frame_counter: i64) -> Option<FrameTimings> {
+    pub fn timings(&self, frame_counter: i64) -> Option<FrameTimings> {
         unsafe {
             from_glib_none(ffi::gdk_frame_clock_get_timings(
                 self.to_glib_none().0,

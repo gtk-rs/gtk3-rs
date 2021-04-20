@@ -23,7 +23,7 @@ glib::wrapper! {
     pub struct Switch(Object<ffi::GtkSwitch, ffi::GtkSwitchClass>) @extends Widget, @implements Buildable, Actionable;
 
     match fn {
-        get_type => || ffi::gtk_switch_get_type(),
+        type_ => || ffi::gtk_switch_get_type(),
     }
 }
 

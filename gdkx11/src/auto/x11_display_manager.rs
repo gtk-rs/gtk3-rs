@@ -8,7 +8,7 @@ glib::wrapper! {
     pub struct X11DisplayManager(Object<ffi::GdkX11DisplayManager, ffi::GdkX11DisplayManagerClass>) @extends gdk::DisplayManager;
 
     match fn {
-        get_type => || ffi::gdk_x11_display_manager_get_type(),
+        type_ => || ffi::gdk_x11_display_manager_get_type(),
     }
 }
 

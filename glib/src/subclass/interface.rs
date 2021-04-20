@@ -62,7 +62,7 @@ pub unsafe trait ObjectInterfaceType {
     /// Returns the `glib::Type` ID of the interface.
     ///
     /// This will register the type with the type system on the first call.
-    fn get_type() -> Type;
+    fn type_() -> Type;
 }
 
 /// The central trait for defining a `GObject` interface.
@@ -125,12 +125,12 @@ pub trait ObjectInterfaceExt: ObjectInterface {
     ///
     /// This will panic if `obj` does not implement the interface.
     fn from_instance<T: IsA<Object>>(obj: &T) -> &Self {
-        assert!(obj.as_ref().type_().is_a(Self::get_type()));
+        assert!(obj.as_ref().type_().is_a(Self::type_()));
 
         unsafe {
             let klass = (*(obj.as_ptr() as *const gobject_ffi::GTypeInstance)).g_class;
             let interface =
-                gobject_ffi::g_type_interface_peek(klass as *mut _, Self::get_type().to_glib());
+                gobject_ffi::g_type_interface_peek(klass as *mut _, Self::type_().to_glib());
             assert!(!interface.is_null());
             &*(interface as *const Self)
         }
@@ -153,7 +153,7 @@ unsafe extern "C" fn interface_init<T: ObjectInterface>(
         );
     }
 
-    let type_ = T::get_type();
+    let type_ = T::type_();
     let signals = <T as ObjectInterface>::signals();
     for signal in signals {
         signal.register(type_);
@@ -166,7 +166,7 @@ unsafe extern "C" fn interface_init<T: ObjectInterface>(
 ///
 /// This must be called only once and will panic on a second call.
 ///
-/// The [`object_interface!`] macro will create a `get_type()` function around this, which will
+/// The [`object_interface!`] macro will create a `type_()` function around this, which will
 /// ensure that it's only ever called once.
 ///
 /// [`object_interface!`]: ../../macro.object_interface.html

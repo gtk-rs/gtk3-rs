@@ -12,7 +12,7 @@ glib::wrapper! {
     match fn {
         ref => |ptr| ffi::g_settings_schema_ref(ptr),
         unref => |ptr| ffi::g_settings_schema_unref(ptr),
-        get_type => || ffi::g_settings_schema_get_type(),
+        type_ => || ffi::g_settings_schema_get_type(),
     }
 }
 
@@ -23,7 +23,7 @@ impl SettingsSchema {
     }
 
     #[doc(alias = "g_settings_schema_get_key")]
-    pub fn get_key(&self, name: &str) -> SettingsSchemaKey {
+    pub fn key(&self, name: &str) -> SettingsSchemaKey {
         unsafe {
             from_glib_full(ffi::g_settings_schema_get_key(
                 self.to_glib_none().0,

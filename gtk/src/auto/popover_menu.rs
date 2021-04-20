@@ -29,7 +29,7 @@ glib::wrapper! {
     pub struct PopoverMenu(Object<ffi::GtkPopoverMenu, ffi::GtkPopoverMenuClass>) @extends Popover, Bin, Container, Widget, @implements Buildable;
 
     match fn {
-        get_type => || ffi::gtk_popover_menu_get_type(),
+        type_ => || ffi::gtk_popover_menu_get_type(),
     }
 }
 
@@ -73,7 +73,7 @@ impl PopoverMenu {
         }
     }
 
-    pub fn get_child_position<T: IsA<Widget>>(&self, item: &T) -> i32 {
+    pub fn child_position<T: IsA<Widget>>(&self, item: &T) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
@@ -100,7 +100,7 @@ impl PopoverMenu {
         }
     }
 
-    pub fn get_child_submenu<T: IsA<Widget>>(&self, item: &T) -> Option<glib::GString> {
+    pub fn child_submenu<T: IsA<Widget>>(&self, item: &T) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(

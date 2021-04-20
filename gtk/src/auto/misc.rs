@@ -10,7 +10,7 @@ glib::wrapper! {
     pub struct Misc(Object<ffi::GtkMisc, ffi::GtkMiscClass>) @extends Widget, @implements Buildable;
 
     match fn {
-        get_type => || ffi::gtk_misc_get_type(),
+        type_ => || ffi::gtk_misc_get_type(),
     }
 }
 

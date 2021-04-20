@@ -31,7 +31,7 @@ glib::wrapper! {
     pub struct Window(Object<ffi::GtkWindow, ffi::GtkWindowClass>) @extends Bin, Container, Widget, @implements Buildable;
 
     match fn {
-        get_type => || ffi::gtk_window_get_type(),
+        type_ => || ffi::gtk_window_get_type(),
     }
 }
 
@@ -43,7 +43,7 @@ impl Window {
     }
 
     #[doc(alias = "gtk_window_get_default_icon_list")]
-    pub fn get_default_icon_list() -> Vec<gdk_pixbuf::Pixbuf> {
+    pub fn default_icon_list() -> Vec<gdk_pixbuf::Pixbuf> {
         assert_initialized_main_thread!();
         unsafe {
             FromGlibPtrContainer::from_glib_container(ffi::gtk_window_get_default_icon_list())
@@ -51,7 +51,7 @@ impl Window {
     }
 
     #[doc(alias = "gtk_window_get_default_icon_name")]
-    pub fn get_default_icon_name() -> Option<glib::GString> {
+    pub fn default_icon_name() -> Option<glib::GString> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gtk_window_get_default_icon_name()) }
     }

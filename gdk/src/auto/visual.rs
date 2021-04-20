@@ -13,7 +13,7 @@ glib::wrapper! {
     pub struct Visual(Object<ffi::GdkVisual>);
 
     match fn {
-        get_type => || ffi::gdk_visual_get_type(),
+        type_ => || ffi::gdk_visual_get_type(),
     }
 }
 
@@ -110,28 +110,28 @@ impl Visual {
 
     #[cfg_attr(feature = "v3_22", deprecated)]
     #[doc(alias = "gdk_visual_get_best")]
-    pub fn get_best() -> Visual {
+    pub fn best() -> Visual {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gdk_visual_get_best()) }
     }
 
     #[cfg_attr(feature = "v3_22", deprecated)]
     #[doc(alias = "gdk_visual_get_best_depth")]
-    pub fn get_best_depth() -> i32 {
+    pub fn best_depth() -> i32 {
         assert_initialized_main_thread!();
         unsafe { ffi::gdk_visual_get_best_depth() }
     }
 
     #[cfg_attr(feature = "v3_22", deprecated)]
     #[doc(alias = "gdk_visual_get_best_type")]
-    pub fn get_best_type() -> VisualType {
+    pub fn best_type() -> VisualType {
         assert_initialized_main_thread!();
         unsafe { from_glib(ffi::gdk_visual_get_best_type()) }
     }
 
     #[cfg_attr(feature = "v3_22", deprecated)]
     #[doc(alias = "gdk_visual_get_best_with_both")]
-    pub fn get_best_with_both(depth: i32, visual_type: VisualType) -> Option<Visual> {
+    pub fn best_with_both(depth: i32, visual_type: VisualType) -> Option<Visual> {
         assert_initialized_main_thread!();
         unsafe {
             from_glib_none(ffi::gdk_visual_get_best_with_both(
@@ -143,21 +143,21 @@ impl Visual {
 
     #[cfg_attr(feature = "v3_22", deprecated)]
     #[doc(alias = "gdk_visual_get_best_with_depth")]
-    pub fn get_best_with_depth(depth: i32) -> Option<Visual> {
+    pub fn best_with_depth(depth: i32) -> Option<Visual> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gdk_visual_get_best_with_depth(depth)) }
     }
 
     #[cfg_attr(feature = "v3_22", deprecated)]
     #[doc(alias = "gdk_visual_get_best_with_type")]
-    pub fn get_best_with_type(visual_type: VisualType) -> Option<Visual> {
+    pub fn best_with_type(visual_type: VisualType) -> Option<Visual> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gdk_visual_get_best_with_type(visual_type.to_glib())) }
     }
 
     #[cfg_attr(feature = "v3_22", deprecated)]
     #[doc(alias = "gdk_visual_get_system")]
-    pub fn get_system() -> Visual {
+    pub fn system() -> Visual {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gdk_visual_get_system()) }
     }

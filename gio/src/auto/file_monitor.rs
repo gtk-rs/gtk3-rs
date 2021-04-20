@@ -18,7 +18,7 @@ glib::wrapper! {
     pub struct FileMonitor(Object<ffi::GFileMonitor, ffi::GFileMonitorClass>);
 
     match fn {
-        get_type => || ffi::g_file_monitor_get_type(),
+        type_ => || ffi::g_file_monitor_get_type(),
     }
 }
 

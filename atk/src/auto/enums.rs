@@ -255,7 +255,7 @@ impl RelationType {
     }
 
     #[doc(alias = "atk_relation_type_get_name")]
-    pub fn get_name(self) -> Option<glib::GString> {
+    pub fn name(self) -> Option<glib::GString> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::atk_relation_type_get_name(self.to_glib())) }
     }
@@ -656,13 +656,13 @@ impl Role {
     }
 
     #[doc(alias = "atk_role_get_localized_name")]
-    pub fn get_localized_name(self) -> Option<glib::GString> {
+    pub fn localized_name(self) -> Option<glib::GString> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::atk_role_get_localized_name(self.to_glib())) }
     }
 
     #[doc(alias = "atk_role_get_name")]
-    pub fn get_name(self) -> Option<glib::GString> {
+    pub fn name(self) -> Option<glib::GString> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::atk_role_get_name(self.to_glib())) }
     }
@@ -1329,7 +1329,7 @@ impl StateType {
     }
 
     #[doc(alias = "atk_state_type_get_name")]
-    pub fn get_name(self) -> Option<glib::GString> {
+    pub fn name(self) -> Option<glib::GString> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::atk_state_type_get_name(self.to_glib())) }
     }
@@ -1600,13 +1600,13 @@ impl TextAttribute {
     }
 
     #[doc(alias = "atk_text_attribute_get_name")]
-    pub fn get_name(self) -> Option<glib::GString> {
+    pub fn name(self) -> Option<glib::GString> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::atk_text_attribute_get_name(self.to_glib())) }
     }
 
     #[doc(alias = "atk_text_attribute_get_value")]
-    pub fn get_value(self, index_: i32) -> Option<glib::GString> {
+    pub fn value(self, index_: i32) -> Option<glib::GString> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::atk_text_attribute_get_value(self.to_glib(), index_)) }
     }
@@ -2076,13 +2076,13 @@ pub enum ValueType {
 
 impl ValueType {
     #[doc(alias = "atk_value_type_get_localized_name")]
-    pub fn get_localized_name(self) -> Option<glib::GString> {
+    pub fn localized_name(self) -> Option<glib::GString> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::atk_value_type_get_localized_name(self.to_glib())) }
     }
 
     #[doc(alias = "atk_value_type_get_name")]
-    pub fn get_name(self) -> Option<glib::GString> {
+    pub fn name(self) -> Option<glib::GString> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::atk_value_type_get_name(self.to_glib())) }
     }

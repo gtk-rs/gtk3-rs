@@ -19,7 +19,7 @@ glib::wrapper! {
     pub struct Settings(Object<ffi::GSettings, ffi::GSettingsClass>);
 
     match fn {
-        get_type => || ffi::g_settings_get_type(),
+        type_ => || ffi::g_settings_get_type(),
     }
 }
 
@@ -119,56 +119,56 @@ pub trait SettingsExt: 'static {
     //fn get(&self, key: &str, format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
 
     #[doc(alias = "g_settings_get_boolean")]
-    fn get_boolean(&self, key: &str) -> bool;
+    fn boolean(&self, key: &str) -> bool;
 
     #[doc(alias = "g_settings_get_child")]
-    fn get_child(&self, name: &str) -> Settings;
+    fn child(&self, name: &str) -> Settings;
 
     #[doc(alias = "g_settings_get_default_value")]
-    fn get_default_value(&self, key: &str) -> Option<glib::Variant>;
+    fn default_value(&self, key: &str) -> Option<glib::Variant>;
 
     #[doc(alias = "g_settings_get_double")]
-    fn get_double(&self, key: &str) -> f64;
+    fn double(&self, key: &str) -> f64;
 
     #[doc(alias = "g_settings_get_enum")]
-    fn get_enum(&self, key: &str) -> i32;
+    fn enum_(&self, key: &str) -> i32;
 
     #[doc(alias = "g_settings_get_flags")]
-    fn get_flags(&self, key: &str) -> u32;
+    fn flags(&self, key: &str) -> u32;
 
     #[doc(alias = "g_settings_get_has_unapplied")]
     fn has_unapplied(&self) -> bool;
 
     #[doc(alias = "g_settings_get_int")]
-    fn get_int(&self, key: &str) -> i32;
+    fn int(&self, key: &str) -> i32;
 
     #[cfg(any(feature = "v2_50", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
     #[doc(alias = "g_settings_get_int64")]
-    fn get_int64(&self, key: &str) -> i64;
+    fn int64(&self, key: &str) -> i64;
 
     //#[doc(alias = "g_settings_get_mapped")]
-    //fn get_mapped(&self, key: &str, mapping: /*Unimplemented*/FnMut(&glib::Variant, /*Unimplemented*/Option<Fundamental: Pointer>) -> bool, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> /*Unimplemented*/Option<Fundamental: Pointer>;
+    //fn mapped(&self, key: &str, mapping: /*Unimplemented*/FnMut(&glib::Variant, /*Unimplemented*/Option<Fundamental: Pointer>) -> bool, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> /*Unimplemented*/Option<Fundamental: Pointer>;
 
     #[doc(alias = "g_settings_get_string")]
-    fn get_string(&self, key: &str) -> glib::GString;
+    fn string(&self, key: &str) -> glib::GString;
 
     #[doc(alias = "g_settings_get_strv")]
-    fn get_strv(&self, key: &str) -> Vec<glib::GString>;
+    fn strv(&self, key: &str) -> Vec<glib::GString>;
 
     #[doc(alias = "g_settings_get_uint")]
-    fn get_uint(&self, key: &str) -> u32;
+    fn uint(&self, key: &str) -> u32;
 
     #[cfg(any(feature = "v2_50", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
     #[doc(alias = "g_settings_get_uint64")]
-    fn get_uint64(&self, key: &str) -> u64;
+    fn uint64(&self, key: &str) -> u64;
 
     #[doc(alias = "g_settings_get_user_value")]
-    fn get_user_value(&self, key: &str) -> Option<glib::Variant>;
+    fn user_value(&self, key: &str) -> Option<glib::Variant>;
 
     #[doc(alias = "g_settings_get_value")]
-    fn get_value(&self, key: &str) -> glib::Variant;
+    fn value(&self, key: &str) -> glib::Variant;
 
     #[doc(alias = "g_settings_is_writable")]
     fn is_writable(&self, name: &str) -> bool;
@@ -312,7 +312,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
     //    unsafe { TODO: call ffi:g_settings_get() }
     //}
 
-    fn get_boolean(&self, key: &str) -> bool {
+    fn boolean(&self, key: &str) -> bool {
         unsafe {
             from_glib(ffi::g_settings_get_boolean(
                 self.as_ref().to_glib_none().0,
@@ -321,7 +321,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_child(&self, name: &str) -> Settings {
+    fn child(&self, name: &str) -> Settings {
         unsafe {
             from_glib_full(ffi::g_settings_get_child(
                 self.as_ref().to_glib_none().0,
@@ -330,7 +330,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_default_value(&self, key: &str) -> Option<glib::Variant> {
+    fn default_value(&self, key: &str) -> Option<glib::Variant> {
         unsafe {
             from_glib_full(ffi::g_settings_get_default_value(
                 self.as_ref().to_glib_none().0,
@@ -339,15 +339,15 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_double(&self, key: &str) -> f64 {
+    fn double(&self, key: &str) -> f64 {
         unsafe { ffi::g_settings_get_double(self.as_ref().to_glib_none().0, key.to_glib_none().0) }
     }
 
-    fn get_enum(&self, key: &str) -> i32 {
+    fn enum_(&self, key: &str) -> i32 {
         unsafe { ffi::g_settings_get_enum(self.as_ref().to_glib_none().0, key.to_glib_none().0) }
     }
 
-    fn get_flags(&self, key: &str) -> u32 {
+    fn flags(&self, key: &str) -> u32 {
         unsafe { ffi::g_settings_get_flags(self.as_ref().to_glib_none().0, key.to_glib_none().0) }
     }
 
@@ -359,21 +359,21 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_int(&self, key: &str) -> i32 {
+    fn int(&self, key: &str) -> i32 {
         unsafe { ffi::g_settings_get_int(self.as_ref().to_glib_none().0, key.to_glib_none().0) }
     }
 
     #[cfg(any(feature = "v2_50", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
-    fn get_int64(&self, key: &str) -> i64 {
+    fn int64(&self, key: &str) -> i64 {
         unsafe { ffi::g_settings_get_int64(self.as_ref().to_glib_none().0, key.to_glib_none().0) }
     }
 
-    //fn get_mapped(&self, key: &str, mapping: /*Unimplemented*/FnMut(&glib::Variant, /*Unimplemented*/Option<Fundamental: Pointer>) -> bool, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> /*Unimplemented*/Option<Fundamental: Pointer> {
+    //fn mapped(&self, key: &str, mapping: /*Unimplemented*/FnMut(&glib::Variant, /*Unimplemented*/Option<Fundamental: Pointer>) -> bool, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> /*Unimplemented*/Option<Fundamental: Pointer> {
     //    unsafe { TODO: call ffi:g_settings_get_mapped() }
     //}
 
-    fn get_string(&self, key: &str) -> glib::GString {
+    fn string(&self, key: &str) -> glib::GString {
         unsafe {
             from_glib_full(ffi::g_settings_get_string(
                 self.as_ref().to_glib_none().0,
@@ -382,7 +382,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_strv(&self, key: &str) -> Vec<glib::GString> {
+    fn strv(&self, key: &str) -> Vec<glib::GString> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::g_settings_get_strv(
                 self.as_ref().to_glib_none().0,
@@ -391,17 +391,17 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_uint(&self, key: &str) -> u32 {
+    fn uint(&self, key: &str) -> u32 {
         unsafe { ffi::g_settings_get_uint(self.as_ref().to_glib_none().0, key.to_glib_none().0) }
     }
 
     #[cfg(any(feature = "v2_50", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
-    fn get_uint64(&self, key: &str) -> u64 {
+    fn uint64(&self, key: &str) -> u64 {
         unsafe { ffi::g_settings_get_uint64(self.as_ref().to_glib_none().0, key.to_glib_none().0) }
     }
 
-    fn get_user_value(&self, key: &str) -> Option<glib::Variant> {
+    fn user_value(&self, key: &str) -> Option<glib::Variant> {
         unsafe {
             from_glib_full(ffi::g_settings_get_user_value(
                 self.as_ref().to_glib_none().0,
@@ -410,7 +410,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_value(&self, key: &str) -> glib::Variant {
+    fn value(&self, key: &str) -> glib::Variant {
         unsafe {
             from_glib_full(ffi::g_settings_get_value(
                 self.as_ref().to_glib_none().0,

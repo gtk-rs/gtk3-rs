@@ -25,7 +25,7 @@ glib::wrapper! {
         free => |ptr| glib::gobject_ffi::g_boxed_free(ffi::graphene_matrix_get_type(), ptr as *mut _),
         init => |_ptr| (),
         clear => |_ptr| (),
-        get_type => || ffi::graphene_matrix_get_type(),
+        type_ => || ffi::graphene_matrix_get_type(),
     }
 }
 
@@ -84,7 +84,7 @@ impl Matrix {
     }
 
     #[doc(alias = "graphene_matrix_get_row")]
-    pub fn get_row(&self, index_: u32) -> Vec4 {
+    pub fn row(&self, index_: u32) -> Vec4 {
         unsafe {
             let mut res = Vec4::uninitialized();
             ffi::graphene_matrix_get_row(self.to_glib_none().0, index_, res.to_glib_none_mut().0);
@@ -93,7 +93,7 @@ impl Matrix {
     }
 
     #[doc(alias = "graphene_matrix_get_value")]
-    pub fn get_value(&self, row: u32, col: u32) -> f32 {
+    pub fn value(&self, row: u32, col: u32) -> f32 {
         unsafe { ffi::graphene_matrix_get_value(self.to_glib_none().0, row, col) }
     }
 

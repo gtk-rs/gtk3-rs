@@ -18,7 +18,7 @@ glib::wrapper! {
     pub struct ZlibDecompressor(Object<ffi::GZlibDecompressor, ffi::GZlibDecompressorClass>) @implements Converter;
 
     match fn {
-        get_type => || ffi::g_zlib_decompressor_get_type(),
+        type_ => || ffi::g_zlib_decompressor_get_type(),
     }
 }
 

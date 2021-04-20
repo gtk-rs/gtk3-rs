@@ -20,7 +20,7 @@ glib::wrapper! {
     match fn {
         ref => |ptr| ffi::cairo_scaled_font_reference(ptr),
         unref => |ptr| ffi::cairo_scaled_font_destroy(ptr),
-        get_type => || ffi::gobject::cairo_gobject_scaled_font_get_type(),
+        type_ => || ffi::gobject::cairo_gobject_scaled_font_get_type(),
     }
 }
 

@@ -15,13 +15,13 @@ glib::wrapper! {
     pub struct ProxyResolver(Interface<ffi::GProxyResolver, ffi::GProxyResolverInterface>);
 
     match fn {
-        get_type => || ffi::g_proxy_resolver_get_type(),
+        type_ => || ffi::g_proxy_resolver_get_type(),
     }
 }
 
 impl ProxyResolver {
     #[doc(alias = "g_proxy_resolver_get_default")]
-    pub fn get_default() -> ProxyResolver {
+    pub fn default() -> ProxyResolver {
         unsafe { from_glib_none(ffi::g_proxy_resolver_get_default()) }
     }
 }

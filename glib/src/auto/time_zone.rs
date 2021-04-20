@@ -12,7 +12,7 @@ crate::wrapper! {
     match fn {
         ref => |ptr| ffi::g_time_zone_ref(ptr),
         unref => |ptr| ffi::g_time_zone_unref(ptr),
-        get_type => || ffi::g_time_zone_get_type(),
+        type_ => || ffi::g_time_zone_get_type(),
     }
 }
 
@@ -46,7 +46,7 @@ impl TimeZone {
     }
 
     #[doc(alias = "g_time_zone_get_abbreviation")]
-    pub fn get_abbreviation(&self, interval: i32) -> crate::GString {
+    pub fn abbreviation(&self, interval: i32) -> crate::GString {
         unsafe {
             from_glib_none(ffi::g_time_zone_get_abbreviation(
                 self.to_glib_none().0,
@@ -63,7 +63,7 @@ impl TimeZone {
     }
 
     #[doc(alias = "g_time_zone_get_offset")]
-    pub fn get_offset(&self, interval: i32) -> i32 {
+    pub fn offset(&self, interval: i32) -> i32 {
         unsafe { ffi::g_time_zone_get_offset(self.to_glib_none().0, interval) }
     }
 

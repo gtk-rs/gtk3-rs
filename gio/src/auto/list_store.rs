@@ -17,7 +17,7 @@ glib::wrapper! {
     pub struct ListStore(Object<ffi::GListStore, ffi::GListStoreClass>) @implements ListModel;
 
     match fn {
-        get_type => || ffi::g_list_store_get_type(),
+        type_ => || ffi::g_list_store_get_type(),
     }
 }
 

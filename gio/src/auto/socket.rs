@@ -27,7 +27,7 @@ glib::wrapper! {
     pub struct Socket(Object<ffi::GSocket, ffi::GSocketClass>);
 
     match fn {
-        get_type => || ffi::g_socket_get_type(),
+        type_ => || ffi::g_socket_get_type(),
     }
 }
 
@@ -139,7 +139,7 @@ pub trait SocketExt: 'static {
     fn multicast_ttl(&self) -> u32;
 
     #[doc(alias = "g_socket_get_option")]
-    fn get_option(&self, level: i32, optname: i32) -> Result<i32, glib::Error>;
+    fn option(&self, level: i32, optname: i32) -> Result<i32, glib::Error>;
 
     #[doc(alias = "g_socket_get_protocol")]
     fn protocol(&self) -> SocketProtocol;
@@ -489,7 +489,7 @@ impl<O: IsA<Socket>> SocketExt for O {
         unsafe { ffi::g_socket_get_multicast_ttl(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_option(&self, level: i32, optname: i32) -> Result<i32, glib::Error> {
+    fn option(&self, level: i32, optname: i32) -> Result<i32, glib::Error> {
         unsafe {
             let mut value = mem::MaybeUninit::uninit();
             let mut error = ptr::null_mut();

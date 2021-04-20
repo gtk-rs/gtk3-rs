@@ -12,7 +12,7 @@ crate::wrapper! {
     match fn {
         copy => |ptr| ffi::g_checksum_copy(ptr),
         free => |ptr| ffi::g_checksum_free(ptr),
-        get_type => || ffi::g_checksum_get_type(),
+        type_ => || ffi::g_checksum_get_type(),
     }
 }
 

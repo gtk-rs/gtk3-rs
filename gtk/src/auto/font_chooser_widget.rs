@@ -30,7 +30,7 @@ glib::wrapper! {
     pub struct FontChooserWidget(Object<ffi::GtkFontChooserWidget, ffi::GtkFontChooserWidgetClass>) @extends Box, Container, Widget, @implements Buildable, Orientable, FontChooser;
 
     match fn {
-        get_type => || ffi::gtk_font_chooser_widget_get_type(),
+        type_ => || ffi::gtk_font_chooser_widget_get_type(),
     }
 }
 

@@ -27,7 +27,7 @@ glib::wrapper! {
     pub struct TreeViewColumn(Object<ffi::GtkTreeViewColumn, ffi::GtkTreeViewColumnClass>) @implements Buildable, CellLayout;
 
     match fn {
-        get_type => || ffi::gtk_tree_view_column_get_type(),
+        type_ => || ffi::gtk_tree_view_column_get_type(),
     }
 }
 

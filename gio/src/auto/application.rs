@@ -26,7 +26,7 @@ glib::wrapper! {
     pub struct Application(Object<ffi::GApplication, ffi::GApplicationClass>) @implements ActionGroup, ActionMap;
 
     match fn {
-        get_type => || ffi::g_application_get_type(),
+        type_ => || ffi::g_application_get_type(),
     }
 }
 
@@ -42,7 +42,7 @@ impl Application {
     }
 
     #[doc(alias = "g_application_get_default")]
-    pub fn get_default() -> Option<Application> {
+    pub fn default() -> Option<Application> {
         unsafe { from_glib_none(ffi::g_application_get_default()) }
     }
 

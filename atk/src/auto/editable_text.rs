@@ -10,7 +10,7 @@ glib::wrapper! {
     pub struct EditableText(Interface<ffi::AtkEditableText, ffi::AtkEditableTextIface>);
 
     match fn {
-        get_type => || ffi::atk_editable_text_get_type(),
+        type_ => || ffi::atk_editable_text_get_type(),
     }
 }
 

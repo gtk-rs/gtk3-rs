@@ -62,11 +62,11 @@ macro_rules! user_data_methods {
         }
 
         /// Return the user data previously attached to `self` with the given `key`, if any.
-        pub fn get_user_data<T: 'static>(
+        pub fn user_data<T: 'static>(
             &self,
             key: &'static crate::UserDataKey<T>,
         ) -> Option<std::rc::Rc<T>> {
-            let ptr = self.get_user_data_ptr(key)?.as_ptr();
+            let ptr = self.user_data_ptr(key)?.as_ptr();
 
             // Safety:
             //
@@ -87,7 +87,7 @@ macro_rules! user_data_methods {
         /// The pointer is valid when it is returned from this method,
         /// until the cairo object that `self` represents is destroyed
         /// or `remove_user_data` or `set_user_data` is called with the same key.
-        pub fn get_user_data_ptr<T: 'static>(
+        pub fn user_data_ptr<T: 'static>(
             &self,
             key: &'static crate::UserDataKey<T>,
         ) -> Option<std::ptr::NonNull<T>> {

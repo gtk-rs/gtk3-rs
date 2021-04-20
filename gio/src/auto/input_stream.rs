@@ -18,7 +18,7 @@ glib::wrapper! {
     pub struct InputStream(Object<ffi::GInputStream, ffi::GInputStreamClass>);
 
     match fn {
-        get_type => || ffi::g_input_stream_get_type(),
+        type_ => || ffi::g_input_stream_get_type(),
     }
 }
 

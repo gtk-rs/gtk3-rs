@@ -27,7 +27,7 @@ glib::wrapper! {
     pub struct Task(Object<ffi::GTask, ffi::GTaskClass>) @implements AsyncResult;
 
     match fn {
-        get_type => || ffi::g_task_get_type(),
+        type_ => || ffi::g_task_get_type(),
     }
 }
 

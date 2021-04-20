@@ -11,7 +11,7 @@ glib::wrapper! {
     match fn {
         ref => |ptr| ffi::pango_font_metrics_ref(ptr),
         unref => |ptr| ffi::pango_font_metrics_unref(ptr),
-        get_type => || ffi::pango_font_metrics_get_type(),
+        type_ => || ffi::pango_font_metrics_get_type(),
     }
 }
 

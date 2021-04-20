@@ -24,7 +24,7 @@ glib::wrapper! {
     pub struct StackSidebar(Object<ffi::GtkStackSidebar, ffi::GtkStackSidebarClass>) @extends Bin, Container, Widget, @implements Buildable;
 
     match fn {
-        get_type => || ffi::gtk_stack_sidebar_get_type(),
+        type_ => || ffi::gtk_stack_sidebar_get_type(),
     }
 }
 

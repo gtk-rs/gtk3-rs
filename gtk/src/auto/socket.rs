@@ -23,7 +23,7 @@ glib::wrapper! {
     pub struct Socket(Object<ffi::GtkSocket, ffi::GtkSocketClass>) @extends Container, Widget, @implements Buildable;
 
     match fn {
-        get_type => || ffi::gtk_socket_get_type(),
+        type_ => || ffi::gtk_socket_get_type(),
     }
 }
 

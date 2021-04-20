@@ -9,6 +9,6 @@ glib::wrapper! {
     match fn {
         copy => |ptr| glib::gobject_ffi::g_boxed_copy(ffi::g_unix_mount_entry_get_type(), ptr as *mut _) as *mut ffi::GUnixMountEntry,
         free => |ptr| glib::gobject_ffi::g_boxed_free(ffi::g_unix_mount_entry_get_type(), ptr as *mut _),
-        get_type => || ffi::g_unix_mount_entry_get_type(),
+        type_ => || ffi::g_unix_mount_entry_get_type(),
     }
 }

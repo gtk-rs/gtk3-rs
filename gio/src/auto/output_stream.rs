@@ -20,7 +20,7 @@ glib::wrapper! {
     pub struct OutputStream(Object<ffi::GOutputStream, ffi::GOutputStreamClass>);
 
     match fn {
-        get_type => || ffi::g_output_stream_get_type(),
+        type_ => || ffi::g_output_stream_get_type(),
     }
 }
 

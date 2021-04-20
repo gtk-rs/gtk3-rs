@@ -39,7 +39,7 @@ glib::wrapper! {
     pub struct Widget(Object<ffi::GtkWidget, ffi::GtkWidgetClass>) @implements Buildable;
 
     match fn {
-        get_type => || ffi::gtk_widget_get_type(),
+        type_ => || ffi::gtk_widget_get_type(),
     }
 }
 
@@ -50,7 +50,7 @@ impl Widget {
     //}
 
     #[doc(alias = "gtk_widget_get_default_direction")]
-    pub fn get_default_direction() -> TextDirection {
+    pub fn default_direction() -> TextDirection {
         assert_initialized_main_thread!();
         unsafe { from_glib(ffi::gtk_widget_get_default_direction()) }
     }
@@ -231,7 +231,7 @@ pub trait WidgetExt: 'static {
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_widget_get_action_group")]
-    fn get_action_group(&self, prefix: &str) -> Option<gio::ActionGroup>;
+    fn action_group(&self, prefix: &str) -> Option<gio::ActionGroup>;
 
     #[doc(alias = "gtk_widget_get_allocated_baseline")]
     fn allocated_baseline(&self) -> i32;
@@ -251,7 +251,7 @@ pub trait WidgetExt: 'static {
     fn allocation(&self) -> Allocation;
 
     #[doc(alias = "gtk_widget_get_ancestor")]
-    fn get_ancestor(&self, widget_type: glib::types::Type) -> Option<Widget>;
+    fn ancestor(&self, widget_type: glib::types::Type) -> Option<Widget>;
 
     #[doc(alias = "gtk_widget_get_app_paintable")]
     fn is_app_paintable(&self) -> bool;
@@ -269,13 +269,13 @@ pub trait WidgetExt: 'static {
     fn clip(&self) -> Allocation;
 
     #[doc(alias = "gtk_widget_get_clipboard")]
-    fn get_clipboard(&self, selection: &gdk::Atom) -> Clipboard;
+    fn clipboard(&self, selection: &gdk::Atom) -> Clipboard;
 
     #[doc(alias = "gtk_widget_get_device_enabled")]
-    fn get_device_enabled(&self, device: &gdk::Device) -> bool;
+    fn device_is_enabled(&self, device: &gdk::Device) -> bool;
 
     #[doc(alias = "gtk_widget_get_device_events")]
-    fn get_device_events(&self, device: &gdk::Device) -> gdk::EventMask;
+    fn device_events(&self, device: &gdk::Device) -> gdk::EventMask;
 
     #[doc(alias = "gtk_widget_get_direction")]
     fn direction(&self) -> TextDirection;
@@ -335,7 +335,7 @@ pub trait WidgetExt: 'static {
     fn margin_top(&self) -> i32;
 
     #[doc(alias = "gtk_widget_get_modifier_mask")]
-    fn get_modifier_mask(&self, intent: gdk::ModifierIntent) -> gdk::ModifierType;
+    fn modifier_mask(&self, intent: gdk::ModifierIntent) -> gdk::ModifierType;
 
     #[doc(alias = "gtk_widget_get_name")]
     fn widget_name(&self) -> glib::GString;
@@ -362,10 +362,10 @@ pub trait WidgetExt: 'static {
     fn preferred_height(&self) -> (i32, i32);
 
     #[doc(alias = "gtk_widget_get_preferred_height_and_baseline_for_width")]
-    fn get_preferred_height_and_baseline_for_width(&self, width: i32) -> (i32, i32, i32, i32);
+    fn preferred_height_and_baseline_for_width(&self, width: i32) -> (i32, i32, i32, i32);
 
     #[doc(alias = "gtk_widget_get_preferred_height_for_width")]
-    fn get_preferred_height_for_width(&self, width: i32) -> (i32, i32);
+    fn preferred_height_for_width(&self, width: i32) -> (i32, i32);
 
     #[doc(alias = "gtk_widget_get_preferred_size")]
     fn preferred_size(&self) -> (Requisition, Requisition);
@@ -374,7 +374,7 @@ pub trait WidgetExt: 'static {
     fn preferred_width(&self) -> (i32, i32);
 
     #[doc(alias = "gtk_widget_get_preferred_width_for_height")]
-    fn get_preferred_width_for_height(&self, height: i32) -> (i32, i32);
+    fn preferred_width_for_height(&self, height: i32) -> (i32, i32);
 
     #[doc(alias = "gtk_widget_get_realized")]
     fn is_realized(&self) -> bool;
@@ -410,11 +410,7 @@ pub trait WidgetExt: 'static {
     fn supports_multidevice(&self) -> bool;
 
     #[doc(alias = "gtk_widget_get_template_child")]
-    fn get_template_child(
-        &self,
-        widget_type: glib::types::Type,
-        name: &str,
-    ) -> Option<glib::Object>;
+    fn template_child(&self, widget_type: glib::types::Type, name: &str) -> Option<glib::Object>;
 
     #[doc(alias = "gtk_widget_get_tooltip_markup")]
     fn tooltip_markup(&self) -> Option<glib::GString>;
@@ -1611,7 +1607,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    fn get_action_group(&self, prefix: &str) -> Option<gio::ActionGroup> {
+    fn action_group(&self, prefix: &str) -> Option<gio::ActionGroup> {
         unsafe {
             from_glib_none(ffi::gtk_widget_get_action_group(
                 self.as_ref().to_glib_none().0,
@@ -1659,7 +1655,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn get_ancestor(&self, widget_type: glib::types::Type) -> Option<Widget> {
+    fn ancestor(&self, widget_type: glib::types::Type) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_widget_get_ancestor(
                 self.as_ref().to_glib_none().0,
@@ -1708,7 +1704,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn get_clipboard(&self, selection: &gdk::Atom) -> Clipboard {
+    fn clipboard(&self, selection: &gdk::Atom) -> Clipboard {
         unsafe {
             from_glib_none(ffi::gtk_widget_get_clipboard(
                 self.as_ref().to_glib_none().0,
@@ -1717,7 +1713,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn get_device_enabled(&self, device: &gdk::Device) -> bool {
+    fn device_is_enabled(&self, device: &gdk::Device) -> bool {
         unsafe {
             from_glib(ffi::gtk_widget_get_device_enabled(
                 self.as_ref().to_glib_none().0,
@@ -1726,7 +1722,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn get_device_events(&self, device: &gdk::Device) -> gdk::EventMask {
+    fn device_events(&self, device: &gdk::Device) -> gdk::EventMask {
         unsafe {
             from_glib(ffi::gtk_widget_get_device_events(
                 self.as_ref().to_glib_none().0,
@@ -1841,7 +1837,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         unsafe { ffi::gtk_widget_get_margin_top(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_modifier_mask(&self, intent: gdk::ModifierIntent) -> gdk::ModifierType {
+    fn modifier_mask(&self, intent: gdk::ModifierIntent) -> gdk::ModifierType {
         unsafe {
             from_glib(ffi::gtk_widget_get_modifier_mask(
                 self.as_ref().to_glib_none().0,
@@ -1905,7 +1901,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn get_preferred_height_and_baseline_for_width(&self, width: i32) -> (i32, i32, i32, i32) {
+    fn preferred_height_and_baseline_for_width(&self, width: i32) -> (i32, i32, i32, i32) {
         unsafe {
             let mut minimum_height = mem::MaybeUninit::uninit();
             let mut natural_height = mem::MaybeUninit::uninit();
@@ -1932,7 +1928,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn get_preferred_height_for_width(&self, width: i32) -> (i32, i32) {
+    fn preferred_height_for_width(&self, width: i32) -> (i32, i32) {
         unsafe {
             let mut minimum_height = mem::MaybeUninit::uninit();
             let mut natural_height = mem::MaybeUninit::uninit();
@@ -1976,7 +1972,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn get_preferred_width_for_height(&self, height: i32) -> (i32, i32) {
+    fn preferred_width_for_height(&self, height: i32) -> (i32, i32) {
         unsafe {
             let mut minimum_width = mem::MaybeUninit::uninit();
             let mut natural_width = mem::MaybeUninit::uninit();
@@ -2071,11 +2067,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn get_template_child(
-        &self,
-        widget_type: glib::types::Type,
-        name: &str,
-    ) -> Option<glib::Object> {
+    fn template_child(&self, widget_type: glib::types::Type, name: &str) -> Option<glib::Object> {
         unsafe {
             from_glib_none(ffi::gtk_widget_get_template_child(
                 self.as_ref().to_glib_none().0,

@@ -17,7 +17,7 @@ glib::wrapper! {
     pub struct ConverterInputStream(Object<ffi::GConverterInputStream, ffi::GConverterInputStreamClass>) @extends FilterInputStream, InputStream, @implements PollableInputStream;
 
     match fn {
-        get_type => || ffi::g_converter_input_stream_get_type(),
+        type_ => || ffi::g_converter_input_stream_get_type(),
     }
 }
 

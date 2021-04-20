@@ -39,7 +39,7 @@ glib::wrapper! {
     pub struct IconView(Object<ffi::GtkIconView, ffi::GtkIconViewClass>) @extends Container, Widget, @implements Buildable, CellLayout, Scrollable;
 
     match fn {
-        get_type => || ffi::gtk_icon_view_get_type(),
+        type_ => || ffi::gtk_icon_view_get_type(),
     }
 }
 
@@ -608,7 +608,7 @@ pub trait IconViewExt: 'static {
     fn activates_on_single_click(&self) -> bool;
 
     #[doc(alias = "gtk_icon_view_get_cell_rect")]
-    fn get_cell_rect<P: IsA<CellRenderer>>(
+    fn cell_rect<P: IsA<CellRenderer>>(
         &self,
         path: &TreePath,
         cell: Option<&P>,
@@ -624,7 +624,7 @@ pub trait IconViewExt: 'static {
     fn cursor(&self) -> Option<(TreePath, CellRenderer)>;
 
     #[doc(alias = "gtk_icon_view_get_dest_item_at_pos")]
-    fn get_dest_item_at_pos(
+    fn dest_item_at_pos(
         &self,
         drag_x: i32,
         drag_y: i32,
@@ -634,10 +634,10 @@ pub trait IconViewExt: 'static {
     fn drag_dest_item(&self) -> (TreePath, IconViewDropPosition);
 
     #[doc(alias = "gtk_icon_view_get_item_at_pos")]
-    fn get_item_at_pos(&self, x: i32, y: i32) -> Option<(TreePath, CellRenderer)>;
+    fn item_at_pos(&self, x: i32, y: i32) -> Option<(TreePath, CellRenderer)>;
 
     #[doc(alias = "gtk_icon_view_get_item_column")]
-    fn get_item_column(&self, path: &TreePath) -> i32;
+    fn item_column(&self, path: &TreePath) -> i32;
 
     #[doc(alias = "gtk_icon_view_get_item_orientation")]
     fn item_orientation(&self) -> Orientation;
@@ -646,7 +646,7 @@ pub trait IconViewExt: 'static {
     fn item_padding(&self) -> i32;
 
     #[doc(alias = "gtk_icon_view_get_item_row")]
-    fn get_item_row(&self, path: &TreePath) -> i32;
+    fn item_row(&self, path: &TreePath) -> i32;
 
     #[doc(alias = "gtk_icon_view_get_item_width")]
     fn item_width(&self) -> i32;
@@ -661,7 +661,7 @@ pub trait IconViewExt: 'static {
     fn model(&self) -> Option<TreeModel>;
 
     #[doc(alias = "gtk_icon_view_get_path_at_pos")]
-    fn get_path_at_pos(&self, x: i32, y: i32) -> Option<TreePath>;
+    fn path_at_pos(&self, x: i32, y: i32) -> Option<TreePath>;
 
     #[doc(alias = "gtk_icon_view_get_pixbuf_column")]
     fn pixbuf_column(&self) -> i32;
@@ -688,7 +688,7 @@ pub trait IconViewExt: 'static {
     fn tooltip_column(&self) -> i32;
 
     #[doc(alias = "gtk_icon_view_get_tooltip_context")]
-    fn get_tooltip_context(
+    fn tooltip_context(
         &self,
         x: &mut i32,
         y: &mut i32,
@@ -923,7 +923,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
         }
     }
 
-    fn get_cell_rect<P: IsA<CellRenderer>>(
+    fn cell_rect<P: IsA<CellRenderer>>(
         &self,
         path: &TreePath,
         cell: Option<&P>,
@@ -969,7 +969,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
         }
     }
 
-    fn get_dest_item_at_pos(
+    fn dest_item_at_pos(
         &self,
         drag_x: i32,
         drag_y: i32,
@@ -1007,7 +1007,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
         }
     }
 
-    fn get_item_at_pos(&self, x: i32, y: i32) -> Option<(TreePath, CellRenderer)> {
+    fn item_at_pos(&self, x: i32, y: i32) -> Option<(TreePath, CellRenderer)> {
         unsafe {
             let mut path = ptr::null_mut();
             let mut cell = ptr::null_mut();
@@ -1026,7 +1026,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
         }
     }
 
-    fn get_item_column(&self, path: &TreePath) -> i32 {
+    fn item_column(&self, path: &TreePath) -> i32 {
         unsafe {
             ffi::gtk_icon_view_get_item_column(
                 self.as_ref().to_glib_none().0,
@@ -1047,7 +1047,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
         unsafe { ffi::gtk_icon_view_get_item_padding(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_item_row(&self, path: &TreePath) -> i32 {
+    fn item_row(&self, path: &TreePath) -> i32 {
         unsafe {
             ffi::gtk_icon_view_get_item_row(
                 self.as_ref().to_glib_none().0,
@@ -1072,7 +1072,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
         unsafe { from_glib_none(ffi::gtk_icon_view_get_model(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_path_at_pos(&self, x: i32, y: i32) -> Option<TreePath> {
+    fn path_at_pos(&self, x: i32, y: i32) -> Option<TreePath> {
         unsafe {
             from_glib_full(ffi::gtk_icon_view_get_path_at_pos(
                 self.as_ref().to_glib_none().0,
@@ -1126,7 +1126,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
         unsafe { ffi::gtk_icon_view_get_tooltip_column(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_tooltip_context(
+    fn tooltip_context(
         &self,
         x: &mut i32,
         y: &mut i32,

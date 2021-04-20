@@ -126,19 +126,19 @@ pub fn flush() {
 }
 
 #[doc(alias = "gdk_get_display_arg_name")]
-pub fn get_display_arg_name() -> Option<glib::GString> {
+pub fn display_arg_name() -> Option<glib::GString> {
     assert_initialized_main_thread!();
     unsafe { from_glib_none(ffi::gdk_get_display_arg_name()) }
 }
 
 #[doc(alias = "gdk_get_program_class")]
-pub fn get_program_class() -> Option<glib::GString> {
+pub fn program_class() -> Option<glib::GString> {
     assert_initialized_main_thread!();
     unsafe { from_glib_none(ffi::gdk_get_program_class()) }
 }
 
 #[doc(alias = "gdk_get_show_events")]
-pub fn get_show_events() -> bool {
+pub fn shows_events() -> bool {
     assert_initialized_main_thread!();
     unsafe { from_glib(ffi::gdk_get_show_events()) }
 }

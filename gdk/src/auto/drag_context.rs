@@ -32,7 +32,7 @@ glib::wrapper! {
     pub struct DragContext(Object<ffi::GdkDragContext>);
 
     match fn {
-        get_type => || ffi::gdk_drag_context_get_type(),
+        type_ => || ffi::gdk_drag_context_get_type(),
     }
 }
 

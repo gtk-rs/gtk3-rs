@@ -17,7 +17,7 @@ glib::wrapper! {
     pub struct Pixbuf(Object<ffi::GdkPixbuf>) @implements gio::Icon, gio::LoadableIcon;
 
     match fn {
-        get_type => || ffi::gdk_pixbuf_get_type(),
+        type_ => || ffi::gdk_pixbuf_get_type(),
     }
 }
 
@@ -392,7 +392,7 @@ impl Pixbuf {
     }
 
     #[doc(alias = "gdk_pixbuf_get_option")]
-    pub fn get_option(&self, key: &str) -> Option<glib::GString> {
+    pub fn option(&self, key: &str) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gdk_pixbuf_get_option(
                 self.to_glib_none().0,
@@ -619,7 +619,7 @@ impl Pixbuf {
     }
 
     #[doc(alias = "gdk_pixbuf_get_formats")]
-    pub fn get_formats() -> Vec<PixbufFormat> {
+    pub fn formats() -> Vec<PixbufFormat> {
         unsafe { FromGlibPtrContainer::from_glib_container(ffi::gdk_pixbuf_get_formats()) }
     }
 

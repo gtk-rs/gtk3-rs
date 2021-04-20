@@ -12,7 +12,7 @@ glib::wrapper! {
     pub struct UnixOutputStream(Object<ffi::GUnixOutputStream, ffi::GUnixOutputStreamClass>) @extends OutputStream, @implements PollableOutputStream;
 
     match fn {
-        get_type => || ffi::g_unix_output_stream_get_type(),
+        type_ => || ffi::g_unix_output_stream_get_type(),
     }
 }
 

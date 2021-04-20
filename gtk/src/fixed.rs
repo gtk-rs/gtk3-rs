@@ -18,17 +18,17 @@ fn has_widget<O: IsA<Fixed>, T: IsA<Widget>>(c: &O, item: &T) -> bool {
 }
 
 pub trait FixedExtManual: 'static {
-    fn get_child_x<T: IsA<Widget>>(&self, item: &T) -> i32;
+    fn child_x<T: IsA<Widget>>(&self, item: &T) -> i32;
 
     fn set_child_x<T: IsA<Widget>>(&self, item: &T, x: i32);
 
-    fn get_child_y<T: IsA<Widget>>(&self, item: &T) -> i32;
+    fn child_y<T: IsA<Widget>>(&self, item: &T) -> i32;
 
     fn set_child_y<T: IsA<Widget>>(&self, item: &T, y: i32);
 }
 
 impl<O: IsA<Fixed>> FixedExtManual for O {
-    fn get_child_x<T: IsA<Widget>>(&self, item: &T) -> i32 {
+    fn child_x<T: IsA<Widget>>(&self, item: &T) -> i32 {
         assert!(
             has_widget(self, item),
             "this item isn't in the Fixed's widget list"
@@ -62,7 +62,7 @@ impl<O: IsA<Fixed>> FixedExtManual for O {
         }
     }
 
-    fn get_child_y<T: IsA<Widget>>(&self, item: &T) -> i32 {
+    fn child_y<T: IsA<Widget>>(&self, item: &T) -> i32 {
         assert!(
             has_widget(self, item),
             "this item isn't in the Fixed's widget list"

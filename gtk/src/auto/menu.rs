@@ -27,7 +27,7 @@ glib::wrapper! {
     pub struct Menu(Object<ffi::GtkMenu, ffi::GtkMenuClass>) @extends MenuShell, Container, Widget, @implements Buildable;
 
     match fn {
-        get_type => || ffi::gtk_menu_get_type(),
+        type_ => || ffi::gtk_menu_get_type(),
     }
 }
 
@@ -50,7 +50,7 @@ impl Menu {
     }
 
     #[doc(alias = "gtk_menu_get_for_attach_widget")]
-    pub fn get_for_attach_widget<P: IsA<Widget>>(widget: &P) -> Vec<Widget> {
+    pub fn for_attach_widget<P: IsA<Widget>>(widget: &P) -> Vec<Widget> {
         skip_assert_initialized!();
         unsafe {
             FromGlibPtrContainer::from_glib_none(ffi::gtk_menu_get_for_attach_widget(
@@ -669,19 +669,19 @@ pub trait GtkMenuExt: 'static {
     #[doc(alias = "set_property_rect_anchor_dy")]
     fn set_rect_anchor_dy(&self, rect_anchor_dy: i32);
 
-    fn get_item_bottom_attach<T: IsA<MenuItem>>(&self, item: &T) -> i32;
+    fn item_bottom_attach<T: IsA<MenuItem>>(&self, item: &T) -> i32;
 
     fn set_item_bottom_attach<T: IsA<MenuItem>>(&self, item: &T, bottom_attach: i32);
 
-    fn get_item_left_attach<T: IsA<MenuItem>>(&self, item: &T) -> i32;
+    fn item_left_attach<T: IsA<MenuItem>>(&self, item: &T) -> i32;
 
     fn set_item_left_attach<T: IsA<MenuItem>>(&self, item: &T, left_attach: i32);
 
-    fn get_item_right_attach<T: IsA<MenuItem>>(&self, item: &T) -> i32;
+    fn item_right_attach<T: IsA<MenuItem>>(&self, item: &T) -> i32;
 
     fn set_item_right_attach<T: IsA<MenuItem>>(&self, item: &T, right_attach: i32);
 
-    fn get_item_top_attach<T: IsA<MenuItem>>(&self, item: &T) -> i32;
+    fn item_top_attach<T: IsA<MenuItem>>(&self, item: &T) -> i32;
 
     fn set_item_top_attach<T: IsA<MenuItem>>(&self, item: &T, top_attach: i32);
 
@@ -1071,7 +1071,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
         }
     }
 
-    fn get_item_bottom_attach<T: IsA<MenuItem>>(&self, item: &T) -> i32 {
+    fn item_bottom_attach<T: IsA<MenuItem>>(&self, item: &T) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
@@ -1098,7 +1098,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
         }
     }
 
-    fn get_item_left_attach<T: IsA<MenuItem>>(&self, item: &T) -> i32 {
+    fn item_left_attach<T: IsA<MenuItem>>(&self, item: &T) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
@@ -1125,7 +1125,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
         }
     }
 
-    fn get_item_right_attach<T: IsA<MenuItem>>(&self, item: &T) -> i32 {
+    fn item_right_attach<T: IsA<MenuItem>>(&self, item: &T) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
@@ -1152,7 +1152,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
         }
     }
 
-    fn get_item_top_attach<T: IsA<MenuItem>>(&self, item: &T) -> i32 {
+    fn item_top_attach<T: IsA<MenuItem>>(&self, item: &T) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(

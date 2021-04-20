@@ -32,7 +32,7 @@ fn derive_shared_arc() {
     #[gshared_boxed(type_name = "MySharedType")]
     struct MyShared(std::sync::Arc<MyInnerShared>);
 
-    assert_eq!(MyShared::get_type().name(), "MySharedType");
+    assert_eq!(MyShared::type_().name(), "MySharedType");
 
     let p = MyShared(std::sync::Arc::new(MyInnerShared {
         foo: String::from("bar"),
@@ -59,7 +59,7 @@ fn derive_shared_arc_nullable() {
     #[gshared_boxed(type_name = "MyNullableSharedType", nullable)]
     struct MyNullableShared(std::sync::Arc<MyInnerNullableShared>);
 
-    assert_eq!(MyNullableShared::get_type().name(), "MyNullableSharedType");
+    assert_eq!(MyNullableShared::type_().name(), "MyNullableSharedType");
 
     let p = MyNullableShared(std::sync::Arc::new(MyInnerNullableShared {
         foo: String::from("bar"),
@@ -128,16 +128,16 @@ fn derive_genum() {
     assert_eq!(t.name(), "TestAnimalType");
 
     let e = glib::EnumClass::new(t).expect("EnumClass::new failed");
-    let v = e.get_value(0).expect("EnumClass::get_value(0) failed");
+    let v = e.value(0).expect("EnumClass::get_value(0) failed");
     assert_eq!(v.name(), "Goat");
     assert_eq!(v.nick(), "goat");
-    let v = e.get_value(1).expect("EnumClass::get_value(1) failed");
+    let v = e.value(1).expect("EnumClass::get_value(1) failed");
     assert_eq!(v.name(), "The Dog");
     assert_eq!(v.nick(), "dog");
-    let v = e.get_value(5).expect("EnumClass::get_value(5) failed");
+    let v = e.value(5).expect("EnumClass::get_value(5) failed");
     assert_eq!(v.name(), "The Cat");
     assert_eq!(v.nick(), "chat");
-    assert_eq!(e.get_value(2), None);
+    assert_eq!(e.value(2), None);
 }
 
 #[test]
@@ -146,7 +146,7 @@ fn derive_gboxed() {
     #[gboxed(type_name = "MyBoxed")]
     struct MyBoxed(String);
 
-    assert_eq!(MyBoxed::get_type().name(), "MyBoxed");
+    assert_eq!(MyBoxed::type_().name(), "MyBoxed");
 
     let b = MyBoxed(String::from("abc"));
     let v = b.to_value();
@@ -160,7 +160,7 @@ fn derive_gboxed_nullable() {
     #[gboxed(type_name = "MyNullableBoxed", nullable)]
     struct MyNullableBoxed(String);
 
-    assert_eq!(MyNullableBoxed::get_type().name(), "MyNullableBoxed");
+    assert_eq!(MyNullableBoxed::type_().name(), "MyNullableBoxed");
 
     let b = MyNullableBoxed(String::from("abc"));
     let v = b.to_value();
@@ -219,23 +219,23 @@ fn attr_gflags() {
     assert_eq!(t.name(), "MyFlags");
 
     let e = glib::FlagsClass::new(t).expect("FlagsClass::new failed");
-    let v = e.get_value(1).expect("FlagsClass::get_value(1) failed");
+    let v = e.value(1).expect("FlagsClass::get_value(1) failed");
     assert_eq!(v.name(), "Flag A");
     assert_eq!(v.nick(), "nick-a");
-    let v = e.get_value(2).expect("FlagsClass::get_value(2) failed");
+    let v = e.value(2).expect("FlagsClass::get_value(2) failed");
     assert_eq!(v.name(), "Flag B");
     assert_eq!(v.nick(), "b");
-    let v = e.get_value(4).expect("FlagsClass::get_value(4) failed");
+    let v = e.value(4).expect("FlagsClass::get_value(4) failed");
     assert_eq!(v.name(), "C");
     assert_eq!(v.nick(), "c");
 
-    assert!(e.get_value_by_name("Flag A").is_some());
-    assert!(e.get_value_by_name("Flag B").is_some());
-    assert!(e.get_value_by_name("AB").is_none());
-    assert!(e.get_value_by_name("C").is_some());
+    assert!(e.value_by_name("Flag A").is_some());
+    assert!(e.value_by_name("Flag B").is_some());
+    assert!(e.value_by_name("AB").is_none());
+    assert!(e.value_by_name("C").is_some());
 
-    assert!(e.get_value_by_nick("nick-a").is_some());
-    assert!(e.get_value_by_nick("b").is_some());
-    assert!(e.get_value_by_nick("ab").is_none());
-    assert!(e.get_value_by_nick("c").is_some());
+    assert!(e.value_by_nick("nick-a").is_some());
+    assert!(e.value_by_nick("b").is_some());
+    assert!(e.value_by_nick("ab").is_none());
+    assert!(e.value_by_nick("c").is_some());
 }

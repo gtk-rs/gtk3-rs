@@ -13,7 +13,7 @@ wrapper! {
     match fn {
         copy => |ptr| gobject_ffi::g_value_array_copy(mut_override(ptr)),
         free => |ptr| gobject_ffi::g_value_array_free(ptr),
-        get_type => || gobject_ffi::g_value_array_get_type(),
+        type_ => || gobject_ffi::g_value_array_get_type(),
     }
 }
 
@@ -38,7 +38,7 @@ impl ValueArray {
         value.1.n_values as usize
     }
 
-    pub fn get_nth(&self, index_: u32) -> Option<Value> {
+    pub fn nth(&self, index_: u32) -> Option<Value> {
         unsafe {
             from_glib_none(gobject_ffi::g_value_array_get_nth(
                 mut_override(self.to_glib_none().0),

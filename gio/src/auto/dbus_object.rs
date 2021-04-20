@@ -16,7 +16,7 @@ glib::wrapper! {
     pub struct DBusObject(Interface<ffi::GDBusObject, ffi::GDBusObjectIface>);
 
     match fn {
-        get_type => || ffi::g_dbus_object_get_type(),
+        type_ => || ffi::g_dbus_object_get_type(),
     }
 }
 
@@ -24,7 +24,7 @@ pub const NONE_DBUS_OBJECT: Option<&DBusObject> = None;
 
 pub trait DBusObjectExt: 'static {
     #[doc(alias = "g_dbus_object_get_interface")]
-    fn get_interface(&self, interface_name: &str) -> Option<DBusInterface>;
+    fn interface(&self, interface_name: &str) -> Option<DBusInterface>;
 
     #[doc(alias = "g_dbus_object_get_interfaces")]
     fn interfaces(&self) -> Vec<DBusInterface>;
@@ -44,7 +44,7 @@ pub trait DBusObjectExt: 'static {
 }
 
 impl<O: IsA<DBusObject>> DBusObjectExt for O {
-    fn get_interface(&self, interface_name: &str) -> Option<DBusInterface> {
+    fn interface(&self, interface_name: &str) -> Option<DBusInterface> {
         unsafe {
             from_glib_full(ffi::g_dbus_object_get_interface(
                 self.as_ref().to_glib_none().0,

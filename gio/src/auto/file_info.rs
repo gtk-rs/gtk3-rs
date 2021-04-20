@@ -15,7 +15,7 @@ glib::wrapper! {
     pub struct FileInfo(Object<ffi::GFileInfo, ffi::GFileInfoClass>);
 
     match fn {
-        get_type => || ffi::g_file_info_get_type(),
+        type_ => || ffi::g_file_info_get_type(),
     }
 }
 
@@ -45,7 +45,7 @@ impl FileInfo {
     }
 
     #[doc(alias = "g_file_info_get_attribute_as_string")]
-    pub fn get_attribute_as_string(&self, attribute: &str) -> Option<glib::GString> {
+    pub fn attribute_as_string(&self, attribute: &str) -> Option<glib::GString> {
         unsafe {
             from_glib_full(ffi::g_file_info_get_attribute_as_string(
                 self.to_glib_none().0,
@@ -55,7 +55,7 @@ impl FileInfo {
     }
 
     #[doc(alias = "g_file_info_get_attribute_boolean")]
-    pub fn get_attribute_boolean(&self, attribute: &str) -> bool {
+    pub fn boolean(&self, attribute: &str) -> bool {
         unsafe {
             from_glib(ffi::g_file_info_get_attribute_boolean(
                 self.to_glib_none().0,
@@ -65,7 +65,7 @@ impl FileInfo {
     }
 
     #[doc(alias = "g_file_info_get_attribute_byte_string")]
-    pub fn get_attribute_byte_string(&self, attribute: &str) -> Option<glib::GString> {
+    pub fn attribute_byte_string(&self, attribute: &str) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::g_file_info_get_attribute_byte_string(
                 self.to_glib_none().0,
@@ -75,26 +75,26 @@ impl FileInfo {
     }
 
     //#[doc(alias = "g_file_info_get_attribute_data")]
-    //pub fn get_attribute_data(&self, attribute: &str, value_pp: /*Unimplemented*/&mut Fundamental: Pointer) -> Option<(FileAttributeType, FileAttributeStatus)> {
+    //pub fn attribute_data(&self, attribute: &str, value_pp: /*Unimplemented*/&mut Fundamental: Pointer) -> Option<(FileAttributeType, FileAttributeStatus)> {
     //    unsafe { TODO: call ffi:g_file_info_get_attribute_data() }
     //}
 
     #[doc(alias = "g_file_info_get_attribute_int32")]
-    pub fn get_attribute_int32(&self, attribute: &str) -> i32 {
+    pub fn attribute_int32(&self, attribute: &str) -> i32 {
         unsafe {
             ffi::g_file_info_get_attribute_int32(self.to_glib_none().0, attribute.to_glib_none().0)
         }
     }
 
     #[doc(alias = "g_file_info_get_attribute_int64")]
-    pub fn get_attribute_int64(&self, attribute: &str) -> i64 {
+    pub fn attribute_int64(&self, attribute: &str) -> i64 {
         unsafe {
             ffi::g_file_info_get_attribute_int64(self.to_glib_none().0, attribute.to_glib_none().0)
         }
     }
 
     #[doc(alias = "g_file_info_get_attribute_object")]
-    pub fn get_attribute_object(&self, attribute: &str) -> Option<glib::Object> {
+    pub fn attribute_object(&self, attribute: &str) -> Option<glib::Object> {
         unsafe {
             from_glib_none(ffi::g_file_info_get_attribute_object(
                 self.to_glib_none().0,
@@ -104,7 +104,7 @@ impl FileInfo {
     }
 
     #[doc(alias = "g_file_info_get_attribute_status")]
-    pub fn get_attribute_status(&self, attribute: &str) -> FileAttributeStatus {
+    pub fn attribute_status(&self, attribute: &str) -> FileAttributeStatus {
         unsafe {
             from_glib(ffi::g_file_info_get_attribute_status(
                 self.to_glib_none().0,
@@ -114,7 +114,7 @@ impl FileInfo {
     }
 
     #[doc(alias = "g_file_info_get_attribute_string")]
-    pub fn get_attribute_string(&self, attribute: &str) -> Option<glib::GString> {
+    pub fn attribute_string(&self, attribute: &str) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::g_file_info_get_attribute_string(
                 self.to_glib_none().0,
@@ -124,7 +124,7 @@ impl FileInfo {
     }
 
     #[doc(alias = "g_file_info_get_attribute_stringv")]
-    pub fn get_attribute_stringv(&self, attribute: &str) -> Vec<glib::GString> {
+    pub fn attribute_stringv(&self, attribute: &str) -> Vec<glib::GString> {
         unsafe {
             FromGlibPtrContainer::from_glib_none(ffi::g_file_info_get_attribute_stringv(
                 self.to_glib_none().0,
@@ -134,7 +134,7 @@ impl FileInfo {
     }
 
     #[doc(alias = "g_file_info_get_attribute_type")]
-    pub fn get_attribute_type(&self, attribute: &str) -> FileAttributeType {
+    pub fn attribute_type(&self, attribute: &str) -> FileAttributeType {
         unsafe {
             from_glib(ffi::g_file_info_get_attribute_type(
                 self.to_glib_none().0,
@@ -144,14 +144,14 @@ impl FileInfo {
     }
 
     #[doc(alias = "g_file_info_get_attribute_uint32")]
-    pub fn get_attribute_uint32(&self, attribute: &str) -> u32 {
+    pub fn attribute_uint32(&self, attribute: &str) -> u32 {
         unsafe {
             ffi::g_file_info_get_attribute_uint32(self.to_glib_none().0, attribute.to_glib_none().0)
         }
     }
 
     #[doc(alias = "g_file_info_get_attribute_uint64")]
-    pub fn get_attribute_uint64(&self, attribute: &str) -> u64 {
+    pub fn attribute_uint64(&self, attribute: &str) -> u64 {
         unsafe {
             ffi::g_file_info_get_attribute_uint64(self.to_glib_none().0, attribute.to_glib_none().0)
         }

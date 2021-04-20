@@ -16,7 +16,7 @@ glib::wrapper! {
     pub struct SocketAddressEnumerator(Object<ffi::GSocketAddressEnumerator, ffi::GSocketAddressEnumeratorClass>);
 
     match fn {
-        get_type => || ffi::g_socket_address_enumerator_get_type(),
+        type_ => || ffi::g_socket_address_enumerator_get_type(),
     }
 }
 

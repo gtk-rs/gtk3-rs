@@ -16,7 +16,7 @@ glib::wrapper! {
     pub struct NetworkService(Object<ffi::GNetworkService, ffi::GNetworkServiceClass>) @implements SocketConnectable;
 
     match fn {
-        get_type => || ffi::g_network_service_get_type(),
+        type_ => || ffi::g_network_service_get_type(),
     }
 }
 

@@ -330,7 +330,7 @@ mod overlay {
                     self.to_glib_none().0 as *mut _,
                     b"get-child-position\0".as_ptr() as *mut _,
                     Some(transmute::<_, unsafe extern "C" fn()>(
-                        get_child_position_trampoline::<Self, F> as *const (),
+                        child_position_trampoline::<Self, F> as *const (),
                     )),
                     Box::into_raw(f),
                 )
@@ -338,7 +338,7 @@ mod overlay {
         }
     }
 
-    unsafe extern "C" fn get_child_position_trampoline<
+    unsafe extern "C" fn child_position_trampoline<
         T,
         F: Fn(&T, &Widget) -> Option<Rectangle> + 'static,
     >(
