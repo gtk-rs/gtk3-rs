@@ -186,6 +186,51 @@
 <span id="183">183</span>
 <span id="184">184</span>
 <span id="185">185</span>
+<span id="186">186</span>
+<span id="187">187</span>
+<span id="188">188</span>
+<span id="189">189</span>
+<span id="190">190</span>
+<span id="191">191</span>
+<span id="192">192</span>
+<span id="193">193</span>
+<span id="194">194</span>
+<span id="195">195</span>
+<span id="196">196</span>
+<span id="197">197</span>
+<span id="198">198</span>
+<span id="199">199</span>
+<span id="200">200</span>
+<span id="201">201</span>
+<span id="202">202</span>
+<span id="203">203</span>
+<span id="204">204</span>
+<span id="205">205</span>
+<span id="206">206</span>
+<span id="207">207</span>
+<span id="208">208</span>
+<span id="209">209</span>
+<span id="210">210</span>
+<span id="211">211</span>
+<span id="212">212</span>
+<span id="213">213</span>
+<span id="214">214</span>
+<span id="215">215</span>
+<span id="216">216</span>
+<span id="217">217</span>
+<span id="218">218</span>
+<span id="219">219</span>
+<span id="220">220</span>
+<span id="221">221</span>
+<span id="222">222</span>
+<span id="223">223</span>
+<span id="224">224</span>
+<span id="225">225</span>
+<span id="226">226</span>
+<span id="227">227</span>
+<span id="228">228</span>
+<span id="229">229</span>
+<span id="230">230</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -337,15 +382,60 @@
     <span class="prelude-val">Ok</span>(<span class="ident">v</span>)
 }
 
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">crate_ident_new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Ident</span> {
+<span class="kw">const</span> <span class="ident">KNOWN_GLIB_EXPORTS</span>: [<span class="kw-2">&amp;</span><span class="ident">str</span>; <span class="number">10</span>] <span class="op">=</span> [
+    <span class="comment">// Current Re-exports from gtk-rs</span>
+    <span class="string">&quot;gtk&quot;</span>,
+    <span class="string">&quot;gio&quot;</span>,
+    <span class="string">&quot;gdk&quot;</span>,
+    <span class="string">&quot;pango&quot;</span>,
+    <span class="string">&quot;graphene-rs&quot;</span>,
+    <span class="comment">// Current Re-exports from gtk4-rs</span>
+    <span class="string">&quot;gtk4&quot;</span>,
+    <span class="string">&quot;gsk4&quot;</span>,
+    <span class="string">&quot;gdk4&quot;</span>,
+    <span class="comment">// Special Request</span>
+    <span class="string">&quot;gstreamer&quot;</span>,
+    <span class="comment">// Re-export may fail</span>
+    <span class="string">&quot;cairo-rs&quot;</span>,
+];
+
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">crate_ident_new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TokenStream</span> {
     <span class="kw">use</span> <span class="ident">proc_macro_crate::FoundCrate</span>;
 
-    <span class="kw">let</span> <span class="ident">crate_name</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">crate_name</span>(<span class="string">&quot;glib&quot;</span>).<span class="ident">expect</span>(<span class="string">&quot;missing glib dependency in `Cargo.toml`&quot;</span>) {
-        <span class="ident">FoundCrate::Name</span>(<span class="ident">name</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">name</span>,
-        <span class="ident">FoundCrate::Itself</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;glib&quot;</span>.<span class="ident">to_owned</span>(),
-    };
+    <span class="kw">let</span> <span class="ident">crate_path</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">crate_name</span>(<span class="string">&quot;glib&quot;</span>) {
+        <span class="prelude-val">Ok</span>(<span class="ident">FoundCrate::Name</span>(<span class="ident">name</span>)) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">name</span>),
+        <span class="prelude-val">Ok</span>(<span class="ident">FoundCrate::Itself</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="string">&quot;glib&quot;</span>.<span class="ident">to_string</span>()),
+        <span class="prelude-val">Err</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
+    }
+    .<span class="ident">map</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> {
+        <span class="kw">let</span> <span class="ident">glib</span> <span class="op">=</span> <span class="ident">Ident::new</span>(<span class="kw-2">&amp;</span><span class="ident">s</span>, <span class="ident">Span::call_site</span>());
+        <span class="macro">quote!</span>(#<span class="ident">glib</span>)
+    });
 
-    <span class="ident">Ident::new</span>(<span class="kw-2">&amp;</span><span class="ident">crate_name</span>, <span class="ident">Span::call_site</span>())
+    <span class="kw">let</span> <span class="ident">crate_path</span> <span class="op">=</span> <span class="ident">crate_path</span>.<span class="ident">or_else</span>(<span class="op">|</span><span class="op">|</span> {
+        <span class="ident">KNOWN_GLIB_EXPORTS</span>.<span class="ident">iter</span>().<span class="ident">find_map</span>(<span class="op">|</span><span class="ident">c</span><span class="op">|</span> {
+            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="ident">f</span>) <span class="op">=</span> <span class="ident">crate_name</span>(<span class="ident">c</span>) {
+                <span class="kw">let</span> <span class="ident">crate_name</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">f</span> {
+                    <span class="ident">FoundCrate::Name</span>(<span class="ident">name</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">name</span>,
+                    <span class="ident">FoundCrate::Itself</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">c</span>.<span class="ident">to_string</span>(),
+                };
+                <span class="kw">let</span> <span class="ident">crate_root</span> <span class="op">=</span> <span class="ident">Ident::new</span>(<span class="kw-2">&amp;</span><span class="ident">crate_name</span>, <span class="ident">Span::call_site</span>());
+                <span class="prelude-val">Some</span>(<span class="macro">quote::quote!</span> {
+                    #<span class="ident">crate_root::glib</span>
+                })
+            } <span class="kw">else</span> {
+                <span class="prelude-val">None</span>
+            }
+        })
+    });
+
+    <span class="ident">crate_path</span>.<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="op">|</span> {
+        <span class="macro">proc_macro_error::emit_call_site_warning!</span>(
+            <span class="string">&quot;Can&#39;t find glib crate. Please ensure you have a glib in scope&quot;</span>
+        );
+        <span class="kw">let</span> <span class="ident">glib</span> <span class="op">=</span> <span class="ident">Ident::new</span>(<span class="string">&quot;glib&quot;</span>, <span class="ident">Span::call_site</span>());
+        <span class="macro">quote!</span>(#<span class="ident">glib</span>)
+    })
 }
 
 <span class="comment">// Generate i32 to enum mapping, used to implement</span>
@@ -373,5 +463,5 @@
     }
 }
 </pre></div>
-</section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="glib_macros" data-search-index-js="../../search-index.js" data-search-js="../../search.js"></div>
+</section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="glib_macros" data-search-index-js="../../search-index.js" data-search-js="../../search.js"></div>
     <script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script></body></html>
