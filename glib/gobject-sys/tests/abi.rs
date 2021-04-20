@@ -21,14 +21,14 @@ struct Compiler {
 
 impl Compiler {
     pub fn new() -> Result<Compiler, Box<dyn Error>> {
-        let mut args = get_var("CC", "cc")?;
+        let mut args = var("CC", "cc")?;
         args.push("-Wno-deprecated-declarations".to_owned());
         // For _Generic
         args.push("-std=c11".to_owned());
         // For %z support in printf when using MinGW.
         args.push("-D__USE_MINGW_ANSI_STDIO".to_owned());
-        args.extend(get_var("CFLAGS", "")?);
-        args.extend(get_var("CPPFLAGS", "")?);
+        args.extend(var("CFLAGS", "")?);
+        args.extend(var("CPPFLAGS", "")?);
         args.extend(pkg_config_cflags(PACKAGES)?);
         Ok(Compiler { args })
     }
@@ -113,7 +113,7 @@ impl Results {
 fn cross_validate_constants_with_c() {
     let mut c_constants: Vec<(String, String)> = Vec::new();
 
-    for l in get_c_output("constant").unwrap().lines() {
+    for l in c_output("constant").unwrap().lines() {
         let mut words = l.trim().split(';');
         let name = words.next().expect("Failed to parse name").to_owned();
         let value = words
@@ -153,7 +153,7 @@ fn cross_validate_constants_with_c() {
 fn cross_validate_layout_with_c() {
     let mut c_layouts = Vec::new();
 
-    for l in get_c_output("layout").unwrap().lines() {
+    for l in c_output("layout").unwrap().lines() {
         let mut words = l.trim().split(';');
         let name = words.next().expect("Failed to parse name").to_owned();
         let size = words

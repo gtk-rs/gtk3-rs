@@ -12,7 +12,7 @@ pub trait StyleContextExtManual: 'static {
 
 impl<O: IsA<StyleContext>> StyleContextExtManual for O {
     fn font(&self, state: StateFlags) -> FontDescription {
-        self.get_property("font", state)
+        self.property("font", state)
             .get()
             .expect("font property is not pango::FontDescription")
             .expect("font property is empty")

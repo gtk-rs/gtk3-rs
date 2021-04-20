@@ -133,13 +133,13 @@ struct ThreadGuard<T> {
 impl<T> ThreadGuard<T> {
     fn new(value: T) -> Self {
         Self {
-            thread_id: get_thread_id(),
+            thread_id: thread_id(),
             value: Some(value),
         }
     }
 
     fn into_inner(mut self) -> T {
-        if self.thread_id != get_thread_id() {
+        if self.thread_id != thread_id() {
             panic!("Value accessed from different thread than where it was created");
         }
 
@@ -149,7 +149,7 @@ impl<T> ThreadGuard<T> {
 
 impl<T> Drop for ThreadGuard<T> {
     fn drop(&mut self) {
-        if self.thread_id != get_thread_id() {
+        if self.thread_id != thread_id() {
             panic!("Value dropped on a different thread than where it was created");
         }
     }

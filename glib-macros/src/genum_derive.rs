@@ -139,11 +139,11 @@ pub fn impl_genum(input: &syn::DeriveInput) -> TokenStream {
 
         impl #crate_ident::StaticType for #name {
             fn static_type() -> #crate_ident::Type {
-                #get_type()
+                #type_()
             }
         }
 
-        fn #get_type() -> #crate_ident::Type {
+        fn #type_() -> #crate_ident::Type {
             static ONCE: std::sync::Once = std::sync::Once::new();
             static mut TYPE: #crate_ident::Type = #crate_ident::Type::INVALID;
 

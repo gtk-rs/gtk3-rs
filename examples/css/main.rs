@@ -13,7 +13,7 @@ fn main() {
         // We give the CssProvided to the default screen so the CSS rules we added
         // can be applied to our window.
         gtk::StyleContext::add_provider_for_screen(
-            &gdk::Screen::get_default().expect("Error initializing gtk css provider."),
+            &gdk::Screen::default().expect("Error initializing gtk css provider."),
             &provider,
             gtk::STYLE_PROVIDER_PRIORITY_APPLICATION,
         );

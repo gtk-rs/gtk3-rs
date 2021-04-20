@@ -60,12 +60,12 @@ fn build_ui(application: &gtk::Application) {
     let glade_src = include_str!("printing.ui");
     let builder = gtk::Builder::from_string(glade_src);
 
-    let window: gtk::Window = builder.get_object("window").expect("Couldn't get window");
+    let window: gtk::Window = builder.object("window").expect("Couldn't get window");
     window.set_application(Some(application));
-    let entry1: gtk::Entry = builder.get_object("entry1").expect("Couldn't get entry1");
-    let entry2: gtk::Entry = builder.get_object("entry2").expect("Couldn't get entry2");
+    let entry1: gtk::Entry = builder.object("entry1").expect("Couldn't get entry1");
+    let entry2: gtk::Entry = builder.object("entry2").expect("Couldn't get entry2");
     let button_print: gtk::Button = builder
-        .get_object("buttonprint")
+        .object("buttonprint")
         .expect("Couldn't get buttonprint");
 
     button_print.connect_clicked(glib::clone!(@weak window => move |_| {

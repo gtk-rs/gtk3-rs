@@ -432,7 +432,7 @@ macro_rules! wrapper {
         pub struct $name:ident(ObjectSubclass<$subclass:ty>);
     ) => {
         $crate::glib_object_wrapper!(@object [$($attr)*] $name, <$subclass as $crate::subclass::types::ObjectSubclass>::Instance, <$subclass as $crate::subclass::types::ObjectSubclass>::Class,
-            @type_ $crate::translate::ToGlib::to_glib(&<$subclass as $crate::subclass::types::ObjectSubclassType>::get_type()),
+            @type_ $crate::translate::ToGlib::to_glib(&<$subclass as $crate::subclass::types::ObjectSubclassType>::type_()),
             @extends [], @implements []);
         unsafe impl $crate::object::ObjectSubclassIs for $name {
             type Subclass = $subclass;
@@ -445,7 +445,7 @@ macro_rules! wrapper {
         pub struct $name:ident(ObjectSubclass<$subclass:ty>) @implements $($implements:path),+;
     ) => {
         $crate::glib_object_wrapper!(@object [$($attr)*] $name, <$subclass as $crate::subclass::types::ObjectSubclass>::Instance, <$subclass as $crate::subclass::types::ObjectSubclass>::Class,
-            @type_ $crate::translate::ToGlib::to_glib(&<$subclass as $crate::subclass::types::ObjectSubclassType>::get_type()),
+            @type_ $crate::translate::ToGlib::to_glib(&<$subclass as $crate::subclass::types::ObjectSubclassType>::type_()),
             @extends [], @implements [$($implements),+]);
         unsafe impl $crate::object::ObjectSubclassIs for $name {
             type Subclass = $subclass;
@@ -458,7 +458,7 @@ macro_rules! wrapper {
         pub struct $name:ident(ObjectSubclass<$subclass:ty>) @extends $($extends:path),+;
     ) => {
         $crate::glib_object_wrapper!(@object [$($attr)*] $name, <$subclass as $crate::subclass::types::ObjectSubclass>::Instance, <$subclass as $crate::subclass::types::ObjectSubclass>::Class,
-            @type_ $crate::translate::ToGlib::to_glib(&<$subclass as $crate::subclass::types::ObjectSubclassType>::get_type()),
+            @type_ $crate::translate::ToGlib::to_glib(&<$subclass as $crate::subclass::types::ObjectSubclassType>::type_()),
             @extends [$($extends),+], @implements []);
         unsafe impl $crate::object::ObjectSubclassIs for $name {
             type Subclass = $subclass;
@@ -471,7 +471,7 @@ macro_rules! wrapper {
         pub struct $name:ident(ObjectSubclass<$subclass:ty>) @extends $($extends:path),+, @implements $($implements:path),+;
     ) => {
         $crate::glib_object_wrapper!(@object [$($attr)*] $name, <$subclass as $crate::subclass::types::ObjectSubclass>::Instance, <$subclass as $crate::subclass::types::ObjectSubclass>::Class,
-            @type_ $crate::translate::ToGlib::to_glib(&<$subclass as $crate::subclass::types::ObjectSubclassType>::get_type()),
+            @type_ $crate::translate::ToGlib::to_glib(&<$subclass as $crate::subclass::types::ObjectSubclassType>::type_()),
             @extends [$($extends),+], @implements [$($implements),+]);
         unsafe impl $crate::object::ObjectSubclassIs for $name {
             type Subclass = $subclass;
@@ -532,7 +532,7 @@ macro_rules! wrapper {
         pub struct $name:ident(ObjectInterface<$iface_name:ty>);
     ) => {
         $crate::glib_object_wrapper!(@interface [$($attr)*] $name, std::os::raw::c_void, $iface_name,
-            @type_ $crate::translate::ToGlib::to_glib(&<$iface_name as $crate::subclass::interface::ObjectInterfaceType>::get_type()),
+            @type_ $crate::translate::ToGlib::to_glib(&<$iface_name as $crate::subclass::interface::ObjectInterfaceType>::type_()),
             @requires []);
     };
 
@@ -542,7 +542,7 @@ macro_rules! wrapper {
         pub struct $name:ident(ObjectInterface<$iface_name:ty>) @requires $($requires:path),+;
     ) => {
         $crate::glib_object_wrapper!(@interface [$($attr)*] $name, std::os::raw::c_void, $iface_name,
-            @type_ $crate::translate::ToGlib::to_glib(&<$iface_name as $crate::subclass::interface::ObjectInterfaceType>::get_type()),
+            @type_ $crate::translate::ToGlib::to_glib(&<$iface_name as $crate::subclass::interface::ObjectInterfaceType>::type_()),
             @requires [$($requires),+]);
     };
 }

@@ -57,6 +57,6 @@ mod tests {
 
     #[test]
     fn check_versions() {
-        assert_eq!(get_version_string(), Version::get_version().to_string());
+        assert_eq!(version_string(), Version::version().to_string());
     }
 }

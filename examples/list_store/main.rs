@@ -209,9 +209,9 @@ fn fixed_toggled<W: IsA<gtk::CellRendererToggle>>(
     _w: &W,
     path: gtk::TreePath,
 ) {
-    let iter = model.get_iter(&path).unwrap();
+    let iter = model.iter(&path).unwrap();
     let mut fixed = model
-        .get_value(&iter, Columns::Fixed as i32)
+        .value(&iter, Columns::Fixed as i32)
         .get_some::<bool>()
         .unwrap_or_else(|err| {
             panic!(
@@ -300,7 +300,7 @@ fn add_columns(model: &Rc<gtk::ListStore>, treeview: &gtk::TreeView) {
 fn spinner_timeout(model: &gtk::ListStore) -> Continue {
     let iter = model.iter_first().unwrap();
     let pulse = model
-        .get_value(&iter, Columns::Pulse as i32)
+        .value(&iter, Columns::Pulse as i32)
         .get_some::<u32>()
         .unwrap_or_else(|err| {
             panic!(

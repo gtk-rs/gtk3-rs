@@ -151,7 +151,7 @@ pub fn impl_gshared_boxed(input: &syn::DeriveInput) -> proc_macro2::TokenStream 
 
         impl #crate_ident::StaticType for #name {
             fn static_type() -> #crate_ident::Type {
-                <#name as #crate_ident::subclass::shared::SharedType>::get_type()
+                <#name as #crate_ident::subclass::shared::SharedType>::type_()
             }
         }
 

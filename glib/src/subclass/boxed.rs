@@ -79,12 +79,12 @@ mod test {
 
     #[test]
     fn test_register() {
-        assert!(MyBoxed::get_type().is_valid());
+        assert!(MyBoxed::type_().is_valid());
     }
 
     #[test]
     fn test_value() {
-        assert!(MyBoxed::get_type().is_valid());
+        assert!(MyBoxed::type_().is_valid());
 
         let b = MyBoxed(String::from("abc"));
         let v = b.to_value();

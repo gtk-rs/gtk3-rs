@@ -59,7 +59,7 @@ fn create_list_store_model() -> gtk::ListStore {
     // IconTheme provides a facility for looking up icons by name and size.
     //
     // Get default icon theme
-    let icon_theme: Option<gtk::IconTheme> = gtk::IconTheme::get_default();
+    let icon_theme: Option<gtk::IconTheme> = gtk::IconTheme::default();
     if let Some(it) = icon_theme {
         for x in &icons {
             // Looks up an icon in an icon theme, scales it to the given size and renders it into

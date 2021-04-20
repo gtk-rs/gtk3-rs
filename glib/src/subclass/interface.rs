@@ -125,12 +125,12 @@ pub trait ObjectInterfaceExt: ObjectInterface {
     ///
     /// This will panic if `obj` does not implement the interface.
     fn from_instance<T: IsA<Object>>(obj: &T) -> &Self {
-        assert!(obj.as_ref().type_().is_a(Self::get_type()));
+        assert!(obj.as_ref().type_().is_a(Self::type_()));
 
         unsafe {
             let klass = (*(obj.as_ptr() as *const gobject_ffi::GTypeInstance)).g_class;
             let interface =
-                gobject_ffi::g_type_interface_peek(klass as *mut _, Self::get_type().to_glib());
+                gobject_ffi::g_type_interface_peek(klass as *mut _, Self::type_().to_glib());
             assert!(!interface.is_null());
             &*(interface as *const Self)
         }
@@ -153,7 +153,7 @@ unsafe extern "C" fn interface_init<T: ObjectInterface>(
         );
     }
 
-    let type_ = T::get_type();
+    let type_ = T::type_();
     let signals = <T as ObjectInterface>::signals();
     for signal in signals {
         signal.register(type_);

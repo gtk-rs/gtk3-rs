@@ -13,14 +13,10 @@ pub fn build_ui(application: &gtk::Application) {
         .add_from_string(glade_src)
         .expect("Couldn't add from string");
 
-    let window: gtk::ApplicationWindow = builder.get_object("window").expect("Couldn't get window");
+    let window: gtk::ApplicationWindow = builder.object("window").expect("Couldn't get window");
     window.set_application(Some(application));
-    let open_button: gtk::ToolButton = builder
-        .get_object("open_button")
-        .expect("Couldn't get builder");
-    let text_view: gtk::TextView = builder
-        .get_object("text_view")
-        .expect("Couldn't get text_view");
+    let open_button: gtk::ToolButton = builder.object("open_button").expect("Couldn't get builder");
+    let text_view: gtk::TextView = builder.object("text_view").expect("Couldn't get text_view");
 
     open_button.connect_clicked(glib::clone!(@weak window => move |_| {
         // TODO move this to a impl?

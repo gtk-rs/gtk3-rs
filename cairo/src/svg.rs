@@ -149,7 +149,7 @@ mod test {
 
     #[test]
     fn versions() {
-        assert!(SvgSurface::get_versions().any(|v| v == SvgVersion::_1_1));
+        assert!(SvgSurface::versions().any(|v| v == SvgVersion::_1_1));
     }
 
     #[test]

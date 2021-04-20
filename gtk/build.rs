@@ -40,7 +40,7 @@ fn check_features() {
     // as configuration variables.
     // For reference, the backend set at time of writing consists of:
     // x11 win32 quartz broadway wayland
-    if let Ok(targets) = pkg_config::get_variable("gtk+-3.0", "targets") {
+    if let Ok(targets) = pkg_config::is_variable("gtk+-3.0", "targets") {
         for target in targets.split_whitespace() {
             println!("cargo:rustc-cfg=gdk_backend=\"{}\"", target);
         }

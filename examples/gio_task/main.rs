@@ -95,5 +95,5 @@ fn run_safe(send: oneshot::Sender<()>) {
         send.send(()).unwrap();
     };
 
-    simple_object.get_file_size_async(Some(&cancellable), closure);
+    simple_object.file_size_async(Some(&cancellable), closure);
 }

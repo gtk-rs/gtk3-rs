@@ -136,7 +136,7 @@ mod test {
 
     #[test]
     fn levels() {
-        assert!(PsSurface::get_levels().any(|v| v == PsLevel::_2));
+        assert!(PsSurface::levels().any(|v| v == PsLevel::_2));
     }
 
     #[test]

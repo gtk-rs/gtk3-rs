@@ -12,7 +12,7 @@ use std::ptr;
 ///
 /// [`get_prgname()`]: fn.get_prgname.html
 pub fn program_name() -> Option<String> {
-    get_prgname()
+    prgname()
 }
 
 #[doc(alias = "g_get_prgname")]
@@ -221,7 +221,7 @@ mod tests {
         assert_eq!(env::var_os(VAR_NAME), Some(val.into()));
         assert_eq!(crate::getenv(VAR_NAME), Some(val.into()));
 
-        let environ = crate::get_environ();
+        let environ = crate::environ();
         assert_eq!(crate::environ_getenv(&environ, VAR_NAME), Some(val.into()));
     }
 

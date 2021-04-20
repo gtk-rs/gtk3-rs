@@ -116,7 +116,7 @@ pub fn impl_gboxed(input: &syn::DeriveInput) -> TokenStream {
 
         impl #crate_ident::StaticType for #name {
             fn static_type() -> #crate_ident::Type {
-                <#name as #crate_ident::subclass::boxed::BoxedType>::get_type()
+                <#name as #crate_ident::subclass::boxed::BoxedType>::type_()
             }
         }
 

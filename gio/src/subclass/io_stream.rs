@@ -120,7 +120,7 @@ unsafe extern "C" fn stream_get_input_stream<T: IOStreamImpl>(
     // Ensure that a) the stream stays alive as long as the IO stream instance and
     // b) that the same stream is returned every time. This is a requirement by the
     // IO stream API.
-    if let Some(old_stream) = wrap.get_qdata::<InputStream>(*INPUT_STREAM_QUARK) {
+    if let Some(old_stream) = wrap.qdata::<InputStream>(*INPUT_STREAM_QUARK) {
         assert_eq!(
             old_stream.as_ref(),
             &ret,
@@ -143,7 +143,7 @@ unsafe extern "C" fn stream_get_output_stream<T: IOStreamImpl>(
     // Ensure that a) the stream stays alive as long as the IO stream instance and
     // b) that the same stream is returned every time. This is a requirement by the
     // IO stream API.
-    if let Some(old_stream) = wrap.get_qdata::<OutputStream>(*OUTPUT_STREAM_QUARK) {
+    if let Some(old_stream) = wrap.qdata::<OutputStream>(*OUTPUT_STREAM_QUARK) {
         assert_eq!(
             old_stream.as_ref(),
             &ret,

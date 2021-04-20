@@ -409,7 +409,7 @@ impl Pixbuf {
     {
         Box::pin(gio::GioFuture::new(&(), move |_obj, send| {
             let cancellable = gio::Cancellable::new();
-            Self::get_file_info_async(filename, Some(&cancellable), move |res| {
+            Self::file_info_async(filename, Some(&cancellable), move |res| {
                 send.resolve(res);
             });
 

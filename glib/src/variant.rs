@@ -43,8 +43,8 @@
 //! let array = ["Hello".to_variant(), "there!".to_variant()];
 //! let variant = Variant::from_array::<&str>(&array);
 //! assert_eq!(variant.n_children(), 2);
-//! assert_eq!(variant.get_child_value(0).str(), Some("Hello"));
-//! assert_eq!(variant.get_child_value(1).str(), Some("there!"));
+//! assert_eq!(variant.child_value(0).str(), Some("Hello"));
+//! assert_eq!(variant.child_value(1).str(), Some("there!"));
 //!
 //! // You can also convert from and to a Vec
 //! let array = vec!["Hello", "there!"].to_variant();
@@ -438,7 +438,7 @@ macro_rules! impl_numeric {
             fn from_variant(variant: &Variant) -> Option<Self> {
                 unsafe {
                     if variant.is::<Self>() {
-                        Some(ffi::$get_fn(variant.to_glib_none().0))
+                        Some(ffi::$fn_(variant.to_glib_none().0))
                     } else {
                         None
                     }
@@ -565,7 +565,7 @@ impl<T: FromVariant> FromVariant for Vec<T> {
         let mut vec = Vec::with_capacity(variant.n_children());
 
         for i in 0..variant.n_children() {
-            match variant.get_child_value(i).get() {
+            match variant.child_value(i).get() {
                 Some(child) => vec.push(child),
                 None => return None,
             }
@@ -601,12 +601,12 @@ where
         let mut map = HashMap::default();
 
         for i in 0..variant.n_children() {
-            let entry = variant.get_child_value(i);
-            let key = match entry.get_child_value(0).get() {
+            let entry = variant.child_value(i);
+            let key = match entry.child_value(0).get() {
                 Some(key) => key,
                 None => return None,
             };
-            let val = match entry.get_child_value(1).get() {
+            let val = match entry.child_value(1).get() {
                 Some(val) => val,
                 None => return None,
             };
@@ -681,11 +681,11 @@ where
     V: FromVariant,
 {
     fn from_variant(variant: &Variant) -> Option<Self> {
-        let key = match variant.get_child_value(0).get() {
+        let key = match variant.child_value(0).get() {
             Some(key) => key,
             None => return None,
         };
-        let value = match variant.get_child_value(1).get() {
+        let value = match variant.child_value(1).get() {
             Some(value) => value,
             None => return None,
         };
@@ -776,7 +776,7 @@ macro_rules! tuple_impls {
                 fn from_variant(variant: &Variant) -> Option<Self> {
                     Some((
                         $(
-                            match $name::from_variant(&variant.get_child_value($n)) {
+                            match $name::from_variant(&variant.child_value($n)) {
                                 Some(field) => field,
                                 None => return None,
                             },

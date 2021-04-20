@@ -170,7 +170,7 @@ mod test {
 
     #[test]
     fn versions() {
-        assert!(PdfSurface::get_versions().any(|v| v == PdfVersion::_1_4));
+        assert!(PdfSurface::versions().any(|v| v == PdfVersion::_1_4));
     }
 
     #[test]

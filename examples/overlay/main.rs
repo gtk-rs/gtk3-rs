@@ -70,7 +70,7 @@ fn main() {
         let style = include_bytes!("style.css");
         provider.load_from_data(style).expect("Failed to load CSS");
         gtk::StyleContext::add_provider_for_screen(
-            &gdk::Screen::get_default().expect("Error initializing gtk css provider."),
+            &gdk::Screen::default().expect("Error initializing gtk css provider."),
             &provider,
             gtk::STYLE_PROVIDER_PRIORITY_APPLICATION,
         );

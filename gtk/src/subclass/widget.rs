@@ -1508,7 +1508,7 @@ unsafe extern "C" fn widget_get_preferred_width_for_height<T: WidgetImpl>(
     let imp = instance.impl_();
     let wrap: Borrowed<Widget> = from_glib_borrow(ptr);
 
-    let (min_width, nat_width) = imp.get_preferred_width_for_height(wrap.unsafe_cast_ref(), height);
+    let (min_width, nat_width) = imp.preferred_width_for_height(wrap.unsafe_cast_ref(), height);
     if !min_width_ptr.is_null() {
         *min_width_ptr = min_width;
     }
@@ -1544,8 +1544,7 @@ unsafe extern "C" fn widget_get_preferred_height_for_width<T: WidgetImpl>(
     let imp = instance.impl_();
     let wrap: Borrowed<Widget> = from_glib_borrow(ptr);
 
-    let (min_height, nat_height) =
-        imp.get_preferred_height_for_width(wrap.unsafe_cast_ref(), width);
+    let (min_height, nat_height) = imp.preferred_height_for_width(wrap.unsafe_cast_ref(), width);
     if !min_height_ptr.is_null() {
         *min_height_ptr = min_height;
     }
@@ -1715,7 +1714,7 @@ pub unsafe trait WidgetClassSubclassExt: ClassStruct {
             widget_class,
             name.to_glib_none().0,
             false as glib::ffi::gboolean,
-            private_offset + (offset.get_byte_offset() as isize),
+            private_offset + (offset.byte_offset() as isize),
         )
     }
 }

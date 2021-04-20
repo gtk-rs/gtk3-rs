@@ -34,7 +34,7 @@ impl Iterator for VariantIter {
         if self.head == self.tail {
             None
         } else {
-            let value = self.variant.get_child_value(self.head);
+            let value = self.variant.child_value(self.head);
             self.head += 1;
             Some(value)
         }
@@ -52,7 +52,7 @@ impl DoubleEndedIterator for VariantIter {
             None
         } else {
             self.tail -= 1;
-            Some(self.variant.get_child_value(self.tail))
+            Some(self.variant.child_value(self.tail))
         }
     }
 }

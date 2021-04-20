@@ -23,7 +23,7 @@ impl<T: ActionMapImpl> ActionMapImplExt for T {
     fn parent_lookup_action(&self, action_map: &Self::Type, name: &str) -> Option<Action> {
         unsafe {
             let type_data = Self::type_data();
-            let parent_iface = type_data.as_ref().get_parent_interface::<ActionMap>()
+            let parent_iface = type_data.as_ref().parent_interface::<ActionMap>()
                 as *const ffi::GActionMapInterface;
 
             let func = (*parent_iface)
@@ -40,7 +40,7 @@ impl<T: ActionMapImpl> ActionMapImplExt for T {
     fn parent_add_action(&self, action_map: &Self::Type, action: &Action) {
         unsafe {
             let type_data = Self::type_data();
-            let parent_iface = type_data.as_ref().get_parent_interface::<ActionMap>()
+            let parent_iface = type_data.as_ref().parent_interface::<ActionMap>()
                 as *const ffi::GActionMapInterface;
 
             let func = (*parent_iface)
@@ -56,7 +56,7 @@ impl<T: ActionMapImpl> ActionMapImplExt for T {
     fn parent_remove_action(&self, action_map: &Self::Type, action_name: &str) {
         unsafe {
             let type_data = Self::type_data();
-            let parent_iface = type_data.as_ref().get_parent_interface::<ActionMap>()
+            let parent_iface = type_data.as_ref().parent_interface::<ActionMap>()
                 as *const ffi::GActionMapInterface;
 
             let func = (*parent_iface)

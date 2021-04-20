@@ -225,7 +225,7 @@ unsafe extern "C" fn container_get_path_for_child<T: ContainerImpl>(
     let wrap: Borrowed<Container> = from_glib_borrow(ptr);
     let widget: Borrowed<Widget> = from_glib_borrow(wdgtptr);
 
-    imp.get_path_for_child(wrap.unsafe_cast_ref(), &widget)
+    imp.path_for_child(wrap.unsafe_cast_ref(), &widget)
         .to_glib_none()
         .0
 }

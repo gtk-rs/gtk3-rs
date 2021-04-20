@@ -400,12 +400,12 @@ mod tests {
     #[test]
     fn mime_data() {
         let surface = ImageSurface::create(Format::ARgb32, 500, 500).unwrap();
-        let data = surface.get_mime_data(MIME_TYPE_PNG);
+        let data = surface.mime_data(MIME_TYPE_PNG);
         /* Initially the data for any mime type has to be none */
         assert!(data.is_none());
 
         assert!(surface.set_mime_data(MIME_TYPE_PNG, &[1u8, 10u8]).is_ok());
-        let data = surface.get_mime_data(MIME_TYPE_PNG).unwrap();
+        let data = surface.mime_data(MIME_TYPE_PNG).unwrap();
         assert_eq!(data, &[1u8, 10u8]);
     }
 }

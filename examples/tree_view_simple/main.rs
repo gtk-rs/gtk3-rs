@@ -71,12 +71,12 @@ fn build_ui(application: &gtk::Application) {
             label.set_text(&format!(
                 "Hello '{}' from row {}",
                 model
-                    .get_value(&iter, 1)
+                    .value(&iter, 1)
                     .get::<String>()
                     .expect("Treeview selection, column 1")
                     .expect("Treeview selection, column 1: mandatory value not found"),
                 model
-                    .get_value(&iter, 0)
+                    .value(&iter, 0)
                     .get_some::<u32>()
                     .expect("Treeview selection, column 0"),
             ));

@@ -8,9 +8,9 @@ fn build_ui(application: &gtk::Application) {
         .add_from_string(glade_src)
         .expect("Couldn't add from string");
 
-    let slider: gtk::Scale = builder.get_object("slider").expect("Couldn't get slider");
+    let slider: gtk::Scale = builder.object("slider").expect("Couldn't get slider");
     let spin_button: gtk::SpinButton = builder
-        .get_object("spin_button")
+        .object("spin_button")
         .expect("Couldn't get spin_button");
     let slider_adj = slider.adjustment();
     let spin_button_adj = spin_button.adjustment();
@@ -23,7 +23,7 @@ fn build_ui(application: &gtk::Application) {
         )
         .build();
 
-    let window: gtk::ApplicationWindow = builder.get_object("window").expect("Couldn't get window");
+    let window: gtk::ApplicationWindow = builder.object("window").expect("Couldn't get window");
     window.set_application(Some(application));
 
     window.show_all();

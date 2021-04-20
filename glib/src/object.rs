@@ -1609,7 +1609,7 @@ impl<T: ObjectType> ObjectExt for T {
     }
 
     unsafe fn data<QD: 'static>(&self, key: &str) -> Option<ptr::NonNull<QD>> {
-        self.get_qdata::<QD>(Quark::from_string(key))
+        self.qdata::<QD>(Quark::from_string(key))
     }
 
     unsafe fn steal_data<QD: 'static>(&self, key: &str) -> Option<QD> {
@@ -1735,7 +1735,7 @@ impl<T: ObjectType> ObjectExt for T {
     }
 
     fn property_type<'a, N: Into<&'a str>>(&self, property_name: N) -> Option<Type> {
-        self.object_class().get_property_type(property_name)
+        self.object_class().property_type(property_name)
     }
 
     fn find_property<'a, N: Into<&'a str>>(&self, property_name: N) -> Option<crate::ParamSpec> {
@@ -2322,7 +2322,7 @@ impl ObjectClass {
         type_: Option<Type>,
     ) -> bool {
         let property_name = property_name.into();
-        let ptype = self.get_property_type(property_name);
+        let ptype = self.property_type(property_name);
 
         match (ptype, type_) {
             (None, _) => false,
@@ -2459,7 +2459,7 @@ impl<T: ObjectType> SendWeakRef<T> {
     }
 
     pub fn into_weak_ref(self) -> WeakRef<T> {
-        if self.1.is_some() && self.1 != Some(get_thread_id()) {
+        if self.1.is_some() && self.1 != Some(thread_id()) {
             panic!("SendWeakRef dereferenced on a different thread");
         }
 
@@ -2471,7 +2471,7 @@ impl<T: ObjectType> ops::Deref for SendWeakRef<T> {
     type Target = WeakRef<T>;
 
     fn deref(&self) -> &WeakRef<T> {
-        if self.1.is_some() && self.1 != Some(get_thread_id()) {
+        if self.1.is_some() && self.1 != Some(thread_id()) {
             panic!("SendWeakRef dereferenced on a different thread");
         }
 
@@ -2494,7 +2494,7 @@ impl<T: ObjectType> Default for SendWeakRef<T> {
 
 impl<T: ObjectType> From<WeakRef<T>> for SendWeakRef<T> {
     fn from(v: WeakRef<T>) -> SendWeakRef<T> {
-        SendWeakRef(v, Some(get_thread_id()))
+        SendWeakRef(v, Some(thread_id()))
     }
 }
 
@@ -2941,7 +2941,7 @@ mod tests {
         let obj: Object = Object::new(&[]).unwrap();
         unsafe {
             obj.set_data::<String>("foo", "hello".into());
-            let data = obj.get_data::<String>("foo").unwrap();
+            let data = obj.data::<String>("foo").unwrap();
             assert_eq!(data.as_ref(), "hello");
             let data2 = obj.steal_data::<String>("foo").unwrap();
             assert_eq!(data2, "hello");
