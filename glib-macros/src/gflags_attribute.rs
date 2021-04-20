@@ -82,7 +82,7 @@ fn gen_bitflags(
     enum_name: &Ident,
     visibility: &Visibility,
     enum_variants: &Punctuated<Variant, Comma>,
-    crate_ident: &Ident,
+    crate_ident: &TokenStream,
 ) -> TokenStream {
     let recurse = enum_variants.iter().map(|v| {
         let name = &v.ident;

@@ -32,7 +32,7 @@ fn gen_ptr_to_option(name: &Ident, nullable: bool) -> TokenStream {
     }
 }
 
-fn gen_impl_from_value(name: &Ident, crate_ident: &Ident) -> TokenStream {
+fn gen_impl_from_value(name: &Ident, crate_ident: &TokenStream) -> TokenStream {
     quote! {
         impl<'a> #crate_ident::value::FromValue<'a> for &'a #name {
             unsafe fn from_value(value: &'a #crate_ident::value::Value) -> Self {
@@ -46,7 +46,7 @@ fn gen_impl_from_value(name: &Ident, crate_ident: &Ident) -> TokenStream {
     }
 }
 
-fn gen_impl_set_value_optional(name: &Ident, crate_ident: &Ident) -> TokenStream {
+fn gen_impl_set_value_optional(name: &Ident, crate_ident: &TokenStream) -> TokenStream {
     let option_to_ptr = gen_option_to_ptr();
 
     quote! {

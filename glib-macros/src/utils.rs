@@ -148,15 +148,60 @@ pub fn parse_item_attributes(attr_name: &str, attrs: &[Attribute]) -> Result<Vec
     Ok(v)
 }
 
-pub fn crate_ident_new() -> Ident {
+const KNOWN_GLIB_EXPORTS: [&str; 10] = [
+    // Current Re-exports from gtk-rs
+    "gtk",
+    "gio",
+    "gdk",
+    "pango",
+    "graphene-rs",
+    // Current Re-exports from gtk4-rs
+    "gtk4",
+    "gsk4",
+    "gdk4",
+    // Special Request
+    "gstreamer",
+    // Re-export may fail
+    "cairo-rs",
+];
+
+pub fn crate_ident_new() -> TokenStream {
     use proc_macro_crate::FoundCrate;
 
-    let crate_name = match crate_name("glib").expect("missing glib dependency in `Cargo.toml`") {
-        FoundCrate::Name(name) => name,
-        FoundCrate::Itself => "glib".to_owned(),
-    };
+    let crate_path = match crate_name("glib") {
+        Ok(FoundCrate::Name(name)) => Some(name),
+        Ok(FoundCrate::Itself) => Some("glib".to_string()),
+        Err(_) => None,
+    }
+    .map(|s| {
+        let glib = Ident::new(&s, Span::call_site());
+        quote!(#glib)
+    });
 
-    Ident::new(&crate_name, Span::call_site())
+    let crate_path = crate_path.or_else(|| {
+        KNOWN_GLIB_EXPORTS.iter().find_map(|c| {
+            if let Ok(f) = crate_name(c) {
+                let crate_name = match f {
+                    FoundCrate::Name(name) => name,
+                    FoundCrate::Itself => c.to_string(),
+                };
+                let crate_root = Ident::new(&crate_name, Span::call_site());
+                Some(quote::quote! {
+                    #crate_root::glib
+                })
+            } else {
+                None
+            }
+        })
+    });
+
+    crate_path.unwrap_or_else(|| {
+        proc_macro_error::emit_call_site_warning!(
+            "Can't find glib crate. Please ensure you have a glib in scope"
+        );
+        let glib = Ident::new("glib", Span::call_site());
+        quote!(#glib)
+    })
 }
 
 // Generate i32 to enum mapping, used to implement
