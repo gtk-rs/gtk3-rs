@@ -32,7 +32,7 @@ pub trait ContainerImpl: ContainerImplExt + WidgetImpl {
         self.parent_child_type(container)
     }
 
-    fn get_path_for_child(&self, container: &Self::Type, widget: &Widget) -> WidgetPath {
+    fn path_for_child(&self, container: &Self::Type, widget: &Widget) -> WidgetPath {
         self.parent_get_path_for_child(container, widget)
     }
 

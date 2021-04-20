@@ -96,7 +96,7 @@ pub fn impl_gboxed(input: &syn::DeriveInput) -> TokenStream {
         impl #crate_ident::subclass::boxed::BoxedType for #name {
             const NAME: &'static str = #gtype_name;
 
-            fn get_type() -> #crate_ident::Type {
+            fn type_() -> #crate_ident::Type {
                 static mut TYPE_: #crate_ident::Type = #crate_ident::Type::INVALID;
                 static ONCE: ::std::sync::Once = ::std::sync::Once::new();
 

@@ -7,7 +7,7 @@ use std::mem;
 impl UnixMountPoint {
     #[cfg(any(unix, feature = "dox"))]
     #[doc(alias = "g_unix_mount_points_get")]
-    pub fn get_mount_points() -> (Vec<UnixMountPoint>, u64) {
+    pub fn mount_points() -> (Vec<UnixMountPoint>, u64) {
         unsafe {
             let mut time_read = mem::MaybeUninit::uninit();
             let ret = FromGlibPtrContainer::from_glib_full(ffi::g_unix_mount_points_get(

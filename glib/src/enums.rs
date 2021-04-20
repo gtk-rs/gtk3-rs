@@ -77,7 +77,7 @@ impl EnumClass {
     /// Returns `None` if the enum does not contain any value
     /// with `value`.
     #[doc(alias = "g_enum_get_value")]
-    pub fn get_value(&self, value: i32) -> Option<EnumValue> {
+    pub fn value(&self, value: i32) -> Option<EnumValue> {
         unsafe {
             let v = gobject_ffi::g_enum_get_value(self.0, value);
             if v.is_null() {
@@ -93,7 +93,7 @@ impl EnumClass {
     /// Returns `None` if the enum does not contain any value
     /// with name `name`.
     #[doc(alias = "g_enum_get_value_by_name")]
-    pub fn get_value_by_name(&self, name: &str) -> Option<EnumValue> {
+    pub fn value_by_name(&self, name: &str) -> Option<EnumValue> {
         unsafe {
             let v = gobject_ffi::g_enum_get_value_by_name(self.0, name.to_glib_none().0);
             if v.is_null() {
@@ -109,7 +109,7 @@ impl EnumClass {
     /// Returns `None` if the enum does not contain any value
     /// with nick `nick`.
     #[doc(alias = "g_enum_get_value_by_nick")]
-    pub fn get_value_by_nick(&self, nick: &str) -> Option<EnumValue> {
+    pub fn value_by_nick(&self, nick: &str) -> Option<EnumValue> {
         unsafe {
             let v = gobject_ffi::g_enum_get_value_by_nick(self.0, nick.to_glib_none().0);
             if v.is_null() {
@@ -267,7 +267,7 @@ impl FlagsClass {
     /// Returns `None` if the flags do not contain any value
     /// with `value`.
     #[doc(alias = "g_flags_get_first_value")]
-    pub fn get_value(&self, value: u32) -> Option<FlagsValue> {
+    pub fn value(&self, value: u32) -> Option<FlagsValue> {
         unsafe {
             let v = gobject_ffi::g_flags_get_first_value(self.0, value);
             if v.is_null() {
@@ -283,7 +283,7 @@ impl FlagsClass {
     /// Returns `None` if the flags do not contain any value
     /// with name `name`.
     #[doc(alias = "g_flags_get_value_by_name")]
-    pub fn get_value_by_name(&self, name: &str) -> Option<FlagsValue> {
+    pub fn value_by_name(&self, name: &str) -> Option<FlagsValue> {
         unsafe {
             let v = gobject_ffi::g_flags_get_value_by_name(self.0, name.to_glib_none().0);
             if v.is_null() {
@@ -299,7 +299,7 @@ impl FlagsClass {
     /// Returns `None` if the flags do not contain any value
     /// with nick `nick`.
     #[doc(alias = "g_flags_get_value_by_nick")]
-    pub fn get_value_by_nick(&self, nick: &str) -> Option<FlagsValue> {
+    pub fn value_by_nick(&self, nick: &str) -> Option<FlagsValue> {
         unsafe {
             let v = gobject_ffi::g_flags_get_value_by_nick(self.0, nick.to_glib_none().0);
             if v.is_null() {

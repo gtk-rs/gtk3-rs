@@ -66,7 +66,7 @@ impl AsRawHandle for Win32OutputStream {
 
 pub trait Win32OutputStreamExtManual: Sized {
     #[doc(alias = "g_win32_output_stream_get_handle")]
-    fn get_handle<T: FromRawHandle>(&self) -> T;
+    fn handle<T: FromRawHandle>(&self) -> T;
 
     #[doc(alias = "g_win32_output_stream_set_close_handle")]
     #[allow(clippy::missing_safety_doc)]
@@ -74,7 +74,7 @@ pub trait Win32OutputStreamExtManual: Sized {
 }
 
 impl<O: IsA<Win32OutputStream>> Win32OutputStreamExtManual for O {
-    fn get_handle<T: FromRawHandle>(&self) -> T {
+    fn handle<T: FromRawHandle>(&self) -> T {
         unsafe {
             T::from_raw_handle(ffi::g_win32_output_stream_get_handle(
                 self.as_ref().to_glib_none().0,

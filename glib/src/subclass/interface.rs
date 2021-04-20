@@ -62,7 +62,7 @@ pub unsafe trait ObjectInterfaceType {
     /// Returns the `glib::Type` ID of the interface.
     ///
     /// This will register the type with the type system on the first call.
-    fn get_type() -> Type;
+    fn type_() -> Type;
 }
 
 /// The central trait for defining a `GObject` interface.

@@ -315,17 +315,17 @@ impl Date {
     }
 
     #[doc(alias = "g_date_get_days_in_month")]
-    pub fn get_days_in_month(month: DateMonth, year: DateYear) -> u8 {
+    pub fn days_in_month(month: DateMonth, year: DateYear) -> u8 {
         unsafe { ffi::g_date_get_days_in_month(month.to_glib(), year) }
     }
 
     #[doc(alias = "g_date_get_monday_weeks_in_year")]
-    pub fn get_monday_weeks_in_year(year: DateYear) -> u8 {
+    pub fn monday_weeks_in_year(year: DateYear) -> u8 {
         unsafe { ffi::g_date_get_monday_weeks_in_year(year) }
     }
 
     #[doc(alias = "g_date_get_sunday_weeks_in_year")]
-    pub fn get_sunday_weeks_in_year(year: DateYear) -> u8 {
+    pub fn sunday_weeks_in_year(year: DateYear) -> u8 {
         unsafe { ffi::g_date_get_sunday_weeks_in_year(year) }
     }
 

@@ -23,7 +23,7 @@ pub trait BoxedType: Clone + Sized + 'static {
     /// This is usually defined via the [`GBoxed!`] derive macro.
     ///
     /// [`GBoxed!`]: ../../derive.GBoxed.html
-    fn get_type() -> crate::Type;
+    fn type_() -> crate::Type;
 }
 
 /// Register a boxed `glib::Type` ID for `T`.

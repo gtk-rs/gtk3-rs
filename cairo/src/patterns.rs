@@ -225,7 +225,7 @@ impl Gradient {
     }
 
     #[doc(alias = "cairo_pattern_get_color_stop_rgba")]
-    pub fn get_color_stop_rgba(&self, index: isize) -> (f64, f64, f64, f64, f64) {
+    pub fn color_stop_rgba(&self, index: isize) -> (f64, f64, f64, f64, f64) {
         unsafe {
             let mut offset = 0.0;
             let mut red = 0.0;
@@ -410,7 +410,7 @@ impl Mesh {
     }
 
     #[doc(alias = "cairo_mesh_pattern_get_control_point")]
-    pub fn get_control_point(&self, patch_num: usize, corner: MeshCorner) -> (f64, f64) {
+    pub fn control_point(&self, patch_num: usize, corner: MeshCorner) -> (f64, f64) {
         let mut x: c_double = 0.0;
         let mut y: c_double = 0.0;
 
@@ -464,11 +464,7 @@ impl Mesh {
     }
 
     #[doc(alias = "cairo_mesh_pattern_get_corner_color_rgba")]
-    pub fn get_corner_color_rgba(
-        &self,
-        patch_num: usize,
-        corner: MeshCorner,
-    ) -> (f64, f64, f64, f64) {
+    pub fn corner_color_rgba(&self, patch_num: usize, corner: MeshCorner) -> (f64, f64, f64, f64) {
         let mut red: c_double = 0.0;
         let mut green: c_double = 0.0;
         let mut blue: c_double = 0.0;
@@ -500,7 +496,7 @@ impl Mesh {
     }
 
     #[doc(alias = "cairo_mesh_pattern_get_path")]
-    pub fn get_path(&self, patch_num: usize) -> Path {
+    pub fn path(&self, patch_num: usize) -> Path {
         let path: Path = unsafe {
             Path::from_raw_full(ffi::cairo_mesh_pattern_get_path(
                 self.pointer,

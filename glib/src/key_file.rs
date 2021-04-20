@@ -92,7 +92,7 @@ impl KeyFile {
     }
 
     #[doc(alias = "g_key_file_get_boolean")]
-    pub fn get_boolean(&self, group_name: &str, key: &str) -> Result<bool, Error> {
+    pub fn boolean(&self, group_name: &str, key: &str) -> Result<bool, Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = ffi::g_key_file_get_boolean(
@@ -128,7 +128,7 @@ impl KeyFile {
     }
 
     #[doc(alias = "g_key_file_get_boolean_list")]
-    pub fn get_boolean_list(&self, group_name: &str, key: &str) -> Result<Vec<bool>, Error> {
+    pub fn boolean_list(&self, group_name: &str, key: &str) -> Result<Vec<bool>, Error> {
         unsafe {
             let mut length = mem::MaybeUninit::uninit();
             let mut error = ptr::null_mut();
@@ -150,7 +150,7 @@ impl KeyFile {
     }
 
     #[doc(alias = "g_key_file_get_string")]
-    pub fn get_string(&self, group_name: &str, key: &str) -> Result<GString, Error> {
+    pub fn string(&self, group_name: &str, key: &str) -> Result<GString, Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = ffi::g_key_file_get_string(
@@ -171,7 +171,7 @@ impl KeyFile {
     }
 
     #[doc(alias = "g_key_file_get_string_list")]
-    pub fn get_string_list(&self, group_name: &str, key: &str) -> Result<Vec<GString>, Error> {
+    pub fn string_list(&self, group_name: &str, key: &str) -> Result<Vec<GString>, Error> {
         unsafe {
             let mut length = mem::MaybeUninit::uninit();
             let mut error = ptr::null_mut();
@@ -197,7 +197,7 @@ impl KeyFile {
     }
 
     #[doc(alias = "g_key_file_get_locale_string")]
-    pub fn get_locale_string(
+    pub fn locale_string(
         &self,
         group_name: &str,
         key: &str,
@@ -224,7 +224,7 @@ impl KeyFile {
     }
 
     #[doc(alias = "g_key_file_get_locale_string_list")]
-    pub fn get_locale_string_list(
+    pub fn locale_string_list(
         &self,
         group_name: &str,
         key: &str,

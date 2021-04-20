@@ -197,7 +197,7 @@ pub trait WidgetImpl: WidgetImplExt + ObjectImpl {
         self.parent_preferred_width(widget)
     }
 
-    fn get_preferred_width_for_height(&self, widget: &Self::Type, height: i32) -> (i32, i32) {
+    fn preferred_width_for_height(&self, widget: &Self::Type, height: i32) -> (i32, i32) {
         self.parent_get_preferred_width_for_height(widget, height)
     }
 
@@ -205,7 +205,7 @@ pub trait WidgetImpl: WidgetImplExt + ObjectImpl {
         self.parent_preferred_height(widget)
     }
 
-    fn get_preferred_height_for_width(&self, widget: &Self::Type, width: i32) -> (i32, i32) {
+    fn preferred_height_for_width(&self, widget: &Self::Type, width: i32) -> (i32, i32) {
         self.parent_get_preferred_height_for_width(widget, width)
     }
 

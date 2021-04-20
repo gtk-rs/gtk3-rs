@@ -188,7 +188,7 @@ impl Variant {
     ///
     /// * if `self` is not a container type.
     /// * if given `index` is larger than number of children.
-    pub fn get_child_value(&self, index: usize) -> Variant {
+    pub fn child_value(&self, index: usize) -> Variant {
         assert!(index < self.n_children());
         assert!(self.is_container());
 

@@ -338,7 +338,7 @@ mod overlay {
         }
     }
 
-    unsafe extern "C" fn get_child_position_trampoline<
+    unsafe extern "C" fn child_position_trampoline<
         T,
         F: Fn(&T, &Widget) -> Option<Rectangle> + 'static,
     >(

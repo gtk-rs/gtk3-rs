@@ -7,9 +7,9 @@ use glib::{Cast, IsA, ObjectExt};
 use once_cell::sync::Lazy;
 
 pub trait ListModelImpl: ObjectImpl {
-    fn get_item_type(&self, list_model: &Self::Type) -> glib::Type;
-    fn get_n_items(&self, list_model: &Self::Type) -> u32;
-    fn get_item(&self, list_model: &Self::Type, position: u32) -> Option<glib::Object>;
+    fn item_type(&self, list_model: &Self::Type) -> glib::Type;
+    fn n_items(&self, list_model: &Self::Type) -> u32;
+    fn item(&self, list_model: &Self::Type, position: u32) -> Option<glib::Object>;
 }
 
 pub trait ListModelImplExt: ObjectSubclass {

@@ -52,7 +52,7 @@ impl Compiler {
     }
 }
 
-fn get_var(name: &str, default: &str) -> Result<Vec<String>, Box<dyn Error>> {
+fn var(name: &str, default: &str) -> Result<Vec<String>, Box<dyn Error>> {
     match env::var(name) {
         Ok(value) => Ok(shell_words::split(&value)?),
         Err(env::VarError::NotPresent) => Ok(shell_words::split(default)?),
@@ -192,7 +192,7 @@ fn cross_validate_layout_with_c() {
     results.expect_total_success();
 }
 
-fn get_c_output(name: &str) -> Result<String, Box<dyn Error>> {
+fn c_output(name: &str) -> Result<String, Box<dyn Error>> {
     let tmpdir = Builder::new().prefix("abi").tempdir()?;
     let exe = tmpdir.path().join(name);
     let c_file = Path::new("tests").join(name).with_extension("c");

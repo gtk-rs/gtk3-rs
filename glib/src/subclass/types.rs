@@ -303,7 +303,7 @@ impl TypeData {
     ///
     /// This function panics if the type to which the `TypeData` belongs does not implement the
     /// given interface or was not registered yet.
-    pub fn get_parent_interface<I: crate::object::IsInterface>(&self) -> ffi::gpointer {
+    pub fn parent_interface<I: crate::object::IsInterface>(&self) -> ffi::gpointer {
         match self.parent_ifaces {
             None => unreachable!("No parent interfaces"),
             Some(ref parent_ifaces) => *parent_ifaces
@@ -315,7 +315,7 @@ impl TypeData {
     /// Returns a pointer to the class implementation specific data.
     ///
     /// This is used for class implementations to store additional data.
-    pub fn get_class_data<T: Any + Send + Sync + 'static>(&self, type_: Type) -> Option<&T> {
+    pub fn class_data<T: Any + Send + Sync + 'static>(&self, type_: Type) -> Option<&T> {
         match self.class_data {
             None => None,
             Some(ref data) => data.get(&type_).and_then(|ptr| ptr.downcast_ref()),
@@ -327,7 +327,7 @@ impl TypeData {
     /// # Safety
     ///
     /// This can only be used while the type is being initialized.
-    pub unsafe fn get_class_data_mut<T: Any + Send + Sync + 'static>(
+    pub unsafe fn class_data_mut<T: Any + Send + Sync + 'static>(
         &mut self,
         type_: Type,
     ) -> Option<&mut T> {
@@ -377,7 +377,7 @@ pub unsafe trait ObjectSubclassType {
     /// Returns the `glib::Type` ID of the subclass.
     ///
     /// This will register the type with the type system on the first call.
-    fn get_type() -> Type;
+    fn type_() -> Type;
 }
 
 /// The central trait for subclassing a `GObject` type.
@@ -504,7 +504,7 @@ pub trait ObjectSubclassExt: ObjectSubclass {
     /// Returns a pointer to the instance implementation specific data.
     ///
     /// This is used for the subclassing infrastructure to store additional instance data.
-    fn get_instance_data<U: Any + Send + Sync + 'static>(&self, type_: Type) -> Option<&U>;
+    fn instance_data<U: Any + Send + Sync + 'static>(&self, type_: Type) -> Option<&U>;
 }
 
 impl<T: ObjectSubclass> ObjectSubclassExt for T {
@@ -542,7 +542,7 @@ impl<T: ObjectSubclass> ObjectSubclassExt for T {
     /// Returns a pointer to the instance implementation specific data.
     ///
     /// This is used for the subclassing infrastructure to store additional instance data.
-    fn get_instance_data<U: Any + Send + Sync + 'static>(&self, type_: Type) -> Option<&U> {
+    fn instance_data<U: Any + Send + Sync + 'static>(&self, type_: Type) -> Option<&U> {
         unsafe {
             let type_data = Self::type_data();
             let self_type_ = type_data.as_ref().type_();

@@ -119,7 +119,7 @@ fn next_thread_id() -> usize {
     unsafe { COUNTER.fetch_add(1, Ordering::SeqCst) }
 }
 
-fn get_thread_id() -> usize {
+fn thread_id() -> usize {
     thread_local!(static THREAD_ID: usize = next_thread_id());
     THREAD_ID.with(|&x| x)
 }

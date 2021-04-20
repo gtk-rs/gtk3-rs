@@ -9,7 +9,7 @@ use std::ptr;
 
 impl Keymap {
     #[doc(alias = "gdk_keymap_get_entries_for_keycode")]
-    pub fn get_entries_for_keycode(&self, hardware_keycode: u32) -> Vec<(KeymapKey, u32)> {
+    pub fn entries_for_keycode(&self, hardware_keycode: u32) -> Vec<(KeymapKey, u32)> {
         unsafe {
             let mut keys = ptr::null_mut();
             let mut keyvals = ptr::null_mut();
@@ -37,7 +37,7 @@ impl Keymap {
     }
 
     #[doc(alias = "gdk_keymap_get_entries_for_keyval")]
-    pub fn get_entries_for_keyval(&self, keyval: u32) -> Vec<KeymapKey> {
+    pub fn entries_for_keyval(&self, keyval: u32) -> Vec<KeymapKey> {
         unsafe {
             let mut keys = ptr::null_mut();
             let mut n_keys = mem::MaybeUninit::uninit();

@@ -1171,8 +1171,8 @@ pub trait ObjectExt: ObjectType {
     fn class(&self) -> &Class<Self>
     where
         Self: IsClass;
-    fn get_class_of<T: IsClass>(&self) -> Option<&Class<T>>;
-    fn get_interface<T: IsInterface>(&self) -> Option<InterfaceRef<T>>;
+    fn class_of<T: IsClass>(&self) -> Option<&Class<T>>;
+    fn interface<T: IsInterface>(&self) -> Option<InterfaceRef<T>>;
 
     fn set_property<'a, N: Into<&'a str>, V: ToValue>(
         &self,
@@ -1187,9 +1187,9 @@ pub trait ObjectExt: ObjectType {
     fn set_properties(&self, property_values: &[(&str, &dyn ToValue)]) -> Result<(), BoolError>;
     fn set_properties_from_value(&self, property_values: &[(&str, Value)])
         -> Result<(), BoolError>;
-    fn get_property<'a, N: Into<&'a str>>(&self, property_name: N) -> Result<Value, BoolError>;
+    fn property<'a, N: Into<&'a str>>(&self, property_name: N) -> Result<Value, BoolError>;
     fn has_property<'a, N: Into<&'a str>>(&self, property_name: N, type_: Option<Type>) -> bool;
-    fn get_property_type<'a, N: Into<&'a str>>(&self, property_name: N) -> Option<Type>;
+    fn property_type<'a, N: Into<&'a str>>(&self, property_name: N) -> Option<Type>;
     fn find_property<'a, N: Into<&'a str>>(&self, property_name: N) -> Option<crate::ParamSpec>;
     fn list_properties(&self) -> Vec<crate::ParamSpec>;
 
@@ -1204,7 +1204,7 @@ pub trait ObjectExt: ObjectType {
     /// `set_qdata`, `steal_qdata`, `set_data` or `steal_data`.
     ///
     /// The caller is responsible for ensuring the returned value is of a suitable type
-    unsafe fn get_qdata<QD: 'static>(&self, key: Quark) -> Option<ptr::NonNull<QD>>;
+    unsafe fn qdata<QD: 'static>(&self, key: Quark) -> Option<ptr::NonNull<QD>>;
 
     /// # Safety
     ///
@@ -1222,7 +1222,7 @@ pub trait ObjectExt: ObjectType {
     /// `set_qdata`, `steal_qdata`, `set_data` or `steal_data`.
     ///
     /// The caller is responsible for ensuring the returned value is of a suitable type
-    unsafe fn get_data<QD: 'static>(&self, key: &str) -> Option<ptr::NonNull<QD>>;
+    unsafe fn data<QD: 'static>(&self, key: &str) -> Option<ptr::NonNull<QD>>;
 
     /// # Safety
     ///
@@ -1386,7 +1386,7 @@ impl<T: ObjectType> ObjectExt for T {
         }
     }
 
-    fn get_class_of<U: IsClass>(&self) -> Option<&Class<U>> {
+    fn class_of<U: IsClass>(&self) -> Option<&Class<U>> {
         if !self.is::<U>() {
             return None;
         }
@@ -1398,7 +1398,7 @@ impl<T: ObjectType> ObjectExt for T {
         }
     }
 
-    fn get_interface<U: IsInterface>(&self) -> Option<InterfaceRef<U>> {
+    fn interface<U: IsInterface>(&self) -> Option<InterfaceRef<U>> {
         Interface::from_class(self.object_class())
     }
 
@@ -1529,7 +1529,7 @@ impl<T: ObjectType> ObjectExt for T {
         Ok(())
     }
 
-    fn get_property<'a, N: Into<&'a str>>(&self, property_name: N) -> Result<Value, BoolError> {
+    fn property<'a, N: Into<&'a str>>(&self, property_name: N) -> Result<Value, BoolError> {
         let property_name = property_name.into();
 
         let pspec = match self.find_property(property_name) {
@@ -1586,7 +1586,7 @@ impl<T: ObjectType> ObjectExt for T {
         );
     }
 
-    unsafe fn get_qdata<QD: 'static>(&self, key: Quark) -> Option<ptr::NonNull<QD>> {
+    unsafe fn qdata<QD: 'static>(&self, key: Quark) -> Option<ptr::NonNull<QD>> {
         ptr::NonNull::new(gobject_ffi::g_object_get_qdata(
             self.as_object_ref().to_glib_none().0,
             key.to_glib(),
@@ -1608,7 +1608,7 @@ impl<T: ObjectType> ObjectExt for T {
         self.set_qdata::<QD>(Quark::from_string(key), value)
     }
 
-    unsafe fn get_data<QD: 'static>(&self, key: &str) -> Option<ptr::NonNull<QD>> {
+    unsafe fn data<QD: 'static>(&self, key: &str) -> Option<ptr::NonNull<QD>> {
         self.get_qdata::<QD>(Quark::from_string(key))
     }
 
@@ -1734,7 +1734,7 @@ impl<T: ObjectType> ObjectExt for T {
         self.object_class().has_property(property_name, type_)
     }
 
-    fn get_property_type<'a, N: Into<&'a str>>(&self, property_name: N) -> Option<Type> {
+    fn property_type<'a, N: Into<&'a str>>(&self, property_name: N) -> Option<Type> {
         self.object_class().get_property_type(property_name)
     }
 
@@ -2331,7 +2331,7 @@ impl ObjectClass {
         }
     }
 
-    pub fn get_property_type<'a, N: Into<&'a str>>(&self, property_name: N) -> Option<Type> {
+    pub fn property_type<'a, N: Into<&'a str>>(&self, property_name: N) -> Option<Type> {
         self.find_property(property_name)
             .map(|pspec| pspec.value_type())
     }

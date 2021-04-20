@@ -42,7 +42,7 @@ pub trait ActionGroupImpl: ObjectImpl {
         self.parent_action_is_enabled(action_group, action_name)
     }
 
-    fn get_action_parameter_type(
+    fn action_parameter_type(
         &self,
         action_group: &Self::Type,
         action_name: &str,
@@ -50,19 +50,15 @@ pub trait ActionGroupImpl: ObjectImpl {
         self.parent_get_action_parameter_type(action_group, action_name)
     }
 
-    fn get_action_state(&self, action_group: &Self::Type, action_name: &str) -> Option<Variant> {
+    fn action_state(&self, action_group: &Self::Type, action_name: &str) -> Option<Variant> {
         self.parent_get_action_state(action_group, action_name)
     }
 
-    fn get_action_state_hint(
-        &self,
-        action_group: &Self::Type,
-        action_name: &str,
-    ) -> Option<Variant> {
+    fn action_state_hint(&self, action_group: &Self::Type, action_name: &str) -> Option<Variant> {
         self.parent_get_action_state_hint(action_group, action_name)
     }
 
-    fn get_action_state_type(
+    fn action_state_type(
         &self,
         action_group: &Self::Type,
         action_name: &str,

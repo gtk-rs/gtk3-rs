@@ -324,7 +324,7 @@ impl Pixbuf {
     }
 
     #[doc(alias = "gdk_pixbuf_get_file_info")]
-    pub fn get_file_info<T: AsRef<Path>>(filename: T) -> Option<(PixbufFormat, i32, i32)> {
+    pub fn file_info<T: AsRef<Path>>(filename: T) -> Option<(PixbufFormat, i32, i32)> {
         unsafe {
             let mut width = mem::MaybeUninit::uninit();
             let mut height = mem::MaybeUninit::uninit();
@@ -348,7 +348,7 @@ impl Pixbuf {
     #[cfg(any(feature = "v2_32", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
     #[doc(alias = "gdk_pixbuf_get_file_info_async")]
-    pub fn get_file_info_async<
+    pub fn file_info_async<
         P: IsA<gio::Cancellable>,
         Q: FnOnce(Result<Option<(PixbufFormat, i32, i32)>, Error>) + Send + 'static,
         T: AsRef<Path>,
@@ -359,7 +359,7 @@ impl Pixbuf {
     ) {
         let cancellable = cancellable.map(|p| p.as_ref());
         let user_data: Box<Q> = Box::new(callback);
-        unsafe extern "C" fn get_file_info_async_trampoline<
+        unsafe extern "C" fn file_info_async_trampoline<
             Q: FnOnce(Result<Option<(PixbufFormat, i32, i32)>, Error>) + Send + 'static,
         >(
             _source_object: *mut glib::gobject_ffi::GObject,
@@ -403,7 +403,7 @@ impl Pixbuf {
     #[cfg(any(feature = "v2_32", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
     #[allow(clippy::type_complexity)]
-    pub fn get_file_info_async_future<T: AsRef<Path> + Clone + 'static>(
+    pub fn file_info_async_future<T: AsRef<Path> + Clone + 'static>(
         filename: T,
     ) -> Pin<Box<dyn Future<Output = Result<Option<(PixbufFormat, i32, i32)>, Error>> + 'static>>
     {

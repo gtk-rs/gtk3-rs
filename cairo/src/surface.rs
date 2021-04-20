@@ -75,7 +75,7 @@ impl Surface {
     }
 
     #[doc(alias = "cairo_surface_get_mime_data")]
-    pub fn get_mime_data(&self, mime_type: &str) -> Option<Vec<u8>> {
+    pub fn mime_data(&self, mime_type: &str) -> Option<Vec<u8>> {
         let data_ptr: *mut u8 = ptr::null_mut();
         let mut length: c_ulong = 0;
         unsafe {
@@ -95,7 +95,7 @@ impl Surface {
     }
 
     #[doc(alias = "cairo_surface_get_mime_data")]
-    pub unsafe fn get_mime_data_raw(&self, mime_type: &str) -> Option<&[u8]> {
+    pub unsafe fn mime_data_raw(&self, mime_type: &str) -> Option<&[u8]> {
         let data_ptr: *mut u8 = ptr::null_mut();
         let mut length: c_ulong = 0;
         let mime_type = CString::new(mime_type).unwrap();

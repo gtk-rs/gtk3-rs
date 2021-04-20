@@ -37,7 +37,7 @@ impl UnixMountEntry {
     }
 
     #[doc(alias = "g_unix_mounts_get")]
-    pub fn get_mounts() -> (Vec<UnixMountEntry>, u64) {
+    pub fn mounts() -> (Vec<UnixMountEntry>, u64) {
         unsafe {
             let mut time_read = mem::MaybeUninit::uninit();
             let ret = FromGlibPtrContainer::from_glib_full(ffi::g_unix_mounts_get(

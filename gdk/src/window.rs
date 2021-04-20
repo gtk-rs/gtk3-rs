@@ -166,10 +166,10 @@ pub trait WindowExtManual: 'static {
 
     #[allow(clippy::mut_from_ref)]
     #[doc(alias = "gdk_window_get_user_data")]
-    unsafe fn get_user_data<T>(&self) -> &mut T;
+    unsafe fn user_data<T>(&self) -> &mut T;
 
     #[doc(alias = "gdk_get_default_root_window")]
-    fn get_default_root_window() -> Window;
+    fn default_root_window() -> Window;
 
     #[doc(alias = "gdk_offscreen_window_set_embedder")]
     fn offscreen_window_set_embedder(&self, embedder: &Window);
@@ -181,13 +181,8 @@ pub trait WindowExtManual: 'static {
     fn offscreen_window_get_surface(&self) -> Option<Surface>;
 
     #[doc(alias = "gdk_pixbuf_get_from_window")]
-    fn get_pixbuf(
-        &self,
-        src_x: i32,
-        src_y: i32,
-        width: i32,
-        height: i32,
-    ) -> Option<gdk_pixbuf::Pixbuf>;
+    fn pixbuf(&self, src_x: i32, src_y: i32, width: i32, height: i32)
+        -> Option<gdk_pixbuf::Pixbuf>;
 
     #[doc(alias = "gdk_window_get_background_pattern")]
     fn background_pattern(&self) -> Option<cairo::Pattern>;
@@ -204,13 +199,13 @@ impl<O: IsA<Window>> WindowExtManual for O {
         )
     }
 
-    unsafe fn get_user_data<T>(&self) -> &mut T {
+    unsafe fn user_data<T>(&self) -> &mut T {
         let mut pointer = ::std::ptr::null_mut();
         ffi::gdk_window_get_user_data(self.as_ref().to_glib_none().0, &mut pointer);
         &mut *(pointer as *mut T)
     }
 
-    fn get_default_root_window() -> Window {
+    fn default_root_window() -> Window {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gdk_get_default_root_window()) }
     }
@@ -241,7 +236,7 @@ impl<O: IsA<Window>> WindowExtManual for O {
         }
     }
 
-    fn get_pixbuf(
+    fn pixbuf(
         &self,
         src_x: i32,
         src_y: i32,

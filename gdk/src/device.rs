@@ -24,7 +24,7 @@ impl Device {
     }
 
     #[doc(alias = "gdk_device_get_history")]
-    pub fn get_history<P: IsA<Window>>(&self, window: &P, start: u32, stop: u32) -> Vec<TimeCoord> {
+    pub fn history<P: IsA<Window>>(&self, window: &P, start: u32, stop: u32) -> Vec<TimeCoord> {
         unsafe {
             let mut events = ptr::null_mut();
             let mut n_events = mem::MaybeUninit::uninit();
