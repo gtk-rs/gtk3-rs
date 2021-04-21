@@ -141,3 +141,20 @@ pub fn signal_stop_emission_by_name<T: ObjectType>(instance: &T, signal_name: &s
         );
     }
 }
+
+#[doc(alias = "g_signal_has_handler_pending")]
+pub fn signal_has_handler_pending<T: ObjectType>(
+    instance: &T,
+    signal_id: crate::subclass::SignalId,
+    detail: Option<crate::Quark>,
+    may_be_blocked: bool,
+) -> bool {
+    unsafe {
+        from_glib(gobject_ffi::g_signal_has_handler_pending(
+            instance.as_object_ref().to_glib_none().0,
+            signal_id.to_glib(),
+            detail.map_or(0, |d| d.to_glib()),
+            may_be_blocked.to_glib(),
+        ))
+    }
+}
