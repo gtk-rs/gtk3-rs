@@ -1712,6 +1712,26 @@ pub unsafe trait WidgetClassSubclassExt: ClassStruct {
             private_offset + (offset.get_byte_offset() as isize),
         )
     }
+
+    #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[doc(alias = "gtk_widget_class_set_css_name")]
+    fn set_css_name(&mut self, name: &str) {
+        unsafe {
+            let widget_class = self as *mut _ as *mut ffi::GtkWidgetClass;
+            ffi::gtk_widget_class_set_css_name(widget_class, name.to_glib_none().0);
+        }
+    }
+
+    #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[doc(alias = "gtk_widget_class_get_css_name")]
+    fn css_name(&self) -> glib::GString {
+        unsafe {
+            let widget_class = self as *const _ as *mut ffi::GtkWidgetClass;
+            from_glib_none(ffi::gtk_widget_class_get_css_name(widget_class))
+        }
+    }
 }
 
 unsafe impl<T: ClassStruct> WidgetClassSubclassExt for T where T::Type: WidgetImpl {}
