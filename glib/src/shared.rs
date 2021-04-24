@@ -33,7 +33,6 @@ macro_rules! glib_shared_wrapper {
         #[doc(hidden)]
         unsafe impl<'a> $crate::value::FromValue<'a> for $name {
             type Checker = $crate::value::GenericValueTypeOrNoneChecker<Self>;
-            type Error = $crate::value::ValueTypeMismatchOrNoneError;
 
             unsafe fn from_value(value: &'a $crate::Value) -> Self {
                 let ptr = $crate::gobject_ffi::g_value_dup_boxed($crate::translate::ToGlibPtr::to_glib_none(value).0);

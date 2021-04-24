@@ -45,7 +45,7 @@ pub unsafe trait ObjectType:
     + crate::value::ValueType
     + crate::value::ToValue
     + crate::value::ToValueOptional
-    + crate::value::FromValue<'static, Error = crate::value::ValueTypeMismatchOrNoneError>
+    + crate::value::FromValueOptional<'static>
     + for<'a> ToGlibPtr<'a, *mut <Self as ObjectType>::GlibType>
     + 'static
 {
@@ -927,7 +927,6 @@ macro_rules! glib_object_wrapper {
         #[doc(hidden)]
         unsafe impl<'a> $crate::value::FromValue<'a> for $name {
             type Checker = $crate::value::GenericValueTypeOrNoneChecker<Self>;
-            type Error = $crate::value::ValueTypeMismatchOrNoneError;
 
             unsafe fn from_value(value: &'a $crate::Value) -> Self {
                 let ptr = $crate::gobject_ffi::g_value_dup_object($crate::translate::ToGlibPtr::to_glib_none(value).0);

@@ -197,7 +197,6 @@ impl crate::value::ValueType for Type {
 #[doc(hidden)]
 unsafe impl<'a> crate::value::FromValue<'a> for Type {
     type Checker = crate::value::GenericValueTypeChecker<Self>;
-    type Error = crate::value::ValueTypeMismatchError;
 
     unsafe fn from_value(value: &'a crate::Value) -> Self {
         from_glib(gobject_ffi::g_value_get_gtype(value.to_glib_none().0))

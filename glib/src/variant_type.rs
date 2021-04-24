@@ -235,7 +235,6 @@ impl StaticType for VariantTy {
 #[doc(hidden)]
 unsafe impl<'a> crate::value::FromValue<'a> for &'a VariantTy {
     type Checker = crate::value::GenericValueTypeOrNoneChecker<Self>;
-    type Error = crate::value::ValueTypeMismatchOrNoneError;
 
     unsafe fn from_value(value: &'a crate::Value) -> Self {
         let ptr = gobject_ffi::g_value_get_boxed(value.to_glib_none().0);
@@ -302,7 +301,6 @@ impl crate::value::ValueType for VariantType {
 #[doc(hidden)]
 unsafe impl<'a> crate::value::FromValue<'a> for VariantType {
     type Checker = crate::value::GenericValueTypeOrNoneChecker<Self>;
-    type Error = crate::value::ValueTypeMismatchOrNoneError;
 
     unsafe fn from_value(value: &'a crate::Value) -> Self {
         let ptr = gobject_ffi::g_value_get_boxed(value.to_glib_none().0);

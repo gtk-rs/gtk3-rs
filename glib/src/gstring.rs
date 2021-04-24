@@ -509,7 +509,6 @@ impl crate::value::ValueType for GString {
 
 unsafe impl<'a> crate::value::FromValue<'a> for GString {
     type Checker = crate::value::GenericValueTypeOrNoneChecker<Self>;
-    type Error = crate::value::ValueTypeMismatchOrNoneError;
 
     unsafe fn from_value(value: &'a crate::Value) -> Self {
         GString::from(<&str>::from_value(value))
@@ -544,7 +543,6 @@ impl crate::value::ValueType for Vec<GString> {
 
 unsafe impl<'a> crate::value::FromValue<'a> for Vec<GString> {
     type Checker = crate::value::GenericValueTypeChecker<Self>;
-    type Error = crate::value::ValueTypeMismatchError;
 
     unsafe fn from_value(value: &'a crate::value::Value) -> Self {
         let ptr = gobject_ffi::g_value_get_boxed(value.to_glib_none().0) as *const *const c_char;

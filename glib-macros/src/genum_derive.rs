@@ -121,7 +121,6 @@ pub fn impl_genum(input: &syn::DeriveInput) -> TokenStream {
 
         unsafe impl<'a> #crate_ident::value::FromValue<'a> for #name {
             type Checker = #crate_ident::value::GenericValueTypeChecker<Self>;
-            type Error = #crate_ident::value::ValueTypeMismatchError;
 
             unsafe fn from_value(value: &'a #crate_ident::value::Value) -> Self {
                 #crate_ident::translate::from_glib(#crate_ident::gobject_ffi::g_value_get_enum(

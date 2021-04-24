@@ -125,7 +125,6 @@ impl crate::value::ValueType for Variant {
 #[doc(hidden)]
 unsafe impl<'a> crate::value::FromValue<'a> for Variant {
     type Checker = crate::value::GenericValueTypeOrNoneChecker<Self>;
-    type Error = crate::value::ValueTypeMismatchOrNoneError;
 
     unsafe fn from_value(value: &'a crate::Value) -> Self {
         let ptr = gobject_ffi::g_value_dup_variant(value.to_glib_none().0);

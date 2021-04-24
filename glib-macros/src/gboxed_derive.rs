@@ -19,7 +19,6 @@ fn gen_impl_from_value_optional(name: &Ident, crate_ident: &TokenStream) -> Toke
     quote! {
         unsafe impl<'a> #crate_ident::value::FromValue<'a> for #name {
             type Checker = #crate_ident::value::GenericValueTypeOrNoneChecker<Self>;
-            type Error = #crate_ident::value::ValueTypeMismatchOrNoneError;
 
             unsafe fn from_value(value: &'a #crate_ident::Value) -> Self {
                 let ptr = #crate_ident::gobject_ffi::g_value_dup_boxed(#crate_ident::translate::ToGlibPtr::to_glib_none(value).0);
@@ -30,7 +29,6 @@ fn gen_impl_from_value_optional(name: &Ident, crate_ident: &TokenStream) -> Toke
 
         unsafe impl<'a> #crate_ident::value::FromValue<'a> for &'a #name {
             type Checker = #crate_ident::value::GenericValueTypeOrNoneChecker<Self>;
-            type Error = #crate_ident::value::ValueTypeMismatchOrNoneError;
 
             unsafe fn from_value(value: &'a #crate_ident::Value) -> Self {
                 let ptr = #crate_ident::gobject_ffi::g_value_get_boxed(#crate_ident::translate::ToGlibPtr::to_glib_none(value).0);
@@ -45,7 +43,6 @@ fn gen_impl_from_value(name: &Ident, crate_ident: &TokenStream) -> TokenStream {
     quote! {
         unsafe impl<'a> #crate_ident::value::FromValue<'a> for #name {
             type Checker = #crate_ident::value::GenericValueTypeChecker<Self>;
-            type Error = #crate_ident::value::ValueTypeMismatchError;
 
             unsafe fn from_value(value: &'a #crate_ident::Value) -> Self {
                 let ptr = #crate_ident::gobject_ffi::g_value_dup_boxed(#crate_ident::translate::ToGlibPtr::to_glib_none(value).0);
@@ -56,7 +53,6 @@ fn gen_impl_from_value(name: &Ident, crate_ident: &TokenStream) -> TokenStream {
 
         unsafe impl<'a> #crate_ident::value::FromValue<'a> for &'a #name {
             type Checker = #crate_ident::value::GenericValueTypeChecker<Self>;
-            type Error = #crate_ident::value::ValueTypeMismatchError;
 
             unsafe fn from_value(value: &'a #crate_ident::Value) -> Self {
                 let ptr = #crate_ident::gobject_ffi::g_value_get_boxed(#crate_ident::translate::ToGlibPtr::to_glib_none(value).0);

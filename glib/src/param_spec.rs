@@ -36,7 +36,6 @@ impl crate::value::ValueType for ParamSpec {
 #[doc(hidden)]
 unsafe impl<'a> crate::value::FromValue<'a> for ParamSpec {
     type Checker = crate::value::GenericValueTypeOrNoneChecker<Self>;
-    type Error = crate::value::ValueTypeMismatchOrNoneError;
 
     unsafe fn from_value(value: &'a crate::Value) -> Self {
         let ptr = gobject_ffi::g_value_dup_param(value.to_glib_none().0);
@@ -813,7 +812,6 @@ macro_rules! define_param_spec {
         #[doc(hidden)]
         unsafe impl<'a> crate::value::FromValue<'a> for $rust_type {
             type Checker = $crate::value::GenericValueTypeOrNoneChecker<Self>;
-            type Error = $crate::value::ValueTypeMismatchOrNoneError;
 
             unsafe fn from_value(value: &'a crate::Value) -> Self {
                 let ptr = gobject_ffi::g_value_dup_param(value.to_glib_none().0);

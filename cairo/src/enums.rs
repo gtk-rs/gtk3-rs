@@ -25,7 +25,6 @@ macro_rules! gvalue_impl {
 
         unsafe impl<'a> glib::value::FromValue<'a> for $name {
             type Checker = glib::value::GenericValueTypeChecker<Self>;
-            type Error = glib::value::ValueTypeMismatchError;
 
             unsafe fn from_value(value: &'a glib::Value) -> Self {
                 Self::from(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))

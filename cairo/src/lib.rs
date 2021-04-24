@@ -66,7 +66,6 @@ macro_rules! gvalue_impl {
 
         unsafe impl<'a> glib::value::FromValue<'a> for $name {
             type Checker = glib::value::GenericValueTypeOrNoneChecker<Self>;
-            type Error = glib::value::ValueTypeMismatchOrNoneError;
 
             unsafe fn from_value(value: &'a glib::Value) -> Self {
                 let ptr = glib::gobject_ffi::g_value_get_boxed(

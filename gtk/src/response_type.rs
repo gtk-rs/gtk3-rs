@@ -106,7 +106,6 @@ impl ValueType for ResponseType {
 
 unsafe impl<'a> FromValue<'a> for ResponseType {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
-    type Error = glib::value::ValueTypeMismatchError;
 
     unsafe fn from_value(value: &'a glib::Value) -> Self {
         skip_assert_initialized!();

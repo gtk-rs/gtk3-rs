@@ -199,7 +199,6 @@ impl glib::value::ValueType for RGBA {
 
 unsafe impl<'a> glib::value::FromValue<'a> for RGBA {
     type Checker = glib::value::GenericValueTypeOrNoneChecker<Self>;
-    type Error = glib::value::ValueTypeMismatchOrNoneError;
 
     unsafe fn from_value(value: &'a glib::Value) -> Self {
         skip_assert_initialized!();

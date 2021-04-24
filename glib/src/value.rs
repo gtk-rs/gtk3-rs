@@ -65,13 +65,14 @@ pub trait ValueType: ToValue + FromValue<'static> + 'static {
 ///
 /// These are types were storing an `Option` is valid. Examples are `String` and all object types.
 pub trait ValueTypeOptional:
-    ValueType + ToValueOptional + FromValue<'static, Error = ValueTypeMismatchOrNoneError> + StaticType
+    ValueType + ToValueOptional + FromValueOptional<'static> + StaticType
 {
 }
 
-impl<'r, T: ValueTypeOptional + StaticType + 'static> ValueType for Option<T>
+impl<T, C> ValueType for Option<T>
 where
-    Self: FromValue<'static, Error = ValueTypeMismatchOrNoneError>,
+    T: FromValue<'static, Checker = C> + ValueTypeOptional + StaticType + 'static,
+    C: ValueTypeChecker<Error = ValueTypeMismatchOrNoneError>,
 {
     type Type = T::Type;
 }
@@ -194,11 +195,7 @@ unsafe impl<T: StaticType> ValueTypeChecker for GenericValueTypeOrNoneChecker<T>
 /// function on a [`Value`](struct.Value.html)
 pub unsafe trait FromValue<'a>: Sized {
     /// Value type checker.
-    type Checker: ValueTypeChecker<Error = Self::Error>;
-    /// Error returned from `Checker`.
-    // FIXME: This has to be a separate associated type because we can't do
-    // `where T: FromValue<Checker::Error = ValueTypeMismatchOrNoneError>`
-    type Error: std::error::Error + Send + Sized + 'static;
+    type Checker: ValueTypeChecker;
 
     /// Get the contained value from a `Value`.
     ///
@@ -207,12 +204,36 @@ pub unsafe trait FromValue<'a>: Sized {
     unsafe fn from_value(value: &'a Value) -> Self;
 }
 
+/// Trait for types that implement `FromValue` and are Optional.
+///
+/// This trait is auto-implemented for the appropriate types and is sealed.
+pub trait FromValueOptional<'a>: private::FromValueOptionalSealed<'a> {}
+
+impl<'a, T, C> FromValueOptional<'a> for T
+where
+    T: FromValue<'a, Checker = C>,
+    C: ValueTypeChecker<Error = ValueTypeMismatchOrNoneError>,
+{
+}
+
+mod private {
+    pub trait FromValueOptionalSealed<'a> {}
+
+    impl<'a, T, C> FromValueOptionalSealed<'a> for T
+    where
+        T: super::FromValue<'a, Checker = C>,
+        C: super::ValueTypeChecker<Error = super::ValueTypeMismatchOrNoneError>,
+    {
+    }
+}
+
 /// Blanket implementation for all optional types.
-unsafe impl<'a, T: FromValue<'a, Error = ValueTypeMismatchOrNoneError> + StaticType> FromValue<'a>
-    for Option<T>
+unsafe impl<'a, T, C> FromValue<'a> for Option<T>
+where
+    T: FromValue<'a, Checker = C> + StaticType,
+    C: ValueTypeChecker<Error = ValueTypeMismatchOrNoneError>,
 {
     type Checker = GenericValueTypeChecker<T>;
-    type Error = ValueTypeMismatchError;
 
     unsafe fn from_value(value: &'a Value) -> Self {
         if let Err(ValueTypeMismatchOrNoneError::UnexpectedNone) = T::Checker::check(value) {
@@ -306,7 +327,10 @@ impl Value {
     /// Tries to get a value of type `T`.
     ///
     /// Returns `Ok` if the type is correct.
-    pub fn get<'a, T: FromValue<'a>>(&'a self) -> Result<T, T::Error> {
+    pub fn get<'a, T>(&'a self) -> Result<T, <<T as FromValue>::Checker as ValueTypeChecker>::Error>
+    where
+        T: FromValue<'a>,
+    {
         unsafe {
             T::Checker::check(self)?;
             Ok(T::from_value(self))
@@ -738,7 +762,6 @@ impl ValueType for &'static str {
 
 unsafe impl<'a> FromValue<'a> for &'a str {
     type Checker = GenericValueTypeOrNoneChecker<Self>;
-    type Error = ValueTypeMismatchOrNoneError;
 
     unsafe fn from_value(value: &'a Value) -> Self {
         let ptr = gobject_ffi::g_value_get_string(value.to_glib_none().0);
@@ -789,7 +812,6 @@ impl ValueType for String {
 
 unsafe impl<'a> FromValue<'a> for String {
     type Checker = GenericValueTypeOrNoneChecker<Self>;
-    type Error = ValueTypeMismatchOrNoneError;
 
     unsafe fn from_value(value: &'a Value) -> Self {
         String::from(<&str>::from_value(value))
@@ -818,7 +840,6 @@ impl ValueType for Vec<String> {
 
 unsafe impl<'a> FromValue<'a> for Vec<String> {
     type Checker = GenericValueTypeChecker<Self>;
-    type Error = ValueTypeMismatchError;
 
     unsafe fn from_value(value: &'a Value) -> Self {
         let ptr = gobject_ffi::g_value_get_boxed(value.to_glib_none().0) as *const *const c_char;
@@ -877,7 +898,6 @@ impl ValueType for bool {
 
 unsafe impl<'a> FromValue<'a> for bool {
     type Checker = GenericValueTypeChecker<Self>;
-    type Error = ValueTypeMismatchError;
 
     unsafe fn from_value(value: &'a Value) -> Self {
         from_glib(gobject_ffi::g_value_get_boolean(value.to_glib_none().0))
@@ -906,7 +926,6 @@ macro_rules! numeric {
 
         unsafe impl<'a> FromValue<'a> for $name {
             type Checker = GenericValueTypeChecker<Self>;
-            type Error = ValueTypeMismatchError;
 
             unsafe fn from_value(value: &'a Value) -> Self {
                 $get(value.to_glib_none().0)
@@ -986,7 +1005,6 @@ impl ValueType for Value {
 
 unsafe impl<'a> FromValue<'a> for Value {
     type Checker = GenericValueTypeOrNoneChecker<Self>;
-    type Error = ValueTypeMismatchOrNoneError;
 
     unsafe fn from_value(value: &'a Value) -> Self {
         let ptr = gobject_ffi::g_value_get_boxed(value.to_glib_none().0);
