@@ -10,7 +10,7 @@ Currently, the minimum supported Rust version is `1.51.0`.
 
 ## Documentation
 
- * [Rust API - Stable](https://gtk-rs.org/docs/cairo)
+ * [Rust API - Stable](https://gtk-rs.org/gtk-rs/stable/docs/cairo)
  * [Rust API - Development](https://gtk-rs.org/gtk-rs/git/docs/cairo)
  * [C API](https://www.cairographics.org/documentation/)
 

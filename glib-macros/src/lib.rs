@@ -27,13 +27,11 @@ use syn::{parse_macro_input, DeriveInput, LitStr};
 ///
 /// ### Debugging
 ///
-/// In case something goes wrong inside the `clone!` macro, we use the [`g_debug`] macro. Meaning
+/// In case something goes wrong inside the `clone!` macro, we use the [`macro@glib::g_debug`] macro. Meaning
 /// that if you want to see these debug messages, you'll have to set the `G_MESSAGES_DEBUG`
 /// environment variable when running your code (either in the code directly or when running the
-/// binary) to either "all" or [`CLONE_MACRO_LOG_DOMAIN`]:
+/// binary) to either "all" or [`constant@glib::CLONE_MACRO_LOG_DOMAIN`]:
 ///
-/// [`g_debug`]: https://gtk-rs.org/docs/glib/macro.g_debug.html
-/// [`CLONE_MACRO_LOG_DOMAIN`]: https://gtk-rs.org/docs/glib/constant.CLONE_MACRO_LOG_DOMAIN.html
 ///
 /// ```rust,ignore
 /// use glib::CLONE_MACRO_LOG_DOMAIN;

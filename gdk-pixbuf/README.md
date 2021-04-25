@@ -8,7 +8,7 @@ Currently, the minimum supported Rust version is `1.51.0`.
 
 ## Documentation
 
- * [Rust API - Stable](https://gtk-rs.org/docs/gdk-pixbuf/)
+ * [Rust API - Stable](https://gtk-rs.org/gtk-rs/stable/docs/gdk-pixbuf/)
  * [Rust API - Development](https://gtk-rs.org/gtk-rs/git/docs/gdk-pixbuf)
  * [C API](https://developer.gnome.org/gdk-pixbuf/stable/)
  * [GTK Installation instructions](https://www.gtk.org/docs/installations/)

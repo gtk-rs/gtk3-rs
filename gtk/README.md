@@ -1,6 +1,6 @@
 # gtk 
 
-[Project site](http://gtk-rs.org/) | [Online documentation](https://gtk-rs.org/docs-src/)
+[Project site](http://gtk-rs.org/)
 
 __Rust__ bindings and wrappers for __GTK 3__, part of [gtk-rs](https://github.com/gtk-rs/gtk-rs).
 
@@ -36,7 +36,7 @@ gtk = { git = "https://github.com/gtk-rs/gtk.git" }
 
 ## Documentation
 
- * [Rust API - Stable](https://gtk-rs.org/docs/gtk/)
+ * [Rust API - Stable](https://gtk-rs.org/gtk-rs/stable/docs/gtk/)
  * [Rust API - Development](https://gtk-rs.org/gtk-rs/git/docs/gtk)
  * [C API](https://developer.gnome.org/gtk/stable/)
  * [GTK Installation instructions](https://www.gtk.org/docs/installations/)
