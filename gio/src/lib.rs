@@ -99,7 +99,6 @@ pub use crate::read_input_stream::ReadInputStream;
 mod write_output_stream;
 pub use crate::write_output_stream::WriteOutputStream;
 mod tls_connection;
-pub use crate::tls_connection::TlsConnectionManualExt;
 
 pub mod task;
 
