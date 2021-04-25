@@ -20,9 +20,9 @@ jobs:
           profile: minimal
           toolchain: nightly
           override: true
+          components: rustfmt
       - working-directory: gir
         run: cargo build --release
-      - run: rustup component add rustfmt
       - run: cargo install rustdoc-stripper
       - run: python3 ./generator.py --embed-docs --yes ./
       - uses: actions-rs/cargo@v1
