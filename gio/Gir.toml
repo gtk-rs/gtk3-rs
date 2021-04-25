@@ -965,6 +965,7 @@ name = "Gio.SubprocessLauncher"
 status = "generate"
     [[object.function]]
     name = "spawnv"
+    rename = "spawn"
         [[object.function.parameter]]
         name = "argv"
         string_type = "os_string"
