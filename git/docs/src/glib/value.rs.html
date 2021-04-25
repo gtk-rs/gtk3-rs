@@ -1282,6 +1282,26 @@
 <span id="1279">1279</span>
 <span id="1280">1280</span>
 <span id="1281">1281</span>
+<span id="1282">1282</span>
+<span id="1283">1283</span>
+<span id="1284">1284</span>
+<span id="1285">1285</span>
+<span id="1286">1286</span>
+<span id="1287">1287</span>
+<span id="1288">1288</span>
+<span id="1289">1289</span>
+<span id="1290">1290</span>
+<span id="1291">1291</span>
+<span id="1292">1292</span>
+<span id="1293">1293</span>
+<span id="1294">1294</span>
+<span id="1295">1295</span>
+<span id="1296">1296</span>
+<span id="1297">1297</span>
+<span id="1298">1298</span>
+<span id="1299">1299</span>
+<span id="1300">1300</span>
+<span id="1301">1301</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -1665,6 +1685,16 @@
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// `true` if the transformation is possible, `false` otherwise.</span>
+    <span class="doccomment">/// eyFile::get_value` to test whether</span>
+    <span class="doccomment">/// or not a key exists.</span>
+    <span class="doccomment">/// ## `group_name`</span>
+    <span class="doccomment">/// a group name</span>
+    <span class="doccomment">/// ## `key`</span>
+    <span class="doccomment">/// a key name</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Returns</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// `true` if `key` is a part of `group_name`, `false` otherwise</span>
     <span class="comment">// rustdoc-stripper-ignore-next-stop</span>
     <span class="doccomment">/// Check whether `Value::transform` is able to transform values</span>
     <span class="doccomment">/// of type `src_type` into values of type `dest_type`. Note that for</span>
@@ -1678,6 +1708,16 @@
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// `true` if the transformation is possible, `false` otherwise.</span>
+    <span class="doccomment">/// eyFile::get_value` to test whether</span>
+    <span class="doccomment">/// or not a key exists.</span>
+    <span class="doccomment">/// ## `group_name`</span>
+    <span class="doccomment">/// a group name</span>
+    <span class="doccomment">/// ## `key`</span>
+    <span class="doccomment">/// a key name</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Returns</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// `true` if `key` is a part of `group_name`, `false` otherwise</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">type_transformable</span>(<span class="ident">src</span>: <span class="ident">Type</span>, <span class="ident">dst</span>: <span class="ident">Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
             <span class="ident">from_glib</span>(<span class="ident">gobject_ffi::g_value_type_transformable</span>(
