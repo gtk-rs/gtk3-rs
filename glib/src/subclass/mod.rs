@@ -145,13 +145,13 @@
 //!                     let animal = value
 //!                         .get()
 //!                         .expect("type conformity checked by `Object::set_property`");
-//!                     self.animal.replace(animal.unwrap());
+//!                     self.animal.replace(animal);
 //!                 },
 //!                 "flags" => {
 //!                     let flags = value
 //!                         .get()
 //!                         .expect("type conformity checked by `Object::set_property`");
-//!                     self.flags.replace(flags.unwrap());
+//!                     self.flags.replace(flags);
 //!                 },
 //!                 _ => unimplemented!(),
 //!             }
@@ -195,20 +195,20 @@
 //!     let obj = SimpleObject::new();
 //!
 //!     // Get the name property and change its value.
-//!     assert_eq!(obj.property("name").unwrap().get::<&str>(), Ok(None));
+//!     assert_eq!(obj.property("name").unwrap().get::<Option<&str>>(), Ok(None));
 //!     obj.set_property("name", &"test").unwrap();
 //!     assert_eq!(
 //!         obj.property("name").unwrap().get::<&str>(),
-//!         Ok(Some("test"))
+//!         Ok("test")
 //!     );
 //!
-//!     assert_eq!(obj.property("animal").unwrap().get::<Animal>(), Ok(Some(Animal::Goat)));
+//!     assert_eq!(obj.property("animal").unwrap().get::<Animal>(), Ok(Animal::Goat));
 //!     obj.set_property("animal", &Animal::Cat).unwrap();
-//!     assert_eq!(obj.property("animal").unwrap().get::<Animal>(), Ok(Some(Animal::Cat)));
+//!     assert_eq!(obj.property("animal").unwrap().get::<Animal>(), Ok(Animal::Cat));
 //!
-//!     assert_eq!(obj.property("flags").unwrap().get::<MyFlags>(), Ok(Some(MyFlags::A)));
+//!     assert_eq!(obj.property("flags").unwrap().get::<MyFlags>(), Ok(MyFlags::A));
 //!     obj.set_property("flags", &MyFlags::B).unwrap();
-//!     assert_eq!(obj.property("flags").unwrap().get::<MyFlags>(), Ok(Some(MyFlags::B)));
+//!     assert_eq!(obj.property("flags").unwrap().get::<MyFlags>(), Ok(MyFlags::B));
 //! }
 //! ```
 //!
@@ -231,7 +231,7 @@
 //!
 //!     let b = MyBoxed(String::from("abc"));
 //!     let v = b.to_value();
-//!     let b2 = v.get::<&MyBoxed>().unwrap().unwrap();
+//!     let b2 = v.get::<&MyBoxed>().unwrap();
 //!     assert_eq!(&b, b2);
 //! }
 //! ```

@@ -446,7 +446,6 @@ impl<O: IsA<ActionBar>> ActionBarExt for O {
             value
                 .get()
                 .expect("Return Value for property `pack-type` getter")
-                .unwrap()
         }
     }
 
@@ -456,7 +455,7 @@ impl<O: IsA<ActionBar>> ActionBarExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"pack-type\0".as_ptr() as *const _,
-                glib::Value::from(&pack_type).to_glib_none().0,
+                pack_type.to_value().to_glib_none().0,
             );
         }
     }
@@ -473,7 +472,6 @@ impl<O: IsA<ActionBar>> ActionBarExt for O {
             value
                 .get()
                 .expect("Return Value for property `position` getter")
-                .unwrap()
         }
     }
 
@@ -483,7 +481,7 @@ impl<O: IsA<ActionBar>> ActionBarExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"position\0".as_ptr() as *const _,
-                glib::Value::from(&position).to_glib_none().0,
+                position.to_value().to_glib_none().0,
             );
         }
     }

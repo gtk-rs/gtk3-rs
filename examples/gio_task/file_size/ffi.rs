@@ -73,7 +73,6 @@ pub unsafe extern "C" fn my_file_size_get_file_size_finish(
         .unwrap()
         .get::<i64>()
         .unwrap()
-        .unwrap()
 }
 
 /// # Safety

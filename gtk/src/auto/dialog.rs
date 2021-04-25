@@ -796,7 +796,6 @@ impl<O: IsA<Dialog>> DialogExt for O {
             value
                 .get()
                 .expect("Return Value for property `use-header-bar` getter")
-                .unwrap()
         }
     }
 

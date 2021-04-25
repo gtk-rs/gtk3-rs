@@ -775,7 +775,7 @@ impl<O: IsA<Image>> ImageExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"file\0".as_ptr() as *const _,
-                glib::Value::from(file).to_glib_none().0,
+                file.to_value().to_glib_none().0,
             );
         }
     }
@@ -785,7 +785,7 @@ impl<O: IsA<Image>> ImageExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gicon\0".as_ptr() as *const _,
-                glib::Value::from(gicon).to_glib_none().0,
+                gicon.to_value().to_glib_none().0,
             );
         }
     }
@@ -809,7 +809,7 @@ impl<O: IsA<Image>> ImageExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"icon-name\0".as_ptr() as *const _,
-                glib::Value::from(icon_name).to_glib_none().0,
+                icon_name.to_value().to_glib_none().0,
             );
         }
     }
@@ -825,7 +825,6 @@ impl<O: IsA<Image>> ImageExt for O {
             value
                 .get()
                 .expect("Return Value for property `icon-size` getter")
-                .unwrap()
         }
     }
 
@@ -834,7 +833,7 @@ impl<O: IsA<Image>> ImageExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"icon-size\0".as_ptr() as *const _,
-                glib::Value::from(&icon_size).to_glib_none().0,
+                icon_size.to_value().to_glib_none().0,
             );
         }
     }
@@ -844,7 +843,7 @@ impl<O: IsA<Image>> ImageExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"pixbuf\0".as_ptr() as *const _,
-                glib::Value::from(pixbuf).to_glib_none().0,
+                pixbuf.to_value().to_glib_none().0,
             );
         }
     }
@@ -872,7 +871,7 @@ impl<O: IsA<Image>> ImageExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"pixbuf-animation\0".as_ptr() as *const _,
-                glib::Value::from(pixbuf_animation).to_glib_none().0,
+                pixbuf_animation.to_value().to_glib_none().0,
             );
         }
     }
@@ -896,7 +895,7 @@ impl<O: IsA<Image>> ImageExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"resource\0".as_ptr() as *const _,
-                glib::Value::from(resource).to_glib_none().0,
+                resource.to_value().to_glib_none().0,
             );
         }
     }
@@ -920,7 +919,7 @@ impl<O: IsA<Image>> ImageExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"surface\0".as_ptr() as *const _,
-                glib::Value::from(surface).to_glib_none().0,
+                surface.to_value().to_glib_none().0,
             );
         }
     }
@@ -936,7 +935,6 @@ impl<O: IsA<Image>> ImageExt for O {
             value
                 .get()
                 .expect("Return Value for property `use-fallback` getter")
-                .unwrap()
         }
     }
 
@@ -945,7 +943,7 @@ impl<O: IsA<Image>> ImageExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"use-fallback\0".as_ptr() as *const _,
-                glib::Value::from(&use_fallback).to_glib_none().0,
+                use_fallback.to_value().to_glib_none().0,
             );
         }
     }

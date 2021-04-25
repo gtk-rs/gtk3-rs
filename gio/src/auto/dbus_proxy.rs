@@ -19,6 +19,7 @@ use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
+use glib::ToValue;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
@@ -766,7 +767,6 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
             value
                 .get()
                 .expect("Return Value for property `g-default-timeout` getter")
-                .unwrap()
         }
     }
 
@@ -775,7 +775,7 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"g-default-timeout\0".as_ptr() as *const _,
-                glib::Value::from(&g_default_timeout).to_glib_none().0,
+                g_default_timeout.to_value().to_glib_none().0,
             );
         }
     }
@@ -791,7 +791,6 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
             value
                 .get()
                 .expect("Return Value for property `g-flags` getter")
-                .unwrap()
         }
     }
 
@@ -815,7 +814,7 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"g-interface-info\0".as_ptr() as *const _,
-                glib::Value::from(g_interface_info).to_glib_none().0,
+                g_interface_info.to_value().to_glib_none().0,
             );
         }
     }

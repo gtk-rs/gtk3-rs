@@ -16,6 +16,7 @@ use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
+use glib::ToValue;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem;
@@ -551,7 +552,7 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"cell-background\0".as_ptr() as *const _,
-                glib::Value::from(cell_background).to_glib_none().0,
+                cell_background.to_value().to_glib_none().0,
             );
         }
     }
@@ -575,7 +576,7 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"cell-background-rgba\0".as_ptr() as *const _,
-                glib::Value::from(cell_background_rgba).to_glib_none().0,
+                cell_background_rgba.to_value().to_glib_none().0,
             );
         }
     }
@@ -591,7 +592,6 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
             value
                 .get()
                 .expect("Return Value for property `cell-background-set` getter")
-                .unwrap()
         }
     }
 
@@ -600,7 +600,7 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"cell-background-set\0".as_ptr() as *const _,
-                glib::Value::from(&cell_background_set).to_glib_none().0,
+                cell_background_set.to_value().to_glib_none().0,
             );
         }
     }
@@ -616,7 +616,6 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
             value
                 .get()
                 .expect("Return Value for property `editing` getter")
-                .unwrap()
         }
     }
 
@@ -631,7 +630,6 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
             value
                 .get()
                 .expect("Return Value for property `height` getter")
-                .unwrap()
         }
     }
 
@@ -640,7 +638,7 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"height\0".as_ptr() as *const _,
-                glib::Value::from(&height).to_glib_none().0,
+                height.to_value().to_glib_none().0,
             );
         }
     }
@@ -656,7 +654,6 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
             value
                 .get()
                 .expect("Return Value for property `is-expanded` getter")
-                .unwrap()
         }
     }
 
@@ -665,7 +662,7 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"is-expanded\0".as_ptr() as *const _,
-                glib::Value::from(&is_expanded).to_glib_none().0,
+                is_expanded.to_value().to_glib_none().0,
             );
         }
     }
@@ -681,7 +678,6 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
             value
                 .get()
                 .expect("Return Value for property `is-expander` getter")
-                .unwrap()
         }
     }
 
@@ -690,7 +686,7 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"is-expander\0".as_ptr() as *const _,
-                glib::Value::from(&is_expander).to_glib_none().0,
+                is_expander.to_value().to_glib_none().0,
             );
         }
     }
@@ -706,7 +702,6 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
             value
                 .get()
                 .expect("Return Value for property `mode` getter")
-                .unwrap()
         }
     }
 
@@ -715,7 +710,7 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"mode\0".as_ptr() as *const _,
-                glib::Value::from(&mode).to_glib_none().0,
+                mode.to_value().to_glib_none().0,
             );
         }
     }
@@ -731,7 +726,6 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
             value
                 .get()
                 .expect("Return Value for property `width` getter")
-                .unwrap()
         }
     }
 
@@ -740,7 +734,7 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"width\0".as_ptr() as *const _,
-                glib::Value::from(&width).to_glib_none().0,
+                width.to_value().to_glib_none().0,
             );
         }
     }
@@ -756,7 +750,6 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
             value
                 .get()
                 .expect("Return Value for property `xalign` getter")
-                .unwrap()
         }
     }
 
@@ -765,7 +758,7 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"xalign\0".as_ptr() as *const _,
-                glib::Value::from(&xalign).to_glib_none().0,
+                xalign.to_value().to_glib_none().0,
             );
         }
     }
@@ -781,7 +774,6 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
             value
                 .get()
                 .expect("Return Value for property `xpad` getter")
-                .unwrap()
         }
     }
 
@@ -790,7 +782,7 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"xpad\0".as_ptr() as *const _,
-                glib::Value::from(&xpad).to_glib_none().0,
+                xpad.to_value().to_glib_none().0,
             );
         }
     }
@@ -806,7 +798,6 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
             value
                 .get()
                 .expect("Return Value for property `yalign` getter")
-                .unwrap()
         }
     }
 
@@ -815,7 +806,7 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"yalign\0".as_ptr() as *const _,
-                glib::Value::from(&yalign).to_glib_none().0,
+                yalign.to_value().to_glib_none().0,
             );
         }
     }
@@ -831,7 +822,6 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
             value
                 .get()
                 .expect("Return Value for property `ypad` getter")
-                .unwrap()
         }
     }
 
@@ -840,7 +830,7 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"ypad\0".as_ptr() as *const _,
-                glib::Value::from(&ypad).to_glib_none().0,
+                ypad.to_value().to_glib_none().0,
             );
         }
     }

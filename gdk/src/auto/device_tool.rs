@@ -7,6 +7,7 @@ use crate::DeviceToolType;
 use glib::object::ObjectType as ObjectType_;
 use glib::translate::*;
 use glib::StaticType;
+use glib::ToValue;
 use std::fmt;
 
 glib::wrapper! {
@@ -45,7 +46,6 @@ impl DeviceTool {
             value
                 .get()
                 .expect("Return Value for property `axes` getter")
-                .unwrap()
         }
     }
 
@@ -60,7 +60,6 @@ impl DeviceTool {
             value
                 .get()
                 .expect("Return Value for property `hardware-id` getter")
-                .unwrap()
         }
     }
 
@@ -75,7 +74,6 @@ impl DeviceTool {
             value
                 .get()
                 .expect("Return Value for property `serial` getter")
-                .unwrap()
         }
     }
 
@@ -90,7 +88,6 @@ impl DeviceTool {
             value
                 .get()
                 .expect("Return Value for property `tool-type` getter")
-                .unwrap()
         }
     }
 }

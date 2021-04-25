@@ -15,6 +15,5 @@ impl<O: IsA<StyleContext>> StyleContextExtManual for O {
         self.property("font", state)
             .get()
             .expect("font property is not pango::FontDescription")
-            .expect("font property is empty")
     }
 }

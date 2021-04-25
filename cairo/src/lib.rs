@@ -60,36 +60,53 @@ macro_rules! gvalue_impl {
             }
         }
 
-        impl<'a> glib::value::FromValueOptional<'a> for $name {
-            unsafe fn from_value_optional(v: &'a glib::value::Value) -> Option<Self> {
-                let ptr = glib::gobject_ffi::g_value_get_boxed(v.to_glib_none().0);
-                assert!(!ptr.is_null());
-                from_glib_none(ptr as *mut $ffi_name)
-            }
+        impl glib::value::ValueType for $name {
+            type Type = Self;
         }
 
-        impl glib::value::SetValue for $name {
-            unsafe fn set_value(v: &mut glib::value::Value, s: &Self) {
-                glib::gobject_ffi::g_value_set_boxed(
-                    v.to_glib_none_mut().0,
-                    s.to_glib_none().0 as glib::ffi::gpointer,
+        unsafe impl<'a> glib::value::FromValue<'a> for $name {
+            type Checker = glib::value::GenericValueTypeOrNoneChecker<Self>;
+
+            unsafe fn from_value(value: &'a glib::Value) -> Self {
+                let ptr = glib::gobject_ffi::g_value_get_boxed(
+                    glib::translate::ToGlibPtr::to_glib_none(value).0,
                 );
+                assert!(!ptr.is_null());
+                <$name as glib::translate::FromGlibPtrNone<*mut $ffi_name>>::from_glib_none(
+                    ptr as *mut $ffi_name,
+                )
             }
         }
 
-        impl glib::value::SetValueOptional for $name {
-            unsafe fn set_value_optional(v: &mut glib::value::Value, s: Option<&Self>) {
-                if let Some(s) = s {
+        impl glib::value::ToValue for $name {
+            fn to_value(&self) -> glib::Value {
+                unsafe {
+                    let mut value =
+                        glib::Value::from_type(<$name as glib::StaticType>::static_type());
                     glib::gobject_ffi::g_value_set_boxed(
-                        v.to_glib_none_mut().0,
-                        s.to_glib_none().0 as glib::ffi::gpointer,
+                        value.to_glib_none_mut().0,
+                        self.to_glib_none().0 as *mut _,
                     );
-                } else {
-                    glib::gobject_ffi::g_value_set_boxed(
-                        v.to_glib_none_mut().0,
-                        ::std::ptr::null_mut(),
+                    value
+                }
+            }
+
+            fn value_type(&self) -> glib::Type {
+                <$name as glib::StaticType>::static_type()
+            }
+        }
+
+        impl glib::value::ToValueOptional for $name {
+            fn to_value_optional(s: Option<&Self>) -> glib::Value {
+                let mut value = glib::Value::for_value_type::<$name>();
+                unsafe {
+                    glib::gobject_ffi::g_value_take_boxed(
+                        value.to_glib_none_mut().0,
+                        glib::translate::ToGlibPtr::to_glib_full(&s) as *mut _,
                     );
                 }
+
+                value
             }
         }
     };

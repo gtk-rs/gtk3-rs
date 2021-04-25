@@ -10,6 +10,7 @@ use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
+use glib::ToValue;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem;
@@ -218,7 +219,6 @@ impl<O: IsA<IMContext>> IMContextExt for O {
             value
                 .get()
                 .expect("Return Value for property `input-hints` getter")
-                .unwrap()
         }
     }
 
@@ -227,7 +227,7 @@ impl<O: IsA<IMContext>> IMContextExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"input-hints\0".as_ptr() as *const _,
-                glib::Value::from(&input_hints).to_glib_none().0,
+                input_hints.to_value().to_glib_none().0,
             );
         }
     }
@@ -243,7 +243,6 @@ impl<O: IsA<IMContext>> IMContextExt for O {
             value
                 .get()
                 .expect("Return Value for property `input-purpose` getter")
-                .unwrap()
         }
     }
 
@@ -252,7 +251,7 @@ impl<O: IsA<IMContext>> IMContextExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"input-purpose\0".as_ptr() as *const _,
-                glib::Value::from(&input_purpose).to_glib_none().0,
+                input_purpose.to_value().to_glib_none().0,
             );
         }
     }

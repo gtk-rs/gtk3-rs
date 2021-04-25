@@ -283,11 +283,9 @@ mod test {
                         .class_handler(|_, args| {
                             let obj = args[0]
                                 .get::<super::SimpleObject>()
-                                .expect("Failed to get args[0]")
                                 .expect("Failed to get Object from args[0]");
                             let new_name = args[1]
                                 .get::<String>()
-                                .expect("Failed to get args[1]")
                                 .expect("Failed to get Object from args[1]");
                             let imp = SimpleObject::from_instance(&obj);
 
@@ -439,7 +437,7 @@ mod test {
         assert_eq!(
             obj.property("constructed")
                 .expect("Failed to get 'constructed' property")
-                .get_some::<bool>()
+                .get::<bool>()
                 .expect("Failed to get bool from 'constructed' property"),
             true
         );
@@ -470,7 +468,7 @@ mod test {
                 .expect("Failed to get 'construct-name' property")
                 .get::<&str>()
                 .expect("Failed to get str from 'construct-name' property"),
-            Some("meh")
+            "meh"
         );
         assert_eq!(
             obj.set_property("construct-name", &"test")
@@ -484,7 +482,7 @@ mod test {
                 .expect("Failed to get 'construct-name' property")
                 .get::<&str>()
                 .expect("Failed to get str from 'construct-name' property"),
-            Some("meh")
+            "meh"
         );
 
         assert_eq!(
@@ -492,7 +490,7 @@ mod test {
                 .expect("Failed to get 'name' property")
                 .get::<&str>()
                 .expect("Failed to get str from 'name' property"),
-            Some("initial")
+            "initial"
         );
         assert!(obj.set_property("name", &"test").is_ok());
         assert_eq!(
@@ -500,7 +498,7 @@ mod test {
                 .expect("Failed to get 'name' property")
                 .get::<&str>()
                 .expect("Failed to get str from 'name' property"),
-            Some("test")
+            "test"
         );
 
         assert_eq!(
@@ -552,14 +550,8 @@ mod test {
         let name_changed_triggered = Arc::new(AtomicBool::new(false));
         let name_changed_clone = name_changed_triggered.clone();
         obj.connect("name-changed", false, move |args| {
-            let _obj = args[0]
-                .get::<Object>()
-                .expect("Failed to get args[0]")
-                .expect("Failed to get str from args[0]");
-            let name = args[1]
-                .get::<&str>()
-                .expect("Failed to get args[1]")
-                .expect("Failed to get str from args[1]");
+            let _obj = args[0].get::<Object>().expect("Failed to get args[0]");
+            let name = args[1].get::<&str>().expect("Failed to get args[1]");
 
             assert_eq!(name, "new-name");
             name_changed_clone.store(true, Ordering::Relaxed);
@@ -573,17 +565,18 @@ mod test {
                 .expect("Failed to get 'name' property")
                 .get::<&str>()
                 .expect("Failed to get str from 'name' property"),
-            Some("old-name")
+            "old-name"
         );
         assert!(!name_changed_triggered.load(Ordering::Relaxed));
 
-        let old_name = obj
-            .emit_by_name("change-name", &[&"new-name"])
-            .expect("Failed to emit")
-            .expect("Failed to get value from emit")
-            .get::<String>()
-            .expect("Failed to get str from emit");
-        assert_eq!(old_name, Some("old-name".to_string()));
+        assert_eq!(
+            obj.emit_by_name("change-name", &[&"new-name"])
+                .expect("Failed to emit")
+                .expect("Failed to get value from emit")
+                .get::<&str>()
+                .expect("Failed to get str from emit"),
+            "old-name"
+        );
         assert!(name_changed_triggered.load(Ordering::Relaxed));
     }
 
@@ -602,7 +595,7 @@ mod test {
             .emit(signal_id, &[])
             .expect("Failed to emit")
             .expect("Failed to get value from emit");
-        assert_eq!(value.get::<String>(), Ok(Some("return value".to_string())));
+        assert_eq!(value.get::<&str>(), Ok("return value"));
     }
 
     #[test]

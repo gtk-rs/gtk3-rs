@@ -624,7 +624,7 @@ impl<O: IsA<CellView>> CellViewExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"background\0".as_ptr() as *const _,
-                glib::Value::from(background).to_glib_none().0,
+                background.to_value().to_glib_none().0,
             );
         }
     }
@@ -654,7 +654,6 @@ impl<O: IsA<CellView>> CellViewExt for O {
             value
                 .get()
                 .expect("Return Value for property `background-set` getter")
-                .unwrap()
         }
     }
 
@@ -663,7 +662,7 @@ impl<O: IsA<CellView>> CellViewExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"background-set\0".as_ptr() as *const _,
-                glib::Value::from(&background_set).to_glib_none().0,
+                background_set.to_value().to_glib_none().0,
             );
         }
     }

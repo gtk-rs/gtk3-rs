@@ -10,6 +10,7 @@ use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
+use glib::ToValue;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
@@ -125,7 +126,6 @@ impl Monitor {
             value
                 .get()
                 .expect("Return Value for property `height-mm` getter")
-                .unwrap()
         }
     }
 
@@ -140,7 +140,6 @@ impl Monitor {
             value
                 .get()
                 .expect("Return Value for property `refresh-rate` getter")
-                .unwrap()
         }
     }
 
@@ -155,7 +154,6 @@ impl Monitor {
             value
                 .get()
                 .expect("Return Value for property `scale-factor` getter")
-                .unwrap()
         }
     }
 
@@ -170,7 +168,6 @@ impl Monitor {
             value
                 .get()
                 .expect("Return Value for property `width-mm` getter")
-                .unwrap()
         }
     }
 

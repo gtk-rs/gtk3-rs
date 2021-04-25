@@ -13,6 +13,7 @@ use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
+use glib::ToValue;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
@@ -368,7 +369,7 @@ impl<O: IsA<Container>> ContainerExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"child\0".as_ptr() as *const _,
-                glib::Value::from(child).to_glib_none().0,
+                child.to_value().to_glib_none().0,
             );
         }
     }
@@ -384,7 +385,6 @@ impl<O: IsA<Container>> ContainerExt for O {
             value
                 .get()
                 .expect("Return Value for property `resize-mode` getter")
-                .unwrap()
         }
     }
 
@@ -393,7 +393,7 @@ impl<O: IsA<Container>> ContainerExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"resize-mode\0".as_ptr() as *const _,
-                glib::Value::from(&resize_mode).to_glib_none().0,
+                resize_mode.to_value().to_glib_none().0,
             );
         }
     }

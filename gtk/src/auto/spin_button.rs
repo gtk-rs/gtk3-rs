@@ -1129,7 +1129,6 @@ impl<O: IsA<SpinButton>> SpinButtonExt for O {
             value
                 .get()
                 .expect("Return Value for property `climb-rate` getter")
-                .unwrap()
         }
     }
 
@@ -1138,7 +1137,7 @@ impl<O: IsA<SpinButton>> SpinButtonExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"climb-rate\0".as_ptr() as *const _,
-                glib::Value::from(&climb_rate).to_glib_none().0,
+                climb_rate.to_value().to_glib_none().0,
             );
         }
     }

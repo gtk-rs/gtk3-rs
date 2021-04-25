@@ -619,7 +619,6 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
             value
                 .get()
                 .expect("Return Value for property `direction` getter")
-                .unwrap()
         }
     }
 
@@ -628,7 +627,7 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"direction\0".as_ptr() as *const _,
-                glib::Value::from(&direction).to_glib_none().0,
+                direction.to_value().to_glib_none().0,
             );
         }
     }
@@ -652,7 +651,7 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"paint-clock\0".as_ptr() as *const _,
-                glib::Value::from(paint_clock).to_glib_none().0,
+                paint_clock.to_value().to_glib_none().0,
             );
         }
     }

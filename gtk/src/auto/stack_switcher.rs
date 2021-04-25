@@ -497,7 +497,6 @@ impl<O: IsA<StackSwitcher>> StackSwitcherExt for O {
             value
                 .get()
                 .expect("Return Value for property `icon-size` getter")
-                .unwrap()
         }
     }
 
@@ -508,7 +507,7 @@ impl<O: IsA<StackSwitcher>> StackSwitcherExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"icon-size\0".as_ptr() as *const _,
-                glib::Value::from(&icon_size).to_glib_none().0,
+                icon_size.to_value().to_glib_none().0,
             );
         }
     }

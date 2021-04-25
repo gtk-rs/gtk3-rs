@@ -8,12 +8,10 @@ use std::ffi::{CStr, CString, OsStr};
 use std::fmt;
 use std::hash;
 use std::ops::Deref;
-use std::os::raw::c_char;
+use std::os::raw::{c_char, c_void};
 use std::ptr;
 use std::slice;
 use std::string::String;
-
-use crate::value::{FromValueOptional, SetValue, SetValueOptional, Value};
 
 pub struct GString(Inner);
 
@@ -505,32 +503,65 @@ impl StaticType for GString {
     }
 }
 
+impl crate::value::ValueType for GString {
+    type Type = String;
+}
+
+unsafe impl<'a> crate::value::FromValue<'a> for GString {
+    type Checker = crate::value::GenericValueTypeOrNoneChecker<Self>;
+
+    unsafe fn from_value(value: &'a crate::Value) -> Self {
+        GString::from(<&str>::from_value(value))
+    }
+}
+
+impl crate::value::ToValue for GString {
+    fn to_value(&self) -> crate::Value {
+        <&str>::to_value(&self.as_str())
+    }
+
+    fn value_type(&self) -> Type {
+        String::static_type()
+    }
+}
+
+impl crate::value::ToValueOptional for GString {
+    fn to_value_optional(s: Option<&Self>) -> crate::Value {
+        <str>::to_value_optional(s.as_ref().map(|s| s.as_str()))
+    }
+}
+
 impl StaticType for Vec<GString> {
     fn static_type() -> Type {
-        unsafe { from_glib(ffi::g_strv_get_type()) }
+        <Vec<String>>::static_type()
     }
 }
 
-impl<'a> FromValueOptional<'a> for GString {
-    unsafe fn from_value_optional(value: &'a Value) -> Option<Self> {
-        let ptr = gobject_ffi::g_value_dup_string(value.to_glib_none().0);
-        if ptr.is_null() {
-            None
-        } else {
-            Some(GString::new(ptr))
+impl crate::value::ValueType for Vec<GString> {
+    type Type = Vec<GString>;
+}
+
+unsafe impl<'a> crate::value::FromValue<'a> for Vec<GString> {
+    type Checker = crate::value::GenericValueTypeChecker<Self>;
+
+    unsafe fn from_value(value: &'a crate::value::Value) -> Self {
+        let ptr = gobject_ffi::g_value_get_boxed(value.to_glib_none().0) as *const *const c_char;
+        FromGlibPtrContainer::from_glib_none(ptr)
+    }
+}
+
+impl crate::value::ToValue for Vec<GString> {
+    fn to_value(&self) -> crate::value::Value {
+        unsafe {
+            let mut value = crate::value::Value::for_value_type::<Vec<GString>>();
+            let ptr: *mut *mut c_char = self.to_glib_full();
+            gobject_ffi::g_value_take_boxed(value.to_glib_none_mut().0, ptr as *const c_void);
+            value
         }
     }
-}
 
-impl SetValue for GString {
-    unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_ffi::g_value_take_string(value.to_glib_none_mut().0, this.to_glib_full())
-    }
-}
-
-impl SetValueOptional for GString {
-    unsafe fn set_value_optional(value: &mut Value, this: Option<&Self>) {
-        gobject_ffi::g_value_take_string(value.to_glib_none_mut().0, this.to_glib_full())
+    fn value_type(&self) -> Type {
+        <Vec<GString>>::static_type()
     }
 }
 

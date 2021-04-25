@@ -247,7 +247,6 @@ impl<O: IsA<CellRendererSpinner>> CellRendererSpinnerExt for O {
             value
                 .get()
                 .expect("Return Value for property `active` getter")
-                .unwrap()
         }
     }
 
@@ -256,7 +255,7 @@ impl<O: IsA<CellRendererSpinner>> CellRendererSpinnerExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"active\0".as_ptr() as *const _,
-                glib::Value::from(&active).to_glib_none().0,
+                active.to_value().to_glib_none().0,
             );
         }
     }
@@ -272,7 +271,6 @@ impl<O: IsA<CellRendererSpinner>> CellRendererSpinnerExt for O {
             value
                 .get()
                 .expect("Return Value for property `pulse` getter")
-                .unwrap()
         }
     }
 
@@ -281,7 +279,7 @@ impl<O: IsA<CellRendererSpinner>> CellRendererSpinnerExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"pulse\0".as_ptr() as *const _,
-                glib::Value::from(&pulse).to_glib_none().0,
+                pulse.to_value().to_glib_none().0,
             );
         }
     }
@@ -297,7 +295,6 @@ impl<O: IsA<CellRendererSpinner>> CellRendererSpinnerExt for O {
             value
                 .get()
                 .expect("Return Value for property `size` getter")
-                .unwrap()
         }
     }
 
@@ -306,7 +303,7 @@ impl<O: IsA<CellRendererSpinner>> CellRendererSpinnerExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"size\0".as_ptr() as *const _,
-                glib::Value::from(&size).to_glib_none().0,
+                size.to_value().to_glib_none().0,
             );
         }
     }

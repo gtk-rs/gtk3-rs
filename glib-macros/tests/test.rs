@@ -41,7 +41,7 @@ fn derive_shared_arc() {
     assert_eq!(std::sync::Arc::strong_count(&p.0), 1);
     let v = p.to_value();
     assert_eq!(std::sync::Arc::strong_count(&p.0), 2);
-    let p_clone = v.get::<MyShared>().unwrap().unwrap();
+    let p_clone = v.get::<MyShared>().unwrap();
     assert_eq!(std::sync::Arc::strong_count(&p.0), 3);
     drop(p_clone);
     assert_eq!(std::sync::Arc::strong_count(&p.0), 2);
@@ -80,12 +80,12 @@ fn derive_shared_arc_nullable() {
     assert_eq!(std::sync::Arc::strong_count(&p.as_ref().unwrap().0), 2);
     assert_eq!(
         p.as_ref().unwrap().0.foo,
-        v.get::<MyNullableShared>().unwrap().unwrap().0.foo
+        v.get::<MyNullableShared>().unwrap().0.foo
     );
 
-    let b: Option<MyNullableShared> = None;
+    let b: Option<&MyNullableShared> = None;
     let v = b.to_value();
-    assert_eq!(None, v.get::<MyNullableShared>().unwrap());
+    assert_eq!(None, v.get::<Option<MyNullableShared>>().unwrap());
 }
 
 #[test]
@@ -110,18 +110,9 @@ fn derive_genum() {
     assert_eq!(unsafe { Animal::from_glib(1) }, Animal::Dog);
     assert_eq!(unsafe { Animal::from_glib(5) }, Animal::Cat);
 
-    assert_eq!(
-        Animal::Goat.to_value().get::<Animal>(),
-        Ok(Some(Animal::Goat))
-    );
-    assert_eq!(
-        Animal::Dog.to_value().get::<Animal>(),
-        Ok(Some(Animal::Dog))
-    );
-    assert_eq!(
-        Animal::Cat.to_value().get::<Animal>(),
-        Ok(Some(Animal::Cat))
-    );
+    assert_eq!(Animal::Goat.to_value().get::<Animal>(), Ok(Animal::Goat));
+    assert_eq!(Animal::Dog.to_value().get::<Animal>(), Ok(Animal::Dog));
+    assert_eq!(Animal::Cat.to_value().get::<Animal>(), Ok(Animal::Cat));
 
     let t = Animal::static_type();
     assert!(t.is_a(glib::Type::ENUM));
@@ -150,8 +141,8 @@ fn derive_gboxed() {
 
     let b = MyBoxed(String::from("abc"));
     let v = b.to_value();
-    assert_eq!(&b, v.get::<&MyBoxed>().unwrap().unwrap());
-    assert_eq!(&b, v.get_some::<&MyBoxed>().unwrap());
+    assert_eq!(&b, v.get::<&MyBoxed>().unwrap());
+    assert_eq!(b, v.get::<MyBoxed>().unwrap());
 }
 
 #[test]
@@ -164,16 +155,25 @@ fn derive_gboxed_nullable() {
 
     let b = MyNullableBoxed(String::from("abc"));
     let v = b.to_value();
-    assert_eq!(&b, v.get::<&MyNullableBoxed>().unwrap().unwrap());
+    assert_eq!(&b, v.get::<Option<&MyNullableBoxed>>().unwrap().unwrap());
+    assert_eq!(b, v.get::<Option<MyNullableBoxed>>().unwrap().unwrap());
 
     let b = Some(MyNullableBoxed(String::from("def")));
     let v = b.to_value();
     let b = b.unwrap();
-    assert_eq!(&b, v.get::<&MyNullableBoxed>().unwrap().unwrap());
+    assert_eq!(&b, v.get::<Option<&MyNullableBoxed>>().unwrap().unwrap());
+    assert_eq!(b, v.get::<Option<MyNullableBoxed>>().unwrap().unwrap());
+
+    let b = Some(MyNullableBoxed(String::from("def")));
+    let v = (&b).to_value();
+    let b = b.unwrap();
+    assert_eq!(&b, v.get::<Option<&MyNullableBoxed>>().unwrap().unwrap());
+    assert_eq!(b, v.get::<Option<MyNullableBoxed>>().unwrap().unwrap());
 
     let b: Option<MyNullableBoxed> = None;
     let v = b.to_value();
-    assert_eq!(None, v.get::<&MyNullableBoxed>().unwrap());
+    assert_eq!(None, v.get::<Option<&MyNullableBoxed>>().unwrap());
+    assert_eq!(None, v.get::<Option<MyNullableBoxed>>().unwrap());
 }
 
 #[test]
@@ -205,14 +205,11 @@ fn attr_gflags() {
 
     assert_eq!(
         MyFlags::empty().to_value().get::<MyFlags>(),
-        Ok(Some(MyFlags::empty()))
+        Ok(MyFlags::empty())
     );
-    assert_eq!(MyFlags::A.to_value().get::<MyFlags>(), Ok(Some(MyFlags::A)));
-    assert_eq!(MyFlags::B.to_value().get::<MyFlags>(), Ok(Some(MyFlags::B)));
-    assert_eq!(
-        MyFlags::AB.to_value().get::<MyFlags>(),
-        Ok(Some(MyFlags::AB))
-    );
+    assert_eq!(MyFlags::A.to_value().get::<MyFlags>(), Ok(MyFlags::A));
+    assert_eq!(MyFlags::B.to_value().get::<MyFlags>(), Ok(MyFlags::B));
+    assert_eq!(MyFlags::AB.to_value().get::<MyFlags>(), Ok(MyFlags::AB));
 
     let t = MyFlags::static_type();
     assert!(t.is_a(glib::Type::FLAGS));

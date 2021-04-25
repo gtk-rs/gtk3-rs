@@ -39,7 +39,7 @@ impl ShortcutsGroup {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"accel-size-group\0".as_ptr() as *const _,
-                glib::Value::from(accel_size_group).to_glib_none().0,
+                accel_size_group.to_value().to_glib_none().0,
             );
         }
     }
@@ -56,7 +56,6 @@ impl ShortcutsGroup {
             value
                 .get()
                 .expect("Return Value for property `height` getter")
-                .unwrap()
         }
     }
 
@@ -81,7 +80,7 @@ impl ShortcutsGroup {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"title\0".as_ptr() as *const _,
-                glib::Value::from(title).to_glib_none().0,
+                title.to_value().to_glib_none().0,
             );
         }
     }
@@ -92,7 +91,7 @@ impl ShortcutsGroup {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"title-size-group\0".as_ptr() as *const _,
-                glib::Value::from(title_size_group).to_glib_none().0,
+                title_size_group.to_value().to_glib_none().0,
             );
         }
     }
@@ -118,7 +117,7 @@ impl ShortcutsGroup {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"view\0".as_ptr() as *const _,
-                glib::Value::from(view).to_glib_none().0,
+                view.to_value().to_glib_none().0,
             );
         }
     }

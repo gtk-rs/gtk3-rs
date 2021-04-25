@@ -86,10 +86,8 @@
 use crate::bytes::Bytes;
 use crate::gstring::GString;
 use crate::translate::*;
-use crate::value;
 use crate::StaticType;
 use crate::Type;
-use crate::Value;
 use crate::VariantIter;
 use crate::VariantTy;
 use crate::VariantType;
@@ -120,31 +118,51 @@ impl StaticType for Variant {
 }
 
 #[doc(hidden)]
-impl<'a> value::FromValueOptional<'a> for Variant {
-    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
-        from_glib_full(gobject_ffi::g_value_dup_variant(
-            ToGlibPtr::to_glib_none(value).0,
-        ))
+impl crate::value::ValueType for Variant {
+    type Type = Variant;
+}
+
+#[doc(hidden)]
+unsafe impl<'a> crate::value::FromValue<'a> for Variant {
+    type Checker = crate::value::GenericValueTypeOrNoneChecker<Self>;
+
+    unsafe fn from_value(value: &'a crate::Value) -> Self {
+        let ptr = gobject_ffi::g_value_dup_variant(value.to_glib_none().0);
+        assert!(!ptr.is_null());
+        from_glib_full(ptr)
     }
 }
 
 #[doc(hidden)]
-impl value::SetValue for Variant {
-    unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_ffi::g_value_set_variant(
-            ToGlibPtrMut::to_glib_none_mut(value).0,
-            ToGlibPtr::<*mut ffi::GVariant>::to_glib_none(this).0,
-        )
+impl crate::value::ToValue for Variant {
+    fn to_value(&self) -> crate::Value {
+        unsafe {
+            let mut value = crate::Value::from_type(Variant::static_type());
+            gobject_ffi::g_value_take_variant(
+                value.to_glib_none_mut().0,
+                self.to_glib_full() as *mut _,
+            );
+            value
+        }
+    }
+
+    fn value_type(&self) -> crate::Type {
+        Variant::static_type()
     }
 }
 
 #[doc(hidden)]
-impl value::SetValueOptional for Variant {
-    unsafe fn set_value_optional(value: &mut Value, this: Option<&Self>) {
-        gobject_ffi::g_value_set_variant(
-            ToGlibPtrMut::to_glib_none_mut(value).0,
-            ToGlibPtr::<*mut ffi::GVariant>::to_glib_none(&this).0,
-        )
+impl crate::value::ToValueOptional for Variant {
+    fn to_value_optional(s: Option<&Self>) -> crate::Value {
+        let mut value = crate::Value::for_value_type::<Variant>();
+        unsafe {
+            gobject_ffi::g_value_take_variant(
+                value.to_glib_none_mut().0,
+                s.to_glib_full() as *mut _,
+            );
+        }
+
+        value
     }
 }
 

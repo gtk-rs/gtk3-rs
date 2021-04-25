@@ -9,6 +9,7 @@ use glib::object::IsA;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
+use glib::ToValue;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
@@ -105,7 +106,7 @@ impl<O: IsA<Relation>> RelationExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"relation-type\0".as_ptr() as *const _,
-                glib::Value::from(&relation_type).to_glib_none().0,
+                relation_type.to_value().to_glib_none().0,
             );
         }
     }
@@ -115,7 +116,7 @@ impl<O: IsA<Relation>> RelationExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"target\0".as_ptr() as *const _,
-                glib::Value::from(target).to_glib_none().0,
+                target.to_value().to_glib_none().0,
             );
         }
     }

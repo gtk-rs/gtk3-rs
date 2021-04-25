@@ -353,7 +353,6 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
             value
                 .get()
                 .expect("Return Value for property `follow-state` getter")
-                .unwrap()
         }
     }
 
@@ -362,7 +361,7 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"follow-state\0".as_ptr() as *const _,
-                glib::Value::from(&follow_state).to_glib_none().0,
+                follow_state.to_value().to_glib_none().0,
             );
         }
     }
@@ -386,7 +385,7 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gicon\0".as_ptr() as *const _,
-                glib::Value::from(gicon).to_glib_none().0,
+                gicon.to_value().to_glib_none().0,
             );
         }
     }
@@ -410,7 +409,7 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"icon-name\0".as_ptr() as *const _,
-                glib::Value::from(icon_name).to_glib_none().0,
+                icon_name.to_value().to_glib_none().0,
             );
         }
     }
@@ -435,7 +434,7 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"pixbuf\0".as_ptr() as *const _,
-                glib::Value::from(pixbuf).to_glib_none().0,
+                pixbuf.to_value().to_glib_none().0,
             );
         }
     }
@@ -460,7 +459,7 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"pixbuf-expander-closed\0".as_ptr() as *const _,
-                glib::Value::from(pixbuf_expander_closed).to_glib_none().0,
+                pixbuf_expander_closed.to_value().to_glib_none().0,
             );
         }
     }
@@ -485,7 +484,7 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"pixbuf-expander-open\0".as_ptr() as *const _,
-                glib::Value::from(pixbuf_expander_open).to_glib_none().0,
+                pixbuf_expander_open.to_value().to_glib_none().0,
             );
         }
     }
@@ -509,7 +508,7 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"stock-detail\0".as_ptr() as *const _,
-                glib::Value::from(stock_detail).to_glib_none().0,
+                stock_detail.to_value().to_glib_none().0,
             );
         }
     }
@@ -533,7 +532,7 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"surface\0".as_ptr() as *const _,
-                glib::Value::from(surface).to_glib_none().0,
+                surface.to_value().to_glib_none().0,
             );
         }
     }

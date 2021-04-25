@@ -19,21 +19,29 @@ macro_rules! gvalue_impl {
             }
         }
 
-        impl<'a> glib::value::FromValueOptional<'a> for $name {
-            unsafe fn from_value_optional(value: &glib::value::Value) -> Option<Self> {
-                Some(glib::value::FromValue::from_value(value))
-            }
+        impl glib::value::ValueType for $name {
+            type Type = Self;
         }
 
-        impl<'a> glib::value::FromValue<'a> for $name {
-            unsafe fn from_value(value: &glib::value::Value) -> Self {
+        unsafe impl<'a> glib::value::FromValue<'a> for $name {
+            type Checker = glib::value::GenericValueTypeChecker<Self>;
+
+            unsafe fn from_value(value: &'a glib::Value) -> Self {
                 Self::from(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
             }
         }
 
-        impl glib::value::SetValue for $name {
-            unsafe fn set_value(value: &mut glib::value::Value, this: &Self) {
-                glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, (*this).into())
+        impl glib::value::ToValue for $name {
+            fn to_value(&self) -> glib::Value {
+                let mut value = glib::Value::for_value_type::<$name>();
+                unsafe {
+                    glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, (*self).into());
+                }
+                value
+            }
+
+            fn value_type(&self) -> glib::Type {
+                <Self as glib::StaticType>::static_type()
             }
         }
     };

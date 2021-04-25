@@ -88,7 +88,7 @@ mod test {
 
         let b = MyBoxed(String::from("abc"));
         let v = b.to_value();
-        let b2 = v.get_some::<&MyBoxed>().unwrap();
+        let b2 = v.get::<&MyBoxed>().unwrap();
         assert_eq!(&b, b2);
     }
 }

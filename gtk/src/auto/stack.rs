@@ -796,7 +796,6 @@ impl<O: IsA<Stack>> StackExt for O {
             value
                 .get()
                 .expect("Return Value for property `interpolate-size` getter")
-                .unwrap()
         }
     }
 
@@ -805,7 +804,7 @@ impl<O: IsA<Stack>> StackExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"interpolate-size\0".as_ptr() as *const _,
-                glib::Value::from(&interpolate_size).to_glib_none().0,
+                interpolate_size.to_value().to_glib_none().0,
             );
         }
     }
@@ -831,7 +830,7 @@ impl<O: IsA<Stack>> StackExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"icon-name\0".as_ptr() as *const _,
-                glib::Value::from(icon_name).to_glib_none().0,
+                icon_name.to_value().to_glib_none().0,
             );
         }
     }
@@ -857,7 +856,7 @@ impl<O: IsA<Stack>> StackExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"name\0".as_ptr() as *const _,
-                glib::Value::from(name).to_glib_none().0,
+                name.to_value().to_glib_none().0,
             );
         }
     }
@@ -874,7 +873,6 @@ impl<O: IsA<Stack>> StackExt for O {
             value
                 .get()
                 .expect("Return Value for property `needs-attention` getter")
-                .unwrap()
         }
     }
 
@@ -884,7 +882,7 @@ impl<O: IsA<Stack>> StackExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"needs-attention\0".as_ptr() as *const _,
-                glib::Value::from(&needs_attention).to_glib_none().0,
+                needs_attention.to_value().to_glib_none().0,
             );
         }
     }
@@ -901,7 +899,6 @@ impl<O: IsA<Stack>> StackExt for O {
             value
                 .get()
                 .expect("Return Value for property `position` getter")
-                .unwrap()
         }
     }
 
@@ -911,7 +908,7 @@ impl<O: IsA<Stack>> StackExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"position\0".as_ptr() as *const _,
-                glib::Value::from(&position).to_glib_none().0,
+                position.to_value().to_glib_none().0,
             );
         }
     }
@@ -937,7 +934,7 @@ impl<O: IsA<Stack>> StackExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"title\0".as_ptr() as *const _,
-                glib::Value::from(title).to_glib_none().0,
+                title.to_value().to_glib_none().0,
             );
         }
     }

@@ -338,7 +338,6 @@ impl<O: IsA<CellRendererToggle>> CellRendererToggleExt for O {
             value
                 .get()
                 .expect("Return Value for property `inconsistent` getter")
-                .unwrap()
         }
     }
 
@@ -347,7 +346,7 @@ impl<O: IsA<CellRendererToggle>> CellRendererToggleExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"inconsistent\0".as_ptr() as *const _,
-                glib::Value::from(&inconsistent).to_glib_none().0,
+                inconsistent.to_value().to_glib_none().0,
             );
         }
     }
@@ -363,7 +362,6 @@ impl<O: IsA<CellRendererToggle>> CellRendererToggleExt for O {
             value
                 .get()
                 .expect("Return Value for property `indicator-size` getter")
-                .unwrap()
         }
     }
 
@@ -372,7 +370,7 @@ impl<O: IsA<CellRendererToggle>> CellRendererToggleExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"indicator-size\0".as_ptr() as *const _,
-                glib::Value::from(&indicator_size).to_glib_none().0,
+                indicator_size.to_value().to_glib_none().0,
             );
         }
     }

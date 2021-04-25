@@ -54,7 +54,6 @@ impl ModelButton {
             value
                 .get()
                 .expect("Return Value for property `active` getter")
-                .unwrap()
         }
     }
 
@@ -66,7 +65,7 @@ impl ModelButton {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"active\0".as_ptr() as *const _,
-                glib::Value::from(&active).to_glib_none().0,
+                active.to_value().to_glib_none().0,
             );
         }
     }
@@ -85,7 +84,6 @@ impl ModelButton {
             value
                 .get()
                 .expect("Return Value for property `centered` getter")
-                .unwrap()
         }
     }
 
@@ -97,7 +95,7 @@ impl ModelButton {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"centered\0".as_ptr() as *const _,
-                glib::Value::from(&centered).to_glib_none().0,
+                centered.to_value().to_glib_none().0,
             );
         }
     }
@@ -127,7 +125,7 @@ impl ModelButton {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"icon\0".as_ptr() as *const _,
-                glib::Value::from(icon).to_glib_none().0,
+                icon.to_value().to_glib_none().0,
             );
         }
     }
@@ -146,7 +144,6 @@ impl ModelButton {
             value
                 .get()
                 .expect("Return Value for property `iconic` getter")
-                .unwrap()
         }
     }
 
@@ -158,7 +155,7 @@ impl ModelButton {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"iconic\0".as_ptr() as *const _,
-                glib::Value::from(&iconic).to_glib_none().0,
+                iconic.to_value().to_glib_none().0,
             );
         }
     }
@@ -177,7 +174,6 @@ impl ModelButton {
             value
                 .get()
                 .expect("Return Value for property `inverted` getter")
-                .unwrap()
         }
     }
 
@@ -189,7 +185,7 @@ impl ModelButton {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"inverted\0".as_ptr() as *const _,
-                glib::Value::from(&inverted).to_glib_none().0,
+                inverted.to_value().to_glib_none().0,
             );
         }
     }
@@ -219,7 +215,7 @@ impl ModelButton {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"menu-name\0".as_ptr() as *const _,
-                glib::Value::from(menu_name).to_glib_none().0,
+                menu_name.to_value().to_glib_none().0,
             );
         }
     }
@@ -238,7 +234,6 @@ impl ModelButton {
             value
                 .get()
                 .expect("Return Value for property `role` getter")
-                .unwrap()
         }
     }
 
@@ -250,7 +245,7 @@ impl ModelButton {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"role\0".as_ptr() as *const _,
-                glib::Value::from(&role).to_glib_none().0,
+                role.to_value().to_glib_none().0,
             );
         }
     }
@@ -280,7 +275,7 @@ impl ModelButton {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"text\0".as_ptr() as *const _,
-                glib::Value::from(text).to_glib_none().0,
+                text.to_value().to_glib_none().0,
             );
         }
     }
@@ -299,7 +294,6 @@ impl ModelButton {
             value
                 .get()
                 .expect("Return Value for property `use-markup` getter")
-                .unwrap()
         }
     }
 
@@ -311,7 +305,7 @@ impl ModelButton {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"use-markup\0".as_ptr() as *const _,
-                glib::Value::from(&use_markup).to_glib_none().0,
+                use_markup.to_value().to_glib_none().0,
             );
         }
     }

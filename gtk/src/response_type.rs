@@ -1,8 +1,8 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
 use glib::translate::{from_glib, FromGlib, ToGlib, ToGlibPtr, ToGlibPtrMut};
-use glib::value::{FromValue, FromValueOptional, SetValue};
-use glib::{StaticType, Type, Value};
+use glib::value::{FromValue, ToValue, ValueType};
+use glib::{StaticType, Type};
 use std::fmt;
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
@@ -100,20 +100,30 @@ impl StaticType for ResponseType {
     }
 }
 
-impl<'a> FromValueOptional<'a> for ResponseType {
-    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
-        Some(FromValue::from_value(value))
-    }
+impl ValueType for ResponseType {
+    type Type = Self;
 }
 
-impl<'a> FromValue<'a> for ResponseType {
-    unsafe fn from_value(value: &Value) -> Self {
+unsafe impl<'a> FromValue<'a> for ResponseType {
+    type Checker = glib::value::GenericValueTypeChecker<Self>;
+
+    unsafe fn from_value(value: &'a glib::Value) -> Self {
+        skip_assert_initialized!();
+
         from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
-impl SetValue for ResponseType {
-    unsafe fn set_value(value: &mut Value, this: &Self) {
-        glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+impl ToValue for ResponseType {
+    fn to_value(&self) -> glib::Value {
+        let mut value = glib::Value::for_value_type::<ResponseType>();
+        unsafe {
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+        }
+        value
+    }
+
+    fn value_type(&self) -> glib::Type {
+        Self::static_type()
     }
 }

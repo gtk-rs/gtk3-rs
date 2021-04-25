@@ -11,6 +11,9 @@ use glib::translate::*;
 #[cfg(any(feature = "v2_46", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
 use glib::StaticType;
+#[cfg(any(feature = "v2_46", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
+use glib::ToValue;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
@@ -53,7 +56,6 @@ impl PropertyAction {
             value
                 .get()
                 .expect("Return Value for property `invert-boolean` getter")
-                .unwrap()
         }
     }
 

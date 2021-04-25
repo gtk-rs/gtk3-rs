@@ -498,7 +498,6 @@ impl<O: IsA<SearchBar>> SearchBarExt for O {
             value
                 .get()
                 .expect("Return Value for property `search-mode-enabled` getter")
-                .unwrap()
         }
     }
 
@@ -507,7 +506,7 @@ impl<O: IsA<SearchBar>> SearchBarExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"search-mode-enabled\0".as_ptr() as *const _,
-                glib::Value::from(&search_mode_enabled).to_glib_none().0,
+                search_mode_enabled.to_value().to_glib_none().0,
             );
         }
     }

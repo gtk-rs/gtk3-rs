@@ -714,7 +714,6 @@ impl<O: IsA<Grid>> GridExt for O {
             value
                 .get()
                 .expect("Return Value for property `height` getter")
-                .unwrap()
         }
     }
 
@@ -724,7 +723,7 @@ impl<O: IsA<Grid>> GridExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"height\0".as_ptr() as *const _,
-                glib::Value::from(&height).to_glib_none().0,
+                height.to_value().to_glib_none().0,
             );
         }
     }
@@ -741,7 +740,6 @@ impl<O: IsA<Grid>> GridExt for O {
             value
                 .get()
                 .expect("Return Value for property `width` getter")
-                .unwrap()
         }
     }
 
@@ -751,7 +749,7 @@ impl<O: IsA<Grid>> GridExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"width\0".as_ptr() as *const _,
-                glib::Value::from(&width).to_glib_none().0,
+                width.to_value().to_glib_none().0,
             );
         }
     }
@@ -768,7 +766,6 @@ impl<O: IsA<Grid>> GridExt for O {
             value
                 .get()
                 .expect("Return Value for property `left-attach` getter")
-                .unwrap()
         }
     }
 
@@ -778,7 +775,7 @@ impl<O: IsA<Grid>> GridExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"left-attach\0".as_ptr() as *const _,
-                glib::Value::from(&left_attach).to_glib_none().0,
+                left_attach.to_value().to_glib_none().0,
             );
         }
     }
@@ -795,7 +792,6 @@ impl<O: IsA<Grid>> GridExt for O {
             value
                 .get()
                 .expect("Return Value for property `top-attach` getter")
-                .unwrap()
         }
     }
 
@@ -805,7 +801,7 @@ impl<O: IsA<Grid>> GridExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"top-attach\0".as_ptr() as *const _,
-                glib::Value::from(&top_attach).to_glib_none().0,
+                top_attach.to_value().to_glib_none().0,
             );
         }
     }

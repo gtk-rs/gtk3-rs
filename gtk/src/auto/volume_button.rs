@@ -537,7 +537,6 @@ impl<O: IsA<VolumeButton>> VolumeButtonExt for O {
             value
                 .get()
                 .expect("Return Value for property `use-symbolic` getter")
-                .unwrap()
         }
     }
 
@@ -546,7 +545,7 @@ impl<O: IsA<VolumeButton>> VolumeButtonExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"use-symbolic\0".as_ptr() as *const _,
-                glib::Value::from(&use_symbolic).to_glib_none().0,
+                use_symbolic.to_value().to_glib_none().0,
             );
         }
     }

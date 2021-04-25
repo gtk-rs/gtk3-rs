@@ -572,7 +572,7 @@ impl<O: IsA<Application>> ApplicationExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"action-group\0".as_ptr() as *const _,
-                glib::Value::from(action_group).to_glib_none().0,
+                action_group.to_value().to_glib_none().0,
             );
         }
     }

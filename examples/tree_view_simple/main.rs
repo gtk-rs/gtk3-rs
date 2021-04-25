@@ -73,11 +73,10 @@ fn build_ui(application: &gtk::Application) {
                 model
                     .value(&iter, 1)
                     .get::<String>()
-                    .expect("Treeview selection, column 1")
-                    .expect("Treeview selection, column 1: mandatory value not found"),
+                    .expect("Treeview selection, column 1"),
                 model
                     .value(&iter, 0)
-                    .get_some::<u32>()
+                    .get::<u32>()
                     .expect("Treeview selection, column 0"),
             ));
         }

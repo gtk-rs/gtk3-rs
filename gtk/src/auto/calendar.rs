@@ -724,10 +724,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
                 b"day\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
-            value
-                .get()
-                .expect("Return Value for property `day` getter")
-                .unwrap()
+            value.get().expect("Return Value for property `day` getter")
         }
     }
 
@@ -736,7 +733,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"day\0".as_ptr() as *const _,
-                glib::Value::from(&day).to_glib_none().0,
+                day.to_value().to_glib_none().0,
             );
         }
     }
@@ -752,7 +749,6 @@ impl<O: IsA<Calendar>> CalendarExt for O {
             value
                 .get()
                 .expect("Return Value for property `month` getter")
-                .unwrap()
         }
     }
 
@@ -761,7 +757,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"month\0".as_ptr() as *const _,
-                glib::Value::from(&month).to_glib_none().0,
+                month.to_value().to_glib_none().0,
             );
         }
     }
@@ -777,7 +773,6 @@ impl<O: IsA<Calendar>> CalendarExt for O {
             value
                 .get()
                 .expect("Return Value for property `no-month-change` getter")
-                .unwrap()
         }
     }
 
@@ -786,7 +781,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"no-month-change\0".as_ptr() as *const _,
-                glib::Value::from(&no_month_change).to_glib_none().0,
+                no_month_change.to_value().to_glib_none().0,
             );
         }
     }
@@ -802,7 +797,6 @@ impl<O: IsA<Calendar>> CalendarExt for O {
             value
                 .get()
                 .expect("Return Value for property `show-day-names` getter")
-                .unwrap()
         }
     }
 
@@ -811,7 +805,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"show-day-names\0".as_ptr() as *const _,
-                glib::Value::from(&show_day_names).to_glib_none().0,
+                show_day_names.to_value().to_glib_none().0,
             );
         }
     }
@@ -827,7 +821,6 @@ impl<O: IsA<Calendar>> CalendarExt for O {
             value
                 .get()
                 .expect("Return Value for property `show-details` getter")
-                .unwrap()
         }
     }
 
@@ -836,7 +829,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"show-details\0".as_ptr() as *const _,
-                glib::Value::from(&show_details).to_glib_none().0,
+                show_details.to_value().to_glib_none().0,
             );
         }
     }
@@ -852,7 +845,6 @@ impl<O: IsA<Calendar>> CalendarExt for O {
             value
                 .get()
                 .expect("Return Value for property `show-heading` getter")
-                .unwrap()
         }
     }
 
@@ -861,7 +853,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"show-heading\0".as_ptr() as *const _,
-                glib::Value::from(&show_heading).to_glib_none().0,
+                show_heading.to_value().to_glib_none().0,
             );
         }
     }
@@ -877,7 +869,6 @@ impl<O: IsA<Calendar>> CalendarExt for O {
             value
                 .get()
                 .expect("Return Value for property `show-week-numbers` getter")
-                .unwrap()
         }
     }
 
@@ -886,7 +877,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"show-week-numbers\0".as_ptr() as *const _,
-                glib::Value::from(&show_week_numbers).to_glib_none().0,
+                show_week_numbers.to_value().to_glib_none().0,
             );
         }
     }
@@ -902,7 +893,6 @@ impl<O: IsA<Calendar>> CalendarExt for O {
             value
                 .get()
                 .expect("Return Value for property `year` getter")
-                .unwrap()
         }
     }
 
@@ -911,7 +901,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"year\0".as_ptr() as *const _,
-                glib::Value::from(&year).to_glib_none().0,
+                year.to_value().to_glib_none().0,
             );
         }
     }

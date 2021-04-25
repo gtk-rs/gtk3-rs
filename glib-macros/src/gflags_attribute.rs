@@ -135,25 +135,34 @@ pub fn impl_gflags(input: &DeriveInput, gtype_name: &LitStr) -> TokenStream {
             }
         }
 
-        impl<'a> #crate_ident::value::FromValueOptional<'a> for #name {
-            unsafe fn from_value_optional(value: &#crate_ident::Value) -> Option<Self> {
-                Some(#crate_ident::value::FromValue::from_value(value))
+        impl #crate_ident::value::ValueType for #name {
+            type Type = Self;
+        }
+
+        unsafe impl<'a> #crate_ident::value::FromValue<'a> for #name {
+            type Checker = #crate_ident::value::GenericValueTypeChecker<Self>;
+
+            unsafe fn from_value(value: &'a #crate_ident::value::Value) -> Self {
+                #crate_ident::translate::from_glib(#crate_ident::gobject_ffi::g_value_get_flags(
+                    #crate_ident::translate::ToGlibPtr::to_glib_none(value).0
+                ))
             }
         }
 
-        impl<'a> #crate_ident::value::FromValue<'a> for #name {
-            unsafe fn from_value(value: &#crate_ident::Value) -> Self {
-                #crate_ident::translate::from_glib(
-                    #crate_ident::gobject_ffi::g_value_get_flags(
-                        #crate_ident::translate::ToGlibPtr::to_glib_none(value).0))
+        impl #crate_ident::value::ToValue for #name {
+            fn to_value(&self) -> #crate_ident::value::Value {
+                let mut value = #crate_ident::value::Value::for_value_type::<#name>();
+                unsafe {
+                    #crate_ident::gobject_ffi::g_value_set_flags(
+                        #crate_ident::translate::ToGlibPtrMut::to_glib_none_mut(&mut value).0,
+                        #crate_ident::translate::ToGlib::to_glib(self)
+                    )
+                }
+                value
             }
-        }
 
-        impl #crate_ident::value::SetValue for #name {
-            unsafe fn set_value(value: &mut #crate_ident::Value, this: &Self) {
-                #crate_ident::gobject_ffi::g_value_set_flags(
-                    #crate_ident::translate::ToGlibPtrMut::to_glib_none_mut(value).0,
-                    #crate_ident::translate::ToGlib::to_glib(this))
+            fn value_type(&self) -> #crate_ident::Type {
+                Self::static_type()
             }
         }
 

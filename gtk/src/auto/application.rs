@@ -390,7 +390,6 @@ impl<O: IsA<Application>> GtkApplicationExt for O {
             value
                 .get()
                 .expect("Return Value for property `register-session` getter")
-                .unwrap()
         }
     }
 
@@ -399,7 +398,7 @@ impl<O: IsA<Application>> GtkApplicationExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"register-session\0".as_ptr() as *const _,
-                glib::Value::from(&register_session).to_glib_none().0,
+                register_session.to_value().to_glib_none().0,
             );
         }
     }
@@ -417,7 +416,6 @@ impl<O: IsA<Application>> GtkApplicationExt for O {
             value
                 .get()
                 .expect("Return Value for property `screensaver-active` getter")
-                .unwrap()
         }
     }
 

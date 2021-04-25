@@ -10,6 +10,7 @@ use glib::object::IsA;
 use glib::object::ObjectType as ObjectType_;
 use glib::translate::*;
 use glib::StaticType;
+use glib::ToValue;
 use std::fmt;
 use std::ptr;
 

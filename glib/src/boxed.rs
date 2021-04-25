@@ -251,23 +251,51 @@ macro_rules! glib_boxed_wrapper {
         }
 
         #[doc(hidden)]
-        impl<'a> $crate::value::FromValueOptional<'a> for $name {
-            unsafe fn from_value_optional(value: &$crate::Value) -> Option<Self> {
-                $crate::translate::from_glib_full($crate::gobject_ffi::g_value_dup_boxed($crate::translate::ToGlibPtr::to_glib_none(value).0) as *mut $ffi_name)
+        impl $crate::value::ValueType for $name {
+            type Type = $name;
+        }
+
+        #[doc(hidden)]
+        unsafe impl<'a> $crate::value::FromValue<'a> for $name {
+            type Checker = $crate::value::GenericValueTypeOrNoneChecker<Self>;
+
+            unsafe fn from_value(value: &'a $crate::Value) -> Self {
+                let ptr = $crate::gobject_ffi::g_value_dup_boxed($crate::translate::ToGlibPtr::to_glib_none(value).0);
+                assert!(!ptr.is_null());
+                <$name as $crate::translate::FromGlibPtrFull<*mut $ffi_name>>::from_glib_full(ptr as *mut $ffi_name)
             }
         }
 
         #[doc(hidden)]
-        impl $crate::value::SetValue for $name {
-            unsafe fn set_value(value: &mut $crate::Value, this: &Self) {
-                $crate::gobject_ffi::g_value_set_boxed($crate::translate::ToGlibPtrMut::to_glib_none_mut(value).0, $crate::translate::ToGlibPtr::<*const $ffi_name>::to_glib_none(this).0 as $crate::ffi::gpointer)
+        impl $crate::value::ToValue for $name {
+            fn to_value(&self) -> $crate::Value {
+                unsafe {
+                    let mut value = $crate::Value::from_type(<$name as $crate::StaticType>::static_type());
+                    $crate::gobject_ffi::g_value_take_boxed(
+                        $crate::translate::ToGlibPtrMut::to_glib_none_mut(&mut value).0,
+                        $crate::translate::ToGlibPtr::<*const $ffi_name>::to_glib_full(self) as *mut _,
+                    );
+                    value
+                }
+            }
+
+            fn value_type(&self) -> $crate::Type {
+                <$name as $crate::StaticType>::static_type()
             }
         }
 
         #[doc(hidden)]
-        impl $crate::value::SetValueOptional for $name {
-            unsafe fn set_value_optional(value: &mut $crate::Value, this: Option<&Self>) {
-                $crate::gobject_ffi::g_value_set_boxed($crate::translate::ToGlibPtrMut::to_glib_none_mut(value).0, $crate::translate::ToGlibPtr::<*const $ffi_name>::to_glib_none(&this).0 as $crate::ffi::gpointer)
+        impl $crate::value::ToValueOptional for $name {
+            fn to_value_optional(s: Option<&Self>) -> $crate::Value {
+                let mut value = $crate::Value::for_value_type::<$name>();
+                unsafe {
+                    $crate::gobject_ffi::g_value_take_boxed(
+                        $crate::translate::ToGlibPtrMut::to_glib_none_mut(&mut value).0,
+                        $crate::translate::ToGlibPtr::<*const $ffi_name>::to_glib_full(&s) as *mut _,
+                    );
+                }
+
+                value
             }
         }
     };

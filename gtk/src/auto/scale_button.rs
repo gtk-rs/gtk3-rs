@@ -631,7 +631,6 @@ impl<O: IsA<ScaleButton>> ScaleButtonExt for O {
             value
                 .get()
                 .expect("Return Value for property `icons` getter")
-                .unwrap()
         }
     }
 
@@ -646,7 +645,6 @@ impl<O: IsA<ScaleButton>> ScaleButtonExt for O {
             value
                 .get()
                 .expect("Return Value for property `size` getter")
-                .unwrap()
         }
     }
 
@@ -655,7 +653,7 @@ impl<O: IsA<ScaleButton>> ScaleButtonExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"size\0".as_ptr() as *const _,
-                glib::Value::from(&size).to_glib_none().0,
+                size.to_value().to_glib_none().0,
             );
         }
     }

@@ -58,13 +58,13 @@ impl DBusConnection {
                 object_path.to_glib_none().0,
                 interface_info.to_glib_none().0,
                 glib::Closure::new(move |args| {
-                    let conn = args[0].get::<DBusConnection>().unwrap().unwrap();
-                    let sender = args[1].get::<&str>().unwrap().unwrap();
-                    let object_path = args[2].get::<&str>().unwrap().unwrap();
-                    let interface_name = args[3].get::<&str>().unwrap().unwrap();
-                    let method_name = args[4].get::<&str>().unwrap().unwrap();
-                    let parameters = args[5].get::<glib::Variant>().unwrap().unwrap();
-                    let invocation = args[6].get::<DBusMethodInvocation>().unwrap().unwrap();
+                    let conn = args[0].get::<DBusConnection>().unwrap();
+                    let sender = args[1].get::<&str>().unwrap();
+                    let object_path = args[2].get::<&str>().unwrap();
+                    let interface_name = args[3].get::<&str>().unwrap();
+                    let method_name = args[4].get::<&str>().unwrap();
+                    let parameters = args[5].get::<glib::Variant>().unwrap();
+                    let invocation = args[6].get::<DBusMethodInvocation>().unwrap();
                     method_call(
                         conn,
                         sender,
@@ -79,11 +79,11 @@ impl DBusConnection {
                 .to_glib_none()
                 .0,
                 glib::Closure::new(move |args| {
-                    let conn = args[0].get::<DBusConnection>().unwrap().unwrap();
-                    let sender = args[1].get::<&str>().unwrap().unwrap();
-                    let object_path = args[2].get::<&str>().unwrap().unwrap();
-                    let interface_name = args[3].get::<&str>().unwrap().unwrap();
-                    let property_name = args[4].get::<&str>().unwrap().unwrap();
+                    let conn = args[0].get::<DBusConnection>().unwrap();
+                    let sender = args[1].get::<&str>().unwrap();
+                    let object_path = args[2].get::<&str>().unwrap();
+                    let interface_name = args[3].get::<&str>().unwrap();
+                    let property_name = args[4].get::<&str>().unwrap();
                     let result =
                         get_property(conn, sender, object_path, interface_name, property_name);
                     Some(result.to_value())
@@ -91,12 +91,12 @@ impl DBusConnection {
                 .to_glib_none()
                 .0,
                 glib::Closure::new(move |args| {
-                    let conn = args[0].get::<DBusConnection>().unwrap().unwrap();
-                    let sender = args[1].get::<&str>().unwrap().unwrap();
-                    let object_path = args[2].get::<&str>().unwrap().unwrap();
-                    let interface_name = args[3].get::<&str>().unwrap().unwrap();
-                    let property_name = args[4].get::<&str>().unwrap().unwrap();
-                    let value = args[5].get::<glib::Variant>().unwrap().unwrap();
+                    let conn = args[0].get::<DBusConnection>().unwrap();
+                    let sender = args[1].get::<&str>().unwrap();
+                    let object_path = args[2].get::<&str>().unwrap();
+                    let interface_name = args[3].get::<&str>().unwrap();
+                    let property_name = args[4].get::<&str>().unwrap();
+                    let value = args[5].get::<glib::Variant>().unwrap();
                     let result = set_property(
                         conn,
                         sender,

@@ -42,10 +42,10 @@ pub unsafe trait ObjectType:
     + PartialOrd
     + Ord
     + hash::Hash
-    + crate::value::SetValue
-    + crate::value::SetValueOptional
-    + for<'a> crate::value::FromValueOptional<'a>
+    + crate::value::ValueType
     + crate::value::ToValue
+    + crate::value::ToValueOptional
+    + crate::value::FromValueOptional<'static>
     + for<'a> ToGlibPtr<'a, *mut <Self as ObjectType>::GlibType>
     + 'static
 {
@@ -920,35 +920,52 @@ macro_rules! glib_object_wrapper {
         }
 
         #[doc(hidden)]
-        impl<'a> $crate::value::FromValueOptional<'a> for $name {
-            unsafe fn from_value_optional(value: &$crate::Value) -> Option<Self> {
-                let obj = $crate::gobject_ffi::g_value_get_object($crate::translate::ToGlibPtr::to_glib_none(value).0);
+        impl $crate::value::ValueType for $name {
+            type Type = $name;
+        }
 
-                // Attention: Don't use from_glib_none() here because we don't want to steal any
-                // floating references that might be owned by someone else.
-                if !obj.is_null() {
-                    assert_ne!((*obj).ref_count, 0);
-                    $crate::gobject_ffi::g_object_ref(obj);
+        #[doc(hidden)]
+        unsafe impl<'a> $crate::value::FromValue<'a> for $name {
+            type Checker = $crate::value::GenericValueTypeOrNoneChecker<Self>;
+
+            unsafe fn from_value(value: &'a $crate::Value) -> Self {
+                let ptr = $crate::gobject_ffi::g_value_dup_object($crate::translate::ToGlibPtr::to_glib_none(value).0);
+                assert!(!ptr.is_null());
+                assert_ne!((*ptr).ref_count, 0);
+                <$name as $crate::translate::FromGlibPtrFull<*mut $ffi_name>>::from_glib_full(ptr as *mut $ffi_name)
+            }
+        }
+
+        #[doc(hidden)]
+        impl $crate::value::ToValue for $name {
+            fn to_value(&self) -> $crate::Value {
+                unsafe {
+                    let mut value = $crate::Value::from_type(<$name as $crate::StaticType>::static_type());
+                    $crate::gobject_ffi::g_value_take_object(
+                        $crate::translate::ToGlibPtrMut::to_glib_none_mut(&mut value).0,
+                        $crate::translate::ToGlibPtr::<*mut $ffi_name>::to_glib_full(self) as *mut _,
+                    );
+                    value
+                }
+            }
+
+            fn value_type(&self) -> $crate::Type {
+                <$name as $crate::StaticType>::static_type()
+            }
+        }
+
+        #[doc(hidden)]
+        impl $crate::value::ToValueOptional for $name {
+            fn to_value_optional(s: Option<&Self>) -> $crate::Value {
+                let mut value = $crate::Value::for_value_type::<$name>();
+                unsafe {
+                    $crate::gobject_ffi::g_value_take_object(
+                        $crate::translate::ToGlibPtrMut::to_glib_none_mut(&mut value).0,
+                        $crate::translate::ToGlibPtr::<*mut $ffi_name>::to_glib_full(&s) as *mut _,
+                    );
                 }
 
-                // And take the reference to the object from above to pass it to the caller
-                <Option::<$name> as $crate::translate::FromGlibPtrFull<*mut $ffi_name>>::from_glib_full(obj as *mut $ffi_name).map(|o| $crate::object::Cast::unsafe_cast(o))
-            }
-        }
-
-        #[doc(hidden)]
-        impl $crate::value::SetValue for $name {
-            #[allow(clippy::cast_ptr_alignment)]
-            unsafe fn set_value(value: &mut $crate::Value, this: &Self) {
-                $crate::gobject_ffi::g_value_set_object($crate::translate::ToGlibPtrMut::to_glib_none_mut(value).0, $crate::translate::ToGlibPtr::<*mut $ffi_name>::to_glib_none(this).0 as *mut $crate::gobject_ffi::GObject)
-            }
-        }
-
-        #[doc(hidden)]
-        impl $crate::value::SetValueOptional for $name {
-            #[allow(clippy::cast_ptr_alignment)]
-            unsafe fn set_value_optional(value: &mut $crate::Value, this: Option<&Self>) {
-                $crate::gobject_ffi::g_value_set_object($crate::translate::ToGlibPtrMut::to_glib_none_mut(value).0, $crate::translate::ToGlibPtr::<*mut $ffi_name>::to_glib_none(&this).0 as *mut $crate::gobject_ffi::GObject)
+                value
             }
         }
 
@@ -1177,7 +1194,7 @@ pub trait ObjectExt: ObjectType {
     fn set_property<'a, N: Into<&'a str>, V: ToValue>(
         &self,
         property_name: N,
-        value: &V,
+        value: V,
     ) -> Result<(), BoolError>;
     fn set_property_from_value<'a, N: Into<&'a str>>(
         &self,
@@ -1470,7 +1487,7 @@ impl<T: ObjectType> ObjectExt for T {
     fn set_property<'a, N: Into<&'a str>, V: ToValue>(
         &self,
         property_name: N,
-        value: &V,
+        value: V,
     ) -> Result<(), BoolError> {
         let property_name = property_name.into();
 
@@ -1886,7 +1903,7 @@ impl<T: ObjectType> ObjectExt for T {
                 // actual typed of the contained object is compatible and if so create
                 // a properly typed Value. This can happen if the type field in the
                 // Value is set to a more generic type than the contained value
-                let opt_obj = ret.get::<Object>().unwrap_or_else(|_| {
+                let opt_obj = ret.get::<Option<Object>>().unwrap_or_else(|_| {
                     panic!(
                         "Signal '{}' of type '{}' required return value of type '{}' but got '{}'",
                         signal_name,
@@ -2200,7 +2217,7 @@ fn validate_property_type(
         // a properly typed Value. This can happen if the type field in the
         // Value is set to a more generic type than the contained value
         if !valid_type && property_value.type_().is_a(Object::static_type()) {
-            match property_value.get::<Object>() {
+            match property_value.get::<Option<Object>>() {
                 Ok(Some(obj)) => {
                     if obj.type_().is_a(pspec.value_type()) {
                         property_value.0.g_type = pspec.value_type().to_glib();
@@ -2275,7 +2292,7 @@ fn validate_signal_arguments(
     for (i, (arg, param_type)) in param_types.enumerate() {
         let param_type: Type = param_type.into();
         if arg.type_().is_a(Object::static_type()) {
-            match arg.get::<Object>() {
+            match arg.get::<Option<Object>>() {
                 Ok(Some(obj)) => {
                     if obj.type_().is_a(param_type) {
                         arg.0.g_type = param_type.to_glib();
@@ -2538,15 +2555,9 @@ impl<'a> BindingBuilder<'a> {
     ) -> crate::Closure {
         crate::Closure::new(move |values| {
             assert_eq!(values.len(), 3);
-            let binding = values[0].get::<crate::Binding>().unwrap_or_else(|_| {
-                panic!(
-                    "Type mismatch with the first argument in the closure: expected: `Binding`, got: {:?}",
-                    values[0].type_(),
-                )
-            })
-            .unwrap_or_else(|| {
-                panic!("Found `None` for the first argument in the closure, expected `Some`")
-            });
+            let binding = values[0]
+                .get::<crate::Binding>()
+                .expect("Invalid GBinding argument");
             let from = unsafe {
                 let ptr = gobject_ffi::g_value_get_boxed(mut_override(
                     &values[1] as *const Value as *const gobject_ffi::GValue,

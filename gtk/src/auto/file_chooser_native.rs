@@ -106,7 +106,7 @@ impl FileChooserNative {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"accept-label\0".as_ptr() as *const _,
-                glib::Value::from(accept_label).to_glib_none().0,
+                accept_label.to_value().to_glib_none().0,
             );
         }
     }
@@ -130,7 +130,7 @@ impl FileChooserNative {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"cancel-label\0".as_ptr() as *const _,
-                glib::Value::from(cancel_label).to_glib_none().0,
+                cancel_label.to_value().to_glib_none().0,
             );
         }
     }
