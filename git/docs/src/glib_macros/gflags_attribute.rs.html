@@ -368,7 +368,7 @@
             }
 
             <span class="kw">fn</span> <span class="ident">value_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> #<span class="ident">crate_ident::Type</span> {
-                <span class="self">Self</span><span class="ident">::static_type</span>()
+                <span class="op">&lt;</span><span class="self">Self</span> <span class="kw">as</span> #<span class="ident">crate_ident::StaticType</span><span class="op">&gt;</span><span class="ident">::static_type</span>()
             }
         }
 
