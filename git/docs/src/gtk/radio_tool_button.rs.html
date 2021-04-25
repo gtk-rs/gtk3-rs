@@ -56,7 +56,7 @@
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::ToolItem</span>;
 <span class="kw">use</span> <span class="ident">glib::object</span>::{<span class="ident">Cast</span>, <span class="ident">ObjectType</span>};
 <span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">glib::Value</span>;
+<span class="kw">use</span> <span class="ident">glib::ToValue</span>;
 <span class="kw">use</span> <span class="ident">std::ptr</span>;
 
 <span class="kw">impl</span> <span class="ident">RadioToolButton</span> {
@@ -93,7 +93,7 @@
             <span class="ident">glib::gobject_ffi::g_object_set_property</span>(
                 <span class="self">self</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
                 <span class="string">&quot;group&quot;</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">Value::from</span>(<span class="ident">group</span>).<span class="ident">to_glib_none</span>().<span class="number">0</span>,
+                <span class="ident">group</span>.<span class="ident">to_value</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             );
         }
     }

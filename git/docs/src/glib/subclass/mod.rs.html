@@ -422,13 +422,13 @@
 <span class="doccomment">//!                     let animal = value</span>
 <span class="doccomment">//!                         .get()</span>
 <span class="doccomment">//!                         .expect(&quot;type conformity checked by `Object::set_property`&quot;);</span>
-<span class="doccomment">//!                     self.animal.replace(animal.unwrap());</span>
+<span class="doccomment">//!                     self.animal.replace(animal);</span>
 <span class="doccomment">//!                 },</span>
 <span class="doccomment">//!                 &quot;flags&quot; =&gt; {</span>
 <span class="doccomment">//!                     let flags = value</span>
 <span class="doccomment">//!                         .get()</span>
 <span class="doccomment">//!                         .expect(&quot;type conformity checked by `Object::set_property`&quot;);</span>
-<span class="doccomment">//!                     self.flags.replace(flags.unwrap());</span>
+<span class="doccomment">//!                     self.flags.replace(flags);</span>
 <span class="doccomment">//!                 },</span>
 <span class="doccomment">//!                 _ =&gt; unimplemented!(),</span>
 <span class="doccomment">//!             }</span>
@@ -472,20 +472,20 @@
 <span class="doccomment">//!     let obj = SimpleObject::new();</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//!     // Get the name property and change its value.</span>
-<span class="doccomment">//!     assert_eq!(obj.property(&quot;name&quot;).unwrap().get::&lt;&amp;str&gt;(), Ok(None));</span>
+<span class="doccomment">//!     assert_eq!(obj.property(&quot;name&quot;).unwrap().get::&lt;Option&lt;&amp;str&gt;&gt;(), Ok(None));</span>
 <span class="doccomment">//!     obj.set_property(&quot;name&quot;, &amp;&quot;test&quot;).unwrap();</span>
 <span class="doccomment">//!     assert_eq!(</span>
 <span class="doccomment">//!         obj.property(&quot;name&quot;).unwrap().get::&lt;&amp;str&gt;(),</span>
-<span class="doccomment">//!         Ok(Some(&quot;test&quot;))</span>
+<span class="doccomment">//!         Ok(&quot;test&quot;)</span>
 <span class="doccomment">//!     );</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//!     assert_eq!(obj.property(&quot;animal&quot;).unwrap().get::&lt;Animal&gt;(), Ok(Some(Animal::Goat)));</span>
+<span class="doccomment">//!     assert_eq!(obj.property(&quot;animal&quot;).unwrap().get::&lt;Animal&gt;(), Ok(Animal::Goat));</span>
 <span class="doccomment">//!     obj.set_property(&quot;animal&quot;, &amp;Animal::Cat).unwrap();</span>
-<span class="doccomment">//!     assert_eq!(obj.property(&quot;animal&quot;).unwrap().get::&lt;Animal&gt;(), Ok(Some(Animal::Cat)));</span>
+<span class="doccomment">//!     assert_eq!(obj.property(&quot;animal&quot;).unwrap().get::&lt;Animal&gt;(), Ok(Animal::Cat));</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//!     assert_eq!(obj.property(&quot;flags&quot;).unwrap().get::&lt;MyFlags&gt;(), Ok(Some(MyFlags::A)));</span>
+<span class="doccomment">//!     assert_eq!(obj.property(&quot;flags&quot;).unwrap().get::&lt;MyFlags&gt;(), Ok(MyFlags::A));</span>
 <span class="doccomment">//!     obj.set_property(&quot;flags&quot;, &amp;MyFlags::B).unwrap();</span>
-<span class="doccomment">//!     assert_eq!(obj.property(&quot;flags&quot;).unwrap().get::&lt;MyFlags&gt;(), Ok(Some(MyFlags::B)));</span>
+<span class="doccomment">//!     assert_eq!(obj.property(&quot;flags&quot;).unwrap().get::&lt;MyFlags&gt;(), Ok(MyFlags::B));</span>
 <span class="doccomment">//! }</span>
 <span class="doccomment">//! ```</span>
 <span class="doccomment">//!</span>
@@ -508,7 +508,7 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//!     let b = MyBoxed(String::from(&quot;abc&quot;));</span>
 <span class="doccomment">//!     let v = b.to_value();</span>
-<span class="doccomment">//!     let b2 = v.get::&lt;&amp;MyBoxed&gt;().unwrap().unwrap();</span>
+<span class="doccomment">//!     let b2 = v.get::&lt;&amp;MyBoxed&gt;().unwrap();</span>
 <span class="doccomment">//!     assert_eq!(&amp;b, b2);</span>
 <span class="doccomment">//! }</span>
 <span class="doccomment">//! ```</span>

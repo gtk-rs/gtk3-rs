@@ -2559,6 +2559,8 @@
 <span id="2556">2556</span>
 <span id="2557">2557</span>
 <span id="2558">2558</span>
+<span id="2559">2559</span>
+<span id="2560">2560</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -3406,6 +3408,8 @@
 <span class="macro">impl_to_glib_container_from_slice_string!</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">OsStr</span>, <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>);
 <span class="macro">impl_to_glib_container_from_slice_string!</span>(<span class="ident">OsString</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_char</span>);
 <span class="macro">impl_to_glib_container_from_slice_string!</span>(<span class="ident">OsString</span>, <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>);
+<span class="macro">impl_to_glib_container_from_slice_string!</span>(<span class="kw">crate</span><span class="ident">::GString</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_char</span>);
+<span class="macro">impl_to_glib_container_from_slice_string!</span>(<span class="kw">crate</span><span class="ident">::GString</span>, <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>);
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">T</span><span class="op">&gt;</span> <span class="ident">ToGlibContainerFromSlice</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::GList</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">T</span>
 <span class="kw">where</span>

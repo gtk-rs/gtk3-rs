@@ -246,7 +246,6 @@
 <span id="243">243</span>
 <span id="244">244</span>
 <span id="245">245</span>
-<span id="246">246</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -362,7 +361,7 @@
         }) {
             <span class="prelude-val">Err</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic!</span>(),
             <span class="prelude-val">Ok</span>(<span class="ident">i</span>) <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="macro">assert!</span>(<span class="ident">i</span>.<span class="ident">get</span>::<span class="op">&lt;</span><span class="ident">i32</span><span class="op">&gt;</span>().<span class="ident">unwrap</span>().<span class="ident">unwrap</span>() <span class="op">=</span><span class="op">=</span> <span class="number">100</span>);
+                <span class="macro">assert!</span>(<span class="ident">i</span>.<span class="ident">get</span>::<span class="op">&lt;</span><span class="ident">i32</span><span class="op">&gt;</span>().<span class="ident">unwrap</span>() <span class="op">=</span><span class="op">=</span> <span class="number">100</span>);
             }
         }
     }
@@ -434,7 +433,6 @@
             <span class="prelude-val">Ok</span>(<span class="ident">o</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="kw">let</span> <span class="ident">o</span> <span class="op">=</span> <span class="ident">o</span>
                     .<span class="ident">get</span>::<span class="op">&lt;</span><span class="ident">glib::Object</span><span class="op">&gt;</span>()
-                    .<span class="ident">unwrap</span>()
                     .<span class="ident">unwrap</span>()
                     .<span class="ident">downcast</span>::<span class="op">&lt;</span><span class="ident">MySimpleObject</span><span class="op">&gt;</span>()
                     .<span class="ident">unwrap</span>();
