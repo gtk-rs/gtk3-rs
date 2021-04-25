@@ -1,6 +1,6 @@
 [package]
 name = "pangocairo"
-documentation = "https://gtk-rs.org/docs/pangocairo/"
+documentation = "https://gtk-rs.org/gtk-rs/stable/docs/pangocairo/"
 homepage = "https://gtk-rs.org/"
 authors = ["The Gtk-rs Project Developers"]
 keywords = ["pango", "cairo", "gtk-rs", "gnome"]

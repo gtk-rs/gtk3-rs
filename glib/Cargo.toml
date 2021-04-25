@@ -1,6 +1,6 @@
 [package]
 name = "glib"
-documentation = "https://gtk-rs.org/docs/glib/"
+documentation = "https://gtk-rs.org/gtk-rs/stable/docs/glib/"
 homepage = "https://gtk-rs.org/"
 authors = ["The Gtk-rs Project Developers"]
 description = "Rust bindings for the GLib library"

@@ -1,5 +1,5 @@
 [package]
-documentation = "https://gtk-rs.org/docs/gtk/"
+documentation = "https://gtk-rs.org/gtk-rs/stable/docs/gtk/"
 categories = ["api-bindings", "gui"]
 license = "MIT"
 description = "Rust bindings for the GTK+ 3 library"
