@@ -1,28 +1,8 @@
 fn main() {
-    manage_docs();
     #[cfg(target_os = "macos")]
     build_foreground();
     check_features();
 }
-
-#[cfg(all(
-    any(feature = "embed-lgpl-docs", feature = "purge-lgpl-docs"),
-    not(all(feature = "embed-lgpl-docs", feature = "purge-lgpl-docs"))
-))]
-fn manage_docs() {
-    const PATH: &str = "src";
-    const IGNORES: &[&str] = &["lib.rs", "prelude.rs", "rt.rs", "signal.rs"];
-    lgpl_docs::purge(PATH, IGNORES);
-    if cfg!(feature = "embed-lgpl-docs") {
-        lgpl_docs::embed(lgpl_docs::Library::Gtk, PATH, IGNORES);
-    }
-}
-
-#[cfg(any(
-    all(feature = "embed-lgpl-docs", feature = "purge-lgpl-docs"),
-    not(any(feature = "embed-lgpl-docs", feature = "purge-lgpl-docs"))
-))]
-fn manage_docs() {}
 
 #[cfg(target_os = "macos")]
 fn build_foreground() {

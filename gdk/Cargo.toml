@@ -9,7 +9,6 @@ documentation = "https://gtk-rs.org/docs/gdk/"
 version = "0.13.0"
 description = "Rust bindings for the GDK 3 library"
 repository = "https://github.com/gtk-rs/gtk-rs"
-build = "build.rs"
 exclude = [
     "gir-files/*",
 ]
@@ -25,16 +24,9 @@ v3_20 = ["v3_18", "ffi/v3_20"]
 v3_22 = ["v3_20", "ffi/v3_22"]
 v3_24 = ["v3_22", "ffi/v3_24"]
 dox = ["ffi/dox", "glib/dox", "gio/dox", "gdk-pixbuf/dox", "cairo-rs/dox", "pango/dox"]
-purge-lgpl-docs = ["gtk-rs-lgpl-docs", "cairo-rs/purge-lgpl-docs", "gdk-pixbuf/purge-lgpl-docs", "gio/purge-lgpl-docs"]
-embed-lgpl-docs = ["gtk-rs-lgpl-docs", "cairo-rs/embed-lgpl-docs", "gdk-pixbuf/embed-lgpl-docs", "gio/embed-lgpl-docs"]
 
 [package.metadata.docs.rs]
-features = ["dox", "embed-lgpl-docs"]
-
-[build-dependencies.gtk-rs-lgpl-docs]
-version = "0.1"
-optional = true
-git = "https://github.com/gtk-rs/lgpl-docs"
+features = ["dox"]
 
 [dependencies]
 libc = "0.2"

@@ -25,8 +25,6 @@
 //!
 //! ### Documentation features
 //!
-//! * **embed-lgpl-docs** - Embed API docs locally
-//! * **purge-lgpl-docs** - Remove API docs again (counterpart to `embed-lgpl-docs`)
 //! * **dox** - Used to keep system dependent items in documentation
 //!
 //! ### X Window features
