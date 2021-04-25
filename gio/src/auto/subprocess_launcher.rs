@@ -143,7 +143,7 @@ impl SubprocessLauncher {
     //}
 
     #[doc(alias = "g_subprocess_launcher_spawnv")]
-    pub fn spawnv(&self, argv: &[&std::ffi::OsStr]) -> Result<Subprocess, glib::Error> {
+    pub fn spawn(&self, argv: &[&std::ffi::OsStr]) -> Result<Subprocess, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = ffi::g_subprocess_launcher_spawnv(
