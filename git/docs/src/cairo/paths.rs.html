@@ -241,13 +241,8 @@
 <span id="238">238</span>
 <span id="239">239</span>
 <span id="240">240</span>
-<span id="241">241</span>
-<span id="242">242</span>
-<span id="243">243</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
-
-<span class="doccomment">//! Creating paths and manipulating path data</span>
 
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::enums::PathDataType</span>;
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::ffi::cairo_path_t</span>;
@@ -255,7 +250,6 @@
 <span class="kw">use</span> <span class="ident">std::iter::Iterator</span>;
 <span class="kw">use</span> <span class="ident">std::ptr</span>;
 
-<span class="doccomment">/// Paths are the most basic drawing tools and are primarily used to implicitly generate simple masks.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Path</span>(<span class="ident">ptr::NonNull</span><span class="op">&lt;</span><span class="ident">cairo_path_t</span><span class="op">&gt;</span>);
 

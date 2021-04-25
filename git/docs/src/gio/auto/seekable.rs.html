@@ -223,7 +223,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`SeekableExt`](trait.SeekableExt.html)</span>
+    <span class="doccomment">/// [`SeekableExt`](trait@crate::SeekableExt)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Seekable</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi::GSeekable</span>, <span class="ident">ffi::GSeekableIface</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -237,7 +237,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`BufferedInputStream`](struct.BufferedInputStream.html), [`BufferedOutputStream`](struct.BufferedOutputStream.html), [`DataInputStream`](struct.DataInputStream.html), [`DataOutputStream`](struct.DataOutputStream.html), [`FileIOStream`](struct.FileIOStream.html), [`FileInputStream`](struct.FileInputStream.html), [`FileOutputStream`](struct.FileOutputStream.html), [`MemoryInputStream`](struct.MemoryInputStream.html), [`MemoryOutputStream`](struct.MemoryOutputStream.html), [`Seekable`](struct.Seekable.html)</span>
+<span class="doccomment">/// [`BufferedInputStream`](struct@crate::BufferedInputStream), [`BufferedOutputStream`](struct@crate::BufferedOutputStream), [`DataInputStream`](struct@crate::DataInputStream), [`DataOutputStream`](struct@crate::DataOutputStream), [`FileIOStream`](struct@crate::FileIOStream), [`FileInputStream`](struct@crate::FileInputStream), [`FileOutputStream`](struct@crate::FileOutputStream), [`MemoryInputStream`](struct@crate::MemoryInputStream), [`MemoryOutputStream`](struct@crate::MemoryOutputStream), [`Seekable`](struct@crate::Seekable)</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">SeekableExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Tests if the stream supports the `SeekableIface`.</span>
     <span class="doccomment">///</span>
@@ -300,7 +300,7 @@
 
     <span class="doccomment">/// Sets the length of the stream to `offset`. If the stream was previously</span>
     <span class="doccomment">/// larger than `offset`, the extra data is discarded. If the stream was</span>
-    <span class="doccomment">/// previouly shorter than `offset`, it is extended with NUL (&#39;\0&#39;) bytes.</span>
+    <span class="doccomment">/// previously shorter than `offset`, it is extended with NUL (&#39;\0&#39;) bytes.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If `cancellable` is not `None`, then the operation can be cancelled by</span>
     <span class="doccomment">/// triggering the cancellable object from another thread. If the operation</span>

@@ -108,7 +108,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`PollableInputStreamExt`](trait.PollableInputStreamExt.html), [`InputStreamExt`](trait.InputStreamExt.html), [`glib::object::ObjectExt`](../glib/object/trait.ObjectExt.html), [`PollableInputStreamExtManual`](prelude/trait.PollableInputStreamExtManual.html), [`InputStreamExtManual`](prelude/trait.InputStreamExtManual.html)</span>
+    <span class="doccomment">/// [`PollableInputStreamExt`](trait@crate::PollableInputStreamExt), [`InputStreamExt`](trait@crate::InputStreamExt), [`trait@glib::object::ObjectExt`], [`PollableInputStreamExtManual`](trait@crate::PollableInputStreamExtManual), [`InputStreamExtManual`](trait@crate::InputStreamExtManual)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PollableInputStream</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi::GPollableInputStream</span>, <span class="ident">ffi::GPollableInputStreamInterface</span><span class="op">&gt;</span>) @<span class="ident">requires</span> <span class="ident">InputStream</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -122,7 +122,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`ConverterInputStream`](struct.ConverterInputStream.html), [`MemoryInputStream`](struct.MemoryInputStream.html), [`PollableInputStream`](struct.PollableInputStream.html), [`UnixInputStream`](struct.UnixInputStream.html)</span>
+<span class="doccomment">/// [`ConverterInputStream`](struct@crate::ConverterInputStream), [`MemoryInputStream`](struct@crate::MemoryInputStream), [`PollableInputStream`](struct@crate::PollableInputStream), [`UnixInputStream`](struct@crate::UnixInputStream)</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">PollableInputStreamExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Checks if `self` is actually pollable. Some classes may implement</span>
     <span class="doccomment">/// `PollableInputStream` but have only certain instances of that class</span>

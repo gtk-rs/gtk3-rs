@@ -180,6 +180,22 @@
 <span id="177">177</span>
 <span id="178">178</span>
 <span id="179">179</span>
+<span id="180">180</span>
+<span id="181">181</span>
+<span id="182">182</span>
+<span id="183">183</span>
+<span id="184">184</span>
+<span id="185">185</span>
+<span id="186">186</span>
+<span id="187">187</span>
+<span id="188">188</span>
+<span id="189">189</span>
+<span id="190">190</span>
+<span id="191">191</span>
+<span id="192">192</span>
+<span id="193">193</span>
+<span id="194">194</span>
+<span id="195">195</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -195,6 +211,22 @@
 <span class="kw">use</span> <span class="ident">socket</span>::{<span class="ident">AsRawFd</span>, <span class="ident">IntoRawFd</span>, <span class="ident">RawFd</span>};
 
 <span class="kw">impl</span> <span class="ident">UnixFDList</span> {
+    <span class="doccomment">/// Creates a new `UnixFDList` containing the file descriptors given in</span>
+    <span class="doccomment">/// `fds`. The file descriptors become the property of the new list and</span>
+    <span class="doccomment">/// may no longer be used by the caller. The array itself is owned by</span>
+    <span class="doccomment">/// the caller.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Each file descriptor in the array should be set to close-on-exec.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// If `n_fds` is -1 then `fds` must be terminated with -1.</span>
+    <span class="doccomment">/// ## `fds`</span>
+    <span class="doccomment">/// the initial list of file descriptors</span>
+    <span class="doccomment">/// ## `n_fds`</span>
+    <span class="doccomment">/// the length of `fds`, or -1</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Returns</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// a new `UnixFDList`</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_unix_fd_list_new_from_array&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_array</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">fds</span>: <span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">UnixFDList</span>
     <span class="kw">where</span>

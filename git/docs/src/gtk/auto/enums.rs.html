@@ -9826,12 +9826,12 @@
 <span class="doccomment">/// could be scaled and stretched, it could be centered, or it could be</span>
 <span class="doccomment">/// positioned to one side of the space.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// Note that in horizontal context `Align::Start` and `Align::End`</span>
+<span class="doccomment">/// Note that in horizontal context [`Start`](Self::Start) and [`End`](Self::End)</span>
 <span class="doccomment">/// are interpreted relative to text direction.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// GTK_ALIGN_BASELINE support for it is optional for containers and widgets, and</span>
 <span class="doccomment">/// it is only supported for vertical alignment. When its not supported by</span>
-<span class="doccomment">/// a child or a container it is treated as `Align::Fill`.</span>
+<span class="doccomment">/// a child or a container it is treated as [`Fill`](Self::Fill).</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GtkAlign&quot;</span>)]</span>
@@ -10288,7 +10288,7 @@
     <span class="doccomment">/// Looks as if the content is coming out of the canvas</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_BORDER_STYLE_OUTSET&quot;</span>)]</span>
     <span class="ident">Outset</span>,
-    <span class="doccomment">/// Same as `BorderStyle::None`</span>
+    <span class="doccomment">/// Same as [`None`](Self::None)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_BORDER_STYLE_HIDDEN&quot;</span>)]</span>
     <span class="ident">Hidden</span>,
     <span class="doccomment">/// A series of round dots</span>
@@ -13078,8 +13078,8 @@
 <span class="doccomment">/// application is expected to validate the entry contents, even if</span>
 <span class="doccomment">/// it specified a purpose.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// The difference between `InputPurpose::Digits` and</span>
-<span class="doccomment">/// `InputPurpose::Number` is that the former accepts only digits</span>
+<span class="doccomment">/// The difference between [`Digits`](Self::Digits) and</span>
+<span class="doccomment">/// [`Number`](Self::Number) is that the former accepts only digits</span>
 <span class="doccomment">/// while the latter also some punctuation (like commas or points, plus,</span>
 <span class="doccomment">/// minus) and “e” or “E” as in 3.14E+000.</span>
 <span class="doccomment">///</span>
@@ -13113,10 +13113,10 @@
     <span class="doccomment">/// Edited field expects the name of a person</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_INPUT_PURPOSE_NAME&quot;</span>)]</span>
     <span class="ident">Name</span>,
-    <span class="doccomment">/// Like `InputPurpose::FreeForm`, but characters are hidden</span>
+    <span class="doccomment">/// Like [`FreeForm`](Self::FreeForm), but characters are hidden</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_INPUT_PURPOSE_PASSWORD&quot;</span>)]</span>
     <span class="ident">Password</span>,
-    <span class="doccomment">/// Like `InputPurpose::Digits`, but characters are hidden</span>
+    <span class="doccomment">/// Like [`Digits`](Self::Digits), but characters are hidden</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_INPUT_PURPOSE_PIN&quot;</span>)]</span>
     <span class="ident">Pin</span>,
     <span class="doccomment">/// Allow any character, in addition to control codes</span>
@@ -13467,10 +13467,13 @@
     <span class="doccomment">/// The GNU Affero General Public License, version 3.0 only. Since: 3.22.27.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_LICENSE_AGPL_3_0_ONLY&quot;</span>)]</span>
     <span class="ident">Agpl30Only</span>,
+    <span class="doccomment">/// The 3-clause BSD licence. Since: 3.24.20.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_LICENSE_BSD_3&quot;</span>)]</span>
     <span class="ident">Bsd3</span>,
+    <span class="doccomment">/// The Apache License, version 2.0. Since: 3.24.20.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_LICENSE_APACHE_2_0&quot;</span>)]</span>
     <span class="ident">Apache20</span>,
+    <span class="doccomment">/// The Mozilla Public License, version 2.0. Since: 3.24.20.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_LICENSE_MPL_2_0&quot;</span>)]</span>
     <span class="ident">Mpl20</span>,
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
@@ -16370,7 +16373,7 @@
     <span class="doccomment">/// Draw a normal relief.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_RELIEF_NORMAL&quot;</span>)]</span>
     <span class="ident">Normal</span>,
-    <span class="doccomment">/// A half relief. Deprecated in 3.14, does the same as `ReliefStyle::Normal`</span>
+    <span class="doccomment">/// A half relief. Deprecated in 3.14, does the same as [`Normal`](Self::Normal)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_RELIEF_HALF&quot;</span>)]</span>
     <span class="ident">Half</span>,
     <span class="doccomment">/// No relief.</span>
@@ -17233,7 +17236,7 @@
 <span class="doccomment">/// Used to change the appearance of an outline typically provided by a `Frame`.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Note that many themes do not differentiate the appearance of the</span>
-<span class="doccomment">/// various shadow types: Either their is no visible shadow (`ShadowType::None`),</span>
+<span class="doccomment">/// various shadow types: Either their is no visible shadow ([`None`](Self::None)),</span>
 <span class="doccomment">/// or there is (any other value).</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
@@ -18813,7 +18816,7 @@
 }
 
 <span class="doccomment">/// The sizing method the column uses to determine its width. Please note</span>
-<span class="doccomment">/// that `TreeViewColumnSizing::Autosize` are inefficient for large views, and</span>
+<span class="doccomment">/// that [`Autosize`](Self::Autosize) are inefficient for large views, and</span>
 <span class="doccomment">/// can make columns appear choppy.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
@@ -19498,7 +19501,6 @@
     }
 }
 
-<span class="comment">// rustdoc-stripper-ignore-next-stop</span>
 <span class="doccomment">/// Describes a type of line wrapping.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
@@ -19507,13 +19509,11 @@
     <span class="doccomment">/// do not wrap lines; just make the text area wider</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_WRAP_NONE&quot;</span>)]</span>
     <span class="prelude-val">None</span>,
-    <span class="comment">// rustdoc-stripper-ignore-next-stop</span>
     <span class="doccomment">/// wrap text, breaking lines anywhere the cursor can</span>
     <span class="doccomment">///  appear (between characters, usually - if you want to be technical,</span>
     <span class="doccomment">///  between graphemes, see `pango_get_log_attrs`)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_WRAP_CHAR&quot;</span>)]</span>
     <span class="ident">Char</span>,
-    <span class="comment">// rustdoc-stripper-ignore-next-stop</span>
     <span class="doccomment">/// wrap text, breaking lines in between words</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_WRAP_WORD&quot;</span>)]</span>
     <span class="ident">Word</span>,

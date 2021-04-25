@@ -314,7 +314,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`SocketServiceExt`](trait.SocketServiceExt.html), [`SocketListenerExt`](trait.SocketListenerExt.html), [`glib::object::ObjectExt`](../glib/object/trait.ObjectExt.html), [`SocketListenerExtManual`](prelude/trait.SocketListenerExtManual.html)</span>
+    <span class="doccomment">/// [`SocketServiceExt`](trait@crate::SocketServiceExt), [`SocketListenerExt`](trait@crate::SocketListenerExt), [`trait@glib::object::ObjectExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SocketService</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GSocketService</span>, <span class="ident">ffi::GSocketServiceClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">SocketListener</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -352,7 +352,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`SocketService`](struct.SocketService.html), [`ThreadedSocketService`](struct.ThreadedSocketService.html)</span>
+<span class="doccomment">/// [`SocketService`](struct@crate::SocketService), [`ThreadedSocketService`](struct@crate::ThreadedSocketService)</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">SocketServiceExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Check whether the service is active or not. An active</span>
     <span class="doccomment">/// service will accept new clients that connect, while</span>

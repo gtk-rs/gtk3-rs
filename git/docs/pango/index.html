@@ -29,20 +29,12 @@ represent a color in an uncalibrated RGB color-space.</p>
 used to control the itemization process.</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.Coverage.html" title="pango::Coverage struct">Coverage</a></td><td class="docblock-short"><p>The <code>Coverage</code> structure represents a map from Unicode characters
 to <code>CoverageLevel</code>. It is an opaque structure with no public fields.</p>
-</td></tr><tr class="module-item"><td><a class="struct" href="struct.EngineLang.html" title="pango::EngineLang struct">EngineLang</a></td><td class="docblock-short"><p><code>[Deprecated since 1.38]</code> The <code>EngineLang</code> class is implemented by engines that
-customize the rendering-system independent part of the
-Pango pipeline for a particular script or language. For
-instance, a custom <code>EngineLang</code> could be provided for
-Thai to implement the dictionary-based word boundary
-lookups needed for that language.</p>
-</td></tr><tr class="module-item"><td><a class="struct" href="struct.EngineShape.html" title="pango::EngineShape struct">EngineShape</a></td><td class="docblock-short"><p><code>[Deprecated since 1.38]</code> The <code>EngineShape</code> class is implemented by engines that
-customize the rendering-system dependent part of the
-Pango pipeline for a particular script or language.
-A <code>EngineShape</code> implementation is then specific to both
-a particular rendering system or group of rendering systems
-and to a particular script. For instance, there is one
-<code>EngineShape</code> implementation to handle shaping Arabic
-for Fontconfig-based backends.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.EngineLang.html" title="pango::EngineLang struct">EngineLang</a></td><td class="docblock-short"><p><code>[Deprecated since 1.38]</code> The <code>&lt;firstterm&gt;</code>language engines<code>&lt;/firstterm&gt;</code> are rendering-system independent
+engines that determine line, word, and character breaks for character strings.
+These engines are used in <code>pango_break</code>.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.EngineShape.html" title="pango::EngineShape struct">EngineShape</a></td><td class="docblock-short"><p><code>[Deprecated since 1.38]</code> The <code>&lt;firstterm&gt;</code>shape engines<code>&lt;/firstterm&gt;</code> are rendering-system dependent
+engines that convert character strings into glyph strings.
+These engines are used in <code>pango_shape</code>.</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.Font.html" title="pango::Font struct">Font</a></td><td class="docblock-short"><p>The <code>Font</code> structure is used to represent
 a font in a rendering-system-independent matter.
 To create an implementation of a <code>Font</code>,
@@ -123,7 +115,11 @@ is given by</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.Renderer.html" title="pango::Renderer struct">Renderer</a></td><td class="docblock-short"><p><code>Renderer</code> is a base class for objects that are used to
 render Pango objects such as <code>GlyphString</code> and
 <code>Layout</code>.</p>
-</td></tr><tr class="module-item"><td><a class="struct" href="struct.ShapeFlags.html" title="pango::ShapeFlags struct">ShapeFlags</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="struct" href="struct.ShowFlags.html" title="pango::ShowFlags struct">ShowFlags</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="struct" href="struct.TabArray.html" title="pango::TabArray struct">TabArray</a></td><td class="docblock-short"><p>A <code>TabArray</code> struct contains an array
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.ShapeFlags.html" title="pango::ShapeFlags struct">ShapeFlags</a></td><td class="docblock-short"><p>Flags influencing the shaping process.
+These can be passed to <code>pango_shape_with_flags</code>.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.ShowFlags.html" title="pango::ShowFlags struct">ShowFlags</a></td><td class="docblock-short"><p>These flags affect how Pango treats characters that are normally
+not visible in the output.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.TabArray.html" title="pango::TabArray struct">TabArray</a></td><td class="docblock-short"><p>A <code>TabArray</code> struct contains an array
 of tab stops. Each tab stop has an alignment and a position.</p>
 </td></tr></table><h2 id="enums" class="section-header"><a href="#enums">Enums</a></h2>
 <table><tr class="module-item"><td><a class="enum" href="enum.Alignment.html" title="pango::Alignment enum">Alignment</a></td><td class="docblock-short"><p>A <code>Alignment</code> describes how to align the lines of a <code>Layout</code> within the
@@ -165,7 +161,10 @@ Not every value in this enumeration makes sense for every usage of
 </td></tr><tr class="module-item"><td><a class="enum" href="enum.GravityHint.html" title="pango::GravityHint enum">GravityHint</a></td><td class="docblock-short"><p>The <code>GravityHint</code> defines how horizontal scripts should behave in a
 vertical context. That is, English excerpt in a vertical paragraph for
 example.</p>
-</td></tr><tr class="module-item"><td><a class="enum" href="enum.Overline.html" title="pango::Overline enum">Overline</a></td><td class="docblock-short"><span class="stab portability" title="This is supported on crate feature `v1_46` only"><code>v1_46</code></span></td></tr><tr class="module-item"><td><a class="enum" href="enum.RenderPart.html" title="pango::RenderPart enum">RenderPart</a></td><td class="docblock-short"><p><code>RenderPart</code> defines different items to render for such
+</td></tr><tr class="module-item"><td><a class="enum" href="enum.Overline.html" title="pango::Overline enum">Overline</a></td><td class="docblock-short"><span class="stab portability" title="This is supported on crate feature `v1_46` only"><code>v1_46</code></span><p>The <code>Overline</code> enumeration is used to specify
+whether text should be overlined, and if so, the type
+of line.</p>
+</td></tr><tr class="module-item"><td><a class="enum" href="enum.RenderPart.html" title="pango::RenderPart enum">RenderPart</a></td><td class="docblock-short"><p><code>RenderPart</code> defines different items to render for such
 purposes as setting colors.</p>
 </td></tr><tr class="module-item"><td><a class="enum" href="enum.Script.html" title="pango::Script enum">Script</a></td><td class="docblock-short"><p>The <code>Script</code> enumeration identifies different writing
 systems. The values correspond to the names as defined in the

@@ -130,21 +130,6 @@
 <span id="127">127</span>
 <span id="128">128</span>
 <span id="129">129</span>
-<span id="130">130</span>
-<span id="131">131</span>
-<span id="132">132</span>
-<span id="133">133</span>
-<span id="134">134</span>
-<span id="135">135</span>
-<span id="136">136</span>
-<span id="137">137</span>
-<span id="138">138</span>
-<span id="139">139</span>
-<span id="140">140</span>
-<span id="141">141</span>
-<span id="142">142</span>
-<span id="143">143</span>
-<span id="144">144</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -152,21 +137,6 @@
 
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::ffi::cairo_user_data_key_t</span>;
 
-<span class="doccomment">/// A key for indexing user data in various cairo types.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// Some types like [`Surface`] have `get_user_data`, `set_user_data`, and `remove_user_data`</span>
-<span class="doccomment">/// methods that take `&amp;&#39;static UserDataKey`, where the address of that reference is significant.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// To reliably have a stable address, the expected usage is to define a `static` item:</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// ```</span>
-<span class="doccomment">/// use cairo::UserDataKey;</span>
-<span class="doccomment">/// static FOO: UserDataKey&lt;String&gt; = UserDataKey::new();</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// # fn foo(surface: &amp;cairo::Surface) {</span>
-<span class="doccomment">/// surface.get_user_data(&amp;FOO)</span>
-<span class="doccomment">/// # ; }</span>
-<span class="doccomment">/// ```</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">UserDataKey</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">ffi</span>: <span class="ident">cairo_user_data_key_t</span>,
     <span class="ident">marker</span>: <span class="ident">PhantomData</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw">const</span> <span class="ident">T</span><span class="op">&gt;</span>,

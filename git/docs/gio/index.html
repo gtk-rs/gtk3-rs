@@ -39,7 +39,8 @@ in the <code>Application::command-line</code> signal and virtual function.</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.AskPasswordFlags.html" title="gio::AskPasswordFlags struct">AskPasswordFlags</a></td><td class="docblock-short"><p><code>AskPasswordFlags</code> are used to request specific information from the
 user, or to notify the user of their choices in an authentication
 situation.</p>
-</td></tr><tr class="module-item"><td><a class="struct" href="struct.AsyncResult.html" title="gio::AsyncResult struct">AsyncResult</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="struct" href="struct.BufferedInputStream.html" title="gio::BufferedInputStream struct">BufferedInputStream</a></td><td class="docblock-short"><p>Buffered input stream implements <code>FilterInputStream</code> and provides
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.AsyncResult.html" title="gio::AsyncResult struct">AsyncResult</a></td><td class="docblock-short"><p>Provides a base class for implementing asynchronous function results.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.BufferedInputStream.html" title="gio::BufferedInputStream struct">BufferedInputStream</a></td><td class="docblock-short"><p>Buffered input stream implements <code>FilterInputStream</code> and provides
 for buffered reads.</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.BufferedInputStreamBuilder.html" title="gio::BufferedInputStreamBuilder struct">BufferedInputStreamBuilder</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="struct" href="struct.BufferedOutputStream.html" title="gio::BufferedOutputStream struct">BufferedOutputStream</a></td><td class="docblock-short"><p>Buffered output stream implements <code>FilterOutputStream</code> and provides
 for buffered writes.</p>
@@ -63,7 +64,10 @@ conversion of data of various types during reading.</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.ConverterOutputStreamBuilder.html" title="gio::ConverterOutputStreamBuilder struct">ConverterOutputStreamBuilder</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="struct" href="struct.Credentials.html" title="gio::Credentials struct">Credentials</a></td><td class="docblock-short"><p>The <code>Credentials</code> type is a reference-counted wrapper for native
 credentials. This information is typically used for identifying,
 authenticating and authorizing other processes.</p>
-</td></tr><tr class="module-item"><td><a class="struct" href="struct.DBusActionGroup.html" title="gio::DBusActionGroup struct">DBusActionGroup</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="struct" href="struct.DBusArgInfo.html" title="gio::DBusArgInfo struct">DBusArgInfo</a></td><td class="docblock-short"><p>Information about an argument for a method or a signal.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.DBusActionGroup.html" title="gio::DBusActionGroup struct">DBusActionGroup</a></td><td class="docblock-short"><p><code>DBusActionGroup</code> is an implementation of the <code>ActionGroup</code>
+interface that can be used as a proxy for an action group
+that is exported over D-Bus with <code>DBusConnection::export_action_group</code>.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.DBusArgInfo.html" title="gio::DBusArgInfo struct">DBusArgInfo</a></td><td class="docblock-short"><p>Information about an argument for a method or a signal.</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.DBusAuthObserver.html" title="gio::DBusAuthObserver struct">DBusAuthObserver</a></td><td class="docblock-short"><p>The <code>DBusAuthObserver</code> type provides a mechanism for participating
 in how a <code>DBusServer</code> (or a <code>DBusConnection</code>) authenticates remote
 peers. Simply instantiate a <code>DBusAuthObserver</code> and connect to the
@@ -260,7 +264,7 @@ can be polled for readiness to write. This can be used when
 interfacing with a non-GIO API that expects
 UNIX-file-descriptor-style asynchronous I/O rather than GIO-style.</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.PropertyAction.html" title="gio::PropertyAction struct">PropertyAction</a></td><td class="docblock-short"><p>A <code>PropertyAction</code> is a way to get a <code>Action</code> with a state value
-reflecting and controlling the value of a <code>gobject::Object</code> property.</p>
+reflecting and controlling the value of a <code>glib::object::Object</code> property.</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.Proxy.html" title="gio::Proxy struct">Proxy</a></td><td class="docblock-short"><p>A <code>Proxy</code> handles connecting to a remote host via a given type of
 proxy server. It is implemented by the ‘gio-proxy’ extension point.
 The extensions are named after their proxy protocol name. As an
@@ -356,7 +360,8 @@ processes.</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.SubprocessLauncher.html" title="gio::SubprocessLauncher struct">SubprocessLauncher</a></td><td class="docblock-short"><p>This class contains a set of options for launching child processes,
 such as where its standard input and output will be directed, the
 argument list, the environment, and more.</p>
-</td></tr><tr class="module-item"><td><a class="struct" href="struct.Task.html" title="gio::Task struct">Task</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="struct" href="struct.TcpConnection.html" title="gio::TcpConnection struct">TcpConnection</a></td><td class="docblock-short"><p>This is the subclass of <code>SocketConnection</code> that is created
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.Task.html" title="gio::Task struct">Task</a></td><td class="docblock-short"><p>A <code>Task</code> represents and manages a cancellable “task”.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.TcpConnection.html" title="gio::TcpConnection struct">TcpConnection</a></td><td class="docblock-short"><p>This is the subclass of <code>SocketConnection</code> that is created
 for TCP/IP sockets.</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.ThemedIcon.html" title="gio::ThemedIcon struct">ThemedIcon</a></td><td class="docblock-short"><p><code>ThemedIcon</code> is an implementation of <code>Icon</code> that supports icon themes.
 <code>ThemedIcon</code> contains a list of all of the icons present in an icon
@@ -369,7 +374,8 @@ themes that inherit other themes.</p>
 that handles incoming connections by creating a worker thread and
 dispatching the connection to it by emitting the
 <code>ThreadedSocketService::run</code> signal in the new thread.</p>
-</td></tr><tr class="module-item"><td><a class="struct" href="struct.TlsBackend.html" title="gio::TlsBackend struct">TlsBackend</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="struct" href="struct.TlsCertificate.html" title="gio::TlsCertificate struct">TlsCertificate</a></td><td class="docblock-short"><p>A certificate used for TLS authentication and encryption.
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.TlsBackend.html" title="gio::TlsBackend struct">TlsBackend</a></td><td class="docblock-short"><p>TLS (Transport Layer Security, aka SSL) and DTLS backend.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.TlsCertificate.html" title="gio::TlsCertificate struct">TlsCertificate</a></td><td class="docblock-short"><p>A certificate used for TLS authentication and encryption.
 This can represent either a certificate only (eg, the certificate
 received by a client from a server), or the combination of
 a certificate and a private key (which is needed when acting as a
@@ -470,7 +476,11 @@ all the socket types.</p>
 </td></tr><tr class="module-item"><td><a class="enum" href="enum.TlsCertificateRequestFlags.html" title="gio::TlsCertificateRequestFlags enum">TlsCertificateRequestFlags</a></td><td class="docblock-short"><p>Flags for <code>TlsInteractionExt::request_certificate</code>,
 <code>TlsInteractionExt::request_certificate_async</code>, and
 <code>TlsInteractionExt::invoke_request_certificate</code>.</p>
-</td></tr><tr class="module-item"><td><a class="enum" href="enum.TlsChannelBindingType.html" title="gio::TlsChannelBindingType enum">TlsChannelBindingType</a></td><td class="docblock-short"><span class="stab portability" title="This is supported on crate feature `v2_66` only"><code>v2_66</code></span></td></tr><tr class="module-item"><td><a class="enum" href="enum.TlsDatabaseLookupFlags.html" title="gio::TlsDatabaseLookupFlags enum">TlsDatabaseLookupFlags</a></td><td class="docblock-short"><p>Flags for <code>TlsDatabaseExt::lookup_certificate_for_handle</code>,
+</td></tr><tr class="module-item"><td><a class="enum" href="enum.TlsChannelBindingType.html" title="gio::TlsChannelBindingType enum">TlsChannelBindingType</a></td><td class="docblock-short"><span class="stab portability" title="This is supported on crate feature `v2_66` only"><code>v2_66</code></span><p>The type of TLS channel binding data to retrieve from <code>TlsConnection</code>
+or <code>DtlsConnection</code>, as documented by RFC 5929. The
+<a href="https://tools.ietf.org/html/rfc5929%60section%60-5"><code>tls-unique-for-telnet</code></a>
+binding type is not currently implemented.</p>
+</td></tr><tr class="module-item"><td><a class="enum" href="enum.TlsDatabaseLookupFlags.html" title="gio::TlsDatabaseLookupFlags enum">TlsDatabaseLookupFlags</a></td><td class="docblock-short"><p>Flags for <code>TlsDatabaseExt::lookup_certificate_for_handle</code>,
 <code>TlsDatabaseExt::lookup_certificate_issuer</code>,
 and <code>TlsDatabaseExt::lookup_certificates_issued_by</code>.</p>
 </td></tr><tr class="module-item"><td><a class="enum" href="enum.TlsInteractionResult.html" title="gio::TlsInteractionResult enum">TlsInteractionResult</a></td><td class="docblock-short"><p><code>TlsInteractionResult</code> is returned by various functions in <code>TlsInteraction</code>
@@ -494,7 +504,8 @@ and <code>ZlibCompressor</code>.</p>
 </td></tr><tr class="module-item"><td><a class="trait" href="trait.AppLaunchContextExt.html" title="gio::AppLaunchContextExt trait">AppLaunchContextExt</a></td><td class="docblock-short"><p>Trait containing all <code>AppLaunchContext</code> methods.</p>
 </td></tr><tr class="module-item"><td><a class="trait" href="trait.ApplicationCommandLineExt.html" title="gio::ApplicationCommandLineExt trait">ApplicationCommandLineExt</a></td><td class="docblock-short"><p>Trait containing all <code>ApplicationCommandLine</code> methods.</p>
 </td></tr><tr class="module-item"><td><a class="trait" href="trait.ApplicationExt.html" title="gio::ApplicationExt trait">ApplicationExt</a></td><td class="docblock-short"><p>Trait containing all <code>Application</code> methods.</p>
-</td></tr><tr class="module-item"><td><a class="trait" href="trait.AsyncResultExt.html" title="gio::AsyncResultExt trait">AsyncResultExt</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="trait" href="trait.BufferedInputStreamExt.html" title="gio::BufferedInputStreamExt trait">BufferedInputStreamExt</a></td><td class="docblock-short"><p>Trait containing all <code>BufferedInputStream</code> methods.</p>
+</td></tr><tr class="module-item"><td><a class="trait" href="trait.AsyncResultExt.html" title="gio::AsyncResultExt trait">AsyncResultExt</a></td><td class="docblock-short"><p>Trait containing all <code>AsyncResult</code> methods.</p>
+</td></tr><tr class="module-item"><td><a class="trait" href="trait.BufferedInputStreamExt.html" title="gio::BufferedInputStreamExt trait">BufferedInputStreamExt</a></td><td class="docblock-short"><p>Trait containing all <code>BufferedInputStream</code> methods.</p>
 </td></tr><tr class="module-item"><td><a class="trait" href="trait.BufferedOutputStreamExt.html" title="gio::BufferedOutputStreamExt trait">BufferedOutputStreamExt</a></td><td class="docblock-short"><p>Trait containing all <code>BufferedOutputStream</code> methods.</p>
 </td></tr><tr class="module-item"><td><a class="trait" href="trait.CancellableExt.html" title="gio::CancellableExt trait">CancellableExt</a></td><td class="docblock-short"><p>Trait containing all <code>Cancellable</code> methods.</p>
 </td></tr><tr class="module-item"><td><a class="trait" href="trait.ConverterExt.html" title="gio::ConverterExt trait">ConverterExt</a></td><td class="docblock-short"><p>Trait containing all <code>Converter</code> methods.</p>
@@ -557,7 +568,8 @@ and <code>ZlibCompressor</code>.</p>
 </td></tr><tr class="module-item"><td><a class="trait" href="trait.SocketServiceExt.html" title="gio::SocketServiceExt trait">SocketServiceExt</a></td><td class="docblock-short"><p>Trait containing all <code>SocketService</code> methods.</p>
 </td></tr><tr class="module-item"><td><a class="trait" href="trait.TcpConnectionExt.html" title="gio::TcpConnectionExt trait">TcpConnectionExt</a></td><td class="docblock-short"><p>Trait containing all <code>TcpConnection</code> methods.</p>
 </td></tr><tr class="module-item"><td><a class="trait" href="trait.ThreadedSocketServiceExt.html" title="gio::ThreadedSocketServiceExt trait">ThreadedSocketServiceExt</a></td><td class="docblock-short"><p>Trait containing all <code>ThreadedSocketService</code> methods.</p>
-</td></tr><tr class="module-item"><td><a class="trait" href="trait.TlsBackendExt.html" title="gio::TlsBackendExt trait">TlsBackendExt</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="trait" href="trait.TlsCertificateExt.html" title="gio::TlsCertificateExt trait">TlsCertificateExt</a></td><td class="docblock-short"><p>Trait containing all <code>TlsCertificate</code> methods.</p>
+</td></tr><tr class="module-item"><td><a class="trait" href="trait.TlsBackendExt.html" title="gio::TlsBackendExt trait">TlsBackendExt</a></td><td class="docblock-short"><p>Trait containing all <code>TlsBackend</code> methods.</p>
+</td></tr><tr class="module-item"><td><a class="trait" href="trait.TlsCertificateExt.html" title="gio::TlsCertificateExt trait">TlsCertificateExt</a></td><td class="docblock-short"><p>Trait containing all <code>TlsCertificate</code> methods.</p>
 </td></tr><tr class="module-item"><td><a class="trait" href="trait.TlsClientConnectionExt.html" title="gio::TlsClientConnectionExt trait">TlsClientConnectionExt</a></td><td class="docblock-short"><p>Trait containing all <code>TlsClientConnection</code> methods.</p>
 </td></tr><tr class="module-item"><td><a class="trait" href="trait.TlsConnectionExt.html" title="gio::TlsConnectionExt trait">TlsConnectionExt</a></td><td class="docblock-short"><p>Trait containing all <code>TlsConnection</code> methods.</p>
 </td></tr><tr class="module-item"><td><a class="trait" href="trait.TlsConnectionManualExt.html" title="gio::TlsConnectionManualExt trait">TlsConnectionManualExt</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="trait" href="trait.TlsDatabaseExt.html" title="gio::TlsDatabaseExt trait">TlsDatabaseExt</a></td><td class="docblock-short"><p>Trait containing all <code>TlsDatabase</code> methods.</p>

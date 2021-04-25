@@ -868,7 +868,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`CellRendererSpinExt`](trait.CellRendererSpinExt.html), [`CellRendererTextExt`](trait.CellRendererTextExt.html), [`CellRendererExt`](trait.CellRendererExt.html), [`glib::object::ObjectExt`](../glib/object/trait.ObjectExt.html)</span>
+    <span class="doccomment">/// [`CellRendererSpinExt`](trait@crate::CellRendererSpinExt), [`CellRendererTextExt`](trait@crate::CellRendererTextExt), [`CellRendererExt`](trait@crate::CellRendererExt), [`trait@glib::object::ObjectExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">CellRendererSpin</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkCellRendererSpin</span>, <span class="ident">ffi::GtkCellRendererSpinClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">CellRendererText</span>, <span class="ident">CellRenderer</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -1484,7 +1484,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`CellRendererSpin`](struct.CellRendererSpin.html)</span>
+<span class="doccomment">/// [`CellRendererSpin`](struct@crate::CellRendererSpin)</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">CellRendererSpinExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_property_adjustment&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">adjustment</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Adjustment</span><span class="op">&gt;</span>;

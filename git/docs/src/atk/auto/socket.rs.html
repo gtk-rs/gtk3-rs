@@ -152,7 +152,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`AtkSocketExt`](trait.AtkSocketExt.html), [`AtkObjectExt`](trait.AtkObjectExt.html), [`glib::object::ObjectExt`](../glib/object/trait.ObjectExt.html), [`ComponentExt`](trait.ComponentExt.html)</span>
+    <span class="doccomment">/// [`AtkSocketExt`](trait@crate::AtkSocketExt), [`AtkObjectExt`](trait@crate::AtkObjectExt), [`trait@glib::object::ObjectExt`], [`ComponentExt`](trait@crate::ComponentExt)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Socket</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::AtkSocket</span>, <span class="ident">ffi::AtkSocketClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Object</span>, @<span class="ident">implements</span> <span class="ident">Component</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -185,7 +185,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`Socket`](struct.Socket.html)</span>
+<span class="doccomment">/// [`Socket`](struct@crate::Socket)</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">AtkSocketExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Embeds the children of an `Plug` as the children of the</span>
     <span class="doccomment">/// `Socket`. The plug may be in the same process or in a different</span>

@@ -43,6 +43,17 @@
 <span id="40">40</span>
 <span id="41">41</span>
 <span id="42">42</span>
+<span id="43">43</span>
+<span id="44">44</span>
+<span id="45">45</span>
+<span id="46">46</span>
+<span id="47">47</span>
+<span id="48">48</span>
+<span id="49">49</span>
+<span id="50">50</span>
+<span id="51">51</span>
+<span id="52">52</span>
+<span id="53">53</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -50,6 +61,17 @@
 <span class="kw">use</span> <span class="ident">glib::GString</span>;
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 
+<span class="doccomment">/// AtkAttribute is a string name/value pair representing a generic</span>
+<span class="doccomment">/// attribute. This can be used to expose additional information from</span>
+<span class="doccomment">/// an accessible object as a whole (see `AtkObjectExt::get_attributes`)</span>
+<span class="doccomment">/// or an document (see `Document::get_attributes`). In the case of</span>
+<span class="doccomment">/// text attributes (see `Text::get_default_attributes`),</span>
+<span class="doccomment">/// `TextAttribute` enum defines all the possible text attribute</span>
+<span class="doccomment">/// names. You can use `TextAttribute::get_name` to get the string</span>
+<span class="doccomment">/// name from the enum value. See also `TextAttribute::for_name`</span>
+<span class="doccomment">/// and `TextAttribute::get_value` for more information.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// A string name/value pair representing a generic attribute.</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Attribute</span> {
     <span class="kw">pub</span> <span class="ident">name</span>: <span class="ident">GString</span>,
     <span class="kw">pub</span> <span class="ident">value</span>: <span class="ident">GString</span>,

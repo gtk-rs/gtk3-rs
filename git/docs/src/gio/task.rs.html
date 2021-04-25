@@ -246,6 +246,95 @@
 <span id="243">243</span>
 <span id="244">244</span>
 <span id="245">245</span>
+<span id="246">246</span>
+<span id="247">247</span>
+<span id="248">248</span>
+<span id="249">249</span>
+<span id="250">250</span>
+<span id="251">251</span>
+<span id="252">252</span>
+<span id="253">253</span>
+<span id="254">254</span>
+<span id="255">255</span>
+<span id="256">256</span>
+<span id="257">257</span>
+<span id="258">258</span>
+<span id="259">259</span>
+<span id="260">260</span>
+<span id="261">261</span>
+<span id="262">262</span>
+<span id="263">263</span>
+<span id="264">264</span>
+<span id="265">265</span>
+<span id="266">266</span>
+<span id="267">267</span>
+<span id="268">268</span>
+<span id="269">269</span>
+<span id="270">270</span>
+<span id="271">271</span>
+<span id="272">272</span>
+<span id="273">273</span>
+<span id="274">274</span>
+<span id="275">275</span>
+<span id="276">276</span>
+<span id="277">277</span>
+<span id="278">278</span>
+<span id="279">279</span>
+<span id="280">280</span>
+<span id="281">281</span>
+<span id="282">282</span>
+<span id="283">283</span>
+<span id="284">284</span>
+<span id="285">285</span>
+<span id="286">286</span>
+<span id="287">287</span>
+<span id="288">288</span>
+<span id="289">289</span>
+<span id="290">290</span>
+<span id="291">291</span>
+<span id="292">292</span>
+<span id="293">293</span>
+<span id="294">294</span>
+<span id="295">295</span>
+<span id="296">296</span>
+<span id="297">297</span>
+<span id="298">298</span>
+<span id="299">299</span>
+<span id="300">300</span>
+<span id="301">301</span>
+<span id="302">302</span>
+<span id="303">303</span>
+<span id="304">304</span>
+<span id="305">305</span>
+<span id="306">306</span>
+<span id="307">307</span>
+<span id="308">308</span>
+<span id="309">309</span>
+<span id="310">310</span>
+<span id="311">311</span>
+<span id="312">312</span>
+<span id="313">313</span>
+<span id="314">314</span>
+<span id="315">315</span>
+<span id="316">316</span>
+<span id="317">317</span>
+<span id="318">318</span>
+<span id="319">319</span>
+<span id="320">320</span>
+<span id="321">321</span>
+<span id="322">322</span>
+<span id="323">323</span>
+<span id="324">324</span>
+<span id="325">325</span>
+<span id="326">326</span>
+<span id="327">327</span>
+<span id="328">328</span>
+<span id="329">329</span>
+<span id="330">330</span>
+<span id="331">331</span>
+<span id="332">332</span>
+<span id="333">333</span>
+<span id="334">334</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -259,6 +348,35 @@
 <span class="kw">use</span> <span class="ident">std::ptr</span>;
 
 <span class="kw">impl</span> <span class="ident">Task</span> {
+    <span class="doccomment">/// Creates a `Task` acting on `source_object`, which will eventually be</span>
+    <span class="doccomment">/// used to invoke `callback` in the current</span>
+    <span class="doccomment">/// [thread-default main context][g-main-context-push-thread-default].</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Call this in the &quot;start&quot; method of your asynchronous method, and</span>
+    <span class="doccomment">/// pass the `Task` around throughout the asynchronous operation. You</span>
+    <span class="doccomment">/// can use `Task::set_task_data` to attach task-specific data to the</span>
+    <span class="doccomment">/// object, which you can retrieve later via `Task::get_task_data`.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// By default, if `cancellable` is cancelled, then the return value of</span>
+    <span class="doccomment">/// the task will always be `IOErrorEnum::Cancelled`, even if the task had</span>
+    <span class="doccomment">/// already completed before the cancellation. This allows for</span>
+    <span class="doccomment">/// simplified handling in cases where cancellation may imply that</span>
+    <span class="doccomment">/// other objects that the task depends on have been destroyed. If you</span>
+    <span class="doccomment">/// do not want this behavior, you can use</span>
+    <span class="doccomment">/// `Task::set_check_cancellable` to change it.</span>
+    <span class="doccomment">/// ## `source_object`</span>
+    <span class="doccomment">/// the `glib::object::Object` that owns</span>
+    <span class="doccomment">///  this task, or `None`.</span>
+    <span class="doccomment">/// ## `cancellable`</span>
+    <span class="doccomment">/// optional `Cancellable` object, `None` to ignore.</span>
+    <span class="doccomment">/// ## `callback`</span>
+    <span class="doccomment">/// a `GAsyncReadyCallback`.</span>
+    <span class="doccomment">/// ## `callback_data`</span>
+    <span class="doccomment">/// user data passed to `callback`.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Returns</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// a `Task`.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span>, <span class="ident">Q</span>: <span class="ident">FnOnce</span>(<span class="kw-2">&amp;</span><span class="ident">AsyncResult</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">glib::Object</span><span class="op">&gt;</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
         <span class="ident">source_object</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">glib::Object</span><span class="op">&gt;</span>,
         <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>,
@@ -288,22 +406,63 @@
         }
     }
 
+    <span class="doccomment">/// Sets `self`&#39;s result to `error` (which `self` assumes ownership of)</span>
+    <span class="doccomment">/// and completes the task (see `Task::return_pointer` for more</span>
+    <span class="doccomment">/// discussion of exactly what this means).</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Note that since the task takes ownership of `error`, and since the</span>
+    <span class="doccomment">/// task may be completed before returning from `Task::return_error`,</span>
+    <span class="doccomment">/// you cannot assume that `error` is still valid after calling this.</span>
+    <span class="doccomment">/// Call `glib::Error::copy` on the error if you need to keep a local copy</span>
+    <span class="doccomment">/// as well.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// See also `Task::return_new_error`.</span>
+    <span class="doccomment">/// ## `error`</span>
+    <span class="doccomment">/// the `glib::Error` result of a task function.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">return_error</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">error</span>: <span class="ident">glib::Error</span>) {
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::g_task_return_error</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">error</span>.<span class="ident">to_glib_full</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>);
         }
     }
 
+    <span class="doccomment">/// Gets `self`&#39;s priority</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Returns</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// `self`&#39;s priority</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">priority</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::source::Priority</span> {
         <span class="kw">unsafe</span> { <span class="ident">FromGlib::from_glib</span>(<span class="ident">ffi::g_task_get_priority</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
+    <span class="doccomment">/// Sets `self`&#39;s priority. If you do not call this, it will default to</span>
+    <span class="doccomment">/// `G_PRIORITY_DEFAULT`.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// This will affect the priority of `GSources` created with</span>
+    <span class="doccomment">/// `Task::attach_source` and the scheduling of tasks run in threads,</span>
+    <span class="doccomment">/// and can also be explicitly retrieved later via</span>
+    <span class="doccomment">/// `Task::get_priority`.</span>
+    <span class="doccomment">/// ## `priority`</span>
+    <span class="doccomment">/// the [priority][io-priority] of the request</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_priority</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">priority</span>: <span class="ident">glib::source::Priority</span>) {
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::g_task_set_priority</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">priority</span>.<span class="ident">to_glib</span>());
         }
     }
 
+    <span class="doccomment">/// Sets `self`&#39;s result to `result` (by copying it) and completes the task.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// If `result` is `None` then a `glib::object::Value` of type `G_TYPE_POINTER`</span>
+    <span class="doccomment">/// with a value of `None` will be used for the result.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// This is a very generic low-level method intended primarily for use</span>
+    <span class="doccomment">/// by language bindings; for C code, `Task::return_pointer` and the</span>
+    <span class="doccomment">/// like will normally be much easier to use.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Feature: `v2_64`</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// ## `result`</span>
+    <span class="doccomment">/// the `glib::object::Value` result of</span>
+    <span class="doccomment">///  a task function</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">return_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">result</span>: <span class="kw-2">&amp;</span><span class="ident">glib::Value</span>) {
         <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">value_free</span>(<span class="ident">value</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_void</span>) {
             <span class="ident">glib::gobject_ffi::g_value_unset</span>(<span class="ident">value</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib::gobject_ffi::GValue</span>);
@@ -320,6 +479,25 @@
         }
     }
 
+    <span class="doccomment">/// Gets the result of `self` as a `glib::object::Value`, and transfers ownership of</span>
+    <span class="doccomment">/// that value to the caller. As with `Task::return_value`, this is</span>
+    <span class="doccomment">/// a generic low-level method; `Task::propagate_pointer` and the like</span>
+    <span class="doccomment">/// will usually be more useful for C code.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// If the task resulted in an error, or was cancelled, then this will</span>
+    <span class="doccomment">/// instead set `error` and return `false`.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Since this method transfers ownership of the return value (or</span>
+    <span class="doccomment">/// error) to the caller, you may only call it once.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Feature: `v2_64`</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// ## `value`</span>
+    <span class="doccomment">/// return location for the `glib::object::Value`</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Returns</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// `true` if `self` succeeded, `false` on error.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">propagate_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">glib::Value</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();

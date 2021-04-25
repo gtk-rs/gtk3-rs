@@ -840,7 +840,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`CellRendererPixbufExt`](trait.CellRendererPixbufExt.html), [`CellRendererExt`](trait.CellRendererExt.html), [`glib::object::ObjectExt`](../glib/object/trait.ObjectExt.html), [`CellRendererPixbufExtManual`](prelude/trait.CellRendererPixbufExtManual.html)</span>
+    <span class="doccomment">/// [`CellRendererPixbufExt`](trait@crate::CellRendererPixbufExt), [`CellRendererExt`](trait@crate::CellRendererExt), [`trait@glib::object::ObjectExt`], [`CellRendererPixbufExtManual`](trait@crate::CellRendererPixbufExtManual)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">CellRendererPixbuf</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkCellRendererPixbuf</span>, <span class="ident">ffi::GtkCellRendererPixbufClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">CellRenderer</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -851,7 +851,7 @@
 <span class="kw">impl</span> <span class="ident">CellRendererPixbuf</span> {
     <span class="doccomment">/// Creates a new `CellRendererPixbuf`. Adjust rendering</span>
     <span class="doccomment">/// parameters using object properties. Object properties can be set</span>
-    <span class="doccomment">/// globally (with `gobject::ObjectExt::set`). Also, with `TreeViewColumn`, you</span>
+    <span class="doccomment">/// globally (with `glib::object::ObjectExt::set`). Also, with `TreeViewColumn`, you</span>
     <span class="doccomment">/// can bind a property to a value in a `TreeModel`. For example, you</span>
     <span class="doccomment">/// can bind the “pixbuf” property on the cell renderer to a pixbuf value</span>
     <span class="doccomment">/// in the model, thus rendering a different image in each row of the</span>
@@ -1102,7 +1102,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`CellRendererPixbuf`](struct.CellRendererPixbuf.html)</span>
+<span class="doccomment">/// [`CellRendererPixbuf`](struct@crate::CellRendererPixbuf)</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">CellRendererPixbufExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_16&quot;</span>, <span class="ident">deprecated</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_property_follow_state&quot;</span>)]</span>

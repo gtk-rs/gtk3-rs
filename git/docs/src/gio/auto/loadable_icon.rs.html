@@ -209,7 +209,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`LoadableIconExt`](trait.LoadableIconExt.html), [`IconExt`](trait.IconExt.html)</span>
+    <span class="doccomment">/// [`LoadableIconExt`](trait@crate::LoadableIconExt), [`IconExt`](trait@crate::IconExt)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">LoadableIcon</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi::GLoadableIcon</span>, <span class="ident">ffi::GLoadableIconIface</span><span class="op">&gt;</span>) @<span class="ident">requires</span> <span class="ident">Icon</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -223,7 +223,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`BytesIcon`](struct.BytesIcon.html), [`FileIcon`](struct.FileIcon.html), [`LoadableIcon`](struct.LoadableIcon.html)</span>
+<span class="doccomment">/// [`BytesIcon`](struct@crate::BytesIcon), [`FileIcon`](struct@crate::FileIcon), [`LoadableIcon`](struct@crate::LoadableIcon)</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">LoadableIconExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Loads a loadable icon. For the asynchronous version of this function,</span>
     <span class="doccomment">/// see `LoadableIcon::load_async`.</span>

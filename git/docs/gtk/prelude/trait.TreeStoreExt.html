@@ -17,7 +17,7 @@
 <div class="item-spacer"></div>    fn <a href="#tymethod.swap" class="fnname">swap</a>(&amp;self, a: &amp;<a class="struct" href="../struct.TreeIter.html" title="struct gtk::TreeIter">TreeIter</a>, b: &amp;<a class="struct" href="../struct.TreeIter.html" title="struct gtk::TreeIter">TreeIter</a>);
 </details>}</pre></div><div class="docblock"><p>Trait containing all <code>TreeStore</code> methods.</p>
 <h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
-<p><a href="struct.TreeStore.html"><code>TreeStore</code></a></p>
+<p><a href="../struct.TreeStore.html"><code>TreeStore</code></a></p>
 </div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.append" class="method"><code>fn <a href="#tymethod.append" class="fnname">append</a>(&amp;self, parent: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="struct" href="../struct.TreeIter.html" title="struct gtk::TreeIter">TreeIter</a>&gt;) -&gt; <a class="struct" href="../struct.TreeIter.html" title="struct gtk::TreeIter">TreeIter</a></code><a class="srclink" href="../../src/gtk/auto/tree_store.rs.html#83" title="goto source code">[src]</a></h3><div class="docblock"><p>Appends a new row to <code>self</code>. If <code>parent</code> is non-<code>None</code>, then it will append the
 new row after the last child of <code>parent</code>, otherwise it will append a row to
 the top level. <code>iter</code> will be changed to point to this new row. The row will

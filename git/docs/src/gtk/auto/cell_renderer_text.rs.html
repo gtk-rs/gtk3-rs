@@ -3325,7 +3325,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`CellRendererTextExt`](trait.CellRendererTextExt.html), [`CellRendererExt`](trait.CellRendererExt.html), [`glib::object::ObjectExt`](../glib/object/trait.ObjectExt.html)</span>
+    <span class="doccomment">/// [`CellRendererTextExt`](trait@crate::CellRendererTextExt), [`CellRendererExt`](trait@crate::CellRendererExt), [`trait@glib::object::ObjectExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">CellRendererText</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkCellRendererText</span>, <span class="ident">ffi::GtkCellRendererTextClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">CellRenderer</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -3336,7 +3336,7 @@
 <span class="kw">impl</span> <span class="ident">CellRendererText</span> {
     <span class="doccomment">/// Creates a new `CellRendererText`. Adjust how text is drawn using</span>
     <span class="doccomment">/// object properties. Object properties can be</span>
-    <span class="doccomment">/// set globally (with `gobject::ObjectExt::set`). Also, with `TreeViewColumn`,</span>
+    <span class="doccomment">/// set globally (with `glib::object::ObjectExt::set`). Also, with `TreeViewColumn`,</span>
     <span class="doccomment">/// you can bind a property to a value in a `TreeModel`. For example,</span>
     <span class="doccomment">/// you can bind the “text” property on the cell renderer to a string</span>
     <span class="doccomment">/// value in the model, thus rendering a different string in each row</span>
@@ -3920,7 +3920,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`CellRendererAccel`](struct.CellRendererAccel.html), [`CellRendererCombo`](struct.CellRendererCombo.html), [`CellRendererSpin`](struct.CellRendererSpin.html), [`CellRendererText`](struct.CellRendererText.html)</span>
+<span class="doccomment">/// [`CellRendererAccel`](struct@crate::CellRendererAccel), [`CellRendererCombo`](struct@crate::CellRendererCombo), [`CellRendererSpin`](struct@crate::CellRendererSpin), [`CellRendererText`](struct@crate::CellRendererText)</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">CellRendererTextExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Sets the height of a renderer to explicitly be determined by the “font” and</span>
     <span class="doccomment">/// “y_pad” property set on it. Further changes in these properties do not</span>

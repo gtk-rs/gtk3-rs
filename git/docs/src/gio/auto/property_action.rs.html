@@ -265,11 +265,11 @@
 
 <span class="macro">glib::wrapper!</span> {
     <span class="doccomment">/// A `PropertyAction` is a way to get a `Action` with a state value</span>
-    <span class="doccomment">/// reflecting and controlling the value of a `gobject::Object` property.</span>
+    <span class="doccomment">/// reflecting and controlling the value of a `glib::object::Object` property.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The state of the action will correspond to the value of the property.</span>
     <span class="doccomment">/// Changing it will change the property (assuming the requested value</span>
-    <span class="doccomment">/// matches the requirements as specified in the `gobject::ParamSpec`).</span>
+    <span class="doccomment">/// matches the requirements as specified in the `glib::object::ParamSpec`).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Only the most common types are presently supported. Booleans are</span>
     <span class="doccomment">/// mapped to booleans, strings to strings, signed/unsigned integers to</span>
@@ -277,7 +277,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// If the property is an enum then the state will be string-typed and</span>
     <span class="doccomment">/// conversion will automatically be performed between the enum value and</span>
-    <span class="doccomment">/// &quot;nick&quot; string as per the `gobject::EnumValue` table.</span>
+    <span class="doccomment">/// &quot;nick&quot; string as per the `glib::object::EnumValue` table.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Flags types are not currently supported.</span>
     <span class="doccomment">///</span>
@@ -314,11 +314,11 @@
     <span class="doccomment">/// `Settings`. In that case, the real source of the value is</span>
     <span class="doccomment">/// `Settings`. If you want a `Action` to control a setting stored in</span>
     <span class="doccomment">/// `Settings`, see `SettingsExt::create_action` instead, and possibly</span>
-    <span class="doccomment">/// combine its use with `SettingsExt::bind`.</span>
+    <span class="doccomment">/// combine its use with `Settings::bind`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`glib::object::ObjectExt`](../glib/object/trait.ObjectExt.html), [`ActionExt`](trait.ActionExt.html)</span>
+    <span class="doccomment">/// [`trait@glib::object::ObjectExt`], [`ActionExt`](trait@crate::ActionExt)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PropertyAction</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GPropertyAction</span><span class="op">&gt;</span>) @<span class="ident">implements</span> <span class="ident">Action</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {

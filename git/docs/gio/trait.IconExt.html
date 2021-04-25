@@ -19,7 +19,7 @@ As serialization will avoid using raw icon data when possible, it only
 makes sense to transfer the <code>glib::Variant</code> between processes on the same machine,
 (as opposed to over the network), and within the same file system namespace.</p>
 <h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
-<p>a <code>glib::Variant</code>, or <code>None</code> when serialization fails.</p>
+<p>a <code>glib::Variant</code>, or <code>None</code> when serialization fails. The <code>glib::Variant</code> will not be floating.</p>
 </div><h3 id="tymethod.to_string" class="method"><code>fn <a href="#tymethod.to_string" class="fnname">to_string</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</code><a class="srclink" href="../src/gio/auto/icon.rs.html#159" title="goto source code">[src]</a></h3><div class="docblock"><p>Generates a textual representation of <code>self</code> that can be used for
 serialization such as when passing <code>self</code> to a different process or
 saving it to persistent storage. Use <code>Icon::new_for_string</code> to

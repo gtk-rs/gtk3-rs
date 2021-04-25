@@ -113,6 +113,48 @@
 <span id="110">110</span>
 <span id="111">111</span>
 <span id="112">112</span>
+<span id="113">113</span>
+<span id="114">114</span>
+<span id="115">115</span>
+<span id="116">116</span>
+<span id="117">117</span>
+<span id="118">118</span>
+<span id="119">119</span>
+<span id="120">120</span>
+<span id="121">121</span>
+<span id="122">122</span>
+<span id="123">123</span>
+<span id="124">124</span>
+<span id="125">125</span>
+<span id="126">126</span>
+<span id="127">127</span>
+<span id="128">128</span>
+<span id="129">129</span>
+<span id="130">130</span>
+<span id="131">131</span>
+<span id="132">132</span>
+<span id="133">133</span>
+<span id="134">134</span>
+<span id="135">135</span>
+<span id="136">136</span>
+<span id="137">137</span>
+<span id="138">138</span>
+<span id="139">139</span>
+<span id="140">140</span>
+<span id="141">141</span>
+<span id="142">142</span>
+<span id="143">143</span>
+<span id="144">144</span>
+<span id="145">145</span>
+<span id="146">146</span>
+<span id="147">147</span>
+<span id="148">148</span>
+<span id="149">149</span>
+<span id="150">150</span>
+<span id="151">151</span>
+<span id="152">152</span>
+<span id="153">153</span>
+<span id="154">154</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -124,6 +166,26 @@
 <span class="kw">use</span> <span class="ident">std::ptr</span>;
 
 <span class="kw">impl</span> <span class="ident">Keymap</span> {
+    <span class="doccomment">/// Returns the keyvals bound to `hardware_keycode`.</span>
+    <span class="doccomment">/// The Nth `KeymapKey` in `keys` is bound to the Nth</span>
+    <span class="doccomment">/// keyval in `keyvals`. Free the returned arrays with `g_free`.</span>
+    <span class="doccomment">/// When a keycode is pressed by the user, the keyval from</span>
+    <span class="doccomment">/// this list of entries is selected by considering the effective</span>
+    <span class="doccomment">/// keyboard group and level. See `Keymap::translate_keyboard_state`.</span>
+    <span class="doccomment">/// ## `hardware_keycode`</span>
+    <span class="doccomment">/// a keycode</span>
+    <span class="doccomment">/// ## `keys`</span>
+    <span class="doccomment">/// return</span>
+    <span class="doccomment">///  location for array of `KeymapKey`, or `None`</span>
+    <span class="doccomment">/// ## `keyvals`</span>
+    <span class="doccomment">/// return</span>
+    <span class="doccomment">///  location for array of keyvals, or `None`</span>
+    <span class="doccomment">/// ## `n_entries`</span>
+    <span class="doccomment">/// length of `keys` and `keyvals`</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Returns</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// `true` if there were any entries</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_keymap_get_entries_for_keycode&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">entries_for_keycode</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">hardware_keycode</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span>(<span class="ident">KeymapKey</span>, <span class="ident">u32</span>)<span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
@@ -152,6 +214,28 @@
         }
     }
 
+    <span class="doccomment">/// Obtains a list of keycode/group/level combinations that will</span>
+    <span class="doccomment">/// generate `keyval`. Groups and levels are two kinds of keyboard mode;</span>
+    <span class="doccomment">/// in general, the level determines whether the top or bottom symbol</span>
+    <span class="doccomment">/// on a key is used, and the group determines whether the left or</span>
+    <span class="doccomment">/// right symbol is used. On US keyboards, the shift key changes the</span>
+    <span class="doccomment">/// keyboard level, and there are no groups. A group switch key might</span>
+    <span class="doccomment">/// convert a keyboard between Hebrew to English modes, for example.</span>
+    <span class="doccomment">/// `EventKey` contains a `group` field that indicates the active</span>
+    <span class="doccomment">/// keyboard group. The level is computed from the modifier mask.</span>
+    <span class="doccomment">/// The returned array should be freed</span>
+    <span class="doccomment">/// with `g_free`.</span>
+    <span class="doccomment">/// ## `keyval`</span>
+    <span class="doccomment">/// a keyval, such as `GDK_KEY_a`, `GDK_KEY_Up`, `GDK_KEY_Return`, etc.</span>
+    <span class="doccomment">/// ## `keys`</span>
+    <span class="doccomment">/// return location</span>
+    <span class="doccomment">///  for an array of `KeymapKey`</span>
+    <span class="doccomment">/// ## `n_keys`</span>
+    <span class="doccomment">/// return location for number of elements in returned array</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Returns</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// `true` if keys were found and returned</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_keymap_get_entries_for_keyval&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">entries_for_keyval</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">keyval</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">KeymapKey</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {

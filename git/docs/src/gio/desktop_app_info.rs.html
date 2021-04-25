@@ -168,6 +168,13 @@
 <span id="165">165</span>
 <span id="166">166</span>
 <span id="167">167</span>
+<span id="168">168</span>
+<span id="169">169</span>
+<span id="170">170</span>
+<span id="171">171</span>
+<span id="172">172</span>
+<span id="173">173</span>
+<span id="174">174</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -196,6 +203,13 @@
     <span class="doccomment">/// best-matching applications, and so on.</span>
     <span class="doccomment">/// The algorithm for determining matches is undefined and may change at</span>
     <span class="doccomment">/// any time.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// None of the search results are subjected to the normal validation</span>
+    <span class="doccomment">/// checks performed by `DesktopAppInfo::new` (for example, checking that</span>
+    <span class="doccomment">/// the executable referenced by a result exists), and so it is possible for</span>
+    <span class="doccomment">/// `DesktopAppInfo::new` to return `None` when passed an app ID returned by</span>
+    <span class="doccomment">/// this function. It is expected that calling code will do this when</span>
+    <span class="doccomment">/// subsequently creating a `DesktopAppInfo` for each result.</span>
     <span class="doccomment">/// ## `search_string`</span>
     <span class="doccomment">/// the search string to use</span>
     <span class="doccomment">///</span>

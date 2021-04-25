@@ -7,7 +7,7 @@
 <div class="item-spacer"></div>    fn <a href="#tymethod.remove_action" class="fnname">remove_action</a>(&amp;self, action_name: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>);
 }</pre></div><div class="docblock"><p>Trait containing all <code>ActionMap</code> methods.</p>
 <h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
-<p><a href="struct.ActionMap.html"><code>ActionMap</code></a>, <a href="struct.Application.html"><code>Application</code></a>, <a href="struct.SimpleActionGroup.html"><code>SimpleActionGroup</code></a></p>
+<p><a href="../struct.ActionMap.html"><code>ActionMap</code></a>, <a href="../struct.Application.html"><code>Application</code></a>, <a href="../struct.SimpleActionGroup.html"><code>SimpleActionGroup</code></a></p>
 </div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.add_action" class="method"><code>fn <a href="#tymethod.add_action" class="fnname">add_action</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Action.html" title="struct gio::Action">Action</a>&gt;&gt;(&amp;self, action: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P)</code><a class="srclink" href="../../src/gio/auto/action_map.rs.html#48" title="goto source code">[src]</a></h3><div class="docblock"><p>Adds an action to the <code>self</code>.</p>
 <p>If the action map already contains an action with the same name
 as <code>action</code> then the old action is dropped from the action map.</p>

@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["Analysis",""]]});
+initSidebarItems({"struct":[["Analysis","The `Analysis` structure stores information about the properties of a segment of text."]]});

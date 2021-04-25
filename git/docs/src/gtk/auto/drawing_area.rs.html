@@ -534,7 +534,7 @@
     <span class="doccomment">/// onscreen, or when it’s covered by another window and then uncovered.</span>
     <span class="doccomment">/// You can also force an expose event by adding to the “damage region”</span>
     <span class="doccomment">/// of the drawing area’s window; `WidgetExt::queue_draw_area` and</span>
-    <span class="doccomment">/// `gdk::WindowExt::invalidate_rect` are equally good ways to do this.</span>
+    <span class="doccomment">/// `gdk::Window::invalidate_rect` are equally good ways to do this.</span>
     <span class="doccomment">/// You’ll then get a draw signal for the invalid region.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The available routines for drawing are documented on the</span>
@@ -551,7 +551,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`WidgetExt`](trait.WidgetExt.html), [`glib::object::ObjectExt`](../glib/object/trait.ObjectExt.html), [`BuildableExt`](trait.BuildableExt.html), [`WidgetExtManual`](prelude/trait.WidgetExtManual.html), [`BuildableExtManual`](prelude/trait.BuildableExtManual.html)</span>
+    <span class="doccomment">/// [`WidgetExt`](trait@crate::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::BuildableExt), [`WidgetExtManual`](trait@crate::WidgetExtManual), [`BuildableExtManual`](trait@crate::BuildableExtManual)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DrawingArea</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkDrawingArea</span>, <span class="ident">ffi::GtkDrawingAreaClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {

@@ -178,7 +178,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`TlsServerConnectionExt`](trait.TlsServerConnectionExt.html), [`TlsConnectionExt`](trait.TlsConnectionExt.html), [`IOStreamExt`](trait.IOStreamExt.html), [`glib::object::ObjectExt`](../glib/object/trait.ObjectExt.html), [`IOStreamExtManual`](prelude/trait.IOStreamExtManual.html)</span>
+    <span class="doccomment">/// [`TlsServerConnectionExt`](trait@crate::TlsServerConnectionExt), [`TlsConnectionExt`](trait@crate::TlsConnectionExt), [`IOStreamExt`](trait@crate::IOStreamExt), [`trait@glib::object::ObjectExt`], [`TlsConnectionExtManual`](trait@crate::TlsConnectionExtManual), [`IOStreamExtManual`](trait@crate::IOStreamExtManual)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TlsServerConnection</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi::GTlsServerConnection</span>, <span class="ident">ffi::GTlsServerConnectionInterface</span><span class="op">&gt;</span>) @<span class="ident">requires</span> <span class="ident">TlsConnection</span>, <span class="ident">IOStream</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -229,7 +229,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`TlsServerConnection`](struct.TlsServerConnection.html)</span>
+<span class="doccomment">/// [`TlsServerConnection`](struct@crate::TlsServerConnection)</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">TlsServerConnectionExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_property_authentication_mode&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">authentication_mode</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TlsAuthenticationMode</span>;

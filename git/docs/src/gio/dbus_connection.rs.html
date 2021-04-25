@@ -1028,12 +1028,12 @@
     <span class="doccomment">/// `DBusConnection::signal_unsubscribe` has been called in another thread.</span>
     <span class="doccomment">/// Due to this, `user_data` should have a strong reference which is freed with</span>
     <span class="doccomment">/// `user_data_free_func`, rather than pointing to data whose lifecycle is tied</span>
-    <span class="doccomment">/// to the signal subscription. For example, if a `gobject::Object` is used to store the</span>
+    <span class="doccomment">/// to the signal subscription. For example, if a `glib::object::Object` is used to store the</span>
     <span class="doccomment">/// subscription ID from `DBusConnection::signal_subscribe`, a strong reference</span>
-    <span class="doccomment">/// to that `gobject::Object` must be passed to `user_data`, and `gobject::ObjectExt::unref` passed to</span>
+    <span class="doccomment">/// to that `glib::object::Object` must be passed to `user_data`, and `glib::object::ObjectExt::unref` passed to</span>
     <span class="doccomment">/// `user_data_free_func`. You are responsible for breaking the resulting</span>
     <span class="doccomment">/// reference count cycle by explicitly unsubscribing from the signal when</span>
-    <span class="doccomment">/// dropping the last external reference to the `gobject::Object`. Alternatively, a weak</span>
+    <span class="doccomment">/// dropping the last external reference to the `glib::object::Object`. Alternatively, a weak</span>
     <span class="doccomment">/// reference may be used.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// It is guaranteed that if you unsubscribe from a signal using</span>

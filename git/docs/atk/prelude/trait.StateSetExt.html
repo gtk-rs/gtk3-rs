@@ -12,7 +12,7 @@
 <div class="item-spacer"></div>    fn <a href="#tymethod.xor_sets" class="fnname">xor_sets</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.StateSet.html" title="struct atk::StateSet">StateSet</a>&gt;&gt;(&amp;self, compare_set: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.StateSet.html" title="struct atk::StateSet">StateSet</a>&gt;;
 }</pre></div><div class="docblock"><p>Trait containing all <code>StateSet</code> methods.</p>
 <h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
-<p><a href="struct.StateSet.html"><code>StateSet</code></a></p>
+<p><a href="../struct.StateSet.html"><code>StateSet</code></a></p>
 </div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.add_state" class="method"><code>fn <a href="#tymethod.add_state" class="fnname">add_state</a>(&amp;self, type_: <a class="enum" href="../enum.StateType.html" title="enum atk::StateType">StateType</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/atk/auto/state_set.rs.html#66" title="goto source code">[src]</a></h3><div class="docblock"><p>Adds the state of the specified type to the state set if it is not already
 present.</p>
 <p>Note that because an <code>StateSet</code> is a read-only object, this method should

@@ -12,7 +12,16 @@ a part of <a href="https://gtk-rs.org/">Gtk-rs</a>.</p>
 with which the user can interact directly, i.e. buttons,
 checkboxes, scrollbars, e.g. components which are not “passive”
 providers of UI information.</p>
-</td></tr><tr class="module-item"><td><a class="struct" href="struct.Attribute.html" title="atk::Attribute struct">Attribute</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="struct" href="struct.Component.html" title="atk::Component struct">Component</a></td><td class="docblock-short"><p><code>Component</code> should be implemented by most if not all UI elements
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.Attribute.html" title="atk::Attribute struct">Attribute</a></td><td class="docblock-short"><p>AtkAttribute is a string name/value pair representing a generic
+attribute. This can be used to expose additional information from
+an accessible object as a whole (see <code>AtkObjectExt::get_attributes</code>)
+or an document (see <code>Document::get_attributes</code>). In the case of
+text attributes (see <code>Text::get_default_attributes</code>),
+<code>TextAttribute</code> enum defines all the possible text attribute
+names. You can use <code>TextAttribute::get_name</code> to get the string
+name from the enum value. See also <code>TextAttribute::for_name</code>
+and <code>TextAttribute::get_value</code> for more information.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.Component.html" title="atk::Component struct">Component</a></td><td class="docblock-short"><p><code>Component</code> should be implemented by most if not all UI elements
 with an actual on-screen presence, i.e. components which can be
 said to have a screen-coordinate bounding box. Virtually all
 widgets will need to have <code>Component</code> implementations provided
@@ -157,7 +166,8 @@ expose the text content. In the case of editable text content,
 <code>EditableText</code> (a subtype of the <code>Text</code> interface) should be
 implemented instead.</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.TextRange.html" title="atk::TextRange struct">TextRange</a></td><td class="docblock-short"><p>A structure used to describe a text range.</p>
-</td></tr><tr class="module-item"><td><a class="struct" href="struct.TextRectangle.html" title="atk::TextRectangle struct">TextRectangle</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="struct" href="struct.Util.html" title="atk::Util struct">Util</a></td><td class="docblock-short"><p>A set of ATK utility functions which are used to support event
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.TextRectangle.html" title="atk::TextRectangle struct">TextRectangle</a></td><td class="docblock-short"><p>A structure used to store a rectangle used by AtkText.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.Util.html" title="atk::Util struct">Util</a></td><td class="docblock-short"><p>A set of ATK utility functions which are used to support event
 registration of various types, and obtaining the ‘root’ accessible
 of a process and information about the current ATK implementation
 and toolkit version.</p>

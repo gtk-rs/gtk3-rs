@@ -1430,7 +1430,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Since GTK 3.8, motion events are already compressed by default, independent</span>
     <span class="doccomment">/// of this mechanism. This compression can be disabled with</span>
-    <span class="doccomment">/// `WindowExt::set_event_compression`. See the documentation of that function</span>
+    <span class="doccomment">/// `Window::set_event_compression`. See the documentation of that function</span>
     <span class="doccomment">/// for details.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If `EventMask::TouchMask` is enabled, the window will receive touch events</span>
@@ -2034,11 +2034,11 @@
 
 <span class="macro">bitflags!</span> {
     <span class="doccomment">/// Used to indicate which fields of a `Geometry` struct should be paid</span>
-    <span class="doccomment">/// attention to. Also, the presence/absence of `WindowHints::Pos`,</span>
-    <span class="doccomment">/// `WindowHints::UserPos`, and `WindowHints::UserSize` is significant, though they don&#39;t</span>
-    <span class="doccomment">/// directly refer to `Geometry` fields. `WindowHints::UserPos` will be set</span>
+    <span class="doccomment">/// attention to. Also, the presence/absence of [`Pos`](Self::Pos),</span>
+    <span class="doccomment">/// [`UserPos`](Self::UserPos), and [`UserSize`](Self::UserSize) is significant, though they don&#39;t</span>
+    <span class="doccomment">/// directly refer to `Geometry` fields. [`UserPos`](Self::UserPos) will be set</span>
     <span class="doccomment">/// automatically by ``GtkWindow`` if you call `gtk_window_move`.</span>
-    <span class="doccomment">/// `WindowHints::UserPos` and `WindowHints::UserSize` should be set if the user</span>
+    <span class="doccomment">/// [`UserPos`](Self::UserPos) and [`UserSize`](Self::UserSize) should be set if the user</span>
     <span class="doccomment">/// specified a size/position using a --geometry command-line argument;</span>
     <span class="doccomment">/// `gtk_window_parse_geometry` automatically sets these flags.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">WindowHints</span>: <span class="ident">u32</span> {

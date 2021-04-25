@@ -975,7 +975,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`ShortcutsWindowExt`](trait.ShortcutsWindowExt.html), [`GtkWindowExt`](trait.GtkWindowExt.html), [`BinExt`](trait.BinExt.html), [`ContainerExt`](trait.ContainerExt.html), [`WidgetExt`](trait.WidgetExt.html), [`glib::object::ObjectExt`](../glib/object/trait.ObjectExt.html), [`BuildableExt`](trait.BuildableExt.html), [`GtkWindowExtManual`](prelude/trait.GtkWindowExtManual.html), [`WidgetExtManual`](prelude/trait.WidgetExtManual.html), [`BuildableExtManual`](prelude/trait.BuildableExtManual.html)</span>
+    <span class="doccomment">/// [`ShortcutsWindowExt`](trait@crate::ShortcutsWindowExt), [`GtkWindowExt`](trait@crate::GtkWindowExt), [`BinExt`](trait@crate::BinExt), [`ContainerExt`](trait@crate::ContainerExt), [`WidgetExt`](trait@crate::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::BuildableExt), [`GtkWindowExtManual`](trait@crate::GtkWindowExtManual), [`WidgetExtManual`](trait@crate::WidgetExtManual), [`BuildableExtManual`](trait@crate::BuildableExtManual)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ShortcutsWindow</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkShortcutsWindow</span>, <span class="ident">ffi::GtkShortcutsWindowClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Window</span>, <span class="ident">Bin</span>, <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -1597,7 +1597,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`ShortcutsWindow`](struct.ShortcutsWindow.html)</span>
+<span class="doccomment">/// [`ShortcutsWindow`](struct@crate::ShortcutsWindow)</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ShortcutsWindowExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_property_section_name&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">section_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span>;

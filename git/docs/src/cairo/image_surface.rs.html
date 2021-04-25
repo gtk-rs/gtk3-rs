@@ -240,12 +240,6 @@
 <span id="237">237</span>
 <span id="238">238</span>
 <span id="239">239</span>
-<span id="240">240</span>
-<span id="241">241</span>
-<span id="242">242</span>
-<span id="243">243</span>
-<span id="244">244</span>
-<span id="245">245</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -355,12 +349,6 @@
         }
     }
 
-    <span class="doccomment">/// Call the provided function with access to the pixel data of this image.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Unlike [`get_data`], this can succeed even if there is a [`Context`](struct.Context.html)</span>
-    <span class="doccomment">/// referencing this image.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`get_data`]: struct.ImageSurface.html#method.get_data</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_data</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">FnOnce</span>(<span class="kw-2">&amp;</span>[<span class="ident">u8</span>])<span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">BorrowError</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">flush</span>();
         <span class="kw">unsafe</span> {

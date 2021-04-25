@@ -74,6 +74,11 @@
 <span id="71">71</span>
 <span id="72">72</span>
 <span id="73">73</span>
+<span id="74">74</span>
+<span id="75">75</span>
+<span id="76">76</span>
+<span id="77">77</span>
+<span id="78">78</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -82,6 +87,11 @@
 <span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">FontMapExtManual</span> {
+    <span class="doccomment">/// Gets the type of Cairo font backend that `self` uses.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Returns</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// the `cairo::FontType` cairo font backend type</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_cairo_font_map_get_font_type&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">font_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">cairo::FontType</span>;
 }
@@ -96,9 +106,9 @@
     <span class="doccomment">/// Creates a new `FontMap` object of the type suitable</span>
     <span class="doccomment">/// to be used with cairo font backend of type `fonttype`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// In most cases one should simply use `FontMap::new`(),</span>
+    <span class="doccomment">/// In most cases one should simply use [`new`](Self::new)(),</span>
     <span class="doccomment">/// or in fact in most of those cases, just use</span>
-    <span class="doccomment">/// `FontMap::get_default`().</span>
+    <span class="doccomment">/// [`get_default`](Self::get_default)().</span>
     <span class="doccomment">/// ## `fonttype`</span>
     <span class="doccomment">/// desired `cairo::FontType`</span>
     <span class="doccomment">///</span>
@@ -106,7 +116,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// the newly allocated</span>
     <span class="doccomment">///  `pango::FontMap` of suitable type which should be freed</span>
-    <span class="doccomment">///  with `gobject::Object::unref`, or `None` if the requested</span>
+    <span class="doccomment">///  with `glib::object::Object::unref`, or `None` if the requested</span>
     <span class="doccomment">///  cairo font backend is not supported / compiled in.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_cairo_font_map_new_for_font_type&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_for_font_type</span>(<span class="ident">fonttype</span>: <span class="ident">cairo::FontType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">pango::FontMap</span><span class="op">&gt;</span> {
@@ -134,7 +144,7 @@
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// the newly allocated `pango::FontMap`,</span>
-    <span class="doccomment">///  which should be freed with `gobject::Object::unref`.</span>
+    <span class="doccomment">///  which should be freed with `glib::object::Object::unref`.</span>
     <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::new_ret_no_self</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_cairo_font_map_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">pango::FontMap</span><span class="op">&gt;</span> {
