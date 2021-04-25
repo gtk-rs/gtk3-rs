@@ -661,6 +661,13 @@ manual_traits = ["IOStreamExtManual"]
 name = "Gio.ListModel"
 status = "generate"
 version = "2.44"
+    # Can get removed when gir shadow annotations are implemented (gtk-rs/gir#1112)
+    [[object.function]]
+    name = "get_item"
+    ignore = true
+    [[object.function]]
+    name = "get_object"
+    rename = "item"
 
 [[object]]
 name = "Gio.ListStore"
