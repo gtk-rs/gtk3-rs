@@ -142,7 +142,7 @@ pub fn impl_genum(input: &syn::DeriveInput) -> TokenStream {
             }
 
             fn value_type(&self) -> #crate_ident::Type {
-                Self::static_type()
+                <Self as #crate_ident::StaticType>::static_type()
             }
         }
 

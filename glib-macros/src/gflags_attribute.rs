@@ -162,7 +162,7 @@ pub fn impl_gflags(input: &DeriveInput, gtype_name: &LitStr) -> TokenStream {
             }
 
             fn value_type(&self) -> #crate_ident::Type {
-                Self::static_type()
+                <Self as #crate_ident::StaticType>::static_type()
             }
         }
 
