@@ -8,7 +8,7 @@ use std::mem;
 #[cfg(any(feature = "v2_58", feature = "dox"))]
 use std::os::unix::io::AsRawFd;
 #[cfg(not(windows))]
-use std::os::unix::io::FromRawFd;
+use std::os::unix::io::{FromRawFd, RawFd};
 // #[cfg(windows)]
 // #[cfg(any(feature = "v2_58", feature = "dox"))]
 // use std::os::windows::io::AsRawHandle;
@@ -220,5 +220,23 @@ pub fn charset() -> (bool, Option<GString>) {
         let is_utf8 = from_glib(ffi::g_get_charset(&mut out_charset));
         let charset = from_glib_none(out_charset);
         (is_utf8, charset)
+    }
+}
+
+#[cfg(unix)]
+#[doc(alias = "g_unix_open_pipe")]
+pub fn unix_open_pipe(flags: i32) -> Result<(RawFd, RawFd), Error> {
+    unsafe {
+        let mut fds = [0, 2];
+        let mut error = ptr::null_mut();
+        let _ = ffi::g_unix_open_pipe(fds.as_mut_ptr(), flags, &mut error);
+        if error.is_null() {
+            Ok((
+                FromRawFd::from_raw_fd(fds[0]),
+                FromRawFd::from_raw_fd(fds[1]),
+            ))
+        } else {
+            Err(from_glib_full(error))
+        }
     }
 }
