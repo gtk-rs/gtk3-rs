@@ -77,9 +77,6 @@ status = "generate"
     #string
     ignore = true
     [[object.function]]
-    name = "unix_open_pipe"
-    ignore = true
-    [[object.function]]
     pattern = "str.+"
     ignore = true
     [[object.function]]
@@ -181,6 +178,9 @@ status = "generate"
     [[object.function]]
     name = "spawn_command_line_async"
     cfg_condition = "unix"
+    [[object.function]]
+    name = "unix_open_pipe"
+    manual = true
     [[object.function]]
     name = "convert_with_fallback"
     #out param not in .gir
