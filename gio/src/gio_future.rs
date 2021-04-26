@@ -5,8 +5,8 @@ use futures_core::task::{Context, Poll};
 use std::future::Future;
 use std::pin::{self, Pin};
 
+use crate::prelude::*;
 use crate::Cancellable;
-use crate::CancellableExt;
 
 pub struct GioFuture<F, O, T, E> {
     obj: O,

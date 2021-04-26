@@ -1,11 +1,10 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
 use crate::Builder;
-use glib::object::{Cast, IsA};
+use glib::prelude::*;
 use glib::translate::*;
 use glib::GString;
 use glib::Object;
-use glib::ObjectExt;
 use std::path::Path;
 
 impl Builder {

@@ -1,7 +1,7 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use crate::{Settings, SettingsBindFlags, SettingsExt};
-use glib::prelude::*;
+use crate::prelude::*;
+use crate::{Settings, SettingsBindFlags};
 use glib::translate::{from_glib_borrow, from_glib_none, ToGlib, ToGlibPtr};
 use glib::variant::FromVariant;
 use glib::{BoolError, IsA, ToVariant};

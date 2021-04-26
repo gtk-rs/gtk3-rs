@@ -1,8 +1,8 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
+use crate::prelude::*;
 use crate::InetAddress;
 use crate::InetSocketAddress;
-use crate::InetSocketAddressExt;
 
 use std::net::SocketAddr;
 

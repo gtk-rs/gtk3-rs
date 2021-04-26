@@ -7,8 +7,9 @@ use glib::translate::*;
 
 use glib::prelude::*;
 use glib::subclass::prelude::*;
-use glib::{Cast, Object};
+use glib::Object;
 
+use crate::prelude::*;
 use crate::Allocation;
 use crate::DragResult;
 use crate::Inhibit;
@@ -17,7 +18,6 @@ use crate::SelectionData;
 use crate::SizeRequestMode;
 use crate::TextDirection;
 use crate::Widget;
-use crate::WidgetExt;
 
 pub trait WidgetImpl: WidgetImplExt + ObjectImpl {
     fn adjust_baseline_allocation(&self, widget: &Self::Type, baseline: &mut i32) {

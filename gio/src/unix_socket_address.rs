@@ -1,10 +1,9 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
+use crate::prelude::*;
 use crate::SocketAddress;
 use crate::UnixSocketAddress;
-use crate::UnixSocketAddressExt;
 use crate::UnixSocketAddressType;
-use glib::object::{Cast, IsA};
 use glib::translate::*;
 #[cfg(not(feature = "dox"))]
 use std::ffi::OsStr;

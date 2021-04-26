@@ -2,10 +2,7 @@ pub mod ffi;
 mod imp;
 
 use gtk::glib::subclass::prelude::*;
-use gtk::prelude::AsyncResultExt;
-use gtk::prelude::Cast;
-use gtk::prelude::FileExt;
-use gtk::prelude::ToValue;
+use gtk::prelude::*;
 use gtk::{gio, glib};
 
 glib::wrapper! {

@@ -1,16 +1,12 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use crate::auto::DialogExt;
+use crate::prelude::*;
 use crate::Dialog;
 use crate::DialogFlags;
 use crate::ResponseType;
 use crate::Widget;
-use crate::WidgetExt;
 use crate::Window;
-use glib::object::Cast;
 use glib::translate::*;
-use glib::IsA;
-use glib::ObjectExt;
 use std::cell::Cell;
 use std::future::Future;
 use std::pin::Pin;

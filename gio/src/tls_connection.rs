@@ -1,8 +1,8 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
 #[cfg(any(feature = "v2_66", feature = "dox"))]
-use crate::auto::TlsChannelBindingType;
-use crate::auto::TlsConnection;
+use crate::TlsChannelBindingType;
+use crate::TlsConnection;
 #[cfg(any(feature = "v2_66", feature = "dox"))]
 use glib::translate::*;
 use glib::IsA;

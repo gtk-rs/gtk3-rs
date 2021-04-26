@@ -1,7 +1,7 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
+use crate::prelude::*;
 use crate::InetAddress;
-use crate::InetAddressExt;
 use crate::SocketFamily;
 use glib::object::IsA;
 use glib::translate::*;

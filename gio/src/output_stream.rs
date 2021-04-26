@@ -5,7 +5,6 @@ use crate::prelude::*;
 use crate::Cancellable;
 use crate::OutputStream;
 use crate::Seekable;
-use crate::SeekableExt;
 use glib::object::IsA;
 use glib::translate::*;
 use glib::Priority;
