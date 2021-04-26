@@ -724,7 +724,7 @@ pub static VOLUME_IDENTIFIER_KIND_CLASS: once_cell::sync::Lazy<&'static str> =
             .to_str()
             .unwrap()
     });
-#[cfg_attr(feature = "v2_58", deprecated)]
+#[cfg_attr(feature = "v2_58", deprecated = "Since 2.58")]
 #[doc(alias = "G_VOLUME_IDENTIFIER_KIND_HAL_UDI")]
 pub static VOLUME_IDENTIFIER_KIND_HAL_UDI: once_cell::sync::Lazy<&'static str> =
     once_cell::sync::Lazy::new(|| unsafe {

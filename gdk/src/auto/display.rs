@@ -95,7 +95,7 @@ impl Display {
         unsafe { from_glib_none(ffi::gdk_display_get_default_seat(self.to_glib_none().0)) }
     }
 
-    #[cfg_attr(feature = "v3_20", deprecated)]
+    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
     #[doc(alias = "gdk_display_get_device_manager")]
     pub fn device_manager(&self) -> Option<DeviceManager> {
         unsafe { from_glib_none(ffi::gdk_display_get_device_manager(self.to_glib_none().0)) }
@@ -178,7 +178,7 @@ impl Display {
         unsafe { from_glib_none(ffi::gdk_display_get_primary_monitor(self.to_glib_none().0)) }
     }
 
-    #[cfg_attr(feature = "v3_20", deprecated)]
+    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
     #[doc(alias = "gdk_display_get_screen")]
     pub fn screen(&self, screen_num: i32) -> Screen {
         unsafe {
@@ -279,7 +279,7 @@ impl Display {
         }
     }
 
-    #[cfg_attr(feature = "v3_16", deprecated)]
+    #[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
     #[doc(alias = "gdk_display_supports_composite")]
     pub fn supports_composite(&self) -> bool {
         unsafe { from_glib(ffi::gdk_display_supports_composite(self.to_glib_none().0)) }
@@ -345,7 +345,7 @@ impl Display {
         unsafe { from_glib_none(ffi::gdk_display_open(display_name.to_glib_none().0)) }
     }
 
-    #[cfg_attr(feature = "v3_16", deprecated)]
+    #[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
     #[doc(alias = "gdk_display_open_default_libgtk_only")]
     pub fn open_default_libgtk_only() -> Option<Display> {
         assert_initialized_main_thread!();

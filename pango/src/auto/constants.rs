@@ -4,7 +4,7 @@
 
 use std::ffi::CStr;
 
-#[cfg_attr(feature = "v1_38", deprecated)]
+#[cfg_attr(feature = "v1_38", deprecated = "Since 1.38")]
 #[doc(alias = "PANGO_ENGINE_TYPE_LANG")]
 pub static ENGINE_TYPE_LANG: once_cell::sync::Lazy<&'static str> =
     once_cell::sync::Lazy::new(|| unsafe {
@@ -12,7 +12,7 @@ pub static ENGINE_TYPE_LANG: once_cell::sync::Lazy<&'static str> =
             .to_str()
             .unwrap()
     });
-#[cfg_attr(feature = "v1_38", deprecated)]
+#[cfg_attr(feature = "v1_38", deprecated = "Since 1.38")]
 #[doc(alias = "PANGO_ENGINE_TYPE_SHAPE")]
 pub static ENGINE_TYPE_SHAPE: once_cell::sync::Lazy<&'static str> =
     once_cell::sync::Lazy::new(|| unsafe {
@@ -20,7 +20,7 @@ pub static ENGINE_TYPE_SHAPE: once_cell::sync::Lazy<&'static str> =
             .to_str()
             .unwrap()
     });
-#[cfg_attr(feature = "v1_38", deprecated)]
+#[cfg_attr(feature = "v1_38", deprecated = "Since 1.38")]
 #[doc(alias = "PANGO_RENDER_TYPE_NONE")]
 pub static RENDER_TYPE_NONE: once_cell::sync::Lazy<&'static str> =
     once_cell::sync::Lazy::new(|| unsafe {

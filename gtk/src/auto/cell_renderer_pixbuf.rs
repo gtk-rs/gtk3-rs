@@ -263,11 +263,11 @@ impl CellRendererPixbufBuilder {
 pub const NONE_CELL_RENDERER_PIXBUF: Option<&CellRendererPixbuf> = None;
 
 pub trait CellRendererPixbufExt: 'static {
-    #[cfg_attr(feature = "v3_16", deprecated)]
+    #[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
     #[doc(alias = "get_property_follow_state")]
     fn follows_state(&self) -> bool;
 
-    #[cfg_attr(feature = "v3_16", deprecated)]
+    #[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
     #[doc(alias = "set_property_follow_state")]
     fn set_follow_state(&self, follow_state: bool);
 
@@ -313,7 +313,7 @@ pub trait CellRendererPixbufExt: 'static {
     #[doc(alias = "set_property_surface")]
     fn set_surface(&self, surface: Option<&cairo::Surface>);
 
-    #[cfg_attr(feature = "v3_16", deprecated)]
+    #[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
     fn connect_property_follow_state_notify<F: Fn(&Self) + 'static>(&self, f: F)
         -> SignalHandlerId;
 

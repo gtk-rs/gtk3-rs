@@ -160,7 +160,7 @@ pub trait WidgetExt: 'static {
     #[doc(alias = "gtk_drag_dest_get_track_motion")]
     fn drag_dest_get_track_motion(&self) -> bool;
 
-    #[cfg_attr(feature = "v3_22", deprecated)]
+    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
     #[doc(alias = "gtk_drag_dest_set_proxy")]
     fn drag_dest_set_proxy(
         &self,
@@ -491,7 +491,7 @@ pub trait WidgetExt: 'static {
     #[doc(alias = "gtk_widget_is_ancestor")]
     fn is_ancestor<P: IsA<Widget>>(&self, ancestor: &P) -> bool;
 
-    #[cfg_attr(feature = "v3_22", deprecated)]
+    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
     #[doc(alias = "gtk_widget_is_composited")]
     fn is_composited(&self) -> bool;
 
@@ -530,23 +530,23 @@ pub trait WidgetExt: 'static {
     #[doc(alias = "gtk_widget_mnemonic_activate")]
     fn mnemonic_activate(&self, group_cycling: bool) -> bool;
 
-    #[cfg_attr(feature = "v3_16", deprecated)]
+    #[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
     #[doc(alias = "gtk_widget_override_background_color")]
     fn override_background_color(&self, state: StateFlags, color: Option<&gdk::RGBA>);
 
-    #[cfg_attr(feature = "v3_16", deprecated)]
+    #[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
     #[doc(alias = "gtk_widget_override_color")]
     fn override_color(&self, state: StateFlags, color: Option<&gdk::RGBA>);
 
-    #[cfg_attr(feature = "v3_16", deprecated)]
+    #[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
     #[doc(alias = "gtk_widget_override_cursor")]
     fn override_cursor(&self, cursor: Option<&gdk::RGBA>, secondary_cursor: Option<&gdk::RGBA>);
 
-    #[cfg_attr(feature = "v3_16", deprecated)]
+    #[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
     #[doc(alias = "gtk_widget_override_font")]
     fn override_font(&self, font_desc: &pango::FontDescription);
 
-    #[cfg_attr(feature = "v3_16", deprecated)]
+    #[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
     #[doc(alias = "gtk_widget_override_symbolic_color")]
     fn override_symbolic_color(&self, name: &str, color: Option<&gdk::RGBA>);
 
@@ -593,7 +593,7 @@ pub trait WidgetExt: 'static {
     #[doc(alias = "gtk_widget_reset_style")]
     fn reset_style(&self);
 
-    #[cfg_attr(feature = "v3_22", deprecated)]
+    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
     #[doc(alias = "gtk_widget_send_expose")]
     fn send_expose(&self, event: &gdk::Event) -> i32;
 
@@ -857,10 +857,10 @@ pub trait WidgetExt: 'static {
         f: F,
     ) -> SignalHandlerId;
 
-    #[cfg_attr(feature = "v3_22", deprecated)]
+    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
     fn connect_composited_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    #[cfg_attr(feature = "v3_22", deprecated)]
+    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
     fn emit_composited_changed(&self);
 
     fn connect_configure_event<F: Fn(&Self, &gdk::EventConfigure) -> bool + 'static>(

@@ -29,7 +29,7 @@ impl CssProvider {
         unsafe { from_glib_full(ffi::gtk_css_provider_new()) }
     }
 
-    #[cfg_attr(feature = "v3_24", deprecated)]
+    #[cfg_attr(feature = "v3_24", deprecated = "Since 3.24")]
     #[doc(alias = "gtk_css_provider_get_default")]
     pub fn default() -> Option<CssProvider> {
         assert_initialized_main_thread!();

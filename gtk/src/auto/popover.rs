@@ -487,7 +487,7 @@ pub trait PopoverExt: 'static {
     #[doc(alias = "gtk_popover_get_relative_to")]
     fn relative_to(&self) -> Option<Widget>;
 
-    #[cfg_attr(feature = "v3_22", deprecated)]
+    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_popover_get_transitions_enabled")]
@@ -525,7 +525,7 @@ pub trait PopoverExt: 'static {
     #[doc(alias = "gtk_popover_set_relative_to")]
     fn set_relative_to<P: IsA<Widget>>(&self, relative_to: Option<&P>);
 
-    #[cfg_attr(feature = "v3_22", deprecated)]
+    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_popover_set_transitions_enabled")]
@@ -546,7 +546,7 @@ pub trait PopoverExt: 'static {
 
     fn connect_property_relative_to_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    #[cfg_attr(feature = "v3_22", deprecated)]
+    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn connect_property_transitions_enabled_notify<F: Fn(&Self) + 'static>(

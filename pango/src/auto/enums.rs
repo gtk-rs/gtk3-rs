@@ -332,7 +332,7 @@ impl ToValue for AttrType {
     }
 }
 
-#[cfg_attr(feature = "v1_44", deprecated)]
+#[cfg_attr(feature = "v1_44", deprecated = "Since 1.44")]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
 #[doc(alias = "PangoBidiType")]
@@ -1462,7 +1462,7 @@ pub enum Script {
 }
 
 impl Script {
-    #[cfg_attr(feature = "v1_44", deprecated)]
+    #[cfg_attr(feature = "v1_44", deprecated = "Since 1.44")]
     #[doc(alias = "pango_script_for_unichar")]
     pub fn for_unichar(ch: char) -> Script {
         unsafe { from_glib(ffi::pango_script_for_unichar(ch.to_glib())) }

@@ -22,7 +22,7 @@ glib::wrapper! {
 }
 
 impl DeviceManager {
-    #[cfg_attr(feature = "v3_20", deprecated)]
+    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
     #[doc(alias = "gdk_device_manager_get_client_pointer")]
     pub fn client_pointer(&self) -> Option<Device> {
         unsafe {
@@ -37,7 +37,7 @@ impl DeviceManager {
         unsafe { from_glib_none(ffi::gdk_device_manager_get_display(self.to_glib_none().0)) }
     }
 
-    #[cfg_attr(feature = "v3_20", deprecated)]
+    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
     #[doc(alias = "gdk_device_manager_list_devices")]
     pub fn list_devices(&self, type_: DeviceType) -> Vec<Device> {
         unsafe {

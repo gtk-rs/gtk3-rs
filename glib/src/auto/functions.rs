@@ -687,7 +687,7 @@ pub fn console_charset() -> Option<crate::GString> {
     }
 }
 
-//#[cfg_attr(feature = "v2_62", deprecated)]
+//#[cfg_attr(feature = "v2_62", deprecated = "Since 2.62")]
 //#[doc(alias = "g_get_current_time")]
 //pub fn current_time(result: /*Ignored*/&mut TimeVal) {
 //    unsafe { TODO: call ffi:g_get_current_time() }
@@ -954,13 +954,13 @@ pub fn markup_escape_text(text: &str) -> crate::GString {
 //    unsafe { TODO: call ffi:g_markup_vprintf_escaped() }
 //}
 
-#[cfg_attr(feature = "v2_46", deprecated)]
+#[cfg_attr(feature = "v2_46", deprecated = "Since 2.46")]
 #[doc(alias = "g_mem_is_system_malloc")]
 pub fn mem_is_system_malloc() -> bool {
     unsafe { from_glib(ffi::g_mem_is_system_malloc()) }
 }
 
-#[cfg_attr(feature = "v2_46", deprecated)]
+#[cfg_attr(feature = "v2_46", deprecated = "Since 2.46")]
 #[doc(alias = "g_mem_profile")]
 pub fn mem_profile() {
     unsafe {
@@ -968,13 +968,13 @@ pub fn mem_profile() {
     }
 }
 
-//#[cfg_attr(feature = "v2_46", deprecated)]
+//#[cfg_attr(feature = "v2_46", deprecated = "Since 2.46")]
 //#[doc(alias = "g_mem_set_vtable")]
 //pub fn mem_set_vtable(vtable: /*Ignored*/&mut MemVTable) {
 //    unsafe { TODO: call ffi:g_mem_set_vtable() }
 //}
 
-//#[cfg_attr(feature = "v2_68", deprecated)]
+//#[cfg_attr(feature = "v2_68", deprecated = "Since 2.68")]
 //#[doc(alias = "g_memdup")]
 //pub fn memdup(mem: /*Unimplemented*/Option<Fundamental: Pointer>, byte_size: u32) -> /*Unimplemented*/Option<Fundamental: Pointer> {
 //    unsafe { TODO: call ffi:g_memdup() }

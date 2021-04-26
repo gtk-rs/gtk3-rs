@@ -2334,7 +2334,7 @@ impl ToValue for FileChooserError {
     }
 }
 
-#[deprecated]
+#[deprecated = "Since 3.10"]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
 #[doc(alias = "GtkIMPreeditStyle")]
@@ -2424,7 +2424,7 @@ impl ToValue for IMPreeditStyle {
     }
 }
 
-#[deprecated]
+#[deprecated = "Since 3.10"]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
 #[doc(alias = "GtkIMStatusStyle")]
@@ -7692,7 +7692,7 @@ impl ToValue for StackTransitionType {
     }
 }
 
-#[deprecated]
+#[deprecated = "Since 3.14"]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
 #[doc(alias = "GtkStateType")]

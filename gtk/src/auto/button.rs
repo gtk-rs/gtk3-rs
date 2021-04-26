@@ -496,7 +496,7 @@ pub trait ButtonExt: 'static {
     #[doc(alias = "gtk_button_get_event_window")]
     fn event_window(&self) -> Option<gdk::Window>;
 
-    #[cfg_attr(feature = "v3_20", deprecated)]
+    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
     #[cfg(any(not(feature = "v3_20"), feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(not(feature = "v3_20"))))]
     #[doc(alias = "gtk_button_get_focus_on_click")]
@@ -520,7 +520,7 @@ pub trait ButtonExt: 'static {
     #[doc(alias = "gtk_button_set_always_show_image")]
     fn set_always_show_image(&self, always_show: bool);
 
-    #[cfg_attr(feature = "v3_20", deprecated)]
+    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
     #[cfg(any(not(feature = "v3_20"), feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(not(feature = "v3_20"))))]
     #[doc(alias = "gtk_button_set_focus_on_click")]

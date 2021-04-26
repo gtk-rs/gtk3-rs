@@ -682,7 +682,7 @@ pub fn render_frame<P: IsA<StyleContext>>(
     }
 }
 
-#[cfg_attr(feature = "v3_24", deprecated)]
+#[cfg_attr(feature = "v3_24", deprecated = "Since 3.24")]
 #[doc(alias = "gtk_render_frame_gap")]
 pub fn render_frame_gap<P: IsA<StyleContext>>(
     context: &P,
@@ -1100,7 +1100,7 @@ pub fn targets_include_uri(targets: &[&gdk::Atom]) -> bool {
     }
 }
 
-#[cfg_attr(feature = "v3_20", deprecated)]
+#[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
 #[doc(alias = "gtk_test_create_simple_window")]
 pub fn test_create_simple_window(window_title: &str, dialog_text: &str) -> Option<Widget> {
     assert_initialized_main_thread!();
@@ -1112,13 +1112,13 @@ pub fn test_create_simple_window(window_title: &str, dialog_text: &str) -> Optio
     }
 }
 
-//#[cfg_attr(feature = "v3_20", deprecated)]
+//#[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
 //#[doc(alias = "gtk_test_create_widget")]
 //pub fn test_create_widget(widget_type: glib::types::Type, first_property_name: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Option<Widget> {
 //    unsafe { TODO: call ffi:gtk_test_create_widget() }
 //}
 
-//#[cfg_attr(feature = "v3_20", deprecated)]
+//#[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
 //#[doc(alias = "gtk_test_display_button_window")]
 //pub fn test_display_button_window(window_title: &str, dialog_text: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Option<Widget> {
 //    unsafe { TODO: call ffi:gtk_test_display_button_window() }
@@ -1183,14 +1183,14 @@ pub fn test_register_all_types() {
     }
 }
 
-#[cfg_attr(feature = "v3_20", deprecated)]
+#[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
 #[doc(alias = "gtk_test_slider_get_value")]
 pub fn test_slider_get_value<P: IsA<Widget>>(widget: &P) -> f64 {
     skip_assert_initialized!();
     unsafe { ffi::gtk_test_slider_get_value(widget.as_ref().to_glib_none().0) }
 }
 
-#[cfg_attr(feature = "v3_20", deprecated)]
+#[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
 #[doc(alias = "gtk_test_slider_set_perc")]
 pub fn test_slider_set_perc<P: IsA<Widget>>(widget: &P, percentage: f64) {
     skip_assert_initialized!();
@@ -1199,7 +1199,7 @@ pub fn test_slider_set_perc<P: IsA<Widget>>(widget: &P, percentage: f64) {
     }
 }
 
-#[cfg_attr(feature = "v3_20", deprecated)]
+#[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
 #[doc(alias = "gtk_test_spin_button_click")]
 pub fn test_spin_button_click<P: IsA<SpinButton>>(spinner: &P, button: u32, upwards: bool) -> bool {
     skip_assert_initialized!();
@@ -1212,14 +1212,14 @@ pub fn test_spin_button_click<P: IsA<SpinButton>>(spinner: &P, button: u32, upwa
     }
 }
 
-#[cfg_attr(feature = "v3_20", deprecated)]
+#[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
 #[doc(alias = "gtk_test_text_get")]
 pub fn test_text_get<P: IsA<Widget>>(widget: &P) -> Option<glib::GString> {
     skip_assert_initialized!();
     unsafe { from_glib_full(ffi::gtk_test_text_get(widget.as_ref().to_glib_none().0)) }
 }
 
-#[cfg_attr(feature = "v3_20", deprecated)]
+#[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
 #[doc(alias = "gtk_test_text_set")]
 pub fn test_text_set<P: IsA<Widget>>(widget: &P, string: &str) {
     skip_assert_initialized!();
@@ -1228,7 +1228,7 @@ pub fn test_text_set<P: IsA<Widget>>(widget: &P, string: &str) {
     }
 }
 
-#[cfg_attr(feature = "v3_20", deprecated)]
+#[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
 #[doc(alias = "gtk_test_widget_click")]
 pub fn test_widget_click<P: IsA<Widget>>(
     widget: &P,
