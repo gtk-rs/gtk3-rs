@@ -1251,57 +1251,6 @@
 <span id="1248">1248</span>
 <span id="1249">1249</span>
 <span id="1250">1250</span>
-<span id="1251">1251</span>
-<span id="1252">1252</span>
-<span id="1253">1253</span>
-<span id="1254">1254</span>
-<span id="1255">1255</span>
-<span id="1256">1256</span>
-<span id="1257">1257</span>
-<span id="1258">1258</span>
-<span id="1259">1259</span>
-<span id="1260">1260</span>
-<span id="1261">1261</span>
-<span id="1262">1262</span>
-<span id="1263">1263</span>
-<span id="1264">1264</span>
-<span id="1265">1265</span>
-<span id="1266">1266</span>
-<span id="1267">1267</span>
-<span id="1268">1268</span>
-<span id="1269">1269</span>
-<span id="1270">1270</span>
-<span id="1271">1271</span>
-<span id="1272">1272</span>
-<span id="1273">1273</span>
-<span id="1274">1274</span>
-<span id="1275">1275</span>
-<span id="1276">1276</span>
-<span id="1277">1277</span>
-<span id="1278">1278</span>
-<span id="1279">1279</span>
-<span id="1280">1280</span>
-<span id="1281">1281</span>
-<span id="1282">1282</span>
-<span id="1283">1283</span>
-<span id="1284">1284</span>
-<span id="1285">1285</span>
-<span id="1286">1286</span>
-<span id="1287">1287</span>
-<span id="1288">1288</span>
-<span id="1289">1289</span>
-<span id="1290">1290</span>
-<span id="1291">1291</span>
-<span id="1292">1292</span>
-<span id="1293">1293</span>
-<span id="1294">1294</span>
-<span id="1295">1295</span>
-<span id="1296">1296</span>
-<span id="1297">1297</span>
-<span id="1298">1298</span>
-<span id="1299">1299</span>
-<span id="1300">1300</span>
-<span id="1301">1301</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -1589,6 +1538,12 @@
     }
 }
 
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ToValueOptional</span> <span class="op">+</span> <span class="ident">StaticType</span><span class="op">&gt;</span> <span class="ident">StaticType</span> <span class="kw">for</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">static_type</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Type</span> {
+        <span class="ident">T::static_type</span>()
+    }
+}
+
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ToValueOptional</span> <span class="op">+</span> <span class="ident">StaticType</span> <span class="op">+</span> <span class="question-mark">?</span><span class="ident">Sized</span><span class="op">&gt;</span> <span class="ident">ToValueOptional</span> <span class="kw">for</span> <span class="kw-2">&amp;</span><span class="ident">T</span> {
     <span class="kw">fn</span> <span class="ident">to_value_optional</span>(<span class="ident">s</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="self">Self</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Value</span> {
         <span class="op">&lt;</span><span class="ident">T</span> <span class="kw">as</span> <span class="ident">ToValueOptional</span><span class="op">&gt;</span><span class="ident">::to_value_optional</span>(<span class="ident">s</span>.<span class="ident">as_ref</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="kw-2">*</span><span class="kw-2">*</span><span class="ident">s</span>))
@@ -1607,15 +1562,6 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// See the [module documentation](index.html) for more details.</span>
 <span class="comment">// TODO: Should use impl !Send for Value {} once stable</span>
-<span class="doccomment">/// An opaque structure used to hold different types of values.</span>
-<span class="doccomment">/// The data within the structure has protected scope: it is accessible only</span>
-<span class="doccomment">/// to functions within a `TypeValueTable` structure, or implementations of</span>
-<span class="doccomment">/// the g_value_*() API. That is, code portions which implement new fundamental</span>
-<span class="doccomment">/// types.</span>
-<span class="doccomment">/// `Value` users cannot make any assumptions about how data is stored</span>
-<span class="doccomment">/// within the 2 element `data` union, and the `g_type` member should</span>
-<span class="doccomment">/// only be accessed through the G_VALUE_TYPE() macro.</span>
-<span class="comment">// rustdoc-stripper-ignore-next-stop</span>
 <span class="doccomment">/// An opaque structure used to hold different types of values.</span>
 <span class="doccomment">/// The data within the structure has protected scope: it is accessible only</span>
 <span class="doccomment">/// to functions within a `TypeValueTable` structure, or implementations of</span>
@@ -1685,39 +1631,6 @@
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// `true` if the transformation is possible, `false` otherwise.</span>
-    <span class="doccomment">/// eyFile::get_value` to test whether</span>
-    <span class="doccomment">/// or not a key exists.</span>
-    <span class="doccomment">/// ## `group_name`</span>
-    <span class="doccomment">/// a group name</span>
-    <span class="doccomment">/// ## `key`</span>
-    <span class="doccomment">/// a key name</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Returns</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if `key` is a part of `group_name`, `false` otherwise</span>
-    <span class="comment">// rustdoc-stripper-ignore-next-stop</span>
-    <span class="doccomment">/// Check whether `Value::transform` is able to transform values</span>
-    <span class="doccomment">/// of type `src_type` into values of type `dest_type`. Note that for</span>
-    <span class="doccomment">/// the types to be transformable, they must be compatible or a</span>
-    <span class="doccomment">/// transformation function must be registered.</span>
-    <span class="doccomment">/// ## `src_type`</span>
-    <span class="doccomment">/// Source type.</span>
-    <span class="doccomment">/// ## `dest_type`</span>
-    <span class="doccomment">/// Target type.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Returns</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if the transformation is possible, `false` otherwise.</span>
-    <span class="doccomment">/// eyFile::get_value` to test whether</span>
-    <span class="doccomment">/// or not a key exists.</span>
-    <span class="doccomment">/// ## `group_name`</span>
-    <span class="doccomment">/// a group name</span>
-    <span class="doccomment">/// ## `key`</span>
-    <span class="doccomment">/// a key name</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Returns</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if `key` is a part of `group_name`, `false` otherwise</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">type_transformable</span>(<span class="ident">src</span>: <span class="ident">Type</span>, <span class="ident">dst</span>: <span class="ident">Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
             <span class="ident">from_glib</span>(<span class="ident">gobject_ffi::g_value_type_transformable</span>(
@@ -1728,21 +1641,6 @@
     }
 
     <span class="doccomment">/// Tries to transform the value into a value of the target type</span>
-    <span class="comment">// rustdoc-stripper-ignore-next-stop</span>
-    <span class="doccomment">/// Tries to cast the contents of `self` into a type appropriate</span>
-    <span class="doccomment">/// to store in `dest_value`, e.g. to transform a `G_TYPE_INT` value</span>
-    <span class="doccomment">/// into a `G_TYPE_FLOAT` value. Performing transformations between</span>
-    <span class="doccomment">/// value types might incur precision lossage. Especially</span>
-    <span class="doccomment">/// transformations into strings might reveal seemingly arbitrary</span>
-    <span class="doccomment">/// results and shouldn&#39;t be relied upon for production code (such</span>
-    <span class="doccomment">/// as rcfile value or object property serialization).</span>
-    <span class="doccomment">/// ## `dest_value`</span>
-    <span class="doccomment">/// Target value.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Returns</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Whether a transformation rule was found and could be applied.</span>
-    <span class="doccomment">///  Upon failing transformations, `dest_value` is left untouched.</span>
     <span class="comment">// rustdoc-stripper-ignore-next-stop</span>
     <span class="doccomment">/// Tries to cast the contents of `self` into a type appropriate</span>
     <span class="doccomment">/// to store in `dest_value`, e.g. to transform a `G_TYPE_INT` value</span>
