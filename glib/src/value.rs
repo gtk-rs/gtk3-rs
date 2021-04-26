@@ -284,6 +284,12 @@ impl<T: ToValueOptional + StaticType> ToValue for Option<T> {
     }
 }
 
+impl<T: ToValueOptional + StaticType> StaticType for Option<T> {
+    fn static_type() -> Type {
+        T::static_type()
+    }
+}
+
 impl<T: ToValueOptional + StaticType + ?Sized> ToValueOptional for &T {
     fn to_value_optional(s: Option<&Self>) -> Value {
         <T as ToValueOptional>::to_value_optional(s.as_ref().map(|s| **s))
