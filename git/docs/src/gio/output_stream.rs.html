@@ -538,10 +538,6 @@
 <span id="535">535</span>
 <span id="536">536</span>
 <span id="537">537</span>
-<span id="538">538</span>
-<span id="539">539</span>
-<span id="540">540</span>
-<span id="541">541</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -550,7 +546,6 @@
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Cancellable</span>;
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::OutputStream</span>;
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Seekable</span>;
-<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::SeekableExt</span>;
 <span class="kw">use</span> <span class="ident">glib::object::IsA</span>;
 <span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">glib::Priority</span>;
@@ -562,14 +557,14 @@
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">OutputStreamExtManual</span>: <span class="ident">Sized</span> <span class="op">+</span> <span class="ident">OutputStreamExt</span> {
     <span class="doccomment">/// Request an asynchronous write of `count` bytes from `buffer` into</span>
     <span class="doccomment">/// the stream. When the operation is finished `callback` will be called.</span>
-    <span class="doccomment">/// You can then call `OutputStreamExt::write_finish` to get the result of the</span>
+    <span class="doccomment">/// You can then call [`OutputStreamExt::write_finish()`](crate::OutputStreamExt::write_finish()) to get the result of the</span>
     <span class="doccomment">/// operation.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// During an async request no other sync and async calls are allowed,</span>
-    <span class="doccomment">/// and will result in `IOErrorEnum::Pending` errors.</span>
+    <span class="doccomment">/// and will result in [`IOErrorEnum::Pending`] errors.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// A value of `count` larger than `G_MAXSSIZE` will cause a</span>
-    <span class="doccomment">/// `IOErrorEnum::InvalidArgument` error.</span>
+    <span class="doccomment">/// [`IOErrorEnum::InvalidArgument`] error.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// On success, the number of bytes written will be passed to the</span>
     <span class="doccomment">/// `callback`. It is not an error if this is not the same as the</span>
@@ -577,7 +572,7 @@
     <span class="doccomment">/// but generally we try to write as many bytes as requested.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// You are guaranteed that this method will never fail with</span>
-    <span class="doccomment">/// `IOErrorEnum::WouldBlock` - if `self` can&#39;t accept more data, the</span>
+    <span class="doccomment">/// [`IOErrorEnum::WouldBlock`] - if `self` can&#39;t accept more data, the</span>
     <span class="doccomment">/// method will just wait until this changes.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Any outstanding I/O request with higher priority (lower numerical</span>
@@ -589,11 +584,11 @@
     <span class="doccomment">/// classes. However, if you override one you must override all.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// For the synchronous, blocking version of this function, see</span>
-    <span class="doccomment">/// `OutputStreamExt::write`.</span>
+    <span class="doccomment">/// [`OutputStreamExt::write()`](crate::OutputStreamExt::write()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that no copy of `buffer` will be made, so it must stay valid</span>
-    <span class="doccomment">/// until `callback` is called. See `OutputStreamExt::write_bytes_async`</span>
-    <span class="doccomment">/// for a `glib::Bytes` version that will automatically hold a reference to</span>
+    <span class="doccomment">/// until `callback` is called. See [`OutputStreamExt::write_bytes_async()`](crate::OutputStreamExt::write_bytes_async())</span>
+    <span class="doccomment">/// for a [`glib::Bytes`](crate::glib::Bytes) version that will automatically hold a reference to</span>
     <span class="doccomment">/// the contents (without copying) for the duration of the call.</span>
     <span class="doccomment">/// ## `buffer`</span>
     <span class="doccomment">/// the buffer containing the data to write.</span>
@@ -602,7 +597,7 @@
     <span class="doccomment">/// ## `io_priority`</span>
     <span class="doccomment">/// the io priority of the request.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional `Cancellable` object, `None` to ignore.</span>
+    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// callback to call when the request is satisfied</span>
     <span class="doccomment">/// ## `user_data`</span>
@@ -622,22 +617,22 @@
     <span class="doccomment">/// Tries to write `count` bytes from `buffer` into the stream. Will block</span>
     <span class="doccomment">/// during the operation.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This function is similar to `OutputStreamExt::write`, except it tries to</span>
+    <span class="doccomment">/// This function is similar to [`OutputStreamExt::write()`](crate::OutputStreamExt::write()), except it tries to</span>
     <span class="doccomment">/// write as many bytes as requested, only stopping on an error.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// On a successful write of `count` bytes, `true` is returned, and `bytes_written`</span>
+    <span class="doccomment">/// On a successful write of `count` bytes, [`true`] is returned, and `bytes_written`</span>
     <span class="doccomment">/// is set to `count`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If there is an error during the operation `false` is returned and `error`</span>
+    <span class="doccomment">/// If there is an error during the operation [`false`] is returned and `error`</span>
     <span class="doccomment">/// is set to indicate the error status.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// As a special exception to the normal conventions for functions that</span>
-    <span class="doccomment">/// use `glib::Error`, if this function returns `false` (and sets `error`) then</span>
+    <span class="doccomment">/// use [`glib::Error`](crate::glib::Error), if this function returns [`false`] (and sets `error`) then</span>
     <span class="doccomment">/// `bytes_written` will be set to the number of bytes that were</span>
     <span class="doccomment">/// successfully written before the error was encountered. This</span>
     <span class="doccomment">/// functionality is only available from C. If you need it from another</span>
     <span class="doccomment">/// language then you must write your own loop around</span>
-    <span class="doccomment">/// `OutputStreamExt::write`.</span>
+    <span class="doccomment">/// [`OutputStreamExt::write()`](crate::OutputStreamExt::write()).</span>
     <span class="doccomment">/// ## `buffer`</span>
     <span class="doccomment">/// the buffer containing the data to write.</span>
     <span class="doccomment">/// ## `count`</span>
@@ -646,11 +641,11 @@
     <span class="doccomment">/// location to store the number of bytes that was</span>
     <span class="doccomment">///  written to the stream</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional `Cancellable` object, `None` to ignore.</span>
+    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` on success, `false` if there was an error</span>
+    <span class="doccomment">/// [`true`] on success, [`false`] if there was an error</span>
     <span class="kw">fn</span> <span class="ident">write_all</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">buffer</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>],
@@ -659,12 +654,12 @@
 
     <span class="doccomment">/// Request an asynchronous write of `count` bytes from `buffer` into</span>
     <span class="doccomment">/// the stream. When the operation is finished `callback` will be called.</span>
-    <span class="doccomment">/// You can then call `OutputStreamExt::write_all_finish` to get the result of the</span>
+    <span class="doccomment">/// You can then call [`OutputStreamExt::write_all_finish()`](crate::OutputStreamExt::write_all_finish()) to get the result of the</span>
     <span class="doccomment">/// operation.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This is the asynchronous version of `OutputStream::write_all`.</span>
+    <span class="doccomment">/// This is the asynchronous version of [`OutputStream::write_all()`](crate::OutputStream::write_all()).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Call `OutputStreamExt::write_all_finish` to collect the result.</span>
+    <span class="doccomment">/// Call [`OutputStreamExt::write_all_finish()`](crate::OutputStreamExt::write_all_finish()) to collect the result.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Any outstanding I/O request with higher priority (lower numerical</span>
     <span class="doccomment">/// value) will be executed before an outstanding request with lower</span>
@@ -672,9 +667,6 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that no copy of `buffer` will be made, so it must stay valid</span>
     <span class="doccomment">/// until `callback` is called.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Feature: `v2_44`</span>
-    <span class="doccomment">///</span>
     <span class="doccomment">/// ## `buffer`</span>
     <span class="doccomment">/// the buffer containing the data to write</span>
     <span class="doccomment">/// ## `count`</span>
@@ -682,7 +674,7 @@
     <span class="doccomment">/// ## `io_priority`</span>
     <span class="doccomment">/// the io priority of the request</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional `Cancellable` object, `None` to ignore</span>
+    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// callback to call when the request is satisfied</span>
     <span class="doccomment">/// ## `user_data`</span>

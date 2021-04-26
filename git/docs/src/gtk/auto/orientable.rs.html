@@ -124,18 +124,18 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// The `Orientable` interface is implemented by all widgets that can be</span>
+    <span class="doccomment">/// The [`Orientable`](crate::Orientable) interface is implemented by all widgets that can be</span>
     <span class="doccomment">/// oriented horizontally or vertically. Historically, such widgets have been</span>
-    <span class="doccomment">/// realized as subclasses of a common base class (e.g `Box`/`HBox`/`VBox`</span>
-    <span class="doccomment">/// or `Scale`/`HScale`/`VScale`). `Orientable` is more flexible in that</span>
+    <span class="doccomment">/// realized as subclasses of a common base class (e.g [`Box`](crate::Box)/[`HBox`](crate::HBox)/[`VBox`](crate::VBox)</span>
+    <span class="doccomment">/// or [`Scale`](crate::Scale)/[`HScale`](crate::HScale)/[`VScale`](crate::VScale)). [`Orientable`](crate::Orientable) is more flexible in that</span>
     <span class="doccomment">/// it allows the orientation to be changed at runtime, allowing the widgets</span>
     <span class="doccomment">/// to “flip”.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `Orientable` was introduced in GTK+ 2.16.</span>
+    <span class="doccomment">/// [`Orientable`](crate::Orientable) was introduced in GTK+ 2.16.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`OrientableExt`](trait@crate::OrientableExt)</span>
+    <span class="doccomment">/// [`OrientableExt`](trait@crate::prelude::OrientableExt)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Orientable</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi::GtkOrientable</span>, <span class="ident">ffi::GtkOrientableIface</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {

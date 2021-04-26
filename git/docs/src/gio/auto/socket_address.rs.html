@@ -146,15 +146,15 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// `SocketAddress` is the equivalent of struct sockaddr in the BSD</span>
-    <span class="doccomment">/// sockets API. This is an abstract class; use `InetSocketAddress`</span>
-    <span class="doccomment">/// for internet sockets, or `UnixSocketAddress` for UNIX domain sockets.</span>
+    <span class="doccomment">/// [`SocketAddress`](crate::SocketAddress) is the equivalent of struct sockaddr in the BSD</span>
+    <span class="doccomment">/// sockets API. This is an abstract class; use [`InetSocketAddress`](crate::InetSocketAddress)</span>
+    <span class="doccomment">/// for internet sockets, or [`UnixSocketAddress`](crate::UnixSocketAddress) for UNIX domain sockets.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is an Abstract Base Class, you cannot instantiate it.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`SocketAddressExt`](trait@crate::SocketAddressExt), [`trait@glib::object::ObjectExt`], [`SocketConnectableExt`](trait@crate::SocketConnectableExt)</span>
+    <span class="doccomment">/// [`SocketAddressExt`](trait@crate::prelude::SocketAddressExt), [`trait@glib::object::ObjectExt`], [`SocketConnectableExt`](trait@crate::prelude::SocketConnectableExt)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SocketAddress</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GSocketAddress</span>, <span class="ident">ffi::GSocketAddressClass</span><span class="op">&gt;</span>) @<span class="ident">implements</span> <span class="ident">SocketConnectable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -190,7 +190,7 @@
 
     <span class="doccomment">/// Gets the size of `self`&#39;s native struct sockaddr.</span>
     <span class="doccomment">/// You can use this to allocate memory to pass to</span>
-    <span class="doccomment">/// `SocketAddressExt::to_native`.</span>
+    <span class="doccomment">/// [`to_native()`](Self::to_native()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>

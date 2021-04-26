@@ -17,31 +17,31 @@
 </div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.fill" class="method"><code>fn <a href="#tymethod.fill" class="fnname">fill</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Cancellable.html" title="struct gio::Cancellable">Cancellable</a>&gt;&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;count: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;cancellable: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P&gt;<br>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>, <a class="struct" href="../../glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt;</code><a class="srclink" href="../../src/gio/auto/buffered_input_stream.rs.html#176-180" title="goto source code">[src]</a></h3><div class="docblock"><p>Tries to read <code>count</code> bytes from the stream into the buffer.
 Will block during this read.</p>
 <p>If <code>count</code> is zero, returns zero and does nothing. A value of <code>count</code>
-larger than <code>G_MAXSSIZE</code> will cause a <code>IOErrorEnum::InvalidArgument</code> error.</p>
+larger than <code>G_MAXSSIZE</code> will cause a [<code>IOErrorEnum::InvalidArgument</code>] error.</p>
 <p>On success, the number of bytes read into the buffer is returned.
 It is not an error if this is not the same as the requested size, as it
 can happen e.g. near the end of a file. Zero is returned on end of file
 (or if <code>count</code> is zero), but never otherwise.</p>
 <p>If <code>count</code> is -1 then the attempted read size is equal to the number of
 bytes that are required to fill the buffer.</p>
-<p>If <code>cancellable</code> is not <code>None</code>, then the operation can be cancelled by
+<p>If <code>cancellable</code> is not <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
-was cancelled, the error <code>IOErrorEnum::Cancelled</code> will be returned. If an
+was cancelled, the error [<code>IOErrorEnum::Cancelled</code>] will be returned. If an
 operation was partially finished when the operation was cancelled the
 partial result will be returned, without an error.</p>
 <p>On error -1 is returned and <code>error</code> is set accordingly.</p>
 <p>For the asynchronous, non-blocking, version of this function, see
-<code>BufferedInputStreamExt::fill_async</code>.</p>
+<a href="trait.BufferedInputStreamExt.html#tymethod.fill_async"><code>fill_async()</code></a>.</p>
 <h2 id="count" class="section-header"><a href="#count"><code>count</code></a></h2>
 <p>the number of bytes that will be read from the stream</p>
 <h2 id="cancellable" class="section-header"><a href="#cancellable"><code>cancellable</code></a></h2>
-<p>optional <code>Cancellable</code> object, <code>None</code> to ignore</p>
+<p>optional <a href="../struct.Cancellable.html"><code>Cancellable</code></a> object, <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> to ignore</p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
 <p>the number of bytes read into <code>self</code>’s buffer, up to <code>count</code>,
 or -1 on error.</p>
 </div><h3 id="tymethod.fill_async" class="method"><code>fn <a href="#tymethod.fill_async" class="fnname">fill_async</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Cancellable.html" title="struct gio::Cancellable">Cancellable</a>&gt;, Q:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.FnOnce.html" title="trait core::ops::function::FnOnce">FnOnce</a>(<a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>, <a class="struct" href="../../glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt;) + <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Send.html" title="trait core::marker::Send">Send</a> + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;count: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;io_priority: <a class="struct" href="../../glib/source/struct.Priority.html" title="struct glib::source::Priority">Priority</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;cancellable: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P&gt;, <br>&nbsp;&nbsp;&nbsp;&nbsp;callback: Q<br>)</code><a class="srclink" href="../../src/gio/auto/buffered_input_stream.rs.html#199-205" title="goto source code">[src]</a></h3><div class="docblock"><p>Reads data into <code>self</code>’s buffer asynchronously, up to <code>count</code> size.
 <code>io_priority</code> can be used to prioritize reads. For the synchronous
-version of this function, see <code>BufferedInputStreamExt::fill</code>.</p>
+version of this function, see <a href="trait.BufferedInputStreamExt.html#tymethod.fill"><code>fill()</code></a>.</p>
 <p>If <code>count</code> is -1 then the attempted read size is equal to the number
 of bytes that are required to fill the buffer.</p>
 <h2 id="count-1" class="section-header"><a href="#count-1"><code>count</code></a></h2>
@@ -49,7 +49,7 @@ of bytes that are required to fill the buffer.</p>
 <h2 id="io_priority" class="section-header"><a href="#io_priority"><code>io_priority</code></a></h2>
 <p>the [I/O priority][io-priority] of the request</p>
 <h2 id="cancellable-1" class="section-header"><a href="#cancellable-1"><code>cancellable</code></a></h2>
-<p>optional <code>Cancellable</code> object</p>
+<p>optional <a href="../struct.Cancellable.html"><code>Cancellable</code></a> object</p>
 <h2 id="callback" class="section-header"><a href="#callback"><code>callback</code></a></h2>
 <p>a <code>GAsyncReadyCallback</code></p>
 <h2 id="user_data" class="section-header"><a href="#user_data"><code>user_data</code></a></h2>
@@ -71,14 +71,14 @@ the stream or filling the buffer.</p>
 during this read.</p>
 <p>On success, the byte read from the stream is returned. On end of stream
 -1 is returned but it’s not an exceptional error and <code>error</code> is not set.</p>
-<p>If <code>cancellable</code> is not <code>None</code>, then the operation can be cancelled by
+<p>If <code>cancellable</code> is not <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
-was cancelled, the error <code>IOErrorEnum::Cancelled</code> will be returned. If an
+was cancelled, the error [<code>IOErrorEnum::Cancelled</code>] will be returned. If an
 operation was partially finished when the operation was cancelled the
 partial result will be returned, without an error.</p>
 <p>On error -1 is returned and <code>error</code> is set accordingly.</p>
 <h2 id="cancellable-2" class="section-header"><a href="#cancellable-2"><code>cancellable</code></a></h2>
-<p>optional <code>Cancellable</code> object, <code>None</code> to ignore</p>
+<p>optional <a href="../struct.Cancellable.html"><code>Cancellable</code></a> object, <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> to ignore</p>
 <h1 id="returns-4" class="section-header"><a href="#returns-4">Returns</a></h1>
 <p>the byte read from the <code>self</code>, or -1 on end of stream or error.</p>
 </div><h3 id="tymethod.set_buffer_size" class="method"><code>fn <a href="#tymethod.set_buffer_size" class="fnname">set_buffer_size</a>(&amp;self, size: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>)</code><a class="srclink" href="../../src/gio/auto/buffered_input_stream.rs.html#270" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the size of the internal buffer of <code>self</code> to <code>size</code>, or to the

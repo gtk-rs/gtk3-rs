@@ -700,17 +700,17 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// The `Adjustment` object represents a value which has an associated lower</span>
+    <span class="doccomment">/// The [`Adjustment`](crate::Adjustment) object represents a value which has an associated lower</span>
     <span class="doccomment">/// and upper bound, together with step and page increments, and a page size.</span>
-    <span class="doccomment">/// It is used within several GTK+ widgets, including `SpinButton`, `Viewport`,</span>
-    <span class="doccomment">/// and `Range` (which is a base class for `Scrollbar` and `Scale`).</span>
+    <span class="doccomment">/// It is used within several GTK+ widgets, including [`SpinButton`](crate::SpinButton), [`Viewport`](crate::Viewport),</span>
+    <span class="doccomment">/// and [`Range`](crate::Range) (which is a base class for [`Scrollbar`](crate::Scrollbar) and [`Scale`](crate::Scale)).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The `Adjustment` object does not update the value itself. Instead</span>
-    <span class="doccomment">/// it is left up to the owner of the `Adjustment` to control the value.</span>
+    <span class="doccomment">/// The [`Adjustment`](crate::Adjustment) object does not update the value itself. Instead</span>
+    <span class="doccomment">/// it is left up to the owner of the [`Adjustment`](crate::Adjustment) to control the value.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`AdjustmentExt`](trait@crate::AdjustmentExt), [`trait@glib::object::ObjectExt`]</span>
+    <span class="doccomment">/// [`AdjustmentExt`](trait@crate::prelude::AdjustmentExt), [`trait@glib::object::ObjectExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Adjustment</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkAdjustment</span>, <span class="ident">ffi::GtkAdjustmentClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -719,7 +719,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Adjustment</span> {
-    <span class="doccomment">/// Creates a new `Adjustment`.</span>
+    <span class="doccomment">/// Creates a new [`Adjustment`](crate::Adjustment).</span>
     <span class="doccomment">/// ## `value`</span>
     <span class="doccomment">/// the initial value</span>
     <span class="doccomment">/// ## `lower`</span>
@@ -735,7 +735,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new `Adjustment`</span>
+    <span class="doccomment">/// a new [`Adjustment`](crate::Adjustment)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_adjustment_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
         <span class="ident">value</span>: <span class="ident">f64</span>,
@@ -837,25 +837,25 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// [`Adjustment`](struct@crate::Adjustment)</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">AdjustmentExt</span>: <span class="lifetime">&#39;static</span> {
-    <span class="doccomment">/// Emits a `Adjustment::changed` signal from the `Adjustment`.</span>
-    <span class="doccomment">/// This is typically called by the owner of the `Adjustment` after it has</span>
-    <span class="doccomment">/// changed any of the `Adjustment` properties other than the value.</span>
+    <span class="doccomment">/// Emits a [`Adjustment::changed`](crate::Adjustment::changed) signal from the [`Adjustment`](crate::Adjustment).</span>
+    <span class="doccomment">/// This is typically called by the owner of the [`Adjustment`](crate::Adjustment) after it has</span>
+    <span class="doccomment">/// changed any of the [`Adjustment`](crate::Adjustment) properties other than the value.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated since 3.18</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// GTK+ emits `Adjustment::changed` itself whenever any</span>
+    <span class="doccomment">/// GTK+ emits [`Adjustment::changed`](crate::Adjustment::changed) itself whenever any</span>
     <span class="doccomment">///  of the properties (other than value) change</span>
-    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_18&quot;</span>, <span class="ident">deprecated</span>)]</span>
+    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_18&quot;</span>, <span class="ident">deprecated</span> <span class="op">=</span> <span class="string">&quot;Since 3.18&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_adjustment_changed&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">changed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
-    <span class="doccomment">/// Updates the `Adjustment:value` property to ensure that the range</span>
+    <span class="doccomment">/// Updates the [`Adjustment:value`](crate::Adjustment:value) property to ensure that the range</span>
     <span class="doccomment">/// between `lower` and `upper` is in the current page (i.e. between</span>
-    <span class="doccomment">/// `Adjustment:value` and `Adjustment:value` + `Adjustment:page-size`).</span>
+    <span class="doccomment">/// [`Adjustment:value`](crate::Adjustment:value) and [`Adjustment:value`](crate::Adjustment:value) + [`Adjustment:page-size`](crate::Adjustment:page-size)).</span>
     <span class="doccomment">/// If the range is larger than the page size, then only the start of it will</span>
     <span class="doccomment">/// be in the current page.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A `Adjustment::value-changed` signal will be emitted if the value is changed.</span>
+    <span class="doccomment">/// A [`Adjustment::value-changed`](crate::Adjustment::value-changed) signal will be emitted if the value is changed.</span>
     <span class="doccomment">/// ## `lower`</span>
     <span class="doccomment">/// the lower value</span>
     <span class="doccomment">/// ## `upper`</span>
@@ -866,9 +866,9 @@
     <span class="doccomment">/// Sets all properties of the adjustment at once.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Use this function to avoid multiple emissions of the</span>
-    <span class="doccomment">/// `Adjustment::changed` signal. See `AdjustmentExt::set_lower`</span>
+    <span class="doccomment">/// [`Adjustment::changed`](crate::Adjustment::changed) signal. See [`set_lower()`](Self::set_lower())</span>
     <span class="doccomment">/// for an alternative way of compressing multiple emissions of</span>
-    <span class="doccomment">/// `Adjustment::changed` into one.</span>
+    <span class="doccomment">/// [`Adjustment::changed`](crate::Adjustment::changed) into one.</span>
     <span class="doccomment">/// ## `value`</span>
     <span class="doccomment">/// the new value</span>
     <span class="doccomment">/// ## `lower`</span>
@@ -941,7 +941,7 @@
     <span class="kw">fn</span> <span class="ident">upper</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f64</span>;
 
     <span class="doccomment">/// Gets the current value of the adjustment.</span>
-    <span class="doccomment">/// See `AdjustmentExt::set_value`.</span>
+    <span class="doccomment">/// See [`set_value()`](Self::set_value()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -952,16 +952,16 @@
     <span class="doccomment">/// Sets the minimum value of the adjustment.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// When setting multiple adjustment properties via their individual</span>
-    <span class="doccomment">/// setters, multiple `Adjustment::changed` signals will be emitted.</span>
-    <span class="doccomment">/// However, since the emission of the `Adjustment::changed` signal</span>
-    <span class="doccomment">/// is tied to the emission of the `glib::object::Object::notify` signals of the changed</span>
-    <span class="doccomment">/// properties, it’s possible to compress the `Adjustment::changed`</span>
-    <span class="doccomment">/// signals into one by calling `glib::object::ObjectExt::freeze_notify` and</span>
-    <span class="doccomment">/// `glib::object::ObjectExt::thaw_notify` around the calls to the individual setters.</span>
+    <span class="doccomment">/// setters, multiple [`Adjustment::changed`](crate::Adjustment::changed) signals will be emitted.</span>
+    <span class="doccomment">/// However, since the emission of the [`Adjustment::changed`](crate::Adjustment::changed) signal</span>
+    <span class="doccomment">/// is tied to the emission of the [`glib::object::Object::notify`](crate::glib::object::Object::notify) signals of the changed</span>
+    <span class="doccomment">/// properties, it’s possible to compress the [`Adjustment::changed`](crate::Adjustment::changed)</span>
+    <span class="doccomment">/// signals into one by calling [`glib::object::ObjectExt::freeze_notify()`](crate::glib::object::ObjectExt::freeze_notify()) and</span>
+    <span class="doccomment">/// [`glib::object::ObjectExt::thaw_notify()`](crate::glib::object::ObjectExt::thaw_notify()) around the calls to the individual setters.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Alternatively, using a single `glib::object::ObjectExt::set` for all the properties</span>
-    <span class="doccomment">/// to change, or using `AdjustmentExt::configure` has the same effect</span>
-    <span class="doccomment">/// of compressing `Adjustment::changed` emissions.</span>
+    <span class="doccomment">/// Alternatively, using a single [`glib::object::ObjectExt::set()`](crate::glib::object::ObjectExt::set()) for all the properties</span>
+    <span class="doccomment">/// to change, or using [`configure()`](Self::configure()) has the same effect</span>
+    <span class="doccomment">/// of compressing [`Adjustment::changed`](crate::Adjustment::changed) emissions.</span>
     <span class="doccomment">/// ## `lower`</span>
     <span class="doccomment">/// the new minimum value</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_adjustment_set_lower&quot;</span>)]</span>
@@ -969,8 +969,8 @@
 
     <span class="doccomment">/// Sets the page increment of the adjustment.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See `AdjustmentExt::set_lower` about how to compress multiple</span>
-    <span class="doccomment">/// emissions of the `Adjustment::changed` signal when setting</span>
+    <span class="doccomment">/// See [`set_lower()`](Self::set_lower()) about how to compress multiple</span>
+    <span class="doccomment">/// emissions of the [`Adjustment::changed`](crate::Adjustment::changed) signal when setting</span>
     <span class="doccomment">/// multiple adjustment properties.</span>
     <span class="doccomment">/// ## `page_increment`</span>
     <span class="doccomment">/// the new page increment</span>
@@ -979,7 +979,7 @@
 
     <span class="doccomment">/// Sets the page size of the adjustment.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See `AdjustmentExt::set_lower` about how to compress multiple</span>
+    <span class="doccomment">/// See [`set_lower()`](Self::set_lower()) about how to compress multiple</span>
     <span class="doccomment">/// emissions of the `Adjustment`::changed signal when setting</span>
     <span class="doccomment">/// multiple adjustment properties.</span>
     <span class="doccomment">/// ## `page_size`</span>
@@ -989,8 +989,8 @@
 
     <span class="doccomment">/// Sets the step increment of the adjustment.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See `AdjustmentExt::set_lower` about how to compress multiple</span>
-    <span class="doccomment">/// emissions of the `Adjustment::changed` signal when setting</span>
+    <span class="doccomment">/// See [`set_lower()`](Self::set_lower()) about how to compress multiple</span>
+    <span class="doccomment">/// emissions of the [`Adjustment::changed`](crate::Adjustment::changed) signal when setting</span>
     <span class="doccomment">/// multiple adjustment properties.</span>
     <span class="doccomment">/// ## `step_increment`</span>
     <span class="doccomment">/// the new step increment</span>
@@ -1002,42 +1002,42 @@
     <span class="doccomment">/// Note that values will be restricted by `upper - page-size`</span>
     <span class="doccomment">/// if the page-size property is nonzero.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See `AdjustmentExt::set_lower` about how to compress multiple</span>
-    <span class="doccomment">/// emissions of the `Adjustment::changed` signal when setting</span>
+    <span class="doccomment">/// See [`set_lower()`](Self::set_lower()) about how to compress multiple</span>
+    <span class="doccomment">/// emissions of the [`Adjustment::changed`](crate::Adjustment::changed) signal when setting</span>
     <span class="doccomment">/// multiple adjustment properties.</span>
     <span class="doccomment">/// ## `upper`</span>
     <span class="doccomment">/// the new maximum value</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_adjustment_set_upper&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_upper</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">upper</span>: <span class="ident">f64</span>);
 
-    <span class="doccomment">/// Sets the `Adjustment` value. The value is clamped to lie between</span>
-    <span class="doccomment">/// `Adjustment:lower` and `Adjustment:upper`.</span>
+    <span class="doccomment">/// Sets the [`Adjustment`](crate::Adjustment) value. The value is clamped to lie between</span>
+    <span class="doccomment">/// [`Adjustment:lower`](crate::Adjustment:lower) and [`Adjustment:upper`](crate::Adjustment:upper).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Note that for adjustments which are used in a `Scrollbar`, the</span>
-    <span class="doccomment">/// effective range of allowed values goes from `Adjustment:lower` to</span>
-    <span class="doccomment">/// `Adjustment:upper` - `Adjustment:page-size`.</span>
+    <span class="doccomment">/// Note that for adjustments which are used in a [`Scrollbar`](crate::Scrollbar), the</span>
+    <span class="doccomment">/// effective range of allowed values goes from [`Adjustment:lower`](crate::Adjustment:lower) to</span>
+    <span class="doccomment">/// [`Adjustment:upper`](crate::Adjustment:upper) - [`Adjustment:page-size`](crate::Adjustment:page-size).</span>
     <span class="doccomment">/// ## `value`</span>
     <span class="doccomment">/// the new value</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_adjustment_set_value&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">value</span>: <span class="ident">f64</span>);
 
-    <span class="doccomment">/// Emits a `Adjustment::value-changed` signal from the `Adjustment`.</span>
-    <span class="doccomment">/// This is typically called by the owner of the `Adjustment` after it has</span>
-    <span class="doccomment">/// changed the `Adjustment:value` property.</span>
+    <span class="doccomment">/// Emits a [`Adjustment::value-changed`](crate::Adjustment::value-changed) signal from the [`Adjustment`](crate::Adjustment).</span>
+    <span class="doccomment">/// This is typically called by the owner of the [`Adjustment`](crate::Adjustment) after it has</span>
+    <span class="doccomment">/// changed the [`Adjustment:value`](crate::Adjustment:value) property.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated since 3.18</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// GTK+ emits `Adjustment::value-changed` itself whenever</span>
+    <span class="doccomment">/// GTK+ emits [`Adjustment::value-changed`](crate::Adjustment::value-changed) itself whenever</span>
     <span class="doccomment">///  the value changes</span>
-    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_18&quot;</span>, <span class="ident">deprecated</span>)]</span>
+    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_18&quot;</span>, <span class="ident">deprecated</span> <span class="op">=</span> <span class="string">&quot;Since 3.18&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_adjustment_value_changed&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">value_changed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
-    <span class="doccomment">/// Emitted when one or more of the `Adjustment` properties have been</span>
-    <span class="doccomment">/// changed, other than the `Adjustment:value` property.</span>
+    <span class="doccomment">/// Emitted when one or more of the [`Adjustment`](crate::Adjustment) properties have been</span>
+    <span class="doccomment">/// changed, other than the [`Adjustment:value`](crate::Adjustment:value) property.</span>
     <span class="kw">fn</span> <span class="ident">connect_changed</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;
 
-    <span class="doccomment">/// Emitted when the `Adjustment:value` property has been changed.</span>
+    <span class="doccomment">/// Emitted when the [`Adjustment:value`](crate::Adjustment:value) property has been changed.</span>
     <span class="kw">fn</span> <span class="ident">connect_value_changed</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;
 
     <span class="kw">fn</span> <span class="ident">connect_property_lower_notify</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;

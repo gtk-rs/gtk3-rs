@@ -842,34 +842,34 @@
     <span class="doccomment">/// A `Builder` is an auxiliary object that reads textual descriptions</span>
     <span class="doccomment">/// of a user interface and instantiates the described objects. To create</span>
     <span class="doccomment">/// a `Builder` from a user interface description, call</span>
-    <span class="doccomment">/// `Builder::new_from_file`, `Builder::new_from_resource` or</span>
-    <span class="doccomment">/// `Builder::new_from_string`.</span>
+    <span class="doccomment">/// [`new_from_file()`](Self::new_from_file()), [`new_from_resource()`](Self::new_from_resource()) or</span>
+    <span class="doccomment">/// [`new_from_string()`](Self::new_from_string()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// In the (unusual) case that you want to add user interface</span>
     <span class="doccomment">/// descriptions from multiple sources to the same `Builder` you can</span>
-    <span class="doccomment">/// call `Builder::new` to get an empty builder and populate it by</span>
-    <span class="doccomment">/// (multiple) calls to `Builder::add_from_file`,</span>
-    <span class="doccomment">/// `BuilderExt::add_from_resource` or `BuilderExt::add_from_string`.</span>
+    <span class="doccomment">/// call [`new()`](Self::new()) to get an empty builder and populate it by</span>
+    <span class="doccomment">/// (multiple) calls to [`add_from_file()`](Self::add_from_file()),</span>
+    <span class="doccomment">/// [`BuilderExt::add_from_resource()`](crate::BuilderExt::add_from_resource()) or [`BuilderExt::add_from_string()`](crate::BuilderExt::add_from_string()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// A `Builder` holds a reference to all objects that it has constructed</span>
     <span class="doccomment">/// and drops these references when it is finalized. This finalization can</span>
     <span class="doccomment">/// cause the destruction of non-widget objects or widgets which are not</span>
     <span class="doccomment">/// contained in a toplevel window. For toplevel windows constructed by a</span>
-    <span class="doccomment">/// builder, it is the responsibility of the user to call `Widget::destroy`</span>
+    <span class="doccomment">/// builder, it is the responsibility of the user to call [`Widget::destroy()`](crate::Widget::destroy())</span>
     <span class="doccomment">/// to get rid of them and all the widgets they contain.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The functions `Builder::get_object` and `BuilderExt::get_objects`</span>
+    <span class="doccomment">/// The functions [`get_object()`](Self::get_object()) and [`BuilderExt::get_objects()`](crate::BuilderExt::get_objects())</span>
     <span class="doccomment">/// can be used to access the widgets in the interface by the names assigned</span>
     <span class="doccomment">/// to them inside the UI description. Toplevel windows returned by these</span>
     <span class="doccomment">/// functions will stay around until the user explicitly destroys them</span>
-    <span class="doccomment">/// with `Widget::destroy`. Other widgets will either be part of a</span>
+    <span class="doccomment">/// with [`Widget::destroy()`](crate::Widget::destroy()). Other widgets will either be part of a</span>
     <span class="doccomment">/// larger hierarchy constructed by the builder (in which case you should</span>
     <span class="doccomment">/// not have to worry about their lifecycle), or without a parent, in which</span>
     <span class="doccomment">/// case they have to be added to some container to make use of them.</span>
-    <span class="doccomment">/// Non-widget objects need to be reffed with `glib::object::ObjectExt::ref` to keep them</span>
+    <span class="doccomment">/// Non-widget objects need to be reffed with [`glib::object::ObjectExt::ref()`](crate::glib::object::ObjectExt::ref()) to keep them</span>
     <span class="doccomment">/// beyond the lifespan of the builder.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The function `BuilderExt::connect_signals` and variants thereof can be</span>
+    <span class="doccomment">/// The function [`BuilderExt::connect_signals()`](crate::BuilderExt::connect_signals()) and variants thereof can be</span>
     <span class="doccomment">/// used to connect handlers to the named signals in the description.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # `Builder` UI Definitions # {`BUILDER`-UI}</span>
@@ -887,8 +887,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// The toplevel element is `&lt;interface&gt;`. It optionally takes a “domain”</span>
     <span class="doccomment">/// attribute, which will make the builder look for translated strings</span>
-    <span class="doccomment">/// using `dgettext` in the domain specified. This can also be done by</span>
-    <span class="doccomment">/// calling `BuilderExt::set_translation_domain` on the builder.</span>
+    <span class="doccomment">/// using `dgettext()` in the domain specified. This can also be done by</span>
+    <span class="doccomment">/// calling [`BuilderExt::set_translation_domain()`](crate::BuilderExt::set_translation_domain()) on the builder.</span>
     <span class="doccomment">/// Objects are described by `&lt;object&gt;` elements, which can contain</span>
     <span class="doccomment">/// `&lt;property&gt;` elements to set properties, `&lt;signal&gt;` elements which</span>
     <span class="doccomment">/// connect signals to handlers, and `&lt;child&gt;` elements, which describe</span>
@@ -903,17 +903,17 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Typically, the specific kind of object represented by an `&lt;object&gt;`</span>
     <span class="doccomment">/// element is specified by the “class” attribute. If the type has not</span>
-    <span class="doccomment">/// been loaded yet, GTK+ tries to find the `get_type` function from the</span>
+    <span class="doccomment">/// been loaded yet, GTK+ tries to find the `get_type()` function from the</span>
     <span class="doccomment">/// class name by applying heuristics. This works in most cases, but if</span>
-    <span class="doccomment">/// necessary, it is possible to specify the name of the `get_type` function</span>
+    <span class="doccomment">/// necessary, it is possible to specify the name of the `get_type()` function</span>
     <span class="doccomment">/// explictly with the &quot;type-func&quot; attribute. As a special case, `Builder`</span>
-    <span class="doccomment">/// allows to use an object that has been constructed by a `UIManager` in</span>
-    <span class="doccomment">/// another part of the UI definition by specifying the id of the `UIManager`</span>
+    <span class="doccomment">/// allows to use an object that has been constructed by a [`UIManager`](crate::UIManager) in</span>
+    <span class="doccomment">/// another part of the UI definition by specifying the id of the [`UIManager`](crate::UIManager)</span>
     <span class="doccomment">/// in the “constructor” attribute and the name of the object in the “id”</span>
     <span class="doccomment">/// attribute.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Objects may be given a name with the “id” attribute, which allows the</span>
-    <span class="doccomment">/// application to retrieve them from the builder with `Builder::get_object`.</span>
+    <span class="doccomment">/// application to retrieve them from the builder with [`get_object()`](Self::get_object()).</span>
     <span class="doccomment">/// An id is also necessary to use the object as property value in other</span>
     <span class="doccomment">/// parts of the UI definition. GTK+ reserves ids starting and ending</span>
     <span class="doccomment">/// with ___ (3 underscores) for its own purposes.</span>
@@ -922,7 +922,7 @@
     <span class="doccomment">/// `&lt;property&gt;` element: the “name” attribute specifies the name of the</span>
     <span class="doccomment">/// property, and the content of the element specifies the value.</span>
     <span class="doccomment">/// If the “translatable” attribute is set to a true value, GTK+ uses</span>
-    <span class="doccomment">/// `gettext` (or `dgettext` if the builder has a translation domain set)</span>
+    <span class="doccomment">/// `gettext()` (or `dgettext()` if the builder has a translation domain set)</span>
     <span class="doccomment">/// to find a translation for the value. This happens before the value</span>
     <span class="doccomment">/// is parsed, so it can be used for properties of any type, but it is</span>
     <span class="doccomment">/// probably most useful for string properties. It is also possible to</span>
@@ -932,18 +932,18 @@
     <span class="doccomment">/// `Builder` can parse textual representations for the most common</span>
     <span class="doccomment">/// property types: characters, strings, integers, floating-point numbers,</span>
     <span class="doccomment">/// booleans (strings like “TRUE”, “t”, “yes”, “y”, “1” are interpreted</span>
-    <span class="doccomment">/// as `true`, strings like “FALSE”, “f”, “no”, “n”, “0” are interpreted</span>
-    <span class="doccomment">/// as `false`), enumerations (can be specified by their name, nick or</span>
+    <span class="doccomment">/// as [`true`], strings like “FALSE”, “f”, “no”, “n”, “0” are interpreted</span>
+    <span class="doccomment">/// as [`false`]), enumerations (can be specified by their name, nick or</span>
     <span class="doccomment">/// integer value), flags (can be specified by their name, nick, integer</span>
     <span class="doccomment">/// value, optionally combined with “|”, e.g. “GTK_VISIBLE|GTK_REALIZED”)</span>
-    <span class="doccomment">/// and colors (in a format understood by `gdk::RGBA::parse`).</span>
+    <span class="doccomment">/// and colors (in a format understood by [`gdk::RGBA::parse()`](crate::gdk::RGBA::parse())).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// GVariants can be specified in the format understood by `g_variant_parse`,</span>
+    <span class="doccomment">/// GVariants can be specified in the format understood by `g_variant_parse()`,</span>
     <span class="doccomment">/// and pixbufs can be specified as a filename of an image file to load.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Objects can be referred to by their name and by default refer to</span>
     <span class="doccomment">/// objects declared in the local xml fragment and objects exposed via</span>
-    <span class="doccomment">/// `BuilderExt::expose_object`. In general, `Builder` allows forward</span>
+    <span class="doccomment">/// [`BuilderExt::expose_object()`](crate::BuilderExt::expose_object()). In general, `Builder` allows forward</span>
     <span class="doccomment">/// references to objects — declared in the local xml; an object doesn’t</span>
     <span class="doccomment">/// have to be constructed before it can be referred to. The exception</span>
     <span class="doccomment">/// to this rule is that an object has to be constructed before it can</span>
@@ -955,24 +955,24 @@
     <span class="doccomment">/// &quot;bind-property&quot; to specify the source property and optionally</span>
     <span class="doccomment">/// &quot;bind-flags&quot; to specify the binding flags.</span>
     <span class="doccomment">/// Internally builder implements this using GBinding objects.</span>
-    <span class="doccomment">/// For more information see `glib::object::ObjectExt::bind_property`</span>
+    <span class="doccomment">/// For more information see [`glib::object::ObjectExt::bind_property()`](crate::glib::object::ObjectExt::bind_property())</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Signal handlers are set up with the `&lt;signal&gt;` element. The “name”</span>
     <span class="doccomment">/// attribute specifies the name of the signal, and the “handler” attribute</span>
     <span class="doccomment">/// specifies the function to connect to the signal. By default, GTK+ tries</span>
-    <span class="doccomment">/// to find the handler using `gmodule::Module::symbol`, but this can be changed by</span>
+    <span class="doccomment">/// to find the handler using [`gmodule::Module::symbol()`](crate::gmodule::Module::symbol()), but this can be changed by</span>
     <span class="doccomment">/// passing a custom ``GtkBuilderConnectFunc`` to</span>
-    <span class="doccomment">/// `Builder::connect_signals_full`. The remaining attributes, “after”,</span>
+    <span class="doccomment">/// [`connect_signals_full()`](Self::connect_signals_full()). The remaining attributes, “after”,</span>
     <span class="doccomment">/// “swapped” and “object”, have the same meaning as the corresponding</span>
-    <span class="doccomment">/// parameters of the `g_signal_connect_object` or</span>
-    <span class="doccomment">/// `g_signal_connect_data` functions. A “last_modification_time”</span>
+    <span class="doccomment">/// parameters of the `g_signal_connect_object()` or</span>
+    <span class="doccomment">/// `g_signal_connect_data()` functions. A “last_modification_time”</span>
     <span class="doccomment">/// attribute is also allowed, but it does not have a meaning to the</span>
     <span class="doccomment">/// builder.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Sometimes it is necessary to refer to widgets which have implicitly</span>
     <span class="doccomment">/// been constructed by GTK+ as part of a composite widget, to set</span>
     <span class="doccomment">/// properties on them or to add further children (e.g. the `vbox` of</span>
-    <span class="doccomment">/// a `Dialog`). This can be achieved by setting the “internal-child”</span>
+    <span class="doccomment">/// a [`Dialog`](crate::Dialog)). This can be achieved by setting the “internal-child”</span>
     <span class="doccomment">/// property of the `&lt;child&gt;` element to a true value. Note that `Builder`</span>
     <span class="doccomment">/// still requires an `&lt;object&gt;` element for the internal child, even if it</span>
     <span class="doccomment">/// has already been constructed.</span>
@@ -1025,7 +1025,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`BuilderExt`](trait@crate::BuilderExt), [`trait@glib::object::ObjectExt`], [`BuilderExtManual`](trait@crate::BuilderExtManual)</span>
+    <span class="doccomment">/// [`BuilderExt`](trait@crate::prelude::BuilderExt), [`trait@glib::object::ObjectExt`], [`BuilderExtManual`](trait@crate::prelude::BuilderExtManual)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Builder</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkBuilder</span>, <span class="ident">ffi::GtkBuilderClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -1037,16 +1037,16 @@
     <span class="doccomment">/// Creates a new empty builder object.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This function is only useful if you intend to make multiple calls</span>
-    <span class="doccomment">/// to `Builder::add_from_file`, `BuilderExt::add_from_resource`</span>
-    <span class="doccomment">/// or `BuilderExt::add_from_string` in order to merge multiple UI</span>
+    <span class="doccomment">/// to [`add_from_file()`](Self::add_from_file()), [`BuilderExt::add_from_resource()`](crate::BuilderExt::add_from_resource())</span>
+    <span class="doccomment">/// or [`BuilderExt::add_from_string()`](crate::BuilderExt::add_from_string()) in order to merge multiple UI</span>
     <span class="doccomment">/// descriptions into a single builder.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Most users will probably want to use `Builder::new_from_file`,</span>
-    <span class="doccomment">/// `Builder::new_from_resource` or `Builder::new_from_string`.</span>
+    <span class="doccomment">/// Most users will probably want to use [`new_from_file()`](Self::new_from_file()),</span>
+    <span class="doccomment">/// [`new_from_resource()`](Self::new_from_resource()) or [`new_from_string()`](Self::new_from_string()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new (empty) `Builder` object</span>
+    <span class="doccomment">/// a new (empty) [`Builder`](crate::Builder) object</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_builder_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Builder</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -1059,11 +1059,11 @@
     <span class="doccomment">/// If there is an error locating the resource or parsing the</span>
     <span class="doccomment">/// description, then the program will be aborted.</span>
     <span class="doccomment">/// ## `resource_path`</span>
-    <span class="doccomment">/// a `gio::Resource` resource path</span>
+    <span class="doccomment">/// a [`gio::Resource`](crate::gio::Resource) resource path</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a `Builder` containing the described interface</span>
+    <span class="doccomment">/// a [`Builder`](crate::Builder) containing the described interface</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_builder_new_from_resource&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_resource</span>(<span class="ident">resource_path</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Builder</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -1077,7 +1077,7 @@
     <span class="doccomment">/// Builds the user interface described by `string` (in the</span>
     <span class="doccomment">/// [`Builder` UI definition][BUILDER-UI] format).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If `string` is `None`-terminated, then `length` should be -1.</span>
+    <span class="doccomment">/// If `string` is [`None`]-terminated, then `length` should be -1.</span>
     <span class="doccomment">/// If `length` is not -1, then it is the length of `string`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If there is an error parsing `string` then the program will be</span>
@@ -1090,7 +1090,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a `Builder` containing the interface described by `string`</span>
+    <span class="doccomment">/// a [`Builder`](crate::Builder) containing the interface described by `string`</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_builder_new_from_string&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_string</span>(<span class="ident">string</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Builder</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -1127,15 +1127,15 @@
     <span class="doccomment">/// Parses a resource file containing a [`Builder` UI definition][BUILDER-UI]</span>
     <span class="doccomment">/// and merges it with the current contents of `self`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Most users will probably want to use `Builder::new_from_resource`.</span>
+    <span class="doccomment">/// Most users will probably want to use [`Builder::new_from_resource()`](crate::Builder::new_from_resource()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If an error occurs, 0 will be returned and `error` will be assigned a</span>
-    <span class="doccomment">/// `glib::Error` from the `GTK_BUILDER_ERROR`, `G_MARKUP_ERROR` or `G_RESOURCE_ERROR`</span>
+    <span class="doccomment">/// [`glib::Error`](crate::glib::Error) from the `GTK_BUILDER_ERROR`, `G_MARKUP_ERROR` or `G_RESOURCE_ERROR`</span>
     <span class="doccomment">/// domain.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// It’s not really reasonable to attempt to handle failures of this</span>
     <span class="doccomment">/// call. The only reasonable thing to do when an error is detected is</span>
-    <span class="doccomment">/// to call `g_error`.</span>
+    <span class="doccomment">/// to call `g_error()`.</span>
     <span class="doccomment">/// ## `resource_path`</span>
     <span class="doccomment">/// the path of the resource file to parse</span>
     <span class="doccomment">///</span>
@@ -1148,15 +1148,15 @@
     <span class="doccomment">/// Parses a string containing a [`Builder` UI definition][BUILDER-UI]</span>
     <span class="doccomment">/// and merges it with the current contents of `self`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Most users will probably want to use `Builder::new_from_string`.</span>
+    <span class="doccomment">/// Most users will probably want to use [`Builder::new_from_string()`](crate::Builder::new_from_string()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Upon errors 0 will be returned and `error` will be assigned a</span>
-    <span class="doccomment">/// `glib::Error` from the `GTK_BUILDER_ERROR`, `G_MARKUP_ERROR` or</span>
+    <span class="doccomment">/// [`glib::Error`](crate::glib::Error) from the `GTK_BUILDER_ERROR`, `G_MARKUP_ERROR` or</span>
     <span class="doccomment">/// `G_VARIANT_PARSE_ERROR` domain.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// It’s not really reasonable to attempt to handle failures of this</span>
     <span class="doccomment">/// call. The only reasonable thing to do when an error is detected is</span>
-    <span class="doccomment">/// to call `g_error`.</span>
+    <span class="doccomment">/// to call `g_error()`.</span>
     <span class="doccomment">/// ## `buffer`</span>
     <span class="doccomment">/// the string to parse</span>
     <span class="doccomment">/// ## `length`</span>
@@ -1173,12 +1173,12 @@
     <span class="doccomment">/// them with the current contents of `self`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Upon errors 0 will be returned and `error` will be assigned a</span>
-    <span class="doccomment">/// `glib::Error` from the `GTK_BUILDER_ERROR`, `G_MARKUP_ERROR` or `G_RESOURCE_ERROR`</span>
+    <span class="doccomment">/// [`glib::Error`](crate::glib::Error) from the `GTK_BUILDER_ERROR`, `G_MARKUP_ERROR` or `G_RESOURCE_ERROR`</span>
     <span class="doccomment">/// domain.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If you are adding an object that depends on an object that is not</span>
-    <span class="doccomment">/// its child (for instance a `TreeView` that depends on its</span>
-    <span class="doccomment">/// `TreeModel`), you have to explicitly list all of them in `object_ids`.</span>
+    <span class="doccomment">/// its child (for instance a [`TreeView`](crate::TreeView) that depends on its</span>
+    <span class="doccomment">/// [`TreeModel`](crate::TreeModel)), you have to explicitly list all of them in `object_ids`.</span>
     <span class="doccomment">/// ## `resource_path`</span>
     <span class="doccomment">/// the path of the resource file to parse</span>
     <span class="doccomment">/// ## `object_ids`</span>
@@ -1199,11 +1199,11 @@
     <span class="doccomment">/// them with the current contents of `self`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Upon errors 0 will be returned and `error` will be assigned a</span>
-    <span class="doccomment">/// `glib::Error` from the `GTK_BUILDER_ERROR` or `G_MARKUP_ERROR` domain.</span>
+    <span class="doccomment">/// [`glib::Error`](crate::glib::Error) from the `GTK_BUILDER_ERROR` or `G_MARKUP_ERROR` domain.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If you are adding an object that depends on an object that is not</span>
-    <span class="doccomment">/// its child (for instance a `TreeView` that depends on its</span>
-    <span class="doccomment">/// `TreeModel`), you have to explicitly list all of them in `object_ids`.</span>
+    <span class="doccomment">/// its child (for instance a [`TreeView`](crate::TreeView) that depends on its</span>
+    <span class="doccomment">/// [`TreeModel`](crate::TreeModel)), you have to explicitly list all of them in `object_ids`.</span>
     <span class="doccomment">/// ## `buffer`</span>
     <span class="doccomment">/// the string to parse</span>
     <span class="doccomment">/// ## `length`</span>
@@ -1255,19 +1255,19 @@
         <span class="ident">buffer</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib::Error</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// Gets the `Application` associated with the builder.</span>
+    <span class="doccomment">/// Gets the [`Application`](crate::Application) associated with the builder.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The `Application` is used for creating action proxies as requested</span>
+    <span class="doccomment">/// The [`Application`](crate::Application) is used for creating action proxies as requested</span>
     <span class="doccomment">/// from XML that the builder is loading.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// By default, the builder uses the default application: the one from</span>
-    <span class="doccomment">/// `gio::Application::get_default`. If you want to use another application</span>
-    <span class="doccomment">/// for constructing proxies, use `BuilderExt::set_application`.</span>
+    <span class="doccomment">/// [`gio::Application::get_default()`](crate::gio::Application::get_default()). If you want to use another application</span>
+    <span class="doccomment">/// for constructing proxies, use [`set_application()`](Self::set_application()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// the application being used by the builder,</span>
-    <span class="doccomment">///  or `None`</span>
+    <span class="doccomment">///  or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_builder_get_application&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">application</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Application</span><span class="op">&gt;</span>;
 
@@ -1277,9 +1277,9 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a newly-allocated `glib::SList` containing all the objects</span>
-    <span class="doccomment">///  constructed by the `Builder` instance. It should be freed by</span>
-    <span class="doccomment">///  `glib::SList::free`</span>
+    <span class="doccomment">/// a newly-allocated [`glib::SList`](crate::glib::SList) containing all the objects</span>
+    <span class="doccomment">///  constructed by the [`Builder`](crate::Builder) instance. It should be freed by</span>
+    <span class="doccomment">///  [`glib::SList::free()`](crate::glib::SList::free())</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_builder_get_objects&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">objects</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">glib::Object</span><span class="op">&gt;</span>;
 
@@ -1293,14 +1293,14 @@
     <span class="kw">fn</span> <span class="ident">translation_domain</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Looks up a type by name, using the virtual function that</span>
-    <span class="doccomment">/// `Builder` has for that purpose. This is mainly used when</span>
-    <span class="doccomment">/// implementing the `Buildable` interface on a type.</span>
+    <span class="doccomment">/// [`Builder`](crate::Builder) has for that purpose. This is mainly used when</span>
+    <span class="doccomment">/// implementing the [`Buildable`](crate::Buildable) interface on a type.</span>
     <span class="doccomment">/// ## `type_name`</span>
     <span class="doccomment">/// type name to lookup</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the `glib::Type` found for `type_name` or `G_TYPE_INVALID`</span>
+    <span class="doccomment">/// the [`glib::Type`](crate::glib::Type) found for `type_name` or `G_TYPE_INVALID`</span>
     <span class="doccomment">///  if no type was found</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_builder_get_type_from_name&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">type_from_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">type_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::types::Type</span>;
@@ -1310,41 +1310,41 @@
 
     <span class="doccomment">/// Sets the application associated with `self`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// You only need this function if there is more than one `gio::Application`</span>
-    <span class="doccomment">/// in your process. `application` cannot be `None`.</span>
+    <span class="doccomment">/// You only need this function if there is more than one [`gio::Application`](crate::gio::Application)</span>
+    <span class="doccomment">/// in your process. `application` cannot be [`None`].</span>
     <span class="doccomment">/// ## `application`</span>
-    <span class="doccomment">/// a `Application`</span>
+    <span class="doccomment">/// a [`Application`](crate::Application)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_builder_set_application&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_application</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Application</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">application</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>);
 
     <span class="doccomment">/// Sets the translation domain of `self`.</span>
-    <span class="doccomment">/// See `Builder:translation-domain`.</span>
+    <span class="doccomment">/// See [`Builder:translation-domain`](crate::Builder:translation-domain).</span>
     <span class="doccomment">/// ## `domain`</span>
-    <span class="doccomment">/// the translation domain or `None`</span>
+    <span class="doccomment">/// the translation domain or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_builder_set_translation_domain&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_translation_domain</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">domain</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>);
 
     <span class="doccomment">/// This function demarshals a value from a string. This function</span>
-    <span class="doccomment">/// calls `glib::object::Value::init` on the `value` argument, so it need not be</span>
+    <span class="doccomment">/// calls [`glib::object::Value::init()`](crate::glib::object::Value::init()) on the `value` argument, so it need not be</span>
     <span class="doccomment">/// initialised beforehand.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This function can handle char, uchar, boolean, int, uint, long,</span>
-    <span class="doccomment">/// ulong, enum, flags, float, double, string, `gdk::Color`, `gdk::RGBA` and</span>
-    <span class="doccomment">/// `Adjustment` type values. Support for `Widget` type values is</span>
+    <span class="doccomment">/// ulong, enum, flags, float, double, string, [`gdk::Color`](crate::gdk::Color), [`gdk::RGBA`](crate::gdk::RGBA) and</span>
+    <span class="doccomment">/// [`Adjustment`](crate::Adjustment) type values. Support for [`Widget`](crate::Widget) type values is</span>
     <span class="doccomment">/// still to come.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Upon errors `false` will be returned and `error` will be assigned a</span>
-    <span class="doccomment">/// `glib::Error` from the `GTK_BUILDER_ERROR` domain.</span>
+    <span class="doccomment">/// Upon errors [`false`] will be returned and `error` will be assigned a</span>
+    <span class="doccomment">/// [`glib::Error`](crate::glib::Error) from the `GTK_BUILDER_ERROR` domain.</span>
     <span class="doccomment">/// ## `pspec`</span>
-    <span class="doccomment">/// the `glib::object::ParamSpec` for the property</span>
+    <span class="doccomment">/// the [`glib::object::ParamSpec`](crate::glib::object::ParamSpec) for the property</span>
     <span class="doccomment">/// ## `string`</span>
     <span class="doccomment">/// the string representation of the value</span>
     <span class="doccomment">/// ## `value`</span>
-    <span class="doccomment">/// the `glib::object::Value` to store the result in</span>
+    <span class="doccomment">/// the [`glib::object::Value`](crate::glib::object::Value) to store the result in</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` on success</span>
+    <span class="doccomment">/// [`true`] on success</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_builder_value_from_string&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">value_from_string</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -1352,23 +1352,23 @@
         <span class="ident">string</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">glib::Value</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// Like `BuilderExt::value_from_string`, this function demarshals</span>
-    <span class="doccomment">/// a value from a string, but takes a `glib::Type` instead of `glib::object::ParamSpec`.</span>
-    <span class="doccomment">/// This function calls `glib::object::Value::init` on the `value` argument, so it</span>
+    <span class="doccomment">/// Like [`value_from_string()`](Self::value_from_string()), this function demarshals</span>
+    <span class="doccomment">/// a value from a string, but takes a [`glib::Type`](crate::glib::Type) instead of [`glib::object::ParamSpec`](crate::glib::object::ParamSpec).</span>
+    <span class="doccomment">/// This function calls [`glib::object::Value::init()`](crate::glib::object::Value::init()) on the `value` argument, so it</span>
     <span class="doccomment">/// need not be initialised beforehand.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Upon errors `false` will be returned and `error` will be assigned a</span>
-    <span class="doccomment">/// `glib::Error` from the `GTK_BUILDER_ERROR` domain.</span>
+    <span class="doccomment">/// Upon errors [`false`] will be returned and `error` will be assigned a</span>
+    <span class="doccomment">/// [`glib::Error`](crate::glib::Error) from the `GTK_BUILDER_ERROR` domain.</span>
     <span class="doccomment">/// ## `type_`</span>
-    <span class="doccomment">/// the `glib::Type` of the value</span>
+    <span class="doccomment">/// the [`glib::Type`](crate::glib::Type) of the value</span>
     <span class="doccomment">/// ## `string`</span>
     <span class="doccomment">/// the string representation of the value</span>
     <span class="doccomment">/// ## `value`</span>
-    <span class="doccomment">/// the `glib::object::Value` to store the result in</span>
+    <span class="doccomment">/// the [`glib::object::Value`](crate::glib::object::Value) to store the result in</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` on success</span>
+    <span class="doccomment">/// [`true`] on success</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_builder_value_from_string_type&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">value_from_string_type</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,

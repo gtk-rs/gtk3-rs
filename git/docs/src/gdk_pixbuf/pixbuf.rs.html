@@ -774,15 +774,6 @@
 <span id="771">771</span>
 <span id="772">772</span>
 <span id="773">773</span>
-<span id="774">774</span>
-<span id="775">775</span>
-<span id="776">776</span>
-<span id="777">777</span>
-<span id="778">778</span>
-<span id="779">779</span>
-<span id="780">780</span>
-<span id="781">781</span>
-<span id="782">782</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -872,7 +863,7 @@
     }
 
     <span class="doccomment">/// Creates a new pixbuf by loading an image from a file. The file format is</span>
-    <span class="doccomment">/// detected automatically. If `None` is returned, then `error` will be set.</span>
+    <span class="doccomment">/// detected automatically. If [`None`] is returned, then `error` will be set.</span>
     <span class="doccomment">/// Possible errors are in the `GDK_PIXBUF_ERROR` and `G_FILE_ERROR` domains.</span>
     <span class="doccomment">/// ## `filename`</span>
     <span class="doccomment">/// Name of file to load, in the GLib file</span>
@@ -880,7 +871,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A newly-created pixbuf with a reference count of 1, or `None` if</span>
+    <span class="doccomment">/// A newly-created pixbuf with a reference count of 1, or [`None`] if</span>
     <span class="doccomment">/// any of several error conditions occurred: the file could not be opened,</span>
     <span class="doccomment">/// there was no loader for the file&#39;s format, there was not enough memory to</span>
     <span class="doccomment">/// allocate the image buffer, or the image file contained invalid data.</span>
@@ -904,7 +895,7 @@
     }
 
     <span class="doccomment">/// Creates a new pixbuf by loading an image from a file.</span>
-    <span class="doccomment">/// The file format is detected automatically. If `None` is returned, then</span>
+    <span class="doccomment">/// The file format is detected automatically. If [`None`] is returned, then</span>
     <span class="doccomment">/// `error` will be set. Possible errors are in the `GDK_PIXBUF_ERROR` and</span>
     <span class="doccomment">/// `G_FILE_ERROR` domains.</span>
     <span class="doccomment">///</span>
@@ -912,7 +903,7 @@
     <span class="doccomment">/// the image&#39;s aspect ratio. Note that the returned pixbuf may be smaller</span>
     <span class="doccomment">/// than `width` x `height`, if the aspect ratio requires it. To load</span>
     <span class="doccomment">/// and image at the requested size, regardless of aspect ratio, use</span>
-    <span class="doccomment">/// `Pixbuf::new_from_file_at_scale`.</span>
+    <span class="doccomment">/// [`new_from_file_at_scale()`](Self::new_from_file_at_scale()).</span>
     <span class="doccomment">/// ## `filename`</span>
     <span class="doccomment">/// Name of file to load, in the GLib file</span>
     <span class="doccomment">///  name encoding</span>
@@ -924,7 +915,7 @@
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// A newly-created pixbuf with a reference count of 1, or</span>
-    <span class="doccomment">/// `None` if any of several error conditions occurred: the file could not</span>
+    <span class="doccomment">/// [`None`] if any of several error conditions occurred: the file could not</span>
     <span class="doccomment">/// be opened, there was no loader for the file&#39;s format, there was not</span>
     <span class="doccomment">/// enough memory to allocate the image buffer, or the image file contained</span>
     <span class="doccomment">/// invalid data.</span>
@@ -957,7 +948,7 @@
     }
 
     <span class="doccomment">/// Creates a new pixbuf by loading an image from a file. The file format is</span>
-    <span class="doccomment">/// detected automatically. If `None` is returned, then `error` will be set.</span>
+    <span class="doccomment">/// detected automatically. If [`None`] is returned, then `error` will be set.</span>
     <span class="doccomment">/// Possible errors are in the `GDK_PIXBUF_ERROR` and `G_FILE_ERROR` domains.</span>
     <span class="doccomment">/// The image will be scaled to fit in the requested size, optionally preserving</span>
     <span class="doccomment">/// the image&#39;s aspect ratio.</span>
@@ -976,11 +967,11 @@
     <span class="doccomment">/// ## `height`</span>
     <span class="doccomment">/// The height the image should have or -1 to not constrain the height</span>
     <span class="doccomment">/// ## `preserve_aspect_ratio`</span>
-    <span class="doccomment">/// `true` to preserve the image&#39;s aspect ratio</span>
+    <span class="doccomment">/// [`true`] to preserve the image&#39;s aspect ratio</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A newly-created pixbuf with a reference count of 1, or `None`</span>
+    <span class="doccomment">/// A newly-created pixbuf with a reference count of 1, or [`None`]</span>
     <span class="doccomment">/// if any of several error conditions occurred: the file could not be opened,</span>
     <span class="doccomment">/// there was no loader for the file&#39;s format, there was not enough memory to</span>
     <span class="doccomment">/// allocate the image buffer, or the image file contained invalid data.</span>
@@ -1190,16 +1181,16 @@
     <span class="doccomment">/// The name of the file to identify.</span>
     <span class="doccomment">/// ## `width`</span>
     <span class="doccomment">/// Return location for the width of the</span>
-    <span class="doccomment">///  image, or `None`</span>
+    <span class="doccomment">///  image, or [`None`]</span>
     <span class="doccomment">/// ## `height`</span>
     <span class="doccomment">/// Return location for the height of the</span>
-    <span class="doccomment">///  image, or `None`</span>
+    <span class="doccomment">///  image, or [`None`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A `PixbufFormat` describing</span>
-    <span class="doccomment">///  the image format of the file or `None` if the image format wasn&#39;t</span>
-    <span class="doccomment">///  recognized. The return value is owned by `Pixbuf` and should</span>
+    <span class="doccomment">/// A [`PixbufFormat`](crate::PixbufFormat) describing</span>
+    <span class="doccomment">///  the image format of the file or [`None`] if the image format wasn&#39;t</span>
+    <span class="doccomment">///  recognized. The return value is owned by [`Pixbuf`](crate::Pixbuf) and should</span>
     <span class="doccomment">///  not be freed.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_pixbuf_get_file_info&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">file_info</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">Path</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">filename</span>: <span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span>(<span class="ident">PixbufFormat</span>, <span class="ident">i32</span>, <span class="ident">i32</span>)<span class="op">&gt;</span> {
@@ -1226,19 +1217,16 @@
     <span class="doccomment">/// Asynchronously parses an image file far enough to determine its</span>
     <span class="doccomment">/// format and size.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// For more details see `Pixbuf::get_file_info`, which is the synchronous</span>
+    <span class="doccomment">/// For more details see [`get_file_info()`](Self::get_file_info()), which is the synchronous</span>
     <span class="doccomment">/// version of this function.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// When the operation is finished, `callback` will be called in the</span>
-    <span class="doccomment">/// main thread. You can then call `Pixbuf::get_file_info_finish` to</span>
+    <span class="doccomment">/// main thread. You can then call [`get_file_info_finish()`](Self::get_file_info_finish()) to</span>
     <span class="doccomment">/// get the result of the operation.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Feature: `v2_32`</span>
-    <span class="doccomment">///</span>
     <span class="doccomment">/// ## `filename`</span>
     <span class="doccomment">/// The name of the file to identify</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional `gio::Cancellable` object, `None` to ignore</span>
+    <span class="doccomment">/// optional [`gio::Cancellable`](crate::gio::Cancellable) object, [`None`] to ignore</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// a `GAsyncReadyCallback` to call when the file info is available</span>
     <span class="doccomment">/// ## `user_data`</span>
@@ -1316,7 +1304,7 @@
     }
 
     <span class="doccomment">/// Saves pixbuf to a new buffer in format `type_`, which is currently &quot;jpeg&quot;,</span>
-    <span class="doccomment">/// &quot;tiff&quot;, &quot;png&quot;, &quot;ico&quot; or &quot;bmp&quot;. See `Pixbuf::save_to_buffer`</span>
+    <span class="doccomment">/// &quot;tiff&quot;, &quot;png&quot;, &quot;ico&quot; or &quot;bmp&quot;. See [`save_to_buffer()`](Self::save_to_buffer())</span>
     <span class="doccomment">/// for more details.</span>
     <span class="doccomment">/// ## `buffer`</span>
     <span class="doccomment">///</span>
@@ -1326,7 +1314,7 @@
     <span class="doccomment">/// ## `type_`</span>
     <span class="doccomment">/// name of file format.</span>
     <span class="doccomment">/// ## `option_keys`</span>
-    <span class="doccomment">/// name of options to set, `None`-terminated</span>
+    <span class="doccomment">/// name of options to set, [`None`]-terminated</span>
     <span class="doccomment">/// ## `option_values`</span>
     <span class="doccomment">/// values for named options</span>
     <span class="doccomment">///</span>
@@ -1364,24 +1352,21 @@
     <span class="doccomment">/// Saves `self` to an output stream.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Supported file formats are currently &quot;jpeg&quot;, &quot;tiff&quot;, &quot;png&quot;, &quot;ico&quot; or</span>
-    <span class="doccomment">/// &quot;bmp&quot;. See `Pixbuf::save_to_stream` for more details.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Feature: `v2_36`</span>
-    <span class="doccomment">///</span>
+    <span class="doccomment">/// &quot;bmp&quot;. See [`save_to_stream()`](Self::save_to_stream()) for more details.</span>
     <span class="doccomment">/// ## `stream`</span>
-    <span class="doccomment">/// a `gio::OutputStream` to save the pixbuf to</span>
+    <span class="doccomment">/// a [`gio::OutputStream`](crate::gio::OutputStream) to save the pixbuf to</span>
     <span class="doccomment">/// ## `type_`</span>
     <span class="doccomment">/// name of file format</span>
     <span class="doccomment">/// ## `option_keys`</span>
-    <span class="doccomment">/// name of options to set, `None`-terminated</span>
+    <span class="doccomment">/// name of options to set, [`None`]-terminated</span>
     <span class="doccomment">/// ## `option_values`</span>
     <span class="doccomment">/// values for named options</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional `gio::Cancellable` object, `None` to ignore</span>
+    <span class="doccomment">/// optional [`gio::Cancellable`](crate::gio::Cancellable) object, [`None`] to ignore</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if the pixbuf was saved successfully, `false` if an</span>
+    <span class="doccomment">/// [`true`] if the pixbuf was saved successfully, [`false`] if an</span>
     <span class="doccomment">///  error was set.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_36&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_36&quot;</span>)))]</span>
@@ -1416,24 +1401,21 @@
 
     <span class="doccomment">/// Saves `self` to an output stream asynchronously.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// For more details see `Pixbuf::save_to_streamv`, which is the synchronous</span>
+    <span class="doccomment">/// For more details see [`save_to_streamv()`](Self::save_to_streamv()), which is the synchronous</span>
     <span class="doccomment">/// version of this function.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// When the operation is finished, `callback` will be called in the main thread.</span>
-    <span class="doccomment">/// You can then call `Pixbuf::save_to_stream_finish` to get the result of the operation.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Feature: `v2_36`</span>
-    <span class="doccomment">///</span>
+    <span class="doccomment">/// You can then call [`save_to_stream_finish()`](Self::save_to_stream_finish()) to get the result of the operation.</span>
     <span class="doccomment">/// ## `stream`</span>
-    <span class="doccomment">/// a `gio::OutputStream` to which to save the pixbuf</span>
+    <span class="doccomment">/// a [`gio::OutputStream`](crate::gio::OutputStream) to which to save the pixbuf</span>
     <span class="doccomment">/// ## `type_`</span>
     <span class="doccomment">/// name of file format</span>
     <span class="doccomment">/// ## `option_keys`</span>
-    <span class="doccomment">/// name of options to set, `None`-terminated</span>
+    <span class="doccomment">/// name of options to set, [`None`]-terminated</span>
     <span class="doccomment">/// ## `option_values`</span>
     <span class="doccomment">/// values for named options</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional `gio::Cancellable` object, `None` to ignore</span>
+    <span class="doccomment">/// optional [`gio::Cancellable`](crate::gio::Cancellable) object, [`None`] to ignore</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// a `GAsyncReadyCallback` to call when the pixbuf is saved</span>
     <span class="doccomment">/// ## `user_data`</span>
@@ -1525,14 +1507,14 @@
     }
 
     <span class="doccomment">/// Saves pixbuf to a file in `type_`, which is currently &quot;jpeg&quot;, &quot;png&quot;, &quot;tiff&quot;, &quot;ico&quot; or &quot;bmp&quot;.</span>
-    <span class="doccomment">/// If `error` is set, `false` will be returned.</span>
+    <span class="doccomment">/// If `error` is set, [`false`] will be returned.</span>
     <span class="doccomment">/// See gdk_pixbuf_save () for more details.</span>
     <span class="doccomment">/// ## `filename`</span>
     <span class="doccomment">/// name of file to save.</span>
     <span class="doccomment">/// ## `type_`</span>
     <span class="doccomment">/// name of file format.</span>
     <span class="doccomment">/// ## `option_keys`</span>
-    <span class="doccomment">/// name of options to set, `None`-terminated</span>
+    <span class="doccomment">/// name of options to set, [`None`]-terminated</span>
     <span class="doccomment">/// ## `option_values`</span>
     <span class="doccomment">/// values for named options</span>
     <span class="doccomment">///</span>

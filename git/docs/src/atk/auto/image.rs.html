@@ -177,14 +177,14 @@
 <span class="kw">use</span> <span class="ident">std::mem</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// `Image` should be implemented by `Object` subtypes on behalf of</span>
+    <span class="doccomment">/// [`Image`](crate::Image) should be implemented by [`Object`](crate::Object) subtypes on behalf of</span>
     <span class="doccomment">/// components which display image/pixmap information onscreen, and</span>
     <span class="doccomment">/// which provide information (other than just widget borders, etc.)</span>
     <span class="doccomment">/// via that image content. For instance, icons, buttons with icons,</span>
     <span class="doccomment">/// toolbar elements, and image viewing panes typically should</span>
-    <span class="doccomment">/// implement `Image`.</span>
+    <span class="doccomment">/// implement [`Image`](crate::Image).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `Image` primarily provides two types of information: coordinate</span>
+    <span class="doccomment">/// [`Image`](crate::Image) primarily provides two types of information: coordinate</span>
     <span class="doccomment">/// information (useful for screen review mode of screenreaders, and</span>
     <span class="doccomment">/// for use by onscreen magnifiers), and descriptive information. The</span>
     <span class="doccomment">/// descriptive information is provided for alternative, text-only</span>
@@ -193,7 +193,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`AtkImageExt`](trait@crate::AtkImageExt)</span>
+    <span class="doccomment">/// [`AtkImageExt`](trait@crate::prelude::AtkImageExt)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Image</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi::AtkImage</span>, <span class="ident">ffi::AtkImageIface</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -217,13 +217,13 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_image_get_image_description&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">image_description</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// Retrieves the locale identifier associated to the `Image`.</span>
+    <span class="doccomment">/// Retrieves the locale identifier associated to the [`Image`](crate::Image).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// a string corresponding to the POSIX</span>
     <span class="doccomment">///  `LC_MESSAGES` locale used by the image description, or</span>
-    <span class="doccomment">///  `None` if the image does not specify a locale.</span>
+    <span class="doccomment">///  [`None`] if the image does not specify a locale.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_image_get_image_locale&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">image_locale</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span>;
 

@@ -1150,15 +1150,15 @@
     <span class="doccomment">/// `Grid` is a container which arranges its child widgets in</span>
     <span class="doccomment">/// rows and columns, with arbitrary positions and horizontal/vertical spans.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Children are added using `GridExt::attach`. They can span multiple</span>
+    <span class="doccomment">/// Children are added using [`GridExt::attach()`](crate::GridExt::attach()). They can span multiple</span>
     <span class="doccomment">/// rows or columns. It is also possible to add a child next to an</span>
-    <span class="doccomment">/// existing child, using `GridExt::attach_next_to`. The behaviour of</span>
+    <span class="doccomment">/// existing child, using [`GridExt::attach_next_to()`](crate::GridExt::attach_next_to()). The behaviour of</span>
     <span class="doccomment">/// `Grid` when several children occupy the same grid cell is undefined.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `Grid` can be used like a `Box` by just using `ContainerExt::add`,</span>
+    <span class="doccomment">/// `Grid` can be used like a [`Box`](crate::Box) by just using [`ContainerExt::add()`](crate::ContainerExt::add()),</span>
     <span class="doccomment">/// which will place children next to each other in the direction determined</span>
-    <span class="doccomment">/// by the `Orientable:orientation` property. However, if all you want is a</span>
-    <span class="doccomment">/// single row or column, then `Box` is the preferred widget.</span>
+    <span class="doccomment">/// by the [`Orientable:orientation`](crate::Orientable:orientation) property. However, if all you want is a</span>
+    <span class="doccomment">/// single row or column, then [`Box`](crate::Box) is the preferred widget.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # CSS nodes</span>
     <span class="doccomment">///</span>
@@ -1166,7 +1166,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`GridExt`](trait@crate::GridExt), [`ContainerExt`](trait@crate::ContainerExt), [`WidgetExt`](trait@crate::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::BuildableExt), [`OrientableExt`](trait@crate::OrientableExt), [`WidgetExtManual`](trait@crate::WidgetExtManual), [`BuildableExtManual`](trait@crate::BuildableExtManual)</span>
+    <span class="doccomment">/// [`GridExt`](trait@crate::prelude::GridExt), [`ContainerExt`](trait@crate::prelude::ContainerExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`OrientableExt`](trait@crate::prelude::OrientableExt), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Grid</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkGrid</span>, <span class="ident">ffi::GtkGridClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>, <span class="ident">Orientable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -1179,7 +1179,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the new `Grid`</span>
+    <span class="doccomment">/// the new [`Grid`](crate::Grid)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_grid_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Grid</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -1612,17 +1612,17 @@
     <span class="doccomment">/// Adds a widget to the grid.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The widget is placed next to `sibling`, on the side determined by</span>
-    <span class="doccomment">/// `side`. When `sibling` is `None`, the widget is placed in row (for</span>
+    <span class="doccomment">/// `side`. When `sibling` is [`None`], the widget is placed in row (for</span>
     <span class="doccomment">/// left or right placement) or column 0 (for top or bottom placement),</span>
     <span class="doccomment">/// at the end indicated by `side`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Attaching widgets labeled [1], [2], [3] with `sibling` == `None` and</span>
-    <span class="doccomment">/// `side` == `PositionType::Left` yields a layout of [3][2][1].</span>
+    <span class="doccomment">/// Attaching widgets labeled [1], [2], [3] with `sibling` == [`None`] and</span>
+    <span class="doccomment">/// `side` == [`PositionType::Left`] yields a layout of [3][2][1].</span>
     <span class="doccomment">/// ## `child`</span>
     <span class="doccomment">/// the widget to add</span>
     <span class="doccomment">/// ## `sibling`</span>
     <span class="doccomment">/// the child of `self` that `child` will be placed</span>
-    <span class="doccomment">///  next to, or `None` to place `child` at the beginning or end</span>
+    <span class="doccomment">///  next to, or [`None`] to place `child` at the beginning or end</span>
     <span class="doccomment">/// ## `side`</span>
     <span class="doccomment">/// the side of `sibling` that `child` is positioned next to</span>
     <span class="doccomment">/// ## `width`</span>
@@ -1656,7 +1656,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the child at the given position, or `None`</span>
+    <span class="doccomment">/// the child at the given position, or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_grid_get_child_at&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">child_at</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">left</span>: <span class="ident">i32</span>, <span class="ident">top</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span>;
 
@@ -1677,8 +1677,8 @@
     <span class="kw">fn</span> <span class="ident">column_spacing</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span>;
 
     <span class="doccomment">/// Returns the baseline position of `row` as set</span>
-    <span class="doccomment">/// by `GridExt::set_row_baseline_position` or the default value</span>
-    <span class="doccomment">/// `BaselinePosition::Center`.</span>
+    <span class="doccomment">/// by [`set_row_baseline_position()`](Self::set_row_baseline_position()) or the default value</span>
+    <span class="doccomment">/// [`BaselinePosition::Center`].</span>
     <span class="doccomment">/// ## `row`</span>
     <span class="doccomment">/// a row index</span>
     <span class="doccomment">///</span>
@@ -1717,8 +1717,8 @@
     <span class="doccomment">/// Inserts a row or column at the specified position.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The new row or column is placed next to `sibling`, on the side</span>
-    <span class="doccomment">/// determined by `side`. If `side` is `PositionType::Top` or `PositionType::Bottom`,</span>
-    <span class="doccomment">/// a row is inserted. If `side` is `PositionType::Left` of `PositionType::Right`,</span>
+    <span class="doccomment">/// determined by `side`. If `side` is [`PositionType::Top`] or [`PositionType::Bottom`],</span>
+    <span class="doccomment">/// a row is inserted. If `side` is [`PositionType::Left`] of [`PositionType::Right`],</span>
     <span class="doccomment">/// a column is inserted.</span>
     <span class="doccomment">/// ## `sibling`</span>
     <span class="doccomment">/// the child of `self` that the new row or column will be</span>
@@ -1771,7 +1771,7 @@
 
     <span class="doccomment">/// Sets whether all columns of `self` will have the same width.</span>
     <span class="doccomment">/// ## `homogeneous`</span>
-    <span class="doccomment">/// `true` to make columns homogeneous</span>
+    <span class="doccomment">/// [`true`] to make columns homogeneous</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_grid_set_column_homogeneous&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_column_homogeneous</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">homogeneous</span>: <span class="ident">bool</span>);
 
@@ -1786,13 +1786,13 @@
     <span class="doccomment">/// ## `row`</span>
     <span class="doccomment">/// a row index</span>
     <span class="doccomment">/// ## `pos`</span>
-    <span class="doccomment">/// a `BaselinePosition`</span>
+    <span class="doccomment">/// a [`BaselinePosition`](crate::BaselinePosition)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_grid_set_row_baseline_position&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_row_baseline_position</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">row</span>: <span class="ident">i32</span>, <span class="ident">pos</span>: <span class="ident">BaselinePosition</span>);
 
     <span class="doccomment">/// Sets whether all rows of `self` will have the same height.</span>
     <span class="doccomment">/// ## `homogeneous`</span>
-    <span class="doccomment">/// `true` to make rows homogeneous</span>
+    <span class="doccomment">/// [`true`] to make rows homogeneous</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_grid_set_row_homogeneous&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_row_homogeneous</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">homogeneous</span>: <span class="ident">bool</span>);
 

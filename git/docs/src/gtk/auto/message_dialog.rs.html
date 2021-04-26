@@ -1181,17 +1181,17 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// `MessageDialog` presents a dialog with some message text. It’s simply a</span>
-    <span class="doccomment">/// convenience widget; you could construct the equivalent of `MessageDialog`</span>
-    <span class="doccomment">/// from `Dialog` without too much effort, but `MessageDialog` saves typing.</span>
+    <span class="doccomment">/// [`MessageDialog`](crate::MessageDialog) presents a dialog with some message text. It’s simply a</span>
+    <span class="doccomment">/// convenience widget; you could construct the equivalent of [`MessageDialog`](crate::MessageDialog)</span>
+    <span class="doccomment">/// from [`Dialog`](crate::Dialog) without too much effort, but [`MessageDialog`](crate::MessageDialog) saves typing.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// One difference from `Dialog` is that `MessageDialog` sets the</span>
-    <span class="doccomment">/// `Window:skip-taskbar-hint` property to `true`, so that the dialog is hidden</span>
+    <span class="doccomment">/// One difference from [`Dialog`](crate::Dialog) is that [`MessageDialog`](crate::MessageDialog) sets the</span>
+    <span class="doccomment">/// [`Window:skip-taskbar-hint`](crate::Window:skip-taskbar-hint) property to [`true`], so that the dialog is hidden</span>
     <span class="doccomment">/// from the taskbar by default.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The easiest way to do a modal message dialog is to use `DialogExt::run`, though</span>
-    <span class="doccomment">/// you can also pass in the `DialogFlags::Modal` flag, `DialogExt::run` automatically</span>
-    <span class="doccomment">/// makes the dialog modal and waits for the user to respond to it. `DialogExt::run`</span>
+    <span class="doccomment">/// The easiest way to do a modal message dialog is to use [`DialogExt::run()`](crate::DialogExt::run()), though</span>
+    <span class="doccomment">/// you can also pass in the [`DialogFlags::Modal`] flag, [`DialogExt::run()`](crate::DialogExt::run()) automatically</span>
+    <span class="doccomment">/// makes the dialog modal and waits for the user to respond to it. [`DialogExt::run()`](crate::DialogExt::run())</span>
     <span class="doccomment">/// returns when any dialog button is clicked.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// An example for using a modal dialog:</span>
@@ -1209,7 +1209,7 @@
     <span class="doccomment">///  gtk_widget_destroy (dialog);</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// You might do a non-modal `MessageDialog` as follows:</span>
+    <span class="doccomment">/// You might do a non-modal [`MessageDialog`](crate::MessageDialog) as follows:</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// An example for a non-modal dialog:</span>
     <span class="doccomment">///</span>
@@ -1238,7 +1238,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`MessageDialogExt`](trait@crate::MessageDialogExt), [`DialogExt`](trait@crate::DialogExt), [`GtkWindowExt`](trait@crate::GtkWindowExt), [`BinExt`](trait@crate::BinExt), [`ContainerExt`](trait@crate::ContainerExt), [`WidgetExt`](trait@crate::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::BuildableExt), [`DialogExtManual`](trait@crate::DialogExtManual), [`GtkWindowExtManual`](trait@crate::GtkWindowExtManual), [`WidgetExtManual`](trait@crate::WidgetExtManual), [`BuildableExtManual`](trait@crate::BuildableExtManual)</span>
+    <span class="doccomment">/// [`MessageDialogExt`](trait@crate::prelude::MessageDialogExt), [`DialogExt`](trait@crate::prelude::DialogExt), [`GtkWindowExt`](trait@crate::prelude::GtkWindowExt), [`BinExt`](trait@crate::prelude::BinExt), [`ContainerExt`](trait@crate::prelude::ContainerExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`DialogExtManual`](trait@crate::prelude::DialogExtManual), [`GtkWindowExtManual`](trait@crate::prelude::GtkWindowExtManual), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MessageDialog</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkMessageDialog</span>, <span class="ident">ffi::GtkMessageDialogClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Dialog</span>, <span class="ident">Window</span>, <span class="ident">Bin</span>, <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -1926,12 +1926,12 @@
     <span class="doccomment">/// Returns the message area of the dialog. This is the box where the</span>
     <span class="doccomment">/// dialog’s primary and secondary labels are packed. You can add your</span>
     <span class="doccomment">/// own extra content to that box and it will appear below those labels.</span>
-    <span class="doccomment">/// See `DialogExt::get_content_area` for the corresponding</span>
-    <span class="doccomment">/// function in the parent `Dialog`.</span>
+    <span class="doccomment">/// See [`DialogExt::get_content_area()`](crate::DialogExt::get_content_area()) for the corresponding</span>
+    <span class="doccomment">/// function in the parent [`Dialog`](crate::Dialog).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A `Box` corresponding to the</span>
+    <span class="doccomment">/// A [`Box`](crate::Box) corresponding to the</span>
     <span class="doccomment">///  “message area” in the `self`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_message_dialog_get_message_area&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">message_area</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Widget</span>;

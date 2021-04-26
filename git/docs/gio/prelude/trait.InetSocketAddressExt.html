@@ -9,10 +9,10 @@
 }</pre></div><div class="docblock"><p>Trait containing all <code>InetSocketAddress</code> methods.</p>
 <h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
 <p><a href="../struct.InetSocketAddress.html"><code>InetSocketAddress</code></a>, <a href="../struct.ProxyAddress.html"><code>ProxyAddress</code></a></p>
-</div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.address" class="method"><code>fn <a href="#tymethod.address" class="fnname">address</a>(&amp;self) -&gt; <a class="struct" href="../struct.InetAddress.html" title="struct gio::InetAddress">InetAddress</a></code><a class="srclink" href="../../src/gio/auto/inet_socket_address.rs.html#91" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets <code>self</code>’s <code>InetAddress</code>.</p>
+</div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.address" class="method"><code>fn <a href="#tymethod.address" class="fnname">address</a>(&amp;self) -&gt; <a class="struct" href="../struct.InetAddress.html" title="struct gio::InetAddress">InetAddress</a></code><a class="srclink" href="../../src/gio/auto/inet_socket_address.rs.html#91" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets <code>self</code>’s <a href="../struct.InetAddress.html"><code>InetAddress</code></a>.</p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
-<p>the <code>InetAddress</code> for <code>self</code>, which must be
-<code>glib::object::ObjectExt::ref</code>’d if it will be stored</p>
+<p>the <a href="../struct.InetAddress.html"><code>InetAddress</code></a> for <code>self</code>, which must be
+<a href="crate::glib::object::ObjectExt::ref()"><code>glib::object::ObjectExt::ref()</code></a>’d if it will be stored</p>
 </div><h3 id="tymethod.flowinfo" class="method"><code>fn <a href="#tymethod.flowinfo" class="fnname">flowinfo</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a></code><a class="srclink" href="../../src/gio/auto/inet_socket_address.rs.html#100" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the <code>sin6_flowinfo</code> field from <code>self</code>,
 which must be an IPv6 address.</p>
 <h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>

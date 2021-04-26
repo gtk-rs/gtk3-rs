@@ -738,12 +738,12 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// A `MenuShell` is the abstract base class used to derive the</span>
-    <span class="doccomment">/// `Menu` and `MenuBar` subclasses.</span>
+    <span class="doccomment">/// A [`MenuShell`](crate::MenuShell) is the abstract base class used to derive the</span>
+    <span class="doccomment">/// [`Menu`](crate::Menu) and [`MenuBar`](crate::MenuBar) subclasses.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A `MenuShell` is a container of `MenuItem` objects arranged</span>
+    <span class="doccomment">/// A [`MenuShell`](crate::MenuShell) is a container of [`MenuItem`](crate::MenuItem) objects arranged</span>
     <span class="doccomment">/// in a list which can be navigated, selected, and activated by the</span>
-    <span class="doccomment">/// user to perform application functions. A `MenuItem` can have a</span>
+    <span class="doccomment">/// user to perform application functions. A [`MenuItem`](crate::MenuItem) can have a</span>
     <span class="doccomment">/// submenu associated with it, allowing for nested hierarchical menus.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Terminology</span>
@@ -770,7 +770,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`MenuShellExt`](trait@crate::MenuShellExt), [`ContainerExt`](trait@crate::ContainerExt), [`WidgetExt`](trait@crate::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::BuildableExt), [`WidgetExtManual`](trait@crate::WidgetExtManual), [`BuildableExtManual`](trait@crate::BuildableExtManual)</span>
+    <span class="doccomment">/// [`MenuShellExt`](trait@crate::prelude::MenuShellExt), [`ContainerExt`](trait@crate::prelude::ContainerExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MenuShell</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkMenuShell</span>, <span class="ident">ffi::GtkMenuShellClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -788,60 +788,60 @@
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">MenuShellExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Activates the menu item within the menu shell.</span>
     <span class="doccomment">/// ## `menu_item`</span>
-    <span class="doccomment">/// the `MenuItem` to activate</span>
+    <span class="doccomment">/// the [`MenuItem`](crate::MenuItem) to activate</span>
     <span class="doccomment">/// ## `force_deactivate`</span>
-    <span class="doccomment">/// if `true`, force the deactivation of the</span>
+    <span class="doccomment">/// if [`true`], force the deactivation of the</span>
     <span class="doccomment">///  menu shell after the menu item is activated</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_menu_shell_activate_item&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">activate_item</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">menu_item</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>, <span class="ident">force_deactivate</span>: <span class="ident">bool</span>);
 
-    <span class="doccomment">/// Adds a new `MenuItem` to the end of the menu shell&#39;s</span>
+    <span class="doccomment">/// Adds a new [`MenuItem`](crate::MenuItem) to the end of the menu shell&#39;s</span>
     <span class="doccomment">/// item list.</span>
     <span class="doccomment">/// ## `child`</span>
-    <span class="doccomment">/// The `MenuItem` to add</span>
+    <span class="doccomment">/// The [`MenuItem`](crate::MenuItem) to add</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_menu_shell_append&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">append</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">MenuItem</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">child</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>);
 
-    <span class="doccomment">/// Establishes a binding between a `MenuShell` and a `gio::MenuModel`.</span>
+    <span class="doccomment">/// Establishes a binding between a [`MenuShell`](crate::MenuShell) and a [`gio::MenuModel`](crate::gio::MenuModel).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The contents of `shell` are removed and then refilled with menu items</span>
     <span class="doccomment">/// according to `model`. When `model` changes, `shell` is updated.</span>
     <span class="doccomment">/// Calling this function twice on `shell` with different `model` will</span>
     <span class="doccomment">/// cause the first binding to be replaced with a binding to the new</span>
-    <span class="doccomment">/// model. If `model` is `None` then any previous binding is undone and</span>
+    <span class="doccomment">/// model. If `model` is [`None`] then any previous binding is undone and</span>
     <span class="doccomment">/// all children are removed.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// `with_separators` determines if toplevel items (eg: sections) have</span>
     <span class="doccomment">/// separators inserted between them. This is typically desired for</span>
     <span class="doccomment">/// menus but doesn’t make sense for menubars.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If `action_namespace` is non-`None` then the effect is as if all</span>
+    <span class="doccomment">/// If `action_namespace` is non-[`None`] then the effect is as if all</span>
     <span class="doccomment">/// actions mentioned in the `model` have their names prefixed with the</span>
     <span class="doccomment">/// namespace, plus a dot. For example, if the action “quit” is</span>
     <span class="doccomment">/// mentioned and `action_namespace` is “app” then the effective action</span>
     <span class="doccomment">/// name is “app.quit”.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This function uses `Actionable` to define the action name and</span>
+    <span class="doccomment">/// This function uses [`Actionable`](crate::Actionable) to define the action name and</span>
     <span class="doccomment">/// target values on the created menu items. If you want to use an</span>
     <span class="doccomment">/// action group other than “app” and “win”, or if you want to use a</span>
-    <span class="doccomment">/// `MenuShell` outside of a `ApplicationWindow`, then you will need</span>
+    <span class="doccomment">/// [`MenuShell`](crate::MenuShell) outside of a [`ApplicationWindow`](crate::ApplicationWindow), then you will need</span>
     <span class="doccomment">/// to attach your own action group to the widget hierarchy using</span>
-    <span class="doccomment">/// `WidgetExt::insert_action_group`. As an example, if you created a</span>
+    <span class="doccomment">/// [`WidgetExt::insert_action_group()`](crate::WidgetExt::insert_action_group()). As an example, if you created a</span>
     <span class="doccomment">/// group with a “quit” action and inserted it with the name “mygroup”</span>
     <span class="doccomment">/// then you would use the action name “mygroup.quit” in your</span>
-    <span class="doccomment">/// `gio::MenuModel`.</span>
+    <span class="doccomment">/// [`gio::MenuModel`](crate::gio::MenuModel).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// For most cases you are probably better off using</span>
-    <span class="doccomment">/// `Menu::new_from_model` or `MenuBar::new_from_model` or just</span>
-    <span class="doccomment">/// directly passing the `gio::MenuModel` to `GtkApplicationExt::set_app_menu` or</span>
-    <span class="doccomment">/// `GtkApplicationExt::set_menubar`.</span>
+    <span class="doccomment">/// [`Menu::new_from_model()`](crate::Menu::new_from_model()) or [`MenuBar::new_from_model()`](crate::MenuBar::new_from_model()) or just</span>
+    <span class="doccomment">/// directly passing the [`gio::MenuModel`](crate::gio::MenuModel) to [``GtkApplicationExt`::set_app_menu()`](crate::`GtkApplicationExt`::set_app_menu()) or</span>
+    <span class="doccomment">/// [``GtkApplicationExt`::set_menubar()`](crate::`GtkApplicationExt`::set_menubar()).</span>
     <span class="doccomment">/// ## `model`</span>
-    <span class="doccomment">/// the `gio::MenuModel` to bind to or `None` to remove</span>
+    <span class="doccomment">/// the [`gio::MenuModel`](crate::gio::MenuModel) to bind to or [`None`] to remove</span>
     <span class="doccomment">///  binding</span>
     <span class="doccomment">/// ## `action_namespace`</span>
     <span class="doccomment">/// the namespace for actions in `model`</span>
     <span class="doccomment">/// ## `with_separators`</span>
-    <span class="doccomment">/// `true` if toplevel items in `shell` should have</span>
+    <span class="doccomment">/// [`true`] if toplevel items in `shell` should have</span>
     <span class="doccomment">///  separators between them</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_menu_shell_bind_model&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">bind_model</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">gio::MenuModel</span><span class="op">&gt;</span><span class="op">&gt;</span>(
@@ -869,12 +869,12 @@
 
     <span class="doccomment">/// Gets the parent menu shell.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The parent menu shell of a submenu is the `Menu` or `MenuBar`</span>
+    <span class="doccomment">/// The parent menu shell of a submenu is the [`Menu`](crate::Menu) or [`MenuBar`](crate::MenuBar)</span>
     <span class="doccomment">/// from which it was opened up.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the parent `MenuShell`</span>
+    <span class="doccomment">/// the parent [`MenuShell`](crate::MenuShell)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_menu_shell_get_parent_shell&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">parent_shell</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span>;
 
@@ -886,28 +886,28 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_menu_shell_get_selected_item&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">selected_item</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// Returns `true` if the menu shell will take the keyboard focus on popup.</span>
+    <span class="doccomment">/// Returns [`true`] if the menu shell will take the keyboard focus on popup.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if the menu shell will take the keyboard focus on popup.</span>
+    <span class="doccomment">/// [`true`] if the menu shell will take the keyboard focus on popup.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_menu_shell_get_take_focus&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">takes_focus</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
-    <span class="doccomment">/// Adds a new `MenuItem` to the menu shell’s item list</span>
+    <span class="doccomment">/// Adds a new [`MenuItem`](crate::MenuItem) to the menu shell’s item list</span>
     <span class="doccomment">/// at the position indicated by `position`.</span>
     <span class="doccomment">/// ## `child`</span>
-    <span class="doccomment">/// The `MenuItem` to add</span>
+    <span class="doccomment">/// The [`MenuItem`](crate::MenuItem) to add</span>
     <span class="doccomment">/// ## `position`</span>
     <span class="doccomment">/// The position in the item list where `child`</span>
     <span class="doccomment">///  is added. Positions are numbered from 0 to n-1</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_menu_shell_insert&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">insert</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">child</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>, <span class="ident">position</span>: <span class="ident">i32</span>);
 
-    <span class="doccomment">/// Adds a new `MenuItem` to the beginning of the menu shell&#39;s</span>
+    <span class="doccomment">/// Adds a new [`MenuItem`](crate::MenuItem) to the beginning of the menu shell&#39;s</span>
     <span class="doccomment">/// item list.</span>
     <span class="doccomment">/// ## `child`</span>
-    <span class="doccomment">/// The `MenuItem` to add</span>
+    <span class="doccomment">/// The [`MenuItem`](crate::MenuItem) to add</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_menu_shell_prepend&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">prepend</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">child</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>);
 
@@ -915,25 +915,25 @@
     <span class="doccomment">/// don’t select tearoff items unless the only item is a tearoff</span>
     <span class="doccomment">/// item.</span>
     <span class="doccomment">/// ## `search_sensitive`</span>
-    <span class="doccomment">/// if `true`, search for the first selectable</span>
+    <span class="doccomment">/// if [`true`], search for the first selectable</span>
     <span class="doccomment">///  menu item, otherwise select nothing if</span>
     <span class="doccomment">///  the first item isn’t sensitive. This</span>
-    <span class="doccomment">///  should be `false` if the menu is being</span>
+    <span class="doccomment">///  should be [`false`] if the menu is being</span>
     <span class="doccomment">///  popped up initially.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_menu_shell_select_first&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">select_first</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">search_sensitive</span>: <span class="ident">bool</span>);
 
     <span class="doccomment">/// Selects the menu item from the menu shell.</span>
     <span class="doccomment">/// ## `menu_item`</span>
-    <span class="doccomment">/// The `MenuItem` to select</span>
+    <span class="doccomment">/// The [`MenuItem`](crate::MenuItem) to select</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_menu_shell_select_item&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">select_item</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">menu_item</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>);
 
-    <span class="doccomment">/// If `take_focus` is `true` (the default) the menu shell will take</span>
+    <span class="doccomment">/// If `take_focus` is [`true`] (the default) the menu shell will take</span>
     <span class="doccomment">/// the keyboard focus so that it will receive all keyboard events</span>
     <span class="doccomment">/// which is needed to enable keyboard navigation in menus.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Setting `take_focus` to `false` is useful only for special applications</span>
+    <span class="doccomment">/// Setting `take_focus` to [`false`] is useful only for special applications</span>
     <span class="doccomment">/// like virtual keyboard implementations which should not take keyboard</span>
     <span class="doccomment">/// focus.</span>
     <span class="doccomment">///</span>
@@ -944,19 +944,19 @@
     <span class="doccomment">/// popping it up manually, the `take_focus` property of the submenu</span>
     <span class="doccomment">/// needs to be set explicitly.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Note that setting it to `false` has side-effects:</span>
+    <span class="doccomment">/// Note that setting it to [`false`] has side-effects:</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If the focus is in some other app, it keeps the focus and keynav in</span>
     <span class="doccomment">/// the menu doesn’t work. Consequently, keynav on the menu will only</span>
     <span class="doccomment">/// work if the focus is on some toplevel owned by the onscreen keyboard.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// To avoid confusing the user, menus with `take_focus` set to `false`</span>
+    <span class="doccomment">/// To avoid confusing the user, menus with `take_focus` set to [`false`]</span>
     <span class="doccomment">/// should not display mnemonics or accelerators, since it cannot be</span>
     <span class="doccomment">/// guaranteed that they will work.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See also `gdk_keyboard_grab`</span>
+    <span class="doccomment">/// See also `gdk_keyboard_grab()`</span>
     <span class="doccomment">/// ## `take_focus`</span>
-    <span class="doccomment">/// `true` if the menu shell should take the keyboard</span>
+    <span class="doccomment">/// [`true`] if the menu shell should take the keyboard</span>
     <span class="doccomment">///  focus on popup</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_menu_shell_set_take_focus&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_take_focus</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">take_focus</span>: <span class="ident">bool</span>);
@@ -964,13 +964,13 @@
     <span class="doccomment">/// An action signal that activates the current menu item within</span>
     <span class="doccomment">/// the menu shell.</span>
     <span class="doccomment">/// ## `force_hide`</span>
-    <span class="doccomment">/// if `true`, hide the menu after activating the menu item</span>
+    <span class="doccomment">/// if [`true`], hide the menu after activating the menu item</span>
     <span class="kw">fn</span> <span class="ident">connect_activate_current</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="ident">bool</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;
 
     <span class="kw">fn</span> <span class="ident">emit_activate_current</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">force_hide</span>: <span class="ident">bool</span>);
 
     <span class="doccomment">/// An action signal which cancels the selection within the menu shell.</span>
-    <span class="doccomment">/// Causes the `MenuShell::selection-done` signal to be emitted.</span>
+    <span class="doccomment">/// Causes the [`MenuShell::selection-done`](crate::MenuShell::selection-done) signal to be emitted.</span>
     <span class="kw">fn</span> <span class="ident">connect_cancel</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;
 
     <span class="kw">fn</span> <span class="ident">emit_cancel</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
@@ -986,14 +986,14 @@
     <span class="doccomment">/// This signal is emitted when a menu shell is deactivated.</span>
     <span class="kw">fn</span> <span class="ident">connect_deactivate</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;
 
-    <span class="doccomment">/// The ::insert signal is emitted when a new `MenuItem` is added to</span>
-    <span class="doccomment">/// a `MenuShell`. A separate signal is used instead of</span>
+    <span class="doccomment">/// The ::insert signal is emitted when a new [`MenuItem`](crate::MenuItem) is added to</span>
+    <span class="doccomment">/// a [`MenuShell`](crate::MenuShell). A separate signal is used instead of</span>
     <span class="doccomment">/// `Container`::add because of the need for an additional position</span>
     <span class="doccomment">/// parameter.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The inverse of this signal is the `Container`::removed signal.</span>
     <span class="doccomment">/// ## `child`</span>
-    <span class="doccomment">/// the `MenuItem` that is being inserted</span>
+    <span class="doccomment">/// the [`MenuItem`](crate::MenuItem) that is being inserted</span>
     <span class="doccomment">/// ## `position`</span>
     <span class="doccomment">/// the position at which the insert occurs</span>
     <span class="kw">fn</span> <span class="ident">connect_insert</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span><span class="ident">Widget</span>, <span class="ident">i32</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;
@@ -1016,7 +1016,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` to stop the signal emission, `false` to continue</span>
+    <span class="doccomment">/// [`true`] to stop the signal emission, [`false`] to continue</span>
     <span class="kw">fn</span> <span class="ident">connect_move_selected</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::signal::Inhibit</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">f</span>: <span class="ident">F</span>,

@@ -205,19 +205,19 @@
     <span class="doccomment">/// any time.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// None of the search results are subjected to the normal validation</span>
-    <span class="doccomment">/// checks performed by `DesktopAppInfo::new` (for example, checking that</span>
+    <span class="doccomment">/// checks performed by [`new()`](Self::new()) (for example, checking that</span>
     <span class="doccomment">/// the executable referenced by a result exists), and so it is possible for</span>
-    <span class="doccomment">/// `DesktopAppInfo::new` to return `None` when passed an app ID returned by</span>
+    <span class="doccomment">/// [`new()`](Self::new()) to return [`None`] when passed an app ID returned by</span>
     <span class="doccomment">/// this function. It is expected that calling code will do this when</span>
-    <span class="doccomment">/// subsequently creating a `DesktopAppInfo` for each result.</span>
+    <span class="doccomment">/// subsequently creating a [`DesktopAppInfo`](crate::DesktopAppInfo) for each result.</span>
     <span class="doccomment">/// ## `search_string`</span>
     <span class="doccomment">/// the search string to use</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// a</span>
-    <span class="doccomment">///  list of strvs. Free each item with `g_strfreev` and free the outer</span>
-    <span class="doccomment">///  list with `g_free`.</span>
+    <span class="doccomment">///  list of strvs. Free each item with `g_strfreev()` and free the outer</span>
+    <span class="doccomment">///  list with `g_free()`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_desktop_app_info_search&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">search</span>(<span class="ident">search_string</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">GString</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {

@@ -620,7 +620,7 @@
     <span class="doccomment">/// [thread-default main context][g-main-context-push-thread-default]</span>
     <span class="doccomment">/// of the thread you are calling this method from.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Note that all `glib::Variant` values passed to functions in `vtable` will match</span>
+    <span class="doccomment">/// Note that all [`glib::Variant`](crate::glib::Variant) values passed to functions in `vtable` will match</span>
     <span class="doccomment">/// the signature given in `interface_info` - if a remote caller passes</span>
     <span class="doccomment">/// incorrect values, the `org.freedesktop.DBus.Error.InvalidArgs`</span>
     <span class="doccomment">/// is returned to the remote caller.</span>
@@ -633,10 +633,10 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// It is considered a programming error if the</span>
     <span class="doccomment">/// `GDBusInterfaceGetPropertyFunc` function in `vtable` returns a</span>
-    <span class="doccomment">/// `glib::Variant` of incorrect type.</span>
+    <span class="doccomment">/// [`glib::Variant`](crate::glib::Variant) of incorrect type.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If an existing callback is already registered at `object_path` and</span>
-    <span class="doccomment">/// `interface_name`, then `error` is set to `IOErrorEnum::Exists`.</span>
+    <span class="doccomment">/// `interface_name`, then `error` is set to [`IOErrorEnum::Exists`](crate::IOErrorEnum::Exists).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// GDBus automatically implements the standard D-Bus interfaces</span>
     <span class="doccomment">/// org.freedesktop.DBus.Properties, org.freedesktop.DBus.Introspectable</span>
@@ -646,7 +646,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that the reference count on `interface_info` will be</span>
     <span class="doccomment">/// incremented by 1 (unless allocated statically, e.g. if the</span>
-    <span class="doccomment">/// reference count is -1, see `DBusInterfaceInfo::ref`) for as long</span>
+    <span class="doccomment">/// reference count is -1, see [`DBusInterfaceInfo::ref()`](crate::DBusInterfaceInfo::ref())) for as long</span>
     <span class="doccomment">/// as the object is exported. Also note that `vtable` will be copied.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// See this [server][gdbus-server] for an example of how to use this method.</span>
@@ -655,7 +655,7 @@
     <span class="doccomment">/// ## `interface_info`</span>
     <span class="doccomment">/// introspection data for the interface</span>
     <span class="doccomment">/// ## `vtable`</span>
-    <span class="doccomment">/// a `DBusInterfaceVTable` to call into or `None`</span>
+    <span class="doccomment">/// a [`DBusInterfaceVTable`](crate::DBusInterfaceVTable) to call into or [`None`]</span>
     <span class="doccomment">/// ## `user_data`</span>
     <span class="doccomment">/// data to pass to functions in `vtable`</span>
     <span class="doccomment">/// ## `user_data_free_func`</span>
@@ -664,7 +664,7 @@
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// 0 if `error` is set, otherwise a registration id (never 0)</span>
-    <span class="doccomment">///  that can be used with `DBusConnection::unregister_object`</span>
+    <span class="doccomment">///  that can be used with [`unregister_object()`](Self::unregister_object())</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_46&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_46&quot;</span>)))]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">register_object</span><span class="op">&lt;</span><span class="ident">MethodCall</span>, <span class="ident">SetProperty</span>, <span class="ident">GetProperty</span><span class="op">&gt;</span>(
@@ -759,11 +759,11 @@
     <span class="doccomment">/// Unregisters an object.</span>
     <span class="doccomment">/// ## `registration_id`</span>
     <span class="doccomment">/// a registration id obtained from</span>
-    <span class="doccomment">///  `DBusConnection::register_object`</span>
+    <span class="doccomment">///  [`register_object()`](Self::register_object())</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if the object was unregistered, `false` otherwise</span>
+    <span class="doccomment">/// [`true`] if the object was unregistered, [`false`] otherwise</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">unregister_object</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">registration_id</span>: <span class="ident">RegistrationId</span>,
@@ -789,7 +789,7 @@
     <span class="doccomment">/// returned (with `error` set accordingly).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// You can unexport the action group using</span>
-    <span class="doccomment">/// `DBusConnection::unexport_action_group` with the return value of</span>
+    <span class="doccomment">/// [`unexport_action_group()`](Self::unexport_action_group()) with the return value of</span>
     <span class="doccomment">/// this function.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The thread default main context is taken at the time of this call.</span>
@@ -803,7 +803,7 @@
     <span class="doccomment">/// ## `object_path`</span>
     <span class="doccomment">/// a D-Bus object path</span>
     <span class="doccomment">/// ## `action_group`</span>
-    <span class="doccomment">/// a `ActionGroup`</span>
+    <span class="doccomment">/// a [`ActionGroup`](crate::ActionGroup)</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -830,13 +830,13 @@
     }
 
     <span class="doccomment">/// Reverses the effect of a previous call to</span>
-    <span class="doccomment">/// `DBusConnection::export_action_group`.</span>
+    <span class="doccomment">/// [`export_action_group()`](Self::export_action_group()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// It is an error to call this function with an ID that wasn&#39;t returned</span>
-    <span class="doccomment">/// from `DBusConnection::export_action_group` or to call it with the</span>
+    <span class="doccomment">/// from [`export_action_group()`](Self::export_action_group()) or to call it with the</span>
     <span class="doccomment">/// same ID more than once.</span>
     <span class="doccomment">/// ## `export_id`</span>
-    <span class="doccomment">/// the ID from `DBusConnection::export_action_group`</span>
+    <span class="doccomment">/// the ID from [`export_action_group()`](Self::export_action_group())</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">unexport_action_group</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">export_id</span>: <span class="ident">ActionGroupExportId</span>) {
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::g_dbus_connection_unexport_action_group</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">export_id</span>.<span class="number">0</span>.<span class="ident">into</span>());
@@ -853,12 +853,12 @@
     <span class="doccomment">/// returned (with `error` set accordingly).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// You can unexport the menu model using</span>
-    <span class="doccomment">/// `DBusConnection::unexport_menu_model` with the return value of</span>
+    <span class="doccomment">/// [`unexport_menu_model()`](Self::unexport_menu_model()) with the return value of</span>
     <span class="doccomment">/// this function.</span>
     <span class="doccomment">/// ## `object_path`</span>
     <span class="doccomment">/// a D-Bus object path</span>
     <span class="doccomment">/// ## `menu`</span>
-    <span class="doccomment">/// a `MenuModel`</span>
+    <span class="doccomment">/// a [`MenuModel`](crate::MenuModel)</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -885,13 +885,13 @@
     }
 
     <span class="doccomment">/// Reverses the effect of a previous call to</span>
-    <span class="doccomment">/// `DBusConnection::export_menu_model`.</span>
+    <span class="doccomment">/// [`export_menu_model()`](Self::export_menu_model()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// It is an error to call this function with an ID that wasn&#39;t returned</span>
-    <span class="doccomment">/// from `DBusConnection::export_menu_model` or to call it with the</span>
+    <span class="doccomment">/// from [`export_menu_model()`](Self::export_menu_model()) or to call it with the</span>
     <span class="doccomment">/// same ID more than once.</span>
     <span class="doccomment">/// ## `export_id`</span>
-    <span class="doccomment">/// the ID from `DBusConnection::export_menu_model`</span>
+    <span class="doccomment">/// the ID from [`export_menu_model()`](Self::export_menu_model())</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">unexport_menu_model</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">export_id</span>: <span class="ident">MenuModelExportId</span>) {
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::g_dbus_connection_unexport_menu_model</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">export_id</span>.<span class="number">0</span>.<span class="ident">into</span>());
@@ -909,17 +909,17 @@
     <span class="doccomment">/// Note that filters are run in a dedicated message handling thread so</span>
     <span class="doccomment">/// they can&#39;t block and, generally, can&#39;t do anything but signal a</span>
     <span class="doccomment">/// worker thread. Also note that filters are rarely needed - use API</span>
-    <span class="doccomment">/// such as `DBusConnection::send_message_with_reply`,</span>
-    <span class="doccomment">/// `DBusConnection::signal_subscribe` or `DBusConnection::call` instead.</span>
+    <span class="doccomment">/// such as [`send_message_with_reply()`](Self::send_message_with_reply()),</span>
+    <span class="doccomment">/// [`signal_subscribe()`](Self::signal_subscribe()) or [`call()`](Self::call()) instead.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If a filter consumes an incoming message the message is not</span>
     <span class="doccomment">/// dispatched anywhere else - not even the standard dispatch machinery</span>
-    <span class="doccomment">/// (that API such as `DBusConnection::signal_subscribe` and</span>
-    <span class="doccomment">/// `DBusConnection::send_message_with_reply` relies on) will see the</span>
+    <span class="doccomment">/// (that API such as [`signal_subscribe()`](Self::signal_subscribe()) and</span>
+    <span class="doccomment">/// [`send_message_with_reply()`](Self::send_message_with_reply()) relies on) will see the</span>
     <span class="doccomment">/// message. Similarly, if a filter consumes an outgoing message, the</span>
     <span class="doccomment">/// message will not be sent to the other peer.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If `user_data_free_func` is non-`None`, it will be called (in the</span>
+    <span class="doccomment">/// If `user_data_free_func` is non-[`None`], it will be called (in the</span>
     <span class="doccomment">/// thread-default main context of the thread you are calling this</span>
     <span class="doccomment">/// method from) at some point after `user_data` is no longer</span>
     <span class="doccomment">/// needed. (It is not guaranteed to be called synchronously when the</span>
@@ -931,12 +931,12 @@
     <span class="doccomment">/// user data to pass to `filter_function`</span>
     <span class="doccomment">/// ## `user_data_free_func`</span>
     <span class="doccomment">/// function to free `user_data` with when filter</span>
-    <span class="doccomment">///  is removed or `None`</span>
+    <span class="doccomment">///  is removed or [`None`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// a filter identifier that can be used with</span>
-    <span class="doccomment">///  `DBusConnection::remove_filter`</span>
+    <span class="doccomment">///  [`remove_filter()`](Self::remove_filter())</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_filter</span><span class="op">&lt;</span>
         <span class="ident">P</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">DBusConnection</span>, <span class="kw-2">&amp;</span><span class="ident">DBusMessage</span>, <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">DBusMessage</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
     <span class="op">&gt;</span>(
@@ -984,12 +984,12 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that since filters run in a different thread, there is a race</span>
     <span class="doccomment">/// condition where it is possible that the filter will be running even</span>
-    <span class="doccomment">/// after calling `DBusConnection::remove_filter`, so you cannot just</span>
+    <span class="doccomment">/// after calling [`remove_filter()`](Self::remove_filter()), so you cannot just</span>
     <span class="doccomment">/// free data that the filter might be using. Instead, you should pass</span>
-    <span class="doccomment">/// a `GDestroyNotify` to `DBusConnection::add_filter`, which will be</span>
+    <span class="doccomment">/// a `GDestroyNotify` to [`add_filter()`](Self::add_filter()), which will be</span>
     <span class="doccomment">/// called when it is guaranteed that the data is no longer needed.</span>
     <span class="doccomment">/// ## `filter_id`</span>
-    <span class="doccomment">/// an identifier obtained from `DBusConnection::add_filter`</span>
+    <span class="doccomment">/// an identifier obtained from [`add_filter()`](Self::add_filter())</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">remove_filter</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">filter_id</span>: <span class="ident">FilterId</span>) {
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::g_dbus_connection_remove_filter</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">filter_id</span>.<span class="number">0</span>.<span class="ident">into</span>());
@@ -1002,7 +1002,7 @@
     <span class="doccomment">/// of the thread you are calling this method from.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If `self` is not a message bus connection, `sender` must be</span>
-    <span class="doccomment">/// `None`.</span>
+    <span class="doccomment">/// [`None`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If `sender` is a well-known name note that `callback` is invoked with</span>
     <span class="doccomment">/// the unique name for the owner of `sender`, not the well-known name</span>
@@ -1011,12 +1011,12 @@
     <span class="doccomment">/// tracking the name owner of the well-known name and use that when</span>
     <span class="doccomment">/// processing the received signal.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If one of `DBusSignalFlags::MatchArg0Namespace` or</span>
-    <span class="doccomment">/// `DBusSignalFlags::MatchArg0Path` are given, `arg0` is</span>
+    <span class="doccomment">/// If one of [`DBusSignalFlags::MatchArg0Namespace`] or</span>
+    <span class="doccomment">/// [`DBusSignalFlags::MatchArg0Path`] are given, `arg0` is</span>
     <span class="doccomment">/// interpreted as part of a namespace or path. The first argument</span>
     <span class="doccomment">/// of a signal is matched against that part as specified by D-Bus.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If `user_data_free_func` is non-`None`, it will be called (in the</span>
+    <span class="doccomment">/// If `user_data_free_func` is non-[`None`], it will be called (in the</span>
     <span class="doccomment">/// thread-default main context of the thread you are calling this</span>
     <span class="doccomment">/// method from) at some point after `user_data` is no longer</span>
     <span class="doccomment">/// needed. (It is not guaranteed to be called synchronously when the</span>
@@ -1025,21 +1025,21 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// As `callback` is potentially invoked in a different thread from where it’s</span>
     <span class="doccomment">/// emitted, it’s possible for this to happen after</span>
-    <span class="doccomment">/// `DBusConnection::signal_unsubscribe` has been called in another thread.</span>
+    <span class="doccomment">/// [`signal_unsubscribe()`](Self::signal_unsubscribe()) has been called in another thread.</span>
     <span class="doccomment">/// Due to this, `user_data` should have a strong reference which is freed with</span>
     <span class="doccomment">/// `user_data_free_func`, rather than pointing to data whose lifecycle is tied</span>
-    <span class="doccomment">/// to the signal subscription. For example, if a `glib::object::Object` is used to store the</span>
-    <span class="doccomment">/// subscription ID from `DBusConnection::signal_subscribe`, a strong reference</span>
-    <span class="doccomment">/// to that `glib::object::Object` must be passed to `user_data`, and `glib::object::ObjectExt::unref` passed to</span>
+    <span class="doccomment">/// to the signal subscription. For example, if a [`glib::object::Object`](crate::glib::object::Object) is used to store the</span>
+    <span class="doccomment">/// subscription ID from [`signal_subscribe()`](Self::signal_subscribe()), a strong reference</span>
+    <span class="doccomment">/// to that [`glib::object::Object`](crate::glib::object::Object) must be passed to `user_data`, and [`glib::object::ObjectExt::unref()`](crate::glib::object::ObjectExt::unref()) passed to</span>
     <span class="doccomment">/// `user_data_free_func`. You are responsible for breaking the resulting</span>
     <span class="doccomment">/// reference count cycle by explicitly unsubscribing from the signal when</span>
-    <span class="doccomment">/// dropping the last external reference to the `glib::object::Object`. Alternatively, a weak</span>
+    <span class="doccomment">/// dropping the last external reference to the [`glib::object::Object`](crate::glib::object::Object). Alternatively, a weak</span>
     <span class="doccomment">/// reference may be used.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// It is guaranteed that if you unsubscribe from a signal using</span>
-    <span class="doccomment">/// `DBusConnection::signal_unsubscribe` from the same thread which made the</span>
-    <span class="doccomment">/// corresponding `DBusConnection::signal_subscribe` call, `callback` will not</span>
-    <span class="doccomment">/// be invoked after `DBusConnection::signal_unsubscribe` returns.</span>
+    <span class="doccomment">/// [`signal_unsubscribe()`](Self::signal_unsubscribe()) from the same thread which made the</span>
+    <span class="doccomment">/// corresponding [`signal_subscribe()`](Self::signal_subscribe()) call, `callback` will not</span>
+    <span class="doccomment">/// be invoked after [`signal_unsubscribe()`](Self::signal_unsubscribe()) returns.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The returned subscription identifier is an opaque value which is guaranteed</span>
     <span class="doccomment">/// to never be zero.</span>
@@ -1047,21 +1047,21 @@
     <span class="doccomment">/// This function can never fail.</span>
     <span class="doccomment">/// ## `sender`</span>
     <span class="doccomment">/// sender name to match on (unique or well-known name)</span>
-    <span class="doccomment">///  or `None` to listen from all senders</span>
+    <span class="doccomment">///  or [`None`] to listen from all senders</span>
     <span class="doccomment">/// ## `interface_name`</span>
-    <span class="doccomment">/// D-Bus interface name to match on or `None` to</span>
+    <span class="doccomment">/// D-Bus interface name to match on or [`None`] to</span>
     <span class="doccomment">///  match on all interfaces</span>
     <span class="doccomment">/// ## `member`</span>
-    <span class="doccomment">/// D-Bus signal name to match on or `None` to match on</span>
+    <span class="doccomment">/// D-Bus signal name to match on or [`None`] to match on</span>
     <span class="doccomment">///  all signals</span>
     <span class="doccomment">/// ## `object_path`</span>
-    <span class="doccomment">/// object path to match on or `None` to match on</span>
+    <span class="doccomment">/// object path to match on or [`None`] to match on</span>
     <span class="doccomment">///  all object paths</span>
     <span class="doccomment">/// ## `arg0`</span>
-    <span class="doccomment">/// contents of first string argument to match on or `None`</span>
+    <span class="doccomment">/// contents of first string argument to match on or [`None`]</span>
     <span class="doccomment">///  to match on all kinds of arguments</span>
     <span class="doccomment">/// ## `flags`</span>
-    <span class="doccomment">/// `DBusSignalFlags` describing how arg0 is used in subscribing to the</span>
+    <span class="doccomment">/// [`DBusSignalFlags`](crate::DBusSignalFlags) describing how arg0 is used in subscribing to the</span>
     <span class="doccomment">///  signal</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// callback to invoke when there is a signal matching the requested data</span>
@@ -1069,11 +1069,11 @@
     <span class="doccomment">/// user data to pass to `callback`</span>
     <span class="doccomment">/// ## `user_data_free_func`</span>
     <span class="doccomment">/// function to free `user_data` with when</span>
-    <span class="doccomment">///  subscription is removed or `None`</span>
+    <span class="doccomment">///  subscription is removed or [`None`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a subscription identifier that can be used with `DBusConnection::signal_unsubscribe`</span>
+    <span class="doccomment">/// a subscription identifier that can be used with [`signal_unsubscribe()`](Self::signal_unsubscribe())</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">signal_subscribe</span><span class="op">&lt;</span>
         <span class="ident">P</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">DBusConnection</span>, <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="kw-2">&amp;</span><span class="ident">glib::Variant</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span>,
     <span class="op">&gt;</span>(
@@ -1144,15 +1144,15 @@
     <span class="doccomment">/// Unsubscribes from signals.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that there may still be D-Bus traffic to process (relating to this</span>
-    <span class="doccomment">/// signal subscription) in the current thread-default `glib::MainContext` after this</span>
-    <span class="doccomment">/// function has returned. You should continue to iterate the `glib::MainContext`</span>
+    <span class="doccomment">/// signal subscription) in the current thread-default [`glib::MainContext`](crate::glib::MainContext) after this</span>
+    <span class="doccomment">/// function has returned. You should continue to iterate the [`glib::MainContext`](crate::glib::MainContext)</span>
     <span class="doccomment">/// until the `GDestroyNotify` function passed to</span>
-    <span class="doccomment">/// `DBusConnection::signal_subscribe` is called, in order to avoid memory</span>
-    <span class="doccomment">/// leaks through callbacks queued on the `glib::MainContext` after it’s stopped being</span>
+    <span class="doccomment">/// [`signal_subscribe()`](Self::signal_subscribe()) is called, in order to avoid memory</span>
+    <span class="doccomment">/// leaks through callbacks queued on the [`glib::MainContext`](crate::glib::MainContext) after it’s stopped being</span>
     <span class="doccomment">/// iterated.</span>
     <span class="doccomment">/// ## `subscription_id`</span>
     <span class="doccomment">/// a subscription id obtained from</span>
-    <span class="doccomment">///  `DBusConnection::signal_subscribe`</span>
+    <span class="doccomment">///  [`signal_subscribe()`](Self::signal_subscribe())</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">signal_unsubscribe</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">subscription_id</span>: <span class="ident">SignalSubscriptionId</span>) {
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::g_dbus_connection_signal_unsubscribe</span>(

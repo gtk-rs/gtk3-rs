@@ -312,7 +312,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`DocumentExt`](trait@crate::DocumentExt)</span>
+    <span class="doccomment">/// [`DocumentExt`](trait@crate::prelude::DocumentExt)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Document</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi::AtkDocument</span>, <span class="ident">ffi::AtkDocumentIface</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -336,7 +336,7 @@
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// a string value associated with the named</span>
-    <span class="doccomment">///  attribute for this document, or `None` if a value for</span>
+    <span class="doccomment">///  attribute for this document, or [`None`] if a value for</span>
     <span class="doccomment">///  `attribute_name` has not been specified for this document.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_document_get_attribute_value&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">attribute_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">attribute_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span>;
@@ -360,7 +360,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Since 2.12. Please use `Document::get_attributes` to</span>
+    <span class="doccomment">/// Since 2.12. Please use [`Document::get_attributes()`](crate::Document::get_attributes()) to</span>
     <span class="doccomment">/// ask for the document type if it applies.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -387,8 +387,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if `attribute_value` is successfully associated</span>
-    <span class="doccomment">///  with `attribute_name` for this `self`, and `false` if if the</span>
+    <span class="doccomment">/// [`true`] if `attribute_value` is successfully associated</span>
+    <span class="doccomment">///  with `attribute_name` for this `self`, and [`false`] if if the</span>
     <span class="doccomment">///  document does not allow the attribute to be modified</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_document_set_attribute_value&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_attribute_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">attribute_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">attribute_value</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;

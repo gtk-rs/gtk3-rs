@@ -381,43 +381,43 @@
     <span class="doccomment">/// but they share some common resources and state. For instance, for</span>
     <span class="doccomment">/// seekable streams, both streams may use the same position.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Examples of `IOStream` objects are `SocketConnection`, which represents</span>
-    <span class="doccomment">/// a two-way network connection; and `FileIOStream`, which represents a</span>
+    <span class="doccomment">/// Examples of [`IOStream`](crate::IOStream) objects are [`SocketConnection`](crate::SocketConnection), which represents</span>
+    <span class="doccomment">/// a two-way network connection; and [`FileIOStream`](crate::FileIOStream), which represents a</span>
     <span class="doccomment">/// file handle opened in read-write mode.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// To do the actual reading and writing you need to get the substreams</span>
-    <span class="doccomment">/// with `IOStreamExt::get_input_stream` and `IOStreamExt::get_output_stream`.</span>
+    <span class="doccomment">/// with [`IOStreamExt::get_input_stream()`](crate::IOStreamExt::get_input_stream()) and [`IOStreamExt::get_output_stream()`](crate::IOStreamExt::get_output_stream()).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The `IOStream` object owns the input and the output streams, not the other</span>
-    <span class="doccomment">/// way around, so keeping the substreams alive will not keep the `IOStream`</span>
-    <span class="doccomment">/// object alive. If the `IOStream` object is freed it will be closed, thus</span>
+    <span class="doccomment">/// The [`IOStream`](crate::IOStream) object owns the input and the output streams, not the other</span>
+    <span class="doccomment">/// way around, so keeping the substreams alive will not keep the [`IOStream`](crate::IOStream)</span>
+    <span class="doccomment">/// object alive. If the [`IOStream`](crate::IOStream) object is freed it will be closed, thus</span>
     <span class="doccomment">/// closing the substreams, so even if the substreams stay alive they will</span>
-    <span class="doccomment">/// always return `IOErrorEnum::Closed` for all operations.</span>
+    <span class="doccomment">/// always return [`IOErrorEnum::Closed`] for all operations.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// To close a stream use `IOStreamExt::close` which will close the common</span>
+    <span class="doccomment">/// To close a stream use [`IOStreamExt::close()`](crate::IOStreamExt::close()) which will close the common</span>
     <span class="doccomment">/// stream object and also the individual substreams. You can also close</span>
     <span class="doccomment">/// the substreams themselves. In most cases this only marks the</span>
     <span class="doccomment">/// substream as closed, so further I/O on it fails but common state in the</span>
-    <span class="doccomment">/// `IOStream` may still be open. However, some streams may support</span>
+    <span class="doccomment">/// [`IOStream`](crate::IOStream) may still be open. However, some streams may support</span>
     <span class="doccomment">/// &quot;half-closed&quot; states where one direction of the stream is actually shut down.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Operations on `GIOStreams` cannot be started while another operation on the</span>
-    <span class="doccomment">/// `IOStream` or its substreams is in progress. Specifically, an application can</span>
-    <span class="doccomment">/// read from the `InputStream` and write to the `OutputStream` simultaneously</span>
+    <span class="doccomment">/// [`IOStream`](crate::IOStream) or its substreams is in progress. Specifically, an application can</span>
+    <span class="doccomment">/// read from the [`InputStream`](crate::InputStream) and write to the [`OutputStream`](crate::OutputStream) simultaneously</span>
     <span class="doccomment">/// (either in separate threads, or as asynchronous operations in the same</span>
-    <span class="doccomment">/// thread), but an application cannot start any `IOStream` operation while there</span>
-    <span class="doccomment">/// is a `IOStream`, `InputStream` or `OutputStream` operation in progress, and</span>
-    <span class="doccomment">/// an application can’t start any `InputStream` or `OutputStream` operation</span>
-    <span class="doccomment">/// while there is a `IOStream` operation in progress.</span>
+    <span class="doccomment">/// thread), but an application cannot start any [`IOStream`](crate::IOStream) operation while there</span>
+    <span class="doccomment">/// is a [`IOStream`](crate::IOStream), [`InputStream`](crate::InputStream) or [`OutputStream`](crate::OutputStream) operation in progress, and</span>
+    <span class="doccomment">/// an application can’t start any [`InputStream`](crate::InputStream) or [`OutputStream`](crate::OutputStream) operation</span>
+    <span class="doccomment">/// while there is a [`IOStream`](crate::IOStream) operation in progress.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is a product of individual stream operations being associated with a</span>
-    <span class="doccomment">/// given `glib::MainContext` (the thread-default context at the time the operation was</span>
+    <span class="doccomment">/// given [`glib::MainContext`](crate::glib::MainContext) (the thread-default context at the time the operation was</span>
     <span class="doccomment">/// started), rather than entire streams being associated with a single</span>
-    <span class="doccomment">/// `glib::MainContext`.</span>
+    <span class="doccomment">/// [`glib::MainContext`](crate::glib::MainContext).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// GIO may run operations on `GIOStreams` from other (worker) threads, and this</span>
     <span class="doccomment">/// may be exposed to application code in the behaviour of wrapper streams, such</span>
-    <span class="doccomment">/// as `BufferedInputStream` or `TlsConnection`. With such wrapper APIs,</span>
+    <span class="doccomment">/// as [`BufferedInputStream`](crate::BufferedInputStream) or [`TlsConnection`](crate::TlsConnection). With such wrapper APIs,</span>
     <span class="doccomment">/// application code may only run operations on the base (wrapped) stream when</span>
     <span class="doccomment">/// the wrapper stream is idle. Note that the semantics of such operations may</span>
     <span class="doccomment">/// not be well-defined due to the state the wrapper stream leaves the base</span>
@@ -427,7 +427,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`IOStreamExt`](trait@crate::IOStreamExt), [`trait@glib::object::ObjectExt`], [`IOStreamExtManual`](trait@crate::IOStreamExtManual)</span>
+    <span class="doccomment">/// [`IOStreamExt`](trait@crate::prelude::IOStreamExt), [`trait@glib::object::ObjectExt`], [`IOStreamExtManual`](trait@crate::prelude::IOStreamExtManual)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">IOStream</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GIOStream</span>, <span class="ident">ffi::GIOStreamClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -454,7 +454,7 @@
     <span class="doccomment">/// closed.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Once the stream is closed, all other operations will return</span>
-    <span class="doccomment">/// `IOErrorEnum::Closed`. Closing a stream multiple times will not</span>
+    <span class="doccomment">/// [`IOErrorEnum::Closed`]. Closing a stream multiple times will not</span>
     <span class="doccomment">/// return an error.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Closing a stream will automatically flush any outstanding buffers</span>
@@ -470,33 +470,33 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// On failure the first error that happened will be reported, but the</span>
     <span class="doccomment">/// close operation will finish as much as possible. A stream that failed</span>
-    <span class="doccomment">/// to close will still return `IOErrorEnum::Closed` for all operations.</span>
+    <span class="doccomment">/// to close will still return [`IOErrorEnum::Closed`] for all operations.</span>
     <span class="doccomment">/// Still, it is important to check and report the error to the user,</span>
     <span class="doccomment">/// otherwise there might be a loss of data as all data might not be written.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If `cancellable` is not NULL, then the operation can be cancelled by</span>
     <span class="doccomment">/// triggering the cancellable object from another thread. If the operation</span>
-    <span class="doccomment">/// was cancelled, the error `IOErrorEnum::Cancelled` will be returned.</span>
+    <span class="doccomment">/// was cancelled, the error [`IOErrorEnum::Cancelled`] will be returned.</span>
     <span class="doccomment">/// Cancelling a close will still leave the stream closed, but some streams</span>
     <span class="doccomment">/// can use a faster close that doesn&#39;t block to e.g. check errors.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The default implementation of this method just calls close on the</span>
     <span class="doccomment">/// individual input/output streams.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional `Cancellable` object, `None` to ignore</span>
+    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` on success, `false` on failure</span>
+    <span class="doccomment">/// [`true`] on success, [`false`] on failure</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_io_stream_close&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">close</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib::Error</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Requests an asynchronous close of the stream, releasing resources</span>
     <span class="doccomment">/// related to it. When the operation is finished `callback` will be</span>
-    <span class="doccomment">/// called. You can then call `IOStreamExt::close_finish` to get</span>
+    <span class="doccomment">/// called. You can then call [`close_finish()`](Self::close_finish()) to get</span>
     <span class="doccomment">/// the result of the operation.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// For behaviour details see `IOStreamExt::close`.</span>
+    <span class="doccomment">/// For behaviour details see [`close()`](Self::close()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The asynchronous methods have a default fallback that uses threads</span>
     <span class="doccomment">/// to implement asynchronicity, so they are optional for inheriting</span>
@@ -527,7 +527,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a `InputStream`, owned by the `IOStream`.</span>
+    <span class="doccomment">/// a [`InputStream`](crate::InputStream), owned by the [`IOStream`](crate::IOStream).</span>
     <span class="doccomment">/// Do not free.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_io_stream_get_input_stream&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">input_stream</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">InputStream</span>;
@@ -537,7 +537,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a `OutputStream`, owned by the `IOStream`.</span>
+    <span class="doccomment">/// a [`OutputStream`](crate::OutputStream), owned by the [`IOStream`](crate::IOStream).</span>
     <span class="doccomment">/// Do not free.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_io_stream_get_output_stream&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">output_stream</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">OutputStream</span>;
@@ -546,7 +546,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if `self` has pending actions.</span>
+    <span class="doccomment">/// [`true`] if `self` has pending actions.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_io_stream_has_pending&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">has_pending</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
@@ -554,17 +554,17 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if the stream is closed.</span>
+    <span class="doccomment">/// [`true`] if the stream is closed.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_io_stream_is_closed&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">is_closed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
     <span class="doccomment">/// Sets `self` to have actions pending. If the pending flag is</span>
-    <span class="doccomment">/// already set or `self` is closed, it will return `false` and set</span>
+    <span class="doccomment">/// already set or `self` is closed, it will return [`false`] and set</span>
     <span class="doccomment">/// `error`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if pending was previously unset and is now set.</span>
+    <span class="doccomment">/// [`true`] if pending was previously unset and is now set.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_io_stream_set_pending&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_pending</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib::Error</span><span class="op">&gt;</span>;
 

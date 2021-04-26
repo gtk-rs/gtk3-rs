@@ -66,7 +66,7 @@
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// `Converter` is implemented by objects that convert</span>
+    <span class="doccomment">/// [`Converter`](crate::Converter) is implemented by objects that convert</span>
     <span class="doccomment">/// binary data in various ways. The conversion can be</span>
     <span class="doccomment">/// stateful and may fail at any place.</span>
     <span class="doccomment">///</span>
@@ -76,7 +76,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`ConverterExt`](trait@crate::ConverterExt), [`ConverterExtManual`](trait@crate::ConverterExtManual)</span>
+    <span class="doccomment">/// [`ConverterExt`](trait@crate::prelude::ConverterExt), [`ConverterExtManual`](trait@crate::prelude::ConverterExtManual)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Converter</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi::GConverter</span>, <span class="ident">ffi::GConverterIface</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {

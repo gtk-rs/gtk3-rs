@@ -202,19 +202,19 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// Like `NetworkAddress` does with hostnames, `NetworkService`</span>
+    <span class="doccomment">/// Like [`NetworkAddress`](crate::NetworkAddress) does with hostnames, [`NetworkService`](crate::NetworkService)</span>
     <span class="doccomment">/// provides an easy way to resolve a SRV record, and then attempt to</span>
     <span class="doccomment">/// connect to one of the hosts that implements that service, handling</span>
     <span class="doccomment">/// service priority/weighting, multiple IP addresses, and multiple</span>
     <span class="doccomment">/// address families.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See `SrvTarget` for more information about SRV records, and see</span>
-    <span class="doccomment">/// `SocketConnectable` for an example of using the connectable</span>
+    <span class="doccomment">/// See [`SrvTarget`](crate::SrvTarget) for more information about SRV records, and see</span>
+    <span class="doccomment">/// [`SocketConnectable`](crate::SocketConnectable) for an example of using the connectable</span>
     <span class="doccomment">/// interface.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`NetworkServiceExt`](trait@crate::NetworkServiceExt), [`trait@glib::object::ObjectExt`], [`SocketConnectableExt`](trait@crate::SocketConnectableExt)</span>
+    <span class="doccomment">/// [`NetworkServiceExt`](trait@crate::prelude::NetworkServiceExt), [`trait@glib::object::ObjectExt`], [`SocketConnectableExt`](trait@crate::prelude::SocketConnectableExt)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">NetworkService</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GNetworkService</span>, <span class="ident">ffi::GNetworkServiceClass</span><span class="op">&gt;</span>) @<span class="ident">implements</span> <span class="ident">SocketConnectable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -223,9 +223,9 @@
 }
 
 <span class="kw">impl</span> <span class="ident">NetworkService</span> {
-    <span class="doccomment">/// Creates a new `NetworkService` representing the given `service`,</span>
+    <span class="doccomment">/// Creates a new [`NetworkService`](crate::NetworkService) representing the given `service`,</span>
     <span class="doccomment">/// `protocol`, and `domain`. This will initially be unresolved; use the</span>
-    <span class="doccomment">/// `SocketConnectable` interface to resolve it.</span>
+    <span class="doccomment">/// [`SocketConnectable`](crate::SocketConnectable) interface to resolve it.</span>
     <span class="doccomment">/// ## `service`</span>
     <span class="doccomment">/// the service type to look up (eg, &quot;ldap&quot;)</span>
     <span class="doccomment">/// ## `protocol`</span>
@@ -235,7 +235,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new `NetworkService`</span>
+    <span class="doccomment">/// a new [`NetworkService`](crate::NetworkService)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_network_service_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">service</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">protocol</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">domain</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">NetworkService</span> {
         <span class="kw">unsafe</span> {

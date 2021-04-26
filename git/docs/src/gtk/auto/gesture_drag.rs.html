@@ -350,16 +350,16 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// `GestureDrag` is a `Gesture` implementation that recognizes drag</span>
+    <span class="doccomment">/// [`GestureDrag`](crate::GestureDrag) is a [`Gesture`](crate::Gesture) implementation that recognizes drag</span>
     <span class="doccomment">/// operations. The drag operation itself can be tracked throught the</span>
-    <span class="doccomment">/// `GestureDrag::drag-begin`, `GestureDrag::drag-update` and</span>
-    <span class="doccomment">/// `GestureDrag::drag-end` signals, or the relevant coordinates be</span>
-    <span class="doccomment">/// extracted through `GestureDragExt::get_offset` and</span>
-    <span class="doccomment">/// `GestureDragExt::get_start_point`.</span>
+    <span class="doccomment">/// [`GestureDrag::drag-begin`](crate::GestureDrag::drag-begin), [`GestureDrag::drag-update`](crate::GestureDrag::drag-update) and</span>
+    <span class="doccomment">/// [`GestureDrag::drag-end`](crate::GestureDrag::drag-end) signals, or the relevant coordinates be</span>
+    <span class="doccomment">/// extracted through [`GestureDragExt::get_offset()`](crate::GestureDragExt::get_offset()) and</span>
+    <span class="doccomment">/// [`GestureDragExt::get_start_point()`](crate::GestureDragExt::get_start_point()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`GestureDragExt`](trait@crate::GestureDragExt), [`GestureSingleExt`](trait@crate::GestureSingleExt), [`GestureExt`](trait@crate::GestureExt), [`EventControllerExt`](trait@crate::EventControllerExt), [`trait@glib::object::ObjectExt`]</span>
+    <span class="doccomment">/// [`GestureDragExt`](trait@crate::prelude::GestureDragExt), [`GestureSingleExt`](trait@crate::prelude::GestureSingleExt), [`GestureExt`](trait@crate::prelude::GestureExt), [`EventControllerExt`](trait@crate::prelude::EventControllerExt), [`trait@glib::object::ObjectExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">GestureDrag</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkGestureDrag</span>, <span class="ident">ffi::GtkGestureDragClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">GestureSingle</span>, <span class="ident">Gesture</span>, <span class="ident">EventController</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -368,13 +368,13 @@
 }
 
 <span class="kw">impl</span> <span class="ident">GestureDrag</span> {
-    <span class="doccomment">/// Returns a newly created `Gesture` that recognizes drags.</span>
+    <span class="doccomment">/// Returns a newly created [`Gesture`](crate::Gesture) that recognizes drags.</span>
     <span class="doccomment">/// ## `widget`</span>
-    <span class="doccomment">/// a `Widget`</span>
+    <span class="doccomment">/// a [`Widget`](crate::Widget)</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a newly created `GestureDrag`</span>
+    <span class="doccomment">/// a newly created [`GestureDrag`](crate::GestureDrag)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_gesture_drag_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">widget</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">GestureDrag</span> {
         <span class="macro">skip_assert_initialized!</span>();
@@ -472,7 +472,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// [`GestureDrag`](struct@crate::GestureDrag), [`GesturePan`](struct@crate::GesturePan)</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">GestureDragExt</span>: <span class="lifetime">&#39;static</span> {
-    <span class="doccomment">/// If the `self` is active, this function returns `true` and</span>
+    <span class="doccomment">/// If the `self` is active, this function returns [`true`] and</span>
     <span class="doccomment">/// fills in `x` and `y` with the coordinates of the current point,</span>
     <span class="doccomment">/// as an offset to the starting drag point.</span>
     <span class="doccomment">/// ## `x`</span>
@@ -482,11 +482,11 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if the gesture is active</span>
+    <span class="doccomment">/// [`true`] if the gesture is active</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_gesture_drag_get_offset&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">offset</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span>(<span class="ident">f64</span>, <span class="ident">f64</span>)<span class="op">&gt;</span>;
 
-    <span class="doccomment">/// If the `self` is active, this function returns `true`</span>
+    <span class="doccomment">/// If the `self` is active, this function returns [`true`]</span>
     <span class="doccomment">/// and fills in `x` and `y` with the drag start coordinates,</span>
     <span class="doccomment">/// in window-relative coordinates.</span>
     <span class="doccomment">/// ## `x`</span>
@@ -496,7 +496,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if the gesture is active</span>
+    <span class="doccomment">/// [`true`] if the gesture is active</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_gesture_drag_get_start_point&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">start_point</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span>(<span class="ident">f64</span>, <span class="ident">f64</span>)<span class="op">&gt;</span>;
 

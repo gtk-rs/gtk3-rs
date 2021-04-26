@@ -1807,8 +1807,9 @@
 
 <span class="kw">use</span> <span class="ident">glib::prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">glib::subclass::prelude</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">glib</span>::{<span class="ident">Cast</span>, <span class="ident">Object</span>};
+<span class="kw">use</span> <span class="ident">glib::Object</span>;
 
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Allocation</span>;
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::DragResult</span>;
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Inhibit</span>;
@@ -1817,7 +1818,6 @@
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::SizeRequestMode</span>;
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::TextDirection</span>;
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Widget</span>;
-<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::WidgetExt</span>;
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">WidgetImpl</span>: <span class="ident">WidgetImplExt</span> <span class="op">+</span> <span class="ident">ObjectImpl</span> {
     <span class="kw">fn</span> <span class="ident">adjust_baseline_allocation</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">widget</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>, <span class="ident">baseline</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">i32</span>) {

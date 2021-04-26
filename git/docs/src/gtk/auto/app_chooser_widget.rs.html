@@ -1068,23 +1068,23 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// `AppChooserWidget` is a widget for selecting applications.</span>
-    <span class="doccomment">/// It is the main building block for `AppChooserDialog`. Most</span>
+    <span class="doccomment">/// [`AppChooserWidget`](crate::AppChooserWidget) is a widget for selecting applications.</span>
+    <span class="doccomment">/// It is the main building block for [`AppChooserDialog`](crate::AppChooserDialog). Most</span>
     <span class="doccomment">/// applications only need to use the latter; but you can use</span>
     <span class="doccomment">/// this widget as part of a larger widget if you have special needs.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `AppChooserWidget` offers detailed control over what applications</span>
+    <span class="doccomment">/// [`AppChooserWidget`](crate::AppChooserWidget) offers detailed control over what applications</span>
     <span class="doccomment">/// are shown, using the</span>
-    <span class="doccomment">/// `AppChooserWidget:show-default`,</span>
-    <span class="doccomment">/// `AppChooserWidget:show-recommended`,</span>
-    <span class="doccomment">/// `AppChooserWidget:show-fallback`,</span>
-    <span class="doccomment">/// `AppChooserWidget:show-other` and</span>
-    <span class="doccomment">/// `AppChooserWidget:show-all`</span>
-    <span class="doccomment">/// properties. See the `AppChooser` documentation for more information</span>
+    <span class="doccomment">/// [`AppChooserWidget:show-default`](crate::AppChooserWidget:show-default),</span>
+    <span class="doccomment">/// [`AppChooserWidget:show-recommended`](crate::AppChooserWidget:show-recommended),</span>
+    <span class="doccomment">/// [`AppChooserWidget:show-fallback`](crate::AppChooserWidget:show-fallback),</span>
+    <span class="doccomment">/// [`AppChooserWidget:show-other`](crate::AppChooserWidget:show-other) and</span>
+    <span class="doccomment">/// [`AppChooserWidget:show-all`](crate::AppChooserWidget:show-all)</span>
+    <span class="doccomment">/// properties. See the [`AppChooser`](crate::AppChooser) documentation for more information</span>
     <span class="doccomment">/// about these groups of applications.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// To keep track of the selected application, use the</span>
-    <span class="doccomment">/// `AppChooserWidget::application-selected` and `AppChooserWidget::application-activated` signals.</span>
+    <span class="doccomment">/// [`AppChooserWidget::application-selected`](crate::AppChooserWidget::application-selected) and [`AppChooserWidget::application-activated`](crate::AppChooserWidget::application-activated) signals.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # CSS nodes</span>
     <span class="doccomment">///</span>
@@ -1092,7 +1092,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`AppChooserWidgetExt`](trait@crate::AppChooserWidgetExt), [`BoxExt`](trait@crate::BoxExt), [`ContainerExt`](trait@crate::ContainerExt), [`WidgetExt`](trait@crate::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::BuildableExt), [`OrientableExt`](trait@crate::OrientableExt), [`AppChooserExt`](trait@crate::AppChooserExt), [`WidgetExtManual`](trait@crate::WidgetExtManual), [`BuildableExtManual`](trait@crate::BuildableExtManual)</span>
+    <span class="doccomment">/// [`AppChooserWidgetExt`](trait@crate::prelude::AppChooserWidgetExt), [`BoxExt`](trait@crate::prelude::BoxExt), [`ContainerExt`](trait@crate::prelude::ContainerExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`OrientableExt`](trait@crate::prelude::OrientableExt), [`AppChooserExt`](trait@crate::prelude::AppChooserExt), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">AppChooserWidget</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkAppChooserWidget</span>, <span class="ident">ffi::GtkAppChooserWidgetClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Box</span>, <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>, <span class="ident">Orientable</span>, <span class="ident">AppChooser</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -1101,14 +1101,14 @@
 }
 
 <span class="kw">impl</span> <span class="ident">AppChooserWidget</span> {
-    <span class="doccomment">/// Creates a new `AppChooserWidget` for applications</span>
+    <span class="doccomment">/// Creates a new [`AppChooserWidget`](crate::AppChooserWidget) for applications</span>
     <span class="doccomment">/// that can handle content of the given type.</span>
     <span class="doccomment">/// ## `content_type`</span>
     <span class="doccomment">/// the content type to show applications for</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a newly created `AppChooserWidget`</span>
+    <span class="doccomment">/// a newly created [`AppChooserWidget`](crate::AppChooserWidget)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_app_chooser_widget_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">content_type</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">AppChooserWidget</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -1569,94 +1569,94 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the value of `AppChooserWidget:default-text`</span>
+    <span class="doccomment">/// the value of [`AppChooserWidget:default-text`](crate::AppChooserWidget:default-text)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_app_chooser_widget_get_default_text&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">default_text</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// Returns the current value of the `AppChooserWidget:show-all`</span>
+    <span class="doccomment">/// Returns the current value of the [`AppChooserWidget:show-all`](crate::AppChooserWidget:show-all)</span>
     <span class="doccomment">/// property.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the value of `AppChooserWidget:show-all`</span>
+    <span class="doccomment">/// the value of [`AppChooserWidget:show-all`](crate::AppChooserWidget:show-all)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_app_chooser_widget_get_show_all&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">shows_all</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
-    <span class="doccomment">/// Returns the current value of the `AppChooserWidget:show-default`</span>
+    <span class="doccomment">/// Returns the current value of the [`AppChooserWidget:show-default`](crate::AppChooserWidget:show-default)</span>
     <span class="doccomment">/// property.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the value of `AppChooserWidget:show-default`</span>
+    <span class="doccomment">/// the value of [`AppChooserWidget:show-default`](crate::AppChooserWidget:show-default)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_app_chooser_widget_get_show_default&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">shows_default</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
-    <span class="doccomment">/// Returns the current value of the `AppChooserWidget:show-fallback`</span>
+    <span class="doccomment">/// Returns the current value of the [`AppChooserWidget:show-fallback`](crate::AppChooserWidget:show-fallback)</span>
     <span class="doccomment">/// property.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the value of `AppChooserWidget:show-fallback`</span>
+    <span class="doccomment">/// the value of [`AppChooserWidget:show-fallback`](crate::AppChooserWidget:show-fallback)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_app_chooser_widget_get_show_fallback&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">shows_fallback</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
-    <span class="doccomment">/// Returns the current value of the `AppChooserWidget:show-other`</span>
+    <span class="doccomment">/// Returns the current value of the [`AppChooserWidget:show-other`](crate::AppChooserWidget:show-other)</span>
     <span class="doccomment">/// property.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the value of `AppChooserWidget:show-other`</span>
+    <span class="doccomment">/// the value of [`AppChooserWidget:show-other`](crate::AppChooserWidget:show-other)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_app_chooser_widget_get_show_other&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">shows_other</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
-    <span class="doccomment">/// Returns the current value of the `AppChooserWidget:show-recommended`</span>
+    <span class="doccomment">/// Returns the current value of the [`AppChooserWidget:show-recommended`](crate::AppChooserWidget:show-recommended)</span>
     <span class="doccomment">/// property.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the value of `AppChooserWidget:show-recommended`</span>
+    <span class="doccomment">/// the value of [`AppChooserWidget:show-recommended`](crate::AppChooserWidget:show-recommended)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_app_chooser_widget_get_show_recommended&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">shows_recommended</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
     <span class="doccomment">/// Sets the text that is shown if there are not applications</span>
     <span class="doccomment">/// that can handle the content type.</span>
     <span class="doccomment">/// ## `text`</span>
-    <span class="doccomment">/// the new value for `AppChooserWidget:default-text`</span>
+    <span class="doccomment">/// the new value for [`AppChooserWidget:default-text`](crate::AppChooserWidget:default-text)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_app_chooser_widget_set_default_text&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_default_text</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">text</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>);
 
     <span class="doccomment">/// Sets whether the app chooser should show all applications</span>
     <span class="doccomment">/// in a flat list.</span>
     <span class="doccomment">/// ## `setting`</span>
-    <span class="doccomment">/// the new value for `AppChooserWidget:show-all`</span>
+    <span class="doccomment">/// the new value for [`AppChooserWidget:show-all`](crate::AppChooserWidget:show-all)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_app_chooser_widget_set_show_all&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_show_all</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">setting</span>: <span class="ident">bool</span>);
 
     <span class="doccomment">/// Sets whether the app chooser should show the default handler</span>
     <span class="doccomment">/// for the content type in a separate section.</span>
     <span class="doccomment">/// ## `setting`</span>
-    <span class="doccomment">/// the new value for `AppChooserWidget:show-default`</span>
+    <span class="doccomment">/// the new value for [`AppChooserWidget:show-default`](crate::AppChooserWidget:show-default)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_app_chooser_widget_set_show_default&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_show_default</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">setting</span>: <span class="ident">bool</span>);
 
     <span class="doccomment">/// Sets whether the app chooser should show related applications</span>
     <span class="doccomment">/// for the content type in a separate section.</span>
     <span class="doccomment">/// ## `setting`</span>
-    <span class="doccomment">/// the new value for `AppChooserWidget:show-fallback`</span>
+    <span class="doccomment">/// the new value for [`AppChooserWidget:show-fallback`](crate::AppChooserWidget:show-fallback)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_app_chooser_widget_set_show_fallback&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_show_fallback</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">setting</span>: <span class="ident">bool</span>);
 
     <span class="doccomment">/// Sets whether the app chooser should show applications</span>
     <span class="doccomment">/// which are unrelated to the content type.</span>
     <span class="doccomment">/// ## `setting`</span>
-    <span class="doccomment">/// the new value for `AppChooserWidget:show-other`</span>
+    <span class="doccomment">/// the new value for [`AppChooserWidget:show-other`](crate::AppChooserWidget:show-other)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_app_chooser_widget_set_show_other&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_show_other</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">setting</span>: <span class="ident">bool</span>);
 
     <span class="doccomment">/// Sets whether the app chooser should show recommended applications</span>
     <span class="doccomment">/// for the content type in a separate section.</span>
     <span class="doccomment">/// ## `setting`</span>
-    <span class="doccomment">/// the new value for `AppChooserWidget:show-recommended`</span>
+    <span class="doccomment">/// the new value for [`AppChooserWidget:show-recommended`](crate::AppChooserWidget:show-recommended)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_app_chooser_widget_set_show_recommended&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_show_recommended</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">setting</span>: <span class="ident">bool</span>);
 
@@ -1666,7 +1666,7 @@
     <span class="doccomment">/// is selected and the user presses one of the keys Space, Shift+Space,</span>
     <span class="doccomment">/// Return or Enter.</span>
     <span class="doccomment">/// ## `application`</span>
-    <span class="doccomment">/// the activated `gio::AppInfo`</span>
+    <span class="doccomment">/// the activated [`gio::AppInfo`](crate::gio::AppInfo)</span>
     <span class="kw">fn</span> <span class="ident">connect_application_activated</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span><span class="ident">gio::AppInfo</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">f</span>: <span class="ident">F</span>,
@@ -1674,20 +1674,20 @@
 
     <span class="doccomment">/// Emitted when an application item is selected from the widget&#39;s list.</span>
     <span class="doccomment">/// ## `application`</span>
-    <span class="doccomment">/// the selected `gio::AppInfo`</span>
+    <span class="doccomment">/// the selected [`gio::AppInfo`](crate::gio::AppInfo)</span>
     <span class="kw">fn</span> <span class="ident">connect_application_selected</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span><span class="ident">gio::AppInfo</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">f</span>: <span class="ident">F</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;
 
     <span class="doccomment">/// Emitted when a context menu is about to popup over an application item.</span>
-    <span class="doccomment">/// Clients can insert menu items into the provided `Menu` object in the</span>
+    <span class="doccomment">/// Clients can insert menu items into the provided [`Menu`](crate::Menu) object in the</span>
     <span class="doccomment">/// callback of this signal; the context menu will be shown over the item</span>
     <span class="doccomment">/// if at least one item has been added to the menu.</span>
     <span class="doccomment">/// ## `menu`</span>
-    <span class="doccomment">/// the `Menu` to populate</span>
+    <span class="doccomment">/// the [`Menu`](crate::Menu) to populate</span>
     <span class="doccomment">/// ## `application`</span>
-    <span class="doccomment">/// the current `gio::AppInfo`</span>
+    <span class="doccomment">/// the current [`gio::AppInfo`](crate::gio::AppInfo)</span>
     <span class="kw">fn</span> <span class="ident">connect_populate_popup</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span><span class="ident">Menu</span>, <span class="kw-2">&amp;</span><span class="ident">gio::AppInfo</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">f</span>: <span class="ident">F</span>,

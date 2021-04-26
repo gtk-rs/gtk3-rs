@@ -162,11 +162,11 @@
 
 <span class="macro">glib::wrapper!</span> {
     <span class="doccomment">/// An IPv4 or IPv6 socket address; that is, the combination of a</span>
-    <span class="doccomment">/// `InetAddress` and a port number.</span>
+    <span class="doccomment">/// [`InetAddress`](crate::InetAddress) and a port number.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`InetSocketAddressExt`](trait@crate::InetSocketAddressExt), [`SocketAddressExt`](trait@crate::SocketAddressExt), [`trait@glib::object::ObjectExt`], [`SocketConnectableExt`](trait@crate::SocketConnectableExt)</span>
+    <span class="doccomment">/// [`InetSocketAddressExt`](trait@crate::prelude::InetSocketAddressExt), [`SocketAddressExt`](trait@crate::prelude::SocketAddressExt), [`trait@glib::object::ObjectExt`], [`SocketConnectableExt`](trait@crate::prelude::SocketConnectableExt)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">InetSocketAddress</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GInetSocketAddress</span>, <span class="ident">ffi::GInetSocketAddressClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">SocketAddress</span>, @<span class="ident">implements</span> <span class="ident">SocketConnectable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -175,15 +175,15 @@
 }
 
 <span class="kw">impl</span> <span class="ident">InetSocketAddress</span> {
-    <span class="doccomment">/// Creates a new `InetSocketAddress` for `address` and `port`.</span>
+    <span class="doccomment">/// Creates a new [`InetSocketAddress`](crate::InetSocketAddress) for `address` and `port`.</span>
     <span class="doccomment">/// ## `address`</span>
-    <span class="doccomment">/// a `InetAddress`</span>
+    <span class="doccomment">/// a [`InetAddress`](crate::InetAddress)</span>
     <span class="doccomment">/// ## `port`</span>
     <span class="doccomment">/// a port number</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new `InetSocketAddress`</span>
+    <span class="doccomment">/// a new [`InetSocketAddress`](crate::InetSocketAddress)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_inet_socket_address_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">InetAddress</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">address</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>, <span class="ident">port</span>: <span class="ident">u16</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">InetSocketAddress</span> {
         <span class="kw">unsafe</span> {
@@ -195,7 +195,7 @@
         }
     }
 
-    <span class="doccomment">/// Creates a new `InetSocketAddress` for `address` and `port`.</span>
+    <span class="doccomment">/// Creates a new [`InetSocketAddress`](crate::InetSocketAddress) for `address` and `port`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If `address` is an IPv6 address, it can also contain a scope ID</span>
     <span class="doccomment">/// (separated from the address by a `%`).</span>
@@ -206,8 +206,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new `InetSocketAddress`,</span>
-    <span class="doccomment">/// or `None` if `address` cannot be parsed.</span>
+    <span class="doccomment">/// a new [`InetSocketAddress`](crate::InetSocketAddress),</span>
+    <span class="doccomment">/// or [`None`] if `address` cannot be parsed.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_inet_socket_address_new_from_string&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_string</span>(<span class="ident">address</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">port</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">InetSocketAddress</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
@@ -231,12 +231,12 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// [`InetSocketAddress`](struct@crate::InetSocketAddress), [`ProxyAddress`](struct@crate::ProxyAddress)</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">InetSocketAddressExt</span>: <span class="lifetime">&#39;static</span> {
-    <span class="doccomment">/// Gets `self`&#39;s `InetAddress`.</span>
+    <span class="doccomment">/// Gets `self`&#39;s [`InetAddress`](crate::InetAddress).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the `InetAddress` for `self`, which must be</span>
-    <span class="doccomment">/// `glib::object::ObjectExt::ref`&#39;d if it will be stored</span>
+    <span class="doccomment">/// the [`InetAddress`](crate::InetAddress) for `self`, which must be</span>
+    <span class="doccomment">/// [`glib::object::ObjectExt::ref()`](crate::glib::object::ObjectExt::ref())&#39;d if it will be stored</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_inet_socket_address_get_address&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">address</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">InetAddress</span>;
 

@@ -595,17 +595,17 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// The `Viewport` widget acts as an adaptor class, implementing</span>
+    <span class="doccomment">/// The [`Viewport`](crate::Viewport) widget acts as an adaptor class, implementing</span>
     <span class="doccomment">/// scrollability for child widgets that lack their own scrolling</span>
     <span class="doccomment">/// capabilities. Use `Viewport` to scroll child widgets such as</span>
-    <span class="doccomment">/// `Grid`, `Box`, and so on.</span>
+    <span class="doccomment">/// [`Grid`](crate::Grid), [`Box`](crate::Box), and so on.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If a widget has native scrolling abilities, such as `TextView`,</span>
-    <span class="doccomment">/// `TreeView` or `IconView`, it can be added to a `ScrolledWindow`</span>
-    <span class="doccomment">/// with `ContainerExt::add`. If a widget does not, you must first add the</span>
-    <span class="doccomment">/// widget to a `Viewport`, then add the viewport to the scrolled window.</span>
-    <span class="doccomment">/// `ContainerExt::add` does this automatically if a child that does not</span>
-    <span class="doccomment">/// implement `Scrollable` is added to a `ScrolledWindow`, so you can</span>
+    <span class="doccomment">/// If a widget has native scrolling abilities, such as [`TextView`](crate::TextView),</span>
+    <span class="doccomment">/// [`TreeView`](crate::TreeView) or [`IconView`](crate::IconView), it can be added to a [`ScrolledWindow`](crate::ScrolledWindow)</span>
+    <span class="doccomment">/// with [`ContainerExt::add()`](crate::ContainerExt::add()). If a widget does not, you must first add the</span>
+    <span class="doccomment">/// widget to a [`Viewport`](crate::Viewport), then add the viewport to the scrolled window.</span>
+    <span class="doccomment">/// [`ContainerExt::add()`](crate::ContainerExt::add()) does this automatically if a child that does not</span>
+    <span class="doccomment">/// implement [`Scrollable`](crate::Scrollable) is added to a [`ScrolledWindow`](crate::ScrolledWindow), so you can</span>
     <span class="doccomment">/// ignore the presence of the viewport.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The `Viewport` will start scrolling content only if allocated less</span>
@@ -617,7 +617,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`ViewportExt`](trait@crate::ViewportExt), [`BinExt`](trait@crate::BinExt), [`ContainerExt`](trait@crate::ContainerExt), [`WidgetExt`](trait@crate::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::BuildableExt), [`ScrollableExt`](trait@crate::ScrollableExt), [`WidgetExtManual`](trait@crate::WidgetExtManual), [`BuildableExtManual`](trait@crate::BuildableExtManual)</span>
+    <span class="doccomment">/// [`ViewportExt`](trait@crate::prelude::ViewportExt), [`BinExt`](trait@crate::prelude::BinExt), [`ContainerExt`](trait@crate::prelude::ContainerExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`ScrollableExt`](trait@crate::prelude::ScrollableExt), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Viewport</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkViewport</span>, <span class="ident">ffi::GtkViewportClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Bin</span>, <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>, <span class="ident">Scrollable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -626,7 +626,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Viewport</span> {
-    <span class="doccomment">/// Creates a new `Viewport` with the given adjustments, or with default</span>
+    <span class="doccomment">/// Creates a new [`Viewport`](crate::Viewport) with the given adjustments, or with default</span>
     <span class="doccomment">/// adjustments if none are given.</span>
     <span class="doccomment">/// ## `hadjustment`</span>
     <span class="doccomment">/// horizontal adjustment</span>
@@ -635,7 +635,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new `Viewport`</span>
+    <span class="doccomment">/// a new [`Viewport`](crate::Viewport)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_viewport_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Adjustment</span><span class="op">&gt;</span>, <span class="ident">Q</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Adjustment</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="ident">hadjustment</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>,
@@ -1041,16 +1041,16 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// [`Viewport`](struct@crate::Viewport)</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ViewportExt</span>: <span class="lifetime">&#39;static</span> {
-    <span class="doccomment">/// Gets the bin window of the `Viewport`.</span>
+    <span class="doccomment">/// Gets the bin window of the [`Viewport`](crate::Viewport).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a `gdk::Window`</span>
+    <span class="doccomment">/// a [`gdk::Window`](crate::gdk::Window)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_viewport_get_bin_window&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">bin_window</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">gdk::Window</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// Gets the shadow type of the `Viewport`. See</span>
-    <span class="doccomment">/// `ViewportExt::set_shadow_type`.</span>
+    <span class="doccomment">/// Gets the shadow type of the [`Viewport`](crate::Viewport). See</span>
+    <span class="doccomment">/// [`set_shadow_type()`](Self::set_shadow_type()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1058,11 +1058,11 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_viewport_get_shadow_type&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">shadow_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ShadowType</span>;
 
-    <span class="doccomment">/// Gets the view window of the `Viewport`.</span>
+    <span class="doccomment">/// Gets the view window of the [`Viewport`](crate::Viewport).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a `gdk::Window`</span>
+    <span class="doccomment">/// a [`gdk::Window`](crate::gdk::Window)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_viewport_get_view_window&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">view_window</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">gdk::Window</span><span class="op">&gt;</span>;
 

@@ -319,7 +319,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`HyperlinkExt`](trait@crate::HyperlinkExt), [`trait@glib::object::ObjectExt`], [`AtkActionExt`](trait@crate::AtkActionExt)</span>
+    <span class="doccomment">/// [`HyperlinkExt`](trait@crate::prelude::HyperlinkExt), [`trait@glib::object::ObjectExt`], [`AtkActionExt`](trait@crate::prelude::AtkActionExt)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Hyperlink</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::AtkHyperlink</span>, <span class="ident">ffi::AtkHyperlinkClass</span><span class="op">&gt;</span>) @<span class="ident">implements</span> <span class="ident">Action</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -352,8 +352,8 @@
     <span class="kw">fn</span> <span class="ident">n_anchors</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span>;
 
     <span class="doccomment">/// Returns the item associated with this hyperlinks nth anchor.</span>
-    <span class="doccomment">/// For instance, the returned `Object` will implement `Text`</span>
-    <span class="doccomment">/// if `self` is a text hyperlink, `Image` if `self` is an image</span>
+    <span class="doccomment">/// For instance, the returned [`Object`](crate::Object) will implement [`Text`](crate::Text)</span>
+    <span class="doccomment">/// if `self` is a text hyperlink, [`Image`](crate::Image) if `self` is an image</span>
     <span class="doccomment">/// hyperlink etc.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Multiple anchors are primarily used by client-side image maps.</span>
@@ -362,7 +362,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// an `Object` associated with this hyperlinks</span>
+    <span class="doccomment">/// an [`Object`](crate::Object) associated with this hyperlinks</span>
     <span class="doccomment">/// i-th anchor</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_hyperlink_get_object&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">object</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">i</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Object</span><span class="op">&gt;</span>;
@@ -390,8 +390,8 @@
 
     <span class="doccomment">/// Indicates whether the link currently displays some or all of its</span>
     <span class="doccomment">///  content inline. Ordinary HTML links will usually return</span>
-    <span class="doccomment">///  `false`, but an inline &amp;lt;src&amp;gt; HTML element will return</span>
-    <span class="doccomment">///  `true`.</span>
+    <span class="doccomment">///  [`false`], but an inline &amp;lt;src&amp;gt; HTML element will return</span>
+    <span class="doccomment">///  [`true`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -400,8 +400,8 @@
     <span class="kw">fn</span> <span class="ident">is_inline</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
     <span class="doccomment">/// Since the document that a link is associated with may have changed</span>
-    <span class="doccomment">/// this method returns `true` if the link is still valid (with</span>
-    <span class="doccomment">/// respect to the document it references) and `false` otherwise.</span>
+    <span class="doccomment">/// this method returns [`true`] if the link is still valid (with</span>
+    <span class="doccomment">/// respect to the document it references) and [`false`] otherwise.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>

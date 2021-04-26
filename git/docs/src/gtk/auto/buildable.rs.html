@@ -218,15 +218,15 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// The `Buildable` interface is implemented by all widgets and</span>
     <span class="doccomment">/// many of the non-widget objects that are provided by GTK+. The</span>
-    <span class="doccomment">/// main user of this interface is `Builder`. There should be</span>
+    <span class="doccomment">/// main user of this interface is [`Builder`](crate::Builder). There should be</span>
     <span class="doccomment">/// very little need for applications to call any of these functions directly.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// An object only needs to implement this interface if it needs to extend the</span>
-    <span class="doccomment">/// `Builder` format or run any extra routines at deserialization time.</span>
+    <span class="doccomment">/// [`Builder`](crate::Builder) format or run any extra routines at deserialization time.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`BuildableExt`](trait@crate::BuildableExt), [`BuildableExtManual`](trait@crate::BuildableExtManual)</span>
+    <span class="doccomment">/// [`BuildableExt`](trait@crate::prelude::BuildableExt), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Buildable</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi::GtkBuildable</span>, <span class="ident">ffi::GtkBuildableIface</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -245,11 +245,11 @@
     <span class="doccomment">/// Adds a child to `self`. `type_` is an optional string</span>
     <span class="doccomment">/// describing how the child should be added.</span>
     <span class="doccomment">/// ## `builder`</span>
-    <span class="doccomment">/// a `Builder`</span>
+    <span class="doccomment">/// a [`Builder`](crate::Builder)</span>
     <span class="doccomment">/// ## `child`</span>
     <span class="doccomment">/// child to add</span>
     <span class="doccomment">/// ## `type_`</span>
-    <span class="doccomment">/// kind of child or `None`</span>
+    <span class="doccomment">/// kind of child or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_buildable_add_child&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">add_child</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Builder</span><span class="op">&gt;</span>, <span class="ident">Q</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">glib::Object</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -260,10 +260,10 @@
 
     <span class="doccomment">/// Constructs a child of `self` with the name `name`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `Builder` calls this function if a “constructor” has been</span>
+    <span class="doccomment">/// [`Builder`](crate::Builder) calls this function if a “constructor” has been</span>
     <span class="doccomment">/// specified in the UI definition.</span>
     <span class="doccomment">/// ## `builder`</span>
-    <span class="doccomment">/// `Builder` used to construct this object</span>
+    <span class="doccomment">/// [`Builder`](crate::Builder) used to construct this object</span>
     <span class="doccomment">/// ## `name`</span>
     <span class="doccomment">/// name of child to construct</span>
     <span class="doccomment">///</span>
@@ -284,7 +284,7 @@
 
     <span class="doccomment">/// Get the internal child called `childname` of the `self` object.</span>
     <span class="doccomment">/// ## `builder`</span>
-    <span class="doccomment">/// a `Builder`</span>
+    <span class="doccomment">/// a [`Builder`](crate::Builder)</span>
     <span class="doccomment">/// ## `childname`</span>
     <span class="doccomment">/// name of child</span>
     <span class="doccomment">///</span>
@@ -298,16 +298,16 @@
     <span class="doccomment">/// Called when the builder finishes the parsing of a</span>
     <span class="doccomment">/// [`Builder` UI definition][BUILDER-UI].</span>
     <span class="doccomment">/// Note that this will be called once for each time</span>
-    <span class="doccomment">/// `Builder::add_from_file` or `BuilderExt::add_from_string`</span>
+    <span class="doccomment">/// [`Builder::add_from_file()`](crate::Builder::add_from_file()) or [`BuilderExt::add_from_string()`](crate::BuilderExt::add_from_string())</span>
     <span class="doccomment">/// is called on a builder.</span>
     <span class="doccomment">/// ## `builder`</span>
-    <span class="doccomment">/// a `Builder`</span>
+    <span class="doccomment">/// a [`Builder`](crate::Builder)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_buildable_parser_finished&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">parser_finished</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Builder</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">builder</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>);
 
     <span class="doccomment">/// Sets the property name `name` to `value` on the `self` object.</span>
     <span class="doccomment">/// ## `builder`</span>
-    <span class="doccomment">/// a `Builder`</span>
+    <span class="doccomment">/// a [`Builder`](crate::Builder)</span>
     <span class="doccomment">/// ## `name`</span>
     <span class="doccomment">/// name of property</span>
     <span class="doccomment">/// ## `value`</span>

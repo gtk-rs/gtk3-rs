@@ -1124,13 +1124,13 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// The `Button` widget is generally used to trigger a callback function that is</span>
+    <span class="doccomment">/// The [`Button`](crate::Button) widget is generally used to trigger a callback function that is</span>
     <span class="doccomment">/// called when the button is pressed. The various signals and how to use them</span>
     <span class="doccomment">/// are outlined below.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The `Button` widget can hold any valid child widget. That is, it can hold</span>
-    <span class="doccomment">/// almost any other standard `Widget`. The most commonly used child is the</span>
-    <span class="doccomment">/// `Label`.</span>
+    <span class="doccomment">/// The [`Button`](crate::Button) widget can hold any valid child widget. That is, it can hold</span>
+    <span class="doccomment">/// almost any other standard [`Widget`](crate::Widget). The most commonly used child is the</span>
+    <span class="doccomment">/// [`Label`](crate::Label).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # CSS nodes</span>
     <span class="doccomment">///</span>
@@ -1142,14 +1142,14 @@
     <span class="doccomment">/// .suggested-action and .destructive-action. In special cases, buttons</span>
     <span class="doccomment">/// can be made round by adding the .circular style class.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Button-like widgets like `ToggleButton`, `MenuButton`, `VolumeButton`,</span>
-    <span class="doccomment">/// `LockButton`, `ColorButton`, `FontButton` or `FileChooserButton` use</span>
+    <span class="doccomment">/// Button-like widgets like [`ToggleButton`](crate::ToggleButton), [`MenuButton`](crate::MenuButton), [`VolumeButton`](crate::VolumeButton),</span>
+    <span class="doccomment">/// [`LockButton`](crate::LockButton), [`ColorButton`](crate::ColorButton), [`FontButton`](crate::FontButton) or [`FileChooserButton`](crate::FileChooserButton) use</span>
     <span class="doccomment">/// style classes such as .toggle, .popup, .scale, .lock, .color, .font, .file</span>
     <span class="doccomment">/// to differentiate themselves from a plain `Button`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`ButtonExt`](trait@crate::ButtonExt), [`BinExt`](trait@crate::BinExt), [`ContainerExt`](trait@crate::ContainerExt), [`WidgetExt`](trait@crate::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::BuildableExt), [`ActionableExt`](trait@crate::ActionableExt), [`WidgetExtManual`](trait@crate::WidgetExtManual), [`BuildableExtManual`](trait@crate::BuildableExtManual)</span>
+    <span class="doccomment">/// [`ButtonExt`](trait@crate::prelude::ButtonExt), [`BinExt`](trait@crate::prelude::BinExt), [`ContainerExt`](trait@crate::prelude::ContainerExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`ActionableExt`](trait@crate::prelude::ActionableExt), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Button</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkButton</span>, <span class="ident">ffi::GtkButtonClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Bin</span>, <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>, <span class="ident">Actionable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -1158,12 +1158,12 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Button</span> {
-    <span class="doccomment">/// Creates a new `Button` widget. To add a child widget to the button,</span>
-    <span class="doccomment">/// use `ContainerExt::add`.</span>
+    <span class="doccomment">/// Creates a new [`Button`](crate::Button) widget. To add a child widget to the button,</span>
+    <span class="doccomment">/// use [`ContainerExt::add()`](crate::ContainerExt::add()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The newly created `Button` widget.</span>
+    <span class="doccomment">/// The newly created [`Button`](crate::Button) widget.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_button_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Button</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -1176,16 +1176,16 @@
     <span class="doccomment">/// displayed instead. If the current icon theme is changed, the icon</span>
     <span class="doccomment">/// will be updated appropriately.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This function is a convenience wrapper around `Button::new` and</span>
-    <span class="doccomment">/// `ButtonExt::set_image`.</span>
+    <span class="doccomment">/// This function is a convenience wrapper around [`new()`](Self::new()) and</span>
+    <span class="doccomment">/// [`ButtonExt::set_image()`](crate::ButtonExt::set_image()).</span>
     <span class="doccomment">/// ## `icon_name`</span>
-    <span class="doccomment">/// an icon name or `None`</span>
+    <span class="doccomment">/// an icon name or [`None`]</span>
     <span class="doccomment">/// ## `size`</span>
-    <span class="doccomment">/// an icon size (`IconSize`)</span>
+    <span class="doccomment">/// an icon size ([`IconSize`](crate::IconSize))</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new `Button` displaying the themed icon</span>
+    <span class="doccomment">/// a new [`Button`](crate::Button) displaying the themed icon</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_button_new_from_icon_name&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_icon_name</span>(<span class="ident">icon_name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>, <span class="ident">size</span>: <span class="ident">IconSize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Button</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -1198,14 +1198,14 @@
         }
     }
 
-    <span class="doccomment">/// Creates a `Button` widget with a `Label` child containing the given</span>
+    <span class="doccomment">/// Creates a [`Button`](crate::Button) widget with a [`Label`](crate::Label) child containing the given</span>
     <span class="doccomment">/// text.</span>
     <span class="doccomment">/// ## `label`</span>
-    <span class="doccomment">/// The text you want the `Label` to hold.</span>
+    <span class="doccomment">/// The text you want the [`Label`](crate::Label) to hold.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The newly created `Button` widget.</span>
+    <span class="doccomment">/// The newly created [`Button`](crate::Button) widget.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_button_new_with_label&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_label</span>(<span class="ident">label</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Button</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -1215,7 +1215,7 @@
         }
     }
 
-    <span class="doccomment">/// Creates a new `Button` containing a label.</span>
+    <span class="doccomment">/// Creates a new [`Button`](crate::Button) containing a label.</span>
     <span class="doccomment">/// If characters in `label` are preceded by an underscore, they are underlined.</span>
     <span class="doccomment">/// If you need a literal underscore character in a label, use “__” (two</span>
     <span class="doccomment">/// underscores). The first underlined character represents a keyboard</span>
@@ -1227,7 +1227,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new `Button`</span>
+    <span class="doccomment">/// a new [`Button`](crate::Button)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_button_new_with_mnemonic&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_mnemonic</span>(<span class="ident">label</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Button</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -1660,20 +1660,20 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// [`Button`](struct@crate::Button), [`ColorButton`](struct@crate::ColorButton), [`FontButton`](struct@crate::FontButton), [`LinkButton`](struct@crate::LinkButton), [`LockButton`](struct@crate::LockButton), [`ModelButton`](struct@crate::ModelButton), [`ScaleButton`](struct@crate::ScaleButton), [`ToggleButton`](struct@crate::ToggleButton)</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ButtonExt</span>: <span class="lifetime">&#39;static</span> {
-    <span class="doccomment">/// Emits a `Button::clicked` signal to the given `Button`.</span>
+    <span class="doccomment">/// Emits a [`Button::clicked`](crate::Button::clicked) signal to the given [`Button`](crate::Button).</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_button_clicked&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">clicked</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
-    <span class="doccomment">/// Returns whether the button will ignore the `Settings:gtk-button-images`</span>
+    <span class="doccomment">/// Returns whether the button will ignore the [`Settings:gtk-button-images`](crate::Settings:gtk-button-images)</span>
     <span class="doccomment">/// setting and always show the image, if available.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if the button will always show the image</span>
+    <span class="doccomment">/// [`true`] if the button will always show the image</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_button_get_always_show_image&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">must_always_show_image</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
-    <span class="doccomment">/// Returns the button’s event window if it is realized, `None` otherwise.</span>
+    <span class="doccomment">/// Returns the button’s event window if it is realized, [`None`] otherwise.</span>
     <span class="doccomment">/// This function should be rarely needed.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -1683,29 +1683,29 @@
     <span class="kw">fn</span> <span class="ident">event_window</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">gdk::Window</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Returns whether the button grabs focus when it is clicked with the mouse.</span>
-    <span class="doccomment">/// See `ButtonExt::set_focus_on_click`.</span>
+    <span class="doccomment">/// See [`set_focus_on_click()`](Self::set_focus_on_click()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated since 3.20</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Use `WidgetExt::get_focus_on_click` instead</span>
+    <span class="doccomment">/// Use [`WidgetExt::get_focus_on_click()`](crate::WidgetExt::get_focus_on_click()) instead</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if the button grabs focus when it is clicked with</span>
+    <span class="doccomment">/// [`true`] if the button grabs focus when it is clicked with</span>
     <span class="doccomment">///  the mouse.</span>
-    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>, <span class="ident">deprecated</span>)]</span>
+    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>, <span class="ident">deprecated</span> <span class="op">=</span> <span class="string">&quot;Since 3.20&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>), <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>))))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_button_get_focus_on_click&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">gets_focus_on_click</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
     <span class="doccomment">/// Gets the widget that is currenty set as the image of `self`.</span>
-    <span class="doccomment">/// This may have been explicitly set by `ButtonExt::set_image`</span>
-    <span class="doccomment">/// or constructed by `Button::new_from_stock`.</span>
+    <span class="doccomment">/// This may have been explicitly set by [`set_image()`](Self::set_image())</span>
+    <span class="doccomment">/// or constructed by [`Button::new_from_stock()`](crate::Button::new_from_stock()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a `Widget` or `None` in case</span>
+    <span class="doccomment">/// a [`Widget`](crate::Widget) or [`None`] in case</span>
     <span class="doccomment">///  there is no image</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_button_get_image&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">image</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span>;
@@ -1720,9 +1720,9 @@
     <span class="kw">fn</span> <span class="ident">image_position</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">PositionType</span>;
 
     <span class="doccomment">/// Fetches the text from the label of the button, as set by</span>
-    <span class="doccomment">/// `ButtonExt::set_label`. If the label text has not</span>
-    <span class="doccomment">/// been set the return value will be `None`. This will be the</span>
-    <span class="doccomment">/// case if you create an empty button with `Button::new` to</span>
+    <span class="doccomment">/// [`set_label()`](Self::set_label()). If the label text has not</span>
+    <span class="doccomment">/// been set the return value will be [`None`]. This will be the</span>
+    <span class="doccomment">/// case if you create an empty button with [`Button::new()`](crate::Button::new()) to</span>
     <span class="doccomment">/// use as a container.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -1732,11 +1732,11 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_button_get_label&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">label</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// Returns the current relief style of the given `Button`.</span>
+    <span class="doccomment">/// Returns the current relief style of the given [`Button`](crate::Button).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The current `ReliefStyle`</span>
+    <span class="doccomment">/// The current [`ReliefStyle`](crate::ReliefStyle)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_button_get_relief&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">relief</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ReliefStyle</span>;
 
@@ -1745,18 +1745,18 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if an embedded underline in the button label</span>
+    <span class="doccomment">/// [`true`] if an embedded underline in the button label</span>
     <span class="doccomment">///  indicates the mnemonic accelerator keys.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_button_get_use_underline&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">uses_underline</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
-    <span class="doccomment">/// If `true`, the button will ignore the `Settings:gtk-button-images`</span>
+    <span class="doccomment">/// If [`true`], the button will ignore the [`Settings:gtk-button-images`](crate::Settings:gtk-button-images)</span>
     <span class="doccomment">/// setting and always show the image, if available.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Use this property if the button would be useless or hard to use</span>
     <span class="doccomment">/// without the image.</span>
     <span class="doccomment">/// ## `always_show`</span>
-    <span class="doccomment">/// `true` if the menuitem should always show the image</span>
+    <span class="doccomment">/// [`true`] if the menuitem should always show the image</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_button_set_always_show_image&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_always_show_image</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">always_show</span>: <span class="ident">bool</span>);
 
@@ -1767,21 +1767,21 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated since 3.20</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Use `WidgetExt::set_focus_on_click` instead</span>
+    <span class="doccomment">/// Use [`WidgetExt::set_focus_on_click()`](crate::WidgetExt::set_focus_on_click()) instead</span>
     <span class="doccomment">/// ## `focus_on_click`</span>
     <span class="doccomment">/// whether the button grabs focus when clicked with the mouse</span>
-    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>, <span class="ident">deprecated</span>)]</span>
+    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>, <span class="ident">deprecated</span> <span class="op">=</span> <span class="string">&quot;Since 3.20&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>), <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>))))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_button_set_focus_on_click&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_focus_on_click</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">focus_on_click</span>: <span class="ident">bool</span>);
 
     <span class="doccomment">/// Set the image of `self` to the given widget. The image will be</span>
-    <span class="doccomment">/// displayed if the label text is `None` or if</span>
-    <span class="doccomment">/// `Button:always-show-image` is `true`. You don’t have to call</span>
-    <span class="doccomment">/// `WidgetExt::show` on `image` yourself.</span>
+    <span class="doccomment">/// displayed if the label text is [`None`] or if</span>
+    <span class="doccomment">/// [`Button:always-show-image`](crate::Button:always-show-image) is [`true`]. You don’t have to call</span>
+    <span class="doccomment">/// [`WidgetExt::show()`](crate::WidgetExt::show()) on `image` yourself.</span>
     <span class="doccomment">/// ## `image`</span>
-    <span class="doccomment">/// a widget to set as the image for the button, or `None` to unset</span>
+    <span class="doccomment">/// a widget to set as the image for the button, or [`None`] to unset</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_button_set_image&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_image</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">image</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>);
 
@@ -1793,7 +1793,7 @@
     <span class="kw">fn</span> <span class="ident">set_image_position</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">position</span>: <span class="ident">PositionType</span>);
 
     <span class="doccomment">/// Sets the text of the label of the button to `str`. This text is</span>
-    <span class="doccomment">/// also used to select the stock item if `Button::set_use_stock`</span>
+    <span class="doccomment">/// also used to select the stock item if [`Button::set_use_stock()`](crate::Button::set_use_stock())</span>
     <span class="doccomment">/// is used.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This will also clear any previously set labels.</span>
@@ -1802,11 +1802,11 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_button_set_label&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_label</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">label</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>);
 
-    <span class="doccomment">/// Sets the relief style of the edges of the given `Button` widget.</span>
-    <span class="doccomment">/// Two styles exist, `ReliefStyle::Normal` and `ReliefStyle::None`.</span>
-    <span class="doccomment">/// The default style is, as one can guess, `ReliefStyle::Normal`.</span>
-    <span class="doccomment">/// The deprecated value `ReliefStyle::Half` behaves the same as</span>
-    <span class="doccomment">/// `ReliefStyle::Normal`.</span>
+    <span class="doccomment">/// Sets the relief style of the edges of the given [`Button`](crate::Button) widget.</span>
+    <span class="doccomment">/// Two styles exist, [`ReliefStyle::Normal`] and [`ReliefStyle::None`].</span>
+    <span class="doccomment">/// The default style is, as one can guess, [`ReliefStyle::Normal`].</span>
+    <span class="doccomment">/// The deprecated value [`ReliefStyle::Half`] behaves the same as</span>
+    <span class="doccomment">/// [`ReliefStyle::Normal`].</span>
     <span class="doccomment">/// ## `relief`</span>
     <span class="doccomment">/// The `ReliefStyle` as described above</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_button_set_relief&quot;</span>)]</span>
@@ -1815,14 +1815,14 @@
     <span class="doccomment">/// If true, an underline in the text of the button label indicates</span>
     <span class="doccomment">/// the next character should be used for the mnemonic accelerator key.</span>
     <span class="doccomment">/// ## `use_underline`</span>
-    <span class="doccomment">/// `true` if underlines in the text indicate mnemonics</span>
+    <span class="doccomment">/// [`true`] if underlines in the text indicate mnemonics</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_button_set_use_underline&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_use_underline</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">use_underline</span>: <span class="ident">bool</span>);
 
     <span class="doccomment">/// The ::activate signal on `Button` is an action signal and</span>
     <span class="doccomment">/// emitting it causes the button to animate press then release.</span>
     <span class="doccomment">/// Applications should never connect to this signal, but use the</span>
-    <span class="doccomment">/// `Button::clicked` signal.</span>
+    <span class="doccomment">/// [`Button::clicked`](crate::Button::clicked) signal.</span>
     <span class="kw">fn</span> <span class="ident">connect_activate</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;
 
     <span class="kw">fn</span> <span class="ident">emit_activate</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);

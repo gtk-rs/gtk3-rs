@@ -571,11 +571,11 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// `VolumeMonitor` is for listing the user interesting devices and volumes</span>
+    <span class="doccomment">/// [`VolumeMonitor`](crate::VolumeMonitor) is for listing the user interesting devices and volumes</span>
     <span class="doccomment">/// on the computer. In other words, what a file selector or file manager</span>
     <span class="doccomment">/// would show in a sidebar.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `VolumeMonitor` is not</span>
+    <span class="doccomment">/// [`VolumeMonitor`](crate::VolumeMonitor) is not</span>
     <span class="doccomment">/// [thread-default-context aware][g-main-context-push-thread-default],</span>
     <span class="doccomment">/// and so should not be used other than from the main thread, with no</span>
     <span class="doccomment">/// thread-default-context active.</span>
@@ -585,7 +585,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`VolumeMonitorExt`](trait@crate::VolumeMonitorExt), [`trait@glib::object::ObjectExt`]</span>
+    <span class="doccomment">/// [`VolumeMonitorExt`](trait@crate::prelude::VolumeMonitorExt), [`trait@glib::object::ObjectExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">VolumeMonitor</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GVolumeMonitor</span>, <span class="ident">ffi::GVolumeMonitorClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -598,8 +598,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a reference to the `VolumeMonitor` used by gio. Call</span>
-    <span class="doccomment">///  `glib::object::ObjectExt::unref` when done with it.</span>
+    <span class="doccomment">/// a reference to the [`VolumeMonitor`](crate::VolumeMonitor) used by gio. Call</span>
+    <span class="doccomment">///  [`glib::object::ObjectExt::unref()`](crate::glib::object::ObjectExt::unref()) when done with it.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_volume_monitor_get&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">VolumeMonitor</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_volume_monitor_get</span>()) }
@@ -616,56 +616,56 @@
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">VolumeMonitorExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Gets a list of drives connected to the system.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The returned list should be freed with `glib::List::free`, after</span>
-    <span class="doccomment">/// its elements have been unreffed with `glib::object::ObjectExt::unref`.</span>
+    <span class="doccomment">/// The returned list should be freed with [`glib::List::free()`](crate::glib::List::free()), after</span>
+    <span class="doccomment">/// its elements have been unreffed with [`glib::object::ObjectExt::unref()`](crate::glib::object::ObjectExt::unref()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a `glib::List` of connected `Drive` objects.</span>
+    <span class="doccomment">/// a [`glib::List`](crate::glib::List) of connected [`Drive`](crate::Drive) objects.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_volume_monitor_get_connected_drives&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">connected_drives</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Drive</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// Finds a `Mount` object by its UUID (see `Mount::get_uuid`)</span>
+    <span class="doccomment">/// Finds a [`Mount`](crate::Mount) object by its UUID (see [`Mount::get_uuid()`](crate::Mount::get_uuid()))</span>
     <span class="doccomment">/// ## `uuid`</span>
     <span class="doccomment">/// the UUID to look for</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a `Mount` or `None` if no such mount is available.</span>
-    <span class="doccomment">///  Free the returned object with `glib::object::ObjectExt::unref`.</span>
+    <span class="doccomment">/// a [`Mount`](crate::Mount) or [`None`] if no such mount is available.</span>
+    <span class="doccomment">///  Free the returned object with [`glib::object::ObjectExt::unref()`](crate::glib::object::ObjectExt::unref()).</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_volume_monitor_get_mount_for_uuid&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">mount_for_uuid</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">uuid</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Mount</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Gets a list of the mounts on the system.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The returned list should be freed with `glib::List::free`, after</span>
-    <span class="doccomment">/// its elements have been unreffed with `glib::object::ObjectExt::unref`.</span>
+    <span class="doccomment">/// The returned list should be freed with [`glib::List::free()`](crate::glib::List::free()), after</span>
+    <span class="doccomment">/// its elements have been unreffed with [`glib::object::ObjectExt::unref()`](crate::glib::object::ObjectExt::unref()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a `glib::List` of `Mount` objects.</span>
+    <span class="doccomment">/// a [`glib::List`](crate::glib::List) of [`Mount`](crate::Mount) objects.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_volume_monitor_get_mounts&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">mounts</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Mount</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// Finds a `Volume` object by its UUID (see `Volume::get_uuid`)</span>
+    <span class="doccomment">/// Finds a [`Volume`](crate::Volume) object by its UUID (see [`Volume::get_uuid()`](crate::Volume::get_uuid()))</span>
     <span class="doccomment">/// ## `uuid`</span>
     <span class="doccomment">/// the UUID to look for</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a `Volume` or `None` if no such volume is available.</span>
-    <span class="doccomment">///  Free the returned object with `glib::object::ObjectExt::unref`.</span>
+    <span class="doccomment">/// a [`Volume`](crate::Volume) or [`None`] if no such volume is available.</span>
+    <span class="doccomment">///  Free the returned object with [`glib::object::ObjectExt::unref()`](crate::glib::object::ObjectExt::unref()).</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_volume_monitor_get_volume_for_uuid&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">volume_for_uuid</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">uuid</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Volume</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Gets a list of the volumes on the system.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The returned list should be freed with `glib::List::free`, after</span>
-    <span class="doccomment">/// its elements have been unreffed with `glib::object::ObjectExt::unref`.</span>
+    <span class="doccomment">/// The returned list should be freed with [`glib::List::free()`](crate::glib::List::free()), after</span>
+    <span class="doccomment">/// its elements have been unreffed with [`glib::object::ObjectExt::unref()`](crate::glib::object::ObjectExt::unref()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a `glib::List` of `Volume` objects.</span>
+    <span class="doccomment">/// a [`glib::List`](crate::glib::List) of [`Volume`](crate::Volume) objects.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_volume_monitor_get_volumes&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">volumes</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Volume</span><span class="op">&gt;</span>;
 
@@ -676,12 +676,12 @@
 
     <span class="doccomment">/// Emitted when a drive is connected to the system.</span>
     <span class="doccomment">/// ## `drive`</span>
-    <span class="doccomment">/// a `Drive` that was connected.</span>
+    <span class="doccomment">/// a [`Drive`](crate::Drive) that was connected.</span>
     <span class="kw">fn</span> <span class="ident">connect_drive_connected</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span><span class="ident">Drive</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;
 
     <span class="doccomment">/// Emitted when a drive is disconnected from the system.</span>
     <span class="doccomment">/// ## `drive`</span>
-    <span class="doccomment">/// a `Drive` that was disconnected.</span>
+    <span class="doccomment">/// a [`Drive`](crate::Drive) that was disconnected.</span>
     <span class="kw">fn</span> <span class="ident">connect_drive_disconnected</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span><span class="ident">Drive</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;
 
     <span class="doccomment">/// Emitted when the eject button is pressed on `drive`.</span>
@@ -696,12 +696,12 @@
 
     <span class="doccomment">/// Emitted when a mount is added.</span>
     <span class="doccomment">/// ## `mount`</span>
-    <span class="doccomment">/// a `Mount` that was added.</span>
+    <span class="doccomment">/// a [`Mount`](crate::Mount) that was added.</span>
     <span class="kw">fn</span> <span class="ident">connect_mount_added</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span><span class="ident">Mount</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;
 
     <span class="doccomment">/// Emitted when a mount changes.</span>
     <span class="doccomment">/// ## `mount`</span>
-    <span class="doccomment">/// a `Mount` that changed.</span>
+    <span class="doccomment">/// a [`Mount`](crate::Mount) that changed.</span>
     <span class="kw">fn</span> <span class="ident">connect_mount_changed</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span><span class="ident">Mount</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;
 
     <span class="doccomment">/// May be emitted when a mount is about to be removed.</span>
@@ -709,27 +709,27 @@
     <span class="doccomment">/// This signal depends on the backend and is only emitted if</span>
     <span class="doccomment">/// GIO was used to unmount.</span>
     <span class="doccomment">/// ## `mount`</span>
-    <span class="doccomment">/// a `Mount` that is being unmounted.</span>
+    <span class="doccomment">/// a [`Mount`](crate::Mount) that is being unmounted.</span>
     <span class="kw">fn</span> <span class="ident">connect_mount_pre_unmount</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span><span class="ident">Mount</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;
 
     <span class="doccomment">/// Emitted when a mount is removed.</span>
     <span class="doccomment">/// ## `mount`</span>
-    <span class="doccomment">/// a `Mount` that was removed.</span>
+    <span class="doccomment">/// a [`Mount`](crate::Mount) that was removed.</span>
     <span class="kw">fn</span> <span class="ident">connect_mount_removed</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span><span class="ident">Mount</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;
 
     <span class="doccomment">/// Emitted when a mountable volume is added to the system.</span>
     <span class="doccomment">/// ## `volume`</span>
-    <span class="doccomment">/// a `Volume` that was added.</span>
+    <span class="doccomment">/// a [`Volume`](crate::Volume) that was added.</span>
     <span class="kw">fn</span> <span class="ident">connect_volume_added</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span><span class="ident">Volume</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;
 
     <span class="doccomment">/// Emitted when mountable volume is changed.</span>
     <span class="doccomment">/// ## `volume`</span>
-    <span class="doccomment">/// a `Volume` that changed.</span>
+    <span class="doccomment">/// a [`Volume`](crate::Volume) that changed.</span>
     <span class="kw">fn</span> <span class="ident">connect_volume_changed</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span><span class="ident">Volume</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;
 
     <span class="doccomment">/// Emitted when a mountable volume is removed from the system.</span>
     <span class="doccomment">/// ## `volume`</span>
-    <span class="doccomment">/// a `Volume` that was removed.</span>
+    <span class="doccomment">/// a [`Volume`](crate::Volume) that was removed.</span>
     <span class="kw">fn</span> <span class="ident">connect_volume_removed</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span><span class="ident">Volume</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;
 }
 

@@ -216,12 +216,12 @@
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// The `ToolShell` interface allows container widgets to provide additional</span>
-    <span class="doccomment">/// information when embedding `ToolItem` widgets.</span>
+    <span class="doccomment">/// The [`ToolShell`](crate::ToolShell) interface allows container widgets to provide additional</span>
+    <span class="doccomment">/// information when embedding [`ToolItem`](crate::ToolItem) widgets.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`ToolShellExt`](trait@crate::ToolShellExt), [`WidgetExt`](trait@crate::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::BuildableExt), [`WidgetExtManual`](trait@crate::WidgetExtManual), [`BuildableExtManual`](trait@crate::BuildableExtManual)</span>
+    <span class="doccomment">/// [`ToolShellExt`](trait@crate::prelude::ToolShellExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ToolShell</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi::GtkToolShell</span>, <span class="ident">ffi::GtkToolShellIface</span><span class="op">&gt;</span>) @<span class="ident">requires</span> <span class="ident">Widget</span>, <span class="ident">Buildable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -238,7 +238,7 @@
 <span class="doccomment">/// [`ToolItemGroup`](struct@crate::ToolItemGroup), [`ToolShell`](struct@crate::ToolShell), [`Toolbar`](struct@crate::Toolbar)</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ToolShellExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Retrieves the current ellipsize mode for the tool shell. Tool items must not</span>
-    <span class="doccomment">/// call this function directly, but rely on `ToolItemExt::get_ellipsize_mode`</span>
+    <span class="doccomment">/// call this function directly, but rely on [`ToolItemExt::get_ellipsize_mode()`](crate::ToolItemExt::get_ellipsize_mode())</span>
     <span class="doccomment">/// instead.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -248,16 +248,16 @@
     <span class="kw">fn</span> <span class="ident">ellipsize_mode</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">pango::EllipsizeMode</span>;
 
     <span class="doccomment">/// Retrieves the icon size for the tool shell. Tool items must not call this</span>
-    <span class="doccomment">/// function directly, but rely on `ToolItemExt::get_icon_size` instead.</span>
+    <span class="doccomment">/// function directly, but rely on [`ToolItemExt::get_icon_size()`](crate::ToolItemExt::get_icon_size()) instead.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the current size (`IconSize`) for icons of `self`</span>
+    <span class="doccomment">/// the current size ([`IconSize`](crate::IconSize)) for icons of `self`</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_tool_shell_get_icon_size&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">icon_size</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">IconSize</span>;
 
     <span class="doccomment">/// Retrieves the current orientation for the tool shell. Tool items must not</span>
-    <span class="doccomment">/// call this function directly, but rely on `ToolItemExt::get_orientation`</span>
+    <span class="doccomment">/// call this function directly, but rely on [`ToolItemExt::get_orientation()`](crate::ToolItemExt::get_orientation())</span>
     <span class="doccomment">/// instead.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -267,7 +267,7 @@
     <span class="kw">fn</span> <span class="ident">orientation</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Orientation</span>;
 
     <span class="doccomment">/// Returns the relief style of buttons on `self`. Tool items must not call this</span>
-    <span class="doccomment">/// function directly, but rely on `ToolItemExt::get_relief_style` instead.</span>
+    <span class="doccomment">/// function directly, but rely on [`ToolItemExt::get_relief_style()`](crate::ToolItemExt::get_relief_style()) instead.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -276,7 +276,7 @@
     <span class="kw">fn</span> <span class="ident">relief_style</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ReliefStyle</span>;
 
     <span class="doccomment">/// Retrieves whether the tool shell has text, icons, or both. Tool items must</span>
-    <span class="doccomment">/// not call this function directly, but rely on `ToolItemExt::get_toolbar_style`</span>
+    <span class="doccomment">/// not call this function directly, but rely on [`ToolItemExt::get_toolbar_style()`](crate::ToolItemExt::get_toolbar_style())</span>
     <span class="doccomment">/// instead.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -286,7 +286,7 @@
     <span class="kw">fn</span> <span class="ident">style</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ToolbarStyle</span>;
 
     <span class="doccomment">/// Retrieves the current text alignment for the tool shell. Tool items must not</span>
-    <span class="doccomment">/// call this function directly, but rely on `ToolItemExt::get_text_alignment`</span>
+    <span class="doccomment">/// call this function directly, but rely on [`ToolItemExt::get_text_alignment()`](crate::ToolItemExt::get_text_alignment())</span>
     <span class="doccomment">/// instead.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -296,7 +296,7 @@
     <span class="kw">fn</span> <span class="ident">text_alignment</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f32</span>;
 
     <span class="doccomment">/// Retrieves the current text orientation for the tool shell. Tool items must not</span>
-    <span class="doccomment">/// call this function directly, but rely on `ToolItemExt::get_text_orientation`</span>
+    <span class="doccomment">/// call this function directly, but rely on [`ToolItemExt::get_text_orientation()`](crate::ToolItemExt::get_text_orientation())</span>
     <span class="doccomment">/// instead.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -306,7 +306,7 @@
     <span class="kw">fn</span> <span class="ident">text_orientation</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Orientation</span>;
 
     <span class="doccomment">/// Retrieves the current text size group for the tool shell. Tool items must not</span>
-    <span class="doccomment">/// call this function directly, but rely on `ToolItemExt::get_text_size_group`</span>
+    <span class="doccomment">/// call this function directly, but rely on [`ToolItemExt::get_text_size_group()`](crate::ToolItemExt::get_text_size_group())</span>
     <span class="doccomment">/// instead.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -320,7 +320,7 @@
     <span class="doccomment">/// when this function it called, the menu will be rebuilt.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Tool items must not call this function directly, but rely on</span>
-    <span class="doccomment">/// `ToolItemExt::rebuild_menu` instead.</span>
+    <span class="doccomment">/// [`ToolItemExt::rebuild_menu()`](crate::ToolItemExt::rebuild_menu()) instead.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_tool_shell_rebuild_menu&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">rebuild_menu</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
 }

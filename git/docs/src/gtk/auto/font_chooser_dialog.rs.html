@@ -766,18 +766,18 @@
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// The `FontChooserDialog` widget is a dialog for selecting a font.</span>
-    <span class="doccomment">/// It implements the `FontChooser` interface.</span>
+    <span class="doccomment">/// The [`FontChooserDialog`](crate::FontChooserDialog) widget is a dialog for selecting a font.</span>
+    <span class="doccomment">/// It implements the [`FontChooser`](crate::FontChooser) interface.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # `FontChooserDialog` as `Buildable`</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The `FontChooserDialog` implementation of the `Buildable`</span>
+    <span class="doccomment">/// The `FontChooserDialog` implementation of the [`Buildable`](crate::Buildable)</span>
     <span class="doccomment">/// interface exposes the buttons with the names “select_button”</span>
     <span class="doccomment">/// and “cancel_button”.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`DialogExt`](trait@crate::DialogExt), [`GtkWindowExt`](trait@crate::GtkWindowExt), [`BinExt`](trait@crate::BinExt), [`ContainerExt`](trait@crate::ContainerExt), [`WidgetExt`](trait@crate::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::BuildableExt), [`FontChooserExt`](trait@crate::FontChooserExt), [`DialogExtManual`](trait@crate::DialogExtManual), [`GtkWindowExtManual`](trait@crate::GtkWindowExtManual), [`WidgetExtManual`](trait@crate::WidgetExtManual), [`BuildableExtManual`](trait@crate::BuildableExtManual)</span>
+    <span class="doccomment">/// [`DialogExt`](trait@crate::prelude::DialogExt), [`GtkWindowExt`](trait@crate::prelude::GtkWindowExt), [`BinExt`](trait@crate::prelude::BinExt), [`ContainerExt`](trait@crate::prelude::ContainerExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`FontChooserExt`](trait@crate::prelude::FontChooserExt), [`DialogExtManual`](trait@crate::prelude::DialogExtManual), [`GtkWindowExtManual`](trait@crate::prelude::GtkWindowExtManual), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FontChooserDialog</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkFontChooserDialog</span>, <span class="ident">ffi::GtkFontChooserDialogClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Dialog</span>, <span class="ident">Window</span>, <span class="ident">Bin</span>, <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>, <span class="ident">FontChooser</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -786,15 +786,15 @@
 }
 
 <span class="kw">impl</span> <span class="ident">FontChooserDialog</span> {
-    <span class="doccomment">/// Creates a new `FontChooserDialog`.</span>
+    <span class="doccomment">/// Creates a new [`FontChooserDialog`](crate::FontChooserDialog).</span>
     <span class="doccomment">/// ## `title`</span>
-    <span class="doccomment">/// Title of the dialog, or `None`</span>
+    <span class="doccomment">/// Title of the dialog, or [`None`]</span>
     <span class="doccomment">/// ## `parent`</span>
-    <span class="doccomment">/// Transient parent of the dialog, or `None`</span>
+    <span class="doccomment">/// Transient parent of the dialog, or [`None`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new `FontChooserDialog`</span>
+    <span class="doccomment">/// a new [`FontChooserDialog`](crate::FontChooserDialog)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_font_chooser_dialog_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Window</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">title</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>, <span class="ident">parent</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FontChooserDialog</span> {
         <span class="macro">assert_initialized_main_thread!</span>();

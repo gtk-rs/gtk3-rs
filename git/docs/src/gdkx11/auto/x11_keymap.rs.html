@@ -87,7 +87,7 @@
 
 <span class="kw">impl</span> <span class="ident">X11Keymap</span> {
     <span class="doccomment">/// Extracts the group from the state field sent in an X Key event.</span>
-    <span class="doccomment">/// This is only needed for code processing raw X events, since `gdk::EventKey`</span>
+    <span class="doccomment">/// This is only needed for code processing raw X events, since [`gdk::EventKey`](crate::gdk::EventKey)</span>
     <span class="doccomment">/// directly includes an is_modifier field.</span>
     <span class="doccomment">/// ## `state`</span>
     <span class="doccomment">/// raw state returned from X</span>
@@ -104,14 +104,14 @@
     <span class="doccomment">/// is a modifier. That is, it’s a key that normally just affects</span>
     <span class="doccomment">/// the keyboard state and the behavior of other keys rather than</span>
     <span class="doccomment">/// producing a direct effect itself. This is only needed for code</span>
-    <span class="doccomment">/// processing raw X events, since `gdk::EventKey` directly includes</span>
+    <span class="doccomment">/// processing raw X events, since [`gdk::EventKey`](crate::gdk::EventKey) directly includes</span>
     <span class="doccomment">/// an is_modifier field.</span>
     <span class="doccomment">/// ## `keycode`</span>
     <span class="doccomment">/// the hardware keycode from a key event</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if the hardware keycode is a modifier key</span>
+    <span class="doccomment">/// [`true`] if the hardware keycode is a modifier key</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_x11_keymap_key_is_modifier&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">key_is_modifier</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">keycode</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {

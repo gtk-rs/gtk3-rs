@@ -8,24 +8,24 @@
 <h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
 <p><a href="../struct.ConverterInputStream.html"><code>ConverterInputStream</code></a>, <a href="../struct.MemoryInputStream.html"><code>MemoryInputStream</code></a>, <a href="../struct.PollableInputStream.html"><code>PollableInputStream</code></a>, <a href="../struct.UnixInputStream.html"><code>UnixInputStream</code></a></p>
 </div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.can_poll" class="method"><code>fn <a href="#tymethod.can_poll" class="fnname">can_poll</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gio/auto/pollable_input_stream.rs.html#46" title="goto source code">[src]</a></h3><div class="docblock"><p>Checks if <code>self</code> is actually pollable. Some classes may implement
-<code>PollableInputStream</code> but have only certain instances of that class
-be pollable. If this method returns <code>false</code>, then the behavior of
-other <code>PollableInputStream</code> methods is undefined.</p>
+<a href="../struct.PollableInputStream.html"><code>PollableInputStream</code></a> but have only certain instances of that class
+be pollable. If this method returns <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a>, then the behavior of
+other <a href="../struct.PollableInputStream.html"><code>PollableInputStream</code></a> methods is undefined.</p>
 <p>For any given stream, the value returned by this method is constant;
 a stream cannot switch from pollable to non-pollable or vice versa.</p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
-<p><code>true</code> if <code>self</code> is pollable, <code>false</code> if not.</p>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if <code>self</code> is pollable, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> if not.</p>
 </div><h3 id="tymethod.is_readable" class="method"><code>fn <a href="#tymethod.is_readable" class="fnname">is_readable</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gio/auto/pollable_input_stream.rs.html#64" title="goto source code">[src]</a></h3><div class="docblock"><p>Checks if <code>self</code> can be read.</p>
 <p>Note that some stream types may not be able to implement this 100%
-reliably, and it is possible that a call to <code>InputStream::read</code>
-after this returns <code>true</code> would still block. To guarantee
+reliably, and it is possible that a call to <a href="crate::InputStream::read()"><code>InputStream::read()</code></a>
+after this returns <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> would still block. To guarantee
 non-blocking behavior, you should always use
-<code>PollableInputStream::read_nonblocking</code>, which will return a
-<code>IOErrorEnum::WouldBlock</code> error rather than blocking.</p>
+<a href="crate::PollableInputStream::read_nonblocking()"><code>PollableInputStream::read_nonblocking()</code></a>, which will return a
+[<code>IOErrorEnum::WouldBlock</code>] error rather than blocking.</p>
 <h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
-<p><code>true</code> if <code>self</code> is readable, <code>false</code> if not. If an error
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if <code>self</code> is readable, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> if not. If an error
 has occurred on <code>self</code>, this will result in
-<code>PollableInputStream::is_readable</code> returning <code>true</code>, and the
+<a href="crate::PollableInputStream::is_readable()"><code>PollableInputStream::is_readable()</code></a> returning <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a>, and the
 next attempt to read will return the error.</p>
 </div></div><span class="loading-content">Loading content...</span><h2 id="implementors" class="small-section-header">Implementors<a href="#implementors" class="anchor"></a></h2><div class="item-list" id="implementors-list"><details class="rustdoc-toggle implementors-toggle"><summary><h3 id="impl-PollableInputStreamExt" class="impl"><code class="in-band">impl&lt;O:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.PollableInputStream.html" title="struct gio::PollableInputStream">PollableInputStream</a>&gt;&gt; <a class="trait" href="trait.PollableInputStreamExt.html" title="trait gio::prelude::PollableInputStreamExt">PollableInputStreamExt</a> for O</code><a href="#impl-PollableInputStreamExt" class="anchor"></a><a class="srclink" href="../../src/gio/auto/pollable_input_stream.rs.html#67-83" title="goto source code">[src]</a></h3></summary><div class="impl-items"><h4 id="method.can_poll" class="method hidden trait-impl"><code>fn <a href="#tymethod.can_poll" class="fnname">can_poll</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a href="#method.can_poll" class="anchor"></a><a class="srclink" href="../../src/gio/auto/pollable_input_stream.rs.html#68-74" title="goto source code">[src]</a></h4><h4 id="method.is_readable" class="method hidden trait-impl"><code>fn <a href="#tymethod.is_readable" class="fnname">is_readable</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a href="#method.is_readable" class="anchor"></a><a class="srclink" href="../../src/gio/auto/pollable_input_stream.rs.html#76-82" title="goto source code">[src]</a></h4></div></details></div><span class="loading-content">Loading content...</span><script type="text/javascript" src="../../implementors/gio/prelude/trait.PollableInputStreamExt.js" async></script></section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="gio" data-search-index-js="../../search-index.js" data-search-js="../../search.js"></div>
     <script src="../../main.js"></script></body></html>

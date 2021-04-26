@@ -690,26 +690,26 @@
 <span class="kw">use</span> <span class="ident">std::os::windows::io</span>::{<span class="ident">AsRawSocket</span>, <span class="ident">FromRawSocket</span>, <span class="ident">IntoRawSocket</span>, <span class="ident">RawSocket</span>};
 
 <span class="kw">impl</span> <span class="ident">Socket</span> {
-    <span class="doccomment">/// Creates a new `Socket` from a native file descriptor</span>
+    <span class="doccomment">/// Creates a new [`Socket`](crate::Socket) from a native file descriptor</span>
     <span class="doccomment">/// or winsock SOCKET handle.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This reads all the settings from the file descriptor so that</span>
     <span class="doccomment">/// all properties should work. Note that the file descriptor</span>
     <span class="doccomment">/// will be set to non-blocking mode, independent on the blocking</span>
-    <span class="doccomment">/// mode of the `Socket`.</span>
+    <span class="doccomment">/// mode of the [`Socket`](crate::Socket).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// On success, the returned `Socket` takes ownership of `fd`. On failure, the</span>
+    <span class="doccomment">/// On success, the returned [`Socket`](crate::Socket) takes ownership of `fd`. On failure, the</span>
     <span class="doccomment">/// caller must close `fd` themselves.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Since GLib 2.46, it is no longer a fatal error to call this on a non-socket</span>
-    <span class="doccomment">/// descriptor. Instead, a GError will be set with code `IOErrorEnum::Failed`</span>
+    <span class="doccomment">/// descriptor. Instead, a GError will be set with code [`IOErrorEnum::Failed`]</span>
     <span class="doccomment">/// ## `fd`</span>
     <span class="doccomment">/// a native socket file descriptor.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a `Socket` or `None` on error.</span>
-    <span class="doccomment">///  Free the returned object with `glib::object::ObjectExt::unref`.</span>
+    <span class="doccomment">/// a [`Socket`](crate::Socket) or [`None`] on error.</span>
+    <span class="doccomment">///  Free the returned object with [`glib::object::ObjectExt::unref()`](crate::glib::object::ObjectExt::unref()).</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">unix</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_fd</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">IntoRawFd</span><span class="op">&gt;</span>(<span class="ident">fd</span>: <span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Socket</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">fd</span> <span class="op">=</span> <span class="ident">fd</span>.<span class="ident">into_raw_fd</span>();
@@ -750,26 +750,26 @@
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">SocketExtManual</span>: <span class="ident">Sized</span> {
     <span class="doccomment">/// Receive data (up to `size` bytes) from a socket. This is mainly used by</span>
-    <span class="doccomment">/// connection-oriented sockets; it is identical to `Socket::receive_from`</span>
-    <span class="doccomment">/// with `address` set to `None`.</span>
+    <span class="doccomment">/// connection-oriented sockets; it is identical to [`Socket::receive_from()`](crate::Socket::receive_from())</span>
+    <span class="doccomment">/// with `address` set to [`None`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// For `SocketType::Datagram` and `SocketType::Seqpacket` sockets,</span>
-    <span class="doccomment">/// `Socket::receive` will always read either 0 or 1 complete messages from</span>
+    <span class="doccomment">/// For [`SocketType::Datagram`] and [`SocketType::Seqpacket`] sockets,</span>
+    <span class="doccomment">/// [`Socket::receive()`](crate::Socket::receive()) will always read either 0 or 1 complete messages from</span>
     <span class="doccomment">/// the socket. If the received message is too large to fit in `buffer`, then</span>
     <span class="doccomment">/// the data beyond `size` bytes will be discarded, without any explicit</span>
     <span class="doccomment">/// indication that this has occurred.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// For `SocketType::Stream` sockets, `Socket::receive` can return any</span>
+    <span class="doccomment">/// For [`SocketType::Stream`] sockets, [`Socket::receive()`](crate::Socket::receive()) can return any</span>
     <span class="doccomment">/// number of bytes, up to `size`. If more than `size` bytes have been</span>
     <span class="doccomment">/// received, the additional data will be returned in future calls to</span>
-    <span class="doccomment">/// `Socket::receive`.</span>
+    <span class="doccomment">/// [`Socket::receive()`](crate::Socket::receive()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If the socket is in blocking mode the call will block until there</span>
     <span class="doccomment">/// is some data to receive, the connection is closed, or there is an</span>
     <span class="doccomment">/// error. If there is no data available and the socket is in</span>
-    <span class="doccomment">/// non-blocking mode, a `IOErrorEnum::WouldBlock` error will be</span>
+    <span class="doccomment">/// non-blocking mode, a [`IOErrorEnum::WouldBlock`] error will be</span>
     <span class="doccomment">/// returned. To be notified when data is available, wait for the</span>
-    <span class="doccomment">/// `glib::IOCondition::In` condition.</span>
+    <span class="doccomment">/// [`glib::IOCondition::In`] condition.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// On error -1 is returned and `error` is set accordingly.</span>
     <span class="doccomment">/// ## `buffer`</span>
@@ -778,7 +778,7 @@
     <span class="doccomment">/// ## `size`</span>
     <span class="doccomment">/// the number of bytes you want to read from the socket</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// a `Cancellable` or `None`</span>
+    <span class="doccomment">/// a [`Cancellable`] or [`None`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -791,21 +791,21 @@
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">usize</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span>;
     <span class="doccomment">/// Receive data (up to `size` bytes) from a socket.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If `address` is non-`None` then `address` will be set equal to the</span>
+    <span class="doccomment">/// If `address` is non-[`None`] then `address` will be set equal to the</span>
     <span class="doccomment">/// source address of the received packet.</span>
     <span class="doccomment">/// `address` is owned by the caller.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See `Socket::receive` for additional information.</span>
+    <span class="doccomment">/// See [`Socket::receive()`](crate::Socket::receive()) for additional information.</span>
     <span class="doccomment">/// ## `address`</span>
-    <span class="doccomment">/// a pointer to a `SocketAddress`</span>
-    <span class="doccomment">///  pointer, or `None`</span>
+    <span class="doccomment">/// a pointer to a [`SocketAddress`](crate::SocketAddress)</span>
+    <span class="doccomment">///  pointer, or [`None`]</span>
     <span class="doccomment">/// ## `buffer`</span>
     <span class="doccomment">///</span>
     <span class="doccomment">///  a buffer to read data into (which should be at least `size` bytes long).</span>
     <span class="doccomment">/// ## `size`</span>
     <span class="doccomment">/// the number of bytes you want to read from the socket</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// a `Cancellable` or `None`</span>
+    <span class="doccomment">/// a [`Cancellable`] or [`None`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -816,7 +816,7 @@
         <span class="ident">buffer</span>: <span class="ident">B</span>,
         <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">C</span><span class="op">&gt;</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">usize</span>, <span class="ident">SocketAddress</span>), <span class="ident">glib::Error</span><span class="op">&gt;</span>;
-    <span class="doccomment">/// This behaves exactly the same as `Socket::receive`, except that</span>
+    <span class="doccomment">/// This behaves exactly the same as [`Socket::receive()`](crate::Socket::receive()), except that</span>
     <span class="doccomment">/// the choice of blocking or non-blocking behavior is determined by</span>
     <span class="doccomment">/// the `blocking` argument rather than by `self`&#39;s properties.</span>
     <span class="doccomment">/// ## `buffer`</span>
@@ -827,7 +827,7 @@
     <span class="doccomment">/// ## `blocking`</span>
     <span class="doccomment">/// whether to do blocking or non-blocking I/O</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// a `Cancellable` or `None`</span>
+    <span class="doccomment">/// a [`Cancellable`] or [`None`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -842,15 +842,15 @@
 
     <span class="doccomment">/// Tries to send `size` bytes from `buffer` on the socket. This is</span>
     <span class="doccomment">/// mainly used by connection-oriented sockets; it is identical to</span>
-    <span class="doccomment">/// `Socket::send_to` with `address` set to `None`.</span>
+    <span class="doccomment">/// [`Socket::send_to()`](crate::Socket::send_to()) with `address` set to [`None`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If the socket is in blocking mode the call will block until there is</span>
     <span class="doccomment">/// space for the data in the socket queue. If there is no space available</span>
-    <span class="doccomment">/// and the socket is in non-blocking mode a `IOErrorEnum::WouldBlock` error</span>
+    <span class="doccomment">/// and the socket is in non-blocking mode a [`IOErrorEnum::WouldBlock`] error</span>
     <span class="doccomment">/// will be returned. To be notified when space is available, wait for the</span>
-    <span class="doccomment">/// `glib::IOCondition::Out` condition. Note though that you may still receive</span>
-    <span class="doccomment">/// `IOErrorEnum::WouldBlock` from `Socket::send` even if you were previously</span>
-    <span class="doccomment">/// notified of a `glib::IOCondition::Out` condition. (On Windows in particular, this is</span>
+    <span class="doccomment">/// [`glib::IOCondition::Out`] condition. Note though that you may still receive</span>
+    <span class="doccomment">/// [`IOErrorEnum::WouldBlock`] from [`Socket::send()`](crate::Socket::send()) even if you were previously</span>
+    <span class="doccomment">/// notified of a [`glib::IOCondition::Out`] condition. (On Windows in particular, this is</span>
     <span class="doccomment">/// very common due to the way the underlying APIs work.)</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// On error -1 is returned and `error` is set accordingly.</span>
@@ -860,7 +860,7 @@
     <span class="doccomment">/// ## `size`</span>
     <span class="doccomment">/// the number of bytes to send</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// a `Cancellable` or `None`</span>
+    <span class="doccomment">/// a [`Cancellable`] or [`None`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -872,19 +872,19 @@
         <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">C</span><span class="op">&gt;</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">usize</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span>;
     <span class="doccomment">/// Tries to send `size` bytes from `buffer` to `address`. If `address` is</span>
-    <span class="doccomment">/// `None` then the message is sent to the default receiver (set by</span>
-    <span class="doccomment">/// `SocketExt::connect`).</span>
+    <span class="doccomment">/// [`None`] then the message is sent to the default receiver (set by</span>
+    <span class="doccomment">/// [`SocketExt::connect()`](crate::SocketExt::connect())).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See `Socket::send` for additional information.</span>
+    <span class="doccomment">/// See [`Socket::send()`](crate::Socket::send()) for additional information.</span>
     <span class="doccomment">/// ## `address`</span>
-    <span class="doccomment">/// a `SocketAddress`, or `None`</span>
+    <span class="doccomment">/// a [`SocketAddress`](crate::SocketAddress), or [`None`]</span>
     <span class="doccomment">/// ## `buffer`</span>
     <span class="doccomment">/// the buffer</span>
     <span class="doccomment">///  containing the data to send.</span>
     <span class="doccomment">/// ## `size`</span>
     <span class="doccomment">/// the number of bytes to send</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// a `Cancellable` or `None`</span>
+    <span class="doccomment">/// a [`Cancellable`] or [`None`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -896,7 +896,7 @@
         <span class="ident">buffer</span>: <span class="ident">B</span>,
         <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">C</span><span class="op">&gt;</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">usize</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span>;
-    <span class="doccomment">/// This behaves exactly the same as `Socket::send`, except that</span>
+    <span class="doccomment">/// This behaves exactly the same as [`Socket::send()`](crate::Socket::send()), except that</span>
     <span class="doccomment">/// the choice of blocking or non-blocking behavior is determined by</span>
     <span class="doccomment">/// the `blocking` argument rather than by `self`&#39;s properties.</span>
     <span class="doccomment">/// ## `buffer`</span>
@@ -907,7 +907,7 @@
     <span class="doccomment">/// ## `blocking`</span>
     <span class="doccomment">/// whether to do blocking or non-blocking I/O</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// a `Cancellable` or `None`</span>
+    <span class="doccomment">/// a [`Cancellable`] or [`None`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -937,34 +937,34 @@
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">windows</span>)))]</span>
     <span class="kw">fn</span> <span class="ident">socket</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">FromRawSocket</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">T</span>;
 
-    <span class="doccomment">/// Creates a `glib::Source` that can be attached to a `glib::MainContext` to monitor</span>
-    <span class="doccomment">/// for the availability of the specified `condition` on the socket. The `glib::Source`</span>
+    <span class="doccomment">/// Creates a [`glib::Source`](crate::glib::Source) that can be attached to a [`glib::MainContext`] to monitor</span>
+    <span class="doccomment">/// for the availability of the specified `condition` on the socket. The [`glib::Source`](crate::glib::Source)</span>
     <span class="doccomment">/// keeps a reference to the `self`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The callback on the source is of the `GSocketSourceFunc` type.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// It is meaningless to specify `glib::IOCondition::Err` or `glib::IOCondition::Hup` in `condition`;</span>
+    <span class="doccomment">/// It is meaningless to specify [`glib::IOCondition::Err`] or [`glib::IOCondition::Hup`] in `condition`;</span>
     <span class="doccomment">/// these conditions will always be reported output if they are true.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `cancellable` if not `None` can be used to cancel the source, which will</span>
+    <span class="doccomment">/// `cancellable` if not [`None`] can be used to cancel the source, which will</span>
     <span class="doccomment">/// cause the source to trigger, reporting the current condition (which</span>
     <span class="doccomment">/// is likely 0 unless cancellation happened at the same time as a</span>
     <span class="doccomment">/// condition change). You can check for this in the callback using</span>
-    <span class="doccomment">/// `CancellableExt::is_cancelled`.</span>
+    <span class="doccomment">/// [`CancellableExt::is_cancelled()`](crate::CancellableExt::is_cancelled()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If `self` has a timeout set, and it is reached before `condition`</span>
-    <span class="doccomment">/// occurs, the source will then trigger anyway, reporting `glib::IOCondition::In` or</span>
-    <span class="doccomment">/// `glib::IOCondition::Out` depending on `condition`. However, `self` will have been</span>
-    <span class="doccomment">/// marked as having had a timeout, and so the next `Socket` I/O method</span>
-    <span class="doccomment">/// you call will then fail with a `IOErrorEnum::TimedOut`.</span>
+    <span class="doccomment">/// occurs, the source will then trigger anyway, reporting [`glib::IOCondition::In`] or</span>
+    <span class="doccomment">/// [`glib::IOCondition::Out`] depending on `condition`. However, `self` will have been</span>
+    <span class="doccomment">/// marked as having had a timeout, and so the next [`Socket`](crate::Socket) I/O method</span>
+    <span class="doccomment">/// you call will then fail with a [`IOErrorEnum::TimedOut`].</span>
     <span class="doccomment">/// ## `condition`</span>
-    <span class="doccomment">/// a `glib::IOCondition` mask to monitor</span>
+    <span class="doccomment">/// a [`glib::IOCondition`](crate::glib::IOCondition) mask to monitor</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// a `Cancellable` or `None`</span>
+    <span class="doccomment">/// a [`Cancellable`] or [`None`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a newly allocated `glib::Source`, free with `glib::Source::unref`.</span>
+    <span class="doccomment">/// a newly allocated [`glib::Source`], free with [`glib::Source::unref()`](crate::glib::Source::unref()).</span>
     <span class="kw">fn</span> <span class="ident">create_source</span><span class="op">&lt;</span><span class="ident">F</span>, <span class="ident">C</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">condition</span>: <span class="ident">glib::IOCondition</span>,

@@ -150,13 +150,13 @@
 <span class="kw">use</span> <span class="ident">std::ptr</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// `TlsFileDatabase` is implemented by `TlsDatabase` objects which load</span>
+    <span class="doccomment">/// [`TlsFileDatabase`](crate::TlsFileDatabase) is implemented by [`TlsDatabase`](crate::TlsDatabase) objects which load</span>
     <span class="doccomment">/// their certificate information from a file. It is an interface which</span>
     <span class="doccomment">/// TLS library specific subtypes implement.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`TlsFileDatabaseExt`](trait@crate::TlsFileDatabaseExt), [`TlsDatabaseExt`](trait@crate::TlsDatabaseExt), [`trait@glib::object::ObjectExt`]</span>
+    <span class="doccomment">/// [`TlsFileDatabaseExt`](trait@crate::prelude::TlsFileDatabaseExt), [`TlsDatabaseExt`](trait@crate::prelude::TlsDatabaseExt), [`trait@glib::object::ObjectExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TlsFileDatabase</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi::GTlsFileDatabase</span>, <span class="ident">ffi::GTlsFileDatabaseInterface</span><span class="op">&gt;</span>) @<span class="ident">requires</span> <span class="ident">TlsDatabase</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -165,7 +165,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">TlsFileDatabase</span> {
-    <span class="doccomment">/// Creates a new `TlsFileDatabase` which uses anchor certificate authorities</span>
+    <span class="doccomment">/// Creates a new [`TlsFileDatabase`](crate::TlsFileDatabase) which uses anchor certificate authorities</span>
     <span class="doccomment">/// in `anchors` to verify certificate chains.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The certificates in `anchors` must be PEM encoded.</span>
@@ -175,7 +175,7 @@
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// the new</span>
-    <span class="doccomment">/// `TlsFileDatabase`, or `None` on error</span>
+    <span class="doccomment">/// [`TlsFileDatabase`](crate::TlsFileDatabase), or [`None`] on error</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_tls_file_database_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">std::path::Path</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">anchors</span>: <span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">TlsFileDatabase</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {

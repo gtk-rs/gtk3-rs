@@ -272,7 +272,7 @@
 <span class="kw">impl</span> <span class="ident">Triangle</span> {
     <span class="doccomment">/// Checks whether the given triangle `self` contains the point `p`.</span>
     <span class="doccomment">/// ## `p`</span>
-    <span class="doccomment">/// a `Point3D`</span>
+    <span class="doccomment">/// a [`Point3D`](crate::Point3D)</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -287,9 +287,9 @@
         }
     }
 
-    <span class="doccomment">/// Checks whether the two given `Triangle` are equal.</span>
+    <span class="doccomment">/// Checks whether the two given [`Triangle`](crate::Triangle) are equal.</span>
     <span class="doccomment">/// ## `b`</span>
-    <span class="doccomment">/// a `Triangle`</span>
+    <span class="doccomment">/// a [`Triangle`](crate::Triangle)</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -426,17 +426,17 @@
     <span class="comment">//    unsafe { TODO: call ffi:graphene_triangle_init_from_float() }</span>
     <span class="comment">//}</span>
 
-    <span class="doccomment">/// Initializes a `Triangle` using the three given 3D points.</span>
+    <span class="doccomment">/// Initializes a [`Triangle`](crate::Triangle) using the three given 3D points.</span>
     <span class="doccomment">/// ## `a`</span>
-    <span class="doccomment">/// a `Point3D`</span>
+    <span class="doccomment">/// a [`Point3D`](crate::Point3D)</span>
     <span class="doccomment">/// ## `b`</span>
-    <span class="doccomment">/// a `Point3D`</span>
+    <span class="doccomment">/// a [`Point3D`](crate::Point3D)</span>
     <span class="doccomment">/// ## `c`</span>
-    <span class="doccomment">/// a `Point3D`</span>
+    <span class="doccomment">/// a [`Point3D`](crate::Point3D)</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the initialized `Triangle`</span>
+    <span class="doccomment">/// the initialized [`Triangle`](crate::Triangle)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_triangle_init_from_point3d&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">init_from_point3d</span>(
         <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
@@ -454,17 +454,17 @@
         }
     }
 
-    <span class="doccomment">/// Initializes a `Triangle` using the three given vectors.</span>
+    <span class="doccomment">/// Initializes a [`Triangle`](crate::Triangle) using the three given vectors.</span>
     <span class="doccomment">/// ## `a`</span>
-    <span class="doccomment">/// a `Vec3`</span>
+    <span class="doccomment">/// a [`Vec3`](crate::Vec3)</span>
     <span class="doccomment">/// ## `b`</span>
-    <span class="doccomment">/// a `Vec3`</span>
+    <span class="doccomment">/// a [`Vec3`](crate::Vec3)</span>
     <span class="doccomment">/// ## `c`</span>
-    <span class="doccomment">/// a `Vec3`</span>
+    <span class="doccomment">/// a [`Vec3`](crate::Vec3)</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the initialized `Triangle`</span>
+    <span class="doccomment">/// the initialized [`Triangle`](crate::Triangle)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_triangle_init_from_vec3&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">init_from_vec3</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">a</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">Vec3</span><span class="op">&gt;</span>, <span class="ident">b</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">Vec3</span><span class="op">&gt;</span>, <span class="ident">c</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">Vec3</span><span class="op">&gt;</span>) {
         <span class="kw">unsafe</span> {

@@ -13,23 +13,23 @@
 </div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.add_child" class="method"><code>fn <a href="#tymethod.add_child" class="fnname">add_child</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Builder.html" title="struct gtk::Builder">Builder</a>&gt;, Q:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../../glib/object/struct.Object.html" title="struct glib::object::Object">Object</a>&gt;&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;builder: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P, <br>&nbsp;&nbsp;&nbsp;&nbsp;child: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Q, <br>&nbsp;&nbsp;&nbsp;&nbsp;type_: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;<br>)</code><a class="srclink" href="../../src/gtk/auto/buildable.rs.html#51-56" title="goto source code">[src]</a></h3><div class="docblock"><p>Adds a child to <code>self</code>. <code>type_</code> is an optional string
 describing how the child should be added.</p>
 <h2 id="builder" class="section-header"><a href="#builder"><code>builder</code></a></h2>
-<p>a <code>Builder</code></p>
+<p>a <a href="../struct.Builder.html"><code>Builder</code></a></p>
 <h2 id="child" class="section-header"><a href="#child"><code>child</code></a></h2>
 <p>child to add</p>
 <h2 id="type_" class="section-header"><a href="#type_"><code>type_</code></a></h2>
-<p>kind of child or <code>None</code></p>
+<p>kind of child or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 </div><h3 id="tymethod.construct_child" class="method"><code>fn <a href="#tymethod.construct_child" class="fnname">construct_child</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Builder.html" title="struct gtk::Builder">Builder</a>&gt;&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;builder: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P, <br>&nbsp;&nbsp;&nbsp;&nbsp;name: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a><br>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../glib/object/struct.Object.html" title="struct glib::object::Object">Object</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/buildable.rs.html#71" title="goto source code">[src]</a></h3><div class="docblock"><p>Constructs a child of <code>self</code> with the name <code>name</code>.</p>
-<p><code>Builder</code> calls this function if a “constructor” has been
+<p><a href="../struct.Builder.html"><code>Builder</code></a> calls this function if a “constructor” has been
 specified in the UI definition.</p>
 <h2 id="builder-1" class="section-header"><a href="#builder-1"><code>builder</code></a></h2>
-<p><code>Builder</code> used to construct this object</p>
+<p><a href="../struct.Builder.html"><code>Builder</code></a> used to construct this object</p>
 <h2 id="name" class="section-header"><a href="#name"><code>name</code></a></h2>
 <p>name of child to construct</p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
 <p>the constructed child</p>
 </div><h3 id="tymethod.internal_child" class="method"><code>fn <a href="#tymethod.internal_child" class="fnname">internal_child</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Builder.html" title="struct gtk::Builder">Builder</a>&gt;&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;builder: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P, <br>&nbsp;&nbsp;&nbsp;&nbsp;childname: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a><br>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../glib/object/struct.Object.html" title="struct glib::object::Object">Object</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/buildable.rs.html#92-93" title="goto source code">[src]</a></h3><div class="docblock"><p>Get the internal child called <code>childname</code> of the <code>self</code> object.</p>
 <h2 id="builder-2" class="section-header"><a href="#builder-2"><code>builder</code></a></h2>
-<p>a <code>Builder</code></p>
+<p>a <a href="../struct.Builder.html"><code>Builder</code></a></p>
 <h2 id="childname" class="section-header"><a href="#childname"><code>childname</code></a></h2>
 <p>name of child</p>
 <h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
@@ -37,13 +37,13 @@ specified in the UI definition.</p>
 </div><h3 id="tymethod.parser_finished" class="method"><code>fn <a href="#tymethod.parser_finished" class="fnname">parser_finished</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Builder.html" title="struct gtk::Builder">Builder</a>&gt;&gt;(&amp;self, builder: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P)</code><a class="srclink" href="../../src/gtk/auto/buildable.rs.html#103" title="goto source code">[src]</a></h3><div class="docblock"><p>Called when the builder finishes the parsing of a
 [<code>Builder</code> UI definition][BUILDER-UI].
 Note that this will be called once for each time
-<code>Builder::add_from_file</code> or <code>BuilderExt::add_from_string</code>
+<a href="crate::Builder::add_from_file()"><code>Builder::add_from_file()</code></a> or <a href="crate::BuilderExt::add_from_string()"><code>BuilderExt::add_from_string()</code></a>
 is called on a builder.</p>
 <h2 id="builder-3" class="section-header"><a href="#builder-3"><code>builder</code></a></h2>
-<p>a <code>Builder</code></p>
+<p>a <a href="../struct.Builder.html"><code>Builder</code></a></p>
 </div><h3 id="tymethod.set_buildable_property" class="method"><code>fn <a href="#tymethod.set_buildable_property" class="fnname">set_buildable_property</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Builder.html" title="struct gtk::Builder">Builder</a>&gt;&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;builder: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P, <br>&nbsp;&nbsp;&nbsp;&nbsp;name: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;value: &amp;<a class="struct" href="../../glib/value/struct.Value.html" title="struct glib::value::Value">Value</a><br>)</code><a class="srclink" href="../../src/gtk/auto/buildable.rs.html#113" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the property name <code>name</code> to <code>value</code> on the <code>self</code> object.</p>
 <h2 id="builder-4" class="section-header"><a href="#builder-4"><code>builder</code></a></h2>
-<p>a <code>Builder</code></p>
+<p>a <a href="../struct.Builder.html"><code>Builder</code></a></p>
 <h2 id="name-1" class="section-header"><a href="#name-1"><code>name</code></a></h2>
 <p>name of property</p>
 <h2 id="value" class="section-header"><a href="#value"><code>value</code></a></h2>

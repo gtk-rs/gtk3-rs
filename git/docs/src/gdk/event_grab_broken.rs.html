@@ -38,7 +38,7 @@
 <span class="doccomment">/// when the grab window becomes unviewable (i.e. it or one of its ancestors</span>
 <span class="doccomment">/// is unmapped), or if the same application grabs the pointer or keyboard</span>
 <span class="doccomment">/// again. Note that implicit grabs (which are initiated by button presses)</span>
-<span class="doccomment">/// can also cause `EventGrabBroken` events.</span>
+<span class="doccomment">/// can also cause [`EventGrabBroken`](crate::EventGrabBroken) events.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EventGrabBroken</span>(<span class="kw">crate</span><span class="ident">::Event</span>);
 

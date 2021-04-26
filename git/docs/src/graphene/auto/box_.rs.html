@@ -423,10 +423,10 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Box</span> {
-    <span class="doccomment">/// Checks whether the `Box` `self` contains the given</span>
-    <span class="doccomment">/// `Box` `b`.</span>
+    <span class="doccomment">/// Checks whether the [`Box`](crate::Box) `self` contains the given</span>
+    <span class="doccomment">/// [`Box`](crate::Box) `b`.</span>
     <span class="doccomment">/// ## `b`</span>
-    <span class="doccomment">/// a `Box`</span>
+    <span class="doccomment">/// a [`Box`](crate::Box)</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -460,7 +460,7 @@
 
     <span class="doccomment">/// Checks whether the two given boxes are equal.</span>
     <span class="doccomment">/// ## `b`</span>
-    <span class="doccomment">/// a `Box`</span>
+    <span class="doccomment">/// a [`Box`](crate::Box)</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -495,8 +495,8 @@
 
     <span class="doccomment">/// Expands the dimensions of `self` by the given `scalar` value.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If `scalar` is positive, the `Box` will grow; if `scalar` is</span>
-    <span class="doccomment">/// negative, the `Box` will shrink.</span>
+    <span class="doccomment">/// If `scalar` is positive, the [`Box`](crate::Box) will grow; if `scalar` is</span>
+    <span class="doccomment">/// negative, the [`Box`](crate::Box) will shrink.</span>
     <span class="doccomment">/// ## `scalar`</span>
     <span class="doccomment">/// a scalar value</span>
     <span class="doccomment">/// ## `res`</span>
@@ -517,7 +517,7 @@
     <span class="doccomment">/// Expands the dimensions of `self` to include the coordinates of the</span>
     <span class="doccomment">/// given vector.</span>
     <span class="doccomment">/// ## `vec`</span>
-    <span class="doccomment">/// the coordinates of the point to include, as a `Vec3`</span>
+    <span class="doccomment">/// the coordinates of the point to include, as a [`Vec3`](crate::Vec3)</span>
     <span class="doccomment">/// ## `res`</span>
     <span class="doccomment">/// return location for the expanded box</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_box_expand_vec3&quot;</span>)]</span>
@@ -601,7 +601,7 @@
         <span class="kw">unsafe</span> { <span class="ident">ffi::graphene_box_get_width</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
-    <span class="doccomment">/// Initializes the given `Box` with two vertices.</span>
+    <span class="doccomment">/// Initializes the given [`Box`](crate::Box) with two vertices.</span>
     <span class="doccomment">/// ## `min`</span>
     <span class="doccomment">/// the coordinates of the minimum vertex</span>
     <span class="doccomment">/// ## `max`</span>
@@ -609,7 +609,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the initialized `Box`</span>
+    <span class="doccomment">/// the initialized [`Box`](crate::Box)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_box_init&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">init</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">min</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">Point3D</span><span class="op">&gt;</span>, <span class="ident">max</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">Point3D</span><span class="op">&gt;</span>) {
         <span class="kw">unsafe</span> {
@@ -621,14 +621,14 @@
         }
     }
 
-    <span class="doccomment">/// Initializes the given `Box` with the vertices of</span>
-    <span class="doccomment">/// another `Box`.</span>
+    <span class="doccomment">/// Initializes the given [`Box`](crate::Box) with the vertices of</span>
+    <span class="doccomment">/// another [`Box`](crate::Box).</span>
     <span class="doccomment">/// ## `src`</span>
-    <span class="doccomment">/// a `Box`</span>
+    <span class="doccomment">/// a [`Box`](crate::Box)</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the initialized `Box`</span>
+    <span class="doccomment">/// the initialized [`Box`](crate::Box)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_box_init_from_box&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">init_from_box</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">src</span>: <span class="kw-2">&amp;</span><span class="ident">Box</span>) {
         <span class="kw">unsafe</span> {
@@ -636,8 +636,8 @@
         }
     }
 
-    <span class="doccomment">/// Initializes the given `Box` with two vertices</span>
-    <span class="doccomment">/// stored inside `Vec3`.</span>
+    <span class="doccomment">/// Initializes the given [`Box`](crate::Box) with two vertices</span>
+    <span class="doccomment">/// stored inside [`Vec3`](crate::Vec3).</span>
     <span class="doccomment">/// ## `min`</span>
     <span class="doccomment">/// the coordinates of the minimum vertex</span>
     <span class="doccomment">/// ## `max`</span>
@@ -645,7 +645,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the initialized `Box`</span>
+    <span class="doccomment">/// the initialized [`Box`](crate::Box)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_box_init_from_vec3&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">init_from_vec3</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">min</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">Vec3</span><span class="op">&gt;</span>, <span class="ident">max</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">Vec3</span><span class="op">&gt;</span>) {
         <span class="kw">unsafe</span> {
@@ -657,12 +657,12 @@
         }
     }
 
-    <span class="doccomment">/// Intersects the two given `Box`.</span>
+    <span class="doccomment">/// Intersects the two given [`Box`](crate::Box).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If the two boxes do not intersect, `res` will contain a degenerate box</span>
-    <span class="doccomment">/// initialized with `Box::empty`.</span>
+    <span class="doccomment">/// initialized with [`empty()`](Self::empty()).</span>
     <span class="doccomment">/// ## `b`</span>
-    <span class="doccomment">/// a `Box`</span>
+    <span class="doccomment">/// a [`Box`](crate::Box)</span>
     <span class="doccomment">/// ## `res`</span>
     <span class="doccomment">/// return location for the result</span>
     <span class="doccomment">///</span>
@@ -686,7 +686,7 @@
         }
     }
 
-    <span class="doccomment">/// Unions the two given `Box`.</span>
+    <span class="doccomment">/// Unions the two given [`Box`](crate::Box).</span>
     <span class="doccomment">/// ## `b`</span>
     <span class="doccomment">/// the box to union to `self`</span>
     <span class="doccomment">/// ## `res`</span>
@@ -704,81 +704,81 @@
         }
     }
 
-    <span class="doccomment">/// A degenerate `Box` that can only be expanded.</span>
+    <span class="doccomment">/// A degenerate [`Box`](crate::Box) that can only be expanded.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The returned value is owned by Graphene and should not be modified or freed.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a `Box`</span>
+    <span class="doccomment">/// a [`Box`](crate::Box)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_box_empty&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">empty</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Box</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::graphene_box_empty</span>()) }
     }
 
-    <span class="doccomment">/// A degenerate `Box` that cannot be expanded.</span>
+    <span class="doccomment">/// A degenerate [`Box`](crate::Box) that cannot be expanded.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The returned value is owned by Graphene and should not be modified or freed.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a `Box`</span>
+    <span class="doccomment">/// a [`Box`](crate::Box)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_box_infinite&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">infinite</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Box</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::graphene_box_infinite</span>()) }
     }
 
-    <span class="doccomment">/// A `Box` with the minimum vertex set at (-1, -1, -1) and the</span>
+    <span class="doccomment">/// A [`Box`](crate::Box) with the minimum vertex set at (-1, -1, -1) and the</span>
     <span class="doccomment">/// maximum vertex set at (0, 0, 0).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The returned value is owned by Graphene and should not be modified or freed.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a `Box`</span>
+    <span class="doccomment">/// a [`Box`](crate::Box)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_box_minus_one&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">minus_one</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Box</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::graphene_box_minus_one</span>()) }
     }
 
-    <span class="doccomment">/// A `Box` with the minimum vertex set at (0, 0, 0) and the</span>
+    <span class="doccomment">/// A [`Box`](crate::Box) with the minimum vertex set at (0, 0, 0) and the</span>
     <span class="doccomment">/// maximum vertex set at (1, 1, 1).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The returned value is owned by Graphene and should not be modified or freed.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a `Box`</span>
+    <span class="doccomment">/// a [`Box`](crate::Box)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_box_one&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">one</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Box</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::graphene_box_one</span>()) }
     }
 
-    <span class="doccomment">/// A `Box` with the minimum vertex set at (-1, -1, -1) and the</span>
+    <span class="doccomment">/// A [`Box`](crate::Box) with the minimum vertex set at (-1, -1, -1) and the</span>
     <span class="doccomment">/// maximum vertex set at (1, 1, 1).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The returned value is owned by Graphene and should not be modified or freed.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a `Box`</span>
+    <span class="doccomment">/// a [`Box`](crate::Box)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_box_one_minus_one&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">one_minus_one</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Box</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::graphene_box_one_minus_one</span>()) }
     }
 
-    <span class="doccomment">/// A `Box` with both the minimum and maximum vertices set at (0, 0, 0).</span>
+    <span class="doccomment">/// A [`Box`](crate::Box) with both the minimum and maximum vertices set at (0, 0, 0).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The returned value is owned by Graphene and should not be modified or freed.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a `Box`</span>
+    <span class="doccomment">/// a [`Box`](crate::Box)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_box_zero&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">zero</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Box</span> {
         <span class="macro">assert_initialized_main_thread!</span>();

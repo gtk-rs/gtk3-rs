@@ -1,172 +1,172 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `pango` crate."><meta name="keywords" content="rust, rustlang, rust-lang, pango"><title>pango - Rust</title><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../ayu.css" disabled ><script id="default-settings"></script><script src="../storage.js"></script><script src="../crates.js"></script><noscript><link rel="stylesheet" href="../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <link rel="alternate icon" type="image/png" href="../favicon-16x16.png">
-<link rel="alternate icon" type="image/png" href="../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../down-arrow.svg");}</style></head><body class="rustdoc mod"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../pango/index.html'><div class='logo-container rust-logo'><img src='../rust-logo.png' alt='logo'></div></a><p class="location">Crate pango</p><div class="block version"><p>Version 0.13.0</p></div><div class="sidebar-elems"><a id="all-types" href="all.html"><p>See all pango's items</p></a><div class="block items"><ul><li><a href="#reexports">Re-exports</a></li><li><a href="#modules">Modules</a></li><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#constants">Constants</a></li><li><a href="#statics">Statics</a></li><li><a href="#traits">Traits</a></li><li><a href="#functions">Functions</a></li><li><a href="#types">Type Definitions</a></li></ul></div><p class="location"></p><div id="sidebar-vars" data-name="pango" data-ty="mod" data-relpath="../"></div></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../brush.svg" width="18" height="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" class="help-button">?</button>
+<link rel="alternate icon" type="image/png" href="../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../down-arrow.svg");}</style></head><body class="rustdoc mod"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../pango/index.html'><div class='logo-container rust-logo'><img src='../rust-logo.png' alt='logo'></div></a><p class="location">Crate pango</p><div class="block version"><p>Version 0.13.0</p></div><div class="sidebar-elems"><a id="all-types" href="all.html"><p>See all pango's items</p></a><div class="block items"><ul><li><a href="#reexports">Re-exports</a></li><li><a href="#modules">Modules</a></li><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#constants">Constants</a></li><li><a href="#statics">Statics</a></li><li><a href="#functions">Functions</a></li><li><a href="#types">Type Definitions</a></li></ul></div><p class="location"></p><div id="sidebar-vars" data-name="pango" data-ty="mod" data-relpath="../"></div></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../brush.svg" width="18" height="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" class="help-button">?</button>
                 <a id="settings-menu" href="../settings.html"><img src="../wheel.svg" width="18" height="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class="fqn"><span class="in-band">Crate <a class="mod" href="">pango</a><button id="copy-path" onclick="copy_path(this)">⎘</button></span><span class="out-of-band"><span id="render-detail"><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span><a class="srclink" href="../src/pango/lib.rs.html#3-63" title="goto source code">[src]</a></span></h1><h2 id="reexports" class="section-header"><a href="#reexports">Re-exports</a></h2>
 <table><tr class="import-item"><td><code>pub use <a class="mod" href="../pango_sys/index.html" title="mod pango_sys">ffi</a>;</code></td><td class="docblock-short"></td></tr><tr class="import-item"><td><code>pub use <a class="mod" href="../glib/index.html" title="mod glib">glib</a>;</code></td><td class="docblock-short"></td></tr><tr class="import-item"><td><code>pub use crate::analysis::<a class="struct" href="analysis/struct.Analysis.html" title="struct pango::analysis::Analysis">Analysis</a>;</code></td><td class="docblock-short"></td></tr><tr class="import-item"><td><code>pub use crate::attr_class::<a class="struct" href="attr_class/struct.AttrClass.html" title="struct pango::attr_class::AttrClass">AttrClass</a>;</code></td><td class="docblock-short"></td></tr><tr class="import-item"><td><code>pub use crate::language::<a class="struct" href="language/struct.Language.html" title="struct pango::language::Language">Language</a>;</code></td><td class="docblock-short"></td></tr><tr class="import-item"><td><code>pub use crate::layout::<a class="struct" href="layout/struct.HitPosition.html" title="struct pango::layout::HitPosition">HitPosition</a>;</code></td><td class="docblock-short"></td></tr><tr class="import-item"><td><code>pub use crate::rectangle::<a class="struct" href="rectangle/struct.Rectangle.html" title="struct pango::rectangle::Rectangle">Rectangle</a>;</code></td><td class="docblock-short"></td></tr><tr class="import-item"><td><code>pub use glyph::<a class="struct" href="glyph/struct.GlyphGeometry.html" title="struct pango::glyph::GlyphGeometry">GlyphGeometry</a>;</code></td><td class="docblock-short"></td></tr><tr class="import-item"><td><code>pub use glyph::<a class="struct" href="glyph/struct.GlyphInfo.html" title="struct pango::glyph::GlyphInfo">GlyphInfo</a>;</code></td><td class="docblock-short"></td></tr></table><h2 id="modules" class="section-header"><a href="#modules">Modules</a></h2>
 <table><tr class="module-item"><td><a class="mod" href="analysis/index.html" title="pango::analysis mod">analysis</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="mod" href="attr_class/index.html" title="pango::attr_class mod">attr_class</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="mod" href="attr_iterator/index.html" title="pango::attr_iterator mod">attr_iterator</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="mod" href="attr_list/index.html" title="pango::attr_list mod">attr_list</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="mod" href="attribute/index.html" title="pango::attribute mod">attribute</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="mod" href="functions/index.html" title="pango::functions mod">functions</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="mod" href="glyph/index.html" title="pango::glyph mod">glyph</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="mod" href="item/index.html" title="pango::item mod">item</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="mod" href="language/index.html" title="pango::language mod">language</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="mod" href="layout/index.html" title="pango::layout mod">layout</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="mod" href="prelude/index.html" title="pango::prelude mod">prelude</a></td><td class="docblock-short"><p>Traits and essential types inteded for blanket imports.</p>
 </td></tr><tr class="module-item"><td><a class="mod" href="rectangle/index.html" title="pango::rectangle mod">rectangle</a></td><td class="docblock-short"></td></tr></table><h2 id="structs" class="section-header"><a href="#structs">Structs</a></h2>
-<table><tr class="module-item"><td><a class="struct" href="struct.AttrIterator.html" title="pango::AttrIterator struct">AttrIterator</a></td><td class="docblock-short"><p>The <code>AttrIterator</code> structure is used to represent an
-iterator through a <code>AttrList</code>. A new iterator is created
-with <code>AttrList::get_iterator</code>. Once the iterator
+<table><tr class="module-item"><td><a class="struct" href="struct.AttrIterator.html" title="pango::AttrIterator struct">AttrIterator</a></td><td class="docblock-short"><p>The <a href="struct.AttrIterator.html"><code>AttrIterator</code></a> structure is used to represent an
+iterator through a <a href="struct.AttrList.html"><code>AttrList</code></a>. A new iterator is created
+with <a href="crate::AttrList::get_iterator()"><code>AttrList::get_iterator()</code></a>. Once the iterator
 is created, it can be advanced through the style changes
-in the text using <code>AttrIterator::next</code>. At each
+in the text using <a href="struct.AttrIterator.html#method.next"><code>next()</code></a>. At each
 style change, the range of the current style segment and the
 attributes currently in effect can be queried.</p>
-</td></tr><tr class="module-item"><td><a class="struct" href="struct.AttrList.html" title="pango::AttrList struct">AttrList</a></td><td class="docblock-short"><p>The <code>AttrList</code> structure represents a list of attributes
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.AttrList.html" title="pango::AttrList struct">AttrList</a></td><td class="docblock-short"><p>The <a href="struct.AttrList.html"><code>AttrList</code></a> structure represents a list of attributes
 that apply to a section of text. The attributes are, in general,
 allowed to overlap in an arbitrary fashion, however, if the
-attributes are manipulated only through <code>AttrList::change</code>,
+attributes are manipulated only through <a href="struct.AttrList.html#method.change"><code>change()</code></a>,
 the overlap between properties will meet stricter criteria.</p>
-</td></tr><tr class="module-item"><td><a class="struct" href="struct.Attribute.html" title="pango::Attribute struct">Attribute</a></td><td class="docblock-short"><p>The <code>Attribute</code> structure represents the common portions of all
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.Attribute.html" title="pango::Attribute struct">Attribute</a></td><td class="docblock-short"><p>The <a href="struct.Attribute.html"><code>Attribute</code></a> structure represents the common portions of all
 attributes. Particular types of attributes include this structure
 as their initial portion. The common portion of the attribute holds
 the range to which the value in the type-specific part of the attribute
-applies and should be initialized using <code>Attribute::init</code>.
+applies and should be initialized using <a href="struct.Attribute.html#method.init"><code>init()</code></a>.
 By default an attribute will have an all-inclusive range of [0,<code>G_MAXUINT</code>].</p>
-</td></tr><tr class="module-item"><td><a class="struct" href="struct.Color.html" title="pango::Color struct">Color</a></td><td class="docblock-short"><p>The <code>Color</code> structure is used to
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.Color.html" title="pango::Color struct">Color</a></td><td class="docblock-short"><p>The <a href="struct.Color.html"><code>Color</code></a> structure is used to
 represent a color in an uncalibrated RGB color-space.</p>
-</td></tr><tr class="module-item"><td><a class="struct" href="struct.Context.html" title="pango::Context struct">Context</a></td><td class="docblock-short"><p>The <code>Context</code> structure stores global information
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.Context.html" title="pango::Context struct">Context</a></td><td class="docblock-short"><p>The <a href="struct.Context.html"><code>Context</code></a> structure stores global information
 used to control the itemization process.</p>
-</td></tr><tr class="module-item"><td><a class="struct" href="struct.Coverage.html" title="pango::Coverage struct">Coverage</a></td><td class="docblock-short"><p>The <code>Coverage</code> structure represents a map from Unicode characters
-to <code>CoverageLevel</code>. It is an opaque structure with no public fields.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.Coverage.html" title="pango::Coverage struct">Coverage</a></td><td class="docblock-short"><p>The <a href="struct.Coverage.html"><code>Coverage</code></a> structure represents a map from Unicode characters
+to <a href="enum.CoverageLevel.html"><code>CoverageLevel</code></a>. It is an opaque structure with no public fields.</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.EngineLang.html" title="pango::EngineLang struct">EngineLang</a></td><td class="docblock-short"><p><code>[Deprecated since 1.38]</code> The <code>&lt;firstterm&gt;</code>language engines<code>&lt;/firstterm&gt;</code> are rendering-system independent
 engines that determine line, word, and character breaks for character strings.
-These engines are used in <code>pango_break</code>.</p>
+These engines are used in <code>pango_break()</code>.</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.EngineShape.html" title="pango::EngineShape struct">EngineShape</a></td><td class="docblock-short"><p><code>[Deprecated since 1.38]</code> The <code>&lt;firstterm&gt;</code>shape engines<code>&lt;/firstterm&gt;</code> are rendering-system dependent
 engines that convert character strings into glyph strings.
-These engines are used in <code>pango_shape</code>.</p>
-</td></tr><tr class="module-item"><td><a class="struct" href="struct.Font.html" title="pango::Font struct">Font</a></td><td class="docblock-short"><p>The <code>Font</code> structure is used to represent
+These engines are used in <code>pango_shape()</code>.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.Font.html" title="pango::Font struct">Font</a></td><td class="docblock-short"><p>The <a href="struct.Font.html"><code>Font</code></a> structure is used to represent
 a font in a rendering-system-independent matter.
-To create an implementation of a <code>Font</code>,
+To create an implementation of a <a href="struct.Font.html"><code>Font</code></a>,
 the rendering-system specific code should allocate
 a larger structure that contains a nested
-<code>Font</code>, fill in the <code>&lt;structfield&gt;</code>klass<code>&lt;/structfield&gt;</code> member of
-the nested <code>Font</code> with a pointer to
-a appropriate <code>FontClass</code>, then call
-<code>pango_font_init</code> on the structure.</p>
-</td></tr><tr class="module-item"><td><a class="struct" href="struct.FontDescription.html" title="pango::FontDescription struct">FontDescription</a></td><td class="docblock-short"><p>The <code>FontDescription</code> structure represents the description
+<a href="struct.Font.html"><code>Font</code></a>, fill in the <code>&lt;structfield&gt;</code>klass<code>&lt;/structfield&gt;</code> member of
+the nested <a href="struct.Font.html"><code>Font</code></a> with a pointer to
+a appropriate <a href="crate::FontClass"><code>FontClass</code></a>, then call
+<code>pango_font_init()</code> on the structure.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.FontDescription.html" title="pango::FontDescription struct">FontDescription</a></td><td class="docblock-short"><p>The <a href="struct.FontDescription.html"><code>FontDescription</code></a> structure represents the description
 of an ideal font. These structures are used both to list
 what fonts are available on the system and also for specifying
 the characteristics of a font to load.</p>
-</td></tr><tr class="module-item"><td><a class="struct" href="struct.FontFace.html" title="pango::FontFace struct">FontFace</a></td><td class="docblock-short"><p>The <code>FontFace</code> structure is used to represent a group of fonts with
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.FontFace.html" title="pango::FontFace struct">FontFace</a></td><td class="docblock-short"><p>The <a href="struct.FontFace.html"><code>FontFace</code></a> structure is used to represent a group of fonts with
 the same family, slant, weight, width, but varying sizes.</p>
-</td></tr><tr class="module-item"><td><a class="struct" href="struct.FontFamily.html" title="pango::FontFamily struct">FontFamily</a></td><td class="docblock-short"><p>The <code>FontFamily</code> structure is used to represent a family of related
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.FontFamily.html" title="pango::FontFamily struct">FontFamily</a></td><td class="docblock-short"><p>The <a href="struct.FontFamily.html"><code>FontFamily</code></a> structure is used to represent a family of related
 font faces. The faces in a family share a common design, but differ in
 slant, weight, width and other aspects.</p>
-</td></tr><tr class="module-item"><td><a class="struct" href="struct.FontMap.html" title="pango::FontMap struct">FontMap</a></td><td class="docblock-short"><p>The <code>FontMap</code> represents the set of fonts available for a
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.FontMap.html" title="pango::FontMap struct">FontMap</a></td><td class="docblock-short"><p>The <a href="struct.FontMap.html"><code>FontMap</code></a> represents the set of fonts available for a
 particular rendering system. This is a virtual object with
 implementations being specific to particular rendering systems. To
-create an implementation of a <code>FontMap</code>, the rendering-system
+create an implementation of a <a href="struct.FontMap.html"><code>FontMap</code></a>, the rendering-system
 specific code should allocate a larger structure that contains a nested
-<code>FontMap</code>, fill in the <code>&lt;structfield&gt;</code>klass<code>&lt;/structfield&gt;</code> member of the nested <code>FontMap</code> with a
-pointer to a appropriate <code>FontMapClass</code>, then call
-<code>pango_font_map_init</code> on the structure.</p>
-</td></tr><tr class="module-item"><td><a class="struct" href="struct.FontMask.html" title="pango::FontMask struct">FontMask</a></td><td class="docblock-short"><p>The bits in a <code>FontMask</code> correspond to fields in a
-<code>FontDescription</code> that have been set.</p>
-</td></tr><tr class="module-item"><td><a class="struct" href="struct.FontMetrics.html" title="pango::FontMetrics struct">FontMetrics</a></td><td class="docblock-short"><p>A <code>FontMetrics</code> structure holds the overall metric information
+<a href="struct.FontMap.html"><code>FontMap</code></a>, fill in the <code>&lt;structfield&gt;</code>klass<code>&lt;/structfield&gt;</code> member of the nested <a href="struct.FontMap.html"><code>FontMap</code></a> with a
+pointer to a appropriate <a href="crate::FontMapClass"><code>FontMapClass</code></a>, then call
+<code>pango_font_map_init()</code> on the structure.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.FontMask.html" title="pango::FontMask struct">FontMask</a></td><td class="docblock-short"><p>The bits in a <a href="struct.FontMask.html"><code>FontMask</code></a> correspond to fields in a
+<a href="struct.FontDescription.html"><code>FontDescription</code></a> that have been set.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.FontMetrics.html" title="pango::FontMetrics struct">FontMetrics</a></td><td class="docblock-short"><p>A <a href="struct.FontMetrics.html"><code>FontMetrics</code></a> structure holds the overall metric information
 for a font (possibly restricted to a script). The fields of this
 structure are private to implementations of a font backend. See
 the documentation of the corresponding getters for documentation
 of their meaning.</p>
-</td></tr><tr class="module-item"><td><a class="struct" href="struct.Fontset.html" title="pango::Fontset struct">Fontset</a></td><td class="docblock-short"><p>A <code>Fontset</code> represents a set of <code>Font</code> to use
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.Fontset.html" title="pango::Fontset struct">Fontset</a></td><td class="docblock-short"><p>A <a href="struct.Fontset.html"><code>Fontset</code></a> represents a set of <a href="struct.Font.html"><code>Font</code></a> to use
 when rendering text. It is the result of resolving a
-<code>FontDescription</code> against a particular <code>Context</code>.
+<a href="struct.FontDescription.html"><code>FontDescription</code></a> against a particular <a href="struct.Context.html"><code>Context</code></a>.
 It has operations for finding the component font for
 a particular Unicode character, and for finding a composite
 set of metrics for the entire fontset.</p>
-</td></tr><tr class="module-item"><td><a class="struct" href="struct.FontsetSimple.html" title="pango::FontsetSimple struct">FontsetSimple</a></td><td class="docblock-short"><p><code>FontsetSimple</code> is a implementation of the abstract
-<code>Fontset</code> base class in terms of an array of fonts,
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.FontsetSimple.html" title="pango::FontsetSimple struct">FontsetSimple</a></td><td class="docblock-short"><p><a href="struct.FontsetSimple.html"><code>FontsetSimple</code></a> is a implementation of the abstract
+<a href="struct.Fontset.html"><code>Fontset</code></a> base class in terms of an array of fonts,
 which the creator provides when constructing the
-<code>FontsetSimple</code>.</p>
-</td></tr><tr class="module-item"><td><a class="struct" href="struct.GlyphItem.html" title="pango::GlyphItem struct">GlyphItem</a></td><td class="docblock-short"><p>A <code>GlyphItem</code> is a pair of a <code>Item</code> and the glyphs
+<a href="struct.FontsetSimple.html"><code>FontsetSimple</code></a>.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.GlyphItem.html" title="pango::GlyphItem struct">GlyphItem</a></td><td class="docblock-short"><p>A <a href="struct.GlyphItem.html"><code>GlyphItem</code></a> is a pair of a <a href="struct.Item.html"><code>Item</code></a> and the glyphs
 resulting from shaping the text corresponding to an item.
-As an example of the usage of <code>GlyphItem</code>, the results
-of shaping text with <code>Layout</code> is a list of <code>LayoutLine</code>,
-each of which contains a list of <code>GlyphItem</code>.</p>
-</td></tr><tr class="module-item"><td><a class="struct" href="struct.GlyphItemIter.html" title="pango::GlyphItemIter struct">GlyphItemIter</a></td><td class="docblock-short"><p>A <code>GlyphItemIter</code> is an iterator over the clusters in a
-<code>GlyphItem</code>. The <code>&lt;firstterm&gt;</code>forward direction<code>&lt;/firstterm&gt;</code> of the
+As an example of the usage of <a href="struct.GlyphItem.html"><code>GlyphItem</code></a>, the results
+of shaping text with <a href="struct.Layout.html"><code>Layout</code></a> is a list of <a href="struct.LayoutLine.html"><code>LayoutLine</code></a>,
+each of which contains a list of <a href="struct.GlyphItem.html"><code>GlyphItem</code></a>.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.GlyphItemIter.html" title="pango::GlyphItemIter struct">GlyphItemIter</a></td><td class="docblock-short"><p>A <a href="struct.GlyphItemIter.html"><code>GlyphItemIter</code></a> is an iterator over the clusters in a
+<a href="struct.GlyphItem.html"><code>GlyphItem</code></a>. The <code>&lt;firstterm&gt;</code>forward direction<code>&lt;/firstterm&gt;</code> of the
 iterator is the logical direction of text. That is, with increasing
 <code>start_index</code> and <code>start_char</code> values. If <code>glyph_item</code> is right-to-left
 (that is, if <code>&lt;literal&gt;``glyph_item</code>-&gt;item-&gt;analysis.level<code>&lt;/literal&gt;</code> is odd),
 then <code>start_glyph</code> decreases as the iterator moves forward. Moreover,
 in right-to-left cases, <code>start_glyph</code> is greater than <code>end_glyph</code>.</p>
-</td></tr><tr class="module-item"><td><a class="struct" href="struct.GlyphString.html" title="pango::GlyphString struct">GlyphString</a></td><td class="docblock-short"><p>The <code>GlyphString</code> structure is used to store strings
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.GlyphString.html" title="pango::GlyphString struct">GlyphString</a></td><td class="docblock-short"><p>The <a href="struct.GlyphString.html"><code>GlyphString</code></a> structure is used to store strings
 of glyphs with geometry and visual attribute information.
 The storage for the glyph information is owned
 by the structure which simplifies memory management.</p>
-</td></tr><tr class="module-item"><td><a class="struct" href="struct.Item.html" title="pango::Item struct">Item</a></td><td class="docblock-short"><p>The <code>Item</code> structure stores information about a segment of text.</p>
-</td></tr><tr class="module-item"><td><a class="struct" href="struct.Layout.html" title="pango::Layout struct">Layout</a></td><td class="docblock-short"><p>The <code>Layout</code> structure represents an entire paragraph
-of text. It is initialized with a <code>Context</code>, UTF-8 string
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.Item.html" title="pango::Item struct">Item</a></td><td class="docblock-short"><p>The <a href="struct.Item.html"><code>Item</code></a> structure stores information about a segment of text.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.Layout.html" title="pango::Layout struct">Layout</a></td><td class="docblock-short"><p>The <a href="struct.Layout.html"><code>Layout</code></a> structure represents an entire paragraph
+of text. It is initialized with a <a href="struct.Context.html"><code>Context</code></a>, UTF-8 string
 and set of attributes for that string. Once that is done, the
 set of formatted lines can be extracted from the object,
 the layout can be rendered, and conversion between logical
 character positions within the layout’s text, and the physical
 position of the resulting glyphs can be made.</p>
-</td></tr><tr class="module-item"><td><a class="struct" href="struct.LayoutIter.html" title="pango::LayoutIter struct">LayoutIter</a></td><td class="docblock-short"><p>A <code>LayoutIter</code> structure can be used to
-iterate over the visual extents of a <code>Layout</code>.</p>
-</td></tr><tr class="module-item"><td><a class="struct" href="struct.LayoutLine.html" title="pango::LayoutLine struct">LayoutLine</a></td><td class="docblock-short"><p>The <code>LayoutLine</code> structure represents one of the lines resulting
-from laying out a paragraph via <code>Layout</code>. <code>LayoutLine</code>
-structures are obtained by calling <code>Layout::get_line</code> and
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.LayoutIter.html" title="pango::LayoutIter struct">LayoutIter</a></td><td class="docblock-short"><p>A <a href="struct.LayoutIter.html"><code>LayoutIter</code></a> structure can be used to
+iterate over the visual extents of a <a href="struct.Layout.html"><code>Layout</code></a>.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.LayoutLine.html" title="pango::LayoutLine struct">LayoutLine</a></td><td class="docblock-short"><p>The <a href="struct.LayoutLine.html"><code>LayoutLine</code></a> structure represents one of the lines resulting
+from laying out a paragraph via <a href="struct.Layout.html"><code>Layout</code></a>. <a href="struct.LayoutLine.html"><code>LayoutLine</code></a>
+structures are obtained by calling <a href="crate::Layout::get_line()"><code>Layout::get_line()</code></a> and
 are only valid until the text, attributes, or settings of the
-parent <code>Layout</code> are modified.</p>
+parent <a href="struct.Layout.html"><code>Layout</code></a> are modified.</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.Matrix.html" title="pango::Matrix struct">Matrix</a></td><td class="docblock-short"><p>A structure specifying a transformation between user-space
 coordinates and device coordinates. The transformation
 is given by</p>
-</td></tr><tr class="module-item"><td><a class="struct" href="struct.Renderer.html" title="pango::Renderer struct">Renderer</a></td><td class="docblock-short"><p><code>Renderer</code> is a base class for objects that are used to
-render Pango objects such as <code>GlyphString</code> and
-<code>Layout</code>.</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.Renderer.html" title="pango::Renderer struct">Renderer</a></td><td class="docblock-short"><p><a href="struct.Renderer.html"><code>Renderer</code></a> is a base class for objects that are used to
+render Pango objects such as <a href="struct.GlyphString.html"><code>GlyphString</code></a> and
+<a href="struct.Layout.html"><code>Layout</code></a>.</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.ShapeFlags.html" title="pango::ShapeFlags struct">ShapeFlags</a></td><td class="docblock-short"><p>Flags influencing the shaping process.
-These can be passed to <code>pango_shape_with_flags</code>.</p>
+These can be passed to <code>pango_shape_with_flags()</code>.</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.ShowFlags.html" title="pango::ShowFlags struct">ShowFlags</a></td><td class="docblock-short"><p>These flags affect how Pango treats characters that are normally
 not visible in the output.</p>
-</td></tr><tr class="module-item"><td><a class="struct" href="struct.TabArray.html" title="pango::TabArray struct">TabArray</a></td><td class="docblock-short"><p>A <code>TabArray</code> struct contains an array
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.TabArray.html" title="pango::TabArray struct">TabArray</a></td><td class="docblock-short"><p>A <a href="struct.TabArray.html"><code>TabArray</code></a> struct contains an array
 of tab stops. Each tab stop has an alignment and a position.</p>
 </td></tr></table><h2 id="enums" class="section-header"><a href="#enums">Enums</a></h2>
-<table><tr class="module-item"><td><a class="enum" href="enum.Alignment.html" title="pango::Alignment enum">Alignment</a></td><td class="docblock-short"><p>A <code>Alignment</code> describes how to align the lines of a <code>Layout</code> within the
-available space. If the <code>Layout</code> is set to justify
-using <code>Layout::set_justify</code>, this only has effect for partial lines.</p>
-</td></tr><tr class="module-item"><td><a class="enum" href="enum.AttrType.html" title="pango::AttrType enum">AttrType</a></td><td class="docblock-short"><p>The <code>AttrType</code>
+<table><tr class="module-item"><td><a class="enum" href="enum.Alignment.html" title="pango::Alignment enum">Alignment</a></td><td class="docblock-short"><p>A <a href="enum.Alignment.html"><code>Alignment</code></a> describes how to align the lines of a <a href="struct.Layout.html"><code>Layout</code></a> within the
+available space. If the <a href="struct.Layout.html"><code>Layout</code></a> is set to justify
+using <a href="struct.Layout.html#method.set_justify"><code>Layout::set_justify()</code></a>, this only has effect for partial lines.</p>
+</td></tr><tr class="module-item"><td><a class="enum" href="enum.AttrType.html" title="pango::AttrType enum">AttrType</a></td><td class="docblock-short"><p>The <a href="enum.AttrType.html"><code>AttrType</code></a>
 distinguishes between different types of attributes. Along with the
 predefined values, it is possible to allocate additional values
-for custom attributes using <code>AttrType::register</code>. The predefined
+for custom attributes using <a href="Self::register()"><code>register()</code></a>. The predefined
 values are given below. The type of structure used to store the
 attribute is listed in parentheses after the description.</p>
-</td></tr><tr class="module-item"><td><a class="enum" href="enum.BidiType.html" title="pango::BidiType enum">BidiType</a></td><td class="docblock-short"><p>The <code>BidiType</code> type represents the bidirectional character
+</td></tr><tr class="module-item"><td><a class="enum" href="enum.BidiType.html" title="pango::BidiType enum">BidiType</a></td><td class="docblock-short"><p>The <a href="enum.BidiType.html"><code>BidiType</code></a> type represents the bidirectional character
 type of a Unicode character as specified by the
 <ulink url="http://www.unicode.org/reports/tr9/">Unicode bidirectional algorithm<code>&lt;/ulink&gt;</code>.</p>
 </td></tr><tr class="module-item"><td><a class="enum" href="enum.CoverageLevel.html" title="pango::CoverageLevel enum">CoverageLevel</a></td><td class="docblock-short"><p>Used to indicate how well a font can represent a particular Unicode
 character point for a particular script.</p>
-</td></tr><tr class="module-item"><td><a class="enum" href="enum.Direction.html" title="pango::Direction enum">Direction</a></td><td class="docblock-short"><p>The <code>Direction</code> type represents a direction in the
+</td></tr><tr class="module-item"><td><a class="enum" href="enum.Direction.html" title="pango::Direction enum">Direction</a></td><td class="docblock-short"><p>The <a href="enum.Direction.html"><code>Direction</code></a> type represents a direction in the
 Unicode bidirectional algorithm; not every value in this
-enumeration makes sense for every usage of <code>Direction</code>;
-for example, the return value of <code>pango_unichar_direction</code>
-and <code>pango_find_base_dir</code> cannot be <code>Direction::WeakLtr</code>
-or <code>Direction::WeakRtl</code>, since every character is either
+enumeration makes sense for every usage of <a href="enum.Direction.html"><code>Direction</code></a>;
+for example, the return value of <code>pango_unichar_direction()</code>
+and <code>pango_find_base_dir()</code> cannot be <a href="enum.Direction.html#variant.WeakLtr"><code>WeakLtr</code></a>
+or <a href="enum.Direction.html#variant.WeakRtl"><code>WeakRtl</code></a>, since every character is either
 neutral or has a strong direction; on the other hand
-<code>Direction::Neutral</code> doesn’t make sense to pass
-to <code>pango_itemize_with_base_dir</code>.</p>
-</td></tr><tr class="module-item"><td><a class="enum" href="enum.EllipsizeMode.html" title="pango::EllipsizeMode enum">EllipsizeMode</a></td><td class="docblock-short"><p>The <code>EllipsizeMode</code> type describes what sort of (if any)
+<a href="enum.Direction.html#variant.Neutral"><code>Neutral</code></a> doesn’t make sense to pass
+to <code>pango_itemize_with_base_dir()</code>.</p>
+</td></tr><tr class="module-item"><td><a class="enum" href="enum.EllipsizeMode.html" title="pango::EllipsizeMode enum">EllipsizeMode</a></td><td class="docblock-short"><p>The <a href="enum.EllipsizeMode.html"><code>EllipsizeMode</code></a> type describes what sort of (if any)
 ellipsization should be applied to a line of text. In
 the ellipsization process characters are removed from the
 text in order to make it fit to a given width and replaced
 with an ellipsis.</p>
-</td></tr><tr class="module-item"><td><a class="enum" href="enum.Gravity.html" title="pango::Gravity enum">Gravity</a></td><td class="docblock-short"><p>The <code>Gravity</code> type represents the orientation of glyphs in a segment
+</td></tr><tr class="module-item"><td><a class="enum" href="enum.Gravity.html" title="pango::Gravity enum">Gravity</a></td><td class="docblock-short"><p>The <a href="enum.Gravity.html"><code>Gravity</code></a> type represents the orientation of glyphs in a segment
 of text. This is useful when rendering vertical text layouts. In
 those situations, the layout is rotated using a non-identity PangoMatrix,
-and then glyph orientation is controlled using <code>Gravity</code>.
+and then glyph orientation is controlled using <a href="enum.Gravity.html"><code>Gravity</code></a>.
 Not every value in this enumeration makes sense for every usage of
-<code>Gravity</code>; for example, <code>Gravity::Auto</code> only can be passed to
-<code>Context::set_base_gravity</code> and can only be returned by
-<code>Context::get_base_gravity</code>.</p>
-</td></tr><tr class="module-item"><td><a class="enum" href="enum.GravityHint.html" title="pango::GravityHint enum">GravityHint</a></td><td class="docblock-short"><p>The <code>GravityHint</code> defines how horizontal scripts should behave in a
+<a href="enum.Gravity.html"><code>Gravity</code></a>; for example, <a href="enum.Gravity.html#variant.Auto"><code>Auto</code></a> only can be passed to
+<a href="struct.Context.html#method.set_base_gravity"><code>Context::set_base_gravity()</code></a> and can only be returned by
+<a href="crate::Context::get_base_gravity()"><code>Context::get_base_gravity()</code></a>.</p>
+</td></tr><tr class="module-item"><td><a class="enum" href="enum.GravityHint.html" title="pango::GravityHint enum">GravityHint</a></td><td class="docblock-short"><p>The <a href="enum.GravityHint.html"><code>GravityHint</code></a> defines how horizontal scripts should behave in a
 vertical context. That is, English excerpt in a vertical paragraph for
 example.</p>
-</td></tr><tr class="module-item"><td><a class="enum" href="enum.Overline.html" title="pango::Overline enum">Overline</a></td><td class="docblock-short"><span class="stab portability" title="This is supported on crate feature `v1_46` only"><code>v1_46</code></span><p>The <code>Overline</code> enumeration is used to specify
+</td></tr><tr class="module-item"><td><a class="enum" href="enum.Overline.html" title="pango::Overline enum">Overline</a></td><td class="docblock-short"><span class="stab portability" title="This is supported on crate feature `v1_46` only"><code>v1_46</code></span><p>The <a href="enum.Overline.html"><code>Overline</code></a> enumeration is used to specify
 whether text should be overlined, and if so, the type
 of line.</p>
-</td></tr><tr class="module-item"><td><a class="enum" href="enum.RenderPart.html" title="pango::RenderPart enum">RenderPart</a></td><td class="docblock-short"><p><code>RenderPart</code> defines different items to render for such
+</td></tr><tr class="module-item"><td><a class="enum" href="enum.RenderPart.html" title="pango::RenderPart enum">RenderPart</a></td><td class="docblock-short"><p><a href="enum.RenderPart.html"><code>RenderPart</code></a> defines different items to render for such
 purposes as setting colors.</p>
-</td></tr><tr class="module-item"><td><a class="enum" href="enum.Script.html" title="pango::Script enum">Script</a></td><td class="docblock-short"><p>The <code>Script</code> enumeration identifies different writing
+</td></tr><tr class="module-item"><td><a class="enum" href="enum.Script.html" title="pango::Script enum">Script</a></td><td class="docblock-short"><p>The <a href="enum.Script.html"><code>Script</code></a> enumeration identifies different writing
 systems. The values correspond to the names as defined in the
 Unicode standard. See <ulink
 url="http://www.unicode.org/reports/tr24/">Unicode Standard Annex
@@ -174,14 +174,14 @@ url="http://www.unicode.org/reports/tr24/">Unicode Standard Annex
 </td></tr><tr class="module-item"><td><a class="enum" href="enum.Stretch.html" title="pango::Stretch enum">Stretch</a></td><td class="docblock-short"><p>An enumeration specifying the width of the font relative to other designs
 within a family.</p>
 </td></tr><tr class="module-item"><td><a class="enum" href="enum.Style.html" title="pango::Style enum">Style</a></td><td class="docblock-short"><p>An enumeration specifying the various slant styles possible for a font.</p>
-</td></tr><tr class="module-item"><td><a class="enum" href="enum.TabAlign.html" title="pango::TabAlign enum">TabAlign</a></td><td class="docblock-short"><p>A <code>TabAlign</code> specifies where a tab stop appears relative to the text.</p>
-</td></tr><tr class="module-item"><td><a class="enum" href="enum.Underline.html" title="pango::Underline enum">Underline</a></td><td class="docblock-short"><p>The <code>Underline</code> enumeration is used to specify
+</td></tr><tr class="module-item"><td><a class="enum" href="enum.TabAlign.html" title="pango::TabAlign enum">TabAlign</a></td><td class="docblock-short"><p>A <a href="enum.TabAlign.html"><code>TabAlign</code></a> specifies where a tab stop appears relative to the text.</p>
+</td></tr><tr class="module-item"><td><a class="enum" href="enum.Underline.html" title="pango::Underline enum">Underline</a></td><td class="docblock-short"><p>The <a href="enum.Underline.html"><code>Underline</code></a> enumeration is used to specify
 whether text should be underlined, and if so, the type
 of underlining.</p>
 </td></tr><tr class="module-item"><td><a class="enum" href="enum.Variant.html" title="pango::Variant enum">Variant</a></td><td class="docblock-short"><p>An enumeration specifying capitalization variant of the font.</p>
 </td></tr><tr class="module-item"><td><a class="enum" href="enum.Weight.html" title="pango::Weight enum">Weight</a></td><td class="docblock-short"><p>An enumeration specifying the weight (boldness) of a font. This is a numerical
 value ranging from 100 to 1000, but there are some predefined values:</p>
-</td></tr><tr class="module-item"><td><a class="enum" href="enum.WrapMode.html" title="pango::WrapMode enum">WrapMode</a></td><td class="docblock-short"><p>A <code>WrapMode</code> describes how to wrap the lines of a <code>Layout</code> to the desired width.</p>
+</td></tr><tr class="module-item"><td><a class="enum" href="enum.WrapMode.html" title="pango::WrapMode enum">WrapMode</a></td><td class="docblock-short"><p>A <a href="enum.WrapMode.html"><code>WrapMode</code></a> describes how to wrap the lines of a <a href="struct.Layout.html"><code>Layout</code></a> to the desired width.</p>
 </td></tr></table><h2 id="constants" class="section-header"><a href="#constants">Constants</a></h2>
 <table><tr class="module-item"><td><a class="constant" href="constant.NONE_ENGINE_LANG.html" title="pango::NONE_ENGINE_LANG constant">NONE_ENGINE_LANG</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="constant" href="constant.NONE_ENGINE_SHAPE.html" title="pango::NONE_ENGINE_SHAPE constant">NONE_ENGINE_SHAPE</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="constant" href="constant.NONE_FONT.html" title="pango::NONE_FONT constant">NONE_FONT</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="constant" href="constant.NONE_FONTSET.html" title="pango::NONE_FONTSET constant">NONE_FONTSET</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="constant" href="constant.NONE_FONT_FACE.html" title="pango::NONE_FONT_FACE constant">NONE_FONT_FACE</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="constant" href="constant.NONE_FONT_FAMILY.html" title="pango::NONE_FONT_FAMILY constant">NONE_FONT_FAMILY</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="constant" href="constant.NONE_FONT_MAP.html" title="pango::NONE_FONT_MAP constant">NONE_FONT_MAP</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="constant" href="constant.NONE_RENDERER.html" title="pango::NONE_RENDERER constant">NONE_RENDERER</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="constant" href="constant.SCALE.html" title="pango::SCALE constant">SCALE</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="constant" href="constant.SCALE_LARGE.html" title="pango::SCALE_LARGE constant">SCALE_LARGE</a></td><td class="docblock-short"><p>The scale factor for one magnification step (1.2).</p>
 </td></tr><tr class="module-item"><td><a class="constant" href="constant.SCALE_MEDIUM.html" title="pango::SCALE_MEDIUM constant">SCALE_MEDIUM</a></td><td class="docblock-short"><p>The scale factor for normal size (1.0).</p>
@@ -191,14 +191,7 @@ value ranging from 100 to 1000, but there are some predefined values:</p>
 </td></tr><tr class="module-item"><td><a class="constant" href="constant.SCALE_X_LARGE.html" title="pango::SCALE_X_LARGE constant">SCALE_X_LARGE</a></td><td class="docblock-short"><p>The scale factor for two magnification steps (1.2 * 1.2).</p>
 </td></tr><tr class="module-item"><td><a class="constant" href="constant.SCALE_X_SMALL.html" title="pango::SCALE_X_SMALL constant">SCALE_X_SMALL</a></td><td class="docblock-short"><p>The scale factor for two shrinking steps (1 / (1.2 * 1.2)).</p>
 </td></tr></table><h2 id="statics" class="section-header"><a href="#statics">Statics</a></h2>
-<table><tr class="module-item"><td><a class="static" href="static.ENGINE_TYPE_LANG.html" title="pango::ENGINE_TYPE_LANG static">ENGINE_TYPE_LANG</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="static" href="static.ENGINE_TYPE_SHAPE.html" title="pango::ENGINE_TYPE_SHAPE static">ENGINE_TYPE_SHAPE</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="static" href="static.RENDER_TYPE_NONE.html" title="pango::RENDER_TYPE_NONE static">RENDER_TYPE_NONE</a></td><td class="docblock-short"></td></tr></table><h2 id="traits" class="section-header"><a href="#traits">Traits</a></h2>
-<table><tr class="module-item"><td><a class="trait" href="trait.FontExt.html" title="pango::FontExt trait">FontExt</a></td><td class="docblock-short"><p>Trait containing all <code>Font</code> methods.</p>
-</td></tr><tr class="module-item"><td><a class="trait" href="trait.FontFaceExt.html" title="pango::FontFaceExt trait">FontFaceExt</a></td><td class="docblock-short"><p>Trait containing all <code>FontFace</code> methods.</p>
-</td></tr><tr class="module-item"><td><a class="trait" href="trait.FontFamilyExt.html" title="pango::FontFamilyExt trait">FontFamilyExt</a></td><td class="docblock-short"><p>Trait containing all <code>FontFamily</code> methods.</p>
-</td></tr><tr class="module-item"><td><a class="trait" href="trait.FontMapExt.html" title="pango::FontMapExt trait">FontMapExt</a></td><td class="docblock-short"><p>Trait containing all <code>FontMap</code> methods.</p>
-</td></tr><tr class="module-item"><td><a class="trait" href="trait.FontsetExt.html" title="pango::FontsetExt trait">FontsetExt</a></td><td class="docblock-short"><p>Trait containing all <code>Fontset</code> methods.</p>
-</td></tr><tr class="module-item"><td><a class="trait" href="trait.RendererExt.html" title="pango::RendererExt trait">RendererExt</a></td><td class="docblock-short"><p>Trait containing all <code>Renderer</code> methods.</p>
-</td></tr></table><h2 id="functions" class="section-header"><a href="#functions">Functions</a></h2>
+<table><tr class="module-item"><td><a class="static" href="static.ENGINE_TYPE_LANG.html" title="pango::ENGINE_TYPE_LANG static">ENGINE_TYPE_LANG</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="static" href="static.ENGINE_TYPE_SHAPE.html" title="pango::ENGINE_TYPE_SHAPE static">ENGINE_TYPE_SHAPE</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="static" href="static.RENDER_TYPE_NONE.html" title="pango::RENDER_TYPE_NONE static">RENDER_TYPE_NONE</a></td><td class="docblock-short"></td></tr></table><h2 id="functions" class="section-header"><a href="#functions">Functions</a></h2>
 <table><tr class="module-item"><td><a class="fn" href="fn.extents_to_pixels.html" title="pango::extents_to_pixels fn">extents_to_pixels</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="fn" href="fn.find_base_dir.html" title="pango::find_base_dir fn">find_base_dir</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="fn" href="fn.find_paragraph_boundary.html" title="pango::find_paragraph_boundary fn">find_paragraph_boundary</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="fn" href="fn.is_zero_width.html" title="pango::is_zero_width fn">is_zero_width</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="fn" href="fn.itemize.html" title="pango::itemize fn">itemize</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="fn" href="fn.itemize_with_base_dir.html" title="pango::itemize_with_base_dir fn">itemize_with_base_dir</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="fn" href="fn.parse_enum.html" title="pango::parse_enum fn">parse_enum</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="fn" href="fn.parse_markup.html" title="pango::parse_markup fn">parse_markup</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="fn" href="fn.parse_stretch.html" title="pango::parse_stretch fn">parse_stretch</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="fn" href="fn.parse_style.html" title="pango::parse_style fn">parse_style</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="fn" href="fn.parse_variant.html" title="pango::parse_variant fn">parse_variant</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="fn" href="fn.parse_weight.html" title="pango::parse_weight fn">parse_weight</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="fn" href="fn.quantize_line_geometry.html" title="pango::quantize_line_geometry fn">quantize_line_geometry</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="fn" href="fn.reorder_items.html" title="pango::reorder_items fn">reorder_items</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="fn" href="fn.shape.html" title="pango::shape fn">shape</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="fn" href="fn.shape_full.html" title="pango::shape_full fn">shape_full</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="fn" href="fn.shape_with_flags.html" title="pango::shape_with_flags fn">shape_with_flags</a></td><td class="docblock-short"><span class="stab portability" title="This is supported on crate feature `v1_44` only"><code>v1_44</code></span></td></tr><tr class="module-item"><td><a class="fn" href="fn.split_file_list.html" title="pango::split_file_list fn">split_file_list</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="fn" href="fn.trim_string.html" title="pango::trim_string fn">trim_string</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="fn" href="fn.unichar_direction.html" title="pango::unichar_direction fn">unichar_direction</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="fn" href="fn.units_from_double.html" title="pango::units_from_double fn">units_from_double</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="fn" href="fn.units_to_double.html" title="pango::units_to_double fn">units_to_double</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="fn" href="fn.version.html" title="pango::version fn">version</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="fn" href="fn.version_check.html" title="pango::version_check fn">version_check</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="fn" href="fn.version_string.html" title="pango::version_string fn">version_string</a></td><td class="docblock-short"></td></tr></table><h2 id="types" class="section-header"><a href="#types">Type Definitions</a></h2>
 <table><tr class="module-item"><td><a class="type" href="type.Glyph.html" title="pango::Glyph type">Glyph</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="type" href="type.GlyphUnit.html" title="pango::GlyphUnit type">GlyphUnit</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="type" href="type.LayoutRun.html" title="pango::LayoutRun type">LayoutRun</a></td><td class="docblock-short"></td></tr></table></section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../" data-current-crate="pango" data-search-index-js="../search-index.js" data-search-js="../search.js"></div>
     <script src="../main.js"></script></body></html>

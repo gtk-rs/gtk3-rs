@@ -104,16 +104,16 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// `AppInfoMonitor` is a very simple object used for monitoring the app</span>
+    <span class="doccomment">/// [`AppInfoMonitor`](crate::AppInfoMonitor) is a very simple object used for monitoring the app</span>
     <span class="doccomment">/// info database for changes (ie: newly installed or removed</span>
     <span class="doccomment">/// applications).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Call `AppInfoMonitor::get` to get a `AppInfoMonitor` and connect</span>
+    <span class="doccomment">/// Call [`get()`](Self::get()) to get a [`AppInfoMonitor`](crate::AppInfoMonitor) and connect</span>
     <span class="doccomment">/// to the &quot;changed&quot; signal.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// In the usual case, applications should try to make note of the change</span>
     <span class="doccomment">/// (doing things like invalidating caches) but not act on it. In</span>
-    <span class="doccomment">/// particular, applications should avoid making calls to `AppInfo` APIs</span>
+    <span class="doccomment">/// particular, applications should avoid making calls to [`AppInfo`](crate::AppInfo) APIs</span>
     <span class="doccomment">/// in response to the change signal, deferring these until the time that</span>
     <span class="doccomment">/// the data is actually required. The exception to this case is when</span>
     <span class="doccomment">/// application information is actually being displayed on the screen</span>
@@ -133,19 +133,19 @@
 }
 
 <span class="kw">impl</span> <span class="ident">AppInfoMonitor</span> {
-    <span class="doccomment">/// Gets the `AppInfoMonitor` for the current thread-default main</span>
+    <span class="doccomment">/// Gets the [`AppInfoMonitor`](crate::AppInfoMonitor) for the current thread-default main</span>
     <span class="doccomment">/// context.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The `AppInfoMonitor` will emit a &quot;changed&quot; signal in the</span>
+    <span class="doccomment">/// The [`AppInfoMonitor`](crate::AppInfoMonitor) will emit a &quot;changed&quot; signal in the</span>
     <span class="doccomment">/// thread-default main context whenever the list of installed</span>
-    <span class="doccomment">/// applications (as reported by `AppInfo::get_all`) may have changed.</span>
+    <span class="doccomment">/// applications (as reported by [`AppInfo::get_all()`](crate::AppInfo::get_all())) may have changed.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// You must only call `glib::object::ObjectExt::unref` on the return value from under</span>
+    <span class="doccomment">/// You must only call [`glib::object::ObjectExt::unref()`](crate::glib::object::ObjectExt::unref()) on the return value from under</span>
     <span class="doccomment">/// the same main context as you created it.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a reference to a `AppInfoMonitor`</span>
+    <span class="doccomment">/// a reference to a [`AppInfoMonitor`](crate::AppInfoMonitor)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_app_info_monitor_get&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">AppInfoMonitor</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_app_info_monitor_get</span>()) }

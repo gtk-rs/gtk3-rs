@@ -9,9 +9,9 @@
 <h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
 <p><a href="../struct.TcpConnection.html"><code>TcpConnection</code></a></p>
 </div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.is_graceful_disconnect" class="method"><code>fn <a href="#tymethod.is_graceful_disconnect" class="fnname">is_graceful_disconnect</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gio/auto/tcp_connection.rs.html#45" title="goto source code">[src]</a></h3><div class="docblock"><p>Checks if graceful disconnects are used. See
-<code>TcpConnectionExt::set_graceful_disconnect</code>.</p>
+<a href="trait.TcpConnectionExt.html#tymethod.set_graceful_disconnect"><code>set_graceful_disconnect()</code></a>.</p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
-<p><code>true</code> if graceful disconnect is used on close, <code>false</code> otherwise</p>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if graceful disconnect is used on close, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> otherwise</p>
 </div><h3 id="tymethod.set_graceful_disconnect" class="method"><code>fn <a href="#tymethod.set_graceful_disconnect" class="fnname">set_graceful_disconnect</a>(&amp;self, graceful_disconnect: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gio/auto/tcp_connection.rs.html#59" title="goto source code">[src]</a></h3><div class="docblock"><p>This enables graceful disconnects on close. A graceful disconnect
 means that we signal the receiving end that the connection is terminated
 and wait for it to close the connection before closing the connection.</p>

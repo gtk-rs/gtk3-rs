@@ -954,12 +954,12 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// The `LevelBar` is a bar widget that can be used</span>
+    <span class="doccomment">/// The [`LevelBar`](crate::LevelBar) is a bar widget that can be used</span>
     <span class="doccomment">/// as a level indicator. Typical use cases are displaying the strength</span>
     <span class="doccomment">/// of a password, or showing the charge level of a battery.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Use `LevelBarExt::set_value` to set the current value, and</span>
-    <span class="doccomment">/// `LevelBarExt::add_offset_value` to set the value offsets at which</span>
+    <span class="doccomment">/// Use [`LevelBarExt::set_value()`](crate::LevelBarExt::set_value()) to set the current value, and</span>
+    <span class="doccomment">/// [`LevelBarExt::add_offset_value()`](crate::LevelBarExt::add_offset_value()) to set the value offsets at which</span>
     <span class="doccomment">/// the bar will be considered in a different state. GTK will add a few</span>
     <span class="doccomment">/// offsets by default on the level bar: `GTK_LEVEL_BAR_OFFSET_LOW`,</span>
     <span class="doccomment">/// `GTK_LEVEL_BAR_OFFSET_HIGH` and `GTK_LEVEL_BAR_OFFSET_FULL`, with</span>
@@ -1006,11 +1006,11 @@
     <span class="doccomment">/// ```</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The default interval of values is between zero and one, but it’s possible to</span>
-    <span class="doccomment">/// modify the interval using `LevelBarExt::set_min_value` and</span>
-    <span class="doccomment">/// `LevelBarExt::set_max_value`. The value will be always drawn in proportion to</span>
+    <span class="doccomment">/// modify the interval using [`LevelBarExt::set_min_value()`](crate::LevelBarExt::set_min_value()) and</span>
+    <span class="doccomment">/// [`LevelBarExt::set_max_value()`](crate::LevelBarExt::set_max_value()). The value will be always drawn in proportion to</span>
     <span class="doccomment">/// the admissible interval, i.e. a value of 15 with a specified interval between</span>
     <span class="doccomment">/// 10 and 20 is equivalent to a value of 0.5 with an interval between 0 and 1.</span>
-    <span class="doccomment">/// When `LevelBarMode::Discrete` is used, the bar level is rendered</span>
+    <span class="doccomment">/// When [`LevelBarMode::Discrete`](crate::LevelBarMode::Discrete) is used, the bar level is rendered</span>
     <span class="doccomment">/// as a finite number of separated blocks instead of a single one. The number</span>
     <span class="doccomment">/// of blocks that will be rendered is equal to the number of units specified by</span>
     <span class="doccomment">/// the admissible interval.</span>
@@ -1052,7 +1052,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`LevelBarExt`](trait@crate::LevelBarExt), [`WidgetExt`](trait@crate::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::BuildableExt), [`OrientableExt`](trait@crate::OrientableExt), [`WidgetExtManual`](trait@crate::WidgetExtManual), [`BuildableExtManual`](trait@crate::BuildableExtManual)</span>
+    <span class="doccomment">/// [`LevelBarExt`](trait@crate::prelude::LevelBarExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`OrientableExt`](trait@crate::prelude::OrientableExt), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">LevelBar</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkLevelBar</span>, <span class="ident">ffi::GtkLevelBarClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>, <span class="ident">Orientable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -1061,18 +1061,18 @@
 }
 
 <span class="kw">impl</span> <span class="ident">LevelBar</span> {
-    <span class="doccomment">/// Creates a new `LevelBar`.</span>
+    <span class="doccomment">/// Creates a new [`LevelBar`](crate::LevelBar).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a `LevelBar`.</span>
+    <span class="doccomment">/// a [`LevelBar`](crate::LevelBar).</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_level_bar_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">LevelBar</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe</span> { <span class="ident">Widget::from_glib_none</span>(<span class="ident">ffi::gtk_level_bar_new</span>()).<span class="ident">unsafe_cast</span>() }
     }
 
-    <span class="doccomment">/// Utility constructor that creates a new `LevelBar` for the specified</span>
+    <span class="doccomment">/// Utility constructor that creates a new [`LevelBar`](crate::LevelBar) for the specified</span>
     <span class="doccomment">/// interval.</span>
     <span class="doccomment">/// ## `min_value`</span>
     <span class="doccomment">/// a positive value</span>
@@ -1081,7 +1081,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a `LevelBar`</span>
+    <span class="doccomment">/// a [`LevelBar`](crate::LevelBar)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_level_bar_new_for_interval&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">for_interval</span>(<span class="ident">min_value</span>: <span class="ident">f64</span>, <span class="ident">max_value</span>: <span class="ident">f64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">LevelBar</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -1471,7 +1471,7 @@
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">LevelBarExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Adds a new offset marker on `self` at the position specified by `value`.</span>
     <span class="doccomment">/// When the bar value is in the interval topped by `value` (or between `value`</span>
-    <span class="doccomment">/// and `LevelBar:max-value` in case the offset is the last one on the bar)</span>
+    <span class="doccomment">/// and [`LevelBar:max-value`](crate::LevelBar:max-value) in case the offset is the last one on the bar)</span>
     <span class="doccomment">/// a style class named `level-``name` will be applied</span>
     <span class="doccomment">/// when rendering the level bar fill.</span>
     <span class="doccomment">/// If another offset marker named `name` exists, its value will be</span>
@@ -1483,15 +1483,15 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_level_bar_add_offset_value&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">add_offset_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">value</span>: <span class="ident">f64</span>);
 
-    <span class="doccomment">/// Return the value of the `LevelBar:inverted` property.</span>
+    <span class="doccomment">/// Return the value of the [`LevelBar:inverted`](crate::LevelBar:inverted) property.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if the level bar is inverted</span>
+    <span class="doccomment">/// [`true`] if the level bar is inverted</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_level_bar_get_inverted&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">is_inverted</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
-    <span class="doccomment">/// Returns the value of the `LevelBar:max-value` property.</span>
+    <span class="doccomment">/// Returns the value of the [`LevelBar:max-value`](crate::LevelBar:max-value) property.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1499,7 +1499,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_level_bar_get_max_value&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">max_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f64</span>;
 
-    <span class="doccomment">/// Returns the value of the `LevelBar:min-value` property.</span>
+    <span class="doccomment">/// Returns the value of the [`LevelBar:min-value`](crate::LevelBar:min-value) property.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1507,16 +1507,16 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_level_bar_get_min_value&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">min_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f64</span>;
 
-    <span class="doccomment">/// Returns the value of the `LevelBar:mode` property.</span>
+    <span class="doccomment">/// Returns the value of the [`LevelBar:mode`](crate::LevelBar:mode) property.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a `LevelBarMode`</span>
+    <span class="doccomment">/// a [`LevelBarMode`](crate::LevelBarMode)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_level_bar_get_mode&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">mode</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">LevelBarMode</span>;
 
     <span class="doccomment">/// Fetches the value specified for the offset marker `name` in `self`,</span>
-    <span class="doccomment">/// returning `true` in case an offset named `name` was found.</span>
+    <span class="doccomment">/// returning [`true`] in case an offset named `name` was found.</span>
     <span class="doccomment">/// ## `name`</span>
     <span class="doccomment">/// the name of an offset in the bar</span>
     <span class="doccomment">/// ## `value`</span>
@@ -1524,33 +1524,33 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if the specified offset is found</span>
+    <span class="doccomment">/// [`true`] if the specified offset is found</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_level_bar_get_offset_value&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">offset_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">f64</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// Returns the value of the `LevelBar:value` property.</span>
+    <span class="doccomment">/// Returns the value of the [`LevelBar:value`](crate::LevelBar:value) property.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// a value in the interval between</span>
-    <span class="doccomment">///  `LevelBar:min-value` and `LevelBar:max-value`</span>
+    <span class="doccomment">///  [`LevelBar:min-value`](crate::LevelBar:min-value) and [`LevelBar:max-value`](crate::LevelBar:max-value)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_level_bar_get_value&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f64</span>;
 
     <span class="doccomment">/// Removes an offset marker previously added with</span>
-    <span class="doccomment">/// `LevelBarExt::add_offset_value`.</span>
+    <span class="doccomment">/// [`add_offset_value()`](Self::add_offset_value()).</span>
     <span class="doccomment">/// ## `name`</span>
     <span class="doccomment">/// the name of an offset in the bar</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_level_bar_remove_offset_value&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">remove_offset_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>);
 
-    <span class="doccomment">/// Sets the value of the `LevelBar:inverted` property.</span>
+    <span class="doccomment">/// Sets the value of the [`LevelBar:inverted`](crate::LevelBar:inverted) property.</span>
     <span class="doccomment">/// ## `inverted`</span>
-    <span class="doccomment">/// `true` to invert the level bar</span>
+    <span class="doccomment">/// [`true`] to invert the level bar</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_level_bar_set_inverted&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_inverted</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">inverted</span>: <span class="ident">bool</span>);
 
-    <span class="doccomment">/// Sets the value of the `LevelBar:max-value` property.</span>
+    <span class="doccomment">/// Sets the value of the [`LevelBar:max-value`](crate::LevelBar:max-value) property.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// You probably want to update preexisting level offsets after calling</span>
     <span class="doccomment">/// this function.</span>
@@ -1559,7 +1559,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_level_bar_set_max_value&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_max_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">value</span>: <span class="ident">f64</span>);
 
-    <span class="doccomment">/// Sets the value of the `LevelBar:min-value` property.</span>
+    <span class="doccomment">/// Sets the value of the [`LevelBar:min-value`](crate::LevelBar:min-value) property.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// You probably want to update preexisting level offsets after calling</span>
     <span class="doccomment">/// this function.</span>
@@ -1568,21 +1568,21 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_level_bar_set_min_value&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_min_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">value</span>: <span class="ident">f64</span>);
 
-    <span class="doccomment">/// Sets the value of the `LevelBar:mode` property.</span>
+    <span class="doccomment">/// Sets the value of the [`LevelBar:mode`](crate::LevelBar:mode) property.</span>
     <span class="doccomment">/// ## `mode`</span>
-    <span class="doccomment">/// a `LevelBarMode`</span>
+    <span class="doccomment">/// a [`LevelBarMode`](crate::LevelBarMode)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_level_bar_set_mode&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_mode</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">mode</span>: <span class="ident">LevelBarMode</span>);
 
-    <span class="doccomment">/// Sets the value of the `LevelBar:value` property.</span>
+    <span class="doccomment">/// Sets the value of the [`LevelBar:value`](crate::LevelBar:value) property.</span>
     <span class="doccomment">/// ## `value`</span>
     <span class="doccomment">/// a value in the interval between</span>
-    <span class="doccomment">///  `LevelBar:min-value` and `LevelBar:max-value`</span>
+    <span class="doccomment">///  [`LevelBar:min-value`](crate::LevelBar:min-value) and [`LevelBar:max-value`](crate::LevelBar:max-value)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_level_bar_set_value&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">value</span>: <span class="ident">f64</span>);
 
     <span class="doccomment">/// Emitted when an offset specified on the bar changes value as an</span>
-    <span class="doccomment">/// effect to `LevelBarExt::add_offset_value` being called.</span>
+    <span class="doccomment">/// effect to [`add_offset_value()`](Self::add_offset_value()) being called.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The signal supports detailed connections; you can connect to the</span>
     <span class="doccomment">/// detailed signal &quot;changed::x&quot; in order to only receive callbacks when</span>

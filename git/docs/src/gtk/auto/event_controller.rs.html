@@ -182,7 +182,7 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// `EventController` is a base, low-level implementation for event</span>
+    <span class="doccomment">/// [`EventController`](crate::EventController) is a base, low-level implementation for event</span>
     <span class="doccomment">/// controllers. Those react to a series of ``GdkEvents``, and possibly trigger</span>
     <span class="doccomment">/// actions as a consequence of those.</span>
     <span class="doccomment">///</span>
@@ -190,7 +190,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`EventControllerExt`](trait@crate::EventControllerExt), [`trait@glib::object::ObjectExt`]</span>
+    <span class="doccomment">/// [`EventControllerExt`](trait@crate::prelude::EventControllerExt), [`trait@glib::object::ObjectExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EventController</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkEventController</span>, <span class="ident">ffi::GtkEventControllerClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -214,11 +214,11 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_event_controller_get_propagation_phase&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">propagation_phase</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">PropagationPhase</span>;
 
-    <span class="doccomment">/// Returns the `Widget` this controller relates to.</span>
+    <span class="doccomment">/// Returns the [`Widget`](crate::Widget) this controller relates to.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a `Widget`</span>
+    <span class="doccomment">/// a [`Widget`](crate::Widget)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_event_controller_get_widget&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">widget</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span>;
 
@@ -229,22 +229,22 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if the event was potentially useful to trigger the</span>
+    <span class="doccomment">/// [`true`] if the event was potentially useful to trigger the</span>
     <span class="doccomment">///  controller action</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_event_controller_handle_event&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">handle_event</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">event</span>: <span class="kw-2">&amp;</span><span class="ident">gdk::Event</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
     <span class="doccomment">/// Resets the `self` to a clean state. Every interaction</span>
-    <span class="doccomment">/// the controller did through `EventController::handle-event`</span>
+    <span class="doccomment">/// the controller did through [`EventController::handle-event`](crate::EventController::handle-event)</span>
     <span class="doccomment">/// will be dropped at this point.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_event_controller_reset&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">reset</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Sets the propagation phase at which a controller handles events.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If `phase` is `PropagationPhase::None`, no automatic event handling will be</span>
+    <span class="doccomment">/// If `phase` is [`PropagationPhase::None`], no automatic event handling will be</span>
     <span class="doccomment">/// performed, but other additional gesture maintenance will. In that phase,</span>
-    <span class="doccomment">/// the events can be managed by calling `EventControllerExt::handle_event`.</span>
+    <span class="doccomment">/// the events can be managed by calling [`handle_event()`](Self::handle_event()).</span>
     <span class="doccomment">/// ## `phase`</span>
     <span class="doccomment">/// a propagation phase</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_event_controller_set_propagation_phase&quot;</span>)]</span>

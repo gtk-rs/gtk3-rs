@@ -1538,10 +1538,10 @@
 <span class="kw">use</span> <span class="ident">std::ptr</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// The `Image` widget displays an image. Various kinds of object</span>
+    <span class="doccomment">/// The [`Image`](crate::Image) widget displays an image. Various kinds of object</span>
     <span class="doccomment">/// can be displayed as an image; most typically, you would load a</span>
-    <span class="doccomment">/// `gdk_pixbuf::Pixbuf` (&quot;pixel buffer&quot;) from a file, and then display that.</span>
-    <span class="doccomment">/// There’s a convenience function to do this, `Image::new_from_file`,</span>
+    <span class="doccomment">/// [`gdk_pixbuf::Pixbuf`](crate::gdk_pixbuf::Pixbuf) (&quot;pixel buffer&quot;) from a file, and then display that.</span>
+    <span class="doccomment">/// There’s a convenience function to do this, [`new_from_file()`](Self::new_from_file()),</span>
     <span class="doccomment">/// used as follows:</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```C</span>
@@ -1552,22 +1552,22 @@
     <span class="doccomment">/// “broken image” icon similar to that used in many web browsers.</span>
     <span class="doccomment">/// If you want to handle errors in loading the file yourself,</span>
     <span class="doccomment">/// for example by displaying an error message, then load the image with</span>
-    <span class="doccomment">/// `gdk_pixbuf::Pixbuf::new_from_file`, then create the `Image` with</span>
-    <span class="doccomment">/// `Image::new_from_pixbuf`.</span>
+    <span class="doccomment">/// [`gdk_pixbuf::Pixbuf::new_from_file()`](crate::gdk_pixbuf::Pixbuf::new_from_file()), then create the [`Image`](crate::Image) with</span>
+    <span class="doccomment">/// [`new_from_pixbuf()`](Self::new_from_pixbuf()).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The image file may contain an animation, if so the `Image` will</span>
-    <span class="doccomment">/// display an animation (`gdk_pixbuf::PixbufAnimation`) instead of a static image.</span>
+    <span class="doccomment">/// The image file may contain an animation, if so the [`Image`](crate::Image) will</span>
+    <span class="doccomment">/// display an animation ([`gdk_pixbuf::PixbufAnimation`](crate::gdk_pixbuf::PixbufAnimation)) instead of a static image.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `Image` is a subclass of `Misc`, which implies that you can</span>
+    <span class="doccomment">/// [`Image`](crate::Image) is a subclass of [`Misc`](crate::Misc), which implies that you can</span>
     <span class="doccomment">/// align it (center, left, right) and add padding to it, using</span>
-    <span class="doccomment">/// `Misc` methods.</span>
+    <span class="doccomment">/// [`Misc`](crate::Misc) methods.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `Image` is a “no window” widget (has no `gdk::Window` of its own),</span>
+    <span class="doccomment">/// [`Image`](crate::Image) is a “no window” widget (has no [`gdk::Window`](crate::gdk::Window) of its own),</span>
     <span class="doccomment">/// so by default does not receive events. If you want to receive events</span>
     <span class="doccomment">/// on the image, such as button clicks, place the image inside a</span>
-    <span class="doccomment">/// `EventBox`, then connect to the event signals on the event box.</span>
+    <span class="doccomment">/// [`EventBox`](crate::EventBox), then connect to the event signals on the event box.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// ## Handling button press events on a `Image`.</span>
+    <span class="doccomment">/// ## Handling button press events on a [`Image`](crate::Image).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```C</span>
@@ -1608,7 +1608,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// When handling events on the event box, keep in mind that coordinates</span>
     <span class="doccomment">/// in the image may be different from event box coordinates due to</span>
-    <span class="doccomment">/// the alignment and padding settings on the image (see `Misc`).</span>
+    <span class="doccomment">/// the alignment and padding settings on the image (see [`Misc`](crate::Misc)).</span>
     <span class="doccomment">/// The simplest way to solve this is to set the alignment to 0.0</span>
     <span class="doccomment">/// (left/top), and set the padding to zero. Then the origin of</span>
     <span class="doccomment">/// the image will be the same as the origin of the event box.</span>
@@ -1617,8 +1617,8 @@
     <span class="doccomment">/// files, such as image files. GTK+ comes with a program to avoid this,</span>
     <span class="doccomment">/// called “gdk-pixbuf-csource”. This library</span>
     <span class="doccomment">/// allows you to convert an image into a C variable declaration, which</span>
-    <span class="doccomment">/// can then be loaded into a `gdk_pixbuf::Pixbuf` using</span>
-    <span class="doccomment">/// `gdk_pixbuf::Pixbuf::new_from_inline`.</span>
+    <span class="doccomment">/// can then be loaded into a [`gdk_pixbuf::Pixbuf`](crate::gdk_pixbuf::Pixbuf) using</span>
+    <span class="doccomment">/// [`gdk_pixbuf::Pixbuf::new_from_inline()`](crate::gdk_pixbuf::Pixbuf::new_from_inline()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # CSS nodes</span>
     <span class="doccomment">///</span>
@@ -1627,7 +1627,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`ImageExt`](trait@crate::ImageExt), [`MiscExt`](trait@crate::MiscExt), [`WidgetExt`](trait@crate::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::BuildableExt), [`WidgetExtManual`](trait@crate::WidgetExtManual), [`BuildableExtManual`](trait@crate::BuildableExtManual)</span>
+    <span class="doccomment">/// [`ImageExt`](trait@crate::prelude::ImageExt), [`MiscExt`](trait@crate::prelude::MiscExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Image</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkImage</span>, <span class="ident">ffi::GtkImageClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Misc</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -1636,21 +1636,21 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Image</span> {
-    <span class="doccomment">/// Creates a new empty `Image` widget.</span>
+    <span class="doccomment">/// Creates a new empty [`Image`](crate::Image) widget.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a newly created `Image` widget.</span>
+    <span class="doccomment">/// a newly created [`Image`](crate::Image) widget.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_image_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Image</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe</span> { <span class="ident">Widget::from_glib_none</span>(<span class="ident">ffi::gtk_image_new</span>()).<span class="ident">unsafe_cast</span>() }
     }
 
-    <span class="doccomment">/// Creates a `Image` displaying the given animation.</span>
-    <span class="doccomment">/// The `Image` does not assume a reference to the</span>
+    <span class="doccomment">/// Creates a [`Image`](crate::Image) displaying the given animation.</span>
+    <span class="doccomment">/// The [`Image`](crate::Image) does not assume a reference to the</span>
     <span class="doccomment">/// animation; you still need to unref it if you own references.</span>
-    <span class="doccomment">/// `Image` will add its own reference rather than adopting yours.</span>
+    <span class="doccomment">/// [`Image`](crate::Image) will add its own reference rather than adopting yours.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that the animation frames are shown using a timeout with</span>
     <span class="doccomment">/// `G_PRIORITY_DEFAULT`. When using animations to indicate busyness,</span>
@@ -1661,7 +1661,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new `Image` widget</span>
+    <span class="doccomment">/// a new [`Image`](crate::Image) widget</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_image_new_from_animation&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_animation</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">gdk_pixbuf::PixbufAnimation</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">animation</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Image</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -1673,20 +1673,20 @@
         }
     }
 
-    <span class="doccomment">/// Creates a new `Image` displaying the file `filename`. If the file</span>
-    <span class="doccomment">/// isn’t found or can’t be loaded, the resulting `Image` will</span>
-    <span class="doccomment">/// display a “broken image” icon. This function never returns `None`,</span>
-    <span class="doccomment">/// it always returns a valid `Image` widget.</span>
+    <span class="doccomment">/// Creates a new [`Image`](crate::Image) displaying the file `filename`. If the file</span>
+    <span class="doccomment">/// isn’t found or can’t be loaded, the resulting [`Image`](crate::Image) will</span>
+    <span class="doccomment">/// display a “broken image” icon. This function never returns [`None`],</span>
+    <span class="doccomment">/// it always returns a valid [`Image`](crate::Image) widget.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If the file contains an animation, the image will contain an</span>
     <span class="doccomment">/// animation.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If you need to detect failures to load the file, use</span>
-    <span class="doccomment">/// `gdk_pixbuf::Pixbuf::new_from_file` to load the file yourself, then create</span>
-    <span class="doccomment">/// the `Image` from the pixbuf. (Or for animations, use</span>
-    <span class="doccomment">/// `gdk_pixbuf::PixbufAnimation::new_from_file`).</span>
+    <span class="doccomment">/// [`gdk_pixbuf::Pixbuf::new_from_file()`](crate::gdk_pixbuf::Pixbuf::new_from_file()) to load the file yourself, then create</span>
+    <span class="doccomment">/// the [`Image`](crate::Image) from the pixbuf. (Or for animations, use</span>
+    <span class="doccomment">/// [`gdk_pixbuf::PixbufAnimation::new_from_file()`](crate::gdk_pixbuf::PixbufAnimation::new_from_file())).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The storage type (`ImageExt::get_storage_type`) of the returned</span>
+    <span class="doccomment">/// The storage type ([`ImageExt::get_storage_type()`](crate::ImageExt::get_storage_type())) of the returned</span>
     <span class="doccomment">/// image is not defined, it will be whatever is appropriate for</span>
     <span class="doccomment">/// displaying the file.</span>
     <span class="doccomment">/// ## `filename`</span>
@@ -1694,7 +1694,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new `Image`</span>
+    <span class="doccomment">/// a new [`Image`](crate::Image)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_image_new_from_file&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_file</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">std::path::Path</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">filename</span>: <span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Image</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -1706,18 +1706,18 @@
         }
     }
 
-    <span class="doccomment">/// Creates a `Image` displaying an icon from the current icon theme.</span>
+    <span class="doccomment">/// Creates a [`Image`](crate::Image) displaying an icon from the current icon theme.</span>
     <span class="doccomment">/// If the icon name isn’t known, a “broken image” icon will be</span>
     <span class="doccomment">/// displayed instead. If the current icon theme is changed, the icon</span>
     <span class="doccomment">/// will be updated appropriately.</span>
     <span class="doccomment">/// ## `icon`</span>
     <span class="doccomment">/// an icon</span>
     <span class="doccomment">/// ## `size`</span>
-    <span class="doccomment">/// a stock icon size (`IconSize`)</span>
+    <span class="doccomment">/// a stock icon size ([`IconSize`](crate::IconSize))</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new `Image` displaying the themed icon</span>
+    <span class="doccomment">/// a new [`Image`](crate::Image) displaying the themed icon</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_image_new_from_gicon&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_gicon</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">gio::Icon</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">icon</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>, <span class="ident">size</span>: <span class="ident">IconSize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Image</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -1730,18 +1730,18 @@
         }
     }
 
-    <span class="doccomment">/// Creates a `Image` displaying an icon from the current icon theme.</span>
+    <span class="doccomment">/// Creates a [`Image`](crate::Image) displaying an icon from the current icon theme.</span>
     <span class="doccomment">/// If the icon name isn’t known, a “broken image” icon will be</span>
     <span class="doccomment">/// displayed instead. If the current icon theme is changed, the icon</span>
     <span class="doccomment">/// will be updated appropriately.</span>
     <span class="doccomment">/// ## `icon_name`</span>
-    <span class="doccomment">/// an icon name or `None`</span>
+    <span class="doccomment">/// an icon name or [`None`]</span>
     <span class="doccomment">/// ## `size`</span>
-    <span class="doccomment">/// a stock icon size (`IconSize`)</span>
+    <span class="doccomment">/// a stock icon size ([`IconSize`](crate::IconSize))</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new `Image` displaying the themed icon</span>
+    <span class="doccomment">/// a new [`Image`](crate::Image) displaying the themed icon</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_image_new_from_icon_name&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_icon_name</span>(<span class="ident">icon_name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>, <span class="ident">size</span>: <span class="ident">IconSize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Image</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -1754,20 +1754,20 @@
         }
     }
 
-    <span class="doccomment">/// Creates a new `Image` displaying `pixbuf`.</span>
-    <span class="doccomment">/// The `Image` does not assume a reference to the</span>
+    <span class="doccomment">/// Creates a new [`Image`](crate::Image) displaying `pixbuf`.</span>
+    <span class="doccomment">/// The [`Image`](crate::Image) does not assume a reference to the</span>
     <span class="doccomment">/// pixbuf; you still need to unref it if you own references.</span>
-    <span class="doccomment">/// `Image` will add its own reference rather than adopting yours.</span>
+    <span class="doccomment">/// [`Image`](crate::Image) will add its own reference rather than adopting yours.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Note that this function just creates an `Image` from the pixbuf. The</span>
-    <span class="doccomment">/// `Image` created will not react to state changes. Should you want that,</span>
-    <span class="doccomment">/// you should use `Image::new_from_icon_name`.</span>
+    <span class="doccomment">/// Note that this function just creates an [`Image`](crate::Image) from the pixbuf. The</span>
+    <span class="doccomment">/// [`Image`](crate::Image) created will not react to state changes. Should you want that,</span>
+    <span class="doccomment">/// you should use [`new_from_icon_name()`](Self::new_from_icon_name()).</span>
     <span class="doccomment">/// ## `pixbuf`</span>
-    <span class="doccomment">/// a `gdk_pixbuf::Pixbuf`, or `None`</span>
+    <span class="doccomment">/// a [`gdk_pixbuf::Pixbuf`](crate::gdk_pixbuf::Pixbuf), or [`None`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new `Image`</span>
+    <span class="doccomment">/// a new [`Image`](crate::Image)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_image_new_from_pixbuf&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_pixbuf</span>(<span class="ident">pixbuf</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">gdk_pixbuf::Pixbuf</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Image</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -1777,20 +1777,20 @@
         }
     }
 
-    <span class="doccomment">/// Creates a new `Image` displaying the resource file `resource_path`. If the file</span>
-    <span class="doccomment">/// isn’t found or can’t be loaded, the resulting `Image` will</span>
-    <span class="doccomment">/// display a “broken image” icon. This function never returns `None`,</span>
-    <span class="doccomment">/// it always returns a valid `Image` widget.</span>
+    <span class="doccomment">/// Creates a new [`Image`](crate::Image) displaying the resource file `resource_path`. If the file</span>
+    <span class="doccomment">/// isn’t found or can’t be loaded, the resulting [`Image`](crate::Image) will</span>
+    <span class="doccomment">/// display a “broken image” icon. This function never returns [`None`],</span>
+    <span class="doccomment">/// it always returns a valid [`Image`](crate::Image) widget.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If the file contains an animation, the image will contain an</span>
     <span class="doccomment">/// animation.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If you need to detect failures to load the file, use</span>
-    <span class="doccomment">/// `gdk_pixbuf::Pixbuf::new_from_file` to load the file yourself, then create</span>
-    <span class="doccomment">/// the `Image` from the pixbuf. (Or for animations, use</span>
-    <span class="doccomment">/// `gdk_pixbuf::PixbufAnimation::new_from_file`).</span>
+    <span class="doccomment">/// [`gdk_pixbuf::Pixbuf::new_from_file()`](crate::gdk_pixbuf::Pixbuf::new_from_file()) to load the file yourself, then create</span>
+    <span class="doccomment">/// the [`Image`](crate::Image) from the pixbuf. (Or for animations, use</span>
+    <span class="doccomment">/// [`gdk_pixbuf::PixbufAnimation::new_from_file()`](crate::gdk_pixbuf::PixbufAnimation::new_from_file())).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The storage type (`ImageExt::get_storage_type`) of the returned</span>
+    <span class="doccomment">/// The storage type ([`ImageExt::get_storage_type()`](crate::ImageExt::get_storage_type())) of the returned</span>
     <span class="doccomment">/// image is not defined, it will be whatever is appropriate for</span>
     <span class="doccomment">/// displaying the file.</span>
     <span class="doccomment">/// ## `resource_path`</span>
@@ -1798,7 +1798,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new `Image`</span>
+    <span class="doccomment">/// a new [`Image`](crate::Image)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_image_new_from_resource&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_resource</span>(<span class="ident">resource_path</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Image</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -1810,16 +1810,16 @@
         }
     }
 
-    <span class="doccomment">/// Creates a new `Image` displaying `surface`.</span>
-    <span class="doccomment">/// The `Image` does not assume a reference to the</span>
+    <span class="doccomment">/// Creates a new [`Image`](crate::Image) displaying `surface`.</span>
+    <span class="doccomment">/// The [`Image`](crate::Image) does not assume a reference to the</span>
     <span class="doccomment">/// surface; you still need to unref it if you own references.</span>
-    <span class="doccomment">/// `Image` will add its own reference rather than adopting yours.</span>
+    <span class="doccomment">/// [`Image`](crate::Image) will add its own reference rather than adopting yours.</span>
     <span class="doccomment">/// ## `surface`</span>
-    <span class="doccomment">/// a `cairo::Surface`, or `None`</span>
+    <span class="doccomment">/// a [`cairo::Surface`](crate::cairo::Surface), or [`None`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new `Image`</span>
+    <span class="doccomment">/// a new [`Image`](crate::Image)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_image_new_from_surface&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_surface</span>(<span class="ident">surface</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">cairo::Surface</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Image</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -2252,42 +2252,42 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_image_clear&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">clear</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
-    <span class="doccomment">/// Gets the `gdk_pixbuf::PixbufAnimation` being displayed by the `Image`.</span>
-    <span class="doccomment">/// The storage type of the image must be `ImageType::Empty` or</span>
-    <span class="doccomment">/// `ImageType::Animation` (see `ImageExt::get_storage_type`).</span>
+    <span class="doccomment">/// Gets the [`gdk_pixbuf::PixbufAnimation`](crate::gdk_pixbuf::PixbufAnimation) being displayed by the [`Image`](crate::Image).</span>
+    <span class="doccomment">/// The storage type of the image must be [`ImageType::Empty`] or</span>
+    <span class="doccomment">/// [`ImageType::Animation`] (see [`get_storage_type()`](Self::get_storage_type())).</span>
     <span class="doccomment">/// The caller of this function does not own a reference to the</span>
     <span class="doccomment">/// returned animation.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the displayed animation, or `None` if</span>
+    <span class="doccomment">/// the displayed animation, or [`None`] if</span>
     <span class="doccomment">/// the image is empty</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_image_get_animation&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">animation</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">gdk_pixbuf::PixbufAnimation</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// Gets the `gio::Icon` and size being displayed by the `Image`.</span>
-    <span class="doccomment">/// The storage type of the image must be `ImageType::Empty` or</span>
-    <span class="doccomment">/// `ImageType::Gicon` (see `ImageExt::get_storage_type`).</span>
+    <span class="doccomment">/// Gets the [`gio::Icon`](crate::gio::Icon) and size being displayed by the [`Image`](crate::Image).</span>
+    <span class="doccomment">/// The storage type of the image must be [`ImageType::Empty`] or</span>
+    <span class="doccomment">/// [`ImageType::Gicon`] (see [`get_storage_type()`](Self::get_storage_type())).</span>
     <span class="doccomment">/// The caller of this function does not own a reference to the</span>
-    <span class="doccomment">/// returned `gio::Icon`.</span>
+    <span class="doccomment">/// returned [`gio::Icon`](crate::gio::Icon).</span>
     <span class="doccomment">/// ## `gicon`</span>
     <span class="doccomment">/// place to store a</span>
-    <span class="doccomment">///  `gio::Icon`, or `None`</span>
+    <span class="doccomment">///  [`gio::Icon`](crate::gio::Icon), or [`None`]</span>
     <span class="doccomment">/// ## `size`</span>
     <span class="doccomment">/// place to store an icon size</span>
-    <span class="doccomment">///  (`IconSize`), or `None`</span>
+    <span class="doccomment">///  ([`IconSize`](crate::IconSize)), or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_image_get_gicon&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">gicon</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">gio::Icon</span>, <span class="ident">IconSize</span>);
 
-    <span class="doccomment">/// Gets the `gdk_pixbuf::Pixbuf` being displayed by the `Image`.</span>
-    <span class="doccomment">/// The storage type of the image must be `ImageType::Empty` or</span>
-    <span class="doccomment">/// `ImageType::Pixbuf` (see `ImageExt::get_storage_type`).</span>
+    <span class="doccomment">/// Gets the [`gdk_pixbuf::Pixbuf`](crate::gdk_pixbuf::Pixbuf) being displayed by the [`Image`](crate::Image).</span>
+    <span class="doccomment">/// The storage type of the image must be [`ImageType::Empty`] or</span>
+    <span class="doccomment">/// [`ImageType::Pixbuf`] (see [`get_storage_type()`](Self::get_storage_type())).</span>
     <span class="doccomment">/// The caller of this function does not own a reference to the</span>
     <span class="doccomment">/// returned pixbuf.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the displayed pixbuf, or `None` if</span>
+    <span class="doccomment">/// the displayed pixbuf, or [`None`] if</span>
     <span class="doccomment">/// the image is empty</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_image_get_pixbuf&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">pixbuf</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">gdk_pixbuf::Pixbuf</span><span class="op">&gt;</span>;
@@ -2300,9 +2300,9 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_image_get_pixel_size&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">pixel_size</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span>;
 
-    <span class="doccomment">/// Gets the type of representation being used by the `Image`</span>
-    <span class="doccomment">/// to store image data. If the `Image` has no image data,</span>
-    <span class="doccomment">/// the return value will be `ImageType::Empty`.</span>
+    <span class="doccomment">/// Gets the type of representation being used by the [`Image`](crate::Image)</span>
+    <span class="doccomment">/// to store image data. If the [`Image`](crate::Image) has no image data,</span>
+    <span class="doccomment">/// the return value will be [`ImageType::Empty`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -2310,56 +2310,56 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_image_get_storage_type&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">storage_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ImageType</span>;
 
-    <span class="doccomment">/// Causes the `Image` to display the given animation (or display</span>
-    <span class="doccomment">/// nothing, if you set the animation to `None`).</span>
+    <span class="doccomment">/// Causes the [`Image`](crate::Image) to display the given animation (or display</span>
+    <span class="doccomment">/// nothing, if you set the animation to [`None`]).</span>
     <span class="doccomment">/// ## `animation`</span>
-    <span class="doccomment">/// the `gdk_pixbuf::PixbufAnimation`</span>
+    <span class="doccomment">/// the [`gdk_pixbuf::PixbufAnimation`](crate::gdk_pixbuf::PixbufAnimation)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_image_set_from_animation&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_from_animation</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">gdk_pixbuf::PixbufAnimation</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">animation</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>);
 
-    <span class="doccomment">/// See `Image::new_from_file` for details.</span>
+    <span class="doccomment">/// See [`Image::new_from_file()`](crate::Image::new_from_file()) for details.</span>
     <span class="doccomment">/// ## `filename`</span>
-    <span class="doccomment">/// a filename or `None`</span>
+    <span class="doccomment">/// a filename or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_image_set_from_file&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_from_file</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">std::path::Path</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">filename</span>: <span class="ident">P</span>);
 
-    <span class="doccomment">/// See `Image::new_from_gicon` for details.</span>
+    <span class="doccomment">/// See [`Image::new_from_gicon()`](crate::Image::new_from_gicon()) for details.</span>
     <span class="doccomment">/// ## `icon`</span>
     <span class="doccomment">/// an icon</span>
     <span class="doccomment">/// ## `size`</span>
-    <span class="doccomment">/// an icon size (`IconSize`)</span>
+    <span class="doccomment">/// an icon size ([`IconSize`](crate::IconSize))</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_image_set_from_gicon&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_from_gicon</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">gio::Icon</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">icon</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>, <span class="ident">size</span>: <span class="ident">IconSize</span>);
 
-    <span class="doccomment">/// See `Image::new_from_icon_name` for details.</span>
+    <span class="doccomment">/// See [`Image::new_from_icon_name()`](crate::Image::new_from_icon_name()) for details.</span>
     <span class="doccomment">/// ## `icon_name`</span>
-    <span class="doccomment">/// an icon name or `None`</span>
+    <span class="doccomment">/// an icon name or [`None`]</span>
     <span class="doccomment">/// ## `size`</span>
-    <span class="doccomment">/// an icon size (`IconSize`)</span>
+    <span class="doccomment">/// an icon size ([`IconSize`](crate::IconSize))</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_image_set_from_icon_name&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_from_icon_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">icon_name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>, <span class="ident">size</span>: <span class="ident">IconSize</span>);
 
-    <span class="doccomment">/// See `Image::new_from_pixbuf` for details.</span>
+    <span class="doccomment">/// See [`Image::new_from_pixbuf()`](crate::Image::new_from_pixbuf()) for details.</span>
     <span class="doccomment">/// ## `pixbuf`</span>
-    <span class="doccomment">/// a `gdk_pixbuf::Pixbuf` or `None`</span>
+    <span class="doccomment">/// a [`gdk_pixbuf::Pixbuf`](crate::gdk_pixbuf::Pixbuf) or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_image_set_from_pixbuf&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_from_pixbuf</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">pixbuf</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">gdk_pixbuf::Pixbuf</span><span class="op">&gt;</span>);
 
-    <span class="doccomment">/// See `Image::new_from_resource` for details.</span>
+    <span class="doccomment">/// See [`Image::new_from_resource()`](crate::Image::new_from_resource()) for details.</span>
     <span class="doccomment">/// ## `resource_path`</span>
-    <span class="doccomment">/// a resource path or `None`</span>
+    <span class="doccomment">/// a resource path or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_image_set_from_resource&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_from_resource</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">resource_path</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>);
 
-    <span class="doccomment">/// See `Image::new_from_surface` for details.</span>
+    <span class="doccomment">/// See [`Image::new_from_surface()`](crate::Image::new_from_surface()) for details.</span>
     <span class="doccomment">/// ## `surface`</span>
-    <span class="doccomment">/// a cairo_surface_t or `None`</span>
+    <span class="doccomment">/// a cairo_surface_t or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_image_set_from_surface&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_from_surface</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">surface</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">cairo::Surface</span><span class="op">&gt;</span>);
 
     <span class="doccomment">/// Sets the pixel size to use for named icons. If the pixel size is set</span>
     <span class="doccomment">/// to a value != -1, it is used instead of the icon size set by</span>
-    <span class="doccomment">/// `ImageExt::set_from_icon_name`.</span>
+    <span class="doccomment">/// [`set_from_icon_name()`](Self::set_from_icon_name()).</span>
     <span class="doccomment">/// ## `pixel_size`</span>
     <span class="doccomment">/// the new pixel size</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_image_set_pixel_size&quot;</span>)]</span>

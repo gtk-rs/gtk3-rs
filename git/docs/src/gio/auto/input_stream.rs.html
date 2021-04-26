@@ -586,14 +586,14 @@
 <span class="kw">use</span> <span class="ident">std::ptr</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// `InputStream` has functions to read from a stream (`InputStream::read`),</span>
-    <span class="doccomment">/// to close a stream (`InputStreamExt::close`) and to skip some content</span>
-    <span class="doccomment">/// (`InputStreamExt::skip`).</span>
+    <span class="doccomment">/// [`InputStream`](crate::InputStream) has functions to read from a stream ([`read()`](Self::read())),</span>
+    <span class="doccomment">/// to close a stream ([`InputStreamExt::close()`](crate::InputStreamExt::close())) and to skip some content</span>
+    <span class="doccomment">/// ([`InputStreamExt::skip()`](crate::InputStreamExt::skip())).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// To copy the content of an input stream to an output stream without</span>
-    <span class="doccomment">/// manually handling the reads and writes, use `OutputStreamExt::splice`.</span>
+    <span class="doccomment">/// manually handling the reads and writes, use [`OutputStreamExt::splice()`](crate::OutputStreamExt::splice()).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See the documentation for `IOStream` for details of thread safety of</span>
+    <span class="doccomment">/// See the documentation for [`IOStream`](crate::IOStream) for details of thread safety of</span>
     <span class="doccomment">/// streaming APIs.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// All of these functions have async variants too.</span>
@@ -602,7 +602,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`InputStreamExt`](trait@crate::InputStreamExt), [`trait@glib::object::ObjectExt`], [`InputStreamExtManual`](trait@crate::InputStreamExtManual)</span>
+    <span class="doccomment">/// [`InputStreamExt`](trait@crate::prelude::InputStreamExt), [`trait@glib::object::ObjectExt`], [`InputStreamExtManual`](trait@crate::prelude::InputStreamExtManual)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">InputStream</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GInputStream</span>, <span class="ident">ffi::GInputStreamClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -624,7 +624,7 @@
 
     <span class="doccomment">/// Closes the stream, releasing resources related to it.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Once the stream is closed, all other operations will return `IOErrorEnum::Closed`.</span>
+    <span class="doccomment">/// Once the stream is closed, all other operations will return [`IOErrorEnum::Closed`].</span>
     <span class="doccomment">/// Closing a stream multiple times will not return an error.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Streams will be automatically closed when the last reference</span>
@@ -637,29 +637,29 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// On failure the first error that happened will be reported, but the close</span>
     <span class="doccomment">/// operation will finish as much as possible. A stream that failed to</span>
-    <span class="doccomment">/// close will still return `IOErrorEnum::Closed` for all operations. Still, it</span>
+    <span class="doccomment">/// close will still return [`IOErrorEnum::Closed`] for all operations. Still, it</span>
     <span class="doccomment">/// is important to check and report the error to the user.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If `cancellable` is not `None`, then the operation can be cancelled by</span>
+    <span class="doccomment">/// If `cancellable` is not [`None`], then the operation can be cancelled by</span>
     <span class="doccomment">/// triggering the cancellable object from another thread. If the operation</span>
-    <span class="doccomment">/// was cancelled, the error `IOErrorEnum::Cancelled` will be returned.</span>
+    <span class="doccomment">/// was cancelled, the error [`IOErrorEnum::Cancelled`] will be returned.</span>
     <span class="doccomment">/// Cancelling a close will still leave the stream closed, but some streams</span>
     <span class="doccomment">/// can use a faster close that doesn&#39;t block to e.g. check errors.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional `Cancellable` object, `None` to ignore.</span>
+    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` on success, `false` on failure</span>
+    <span class="doccomment">/// [`true`] on success, [`false`] on failure</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_input_stream_close&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">close</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib::Error</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Requests an asynchronous closes of the stream, releasing resources related to it.</span>
     <span class="doccomment">/// When the operation is finished `callback` will be called.</span>
-    <span class="doccomment">/// You can then call `InputStreamExt::close_finish` to get the result of the</span>
+    <span class="doccomment">/// You can then call [`close_finish()`](Self::close_finish()) to get the result of the</span>
     <span class="doccomment">/// operation.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// For behaviour details see `InputStreamExt::close`.</span>
+    <span class="doccomment">/// For behaviour details see [`close()`](Self::close()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The asynchronous methods have a default fallback that uses threads to implement</span>
     <span class="doccomment">/// asynchronicity, so they are optional for inheriting classes. However, if you</span>
@@ -689,7 +689,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if `self` has pending actions.</span>
+    <span class="doccomment">/// [`true`] if `self` has pending actions.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_input_stream_has_pending&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">has_pending</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
@@ -697,42 +697,42 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if the stream is closed.</span>
+    <span class="doccomment">/// [`true`] if the stream is closed.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_input_stream_is_closed&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">is_closed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
-    <span class="doccomment">/// Like `InputStream::read`, this tries to read `count` bytes from</span>
+    <span class="doccomment">/// Like [`InputStream::read()`](crate::InputStream::read()), this tries to read `count` bytes from</span>
     <span class="doccomment">/// the stream in a blocking fashion. However, rather than reading into</span>
-    <span class="doccomment">/// a user-supplied buffer, this will create a new `glib::Bytes` containing</span>
+    <span class="doccomment">/// a user-supplied buffer, this will create a new [`glib::Bytes`](crate::glib::Bytes) containing</span>
     <span class="doccomment">/// the data that was read. This may be easier to use from language</span>
     <span class="doccomment">/// bindings.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If count is zero, returns a zero-length `glib::Bytes` and does nothing. A</span>
+    <span class="doccomment">/// If count is zero, returns a zero-length [`glib::Bytes`](crate::glib::Bytes) and does nothing. A</span>
     <span class="doccomment">/// value of `count` larger than `G_MAXSSIZE` will cause a</span>
-    <span class="doccomment">/// `IOErrorEnum::InvalidArgument` error.</span>
+    <span class="doccomment">/// [`IOErrorEnum::InvalidArgument`] error.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// On success, a new `glib::Bytes` is returned. It is not an error if the</span>
+    <span class="doccomment">/// On success, a new [`glib::Bytes`](crate::glib::Bytes) is returned. It is not an error if the</span>
     <span class="doccomment">/// size of this object is not the same as the requested size, as it</span>
-    <span class="doccomment">/// can happen e.g. near the end of a file. A zero-length `glib::Bytes` is</span>
+    <span class="doccomment">/// can happen e.g. near the end of a file. A zero-length [`glib::Bytes`](crate::glib::Bytes) is</span>
     <span class="doccomment">/// returned on end of file (or if `count` is zero), but never</span>
     <span class="doccomment">/// otherwise.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If `cancellable` is not `None`, then the operation can be cancelled by</span>
+    <span class="doccomment">/// If `cancellable` is not [`None`], then the operation can be cancelled by</span>
     <span class="doccomment">/// triggering the cancellable object from another thread. If the operation</span>
-    <span class="doccomment">/// was cancelled, the error `IOErrorEnum::Cancelled` will be returned. If an</span>
+    <span class="doccomment">/// was cancelled, the error [`IOErrorEnum::Cancelled`] will be returned. If an</span>
     <span class="doccomment">/// operation was partially finished when the operation was cancelled the</span>
     <span class="doccomment">/// partial result will be returned, without an error.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// On error `None` is returned and `error` is set accordingly.</span>
+    <span class="doccomment">/// On error [`None`] is returned and `error` is set accordingly.</span>
     <span class="doccomment">/// ## `count`</span>
     <span class="doccomment">/// maximum number of bytes that will be read from the stream. Common</span>
     <span class="doccomment">/// values include 4096 and 8192.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional `Cancellable` object, `None` to ignore.</span>
+    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new `glib::Bytes`, or `None` on error</span>
+    <span class="doccomment">/// a new [`glib::Bytes`](crate::glib::Bytes), or [`None`] on error</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_input_stream_read_bytes&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">read_bytes</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -741,17 +741,17 @@
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">glib::Bytes</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Request an asynchronous read of `count` bytes from the stream into a</span>
-    <span class="doccomment">/// new `glib::Bytes`. When the operation is finished `callback` will be</span>
-    <span class="doccomment">/// called. You can then call `InputStreamExt::read_bytes_finish` to get the</span>
+    <span class="doccomment">/// new [`glib::Bytes`](crate::glib::Bytes). When the operation is finished `callback` will be</span>
+    <span class="doccomment">/// called. You can then call [`read_bytes_finish()`](Self::read_bytes_finish()) to get the</span>
     <span class="doccomment">/// result of the operation.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// During an async request no other sync and async calls are allowed</span>
-    <span class="doccomment">/// on `self`, and will result in `IOErrorEnum::Pending` errors.</span>
+    <span class="doccomment">/// on `self`, and will result in [`IOErrorEnum::Pending`] errors.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// A value of `count` larger than `G_MAXSSIZE` will cause a</span>
-    <span class="doccomment">/// `IOErrorEnum::InvalidArgument` error.</span>
+    <span class="doccomment">/// [`IOErrorEnum::InvalidArgument`] error.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// On success, the new `glib::Bytes` will be passed to the callback. It is</span>
+    <span class="doccomment">/// On success, the new [`glib::Bytes`](crate::glib::Bytes) will be passed to the callback. It is</span>
     <span class="doccomment">/// not an error if this is smaller than the requested size, as it can</span>
     <span class="doccomment">/// happen e.g. near the end of a file, but generally we try to read as</span>
     <span class="doccomment">/// many bytes as requested. Zero is returned on end of file (or if</span>
@@ -765,7 +765,7 @@
     <span class="doccomment">/// ## `io_priority`</span>
     <span class="doccomment">/// the [I/O priority][io-priority] of the request</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional `Cancellable` object, `None` to ignore.</span>
+    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// callback to call when the request is satisfied</span>
     <span class="doccomment">/// ## `user_data`</span>
@@ -789,33 +789,33 @@
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pin</span><span class="op">&lt;</span><span class="ident">Box_</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">std::future::Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">glib::Bytes</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Sets `self` to have actions pending. If the pending flag is</span>
-    <span class="doccomment">/// already set or `self` is closed, it will return `false` and set</span>
+    <span class="doccomment">/// already set or `self` is closed, it will return [`false`] and set</span>
     <span class="doccomment">/// `error`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if pending was previously unset and is now set.</span>
+    <span class="doccomment">/// [`true`] if pending was previously unset and is now set.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_input_stream_set_pending&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_pending</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib::Error</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Tries to skip `count` bytes from the stream. Will block during the operation.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This is identical to `InputStream::read`, from a behaviour standpoint,</span>
+    <span class="doccomment">/// This is identical to [`InputStream::read()`](crate::InputStream::read()), from a behaviour standpoint,</span>
     <span class="doccomment">/// but the bytes that are skipped are not returned to the user. Some</span>
     <span class="doccomment">/// streams have an implementation that is more efficient than reading the data.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This function is optional for inherited classes, as the default implementation</span>
     <span class="doccomment">/// emulates it using read.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If `cancellable` is not `None`, then the operation can be cancelled by</span>
+    <span class="doccomment">/// If `cancellable` is not [`None`], then the operation can be cancelled by</span>
     <span class="doccomment">/// triggering the cancellable object from another thread. If the operation</span>
-    <span class="doccomment">/// was cancelled, the error `IOErrorEnum::Cancelled` will be returned. If an</span>
+    <span class="doccomment">/// was cancelled, the error [`IOErrorEnum::Cancelled`] will be returned. If an</span>
     <span class="doccomment">/// operation was partially finished when the operation was cancelled the</span>
     <span class="doccomment">/// partial result will be returned, without an error.</span>
     <span class="doccomment">/// ## `count`</span>
     <span class="doccomment">/// the number of bytes that will be skipped from the stream</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional `Cancellable` object, `None` to ignore.</span>
+    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -829,13 +829,13 @@
 
     <span class="doccomment">/// Request an asynchronous skip of `count` bytes from the stream.</span>
     <span class="doccomment">/// When the operation is finished `callback` will be called.</span>
-    <span class="doccomment">/// You can then call `InputStreamExt::skip_finish` to get the result</span>
+    <span class="doccomment">/// You can then call [`skip_finish()`](Self::skip_finish()) to get the result</span>
     <span class="doccomment">/// of the operation.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// During an async request no other sync and async calls are allowed,</span>
-    <span class="doccomment">/// and will result in `IOErrorEnum::Pending` errors.</span>
+    <span class="doccomment">/// and will result in [`IOErrorEnum::Pending`] errors.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A value of `count` larger than `G_MAXSSIZE` will cause a `IOErrorEnum::InvalidArgument` error.</span>
+    <span class="doccomment">/// A value of `count` larger than `G_MAXSSIZE` will cause a [`IOErrorEnum::InvalidArgument`] error.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// On success, the number of bytes skipped will be passed to the callback.</span>
     <span class="doccomment">/// It is not an error if this is not the same as the requested size, as it</span>
@@ -855,7 +855,7 @@
     <span class="doccomment">/// ## `io_priority`</span>
     <span class="doccomment">/// the [I/O priority][io-priority] of the request</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional `Cancellable` object, `None` to ignore.</span>
+    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// callback to call when the request is satisfied</span>
     <span class="doccomment">/// ## `user_data`</span>

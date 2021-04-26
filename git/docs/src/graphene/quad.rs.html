@@ -80,13 +80,13 @@
 <span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
 
 <span class="kw">impl</span> <span class="ident">Quad</span> {
-    <span class="doccomment">/// Initializes a `Quad` using an array of points.</span>
+    <span class="doccomment">/// Initializes a [`Quad`](crate::Quad) using an array of points.</span>
     <span class="doccomment">/// ## `points`</span>
-    <span class="doccomment">/// an array of 4 `Point`</span>
+    <span class="doccomment">/// an array of 4 [`Point`](crate::Point)</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the initialized `Quad`</span>
+    <span class="doccomment">/// the initialized [`Quad`](crate::Quad)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_quad_init_from_points&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">init_from_points</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">points</span>: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span><span class="ident">Point</span>; <span class="number">4</span>]) {
         <span class="kw">unsafe</span> {

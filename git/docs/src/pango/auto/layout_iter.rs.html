@@ -231,10 +231,10 @@
 <span class="kw">use</span> <span class="ident">std::mem</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// A `LayoutIter` structure can be used to</span>
-    <span class="doccomment">/// iterate over the visual extents of a `Layout`.</span>
+    <span class="doccomment">/// A [`LayoutIter`](crate::LayoutIter) structure can be used to</span>
+    <span class="doccomment">/// iterate over the visual extents of a [`Layout`](crate::Layout).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The `LayoutIter` structure is opaque, and</span>
+    <span class="doccomment">/// The [`LayoutIter`](crate::LayoutIter) structure is opaque, and</span>
     <span class="doccomment">/// has no user-visible fields.</span>
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">LayoutIter</span>(<span class="ident">Boxed</span><span class="op">&lt;</span><span class="ident">ffi::PangoLayoutIter</span><span class="op">&gt;</span>);
@@ -251,7 +251,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if `self` is on the last line.</span>
+    <span class="doccomment">/// [`true`] if `self` is on the last line.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_iter_at_last_line&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">at_last_line</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
@@ -389,7 +389,7 @@
     }
 
     <span class="doccomment">/// Moves `self` forward to the next character in visual order. If `self` was already at</span>
-    <span class="doccomment">/// the end of the layout, returns `false`.</span>
+    <span class="doccomment">/// the end of the layout, returns [`false`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -400,7 +400,7 @@
     }
 
     <span class="doccomment">/// Moves `self` forward to the next cluster in visual order. If `self`</span>
-    <span class="doccomment">/// was already at the end of the layout, returns `false`.</span>
+    <span class="doccomment">/// was already at the end of the layout, returns [`false`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -415,7 +415,7 @@
     }
 
     <span class="doccomment">/// Moves `self` forward to the start of the next line. If `self` is</span>
-    <span class="doccomment">/// already on the last line, returns `false`.</span>
+    <span class="doccomment">/// already on the last line, returns [`false`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -426,7 +426,7 @@
     }
 
     <span class="doccomment">/// Moves `self` forward to the next run in visual order. If `self` was</span>
-    <span class="doccomment">/// already at the end of the layout, returns `false`.</span>
+    <span class="doccomment">/// already at the end of the layout, returns [`false`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>

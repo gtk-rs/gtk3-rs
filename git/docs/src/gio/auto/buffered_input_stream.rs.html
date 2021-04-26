@@ -450,24 +450,24 @@
 <span class="kw">use</span> <span class="ident">std::ptr</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// Buffered input stream implements `FilterInputStream` and provides</span>
+    <span class="doccomment">/// Buffered input stream implements [`FilterInputStream`](crate::FilterInputStream) and provides</span>
     <span class="doccomment">/// for buffered reads.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// By default, `BufferedInputStream`&#39;s buffer size is set at 4 kilobytes.</span>
+    <span class="doccomment">/// By default, [`BufferedInputStream`](crate::BufferedInputStream)&#39;s buffer size is set at 4 kilobytes.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// To create a buffered input stream, use `BufferedInputStream::new`,</span>
-    <span class="doccomment">/// or `BufferedInputStream::new_sized` to specify the buffer&#39;s size at</span>
+    <span class="doccomment">/// To create a buffered input stream, use [`new()`](Self::new()),</span>
+    <span class="doccomment">/// or [`new_sized()`](Self::new_sized()) to specify the buffer&#39;s size at</span>
     <span class="doccomment">/// construction.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// To get the size of a buffer within a buffered input stream, use</span>
-    <span class="doccomment">/// `BufferedInputStreamExt::get_buffer_size`. To change the size of a</span>
+    <span class="doccomment">/// [`BufferedInputStreamExt::get_buffer_size()`](crate::BufferedInputStreamExt::get_buffer_size()). To change the size of a</span>
     <span class="doccomment">/// buffered input stream&#39;s buffer, use</span>
-    <span class="doccomment">/// `BufferedInputStreamExt::set_buffer_size`. Note that the buffer&#39;s size</span>
+    <span class="doccomment">/// [`BufferedInputStreamExt::set_buffer_size()`](crate::BufferedInputStreamExt::set_buffer_size()). Note that the buffer&#39;s size</span>
     <span class="doccomment">/// cannot be reduced below the size of the data within the buffer.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`BufferedInputStreamExt`](trait@crate::BufferedInputStreamExt), [`FilterInputStreamExt`](trait@crate::FilterInputStreamExt), [`InputStreamExt`](trait@crate::InputStreamExt), [`trait@glib::object::ObjectExt`], [`SeekableExt`](trait@crate::SeekableExt), [`InputStreamExtManual`](trait@crate::InputStreamExtManual)</span>
+    <span class="doccomment">/// [`BufferedInputStreamExt`](trait@crate::prelude::BufferedInputStreamExt), [`FilterInputStreamExt`](trait@crate::prelude::FilterInputStreamExt), [`InputStreamExt`](trait@crate::prelude::InputStreamExt), [`trait@glib::object::ObjectExt`], [`SeekableExt`](trait@crate::prelude::SeekableExt), [`InputStreamExtManual`](trait@crate::prelude::InputStreamExtManual)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">BufferedInputStream</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GBufferedInputStream</span>, <span class="ident">ffi::GBufferedInputStreamClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">FilterInputStream</span>, <span class="ident">InputStream</span>, @<span class="ident">implements</span> <span class="ident">Seekable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -476,14 +476,14 @@
 }
 
 <span class="kw">impl</span> <span class="ident">BufferedInputStream</span> {
-    <span class="doccomment">/// Creates a new `InputStream` from the given `base_stream`, with</span>
+    <span class="doccomment">/// Creates a new [`InputStream`](crate::InputStream) from the given `base_stream`, with</span>
     <span class="doccomment">/// a buffer set to the default size (4 kilobytes).</span>
     <span class="doccomment">/// ## `base_stream`</span>
-    <span class="doccomment">/// a `InputStream`</span>
+    <span class="doccomment">/// a [`InputStream`](crate::InputStream)</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a `InputStream` for the given `base_stream`.</span>
+    <span class="doccomment">/// a [`InputStream`](crate::InputStream) for the given `base_stream`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_buffered_input_stream_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">InputStream</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">base_stream</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">BufferedInputStream</span> {
         <span class="kw">unsafe</span> {
@@ -494,16 +494,16 @@
         }
     }
 
-    <span class="doccomment">/// Creates a new `BufferedInputStream` from the given `base_stream`,</span>
+    <span class="doccomment">/// Creates a new [`BufferedInputStream`](crate::BufferedInputStream) from the given `base_stream`,</span>
     <span class="doccomment">/// with a buffer set to `size`.</span>
     <span class="doccomment">/// ## `base_stream`</span>
-    <span class="doccomment">/// a `InputStream`</span>
+    <span class="doccomment">/// a [`InputStream`](crate::InputStream)</span>
     <span class="doccomment">/// ## `size`</span>
     <span class="doccomment">/// a `gsize`</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a `InputStream`.</span>
+    <span class="doccomment">/// a [`InputStream`](crate::InputStream).</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_buffered_input_stream_new_sized&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_sized</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">InputStream</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">base_stream</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>, <span class="ident">size</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">BufferedInputStream</span> {
         <span class="kw">unsafe</span> {
@@ -571,7 +571,7 @@
     <span class="doccomment">/// Will block during this read.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If `count` is zero, returns zero and does nothing. A value of `count`</span>
-    <span class="doccomment">/// larger than `G_MAXSSIZE` will cause a `IOErrorEnum::InvalidArgument` error.</span>
+    <span class="doccomment">/// larger than `G_MAXSSIZE` will cause a [`IOErrorEnum::InvalidArgument`] error.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// On success, the number of bytes read into the buffer is returned.</span>
     <span class="doccomment">/// It is not an error if this is not the same as the requested size, as it</span>
@@ -581,20 +581,20 @@
     <span class="doccomment">/// If `count` is -1 then the attempted read size is equal to the number of</span>
     <span class="doccomment">/// bytes that are required to fill the buffer.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If `cancellable` is not `None`, then the operation can be cancelled by</span>
+    <span class="doccomment">/// If `cancellable` is not [`None`], then the operation can be cancelled by</span>
     <span class="doccomment">/// triggering the cancellable object from another thread. If the operation</span>
-    <span class="doccomment">/// was cancelled, the error `IOErrorEnum::Cancelled` will be returned. If an</span>
+    <span class="doccomment">/// was cancelled, the error [`IOErrorEnum::Cancelled`] will be returned. If an</span>
     <span class="doccomment">/// operation was partially finished when the operation was cancelled the</span>
     <span class="doccomment">/// partial result will be returned, without an error.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// On error -1 is returned and `error` is set accordingly.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// For the asynchronous, non-blocking, version of this function, see</span>
-    <span class="doccomment">/// `BufferedInputStreamExt::fill_async`.</span>
+    <span class="doccomment">/// [`fill_async()`](Self::fill_async()).</span>
     <span class="doccomment">/// ## `count`</span>
     <span class="doccomment">/// the number of bytes that will be read from the stream</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional `Cancellable` object, `None` to ignore</span>
+    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -609,7 +609,7 @@
 
     <span class="doccomment">/// Reads data into `self`&#39;s buffer asynchronously, up to `count` size.</span>
     <span class="doccomment">/// `io_priority` can be used to prioritize reads. For the synchronous</span>
-    <span class="doccomment">/// version of this function, see `BufferedInputStreamExt::fill`.</span>
+    <span class="doccomment">/// version of this function, see [`fill()`](Self::fill()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If `count` is -1 then the attempted read size is equal to the number</span>
     <span class="doccomment">/// of bytes that are required to fill the buffer.</span>
@@ -618,7 +618,7 @@
     <span class="doccomment">/// ## `io_priority`</span>
     <span class="doccomment">/// the [I/O priority][io-priority] of the request</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional `Cancellable` object</span>
+    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// a `GAsyncReadyCallback`</span>
     <span class="doccomment">/// ## `user_data`</span>
@@ -673,15 +673,15 @@
     <span class="doccomment">/// On success, the byte read from the stream is returned. On end of stream</span>
     <span class="doccomment">/// -1 is returned but it&#39;s not an exceptional error and `error` is not set.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If `cancellable` is not `None`, then the operation can be cancelled by</span>
+    <span class="doccomment">/// If `cancellable` is not [`None`], then the operation can be cancelled by</span>
     <span class="doccomment">/// triggering the cancellable object from another thread. If the operation</span>
-    <span class="doccomment">/// was cancelled, the error `IOErrorEnum::Cancelled` will be returned. If an</span>
+    <span class="doccomment">/// was cancelled, the error [`IOErrorEnum::Cancelled`] will be returned. If an</span>
     <span class="doccomment">/// operation was partially finished when the operation was cancelled the</span>
     <span class="doccomment">/// partial result will be returned, without an error.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// On error -1 is returned and `error` is set accordingly.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional `Cancellable` object, `None` to ignore</span>
+    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>

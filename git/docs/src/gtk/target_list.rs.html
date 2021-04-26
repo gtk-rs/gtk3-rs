@@ -41,16 +41,16 @@
 <span class="kw">use</span> <span class="ident">std::ptr</span>;
 
 <span class="kw">impl</span> <span class="ident">TargetList</span> {
-    <span class="doccomment">/// Creates a new `TargetList` from an array of `TargetEntry`.</span>
+    <span class="doccomment">/// Creates a new [`TargetList`](crate::TargetList) from an array of [`TargetEntry`](crate::TargetEntry).</span>
     <span class="doccomment">/// ## `targets`</span>
     <span class="doccomment">/// Pointer to an array</span>
-    <span class="doccomment">///  of `TargetEntry`</span>
+    <span class="doccomment">///  of [`TargetEntry`](crate::TargetEntry)</span>
     <span class="doccomment">/// ## `ntargets`</span>
     <span class="doccomment">/// number of entries in `targets`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the new `TargetList`.</span>
+    <span class="doccomment">/// the new [`TargetList`](crate::TargetList).</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_target_list_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">targets</span>: <span class="kw-2">&amp;</span>[<span class="ident">TargetEntry</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="macro">skip_assert_initialized!</span>();

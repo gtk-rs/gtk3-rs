@@ -2183,24 +2183,24 @@
 <span class="macro">glib::wrapper!</span> {
     <span class="doccomment">/// `PrintOperation` is the high-level, portable printing API.</span>
     <span class="doccomment">/// It looks a bit different than other GTK+ dialogs such as the</span>
-    <span class="doccomment">/// `FileChooser`, since some platforms don’t expose enough</span>
+    <span class="doccomment">/// [`FileChooser`](crate::FileChooser), since some platforms don’t expose enough</span>
     <span class="doccomment">/// infrastructure to implement a good print dialog. On such</span>
     <span class="doccomment">/// platforms, `PrintOperation` uses the native print dialog.</span>
     <span class="doccomment">/// On platforms which do not provide a native print dialog, GTK+</span>
     <span class="doccomment">/// uses its own, see ``GtkPrintUnixDialog``.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The typical way to use the high-level printing API is to create</span>
-    <span class="doccomment">/// a `PrintOperation` object with `PrintOperation::new` when</span>
+    <span class="doccomment">/// a `PrintOperation` object with [`new()`](Self::new()) when</span>
     <span class="doccomment">/// the user selects to print. Then you set some properties on it,</span>
-    <span class="doccomment">/// e.g. the page size, any `PrintSettings` from previous print</span>
+    <span class="doccomment">/// e.g. the page size, any [`PrintSettings`](crate::PrintSettings) from previous print</span>
     <span class="doccomment">/// operations, the number of pages, the current page, etc.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Then you start the print operation by calling `PrintOperationExt::run`.</span>
+    <span class="doccomment">/// Then you start the print operation by calling [`PrintOperationExt::run()`](crate::PrintOperationExt::run()).</span>
     <span class="doccomment">/// It will then show a dialog, let the user select a printer and</span>
     <span class="doccomment">/// options. When the user finished the dialog various signals will</span>
-    <span class="doccomment">/// be emitted on the `PrintOperation`, the main one being</span>
-    <span class="doccomment">/// `PrintOperation::draw-page`, which you are supposed to catch</span>
-    <span class="doccomment">/// and render the page on the provided `PrintContext` using Cairo.</span>
+    <span class="doccomment">/// be emitted on the [`PrintOperation`](crate::PrintOperation), the main one being</span>
+    <span class="doccomment">/// [`PrintOperation::draw-page`](crate::PrintOperation::draw-page), which you are supposed to catch</span>
+    <span class="doccomment">/// and render the page on the provided [`PrintContext`](crate::PrintContext) using Cairo.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # The high-level printing API</span>
     <span class="doccomment">///</span>
@@ -2239,14 +2239,14 @@
     <span class="doccomment">/// By default `PrintOperation` uses an external application to do</span>
     <span class="doccomment">/// print preview. To implement a custom print preview, an application</span>
     <span class="doccomment">/// must connect to the preview signal. The functions</span>
-    <span class="doccomment">/// `PrintOperationPreview::render_page`,</span>
-    <span class="doccomment">/// `PrintOperationPreview::end_preview` and</span>
-    <span class="doccomment">/// `PrintOperationPreview::is_selected`</span>
+    <span class="doccomment">/// [`PrintOperationPreview::render_page()`](crate::PrintOperationPreview::render_page()),</span>
+    <span class="doccomment">/// [`PrintOperationPreview::end_preview()`](crate::PrintOperationPreview::end_preview()) and</span>
+    <span class="doccomment">/// [`PrintOperationPreview::is_selected()`](crate::PrintOperationPreview::is_selected())</span>
     <span class="doccomment">/// are useful when implementing a print preview.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`PrintOperationExt`](trait@crate::PrintOperationExt), [`trait@glib::object::ObjectExt`], [`PrintOperationPreviewExt`](trait@crate::PrintOperationPreviewExt)</span>
+    <span class="doccomment">/// [`PrintOperationExt`](trait@crate::prelude::PrintOperationExt), [`trait@glib::object::ObjectExt`], [`PrintOperationPreviewExt`](trait@crate::prelude::PrintOperationPreviewExt)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PrintOperation</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkPrintOperation</span>, <span class="ident">ffi::GtkPrintOperationClass</span><span class="op">&gt;</span>) @<span class="ident">implements</span> <span class="ident">PrintOperationPreview</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -2255,11 +2255,11 @@
 }
 
 <span class="kw">impl</span> <span class="ident">PrintOperation</span> {
-    <span class="doccomment">/// Creates a new `PrintOperation`.</span>
+    <span class="doccomment">/// Creates a new [`PrintOperation`](crate::PrintOperation).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new `PrintOperation`</span>
+    <span class="doccomment">/// a new [`PrintOperation`](crate::PrintOperation)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_print_operation_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">PrintOperation</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -2433,8 +2433,8 @@
 <span class="doccomment">/// [`PrintOperation`](struct@crate::PrintOperation)</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">PrintOperationExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Cancels a running print operation. This function may</span>
-    <span class="doccomment">/// be called from a `PrintOperation::begin-print`,</span>
-    <span class="doccomment">/// `PrintOperation::paginate` or `PrintOperation::draw-page`</span>
+    <span class="doccomment">/// be called from a [`PrintOperation::begin-print`](crate::PrintOperation::begin-print),</span>
+    <span class="doccomment">/// [`PrintOperation::paginate`](crate::PrintOperation::paginate) or [`PrintOperation::draw-page`](crate::PrintOperation::draw-page)</span>
     <span class="doccomment">/// signal handler to stop the currently running print</span>
     <span class="doccomment">/// operation.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_print_operation_cancel&quot;</span>)]</span>
@@ -2444,14 +2444,14 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// It is called after completion of page drawing (e.g. drawing in another</span>
     <span class="doccomment">/// thread).</span>
-    <span class="doccomment">/// If `PrintOperationExt::set_defer_drawing` was called before, then this function</span>
+    <span class="doccomment">/// If [`set_defer_drawing()`](Self::set_defer_drawing()) was called before, then this function</span>
     <span class="doccomment">/// has to be called by application. In another case it is called by the library</span>
     <span class="doccomment">/// itself.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_print_operation_draw_page_finish&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">draw_page_finish</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Returns the default page setup, see</span>
-    <span class="doccomment">/// `PrintOperationExt::set_default_page_setup`.</span>
+    <span class="doccomment">/// [`set_default_page_setup()`](Self::set_default_page_setup()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -2459,7 +2459,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_print_operation_get_default_page_setup&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">default_page_setup</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">PageSetup</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// Gets the value of `PrintOperation:embed-page-setup` property.</span>
+    <span class="doccomment">/// Gets the value of [`PrintOperation:embed-page-setup`](crate::PrintOperation:embed-page-setup) property.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -2468,13 +2468,13 @@
     <span class="kw">fn</span> <span class="ident">embeds_page_setup</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
     <span class="doccomment">/// Call this when the result of a print operation is</span>
-    <span class="doccomment">/// `PrintOperationResult::Error`, either as returned by</span>
-    <span class="doccomment">/// `PrintOperationExt::run`, or in the `PrintOperation::done` signal</span>
-    <span class="doccomment">/// handler. The returned `glib::Error` will contain more details on what went wrong.</span>
+    <span class="doccomment">/// [`PrintOperationResult::Error`], either as returned by</span>
+    <span class="doccomment">/// [`run()`](Self::run()), or in the [`PrintOperation::done`](crate::PrintOperation::done) signal</span>
+    <span class="doccomment">/// handler. The returned [`glib::Error`](crate::glib::Error) will contain more details on what went wrong.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_print_operation_get_error&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">error</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib::Error</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// Gets the value of `PrintOperation:has-selection` property.</span>
+    <span class="doccomment">/// Gets the value of [`PrintOperation:has-selection`](crate::PrintOperation:has-selection) property.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -2485,11 +2485,11 @@
     <span class="doccomment">/// Returns the number of pages that will be printed.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that this value is set during print preparation phase</span>
-    <span class="doccomment">/// (`PrintStatus::Preparing`), so this function should never be</span>
-    <span class="doccomment">/// called before the data generation phase (`PrintStatus::GeneratingData`).</span>
-    <span class="doccomment">/// You can connect to the `PrintOperation::status-changed` signal</span>
-    <span class="doccomment">/// and call `PrintOperationExt::get_n_pages_to_print` when</span>
-    <span class="doccomment">/// print status is `PrintStatus::GeneratingData`.</span>
+    <span class="doccomment">/// ([`PrintStatus::Preparing`]), so this function should never be</span>
+    <span class="doccomment">/// called before the data generation phase ([`PrintStatus::GeneratingData`]).</span>
+    <span class="doccomment">/// You can connect to the [`PrintOperation::status-changed`](crate::PrintOperation::status-changed) signal</span>
+    <span class="doccomment">/// and call [`get_n_pages_to_print()`](Self::get_n_pages_to_print()) when</span>
+    <span class="doccomment">/// print status is [`PrintStatus::GeneratingData`].</span>
     <span class="doccomment">/// This is typically used to track the progress of print operation.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -2500,9 +2500,9 @@
 
     <span class="doccomment">/// Returns the current print settings.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Note that the return value is `None` until either</span>
-    <span class="doccomment">/// `PrintOperationExt::set_print_settings` or</span>
-    <span class="doccomment">/// `PrintOperationExt::run` have been called.</span>
+    <span class="doccomment">/// Note that the return value is [`None`] until either</span>
+    <span class="doccomment">/// [`set_print_settings()`](Self::set_print_settings()) or</span>
+    <span class="doccomment">/// [`run()`](Self::run()) have been called.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -2511,7 +2511,7 @@
     <span class="kw">fn</span> <span class="ident">print_settings</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">PrintSettings</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Returns the status of the print operation.</span>
-    <span class="doccomment">/// Also see `PrintOperationExt::get_status_string`.</span>
+    <span class="doccomment">/// Also see [`get_status_string()`](Self::get_status_string()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -2521,9 +2521,9 @@
 
     <span class="doccomment">/// Returns a string representation of the status of the</span>
     <span class="doccomment">/// print operation. The string is translated and suitable</span>
-    <span class="doccomment">/// for displaying the print status e.g. in a `Statusbar`.</span>
+    <span class="doccomment">/// for displaying the print status e.g. in a [`Statusbar`](crate::Statusbar).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Use `PrintOperationExt::get_status` to obtain a status</span>
+    <span class="doccomment">/// Use [`get_status()`](Self::get_status()) to obtain a status</span>
     <span class="doccomment">/// value that is suitable for programmatic use.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -2533,7 +2533,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_print_operation_get_status_string&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">status_string</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// Gets the value of `PrintOperation:support-selection` property.</span>
+    <span class="doccomment">/// Gets the value of [`PrintOperation:support-selection`](crate::PrintOperation:support-selection) property.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -2542,8 +2542,8 @@
     <span class="kw">fn</span> <span class="ident">supports_selection</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
     <span class="doccomment">/// A convenience function to find out if the print operation</span>
-    <span class="doccomment">/// is finished, either successfully (`PrintStatus::Finished`)</span>
-    <span class="doccomment">/// or unsuccessfully (`PrintStatus::FinishedAborted`).</span>
+    <span class="doccomment">/// is finished, either successfully ([`PrintStatus::Finished`])</span>
+    <span class="doccomment">/// or unsuccessfully ([`PrintStatus::FinishedAborted`]).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note: when you enable print status tracking the print operation</span>
     <span class="doccomment">/// can be in a non-finished state even after done has been called, as</span>
@@ -2551,7 +2551,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true`, if the print operation is finished.</span>
+    <span class="doccomment">/// [`true`], if the print operation is finished.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_print_operation_is_finished&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">is_finished</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
@@ -2560,14 +2560,14 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Normally that this function does not return until the rendering of all</span>
     <span class="doccomment">/// pages is complete. You can connect to the</span>
-    <span class="doccomment">/// `PrintOperation::status-changed` signal on `self` to obtain some</span>
+    <span class="doccomment">/// [`PrintOperation::status-changed`](crate::PrintOperation::status-changed) signal on `self` to obtain some</span>
     <span class="doccomment">/// information about the progress of the print operation.</span>
     <span class="doccomment">/// Furthermore, it may use a recursive mainloop to show the print dialog.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If you call `PrintOperationExt::set_allow_async` or set the</span>
-    <span class="doccomment">/// `PrintOperation:allow-async` property the operation will run</span>
+    <span class="doccomment">/// If you call [`set_allow_async()`](Self::set_allow_async()) or set the</span>
+    <span class="doccomment">/// [`PrintOperation:allow-async`](crate::PrintOperation:allow-async) property the operation will run</span>
     <span class="doccomment">/// asynchronously if this is supported on the platform. The</span>
-    <span class="doccomment">/// `PrintOperation::done` signal will be emitted with the result of the</span>
+    <span class="doccomment">/// [`PrintOperation::done`](crate::PrintOperation::done) signal will be emitted with the result of the</span>
     <span class="doccomment">/// operation when the it is done (i.e. when the dialog is canceled, or when</span>
     <span class="doccomment">/// the print succeeds or fails).</span>
     <span class="doccomment">///</span>
@@ -2609,8 +2609,8 @@
     <span class="doccomment">///  }</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Note that `PrintOperationExt::run` can only be called once on a</span>
-    <span class="doccomment">/// given `PrintOperation`.</span>
+    <span class="doccomment">/// Note that [`run()`](Self::run()) can only be called once on a</span>
+    <span class="doccomment">/// given [`PrintOperation`](crate::PrintOperation).</span>
     <span class="doccomment">/// ## `action`</span>
     <span class="doccomment">/// the action to start</span>
     <span class="doccomment">/// ## `parent`</span>
@@ -2619,12 +2619,12 @@
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// the result of the print operation. A return value of</span>
-    <span class="doccomment">///  `PrintOperationResult::Apply` indicates that the printing was</span>
+    <span class="doccomment">///  [`PrintOperationResult::Apply`] indicates that the printing was</span>
     <span class="doccomment">///  completed successfully. In this case, it is a good idea to obtain</span>
-    <span class="doccomment">///  the used print settings with `PrintOperationExt::get_print_settings`</span>
+    <span class="doccomment">///  the used print settings with [`get_print_settings()`](Self::get_print_settings())</span>
     <span class="doccomment">///  and store them for reuse with the next print operation. A value of</span>
-    <span class="doccomment">///  `PrintOperationResult::InProgress` means the operation is running</span>
-    <span class="doccomment">///  asynchronously, and will emit the `PrintOperation::done` signal when</span>
+    <span class="doccomment">///  [`PrintOperationResult::InProgress`] means the operation is running</span>
+    <span class="doccomment">///  asynchronously, and will emit the [`PrintOperation::done`](crate::PrintOperation::done) signal when</span>
     <span class="doccomment">///  done.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_print_operation_run&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">run</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Window</span><span class="op">&gt;</span><span class="op">&gt;</span>(
@@ -2633,17 +2633,17 @@
         <span class="ident">parent</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">PrintOperationResult</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// Sets whether the `PrintOperationExt::run` may return</span>
+    <span class="doccomment">/// Sets whether the [`run()`](Self::run()) may return</span>
     <span class="doccomment">/// before the print operation is completed. Note that</span>
     <span class="doccomment">/// some platforms may not allow asynchronous operation.</span>
     <span class="doccomment">/// ## `allow_async`</span>
-    <span class="doccomment">/// `true` to allow asynchronous operation</span>
+    <span class="doccomment">/// [`true`] to allow asynchronous operation</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_print_operation_set_allow_async&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_allow_async</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">allow_async</span>: <span class="ident">bool</span>);
 
     <span class="doccomment">/// Sets the current page.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If this is called before `PrintOperationExt::run`,</span>
+    <span class="doccomment">/// If this is called before [`run()`](Self::run()),</span>
     <span class="doccomment">/// the user will be able to select to print only the current page.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that this only makes sense for pre-paginated documents.</span>
@@ -2654,22 +2654,22 @@
 
     <span class="doccomment">/// Sets the label for the tab holding custom widgets.</span>
     <span class="doccomment">/// ## `label`</span>
-    <span class="doccomment">/// the label to use, or `None` to use the default label</span>
+    <span class="doccomment">/// the label to use, or [`None`] to use the default label</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_print_operation_set_custom_tab_label&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_custom_tab_label</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">label</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>);
 
     <span class="doccomment">/// Makes `default_page_setup` the default page setup for `self`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This page setup will be used by `PrintOperationExt::run`,</span>
+    <span class="doccomment">/// This page setup will be used by [`run()`](Self::run()),</span>
     <span class="doccomment">/// but it can be overridden on a per-page basis by connecting</span>
-    <span class="doccomment">/// to the `PrintOperation::request-page-setup` signal.</span>
+    <span class="doccomment">/// to the [`PrintOperation::request-page-setup`](crate::PrintOperation::request-page-setup) signal.</span>
     <span class="doccomment">/// ## `default_page_setup`</span>
-    <span class="doccomment">/// a `PageSetup`, or `None`</span>
+    <span class="doccomment">/// a [`PageSetup`](crate::PageSetup), or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_print_operation_set_default_page_setup&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_default_page_setup</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">default_page_setup</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">PageSetup</span><span class="op">&gt;</span>);
 
-    <span class="doccomment">/// Sets up the `PrintOperation` to wait for calling of</span>
-    <span class="doccomment">/// `PrintOperationExt::draw_page_finish` from application. It can</span>
+    <span class="doccomment">/// Sets up the [`PrintOperation`](crate::PrintOperation) to wait for calling of</span>
+    <span class="doccomment">/// [`draw_page_finish()`](Self::draw_page_finish()) from application. It can</span>
     <span class="doccomment">/// be used for drawing page in another thread.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This function must be called in the callback of “draw-page” signal.</span>
@@ -2677,13 +2677,13 @@
     <span class="kw">fn</span> <span class="ident">set_defer_drawing</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Embed page size combo box and orientation combo box into page setup page.</span>
-    <span class="doccomment">/// Selected page setup is stored as default page setup in `PrintOperation`.</span>
+    <span class="doccomment">/// Selected page setup is stored as default page setup in [`PrintOperation`](crate::PrintOperation).</span>
     <span class="doccomment">/// ## `embed`</span>
-    <span class="doccomment">/// `true` to embed page setup selection in the ``GtkPrintUnixDialog``</span>
+    <span class="doccomment">/// [`true`] to embed page setup selection in the ``GtkPrintUnixDialog``</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_print_operation_set_embed_page_setup&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_embed_page_setup</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">embed</span>: <span class="ident">bool</span>);
 
-    <span class="doccomment">/// Sets up the `PrintOperation` to generate a file instead</span>
+    <span class="doccomment">/// Sets up the [`PrintOperation`](crate::PrintOperation) to generate a file instead</span>
     <span class="doccomment">/// of showing the print dialog. The indended use of this function</span>
     <span class="doccomment">/// is for implementing “Export to PDF” actions. Currently, PDF</span>
     <span class="doccomment">/// is the only supported format.</span>
@@ -2699,10 +2699,10 @@
     <span class="doccomment">/// Sets whether there is a selection to print.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Application has to set number of pages to which the selection</span>
-    <span class="doccomment">/// will draw by `PrintOperationExt::set_n_pages` in a callback of</span>
-    <span class="doccomment">/// `PrintOperation::begin-print`.</span>
+    <span class="doccomment">/// will draw by [`set_n_pages()`](Self::set_n_pages()) in a callback of</span>
+    <span class="doccomment">/// [`PrintOperation::begin-print`](crate::PrintOperation::begin-print).</span>
     <span class="doccomment">/// ## `has_selection`</span>
-    <span class="doccomment">/// `true` indicates that a selection exists</span>
+    <span class="doccomment">/// [`true`] indicates that a selection exists</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_print_operation_set_has_selection&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_has_selection</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">has_selection</span>: <span class="ident">bool</span>);
 
@@ -2720,11 +2720,11 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This must be set to a positive number</span>
     <span class="doccomment">/// before the rendering starts. It may be set in a</span>
-    <span class="doccomment">/// `PrintOperation::begin-print` signal hander.</span>
+    <span class="doccomment">/// [`PrintOperation::begin-print`](crate::PrintOperation::begin-print) signal hander.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that the page numbers passed to the</span>
-    <span class="doccomment">/// `PrintOperation::request-page-setup`</span>
-    <span class="doccomment">/// and `PrintOperation::draw-page` signals are 0-based, i.e. if</span>
+    <span class="doccomment">/// [`PrintOperation::request-page-setup`](crate::PrintOperation::request-page-setup)</span>
+    <span class="doccomment">/// and [`PrintOperation::draw-page`](crate::PrintOperation::draw-page) signals are 0-based, i.e. if</span>
     <span class="doccomment">/// the user chooses to print all pages, the last ::draw-page signal</span>
     <span class="doccomment">/// will be for page `n_pages` - 1.</span>
     <span class="doccomment">/// ## `n_pages`</span>
@@ -2734,26 +2734,26 @@
 
     <span class="doccomment">/// Sets the print settings for `self`. This is typically used to</span>
     <span class="doccomment">/// re-establish print settings from a previous print operation,</span>
-    <span class="doccomment">/// see `PrintOperationExt::run`.</span>
+    <span class="doccomment">/// see [`run()`](Self::run()).</span>
     <span class="doccomment">/// ## `print_settings`</span>
-    <span class="doccomment">/// `PrintSettings`</span>
+    <span class="doccomment">/// [`PrintSettings`](crate::PrintSettings)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_print_operation_set_print_settings&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_print_settings</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">print_settings</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">PrintSettings</span><span class="op">&gt;</span>);
 
-    <span class="doccomment">/// If `show_progress` is `true`, the print operation will show a</span>
+    <span class="doccomment">/// If `show_progress` is [`true`], the print operation will show a</span>
     <span class="doccomment">/// progress dialog during the print operation.</span>
     <span class="doccomment">/// ## `show_progress`</span>
-    <span class="doccomment">/// `true` to show a progress dialog</span>
+    <span class="doccomment">/// [`true`] to show a progress dialog</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_print_operation_set_show_progress&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_show_progress</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">show_progress</span>: <span class="ident">bool</span>);
 
-    <span class="doccomment">/// Sets whether selection is supported by `PrintOperation`.</span>
+    <span class="doccomment">/// Sets whether selection is supported by [`PrintOperation`](crate::PrintOperation).</span>
     <span class="doccomment">/// ## `support_selection`</span>
-    <span class="doccomment">/// `true` to support selection</span>
+    <span class="doccomment">/// [`true`] to support selection</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_print_operation_set_support_selection&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_support_selection</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">support_selection</span>: <span class="ident">bool</span>);
 
-    <span class="doccomment">/// If track_status is `true`, the print operation will try to continue report</span>
+    <span class="doccomment">/// If track_status is [`true`], the print operation will try to continue report</span>
     <span class="doccomment">/// on the status of the print job in the printer queues and printer. This</span>
     <span class="doccomment">/// can allow your application to show things like “out of paper” issues,</span>
     <span class="doccomment">/// and when the print job actually reaches the printer.</span>
@@ -2761,26 +2761,26 @@
     <span class="doccomment">/// This function is often implemented using some form of polling, so it should</span>
     <span class="doccomment">/// not be enabled unless needed.</span>
     <span class="doccomment">/// ## `track_status`</span>
-    <span class="doccomment">/// `true` to track status after printing</span>
+    <span class="doccomment">/// [`true`] to track status after printing</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_print_operation_set_track_print_status&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_track_print_status</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">track_status</span>: <span class="ident">bool</span>);
 
     <span class="doccomment">/// Sets up the transformation for the cairo context obtained from</span>
-    <span class="doccomment">/// `PrintContext` in such a way that distances are measured in</span>
+    <span class="doccomment">/// [`PrintContext`](crate::PrintContext) in such a way that distances are measured in</span>
     <span class="doccomment">/// units of `unit`.</span>
     <span class="doccomment">/// ## `unit`</span>
     <span class="doccomment">/// the unit to use</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_print_operation_set_unit&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_unit</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">unit</span>: <span class="ident">Unit</span>);
 
-    <span class="doccomment">/// If `full_page` is `true`, the transformation for the cairo context</span>
-    <span class="doccomment">/// obtained from `PrintContext` puts the origin at the top left</span>
+    <span class="doccomment">/// If `full_page` is [`true`], the transformation for the cairo context</span>
+    <span class="doccomment">/// obtained from [`PrintContext`](crate::PrintContext) puts the origin at the top left</span>
     <span class="doccomment">/// corner of the page (which may not be the top left corner of the</span>
     <span class="doccomment">/// sheet, depending on page orientation and the number of pages per</span>
     <span class="doccomment">/// sheet). Otherwise, the origin is at the top left corner of the</span>
     <span class="doccomment">/// imageable area (i.e. inside the margins).</span>
     <span class="doccomment">/// ## `full_page`</span>
-    <span class="doccomment">/// `true` to set up the `PrintContext` for the full page</span>
+    <span class="doccomment">/// [`true`] to set up the [`PrintContext`](crate::PrintContext) for the full page</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_print_operation_set_use_full_page&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_use_full_page</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">full_page</span>: <span class="ident">bool</span>);
 
@@ -2818,10 +2818,10 @@
     <span class="doccomment">/// in the dialog, before the actual rendering starts.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// A typical use for ::begin-print is to use the parameters from the</span>
-    <span class="doccomment">/// `PrintContext` and paginate the document accordingly, and then</span>
-    <span class="doccomment">/// set the number of pages with `PrintOperationExt::set_n_pages`.</span>
+    <span class="doccomment">/// [`PrintContext`](crate::PrintContext) and paginate the document accordingly, and then</span>
+    <span class="doccomment">/// set the number of pages with [`set_n_pages()`](Self::set_n_pages()).</span>
     <span class="doccomment">/// ## `context`</span>
-    <span class="doccomment">/// the `PrintContext` for the current operation</span>
+    <span class="doccomment">/// the [`PrintContext`](crate::PrintContext) for the current operation</span>
     <span class="kw">fn</span> <span class="ident">connect_begin_print</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span><span class="ident">PrintContext</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;
 
     <span class="doccomment">/// Emitted when displaying the print dialog. If you return a</span>
@@ -2831,21 +2831,21 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// The print dialog owns the returned widget, and its lifetime is not</span>
     <span class="doccomment">/// controlled by the application. However, the widget is guaranteed</span>
-    <span class="doccomment">/// to stay around until the `PrintOperation::custom-widget-apply`</span>
+    <span class="doccomment">/// to stay around until the [`PrintOperation::custom-widget-apply`](crate::PrintOperation::custom-widget-apply)</span>
     <span class="doccomment">/// signal is emitted on the operation. Then you can read out any</span>
     <span class="doccomment">/// information you need from the widgets.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// A custom widget that gets embedded in</span>
-    <span class="doccomment">///  the print dialog, or `None`</span>
+    <span class="doccomment">///  the print dialog, or [`None`]</span>
     <span class="kw">fn</span> <span class="ident">connect_create_custom_widget</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Object</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">f</span>: <span class="ident">F</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;
 
-    <span class="doccomment">/// Emitted right before `PrintOperation::begin-print` if you added</span>
-    <span class="doccomment">/// a custom widget in the `PrintOperation::create-custom-widget` handler.</span>
+    <span class="doccomment">/// Emitted right before [`PrintOperation::begin-print`](crate::PrintOperation::begin-print) if you added</span>
+    <span class="doccomment">/// a custom widget in the [`PrintOperation::create-custom-widget`](crate::PrintOperation::create-custom-widget) handler.</span>
     <span class="doccomment">/// When you get this signal you should read the information from the</span>
     <span class="doccomment">/// custom widgets, as the widgets are not guaraneed to be around at a</span>
     <span class="doccomment">/// later time.</span>
@@ -2858,19 +2858,19 @@
     <span class="doccomment">/// everything required for printing.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// `result` gives you information about what happened during the run.</span>
-    <span class="doccomment">/// If `result` is `PrintOperationResult::Error` then you can call</span>
-    <span class="doccomment">/// `PrintOperationExt::get_error` for more information.</span>
+    <span class="doccomment">/// If `result` is [`PrintOperationResult::Error`] then you can call</span>
+    <span class="doccomment">/// [`get_error()`](Self::get_error()) for more information.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If you enabled print status tracking then</span>
-    <span class="doccomment">/// `PrintOperationExt::is_finished` may still return `false`</span>
-    <span class="doccomment">/// after `PrintOperation::done` was emitted.</span>
+    <span class="doccomment">/// [`is_finished()`](Self::is_finished()) may still return [`false`]</span>
+    <span class="doccomment">/// after [`PrintOperation::done`](crate::PrintOperation::done) was emitted.</span>
     <span class="doccomment">/// ## `result`</span>
     <span class="doccomment">/// the result of the print operation</span>
     <span class="kw">fn</span> <span class="ident">connect_done</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="ident">PrintOperationResult</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;
 
     <span class="doccomment">/// Emitted for every page that is printed. The signal handler</span>
     <span class="doccomment">/// must render the `page_nr`&#39;s page onto the cairo context obtained</span>
-    <span class="doccomment">/// from `context` using `PrintContext::get_cairo_context`.</span>
+    <span class="doccomment">/// from `context` using [`PrintContext::get_cairo_context()`](crate::PrintContext::get_cairo_context()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```C</span>
     <span class="doccomment">/// static void</span>
@@ -2913,12 +2913,12 @@
     <span class="doccomment">/// }</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Use `PrintOperationExt::set_use_full_page` and</span>
-    <span class="doccomment">/// `PrintOperationExt::set_unit` before starting the print operation</span>
+    <span class="doccomment">/// Use [`set_use_full_page()`](Self::set_use_full_page()) and</span>
+    <span class="doccomment">/// [`set_unit()`](Self::set_unit()) before starting the print operation</span>
     <span class="doccomment">/// to set up the transformation of the cairo context according to your</span>
     <span class="doccomment">/// needs.</span>
     <span class="doccomment">/// ## `context`</span>
-    <span class="doccomment">/// the `PrintContext` for the current operation</span>
+    <span class="doccomment">/// the [`PrintContext`](crate::PrintContext) for the current operation</span>
     <span class="doccomment">/// ## `page_nr`</span>
     <span class="doccomment">/// the number of the currently printed page (0-based)</span>
     <span class="kw">fn</span> <span class="ident">connect_draw_page</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span><span class="ident">PrintContext</span>, <span class="ident">i32</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
@@ -2928,30 +2928,30 @@
 
     <span class="doccomment">/// Emitted after all pages have been rendered.</span>
     <span class="doccomment">/// A handler for this signal can clean up any resources that have</span>
-    <span class="doccomment">/// been allocated in the `PrintOperation::begin-print` handler.</span>
+    <span class="doccomment">/// been allocated in the [`PrintOperation::begin-print`](crate::PrintOperation::begin-print) handler.</span>
     <span class="doccomment">/// ## `context`</span>
-    <span class="doccomment">/// the `PrintContext` for the current operation</span>
+    <span class="doccomment">/// the [`PrintContext`](crate::PrintContext) for the current operation</span>
     <span class="kw">fn</span> <span class="ident">connect_end_print</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span><span class="ident">PrintContext</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;
 
-    <span class="doccomment">/// Emitted after the `PrintOperation::begin-print` signal, but before</span>
+    <span class="doccomment">/// Emitted after the [`PrintOperation::begin-print`](crate::PrintOperation::begin-print) signal, but before</span>
     <span class="doccomment">/// the actual rendering starts. It keeps getting emitted until a connected</span>
-    <span class="doccomment">/// signal handler returns `true`.</span>
+    <span class="doccomment">/// signal handler returns [`true`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The ::paginate signal is intended to be used for paginating a document</span>
     <span class="doccomment">/// in small chunks, to avoid blocking the user interface for a long</span>
     <span class="doccomment">/// time. The signal handler should update the number of pages using</span>
-    <span class="doccomment">/// `PrintOperationExt::set_n_pages`, and return `true` if the document</span>
+    <span class="doccomment">/// [`set_n_pages()`](Self::set_n_pages()), and return [`true`] if the document</span>
     <span class="doccomment">/// has been completely paginated.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If you don&#39;t need to do pagination in chunks, you can simply do</span>
     <span class="doccomment">/// it all in the ::begin-print handler, and set the number of pages</span>
     <span class="doccomment">/// from there.</span>
     <span class="doccomment">/// ## `context`</span>
-    <span class="doccomment">/// the `PrintContext` for the current operation</span>
+    <span class="doccomment">/// the [`PrintContext`](crate::PrintContext) for the current operation</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if pagination is complete</span>
+    <span class="doccomment">/// [`true`] if pagination is complete</span>
     <span class="kw">fn</span> <span class="ident">connect_paginate</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span><span class="ident">PrintContext</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">f</span>: <span class="ident">F</span>,
@@ -2963,26 +2963,26 @@
     <span class="doccomment">/// application to preview.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// To implement a custom print preview, an application must return</span>
-    <span class="doccomment">/// `true` from its handler for this signal. In order to use the</span>
+    <span class="doccomment">/// [`true`] from its handler for this signal. In order to use the</span>
     <span class="doccomment">/// provided `context` for the preview implementation, it must be</span>
-    <span class="doccomment">/// given a suitable cairo context with `PrintContext::set_cairo_context`.</span>
+    <span class="doccomment">/// given a suitable cairo context with [`PrintContext::set_cairo_context()`](crate::PrintContext::set_cairo_context()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The custom preview implementation can use</span>
-    <span class="doccomment">/// `PrintOperationPreview::is_selected` and</span>
-    <span class="doccomment">/// `PrintOperationPreview::render_page` to find pages which</span>
+    <span class="doccomment">/// [`PrintOperationPreview::is_selected()`](crate::PrintOperationPreview::is_selected()) and</span>
+    <span class="doccomment">/// [`PrintOperationPreview::render_page()`](crate::PrintOperationPreview::render_page()) to find pages which</span>
     <span class="doccomment">/// are selected for print and render them. The preview must be</span>
-    <span class="doccomment">/// finished by calling `PrintOperationPreview::end_preview`</span>
+    <span class="doccomment">/// finished by calling [`PrintOperationPreview::end_preview()`](crate::PrintOperationPreview::end_preview())</span>
     <span class="doccomment">/// (typically in response to the user clicking a close button).</span>
     <span class="doccomment">/// ## `preview`</span>
-    <span class="doccomment">/// the `PrintOperationPreview` for the current operation</span>
+    <span class="doccomment">/// the [`PrintOperationPreview`](crate::PrintOperationPreview) for the current operation</span>
     <span class="doccomment">/// ## `context`</span>
-    <span class="doccomment">/// the `PrintContext` that will be used</span>
+    <span class="doccomment">/// the [`PrintContext`](crate::PrintContext) that will be used</span>
     <span class="doccomment">/// ## `parent`</span>
-    <span class="doccomment">/// the `Window` to use as window parent, or `None`</span>
+    <span class="doccomment">/// the [`Window`](crate::Window) to use as window parent, or [`None`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if the listener wants to take over control of the preview</span>
+    <span class="doccomment">/// [`true`] if the listener wants to take over control of the preview</span>
     <span class="kw">fn</span> <span class="ident">connect_preview</span><span class="op">&lt;</span>
         <span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span><span class="ident">PrintOperationPreview</span>, <span class="kw-2">&amp;</span><span class="ident">PrintContext</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">Window</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
     <span class="op">&gt;</span>(
@@ -2994,19 +2994,19 @@
     <span class="doccomment">/// the application a chance to modify the page setup. Any changes</span>
     <span class="doccomment">/// done to `setup` will be in force only for printing this page.</span>
     <span class="doccomment">/// ## `context`</span>
-    <span class="doccomment">/// the `PrintContext` for the current operation</span>
+    <span class="doccomment">/// the [`PrintContext`](crate::PrintContext) for the current operation</span>
     <span class="doccomment">/// ## `page_nr`</span>
     <span class="doccomment">/// the number of the currently printed page (0-based)</span>
     <span class="doccomment">/// ## `setup`</span>
-    <span class="doccomment">/// the `PageSetup`</span>
+    <span class="doccomment">/// the [`PageSetup`](crate::PageSetup)</span>
     <span class="kw">fn</span> <span class="ident">connect_request_page_setup</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span><span class="ident">PrintContext</span>, <span class="ident">i32</span>, <span class="kw-2">&amp;</span><span class="ident">PageSetup</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">f</span>: <span class="ident">F</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;
 
     <span class="doccomment">/// Emitted at between the various phases of the print operation.</span>
-    <span class="doccomment">/// See `PrintStatus` for the phases that are being discriminated.</span>
-    <span class="doccomment">/// Use `PrintOperationExt::get_status` to find out the current</span>
+    <span class="doccomment">/// See [`PrintStatus`](crate::PrintStatus) for the phases that are being discriminated.</span>
+    <span class="doccomment">/// Use [`get_status()`](Self::get_status()) to find out the current</span>
     <span class="doccomment">/// status.</span>
     <span class="kw">fn</span> <span class="ident">connect_status_changed</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;
 

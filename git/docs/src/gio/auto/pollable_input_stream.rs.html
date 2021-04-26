@@ -101,14 +101,14 @@
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// `PollableInputStream` is implemented by `GInputStreams` that</span>
+    <span class="doccomment">/// [`PollableInputStream`](crate::PollableInputStream) is implemented by `GInputStreams` that</span>
     <span class="doccomment">/// can be polled for readiness to read. This can be used when</span>
     <span class="doccomment">/// interfacing with a non-GIO API that expects</span>
     <span class="doccomment">/// UNIX-file-descriptor-style asynchronous I/O rather than GIO-style.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`PollableInputStreamExt`](trait@crate::PollableInputStreamExt), [`InputStreamExt`](trait@crate::InputStreamExt), [`trait@glib::object::ObjectExt`], [`PollableInputStreamExtManual`](trait@crate::PollableInputStreamExtManual), [`InputStreamExtManual`](trait@crate::InputStreamExtManual)</span>
+    <span class="doccomment">/// [`PollableInputStreamExt`](trait@crate::prelude::PollableInputStreamExt), [`InputStreamExt`](trait@crate::prelude::InputStreamExt), [`trait@glib::object::ObjectExt`], [`PollableInputStreamExtManual`](trait@crate::prelude::PollableInputStreamExtManual), [`InputStreamExtManual`](trait@crate::prelude::InputStreamExtManual)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PollableInputStream</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi::GPollableInputStream</span>, <span class="ident">ffi::GPollableInputStreamInterface</span><span class="op">&gt;</span>) @<span class="ident">requires</span> <span class="ident">InputStream</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -125,33 +125,33 @@
 <span class="doccomment">/// [`ConverterInputStream`](struct@crate::ConverterInputStream), [`MemoryInputStream`](struct@crate::MemoryInputStream), [`PollableInputStream`](struct@crate::PollableInputStream), [`UnixInputStream`](struct@crate::UnixInputStream)</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">PollableInputStreamExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Checks if `self` is actually pollable. Some classes may implement</span>
-    <span class="doccomment">/// `PollableInputStream` but have only certain instances of that class</span>
-    <span class="doccomment">/// be pollable. If this method returns `false`, then the behavior of</span>
-    <span class="doccomment">/// other `PollableInputStream` methods is undefined.</span>
+    <span class="doccomment">/// [`PollableInputStream`](crate::PollableInputStream) but have only certain instances of that class</span>
+    <span class="doccomment">/// be pollable. If this method returns [`false`], then the behavior of</span>
+    <span class="doccomment">/// other [`PollableInputStream`](crate::PollableInputStream) methods is undefined.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// For any given stream, the value returned by this method is constant;</span>
     <span class="doccomment">/// a stream cannot switch from pollable to non-pollable or vice versa.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if `self` is pollable, `false` if not.</span>
+    <span class="doccomment">/// [`true`] if `self` is pollable, [`false`] if not.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_pollable_input_stream_can_poll&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">can_poll</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
     <span class="doccomment">/// Checks if `self` can be read.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that some stream types may not be able to implement this 100%</span>
-    <span class="doccomment">/// reliably, and it is possible that a call to `InputStream::read`</span>
-    <span class="doccomment">/// after this returns `true` would still block. To guarantee</span>
+    <span class="doccomment">/// reliably, and it is possible that a call to [`InputStream::read()`](crate::InputStream::read())</span>
+    <span class="doccomment">/// after this returns [`true`] would still block. To guarantee</span>
     <span class="doccomment">/// non-blocking behavior, you should always use</span>
-    <span class="doccomment">/// `PollableInputStream::read_nonblocking`, which will return a</span>
-    <span class="doccomment">/// `IOErrorEnum::WouldBlock` error rather than blocking.</span>
+    <span class="doccomment">/// [`PollableInputStream::read_nonblocking()`](crate::PollableInputStream::read_nonblocking()), which will return a</span>
+    <span class="doccomment">/// [`IOErrorEnum::WouldBlock`] error rather than blocking.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if `self` is readable, `false` if not. If an error</span>
+    <span class="doccomment">/// [`true`] if `self` is readable, [`false`] if not. If an error</span>
     <span class="doccomment">///  has occurred on `self`, this will result in</span>
-    <span class="doccomment">///  `PollableInputStream::is_readable` returning `true`, and the</span>
+    <span class="doccomment">///  [`PollableInputStream::is_readable()`](crate::PollableInputStream::is_readable()) returning [`true`], and the</span>
     <span class="doccomment">///  next attempt to read will return the error.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_pollable_input_stream_is_readable&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">is_readable</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;

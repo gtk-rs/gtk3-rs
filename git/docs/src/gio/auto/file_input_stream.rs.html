@@ -216,16 +216,16 @@
     <span class="doccomment">/// GFileInputStream provides input streams that take their</span>
     <span class="doccomment">/// content from a file.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// GFileInputStream implements `Seekable`, which allows the input</span>
+    <span class="doccomment">/// GFileInputStream implements [`Seekable`](crate::Seekable), which allows the input</span>
     <span class="doccomment">/// stream to jump to arbitrary positions in the file, provided the</span>
     <span class="doccomment">/// filesystem of the file allows it. To find the position of a file</span>
-    <span class="doccomment">/// input stream, use `Seekable::tell`. To find out if a file input</span>
-    <span class="doccomment">/// stream supports seeking, use `Seekable::can_seek`.</span>
-    <span class="doccomment">/// To position a file input stream, use `Seekable::seek`.</span>
+    <span class="doccomment">/// input stream, use [`Seekable::tell()`](crate::Seekable::tell()). To find out if a file input</span>
+    <span class="doccomment">/// stream supports seeking, use [`Seekable::can_seek()`](crate::Seekable::can_seek()).</span>
+    <span class="doccomment">/// To position a file input stream, use [`Seekable::seek()`](crate::Seekable::seek()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`FileInputStreamExt`](trait@crate::FileInputStreamExt), [`InputStreamExt`](trait@crate::InputStreamExt), [`trait@glib::object::ObjectExt`], [`SeekableExt`](trait@crate::SeekableExt), [`InputStreamExtManual`](trait@crate::InputStreamExtManual)</span>
+    <span class="doccomment">/// [`FileInputStreamExt`](trait@crate::prelude::FileInputStreamExt), [`InputStreamExt`](trait@crate::prelude::InputStreamExt), [`trait@glib::object::ObjectExt`], [`SeekableExt`](trait@crate::prelude::SeekableExt), [`InputStreamExtManual`](trait@crate::prelude::InputStreamExtManual)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FileInputStream</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GFileInputStream</span>, <span class="ident">ffi::GFileInputStreamClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">InputStream</span>, @<span class="ident">implements</span> <span class="ident">Seekable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -243,17 +243,17 @@
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">FileInputStreamExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Queries a file input stream the given `attributes`. This function blocks</span>
     <span class="doccomment">/// while querying the stream. For the asynchronous (non-blocking) version</span>
-    <span class="doccomment">/// of this function, see `FileInputStreamExt::query_info_async`. While the</span>
+    <span class="doccomment">/// of this function, see [`query_info_async()`](Self::query_info_async()). While the</span>
     <span class="doccomment">/// stream is blocked, the stream will set the pending flag internally, and</span>
-    <span class="doccomment">/// any other operations on the stream will fail with `IOErrorEnum::Pending`.</span>
+    <span class="doccomment">/// any other operations on the stream will fail with [`IOErrorEnum::Pending`].</span>
     <span class="doccomment">/// ## `attributes`</span>
     <span class="doccomment">/// a file attribute query string.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional `Cancellable` object, `None` to ignore.</span>
+    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a `FileInfo`, or `None` on error.</span>
+    <span class="doccomment">/// a [`FileInfo`](crate::FileInfo), or [`None`] on error.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_input_stream_query_info&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">query_info</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -263,21 +263,21 @@
 
     <span class="doccomment">/// Queries the stream information asynchronously.</span>
     <span class="doccomment">/// When the operation is finished `callback` will be called.</span>
-    <span class="doccomment">/// You can then call `FileInputStreamExt::query_info_finish`</span>
+    <span class="doccomment">/// You can then call [`query_info_finish()`](Self::query_info_finish())</span>
     <span class="doccomment">/// to get the result of the operation.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// For the synchronous version of this function,</span>
-    <span class="doccomment">/// see `FileInputStreamExt::query_info`.</span>
+    <span class="doccomment">/// see [`query_info()`](Self::query_info()).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If `cancellable` is not `None`, then the operation can be cancelled by</span>
+    <span class="doccomment">/// If `cancellable` is not [`None`], then the operation can be cancelled by</span>
     <span class="doccomment">/// triggering the cancellable object from another thread. If the operation</span>
-    <span class="doccomment">/// was cancelled, the error `IOErrorEnum::Cancelled` will be set</span>
+    <span class="doccomment">/// was cancelled, the error [`IOErrorEnum::Cancelled`] will be set</span>
     <span class="doccomment">/// ## `attributes`</span>
     <span class="doccomment">/// a file attribute query string.</span>
     <span class="doccomment">/// ## `io_priority`</span>
     <span class="doccomment">/// the [I/O priority][io-priority] of the request</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional `Cancellable` object, `None` to ignore.</span>
+    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// callback to call when the request is satisfied</span>
     <span class="doccomment">/// ## `user_data`</span>

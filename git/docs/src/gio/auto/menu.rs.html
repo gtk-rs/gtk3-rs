@@ -343,18 +343,18 @@
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// `Menu` is a simple implementation of `MenuModel`.</span>
-    <span class="doccomment">/// You populate a `Menu` by adding `MenuItem` instances to it.</span>
+    <span class="doccomment">/// [`Menu`](crate::Menu) is a simple implementation of [`MenuModel`](crate::MenuModel).</span>
+    <span class="doccomment">/// You populate a [`Menu`](crate::Menu) by adding [`MenuItem`](crate::MenuItem) instances to it.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// There are some convenience functions to allow you to directly</span>
-    <span class="doccomment">/// add items (avoiding `MenuItem`) for the common cases. To add</span>
-    <span class="doccomment">/// a regular item, use `Menu::insert`. To add a section, use</span>
-    <span class="doccomment">/// `Menu::insert_section`. To add a submenu, use</span>
-    <span class="doccomment">/// `Menu::insert_submenu`.</span>
+    <span class="doccomment">/// add items (avoiding [`MenuItem`](crate::MenuItem)) for the common cases. To add</span>
+    <span class="doccomment">/// a regular item, use [`insert()`](Self::insert()). To add a section, use</span>
+    <span class="doccomment">/// [`insert_section()`](Self::insert_section()). To add a submenu, use</span>
+    <span class="doccomment">/// [`insert_submenu()`](Self::insert_submenu()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`MenuModelExt`](trait@crate::MenuModelExt), [`trait@glib::object::ObjectExt`]</span>
+    <span class="doccomment">/// [`MenuModelExt`](trait@crate::prelude::MenuModelExt), [`trait@glib::object::ObjectExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Menu</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GMenu</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">MenuModel</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -363,25 +363,25 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Menu</span> {
-    <span class="doccomment">/// Creates a new `Menu`.</span>
+    <span class="doccomment">/// Creates a new [`Menu`](crate::Menu).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The new menu has no items.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new `Menu`</span>
+    <span class="doccomment">/// a new [`Menu`](crate::Menu)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_menu_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Menu</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_menu_new</span>()) }
     }
 
     <span class="doccomment">/// Convenience function for appending a normal menu item to the end of</span>
-    <span class="doccomment">/// `self`. Combine `MenuItem::new` and `Menu::insert_item` for a more</span>
+    <span class="doccomment">/// `self`. Combine [`MenuItem::new()`](crate::MenuItem::new()) and [`insert_item()`](Self::insert_item()) for a more</span>
     <span class="doccomment">/// flexible alternative.</span>
     <span class="doccomment">/// ## `label`</span>
-    <span class="doccomment">/// the section label, or `None`</span>
+    <span class="doccomment">/// the section label, or [`None`]</span>
     <span class="doccomment">/// ## `detailed_action`</span>
-    <span class="doccomment">/// the detailed action string, or `None`</span>
+    <span class="doccomment">/// the detailed action string, or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_menu_append&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">append</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">label</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>, <span class="ident">detailed_action</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>) {
         <span class="kw">unsafe</span> {
@@ -395,9 +395,9 @@
 
     <span class="doccomment">/// Appends `item` to the end of `self`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See `Menu::insert_item` for more information.</span>
+    <span class="doccomment">/// See [`insert_item()`](Self::insert_item()) for more information.</span>
     <span class="doccomment">/// ## `item`</span>
-    <span class="doccomment">/// a `MenuItem` to append</span>
+    <span class="doccomment">/// a [`MenuItem`](crate::MenuItem) to append</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_menu_append_item&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">append_item</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">item</span>: <span class="kw-2">&amp;</span><span class="ident">MenuItem</span>) {
         <span class="kw">unsafe</span> {
@@ -406,12 +406,12 @@
     }
 
     <span class="doccomment">/// Convenience function for appending a section menu item to the end of</span>
-    <span class="doccomment">/// `self`. Combine `MenuItem::new_section` and `Menu::insert_item` for a</span>
+    <span class="doccomment">/// `self`. Combine [`MenuItem::new_section()`](crate::MenuItem::new_section()) and [`insert_item()`](Self::insert_item()) for a</span>
     <span class="doccomment">/// more flexible alternative.</span>
     <span class="doccomment">/// ## `label`</span>
-    <span class="doccomment">/// the section label, or `None`</span>
+    <span class="doccomment">/// the section label, or [`None`]</span>
     <span class="doccomment">/// ## `section`</span>
-    <span class="doccomment">/// a `MenuModel` with the items of the section</span>
+    <span class="doccomment">/// a [`MenuModel`](crate::MenuModel) with the items of the section</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_menu_append_section&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">append_section</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">MenuModel</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">label</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>, <span class="ident">section</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) {
         <span class="kw">unsafe</span> {
@@ -424,12 +424,12 @@
     }
 
     <span class="doccomment">/// Convenience function for appending a submenu menu item to the end of</span>
-    <span class="doccomment">/// `self`. Combine `MenuItem::new_submenu` and `Menu::insert_item` for a</span>
+    <span class="doccomment">/// `self`. Combine [`MenuItem::new_submenu()`](crate::MenuItem::new_submenu()) and [`insert_item()`](Self::insert_item()) for a</span>
     <span class="doccomment">/// more flexible alternative.</span>
     <span class="doccomment">/// ## `label`</span>
-    <span class="doccomment">/// the section label, or `None`</span>
+    <span class="doccomment">/// the section label, or [`None`]</span>
     <span class="doccomment">/// ## `submenu`</span>
-    <span class="doccomment">/// a `MenuModel` with the items of the submenu</span>
+    <span class="doccomment">/// a [`MenuModel`](crate::MenuModel) with the items of the submenu</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_menu_append_submenu&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">append_submenu</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">MenuModel</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">label</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>, <span class="ident">submenu</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) {
         <span class="kw">unsafe</span> {
@@ -444,11 +444,11 @@
     <span class="doccomment">/// Marks `self` as frozen.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// After the menu is frozen, it is an error to attempt to make any</span>
-    <span class="doccomment">/// changes to it. In effect this means that the `Menu` API must no</span>
+    <span class="doccomment">/// changes to it. In effect this means that the [`Menu`](crate::Menu) API must no</span>
     <span class="doccomment">/// longer be used.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This function causes `MenuModelExt::is_mutable` to begin returning</span>
-    <span class="doccomment">/// `false`, which has some positive performance implications.</span>
+    <span class="doccomment">/// This function causes [`MenuModelExt::is_mutable()`](crate::MenuModelExt::is_mutable()) to begin returning</span>
+    <span class="doccomment">/// [`false`], which has some positive performance implications.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_menu_freeze&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">freeze</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe</span> {
@@ -457,14 +457,14 @@
     }
 
     <span class="doccomment">/// Convenience function for inserting a normal menu item into `self`.</span>
-    <span class="doccomment">/// Combine `MenuItem::new` and `Menu::insert_item` for a more flexible</span>
+    <span class="doccomment">/// Combine [`MenuItem::new()`](crate::MenuItem::new()) and [`insert_item()`](Self::insert_item()) for a more flexible</span>
     <span class="doccomment">/// alternative.</span>
     <span class="doccomment">/// ## `position`</span>
     <span class="doccomment">/// the position at which to insert the item</span>
     <span class="doccomment">/// ## `label`</span>
-    <span class="doccomment">/// the section label, or `None`</span>
+    <span class="doccomment">/// the section label, or [`None`]</span>
     <span class="doccomment">/// ## `detailed_action`</span>
-    <span class="doccomment">/// the detailed action string, or `None`</span>
+    <span class="doccomment">/// the detailed action string, or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_menu_insert&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">insert</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">position</span>: <span class="ident">i32</span>, <span class="ident">label</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>, <span class="ident">detailed_action</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>) {
         <span class="kw">unsafe</span> {
@@ -491,13 +491,13 @@
     <span class="doccomment">/// You should probably just free `item` once you&#39;re done.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// There are many convenience functions to take care of common cases.</span>
-    <span class="doccomment">/// See `Menu::insert`, `Menu::insert_section` and</span>
-    <span class="doccomment">/// `Menu::insert_submenu` as well as &quot;prepend&quot; and &quot;append&quot; variants of</span>
+    <span class="doccomment">/// See [`insert()`](Self::insert()), [`insert_section()`](Self::insert_section()) and</span>
+    <span class="doccomment">/// [`insert_submenu()`](Self::insert_submenu()) as well as &quot;prepend&quot; and &quot;append&quot; variants of</span>
     <span class="doccomment">/// each of these functions.</span>
     <span class="doccomment">/// ## `position`</span>
     <span class="doccomment">/// the position at which to insert the item</span>
     <span class="doccomment">/// ## `item`</span>
-    <span class="doccomment">/// the `MenuItem` to insert</span>
+    <span class="doccomment">/// the [`MenuItem`](crate::MenuItem) to insert</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_menu_insert_item&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">insert_item</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">position</span>: <span class="ident">i32</span>, <span class="ident">item</span>: <span class="kw-2">&amp;</span><span class="ident">MenuItem</span>) {
         <span class="kw">unsafe</span> {
@@ -506,14 +506,14 @@
     }
 
     <span class="doccomment">/// Convenience function for inserting a section menu item into `self`.</span>
-    <span class="doccomment">/// Combine `MenuItem::new_section` and `Menu::insert_item` for a more</span>
+    <span class="doccomment">/// Combine [`MenuItem::new_section()`](crate::MenuItem::new_section()) and [`insert_item()`](Self::insert_item()) for a more</span>
     <span class="doccomment">/// flexible alternative.</span>
     <span class="doccomment">/// ## `position`</span>
     <span class="doccomment">/// the position at which to insert the item</span>
     <span class="doccomment">/// ## `label`</span>
-    <span class="doccomment">/// the section label, or `None`</span>
+    <span class="doccomment">/// the section label, or [`None`]</span>
     <span class="doccomment">/// ## `section`</span>
-    <span class="doccomment">/// a `MenuModel` with the items of the section</span>
+    <span class="doccomment">/// a [`MenuModel`](crate::MenuModel) with the items of the section</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_menu_insert_section&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">insert_section</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">MenuModel</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -532,14 +532,14 @@
     }
 
     <span class="doccomment">/// Convenience function for inserting a submenu menu item into `self`.</span>
-    <span class="doccomment">/// Combine `MenuItem::new_submenu` and `Menu::insert_item` for a more</span>
+    <span class="doccomment">/// Combine [`MenuItem::new_submenu()`](crate::MenuItem::new_submenu()) and [`insert_item()`](Self::insert_item()) for a more</span>
     <span class="doccomment">/// flexible alternative.</span>
     <span class="doccomment">/// ## `position`</span>
     <span class="doccomment">/// the position at which to insert the item</span>
     <span class="doccomment">/// ## `label`</span>
-    <span class="doccomment">/// the section label, or `None`</span>
+    <span class="doccomment">/// the section label, or [`None`]</span>
     <span class="doccomment">/// ## `submenu`</span>
-    <span class="doccomment">/// a `MenuModel` with the items of the submenu</span>
+    <span class="doccomment">/// a [`MenuModel`](crate::MenuModel) with the items of the submenu</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_menu_insert_submenu&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">insert_submenu</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">MenuModel</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -558,12 +558,12 @@
     }
 
     <span class="doccomment">/// Convenience function for prepending a normal menu item to the start</span>
-    <span class="doccomment">/// of `self`. Combine `MenuItem::new` and `Menu::insert_item` for a more</span>
+    <span class="doccomment">/// of `self`. Combine [`MenuItem::new()`](crate::MenuItem::new()) and [`insert_item()`](Self::insert_item()) for a more</span>
     <span class="doccomment">/// flexible alternative.</span>
     <span class="doccomment">/// ## `label`</span>
-    <span class="doccomment">/// the section label, or `None`</span>
+    <span class="doccomment">/// the section label, or [`None`]</span>
     <span class="doccomment">/// ## `detailed_action`</span>
-    <span class="doccomment">/// the detailed action string, or `None`</span>
+    <span class="doccomment">/// the detailed action string, or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_menu_prepend&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">prepend</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">label</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>, <span class="ident">detailed_action</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>) {
         <span class="kw">unsafe</span> {
@@ -577,9 +577,9 @@
 
     <span class="doccomment">/// Prepends `item` to the start of `self`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See `Menu::insert_item` for more information.</span>
+    <span class="doccomment">/// See [`insert_item()`](Self::insert_item()) for more information.</span>
     <span class="doccomment">/// ## `item`</span>
-    <span class="doccomment">/// a `MenuItem` to prepend</span>
+    <span class="doccomment">/// a [`MenuItem`](crate::MenuItem) to prepend</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_menu_prepend_item&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">prepend_item</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">item</span>: <span class="kw-2">&amp;</span><span class="ident">MenuItem</span>) {
         <span class="kw">unsafe</span> {
@@ -588,12 +588,12 @@
     }
 
     <span class="doccomment">/// Convenience function for prepending a section menu item to the start</span>
-    <span class="doccomment">/// of `self`. Combine `MenuItem::new_section` and `Menu::insert_item` for</span>
+    <span class="doccomment">/// of `self`. Combine [`MenuItem::new_section()`](crate::MenuItem::new_section()) and [`insert_item()`](Self::insert_item()) for</span>
     <span class="doccomment">/// a more flexible alternative.</span>
     <span class="doccomment">/// ## `label`</span>
-    <span class="doccomment">/// the section label, or `None`</span>
+    <span class="doccomment">/// the section label, or [`None`]</span>
     <span class="doccomment">/// ## `section`</span>
-    <span class="doccomment">/// a `MenuModel` with the items of the section</span>
+    <span class="doccomment">/// a [`MenuModel`](crate::MenuModel) with the items of the section</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_menu_prepend_section&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">prepend_section</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">MenuModel</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">label</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>, <span class="ident">section</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) {
         <span class="kw">unsafe</span> {
@@ -606,12 +606,12 @@
     }
 
     <span class="doccomment">/// Convenience function for prepending a submenu menu item to the start</span>
-    <span class="doccomment">/// of `self`. Combine `MenuItem::new_submenu` and `Menu::insert_item` for</span>
+    <span class="doccomment">/// of `self`. Combine [`MenuItem::new_submenu()`](crate::MenuItem::new_submenu()) and [`insert_item()`](Self::insert_item()) for</span>
     <span class="doccomment">/// a more flexible alternative.</span>
     <span class="doccomment">/// ## `label`</span>
-    <span class="doccomment">/// the section label, or `None`</span>
+    <span class="doccomment">/// the section label, or [`None`]</span>
     <span class="doccomment">/// ## `submenu`</span>
-    <span class="doccomment">/// a `MenuModel` with the items of the submenu</span>
+    <span class="doccomment">/// a [`MenuModel`](crate::MenuModel) with the items of the submenu</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_menu_prepend_submenu&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">prepend_submenu</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">MenuModel</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">label</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>, <span class="ident">submenu</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) {
         <span class="kw">unsafe</span> {

@@ -167,8 +167,8 @@
 <span class="kw">use</span> <span class="ident">std::future::Future</span>;
 <span class="kw">use</span> <span class="ident">std::pin</span>::{<span class="self">self</span>, <span class="ident">Pin</span>};
 
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Cancellable</span>;
-<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::CancellableExt</span>;
 
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">GioFuture</span><span class="op">&lt;</span><span class="ident">F</span>, <span class="ident">O</span>, <span class="ident">T</span>, <span class="ident">E</span><span class="op">&gt;</span> {
     <span class="ident">obj</span>: <span class="ident">O</span>,

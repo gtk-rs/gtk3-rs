@@ -336,30 +336,30 @@
     <span class="doccomment">/// In order to query the device hierarchy and be aware of changes in the</span>
     <span class="doccomment">/// device hierarchy (such as virtual devices being created or removed, or</span>
     <span class="doccomment">/// physical devices being plugged or unplugged), GDK provides</span>
-    <span class="doccomment">/// `DeviceManager`.</span>
+    <span class="doccomment">/// [`DeviceManager`](crate::DeviceManager).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// By default, and if the platform supports it, GDK is aware of multiple</span>
     <span class="doccomment">/// keyboard/pointer pairs and multitouch devices. This behavior can be</span>
-    <span class="doccomment">/// changed by calling `gdk_disable_multidevice` before `Display::open`.</span>
+    <span class="doccomment">/// changed by calling `gdk_disable_multidevice()` before [`Display::open()`](crate::Display::open()).</span>
     <span class="doccomment">/// There should rarely be a need to do that though, since GDK defaults</span>
     <span class="doccomment">/// to a compatibility mode in which it will emit just one enter/leave</span>
     <span class="doccomment">/// event pair for all devices on a window. To enable per-device</span>
     <span class="doccomment">/// enter/leave events and other multi-pointer interaction features,</span>
-    <span class="doccomment">/// `Window::set_support_multidevice` must be called on</span>
-    <span class="doccomment">/// ``GdkWindows`` (or `gtk_widget_set_support_multidevice` on widgets).</span>
-    <span class="doccomment">/// window. See the `Window::set_support_multidevice` documentation</span>
+    <span class="doccomment">/// [`Window::set_support_multidevice()`](crate::Window::set_support_multidevice()) must be called on</span>
+    <span class="doccomment">/// ``GdkWindows`` (or `gtk_widget_set_support_multidevice()` on widgets).</span>
+    <span class="doccomment">/// window. See the [`Window::set_support_multidevice()`](crate::Window::set_support_multidevice()) documentation</span>
     <span class="doccomment">/// for more information.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// On X11, multi-device support is implemented through XInput 2.</span>
-    <span class="doccomment">/// Unless `gdk_disable_multidevice` is called, the XInput 2</span>
-    <span class="doccomment">/// `DeviceManager` implementation will be used as the input source.</span>
+    <span class="doccomment">/// Unless `gdk_disable_multidevice()` is called, the XInput 2</span>
+    <span class="doccomment">/// [`DeviceManager`](crate::DeviceManager) implementation will be used as the input source.</span>
     <span class="doccomment">/// Otherwise either the core or XInput 1 implementations will be used.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// For simple applications that don’t have any special interest in</span>
     <span class="doccomment">/// input devices, the so-called “client pointer”</span>
     <span class="doccomment">/// provides a reasonable approximation to a simple setup with a single</span>
     <span class="doccomment">/// pointer and keyboard. The device that has been set as the client</span>
-    <span class="doccomment">/// pointer can be accessed via `DeviceManager::get_client_pointer`.</span>
+    <span class="doccomment">/// pointer can be accessed via [`get_client_pointer()`](Self::get_client_pointer()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Conceptually, in multidevice mode there are 2 device types. Virtual</span>
     <span class="doccomment">/// devices (or master devices) are represented by the pointer cursors</span>
@@ -369,7 +369,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Virtual devices are always paired, so there is a keyboard device for every</span>
     <span class="doccomment">/// pointer device. Associations between devices may be inspected through</span>
-    <span class="doccomment">/// `Device::get_associated_device`.</span>
+    <span class="doccomment">/// [`Device::get_associated_device()`](crate::Device::get_associated_device()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// There may be several virtual devices, and several physical devices could</span>
     <span class="doccomment">/// be controlling each of these virtual devices. Physical devices may also</span>
@@ -398,16 +398,16 @@
     <span class="doccomment">/// ```</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// By default, GDK will automatically listen for events coming from all</span>
-    <span class="doccomment">/// master devices, setting the `Device` for all events coming from input</span>
-    <span class="doccomment">/// devices. Events containing device information are `EventType::MotionNotify`,</span>
-    <span class="doccomment">/// `EventType::ButtonPress`, `EventType::2buttonPress`, `EventType::3buttonPress`,</span>
-    <span class="doccomment">/// `EventType::ButtonRelease`, `EventType::Scroll`, `EventType::KeyPress`, `EventType::KeyRelease`,</span>
-    <span class="doccomment">/// `EventType::EnterNotify`, `EventType::LeaveNotify`, `EventType::FocusChange`,</span>
-    <span class="doccomment">/// `EventType::ProximityIn`, `EventType::ProximityOut`, `EventType::DragEnter`, `EventType::DragLeave`,</span>
-    <span class="doccomment">/// `EventType::DragMotion`, `EventType::DragStatus`, `EventType::DropStart`, `EventType::DropFinished`</span>
-    <span class="doccomment">/// and `EventType::GrabBroken`. When dealing with an event on a master device,</span>
+    <span class="doccomment">/// master devices, setting the [`Device`](crate::Device) for all events coming from input</span>
+    <span class="doccomment">/// devices. Events containing device information are [`EventType::MotionNotify`](crate::EventType::MotionNotify),</span>
+    <span class="doccomment">/// [`EventType::ButtonPress`](crate::EventType::ButtonPress), [`EventType::2buttonPress`](crate::EventType::2buttonPress), [`EventType::3buttonPress`](crate::EventType::3buttonPress),</span>
+    <span class="doccomment">/// [`EventType::ButtonRelease`](crate::EventType::ButtonRelease), [`EventType::Scroll`](crate::EventType::Scroll), [`EventType::KeyPress`](crate::EventType::KeyPress), [`EventType::KeyRelease`](crate::EventType::KeyRelease),</span>
+    <span class="doccomment">/// [`EventType::EnterNotify`](crate::EventType::EnterNotify), [`EventType::LeaveNotify`](crate::EventType::LeaveNotify), [`EventType::FocusChange`](crate::EventType::FocusChange),</span>
+    <span class="doccomment">/// [`EventType::ProximityIn`](crate::EventType::ProximityIn), [`EventType::ProximityOut`](crate::EventType::ProximityOut), [`EventType::DragEnter`](crate::EventType::DragEnter), [`EventType::DragLeave`](crate::EventType::DragLeave),</span>
+    <span class="doccomment">/// [`EventType::DragMotion`](crate::EventType::DragMotion), [`EventType::DragStatus`](crate::EventType::DragStatus), [`EventType::DropStart`](crate::EventType::DropStart), [`EventType::DropFinished`](crate::EventType::DropFinished)</span>
+    <span class="doccomment">/// and [`EventType::GrabBroken`](crate::EventType::GrabBroken). When dealing with an event on a master device,</span>
     <span class="doccomment">/// it is possible to get the source (slave) device that the event originated</span>
-    <span class="doccomment">/// from via `gdk_event_get_source_device`.</span>
+    <span class="doccomment">/// from via `gdk_event_get_source_device()`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// On a standard session, all physical devices are connected by default to</span>
     <span class="doccomment">/// the &quot;Virtual Core Pointer/Keyboard&quot; master devices, hence routing all events</span>
@@ -418,28 +418,28 @@
     <span class="doccomment">/// On certain application specific setups, it may make sense</span>
     <span class="doccomment">/// to detach a physical device from its master pointer, and mapping it to</span>
     <span class="doccomment">/// an specific window. This can be achieved by the combination of</span>
-    <span class="doccomment">/// `Device::grab` and `Device::set_mode`.</span>
+    <span class="doccomment">/// [`Device::grab()`](crate::Device::grab()) and [`Device::set_mode()`](crate::Device::set_mode()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// In order to listen for events coming from devices</span>
-    <span class="doccomment">/// other than a virtual device, `Window::set_device_events` must be</span>
+    <span class="doccomment">/// other than a virtual device, [`Window::set_device_events()`](crate::Window::set_device_events()) must be</span>
     <span class="doccomment">/// called. Generally, this function can be used to modify the event mask</span>
     <span class="doccomment">/// for any given device.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Input devices may also provide additional information besides X/Y.</span>
     <span class="doccomment">/// For example, graphics tablets may also provide pressure and X/Y tilt</span>
     <span class="doccomment">/// information. This information is device-dependent, and may be</span>
-    <span class="doccomment">/// queried through `Device::get_axis`. In multidevice mode, virtual</span>
+    <span class="doccomment">/// queried through [`Device::get_axis()`](crate::Device::get_axis()). In multidevice mode, virtual</span>
     <span class="doccomment">/// devices will change axes in order to always represent the physical</span>
     <span class="doccomment">/// device that is routing events through it. Whenever the physical device</span>
-    <span class="doccomment">/// changes, the `Device:n-axes` property will be notified, and</span>
-    <span class="doccomment">/// `Device::list_axes` will return the new device axes.</span>
+    <span class="doccomment">/// changes, the [`Device:n-axes`](crate::Device:n-axes) property will be notified, and</span>
+    <span class="doccomment">/// [`Device::list_axes()`](crate::Device::list_axes()) will return the new device axes.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Devices may also have associated “keys” or</span>
     <span class="doccomment">/// macro buttons. Such keys can be globally set to map into normal X</span>
-    <span class="doccomment">/// keyboard events. The mapping is set using `Device::set_key`.</span>
+    <span class="doccomment">/// keyboard events. The mapping is set using [`Device::set_key()`](crate::Device::set_key()).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// In GTK+ 3.20, a new `Seat` object has been introduced that</span>
-    <span class="doccomment">/// supersedes `DeviceManager` and should be preferred in newly</span>
+    <span class="doccomment">/// In GTK+ 3.20, a new [`Seat`](crate::Seat) object has been introduced that</span>
+    <span class="doccomment">/// supersedes [`DeviceManager`](crate::DeviceManager) and should be preferred in newly</span>
     <span class="doccomment">/// written code.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is an Abstract Base Class, you cannot instantiate it.</span>
@@ -456,17 +456,17 @@
     <span class="doccomment">/// pattern under the presence of several pointers.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// You should use this function seldomly, only in code that isn’t triggered by a ``GdkEvent``</span>
-    <span class="doccomment">/// and there aren’t other means to get a meaningful `Device` to operate on.</span>
+    <span class="doccomment">/// and there aren’t other means to get a meaningful [`Device`](crate::Device) to operate on.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated since 3.20</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Use `Seat::get_pointer` instead.</span>
+    <span class="doccomment">/// Use [`Seat::get_pointer()`](crate::Seat::get_pointer()) instead.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The client pointer. This memory is</span>
     <span class="doccomment">///  owned by GDK and must not be freed or unreferenced.</span>
-    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>, <span class="ident">deprecated</span>)]</span>
+    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>, <span class="ident">deprecated</span> <span class="op">=</span> <span class="string">&quot;Since 3.20&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_device_manager_get_client_pointer&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">client_pointer</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Device</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
@@ -476,12 +476,12 @@
         }
     }
 
-    <span class="doccomment">/// Gets the `Display` associated to `self`.</span>
+    <span class="doccomment">/// Gets the [`Display`](crate::Display) associated to `self`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the `Display` to which</span>
-    <span class="doccomment">///  `self` is associated to, or `None`. This memory is</span>
+    <span class="doccomment">/// the [`Display`](crate::Display) to which</span>
+    <span class="doccomment">///  `self` is associated to, or [`None`]. This memory is</span>
     <span class="doccomment">///  owned by GDK and must not be freed or unreferenced.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_device_manager_get_display&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">display</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Display</span><span class="op">&gt;</span> {
@@ -493,8 +493,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated since 3.20</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// , use `Seat::get_pointer`, `Seat::get_keyboard`</span>
-    <span class="doccomment">///  and `Seat::get_slaves` instead.</span>
+    <span class="doccomment">/// , use [`Seat::get_pointer()`](crate::Seat::get_pointer()), [`Seat::get_keyboard()`](crate::Seat::get_keyboard())</span>
+    <span class="doccomment">///  and [`Seat::get_slaves()`](crate::Seat::get_slaves()) instead.</span>
     <span class="doccomment">/// ## `type_`</span>
     <span class="doccomment">/// device type to get.</span>
     <span class="doccomment">///</span>
@@ -504,7 +504,7 @@
     <span class="doccomment">///  ``GdkDevices``. The returned list must be</span>
     <span class="doccomment">///  freed with g_list_free (). The list elements are owned by</span>
     <span class="doccomment">///  GTK+ and must not be freed or unreffed.</span>
-    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>, <span class="ident">deprecated</span>)]</span>
+    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>, <span class="ident">deprecated</span> <span class="op">=</span> <span class="string">&quot;Since 3.20&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_device_manager_list_devices&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">list_devices</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">type_</span>: <span class="ident">DeviceType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Device</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
@@ -519,7 +519,7 @@
     <span class="doccomment">/// pointer is created, or when a slave (Hardware) input device</span>
     <span class="doccomment">/// is plugged in.</span>
     <span class="doccomment">/// ## `device`</span>
-    <span class="doccomment">/// the newly added `Device`.</span>
+    <span class="doccomment">/// the newly added [`Device`](crate::Device).</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">connect_device_added</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">DeviceManager</span>, <span class="kw-2">&amp;</span><span class="ident">Device</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">f</span>: <span class="ident">F</span>,
@@ -552,11 +552,11 @@
     <span class="doccomment">/// a slave device.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If a slave device is detached from all master devices</span>
-    <span class="doccomment">/// (`Device::get_associated_device` returns `None`), its</span>
-    <span class="doccomment">/// `DeviceType` will change to `DeviceType::Floating`,</span>
-    <span class="doccomment">/// if it&#39;s attached, it will change to `DeviceType::Slave`.</span>
+    <span class="doccomment">/// ([`Device::get_associated_device()`](crate::Device::get_associated_device()) returns [`None`]), its</span>
+    <span class="doccomment">/// [`DeviceType`](crate::DeviceType) will change to [`DeviceType::Floating`],</span>
+    <span class="doccomment">/// if it&#39;s attached, it will change to [`DeviceType::Slave`].</span>
     <span class="doccomment">/// ## `device`</span>
-    <span class="doccomment">/// the `Device` that changed.</span>
+    <span class="doccomment">/// the [`Device`](crate::Device) that changed.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">connect_device_changed</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">DeviceManager</span>, <span class="kw-2">&amp;</span><span class="ident">Device</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">f</span>: <span class="ident">F</span>,
@@ -586,7 +586,7 @@
     <span class="doccomment">/// pointer is removed, or when a slave (Hardware) input device</span>
     <span class="doccomment">/// is unplugged.</span>
     <span class="doccomment">/// ## `device`</span>
-    <span class="doccomment">/// the just removed `Device`.</span>
+    <span class="doccomment">/// the just removed [`Device`](crate::Device).</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">connect_device_removed</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">DeviceManager</span>, <span class="kw-2">&amp;</span><span class="ident">Device</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">f</span>: <span class="ident">F</span>,

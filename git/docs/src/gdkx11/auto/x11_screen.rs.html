@@ -241,7 +241,7 @@
         <span class="kw">unsafe</span> { <span class="ident">ffi::gdk_x11_screen_get_number_of_desktops</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
-    <span class="doccomment">/// Returns the index of a `gdk::Screen`.</span>
+    <span class="doccomment">/// Returns the index of a [`gdk::Screen`](crate::gdk::Screen).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -268,14 +268,14 @@
         }
     }
 
-    <span class="doccomment">/// Looks up the `gdk::Visual` for a particular screen and X Visual ID.</span>
+    <span class="doccomment">/// Looks up the [`gdk::Visual`](crate::gdk::Visual) for a particular screen and X Visual ID.</span>
     <span class="doccomment">/// ## `xvisualid`</span>
     <span class="doccomment">/// an X Visual ID.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the `gdk::Visual` (owned by the screen</span>
-    <span class="doccomment">///  object), or `None` if the visual ID wasn’t found.</span>
+    <span class="doccomment">/// the [`gdk::Visual`](crate::gdk::Visual) (owned by the screen</span>
+    <span class="doccomment">///  object), or [`None`] if the visual ID wasn’t found.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_x11_screen_lookup_visual&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">lookup_visual</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">xvisualid</span>: <span class="ident">xlib::VisualID</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">X11Visual</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
@@ -295,15 +295,15 @@
     <span class="doccomment">/// a way that impacts persistent application state. A common bug</span>
     <span class="doccomment">/// is that your application can start up before the window manager</span>
     <span class="doccomment">/// does when the user logs in, and before the window manager starts</span>
-    <span class="doccomment">/// `X11Screen::supports_net_wm_hint` will return `false` for every property.</span>
-    <span class="doccomment">/// You can monitor the window_manager_changed signal on `gdk::Screen` to detect</span>
+    <span class="doccomment">/// [`supports_net_wm_hint()`](Self::supports_net_wm_hint()) will return [`false`] for every property.</span>
+    <span class="doccomment">/// You can monitor the window_manager_changed signal on [`gdk::Screen`](crate::gdk::Screen) to detect</span>
     <span class="doccomment">/// a window manager change.</span>
     <span class="doccomment">/// ## `property`</span>
     <span class="doccomment">/// a property atom.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if the window manager supports `property`</span>
+    <span class="doccomment">/// [`true`] if the window manager supports `property`</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_x11_screen_supports_net_wm_hint&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">supports_net_wm_hint</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">property</span>: <span class="kw-2">&amp;</span><span class="ident">gdk::Atom</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {

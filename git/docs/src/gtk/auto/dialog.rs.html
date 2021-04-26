@@ -1171,45 +1171,45 @@
     <span class="doccomment">/// that does not require extensive effort on the user’s part.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// GTK+ treats a dialog as a window split vertically. The top section is a</span>
-    <span class="doccomment">/// `VBox`, and is where widgets such as a `Label` or a `Entry` should</span>
+    <span class="doccomment">/// [`VBox`](crate::VBox), and is where widgets such as a [`Label`](crate::Label) or a [`Entry`](crate::Entry) should</span>
     <span class="doccomment">/// be packed. The bottom area is known as the</span>
     <span class="doccomment">/// “action area”. This is generally used for</span>
     <span class="doccomment">/// packing buttons into the dialog which may perform functions such as</span>
     <span class="doccomment">/// cancel, ok, or apply.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `Dialog` boxes are created with a call to `Dialog::new` or</span>
-    <span class="doccomment">/// `Dialog::new_with_buttons`. `Dialog::new_with_buttons` is</span>
+    <span class="doccomment">/// [`Dialog`](crate::Dialog) boxes are created with a call to [`new()`](Self::new()) or</span>
+    <span class="doccomment">/// [`new_with_buttons()`](Self::new_with_buttons()). [`new_with_buttons()`](Self::new_with_buttons()) is</span>
     <span class="doccomment">/// recommended; it allows you to set the dialog title, some convenient</span>
     <span class="doccomment">/// flags, and add simple buttons.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If “dialog” is a newly created dialog, the two primary areas of the</span>
-    <span class="doccomment">/// window can be accessed through `DialogExt::get_content_area` and</span>
-    <span class="doccomment">/// `Dialog::get_action_area`, as can be seen from the example below.</span>
+    <span class="doccomment">/// window can be accessed through [`DialogExt::get_content_area()`](crate::DialogExt::get_content_area()) and</span>
+    <span class="doccomment">/// [`get_action_area()`](Self::get_action_area()), as can be seen from the example below.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// A “modal” dialog (that is, one which freezes the rest of the application</span>
-    <span class="doccomment">/// from user input), can be created by calling `GtkWindowExt::set_modal` on the</span>
+    <span class="doccomment">/// from user input), can be created by calling [``GtkWindowExt`::set_modal()`](crate::`GtkWindowExt`::set_modal()) on the</span>
     <span class="doccomment">/// dialog. Use the GTK_WINDOW() macro to cast the widget returned from</span>
-    <span class="doccomment">/// `Dialog::new` into a `Window`. When using `Dialog::new_with_buttons`</span>
-    <span class="doccomment">/// you can also pass the `DialogFlags::Modal` flag to make a dialog modal.</span>
+    <span class="doccomment">/// [`new()`](Self::new()) into a [`Window`](crate::Window). When using [`new_with_buttons()`](Self::new_with_buttons())</span>
+    <span class="doccomment">/// you can also pass the [`DialogFlags::Modal`](crate::DialogFlags::Modal) flag to make a dialog modal.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If you add buttons to `Dialog` using `Dialog::new_with_buttons`,</span>
-    <span class="doccomment">/// `DialogExt::add_button`, `DialogExt::add_buttons`, or</span>
-    <span class="doccomment">/// `DialogExt::add_action_widget`, clicking the button will emit a signal</span>
-    <span class="doccomment">/// called `Dialog::response` with a response ID that you specified. GTK+</span>
+    <span class="doccomment">/// If you add buttons to [`Dialog`](crate::Dialog) using [`new_with_buttons()`](Self::new_with_buttons()),</span>
+    <span class="doccomment">/// [`DialogExt::add_button()`](crate::DialogExt::add_button()), [`DialogExt::add_buttons()`](crate::DialogExt::add_buttons()), or</span>
+    <span class="doccomment">/// [`DialogExt::add_action_widget()`](crate::DialogExt::add_action_widget()), clicking the button will emit a signal</span>
+    <span class="doccomment">/// called [`Dialog::response`](crate::Dialog::response) with a response ID that you specified. GTK+</span>
     <span class="doccomment">/// will never assign a meaning to positive response IDs; these are entirely</span>
     <span class="doccomment">/// user-defined. But for convenience, you can use the response IDs in the</span>
-    <span class="doccomment">/// `ResponseType` enumeration (these all have values less than zero). If</span>
-    <span class="doccomment">/// a dialog receives a delete event, the `Dialog::response` signal will</span>
-    <span class="doccomment">/// be emitted with a response ID of `ResponseType::DeleteEvent`.</span>
+    <span class="doccomment">/// [`ResponseType`](crate::ResponseType) enumeration (these all have values less than zero). If</span>
+    <span class="doccomment">/// a dialog receives a delete event, the [`Dialog::response`](crate::Dialog::response) signal will</span>
+    <span class="doccomment">/// be emitted with a response ID of [`ResponseType::DeleteEvent`](crate::ResponseType::DeleteEvent).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If you want to block waiting for a dialog to return before returning</span>
-    <span class="doccomment">/// control flow to your code, you can call `DialogExt::run`. This function</span>
+    <span class="doccomment">/// control flow to your code, you can call [`DialogExt::run()`](crate::DialogExt::run()). This function</span>
     <span class="doccomment">/// enters a recursive main loop and waits for the user to respond to the</span>
     <span class="doccomment">/// dialog, returning the response ID corresponding to the button the user</span>
     <span class="doccomment">/// clicked.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// For the simple dialog in the following example, in reality you’d probably</span>
-    <span class="doccomment">/// use `MessageDialog` to save yourself some effort. But you’d need to</span>
+    <span class="doccomment">/// use [`MessageDialog`](crate::MessageDialog) to save yourself some effort. But you’d need to</span>
     <span class="doccomment">/// create the dialog contents manually if you had more than a simple message</span>
     <span class="doccomment">/// in the dialog.</span>
     <span class="doccomment">///</span>
@@ -1250,7 +1250,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # `Dialog` as `Buildable`</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The `Dialog` implementation of the `Buildable` interface exposes the</span>
+    <span class="doccomment">/// The `Dialog` implementation of the [`Buildable`](crate::Buildable) interface exposes the</span>
     <span class="doccomment">/// `vbox` and `action_area` as internal children with the names “vbox” and</span>
     <span class="doccomment">/// “action_area”.</span>
     <span class="doccomment">///</span>
@@ -1267,7 +1267,7 @@
     <span class="doccomment">/// on the “use-header-bar“ property. The response id has to be associated</span>
     <span class="doccomment">/// with the action widget using the `&lt;action-widgets&gt;` element.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// An example of a `Dialog` UI definition fragment:</span>
+    <span class="doccomment">/// An example of a [`Dialog`](crate::Dialog) UI definition fragment:</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```text</span>
     <span class="doccomment">/// &lt;object class=&quot;GtkDialog&quot; id=&quot;dialog1&quot;&gt;</span>
@@ -1288,7 +1288,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`DialogExt`](trait@crate::DialogExt), [`GtkWindowExt`](trait@crate::GtkWindowExt), [`BinExt`](trait@crate::BinExt), [`ContainerExt`](trait@crate::ContainerExt), [`WidgetExt`](trait@crate::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::BuildableExt), [`DialogExtManual`](trait@crate::DialogExtManual), [`GtkWindowExtManual`](trait@crate::GtkWindowExtManual), [`WidgetExtManual`](trait@crate::WidgetExtManual), [`BuildableExtManual`](trait@crate::BuildableExtManual)</span>
+    <span class="doccomment">/// [`DialogExt`](trait@crate::prelude::DialogExt), [`GtkWindowExt`](trait@crate::prelude::GtkWindowExt), [`BinExt`](trait@crate::prelude::BinExt), [`ContainerExt`](trait@crate::prelude::ContainerExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`DialogExtManual`](trait@crate::prelude::DialogExtManual), [`GtkWindowExtManual`](trait@crate::prelude::GtkWindowExtManual), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Dialog</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkDialog</span>, <span class="ident">ffi::GtkDialogClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Window</span>, <span class="ident">Bin</span>, <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -1299,12 +1299,12 @@
 <span class="kw">impl</span> <span class="ident">Dialog</span> {
     <span class="doccomment">/// Creates a new dialog box.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Widgets should not be packed into this `Window`</span>
+    <span class="doccomment">/// Widgets should not be packed into this [`Window`](crate::Window)</span>
     <span class="doccomment">/// directly, but into the `vbox` and `action_area`, as described above.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the new dialog as a `Widget`</span>
+    <span class="doccomment">/// the new dialog as a [`Widget`](crate::Widget)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_dialog_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Dialog</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -1928,12 +1928,12 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// [`AboutDialog`](struct@crate::AboutDialog), [`AppChooserDialog`](struct@crate::AppChooserDialog), [`ColorChooserDialog`](struct@crate::ColorChooserDialog), [`Dialog`](struct@crate::Dialog), [`FileChooserDialog`](struct@crate::FileChooserDialog), [`FontChooserDialog`](struct@crate::FontChooserDialog), [`MessageDialog`](struct@crate::MessageDialog), [`RecentChooserDialog`](struct@crate::RecentChooserDialog)</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">DialogExt</span>: <span class="lifetime">&#39;static</span> {
-    <span class="doccomment">/// Adds an activatable widget to the action area of a `Dialog`,</span>
-    <span class="doccomment">/// connecting a signal handler that will emit the `Dialog::response`</span>
+    <span class="doccomment">/// Adds an activatable widget to the action area of a [`Dialog`](crate::Dialog),</span>
+    <span class="doccomment">/// connecting a signal handler that will emit the [`Dialog::response`](crate::Dialog::response)</span>
     <span class="doccomment">/// signal on the dialog when the widget is activated. The widget is</span>
     <span class="doccomment">/// appended to the end of the dialog’s action area. If you want to add a</span>
     <span class="doccomment">/// non-activatable widget, simply pack it into the `action_area` field</span>
-    <span class="doccomment">/// of the `Dialog` struct.</span>
+    <span class="doccomment">/// of the [`Dialog`](crate::Dialog) struct.</span>
     <span class="doccomment">/// ## `child`</span>
     <span class="doccomment">/// an activatable widget</span>
     <span class="doccomment">/// ## `response_id`</span>
@@ -1942,7 +1942,7 @@
     <span class="kw">fn</span> <span class="ident">add_action_widget</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">child</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>, <span class="ident">response_id</span>: <span class="ident">ResponseType</span>);
 
     <span class="doccomment">/// Adds a button with the given text and sets things up so that</span>
-    <span class="doccomment">/// clicking the button will emit the `Dialog::response` signal with</span>
+    <span class="doccomment">/// clicking the button will emit the [`Dialog::response`](crate::Dialog::response) signal with</span>
     <span class="doccomment">/// the given `response_id`. The button is appended to the end of the</span>
     <span class="doccomment">/// dialog’s action area. The button widget is returned, but usually</span>
     <span class="doccomment">/// you don’t need it.</span>
@@ -1953,7 +1953,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the `Button` widget that was added</span>
+    <span class="doccomment">/// the [`Button`](crate::Button) widget that was added</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_dialog_add_button&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">add_button</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">button_text</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">response_id</span>: <span class="ident">ResponseType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Widget</span>;
 
@@ -1964,13 +1964,13 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the content area `Box`.</span>
+    <span class="doccomment">/// the content area [`Box`](crate::Box).</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_dialog_get_content_area&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">content_area</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Box</span>;
 
     <span class="doccomment">/// Returns the header bar of `self`. Note that the</span>
     <span class="doccomment">/// headerbar is only used by the dialog if the</span>
-    <span class="doccomment">/// `Dialog:use-header-bar` property is `true`.</span>
+    <span class="doccomment">/// [`Dialog:use-header-bar`](crate::Dialog:use-header-bar) property is [`true`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1985,7 +1985,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the response id of `widget`, or `ResponseType::None`</span>
+    <span class="doccomment">/// the response id of `widget`, or [`ResponseType::None`]</span>
     <span class="doccomment">///  if `widget` doesn’t have a response id set.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_dialog_get_response_for_widget&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">response_for_widget</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">widget</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ResponseType</span>;
@@ -1998,13 +1998,13 @@
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// the `widget` button that uses the given</span>
-    <span class="doccomment">///  `response_id`, or `None`.</span>
+    <span class="doccomment">///  `response_id`, or [`None`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_dialog_get_widget_for_response&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">widget_for_response</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">response_id</span>: <span class="ident">ResponseType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// Emits the `Dialog::response` signal with the given response ID.</span>
+    <span class="doccomment">/// Emits the [`Dialog::response`](crate::Dialog::response) signal with the given response ID.</span>
     <span class="doccomment">/// Used to indicate that the user has responded to the dialog in some way;</span>
-    <span class="doccomment">/// typically either you or `DialogExt::run` will be monitoring the</span>
+    <span class="doccomment">/// typically either you or [`run()`](Self::run()) will be monitoring the</span>
     <span class="doccomment">/// ::response signal and take appropriate action.</span>
     <span class="doccomment">/// ## `response_id`</span>
     <span class="doccomment">/// response ID</span>
@@ -2012,25 +2012,25 @@
     <span class="kw">fn</span> <span class="ident">response</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">response_id</span>: <span class="ident">ResponseType</span>);
 
     <span class="doccomment">/// Blocks in a recursive main loop until the `self` either emits the</span>
-    <span class="doccomment">/// `Dialog::response` signal, or is destroyed. If the dialog is</span>
-    <span class="doccomment">/// destroyed during the call to `DialogExt::run`, `DialogExt::run` returns</span>
-    <span class="doccomment">/// `ResponseType::None`. Otherwise, it returns the response ID from the</span>
+    <span class="doccomment">/// [`Dialog::response`](crate::Dialog::response) signal, or is destroyed. If the dialog is</span>
+    <span class="doccomment">/// destroyed during the call to [`run()`](Self::run()), [`run()`](Self::run()) returns</span>
+    <span class="doccomment">/// [`ResponseType::None`](crate::ResponseType::None). Otherwise, it returns the response ID from the</span>
     <span class="doccomment">/// ::response signal emission.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Before entering the recursive main loop, `DialogExt::run` calls</span>
-    <span class="doccomment">/// `WidgetExt::show` on the dialog for you. Note that you still</span>
+    <span class="doccomment">/// Before entering the recursive main loop, [`run()`](Self::run()) calls</span>
+    <span class="doccomment">/// [`WidgetExt::show()`](crate::WidgetExt::show()) on the dialog for you. Note that you still</span>
     <span class="doccomment">/// need to show any children of the dialog yourself.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// During `DialogExt::run`, the default behavior of `Widget::delete-event`</span>
+    <span class="doccomment">/// During [`run()`](Self::run()), the default behavior of [`Widget::delete-event`](crate::Widget::delete-event)</span>
     <span class="doccomment">/// is disabled; if the dialog receives ::delete_event, it will not be</span>
-    <span class="doccomment">/// destroyed as windows usually are, and `DialogExt::run` will return</span>
-    <span class="doccomment">/// `ResponseType::DeleteEvent`. Also, during `DialogExt::run` the dialog</span>
-    <span class="doccomment">/// will be modal. You can force `DialogExt::run` to return at any time by</span>
-    <span class="doccomment">/// calling `DialogExt::response` to emit the ::response signal. Destroying</span>
-    <span class="doccomment">/// the dialog during `DialogExt::run` is a very bad idea, because your</span>
+    <span class="doccomment">/// destroyed as windows usually are, and [`run()`](Self::run()) will return</span>
+    <span class="doccomment">/// [`ResponseType::DeleteEvent`](crate::ResponseType::DeleteEvent). Also, during [`run()`](Self::run()) the dialog</span>
+    <span class="doccomment">/// will be modal. You can force [`run()`](Self::run()) to return at any time by</span>
+    <span class="doccomment">/// calling [`response()`](Self::response()) to emit the ::response signal. Destroying</span>
+    <span class="doccomment">/// the dialog during [`run()`](Self::run()) is a very bad idea, because your</span>
     <span class="doccomment">/// post-run code won’t know whether the dialog was destroyed or not.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// After `DialogExt::run` returns, you are responsible for hiding or</span>
+    <span class="doccomment">/// After [`run()`](Self::run()) returns, you are responsible for hiding or</span>
     <span class="doccomment">/// destroying the dialog if you wish to do so.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Typical usage of this function might be:</span>
@@ -2056,7 +2056,7 @@
     <span class="doccomment">/// modal dialog (it prevents the user from interacting with other</span>
     <span class="doccomment">/// windows in the same window group while the dialog is run), callbacks</span>
     <span class="doccomment">/// such as timeouts, IO channel watches, DND drops, etc, will</span>
-    <span class="doccomment">/// be triggered during a `DialogExt::run` call.</span>
+    <span class="doccomment">/// be triggered during a [`run()`](Self::run()) call.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -2078,7 +2078,7 @@
     <span class="doccomment">/// ## `response_id`</span>
     <span class="doccomment">/// a response ID</span>
     <span class="doccomment">/// ## `setting`</span>
-    <span class="doccomment">/// `true` for sensitive</span>
+    <span class="doccomment">/// [`true`] for sensitive</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_dialog_set_response_sensitive&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_response_sensitive</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">response_id</span>: <span class="ident">ResponseType</span>, <span class="ident">setting</span>: <span class="ident">bool</span>);
 
@@ -2096,8 +2096,8 @@
     <span class="kw">fn</span> <span class="ident">emit_close</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Emitted when an action widget is clicked, the dialog receives a</span>
-    <span class="doccomment">/// delete event, or the application programmer calls `DialogExt::response`.</span>
-    <span class="doccomment">/// On a delete event, the response ID is `ResponseType::DeleteEvent`.</span>
+    <span class="doccomment">/// delete event, or the application programmer calls [`response()`](Self::response()).</span>
+    <span class="doccomment">/// On a delete event, the response ID is [`ResponseType::DeleteEvent`](crate::ResponseType::DeleteEvent).</span>
     <span class="doccomment">/// Otherwise, it depends on which action widget was clicked.</span>
     <span class="doccomment">/// ## `response_id`</span>
     <span class="doccomment">/// the response ID</span>

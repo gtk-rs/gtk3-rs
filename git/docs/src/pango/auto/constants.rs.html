@@ -38,7 +38,7 @@
 
 <span class="kw">use</span> <span class="ident">std::ffi::CStr</span>;
 
-<span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v1_38&quot;</span>, <span class="ident">deprecated</span>)]</span>
+<span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v1_38&quot;</span>, <span class="ident">deprecated</span> <span class="op">=</span> <span class="string">&quot;Since 1.38&quot;</span>)]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;PANGO_ENGINE_TYPE_LANG&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">static</span> <span class="ident">ENGINE_TYPE_LANG</span>: <span class="ident">once_cell::sync::Lazy</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span><span class="op">&gt;</span> <span class="op">=</span>
     <span class="ident">once_cell::sync::Lazy::new</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">unsafe</span> {
@@ -46,7 +46,7 @@
             .<span class="ident">to_str</span>()
             .<span class="ident">unwrap</span>()
     });
-<span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v1_38&quot;</span>, <span class="ident">deprecated</span>)]</span>
+<span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v1_38&quot;</span>, <span class="ident">deprecated</span> <span class="op">=</span> <span class="string">&quot;Since 1.38&quot;</span>)]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;PANGO_ENGINE_TYPE_SHAPE&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">static</span> <span class="ident">ENGINE_TYPE_SHAPE</span>: <span class="ident">once_cell::sync::Lazy</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span><span class="op">&gt;</span> <span class="op">=</span>
     <span class="ident">once_cell::sync::Lazy::new</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">unsafe</span> {
@@ -54,7 +54,7 @@
             .<span class="ident">to_str</span>()
             .<span class="ident">unwrap</span>()
     });
-<span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v1_38&quot;</span>, <span class="ident">deprecated</span>)]</span>
+<span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v1_38&quot;</span>, <span class="ident">deprecated</span> <span class="op">=</span> <span class="string">&quot;Since 1.38&quot;</span>)]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;PANGO_RENDER_TYPE_NONE&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">static</span> <span class="ident">RENDER_TYPE_NONE</span>: <span class="ident">once_cell::sync::Lazy</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span><span class="op">&gt;</span> <span class="op">=</span>
     <span class="ident">once_cell::sync::Lazy::new</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">unsafe</span> {

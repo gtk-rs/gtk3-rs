@@ -355,7 +355,7 @@
     <span class="doccomment">/// icons, etc. These are often shipped as files in `$datadir/appname`, or</span>
     <span class="doccomment">/// manually included as literal strings in the code.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The `Resource` API and the [glib-compile-resources][glib-compile-resources] program</span>
+    <span class="doccomment">/// The [`Resource`](crate::Resource) API and the [glib-compile-resources][glib-compile-resources] program</span>
     <span class="doccomment">/// provide a convenient and efficient alternative to this which has some nice properties. You</span>
     <span class="doccomment">/// maintain the files as normal files, so its easy to edit them, but during the build the files</span>
     <span class="doccomment">/// are combined into a binary bundle that is linked into the executable. This means that loading</span>
@@ -384,9 +384,9 @@
     <span class="doccomment">/// `gdk-pixbuf-pixdata` program must be in the `PATH`, or the</span>
     <span class="doccomment">/// `GDK_PIXBUF_PIXDATA` environment variable must be set to the full path to the</span>
     <span class="doccomment">/// `gdk-pixbuf-pixdata` executable; otherwise the resource compiler will abort.</span>
-    <span class="doccomment">/// `to-pixdata` has been deprecated since gdk-pixbuf 2.32, as `Resource`</span>
+    <span class="doccomment">/// `to-pixdata` has been deprecated since gdk-pixbuf 2.32, as [`Resource`](crate::Resource)</span>
     <span class="doccomment">/// supports embedding modern image formats just as well. Instead of using it,</span>
-    <span class="doccomment">/// embed a PNG or SVG file in your `Resource`.</span>
+    <span class="doccomment">/// embed a PNG or SVG file in your [`Resource`](crate::Resource).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// `json-stripblanks` which will use the `json-glib-format` command to strip</span>
     <span class="doccomment">/// ignorable whitespace from the JSON file. For this to work, the</span>
@@ -433,18 +433,18 @@
     <span class="doccomment">/// path prefixes (like in the above example) to avoid conflicts.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// You can then use [glib-compile-resources][glib-compile-resources] to compile the XML to a</span>
-    <span class="doccomment">/// binary bundle that you can load with `Resource::load`. However, its more common to use the --generate-source and</span>
+    <span class="doccomment">/// binary bundle that you can load with [`load()`](Self::load()). However, its more common to use the --generate-source and</span>
     <span class="doccomment">/// --generate-header arguments to create a source file and header to link directly into your application.</span>
     <span class="doccomment">/// This will generate `get_resource()`, `register_resource()` and</span>
     <span class="doccomment">/// `unregister_resource()` functions, prefixed by the `--c-name` argument passed</span>
     <span class="doccomment">/// to [glib-compile-resources][glib-compile-resources]. `get_resource()` returns</span>
-    <span class="doccomment">/// the generated `Resource` object. The register and unregister functions</span>
+    <span class="doccomment">/// the generated [`Resource`](crate::Resource) object. The register and unregister functions</span>
     <span class="doccomment">/// register the resource so its files can be accessed using</span>
-    <span class="doccomment">/// `g_resources_lookup_data`.</span>
+    <span class="doccomment">/// `g_resources_lookup_data()`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Once a `Resource` has been created and registered all the data in it can be accessed globally in the process by</span>
-    <span class="doccomment">/// using API calls like `g_resources_open_stream` to stream the data or `g_resources_lookup_data` to get a direct pointer</span>
-    <span class="doccomment">/// to the data. You can also use URIs like &quot;resource:///org/gtk/Example/data/splashscreen.png&quot; with `File` to access</span>
+    <span class="doccomment">/// Once a [`Resource`](crate::Resource) has been created and registered all the data in it can be accessed globally in the process by</span>
+    <span class="doccomment">/// using API calls like `g_resources_open_stream()` to stream the data or `g_resources_lookup_data()` to get a direct pointer</span>
+    <span class="doccomment">/// to the data. You can also use URIs like &quot;resource:///org/gtk/Example/data/splashscreen.png&quot; with [`File`](crate::File) to access</span>
     <span class="doccomment">/// the resource data.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Some higher-level APIs, such as ``GtkApplication``, will automatically load</span>
@@ -452,7 +452,7 @@
     <span class="doccomment">/// convenience. See the documentation for those APIs for details.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// There are two forms of the generated source, the default version uses the compiler support for constructor</span>
-    <span class="doccomment">/// and destructor functions (where available) to automatically create and register the `Resource` on startup</span>
+    <span class="doccomment">/// and destructor functions (where available) to automatically create and register the [`Resource`](crate::Resource) on startup</span>
     <span class="doccomment">/// or library load time. If you pass `--manual-register`, two functions to register/unregister the resource are created</span>
     <span class="doccomment">/// instead. This requires an explicit initialization call in your application/library, but it works on all platforms,</span>
     <span class="doccomment">/// even on the minor ones where constructors are not supported. (Constructor support is available for at least Win32, Mac OS and Linux.)</span>
@@ -500,17 +500,17 @@
 
 <span class="kw">impl</span> <span class="ident">Resource</span> {
     <span class="doccomment">/// Returns all the names of children at the specified `path` in the resource.</span>
-    <span class="doccomment">/// The return result is a `None` terminated list of strings which should</span>
-    <span class="doccomment">/// be released with `g_strfreev`.</span>
+    <span class="doccomment">/// The return result is a [`None`] terminated list of strings which should</span>
+    <span class="doccomment">/// be released with `g_strfreev()`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If `path` is invalid or does not exist in the `Resource`,</span>
-    <span class="doccomment">/// `ResourceError::NotFound` will be returned.</span>
+    <span class="doccomment">/// If `path` is invalid or does not exist in the [`Resource`](crate::Resource),</span>
+    <span class="doccomment">/// [`ResourceError::NotFound`] will be returned.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// `lookup_flags` controls the behaviour of the lookup.</span>
     <span class="doccomment">/// ## `path`</span>
     <span class="doccomment">/// A pathname inside the resource</span>
     <span class="doccomment">/// ## `lookup_flags`</span>
-    <span class="doccomment">/// A `ResourceLookupFlags`</span>
+    <span class="doccomment">/// A [`ResourceLookupFlags`](crate::ResourceLookupFlags)</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -566,7 +566,7 @@
     }
 
     <span class="doccomment">/// Looks for a file at the specified `path` in the resource and</span>
-    <span class="doccomment">/// returns a `glib::Bytes` that lets you directly access the data in</span>
+    <span class="doccomment">/// returns a [`glib::Bytes`](crate::glib::Bytes) that lets you directly access the data in</span>
     <span class="doccomment">/// memory.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The data is always followed by a zero byte, so you</span>
@@ -582,12 +582,12 @@
     <span class="doccomment">/// ## `path`</span>
     <span class="doccomment">/// A pathname inside the resource</span>
     <span class="doccomment">/// ## `lookup_flags`</span>
-    <span class="doccomment">/// A `ResourceLookupFlags`</span>
+    <span class="doccomment">/// A [`ResourceLookupFlags`](crate::ResourceLookupFlags)</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `glib::Bytes` or `None` on error.</span>
-    <span class="doccomment">///  Free the returned object with `glib::Bytes::unref`</span>
+    <span class="doccomment">/// [`glib::Bytes`](crate::glib::Bytes) or [`None`] on error.</span>
+    <span class="doccomment">///  Free the returned object with [`glib::Bytes::unref()`](crate::glib::Bytes::unref())</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_resource_lookup_data&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">lookup_data</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -611,18 +611,18 @@
     }
 
     <span class="doccomment">/// Looks for a file at the specified `path` in the resource and</span>
-    <span class="doccomment">/// returns a `InputStream` that lets you read the data.</span>
+    <span class="doccomment">/// returns a [`InputStream`](crate::InputStream) that lets you read the data.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// `lookup_flags` controls the behaviour of the lookup.</span>
     <span class="doccomment">/// ## `path`</span>
     <span class="doccomment">/// A pathname inside the resource</span>
     <span class="doccomment">/// ## `lookup_flags`</span>
-    <span class="doccomment">/// A `ResourceLookupFlags`</span>
+    <span class="doccomment">/// A [`ResourceLookupFlags`](crate::ResourceLookupFlags)</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `InputStream` or `None` on error.</span>
-    <span class="doccomment">///  Free the returned object with `glib::object::ObjectExt::unref`</span>
+    <span class="doccomment">/// [`InputStream`](crate::InputStream) or [`None`] on error.</span>
+    <span class="doccomment">///  Free the returned object with [`glib::object::ObjectExt::unref()`](crate::glib::object::ObjectExt::unref())</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_resource_open_stream&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">open_stream</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -645,22 +645,22 @@
         }
     }
 
-    <span class="doccomment">/// Loads a binary resource bundle and creates a `Resource` representation of it, allowing</span>
+    <span class="doccomment">/// Loads a binary resource bundle and creates a [`Resource`](crate::Resource) representation of it, allowing</span>
     <span class="doccomment">/// you to query it for data.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If you want to use this resource in the global resource namespace you need</span>
-    <span class="doccomment">/// to register it with `g_resources_register`.</span>
+    <span class="doccomment">/// to register it with `g_resources_register()`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If `filename` is empty or the data in it is corrupt,</span>
-    <span class="doccomment">/// `ResourceError::Internal` will be returned. If `filename` doesn’t exist, or</span>
-    <span class="doccomment">/// there is an error in reading it, an error from `glib::MappedFile::new` will be</span>
+    <span class="doccomment">/// [`ResourceError::Internal`] will be returned. If `filename` doesn’t exist, or</span>
+    <span class="doccomment">/// there is an error in reading it, an error from [`glib::MappedFile::new()`](crate::glib::MappedFile::new()) will be</span>
     <span class="doccomment">/// returned.</span>
     <span class="doccomment">/// ## `filename`</span>
     <span class="doccomment">/// the path of a filename to load, in the GLib filename encoding</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new `Resource`, or `None` on error</span>
+    <span class="doccomment">/// a new [`Resource`](crate::Resource), or [`None`] on error</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_resource_load&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">load</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">std::path::Path</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">filename</span>: <span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Resource</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {

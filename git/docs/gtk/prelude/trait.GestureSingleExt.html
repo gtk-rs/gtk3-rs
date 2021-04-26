@@ -25,16 +25,16 @@ is none.</p>
 <h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
 <p>The current button number</p>
 </div><h3 id="tymethod.current_sequence" class="method"><code>fn <a href="#tymethod.current_sequence" class="fnname">current_sequence</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../gdk/auto/event_sequence/struct.EventSequence.html" title="struct gdk::auto::event_sequence::EventSequence">EventSequence</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/gesture_single.rs.html#73" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns the event sequence currently interacting with <code>self</code>.
-This is only meaningful if <code>GestureExt::is_active</code> returns <code>true</code>.</p>
+This is only meaningful if <a href="crate::GestureExt::is_active()"><code>GestureExt::is_active()</code></a> returns <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a>.</p>
 <h1 id="returns-2" class="section-header"><a href="#returns-2">Returns</a></h1>
 <p>the current sequence</p>
 </div><h3 id="tymethod.is_exclusive" class="method"><code>fn <a href="#tymethod.is_exclusive" class="fnname">is_exclusive</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/gesture_single.rs.html#82" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets whether a gesture is exclusive. For more information, see
-<code>GestureSingleExt::set_exclusive</code>.</p>
+<a href="trait.GestureSingleExt.html#tymethod.set_exclusive"><code>set_exclusive()</code></a>.</p>
 <h1 id="returns-3" class="section-header"><a href="#returns-3">Returns</a></h1>
 <p>Whether the gesture is exclusive</p>
-</div><h3 id="tymethod.is_touch_only" class="method"><code>fn <a href="#tymethod.is_touch_only" class="fnname">is_touch_only</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/gesture_single.rs.html#90" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns <code>true</code> if the gesture is only triggered by touch events.</p>
+</div><h3 id="tymethod.is_touch_only" class="method"><code>fn <a href="#tymethod.is_touch_only" class="fnname">is_touch_only</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/gesture_single.rs.html#90" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the gesture is only triggered by touch events.</p>
 <h1 id="returns-4" class="section-header"><a href="#returns-4">Returns</a></h1>
-<p><code>true</code> if the gesture only handles touch events</p>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the gesture only handles touch events</p>
 </div><h3 id="tymethod.set_button" class="method"><code>fn <a href="#tymethod.set_button" class="fnname">set_button</a>(&amp;self, button: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>)</code><a class="srclink" href="../../src/gtk/auto/gesture_single.rs.html#98" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the button number <code>self</code> listens to. If non-0, every
 button press from a different button number will be ignored.
 Touch events implicitly match with button 1.</p>
@@ -45,9 +45,9 @@ only handle pointer and “pointer emulated” touch events, so at
 any given time, there is only one sequence able to interact with
 those.</p>
 <h2 id="exclusive" class="section-header"><a href="#exclusive"><code>exclusive</code></a></h2>
-<p><code>true</code> to make <code>self</code> exclusive</p>
-</div><h3 id="tymethod.set_touch_only" class="method"><code>fn <a href="#tymethod.set_touch_only" class="fnname">set_touch_only</a>(&amp;self, touch_only: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gtk/auto/gesture_single.rs.html#115" title="goto source code">[src]</a></h3><div class="docblock"><p>If <code>touch_only</code> is <code>true</code>, <code>self</code> will only handle events of type
-<code>gdk::EventType::TouchBegin</code>, <code>gdk::EventType::TouchUpdate</code> or <code>gdk::EventType::TouchEnd</code>. If <code>false</code>,
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> to make <code>self</code> exclusive</p>
+</div><h3 id="tymethod.set_touch_only" class="method"><code>fn <a href="#tymethod.set_touch_only" class="fnname">set_touch_only</a>(&amp;self, touch_only: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gtk/auto/gesture_single.rs.html#115" title="goto source code">[src]</a></h3><div class="docblock"><p>If <code>touch_only</code> is <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a>, <code>self</code> will only handle events of type
+<a href="../../gdk/auto/enums/enum.EventType.html#variant.TouchBegin"><code>gdk::EventType::TouchBegin</code></a>, <a href="../../gdk/auto/enums/enum.EventType.html#variant.TouchUpdate"><code>gdk::EventType::TouchUpdate</code></a> or <a href="../../gdk/auto/enums/enum.EventType.html#variant.TouchEnd"><code>gdk::EventType::TouchEnd</code></a>. If <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a>,
 mouse events will be handled too.</p>
 <h2 id="touch_only" class="section-header"><a href="#touch_only"><code>touch_only</code></a></h2>
 <p>whether <code>self</code> handles only touch events</p>

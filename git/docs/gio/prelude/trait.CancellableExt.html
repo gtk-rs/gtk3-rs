@@ -15,29 +15,29 @@
 <h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
 <p><a href="../struct.Cancellable.html"><code>Cancellable</code></a></p>
 </div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.cancel" class="method"><code>fn <a href="#tymethod.cancel" class="fnname">cancel</a>(&amp;self)</code><a class="srclink" href="../../src/gio/auto/cancellable.rs.html#94" title="goto source code">[src]</a></h3><div class="docblock"><p>Will set <code>self</code> to cancelled, and will emit the
-<code>Cancellable::cancelled</code> signal. (However, see the warning about
+<a href="crate::Cancellable::cancelled"><code>Cancellable::cancelled</code></a> signal. (However, see the warning about
 race conditions in the documentation for that signal if you are
 planning to connect to it.)</p>
 <p>This function is thread-safe. In other words, you can safely call
 it from a thread other than the one running the operation that was
 passed the <code>self</code>.</p>
-<p>If <code>self</code> is <code>None</code>, this function returns immediately for convenience.</p>
+<p>If <code>self</code> is <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>, this function returns immediately for convenience.</p>
 <p>The convention within GIO is that cancelling an asynchronous
 operation causes it to complete asynchronously. That is, if you
 cancel the operation from the same thread in which it is running,
 then the operation’s <code>GAsyncReadyCallback</code> will not be invoked until
 the application returns to the main loop.</p>
 </div><h3 id="tymethod.disconnect" class="method"><code>fn <a href="#tymethod.disconnect" class="fnname">disconnect</a>(&amp;self, handler_id: c_ulong)</code><a class="srclink" href="../../src/gio/auto/cancellable.rs.html#116" title="goto source code">[src]</a></h3><div class="docblock"><p>Disconnects a handler from a cancellable instance similar to
-<code>g_signal_handler_disconnect</code>. Additionally, in the event that a
+<code>g_signal_handler_disconnect()</code>. Additionally, in the event that a
 signal handler is currently running, this call will block until the
 handler has finished. Calling this function from a
-<code>Cancellable::cancelled</code> signal handler will therefore result in a
+<a href="crate::Cancellable::cancelled"><code>Cancellable::cancelled</code></a> signal handler will therefore result in a
 deadlock.</p>
 <p>This avoids a race condition where a thread cancels at the
 same time as the cancellable operation is finished and the
-signal handler is removed. See <code>Cancellable::cancelled</code> for
+signal handler is removed. See <a href="crate::Cancellable::cancelled"><code>Cancellable::cancelled</code></a> for
 details on how to use this.</p>
-<p>If <code>self</code> is <code>None</code> or <code>handler_id</code> is <code>0</code> this function does
+<p>If <code>self</code> is <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> or <code>handler_id</code> is <code>0</code> this function does
 nothing.</p>
 <h2 id="handler_id" class="section-header"><a href="#handler_id"><code>handler_id</code></a></h2>
 <p>Handler id of the handler to be disconnected, or <code>0</code>.</p>
@@ -46,28 +46,28 @@ implement cancellable operations on Unix systems. The returned fd will
 turn readable when <code>self</code> is cancelled.</p>
 <p>You are not supposed to read from the fd yourself, just check for
 readable status. Reading to unset the readable status is done
-with <code>Cancellable::reset</code>.</p>
+with <a href="crate::Cancellable::reset()"><code>Cancellable::reset()</code></a>.</p>
 <p>After a successful return from this function, you should use
-<code>CancellableExt::release_fd</code> to free up resources allocated for
+<a href="trait.CancellableExt.html#tymethod.release_fd"><code>release_fd()</code></a> to free up resources allocated for
 the returned file descriptor.</p>
-<p>See also <code>CancellableExt::make_pollfd</code>.</p>
+<p>See also <a href="Self::make_pollfd()"><code>make_pollfd()</code></a>.</p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
 <p>A valid file descriptor. <code>-1</code> if the file descriptor
 is not supported, or on errors.</p>
 </div><h3 id="tymethod.is_cancelled" class="method"><code>fn <a href="#tymethod.is_cancelled" class="fnname">is_cancelled</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gio/auto/cancellable.rs.html#146" title="goto source code">[src]</a></h3><div class="docblock"><p>Checks if a cancellable job has been cancelled.</p>
 <h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
-<p><code>true</code> if <code>self</code> is cancelled,
-FALSE if called with <code>None</code> or if item is not cancelled.</p>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if <code>self</code> is cancelled,
+FALSE if called with <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> or if item is not cancelled.</p>
 </div><h3 id="tymethod.pop_current" class="method"><code>fn <a href="#tymethod.pop_current" class="fnname">pop_current</a>(&amp;self)</code><a class="srclink" href="../../src/gio/auto/cancellable.rs.html#154" title="goto source code">[src]</a></h3><div class="docblock"><p>Pops <code>self</code> off the cancellable stack (verifying that <code>self</code>
 is on the top of the stack).</p>
 </div><h3 id="tymethod.push_current" class="method"><code>fn <a href="#tymethod.push_current" class="fnname">push_current</a>(&amp;self)</code><a class="srclink" href="../../src/gio/auto/cancellable.rs.html#165" title="goto source code">[src]</a></h3><div class="docblock"><p>Pushes <code>self</code> onto the cancellable stack. The current
-cancellable can then be received using <code>Cancellable::get_current</code>.</p>
+cancellable can then be received using <a href="crate::Cancellable::get_current()"><code>Cancellable::get_current()</code></a>.</p>
 <p>This is useful when implementing cancellable operations in
 code that does not allow you to pass down the cancellable object.</p>
-<p>This is typically called automatically by e.g. <code>File</code> operations,
+<p>This is typically called automatically by e.g. <a href="../struct.File.html"><code>File</code></a> operations,
 so you rarely have to call this yourself.</p>
-</div><h3 id="tymethod.release_fd" class="method"><code>fn <a href="#tymethod.release_fd" class="fnname">release_fd</a>(&amp;self)</code><a class="srclink" href="../../src/gio/auto/cancellable.rs.html#177" title="goto source code">[src]</a></h3><div class="docblock"><p>Releases a resources previously allocated by <code>CancellableExt::get_fd</code>
-or <code>CancellableExt::make_pollfd</code>.</p>
+</div><h3 id="tymethod.release_fd" class="method"><code>fn <a href="#tymethod.release_fd" class="fnname">release_fd</a>(&amp;self)</code><a class="srclink" href="../../src/gio/auto/cancellable.rs.html#177" title="goto source code">[src]</a></h3><div class="docblock"><p>Releases a resources previously allocated by <a href="Self::get_fd()"><code>get_fd()</code></a>
+or <a href="Self::make_pollfd()"><code>make_pollfd()</code></a>.</p>
 <p>For compatibility reasons with older releases, calling this function
 is not strictly required, the resources will be automatically freed
 when the <code>self</code> is finalized. However, the <code>self</code> will
@@ -77,7 +77,7 @@ descriptors when many <code>GCancellables</code> are used at the same time.</p>
 </div><h3 id="tymethod.set_error_if_cancelled" class="method"><code>fn <a href="#tymethod.set_error_if_cancelled" class="fnname">set_error_if_cancelled</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="struct" href="../../glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt;</code><a class="srclink" href="../../src/gio/auto/cancellable.rs.html#186" title="goto source code">[src]</a></h3><div class="docblock"><p>If the <code>self</code> is cancelled, sets the error to notify
 that the operation was cancelled.</p>
 <h1 id="returns-2" class="section-header"><a href="#returns-2">Returns</a></h1>
-<p><code>true</code> if <code>self</code> was cancelled, <code>false</code> if it was not</p>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if <code>self</code> was cancelled, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> if it was not</p>
 </div><h3 id="tymethod.connect_cancelled" class="method"><code>fn <a href="#tymethod.connect_cancelled" class="fnname">connect_cancelled</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Send.html" title="trait core::marker::Send">Send</a> + <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html" title="trait core::marker::Sync">Sync</a> + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../../src/gio/auto/cancellable.rs.html#240" title="goto source code">[src]</a></h3><div class="docblock"><p>Emitted when the operation has been cancelled.</p>
 <p>Can be used by implementations of cancellable operations. If the
 operation is cancelled from another thread, the signal will be
@@ -86,15 +86,15 @@ thread that is running the operation.</p>
 <p>Note that disconnecting from this signal (or any signal) in a
 multi-threaded program is prone to race conditions. For instance
 it is possible that a signal handler may be invoked even after
-a call to <code>g_signal_handler_disconnect</code> for that handler has
+a call to <code>g_signal_handler_disconnect()</code> for that handler has
 already returned.</p>
 <p>There is also a problem when cancellation happens right before
 connecting to the signal. If this happens the signal will
 unexpectedly not be emitted, and checking before connecting to
 the signal leaves a race condition where this is still happening.</p>
 <p>In order to make it safe and easy to connect handlers there
-are two helper functions: <code>CancellableExt::connect</code> and
-<code>CancellableExt::disconnect</code> which protect against problems
+are two helper functions: <a href="Self::connect()"><code>connect()</code></a> and
+<a href="trait.CancellableExt.html#tymethod.disconnect"><code>disconnect()</code></a> which protect against problems
 like this.</p>
 <p>An example of how to us this:</p>
 <pre><code class="language-C">    // Make sure we don't do unnecessary work if already cancelled

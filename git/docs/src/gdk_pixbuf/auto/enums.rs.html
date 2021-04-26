@@ -769,7 +769,7 @@
 }
 
 <span class="doccomment">/// These values can be passed to</span>
-<span class="doccomment">/// `gdk_pixbuf_xlib_render_to_drawable_alpha` to control how the alpha</span>
+<span class="doccomment">/// `gdk_pixbuf_xlib_render_to_drawable_alpha()` to control how the alpha</span>
 <span class="doccomment">/// channel of an image should be handled. This function can create a</span>
 <span class="doccomment">/// bilevel clipping mask (black and white) and use it while painting</span>
 <span class="doccomment">/// the image. In the future, when the X Window System gets an alpha</span>
@@ -790,7 +790,7 @@
     <span class="doccomment">///  considered fully opaque.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GDK_PIXBUF_ALPHA_BILEVEL&quot;</span>)]</span>
     <span class="ident">Bilevel</span>,
-    <span class="doccomment">/// For now falls back to `PixbufAlphaMode::Bilevel`.</span>
+    <span class="doccomment">/// For now falls back to [`Bilevel`](Self::Bilevel).</span>
     <span class="doccomment">///  In the future it will do full alpha compositing.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GDK_PIXBUF_ALPHA_FULL&quot;</span>)]</span>
     <span class="ident">Full</span>,
@@ -1009,7 +1009,7 @@
     }
 }
 
-<span class="doccomment">/// The possible rotations which can be passed to `Pixbuf::rotate_simple`.</span>
+<span class="doccomment">/// The possible rotations which can be passed to [`Pixbuf::rotate_simple()`](crate::Pixbuf::rotate_simple()).</span>
 <span class="doccomment">/// To make them easier to use, their numerical values are the actual degrees.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>

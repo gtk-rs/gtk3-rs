@@ -224,27 +224,27 @@
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// `Action` should be implemented by instances of `Object` classes</span>
+    <span class="doccomment">/// [`Action`](crate::Action) should be implemented by instances of [`Object`](crate::Object) classes</span>
     <span class="doccomment">/// with which the user can interact directly, i.e. buttons,</span>
     <span class="doccomment">/// checkboxes, scrollbars, e.g. components which are not &quot;passive&quot;</span>
     <span class="doccomment">/// providers of UI information.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Exceptions: when the user interaction is already covered by another</span>
-    <span class="doccomment">/// appropriate interface such as `EditableText` (insert/delete text,</span>
-    <span class="doccomment">/// etc.) or `Value` (set value) then these actions should not be</span>
-    <span class="doccomment">/// exposed by `Action` as well.</span>
+    <span class="doccomment">/// appropriate interface such as [`EditableText`](crate::EditableText) (insert/delete text,</span>
+    <span class="doccomment">/// etc.) or [`Value`](crate::Value) (set value) then these actions should not be</span>
+    <span class="doccomment">/// exposed by [`Action`](crate::Action) as well.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Though most UI interactions on components should be invocable via</span>
     <span class="doccomment">/// keyboard as well as mouse, there will generally be a close mapping</span>
     <span class="doccomment">/// between &quot;mouse actions&quot; that are possible on a component and the</span>
     <span class="doccomment">/// AtkActions. Where mouse and keyboard actions are redundant in</span>
-    <span class="doccomment">/// effect, `Action` should expose only one action rather than</span>
+    <span class="doccomment">/// effect, [`Action`](crate::Action) should expose only one action rather than</span>
     <span class="doccomment">/// exposing redundant actions if possible. By convention we have been</span>
-    <span class="doccomment">/// using &quot;mouse centric&quot; terminology for `Action` names.</span>
+    <span class="doccomment">/// using &quot;mouse centric&quot; terminology for [`Action`](crate::Action) names.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`AtkActionExt`](trait@crate::AtkActionExt)</span>
+    <span class="doccomment">/// [`AtkActionExt`](trait@crate::prelude::AtkActionExt)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Action</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi::AtkAction</span>, <span class="ident">ffi::AtkActionIface</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -266,7 +266,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if success, `false` otherwise</span>
+    <span class="doccomment">/// [`true`] if success, [`false`] otherwise</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_action_do_action&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">do_action</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">i</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
@@ -276,7 +276,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a description string, or `None` if `self` does</span>
+    <span class="doccomment">/// a description string, or [`None`] if `self` does</span>
     <span class="doccomment">/// not implement this interface.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_action_get_description&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">description</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">i</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span>;
@@ -309,7 +309,7 @@
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// the keybinding which can be used to activate</span>
-    <span class="doccomment">/// this action, or `None` if there is no keybinding for this action.</span>
+    <span class="doccomment">/// this action, or [`None`] if there is no keybinding for this action.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_action_get_keybinding&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">keybinding</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">i</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span>;
 
@@ -319,7 +319,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a name string, or `None` if `self` does not</span>
+    <span class="doccomment">/// a name string, or [`None`] if `self` does not</span>
     <span class="doccomment">/// implement this interface.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_action_get_localized_name&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">localized_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">i</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span>;
@@ -347,14 +347,14 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// For technical reasons, some toolkits cannot guarantee that the</span>
     <span class="doccomment">/// reported action is actually &#39;bound&#39; to a nontrivial user event;</span>
-    <span class="doccomment">/// i.e. the result of some actions via `Action::do_action` may be</span>
+    <span class="doccomment">/// i.e. the result of some actions via [`Action::do_action()`](crate::Action::do_action()) may be</span>
     <span class="doccomment">/// NIL.</span>
     <span class="doccomment">/// ## `i`</span>
     <span class="doccomment">/// the action index corresponding to the action to be performed</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a name string, or `None` if `self` does not</span>
+    <span class="doccomment">/// a name string, or [`None`] if `self` does not</span>
     <span class="doccomment">/// implement this interface.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_action_get_name&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">i</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span>;

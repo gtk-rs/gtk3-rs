@@ -202,26 +202,26 @@
 <span class="kw">use</span> <span class="ident">std::ptr</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// `SocketAddressEnumerator` is an enumerator type for `SocketAddress`</span>
+    <span class="doccomment">/// [`SocketAddressEnumerator`](crate::SocketAddressEnumerator) is an enumerator type for [`SocketAddress`](crate::SocketAddress)</span>
     <span class="doccomment">/// instances. It is returned by enumeration functions such as</span>
-    <span class="doccomment">/// `SocketConnectable::enumerate`, which returns a `SocketAddressEnumerator`</span>
-    <span class="doccomment">/// to list each `SocketAddress` which could be used to connect to that</span>
-    <span class="doccomment">/// `SocketConnectable`.</span>
+    <span class="doccomment">/// [`SocketConnectable::enumerate()`](crate::SocketConnectable::enumerate()), which returns a [`SocketAddressEnumerator`](crate::SocketAddressEnumerator)</span>
+    <span class="doccomment">/// to list each [`SocketAddress`](crate::SocketAddress) which could be used to connect to that</span>
+    <span class="doccomment">/// [`SocketConnectable`](crate::SocketConnectable).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Enumeration is typically a blocking operation, so the asynchronous methods</span>
-    <span class="doccomment">/// `SocketAddressEnumeratorExt::next_async` and</span>
-    <span class="doccomment">/// `SocketAddressEnumeratorExt::next_finish` should be used where possible.</span>
+    <span class="doccomment">/// [`SocketAddressEnumeratorExt::next_async()`](crate::SocketAddressEnumeratorExt::next_async()) and</span>
+    <span class="doccomment">/// [`SocketAddressEnumeratorExt::next_finish()`](crate::SocketAddressEnumeratorExt::next_finish()) should be used where possible.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Each `SocketAddressEnumerator` can only be enumerated once. Once</span>
-    <span class="doccomment">/// `SocketAddressEnumeratorExt::next` has returned `None`, further</span>
-    <span class="doccomment">/// enumeration with that `SocketAddressEnumerator` is not possible, and it can</span>
+    <span class="doccomment">/// Each [`SocketAddressEnumerator`](crate::SocketAddressEnumerator) can only be enumerated once. Once</span>
+    <span class="doccomment">/// [`SocketAddressEnumeratorExt::next()`](crate::SocketAddressEnumeratorExt::next()) has returned [`None`], further</span>
+    <span class="doccomment">/// enumeration with that [`SocketAddressEnumerator`](crate::SocketAddressEnumerator) is not possible, and it can</span>
     <span class="doccomment">/// be unreffed.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is an Abstract Base Class, you cannot instantiate it.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`SocketAddressEnumeratorExt`](trait@crate::SocketAddressEnumeratorExt), [`trait@glib::object::ObjectExt`]</span>
+    <span class="doccomment">/// [`SocketAddressEnumeratorExt`](trait@crate::prelude::SocketAddressEnumeratorExt), [`trait@glib::object::ObjectExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SocketAddressEnumerator</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GSocketAddressEnumerator</span>, <span class="ident">ffi::GSocketAddressEnumeratorClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -237,25 +237,25 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// [`SocketAddressEnumerator`](struct@crate::SocketAddressEnumerator)</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">SocketAddressEnumeratorExt</span>: <span class="lifetime">&#39;static</span> {
-    <span class="doccomment">/// Retrieves the next `SocketAddress` from `self`. Note that this</span>
-    <span class="doccomment">/// may block for some amount of time. (Eg, a `NetworkAddress` may need</span>
+    <span class="doccomment">/// Retrieves the next [`SocketAddress`](crate::SocketAddress) from `self`. Note that this</span>
+    <span class="doccomment">/// may block for some amount of time. (Eg, a [`NetworkAddress`](crate::NetworkAddress) may need</span>
     <span class="doccomment">/// to do a DNS lookup before it can return an address.) Use</span>
-    <span class="doccomment">/// `SocketAddressEnumeratorExt::next_async` if you need to avoid</span>
+    <span class="doccomment">/// [`next_async()`](Self::next_async()) if you need to avoid</span>
     <span class="doccomment">/// blocking.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If `self` is expected to yield addresses, but for some reason</span>
     <span class="doccomment">/// is unable to (eg, because of a DNS error), then the first call to</span>
-    <span class="doccomment">/// `SocketAddressEnumeratorExt::next` will return an appropriate error</span>
+    <span class="doccomment">/// [`next()`](Self::next()) will return an appropriate error</span>
     <span class="doccomment">/// in *`error`. However, if the first call to</span>
-    <span class="doccomment">/// `SocketAddressEnumeratorExt::next` succeeds, then any further</span>
+    <span class="doccomment">/// [`next()`](Self::next()) succeeds, then any further</span>
     <span class="doccomment">/// internal errors (other than `cancellable` being triggered) will be</span>
     <span class="doccomment">/// ignored.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional `Cancellable` object, `None` to ignore.</span>
+    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a `SocketAddress` (owned by the caller), or `None` on</span>
+    <span class="doccomment">/// a [`SocketAddress`](crate::SocketAddress) (owned by the caller), or [`None`] on</span>
     <span class="doccomment">///  error (in which case *`error` will be set) or if there are no</span>
     <span class="doccomment">///  more addresses.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_socket_address_enumerator_next&quot;</span>)]</span>
@@ -264,13 +264,13 @@
         <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">SocketAddress</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// Asynchronously retrieves the next `SocketAddress` from `self`</span>
+    <span class="doccomment">/// Asynchronously retrieves the next [`SocketAddress`](crate::SocketAddress) from `self`</span>
     <span class="doccomment">/// and then calls `callback`, which must call</span>
-    <span class="doccomment">/// `SocketAddressEnumeratorExt::next_finish` to get the result.</span>
+    <span class="doccomment">/// [`next_finish()`](Self::next_finish()) to get the result.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// It is an error to call this multiple times before the previous callback has finished.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional `Cancellable` object, `None` to ignore.</span>
+    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// a `GAsyncReadyCallback` to call when the request</span>
     <span class="doccomment">///  is satisfied</span>

@@ -600,19 +600,19 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// The `FontChooserWidget` widget lists the available fonts,</span>
+    <span class="doccomment">/// The [`FontChooserWidget`](crate::FontChooserWidget) widget lists the available fonts,</span>
     <span class="doccomment">/// styles and sizes, allowing the user to select a font. It is</span>
-    <span class="doccomment">/// used in the `FontChooserDialog` widget to provide a</span>
+    <span class="doccomment">/// used in the [`FontChooserDialog`](crate::FontChooserDialog) widget to provide a</span>
     <span class="doccomment">/// dialog box for selecting fonts.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// To set the font which is initially selected, use</span>
-    <span class="doccomment">/// `FontChooser::set_font` or `FontChooser::set_font_desc`.</span>
+    <span class="doccomment">/// [`FontChooser::set_font()`](crate::FontChooser::set_font()) or [`FontChooser::set_font_desc()`](crate::FontChooser::set_font_desc()).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// To get the selected font use `FontChooser::get_font` or</span>
-    <span class="doccomment">/// `FontChooser::get_font_desc`.</span>
+    <span class="doccomment">/// To get the selected font use [`FontChooser::get_font()`](crate::FontChooser::get_font()) or</span>
+    <span class="doccomment">/// [`FontChooser::get_font_desc()`](crate::FontChooser::get_font_desc()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// To change the text which is shown in the preview area, use</span>
-    <span class="doccomment">/// `FontChooser::set_preview_text`.</span>
+    <span class="doccomment">/// [`FontChooser::set_preview_text()`](crate::FontChooser::set_preview_text()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # CSS nodes</span>
     <span class="doccomment">///</span>
@@ -620,7 +620,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`FontChooserWidgetExt`](trait@crate::FontChooserWidgetExt), [`BoxExt`](trait@crate::BoxExt), [`ContainerExt`](trait@crate::ContainerExt), [`WidgetExt`](trait@crate::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::BuildableExt), [`OrientableExt`](trait@crate::OrientableExt), [`FontChooserExt`](trait@crate::FontChooserExt), [`WidgetExtManual`](trait@crate::WidgetExtManual), [`BuildableExtManual`](trait@crate::BuildableExtManual)</span>
+    <span class="doccomment">/// [`FontChooserWidgetExt`](trait@crate::prelude::FontChooserWidgetExt), [`BoxExt`](trait@crate::prelude::BoxExt), [`ContainerExt`](trait@crate::prelude::ContainerExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`OrientableExt`](trait@crate::prelude::OrientableExt), [`FontChooserExt`](trait@crate::prelude::FontChooserExt), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FontChooserWidget</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkFontChooserWidget</span>, <span class="ident">ffi::GtkFontChooserWidgetClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Box</span>, <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>, <span class="ident">Orientable</span>, <span class="ident">FontChooser</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -629,11 +629,11 @@
 }
 
 <span class="kw">impl</span> <span class="ident">FontChooserWidget</span> {
-    <span class="doccomment">/// Creates a new `FontChooserWidget`.</span>
+    <span class="doccomment">/// Creates a new [`FontChooserWidget`](crate::FontChooserWidget).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new `FontChooserWidget`</span>
+    <span class="doccomment">/// a new [`FontChooserWidget`](crate::FontChooserWidget)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_font_chooser_widget_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FontChooserWidget</span> {
         <span class="macro">assert_initialized_main_thread!</span>();

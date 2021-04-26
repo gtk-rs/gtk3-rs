@@ -53,27 +53,27 @@
 <h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
 <p><a href="../struct.Calendar.html"><code>Calendar</code></a></p>
 </div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.clear_marks" class="method"><code>fn <a href="#tymethod.clear_marks" class="fnname">clear_marks</a>(&amp;self)</code><a class="srclink" href="../../src/gtk/auto/calendar.rs.html#483" title="goto source code">[src]</a></h3><div class="docblock"><p>Remove all visual markers.</p>
-</div><h3 id="tymethod.date" class="method"><code>fn <a href="#tymethod.date" class="fnname">date</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a></code><a class="srclink" href="../../src/gtk/auto/calendar.rs.html#496" title="goto source code">[src]</a></h3><div class="docblock"><p>Obtains the selected date from a <code>Calendar</code>.</p>
+</div><h3 id="tymethod.date" class="method"><code>fn <a href="#tymethod.date" class="fnname">date</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a></code><a class="srclink" href="../../src/gtk/auto/calendar.rs.html#496" title="goto source code">[src]</a></h3><div class="docblock"><p>Obtains the selected date from a <a href="../struct.Calendar.html"><code>Calendar</code></a>.</p>
 <h2 id="year" class="section-header"><a href="#year"><code>year</code></a></h2>
 <p>location to store the year as a decimal
-number (e.g. 2011), or <code>None</code></p>
+number (e.g. 2011), or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 <h2 id="month" class="section-header"><a href="#month"><code>month</code></a></h2>
 <p>location to store the month number
-(between 0 and 11), or <code>None</code></p>
+(between 0 and 11), or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 <h2 id="day" class="section-header"><a href="#day"><code>day</code></a></h2>
 <p>location to store the day number (between
-1 and 31), or <code>None</code></p>
+1 and 31), or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 </div><h3 id="tymethod.day_is_marked" class="method"><code>fn <a href="#tymethod.day_is_marked" class="fnname">day_is_marked</a>(&amp;self, day: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/calendar.rs.html#506" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns if the <code>day</code> of the <code>self</code> is already marked.</p>
 <h2 id="day-1" class="section-header"><a href="#day-1"><code>day</code></a></h2>
 <p>the day number between 1 and 31.</p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
 <p>whether the day is marked.</p>
 </div><h3 id="tymethod.detail_height_rows" class="method"><code>fn <a href="#tymethod.detail_height_rows" class="fnname">detail_height_rows</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code><a class="srclink" href="../../src/gtk/auto/calendar.rs.html#515" title="goto source code">[src]</a></h3><div class="docblock"><p>Queries the height of detail cells, in rows.
-See <code>Calendar:detail-width-chars</code>.</p>
+See <a href="crate::Calendar:detail-width-chars"><code>Calendar:detail-width-chars</code></a>.</p>
 <h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
 <p>The height of detail cells, in rows.</p>
 </div><h3 id="tymethod.detail_width_chars" class="method"><code>fn <a href="#tymethod.detail_width_chars" class="fnname">detail_width_chars</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code><a class="srclink" href="../../src/gtk/auto/calendar.rs.html#524" title="goto source code">[src]</a></h3><div class="docblock"><p>Queries the width of detail cells, in characters.
-See <code>Calendar:detail-width-chars</code>.</p>
+See <a href="crate::Calendar:detail-width-chars"><code>Calendar:detail-width-chars</code></a>.</p>
 <h1 id="returns-2" class="section-header"><a href="#returns-2">Returns</a></h1>
 <p>The width of detail cells, in characters.</p>
 </div><h3 id="tymethod.display_options" class="method"><code>fn <a href="#tymethod.display_options" class="fnname">display_options</a>(&amp;self) -&gt; <a class="struct" href="../struct.CalendarDisplayOptions.html" title="struct gtk::CalendarDisplayOptions">CalendarDisplayOptions</a></code><a class="srclink" href="../../src/gtk/auto/calendar.rs.html#532" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns the current display options of <code>self</code>.</p>
@@ -93,12 +93,12 @@ the currently selected day.</p>
 <p>the year the month is in.</p>
 </div><h3 id="tymethod.set_detail_func" class="method"><code>fn <a href="#tymethod.set_detail_func" class="fnname">set_detail_func</a>&lt;P:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;<a class="struct" href="../struct.Calendar.html" title="struct gtk::Calendar">Calendar</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt; + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;func: P<br>)</code><a class="srclink" href="../../src/gtk/auto/calendar.rs.html#572" title="goto source code">[src]</a></h3><div class="docblock"><p>Installs a function which provides Pango markup with detail information
 for each day. Examples for such details are holidays or appointments. That
-information is shown below each day when <code>Calendar:show-details</code> is set.
+information is shown below each day when <a href="crate::Calendar:show-details"><code>Calendar:show-details</code></a> is set.
 A tooltip containing with full detail information is provided, if the entire
-text should not fit into the details area, or if <code>Calendar:show-details</code>
+text should not fit into the details area, or if <a href="crate::Calendar:show-details"><code>Calendar:show-details</code></a>
 is not set.</p>
 <p>The size of the details area can be restricted by setting the
-<code>Calendar:detail-width-chars</code> and <code>Calendar:detail-height-rows</code>
+<a href="crate::Calendar:detail-width-chars"><code>Calendar:detail-width-chars</code></a> and <a href="crate::Calendar:detail-height-rows"><code>Calendar:detail-height-rows</code></a>
 properties.</p>
 <h2 id="func" class="section-header"><a href="#func"><code>func</code></a></h2>
 <p>a function providing details for each day.</p>
@@ -107,11 +107,11 @@ properties.</p>
 <h2 id="destroy" class="section-header"><a href="#destroy"><code>destroy</code></a></h2>
 <p>a function for releasing <code>data</code>.</p>
 </div><h3 id="tymethod.set_detail_height_rows" class="method"><code>fn <a href="#tymethod.set_detail_height_rows" class="fnname">set_detail_height_rows</a>(&amp;self, rows: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</code><a class="srclink" href="../../src/gtk/auto/calendar.rs.html#579" title="goto source code">[src]</a></h3><div class="docblock"><p>Updates the height of detail cells.
-See <code>Calendar:detail-height-rows</code>.</p>
+See <a href="crate::Calendar:detail-height-rows"><code>Calendar:detail-height-rows</code></a>.</p>
 <h2 id="rows" class="section-header"><a href="#rows"><code>rows</code></a></h2>
 <p>detail height in rows.</p>
 </div><h3 id="tymethod.set_detail_width_chars" class="method"><code>fn <a href="#tymethod.set_detail_width_chars" class="fnname">set_detail_width_chars</a>(&amp;self, chars: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</code><a class="srclink" href="../../src/gtk/auto/calendar.rs.html#586" title="goto source code">[src]</a></h3><div class="docblock"><p>Updates the width of detail cells.
-See <code>Calendar:detail-width-chars</code>.</p>
+See <a href="crate::Calendar:detail-width-chars"><code>Calendar:detail-width-chars</code></a>.</p>
 <h2 id="chars" class="section-header"><a href="#chars"><code>chars</code></a></h2>
 <p>detail width in characters.</p>
 </div><h3 id="tymethod.set_display_options" class="method"><code>fn <a href="#tymethod.set_display_options" class="fnname">set_display_options</a>(&amp;self, flags: <a class="struct" href="../struct.CalendarDisplayOptions.html" title="struct gtk::CalendarDisplayOptions">CalendarDisplayOptions</a>)</code><a class="srclink" href="../../src/gtk/auto/calendar.rs.html#593" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets display options (whether to display the heading and the month

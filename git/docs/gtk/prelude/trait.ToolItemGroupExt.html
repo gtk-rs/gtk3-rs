@@ -36,32 +36,32 @@
 <p><a href="../struct.ToolItemGroup.html"><code>ToolItemGroup</code></a></p>
 </div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.is_collapsed" class="method"><code>fn <a href="#tymethod.is_collapsed" class="fnname">is_collapsed</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/tool_item_group.rs.html#456" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets whether <code>self</code> is collapsed or expanded.</p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
-<p><code>true</code> if <code>self</code> is collapsed, <code>false</code> if it is expanded</p>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if <code>self</code> is collapsed, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> if it is expanded</p>
 </div><h3 id="tymethod.drop_item" class="method"><code>fn <a href="#tymethod.drop_item" class="fnname">drop_item</a>(&amp;self, x: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, y: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.ToolItem.html" title="struct gtk::ToolItem">ToolItem</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/tool_item_group.rs.html#468" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the tool item at position (x, y).</p>
 <h2 id="x" class="section-header"><a href="#x"><code>x</code></a></h2>
 <p>the x position</p>
 <h2 id="y" class="section-header"><a href="#y"><code>y</code></a></h2>
 <p>the y position</p>
 <h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
-<p>the <code>ToolItem</code> at position (x, y)</p>
+<p>the <a href="../struct.ToolItem.html"><code>ToolItem</code></a> at position (x, y)</p>
 </div><h3 id="tymethod.ellipsize" class="method"><code>fn <a href="#tymethod.ellipsize" class="fnname">ellipsize</a>(&amp;self) -&gt; <a class="enum" href="../../pango/auto/enums/enum.EllipsizeMode.html" title="enum pango::auto::enums::EllipsizeMode">EllipsizeMode</a></code><a class="srclink" href="../../src/gtk/auto/tool_item_group.rs.html#476" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the ellipsization mode of <code>self</code>.</p>
 <h1 id="returns-2" class="section-header"><a href="#returns-2">Returns</a></h1>
-<p>the <code>pango::EllipsizeMode</code> of <code>self</code></p>
+<p>the <a href="../../pango/auto/enums/enum.EllipsizeMode.html"><code>pango::EllipsizeMode</code></a> of <code>self</code></p>
 </div><h3 id="tymethod.header_relief" class="method"><code>fn <a href="#tymethod.header_relief" class="fnname">header_relief</a>(&amp;self) -&gt; <a class="enum" href="../enum.ReliefStyle.html" title="enum gtk::ReliefStyle">ReliefStyle</a></code><a class="srclink" href="../../src/gtk/auto/tool_item_group.rs.html#484" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the relief mode of the header button of <code>self</code>.</p>
 <h1 id="returns-3" class="section-header"><a href="#returns-3">Returns</a></h1>
-<p>the <code>ReliefStyle</code></p>
+<p>the <a href="../enum.ReliefStyle.html"><code>ReliefStyle</code></a></p>
 </div><h3 id="tymethod.item_position" class="method"><code>fn <a href="#tymethod.item_position" class="fnname">item_position</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.ToolItem.html" title="struct gtk::ToolItem">ToolItem</a>&gt;&gt;(&amp;self, item: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code><a class="srclink" href="../../src/gtk/auto/tool_item_group.rs.html#494" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the position of <code>item</code> in <code>self</code> as index.</p>
 <h2 id="item" class="section-header"><a href="#item"><code>item</code></a></h2>
-<p>a <code>ToolItem</code></p>
+<p>a <a href="../struct.ToolItem.html"><code>ToolItem</code></a></p>
 <h1 id="returns-4" class="section-header"><a href="#returns-4">Returns</a></h1>
 <p>the index of <code>item</code> in <code>self</code> or -1 if <code>item</code> is no child of <code>self</code></p>
 </div><h3 id="tymethod.label" class="method"><code>fn <a href="#tymethod.label" class="fnname">label</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/tool_item_group.rs.html#504" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the label of <code>self</code>.</p>
 <h1 id="returns-5" class="section-header"><a href="#returns-5">Returns</a></h1>
 <p>the label of <code>self</code>. The label is an internal string of <code>self</code>
-and must not be modified. Note that <code>None</code> is returned if a custom
-label has been set with <code>ToolItemGroupExt::set_label_widget</code></p>
+and must not be modified. Note that <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> is returned if a custom
+label has been set with <a href="trait.ToolItemGroupExt.html#tymethod.set_label_widget"><code>set_label_widget()</code></a></p>
 </div><h3 id="tymethod.label_widget" class="method"><code>fn <a href="#tymethod.label_widget" class="fnname">label_widget</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.Widget.html" title="struct gtk::Widget">Widget</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/tool_item_group.rs.html#513" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the label widget of <code>self</code>.
-See <code>ToolItemGroupExt::set_label_widget</code>.</p>
+See <a href="trait.ToolItemGroupExt.html#tymethod.set_label_widget"><code>set_label_widget()</code></a>.</p>
 <h1 id="returns-6" class="section-header"><a href="#returns-6">Returns</a></h1>
 <p>the label widget of <code>self</code></p>
 </div><h3 id="tymethod.n_items" class="method"><code>fn <a href="#tymethod.n_items" class="fnname">n_items</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a></code><a class="srclink" href="../../src/gtk/auto/tool_item_group.rs.html#521" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the number of tool items in <code>self</code>.</p>
@@ -71,10 +71,10 @@ See <code>ToolItemGroupExt::set_label_widget</code>.</p>
 <h2 id="index" class="section-header"><a href="#index"><code>index</code></a></h2>
 <p>the index</p>
 <h1 id="returns-8" class="section-header"><a href="#returns-8">Returns</a></h1>
-<p>the <code>ToolItem</code> at index</p>
+<p>the <a href="../struct.ToolItem.html"><code>ToolItem</code></a> at index</p>
 </div><h3 id="tymethod.insert" class="method"><code>fn <a href="#tymethod.insert" class="fnname">insert</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.ToolItem.html" title="struct gtk::ToolItem">ToolItem</a>&gt;&gt;(&amp;self, item: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P, position: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</code><a class="srclink" href="../../src/gtk/auto/tool_item_group.rs.html#540" title="goto source code">[src]</a></h3><div class="docblock"><p>Inserts <code>item</code> at <code>position</code> in the list of children of <code>self</code>.</p>
 <h2 id="item-1" class="section-header"><a href="#item-1"><code>item</code></a></h2>
-<p>the <code>ToolItem</code> to insert into <code>self</code></p>
+<p>the <a href="../struct.ToolItem.html"><code>ToolItem</code></a> to insert into <code>self</code></p>
 <h2 id="position" class="section-header"><a href="#position"><code>position</code></a></h2>
 <p>the position of <code>item</code> in <code>self</code>, starting with 0.
 The position -1 means end of list.</p>
@@ -83,14 +83,14 @@ The position -1 means end of list.</p>
 <p>whether the <code>self</code> should be collapsed or expanded</p>
 </div><h3 id="tymethod.set_ellipsize" class="method"><code>fn <a href="#tymethod.set_ellipsize" class="fnname">set_ellipsize</a>(&amp;self, ellipsize: <a class="enum" href="../../pango/auto/enums/enum.EllipsizeMode.html" title="enum pango::auto::enums::EllipsizeMode">EllipsizeMode</a>)</code><a class="srclink" href="../../src/gtk/auto/tool_item_group.rs.html#552" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the ellipsization mode which should be used by labels in <code>self</code>.</p>
 <h2 id="ellipsize" class="section-header"><a href="#ellipsize"><code>ellipsize</code></a></h2>
-<p>the <code>pango::EllipsizeMode</code> labels in <code>self</code> should use</p>
+<p>the <a href="../../pango/auto/enums/enum.EllipsizeMode.html"><code>pango::EllipsizeMode</code></a> labels in <code>self</code> should use</p>
 </div><h3 id="tymethod.set_header_relief" class="method"><code>fn <a href="#tymethod.set_header_relief" class="fnname">set_header_relief</a>(&amp;self, style: <a class="enum" href="../enum.ReliefStyle.html" title="enum gtk::ReliefStyle">ReliefStyle</a>)</code><a class="srclink" href="../../src/gtk/auto/tool_item_group.rs.html#559" title="goto source code">[src]</a></h3><div class="docblock"><p>Set the button relief of the group header.
-See <code>ButtonExt::set_relief</code> for details.</p>
+See <a href="crate::ButtonExt::set_relief()"><code>ButtonExt::set_relief()</code></a> for details.</p>
 <h2 id="style" class="section-header"><a href="#style"><code>style</code></a></h2>
-<p>the <code>ReliefStyle</code></p>
+<p>the <a href="../enum.ReliefStyle.html"><code>ReliefStyle</code></a></p>
 </div><h3 id="tymethod.set_item_position" class="method"><code>fn <a href="#tymethod.set_item_position" class="fnname">set_item_position</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.ToolItem.html" title="struct gtk::ToolItem">ToolItem</a>&gt;&gt;(&amp;self, item: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P, position: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</code><a class="srclink" href="../../src/gtk/auto/tool_item_group.rs.html#569" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the position of <code>item</code> in the list of children of <code>self</code>.</p>
 <h2 id="item-2" class="section-header"><a href="#item-2"><code>item</code></a></h2>
-<p>the <code>ToolItem</code> to move to a new position, should
+<p>the <a href="../struct.ToolItem.html"><code>ToolItem</code></a> to move to a new position, should
 be a child of <code>self</code>.</p>
 <h2 id="position-1" class="section-header"><a href="#position-1"><code>position</code></a></h2>
 <p>the new position of <code>item</code> in <code>self</code>, starting with 0.

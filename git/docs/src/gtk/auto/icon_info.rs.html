@@ -586,15 +586,15 @@
 }
 
 <span class="kw">impl</span> <span class="ident">IconInfo</span> {
-    <span class="doccomment">/// Creates a `IconInfo` for a `gdk_pixbuf::Pixbuf`.</span>
+    <span class="doccomment">/// Creates a [`IconInfo`](crate::IconInfo) for a [`gdk_pixbuf::Pixbuf`](crate::gdk_pixbuf::Pixbuf).</span>
     <span class="doccomment">/// ## `icon_theme`</span>
-    <span class="doccomment">/// a `IconTheme`</span>
+    <span class="doccomment">/// a [`IconTheme`](crate::IconTheme)</span>
     <span class="doccomment">/// ## `pixbuf`</span>
-    <span class="doccomment">/// the pixbuf to wrap in a `IconInfo`</span>
+    <span class="doccomment">/// the pixbuf to wrap in a [`IconInfo`](crate::IconInfo)</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a `IconInfo`</span>
+    <span class="doccomment">/// a [`IconInfo`](crate::IconInfo)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_icon_info_new_for_pixbuf&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">for_pixbuf</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">IconTheme</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">icon_theme</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>, <span class="ident">pixbuf</span>: <span class="kw-2">&amp;</span><span class="ident">gdk_pixbuf::Pixbuf</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">IconInfo</span> {
         <span class="macro">skip_assert_initialized!</span>();
@@ -641,15 +641,15 @@
         <span class="kw">unsafe</span> { <span class="ident">ffi::gtk_icon_info_get_base_size</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
-    <span class="doccomment">/// Gets the filename for the icon. If the `IconLookupFlags::UseBuiltin`</span>
-    <span class="doccomment">/// flag was passed to `IconThemeExt::lookup_icon`, there may be no</span>
+    <span class="doccomment">/// Gets the filename for the icon. If the [`IconLookupFlags::UseBuiltin`]</span>
+    <span class="doccomment">/// flag was passed to [`IconThemeExt::lookup_icon()`](crate::IconThemeExt::lookup_icon()), there may be no</span>
     <span class="doccomment">/// filename if a builtin icon is returned; in this case, you should</span>
-    <span class="doccomment">/// use `IconInfo::get_builtin_pixbuf`.</span>
+    <span class="doccomment">/// use [`get_builtin_pixbuf()`](Self::get_builtin_pixbuf()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the filename for the icon, or `None`</span>
-    <span class="doccomment">///  if `IconInfo::get_builtin_pixbuf` should be used instead.</span>
+    <span class="doccomment">/// the filename for the icon, or [`None`]</span>
+    <span class="doccomment">///  if [`get_builtin_pixbuf()`](Self::get_builtin_pixbuf()) should be used instead.</span>
     <span class="doccomment">///  The return value is owned by GTK+ and should not be modified</span>
     <span class="doccomment">///  or freed.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_icon_info_get_filename&quot;</span>)]</span>
@@ -663,29 +663,29 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if the icon is symbolic, `false` otherwise</span>
+    <span class="doccomment">/// [`true`] if the icon is symbolic, [`false`] otherwise</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_icon_info_is_symbolic&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_symbolic</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::gtk_icon_info_is_symbolic</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Renders an icon previously looked up in an icon theme using</span>
-    <span class="doccomment">/// `IconThemeExt::lookup_icon`; the size will be based on the size</span>
-    <span class="doccomment">/// passed to `IconThemeExt::lookup_icon`. Note that the resulting</span>
+    <span class="doccomment">/// [`IconThemeExt::lookup_icon()`](crate::IconThemeExt::lookup_icon()); the size will be based on the size</span>
+    <span class="doccomment">/// passed to [`IconThemeExt::lookup_icon()`](crate::IconThemeExt::lookup_icon()). Note that the resulting</span>
     <span class="doccomment">/// pixbuf may not be exactly this size; an icon theme may have icons</span>
     <span class="doccomment">/// that differ slightly from their nominal sizes, and in addition GTK+</span>
     <span class="doccomment">/// will avoid scaling icons that it considers sufficiently close to the</span>
     <span class="doccomment">/// requested size or for which the source image would have to be scaled</span>
     <span class="doccomment">/// up too far. (This maintains sharpness.). This behaviour can be changed</span>
-    <span class="doccomment">/// by passing the `IconLookupFlags::ForceSize` flag when obtaining</span>
-    <span class="doccomment">/// the `IconInfo`. If this flag has been specified, the pixbuf</span>
+    <span class="doccomment">/// by passing the [`IconLookupFlags::ForceSize`] flag when obtaining</span>
+    <span class="doccomment">/// the [`IconInfo`](crate::IconInfo). If this flag has been specified, the pixbuf</span>
     <span class="doccomment">/// returned by this function will be scaled to the exact size.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// the rendered icon; this may be a newly</span>
     <span class="doccomment">///  created icon or a new reference to an internal icon, so you must</span>
-    <span class="doccomment">///  not modify the icon. Use `glib::object::ObjectExt::unref` to release your reference</span>
+    <span class="doccomment">///  not modify the icon. Use [`glib::object::ObjectExt::unref()`](crate::glib::object::ObjectExt::unref()) to release your reference</span>
     <span class="doccomment">///  to the icon.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_icon_info_load_icon&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">load_icon</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">gdk_pixbuf::Pixbuf</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span> {
@@ -701,12 +701,12 @@
     }
 
     <span class="doccomment">/// Asynchronously load, render and scale an icon previously looked up</span>
-    <span class="doccomment">/// from the icon theme using `IconThemeExt::lookup_icon`.</span>
+    <span class="doccomment">/// from the icon theme using [`IconThemeExt::lookup_icon()`](crate::IconThemeExt::lookup_icon()).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// For more details, see `IconInfo::load_icon` which is the synchronous</span>
+    <span class="doccomment">/// For more details, see [`load_icon()`](Self::load_icon()) which is the synchronous</span>
     <span class="doccomment">/// version of this call.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional `gio::Cancellable` object, `None` to ignore</span>
+    <span class="doccomment">/// optional [`gio::Cancellable`](crate::gio::Cancellable) object, [`None`] to ignore</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// a `GAsyncReadyCallback` to call when the</span>
     <span class="doccomment">///  request is satisfied</span>
@@ -767,24 +767,24 @@
     }
 
     <span class="doccomment">/// Renders an icon previously looked up in an icon theme using</span>
-    <span class="doccomment">/// `IconThemeExt::lookup_icon`; the size will be based on the size</span>
-    <span class="doccomment">/// passed to `IconThemeExt::lookup_icon`. Note that the resulting</span>
+    <span class="doccomment">/// [`IconThemeExt::lookup_icon()`](crate::IconThemeExt::lookup_icon()); the size will be based on the size</span>
+    <span class="doccomment">/// passed to [`IconThemeExt::lookup_icon()`](crate::IconThemeExt::lookup_icon()). Note that the resulting</span>
     <span class="doccomment">/// surface may not be exactly this size; an icon theme may have icons</span>
     <span class="doccomment">/// that differ slightly from their nominal sizes, and in addition GTK+</span>
     <span class="doccomment">/// will avoid scaling icons that it considers sufficiently close to the</span>
     <span class="doccomment">/// requested size or for which the source image would have to be scaled</span>
     <span class="doccomment">/// up too far. (This maintains sharpness.). This behaviour can be changed</span>
-    <span class="doccomment">/// by passing the `IconLookupFlags::ForceSize` flag when obtaining</span>
-    <span class="doccomment">/// the `IconInfo`. If this flag has been specified, the pixbuf</span>
+    <span class="doccomment">/// by passing the [`IconLookupFlags::ForceSize`] flag when obtaining</span>
+    <span class="doccomment">/// the [`IconInfo`](crate::IconInfo). If this flag has been specified, the pixbuf</span>
     <span class="doccomment">/// returned by this function will be scaled to the exact size.</span>
     <span class="doccomment">/// ## `for_window`</span>
-    <span class="doccomment">/// `gdk::Window` to optimize drawing for, or `None`</span>
+    <span class="doccomment">/// [`gdk::Window`](crate::gdk::Window) to optimize drawing for, or [`None`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// the rendered icon; this may be a newly</span>
     <span class="doccomment">///  created icon or a new reference to an internal icon, so you must</span>
-    <span class="doccomment">///  not modify the icon. Use `cairo_surface_destroy` to release your</span>
+    <span class="doccomment">///  not modify the icon. Use `cairo_surface_destroy()` to release your</span>
     <span class="doccomment">///  reference to the icon.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_icon_info_load_surface&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">load_surface</span>(
@@ -808,12 +808,12 @@
 
     <span class="doccomment">/// Loads an icon, modifying it to match the system colours for the foreground,</span>
     <span class="doccomment">/// success, warning and error colors provided. If the icon is not a symbolic</span>
-    <span class="doccomment">/// one, the function will return the result from `IconInfo::load_icon`.</span>
+    <span class="doccomment">/// one, the function will return the result from [`load_icon()`](Self::load_icon()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This allows loading symbolic icons that will match the system theme.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Unless you are implementing a widget, you will want to use</span>
-    <span class="doccomment">/// `gio::ThemedIcon::new_with_default_fallbacks` to load the icon.</span>
+    <span class="doccomment">/// [`gio::ThemedIcon::new_with_default_fallbacks()`](crate::gio::ThemedIcon::new_with_default_fallbacks()) to load the icon.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// As implementation details, the icon loaded needs to be of SVG type,</span>
     <span class="doccomment">/// contain the “symbolic” term as the last component of the icon name,</span>
@@ -823,16 +823,16 @@
     <span class="doccomment">/// See the [Symbolic Icons Specification](http://www.freedesktop.org/wiki/SymbolicIcons)</span>
     <span class="doccomment">/// for more information about symbolic icons.</span>
     <span class="doccomment">/// ## `fg`</span>
-    <span class="doccomment">/// a `gdk::RGBA` representing the foreground color of the icon</span>
+    <span class="doccomment">/// a [`gdk::RGBA`](crate::gdk::RGBA) representing the foreground color of the icon</span>
     <span class="doccomment">/// ## `success_color`</span>
-    <span class="doccomment">/// a `gdk::RGBA` representing the warning color</span>
-    <span class="doccomment">///  of the icon or `None` to use the default color</span>
+    <span class="doccomment">/// a [`gdk::RGBA`](crate::gdk::RGBA) representing the warning color</span>
+    <span class="doccomment">///  of the icon or [`None`] to use the default color</span>
     <span class="doccomment">/// ## `warning_color`</span>
-    <span class="doccomment">/// a `gdk::RGBA` representing the warning color</span>
-    <span class="doccomment">///  of the icon or `None` to use the default color</span>
+    <span class="doccomment">/// a [`gdk::RGBA`](crate::gdk::RGBA) representing the warning color</span>
+    <span class="doccomment">///  of the icon or [`None`] to use the default color</span>
     <span class="doccomment">/// ## `error_color`</span>
-    <span class="doccomment">/// a `gdk::RGBA` representing the error color</span>
-    <span class="doccomment">///  of the icon or `None` to use the default color (allow-none)</span>
+    <span class="doccomment">/// a [`gdk::RGBA`](crate::gdk::RGBA) representing the error color</span>
+    <span class="doccomment">///  of the icon or [`None`] to use the default color (allow-none)</span>
     <span class="doccomment">/// ## `was_symbolic`</span>
     <span class="doccomment">/// a `gboolean`, returns whether the</span>
     <span class="doccomment">///  loaded icon was a symbolic one and whether the `fg` color was</span>
@@ -840,7 +840,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a `gdk_pixbuf::Pixbuf` representing the loaded icon</span>
+    <span class="doccomment">/// a [`gdk_pixbuf::Pixbuf`](crate::gdk_pixbuf::Pixbuf) representing the loaded icon</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_icon_info_load_symbolic&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">load_symbolic</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -871,24 +871,24 @@
     }
 
     <span class="doccomment">/// Asynchronously load, render and scale a symbolic icon previously looked up</span>
-    <span class="doccomment">/// from the icon theme using `IconThemeExt::lookup_icon`.</span>
+    <span class="doccomment">/// from the icon theme using [`IconThemeExt::lookup_icon()`](crate::IconThemeExt::lookup_icon()).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// For more details, see `IconInfo::load_symbolic` which is the synchronous</span>
+    <span class="doccomment">/// For more details, see [`load_symbolic()`](Self::load_symbolic()) which is the synchronous</span>
     <span class="doccomment">/// version of this call.</span>
     <span class="doccomment">/// ## `fg`</span>
-    <span class="doccomment">/// a `gdk::RGBA` representing the foreground color of the icon</span>
+    <span class="doccomment">/// a [`gdk::RGBA`](crate::gdk::RGBA) representing the foreground color of the icon</span>
     <span class="doccomment">/// ## `success_color`</span>
-    <span class="doccomment">/// a `gdk::RGBA` representing the warning color</span>
-    <span class="doccomment">///  of the icon or `None` to use the default color</span>
+    <span class="doccomment">/// a [`gdk::RGBA`](crate::gdk::RGBA) representing the warning color</span>
+    <span class="doccomment">///  of the icon or [`None`] to use the default color</span>
     <span class="doccomment">/// ## `warning_color`</span>
-    <span class="doccomment">/// a `gdk::RGBA` representing the warning color</span>
-    <span class="doccomment">///  of the icon or `None` to use the default color</span>
+    <span class="doccomment">/// a [`gdk::RGBA`](crate::gdk::RGBA) representing the warning color</span>
+    <span class="doccomment">///  of the icon or [`None`] to use the default color</span>
     <span class="doccomment">/// ## `error_color`</span>
-    <span class="doccomment">/// a `gdk::RGBA` representing the error color</span>
-    <span class="doccomment">///  of the icon or `None` to use the default color (allow-none)</span>
+    <span class="doccomment">/// a [`gdk::RGBA`](crate::gdk::RGBA) representing the error color</span>
+    <span class="doccomment">///  of the icon or [`None`] to use the default color (allow-none)</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional `gio::Cancellable` object,</span>
-    <span class="doccomment">///  `None` to ignore</span>
+    <span class="doccomment">/// optional [`gio::Cancellable`](crate::gio::Cancellable) object,</span>
+    <span class="doccomment">///  [`None`] to ignore</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// a `GAsyncReadyCallback` to call when the</span>
     <span class="doccomment">///  request is satisfied</span>
@@ -982,16 +982,16 @@
 
     <span class="doccomment">/// Loads an icon, modifying it to match the system colors for the foreground,</span>
     <span class="doccomment">/// success, warning and error colors provided. If the icon is not a symbolic</span>
-    <span class="doccomment">/// one, the function will return the result from `IconInfo::load_icon`.</span>
+    <span class="doccomment">/// one, the function will return the result from [`load_icon()`](Self::load_icon()).</span>
     <span class="doccomment">/// This function uses the regular foreground color and the symbolic colors</span>
     <span class="doccomment">/// with the names “success_color”, “warning_color” and “error_color” from</span>
     <span class="doccomment">/// the context.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This allows loading symbolic icons that will match the system theme.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See `IconInfo::load_symbolic` for more details.</span>
+    <span class="doccomment">/// See [`load_symbolic()`](Self::load_symbolic()) for more details.</span>
     <span class="doccomment">/// ## `context`</span>
-    <span class="doccomment">/// a `StyleContext`</span>
+    <span class="doccomment">/// a [`StyleContext`](crate::StyleContext)</span>
     <span class="doccomment">/// ## `was_symbolic`</span>
     <span class="doccomment">/// a `gboolean`, returns whether the</span>
     <span class="doccomment">///  loaded icon was a symbolic one and whether the `fg` color was</span>
@@ -999,7 +999,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a `gdk_pixbuf::Pixbuf` representing the loaded icon</span>
+    <span class="doccomment">/// a [`gdk_pixbuf::Pixbuf`](crate::gdk_pixbuf::Pixbuf) representing the loaded icon</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_icon_info_load_symbolic_for_context&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">load_symbolic_for_context</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">StyleContext</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -1024,15 +1024,15 @@
     }
 
     <span class="doccomment">/// Asynchronously load, render and scale a symbolic icon previously</span>
-    <span class="doccomment">/// looked up from the icon theme using `IconThemeExt::lookup_icon`.</span>
+    <span class="doccomment">/// looked up from the icon theme using [`IconThemeExt::lookup_icon()`](crate::IconThemeExt::lookup_icon()).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// For more details, see `IconInfo::load_symbolic_for_context`</span>
+    <span class="doccomment">/// For more details, see [`load_symbolic_for_context()`](Self::load_symbolic_for_context())</span>
     <span class="doccomment">/// which is the synchronous version of this call.</span>
     <span class="doccomment">/// ## `context`</span>
-    <span class="doccomment">/// a `StyleContext`</span>
+    <span class="doccomment">/// a [`StyleContext`](crate::StyleContext)</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional `gio::Cancellable` object,</span>
-    <span class="doccomment">///  `None` to ignore</span>
+    <span class="doccomment">/// optional [`gio::Cancellable`](crate::gio::Cancellable) object,</span>
+    <span class="doccomment">///  [`None`] to ignore</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// a `GAsyncReadyCallback` to call when the</span>
     <span class="doccomment">///  request is satisfied</span>

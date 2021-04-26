@@ -22,22 +22,22 @@
 </details>}</pre></div><div class="docblock"><p>Trait containing all <code>ActionGroup</code> methods.</p>
 <h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
 <p><a href="../struct.ActionGroup.html"><code>ActionGroup</code></a>, <a href="../struct.Application.html"><code>Application</code></a>, <a href="../struct.DBusActionGroup.html"><code>DBusActionGroup</code></a>, <a href="../struct.RemoteActionGroup.html"><code>RemoteActionGroup</code></a>, <a href="../struct.SimpleActionGroup.html"><code>SimpleActionGroup</code></a></p>
-</div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.action_added" class="method"><code>fn <a href="#tymethod.action_added" class="fnname">action_added</a>(&amp;self, action_name: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</code><a class="srclink" href="../../src/gio/auto/action_group.rs.html#85" title="goto source code">[src]</a></h3><div class="docblock"><p>Emits the <code>ActionGroup::action-added</code> signal on <code>self</code>.</p>
-<p>This function should only be called by <code>ActionGroup</code> implementations.</p>
+</div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.action_added" class="method"><code>fn <a href="#tymethod.action_added" class="fnname">action_added</a>(&amp;self, action_name: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</code><a class="srclink" href="../../src/gio/auto/action_group.rs.html#85" title="goto source code">[src]</a></h3><div class="docblock"><p>Emits the <a href="crate::ActionGroup::action-added"><code>ActionGroup::action-added</code></a> signal on <code>self</code>.</p>
+<p>This function should only be called by <a href="../struct.ActionGroup.html"><code>ActionGroup</code></a> implementations.</p>
 <h2 id="action_name" class="section-header"><a href="#action_name"><code>action_name</code></a></h2>
 <p>the name of an action in the group</p>
-</div><h3 id="tymethod.action_enabled_changed" class="method"><code>fn <a href="#tymethod.action_enabled_changed" class="fnname">action_enabled_changed</a>(&amp;self, action_name: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, enabled: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gio/auto/action_group.rs.html#95" title="goto source code">[src]</a></h3><div class="docblock"><p>Emits the <code>ActionGroup::action-enabled-changed</code> signal on <code>self</code>.</p>
-<p>This function should only be called by <code>ActionGroup</code> implementations.</p>
+</div><h3 id="tymethod.action_enabled_changed" class="method"><code>fn <a href="#tymethod.action_enabled_changed" class="fnname">action_enabled_changed</a>(&amp;self, action_name: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, enabled: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gio/auto/action_group.rs.html#95" title="goto source code">[src]</a></h3><div class="docblock"><p>Emits the <a href="crate::ActionGroup::action-enabled-changed"><code>ActionGroup::action-enabled-changed</code></a> signal on <code>self</code>.</p>
+<p>This function should only be called by <a href="../struct.ActionGroup.html"><code>ActionGroup</code></a> implementations.</p>
 <h2 id="action_name-1" class="section-header"><a href="#action_name-1"><code>action_name</code></a></h2>
 <p>the name of an action in the group</p>
 <h2 id="enabled" class="section-header"><a href="#enabled"><code>enabled</code></a></h2>
 <p>whether or not the action is now enabled</p>
-</div><h3 id="tymethod.action_removed" class="method"><code>fn <a href="#tymethod.action_removed" class="fnname">action_removed</a>(&amp;self, action_name: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</code><a class="srclink" href="../../src/gio/auto/action_group.rs.html#103" title="goto source code">[src]</a></h3><div class="docblock"><p>Emits the <code>ActionGroup::action-removed</code> signal on <code>self</code>.</p>
-<p>This function should only be called by <code>ActionGroup</code> implementations.</p>
+</div><h3 id="tymethod.action_removed" class="method"><code>fn <a href="#tymethod.action_removed" class="fnname">action_removed</a>(&amp;self, action_name: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</code><a class="srclink" href="../../src/gio/auto/action_group.rs.html#103" title="goto source code">[src]</a></h3><div class="docblock"><p>Emits the <a href="crate::ActionGroup::action-removed"><code>ActionGroup::action-removed</code></a> signal on <code>self</code>.</p>
+<p>This function should only be called by <a href="../struct.ActionGroup.html"><code>ActionGroup</code></a> implementations.</p>
 <h2 id="action_name-2" class="section-header"><a href="#action_name-2"><code>action_name</code></a></h2>
 <p>the name of an action in the group</p>
-</div><h3 id="tymethod.action_state_changed" class="method"><code>fn <a href="#tymethod.action_state_changed" class="fnname">action_state_changed</a>(&amp;self, action_name: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, state: &amp;<a class="struct" href="../../glib/variant/struct.Variant.html" title="struct glib::variant::Variant">Variant</a>)</code><a class="srclink" href="../../src/gio/auto/action_group.rs.html#113" title="goto source code">[src]</a></h3><div class="docblock"><p>Emits the <code>ActionGroup::action-state-changed</code> signal on <code>self</code>.</p>
-<p>This function should only be called by <code>ActionGroup</code> implementations.</p>
+</div><h3 id="tymethod.action_state_changed" class="method"><code>fn <a href="#tymethod.action_state_changed" class="fnname">action_state_changed</a>(&amp;self, action_name: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, state: &amp;<a class="struct" href="../../glib/variant/struct.Variant.html" title="struct glib::variant::Variant">Variant</a>)</code><a class="srclink" href="../../src/gio/auto/action_group.rs.html#113" title="goto source code">[src]</a></h3><div class="docblock"><p>Emits the <a href="crate::ActionGroup::action-state-changed"><code>ActionGroup::action-state-changed</code></a> signal on <code>self</code>.</p>
+<p>This function should only be called by <a href="../struct.ActionGroup.html"><code>ActionGroup</code></a> implementations.</p>
 <h2 id="action_name-3" class="section-header"><a href="#action_name-3"><code>action_name</code></a></h2>
 <p>the name of an action in the group</p>
 <h2 id="state" class="section-header"><a href="#state"><code>state</code></a></h2>
@@ -45,20 +45,20 @@
 </div><h3 id="tymethod.activate_action" class="method"><code>fn <a href="#tymethod.activate_action" class="fnname">activate_action</a>(&amp;self, action_name: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, parameter: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="struct" href="../../glib/variant/struct.Variant.html" title="struct glib::variant::Variant">Variant</a>&gt;)</code><a class="srclink" href="../../src/gio/auto/action_group.rs.html#154" title="goto source code">[src]</a></h3><div class="docblock"><p>Activate the named action within <code>self</code>.</p>
 <p>If the action is expecting a parameter, then the correct type of
 parameter must be given as <code>parameter</code>. If the action is expecting no
-parameters then <code>parameter</code> must be <code>None</code>. See
-<code>ActionGroup::get_action_parameter_type</code>.</p>
-<p>If the <code>ActionGroup</code> implementation supports asynchronous remote
+parameters then <code>parameter</code> must be <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>. See
+<a href="crate::ActionGroup::get_action_parameter_type()"><code>ActionGroup::get_action_parameter_type()</code></a>.</p>
+<p>If the <a href="../struct.ActionGroup.html"><code>ActionGroup</code></a> implementation supports asynchronous remote
 activation over D-Bus, this call may return before the relevant
 D-Bus traffic has been sent, or any replies have been received. In
 order to block on such asynchronous activation calls,
-<code>DBusConnection::flush</code> should be called prior to the code, which
+<a href="../struct.DBusConnection.html#method.flush"><code>DBusConnection::flush()</code></a> should be called prior to the code, which
 depends on the result of the action activation. Without flushing
 the D-Bus connection, there is no guarantee that the action would
 have been activated.</p>
 <p>The following code which runs in a remote app instance, shows an
 example of a “quit” action being activated on the primary app
-instance over D-Bus. Here <code>DBusConnection::flush</code> is called
-before <code>exit()</code>. Without <code>DBusConnection::flush</code>, the “quit” action
+instance over D-Bus. Here <a href="../struct.DBusConnection.html#method.flush"><code>DBusConnection::flush()</code></a> is called
+before <code>exit()</code>. Without <a href="../struct.DBusConnection.html#method.flush"><code>DBusConnection::flush()</code></a>, the “quit” action
 may fail to be activated on the primary instance.</p>
 <pre><code class="language-C">// call &quot;quit&quot; action on primary instance
 g_action_group_activate_action (G_ACTION_GROUP (app), &quot;quit&quot;, NULL);
@@ -77,10 +77,10 @@ exit (0);
 </div><h3 id="tymethod.change_action_state" class="method"><code>fn <a href="#tymethod.change_action_state" class="fnname">change_action_state</a>(&amp;self, action_name: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, value: &amp;<a class="struct" href="../../glib/variant/struct.Variant.html" title="struct glib::variant::Variant">Variant</a>)</code><a class="srclink" href="../../src/gio/auto/action_group.rs.html#172" title="goto source code">[src]</a></h3><div class="docblock"><p>Request for the state of the named action within <code>self</code> to be
 changed to <code>value</code>.</p>
 <p>The action must be stateful and <code>value</code> must be of the correct type.
-See <code>ActionGroup::get_action_state_type</code>.</p>
+See <a href="crate::ActionGroup::get_action_state_type()"><code>ActionGroup::get_action_state_type()</code></a>.</p>
 <p>This call merely requests a change. The action may refuse to change
 its state or may change its state to something other than <code>value</code>.
-See <code>ActionGroup::get_action_state_hint</code>.</p>
+See <a href="crate::ActionGroup::get_action_state_hint()"><code>ActionGroup::get_action_state_hint()</code></a>.</p>
 <p>If the <code>value</code> GVariant is floating, it is consumed.</p>
 <h2 id="action_name-5" class="section-header"><a href="#action_name-5"><code>action_name</code></a></h2>
 <p>the name of the action to request the change on</p>
@@ -95,11 +95,11 @@ have its state changed from outside callers.</p>
 <p>whether or not the action is currently enabled</p>
 </div><h3 id="tymethod.action_parameter_type" class="method"><code>fn <a href="#tymethod.action_parameter_type" class="fnname">action_parameter_type</a>(&amp;self, action_name: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../glib/variant_type/struct.VariantType.html" title="struct glib::variant_type::VariantType">VariantType</a>&gt;</code><a class="srclink" href="../../src/gio/auto/action_group.rs.html#207" title="goto source code">[src]</a></h3><div class="docblock"><p>Queries the type of the parameter that must be given when activating
 the named action within <code>self</code>.</p>
-<p>When activating the action using <code>ActionGroup::activate_action</code>,
-the <code>glib::Variant</code> given to that function must be of the type returned
+<p>When activating the action using <a href="crate::ActionGroup::activate_action()"><code>ActionGroup::activate_action()</code></a>,
+the <a href="../../glib/variant/struct.Variant.html"><code>glib::Variant</code></a> given to that function must be of the type returned
 by this function.</p>
-<p>In the case that this function returns <code>None</code>, you must not give any
-<code>glib::Variant</code>, but <code>None</code> instead.</p>
+<p>In the case that this function returns <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>, you must not give any
+<a href="../../glib/variant/struct.Variant.html"><code>glib::Variant</code></a>, but <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> instead.</p>
 <p>The parameter type of a particular action will never change but it is
 possible for an action to be removed and for a new action to be added
 with the same name but a different parameter type.</p>
@@ -108,29 +108,29 @@ with the same name but a different parameter type.</p>
 <h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
 <p>the parameter type</p>
 </div><h3 id="tymethod.action_state" class="method"><code>fn <a href="#tymethod.action_state" class="fnname">action_state</a>(&amp;self, action_name: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../glib/variant/struct.Variant.html" title="struct glib::variant::Variant">Variant</a>&gt;</code><a class="srclink" href="../../src/gio/auto/action_group.rs.html#224" title="goto source code">[src]</a></h3><div class="docblock"><p>Queries the current state of the named action within <code>self</code>.</p>
-<p>If the action is not stateful then <code>None</code> will be returned. If the
+<p>If the action is not stateful then <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> will be returned. If the
 action is stateful then the type of the return value is the type
-given by <code>ActionGroup::get_action_state_type</code>.</p>
-<p>The return value (if non-<code>None</code>) should be freed with
-<code>glib::Variant::unref</code> when it is no longer required.</p>
+given by <a href="crate::ActionGroup::get_action_state_type()"><code>ActionGroup::get_action_state_type()</code></a>.</p>
+<p>The return value (if non-<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>) should be freed with
+<a href="crate::glib::Variant::unref()"><code>glib::Variant::unref()</code></a> when it is no longer required.</p>
 <h2 id="action_name-8" class="section-header"><a href="#action_name-8"><code>action_name</code></a></h2>
 <p>the name of the action to query</p>
 <h1 id="returns-2" class="section-header"><a href="#returns-2">Returns</a></h1>
 <p>the current state of the action</p>
 </div><h3 id="tymethod.action_state_hint" class="method"><code>fn <a href="#tymethod.action_state_hint" class="fnname">action_state_hint</a>(&amp;self, action_name: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../glib/variant/struct.Variant.html" title="struct glib::variant::Variant">Variant</a>&gt;</code><a class="srclink" href="../../src/gio/auto/action_group.rs.html#251" title="goto source code">[src]</a></h3><div class="docblock"><p>Requests a hint about the valid range of values for the state of the
 named action within <code>self</code>.</p>
-<p>If <code>None</code> is returned it either means that the action is not stateful
+<p>If <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> is returned it either means that the action is not stateful
 or that there is no hint about the valid range of values for the
 state of the action.</p>
-<p>If a <code>glib::Variant</code> array is returned then each item in the array is a
-possible value for the state. If a <code>glib::Variant</code> pair (ie: two-tuple) is
+<p>If a <a href="../../glib/variant/struct.Variant.html"><code>glib::Variant</code></a> array is returned then each item in the array is a
+possible value for the state. If a <a href="../../glib/variant/struct.Variant.html"><code>glib::Variant</code></a> pair (ie: two-tuple) is
 returned then the tuple specifies the inclusive lower and upper bound
 of valid values for the state.</p>
 <p>In any case, the information is merely a hint. It may be possible to
 have a state value outside of the hinted range and setting a value
 within the range may fail.</p>
-<p>The return value (if non-<code>None</code>) should be freed with
-<code>glib::Variant::unref</code> when it is no longer required.</p>
+<p>The return value (if non-<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>) should be freed with
+<a href="crate::glib::Variant::unref()"><code>glib::Variant::unref()</code></a> when it is no longer required.</p>
 <h2 id="action_name-9" class="section-header"><a href="#action_name-9"><code>action_name</code></a></h2>
 <p>the name of the action to query</p>
 <h1 id="returns-3" class="section-header"><a href="#returns-3">Returns</a></h1>
@@ -138,13 +138,13 @@ within the range may fail.</p>
 </div><h3 id="tymethod.action_state_type" class="method"><code>fn <a href="#tymethod.action_state_type" class="fnname">action_state_type</a>(&amp;self, action_name: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../glib/variant_type/struct.VariantType.html" title="struct glib::variant_type::VariantType">VariantType</a>&gt;</code><a class="srclink" href="../../src/gio/auto/action_group.rs.html#276" title="goto source code">[src]</a></h3><div class="docblock"><p>Queries the type of the state of the named action within
 <code>self</code>.</p>
 <p>If the action is stateful then this function returns the
-<code>glib::VariantType</code> of the state. All calls to
-<code>ActionGroup::change_action_state</code> must give a <code>glib::Variant</code> of this
-type and <code>ActionGroup::get_action_state</code> will return a <code>glib::Variant</code>
+<a href="../../glib/variant_type/struct.VariantType.html"><code>glib::VariantType</code></a> of the state. All calls to
+<a href="crate::ActionGroup::change_action_state()"><code>ActionGroup::change_action_state()</code></a> must give a <a href="../../glib/variant/struct.Variant.html"><code>glib::Variant</code></a> of this
+type and <a href="crate::ActionGroup::get_action_state()"><code>ActionGroup::get_action_state()</code></a> will return a <a href="../../glib/variant/struct.Variant.html"><code>glib::Variant</code></a>
 of the same type.</p>
-<p>If the action is not stateful then this function will return <code>None</code>.
-In that case, <code>ActionGroup::get_action_state</code> will return <code>None</code>
-and you must not call <code>ActionGroup::change_action_state</code>.</p>
+<p>If the action is not stateful then this function will return <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>.
+In that case, <a href="crate::ActionGroup::get_action_state()"><code>ActionGroup::get_action_state()</code></a> will return <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>
+and you must not call <a href="crate::ActionGroup::change_action_state()"><code>ActionGroup::change_action_state()</code></a>.</p>
 <p>The state type of a particular action will never change but it is
 possible for an action to be removed and for a new action to be added
 with the same name but a different state type.</p>
@@ -158,10 +158,10 @@ with the same name but a different state type.</p>
 <h1 id="returns-5" class="section-header"><a href="#returns-5">Returns</a></h1>
 <p>whether the named action exists</p>
 </div><h3 id="tymethod.list_actions" class="method"><code>fn <a href="#tymethod.list_actions" class="fnname">list_actions</a>(&amp;self) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../../glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</code><a class="srclink" href="../../src/gio/auto/action_group.rs.html#298" title="goto source code">[src]</a></h3><div class="docblock"><p>Lists the actions contained within <code>self</code>.</p>
-<p>The caller is responsible for freeing the list with <code>g_strfreev</code> when
+<p>The caller is responsible for freeing the list with <code>g_strfreev()</code> when
 it is no longer required.</p>
 <h1 id="returns-6" class="section-header"><a href="#returns-6">Returns</a></h1>
-<p>a <code>None</code>-terminated array of the names of the
+<p>a <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>-terminated array of the names of the
 actions in the group</p>
 </div><h3 id="tymethod.connect_action_added" class="method"><code>fn <a href="#tymethod.connect_action_added" class="fnname">connect_action_added</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;detail: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../../src/gio/auto/action_group.rs.html#305-309" title="goto source code">[src]</a></h3><div class="docblock"><p>Signals that a new action was just added to the group.
 This signal is emitted after the action has been added

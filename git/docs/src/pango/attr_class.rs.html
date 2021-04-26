@@ -105,10 +105,10 @@
     }
 }
 
-<span class="doccomment">/// The `AttrClass` structure stores the type and operations for</span>
+<span class="doccomment">/// The [`AttrClass`](crate::AttrClass) structure stores the type and operations for</span>
 <span class="doccomment">/// a particular type of attribute. The functions in this structure should</span>
 <span class="doccomment">/// not be called directly. Instead, one should use the wrapper functions</span>
-<span class="doccomment">/// provided for `Attribute`.</span>
+<span class="doccomment">/// provided for [`Attribute`](crate::Attribute).</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">AttrClass</span>(<span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::PangoAttrClass</span>);
 
 <span class="kw">impl</span> <span class="ident">PartialEq</span> <span class="kw">for</span> <span class="ident">AttrClass</span> {

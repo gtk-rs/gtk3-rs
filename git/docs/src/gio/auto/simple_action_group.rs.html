@@ -60,12 +60,12 @@
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// `SimpleActionGroup` is a hash table filled with `Action` objects,</span>
-    <span class="doccomment">/// implementing the `ActionGroup` and `ActionMap` interfaces.</span>
+    <span class="doccomment">/// [`SimpleActionGroup`](crate::SimpleActionGroup) is a hash table filled with [`Action`](crate::Action) objects,</span>
+    <span class="doccomment">/// implementing the [`ActionGroup`](crate::ActionGroup) and [`ActionMap`](crate::ActionMap) interfaces.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`trait@glib::object::ObjectExt`], [`ActionGroupExt`](trait@crate::ActionGroupExt), [`ActionMapExt`](trait@crate::ActionMapExt)</span>
+    <span class="doccomment">/// [`trait@glib::object::ObjectExt`], [`ActionGroupExt`](trait@crate::prelude::ActionGroupExt), [`ActionMapExt`](trait@crate::prelude::ActionMapExt)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SimpleActionGroup</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GSimpleActionGroup</span>, <span class="ident">ffi::GSimpleActionGroupClass</span><span class="op">&gt;</span>) @<span class="ident">implements</span> <span class="ident">ActionGroup</span>, <span class="ident">ActionMap</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -74,11 +74,11 @@
 }
 
 <span class="kw">impl</span> <span class="ident">SimpleActionGroup</span> {
-    <span class="doccomment">/// Creates a new, empty, `SimpleActionGroup`.</span>
+    <span class="doccomment">/// Creates a new, empty, [`SimpleActionGroup`](crate::SimpleActionGroup).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new `SimpleActionGroup`</span>
+    <span class="doccomment">/// a new [`SimpleActionGroup`](crate::SimpleActionGroup)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_simple_action_group_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SimpleActionGroup</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_simple_action_group_new</span>()) }

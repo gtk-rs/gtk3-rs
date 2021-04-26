@@ -775,28 +775,28 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// `RecentChooserMenu` is a widget suitable for displaying recently used files</span>
-    <span class="doccomment">/// inside a menu. It can be used to set a sub-menu of a `MenuItem` using</span>
-    <span class="doccomment">/// `GtkMenuItemExt::set_submenu`, or as the menu of a `MenuToolButton`.</span>
+    <span class="doccomment">/// [`RecentChooserMenu`](crate::RecentChooserMenu) is a widget suitable for displaying recently used files</span>
+    <span class="doccomment">/// inside a menu. It can be used to set a sub-menu of a [`MenuItem`](crate::MenuItem) using</span>
+    <span class="doccomment">/// [``GtkMenuItemExt`::set_submenu()`](crate::`GtkMenuItemExt`::set_submenu()), or as the menu of a [`MenuToolButton`](crate::MenuToolButton).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Note that `RecentChooserMenu` does not have any methods of its own. Instead,</span>
-    <span class="doccomment">/// you should use the functions that work on a `RecentChooser`.</span>
+    <span class="doccomment">/// Note that [`RecentChooserMenu`](crate::RecentChooserMenu) does not have any methods of its own. Instead,</span>
+    <span class="doccomment">/// you should use the functions that work on a [`RecentChooser`](crate::RecentChooser).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Note also that `RecentChooserMenu` does not support multiple filters, as it</span>
-    <span class="doccomment">/// has no way to let the user choose between them as the `RecentChooserWidget`</span>
-    <span class="doccomment">/// and `RecentChooserDialog` widgets do. Thus using `RecentChooser::add_filter`</span>
-    <span class="doccomment">/// on a `RecentChooserMenu` widget will yield the same effects as using</span>
-    <span class="doccomment">/// `RecentChooser::set_filter`, replacing any currently set filter</span>
-    <span class="doccomment">/// with the supplied filter; `RecentChooser::remove_filter` will remove</span>
-    <span class="doccomment">/// any currently set `RecentFilter` object and will unset the current filter;</span>
-    <span class="doccomment">/// `RecentChooser::list_filters` will return a list containing a single</span>
-    <span class="doccomment">/// `RecentFilter` object.</span>
+    <span class="doccomment">/// Note also that [`RecentChooserMenu`](crate::RecentChooserMenu) does not support multiple filters, as it</span>
+    <span class="doccomment">/// has no way to let the user choose between them as the [`RecentChooserWidget`](crate::RecentChooserWidget)</span>
+    <span class="doccomment">/// and [`RecentChooserDialog`](crate::RecentChooserDialog) widgets do. Thus using [`RecentChooser::add_filter()`](crate::RecentChooser::add_filter())</span>
+    <span class="doccomment">/// on a [`RecentChooserMenu`](crate::RecentChooserMenu) widget will yield the same effects as using</span>
+    <span class="doccomment">/// [`RecentChooser::set_filter()`](crate::RecentChooser::set_filter()), replacing any currently set filter</span>
+    <span class="doccomment">/// with the supplied filter; [`RecentChooser::remove_filter()`](crate::RecentChooser::remove_filter()) will remove</span>
+    <span class="doccomment">/// any currently set [`RecentFilter`](crate::RecentFilter) object and will unset the current filter;</span>
+    <span class="doccomment">/// [`RecentChooser::list_filters()`](crate::RecentChooser::list_filters()) will return a list containing a single</span>
+    <span class="doccomment">/// [`RecentFilter`](crate::RecentFilter) object.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Recently used files are supported since GTK+ 2.10.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`RecentChooserMenuExt`](trait@crate::RecentChooserMenuExt), [`GtkMenuExt`](trait@crate::GtkMenuExt), [`MenuShellExt`](trait@crate::MenuShellExt), [`ContainerExt`](trait@crate::ContainerExt), [`WidgetExt`](trait@crate::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::BuildableExt), [`RecentChooserExt`](trait@crate::RecentChooserExt), [`GtkMenuExtManual`](trait@crate::GtkMenuExtManual), [`WidgetExtManual`](trait@crate::WidgetExtManual), [`BuildableExtManual`](trait@crate::BuildableExtManual)</span>
+    <span class="doccomment">/// [`RecentChooserMenuExt`](trait@crate::prelude::RecentChooserMenuExt), [`GtkMenuExt`](trait@crate::prelude::GtkMenuExt), [`MenuShellExt`](trait@crate::prelude::MenuShellExt), [`ContainerExt`](trait@crate::prelude::ContainerExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`RecentChooserExt`](trait@crate::prelude::RecentChooserExt), [`GtkMenuExtManual`](trait@crate::prelude::GtkMenuExtManual), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RecentChooserMenu</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkRecentChooserMenu</span>, <span class="ident">ffi::GtkRecentChooserMenuClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Menu</span>, <span class="ident">MenuShell</span>, <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>, <span class="ident">RecentChooser</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -805,41 +805,41 @@
 }
 
 <span class="kw">impl</span> <span class="ident">RecentChooserMenu</span> {
-    <span class="doccomment">/// Creates a new `RecentChooserMenu` widget.</span>
+    <span class="doccomment">/// Creates a new [`RecentChooserMenu`](crate::RecentChooserMenu) widget.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This kind of widget shows the list of recently used resources as</span>
     <span class="doccomment">/// a menu, each item as a menu item. Each item inside the menu might</span>
     <span class="doccomment">/// have an icon, representing its MIME type, and a number, for mnemonic</span>
     <span class="doccomment">/// access.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This widget implements the `RecentChooser` interface.</span>
+    <span class="doccomment">/// This widget implements the [`RecentChooser`](crate::RecentChooser) interface.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This widget creates its own `RecentManager` object. See the</span>
-    <span class="doccomment">/// `RecentChooserMenu::new_for_manager` function to know how to create</span>
-    <span class="doccomment">/// a `RecentChooserMenu` widget bound to another `RecentManager` object.</span>
+    <span class="doccomment">/// This widget creates its own [`RecentManager`](crate::RecentManager) object. See the</span>
+    <span class="doccomment">/// [`new_for_manager()`](Self::new_for_manager()) function to know how to create</span>
+    <span class="doccomment">/// a [`RecentChooserMenu`](crate::RecentChooserMenu) widget bound to another [`RecentManager`](crate::RecentManager) object.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new `RecentChooserMenu`</span>
+    <span class="doccomment">/// a new [`RecentChooserMenu`](crate::RecentChooserMenu)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_recent_chooser_menu_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">RecentChooserMenu</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe</span> { <span class="ident">Widget::from_glib_none</span>(<span class="ident">ffi::gtk_recent_chooser_menu_new</span>()).<span class="ident">unsafe_cast</span>() }
     }
 
-    <span class="doccomment">/// Creates a new `RecentChooserMenu` widget using `manager` as</span>
+    <span class="doccomment">/// Creates a new [`RecentChooserMenu`](crate::RecentChooserMenu) widget using `manager` as</span>
     <span class="doccomment">/// the underlying recently used resources manager.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is useful if you have implemented your own recent manager,</span>
-    <span class="doccomment">/// or if you have a customized instance of a `RecentManager`</span>
-    <span class="doccomment">/// object or if you wish to share a common `RecentManager` object</span>
-    <span class="doccomment">/// among multiple `RecentChooser` widgets.</span>
+    <span class="doccomment">/// or if you have a customized instance of a [`RecentManager`](crate::RecentManager)</span>
+    <span class="doccomment">/// object or if you wish to share a common [`RecentManager`](crate::RecentManager) object</span>
+    <span class="doccomment">/// among multiple [`RecentChooser`](crate::RecentChooser) widgets.</span>
     <span class="doccomment">/// ## `manager`</span>
-    <span class="doccomment">/// a `RecentManager`</span>
+    <span class="doccomment">/// a [`RecentManager`](crate::RecentManager)</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new `RecentChooserMenu`, bound to `manager`.</span>
+    <span class="doccomment">/// a new [`RecentChooserMenu`](crate::RecentChooserMenu), bound to `manager`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_recent_chooser_menu_new_for_manager&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">for_manager</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">RecentManager</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">manager</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">RecentChooserMenu</span> {
         <span class="macro">skip_assert_initialized!</span>();
@@ -1420,11 +1420,11 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// [`RecentChooserMenu`](struct@crate::RecentChooserMenu)</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">RecentChooserMenuExt</span>: <span class="lifetime">&#39;static</span> {
-    <span class="doccomment">/// Returns the value set by `RecentChooserMenuExt::set_show_numbers`.</span>
+    <span class="doccomment">/// Returns the value set by [`set_show_numbers()`](Self::set_show_numbers()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if numbers should be shown.</span>
+    <span class="doccomment">/// [`true`] if numbers should be shown.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_recent_chooser_menu_get_show_numbers&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">shows_numbers</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 

@@ -4,7 +4,7 @@
                 <a id="settings-menu" href="../settings.html"><img src="../wheel.svg" width="18" height="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class="fqn"><span class="in-band">Struct <a href="index.html">gio</a>::<wbr><a class="struct" href="">SubprocessLauncher</a><button id="copy-path" onclick="copy_path(this)">⎘</button></span><span class="out-of-band"><span id="render-detail"><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span><a class="srclink" href="../src/gio/auto/subprocess_launcher.rs.html#14-32" title="goto source code">[src]</a></span></h1><div class="docblock type-decl"><pre class="rust struct">pub struct SubprocessLauncher(_);</pre></div><div class="docblock"><p>This class contains a set of options for launching child processes,
 such as where its standard input and output will be directed, the
 argument list, the environment, and more.</p>
-<p>While the <code>Subprocess</code> class has high level functions covering
+<p>While the <a href="struct.Subprocess.html"><code>Subprocess</code></a> class has high level functions covering
 popular cases, use of this class allows access to more advanced
 options. It can also be used to launch multiple subprocesses with
 a similar configuration.</p>
@@ -28,7 +28,7 @@ the passphrase to be written.</p>
 <p>If <code>fd</code> is -1 then any previously given fd is unset.</p>
 <p>Note that the default behaviour is to pass stderr through to the
 stderr of the parent process.</p>
-<p>The passed <code>fd</code> belongs to the <code>SubprocessLauncher</code>. It will be
+<p>The passed <code>fd</code> belongs to the <a href="struct.SubprocessLauncher.html"><code>SubprocessLauncher</code></a>. It will be
 automatically closed when the launcher is finalized. The file
 descriptor will also be closed on the child side when executing the
 spawned process.</p>
@@ -40,7 +40,7 @@ if the launcher flags contain any flags directing stderr elsewhere.</p>
 </div><h4 id="method.take_stdin_fd" class="method"><code>pub fn <a href="#method.take_stdin_fd" class="fnname">take_stdin_fd</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/std/sys/unix/ext/io/trait.IntoRawFd.html" title="trait std::sys::unix::ext::io::IntoRawFd">IntoRawFd</a>&gt;(&amp;self, fd: F)</code><a href="#method.take_stdin_fd" class="anchor"></a><a class="srclink" href="../src/gio/subprocess_launcher.rs.html#97-101" title="goto source code">[src]</a></h4><div class="item-info"><div class="stab portability">This is supported on <strong>Unix</strong> only.</div></div><div class="docblock"><p>Sets the file descriptor to use as the stdin for spawned processes.</p>
 <p>If <code>fd</code> is -1 then any previously given fd is unset.</p>
 <p>Note that if your intention is to have the stdin of the calling
-process inherited by the child then <code>SubprocessFlags::StdinInherit</code>
+process inherited by the child then [<code>SubprocessFlags::StdinInherit</code>]
 is a better way to go about doing that.</p>
 <p>The passed <code>fd</code> is noted but will not be touched in the current
 process. It is therefore necessary that it be kept open by the
@@ -66,12 +66,12 @@ if the launcher flags contain any flags directing stdout elsewhere.</p>
 <p>This feature is only available on UNIX.</p>
 <h2 id="fd-2" class="section-header"><a href="#fd-2"><code>fd</code></a></h2>
 <p>a file descriptor, or -1</p>
-</div></div></details><details class="rustdoc-toggle implementors-toggle"><summary><h3 id="impl-1" class="impl"><code class="in-band">impl <a class="struct" href="struct.SubprocessLauncher.html" title="struct gio::SubprocessLauncher">SubprocessLauncher</a></code><a href="#impl-1" class="anchor"></a><a class="srclink" href="../src/gio/auto/subprocess_launcher.rs.html#34-333" title="goto source code">[src]</a></h3></summary><div class="impl-items"><h4 id="method.new" class="method"><code>pub fn <a href="#method.new" class="fnname">new</a>(flags: <a class="struct" href="struct.SubprocessFlags.html" title="struct gio::SubprocessFlags">SubprocessFlags</a>) -&gt; <a class="struct" href="struct.SubprocessLauncher.html" title="struct gio::SubprocessLauncher">SubprocessLauncher</a></code><a href="#method.new" class="anchor"></a><a class="srclink" href="../src/gio/auto/subprocess_launcher.rs.html#43-45" title="goto source code">[src]</a></h4><div class="docblock"><p>Creates a new <code>SubprocessLauncher</code>.</p>
+</div></div></details><details class="rustdoc-toggle implementors-toggle"><summary><h3 id="impl-1" class="impl"><code class="in-band">impl <a class="struct" href="struct.SubprocessLauncher.html" title="struct gio::SubprocessLauncher">SubprocessLauncher</a></code><a href="#impl-1" class="anchor"></a><a class="srclink" href="../src/gio/auto/subprocess_launcher.rs.html#34-333" title="goto source code">[src]</a></h3></summary><div class="impl-items"><h4 id="method.new" class="method"><code>pub fn <a href="#method.new" class="fnname">new</a>(flags: <a class="struct" href="struct.SubprocessFlags.html" title="struct gio::SubprocessFlags">SubprocessFlags</a>) -&gt; <a class="struct" href="struct.SubprocessLauncher.html" title="struct gio::SubprocessLauncher">SubprocessLauncher</a></code><a href="#method.new" class="anchor"></a><a class="srclink" href="../src/gio/auto/subprocess_launcher.rs.html#43-45" title="goto source code">[src]</a></h4><div class="docblock"><p>Creates a new <a href="struct.SubprocessLauncher.html"><code>SubprocessLauncher</code></a>.</p>
 <p>The launcher is created with the default options. A copy of the
 environment of the calling process is made at the time of this call
 and will be used as the environment that the process is launched in.</p>
 <h2 id="flags" class="section-header"><a href="#flags"><code>flags</code></a></h2>
-<p><code>SubprocessFlags</code></p>
+<p><a href="struct.SubprocessFlags.html"><code>SubprocessFlags</code></a></p>
 </div><h4 id="method.getenv" class="method"><code>pub fn <a href="#method.getenv" class="fnname">getenv</a>&lt;P:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html" title="trait core::convert::AsRef">AsRef</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/std/path/struct.Path.html" title="struct std::path::Path">Path</a>&gt;&gt;(&amp;self, variable: P) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/std/path/struct.PathBuf.html" title="struct std::path::PathBuf">PathBuf</a>&gt;</code><a href="#method.getenv" class="anchor"></a><a class="srclink" href="../src/gio/auto/subprocess_launcher.rs.html#60-67" title="goto source code">[src]</a></h4><div class="docblock"><p>Returns the value of the environment variable <code>variable</code> in the
 environment of processes launched from this launcher.</p>
 <p>On UNIX, the returned string can be an arbitrary byte string.
@@ -80,15 +80,15 @@ On Windows, it will be UTF-8.</p>
 <p>the environment variable to get</p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
 <p>the value of the environment variable,
-<code>None</code> if unset</p>
+<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> if unset</p>
 </div><h4 id="method.set_child_setup" class="method"><code>pub fn <a href="#method.set_child_setup" class="fnname">set_child_setup</a>&lt;P:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>() + 'static&gt;(&amp;self, child_setup: P)</code><a href="#method.set_child_setup" class="anchor"></a><a class="srclink" href="../src/gio/auto/subprocess_launcher.rs.html#91-111" title="goto source code">[src]</a></h4><div class="item-info"><div class="stab portability">This is supported on <strong>Unix</strong> only.</div></div><div class="docblock"><p>Sets up a child setup function.</p>
-<p>The child setup function will be called after <code>fork</code> but before
-<code>exec</code> on the child’s side.</p>
+<p>The child setup function will be called after <code>fork()</code> but before
+<code>exec()</code> on the child’s side.</p>
 <p><code>destroy_notify</code> will not be automatically called on the child’s side
-of the <code>fork</code>. It will only be called when the last reference on the
-<code>SubprocessLauncher</code> is dropped or when a new child setup function is
+of the <code>fork()</code>. It will only be called when the last reference on the
+<a href="struct.SubprocessLauncher.html"><code>SubprocessLauncher</code></a> is dropped or when a new child setup function is
 given.</p>
-<p><code>None</code> can be given as <code>child_setup</code> to disable the functionality.</p>
+<p><a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> can be given as <code>child_setup</code> to disable the functionality.</p>
 <p>Child setup functions are only available on UNIX.</p>
 <h2 id="child_setup" class="section-header"><a href="#child_setup"><code>child_setup</code></a></h2>
 <p>a <code>GSpawnChildSetupFunc</code> to use as the child setup function</p>
@@ -104,58 +104,58 @@ of the launching process at the time of launch.</p>
 <p>the cwd for launched processes</p>
 </div><h4 id="method.set_environ" class="method"><code>pub fn <a href="#method.set_environ" class="fnname">set_environ</a>(&amp;self, env: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">&amp;[</a>&amp;<a class="struct" href="https://doc.rust-lang.org/nightly/std/path/struct.Path.html" title="struct std::path::Path">Path</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">]</a>)</code><a href="#method.set_environ" class="anchor"></a><a class="srclink" href="../src/gio/auto/subprocess_launcher.rs.html#153-157" title="goto source code">[src]</a></h4><div class="docblock"><p>Replace the entire environment of processes launched from this
 launcher with the given ‘environ’ variable.</p>
-<p>Typically you will build this variable by using <code>g_listenv</code> to copy
-the process ‘environ’ and using the functions <code>g_environ_setenv</code>,
-<code>g_environ_unsetenv</code>, etc.</p>
-<p>As an alternative, you can use <code>SubprocessLauncher::setenv</code>,
-<code>SubprocessLauncher::unsetenv</code>, etc.</p>
-<p>Pass an empty array to set an empty environment. Pass <code>None</code> to inherit the
+<p>Typically you will build this variable by using <code>g_listenv()</code> to copy
+the process ‘environ’ and using the functions <code>g_environ_setenv()</code>,
+<code>g_environ_unsetenv()</code>, etc.</p>
+<p>As an alternative, you can use <a href="struct.SubprocessLauncher.html#method.setenv"><code>setenv()</code></a>,
+<a href="struct.SubprocessLauncher.html#method.unsetenv"><code>unsetenv()</code></a>, etc.</p>
+<p>Pass an empty array to set an empty environment. Pass <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> to inherit the
 parent process’ environment. As of GLib 2.54, the parent process’ environment
-will be copied when <code>SubprocessLauncher::set_environ</code> is called.
+will be copied when <a href="struct.SubprocessLauncher.html#method.set_environ"><code>set_environ()</code></a> is called.
 Previously, it was copied when the subprocess was executed. This means the
-copied environment may now be modified (using <code>SubprocessLauncher::setenv</code>,
+copied environment may now be modified (using <a href="struct.SubprocessLauncher.html#method.setenv"><code>setenv()</code></a>,
 etc.) before launching the subprocess.</p>
 <p>On UNIX, all strings in this array can be arbitrary byte strings.
 On Windows, they should be in UTF-8.</p>
 <h2 id="env" class="section-header"><a href="#env"><code>env</code></a></h2>
 <p>the replacement environment</p>
 </div><h4 id="method.set_flags" class="method"><code>pub fn <a href="#method.set_flags" class="fnname">set_flags</a>(&amp;self, flags: <a class="struct" href="struct.SubprocessFlags.html" title="struct gio::SubprocessFlags">SubprocessFlags</a>)</code><a href="#method.set_flags" class="anchor"></a><a class="srclink" href="../src/gio/auto/subprocess_launcher.rs.html#174-178" title="goto source code">[src]</a></h4><div class="docblock"><p>Sets the flags on the launcher.</p>
-<p>The default flags are <code>SubprocessFlags::None</code>.</p>
+<p>The default flags are [<code>SubprocessFlags::None</code>].</p>
 <p>You may not set flags that specify conflicting options for how to
 handle a particular stdio stream (eg: specifying both
-<code>SubprocessFlags::StdinPipe</code> and
-<code>SubprocessFlags::StdinInherit</code>).</p>
+[<code>SubprocessFlags::StdinPipe</code>] and
+[<code>SubprocessFlags::StdinInherit</code>]).</p>
 <p>You may also not set a flag that conflicts with a previous call to a
-function like <code>SubprocessLauncher::set_stdin_file_path</code> or
-<code>SubprocessLauncher::take_stdout_fd</code>.</p>
+function like <a href="struct.SubprocessLauncher.html#method.set_stdin_file_path"><code>set_stdin_file_path()</code></a> or
+<a href="struct.SubprocessLauncher.html#method.take_stdout_fd"><code>take_stdout_fd()</code></a>.</p>
 <h2 id="flags-1" class="section-header"><a href="#flags-1"><code>flags</code></a></h2>
-<p><code>SubprocessFlags</code></p>
+<p><a href="struct.SubprocessFlags.html"><code>SubprocessFlags</code></a></p>
 </div><h4 id="method.set_stderr_file_path" class="method"><code>pub fn <a href="#method.set_stderr_file_path" class="fnname">set_stderr_file_path</a>&lt;P:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html" title="trait core::convert::AsRef">AsRef</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/std/path/struct.Path.html" title="struct std::path::Path">Path</a>&gt;&gt;(&amp;self, path: P)</code><a href="#method.set_stderr_file_path" class="anchor"></a><a class="srclink" href="../src/gio/auto/subprocess_launcher.rs.html#199-206" title="goto source code">[src]</a></h4><div class="item-info"><div class="stab portability">This is supported on <strong>Unix</strong> only.</div></div><div class="docblock"><p>Sets the file path to use as the stderr for spawned processes.</p>
-<p>If <code>path</code> is <code>None</code> then any previously given path is unset.</p>
+<p>If <code>path</code> is <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> then any previously given path is unset.</p>
 <p>The file will be created or truncated when the process is spawned, as
 would be the case if using ‘2&gt;’ at the shell.</p>
 <p>If you want to send both stdout and stderr to the same file then use
-<code>SubprocessFlags::StderrMerge</code>.</p>
+[<code>SubprocessFlags::StderrMerge</code>].</p>
 <p>You may not set a stderr file path if a stderr fd is already set or
 if the launcher flags contain any flags directing stderr elsewhere.</p>
 <p>This feature is only available on UNIX.</p>
 <h2 id="path" class="section-header"><a href="#path"><code>path</code></a></h2>
-<p>a filename or <code>None</code></p>
+<p>a filename or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 </div><h4 id="method.set_stdin_file_path" class="method"><code>pub fn <a href="#method.set_stdin_file_path" class="fnname">set_stdin_file_path</a>(&amp;self, path: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</code><a href="#method.set_stdin_file_path" class="anchor"></a><a class="srclink" href="../src/gio/auto/subprocess_launcher.rs.html#221-228" title="goto source code">[src]</a></h4><div class="item-info"><div class="stab portability">This is supported on <strong>Unix</strong> only.</div></div><div class="docblock"><p>Sets the file path to use as the stdin for spawned processes.</p>
-<p>If <code>path</code> is <code>None</code> then any previously given path is unset.</p>
+<p>If <code>path</code> is <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> then any previously given path is unset.</p>
 <p>The file must exist or spawning the process will fail.</p>
 <p>You may not set a stdin file path if a stdin fd is already set or if
 the launcher flags contain any flags directing stdin elsewhere.</p>
 <p>This feature is only available on UNIX.</p>
 </div><h4 id="method.set_stdout_file_path" class="method"><code>pub fn <a href="#method.set_stdout_file_path" class="fnname">set_stdout_file_path</a>&lt;P:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html" title="trait core::convert::AsRef">AsRef</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/std/path/struct.Path.html" title="struct std::path::Path">Path</a>&gt;&gt;(&amp;self, path: P)</code><a href="#method.set_stdout_file_path" class="anchor"></a><a class="srclink" href="../src/gio/auto/subprocess_launcher.rs.html#246-253" title="goto source code">[src]</a></h4><div class="item-info"><div class="stab portability">This is supported on <strong>Unix</strong> only.</div></div><div class="docblock"><p>Sets the file path to use as the stdout for spawned processes.</p>
-<p>If <code>path</code> is <code>None</code> then any previously given path is unset.</p>
+<p>If <code>path</code> is <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> then any previously given path is unset.</p>
 <p>The file will be created or truncated when the process is spawned, as
 would be the case if using ‘&gt;’ at the shell.</p>
 <p>You may not set a stdout file path if a stdout fd is already set or
 if the launcher flags contain any flags directing stdout elsewhere.</p>
 <p>This feature is only available on UNIX.</p>
 <h2 id="path-1" class="section-header"><a href="#path-1"><code>path</code></a></h2>
-<p>a filename or <code>None</code></p>
+<p>a filename or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 </div><h4 id="method.setenv" class="method"><code>pub fn <a href="#method.setenv" class="fnname">setenv</a>&lt;P:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html" title="trait core::convert::AsRef">AsRef</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/std/ffi/os_str/struct.OsStr.html" title="struct std::ffi::os_str::OsStr">OsStr</a>&gt;, Q:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html" title="trait core::convert::AsRef">AsRef</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/std/ffi/os_str/struct.OsStr.html" title="struct std::ffi::os_str::OsStr">OsStr</a>&gt;&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;variable: P, <br>&nbsp;&nbsp;&nbsp;&nbsp;value: Q, <br>&nbsp;&nbsp;&nbsp;&nbsp;overwrite: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a><br>)</code><a href="#method.setenv" class="anchor"></a><a class="srclink" href="../src/gio/auto/subprocess_launcher.rs.html#269-283" title="goto source code">[src]</a></h4><div class="docblock"><p>Sets the environment variable <code>variable</code> in the environment of
 processes launched from this launcher.</p>
 <p>On UNIX, both the variable’s name and value can be arbitrary byte
@@ -168,13 +168,13 @@ must not contain ‘=’</p>
 <p>the new value for the variable</p>
 <h2 id="overwrite" class="section-header"><a href="#overwrite"><code>overwrite</code></a></h2>
 <p>whether to change the variable if it already exists</p>
-</div><h4 id="method.spawn" class="method"><code>pub fn <a href="#method.spawn" class="fnname">spawn</a>(&amp;self, argv: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">&amp;[</a>&amp;<a class="struct" href="https://doc.rust-lang.org/nightly/std/ffi/os_str/struct.OsStr.html" title="struct std::ffi::os_str::OsStr">OsStr</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">]</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="struct" href="struct.Subprocess.html" title="struct gio::Subprocess">Subprocess</a>, <a class="struct" href="../glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt;</code><a href="#method.spawn" class="anchor"></a><a class="srclink" href="../src/gio/auto/subprocess_launcher.rs.html#300-314" title="goto source code">[src]</a></h4><div class="docblock"><p>Creates a <code>Subprocess</code> given a provided varargs list of arguments.</p>
+</div><h4 id="method.spawn" class="method"><code>pub fn <a href="#method.spawn" class="fnname">spawn</a>(&amp;self, argv: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">&amp;[</a>&amp;<a class="struct" href="https://doc.rust-lang.org/nightly/std/ffi/os_str/struct.OsStr.html" title="struct std::ffi::os_str::OsStr">OsStr</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">]</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="struct" href="struct.Subprocess.html" title="struct gio::Subprocess">Subprocess</a>, <a class="struct" href="../glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt;</code><a href="#method.spawn" class="anchor"></a><a class="srclink" href="../src/gio/auto/subprocess_launcher.rs.html#300-314" title="goto source code">[src]</a></h4><div class="docblock"><p>Creates a <a href="struct.Subprocess.html"><code>Subprocess</code></a> given a provided varargs list of arguments.</p>
 <h2 id="error" class="section-header"><a href="#error"><code>error</code></a></h2>
 <p>Error</p>
 <h2 id="argv0" class="section-header"><a href="#argv0"><code>argv0</code></a></h2>
 <p>Command line arguments</p>
 <h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
-<p>A new <code>Subprocess</code>, or <code>None</code> on error (and <code>error</code> will be set)</p>
+<p>A new <a href="struct.Subprocess.html"><code>Subprocess</code></a>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> on error (and <code>error</code> will be set)</p>
 </div><h4 id="method.unsetenv" class="method"><code>pub fn <a href="#method.unsetenv" class="fnname">unsetenv</a>&lt;P:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html" title="trait core::convert::AsRef">AsRef</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/std/ffi/os_str/struct.OsStr.html" title="struct std::ffi::os_str::OsStr">OsStr</a>&gt;&gt;(&amp;self, variable: P)</code><a href="#method.unsetenv" class="anchor"></a><a class="srclink" href="../src/gio/auto/subprocess_launcher.rs.html#325-332" title="goto source code">[src]</a></h4><div class="docblock"><p>Removes the environment variable <code>variable</code> from the environment of
 processes launched from this launcher.</p>
 <p>On UNIX, the variable’s name can be an arbitrary byte string not
@@ -240,7 +240,7 @@ runtime, while <code>downcast</code> and <code>upcast</code> will do many checks
 </div><h4 id="method.to_owned" class="method hidden trait-impl"><code>pub fn <a href="https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#tymethod.to_owned" class="fnname">to_owned</a>(&amp;self) -&gt; T</code><a href="#method.to_owned" class="anchor"></a><a class="srclink" href="https://doc.rust-lang.org/nightly/src/alloc/borrow.rs.html#86" title="goto source code">[src]</a></h4><div class='docblock hidden'><p>Creates owned data from borrowed data, usually by cloning. <a href="https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#tymethod.to_owned">Read more</a></p>
 </div><h4 id="method.clone_into" class="method hidden trait-impl"><code>pub fn <a href="https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#method.clone_into" class="fnname">clone_into</a>(&amp;self, target: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;mut </a>T)</code><a href="#method.clone_into" class="anchor"></a><a class="srclink" href="https://doc.rust-lang.org/nightly/src/alloc/borrow.rs.html#90" title="goto source code">[src]</a></h4><div class="item-info hidden"><div class="stab unstable"><details><summary><span class="emoji">🔬</span> This is a nightly-only experimental API. (<code>toowned_clone_into</code>)</summary><p>recently added</p>
 </details></div></div><div class='docblock hidden'><p>Uses borrowed data to replace owned data, usually by cloning. <a href="https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#method.clone_into">Read more</a></p>
-</div></div></details><details class="rustdoc-toggle implementors-toggle"><summary><h3 id="impl-ToSendValue" class="impl"><code class="in-band">impl&lt;T&gt; <a class="trait" href="../glib/value/trait.ToSendValue.html" title="trait glib::value::ToSendValue">ToSendValue</a> for T <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;T: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Send.html" title="trait core::marker::Send">Send</a> + <a class="trait" href="../glib/value/trait.ToValue.html" title="trait glib::value::ToValue">ToValue</a> + ?<a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,&nbsp;</span></code><a href="#impl-ToSendValue" class="anchor"></a><a class="srclink" href="../src/glib/value.rs.html#795-799" title="goto source code">[src]</a></h3></summary><div class="impl-items"><h4 id="method.to_send_value" class="method hidden trait-impl"><code>pub fn <a href="../glib/value/trait.ToSendValue.html#tymethod.to_send_value" class="fnname">to_send_value</a>(&amp;self) -&gt; <a class="struct" href="../glib/value/struct.SendValue.html" title="struct glib::value::SendValue">SendValue</a></code><a href="#method.to_send_value" class="anchor"></a><a class="srclink" href="../src/glib/value.rs.html#796" title="goto source code">[src]</a></h4><div class='docblock hidden'><p>Returns a <code>SendValue</code> clone of <code>self</code>.</p>
+</div></div></details><details class="rustdoc-toggle implementors-toggle"><summary><h3 id="impl-ToSendValue" class="impl"><code class="in-band">impl&lt;T&gt; <a class="trait" href="../glib/value/trait.ToSendValue.html" title="trait glib::value::ToSendValue">ToSendValue</a> for T <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;T: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Send.html" title="trait core::marker::Send">Send</a> + <a class="trait" href="../glib/value/trait.ToValue.html" title="trait glib::value::ToValue">ToValue</a> + ?<a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,&nbsp;</span></code><a href="#impl-ToSendValue" class="anchor"></a><a class="srclink" href="../src/glib/value.rs.html#759-763" title="goto source code">[src]</a></h3></summary><div class="impl-items"><h4 id="method.to_send_value" class="method hidden trait-impl"><code>pub fn <a href="../glib/value/trait.ToSendValue.html#tymethod.to_send_value" class="fnname">to_send_value</a>(&amp;self) -&gt; <a class="struct" href="../glib/value/struct.SendValue.html" title="struct glib::value::SendValue">SendValue</a></code><a href="#method.to_send_value" class="anchor"></a><a class="srclink" href="../src/glib/value.rs.html#760" title="goto source code">[src]</a></h4><div class='docblock hidden'><p>Returns a <code>SendValue</code> clone of <code>self</code>.</p>
 </div></div></details><details class="rustdoc-toggle implementors-toggle"><summary><h3 id="impl-ToString" class="impl"><code class="in-band">impl&lt;T&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html" title="trait alloc::string::ToString">ToString</a> for T <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;T: <a class="trait" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html" title="trait core::fmt::Display">Display</a> + ?<a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,&nbsp;</span></code><a href="#impl-ToString" class="anchor"></a><a class="srclink" href="https://doc.rust-lang.org/nightly/src/alloc/string.rs.html#2268-2281" title="goto source code">[src]</a></h3></summary><div class="impl-items"><h4 id="method.to_string" class="method hidden trait-impl"><code>pub default fn <a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string" class="fnname">to_string</a>(&amp;self) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a></code><a href="#method.to_string" class="anchor"></a><a class="srclink" href="https://doc.rust-lang.org/nightly/src/alloc/string.rs.html#2274" title="goto source code">[src]</a></h4><div class='docblock hidden'><p>Converts the given value to a <code>String</code>. <a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">Read more</a></p>
 </div></div></details><details class="rustdoc-toggle implementors-toggle"><summary><h3 id="impl-TryFrom%3CU%3E" class="impl"><code class="in-band">impl&lt;T, U&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html" title="trait core::convert::TryFrom">TryFrom</a>&lt;U&gt; for T <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;U: <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;T&gt;,&nbsp;</span></code><a href="#impl-TryFrom%3CU%3E" class="anchor"></a><a class="srclink" href="https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#581-590" title="goto source code">[src]</a></h3></summary><div class="impl-items"><h4 id="associatedtype.Error" class="type trait-impl"><code>type <a href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error" class="type">Error</a> = <a class="enum" href="https://doc.rust-lang.org/nightly/core/convert/enum.Infallible.html" title="enum core::convert::Infallible">Infallible</a></code><a href="#associatedtype.Error" class="anchor"></a></h4><div class='docblock'><p>The type returned in the event of a conversion error.</p>
 </div><h4 id="method.try_from" class="method hidden trait-impl"><code>pub fn <a href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#tymethod.try_from" class="fnname">try_from</a>(value: U) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;T, &lt;T as <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html" title="trait core::convert::TryFrom">TryFrom</a>&lt;U&gt;&gt;::<a class="type" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error" title="type core::convert::TryFrom::Error">Error</a>&gt;</code><a href="#method.try_from" class="anchor"></a><a class="srclink" href="https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#587" title="goto source code">[src]</a></h4><div class='docblock hidden'><p>Performs the conversion.</p>

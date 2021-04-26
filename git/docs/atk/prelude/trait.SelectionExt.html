@@ -24,18 +24,18 @@ are selected.</p>
 <h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
 <p>TRUE if success, FALSE otherwise.</p>
 </div><h3 id="tymethod.selection_count" class="method"><code>fn <a href="#tymethod.selection_count" class="fnname">selection_count</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code><a class="srclink" href="../../src/atk/auto/selection.rs.html#76" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the number of accessible children currently selected.
-Note: callers should not rely on <code>None</code> or on a zero value for
+Note: callers should not rely on <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> or on a zero value for
 indication of whether AtkSelectionIface is implemented, they should
 use type checking/interface checking macros or the
-<code>atk_get_accessible_value</code> convenience method.</p>
+<code>atk_get_accessible_value()</code> convenience method.</p>
 <h1 id="returns-2" class="section-header"><a href="#returns-2">Returns</a></h1>
 <p>a gint representing the number of items selected, or 0
 if <code>self</code> does not implement this interface.</p>
 </div><h3 id="tymethod.is_child_selected" class="method"><code>fn <a href="#tymethod.is_child_selected" class="fnname">is_child_selected</a>(&amp;self, i: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/atk/auto/selection.rs.html#91" title="goto source code">[src]</a></h3><div class="docblock"><p>Determines if the current child of this object is selected
-Note: callers should not rely on <code>None</code> or on a zero value for
+Note: callers should not rely on <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> or on a zero value for
 indication of whether AtkSelectionIface is implemented, they should
 use type checking/interface checking macros or the
-<code>atk_get_accessible_value</code> convenience method.</p>
+<code>atk_get_accessible_value()</code> convenience method.</p>
 <h2 id="i-1" class="section-header"><a href="#i-1"><code>i</code></a></h2>
 <p>a <code>gint</code> specifying the child index.</p>
 <h1 id="returns-3" class="section-header"><a href="#returns-3">Returns</a></h1>
@@ -43,16 +43,16 @@ use type checking/interface checking macros or the
 if <code>self</code> does not implement this interface.</p>
 </div><h3 id="tymethod.ref_selection" class="method"><code>fn <a href="#tymethod.ref_selection" class="fnname">ref_selection</a>(&amp;self, i: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.Object.html" title="struct atk::Object">Object</a>&gt;</code><a class="srclink" href="../../src/atk/auto/selection.rs.html#109" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets a reference to the accessible object representing the specified
 selected child of the object.
-Note: callers should not rely on <code>None</code> or on a zero value for
+Note: callers should not rely on <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> or on a zero value for
 indication of whether AtkSelectionIface is implemented, they should
 use type checking/interface checking macros or the
-<code>atk_get_accessible_value</code> convenience method.</p>
+<code>atk_get_accessible_value()</code> convenience method.</p>
 <h2 id="i-2" class="section-header"><a href="#i-2"><code>i</code></a></h2>
 <p>a <code>gint</code> specifying the index in the selection set. (e.g. the
 ith selection as opposed to the ith child).</p>
 <h1 id="returns-4" class="section-header"><a href="#returns-4">Returns</a></h1>
-<p>an <code>Object</code> representing the
-selected accessible, or <code>None</code> if <code>self</code> does not implement this
+<p>an <a href="../struct.Object.html"><code>Object</code></a> representing the
+selected accessible, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> if <code>self</code> does not implement this
 interface.</p>
 </div><h3 id="tymethod.remove_selection" class="method"><code>fn <a href="#tymethod.remove_selection" class="fnname">remove_selection</a>(&amp;self, i: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/atk/auto/selection.rs.html#120" title="goto source code">[src]</a></h3><div class="docblock"><p>Removes the specified child of the object from the object’s selection.</p>
 <h2 id="i-3" class="section-header"><a href="#i-3"><code>i</code></a></h2>

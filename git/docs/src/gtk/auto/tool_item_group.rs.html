@@ -1016,7 +1016,7 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// A `ToolItemGroup` is used together with `ToolPalette` to add</span>
+    <span class="doccomment">/// A [`ToolItemGroup`](crate::ToolItemGroup) is used together with [`ToolPalette`](crate::ToolPalette) to add</span>
     <span class="doccomment">/// ``GtkToolItems`` to a palette like container with different</span>
     <span class="doccomment">/// categories and drag and drop support.</span>
     <span class="doccomment">///</span>
@@ -1026,7 +1026,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`ToolItemGroupExt`](trait@crate::ToolItemGroupExt), [`ContainerExt`](trait@crate::ContainerExt), [`WidgetExt`](trait@crate::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::BuildableExt), [`ToolShellExt`](trait@crate::ToolShellExt), [`WidgetExtManual`](trait@crate::WidgetExtManual), [`BuildableExtManual`](trait@crate::BuildableExtManual)</span>
+    <span class="doccomment">/// [`ToolItemGroupExt`](trait@crate::prelude::ToolItemGroupExt), [`ContainerExt`](trait@crate::prelude::ContainerExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`ToolShellExt`](trait@crate::prelude::ToolShellExt), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ToolItemGroup</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkToolItemGroup</span>, <span class="ident">ffi::GtkToolItemGroupClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>, <span class="ident">ToolShell</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -1041,7 +1041,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new `ToolItemGroup`.</span>
+    <span class="doccomment">/// a new [`ToolItemGroup`](crate::ToolItemGroup).</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_tool_item_group_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">label</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ToolItemGroup</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -1445,7 +1445,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if `self` is collapsed, `false` if it is expanded</span>
+    <span class="doccomment">/// [`true`] if `self` is collapsed, [`false`] if it is expanded</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_tool_item_group_get_collapsed&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">is_collapsed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
@@ -1457,7 +1457,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the `ToolItem` at position (x, y)</span>
+    <span class="doccomment">/// the [`ToolItem`](crate::ToolItem) at position (x, y)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_tool_item_group_get_drop_item&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">drop_item</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">x</span>: <span class="ident">i32</span>, <span class="ident">y</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ToolItem</span><span class="op">&gt;</span>;
 
@@ -1465,7 +1465,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the `pango::EllipsizeMode` of `self`</span>
+    <span class="doccomment">/// the [`pango::EllipsizeMode`](crate::pango::EllipsizeMode) of `self`</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_tool_item_group_get_ellipsize&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">ellipsize</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">pango::EllipsizeMode</span>;
 
@@ -1473,13 +1473,13 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the `ReliefStyle`</span>
+    <span class="doccomment">/// the [`ReliefStyle`](crate::ReliefStyle)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_tool_item_group_get_header_relief&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">header_relief</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ReliefStyle</span>;
 
     <span class="doccomment">/// Gets the position of `item` in `self` as index.</span>
     <span class="doccomment">/// ## `item`</span>
-    <span class="doccomment">/// a `ToolItem`</span>
+    <span class="doccomment">/// a [`ToolItem`](crate::ToolItem)</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1492,13 +1492,13 @@
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// the label of `self`. The label is an internal string of `self`</span>
-    <span class="doccomment">///  and must not be modified. Note that `None` is returned if a custom</span>
-    <span class="doccomment">///  label has been set with `ToolItemGroupExt::set_label_widget`</span>
+    <span class="doccomment">///  and must not be modified. Note that [`None`] is returned if a custom</span>
+    <span class="doccomment">///  label has been set with [`set_label_widget()`](Self::set_label_widget())</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_tool_item_group_get_label&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">label</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Gets the label widget of `self`.</span>
-    <span class="doccomment">/// See `ToolItemGroupExt::set_label_widget`.</span>
+    <span class="doccomment">/// See [`set_label_widget()`](Self::set_label_widget()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1520,13 +1520,13 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the `ToolItem` at index</span>
+    <span class="doccomment">/// the [`ToolItem`](crate::ToolItem) at index</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_tool_item_group_get_nth_item&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">nth_item</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">index</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ToolItem</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Inserts `item` at `position` in the list of children of `self`.</span>
     <span class="doccomment">/// ## `item`</span>
-    <span class="doccomment">/// the `ToolItem` to insert into `self`</span>
+    <span class="doccomment">/// the [`ToolItem`](crate::ToolItem) to insert into `self`</span>
     <span class="doccomment">/// ## `position`</span>
     <span class="doccomment">/// the position of `item` in `self`, starting with 0.</span>
     <span class="doccomment">///  The position -1 means end of list.</span>
@@ -1541,20 +1541,20 @@
 
     <span class="doccomment">/// Sets the ellipsization mode which should be used by labels in `self`.</span>
     <span class="doccomment">/// ## `ellipsize`</span>
-    <span class="doccomment">/// the `pango::EllipsizeMode` labels in `self` should use</span>
+    <span class="doccomment">/// the [`pango::EllipsizeMode`](crate::pango::EllipsizeMode) labels in `self` should use</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_tool_item_group_set_ellipsize&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_ellipsize</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">ellipsize</span>: <span class="ident">pango::EllipsizeMode</span>);
 
     <span class="doccomment">/// Set the button relief of the group header.</span>
-    <span class="doccomment">/// See `ButtonExt::set_relief` for details.</span>
+    <span class="doccomment">/// See [`ButtonExt::set_relief()`](crate::ButtonExt::set_relief()) for details.</span>
     <span class="doccomment">/// ## `style`</span>
-    <span class="doccomment">/// the `ReliefStyle`</span>
+    <span class="doccomment">/// the [`ReliefStyle`](crate::ReliefStyle)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_tool_item_group_set_header_relief&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_header_relief</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">style</span>: <span class="ident">ReliefStyle</span>);
 
     <span class="doccomment">/// Sets the position of `item` in the list of children of `self`.</span>
     <span class="doccomment">/// ## `item`</span>
-    <span class="doccomment">/// the `ToolItem` to move to a new position, should</span>
+    <span class="doccomment">/// the [`ToolItem`](crate::ToolItem) to move to a new position, should</span>
     <span class="doccomment">///  be a child of `self`.</span>
     <span class="doccomment">/// ## `position`</span>
     <span class="doccomment">/// the new position of `item` in `self`, starting with 0.</span>

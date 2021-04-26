@@ -69,13 +69,13 @@
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// `Font` is an interface exported by fonts for</span>
+    <span class="doccomment">/// [`Font`](crate::Font) is an interface exported by fonts for</span>
     <span class="doccomment">/// use with Cairo. The actual type of the font will depend</span>
     <span class="doccomment">/// on the particular font technology Cairo was compiled to use.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`FontExt`](trait@crate::FontExt), [`trait@pango::FontExt`]</span>
+    <span class="doccomment">/// [`FontExt`](trait@crate::prelude::FontExt), [`trait@pango::FontExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Font</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi::PangoCairoFont</span><span class="op">&gt;</span>) @<span class="ident">requires</span> <span class="ident">pango::Font</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -91,14 +91,14 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// [`Font`](struct@crate::Font)</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">FontExt</span>: <span class="lifetime">&#39;static</span> {
-    <span class="doccomment">/// Gets the `cairo::ScaledFont` used by `self`.</span>
+    <span class="doccomment">/// Gets the [`cairo::ScaledFont`](crate::cairo::ScaledFont) used by `self`.</span>
     <span class="doccomment">/// The scaled font can be referenced and kept using</span>
-    <span class="doccomment">/// `cairo_scaled_font_reference`.</span>
+    <span class="doccomment">/// `cairo_scaled_font_reference()`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the `cairo::ScaledFont` used by `self`,</span>
-    <span class="doccomment">///  or `None` if `self` is `None`.</span>
+    <span class="doccomment">/// the [`cairo::ScaledFont`](crate::cairo::ScaledFont) used by `self`,</span>
+    <span class="doccomment">///  or [`None`] if `self` is [`None`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_cairo_font_get_scaled_font&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">scaled_font</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">cairo::ScaledFont</span><span class="op">&gt;</span>;
 }

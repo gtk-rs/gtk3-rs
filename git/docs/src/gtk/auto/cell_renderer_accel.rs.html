@@ -1000,15 +1000,15 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// `CellRendererAccel` displays a keyboard accelerator (i.e. a key</span>
+    <span class="doccomment">/// [`CellRendererAccel`](crate::CellRendererAccel) displays a keyboard accelerator (i.e. a key</span>
     <span class="doccomment">/// combination like `Control + a`). If the cell renderer is editable,</span>
     <span class="doccomment">/// the accelerator can be changed by simply typing the new combination.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The `CellRendererAccel` cell renderer was added in GTK+ 2.10.</span>
+    <span class="doccomment">/// The [`CellRendererAccel`](crate::CellRendererAccel) cell renderer was added in GTK+ 2.10.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`CellRendererAccelExt`](trait@crate::CellRendererAccelExt), [`CellRendererTextExt`](trait@crate::CellRendererTextExt), [`CellRendererExt`](trait@crate::CellRendererExt), [`trait@glib::object::ObjectExt`]</span>
+    <span class="doccomment">/// [`CellRendererAccelExt`](trait@crate::prelude::CellRendererAccelExt), [`CellRendererTextExt`](trait@crate::prelude::CellRendererTextExt), [`CellRendererExt`](trait@crate::prelude::CellRendererExt), [`trait@glib::object::ObjectExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">CellRendererAccel</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkCellRendererAccel</span>, <span class="ident">ffi::GtkCellRendererAccelClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">CellRendererText</span>, <span class="ident">CellRenderer</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -1017,7 +1017,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">CellRendererAccel</span> {
-    <span class="doccomment">/// Creates a new `CellRendererAccel`.</span>
+    <span class="doccomment">/// Creates a new [`CellRendererAccel`](crate::CellRendererAccel).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>

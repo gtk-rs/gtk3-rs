@@ -231,7 +231,7 @@
 <span class="kw">use</span> <span class="ident">std::mem</span>;
 
 <span class="doccomment">/// Defines the position and size of a rectangle. It is identical to</span>
-<span class="doccomment">/// `cairo::RectangleInt`.</span>
+<span class="doccomment">/// [`cairo::RectangleInt`](crate::cairo::RectangleInt).</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Rectangle</span> {
@@ -247,16 +247,16 @@
     <span class="doccomment">/// do not intersect, `dest`’s width and height is set to 0 and its x</span>
     <span class="doccomment">/// and y values are undefined. If you are only interested in whether</span>
     <span class="doccomment">/// the rectangles intersect, but not in the intersecting area itself,</span>
-    <span class="doccomment">/// pass `None` for `dest`.</span>
+    <span class="doccomment">/// pass [`None`] for `dest`.</span>
     <span class="doccomment">/// ## `src2`</span>
-    <span class="doccomment">/// a `Rectangle`</span>
+    <span class="doccomment">/// a [`Rectangle`](crate::Rectangle)</span>
     <span class="doccomment">/// ## `dest`</span>
     <span class="doccomment">/// return location for the</span>
-    <span class="doccomment">/// intersection of `self` and `src2`, or `None`</span>
+    <span class="doccomment">/// intersection of `self` and `src2`, or [`None`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if the rectangles intersect.</span>
+    <span class="doccomment">/// [`true`] if the rectangles intersect.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_rectangle_intersect&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">intersect</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">other</span>: <span class="kw-2">&amp;</span><span class="ident">Rectangle</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Rectangle</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
@@ -281,7 +281,7 @@
     <span class="doccomment">/// Note that this function does not ignore &#39;empty&#39; rectangles (ie. with</span>
     <span class="doccomment">/// zero width or height).</span>
     <span class="doccomment">/// ## `src2`</span>
-    <span class="doccomment">/// a `Rectangle`</span>
+    <span class="doccomment">/// a [`Rectangle`](crate::Rectangle)</span>
     <span class="doccomment">/// ## `dest`</span>
     <span class="doccomment">/// return location for the union of `self` and `src2`</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_rectangle_union&quot;</span>)]</span>

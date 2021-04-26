@@ -464,22 +464,22 @@
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// The `DrawingArea` widget is used for creating custom user interface</span>
+    <span class="doccomment">/// The [`DrawingArea`](crate::DrawingArea) widget is used for creating custom user interface</span>
     <span class="doccomment">/// elements. It’s essentially a blank widget; you can draw on it. After</span>
     <span class="doccomment">/// creating a drawing area, the application may want to connect to:</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// - Mouse and button press signals to respond to input from</span>
-    <span class="doccomment">///  the user. (Use `Widget::add_events` to enable events</span>
+    <span class="doccomment">///  the user. (Use [`Widget::add_events()`](crate::Widget::add_events()) to enable events</span>
     <span class="doccomment">///  you wish to receive.)</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// - The `Widget::realize` signal to take any necessary actions</span>
+    <span class="doccomment">/// - The [`Widget::realize`](crate::Widget::realize) signal to take any necessary actions</span>
     <span class="doccomment">///  when the widget is instantiated on a particular display.</span>
     <span class="doccomment">///  (Create GDK resources in response to this signal.)</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// - The `Widget::size-allocate` signal to take any necessary</span>
+    <span class="doccomment">/// - The [`Widget::size-allocate`](crate::Widget::size-allocate) signal to take any necessary</span>
     <span class="doccomment">///  actions when the widget changes size.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// - The `Widget::draw` signal to handle redrawing the</span>
+    <span class="doccomment">/// - The [`Widget::draw`](crate::Widget::draw) signal to handle redrawing the</span>
     <span class="doccomment">///  contents of the widget.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The following code portion demonstrates using a drawing</span>
@@ -489,7 +489,7 @@
     <span class="doccomment">/// Note that GDK automatically clears the exposed area before sending</span>
     <span class="doccomment">/// the expose event, and that drawing is implicitly clipped to the exposed</span>
     <span class="doccomment">/// area. If you want to have a theme-provided background, you need</span>
-    <span class="doccomment">/// to call `gtk_render_background` in your ::draw method.</span>
+    <span class="doccomment">/// to call `gtk_render_background()` in your ::draw method.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ## Simple `DrawingArea` usage</span>
     <span class="doccomment">///</span>
@@ -533,8 +533,8 @@
     <span class="doccomment">/// Draw signals are normally delivered when a drawing area first comes</span>
     <span class="doccomment">/// onscreen, or when it’s covered by another window and then uncovered.</span>
     <span class="doccomment">/// You can also force an expose event by adding to the “damage region”</span>
-    <span class="doccomment">/// of the drawing area’s window; `WidgetExt::queue_draw_area` and</span>
-    <span class="doccomment">/// `gdk::Window::invalidate_rect` are equally good ways to do this.</span>
+    <span class="doccomment">/// of the drawing area’s window; [`WidgetExt::queue_draw_area()`](crate::WidgetExt::queue_draw_area()) and</span>
+    <span class="doccomment">/// [`gdk::Window::invalidate_rect()`](crate::gdk::Window::invalidate_rect()) are equally good ways to do this.</span>
     <span class="doccomment">/// You’ll then get a draw signal for the invalid region.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The available routines for drawing are documented on the</span>
@@ -542,16 +542,16 @@
     <span class="doccomment">/// and the cairo documentation.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// To receive mouse events on a drawing area, you will need to enable</span>
-    <span class="doccomment">/// them with `Widget::add_events`. To receive keyboard events, you</span>
+    <span class="doccomment">/// them with [`Widget::add_events()`](crate::Widget::add_events()). To receive keyboard events, you</span>
     <span class="doccomment">/// will need to set the “can-focus” property on the drawing area, and you</span>
     <span class="doccomment">/// should probably draw some user-visible indication that the drawing</span>
-    <span class="doccomment">/// area is focused. Use `WidgetExt::has_focus` in your expose event</span>
+    <span class="doccomment">/// area is focused. Use [`WidgetExt::has_focus()`](crate::WidgetExt::has_focus()) in your expose event</span>
     <span class="doccomment">/// handler to decide whether to draw the focus indicator. See</span>
-    <span class="doccomment">/// `gtk_render_focus` for one way to draw focus.</span>
+    <span class="doccomment">/// `gtk_render_focus()` for one way to draw focus.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`WidgetExt`](trait@crate::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::BuildableExt), [`WidgetExtManual`](trait@crate::WidgetExtManual), [`BuildableExtManual`](trait@crate::BuildableExtManual)</span>
+    <span class="doccomment">/// [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DrawingArea</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkDrawingArea</span>, <span class="ident">ffi::GtkDrawingAreaClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -564,7 +564,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new `DrawingArea`</span>
+    <span class="doccomment">/// a new [`DrawingArea`](crate::DrawingArea)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_drawing_area_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DrawingArea</span> {
         <span class="macro">assert_initialized_main_thread!</span>();

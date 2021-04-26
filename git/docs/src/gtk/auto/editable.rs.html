@@ -322,14 +322,14 @@
 <span class="kw">use</span> <span class="ident">std::mem</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// The `Editable` interface is an interface which should be implemented by</span>
-    <span class="doccomment">/// text editing widgets, such as `Entry` and `SpinButton`. It contains functions</span>
+    <span class="doccomment">/// The [`Editable`](crate::Editable) interface is an interface which should be implemented by</span>
+    <span class="doccomment">/// text editing widgets, such as [`Entry`](crate::Entry) and [`SpinButton`](crate::SpinButton). It contains functions</span>
     <span class="doccomment">/// for generically manipulating an editable widget, a large number of action</span>
     <span class="doccomment">/// signals used for key bindings, and several signals that an application can</span>
     <span class="doccomment">/// connect to to modify the behavior of a widget.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// As an example of the latter usage, by connecting</span>
-    <span class="doccomment">/// the following handler to `Editable::insert-text`, an application</span>
+    <span class="doccomment">/// the following handler to [`Editable::insert-text`](crate::Editable::insert-text), an application</span>
     <span class="doccomment">/// can convert all entry into a widget into uppercase.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ## Forcing entry to uppercase.</span>
@@ -361,7 +361,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`EditableExt`](trait@crate::EditableExt), [`EditableSignals`](trait@crate::EditableSignals)</span>
+    <span class="doccomment">/// [`EditableExt`](trait@crate::prelude::EditableExt), [`EditableSignals`](trait@crate::prelude::EditableSignals)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Editable</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi::GtkEditable</span>, <span class="ident">ffi::GtkEditableInterface</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -419,17 +419,17 @@
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// a pointer to the contents of the widget as a</span>
-    <span class="doccomment">///  string. This string is allocated by the `Editable`</span>
+    <span class="doccomment">///  string. This string is allocated by the [`Editable`](crate::Editable)</span>
     <span class="doccomment">///  implementation and should be freed by the caller.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_editable_get_chars&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">chars</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">start_pos</span>: <span class="ident">i32</span>, <span class="ident">end_pos</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Retrieves whether `self` is editable. See</span>
-    <span class="doccomment">/// `Editable::set_editable`.</span>
+    <span class="doccomment">/// [`Editable::set_editable()`](crate::Editable::set_editable()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if `self` is editable.</span>
+    <span class="doccomment">/// [`true`] if `self` is editable.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_editable_get_editable&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">is_editable</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
@@ -446,17 +446,17 @@
 
     <span class="doccomment">/// Retrieves the selection bound of the editable. start_pos will be filled</span>
     <span class="doccomment">/// with the start of the selection and `end_pos` with end. If no text was</span>
-    <span class="doccomment">/// selected both will be identical and `false` will be returned.</span>
+    <span class="doccomment">/// selected both will be identical and [`false`] will be returned.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that positions are specified in characters, not bytes.</span>
     <span class="doccomment">/// ## `start_pos`</span>
-    <span class="doccomment">/// location to store the starting position, or `None`</span>
+    <span class="doccomment">/// location to store the starting position, or [`None`]</span>
     <span class="doccomment">/// ## `end_pos`</span>
-    <span class="doccomment">/// location to store the end position, or `None`</span>
+    <span class="doccomment">/// location to store the end position, or [`None`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if an area is selected, `false` otherwise</span>
+    <span class="doccomment">/// [`true`] if an area is selected, [`false`] otherwise</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_editable_get_selection_bounds&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">selection_bounds</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span>(<span class="ident">i32</span>, <span class="ident">i32</span>)<span class="op">&gt;</span>;
 
@@ -496,7 +496,7 @@
     <span class="doccomment">/// Determines if the user can edit the text in the editable</span>
     <span class="doccomment">/// widget or not.</span>
     <span class="doccomment">/// ## `is_editable`</span>
-    <span class="doccomment">/// `true` if the user is allowed to edit the text</span>
+    <span class="doccomment">/// [`true`] if the user is allowed to edit the text</span>
     <span class="doccomment">///  in the widget</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_editable_set_editable&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_editable</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">is_editable</span>: <span class="ident">bool</span>);

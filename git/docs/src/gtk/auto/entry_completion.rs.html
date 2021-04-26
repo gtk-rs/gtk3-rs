@@ -1175,50 +1175,50 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// `EntryCompletion` is an auxiliary object to be used in conjunction with</span>
-    <span class="doccomment">/// `Entry` to provide the completion functionality. It implements the</span>
-    <span class="doccomment">/// `CellLayout` interface, to allow the user to add extra cells to the</span>
-    <span class="doccomment">/// `TreeView` with completion matches.</span>
+    <span class="doccomment">/// [`EntryCompletion`](crate::EntryCompletion) is an auxiliary object to be used in conjunction with</span>
+    <span class="doccomment">/// [`Entry`](crate::Entry) to provide the completion functionality. It implements the</span>
+    <span class="doccomment">/// [`CellLayout`](crate::CellLayout) interface, to allow the user to add extra cells to the</span>
+    <span class="doccomment">/// [`TreeView`](crate::TreeView) with completion matches.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// “Completion functionality” means that when the user modifies the text</span>
-    <span class="doccomment">/// in the entry, `EntryCompletion` checks which rows in the model match</span>
+    <span class="doccomment">/// in the entry, [`EntryCompletion`](crate::EntryCompletion) checks which rows in the model match</span>
     <span class="doccomment">/// the current content of the entry, and displays a list of matches.</span>
     <span class="doccomment">/// By default, the matching is done by comparing the entry text</span>
     <span class="doccomment">/// case-insensitively against the text column of the model (see</span>
-    <span class="doccomment">/// `EntryCompletionExt::set_text_column`), but this can be overridden</span>
-    <span class="doccomment">/// with a custom match function (see `EntryCompletionExt::set_match_func`).</span>
+    <span class="doccomment">/// [`EntryCompletionExt::set_text_column()`](crate::EntryCompletionExt::set_text_column())), but this can be overridden</span>
+    <span class="doccomment">/// with a custom match function (see [`EntryCompletionExt::set_match_func()`](crate::EntryCompletionExt::set_match_func())).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// When the user selects a completion, the content of the entry is</span>
     <span class="doccomment">/// updated. By default, the content of the entry is replaced by the</span>
     <span class="doccomment">/// text column of the model, but this can be overridden by connecting</span>
-    <span class="doccomment">/// to the `EntryCompletion::match-selected` signal and updating the</span>
-    <span class="doccomment">/// entry in the signal handler. Note that you should return `true` from</span>
+    <span class="doccomment">/// to the [`EntryCompletion::match-selected`](crate::EntryCompletion::match-selected) signal and updating the</span>
+    <span class="doccomment">/// entry in the signal handler. Note that you should return [`true`] from</span>
     <span class="doccomment">/// the signal handler to suppress the default behaviour.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// To add completion functionality to an entry, use `EntryExt::set_completion`.</span>
+    <span class="doccomment">/// To add completion functionality to an entry, use [`EntryExt::set_completion()`](crate::EntryExt::set_completion()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// In addition to regular completion matches, which will be inserted into the</span>
-    <span class="doccomment">/// entry when they are selected, `EntryCompletion` also allows to display</span>
+    <span class="doccomment">/// entry when they are selected, [`EntryCompletion`](crate::EntryCompletion) also allows to display</span>
     <span class="doccomment">/// “actions” in the popup window. Their appearance is similar to menuitems,</span>
     <span class="doccomment">/// to differentiate them clearly from completion strings. When an action is</span>
-    <span class="doccomment">/// selected, the `EntryCompletion::action-activated` signal is emitted.</span>
+    <span class="doccomment">/// selected, the [`EntryCompletion::action-activated`](crate::EntryCompletion::action-activated) signal is emitted.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `EntryCompletion` uses a `TreeModelFilter` model to represent the</span>
+    <span class="doccomment">/// `EntryCompletion` uses a [`TreeModelFilter`](crate::TreeModelFilter) model to represent the</span>
     <span class="doccomment">/// subset of the entire model that is currently matching. While the</span>
-    <span class="doccomment">/// `EntryCompletion` signals `EntryCompletion::match-selected` and</span>
-    <span class="doccomment">/// `EntryCompletion::cursor-on-match` take the original model and an</span>
+    <span class="doccomment">/// `EntryCompletion` signals [`EntryCompletion::match-selected`](crate::EntryCompletion::match-selected) and</span>
+    <span class="doccomment">/// [`EntryCompletion::cursor-on-match`](crate::EntryCompletion::cursor-on-match) take the original model and an</span>
     <span class="doccomment">/// iter pointing to that model as arguments, other callbacks and signals</span>
-    <span class="doccomment">/// (such as ``GtkCellLayoutDataFuncs`` or `CellArea::apply-attributes`)</span>
+    <span class="doccomment">/// (such as ``GtkCellLayoutDataFuncs`` or [`CellArea::apply-attributes`](crate::CellArea::apply-attributes))</span>
     <span class="doccomment">/// will generally take the filter model as argument. As long as you are</span>
-    <span class="doccomment">/// only calling `TreeModel::get`, this will make no difference to</span>
+    <span class="doccomment">/// only calling [`TreeModel::get()`](crate::TreeModel::get()), this will make no difference to</span>
     <span class="doccomment">/// you. If for some reason, you need the original model, use</span>
-    <span class="doccomment">/// `TreeModelFilterExt::get_model`. Don’t forget to use</span>
-    <span class="doccomment">/// `TreeModelFilterExt::convert_iter_to_child_iter` to obtain a</span>
+    <span class="doccomment">/// [`TreeModelFilterExt::get_model()`](crate::TreeModelFilterExt::get_model()). Don’t forget to use</span>
+    <span class="doccomment">/// [`TreeModelFilterExt::convert_iter_to_child_iter()`](crate::TreeModelFilterExt::convert_iter_to_child_iter()) to obtain a</span>
     <span class="doccomment">/// matching iter.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`EntryCompletionExt`](trait@crate::EntryCompletionExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::BuildableExt), [`CellLayoutExt`](trait@crate::CellLayoutExt), [`EntryCompletionExtManual`](trait@crate::EntryCompletionExtManual), [`BuildableExtManual`](trait@crate::BuildableExtManual)</span>
+    <span class="doccomment">/// [`EntryCompletionExt`](trait@crate::prelude::EntryCompletionExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`CellLayoutExt`](trait@crate::prelude::CellLayoutExt), [`EntryCompletionExtManual`](trait@crate::prelude::EntryCompletionExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EntryCompletion</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkEntryCompletion</span>, <span class="ident">ffi::GtkEntryCompletionClass</span><span class="op">&gt;</span>) @<span class="ident">implements</span> <span class="ident">Buildable</span>, <span class="ident">CellLayout</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -1227,26 +1227,26 @@
 }
 
 <span class="kw">impl</span> <span class="ident">EntryCompletion</span> {
-    <span class="doccomment">/// Creates a new `EntryCompletion` object.</span>
+    <span class="doccomment">/// Creates a new [`EntryCompletion`](crate::EntryCompletion) object.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A newly created `EntryCompletion` object</span>
+    <span class="doccomment">/// A newly created [`EntryCompletion`](crate::EntryCompletion) object</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_entry_completion_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">EntryCompletion</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::gtk_entry_completion_new</span>()) }
     }
 
-    <span class="doccomment">/// Creates a new `EntryCompletion` object using the</span>
+    <span class="doccomment">/// Creates a new [`EntryCompletion`](crate::EntryCompletion) object using the</span>
     <span class="doccomment">/// specified `area` to layout cells in the underlying</span>
-    <span class="doccomment">/// `TreeViewColumn` for the drop-down menu.</span>
+    <span class="doccomment">/// [`TreeViewColumn`](crate::TreeViewColumn) for the drop-down menu.</span>
     <span class="doccomment">/// ## `area`</span>
-    <span class="doccomment">/// the `CellArea` used to layout cells</span>
+    <span class="doccomment">/// the [`CellArea`](crate::CellArea) used to layout cells</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A newly created `EntryCompletion` object</span>
+    <span class="doccomment">/// A newly created [`EntryCompletion`](crate::EntryCompletion) object</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_entry_completion_new_with_area&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_area</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">CellArea</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">area</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">EntryCompletion</span> {
         <span class="macro">skip_assert_initialized!</span>();
@@ -1376,16 +1376,16 @@
     <span class="kw">fn</span> <span class="ident">complete</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Computes the common prefix that is shared by all rows in `self`</span>
-    <span class="doccomment">/// that start with `key`. If no row matches `key`, `None` will be returned.</span>
+    <span class="doccomment">/// that start with `key`. If no row matches `key`, [`None`] will be returned.</span>
     <span class="doccomment">/// Note that a text column must have been set for this function to work,</span>
-    <span class="doccomment">/// see `EntryCompletionExt::set_text_column` for details.</span>
+    <span class="doccomment">/// see [`set_text_column()`](Self::set_text_column()) for details.</span>
     <span class="doccomment">/// ## `key`</span>
     <span class="doccomment">/// The text to complete for</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The common prefix all rows starting with</span>
-    <span class="doccomment">///  `key` or `None` if no row matches `key`.</span>
+    <span class="doccomment">///  `key` or [`None`] if no row matches `key`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_entry_completion_compute_prefix&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">compute_prefix</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">key</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span>;
 
@@ -1399,7 +1399,7 @@
     <span class="kw">fn</span> <span class="ident">delete_action</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">index_</span>: <span class="ident">i32</span>);
 
     <span class="doccomment">/// Get the original text entered by the user that triggered</span>
-    <span class="doccomment">/// the completion or `None` if there’s no completion ongoing.</span>
+    <span class="doccomment">/// the completion or [`None`] if there’s no completion ongoing.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1412,15 +1412,15 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if inline completion is turned on</span>
+    <span class="doccomment">/// [`true`] if inline completion is turned on</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_entry_completion_get_inline_completion&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">is_inline_completion</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
-    <span class="doccomment">/// Returns `true` if inline-selection mode is turned on.</span>
+    <span class="doccomment">/// Returns [`true`] if inline-selection mode is turned on.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if inline-selection mode is on</span>
+    <span class="doccomment">/// [`true`] if inline-selection mode is on</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_entry_completion_get_inline_selection&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">is_inline_selection</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
@@ -1432,12 +1432,12 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_entry_completion_get_minimum_key_length&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">minimum_key_length</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span>;
 
-    <span class="doccomment">/// Returns the model the `EntryCompletion` is using as data source.</span>
-    <span class="doccomment">/// Returns `None` if the model is unset.</span>
+    <span class="doccomment">/// Returns the model the [`EntryCompletion`](crate::EntryCompletion) is using as data source.</span>
+    <span class="doccomment">/// Returns [`None`] if the model is unset.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A `TreeModel`, or `None` if none</span>
+    <span class="doccomment">/// A [`TreeModel`](crate::TreeModel), or [`None`] if none</span>
     <span class="doccomment">///  is currently being used</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_entry_completion_get_model&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">model</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TreeModel</span><span class="op">&gt;</span>;
@@ -1446,7 +1446,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if popup completion is turned on</span>
+    <span class="doccomment">/// [`true`] if popup completion is turned on</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_entry_completion_get_popup_completion&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">is_popup_completion</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
@@ -1455,7 +1455,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if the popup window will be resized to the width of</span>
+    <span class="doccomment">/// [`true`] if the popup window will be resized to the width of</span>
     <span class="doccomment">///  the entry</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_entry_completion_get_popup_set_width&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">is_popup_set_width</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
@@ -1465,7 +1465,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if the popup window will appear regardless of the</span>
+    <span class="doccomment">/// [`true`] if the popup window will appear regardless of the</span>
     <span class="doccomment">///  number of matches</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_entry_completion_get_popup_single_match&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">is_popup_single_match</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
@@ -1489,7 +1489,7 @@
 
     <span class="doccomment">/// Inserts an action in `self`’s action item list at position `index_`</span>
     <span class="doccomment">/// with text `text`. If you want the action item to have markup, use</span>
-    <span class="doccomment">/// `EntryCompletionExt::insert_action_markup`.</span>
+    <span class="doccomment">/// [`insert_action_markup()`](Self::insert_action_markup()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that `index_` is a relative position in the list of actions and</span>
     <span class="doccomment">/// the position of an action can change when deleting a different action.</span>
@@ -1507,14 +1507,14 @@
     <span class="doccomment">/// Sets whether the common prefix of the possible completions should</span>
     <span class="doccomment">/// be automatically inserted in the entry.</span>
     <span class="doccomment">/// ## `inline_completion`</span>
-    <span class="doccomment">/// `true` to do inline completion</span>
+    <span class="doccomment">/// [`true`] to do inline completion</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_entry_completion_set_inline_completion&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_inline_completion</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">inline_completion</span>: <span class="ident">bool</span>);
 
     <span class="doccomment">/// Sets whether it is possible to cycle through the possible completions</span>
     <span class="doccomment">/// inside the entry.</span>
     <span class="doccomment">/// ## `inline_selection`</span>
-    <span class="doccomment">/// `true` to do inline selection</span>
+    <span class="doccomment">/// [`true`] to do inline selection</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_entry_completion_set_inline_selection&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_inline_selection</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">inline_selection</span>: <span class="ident">bool</span>);
 
@@ -1539,32 +1539,32 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_entry_completion_set_minimum_key_length&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_minimum_key_length</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">length</span>: <span class="ident">i32</span>);
 
-    <span class="doccomment">/// Sets the model for a `EntryCompletion`. If `self` already has</span>
+    <span class="doccomment">/// Sets the model for a [`EntryCompletion`](crate::EntryCompletion). If `self` already has</span>
     <span class="doccomment">/// a model set, it will remove it before setting the new model.</span>
-    <span class="doccomment">/// If model is `None`, then it will unset the model.</span>
+    <span class="doccomment">/// If model is [`None`], then it will unset the model.</span>
     <span class="doccomment">/// ## `model`</span>
-    <span class="doccomment">/// the `TreeModel`</span>
+    <span class="doccomment">/// the [`TreeModel`](crate::TreeModel)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_entry_completion_set_model&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_model</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">TreeModel</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">model</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>);
 
     <span class="doccomment">/// Sets whether the completions should be presented in a popup window.</span>
     <span class="doccomment">/// ## `popup_completion`</span>
-    <span class="doccomment">/// `true` to do popup completion</span>
+    <span class="doccomment">/// [`true`] to do popup completion</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_entry_completion_set_popup_completion&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_popup_completion</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">popup_completion</span>: <span class="ident">bool</span>);
 
     <span class="doccomment">/// Sets whether the completion popup window will be resized to be the same</span>
     <span class="doccomment">/// width as the entry.</span>
     <span class="doccomment">/// ## `popup_set_width`</span>
-    <span class="doccomment">/// `true` to make the width of the popup the same as the entry</span>
+    <span class="doccomment">/// [`true`] to make the width of the popup the same as the entry</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_entry_completion_set_popup_set_width&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_popup_set_width</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">popup_set_width</span>: <span class="ident">bool</span>);
 
     <span class="doccomment">/// Sets whether the completion popup window will appear even if there is</span>
-    <span class="doccomment">/// only a single match. You may want to set this to `false` if you</span>
+    <span class="doccomment">/// only a single match. You may want to set this to [`false`] if you</span>
     <span class="doccomment">/// are using [inline completion][`EntryCompletion`--inline-completion].</span>
     <span class="doccomment">/// ## `popup_single_match`</span>
-    <span class="doccomment">/// `true` if the popup should appear even for a single</span>
+    <span class="doccomment">/// [`true`] if the popup should appear even for a single</span>
     <span class="doccomment">///  match</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_entry_completion_set_popup_single_match&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_popup_single_match</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">popup_single_match</span>: <span class="ident">bool</span>);
@@ -1574,9 +1574,9 @@
     <span class="doccomment">/// to have a list displaying all (and just) strings in the completion list,</span>
     <span class="doccomment">/// and to get those strings from `column` in the model of `self`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This functions creates and adds a `CellRendererText` for the selected</span>
+    <span class="doccomment">/// This functions creates and adds a [`CellRendererText`](crate::CellRendererText) for the selected</span>
     <span class="doccomment">/// column. If you need to set the text column, but don&#39;t want the cell</span>
-    <span class="doccomment">/// renderer, use `glib::object::ObjectExt::set` to set the `EntryCompletion:text-column`</span>
+    <span class="doccomment">/// renderer, use [`glib::object::ObjectExt::set()`](crate::glib::object::ObjectExt::set()) to set the [`EntryCompletion:text-column`](crate::EntryCompletion:text-column)</span>
     <span class="doccomment">/// property directly.</span>
     <span class="doccomment">/// ## `column`</span>
     <span class="doccomment">/// the column in the model of `self` to get strings from</span>
@@ -1597,15 +1597,15 @@
     <span class="doccomment">/// pointed to by `iter`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that `model` is the model that was passed to</span>
-    <span class="doccomment">/// `EntryCompletionExt::set_model`.</span>
+    <span class="doccomment">/// [`set_model()`](Self::set_model()).</span>
     <span class="doccomment">/// ## `model`</span>
-    <span class="doccomment">/// the `TreeModel` containing the matches</span>
+    <span class="doccomment">/// the [`TreeModel`](crate::TreeModel) containing the matches</span>
     <span class="doccomment">/// ## `iter`</span>
-    <span class="doccomment">/// a `TreeIter` positioned at the selected match</span>
+    <span class="doccomment">/// a [`TreeIter`](crate::TreeIter) positioned at the selected match</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if the signal has been handled</span>
+    <span class="doccomment">/// [`true`] if the signal has been handled</span>
     <span class="kw">fn</span> <span class="ident">connect_cursor_on_match</span><span class="op">&lt;</span>
         <span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span><span class="ident">TreeModel</span>, <span class="kw-2">&amp;</span><span class="ident">TreeIter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::signal::Inhibit</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
     <span class="op">&gt;</span>(
@@ -1619,14 +1619,14 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Applications may connect to this signal in order to insert only a</span>
     <span class="doccomment">/// smaller part of the `prefix` into the entry - e.g. the entry used in</span>
-    <span class="doccomment">/// the `FileChooser` inserts only the part of the prefix up to the</span>
+    <span class="doccomment">/// the [`FileChooser`](crate::FileChooser) inserts only the part of the prefix up to the</span>
     <span class="doccomment">/// next &#39;/&#39;.</span>
     <span class="doccomment">/// ## `prefix`</span>
     <span class="doccomment">/// the common prefix of all possible completions</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if the signal has been handled</span>
+    <span class="doccomment">/// [`true`] if the signal has been handled</span>
     <span class="kw">fn</span> <span class="ident">connect_insert_prefix</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::signal::Inhibit</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">f</span>: <span class="ident">F</span>,
@@ -1638,15 +1638,15 @@
     <span class="doccomment">/// pointed to by `iter`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that `model` is the model that was passed to</span>
-    <span class="doccomment">/// `EntryCompletionExt::set_model`.</span>
+    <span class="doccomment">/// [`set_model()`](Self::set_model()).</span>
     <span class="doccomment">/// ## `model`</span>
-    <span class="doccomment">/// the `TreeModel` containing the matches</span>
+    <span class="doccomment">/// the [`TreeModel`](crate::TreeModel) containing the matches</span>
     <span class="doccomment">/// ## `iter`</span>
-    <span class="doccomment">/// a `TreeIter` positioned at the selected match</span>
+    <span class="doccomment">/// a [`TreeIter`](crate::TreeIter) positioned at the selected match</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if the signal has been handled</span>
+    <span class="doccomment">/// [`true`] if the signal has been handled</span>
     <span class="kw">fn</span> <span class="ident">connect_match_selected</span><span class="op">&lt;</span>
         <span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span><span class="ident">TreeModel</span>, <span class="kw-2">&amp;</span><span class="ident">TreeIter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::signal::Inhibit</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
     <span class="op">&gt;</span>(

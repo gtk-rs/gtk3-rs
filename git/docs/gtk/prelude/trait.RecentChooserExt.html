@@ -47,110 +47,110 @@
 </details>}</pre></div><div class="docblock"><p>Trait containing all <code>RecentChooser</code> methods.</p>
 <h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
 <p><a href="../struct.RecentChooserDialog.html"><code>RecentChooserDialog</code></a>, <a href="../struct.RecentChooserMenu.html"><code>RecentChooserMenu</code></a>, <a href="../struct.RecentChooserWidget.html"><code>RecentChooserWidget</code></a>, <a href="../struct.RecentChooser.html"><code>RecentChooser</code></a></p>
-</div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.add_filter" class="method"><code>fn <a href="#tymethod.add_filter" class="fnname">add_filter</a>(&amp;self, filter: &amp;<a class="struct" href="../struct.RecentFilter.html" title="struct gtk::RecentFilter">RecentFilter</a>)</code><a class="srclink" href="../../src/gtk/auto/recent_chooser.rs.html#52" title="goto source code">[src]</a></h3><div class="docblock"><p>Adds <code>filter</code> to the list of <code>RecentFilter</code> objects held by <code>self</code>.</p>
+</div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.add_filter" class="method"><code>fn <a href="#tymethod.add_filter" class="fnname">add_filter</a>(&amp;self, filter: &amp;<a class="struct" href="../struct.RecentFilter.html" title="struct gtk::RecentFilter">RecentFilter</a>)</code><a class="srclink" href="../../src/gtk/auto/recent_chooser.rs.html#52" title="goto source code">[src]</a></h3><div class="docblock"><p>Adds <code>filter</code> to the list of <a href="../struct.RecentFilter.html"><code>RecentFilter</code></a> objects held by <code>self</code>.</p>
 <p>If no previous filter objects were defined, this function will call
-<code>RecentChooser::set_filter</code>.</p>
+<a href="crate::RecentChooser::set_filter()"><code>RecentChooser::set_filter()</code></a>.</p>
 <h2 id="filter" class="section-header"><a href="#filter"><code>filter</code></a></h2>
-<p>a <code>RecentFilter</code></p>
-</div><h3 id="tymethod.current_item" class="method"><code>fn <a href="#tymethod.current_item" class="fnname">current_item</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.RecentInfo.html" title="struct gtk::RecentInfo">RecentInfo</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/recent_chooser.rs.html#61" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the <code>RecentInfo</code> currently selected by <code>self</code>.</p>
+<p>a <a href="../struct.RecentFilter.html"><code>RecentFilter</code></a></p>
+</div><h3 id="tymethod.current_item" class="method"><code>fn <a href="#tymethod.current_item" class="fnname">current_item</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.RecentInfo.html" title="struct gtk::RecentInfo">RecentInfo</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/recent_chooser.rs.html#61" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the <a href="../struct.RecentInfo.html"><code>RecentInfo</code></a> currently selected by <code>self</code>.</p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
-<p>a <code>RecentInfo</code>. Use <code>RecentInfo::unref</code> when
+<p>a <a href="../struct.RecentInfo.html"><code>RecentInfo</code></a>. Use <a href="crate::RecentInfo::unref()"><code>RecentInfo::unref()</code></a> when
 when you have finished using it.</p>
 </div><h3 id="tymethod.current_uri" class="method"><code>fn <a href="#tymethod.current_uri" class="fnname">current_uri</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/recent_chooser.rs.html#69" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the URI currently selected by <code>self</code>.</p>
 <h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
 <p>a newly allocated string holding a URI.</p>
-</div><h3 id="tymethod.filter" class="method"><code>fn <a href="#tymethod.filter" class="fnname">filter</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.RecentFilter.html" title="struct gtk::RecentFilter">RecentFilter</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/recent_chooser.rs.html#78" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the <code>RecentFilter</code> object currently used by <code>self</code> to affect
+</div><h3 id="tymethod.filter" class="method"><code>fn <a href="#tymethod.filter" class="fnname">filter</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.RecentFilter.html" title="struct gtk::RecentFilter">RecentFilter</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/recent_chooser.rs.html#78" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the <a href="../struct.RecentFilter.html"><code>RecentFilter</code></a> object currently used by <code>self</code> to affect
 the display of the recently used resources.</p>
 <h1 id="returns-2" class="section-header"><a href="#returns-2">Returns</a></h1>
-<p>a <code>RecentFilter</code> object.</p>
-</div><h3 id="tymethod.items" class="method"><code>fn <a href="#tymethod.items" class="fnname">items</a>(&amp;self) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../struct.RecentInfo.html" title="struct gtk::RecentInfo">RecentInfo</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/recent_chooser.rs.html#92" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the list of recently used resources in form of <code>RecentInfo</code> objects.</p>
+<p>a <a href="../struct.RecentFilter.html"><code>RecentFilter</code></a> object.</p>
+</div><h3 id="tymethod.items" class="method"><code>fn <a href="#tymethod.items" class="fnname">items</a>(&amp;self) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../struct.RecentInfo.html" title="struct gtk::RecentInfo">RecentInfo</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/recent_chooser.rs.html#92" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the list of recently used resources in form of <a href="../struct.RecentInfo.html"><code>RecentInfo</code></a> objects.</p>
 <p>The return value of this function is affected by the “sort-type” and
 “limit” properties of <code>self</code>.</p>
 <h1 id="returns-3" class="section-header"><a href="#returns-3">Returns</a></h1>
 <p>A newly allocated
-list of <code>RecentInfo</code> objects. You should
-use <code>RecentInfo::unref</code> on every item of the list, and then free
-the list itself using <code>glib::List::free</code>.</p>
-</div><h3 id="tymethod.limit" class="method"><code>fn <a href="#tymethod.limit" class="fnname">limit</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code><a class="srclink" href="../../src/gtk/auto/recent_chooser.rs.html#102" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the number of items returned by <code>RecentChooser::get_items</code>
-and <code>RecentChooser::get_uris</code>.</p>
+list of <a href="../struct.RecentInfo.html"><code>RecentInfo</code></a> objects. You should
+use <a href="crate::RecentInfo::unref()"><code>RecentInfo::unref()</code></a> on every item of the list, and then free
+the list itself using <a href="crate::glib::List::free()"><code>glib::List::free()</code></a>.</p>
+</div><h3 id="tymethod.limit" class="method"><code>fn <a href="#tymethod.limit" class="fnname">limit</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code><a class="srclink" href="../../src/gtk/auto/recent_chooser.rs.html#102" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the number of items returned by <a href="crate::RecentChooser::get_items()"><code>RecentChooser::get_items()</code></a>
+and <a href="crate::RecentChooser::get_uris()"><code>RecentChooser::get_uris()</code></a>.</p>
 <h1 id="returns-4" class="section-header"><a href="#returns-4">Returns</a></h1>
 <p>A positive integer, or -1 meaning that all items are
 returned.</p>
 </div><h3 id="tymethod.is_local_only" class="method"><code>fn <a href="#tymethod.is_local_only" class="fnname">is_local_only</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/recent_chooser.rs.html#111" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets whether only local resources should be shown in the recently used
-resources selector. See <code>RecentChooser::set_local_only</code></p>
+resources selector. See <a href="crate::RecentChooser::set_local_only()"><code>RecentChooser::set_local_only()</code></a></p>
 <h1 id="returns-5" class="section-header"><a href="#returns-5">Returns</a></h1>
-<p><code>true</code> if only local resources should be shown.</p>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if only local resources should be shown.</p>
 </div><h3 id="tymethod.selects_multiple" class="method"><code>fn <a href="#tymethod.selects_multiple" class="fnname">selects_multiple</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/recent_chooser.rs.html#119" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets whether <code>self</code> can select multiple items.</p>
 <h1 id="returns-6" class="section-header"><a href="#returns-6">Returns</a></h1>
-<p><code>true</code> if <code>self</code> can select more than one item.</p>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if <code>self</code> can select more than one item.</p>
 </div><h3 id="tymethod.shows_icons" class="method"><code>fn <a href="#tymethod.shows_icons" class="fnname">shows_icons</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/recent_chooser.rs.html#127" title="goto source code">[src]</a></h3><div class="docblock"><p>Retrieves whether <code>self</code> should show an icon near the resource.</p>
 <h1 id="returns-7" class="section-header"><a href="#returns-7">Returns</a></h1>
-<p><code>true</code> if the icons should be displayed, <code>false</code> otherwise.</p>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the icons should be displayed, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> otherwise.</p>
 </div><h3 id="tymethod.shows_not_found" class="method"><code>fn <a href="#tymethod.shows_not_found" class="fnname">shows_not_found</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/recent_chooser.rs.html#137" title="goto source code">[src]</a></h3><div class="docblock"><p>Retrieves whether <code>self</code> should show the recently used resources that
 were not found.</p>
 <h1 id="returns-8" class="section-header"><a href="#returns-8">Returns</a></h1>
-<p><code>true</code> if the resources not found should be displayed, and
-<code>false</code> otheriwse.</p>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the resources not found should be displayed, and
+<a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> otheriwse.</p>
 </div><h3 id="tymethod.shows_private" class="method"><code>fn <a href="#tymethod.shows_private" class="fnname">shows_private</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/recent_chooser.rs.html#147" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns whether <code>self</code> should display recently used resources
 registered as private.</p>
 <h1 id="returns-9" class="section-header"><a href="#returns-9">Returns</a></h1>
-<p><code>true</code> if the recent chooser should show private items,
-<code>false</code> otherwise.</p>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the recent chooser should show private items,
+<a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> otherwise.</p>
 </div><h3 id="tymethod.shows_tips" class="method"><code>fn <a href="#tymethod.shows_tips" class="fnname">shows_tips</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/recent_chooser.rs.html#157" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets whether <code>self</code> should display tooltips containing the full path
 of a recently user resource.</p>
 <h1 id="returns-10" class="section-header"><a href="#returns-10">Returns</a></h1>
-<p><code>true</code> if the recent chooser should show tooltips,
-<code>false</code> otherwise.</p>
-</div><h3 id="tymethod.sort_type" class="method"><code>fn <a href="#tymethod.sort_type" class="fnname">sort_type</a>(&amp;self) -&gt; <a class="enum" href="../enum.RecentSortType.html" title="enum gtk::RecentSortType">RecentSortType</a></code><a class="srclink" href="../../src/gtk/auto/recent_chooser.rs.html#165" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the value set by <code>RecentChooser::set_sort_type</code>.</p>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the recent chooser should show tooltips,
+<a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> otherwise.</p>
+</div><h3 id="tymethod.sort_type" class="method"><code>fn <a href="#tymethod.sort_type" class="fnname">sort_type</a>(&amp;self) -&gt; <a class="enum" href="../enum.RecentSortType.html" title="enum gtk::RecentSortType">RecentSortType</a></code><a class="srclink" href="../../src/gtk/auto/recent_chooser.rs.html#165" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the value set by <a href="crate::RecentChooser::set_sort_type()"><code>RecentChooser::set_sort_type()</code></a>.</p>
 <h1 id="returns-11" class="section-header"><a href="#returns-11">Returns</a></h1>
 <p>the sorting order of the <code>self</code>.</p>
 </div><h3 id="tymethod.uris" class="method"><code>fn <a href="#tymethod.uris" class="fnname">uris</a>(&amp;self) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../../glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/recent_chooser.rs.html#183" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the URI of the recently used resources.</p>
 <p>The return value of this function is affected by the “sort-type” and “limit”
 properties of <code>self</code>.</p>
-<p>Since the returned array is <code>None</code> terminated, <code>length</code> may be <code>None</code>.</p>
+<p>Since the returned array is <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> terminated, <code>length</code> may be <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>.</p>
 <h2 id="length" class="section-header"><a href="#length"><code>length</code></a></h2>
 <p>return location for a the length of the
-URI list, or <code>None</code></p>
+URI list, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 <h1 id="returns-12" class="section-header"><a href="#returns-12">Returns</a></h1>
-<p>A newly allocated, <code>None</code>-terminated array of strings. Use
-<code>g_strfreev</code> to free it.</p>
-</div><h3 id="tymethod.list_filters" class="method"><code>fn <a href="#tymethod.list_filters" class="fnname">list_filters</a>(&amp;self) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../struct.RecentFilter.html" title="struct gtk::RecentFilter">RecentFilter</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/recent_chooser.rs.html#193" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the <code>RecentFilter</code> objects held by <code>self</code>.</p>
+<p>A newly allocated, <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>-terminated array of strings. Use
+<code>g_strfreev()</code> to free it.</p>
+</div><h3 id="tymethod.list_filters" class="method"><code>fn <a href="#tymethod.list_filters" class="fnname">list_filters</a>(&amp;self) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../struct.RecentFilter.html" title="struct gtk::RecentFilter">RecentFilter</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/recent_chooser.rs.html#193" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the <a href="../struct.RecentFilter.html"><code>RecentFilter</code></a> objects held by <code>self</code>.</p>
 <h1 id="returns-13" class="section-header"><a href="#returns-13">Returns</a></h1>
 <p>A singly linked list
-of <code>RecentFilter</code> objects. You
-should just free the returned list using <code>glib::SList::free</code>.</p>
-</div><h3 id="tymethod.remove_filter" class="method"><code>fn <a href="#tymethod.remove_filter" class="fnname">remove_filter</a>(&amp;self, filter: &amp;<a class="struct" href="../struct.RecentFilter.html" title="struct gtk::RecentFilter">RecentFilter</a>)</code><a class="srclink" href="../../src/gtk/auto/recent_chooser.rs.html#199" title="goto source code">[src]</a></h3><div class="docblock"><p>Removes <code>filter</code> from the list of <code>RecentFilter</code> objects held by <code>self</code>.</p>
+of <a href="../struct.RecentFilter.html"><code>RecentFilter</code></a> objects. You
+should just free the returned list using <a href="crate::glib::SList::free()"><code>glib::SList::free()</code></a>.</p>
+</div><h3 id="tymethod.remove_filter" class="method"><code>fn <a href="#tymethod.remove_filter" class="fnname">remove_filter</a>(&amp;self, filter: &amp;<a class="struct" href="../struct.RecentFilter.html" title="struct gtk::RecentFilter">RecentFilter</a>)</code><a class="srclink" href="../../src/gtk/auto/recent_chooser.rs.html#199" title="goto source code">[src]</a></h3><div class="docblock"><p>Removes <code>filter</code> from the list of <a href="../struct.RecentFilter.html"><code>RecentFilter</code></a> objects held by <code>self</code>.</p>
 <h2 id="filter-1" class="section-header"><a href="#filter-1"><code>filter</code></a></h2>
-<p>a <code>RecentFilter</code></p>
+<p>a <a href="../struct.RecentFilter.html"><code>RecentFilter</code></a></p>
 </div><h3 id="tymethod.select_all" class="method"><code>fn <a href="#tymethod.select_all" class="fnname">select_all</a>(&amp;self)</code><a class="srclink" href="../../src/gtk/auto/recent_chooser.rs.html#204" title="goto source code">[src]</a></h3><div class="docblock"><p>Selects all the items inside <code>self</code>, if the <code>self</code> supports
 multiple selection.</p>
 </div><h3 id="tymethod.select_uri" class="method"><code>fn <a href="#tymethod.select_uri" class="fnname">select_uri</a>(&amp;self, uri: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="struct" href="../../glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/recent_chooser.rs.html#214" title="goto source code">[src]</a></h3><div class="docblock"><p>Selects <code>uri</code> inside <code>self</code>.</p>
 <h2 id="uri" class="section-header"><a href="#uri"><code>uri</code></a></h2>
 <p>a URI</p>
 <h1 id="returns-14" class="section-header"><a href="#returns-14">Returns</a></h1>
-<p><code>true</code> if <code>uri</code> was found.</p>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if <code>uri</code> was found.</p>
 </div><h3 id="tymethod.set_current_uri" class="method"><code>fn <a href="#tymethod.set_current_uri" class="fnname">set_current_uri</a>(&amp;self, uri: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="struct" href="../../glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/recent_chooser.rs.html#224" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets <code>uri</code> as the current URI for <code>self</code>.</p>
 <h2 id="uri-1" class="section-header"><a href="#uri-1"><code>uri</code></a></h2>
 <p>a URI</p>
 <h1 id="returns-15" class="section-header"><a href="#returns-15">Returns</a></h1>
-<p><code>true</code> if the URI was found.</p>
-</div><h3 id="tymethod.set_filter" class="method"><code>fn <a href="#tymethod.set_filter" class="fnname">set_filter</a>(&amp;self, filter: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="struct" href="../struct.RecentFilter.html" title="struct gtk::RecentFilter">RecentFilter</a>&gt;)</code><a class="srclink" href="../../src/gtk/auto/recent_chooser.rs.html#231" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets <code>filter</code> as the current <code>RecentFilter</code> object used by <code>self</code>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the URI was found.</p>
+</div><h3 id="tymethod.set_filter" class="method"><code>fn <a href="#tymethod.set_filter" class="fnname">set_filter</a>(&amp;self, filter: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="struct" href="../struct.RecentFilter.html" title="struct gtk::RecentFilter">RecentFilter</a>&gt;)</code><a class="srclink" href="../../src/gtk/auto/recent_chooser.rs.html#231" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets <code>filter</code> as the current <a href="../struct.RecentFilter.html"><code>RecentFilter</code></a> object used by <code>self</code>
 to affect the displayed recently used resources.</p>
 <h2 id="filter-2" class="section-header"><a href="#filter-2"><code>filter</code></a></h2>
-<p>a <code>RecentFilter</code></p>
+<p>a <a href="../struct.RecentFilter.html"><code>RecentFilter</code></a></p>
 </div><h3 id="tymethod.set_limit" class="method"><code>fn <a href="#tymethod.set_limit" class="fnname">set_limit</a>(&amp;self, limit: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</code><a class="srclink" href="../../src/gtk/auto/recent_chooser.rs.html#238" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the number of items that should be returned by
-<code>RecentChooser::get_items</code> and <code>RecentChooser::get_uris</code>.</p>
+<a href="crate::RecentChooser::get_items()"><code>RecentChooser::get_items()</code></a> and <a href="crate::RecentChooser::get_uris()"><code>RecentChooser::get_uris()</code></a>.</p>
 <h2 id="limit" class="section-header"><a href="#limit"><code>limit</code></a></h2>
 <p>a positive integer, or -1 for all items</p>
 </div><h3 id="tymethod.set_local_only" class="method"><code>fn <a href="#tymethod.set_local_only" class="fnname">set_local_only</a>(&amp;self, local_only: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gtk/auto/recent_chooser.rs.html#247" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets whether only local resources, that is resources using the file:// URI
 scheme, should be shown in the recently used resources selector. If
-<code>local_only</code> is <code>true</code> (the default) then the shown resources are guaranteed
+<code>local_only</code> is <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> (the default) then the shown resources are guaranteed
 to be accessible through the operating system native file system.</p>
 <h2 id="local_only" class="section-header"><a href="#local_only"><code>local_only</code></a></h2>
-<p><code>true</code> if only local files can be shown</p>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if only local files can be shown</p>
 </div><h3 id="tymethod.set_select_multiple" class="method"><code>fn <a href="#tymethod.set_select_multiple" class="fnname">set_select_multiple</a>(&amp;self, select_multiple: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gtk/auto/recent_chooser.rs.html#253" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets whether <code>self</code> can select multiple items.</p>
 <h2 id="select_multiple" class="section-header"><a href="#select_multiple"><code>select_multiple</code></a></h2>
-<p><code>true</code> if <code>self</code> can select more than one item</p>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if <code>self</code> can select more than one item</p>
 </div><h3 id="tymethod.set_show_icons" class="method"><code>fn <a href="#tymethod.set_show_icons" class="fnname">set_show_icons</a>(&amp;self, show_icons: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gtk/auto/recent_chooser.rs.html#260" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets whether <code>self</code> should show an icon near the resource when
 displaying it.</p>
 <h2 id="show_icons" class="section-header"><a href="#show_icons"><code>show_icons</code></a></h2>
@@ -161,24 +161,24 @@ it didn’t find. This only applies to local resources.</p>
 <p>whether to show the local items we didn’t find</p>
 </div><h3 id="tymethod.set_show_private" class="method"><code>fn <a href="#tymethod.set_show_private" class="fnname">set_show_private</a>(&amp;self, show_private: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gtk/auto/recent_chooser.rs.html#273" title="goto source code">[src]</a></h3><div class="docblock"><p>Whether to show recently used resources marked registered as private.</p>
 <h2 id="show_private" class="section-header"><a href="#show_private"><code>show_private</code></a></h2>
-<p><code>true</code> to show private items, <code>false</code> otherwise</p>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> to show private items, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> otherwise</p>
 </div><h3 id="tymethod.set_show_tips" class="method"><code>fn <a href="#tymethod.set_show_tips" class="fnname">set_show_tips</a>(&amp;self, show_tips: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gtk/auto/recent_chooser.rs.html#280" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets whether to show a tooltips containing the full path of each
-recently used resource in a <code>RecentChooser</code> widget.</p>
+recently used resource in a <a href="../struct.RecentChooser.html"><code>RecentChooser</code></a> widget.</p>
 <h2 id="show_tips" class="section-header"><a href="#show_tips"><code>show_tips</code></a></h2>
-<p><code>true</code> if tooltips should be shown</p>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if tooltips should be shown</p>
 </div><h3 id="tymethod.set_sort_func" class="method"><code>fn <a href="#tymethod.set_sort_func" class="fnname">set_sort_func</a>&lt;P:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;<a class="struct" href="../struct.RecentInfo.html" title="struct gtk::RecentInfo">RecentInfo</a>, &amp;<a class="struct" href="../struct.RecentInfo.html" title="struct gtk::RecentInfo">RecentInfo</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;sort_func: P<br>)</code><a class="srclink" href="../../src/gtk/auto/recent_chooser.rs.html#297" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the comparison function used when sorting to be <code>sort_func</code>. If
-the <code>self</code> has the sort type set to <code>RecentSortType::Custom</code> then
+the <code>self</code> has the sort type set to <a href="../enum.RecentSortType.html#variant.Custom"><code>RecentSortType::Custom</code></a> then
 the chooser will sort using this function.</p>
-<p>To the comparison function will be passed two <code>RecentInfo</code> structs and
+<p>To the comparison function will be passed two <a href="../struct.RecentInfo.html"><code>RecentInfo</code></a> structs and
 <code>sort_data</code>; <code>sort_func</code> should return a positive integer if the first
 item comes before the second, zero if the two items are equal and
 a negative integer if the first item comes after the second.</p>
 <h2 id="sort_func" class="section-header"><a href="#sort_func"><code>sort_func</code></a></h2>
 <p>the comparison function</p>
 <h2 id="sort_data" class="section-header"><a href="#sort_data"><code>sort_data</code></a></h2>
-<p>user data to pass to <code>sort_func</code>, or <code>None</code></p>
+<p>user data to pass to <code>sort_func</code>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 <h2 id="data_destroy" class="section-header"><a href="#data_destroy"><code>data_destroy</code></a></h2>
-<p>destroy notifier for <code>sort_data</code>, or <code>None</code></p>
+<p>destroy notifier for <code>sort_data</code>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 </div><h3 id="tymethod.set_sort_type" class="method"><code>fn <a href="#tymethod.set_sort_type" class="fnname">set_sort_type</a>(&amp;self, sort_type: <a class="enum" href="../enum.RecentSortType.html" title="enum gtk::RecentSortType">RecentSortType</a>)</code><a class="srclink" href="../../src/gtk/auto/recent_chooser.rs.html#304" title="goto source code">[src]</a></h3><div class="docblock"><p>Changes the sorting order of the recently used resources list displayed by
 <code>self</code>.</p>
 <h2 id="sort_type" class="section-header"><a href="#sort_type"><code>sort_type</code></a></h2>

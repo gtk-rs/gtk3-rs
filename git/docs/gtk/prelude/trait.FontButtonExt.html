@@ -26,12 +26,12 @@
 <p><a href="../struct.FontButton.html"><code>FontButton</code></a></p>
 </div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.font_name" class="method"><code>fn <a href="#tymethod.font_name" class="fnname">font_name</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/font_button.rs.html#636" title="goto source code">[src]</a></h3><div class="docblock"><p>Retrieves the name of the currently selected font. This name includes
 style and size information as well. If you want to render something
-with the font, use this string with <code>pango::FontDescription::from_string</code> .
+with the font, use this string with <a href="../../pango/auto/font_description/struct.FontDescription.html#method.from_string"><code>pango::FontDescription::from_string()</code></a> .
 If you’re interested in peeking certain values (family name,
 style, size, weight) just query these properties from the
-<code>pango::FontDescription</code> object.</p>
+<a href="../../pango/auto/font_description/struct.FontDescription.html"><code>pango::FontDescription</code></a> object.</p>
 <h1 id="deprecated-since-322" class="section-header"><a href="#deprecated-since-322">Deprecated since 3.22</a></h1>
-<p>Use <code>FontChooser::get_font</code> instead</p>
+<p>Use <a href="crate::FontChooser::get_font()"><code>FontChooser::get_font()</code></a> instead</p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
 <p>an internal copy of the font name which must not be freed.</p>
 </div><h3 id="tymethod.shows_size" class="method"><code>fn <a href="#tymethod.shows_size" class="fnname">shows_size</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/font_button.rs.html#644" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns whether the font size will be shown in the label.</p>
@@ -51,28 +51,28 @@ style, size, weight) just query these properties from the
 <p>whether the selected size is used in the label.</p>
 </div><h3 id="tymethod.set_font_name" class="method"><code>fn <a href="#tymethod.set_font_name" class="fnname">set_font_name</a>(&amp;self, fontname: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/font_button.rs.html#691" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets or updates the currently-displayed font in font picker dialog.</p>
 <h1 id="deprecated-since-322-1" class="section-header"><a href="#deprecated-since-322-1">Deprecated since 3.22</a></h1>
-<p>Use <code>FontChooser::set_font</code> instead</p>
+<p>Use <a href="crate::FontChooser::set_font()"><code>FontChooser::set_font()</code></a> instead</p>
 <h2 id="fontname" class="section-header"><a href="#fontname"><code>fontname</code></a></h2>
 <p>Name of font to display in font chooser dialog</p>
 <h1 id="returns-6" class="section-header"><a href="#returns-6">Returns</a></h1>
-<p><code>true</code></p>
-</div><h3 id="tymethod.set_show_size" class="method"><code>fn <a href="#tymethod.set_show_size" class="fnname">set_show_size</a>(&amp;self, show_size: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gtk/auto/font_button.rs.html#697" title="goto source code">[src]</a></h3><div class="docblock"><p>If <code>show_size</code> is <code>true</code>, the font size will be displayed along with the name of the selected font.</p>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a></p>
+</div><h3 id="tymethod.set_show_size" class="method"><code>fn <a href="#tymethod.set_show_size" class="fnname">set_show_size</a>(&amp;self, show_size: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gtk/auto/font_button.rs.html#697" title="goto source code">[src]</a></h3><div class="docblock"><p>If <code>show_size</code> is <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a>, the font size will be displayed along with the name of the selected font.</p>
 <h2 id="show_size" class="section-header"><a href="#show_size"><code>show_size</code></a></h2>
-<p><code>true</code> if font size should be displayed in dialog.</p>
-</div><h3 id="tymethod.set_show_style" class="method"><code>fn <a href="#tymethod.set_show_style" class="fnname">set_show_style</a>(&amp;self, show_style: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gtk/auto/font_button.rs.html#703" title="goto source code">[src]</a></h3><div class="docblock"><p>If <code>show_style</code> is <code>true</code>, the font style will be displayed along with name of the selected font.</p>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if font size should be displayed in dialog.</p>
+</div><h3 id="tymethod.set_show_style" class="method"><code>fn <a href="#tymethod.set_show_style" class="fnname">set_show_style</a>(&amp;self, show_style: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gtk/auto/font_button.rs.html#703" title="goto source code">[src]</a></h3><div class="docblock"><p>If <code>show_style</code> is <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a>, the font style will be displayed along with name of the selected font.</p>
 <h2 id="show_style" class="section-header"><a href="#show_style"><code>show_style</code></a></h2>
-<p><code>true</code> if font style should be displayed in label.</p>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if font style should be displayed in label.</p>
 </div><h3 id="tymethod.set_title" class="method"><code>fn <a href="#tymethod.set_title" class="fnname">set_title</a>(&amp;self, title: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</code><a class="srclink" href="../../src/gtk/auto/font_button.rs.html#709" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the title for the font chooser dialog.</p>
 <h2 id="title" class="section-header"><a href="#title"><code>title</code></a></h2>
 <p>a string containing the font chooser dialog title</p>
-</div><h3 id="tymethod.set_use_font" class="method"><code>fn <a href="#tymethod.set_use_font" class="fnname">set_use_font</a>(&amp;self, use_font: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gtk/auto/font_button.rs.html#715" title="goto source code">[src]</a></h3><div class="docblock"><p>If <code>use_font</code> is <code>true</code>, the font name will be written using the selected font.</p>
+</div><h3 id="tymethod.set_use_font" class="method"><code>fn <a href="#tymethod.set_use_font" class="fnname">set_use_font</a>(&amp;self, use_font: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gtk/auto/font_button.rs.html#715" title="goto source code">[src]</a></h3><div class="docblock"><p>If <code>use_font</code> is <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a>, the font name will be written using the selected font.</p>
 <h2 id="use_font" class="section-header"><a href="#use_font"><code>use_font</code></a></h2>
-<p>If <code>true</code>, font name will be written using font chosen.</p>
-</div><h3 id="tymethod.set_use_size" class="method"><code>fn <a href="#tymethod.set_use_size" class="fnname">set_use_size</a>(&amp;self, use_size: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gtk/auto/font_button.rs.html#721" title="goto source code">[src]</a></h3><div class="docblock"><p>If <code>use_size</code> is <code>true</code>, the font name will be written using the selected size.</p>
+<p>If <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a>, font name will be written using font chosen.</p>
+</div><h3 id="tymethod.set_use_size" class="method"><code>fn <a href="#tymethod.set_use_size" class="fnname">set_use_size</a>(&amp;self, use_size: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gtk/auto/font_button.rs.html#721" title="goto source code">[src]</a></h3><div class="docblock"><p>If <code>use_size</code> is <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a>, the font name will be written using the selected size.</p>
 <h2 id="use_size" class="section-header"><a href="#use_size"><code>use_size</code></a></h2>
-<p>If <code>true</code>, font name will be written using the selected size.</p>
+<p>If <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a>, font name will be written using the selected size.</p>
 </div><h3 id="tymethod.connect_font_set" class="method"><code>fn <a href="#tymethod.connect_font_set" class="fnname">connect_font_set</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(&amp;self, f: F) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../../src/gtk/auto/font_button.rs.html#730" title="goto source code">[src]</a></h3><div class="docblock"><p>The ::font-set signal is emitted when the user selects a font.
-When handling this signal, use <code>FontChooser::get_font</code>
+When handling this signal, use <a href="crate::FontChooser::get_font()"><code>FontChooser::get_font()</code></a>
 to find out which font was just selected.</p>
 <p>Note that this signal is only emitted when the user
 changes the font. If you need to react to programmatic font changes

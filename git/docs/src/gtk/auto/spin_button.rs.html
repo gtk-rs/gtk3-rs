@@ -1652,19 +1652,19 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// A `SpinButton` is an ideal way to allow the user to set the value of</span>
+    <span class="doccomment">/// A [`SpinButton`](crate::SpinButton) is an ideal way to allow the user to set the value of</span>
     <span class="doccomment">/// some attribute. Rather than having to directly type a number into a</span>
-    <span class="doccomment">/// `Entry`, `SpinButton` allows the user to click on one of two arrows</span>
+    <span class="doccomment">/// [`Entry`](crate::Entry), `SpinButton` allows the user to click on one of two arrows</span>
     <span class="doccomment">/// to increment or decrement the displayed value. A value can still be</span>
     <span class="doccomment">/// typed in, with the bonus that it can be checked to ensure it is in a</span>
     <span class="doccomment">/// given range.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The main properties of a `SpinButton` are through an adjustment.</span>
-    <span class="doccomment">/// See the `Adjustment` section for more details about an adjustment&#39;s</span>
+    <span class="doccomment">/// See the [`Adjustment`](crate::Adjustment) section for more details about an adjustment&#39;s</span>
     <span class="doccomment">/// properties. Note that `SpinButton` will by default make its entry</span>
     <span class="doccomment">/// large enough to accomodate the lower and upper bounds of the adjustment,</span>
     <span class="doccomment">/// which can lead to surprising results. Best practice is to set both</span>
-    <span class="doccomment">/// the `Entry:width-chars` and `Entry:max-width-chars` poperties</span>
+    <span class="doccomment">/// the [`Entry:width-chars`](crate::Entry:width-chars) and [`Entry:max-width-chars`](crate::Entry:max-width-chars) poperties</span>
     <span class="doccomment">/// to the desired number of characters to display in the entry.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # CSS nodes</span>
@@ -1766,7 +1766,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`SpinButtonExt`](trait@crate::SpinButtonExt), [`EntryExt`](trait@crate::EntryExt), [`WidgetExt`](trait@crate::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::BuildableExt), [`CellEditableExt`](trait@crate::CellEditableExt), [`EditableExt`](trait@crate::EditableExt), [`OrientableExt`](trait@crate::OrientableExt), [`SpinButtonSignals`](trait@crate::SpinButtonSignals), [`EntryExtManual`](trait@crate::EntryExtManual), [`WidgetExtManual`](trait@crate::WidgetExtManual), [`BuildableExtManual`](trait@crate::BuildableExtManual), [`EditableSignals`](trait@crate::EditableSignals)</span>
+    <span class="doccomment">/// [`SpinButtonExt`](trait@crate::prelude::SpinButtonExt), [`EntryExt`](trait@crate::prelude::EntryExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`CellEditableExt`](trait@crate::prelude::CellEditableExt), [`EditableExt`](trait@crate::prelude::EditableExt), [`OrientableExt`](trait@crate::prelude::OrientableExt), [`SpinButtonSignals`](trait@crate::prelude::SpinButtonSignals), [`EntryExtManual`](trait@crate::prelude::EntryExtManual), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual), [`EditableSignals`](trait@crate::prelude::EditableSignals)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SpinButton</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkSpinButton</span>, <span class="ident">ffi::GtkSpinButtonClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Entry</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>, <span class="ident">CellEditable</span>, <span class="ident">Editable</span>, <span class="ident">Orientable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -1775,10 +1775,10 @@
 }
 
 <span class="kw">impl</span> <span class="ident">SpinButton</span> {
-    <span class="doccomment">/// Creates a new `SpinButton`.</span>
+    <span class="doccomment">/// Creates a new [`SpinButton`](crate::SpinButton).</span>
     <span class="doccomment">/// ## `adjustment`</span>
-    <span class="doccomment">/// the `Adjustment` object that this spin</span>
-    <span class="doccomment">///  button should use, or `None`</span>
+    <span class="doccomment">/// the [`Adjustment`](crate::Adjustment) object that this spin</span>
+    <span class="doccomment">///  button should use, or [`None`]</span>
     <span class="doccomment">/// ## `climb_rate`</span>
     <span class="doccomment">/// specifies by how much the rate of change in the value will</span>
     <span class="doccomment">///  accelerate if you continue to hold down an up/down button or arrow key</span>
@@ -1787,7 +1787,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The new spin button as a `Widget`</span>
+    <span class="doccomment">/// The new spin button as a [`Widget`](crate::Widget)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_spin_button_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Adjustment</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="ident">adjustment</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>,
@@ -1806,14 +1806,14 @@
     }
 
     <span class="doccomment">/// This is a convenience constructor that allows creation of a numeric</span>
-    <span class="doccomment">/// `SpinButton` without manually creating an adjustment. The value is</span>
+    <span class="doccomment">/// [`SpinButton`](crate::SpinButton) without manually creating an adjustment. The value is</span>
     <span class="doccomment">/// initially set to the minimum value and a page increment of 10 * `step`</span>
     <span class="doccomment">/// is the default. The precision of the spin button is equivalent to the</span>
     <span class="doccomment">/// precision of `step`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that the way in which the precision is derived works best if `step`</span>
     <span class="doccomment">/// is a power of ten. If the resulting precision is not suitable for your</span>
-    <span class="doccomment">/// needs, use `SpinButtonExt::set_digits` to correct it.</span>
+    <span class="doccomment">/// needs, use [`SpinButtonExt::set_digits()`](crate::SpinButtonExt::set_digits()) to correct it.</span>
     <span class="doccomment">/// ## `min`</span>
     <span class="doccomment">/// Minimum allowable value</span>
     <span class="doccomment">/// ## `max`</span>
@@ -1823,7 +1823,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The new spin button as a `Widget`</span>
+    <span class="doccomment">/// The new spin button as a [`Widget`](crate::Widget)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_spin_button_new_with_range&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_range</span>(<span class="ident">min</span>: <span class="ident">f64</span>, <span class="ident">max</span>: <span class="ident">f64</span>, <span class="ident">step</span>: <span class="ident">f64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SpinButton</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -2625,8 +2625,8 @@
     <span class="doccomment">/// Changes the properties of an existing spin button. The adjustment,</span>
     <span class="doccomment">/// climb rate, and number of decimal places are updated accordingly.</span>
     <span class="doccomment">/// ## `adjustment`</span>
-    <span class="doccomment">/// a `Adjustment` to replace the spin button’s</span>
-    <span class="doccomment">///  existing adjustment, or `None` to leave its current adjustment unchanged</span>
+    <span class="doccomment">/// a [`Adjustment`](crate::Adjustment) to replace the spin button’s</span>
+    <span class="doccomment">///  existing adjustment, or [`None`] to leave its current adjustment unchanged</span>
     <span class="doccomment">/// ## `climb_rate`</span>
     <span class="doccomment">/// the new climb rate</span>
     <span class="doccomment">/// ## `digits`</span>
@@ -2634,15 +2634,15 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_spin_button_configure&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">configure</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Adjustment</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">adjustment</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>, <span class="ident">climb_rate</span>: <span class="ident">f64</span>, <span class="ident">digits</span>: <span class="ident">u32</span>);
 
-    <span class="doccomment">/// Get the adjustment associated with a `SpinButton`</span>
+    <span class="doccomment">/// Get the adjustment associated with a [`SpinButton`](crate::SpinButton)</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the `Adjustment` of `self`</span>
+    <span class="doccomment">/// the [`Adjustment`](crate::Adjustment) of `self`</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_spin_button_get_adjustment&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">adjustment</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Adjustment</span>;
 
-    <span class="doccomment">/// Fetches the precision of `self`. See `SpinButtonExt::set_digits`.</span>
+    <span class="doccomment">/// Fetches the precision of `self`. See [`set_digits()`](Self::set_digits()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -2651,43 +2651,43 @@
     <span class="kw">fn</span> <span class="ident">digits</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span>;
 
     <span class="doccomment">/// Gets the current step and page the increments used by `self`. See</span>
-    <span class="doccomment">/// `SpinButtonExt::set_increments`.</span>
+    <span class="doccomment">/// [`set_increments()`](Self::set_increments()).</span>
     <span class="doccomment">/// ## `step`</span>
-    <span class="doccomment">/// location to store step increment, or `None`</span>
+    <span class="doccomment">/// location to store step increment, or [`None`]</span>
     <span class="doccomment">/// ## `page`</span>
-    <span class="doccomment">/// location to store page increment, or `None`</span>
+    <span class="doccomment">/// location to store page increment, or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_spin_button_get_increments&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">increments</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">f64</span>, <span class="ident">f64</span>);
 
     <span class="doccomment">/// Returns whether non-numeric text can be typed into the spin button.</span>
-    <span class="doccomment">/// See `SpinButtonExt::set_numeric`.</span>
+    <span class="doccomment">/// See [`set_numeric()`](Self::set_numeric()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if only numeric text can be entered</span>
+    <span class="doccomment">/// [`true`] if only numeric text can be entered</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_spin_button_get_numeric&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">is_numeric</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
     <span class="doccomment">/// Gets the range allowed for `self`.</span>
-    <span class="doccomment">/// See `SpinButtonExt::set_range`.</span>
+    <span class="doccomment">/// See [`set_range()`](Self::set_range()).</span>
     <span class="doccomment">/// ## `min`</span>
-    <span class="doccomment">/// location to store minimum allowed value, or `None`</span>
+    <span class="doccomment">/// location to store minimum allowed value, or [`None`]</span>
     <span class="doccomment">/// ## `max`</span>
-    <span class="doccomment">/// location to store maximum allowed value, or `None`</span>
+    <span class="doccomment">/// location to store maximum allowed value, or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_spin_button_get_range&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">range</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">f64</span>, <span class="ident">f64</span>);
 
     <span class="doccomment">/// Returns whether the values are corrected to the nearest step.</span>
-    <span class="doccomment">/// See `SpinButtonExt::set_snap_to_ticks`.</span>
+    <span class="doccomment">/// See [`set_snap_to_ticks()`](Self::set_snap_to_ticks()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if values are snapped to the nearest step</span>
+    <span class="doccomment">/// [`true`] if values are snapped to the nearest step</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_spin_button_get_snap_to_ticks&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">snaps_to_ticks</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
     <span class="doccomment">/// Gets the update behavior of a spin button.</span>
-    <span class="doccomment">/// See `SpinButtonExt::set_update_policy`.</span>
+    <span class="doccomment">/// See [`set_update_policy()`](Self::set_update_policy()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -2713,17 +2713,17 @@
 
     <span class="doccomment">/// Returns whether the spin button’s value wraps around to the</span>
     <span class="doccomment">/// opposite limit when the upper or lower limit of the range is</span>
-    <span class="doccomment">/// exceeded. See `SpinButtonExt::set_wrap`.</span>
+    <span class="doccomment">/// exceeded. See [`set_wrap()`](Self::set_wrap()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if the spin button wraps around</span>
+    <span class="doccomment">/// [`true`] if the spin button wraps around</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_spin_button_get_wrap&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">wraps</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
-    <span class="doccomment">/// Replaces the `Adjustment` associated with `self`.</span>
+    <span class="doccomment">/// Replaces the [`Adjustment`](crate::Adjustment) associated with `self`.</span>
     <span class="doccomment">/// ## `adjustment`</span>
-    <span class="doccomment">/// a `Adjustment` to replace the existing adjustment</span>
+    <span class="doccomment">/// a [`Adjustment`](crate::Adjustment) to replace the existing adjustment</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_spin_button_set_adjustment&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_adjustment</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Adjustment</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">adjustment</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>);
 
@@ -2773,7 +2773,7 @@
     <span class="doccomment">/// This determines whether the spin button is always updated</span>
     <span class="doccomment">/// or only when a valid value is set.</span>
     <span class="doccomment">/// ## `policy`</span>
-    <span class="doccomment">/// a `SpinButtonUpdatePolicy` value</span>
+    <span class="doccomment">/// a [`SpinButtonUpdatePolicy`](crate::SpinButtonUpdatePolicy) value</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_spin_button_set_update_policy&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_update_policy</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">policy</span>: <span class="ident">SpinButtonUpdatePolicy</span>);
 
@@ -2794,7 +2794,7 @@
     <span class="doccomment">/// Increment or decrement a spin button’s value in a specified</span>
     <span class="doccomment">/// direction by a specified amount.</span>
     <span class="doccomment">/// ## `direction`</span>
-    <span class="doccomment">/// a `SpinType` indicating the direction to spin</span>
+    <span class="doccomment">/// a [`SpinType`](crate::SpinType) indicating the direction to spin</span>
     <span class="doccomment">/// ## `increment`</span>
     <span class="doccomment">/// step increment to apply in the specified direction</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_spin_button_spin&quot;</span>)]</span>

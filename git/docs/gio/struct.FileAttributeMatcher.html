@@ -5,7 +5,7 @@
 </div><h2 id="implementations" class="small-section-header">Implementations<a href="#implementations" class="anchor"></a></h2><details class="rustdoc-toggle implementors-toggle"><summary><h3 id="impl" class="impl"><code class="in-band">impl <a class="struct" href="struct.FileAttributeMatcher.html" title="struct gio::FileAttributeMatcher">FileAttributeMatcher</a></code><a href="#impl" class="anchor"></a><a class="srclink" href="../src/gio/auto/file_attribute_matcher.rs.html#20-151" title="goto source code">[src]</a></h3></summary><div class="impl-items"><h4 id="method.new" class="method"><code>pub fn <a href="#method.new" class="fnname">new</a>(attributes: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="struct" href="struct.FileAttributeMatcher.html" title="struct gio::FileAttributeMatcher">FileAttributeMatcher</a></code><a href="#method.new" class="anchor"></a><a class="srclink" href="../src/gio/auto/file_attribute_matcher.rs.html#47-53" title="goto source code">[src]</a></h4><div class="docblock"><p>Creates a new file attribute matcher, which matches attributes
 against a given string. <code>GFileAttributeMatchers</code> are reference
 counted structures, and are created with a reference count of 1. If
-the number of references falls to 0, the <code>FileAttributeMatcher</code> is
+the number of references falls to 0, the <a href="struct.FileAttributeMatcher.html"><code>FileAttributeMatcher</code></a> is
 automatically destroyed.</p>
 <p>The <code>attributes</code> string should be formatted with specific keys separated
 from namespaces with a double colon. Several “namespace::key” strings may be
@@ -23,30 +23,30 @@ namespace and all keys in the unix namespace.</li>
 <h2 id="attributes" class="section-header"><a href="#attributes"><code>attributes</code></a></h2>
 <p>an attribute string to match.</p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
-<p>a <code>FileAttributeMatcher</code></p>
+<p>a <a href="struct.FileAttributeMatcher.html"><code>FileAttributeMatcher</code></a></p>
 </div><h4 id="method.enumerate_namespace" class="method"><code>pub fn <a href="#method.enumerate_namespace" class="fnname">enumerate_namespace</a>(&amp;self, ns: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a href="#method.enumerate_namespace" class="anchor"></a><a class="srclink" href="../src/gio/auto/file_attribute_matcher.rs.html#69-76" title="goto source code">[src]</a></h4><div class="docblock"><p>Checks if the matcher will match all of the keys in a given namespace.
-This will always return <code>true</code> if a wildcard character is in use (e.g. if
+This will always return <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if a wildcard character is in use (e.g. if
 matcher was created with “standard::<em>” and <code>ns</code> is “standard”, or if matcher was created
 using “</em>” and namespace is anything.)</p>
 <p>TODO: this is awkwardly worded.</p>
 <h2 id="ns" class="section-header"><a href="#ns"><code>ns</code></a></h2>
 <p>a string containing a file attribute namespace.</p>
 <h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
-<p><code>true</code> if the matcher matches all of the entries
-in the given <code>ns</code>, <code>false</code> otherwise.</p>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the matcher matches all of the entries
+in the given <code>ns</code>, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> otherwise.</p>
 </div><h4 id="method.matches" class="method"><code>pub fn <a href="#method.matches" class="fnname">matches</a>(&amp;self, attribute: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a href="#method.matches" class="anchor"></a><a class="srclink" href="../src/gio/auto/file_attribute_matcher.rs.html#88-95" title="goto source code">[src]</a></h4><div class="docblock"><p>Checks if an attribute will be matched by an attribute matcher. If
 the matcher was created with the “*” matching string, this function
-will always return <code>true</code>.</p>
+will always return <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a>.</p>
 <h2 id="attribute" class="section-header"><a href="#attribute"><code>attribute</code></a></h2>
 <p>a file attribute key.</p>
 <h1 id="returns-2" class="section-header"><a href="#returns-2">Returns</a></h1>
-<p><code>true</code> if <code>attribute</code> matches <code>self</code>. <code>false</code> otherwise.</p>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if <code>attribute</code> matches <code>self</code>. <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> otherwise.</p>
 </div><h4 id="method.matches_only" class="method"><code>pub fn <a href="#method.matches_only" class="fnname">matches_only</a>(&amp;self, attribute: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a href="#method.matches_only" class="anchor"></a><a class="srclink" href="../src/gio/auto/file_attribute_matcher.rs.html#106-113" title="goto source code">[src]</a></h4><div class="docblock"><p>Checks if a attribute matcher only matches a given attribute. Always
-returns <code>false</code> if “*” was used when creating the matcher.</p>
+returns <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> if “*” was used when creating the matcher.</p>
 <h2 id="attribute-1" class="section-header"><a href="#attribute-1"><code>attribute</code></a></h2>
 <p>a file attribute key.</p>
 <h1 id="returns-3" class="section-header"><a href="#returns-3">Returns</a></h1>
-<p><code>true</code> if the matcher only matches <code>attribute</code>. <code>false</code> otherwise.</p>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the matcher only matches <code>attribute</code>. <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> otherwise.</p>
 </div><h4 id="method.subtract" class="method"><code>pub fn <a href="#method.subtract" class="fnname">subtract</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;subtract: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="struct" href="struct.FileAttributeMatcher.html" title="struct gio::FileAttributeMatcher">FileAttributeMatcher</a>&gt;<br>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="struct.FileAttributeMatcher.html" title="struct gio::FileAttributeMatcher">FileAttributeMatcher</a>&gt;</code><a href="#method.subtract" class="anchor"></a><a class="srclink" href="../src/gio/auto/file_attribute_matcher.rs.html#131-141" title="goto source code">[src]</a></h4><div class="docblock"><p>Subtracts all attributes of <code>subtract</code> from <code>self</code> and returns
 a matcher that supports those attributes.</p>
 <p>Note that currently it is not possible to remove a single

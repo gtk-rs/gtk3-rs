@@ -133,16 +133,14 @@
 <span id="130">130</span>
 <span id="131">131</span>
 <span id="132">132</span>
-<span id="133">133</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Builder</span>;
-<span class="kw">use</span> <span class="ident">glib::object</span>::{<span class="ident">Cast</span>, <span class="ident">IsA</span>};
+<span class="kw">use</span> <span class="ident">glib::prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">glib::GString</span>;
 <span class="kw">use</span> <span class="ident">glib::Object</span>;
-<span class="kw">use</span> <span class="ident">glib::ObjectExt</span>;
 <span class="kw">use</span> <span class="ident">std::path::Path</span>;
 
 <span class="kw">impl</span> <span class="ident">Builder</span> {
@@ -164,18 +162,18 @@
     <span class="doccomment">/// Parses a file containing a [`Builder` UI definition][BUILDER-UI]</span>
     <span class="doccomment">/// and merges it with the current contents of `self`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Most users will probably want to use `Builder::new_from_file`.</span>
+    <span class="doccomment">/// Most users will probably want to use [`Builder::new_from_file()`](crate::Builder::new_from_file()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If an error occurs, 0 will be returned and `error` will be assigned a</span>
-    <span class="doccomment">/// `glib::Error` from the `GTK_BUILDER_ERROR`, `G_MARKUP_ERROR` or `G_FILE_ERROR`</span>
+    <span class="doccomment">/// [`glib::Error`](crate::glib::Error) from the `GTK_BUILDER_ERROR`, `G_MARKUP_ERROR` or `G_FILE_ERROR`</span>
     <span class="doccomment">/// domain.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// It’s not really reasonable to attempt to handle failures of this</span>
     <span class="doccomment">/// call. You should not use this function with untrusted files (ie:</span>
-    <span class="doccomment">/// files that are not part of your application). Broken `Builder`</span>
+    <span class="doccomment">/// files that are not part of your application). Broken [`Builder`](crate::Builder)</span>
     <span class="doccomment">/// files can easily crash your program, and it’s possible that memory</span>
     <span class="doccomment">/// was leaked leading up to the reported failure. The only reasonable</span>
-    <span class="doccomment">/// thing to do when an error is detected is to call `g_error`.</span>
+    <span class="doccomment">/// thing to do when an error is detected is to call `g_error()`.</span>
     <span class="doccomment">/// ## `filename`</span>
     <span class="doccomment">/// the name of the file to parse</span>
     <span class="doccomment">///</span>

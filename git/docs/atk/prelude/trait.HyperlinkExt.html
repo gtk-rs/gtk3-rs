@@ -24,14 +24,14 @@
 <h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
 <p>the number of anchors associated with this hyperlink</p>
 </div><h3 id="tymethod.object" class="method"><code>fn <a href="#tymethod.object" class="fnname">object</a>(&amp;self, i: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.Object.html" title="struct atk::Object">Object</a>&gt;</code><a class="srclink" href="../../src/atk/auto/hyperlink.rs.html#74" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns the item associated with this hyperlinks nth anchor.
-For instance, the returned <code>Object</code> will implement <code>Text</code>
-if <code>self</code> is a text hyperlink, <code>Image</code> if <code>self</code> is an image
+For instance, the returned <a href="../struct.Object.html"><code>Object</code></a> will implement <a href="../struct.Text.html"><code>Text</code></a>
+if <code>self</code> is a text hyperlink, <a href="../struct.Image.html"><code>Image</code></a> if <code>self</code> is an image
 hyperlink etc.</p>
 <p>Multiple anchors are primarily used by client-side image maps.</p>
 <h2 id="i" class="section-header"><a href="#i"><code>i</code></a></h2>
 <p>a (zero-index) integer specifying the desired anchor</p>
 <h1 id="returns-2" class="section-header"><a href="#returns-2">Returns</a></h1>
-<p>an <code>Object</code> associated with this hyperlinks
+<p>an <a href="../struct.Object.html"><code>Object</code></a> associated with this hyperlinks
 i-th anchor</p>
 </div><h3 id="tymethod.start_index" class="method"><code>fn <a href="#tymethod.start_index" class="fnname">start_index</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code><a class="srclink" href="../../src/atk/auto/hyperlink.rs.html#82" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the index with the hypertext document at which this link begins.</p>
 <h1 id="returns-3" class="section-header"><a href="#returns-3">Returns</a></h1>
@@ -45,13 +45,13 @@ by <code>i</code> of <code>self</code>.</p>
 <p>a string specifying the URI</p>
 </div><h3 id="tymethod.is_inline" class="method"><code>fn <a href="#tymethod.is_inline" class="fnname">is_inline</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/atk/auto/hyperlink.rs.html#106" title="goto source code">[src]</a></h3><div class="docblock"><p>Indicates whether the link currently displays some or all of its
 content inline. Ordinary HTML links will usually return
-<code>false</code>, but an inline &lt;src&gt; HTML element will return
-<code>true</code>.</p>
+<a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a>, but an inline &lt;src&gt; HTML element will return
+<a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a>.</p>
 <h1 id="returns-5" class="section-header"><a href="#returns-5">Returns</a></h1>
 <p>whether or not this link displays its content inline.</p>
 </div><h3 id="tymethod.is_valid" class="method"><code>fn <a href="#tymethod.is_valid" class="fnname">is_valid</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/atk/auto/hyperlink.rs.html#116" title="goto source code">[src]</a></h3><div class="docblock"><p>Since the document that a link is associated with may have changed
-this method returns <code>true</code> if the link is still valid (with
-respect to the document it references) and <code>false</code> otherwise.</p>
+this method returns <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the link is still valid (with
+respect to the document it references) and <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> otherwise.</p>
 <h1 id="returns-6" class="section-header"><a href="#returns-6">Returns</a></h1>
 <p>whether or not this link is still valid</p>
 </div><h3 id="tymethod.number_of_anchors" class="method"><code>fn <a href="#tymethod.number_of_anchors" class="fnname">number_of_anchors</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code><a class="srclink" href="../../src/atk/auto/hyperlink.rs.html#119" title="goto source code">[src]</a></h3><h3 id="tymethod.connect_link_activated" class="method"><code>fn <a href="#tymethod.connect_link_activated" class="fnname">connect_link_activated</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../../src/atk/auto/hyperlink.rs.html#122" title="goto source code">[src]</a></h3><div class="docblock"><p>The signal link-activated is emitted when a link is activated.</p>

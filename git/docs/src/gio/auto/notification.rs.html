@@ -233,18 +233,18 @@
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// `Notification` is a mechanism for creating a notification to be shown</span>
+    <span class="doccomment">/// [`Notification`](crate::Notification) is a mechanism for creating a notification to be shown</span>
     <span class="doccomment">/// to the user -- typically as a pop-up notification presented by the</span>
     <span class="doccomment">/// desktop environment shell.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The key difference between `Notification` and other similar APIs is</span>
+    <span class="doccomment">/// The key difference between [`Notification`](crate::Notification) and other similar APIs is</span>
     <span class="doccomment">/// that, if supported by the desktop environment, notifications sent</span>
-    <span class="doccomment">/// with `Notification` will persist after the application has exited,</span>
+    <span class="doccomment">/// with [`Notification`](crate::Notification) will persist after the application has exited,</span>
     <span class="doccomment">/// and even across system reboots.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Since the user may click on a notification while the application is</span>
-    <span class="doccomment">/// not running, applications using `Notification` should be able to be</span>
-    <span class="doccomment">/// started as a D-Bus service, using `Application`.</span>
+    <span class="doccomment">/// not running, applications using [`Notification`](crate::Notification) should be able to be</span>
+    <span class="doccomment">/// started as a D-Bus service, using [`Application`](crate::Application).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// User interaction with a notification (either the default action, or</span>
     <span class="doccomment">/// buttons) must be associated with actions on the application (ie:</span>
@@ -253,7 +253,7 @@
     <span class="doccomment">/// the application is autostarted as a result of a notification being</span>
     <span class="doccomment">/// clicked.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A notification can be sent with `ApplicationExt::send_notification`.</span>
+    <span class="doccomment">/// A notification can be sent with [`ApplicationExt::send_notification()`](crate::ApplicationExt::send_notification()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
@@ -266,10 +266,10 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Notification</span> {
-    <span class="doccomment">/// Creates a new `Notification` with `title` as its title.</span>
+    <span class="doccomment">/// Creates a new [`Notification`](crate::Notification) with `title` as its title.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// After populating `notification` with more details, it can be sent to</span>
-    <span class="doccomment">/// the desktop shell with `ApplicationExt::send_notification`. Changing</span>
+    <span class="doccomment">/// the desktop shell with [`ApplicationExt::send_notification()`](crate::ApplicationExt::send_notification()). Changing</span>
     <span class="doccomment">/// any properties after this call will not have any effect until</span>
     <span class="doccomment">/// resending `notification`.</span>
     <span class="doccomment">/// ## `title`</span>
@@ -277,7 +277,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new `Notification` instance</span>
+    <span class="doccomment">/// a new [`Notification`](crate::Notification) instance</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_notification_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">title</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Notification</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_notification_new</span>(<span class="ident">title</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
@@ -289,7 +289,7 @@
     <span class="doccomment">/// contains a target, the action will be activated with that target as</span>
     <span class="doccomment">/// its parameter.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See `Action::parse_detailed_name` for a description of the format</span>
+    <span class="doccomment">/// See [`Action::parse_detailed_name()`](crate::Action::parse_detailed_name()) for a description of the format</span>
     <span class="doccomment">/// for `detailed_action`.</span>
     <span class="doccomment">/// ## `label`</span>
     <span class="doccomment">/// label of the button</span>
@@ -314,14 +314,14 @@
     <span class="doccomment">/// Adds a button to `self` that activates `action` when clicked.</span>
     <span class="doccomment">/// `action` must be an application-wide action (it must start with &quot;app.&quot;).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If `target` is non-`None`, `action` will be activated with `target` as</span>
+    <span class="doccomment">/// If `target` is non-[`None`], `action` will be activated with `target` as</span>
     <span class="doccomment">/// its parameter.</span>
     <span class="doccomment">/// ## `label`</span>
     <span class="doccomment">/// label of the button</span>
     <span class="doccomment">/// ## `action`</span>
     <span class="doccomment">/// an action name</span>
     <span class="doccomment">/// ## `target`</span>
-    <span class="doccomment">/// a `glib::Variant` to use as `action`&#39;s parameter, or `None`</span>
+    <span class="doccomment">/// a [`glib::Variant`](crate::glib::Variant) to use as `action`&#39;s parameter, or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_notification_add_button_with_target_value&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_button_with_target_value</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -341,7 +341,7 @@
 
     <span class="doccomment">/// Sets the body of `self` to `body`.</span>
     <span class="doccomment">/// ## `body`</span>
-    <span class="doccomment">/// the new body for `self`, or `None`</span>
+    <span class="doccomment">/// the new body for `self`, or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_notification_set_body&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_body</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">body</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>) {
         <span class="kw">unsafe</span> {
@@ -355,7 +355,7 @@
     <span class="doccomment">/// The action in `detailed_action` must be an application-wide action (it</span>
     <span class="doccomment">/// must start with &quot;app.&quot;). If `detailed_action` contains a target, the</span>
     <span class="doccomment">/// given action will be activated with that target as its parameter.</span>
-    <span class="doccomment">/// See `Action::parse_detailed_name` for a description of the format</span>
+    <span class="doccomment">/// See [`Action::parse_detailed_name()`](crate::Action::parse_detailed_name()) for a description of the format</span>
     <span class="doccomment">/// for `detailed_action`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// When no default action is set, the application that the notification</span>
@@ -381,7 +381,7 @@
     <span class="doccomment">/// activated when the notification is clicked on. It must be an</span>
     <span class="doccomment">/// application-wide action (start with &quot;app.&quot;).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If `target` is non-`None`, `action` will be activated with `target` as</span>
+    <span class="doccomment">/// If `target` is non-[`None`], `action` will be activated with `target` as</span>
     <span class="doccomment">/// its parameter.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// When no default action is set, the application that the notification</span>
@@ -389,7 +389,7 @@
     <span class="doccomment">/// ## `action`</span>
     <span class="doccomment">/// an action name</span>
     <span class="doccomment">/// ## `target`</span>
-    <span class="doccomment">/// a `glib::Variant` to use as `action`&#39;s parameter, or `None`</span>
+    <span class="doccomment">/// a [`glib::Variant`](crate::glib::Variant) to use as `action`&#39;s parameter, or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_notification_set_default_action_and_target_value&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_default_action_and_target_value</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -407,7 +407,7 @@
 
     <span class="doccomment">/// Sets the icon of `self` to `icon`.</span>
     <span class="doccomment">/// ## `icon`</span>
-    <span class="doccomment">/// the icon to be shown in `self`, as a `Icon`</span>
+    <span class="doccomment">/// the icon to be shown in `self`, as a [`Icon`](crate::Icon)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_notification_set_icon&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_icon</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Icon</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">icon</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) {
         <span class="kw">unsafe</span> {
@@ -416,9 +416,9 @@
     }
 
     <span class="doccomment">/// Sets the priority of `self` to `priority`. See</span>
-    <span class="doccomment">/// `NotificationPriority` for possible values.</span>
+    <span class="doccomment">/// [`NotificationPriority`](crate::NotificationPriority) for possible values.</span>
     <span class="doccomment">/// ## `priority`</span>
-    <span class="doccomment">/// a `NotificationPriority`</span>
+    <span class="doccomment">/// a [`NotificationPriority`](crate::NotificationPriority)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_notification_set_priority&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_priority</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">priority</span>: <span class="ident">NotificationPriority</span>) {
         <span class="kw">unsafe</span> {

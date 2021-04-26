@@ -305,13 +305,13 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// `Window` should be implemented by the UI elements that represent</span>
+    <span class="doccomment">/// [`Window`](crate::Window) should be implemented by the UI elements that represent</span>
     <span class="doccomment">/// a top-level window, such as the main window of an application or</span>
     <span class="doccomment">/// dialog.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`AtkWindowExt`](trait@crate::AtkWindowExt), [`AtkObjectExt`](trait@crate::AtkObjectExt), [`trait@glib::object::ObjectExt`]</span>
+    <span class="doccomment">/// [`AtkWindowExt`](trait@crate::prelude::AtkWindowExt), [`AtkObjectExt`](trait@crate::prelude::AtkObjectExt), [`trait@glib::object::ObjectExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Window</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi::AtkWindow</span>, <span class="ident">ffi::AtkWindowIface</span><span class="op">&gt;</span>) @<span class="ident">requires</span> <span class="ident">Object</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -327,39 +327,39 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// [`NoOpObject`](struct@crate::NoOpObject), [`Window`](struct@crate::Window)</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">AtkWindowExt</span>: <span class="lifetime">&#39;static</span> {
-    <span class="doccomment">/// The signal `Window::activate` is emitted when a window</span>
+    <span class="doccomment">/// The signal [`Window::activate`](crate::Window::activate) is emitted when a window</span>
     <span class="doccomment">/// becomes the active window of the application or session.</span>
     <span class="kw">fn</span> <span class="ident">connect_activate</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;
 
-    <span class="doccomment">/// The signal `Window::create` is emitted when a new window</span>
+    <span class="doccomment">/// The signal [`Window::create`](crate::Window::create) is emitted when a new window</span>
     <span class="doccomment">/// is created.</span>
     <span class="kw">fn</span> <span class="ident">connect_create</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;
 
-    <span class="doccomment">/// The signal `Window::deactivate` is emitted when a window is</span>
+    <span class="doccomment">/// The signal [`Window::deactivate`](crate::Window::deactivate) is emitted when a window is</span>
     <span class="doccomment">/// no longer the active window of the application or session.</span>
     <span class="kw">fn</span> <span class="ident">connect_deactivate</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;
 
-    <span class="doccomment">/// The signal `Window::destroy` is emitted when a window is</span>
+    <span class="doccomment">/// The signal [`Window::destroy`](crate::Window::destroy) is emitted when a window is</span>
     <span class="doccomment">/// destroyed.</span>
     <span class="kw">fn</span> <span class="ident">connect_destroy</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;
 
-    <span class="doccomment">/// The signal `Window::maximize` is emitted when a window</span>
+    <span class="doccomment">/// The signal [`Window::maximize`](crate::Window::maximize) is emitted when a window</span>
     <span class="doccomment">/// is maximized.</span>
     <span class="kw">fn</span> <span class="ident">connect_maximize</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;
 
-    <span class="doccomment">/// The signal `Window::minimize` is emitted when a window</span>
+    <span class="doccomment">/// The signal [`Window::minimize`](crate::Window::minimize) is emitted when a window</span>
     <span class="doccomment">/// is minimized.</span>
     <span class="kw">fn</span> <span class="ident">connect_minimize</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;
 
-    <span class="doccomment">/// The signal `Window::move` is emitted when a window</span>
+    <span class="doccomment">/// The signal [`Window::move`](crate::Window::move) is emitted when a window</span>
     <span class="doccomment">/// is moved.</span>
     <span class="kw">fn</span> <span class="ident">connect_move</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;
 
-    <span class="doccomment">/// The signal `Window::resize` is emitted when a window</span>
+    <span class="doccomment">/// The signal [`Window::resize`](crate::Window::resize) is emitted when a window</span>
     <span class="doccomment">/// is resized.</span>
     <span class="kw">fn</span> <span class="ident">connect_resize</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;
 
-    <span class="doccomment">/// The signal `Window::restore` is emitted when a window</span>
+    <span class="doccomment">/// The signal [`Window::restore`](crate::Window::restore) is emitted when a window</span>
     <span class="doccomment">/// is restored.</span>
     <span class="kw">fn</span> <span class="ident">connect_restore</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;
 }

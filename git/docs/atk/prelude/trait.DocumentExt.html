@@ -20,7 +20,7 @@
 whose value is being queried.</p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
 <p>a string value associated with the named
-attribute for this document, or <code>None</code> if a value for
+attribute for this document, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> if a value for
 <code>attribute_name</code> has not been specified for this document.</p>
 </div><h3 id="tymethod.current_page_number" class="method"><code>fn <a href="#tymethod.current_page_number" class="fnname">current_page_number</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code><a class="srclink" href="../../src/atk/auto/document.rs.html#64" title="goto source code">[src]</a></h3><div class="docblock"><p>Retrieves the current page number inside <code>self</code>.</p>
 <h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
@@ -28,7 +28,7 @@ attribute for this document, or <code>None</code> if a value for
 not implemented, not know by the implementor, or irrelevant.</p>
 </div><h3 id="tymethod.document_type" class="method"><code>fn <a href="#tymethod.document_type" class="fnname">document_type</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</code><a class="srclink" href="../../src/atk/auto/document.rs.html#80" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets a string indicating the document type.</p>
 <h1 id="deprecated" class="section-header"><a href="#deprecated">Deprecated</a></h1>
-<p>Since 2.12. Please use <code>Document::get_attributes</code> to
+<p>Since 2.12. Please use <a href="crate::Document::get_attributes()"><code>Document::get_attributes()</code></a> to
 ask for the document type if it applies.</p>
 <h1 id="returns-2" class="section-header"><a href="#returns-2">Returns</a></h1>
 <p>a string indicating the document type</p>
@@ -43,8 +43,8 @@ whose value is being set.</p>
 <h2 id="attribute_value" class="section-header"><a href="#attribute_value"><code>attribute_value</code></a></h2>
 <p>a string value to be associated with <code>attribute_name</code>.</p>
 <h1 id="returns-4" class="section-header"><a href="#returns-4">Returns</a></h1>
-<p><code>true</code> if <code>attribute_value</code> is successfully associated
-with <code>attribute_name</code> for this <code>self</code>, and <code>false</code> if if the
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if <code>attribute_value</code> is successfully associated
+with <code>attribute_name</code> for this <code>self</code>, and <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> if if the
 document does not allow the attribute to be modified</p>
 </div><h3 id="tymethod.connect_load_complete" class="method"><code>fn <a href="#tymethod.connect_load_complete" class="fnname">connect_load_complete</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(&amp;self, f: F) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../../src/atk/auto/document.rs.html#115" title="goto source code">[src]</a></h3><div class="docblock"><p>The ‘load-complete’ signal is emitted when a pending load of
 a static document has completed. This signal is to be

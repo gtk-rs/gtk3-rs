@@ -1126,25 +1126,25 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// `HeaderBar` is similar to a horizontal `Box`. It allows children to</span>
+    <span class="doccomment">/// `HeaderBar` is similar to a horizontal [`Box`](crate::Box). It allows children to</span>
     <span class="doccomment">/// be placed at the start or the end. In addition, it allows a title and</span>
     <span class="doccomment">/// subtitle to be displayed. The title will be centered with respect to</span>
     <span class="doccomment">/// the width of the box, even if the children at either side take up</span>
     <span class="doccomment">/// different amounts of space. The height of the titlebar will be</span>
     <span class="doccomment">/// set to provide sufficient space for the subtitle, even if none is</span>
     <span class="doccomment">/// currently set. If a subtitle is not needed, the space reservation</span>
-    <span class="doccomment">/// can be turned off with `HeaderBarExt::set_has_subtitle`.</span>
+    <span class="doccomment">/// can be turned off with [`HeaderBarExt::set_has_subtitle()`](crate::HeaderBarExt::set_has_subtitle()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// `HeaderBar` can add typical window frame controls, such as minimize,</span>
     <span class="doccomment">/// maximize and close buttons, or the window icon.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// For these reasons, `HeaderBar` is the natural choice for use as the custom</span>
-    <span class="doccomment">/// titlebar widget of a `Window` (see `GtkWindowExt::set_titlebar`), as it gives</span>
+    <span class="doccomment">/// titlebar widget of a [`Window`](crate::Window) (see [``GtkWindowExt`::set_titlebar()`](crate::`GtkWindowExt`::set_titlebar())), as it gives</span>
     <span class="doccomment">/// features typical of titlebars while allowing the addition of child widgets.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`HeaderBarExt`](trait@crate::HeaderBarExt), [`ContainerExt`](trait@crate::ContainerExt), [`WidgetExt`](trait@crate::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::BuildableExt), [`WidgetExtManual`](trait@crate::WidgetExtManual), [`BuildableExtManual`](trait@crate::BuildableExtManual)</span>
+    <span class="doccomment">/// [`HeaderBarExt`](trait@crate::prelude::HeaderBarExt), [`ContainerExt`](trait@crate::prelude::ContainerExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">HeaderBar</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkHeaderBar</span>, <span class="ident">ffi::GtkHeaderBarClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -1153,11 +1153,11 @@
 }
 
 <span class="kw">impl</span> <span class="ident">HeaderBar</span> {
-    <span class="doccomment">/// Creates a new `HeaderBar` widget.</span>
+    <span class="doccomment">/// Creates a new [`HeaderBar`](crate::HeaderBar) widget.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new `HeaderBar`</span>
+    <span class="doccomment">/// a new [`HeaderBar`](crate::HeaderBar)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_header_bar_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">HeaderBar</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -1588,17 +1588,17 @@
 <span class="doccomment">/// [`HeaderBar`](struct@crate::HeaderBar)</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">HeaderBarExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Retrieves the custom title widget of the header. See</span>
-    <span class="doccomment">/// `HeaderBarExt::set_custom_title`.</span>
+    <span class="doccomment">/// [`set_custom_title()`](Self::set_custom_title()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// the custom title widget</span>
-    <span class="doccomment">///  of the header, or `None` if none has been set explicitly.</span>
+    <span class="doccomment">///  of the header, or [`None`] if none has been set explicitly.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_header_bar_get_custom_title&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">custom_title</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Gets the decoration layout set with</span>
-    <span class="doccomment">/// `HeaderBarExt::set_decoration_layout`.</span>
+    <span class="doccomment">/// [`set_decoration_layout()`](Self::set_decoration_layout()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1611,7 +1611,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if the header bar reserves space</span>
+    <span class="doccomment">/// [`true`] if the header bar reserves space</span>
     <span class="doccomment">///  for a subtitle</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_header_bar_get_has_subtitle&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">has_subtitle</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
@@ -1621,25 +1621,25 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if the decorations are shown</span>
+    <span class="doccomment">/// [`true`] if the decorations are shown</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_header_bar_get_show_close_button&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">shows_close_button</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
-    <span class="doccomment">/// Retrieves the subtitle of the header. See `HeaderBarExt::set_subtitle`.</span>
+    <span class="doccomment">/// Retrieves the subtitle of the header. See [`set_subtitle()`](Self::set_subtitle()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the subtitle of the header, or `None` if none has</span>
+    <span class="doccomment">/// the subtitle of the header, or [`None`] if none has</span>
     <span class="doccomment">///  been set explicitly. The returned string is owned by the widget</span>
     <span class="doccomment">///  and must not be modified or freed.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_header_bar_get_subtitle&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">subtitle</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// Retrieves the title of the header. See `HeaderBarExt::set_title`.</span>
+    <span class="doccomment">/// Retrieves the title of the header. See [`set_title()`](Self::set_title()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the title of the header, or `None` if none has</span>
+    <span class="doccomment">/// the title of the header, or [`None`] if none has</span>
     <span class="doccomment">///  been set explicitly. The returned string is owned by the widget</span>
     <span class="doccomment">///  and must not be modified or freed.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_header_bar_get_title&quot;</span>)]</span>
@@ -1648,26 +1648,26 @@
     <span class="doccomment">/// Adds `child` to `self`, packed with reference to the</span>
     <span class="doccomment">/// end of the `self`.</span>
     <span class="doccomment">/// ## `child`</span>
-    <span class="doccomment">/// the `Widget` to be added to `self`</span>
+    <span class="doccomment">/// the [`Widget`](crate::Widget) to be added to `self`</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_header_bar_pack_end&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">pack_end</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">child</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>);
 
     <span class="doccomment">/// Adds `child` to `self`, packed with reference to the</span>
     <span class="doccomment">/// start of the `self`.</span>
     <span class="doccomment">/// ## `child`</span>
-    <span class="doccomment">/// the `Widget` to be added to `self`</span>
+    <span class="doccomment">/// the [`Widget`](crate::Widget) to be added to `self`</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_header_bar_pack_start&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">pack_start</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">child</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>);
 
-    <span class="doccomment">/// Sets a custom title for the `HeaderBar`.</span>
+    <span class="doccomment">/// Sets a custom title for the [`HeaderBar`](crate::HeaderBar).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The title should help a user identify the current view. This</span>
-    <span class="doccomment">/// supersedes any title set by `HeaderBarExt::set_title` or</span>
-    <span class="doccomment">/// `HeaderBarExt::set_subtitle`. To achieve the same style as</span>
+    <span class="doccomment">/// supersedes any title set by [`set_title()`](Self::set_title()) or</span>
+    <span class="doccomment">/// [`set_subtitle()`](Self::set_subtitle()). To achieve the same style as</span>
     <span class="doccomment">/// the builtin title and subtitle, use the “title” and “subtitle”</span>
     <span class="doccomment">/// style classes.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// You should set the custom title to `None`, for the header title</span>
+    <span class="doccomment">/// You should set the custom title to [`None`], for the header title</span>
     <span class="doccomment">/// label to be visible again.</span>
     <span class="doccomment">/// ## `title_widget`</span>
     <span class="doccomment">/// a custom widget to use for a title</span>
@@ -1675,7 +1675,7 @@
     <span class="kw">fn</span> <span class="ident">set_custom_title</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">title_widget</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>);
 
     <span class="doccomment">/// Sets the decoration layout for this header bar, overriding</span>
-    <span class="doccomment">/// the `Settings:gtk-decoration-layout` setting.</span>
+    <span class="doccomment">/// the [`Settings:gtk-decoration-layout`](crate::Settings:gtk-decoration-layout) setting.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// There can be valid reasons for overriding the setting, such</span>
     <span class="doccomment">/// as a header bar design that does not allow for buttons to take</span>
@@ -1692,7 +1692,7 @@
     <span class="doccomment">/// For example, “menu:minimize,maximize,close” specifies a menu</span>
     <span class="doccomment">/// on the left, and minimize, maximize and close buttons on the right.</span>
     <span class="doccomment">/// ## `layout`</span>
-    <span class="doccomment">/// a decoration layout, or `None` to</span>
+    <span class="doccomment">/// a decoration layout, or [`None`] to</span>
     <span class="doccomment">///  unset the layout</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_header_bar_set_decoration_layout&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_decoration_layout</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">layout</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>);
@@ -1700,33 +1700,33 @@
     <span class="doccomment">/// Sets whether the header bar should reserve space</span>
     <span class="doccomment">/// for a subtitle, even if none is currently set.</span>
     <span class="doccomment">/// ## `setting`</span>
-    <span class="doccomment">/// `true` to reserve space for a subtitle</span>
+    <span class="doccomment">/// [`true`] to reserve space for a subtitle</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_header_bar_set_has_subtitle&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_has_subtitle</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">setting</span>: <span class="ident">bool</span>);
 
     <span class="doccomment">/// Sets whether this header bar shows the standard window decorations,</span>
     <span class="doccomment">/// including close, maximize, and minimize.</span>
     <span class="doccomment">/// ## `setting`</span>
-    <span class="doccomment">/// `true` to show standard window decorations</span>
+    <span class="doccomment">/// [`true`] to show standard window decorations</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_header_bar_set_show_close_button&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_show_close_button</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">setting</span>: <span class="ident">bool</span>);
 
-    <span class="doccomment">/// Sets the subtitle of the `HeaderBar`. The title should give a user</span>
+    <span class="doccomment">/// Sets the subtitle of the [`HeaderBar`](crate::HeaderBar). The title should give a user</span>
     <span class="doccomment">/// an additional detail to help him identify the current view.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that `HeaderBar` by default reserves room for the subtitle,</span>
     <span class="doccomment">/// even if none is currently set. If this is not desired, set the</span>
-    <span class="doccomment">/// `HeaderBar:has-subtitle` property to `false`.</span>
+    <span class="doccomment">/// [`HeaderBar:has-subtitle`](crate::HeaderBar:has-subtitle) property to [`false`].</span>
     <span class="doccomment">/// ## `subtitle`</span>
-    <span class="doccomment">/// a subtitle, or `None`</span>
+    <span class="doccomment">/// a subtitle, or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_header_bar_set_subtitle&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_subtitle</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">subtitle</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>);
 
-    <span class="doccomment">/// Sets the title of the `HeaderBar`. The title should help a user</span>
+    <span class="doccomment">/// Sets the title of the [`HeaderBar`](crate::HeaderBar). The title should help a user</span>
     <span class="doccomment">/// identify the current view. A good title should not include the</span>
     <span class="doccomment">/// application name.</span>
     <span class="doccomment">/// ## `title`</span>
-    <span class="doccomment">/// a title, or `None`</span>
+    <span class="doccomment">/// a title, or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_header_bar_set_title&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_title</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">title</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>);
 

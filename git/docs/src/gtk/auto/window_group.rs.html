@@ -169,7 +169,7 @@
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// A `WindowGroup` restricts the effect of grabs to windows</span>
+    <span class="doccomment">/// A [`WindowGroup`](crate::WindowGroup) restricts the effect of grabs to windows</span>
     <span class="doccomment">/// in the same group, thereby making window groups almost behave</span>
     <span class="doccomment">/// like separate applications.</span>
     <span class="doccomment">///</span>
@@ -179,7 +179,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// `WindowGroup` objects are referenced by each window in the group,</span>
     <span class="doccomment">/// so once you have added all windows to a `WindowGroup`, you can drop</span>
-    <span class="doccomment">/// the initial reference to the window group with `glib::object::ObjectExt::unref`. If the</span>
+    <span class="doccomment">/// the initial reference to the window group with [`glib::object::ObjectExt::unref()`](crate::glib::object::ObjectExt::unref()). If the</span>
     <span class="doccomment">/// windows in the window group are subsequently destroyed, then they will</span>
     <span class="doccomment">/// be removed from the window group and drop their references on the window</span>
     <span class="doccomment">/// group; when all window have been removed, the window group will be</span>
@@ -187,7 +187,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`WindowGroupExt`](trait@crate::WindowGroupExt), [`trait@glib::object::ObjectExt`]</span>
+    <span class="doccomment">/// [`WindowGroupExt`](trait@crate::prelude::WindowGroupExt), [`trait@glib::object::ObjectExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">WindowGroup</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkWindowGroup</span>, <span class="ident">ffi::GtkWindowGroupClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -196,12 +196,12 @@
 }
 
 <span class="kw">impl</span> <span class="ident">WindowGroup</span> {
-    <span class="doccomment">/// Creates a new `WindowGroup` object. Grabs added with</span>
-    <span class="doccomment">/// `WidgetExt::grab_add` only affect windows within the same `WindowGroup`.</span>
+    <span class="doccomment">/// Creates a new [`WindowGroup`](crate::WindowGroup) object. Grabs added with</span>
+    <span class="doccomment">/// [`WidgetExt::grab_add()`](crate::WidgetExt::grab_add()) only affect windows within the same [`WindowGroup`](crate::WindowGroup).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new `WindowGroup`.</span>
+    <span class="doccomment">/// a new [`WindowGroup`](crate::WindowGroup).</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_window_group_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WindowGroup</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -223,24 +223,24 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// [`WindowGroup`](struct@crate::WindowGroup)</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">WindowGroupExt</span>: <span class="lifetime">&#39;static</span> {
-    <span class="doccomment">/// Adds a window to a `WindowGroup`.</span>
+    <span class="doccomment">/// Adds a window to a [`WindowGroup`](crate::WindowGroup).</span>
     <span class="doccomment">/// ## `window`</span>
-    <span class="doccomment">/// the `Window` to add</span>
+    <span class="doccomment">/// the [`Window`](crate::Window) to add</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_window_group_add_window&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">add_window</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Window</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">window</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>);
 
-    <span class="doccomment">/// Returns the current grab widget for `device`, or `None` if none.</span>
+    <span class="doccomment">/// Returns the current grab widget for `device`, or [`None`] if none.</span>
     <span class="doccomment">/// ## `device`</span>
-    <span class="doccomment">/// a `gdk::Device`</span>
+    <span class="doccomment">/// a [`gdk::Device`](crate::gdk::Device)</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The grab widget, or `None`</span>
+    <span class="doccomment">/// The grab widget, or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_window_group_get_current_device_grab&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">current_device_grab</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">device</span>: <span class="kw-2">&amp;</span><span class="ident">gdk::Device</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Gets the current grab widget of the given group,</span>
-    <span class="doccomment">/// see `WidgetExt::grab_add`.</span>
+    <span class="doccomment">/// see [`WidgetExt::grab_add()`](crate::WidgetExt::grab_add()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -257,9 +257,9 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_window_group_list_windows&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">list_windows</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Window</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// Removes a window from a `WindowGroup`.</span>
+    <span class="doccomment">/// Removes a window from a [`WindowGroup`](crate::WindowGroup).</span>
     <span class="doccomment">/// ## `window`</span>
-    <span class="doccomment">/// the `Window` to remove</span>
+    <span class="doccomment">/// the [`Window`](crate::Window) to remove</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_window_group_remove_window&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">remove_window</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Window</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">window</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>);
 }

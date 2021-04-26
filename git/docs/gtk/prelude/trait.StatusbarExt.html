@@ -23,8 +23,8 @@ the new message is being used in</p>
 <p>an integer id</p>
 </div><h3 id="tymethod.message_area" class="method"><code>fn <a href="#tymethod.message_area" class="fnname">message_area</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.Box.html" title="struct gtk::Box">Box</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/statusbar.rs.html#488" title="goto source code">[src]</a></h3><div class="docblock"><p>Retrieves the box containing the label widget.</p>
 <h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
-<p>a <code>Box</code></p>
-</div><h3 id="tymethod.pop" class="method"><code>fn <a href="#tymethod.pop" class="fnname">pop</a>(&amp;self, context_id: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>)</code><a class="srclink" href="../../src/gtk/auto/statusbar.rs.html#499" title="goto source code">[src]</a></h3><div class="docblock"><p>Removes the first message in the <code>Statusbar</code>’s stack
+<p>a <a href="../struct.Box.html"><code>Box</code></a></p>
+</div><h3 id="tymethod.pop" class="method"><code>fn <a href="#tymethod.pop" class="fnname">pop</a>(&amp;self, context_id: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>)</code><a class="srclink" href="../../src/gtk/auto/statusbar.rs.html#499" title="goto source code">[src]</a></h3><div class="docblock"><p>Removes the first message in the <a href="../struct.Statusbar.html"><code>Statusbar</code></a>’s stack
 with the given context id.</p>
 <p>Note that this may not change the displayed message, if
 the message at the top of the stack has a different
@@ -34,18 +34,18 @@ context id.</p>
 </div><h3 id="tymethod.push" class="method"><code>fn <a href="#tymethod.push" class="fnname">push</a>(&amp;self, context_id: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>, text: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a></code><a class="srclink" href="../../src/gtk/auto/statusbar.rs.html#513" title="goto source code">[src]</a></h3><div class="docblock"><p>Pushes a new message onto a statusbar’s stack.</p>
 <h2 id="context_id-1" class="section-header"><a href="#context_id-1"><code>context_id</code></a></h2>
 <p>the message’s context id, as returned by
-<code>StatusbarExt::get_context_id</code></p>
+<a href="Self::get_context_id()"><code>get_context_id()</code></a></p>
 <h2 id="text" class="section-header"><a href="#text"><code>text</code></a></h2>
 <p>the message to add to the statusbar</p>
 <h1 id="returns-2" class="section-header"><a href="#returns-2">Returns</a></h1>
 <p>a message id that can be used with
-<code>StatusbarExt::remove</code>.</p>
+<a href="trait.StatusbarExt.html#tymethod.remove"><code>remove()</code></a>.</p>
 </div><h3 id="tymethod.remove" class="method"><code>fn <a href="#tymethod.remove" class="fnname">remove</a>(&amp;self, context_id: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>, message_id: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>)</code><a class="srclink" href="../../src/gtk/auto/statusbar.rs.html#522" title="goto source code">[src]</a></h3><div class="docblock"><p>Forces the removal of a message from a statusbar’s stack.
 The exact <code>context_id</code> and <code>message_id</code> must be specified.</p>
 <h2 id="context_id-2" class="section-header"><a href="#context_id-2"><code>context_id</code></a></h2>
 <p>a context identifier</p>
 <h2 id="message_id" class="section-header"><a href="#message_id"><code>message_id</code></a></h2>
-<p>a message identifier, as returned by <code>StatusbarExt::push</code></p>
+<p>a message identifier, as returned by <a href="trait.StatusbarExt.html#tymethod.push"><code>push()</code></a></p>
 </div><h3 id="tymethod.remove_all" class="method"><code>fn <a href="#tymethod.remove_all" class="fnname">remove_all</a>(&amp;self, context_id: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>)</code><a class="srclink" href="../../src/gtk/auto/statusbar.rs.html#529" title="goto source code">[src]</a></h3><div class="docblock"><p>Forces the removal of all messages from a statusbar’s
 stack with the exact <code>context_id</code>.</p>
 <h2 id="context_id-3" class="section-header"><a href="#context_id-3"><code>context_id</code></a></h2>

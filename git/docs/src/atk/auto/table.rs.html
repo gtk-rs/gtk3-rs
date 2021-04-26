@@ -810,38 +810,38 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// `Table` should be implemented by components which present</span>
+    <span class="doccomment">/// [`Table`](crate::Table) should be implemented by components which present</span>
     <span class="doccomment">/// elements ordered via rows and columns. It may also be used to</span>
     <span class="doccomment">/// present tree-structured information if the nodes of the trees can</span>
     <span class="doccomment">/// be said to contain multiple &quot;columns&quot;. Individual elements of an</span>
-    <span class="doccomment">/// `Table` are typically referred to as &quot;cells&quot;. Those cells should</span>
-    <span class="doccomment">/// implement the interface `TableCell`, but `Atk` doesn&#39;t require</span>
-    <span class="doccomment">/// them to be direct children of the current `Table`. They can be</span>
-    <span class="doccomment">/// grand-children, grand-grand-children etc. `Table` provides the</span>
+    <span class="doccomment">/// [`Table`](crate::Table) are typically referred to as &quot;cells&quot;. Those cells should</span>
+    <span class="doccomment">/// implement the interface [`TableCell`](crate::TableCell), but `Atk` doesn&#39;t require</span>
+    <span class="doccomment">/// them to be direct children of the current [`Table`](crate::Table). They can be</span>
+    <span class="doccomment">/// grand-children, grand-grand-children etc. [`Table`](crate::Table) provides the</span>
     <span class="doccomment">/// API needed to get a individual cell based on the row and column</span>
     <span class="doccomment">/// numbers.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Children of `Table` are frequently &quot;lightweight&quot; objects, that</span>
+    <span class="doccomment">/// Children of [`Table`](crate::Table) are frequently &quot;lightweight&quot; objects, that</span>
     <span class="doccomment">/// is, they may not have backing widgets in the host UI toolkit. They</span>
     <span class="doccomment">/// are therefore often transient.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Since tables are often very complex, `Table` includes provision</span>
+    <span class="doccomment">/// Since tables are often very complex, [`Table`](crate::Table) includes provision</span>
     <span class="doccomment">/// for offering simplified summary information, as well as row and</span>
     <span class="doccomment">/// column headers and captions. Headers and captions are `AtkObjects`</span>
-    <span class="doccomment">/// which may implement other interfaces (`Text`, `Image`, etc.) as</span>
-    <span class="doccomment">/// appropriate. `Table` summaries may themselves be (simplified)</span>
+    <span class="doccomment">/// which may implement other interfaces ([`Text`](crate::Text), [`Image`](crate::Image), etc.) as</span>
+    <span class="doccomment">/// appropriate. [`Table`](crate::Table) summaries may themselves be (simplified)</span>
     <span class="doccomment">/// `AtkTables`, etc.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Note for implementors: in the past, `Table` required that all the</span>
-    <span class="doccomment">/// cells should be direct children of `Table`, and provided some</span>
+    <span class="doccomment">/// Note for implementors: in the past, [`Table`](crate::Table) required that all the</span>
+    <span class="doccomment">/// cells should be direct children of [`Table`](crate::Table), and provided some</span>
     <span class="doccomment">/// index based methods to request the cells. The practice showed that</span>
-    <span class="doccomment">/// that forcing made `Table` implementation complex, and hard to</span>
+    <span class="doccomment">/// that forcing made [`Table`](crate::Table) implementation complex, and hard to</span>
     <span class="doccomment">/// expose other kind of children, like rows or captions. Right now,</span>
     <span class="doccomment">/// index-based methods are deprecated.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`TableExt`](trait@crate::TableExt), [`TableExtManual`](trait@crate::TableExtManual)</span>
+    <span class="doccomment">/// [`TableExt`](trait@crate::prelude::TableExt), [`TableExtManual`](trait@crate::prelude::TableExtManual)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Table</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi::AtkTable</span>, <span class="ident">ffi::AtkTableIface</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -884,7 +884,7 @@
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// a AtkObject* representing the</span>
-    <span class="doccomment">/// table caption, or `None` if value does not implement this interface.</span>
+    <span class="doccomment">/// table caption, or [`None`] if value does not implement this interface.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_table_get_caption&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">caption</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Object</span><span class="op">&gt;</span>;
 
@@ -909,7 +909,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a gchar* representing the column description, or `None`</span>
+    <span class="doccomment">/// a gchar* representing the column description, or [`None`]</span>
     <span class="doccomment">/// if value does not implement this interface.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_table_get_column_description&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">column_description</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">column</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span>;
@@ -935,7 +935,7 @@
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// a AtkObject* representing the</span>
-    <span class="doccomment">/// specified column header, or `None` if value does not implement this</span>
+    <span class="doccomment">/// specified column header, or [`None`] if value does not implement this</span>
     <span class="doccomment">/// interface.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_table_get_column_header&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">column_header</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">column</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Object</span><span class="op">&gt;</span>;
@@ -945,7 +945,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Since 2.12. Use `Table::ref_at` in order to get the</span>
+    <span class="doccomment">/// Since 2.12. Use [`Table::ref_at()`](crate::Table::ref_at()) in order to get the</span>
     <span class="doccomment">/// accessible that represents the cell at (`row`, `column`)</span>
     <span class="doccomment">/// ## `row`</span>
     <span class="doccomment">/// a `gint` representing a row in `self`</span>
@@ -1000,7 +1000,7 @@
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// a gchar* representing the row description, or</span>
-    <span class="doccomment">/// `None` if value does not implement this interface.</span>
+    <span class="doccomment">/// [`None`] if value does not implement this interface.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_table_get_row_description&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">row_description</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">row</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span>;
 
@@ -1025,7 +1025,7 @@
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// a AtkObject* representing the</span>
-    <span class="doccomment">/// specified row header, or `None` if value does not implement this</span>
+    <span class="doccomment">/// specified row header, or [`None`] if value does not implement this</span>
     <span class="doccomment">/// interface.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_table_get_row_header&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">row_header</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">row</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Object</span><span class="op">&gt;</span>;
@@ -1078,7 +1078,7 @@
     <span class="kw">fn</span> <span class="ident">is_selected</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">row</span>: <span class="ident">i32</span>, <span class="ident">column</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
     <span class="doccomment">/// Get a reference to the table cell at `row`, `column`. This cell</span>
-    <span class="doccomment">/// should implement the interface `TableCell`</span>
+    <span class="doccomment">/// should implement the interface [`TableCell`](crate::TableCell)</span>
     <span class="doccomment">/// ## `row`</span>
     <span class="doccomment">/// a `gint` representing a row in `self`</span>
     <span class="doccomment">/// ## `column`</span>
@@ -1086,7 +1086,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// an `Object` representing the referred</span>
+    <span class="doccomment">/// an [`Object`](crate::Object) representing the referred</span>
     <span class="doccomment">/// to accessible</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_table_ref_at&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">ref_at</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">row</span>: <span class="ident">i32</span>, <span class="ident">column</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Object</span><span class="op">&gt;</span>;
@@ -1115,7 +1115,7 @@
 
     <span class="doccomment">/// Sets the caption for the table.</span>
     <span class="doccomment">/// ## `caption`</span>
-    <span class="doccomment">/// a `Object` representing the caption to set for `self`</span>
+    <span class="doccomment">/// a [`Object`](crate::Object) representing the caption to set for `self`</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_table_set_caption&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_caption</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Object</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">caption</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>);
 
@@ -1132,7 +1132,7 @@
     <span class="doccomment">/// ## `column`</span>
     <span class="doccomment">/// a `gint` representing a column in `self`</span>
     <span class="doccomment">/// ## `header`</span>
-    <span class="doccomment">/// an `Table`</span>
+    <span class="doccomment">/// an [`Table`](crate::Table)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_table_set_column_header&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_column_header</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Object</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">column</span>: <span class="ident">i32</span>, <span class="ident">header</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>);
 
@@ -1149,13 +1149,13 @@
     <span class="doccomment">/// ## `row`</span>
     <span class="doccomment">/// a `gint` representing a row in `self`</span>
     <span class="doccomment">/// ## `header`</span>
-    <span class="doccomment">/// an `Table`</span>
+    <span class="doccomment">/// an [`Table`](crate::Table)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_table_set_row_header&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_row_header</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Object</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">row</span>: <span class="ident">i32</span>, <span class="ident">header</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>);
 
     <span class="doccomment">/// Sets the summary description of the table.</span>
     <span class="doccomment">/// ## `accessible`</span>
-    <span class="doccomment">/// an `Object` representing the summary description</span>
+    <span class="doccomment">/// an [`Object`](crate::Object) representing the summary description</span>
     <span class="doccomment">/// to set for `self`</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_table_set_summary&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_summary</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Object</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">accessible</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>);

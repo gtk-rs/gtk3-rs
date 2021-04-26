@@ -16,12 +16,12 @@
 <h2 id="i" class="section-header"><a href="#i"><code>i</code></a></h2>
 <p>the action index corresponding to the action to be performed</p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
-<p><code>true</code> if success, <code>false</code> otherwise</p>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if success, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> otherwise</p>
 </div><h3 id="tymethod.description" class="method"><code>fn <a href="#tymethod.description" class="fnname">description</a>(&amp;self, i: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</code><a class="srclink" href="../../src/atk/auto/action.rs.html#65" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns a description of the specified action of the object.</p>
 <h2 id="i-1" class="section-header"><a href="#i-1"><code>i</code></a></h2>
 <p>the action index corresponding to the action to be performed</p>
 <h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
-<p>a description string, or <code>None</code> if <code>self</code> does
+<p>a description string, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> if <code>self</code> does
 not implement this interface.</p>
 </div><h3 id="tymethod.keybinding" class="method"><code>fn <a href="#tymethod.keybinding" class="fnname">keybinding</a>(&amp;self, i: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</code><a class="srclink" href="../../src/atk/auto/action.rs.html#97" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the keybinding which can be used to activate this action, if one
 exists. The string returned should contain localized, human-readable,
@@ -49,12 +49,12 @@ it would be represented by “;;Ctrl+N” and “;;Strg+N” respectively.</p>
 <p>the action index corresponding to the action to be performed</p>
 <h1 id="returns-2" class="section-header"><a href="#returns-2">Returns</a></h1>
 <p>the keybinding which can be used to activate
-this action, or <code>None</code> if there is no keybinding for this action.</p>
+this action, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> if there is no keybinding for this action.</p>
 </div><h3 id="tymethod.localized_name" class="method"><code>fn <a href="#tymethod.localized_name" class="fnname">localized_name</a>(&amp;self, i: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</code><a class="srclink" href="../../src/atk/auto/action.rs.html#108" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns the localized name of the specified action of the object.</p>
 <h2 id="i-3" class="section-header"><a href="#i-3"><code>i</code></a></h2>
 <p>the action index corresponding to the action to be performed</p>
 <h1 id="returns-3" class="section-header"><a href="#returns-3">Returns</a></h1>
-<p>a name string, or <code>None</code> if <code>self</code> does not
+<p>a name string, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> if <code>self</code> does not
 implement this interface.</p>
 </div><h3 id="tymethod.n_actions" class="method"><code>fn <a href="#tymethod.n_actions" class="fnname">n_actions</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code><a class="srclink" href="../../src/atk/auto/action.rs.html#119" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the number of accessible actions available on the object.
 If there are more than one, the first one is considered the
@@ -73,12 +73,12 @@ The “popup” action should be used to pop up a context menu for the
 object, if one exists.</p>
 <p>For technical reasons, some toolkits cannot guarantee that the
 reported action is actually ‘bound’ to a nontrivial user event;
-i.e. the result of some actions via <code>Action::do_action</code> may be
+i.e. the result of some actions via <a href="crate::Action::do_action()"><code>Action::do_action()</code></a> may be
 NIL.</p>
 <h2 id="i-4" class="section-header"><a href="#i-4"><code>i</code></a></h2>
 <p>the action index corresponding to the action to be performed</p>
 <h1 id="returns-5" class="section-header"><a href="#returns-5">Returns</a></h1>
-<p>a name string, or <code>None</code> if <code>self</code> does not
+<p>a name string, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> if <code>self</code> does not
 implement this interface.</p>
 </div><h3 id="tymethod.set_description" class="method"><code>fn <a href="#tymethod.set_description" class="fnname">set_description</a>(&amp;self, i: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, desc: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/atk/auto/action.rs.html#155" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets a description of the specified action of the object.</p>
 <h2 id="i-5" class="section-header"><a href="#i-5"><code>i</code></a></h2>

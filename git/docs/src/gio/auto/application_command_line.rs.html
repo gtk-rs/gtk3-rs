@@ -538,9 +538,9 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// `ApplicationCommandLine` represents a command-line invocation of</span>
-    <span class="doccomment">/// an application. It is created by `Application` and emitted</span>
-    <span class="doccomment">/// in the `Application::command-line` signal and virtual function.</span>
+    <span class="doccomment">/// [`ApplicationCommandLine`](crate::ApplicationCommandLine) represents a command-line invocation of</span>
+    <span class="doccomment">/// an application. It is created by [`Application`](crate::Application) and emitted</span>
+    <span class="doccomment">/// in the [`Application::command-line`](crate::Application::command-line) signal and virtual function.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The class contains the list of arguments that the program was invoked</span>
     <span class="doccomment">/// with. It is also possible to query if the commandline invocation was</span>
@@ -549,8 +549,8 @@
     <span class="doccomment">/// commandline to this process).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The GApplicationCommandLine object can provide the `argc` and `argv`</span>
-    <span class="doccomment">/// parameters for use with the `glib::OptionContext` command-line parsing API,</span>
-    <span class="doccomment">/// with the `ApplicationCommandLineExt::get_arguments` function. See</span>
+    <span class="doccomment">/// parameters for use with the [`glib::OptionContext`](crate::glib::OptionContext) command-line parsing API,</span>
+    <span class="doccomment">/// with the [`ApplicationCommandLineExt::get_arguments()`](crate::ApplicationCommandLineExt::get_arguments()) function. See</span>
     <span class="doccomment">/// [gapplication-example-cmdline3.c][gapplication-example-cmdline3]</span>
     <span class="doccomment">/// for an example.</span>
     <span class="doccomment">///</span>
@@ -560,8 +560,8 @@
     <span class="doccomment">/// of this object (ie: the process exits when the last reference is</span>
     <span class="doccomment">/// dropped).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The main use for `ApplicationCommandLine` (and the</span>
-    <span class="doccomment">/// `Application::command-line` signal) is &#39;Emacs server&#39; like use cases:</span>
+    <span class="doccomment">/// The main use for [`ApplicationCommandLine`](crate::ApplicationCommandLine) (and the</span>
+    <span class="doccomment">/// [`Application::command-line`](crate::Application::command-line) signal) is &#39;Emacs server&#39; like use cases:</span>
     <span class="doccomment">/// You can set the `EDITOR` environment variable to have e.g. git use</span>
     <span class="doccomment">/// your favourite editor to edit commit messages, and if you already</span>
     <span class="doccomment">/// have an instance of the editor running, the editing will happen</span>
@@ -570,7 +570,7 @@
     <span class="doccomment">/// does not return until the editing is done.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Normally, the commandline is completely handled in the</span>
-    <span class="doccomment">/// `Application::command-line` handler. The launching instance exits</span>
+    <span class="doccomment">/// [`Application::command-line`](crate::Application::command-line) handler. The launching instance exits</span>
     <span class="doccomment">/// once the signal handler in the primary instance has returned, and</span>
     <span class="doccomment">/// the return value of the signal handler becomes the exit status</span>
     <span class="doccomment">/// of the launching instance.</span>
@@ -647,7 +647,7 @@
     <span class="doccomment">/// ```</span>
     <span class="doccomment">/// In this example of split commandline handling, options that start</span>
     <span class="doccomment">/// with `--local-` are handled locally, all other options are passed</span>
-    <span class="doccomment">/// to the `Application::command-line` handler which runs in the primary</span>
+    <span class="doccomment">/// to the [`Application::command-line`](crate::Application::command-line) handler which runs in the primary</span>
     <span class="doccomment">/// instance.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The complete example can be found here:</span>
@@ -688,8 +688,8 @@
     <span class="doccomment">/// }</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">/// In this example the commandline is not completely handled before</span>
-    <span class="doccomment">/// the `Application::command-line` handler returns. Instead, we keep</span>
-    <span class="doccomment">/// a reference to the `ApplicationCommandLine` object and handle it</span>
+    <span class="doccomment">/// the [`Application::command-line`](crate::Application::command-line) handler returns. Instead, we keep</span>
+    <span class="doccomment">/// a reference to the [`ApplicationCommandLine`](crate::ApplicationCommandLine) object and handle it</span>
     <span class="doccomment">/// later (in this example, in an idle). Note that it is necessary to</span>
     <span class="doccomment">/// hold the application until you are done with the commandline.</span>
     <span class="doccomment">///</span>
@@ -698,7 +698,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`ApplicationCommandLineExt`](trait@crate::ApplicationCommandLineExt), [`trait@glib::object::ObjectExt`]</span>
+    <span class="doccomment">/// [`ApplicationCommandLineExt`](trait@crate::prelude::ApplicationCommandLineExt), [`trait@glib::object::ObjectExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ApplicationCommandLine</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GApplicationCommandLine</span>, <span class="ident">ffi::GApplicationCommandLineClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -714,10 +714,10 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// [`ApplicationCommandLine`](struct@crate::ApplicationCommandLine)</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ApplicationCommandLineExt</span>: <span class="lifetime">&#39;static</span> {
-    <span class="doccomment">/// Creates a `File` corresponding to a filename that was given as part</span>
+    <span class="doccomment">/// Creates a [`File`](crate::File) corresponding to a filename that was given as part</span>
     <span class="doccomment">/// of the invocation of `self`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This differs from `File::new_for_commandline_arg` in that it</span>
+    <span class="doccomment">/// This differs from [`File::new_for_commandline_arg()`](crate::File::new_for_commandline_arg()) in that it</span>
     <span class="doccomment">/// resolves relative pathnames using the current working directory of</span>
     <span class="doccomment">/// the invoking process rather than the local process.</span>
     <span class="doccomment">/// ## `arg`</span>
@@ -725,7 +725,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new `File`</span>
+    <span class="doccomment">/// a new [`File`](crate::File)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_application_command_line_create_file_for_arg&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">create_file_for_arg</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">std::ffi::OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">arg</span>: <span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">File</span>;
 
@@ -735,13 +735,13 @@
     <span class="doccomment">/// filenames or arguments given in the system locale) but are always in</span>
     <span class="doccomment">/// UTF-8 on Windows.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If you wish to use the return value with `glib::OptionContext`, you must</span>
-    <span class="doccomment">/// use `glib::OptionContext::parse_strv`.</span>
+    <span class="doccomment">/// If you wish to use the return value with [`glib::OptionContext`](crate::glib::OptionContext), you must</span>
+    <span class="doccomment">/// use [`glib::OptionContext::parse_strv()`](crate::glib::OptionContext::parse_strv()).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The return value is `None`-terminated and should be freed using</span>
-    <span class="doccomment">/// `g_strfreev`.</span>
+    <span class="doccomment">/// The return value is [`None`]-terminated and should be freed using</span>
+    <span class="doccomment">/// `g_strfreev()`.</span>
     <span class="doccomment">/// ## `argc`</span>
-    <span class="doccomment">/// the length of the arguments array, or `None`</span>
+    <span class="doccomment">/// the length of the arguments array, or [`None`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -754,42 +754,42 @@
     <span class="doccomment">/// The string may contain non-utf8 data.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// It is possible that the remote application did not send a working</span>
-    <span class="doccomment">/// directory, so this may be `None`.</span>
+    <span class="doccomment">/// directory, so this may be [`None`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The return value should not be modified or freed and is valid for as</span>
     <span class="doccomment">/// long as `self` exists.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the current directory, or `None`</span>
+    <span class="doccomment">/// the current directory, or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_application_command_line_get_cwd&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">cwd</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">std::path::PathBuf</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Gets the contents of the &#39;environ&#39; variable of the command line</span>
-    <span class="doccomment">/// invocation, as would be returned by `g_get_environ`, ie as a</span>
-    <span class="doccomment">/// `None`-terminated list of strings in the form &#39;NAME=VALUE&#39;.</span>
+    <span class="doccomment">/// invocation, as would be returned by `g_get_environ()`, ie as a</span>
+    <span class="doccomment">/// [`None`]-terminated list of strings in the form &#39;NAME=VALUE&#39;.</span>
     <span class="doccomment">/// The strings may contain non-utf8 data.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The remote application usually does not send an environment. Use</span>
-    <span class="doccomment">/// `ApplicationFlags::SendEnvironment` to affect that. Even with this flag</span>
+    <span class="doccomment">/// [`ApplicationFlags::SendEnvironment`] to affect that. Even with this flag</span>
     <span class="doccomment">/// set it is possible that the environment is still not available (due</span>
     <span class="doccomment">/// to invocation messages from other applications).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The return value should not be modified or freed and is valid for as</span>
     <span class="doccomment">/// long as `self` exists.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See `ApplicationCommandLineExt::getenv` if you are only interested</span>
+    <span class="doccomment">/// See [`getenv()`](Self::getenv()) if you are only interested</span>
     <span class="doccomment">/// in the value of a single environment variable.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">///  the environment strings, or `None` if they were not sent</span>
+    <span class="doccomment">///  the environment strings, or [`None`] if they were not sent</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_application_command_line_get_environ&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">environ</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">std::ffi::OsString</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Gets the exit status of `self`. See</span>
-    <span class="doccomment">/// `ApplicationCommandLineExt::set_exit_status` for more information.</span>
+    <span class="doccomment">/// [`set_exit_status()`](Self::set_exit_status()) for more information.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -801,64 +801,64 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if the invocation was remote</span>
+    <span class="doccomment">/// [`true`] if the invocation was remote</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_application_command_line_get_is_remote&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">is_remote</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
-    <span class="doccomment">/// Gets the options there were passed to `g_application_command_line`.</span>
+    <span class="doccomment">/// Gets the options there were passed to `g_application_command_line()`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If you did not override `local_command_line` then these are the same</span>
+    <span class="doccomment">/// If you did not override `local_command_line()` then these are the same</span>
     <span class="doccomment">/// options that were parsed according to the `GOptionEntrys` added to the</span>
-    <span class="doccomment">/// application with `ApplicationExt::add_main_option_entries` and possibly</span>
+    <span class="doccomment">/// application with [`ApplicationExt::add_main_option_entries()`](crate::ApplicationExt::add_main_option_entries()) and possibly</span>
     <span class="doccomment">/// modified from your GApplication::handle-local-options handler.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If no options were sent then an empty dictionary is returned so that</span>
-    <span class="doccomment">/// you don&#39;t need to check for `None`.</span>
+    <span class="doccomment">/// you don&#39;t need to check for [`None`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a `glib::VariantDict` with the options</span>
+    <span class="doccomment">/// a [`glib::VariantDict`](crate::glib::VariantDict) with the options</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_application_command_line_get_options_dict&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">options_dict</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::VariantDict</span>;
 
     <span class="doccomment">/// Gets the platform data associated with the invocation of `self`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This is a `glib::Variant` dictionary containing information about the</span>
+    <span class="doccomment">/// This is a [`glib::Variant`](crate::glib::Variant) dictionary containing information about the</span>
     <span class="doccomment">/// context in which the invocation occurred. It typically contains</span>
     <span class="doccomment">/// information like the current working directory and the startup</span>
     <span class="doccomment">/// notification ID.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// For local invocation, it will be `None`.</span>
+    <span class="doccomment">/// For local invocation, it will be [`None`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the platform data, or `None`</span>
+    <span class="doccomment">/// the platform data, or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_application_command_line_get_platform_data&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">platform_data</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::Variant</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Gets the stdin of the invoking process.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The `InputStream` can be used to read data passed to the standard</span>
+    <span class="doccomment">/// The [`InputStream`](crate::InputStream) can be used to read data passed to the standard</span>
     <span class="doccomment">/// input of the invoking process.</span>
     <span class="doccomment">/// This doesn&#39;t work on all platforms. Presently, it is only available</span>
     <span class="doccomment">/// on UNIX when using a D-Bus daemon capable of passing file descriptors.</span>
-    <span class="doccomment">/// If stdin is not available then `None` will be returned. In the</span>
+    <span class="doccomment">/// If stdin is not available then [`None`] will be returned. In the</span>
     <span class="doccomment">/// future, support may be expanded to other platforms.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// You must only call this function once per commandline invocation.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a `InputStream` for stdin</span>
+    <span class="doccomment">/// a [`InputStream`](crate::InputStream) for stdin</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_application_command_line_get_stdin&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">stdin</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">InputStream</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Gets the value of a particular environment variable of the command</span>
-    <span class="doccomment">/// line invocation, as would be returned by `g_getenv`. The strings may</span>
+    <span class="doccomment">/// line invocation, as would be returned by `g_getenv()`. The strings may</span>
     <span class="doccomment">/// contain non-utf8 data.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The remote application usually does not send an environment. Use</span>
-    <span class="doccomment">/// `ApplicationFlags::SendEnvironment` to affect that. Even with this flag</span>
+    <span class="doccomment">/// [`ApplicationFlags::SendEnvironment`] to affect that. Even with this flag</span>
     <span class="doccomment">/// set it is possible that the environment is still not available (due</span>
     <span class="doccomment">/// to invocation messages from other applications).</span>
     <span class="doccomment">///</span>
@@ -869,7 +869,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the value of the variable, or `None` if unset or unsent</span>
+    <span class="doccomment">/// the value of the variable, or [`None`] if unset or unsent</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_application_command_line_getenv&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">getenv</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">std::ffi::OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span>;
 
@@ -882,7 +882,7 @@
     <span class="doccomment">/// Sets the exit status that will be used when the invoking process</span>
     <span class="doccomment">/// exits.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The return value of the `Application::command-line` signal is</span>
+    <span class="doccomment">/// The return value of the [`Application::command-line`](crate::Application::command-line) signal is</span>
     <span class="doccomment">/// passed to this function when the handler returns. This is the usual</span>
     <span class="doccomment">/// way of setting the exit status.</span>
     <span class="doccomment">///</span>
@@ -899,7 +899,7 @@
     <span class="doccomment">/// increased to a non-zero value) then the application is considered to</span>
     <span class="doccomment">/// have been &#39;successful&#39; in a certain sense, and the exit status is</span>
     <span class="doccomment">/// always zero. If the application use count is zero, though, the exit</span>
-    <span class="doccomment">/// status of the local `ApplicationCommandLine` is used.</span>
+    <span class="doccomment">/// status of the local [`ApplicationCommandLine`](crate::ApplicationCommandLine) is used.</span>
     <span class="doccomment">/// ## `exit_status`</span>
     <span class="doccomment">/// the exit status</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_application_command_line_set_exit_status&quot;</span>)]</span>

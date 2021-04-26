@@ -63,13 +63,13 @@
 
 <span class="doccomment">/// AtkAttribute is a string name/value pair representing a generic</span>
 <span class="doccomment">/// attribute. This can be used to expose additional information from</span>
-<span class="doccomment">/// an accessible object as a whole (see `AtkObjectExt::get_attributes`)</span>
-<span class="doccomment">/// or an document (see `Document::get_attributes`). In the case of</span>
-<span class="doccomment">/// text attributes (see `Text::get_default_attributes`),</span>
-<span class="doccomment">/// `TextAttribute` enum defines all the possible text attribute</span>
-<span class="doccomment">/// names. You can use `TextAttribute::get_name` to get the string</span>
-<span class="doccomment">/// name from the enum value. See also `TextAttribute::for_name`</span>
-<span class="doccomment">/// and `TextAttribute::get_value` for more information.</span>
+<span class="doccomment">/// an accessible object as a whole (see [`AtkObjectExt::get_attributes()`](crate::AtkObjectExt::get_attributes()))</span>
+<span class="doccomment">/// or an document (see [`Document::get_attributes()`](crate::Document::get_attributes())). In the case of</span>
+<span class="doccomment">/// text attributes (see [`Text::get_default_attributes()`](crate::Text::get_default_attributes())),</span>
+<span class="doccomment">/// [`TextAttribute`](crate::TextAttribute) enum defines all the possible text attribute</span>
+<span class="doccomment">/// names. You can use [`TextAttribute::get_name()`](crate::TextAttribute::get_name()) to get the string</span>
+<span class="doccomment">/// name from the enum value. See also [`TextAttribute::for_name()`](crate::TextAttribute::for_name())</span>
+<span class="doccomment">/// and [`TextAttribute::get_value()`](crate::TextAttribute::get_value()) for more information.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// A string name/value pair representing a generic attribute.</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Attribute</span> {

@@ -108,8 +108,8 @@
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::InetAddress</span>;
-<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::InetAddressExt</span>;
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::SocketFamily</span>;
 <span class="kw">use</span> <span class="ident">glib::object::IsA</span>;
 <span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
@@ -134,9 +134,9 @@
 }
 
 <span class="kw">impl</span> <span class="ident">InetAddress</span> {
-    <span class="doccomment">/// Creates a new `InetAddress` from the given `family` and `bytes`.</span>
-    <span class="doccomment">/// `bytes` should be 4 bytes for `SocketFamily::Ipv4` and 16 bytes for</span>
-    <span class="doccomment">/// `SocketFamily::Ipv6`.</span>
+    <span class="doccomment">/// Creates a new [`InetAddress`](crate::InetAddress) from the given `family` and `bytes`.</span>
+    <span class="doccomment">/// `bytes` should be 4 bytes for [`SocketFamily::Ipv4`] and 16 bytes for</span>
+    <span class="doccomment">/// [`SocketFamily::Ipv6`].</span>
     <span class="doccomment">/// ## `bytes`</span>
     <span class="doccomment">/// raw address data</span>
     <span class="doccomment">/// ## `family`</span>
@@ -144,8 +144,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new `InetAddress` corresponding to `family` and `bytes`.</span>
-    <span class="doccomment">///  Free the returned object with `glib::object::ObjectExt::unref`.</span>
+    <span class="doccomment">/// a new [`InetAddress`](crate::InetAddress) corresponding to `family` and `bytes`.</span>
+    <span class="doccomment">///  Free the returned object with [`glib::object::ObjectExt::unref()`](crate::glib::object::ObjectExt::unref()).</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_inet_address_new_from_bytes&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_bytes</span>(<span class="ident">inet_address_bytes</span>: <span class="ident">InetAddressBytes</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">let</span> <span class="ident">bytes</span> <span class="op">=</span> <span class="ident">inet_address_bytes</span>.<span class="ident">deref</span>();

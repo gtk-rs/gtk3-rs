@@ -1092,15 +1092,15 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// A `ToolPalette` allows you to add ``GtkToolItems`` to a palette-like</span>
+    <span class="doccomment">/// A [`ToolPalette`](crate::ToolPalette) allows you to add ``GtkToolItems`` to a palette-like</span>
     <span class="doccomment">/// container with different categories and drag and drop support.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A `ToolPalette` is created with a call to `ToolPalette::new`.</span>
+    <span class="doccomment">/// A [`ToolPalette`](crate::ToolPalette) is created with a call to [`new()`](Self::new()).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// ``GtkToolItems`` cannot be added directly to a `ToolPalette` -</span>
-    <span class="doccomment">/// instead they are added to a `ToolItemGroup` which can than be added</span>
-    <span class="doccomment">/// to a `ToolPalette`. To add a `ToolItemGroup` to a `ToolPalette`,</span>
-    <span class="doccomment">/// use `ContainerExt::add`.</span>
+    <span class="doccomment">/// ``GtkToolItems`` cannot be added directly to a [`ToolPalette`](crate::ToolPalette) -</span>
+    <span class="doccomment">/// instead they are added to a [`ToolItemGroup`](crate::ToolItemGroup) which can than be added</span>
+    <span class="doccomment">/// to a [`ToolPalette`](crate::ToolPalette). To add a [`ToolItemGroup`](crate::ToolItemGroup) to a [`ToolPalette`](crate::ToolPalette),</span>
+    <span class="doccomment">/// use [`ContainerExt::add()`](crate::ContainerExt::add()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```C</span>
@@ -1116,10 +1116,10 @@
     <span class="doccomment">/// gtk_tool_item_group_insert (GTK_TOOL_ITEM_GROUP (group), item, -1);</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The easiest way to use drag and drop with `ToolPalette` is to call</span>
-    <span class="doccomment">/// `ToolPaletteExt::add_drag_dest` with the desired drag source `palette`</span>
-    <span class="doccomment">/// and the desired drag target `widget`. Then `ToolPaletteExt::get_drag_item`</span>
-    <span class="doccomment">/// can be used to get the dragged item in the `Widget::drag-data-received`</span>
+    <span class="doccomment">/// The easiest way to use drag and drop with [`ToolPalette`](crate::ToolPalette) is to call</span>
+    <span class="doccomment">/// [`ToolPaletteExt::add_drag_dest()`](crate::ToolPaletteExt::add_drag_dest()) with the desired drag source `palette`</span>
+    <span class="doccomment">/// and the desired drag target `widget`. Then [`ToolPaletteExt::get_drag_item()`](crate::ToolPaletteExt::get_drag_item())</span>
+    <span class="doccomment">/// can be used to get the dragged item in the [`Widget::drag-data-received`](crate::Widget::drag-data-received)</span>
     <span class="doccomment">/// signal handler of the drag target.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">///</span>
@@ -1166,7 +1166,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`ToolPaletteExt`](trait@crate::ToolPaletteExt), [`ContainerExt`](trait@crate::ContainerExt), [`WidgetExt`](trait@crate::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::BuildableExt), [`OrientableExt`](trait@crate::OrientableExt), [`ScrollableExt`](trait@crate::ScrollableExt), [`WidgetExtManual`](trait@crate::WidgetExtManual), [`BuildableExtManual`](trait@crate::BuildableExtManual)</span>
+    <span class="doccomment">/// [`ToolPaletteExt`](trait@crate::prelude::ToolPaletteExt), [`ContainerExt`](trait@crate::prelude::ContainerExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`OrientableExt`](trait@crate::prelude::OrientableExt), [`ScrollableExt`](trait@crate::prelude::ScrollableExt), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ToolPalette</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkToolPalette</span>, <span class="ident">ffi::GtkToolPaletteClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>, <span class="ident">Orientable</span>, <span class="ident">Scrollable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -1179,29 +1179,29 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new `ToolPalette`</span>
+    <span class="doccomment">/// a new [`ToolPalette`](crate::ToolPalette)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_tool_palette_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ToolPalette</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe</span> { <span class="ident">Widget::from_glib_none</span>(<span class="ident">ffi::gtk_tool_palette_new</span>()).<span class="ident">unsafe_cast</span>() }
     }
 
-    <span class="doccomment">/// Get the target entry for a dragged `ToolItemGroup`.</span>
+    <span class="doccomment">/// Get the target entry for a dragged [`ToolItemGroup`](crate::ToolItemGroup).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the `TargetEntry` for a dragged group</span>
+    <span class="doccomment">/// the [`TargetEntry`](crate::TargetEntry) for a dragged group</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_tool_palette_get_drag_target_group&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">drag_target_group</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TargetEntry</span><span class="op">&gt;</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::gtk_tool_palette_get_drag_target_group</span>()) }
     }
 
-    <span class="doccomment">/// Gets the target entry for a dragged `ToolItem`.</span>
+    <span class="doccomment">/// Gets the target entry for a dragged [`ToolItem`](crate::ToolItem).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the `TargetEntry` for a dragged item.</span>
+    <span class="doccomment">/// the [`TargetEntry`](crate::TargetEntry) for a dragged item.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_tool_palette_get_drag_target_item&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">drag_target_item</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TargetEntry</span><span class="op">&gt;</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -1631,16 +1631,16 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// [`ToolPalette`](struct@crate::ToolPalette)</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ToolPaletteExt</span>: <span class="lifetime">&#39;static</span> {
-    <span class="doccomment">/// Sets `self` as drag source (see `ToolPaletteExt::set_drag_source`)</span>
+    <span class="doccomment">/// Sets `self` as drag source (see [`set_drag_source()`](Self::set_drag_source()))</span>
     <span class="doccomment">/// and sets `widget` as a drag destination for drags from `self`.</span>
-    <span class="doccomment">/// See `Widget::drag_dest_set`.</span>
+    <span class="doccomment">/// See [`Widget::drag_dest_set()`](crate::Widget::drag_dest_set()).</span>
     <span class="doccomment">/// ## `widget`</span>
-    <span class="doccomment">/// a `Widget` which should be a drag destination for `self`</span>
+    <span class="doccomment">/// a [`Widget`](crate::Widget) which should be a drag destination for `self`</span>
     <span class="doccomment">/// ## `flags`</span>
     <span class="doccomment">/// the flags that specify what actions GTK+ should take for drops</span>
     <span class="doccomment">///  on that widget</span>
     <span class="doccomment">/// ## `targets`</span>
-    <span class="doccomment">/// the `ToolPaletteDragTargets` which the widget</span>
+    <span class="doccomment">/// the [`ToolPaletteDragTargets`](crate::ToolPaletteDragTargets) which the widget</span>
     <span class="doccomment">///  should support</span>
     <span class="doccomment">/// ## `actions`</span>
     <span class="doccomment">/// the ``GdkDragActions`` which the widget should suppport</span>
@@ -1654,9 +1654,9 @@
     );
 
     <span class="doccomment">/// Get the dragged item from the selection.</span>
-    <span class="doccomment">/// This could be a `ToolItem` or a `ToolItemGroup`.</span>
+    <span class="doccomment">/// This could be a [`ToolItem`](crate::ToolItem) or a [`ToolItemGroup`](crate::ToolItemGroup).</span>
     <span class="doccomment">/// ## `selection`</span>
-    <span class="doccomment">/// a `SelectionData`</span>
+    <span class="doccomment">/// a [`SelectionData`](crate::SelectionData)</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1672,13 +1672,13 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the `ToolItemGroup` at position</span>
-    <span class="doccomment">/// or `None` if there is no such group</span>
+    <span class="doccomment">/// the [`ToolItemGroup`](crate::ToolItemGroup) at position</span>
+    <span class="doccomment">/// or [`None`] if there is no such group</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_tool_palette_get_drop_group&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">drop_group</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">x</span>: <span class="ident">i32</span>, <span class="ident">y</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ToolItemGroup</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Gets the item at position (x, y).</span>
-    <span class="doccomment">/// See `ToolPaletteExt::get_drop_group`.</span>
+    <span class="doccomment">/// See [`get_drop_group()`](Self::get_drop_group()).</span>
     <span class="doccomment">/// ## `x`</span>
     <span class="doccomment">/// the x position</span>
     <span class="doccomment">/// ## `y`</span>
@@ -1686,36 +1686,36 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the `ToolItem` at position or `None` if there is no such item</span>
+    <span class="doccomment">/// the [`ToolItem`](crate::ToolItem) at position or [`None`] if there is no such item</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_tool_palette_get_drop_item&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">drop_item</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">x</span>: <span class="ident">i32</span>, <span class="ident">y</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ToolItem</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Gets whether `group` is exclusive or not.</span>
-    <span class="doccomment">/// See `ToolPaletteExt::set_exclusive`.</span>
+    <span class="doccomment">/// See [`set_exclusive()`](Self::set_exclusive()).</span>
     <span class="doccomment">/// ## `group`</span>
-    <span class="doccomment">/// a `ToolItemGroup` which is a child of palette</span>
+    <span class="doccomment">/// a [`ToolItemGroup`](crate::ToolItemGroup) which is a child of palette</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if `group` is exclusive</span>
+    <span class="doccomment">/// [`true`] if `group` is exclusive</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_tool_palette_get_exclusive&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">is_exclusive</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">ToolItemGroup</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">group</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
     <span class="doccomment">/// Gets whether group should be given extra space.</span>
-    <span class="doccomment">/// See `ToolPaletteExt::set_expand`.</span>
+    <span class="doccomment">/// See [`set_expand()`](Self::set_expand()).</span>
     <span class="doccomment">/// ## `group`</span>
-    <span class="doccomment">/// a `ToolItemGroup` which is a child of palette</span>
+    <span class="doccomment">/// a [`ToolItemGroup`](crate::ToolItemGroup) which is a child of palette</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if group should be given extra space, `false` otherwise</span>
+    <span class="doccomment">/// [`true`] if group should be given extra space, [`false`] otherwise</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_tool_palette_get_expand&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">expands</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">ToolItemGroup</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">group</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
     <span class="doccomment">/// Gets the position of `group` in `self` as index.</span>
-    <span class="doccomment">/// See `ToolPaletteExt::set_group_position`.</span>
+    <span class="doccomment">/// See [`set_group_position()`](Self::set_group_position()).</span>
     <span class="doccomment">/// ## `group`</span>
-    <span class="doccomment">/// a `ToolItemGroup`</span>
+    <span class="doccomment">/// a [`ToolItemGroup`](crate::ToolItemGroup)</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1724,11 +1724,11 @@
     <span class="kw">fn</span> <span class="ident">group_position</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">ToolItemGroup</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">group</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span>;
 
     <span class="doccomment">/// Gets the size of icons in the tool palette.</span>
-    <span class="doccomment">/// See `ToolPaletteExt::set_icon_size`.</span>
+    <span class="doccomment">/// See [`set_icon_size()`](Self::set_icon_size()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the `IconSize` of icons in the tool palette</span>
+    <span class="doccomment">/// the [`IconSize`](crate::IconSize) of icons in the tool palette</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_tool_palette_get_icon_size&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">icon_size</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">IconSize</span>;
 
@@ -1736,16 +1736,16 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the `ToolbarStyle` of items in the tool palette.</span>
+    <span class="doccomment">/// the [`ToolbarStyle`](crate::ToolbarStyle) of items in the tool palette.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_tool_palette_get_style&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">style</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ToolbarStyle</span>;
 
     <span class="doccomment">/// Sets the tool palette as a drag source.</span>
     <span class="doccomment">/// Enables all groups and items in the tool palette as drag sources</span>
     <span class="doccomment">/// on button 1 and button 3 press with copy and move actions.</span>
-    <span class="doccomment">/// See `Widget::drag_source_set`.</span>
+    <span class="doccomment">/// See [`Widget::drag_source_set()`](crate::Widget::drag_source_set()).</span>
     <span class="doccomment">/// ## `targets`</span>
-    <span class="doccomment">/// the `ToolPaletteDragTargets`</span>
+    <span class="doccomment">/// the [`ToolPaletteDragTargets`](crate::ToolPaletteDragTargets)</span>
     <span class="doccomment">///  which the widget should support</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_tool_palette_set_drag_source&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_drag_source</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">targets</span>: <span class="ident">ToolPaletteDragTargets</span>);
@@ -1753,7 +1753,7 @@
     <span class="doccomment">/// Sets whether the group should be exclusive or not.</span>
     <span class="doccomment">/// If an exclusive group is expanded all other groups are collapsed.</span>
     <span class="doccomment">/// ## `group`</span>
-    <span class="doccomment">/// a `ToolItemGroup` which is a child of palette</span>
+    <span class="doccomment">/// a [`ToolItemGroup`](crate::ToolItemGroup) which is a child of palette</span>
     <span class="doccomment">/// ## `exclusive`</span>
     <span class="doccomment">/// whether the group should be exclusive or not</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_tool_palette_set_exclusive&quot;</span>)]</span>
@@ -1761,7 +1761,7 @@
 
     <span class="doccomment">/// Sets whether the group should be given extra space.</span>
     <span class="doccomment">/// ## `group`</span>
-    <span class="doccomment">/// a `ToolItemGroup` which is a child of palette</span>
+    <span class="doccomment">/// a [`ToolItemGroup`](crate::ToolItemGroup) which is a child of palette</span>
     <span class="doccomment">/// ## `expand`</span>
     <span class="doccomment">/// whether the group should be given extra space</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_tool_palette_set_expand&quot;</span>)]</span>
@@ -1771,7 +1771,7 @@
     <span class="doccomment">/// If position is 0 the group will become the first child, if position is</span>
     <span class="doccomment">/// -1 it will become the last child.</span>
     <span class="doccomment">/// ## `group`</span>
-    <span class="doccomment">/// a `ToolItemGroup` which is a child of palette</span>
+    <span class="doccomment">/// a [`ToolItemGroup`](crate::ToolItemGroup) which is a child of palette</span>
     <span class="doccomment">/// ## `position`</span>
     <span class="doccomment">/// a new index for group</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_tool_palette_set_group_position&quot;</span>)]</span>
@@ -1779,23 +1779,23 @@
 
     <span class="doccomment">/// Sets the size of icons in the tool palette.</span>
     <span class="doccomment">/// ## `icon_size`</span>
-    <span class="doccomment">/// the `IconSize` that icons in the tool</span>
+    <span class="doccomment">/// the [`IconSize`](crate::IconSize) that icons in the tool</span>
     <span class="doccomment">///  palette shall have</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_tool_palette_set_icon_size&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_icon_size</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">icon_size</span>: <span class="ident">IconSize</span>);
 
     <span class="doccomment">/// Sets the style (text, icons or both) of items in the tool palette.</span>
     <span class="doccomment">/// ## `style`</span>
-    <span class="doccomment">/// the `ToolbarStyle` that items in the tool palette shall have</span>
+    <span class="doccomment">/// the [`ToolbarStyle`](crate::ToolbarStyle) that items in the tool palette shall have</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_tool_palette_set_style&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_style</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">style</span>: <span class="ident">ToolbarStyle</span>);
 
-    <span class="doccomment">/// Unsets the tool palette icon size set with `ToolPaletteExt::set_icon_size`,</span>
+    <span class="doccomment">/// Unsets the tool palette icon size set with [`set_icon_size()`](Self::set_icon_size()),</span>
     <span class="doccomment">/// so that user preferences will be used to determine the icon size.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_tool_palette_unset_icon_size&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">unset_icon_size</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
-    <span class="doccomment">/// Unsets a toolbar style set with `ToolPaletteExt::set_style`,</span>
+    <span class="doccomment">/// Unsets a toolbar style set with [`set_style()`](Self::set_style()),</span>
     <span class="doccomment">/// so that user preferences will be used to determine the toolbar style.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_tool_palette_unset_style&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">unset_style</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);

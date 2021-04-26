@@ -12,24 +12,24 @@
 <h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
 <p><a href="../struct.TextMark.html"><code>TextMark</code></a></p>
 </div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.buffer" class="method"><code>fn <a href="#tymethod.buffer" class="fnname">buffer</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.TextBuffer.html" title="struct gtk::TextBuffer">TextBuffer</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/text_mark.rs.html#133" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the buffer this mark is located inside,
-or <code>None</code> if the mark is deleted.</p>
+or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> if the mark is deleted.</p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
-<p>the mark’s <code>TextBuffer</code></p>
-</div><h3 id="tymethod.is_deleted" class="method"><code>fn <a href="#tymethod.is_deleted" class="fnname">is_deleted</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/text_mark.rs.html#143" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns <code>true</code> if the mark has been removed from its buffer
-with <code>TextBufferExt::delete_mark</code>. See <code>TextBufferExt::add_mark</code>
+<p>the mark’s <a href="../struct.TextBuffer.html"><code>TextBuffer</code></a></p>
+</div><h3 id="tymethod.is_deleted" class="method"><code>fn <a href="#tymethod.is_deleted" class="fnname">is_deleted</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/text_mark.rs.html#143" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the mark has been removed from its buffer
+with <a href="crate::TextBufferExt::delete_mark()"><code>TextBufferExt::delete_mark()</code></a>. See <a href="crate::TextBufferExt::add_mark()"><code>TextBufferExt::add_mark()</code></a>
 for a way to add it to a buffer again.</p>
 <h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
 <p>whether the mark is deleted</p>
 </div><h3 id="tymethod.is_left_gravity" class="method"><code>fn <a href="#tymethod.is_left_gravity" class="fnname">is_left_gravity</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/text_mark.rs.html#151" title="goto source code">[src]</a></h3><div class="docblock"><p>Determines whether the mark has left gravity.</p>
 <h1 id="returns-2" class="section-header"><a href="#returns-2">Returns</a></h1>
-<p><code>true</code> if the mark has left gravity, <code>false</code> otherwise</p>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the mark has left gravity, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> otherwise</p>
 </div><h3 id="tymethod.name" class="method"><code>fn <a href="#tymethod.name" class="fnname">name</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/text_mark.rs.html#159" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns the mark name; returns NULL for anonymous marks.</p>
 <h1 id="returns-3" class="section-header"><a href="#returns-3">Returns</a></h1>
 <p>mark name</p>
-</div><h3 id="tymethod.is_visible" class="method"><code>fn <a href="#tymethod.is_visible" class="fnname">is_visible</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/text_mark.rs.html#168" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns <code>true</code> if the mark is visible (i.e. a cursor is displayed
+</div><h3 id="tymethod.is_visible" class="method"><code>fn <a href="#tymethod.is_visible" class="fnname">is_visible</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/text_mark.rs.html#168" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the mark is visible (i.e. a cursor is displayed
 for it).</p>
 <h1 id="returns-4" class="section-header"><a href="#returns-4">Returns</a></h1>
-<p><code>true</code> if visible</p>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if visible</p>
 </div><h3 id="tymethod.set_visible" class="method"><code>fn <a href="#tymethod.set_visible" class="fnname">set_visible</a>(&amp;self, setting: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gtk/auto/text_mark.rs.html#178" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the visibility of <code>self</code>; the insertion point is normally
 visible, i.e. you can see it as a vertical bar. Also, the text
 widget uses a visible mark to indicate where a drop will occur when

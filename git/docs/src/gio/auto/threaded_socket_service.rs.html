@@ -155,25 +155,25 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// A `ThreadedSocketService` is a simple subclass of `SocketService`</span>
+    <span class="doccomment">/// A [`ThreadedSocketService`](crate::ThreadedSocketService) is a simple subclass of [`SocketService`](crate::SocketService)</span>
     <span class="doccomment">/// that handles incoming connections by creating a worker thread and</span>
     <span class="doccomment">/// dispatching the connection to it by emitting the</span>
-    <span class="doccomment">/// `ThreadedSocketService::run` signal in the new thread.</span>
+    <span class="doccomment">/// [`ThreadedSocketService::run`](crate::ThreadedSocketService::run) signal in the new thread.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The signal handler may perform blocking IO and need not return</span>
     <span class="doccomment">/// until the connection is closed.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The service is implemented using a thread pool, so there is a</span>
     <span class="doccomment">/// limited amount of threads available to serve incoming requests.</span>
-    <span class="doccomment">/// The service automatically stops the `SocketService` from accepting</span>
+    <span class="doccomment">/// The service automatically stops the [`SocketService`](crate::SocketService) from accepting</span>
     <span class="doccomment">/// new connections when all threads are busy.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// As with `SocketService`, you may connect to `ThreadedSocketService::run`,</span>
+    <span class="doccomment">/// As with [`SocketService`](crate::SocketService), you may connect to [`ThreadedSocketService::run`](crate::ThreadedSocketService::run),</span>
     <span class="doccomment">/// or subclass and override the default handler.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`ThreadedSocketServiceExt`](trait@crate::ThreadedSocketServiceExt), [`SocketServiceExt`](trait@crate::SocketServiceExt), [`SocketListenerExt`](trait@crate::SocketListenerExt), [`trait@glib::object::ObjectExt`]</span>
+    <span class="doccomment">/// [`ThreadedSocketServiceExt`](trait@crate::prelude::ThreadedSocketServiceExt), [`SocketServiceExt`](trait@crate::prelude::SocketServiceExt), [`SocketListenerExt`](trait@crate::prelude::SocketListenerExt), [`trait@glib::object::ObjectExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ThreadedSocketService</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GThreadedSocketService</span>, <span class="ident">ffi::GThreadedSocketServiceClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">SocketService</span>, <span class="ident">SocketListener</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -197,13 +197,13 @@
     <span class="doccomment">/// `connection` and may perform blocking IO. The signal handler need</span>
     <span class="doccomment">/// not return until the connection is closed.</span>
     <span class="doccomment">/// ## `connection`</span>
-    <span class="doccomment">/// a new `SocketConnection` object.</span>
+    <span class="doccomment">/// a new [`SocketConnection`](crate::SocketConnection) object.</span>
     <span class="doccomment">/// ## `source_object`</span>
-    <span class="doccomment">/// the source_object passed to `SocketListenerExt::add_address`.</span>
+    <span class="doccomment">/// the source_object passed to [`SocketListenerExt::add_address()`](crate::SocketListenerExt::add_address()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` to stop further signal handlers from being called</span>
+    <span class="doccomment">/// [`true`] to stop further signal handlers from being called</span>
     <span class="kw">fn</span> <span class="ident">connect_run</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span><span class="ident">SocketConnection</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">glib::Object</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">f</span>: <span class="ident">F</span>,

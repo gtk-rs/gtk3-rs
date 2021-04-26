@@ -359,7 +359,7 @@
     <span class="doccomment">/// such as where its standard input and output will be directed, the</span>
     <span class="doccomment">/// argument list, the environment, and more.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// While the `Subprocess` class has high level functions covering</span>
+    <span class="doccomment">/// While the [`Subprocess`](crate::Subprocess) class has high level functions covering</span>
     <span class="doccomment">/// popular cases, use of this class allows access to more advanced</span>
     <span class="doccomment">/// options. It can also be used to launch multiple subprocesses with</span>
     <span class="doccomment">/// a similar configuration.</span>
@@ -375,13 +375,13 @@
 }
 
 <span class="kw">impl</span> <span class="ident">SubprocessLauncher</span> {
-    <span class="doccomment">/// Creates a new `SubprocessLauncher`.</span>
+    <span class="doccomment">/// Creates a new [`SubprocessLauncher`](crate::SubprocessLauncher).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The launcher is created with the default options. A copy of the</span>
     <span class="doccomment">/// environment of the calling process is made at the time of this call</span>
     <span class="doccomment">/// and will be used as the environment that the process is launched in.</span>
     <span class="doccomment">/// ## `flags`</span>
-    <span class="doccomment">/// `SubprocessFlags`</span>
+    <span class="doccomment">/// [`SubprocessFlags`](crate::SubprocessFlags)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_subprocess_launcher_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">flags</span>: <span class="ident">SubprocessFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SubprocessLauncher</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_subprocess_launcher_new</span>(<span class="ident">flags</span>.<span class="ident">to_glib</span>())) }
@@ -398,7 +398,7 @@
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// the value of the environment variable,</span>
-    <span class="doccomment">///  `None` if unset</span>
+    <span class="doccomment">///  [`None`] if unset</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_subprocess_launcher_getenv&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">getenv</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">std::path::Path</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">variable</span>: <span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">std::path::PathBuf</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
@@ -411,15 +411,15 @@
 
     <span class="doccomment">/// Sets up a child setup function.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The child setup function will be called after `fork` but before</span>
-    <span class="doccomment">/// `exec` on the child&#39;s side.</span>
+    <span class="doccomment">/// The child setup function will be called after `fork()` but before</span>
+    <span class="doccomment">/// `exec()` on the child&#39;s side.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// `destroy_notify` will not be automatically called on the child&#39;s side</span>
-    <span class="doccomment">/// of the `fork`. It will only be called when the last reference on the</span>
-    <span class="doccomment">/// `SubprocessLauncher` is dropped or when a new child setup function is</span>
+    <span class="doccomment">/// of the `fork()`. It will only be called when the last reference on the</span>
+    <span class="doccomment">/// [`SubprocessLauncher`](crate::SubprocessLauncher) is dropped or when a new child setup function is</span>
     <span class="doccomment">/// given.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `None` can be given as `child_setup` to disable the functionality.</span>
+    <span class="doccomment">/// [`None`] can be given as `child_setup` to disable the functionality.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Child setup functions are only available on UNIX.</span>
     <span class="doccomment">/// ## `child_setup`</span>
@@ -473,18 +473,18 @@
     <span class="doccomment">/// Replace the entire environment of processes launched from this</span>
     <span class="doccomment">/// launcher with the given &#39;environ&#39; variable.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Typically you will build this variable by using `g_listenv` to copy</span>
-    <span class="doccomment">/// the process &#39;environ&#39; and using the functions `g_environ_setenv`,</span>
-    <span class="doccomment">/// `g_environ_unsetenv`, etc.</span>
+    <span class="doccomment">/// Typically you will build this variable by using `g_listenv()` to copy</span>
+    <span class="doccomment">/// the process &#39;environ&#39; and using the functions `g_environ_setenv()`,</span>
+    <span class="doccomment">/// `g_environ_unsetenv()`, etc.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// As an alternative, you can use `SubprocessLauncher::setenv`,</span>
-    <span class="doccomment">/// `SubprocessLauncher::unsetenv`, etc.</span>
+    <span class="doccomment">/// As an alternative, you can use [`setenv()`](Self::setenv()),</span>
+    <span class="doccomment">/// [`unsetenv()`](Self::unsetenv()), etc.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Pass an empty array to set an empty environment. Pass `None` to inherit the</span>
+    <span class="doccomment">/// Pass an empty array to set an empty environment. Pass [`None`] to inherit the</span>
     <span class="doccomment">/// parent process’ environment. As of GLib 2.54, the parent process’ environment</span>
-    <span class="doccomment">/// will be copied when `SubprocessLauncher::set_environ` is called.</span>
+    <span class="doccomment">/// will be copied when [`set_environ()`](Self::set_environ()) is called.</span>
     <span class="doccomment">/// Previously, it was copied when the subprocess was executed. This means the</span>
-    <span class="doccomment">/// copied environment may now be modified (using `SubprocessLauncher::setenv`,</span>
+    <span class="doccomment">/// copied environment may now be modified (using [`setenv()`](Self::setenv()),</span>
     <span class="doccomment">/// etc.) before launching the subprocess.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// On UNIX, all strings in this array can be arbitrary byte strings.</span>
@@ -501,18 +501,18 @@
 
     <span class="doccomment">/// Sets the flags on the launcher.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The default flags are `SubprocessFlags::None`.</span>
+    <span class="doccomment">/// The default flags are [`SubprocessFlags::None`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// You may not set flags that specify conflicting options for how to</span>
     <span class="doccomment">/// handle a particular stdio stream (eg: specifying both</span>
-    <span class="doccomment">/// `SubprocessFlags::StdinPipe` and</span>
-    <span class="doccomment">/// `SubprocessFlags::StdinInherit`).</span>
+    <span class="doccomment">/// [`SubprocessFlags::StdinPipe`] and</span>
+    <span class="doccomment">/// [`SubprocessFlags::StdinInherit`]).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// You may also not set a flag that conflicts with a previous call to a</span>
-    <span class="doccomment">/// function like `SubprocessLauncher::set_stdin_file_path` or</span>
-    <span class="doccomment">/// `SubprocessLauncher::take_stdout_fd`.</span>
+    <span class="doccomment">/// function like [`set_stdin_file_path()`](Self::set_stdin_file_path()) or</span>
+    <span class="doccomment">/// [`take_stdout_fd()`](Self::take_stdout_fd()).</span>
     <span class="doccomment">/// ## `flags`</span>
-    <span class="doccomment">/// `SubprocessFlags`</span>
+    <span class="doccomment">/// [`SubprocessFlags`](crate::SubprocessFlags)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_subprocess_launcher_set_flags&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_flags</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">flags</span>: <span class="ident">SubprocessFlags</span>) {
         <span class="kw">unsafe</span> {
@@ -522,20 +522,20 @@
 
     <span class="doccomment">/// Sets the file path to use as the stderr for spawned processes.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If `path` is `None` then any previously given path is unset.</span>
+    <span class="doccomment">/// If `path` is [`None`] then any previously given path is unset.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The file will be created or truncated when the process is spawned, as</span>
     <span class="doccomment">/// would be the case if using &#39;2&gt;&#39; at the shell.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If you want to send both stdout and stderr to the same file then use</span>
-    <span class="doccomment">/// `SubprocessFlags::StderrMerge`.</span>
+    <span class="doccomment">/// [`SubprocessFlags::StderrMerge`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// You may not set a stderr file path if a stderr fd is already set or</span>
     <span class="doccomment">/// if the launcher flags contain any flags directing stderr elsewhere.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This feature is only available on UNIX.</span>
     <span class="doccomment">/// ## `path`</span>
-    <span class="doccomment">/// a filename or `None`</span>
+    <span class="doccomment">/// a filename or [`None`]</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">unix</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">unix</span>)))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_subprocess_launcher_set_stderr_file_path&quot;</span>)]</span>
@@ -550,7 +550,7 @@
 
     <span class="doccomment">/// Sets the file path to use as the stdin for spawned processes.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If `path` is `None` then any previously given path is unset.</span>
+    <span class="doccomment">/// If `path` is [`None`] then any previously given path is unset.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The file must exist or spawning the process will fail.</span>
     <span class="doccomment">///</span>
@@ -572,7 +572,7 @@
 
     <span class="doccomment">/// Sets the file path to use as the stdout for spawned processes.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If `path` is `None` then any previously given path is unset.</span>
+    <span class="doccomment">/// If `path` is [`None`] then any previously given path is unset.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The file will be created or truncated when the process is spawned, as</span>
     <span class="doccomment">/// would be the case if using &#39;&gt;&#39; at the shell.</span>
@@ -582,7 +582,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This feature is only available on UNIX.</span>
     <span class="doccomment">/// ## `path`</span>
-    <span class="doccomment">/// a filename or `None`</span>
+    <span class="doccomment">/// a filename or [`None`]</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">unix</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">unix</span>)))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_subprocess_launcher_set_stdout_file_path&quot;</span>)]</span>
@@ -630,7 +630,7 @@
     <span class="comment">//    unsafe { TODO: call ffi:g_subprocess_launcher_spawn() }</span>
     <span class="comment">//}</span>
 
-    <span class="doccomment">/// Creates a `Subprocess` given a provided varargs list of arguments.</span>
+    <span class="doccomment">/// Creates a [`Subprocess`](crate::Subprocess) given a provided varargs list of arguments.</span>
     <span class="doccomment">/// ## `error`</span>
     <span class="doccomment">/// Error</span>
     <span class="doccomment">/// ## `argv0`</span>
@@ -638,7 +638,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A new `Subprocess`, or `None` on error (and `error` will be set)</span>
+    <span class="doccomment">/// A new [`Subprocess`](crate::Subprocess), or [`None`] on error (and `error` will be set)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_subprocess_launcher_spawnv&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">spawn</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">argv</span>: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span><span class="ident">std::ffi::OsStr</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Subprocess</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {

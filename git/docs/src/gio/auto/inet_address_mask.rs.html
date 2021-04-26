@@ -340,14 +340,14 @@
 <span class="kw">use</span> <span class="ident">std::ptr</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// `InetAddressMask` represents a range of IPv4 or IPv6 addresses</span>
+    <span class="doccomment">/// [`InetAddressMask`](crate::InetAddressMask) represents a range of IPv4 or IPv6 addresses</span>
     <span class="doccomment">/// described by a base address and a length indicating how many bits</span>
     <span class="doccomment">/// of the base address are relevant for matching purposes. These are</span>
     <span class="doccomment">/// often given in string form. Eg, &quot;10.0.0.0/8&quot;, or &quot;fe80::/10&quot;.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`InetAddressMaskExt`](trait@crate::InetAddressMaskExt), [`trait@glib::object::ObjectExt`]</span>
+    <span class="doccomment">/// [`InetAddressMaskExt`](trait@crate::prelude::InetAddressMaskExt), [`trait@glib::object::ObjectExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">InetAddressMask</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GInetAddressMask</span>, <span class="ident">ffi::GInetAddressMaskClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -356,16 +356,16 @@
 }
 
 <span class="kw">impl</span> <span class="ident">InetAddressMask</span> {
-    <span class="doccomment">/// Creates a new `InetAddressMask` representing all addresses whose</span>
+    <span class="doccomment">/// Creates a new [`InetAddressMask`](crate::InetAddressMask) representing all addresses whose</span>
     <span class="doccomment">/// first `length` bits match `addr`.</span>
     <span class="doccomment">/// ## `addr`</span>
-    <span class="doccomment">/// a `InetAddress`</span>
+    <span class="doccomment">/// a [`InetAddress`](crate::InetAddress)</span>
     <span class="doccomment">/// ## `length`</span>
     <span class="doccomment">/// number of bits of `addr` to use</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new `InetAddressMask`, or `None` on error</span>
+    <span class="doccomment">/// a new [`InetAddressMask`](crate::InetAddressMask), or [`None`] on error</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_inet_address_mask_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">InetAddress</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">addr</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>, <span class="ident">length</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">InetAddressMask</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
@@ -381,7 +381,7 @@
     }
 
     <span class="doccomment">/// Parses `mask_string` as an IP address and (optional) length, and</span>
-    <span class="doccomment">/// creates a new `InetAddressMask`. The length, if present, is</span>
+    <span class="doccomment">/// creates a new [`InetAddressMask`](crate::InetAddressMask). The length, if present, is</span>
     <span class="doccomment">/// delimited by a &quot;/&quot;. If it is not present, then the length is</span>
     <span class="doccomment">/// assumed to be the full length of the address.</span>
     <span class="doccomment">/// ## `mask_string`</span>
@@ -389,7 +389,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new `InetAddressMask` corresponding to `string`, or `None`</span>
+    <span class="doccomment">/// a new [`InetAddressMask`](crate::InetAddressMask) corresponding to `string`, or [`None`]</span>
     <span class="doccomment">/// on error.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_inet_address_mask_new_from_string&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_string</span>(<span class="ident">mask_string</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">InetAddressMask</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span> {
@@ -426,7 +426,7 @@
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">InetAddressMaskExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Tests if `self` and `mask2` are the same mask.</span>
     <span class="doccomment">/// ## `mask2`</span>
-    <span class="doccomment">/// another `InetAddressMask`</span>
+    <span class="doccomment">/// another [`InetAddressMask`](crate::InetAddressMask)</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -442,11 +442,11 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_inet_address_mask_get_address&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">address</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">InetAddress</span>;
 
-    <span class="doccomment">/// Gets the `SocketFamily` of `self`&#39;s address</span>
+    <span class="doccomment">/// Gets the [`SocketFamily`](crate::SocketFamily) of `self`&#39;s address</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the `SocketFamily` of `self`&#39;s address</span>
+    <span class="doccomment">/// the [`SocketFamily`](crate::SocketFamily) of `self`&#39;s address</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_inet_address_mask_get_family&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">family</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SocketFamily</span>;
 
@@ -460,7 +460,7 @@
 
     <span class="doccomment">/// Tests if `address` falls within the range described by `self`.</span>
     <span class="doccomment">/// ## `address`</span>
-    <span class="doccomment">/// a `InetAddress`</span>
+    <span class="doccomment">/// a [`InetAddress`](crate::InetAddress)</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>

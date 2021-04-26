@@ -220,17 +220,17 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// The purpose of the `DisplayManager` singleton object is to offer</span>
+    <span class="doccomment">/// The purpose of the [`DisplayManager`](crate::DisplayManager) singleton object is to offer</span>
     <span class="doccomment">/// notification when displays appear or disappear or the default display</span>
     <span class="doccomment">/// changes.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// You can use `DisplayManager::get` to obtain the `DisplayManager`</span>
+    <span class="doccomment">/// You can use [`get()`](Self::get()) to obtain the [`DisplayManager`](crate::DisplayManager)</span>
     <span class="doccomment">/// singleton, but that should be rarely necessary. Typically, initializing</span>
     <span class="doccomment">/// GTK+ opens a display that you can work with without ever accessing the</span>
-    <span class="doccomment">/// `DisplayManager`.</span>
+    <span class="doccomment">/// [`DisplayManager`](crate::DisplayManager).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The GDK library can be built with support for multiple backends.</span>
-    <span class="doccomment">/// The `DisplayManager` object determines which backend is used</span>
+    <span class="doccomment">/// The [`DisplayManager`](crate::DisplayManager) object determines which backend is used</span>
     <span class="doccomment">/// at runtime.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// When writing backend-specific code that is supposed to work with</span>
@@ -268,11 +268,11 @@
 }
 
 <span class="kw">impl</span> <span class="ident">DisplayManager</span> {
-    <span class="doccomment">/// Gets the default `Display`.</span>
+    <span class="doccomment">/// Gets the default [`Display`](crate::Display).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a `Display`, or `None` if</span>
+    <span class="doccomment">/// a [`Display`](crate::Display), or [`None`] if</span>
     <span class="doccomment">///  there is no default display.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_display_manager_get_default_display&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">default_display</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Display</span><span class="op">&gt;</span> {
@@ -288,7 +288,7 @@
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// a newly</span>
-    <span class="doccomment">///  allocated `glib::SList` of `Display` objects. Free with `glib::SList::free`</span>
+    <span class="doccomment">///  allocated [`glib::SList`](crate::glib::SList) of [`Display`](crate::Display) objects. Free with [`glib::SList::free()`](crate::glib::SList::free())</span>
     <span class="doccomment">///  when you are done with it.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_display_manager_list_displays&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">list_displays</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Display</span><span class="op">&gt;</span> {
@@ -305,7 +305,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a `Display`, or `None` if the</span>
+    <span class="doccomment">/// a [`Display`](crate::Display), or [`None`] if the</span>
     <span class="doccomment">///  display could not be opened</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_display_manager_open_display&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">open_display</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Display</span><span class="op">&gt;</span> {
@@ -319,7 +319,7 @@
 
     <span class="doccomment">/// Sets `display` as the default display.</span>
     <span class="doccomment">/// ## `display`</span>
-    <span class="doccomment">/// a `Display`</span>
+    <span class="doccomment">/// a [`Display`](crate::Display)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_display_manager_set_default_display&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_default_display</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">display</span>: <span class="kw-2">&amp;</span><span class="ident">Display</span>) {
         <span class="kw">unsafe</span> {
@@ -330,18 +330,18 @@
         }
     }
 
-    <span class="doccomment">/// Gets the singleton `DisplayManager` object.</span>
+    <span class="doccomment">/// Gets the singleton [`DisplayManager`](crate::DisplayManager) object.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// When called for the first time, this function consults the</span>
     <span class="doccomment">/// `GDK_BACKEND` environment variable to find out which</span>
     <span class="doccomment">/// of the supported GDK backends to use (in case GDK has been compiled</span>
-    <span class="doccomment">/// with multiple backends). Applications can use `gdk_set_allowed_backends`</span>
+    <span class="doccomment">/// with multiple backends). Applications can use `gdk_set_allowed_backends()`</span>
     <span class="doccomment">/// to limit what backends can be used.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The global `DisplayManager` singleton;</span>
-    <span class="doccomment">///  `gdk_parse_args`, `gdk_init`, or `gdk_init_check` must have</span>
+    <span class="doccomment">/// The global [`DisplayManager`](crate::DisplayManager) singleton;</span>
+    <span class="doccomment">///  `gdk_parse_args()`, `gdk_init()`, or `gdk_init_check()` must have</span>
     <span class="doccomment">///  been called first.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_display_manager_get&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DisplayManager</span> {

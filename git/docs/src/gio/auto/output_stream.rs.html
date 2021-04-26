@@ -879,14 +879,14 @@
 <span class="kw">use</span> <span class="ident">std::ptr</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// `OutputStream` has functions to write to a stream (`OutputStreamExt::write`),</span>
-    <span class="doccomment">/// to close a stream (`OutputStreamExt::close`) and to flush pending writes</span>
-    <span class="doccomment">/// (`OutputStreamExt::flush`).</span>
+    <span class="doccomment">/// [`OutputStream`](crate::OutputStream) has functions to write to a stream ([`OutputStreamExt::write()`](crate::OutputStreamExt::write())),</span>
+    <span class="doccomment">/// to close a stream ([`OutputStreamExt::close()`](crate::OutputStreamExt::close())) and to flush pending writes</span>
+    <span class="doccomment">/// ([`OutputStreamExt::flush()`](crate::OutputStreamExt::flush())).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// To copy the content of an input stream to an output stream without</span>
-    <span class="doccomment">/// manually handling the reads and writes, use `OutputStreamExt::splice`.</span>
+    <span class="doccomment">/// manually handling the reads and writes, use [`OutputStreamExt::splice()`](crate::OutputStreamExt::splice()).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See the documentation for `IOStream` for details of thread safety of</span>
+    <span class="doccomment">/// See the documentation for [`IOStream`](crate::IOStream) for details of thread safety of</span>
     <span class="doccomment">/// streaming APIs.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// All of these functions have async variants too.</span>
@@ -895,7 +895,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`OutputStreamExt`](trait@crate::OutputStreamExt), [`trait@glib::object::ObjectExt`], [`OutputStreamExtManual`](trait@crate::OutputStreamExtManual)</span>
+    <span class="doccomment">/// [`OutputStreamExt`](trait@crate::prelude::OutputStreamExt), [`trait@glib::object::ObjectExt`], [`OutputStreamExtManual`](trait@crate::prelude::OutputStreamExtManual)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">OutputStream</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GOutputStream</span>, <span class="ident">ffi::GOutputStreamClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -917,7 +917,7 @@
 
     <span class="doccomment">/// Closes the stream, releasing resources related to it.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Once the stream is closed, all other operations will return `IOErrorEnum::Closed`.</span>
+    <span class="doccomment">/// Once the stream is closed, all other operations will return [`IOErrorEnum::Closed`].</span>
     <span class="doccomment">/// Closing a stream multiple times will not return an error.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Closing a stream will automatically flush any outstanding buffers in the</span>
@@ -933,13 +933,13 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// On failure the first error that happened will be reported, but the close</span>
     <span class="doccomment">/// operation will finish as much as possible. A stream that failed to</span>
-    <span class="doccomment">/// close will still return `IOErrorEnum::Closed` for all operations. Still, it</span>
+    <span class="doccomment">/// close will still return [`IOErrorEnum::Closed`] for all operations. Still, it</span>
     <span class="doccomment">/// is important to check and report the error to the user, otherwise</span>
     <span class="doccomment">/// there might be a loss of data as all data might not be written.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If `cancellable` is not `None`, then the operation can be cancelled by</span>
+    <span class="doccomment">/// If `cancellable` is not [`None`], then the operation can be cancelled by</span>
     <span class="doccomment">/// triggering the cancellable object from another thread. If the operation</span>
-    <span class="doccomment">/// was cancelled, the error `IOErrorEnum::Cancelled` will be returned.</span>
+    <span class="doccomment">/// was cancelled, the error [`IOErrorEnum::Cancelled`] will be returned.</span>
     <span class="doccomment">/// Cancelling a close will still leave the stream closed, but there some streams</span>
     <span class="doccomment">/// can use a faster close that doesn&#39;t block to e.g. check errors. On</span>
     <span class="doccomment">/// cancellation (as with any error) there is no guarantee that all written</span>
@@ -949,16 +949,16 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` on success, `false` on failure</span>
+    <span class="doccomment">/// [`true`] on success, [`false`] on failure</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_output_stream_close&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">close</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib::Error</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Requests an asynchronous close of the stream, releasing resources</span>
     <span class="doccomment">/// related to it. When the operation is finished `callback` will be</span>
-    <span class="doccomment">/// called. You can then call `OutputStreamExt::close_finish` to get</span>
+    <span class="doccomment">/// called. You can then call [`close_finish()`](Self::close_finish()) to get</span>
     <span class="doccomment">/// the result of the operation.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// For behaviour details see `OutputStreamExt::close`.</span>
+    <span class="doccomment">/// For behaviour details see [`close()`](Self::close()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The asynchronous methods have a default fallback that uses threads</span>
     <span class="doccomment">/// to implement asynchronicity, so they are optional for inheriting</span>
@@ -990,29 +990,29 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This function is optional for inherited classes.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If `cancellable` is not `None`, then the operation can be cancelled by</span>
+    <span class="doccomment">/// If `cancellable` is not [`None`], then the operation can be cancelled by</span>
     <span class="doccomment">/// triggering the cancellable object from another thread. If the operation</span>
-    <span class="doccomment">/// was cancelled, the error `IOErrorEnum::Cancelled` will be returned.</span>
+    <span class="doccomment">/// was cancelled, the error [`IOErrorEnum::Cancelled`] will be returned.</span>
     <span class="doccomment">/// ## `cancellable`</span>
     <span class="doccomment">/// optional cancellable object</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` on success, `false` on error</span>
+    <span class="doccomment">/// [`true`] on success, [`false`] on error</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_output_stream_flush&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">flush</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib::Error</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Forces an asynchronous write of all user-space buffered data for</span>
     <span class="doccomment">/// the given `self`.</span>
-    <span class="doccomment">/// For behaviour details see `OutputStreamExt::flush`.</span>
+    <span class="doccomment">/// For behaviour details see [`flush()`](Self::flush()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// When the operation is finished `callback` will be</span>
-    <span class="doccomment">/// called. You can then call `OutputStreamExt::flush_finish` to get the</span>
+    <span class="doccomment">/// called. You can then call [`flush_finish()`](Self::flush_finish()) to get the</span>
     <span class="doccomment">/// result of the operation.</span>
     <span class="doccomment">/// ## `io_priority`</span>
     <span class="doccomment">/// the io priority of the request.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional `Cancellable` object, `None` to ignore.</span>
+    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// a `GAsyncReadyCallback` to call when the request is satisfied</span>
     <span class="doccomment">/// ## `user_data`</span>
@@ -1034,7 +1034,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if `self` has pending actions.</span>
+    <span class="doccomment">/// [`true`] if `self` has pending actions.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_output_stream_has_pending&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">has_pending</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
@@ -1042,7 +1042,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if `self` is closed. `false` otherwise.</span>
+    <span class="doccomment">/// [`true`] if `self` is closed. [`false`] otherwise.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_output_stream_is_closed&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">is_closed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
@@ -1053,7 +1053,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if `self` is being closed. `false` otherwise.</span>
+    <span class="doccomment">/// [`true`] if `self` is being closed. [`false`] otherwise.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_output_stream_is_closing&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">is_closing</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
@@ -1061,22 +1061,22 @@
     <span class="comment">//fn printf&lt;P: IsA&lt;Cancellable&gt;&gt;(&amp;self, cancellable: Option&lt;&amp;P&gt;, error: &amp;mut glib::Error, format: &amp;str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -&gt; Option&lt;usize&gt;;</span>
 
     <span class="doccomment">/// Sets `self` to have actions pending. If the pending flag is</span>
-    <span class="doccomment">/// already set or `self` is closed, it will return `false` and set</span>
+    <span class="doccomment">/// already set or `self` is closed, it will return [`false`] and set</span>
     <span class="doccomment">/// `error`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if pending was previously unset and is now set.</span>
+    <span class="doccomment">/// [`true`] if pending was previously unset and is now set.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_output_stream_set_pending&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_pending</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib::Error</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Splices an input stream into an output stream.</span>
     <span class="doccomment">/// ## `source`</span>
-    <span class="doccomment">/// a `InputStream`.</span>
+    <span class="doccomment">/// a [`InputStream`](crate::InputStream).</span>
     <span class="doccomment">/// ## `flags`</span>
-    <span class="doccomment">/// a set of `OutputStreamSpliceFlags`.</span>
+    <span class="doccomment">/// a set of [`OutputStreamSpliceFlags`](crate::OutputStreamSpliceFlags).</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional `Cancellable` object, `None` to ignore.</span>
+    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1095,19 +1095,19 @@
 
     <span class="doccomment">/// Splices a stream asynchronously.</span>
     <span class="doccomment">/// When the operation is finished `callback` will be called.</span>
-    <span class="doccomment">/// You can then call `OutputStreamExt::splice_finish` to get the</span>
+    <span class="doccomment">/// You can then call [`splice_finish()`](Self::splice_finish()) to get the</span>
     <span class="doccomment">/// result of the operation.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// For the synchronous, blocking version of this function, see</span>
-    <span class="doccomment">/// `OutputStreamExt::splice`.</span>
+    <span class="doccomment">/// [`splice()`](Self::splice()).</span>
     <span class="doccomment">/// ## `source`</span>
-    <span class="doccomment">/// a `InputStream`.</span>
+    <span class="doccomment">/// a [`InputStream`](crate::InputStream).</span>
     <span class="doccomment">/// ## `flags`</span>
-    <span class="doccomment">/// a set of `OutputStreamSpliceFlags`.</span>
+    <span class="doccomment">/// a set of [`OutputStreamSpliceFlags`](crate::OutputStreamSpliceFlags).</span>
     <span class="doccomment">/// ## `io_priority`</span>
     <span class="doccomment">/// the io priority of the request.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional `Cancellable` object, `None` to ignore.</span>
+    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// a `GAsyncReadyCallback`.</span>
     <span class="doccomment">/// ## `user_data`</span>
@@ -1140,7 +1140,7 @@
     <span class="doccomment">/// during the operation.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If count is 0, returns 0 and does nothing. A value of `count`</span>
-    <span class="doccomment">/// larger than `G_MAXSSIZE` will cause a `IOErrorEnum::InvalidArgument` error.</span>
+    <span class="doccomment">/// larger than `G_MAXSSIZE` will cause a [`IOErrorEnum::InvalidArgument`] error.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// On success, the number of bytes written to the stream is returned.</span>
     <span class="doccomment">/// It is not an error if this is not the same as the requested size, as it</span>
@@ -1149,9 +1149,9 @@
     <span class="doccomment">/// is written or an error occurs; 0 is never returned (unless</span>
     <span class="doccomment">/// `count` is 0).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If `cancellable` is not `None`, then the operation can be cancelled by</span>
+    <span class="doccomment">/// If `cancellable` is not [`None`], then the operation can be cancelled by</span>
     <span class="doccomment">/// triggering the cancellable object from another thread. If the operation</span>
-    <span class="doccomment">/// was cancelled, the error `IOErrorEnum::Cancelled` will be returned. If an</span>
+    <span class="doccomment">/// was cancelled, the error [`IOErrorEnum::Cancelled`] will be returned. If an</span>
     <span class="doccomment">/// operation was partially finished when the operation was cancelled the</span>
     <span class="doccomment">/// partial result will be returned, without an error.</span>
     <span class="doccomment">///</span>
@@ -1173,19 +1173,19 @@
         <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">isize</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// A wrapper function for `OutputStreamExt::write` which takes a</span>
-    <span class="doccomment">/// `glib::Bytes` as input. This can be more convenient for use by language</span>
-    <span class="doccomment">/// bindings or in other cases where the refcounted nature of `glib::Bytes`</span>
+    <span class="doccomment">/// A wrapper function for [`write()`](Self::write()) which takes a</span>
+    <span class="doccomment">/// [`glib::Bytes`](crate::glib::Bytes) as input. This can be more convenient for use by language</span>
+    <span class="doccomment">/// bindings or in other cases where the refcounted nature of [`glib::Bytes`](crate::glib::Bytes)</span>
     <span class="doccomment">/// is helpful over a bare pointer interface.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// However, note that this function may still perform partial writes,</span>
-    <span class="doccomment">/// just like `OutputStreamExt::write`. If that occurs, to continue</span>
-    <span class="doccomment">/// writing, you will need to create a new `glib::Bytes` containing just the</span>
-    <span class="doccomment">/// remaining bytes, using `glib::Bytes::new_from_bytes`. Passing the same</span>
-    <span class="doccomment">/// `glib::Bytes` instance multiple times potentially can result in duplicated</span>
+    <span class="doccomment">/// just like [`write()`](Self::write()). If that occurs, to continue</span>
+    <span class="doccomment">/// writing, you will need to create a new [`glib::Bytes`](crate::glib::Bytes) containing just the</span>
+    <span class="doccomment">/// remaining bytes, using [`glib::Bytes::new_from_bytes()`](crate::glib::Bytes::new_from_bytes()). Passing the same</span>
+    <span class="doccomment">/// [`glib::Bytes`](crate::glib::Bytes) instance multiple times potentially can result in duplicated</span>
     <span class="doccomment">/// data in the output stream.</span>
     <span class="doccomment">/// ## `bytes`</span>
-    <span class="doccomment">/// the `glib::Bytes` to write</span>
+    <span class="doccomment">/// the [`glib::Bytes`](crate::glib::Bytes) to write</span>
     <span class="doccomment">/// ## `cancellable`</span>
     <span class="doccomment">/// optional cancellable object</span>
     <span class="doccomment">///</span>
@@ -1199,25 +1199,25 @@
         <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">isize</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// This function is similar to `OutputStream::write_async`, but</span>
-    <span class="doccomment">/// takes a `glib::Bytes` as input. Due to the refcounted nature of `glib::Bytes`,</span>
+    <span class="doccomment">/// This function is similar to [`OutputStream::write_async()`](crate::OutputStream::write_async()), but</span>
+    <span class="doccomment">/// takes a [`glib::Bytes`](crate::glib::Bytes) as input. Due to the refcounted nature of [`glib::Bytes`](crate::glib::Bytes),</span>
     <span class="doccomment">/// this allows the stream to avoid taking a copy of the data.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// However, note that this function may still perform partial writes,</span>
-    <span class="doccomment">/// just like `OutputStream::write_async`. If that occurs, to continue</span>
-    <span class="doccomment">/// writing, you will need to create a new `glib::Bytes` containing just the</span>
-    <span class="doccomment">/// remaining bytes, using `glib::Bytes::new_from_bytes`. Passing the same</span>
-    <span class="doccomment">/// `glib::Bytes` instance multiple times potentially can result in duplicated</span>
+    <span class="doccomment">/// just like [`OutputStream::write_async()`](crate::OutputStream::write_async()). If that occurs, to continue</span>
+    <span class="doccomment">/// writing, you will need to create a new [`glib::Bytes`](crate::glib::Bytes) containing just the</span>
+    <span class="doccomment">/// remaining bytes, using [`glib::Bytes::new_from_bytes()`](crate::glib::Bytes::new_from_bytes()). Passing the same</span>
+    <span class="doccomment">/// [`glib::Bytes`](crate::glib::Bytes) instance multiple times potentially can result in duplicated</span>
     <span class="doccomment">/// data in the output stream.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// For the synchronous, blocking version of this function, see</span>
-    <span class="doccomment">/// `OutputStreamExt::write_bytes`.</span>
+    <span class="doccomment">/// [`write_bytes()`](Self::write_bytes()).</span>
     <span class="doccomment">/// ## `bytes`</span>
     <span class="doccomment">/// The bytes to write</span>
     <span class="doccomment">/// ## `io_priority`</span>
     <span class="doccomment">/// the io priority of the request.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional `Cancellable` object, `None` to ignore.</span>
+    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// callback to call when the request is satisfied</span>
     <span class="doccomment">/// ## `user_data`</span>

@@ -76,18 +76,18 @@
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// The `Bin` widget is a container with just one child.</span>
+    <span class="doccomment">/// The [`Bin`](crate::Bin) widget is a container with just one child.</span>
     <span class="doccomment">/// It is not very useful itself, but it is useful for deriving subclasses,</span>
     <span class="doccomment">/// since it provides common code needed for handling a single child widget.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Many GTK+ widgets are subclasses of `Bin`, including `Window`,</span>
-    <span class="doccomment">/// `Button`, `Frame`, `HandleBox` or `ScrolledWindow`.</span>
+    <span class="doccomment">/// Many GTK+ widgets are subclasses of [`Bin`](crate::Bin), including [`Window`](crate::Window),</span>
+    <span class="doccomment">/// [`Button`](crate::Button), [`Frame`](crate::Frame), [`HandleBox`](crate::HandleBox) or [`ScrolledWindow`](crate::ScrolledWindow).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is an Abstract Base Class, you cannot instantiate it.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`BinExt`](trait@crate::BinExt), [`ContainerExt`](trait@crate::ContainerExt), [`WidgetExt`](trait@crate::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::BuildableExt), [`WidgetExtManual`](trait@crate::WidgetExtManual), [`BuildableExtManual`](trait@crate::BuildableExtManual)</span>
+    <span class="doccomment">/// [`BinExt`](trait@crate::prelude::BinExt), [`ContainerExt`](trait@crate::prelude::ContainerExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Bin</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkBin</span>, <span class="ident">ffi::GtkBinClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -103,13 +103,13 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// [`ActionBar`](struct@crate::ActionBar), [`Bin`](struct@crate::Bin), [`Button`](struct@crate::Button), [`ComboBox`](struct@crate::ComboBox), [`EventBox`](struct@crate::EventBox), [`Expander`](struct@crate::Expander), [`FlowBoxChild`](struct@crate::FlowBoxChild), [`Frame`](struct@crate::Frame), [`ListBoxRow`](struct@crate::ListBoxRow), [`MenuItem`](struct@crate::MenuItem), [`Overlay`](struct@crate::Overlay), [`Popover`](struct@crate::Popover), [`Revealer`](struct@crate::Revealer), [`ScrolledWindow`](struct@crate::ScrolledWindow), [`SearchBar`](struct@crate::SearchBar), [`StackSidebar`](struct@crate::StackSidebar), [`ToolItem`](struct@crate::ToolItem), [`Viewport`](struct@crate::Viewport), [`Window`](struct@crate::Window)</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">BinExt</span>: <span class="lifetime">&#39;static</span> {
-    <span class="doccomment">/// Gets the child of the `Bin`, or `None` if the bin contains</span>
+    <span class="doccomment">/// Gets the child of the [`Bin`](crate::Bin), or [`None`] if the bin contains</span>
     <span class="doccomment">/// no child widget. The returned widget does not have a reference</span>
     <span class="doccomment">/// added, so you do not need to unref it.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the child of `self`, or `None` if it does</span>
+    <span class="doccomment">/// the child of `self`, or [`None`] if it does</span>
     <span class="doccomment">/// not have a child.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_bin_get_child&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">child</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span>;

@@ -1217,8 +1217,8 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// `FileChooserWidget` is a widget for choosing files.</span>
-    <span class="doccomment">/// It exposes the `FileChooser` interface, and you should</span>
+    <span class="doccomment">/// [`FileChooserWidget`](crate::FileChooserWidget) is a widget for choosing files.</span>
+    <span class="doccomment">/// It exposes the [`FileChooser`](crate::FileChooser) interface, and you should</span>
     <span class="doccomment">/// use the methods of this interface to interact with the</span>
     <span class="doccomment">/// widget.</span>
     <span class="doccomment">///</span>
@@ -1228,7 +1228,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`FileChooserWidgetExt`](trait@crate::FileChooserWidgetExt), [`BoxExt`](trait@crate::BoxExt), [`ContainerExt`](trait@crate::ContainerExt), [`WidgetExt`](trait@crate::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::BuildableExt), [`OrientableExt`](trait@crate::OrientableExt), [`FileChooserExt`](trait@crate::FileChooserExt), [`WidgetExtManual`](trait@crate::WidgetExtManual), [`BuildableExtManual`](trait@crate::BuildableExtManual)</span>
+    <span class="doccomment">/// [`FileChooserWidgetExt`](trait@crate::prelude::FileChooserWidgetExt), [`BoxExt`](trait@crate::prelude::BoxExt), [`ContainerExt`](trait@crate::prelude::ContainerExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`OrientableExt`](trait@crate::prelude::OrientableExt), [`FileChooserExt`](trait@crate::prelude::FileChooserExt), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FileChooserWidget</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkFileChooserWidget</span>, <span class="ident">ffi::GtkFileChooserWidgetClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Box</span>, <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>, <span class="ident">Orientable</span>, <span class="ident">FileChooser</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -1237,15 +1237,15 @@
 }
 
 <span class="kw">impl</span> <span class="ident">FileChooserWidget</span> {
-    <span class="doccomment">/// Creates a new `FileChooserWidget`. This is a file chooser widget that can</span>
+    <span class="doccomment">/// Creates a new [`FileChooserWidget`](crate::FileChooserWidget). This is a file chooser widget that can</span>
     <span class="doccomment">/// be embedded in custom windows, and it is the same widget that is used by</span>
-    <span class="doccomment">/// `FileChooserDialog`.</span>
+    <span class="doccomment">/// [`FileChooserDialog`](crate::FileChooserDialog).</span>
     <span class="doccomment">/// ## `action`</span>
     <span class="doccomment">/// Open or save mode for the widget</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new `FileChooserWidget`</span>
+    <span class="doccomment">/// a new [`FileChooserWidget`](crate::FileChooserWidget)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_file_chooser_widget_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">action</span>: <span class="ident">FileChooserAction</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FileChooserWidget</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -1809,7 +1809,7 @@
     <span class="doccomment">/// which gets emitted when the user asks for it.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is used to make the file chooser show a &quot;Location&quot; prompt when the user</span>
-    <span class="doccomment">/// pastes into a `FileChooserWidget`.</span>
+    <span class="doccomment">/// pastes into a [`FileChooserWidget`](crate::FileChooserWidget).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The default binding for this signal is `Control + V`.</span>
     <span class="kw">fn</span> <span class="ident">connect_location_popup_on_paste</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;

@@ -254,7 +254,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`RelationExt`](trait@crate::RelationExt), [`trait@glib::object::ObjectExt`]</span>
+    <span class="doccomment">/// [`RelationExt`](trait@crate::prelude::RelationExt), [`trait@glib::object::ObjectExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Relation</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::AtkRelation</span>, <span class="ident">ffi::AtkRelationClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -264,19 +264,19 @@
 
 <span class="kw">impl</span> <span class="ident">Relation</span> {
     <span class="doccomment">/// Create a new relation for the specified key and the specified list</span>
-    <span class="doccomment">/// of targets. See also `AtkObjectExt::add_relationship`.</span>
+    <span class="doccomment">/// of targets. See also [`AtkObjectExt::add_relationship()`](crate::AtkObjectExt::add_relationship()).</span>
     <span class="doccomment">/// ## `targets`</span>
     <span class="doccomment">/// an array of pointers to</span>
     <span class="doccomment">///  `AtkObjects`</span>
     <span class="doccomment">/// ## `n_targets`</span>
     <span class="doccomment">/// number of `AtkObjects` pointed to by `targets`</span>
     <span class="doccomment">/// ## `relationship`</span>
-    <span class="doccomment">/// an `RelationType` with which to create the new</span>
-    <span class="doccomment">///  `Relation`</span>
+    <span class="doccomment">/// an [`RelationType`](crate::RelationType) with which to create the new</span>
+    <span class="doccomment">///  [`Relation`](crate::Relation)</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a pointer to a new `Relation`</span>
+    <span class="doccomment">/// a pointer to a new [`Relation`](crate::Relation)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_relation_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">targets</span>: <span class="kw-2">&amp;</span>[<span class="ident">Object</span>], <span class="ident">relationship</span>: <span class="ident">RelationType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Relation</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -300,9 +300,9 @@
 <span class="doccomment">/// [`Relation`](struct@crate::Relation)</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">RelationExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Adds the specified AtkObject to the target for the relation, if it is</span>
-    <span class="doccomment">/// not already present. See also `AtkObjectExt::add_relationship`.</span>
+    <span class="doccomment">/// not already present. See also [`AtkObjectExt::add_relationship()`](crate::AtkObjectExt::add_relationship()).</span>
     <span class="doccomment">/// ## `target`</span>
-    <span class="doccomment">/// an `Object`</span>
+    <span class="doccomment">/// an [`Object`](crate::Object)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_relation_add_target&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">add_target</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Object</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">target</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>);
 
@@ -324,7 +324,7 @@
 
     <span class="doccomment">/// Remove the specified AtkObject from the target for the relation.</span>
     <span class="doccomment">/// ## `target`</span>
-    <span class="doccomment">/// an `Object`</span>
+    <span class="doccomment">/// an [`Object`](crate::Object)</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>

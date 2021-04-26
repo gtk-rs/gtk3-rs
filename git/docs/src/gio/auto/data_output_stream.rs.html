@@ -489,12 +489,12 @@
 <span class="kw">use</span> <span class="ident">std::ptr</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// Data output stream implements `OutputStream` and includes functions for</span>
+    <span class="doccomment">/// Data output stream implements [`OutputStream`](crate::OutputStream) and includes functions for</span>
     <span class="doccomment">/// writing data directly to an output stream.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`DataOutputStreamExt`](trait@crate::DataOutputStreamExt), [`FilterOutputStreamExt`](trait@crate::FilterOutputStreamExt), [`OutputStreamExt`](trait@crate::OutputStreamExt), [`trait@glib::object::ObjectExt`], [`SeekableExt`](trait@crate::SeekableExt), [`OutputStreamExtManual`](trait@crate::OutputStreamExtManual)</span>
+    <span class="doccomment">/// [`DataOutputStreamExt`](trait@crate::prelude::DataOutputStreamExt), [`FilterOutputStreamExt`](trait@crate::prelude::FilterOutputStreamExt), [`OutputStreamExt`](trait@crate::prelude::OutputStreamExt), [`trait@glib::object::ObjectExt`], [`SeekableExt`](trait@crate::prelude::SeekableExt), [`OutputStreamExtManual`](trait@crate::prelude::OutputStreamExtManual)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DataOutputStream</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GDataOutputStream</span>, <span class="ident">ffi::GDataOutputStreamClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">FilterOutputStream</span>, <span class="ident">OutputStream</span>, @<span class="ident">implements</span> <span class="ident">Seekable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -505,11 +505,11 @@
 <span class="kw">impl</span> <span class="ident">DataOutputStream</span> {
     <span class="doccomment">/// Creates a new data output stream for `base_stream`.</span>
     <span class="doccomment">/// ## `base_stream`</span>
-    <span class="doccomment">/// a `OutputStream`.</span>
+    <span class="doccomment">/// a [`OutputStream`](crate::OutputStream).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `DataOutputStream`.</span>
+    <span class="doccomment">/// [`DataOutputStream`](crate::DataOutputStream).</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_data_output_stream_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">OutputStream</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">base_stream</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DataOutputStream</span> {
         <span class="kw">unsafe</span> {
@@ -575,7 +575,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the `DataStreamByteOrder` for the `self`.</span>
+    <span class="doccomment">/// the [`DataStreamByteOrder`](crate::DataStreamByteOrder) for the `self`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_data_output_stream_get_byte_order&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">byte_order</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DataStreamByteOrder</span>;
 
@@ -583,11 +583,11 @@
     <span class="doccomment">/// ## `data`</span>
     <span class="doccomment">/// a `guchar`.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional `Cancellable` object, `None` to ignore.</span>
+    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if `data` was successfully added to the `self`.</span>
+    <span class="doccomment">/// [`true`] if `data` was successfully added to the `self`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_data_output_stream_put_byte&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">put_byte</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -599,11 +599,11 @@
     <span class="doccomment">/// ## `data`</span>
     <span class="doccomment">/// a `gint16`.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional `Cancellable` object, `None` to ignore.</span>
+    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if `data` was successfully added to the `self`.</span>
+    <span class="doccomment">/// [`true`] if `data` was successfully added to the `self`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_data_output_stream_put_int16&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">put_int16</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -615,11 +615,11 @@
     <span class="doccomment">/// ## `data`</span>
     <span class="doccomment">/// a `gint32`.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional `Cancellable` object, `None` to ignore.</span>
+    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if `data` was successfully added to the `self`.</span>
+    <span class="doccomment">/// [`true`] if `data` was successfully added to the `self`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_data_output_stream_put_int32&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">put_int32</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -631,11 +631,11 @@
     <span class="doccomment">/// ## `data`</span>
     <span class="doccomment">/// a `gint64`.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional `Cancellable` object, `None` to ignore.</span>
+    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if `data` was successfully added to the `self`.</span>
+    <span class="doccomment">/// [`true`] if `data` was successfully added to the `self`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_data_output_stream_put_int64&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">put_int64</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -647,11 +647,11 @@
     <span class="doccomment">/// ## `str`</span>
     <span class="doccomment">/// a string.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional `Cancellable` object, `None` to ignore.</span>
+    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if `string` was successfully added to the `self`.</span>
+    <span class="doccomment">/// [`true`] if `string` was successfully added to the `self`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_data_output_stream_put_string&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">put_string</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -663,11 +663,11 @@
     <span class="doccomment">/// ## `data`</span>
     <span class="doccomment">/// a `guint16`.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional `Cancellable` object, `None` to ignore.</span>
+    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if `data` was successfully added to the `self`.</span>
+    <span class="doccomment">/// [`true`] if `data` was successfully added to the `self`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_data_output_stream_put_uint16&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">put_uint16</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -679,11 +679,11 @@
     <span class="doccomment">/// ## `data`</span>
     <span class="doccomment">/// a `guint32`.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional `Cancellable` object, `None` to ignore.</span>
+    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if `data` was successfully added to the `self`.</span>
+    <span class="doccomment">/// [`true`] if `data` was successfully added to the `self`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_data_output_stream_put_uint32&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">put_uint32</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -695,11 +695,11 @@
     <span class="doccomment">/// ## `data`</span>
     <span class="doccomment">/// a `guint64`.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional `Cancellable` object, `None` to ignore.</span>
+    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if `data` was successfully added to the `self`.</span>
+    <span class="doccomment">/// [`true`] if `data` was successfully added to the `self`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_data_output_stream_put_uint64&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">put_uint64</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -709,7 +709,7 @@
 
     <span class="doccomment">/// Sets the byte order of the data output stream to `order`.</span>
     <span class="doccomment">/// ## `order`</span>
-    <span class="doccomment">/// a `DataStreamByteOrder`.</span>
+    <span class="doccomment">/// a [`DataStreamByteOrder`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_data_output_stream_set_byte_order&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_byte_order</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">order</span>: <span class="ident">DataStreamByteOrder</span>);
 

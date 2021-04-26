@@ -296,7 +296,7 @@
     <span class="doccomment">/// ## `atom_name`</span>
     <span class="doccomment">/// a string.</span>
     <span class="doccomment">/// ## `only_if_exists`</span>
-    <span class="doccomment">/// if `true`, GDK is allowed to not create a new atom, but</span>
+    <span class="doccomment">/// if [`true`], GDK is allowed to not create a new atom, but</span>
     <span class="doccomment">///  just return `GDK_NONE` if the requested atom doesn’t already</span>
     <span class="doccomment">///  exists. Currently, the flag is ignored, since checking the</span>
     <span class="doccomment">///  existance of an atom is as expensive as creating it.</span>
@@ -321,7 +321,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// a newly-allocated string containing the string</span>
     <span class="doccomment">///  corresponding to `self`. When you are done with the</span>
-    <span class="doccomment">///  return value, you should free it using `g_free`.</span>
+    <span class="doccomment">///  return value, you should free it using `g_free()`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_atom_name&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">name</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">GString</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::gdk_atom_name</span>(<span class="self">self</span>.<span class="number">0</span>)) }

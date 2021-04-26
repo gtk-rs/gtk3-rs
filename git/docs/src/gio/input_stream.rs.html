@@ -852,17 +852,14 @@
 <span id="849">849</span>
 <span id="850">850</span>
 <span id="851">851</span>
-<span id="852">852</span>
-<span id="853">853</span>
-<span id="854">854</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::error::to_std_io_result</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Cancellable</span>;
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::InputStream</span>;
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Seekable</span>;
-<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::SeekableExt</span>;
 <span class="kw">use</span> <span class="ident">futures_core::task</span>::{<span class="ident">Context</span>, <span class="ident">Poll</span>};
 <span class="kw">use</span> <span class="ident">futures_io</span>::{<span class="ident">AsyncBufRead</span>, <span class="ident">AsyncRead</span>};
 <span class="kw">use</span> <span class="ident">glib::object::IsA</span>;
@@ -879,7 +876,7 @@
     <span class="doccomment">/// `buffer`. Will block during this read.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If count is zero returns zero and does nothing. A value of `count`</span>
-    <span class="doccomment">/// larger than `G_MAXSSIZE` will cause a `IOErrorEnum::InvalidArgument` error.</span>
+    <span class="doccomment">/// larger than `G_MAXSSIZE` will cause a [`IOErrorEnum::InvalidArgument`] error.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// On success, the number of bytes read into the buffer is returned.</span>
     <span class="doccomment">/// It is not an error if this is not the same as the requested size, as it</span>
@@ -889,9 +886,9 @@
     <span class="doccomment">/// The returned `buffer` is not a nul-terminated string, it can contain nul bytes</span>
     <span class="doccomment">/// at any position, and this function doesn&#39;t nul-terminate the `buffer`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If `cancellable` is not `None`, then the operation can be cancelled by</span>
+    <span class="doccomment">/// If `cancellable` is not [`None`], then the operation can be cancelled by</span>
     <span class="doccomment">/// triggering the cancellable object from another thread. If the operation</span>
-    <span class="doccomment">/// was cancelled, the error `IOErrorEnum::Cancelled` will be returned. If an</span>
+    <span class="doccomment">/// was cancelled, the error [`IOErrorEnum::Cancelled`] will be returned. If an</span>
     <span class="doccomment">/// operation was partially finished when the operation was cancelled the</span>
     <span class="doccomment">/// partial result will be returned, without an error.</span>
     <span class="doccomment">///</span>
@@ -902,7 +899,7 @@
     <span class="doccomment">/// ## `count`</span>
     <span class="doccomment">/// the number of bytes that will be read from the stream</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional `Cancellable` object, `None` to ignore.</span>
+    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -916,22 +913,22 @@
     <span class="doccomment">/// Tries to read `count` bytes from the stream into the buffer starting at</span>
     <span class="doccomment">/// `buffer`. Will block during this read.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This function is similar to `InputStream::read`, except it tries to</span>
+    <span class="doccomment">/// This function is similar to [`InputStream::read()`](crate::InputStream::read()), except it tries to</span>
     <span class="doccomment">/// read as many bytes as requested, only stopping on an error or end of stream.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// On a successful read of `count` bytes, or if we reached the end of the</span>
-    <span class="doccomment">/// stream, `true` is returned, and `bytes_read` is set to the number of bytes</span>
+    <span class="doccomment">/// stream, [`true`] is returned, and `bytes_read` is set to the number of bytes</span>
     <span class="doccomment">/// read into `buffer`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If there is an error during the operation `false` is returned and `error`</span>
+    <span class="doccomment">/// If there is an error during the operation [`false`] is returned and `error`</span>
     <span class="doccomment">/// is set to indicate the error status.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// As a special exception to the normal conventions for functions that</span>
-    <span class="doccomment">/// use `glib::Error`, if this function returns `false` (and sets `error`) then</span>
+    <span class="doccomment">/// use [`glib::Error`](crate::glib::Error), if this function returns [`false`] (and sets `error`) then</span>
     <span class="doccomment">/// `bytes_read` will be set to the number of bytes that were successfully</span>
     <span class="doccomment">/// read before the error was encountered. This functionality is only</span>
     <span class="doccomment">/// available from C. If you need it from another language then you must</span>
-    <span class="doccomment">/// write your own loop around `InputStream::read`.</span>
+    <span class="doccomment">/// write your own loop around [`InputStream::read()`](crate::InputStream::read()).</span>
     <span class="doccomment">/// ## `buffer`</span>
     <span class="doccomment">///</span>
     <span class="doccomment">///  a buffer to read data into (which should be at least count bytes long).</span>
@@ -940,11 +937,11 @@
     <span class="doccomment">/// ## `bytes_read`</span>
     <span class="doccomment">/// location to store the number of bytes that was read from the stream</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional `Cancellable` object, `None` to ignore.</span>
+    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` on success, `false` if there was an error</span>
+    <span class="doccomment">/// [`true`] on success, [`false`] if there was an error</span>
     <span class="kw">fn</span> <span class="ident">read_all</span><span class="op">&lt;</span><span class="ident">B</span>: <span class="ident">AsMut</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span>, <span class="ident">C</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">buffer</span>: <span class="ident">B</span>,
@@ -954,16 +951,13 @@
     <span class="doccomment">/// Request an asynchronous read of `count` bytes from the stream into the</span>
     <span class="doccomment">/// buffer starting at `buffer`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This is the asynchronous equivalent of `InputStream::read_all`.</span>
+    <span class="doccomment">/// This is the asynchronous equivalent of [`InputStream::read_all()`](crate::InputStream::read_all()).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Call `InputStreamExt::read_all_finish` to collect the result.</span>
+    <span class="doccomment">/// Call [`InputStreamExt::read_all_finish()`](crate::InputStreamExt::read_all_finish()) to collect the result.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Any outstanding I/O request with higher priority (lower numerical</span>
     <span class="doccomment">/// value) will be executed before an outstanding request with lower</span>
     <span class="doccomment">/// priority. Default priority is `G_PRIORITY_DEFAULT`.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Feature: `v2_44`</span>
-    <span class="doccomment">///</span>
     <span class="doccomment">/// ## `buffer`</span>
     <span class="doccomment">///</span>
     <span class="doccomment">///  a buffer to read data into (which should be at least count bytes long)</span>
@@ -972,7 +966,7 @@
     <span class="doccomment">/// ## `io_priority`</span>
     <span class="doccomment">/// the [I/O priority][io-priority] of the request</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional `Cancellable` object, `None` to ignore</span>
+    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// callback to call when the request is satisfied</span>
     <span class="doccomment">/// ## `user_data`</span>
@@ -993,13 +987,13 @@
 
     <span class="doccomment">/// Request an asynchronous read of `count` bytes from the stream into the buffer</span>
     <span class="doccomment">/// starting at `buffer`. When the operation is finished `callback` will be called.</span>
-    <span class="doccomment">/// You can then call `InputStreamExt::read_finish` to get the result of the</span>
+    <span class="doccomment">/// You can then call [`InputStreamExt::read_finish()`](crate::InputStreamExt::read_finish()) to get the result of the</span>
     <span class="doccomment">/// operation.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// During an async request no other sync and async calls are allowed on `self`, and will</span>
-    <span class="doccomment">/// result in `IOErrorEnum::Pending` errors.</span>
+    <span class="doccomment">/// result in [`IOErrorEnum::Pending`] errors.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A value of `count` larger than `G_MAXSSIZE` will cause a `IOErrorEnum::InvalidArgument` error.</span>
+    <span class="doccomment">/// A value of `count` larger than `G_MAXSSIZE` will cause a [`IOErrorEnum::InvalidArgument`] error.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// On success, the number of bytes read into the buffer will be passed to the</span>
     <span class="doccomment">/// callback. It is not an error if this is not the same as the requested size, as it</span>
@@ -1023,7 +1017,7 @@
     <span class="doccomment">/// the [I/O priority][io-priority]</span>
     <span class="doccomment">/// of the request.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional `Cancellable` object, `None` to ignore.</span>
+    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// callback to call when the request is satisfied</span>
     <span class="doccomment">/// ## `user_data`</span>

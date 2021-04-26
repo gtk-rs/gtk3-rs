@@ -770,22 +770,22 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// `Layout` is similar to `DrawingArea` in that it’s a “blank slate” and</span>
+    <span class="doccomment">/// [`Layout`](crate::Layout) is similar to [`DrawingArea`](crate::DrawingArea) in that it’s a “blank slate” and</span>
     <span class="doccomment">/// doesn’t do anything except paint a blank background by default. It’s</span>
     <span class="doccomment">/// different in that it supports scrolling natively due to implementing</span>
-    <span class="doccomment">/// `Scrollable`, and can contain child widgets since it’s a `Container`.</span>
+    <span class="doccomment">/// [`Scrollable`](crate::Scrollable), and can contain child widgets since it’s a [`Container`](crate::Container).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If you just want to draw, a `DrawingArea` is a better choice since it has</span>
+    <span class="doccomment">/// If you just want to draw, a [`DrawingArea`](crate::DrawingArea) is a better choice since it has</span>
     <span class="doccomment">/// lower overhead. If you just need to position child widgets at specific</span>
-    <span class="doccomment">/// points, then `Fixed` provides that functionality on its own.</span>
+    <span class="doccomment">/// points, then [`Fixed`](crate::Fixed) provides that functionality on its own.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// When handling expose events on a `Layout`, you must draw to the `gdk::Window`</span>
-    <span class="doccomment">/// returned by `LayoutExt::get_bin_window`, rather than to the one returned by</span>
-    <span class="doccomment">/// `WidgetExt::get_window` as you would for a `DrawingArea`.</span>
+    <span class="doccomment">/// When handling expose events on a [`Layout`](crate::Layout), you must draw to the [`gdk::Window`](crate::gdk::Window)</span>
+    <span class="doccomment">/// returned by [`LayoutExt::get_bin_window()`](crate::LayoutExt::get_bin_window()), rather than to the one returned by</span>
+    <span class="doccomment">/// [`WidgetExt::get_window()`](crate::WidgetExt::get_window()) as you would for a [`DrawingArea`](crate::DrawingArea).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`LayoutExt`](trait@crate::LayoutExt), [`ContainerExt`](trait@crate::ContainerExt), [`WidgetExt`](trait@crate::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::BuildableExt), [`ScrollableExt`](trait@crate::ScrollableExt), [`WidgetExtManual`](trait@crate::WidgetExtManual), [`BuildableExtManual`](trait@crate::BuildableExtManual)</span>
+    <span class="doccomment">/// [`LayoutExt`](trait@crate::prelude::LayoutExt), [`ContainerExt`](trait@crate::prelude::ContainerExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`ScrollableExt`](trait@crate::prelude::ScrollableExt), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Layout</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkLayout</span>, <span class="ident">ffi::GtkLayoutClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>, <span class="ident">Scrollable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -794,17 +794,17 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Layout</span> {
-    <span class="doccomment">/// Creates a new `Layout`. Unless you have a specific adjustment</span>
-    <span class="doccomment">/// you’d like the layout to use for scrolling, pass `None` for</span>
+    <span class="doccomment">/// Creates a new [`Layout`](crate::Layout). Unless you have a specific adjustment</span>
+    <span class="doccomment">/// you’d like the layout to use for scrolling, pass [`None`] for</span>
     <span class="doccomment">/// `hadjustment` and `vadjustment`.</span>
     <span class="doccomment">/// ## `hadjustment`</span>
-    <span class="doccomment">/// horizontal scroll adjustment, or `None`</span>
+    <span class="doccomment">/// horizontal scroll adjustment, or [`None`]</span>
     <span class="doccomment">/// ## `vadjustment`</span>
-    <span class="doccomment">/// vertical scroll adjustment, or `None`</span>
+    <span class="doccomment">/// vertical scroll adjustment, or [`None`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new `Layout`</span>
+    <span class="doccomment">/// a new [`Layout`](crate::Layout)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_layout_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Adjustment</span><span class="op">&gt;</span>, <span class="ident">Q</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Adjustment</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="ident">hadjustment</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>,
@@ -1223,7 +1223,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a `gdk::Window`</span>
+    <span class="doccomment">/// a [`gdk::Window`](crate::gdk::Window)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_layout_get_bin_window&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">bin_window</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">gdk::Window</span><span class="op">&gt;</span>;
 
@@ -1232,10 +1232,10 @@
     <span class="doccomment">/// gtk_layout_set_size ().</span>
     <span class="doccomment">/// ## `width`</span>
     <span class="doccomment">/// location to store the width set on</span>
-    <span class="doccomment">///  `self`, or `None`</span>
+    <span class="doccomment">///  `self`, or [`None`]</span>
     <span class="doccomment">/// ## `height`</span>
     <span class="doccomment">/// location to store the height set on</span>
-    <span class="doccomment">///  `self`, or `None`</span>
+    <span class="doccomment">///  `self`, or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_layout_get_size&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">size</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">u32</span>, <span class="ident">u32</span>);
 

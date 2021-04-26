@@ -47,11 +47,11 @@
 <span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
 
 <span class="kw">impl</span> <span class="ident">Screen</span> {
-    <span class="doccomment">/// Gets any options previously set with `Screen::set_font_options`.</span>
+    <span class="doccomment">/// Gets any options previously set with [`set_font_options()`](Self::set_font_options()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the current font options, or `None` if no</span>
+    <span class="doccomment">/// the current font options, or [`None`] if no</span>
     <span class="doccomment">///  default font options have been set.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_screen_get_font_options&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">font_options</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">cairo::FontOptions</span><span class="op">&gt;</span> {

@@ -77,9 +77,9 @@
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// `UnixInputStream` implements `InputStream` for reading from a UNIX</span>
+    <span class="doccomment">/// [`UnixInputStream`](crate::UnixInputStream) implements [`InputStream`](crate::InputStream) for reading from a UNIX</span>
     <span class="doccomment">/// file descriptor, including asynchronous operations. (If the file</span>
-    <span class="doccomment">/// descriptor refers to a socket or pipe, this will use `poll` to do</span>
+    <span class="doccomment">/// descriptor refers to a socket or pipe, this will use `poll()` to do</span>
     <span class="doccomment">/// asynchronous I/O. If it refers to a regular file, it will fall back</span>
     <span class="doccomment">/// to doing asynchronous I/O in another thread.)</span>
     <span class="doccomment">///</span>
@@ -89,7 +89,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`UnixInputStreamExt`](trait@crate::UnixInputStreamExt), [`InputStreamExt`](trait@crate::InputStreamExt), [`trait@glib::object::ObjectExt`], [`PollableInputStreamExt`](trait@crate::PollableInputStreamExt), [`UnixInputStreamExtManual`](trait@crate::UnixInputStreamExtManual), [`InputStreamExtManual`](trait@crate::InputStreamExtManual), [`PollableInputStreamExtManual`](trait@crate::PollableInputStreamExtManual)</span>
+    <span class="doccomment">/// [`UnixInputStreamExt`](trait@crate::prelude::UnixInputStreamExt), [`InputStreamExt`](trait@crate::prelude::InputStreamExt), [`trait@glib::object::ObjectExt`], [`PollableInputStreamExt`](trait@crate::prelude::PollableInputStreamExt), [`UnixInputStreamExtManual`](trait@crate::prelude::UnixInputStreamExtManual), [`InputStreamExtManual`](trait@crate::prelude::InputStreamExtManual), [`PollableInputStreamExtManual`](trait@crate::prelude::PollableInputStreamExtManual)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">UnixInputStream</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GUnixInputStream</span>, <span class="ident">ffi::GUnixInputStreamClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">InputStream</span>, @<span class="ident">implements</span> <span class="ident">PollableInputStream</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -110,7 +110,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if the file descriptor is closed when done</span>
+    <span class="doccomment">/// [`true`] if the file descriptor is closed when done</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_unix_input_stream_get_close_fd&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">closes_fd</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 }

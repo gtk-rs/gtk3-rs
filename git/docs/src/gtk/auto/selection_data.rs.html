@@ -352,7 +352,7 @@
         }
     }
 
-    <span class="doccomment">/// Stores new data into a `SelectionData` object. Should</span>
+    <span class="doccomment">/// Stores new data into a [`SelectionData`](crate::SelectionData) object. Should</span>
     <span class="doccomment">/// only be called from a selection handler callback.</span>
     <span class="doccomment">/// Zero-terminates the stored data.</span>
     <span class="doccomment">/// ## `type_`</span>
@@ -377,16 +377,16 @@
         }
     }
 
-    <span class="doccomment">/// Sets the contents of the selection from a `gdk_pixbuf::Pixbuf`</span>
+    <span class="doccomment">/// Sets the contents of the selection from a [`gdk_pixbuf::Pixbuf`](crate::gdk_pixbuf::Pixbuf)</span>
     <span class="doccomment">/// The pixbuf is converted to the form determined by</span>
     <span class="doccomment">/// `self`-&gt;target.</span>
     <span class="doccomment">/// ## `pixbuf`</span>
-    <span class="doccomment">/// a `gdk_pixbuf::Pixbuf`</span>
+    <span class="doccomment">/// a [`gdk_pixbuf::Pixbuf`](crate::gdk_pixbuf::Pixbuf)</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if the selection was successfully set,</span>
-    <span class="doccomment">///  otherwise `false`.</span>
+    <span class="doccomment">/// [`true`] if the selection was successfully set,</span>
+    <span class="doccomment">///  otherwise [`false`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_selection_data_set_pixbuf&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_pixbuf</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">pixbuf</span>: <span class="kw-2">&amp;</span><span class="ident">gdk_pixbuf::Pixbuf</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
@@ -407,8 +407,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if the selection was successfully set,</span>
-    <span class="doccomment">///  otherwise `false`.</span>
+    <span class="doccomment">/// [`true`] if the selection was successfully set,</span>
+    <span class="doccomment">///  otherwise [`false`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_selection_data_set_text&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_text</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">str</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">let</span> <span class="ident">len</span> <span class="op">=</span> <span class="ident">str</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">i32</span>;
@@ -425,13 +425,13 @@
     <span class="doccomment">/// The string is converted to the form determined by</span>
     <span class="doccomment">/// `self`-&gt;target.</span>
     <span class="doccomment">/// ## `uris`</span>
-    <span class="doccomment">/// a `None`-terminated array of</span>
+    <span class="doccomment">/// a [`None`]-terminated array of</span>
     <span class="doccomment">///  strings holding URIs</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if the selection was successfully set,</span>
-    <span class="doccomment">///  otherwise `false`.</span>
+    <span class="doccomment">/// [`true`] if the selection was successfully set,</span>
+    <span class="doccomment">///  otherwise [`false`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_selection_data_set_uris&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_uris</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">uris</span>: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span><span class="ident">str</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
@@ -442,17 +442,17 @@
         }
     }
 
-    <span class="doccomment">/// Given a `SelectionData` object holding a list of targets,</span>
+    <span class="doccomment">/// Given a [`SelectionData`](crate::SelectionData) object holding a list of targets,</span>
     <span class="doccomment">/// determines if any of the targets in `targets` can be used to</span>
-    <span class="doccomment">/// provide a `gdk_pixbuf::Pixbuf`.</span>
+    <span class="doccomment">/// provide a [`gdk_pixbuf::Pixbuf`](crate::gdk_pixbuf::Pixbuf).</span>
     <span class="doccomment">/// ## `writable`</span>
     <span class="doccomment">/// whether to accept only targets for which GTK+ knows</span>
     <span class="doccomment">///  how to convert a pixbuf into the format</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if `self` holds a list of targets,</span>
-    <span class="doccomment">///  and a suitable target for images is included, otherwise `false`.</span>
+    <span class="doccomment">/// [`true`] if `self` holds a list of targets,</span>
+    <span class="doccomment">///  and a suitable target for images is included, otherwise [`false`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_selection_data_targets_include_image&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">targets_include_image</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">writable</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
@@ -463,17 +463,17 @@
         }
     }
 
-    <span class="doccomment">/// Given a `SelectionData` object holding a list of targets,</span>
+    <span class="doccomment">/// Given a [`SelectionData`](crate::SelectionData) object holding a list of targets,</span>
     <span class="doccomment">/// determines if any of the targets in `targets` can be used to</span>
     <span class="doccomment">/// provide rich text.</span>
     <span class="doccomment">/// ## `buffer`</span>
-    <span class="doccomment">/// a `TextBuffer`</span>
+    <span class="doccomment">/// a [`TextBuffer`](crate::TextBuffer)</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if `self` holds a list of targets,</span>
+    <span class="doccomment">/// [`true`] if `self` holds a list of targets,</span>
     <span class="doccomment">///  and a suitable target for rich text is included,</span>
-    <span class="doccomment">///  otherwise `false`.</span>
+    <span class="doccomment">///  otherwise [`false`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_selection_data_targets_include_rich_text&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">targets_include_rich_text</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">TextBuffer</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">buffer</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
@@ -484,14 +484,14 @@
         }
     }
 
-    <span class="doccomment">/// Given a `SelectionData` object holding a list of targets,</span>
+    <span class="doccomment">/// Given a [`SelectionData`](crate::SelectionData) object holding a list of targets,</span>
     <span class="doccomment">/// determines if any of the targets in `targets` can be used to</span>
     <span class="doccomment">/// provide text.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if `self` holds a list of targets,</span>
-    <span class="doccomment">///  and a suitable target for text is included, otherwise `false`.</span>
+    <span class="doccomment">/// [`true`] if `self` holds a list of targets,</span>
+    <span class="doccomment">///  and a suitable target for text is included, otherwise [`false`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_selection_data_targets_include_text&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">targets_include_text</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
@@ -501,14 +501,14 @@
         }
     }
 
-    <span class="doccomment">/// Given a `SelectionData` object holding a list of targets,</span>
+    <span class="doccomment">/// Given a [`SelectionData`](crate::SelectionData) object holding a list of targets,</span>
     <span class="doccomment">/// determines if any of the targets in `targets` can be used to</span>
     <span class="doccomment">/// provide a list or URIs.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if `self` holds a list of targets,</span>
-    <span class="doccomment">///  and a suitable target for URI lists is included, otherwise `false`.</span>
+    <span class="doccomment">/// [`true`] if `self` holds a list of targets,</span>
+    <span class="doccomment">///  and a suitable target for URI lists is included, otherwise [`false`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_selection_data_targets_include_uri&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">targets_include_uri</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {

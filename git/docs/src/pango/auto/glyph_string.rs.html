@@ -231,7 +231,7 @@
 <span class="kw">use</span> <span class="ident">std::mem</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// The `GlyphString` structure is used to store strings</span>
+    <span class="doccomment">/// The [`GlyphString`](crate::GlyphString) structure is used to store strings</span>
     <span class="doccomment">/// of glyphs with geometry and visual attribute information.</span>
     <span class="doccomment">/// The storage for the glyph information is owned</span>
     <span class="doccomment">/// by the structure which simplifies memory management.</span>
@@ -246,32 +246,32 @@
 }
 
 <span class="kw">impl</span> <span class="ident">GlyphString</span> {
-    <span class="doccomment">/// Create a new `GlyphString`.</span>
+    <span class="doccomment">/// Create a new [`GlyphString`](crate::GlyphString).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the newly allocated `GlyphString`, which</span>
-    <span class="doccomment">///  should be freed with `GlyphString::free`.</span>
+    <span class="doccomment">/// the newly allocated [`GlyphString`](crate::GlyphString), which</span>
+    <span class="doccomment">///  should be freed with [`free()`](Self::free()).</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_glyph_string_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">GlyphString</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::pango_glyph_string_new</span>()) }
     }
 
     <span class="doccomment">/// Compute the logical and ink extents of a glyph string. See the documentation</span>
-    <span class="doccomment">/// for `FontExt::get_glyph_extents` for details about the interpretation</span>
+    <span class="doccomment">/// for [`FontExt::get_glyph_extents()`](crate::FontExt::get_glyph_extents()) for details about the interpretation</span>
     <span class="doccomment">/// of the rectangles.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Examples of logical (red) and ink (green) rects:</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ![](rects1.png) ![](rects2.png)</span>
     <span class="doccomment">/// ## `font`</span>
-    <span class="doccomment">/// a `Font`</span>
+    <span class="doccomment">/// a [`Font`](crate::Font)</span>
     <span class="doccomment">/// ## `ink_rect`</span>
     <span class="doccomment">/// rectangle used to store the extents of the glyph string</span>
-    <span class="doccomment">///  as drawn or `None` to indicate that the result is not needed.</span>
+    <span class="doccomment">///  as drawn or [`None`] to indicate that the result is not needed.</span>
     <span class="doccomment">/// ## `logical_rect`</span>
     <span class="doccomment">/// rectangle used to store the logical extents of the</span>
-    <span class="doccomment">///  glyph string or `None` to indicate that the result is not needed.</span>
+    <span class="doccomment">///  glyph string or [`None`] to indicate that the result is not needed.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_glyph_string_extents&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">extents</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Font</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">font</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">Rectangle</span>, <span class="ident">Rectangle</span>) {
         <span class="kw">unsafe</span> {
@@ -297,15 +297,15 @@
     <span class="doccomment">/// end index (the range is the set of bytes with</span>
     <span class="doccomment">///      indices such that start &lt;= index &lt; end)</span>
     <span class="doccomment">/// ## `font`</span>
-    <span class="doccomment">/// a `Font`</span>
+    <span class="doccomment">/// a [`Font`](crate::Font)</span>
     <span class="doccomment">/// ## `ink_rect`</span>
     <span class="doccomment">/// rectangle used to</span>
     <span class="doccomment">///  store the extents of the glyph string range as drawn or</span>
-    <span class="doccomment">///  `None` to indicate that the result is not needed.</span>
+    <span class="doccomment">///  [`None`] to indicate that the result is not needed.</span>
     <span class="doccomment">/// ## `logical_rect`</span>
     <span class="doccomment">/// rectangle used to</span>
     <span class="doccomment">///  store the logical extents of the glyph string range or</span>
-    <span class="doccomment">///  `None` to indicate that the result is not needed.</span>
+    <span class="doccomment">///  [`None`] to indicate that the result is not needed.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_glyph_string_extents_range&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">extents_range</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Font</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
@@ -346,12 +346,12 @@
     <span class="doccomment">/// ## `length`</span>
     <span class="doccomment">/// the number of bytes (not characters) in `text`.</span>
     <span class="doccomment">/// ## `analysis`</span>
-    <span class="doccomment">/// the analysis information return from `pango_itemize`</span>
+    <span class="doccomment">/// the analysis information return from `pango_itemize()`</span>
     <span class="doccomment">/// ## `index_`</span>
     <span class="doccomment">/// the byte index within `text`</span>
     <span class="doccomment">/// ## `trailing`</span>
-    <span class="doccomment">/// whether we should compute the result for the beginning (`false`)</span>
-    <span class="doccomment">///  or end (`true`) of the character.</span>
+    <span class="doccomment">/// whether we should compute the result for the beginning ([`false`])</span>
+    <span class="doccomment">///  or end ([`true`]) of the character.</span>
     <span class="doccomment">/// ## `x_pos`</span>
     <span class="doccomment">/// location to store result</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_glyph_string_index_to_x&quot;</span>)]</span>
@@ -400,7 +400,7 @@
     <span class="doccomment">/// ## `length`</span>
     <span class="doccomment">/// the number of bytes (not characters) in text.</span>
     <span class="doccomment">/// ## `analysis`</span>
-    <span class="doccomment">/// the analysis information return from `pango_itemize`</span>
+    <span class="doccomment">/// the analysis information return from `pango_itemize()`</span>
     <span class="doccomment">/// ## `x_pos`</span>
     <span class="doccomment">/// the x offset (in Pango units)</span>
     <span class="doccomment">/// ## `index_`</span>

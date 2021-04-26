@@ -40,40 +40,40 @@
 </div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.configure" class="method"><code>fn <a href="#tymethod.configure" class="fnname">configure</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Adjustment.html" title="struct gtk::Adjustment">Adjustment</a>&gt;&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;adjustment: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P&gt;, <br>&nbsp;&nbsp;&nbsp;&nbsp;climb_rate: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;digits: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a><br>)</code><a class="srclink" href="../../src/gtk/auto/spin_button.rs.html#1015" title="goto source code">[src]</a></h3><div class="docblock"><p>Changes the properties of an existing spin button. The adjustment,
 climb rate, and number of decimal places are updated accordingly.</p>
 <h2 id="adjustment" class="section-header"><a href="#adjustment"><code>adjustment</code></a></h2>
-<p>a <code>Adjustment</code> to replace the spin button’s
-existing adjustment, or <code>None</code> to leave its current adjustment unchanged</p>
+<p>a <a href="../struct.Adjustment.html"><code>Adjustment</code></a> to replace the spin button’s
+existing adjustment, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> to leave its current adjustment unchanged</p>
 <h2 id="climb_rate" class="section-header"><a href="#climb_rate"><code>climb_rate</code></a></h2>
 <p>the new climb rate</p>
 <h2 id="digits" class="section-header"><a href="#digits"><code>digits</code></a></h2>
 <p>the number of decimal places to display in the spin button</p>
-</div><h3 id="tymethod.adjustment" class="method"><code>fn <a href="#tymethod.adjustment" class="fnname">adjustment</a>(&amp;self) -&gt; <a class="struct" href="../struct.Adjustment.html" title="struct gtk::Adjustment">Adjustment</a></code><a class="srclink" href="../../src/gtk/auto/spin_button.rs.html#1023" title="goto source code">[src]</a></h3><div class="docblock"><p>Get the adjustment associated with a <code>SpinButton</code></p>
+</div><h3 id="tymethod.adjustment" class="method"><code>fn <a href="#tymethod.adjustment" class="fnname">adjustment</a>(&amp;self) -&gt; <a class="struct" href="../struct.Adjustment.html" title="struct gtk::Adjustment">Adjustment</a></code><a class="srclink" href="../../src/gtk/auto/spin_button.rs.html#1023" title="goto source code">[src]</a></h3><div class="docblock"><p>Get the adjustment associated with a <a href="../struct.SpinButton.html"><code>SpinButton</code></a></p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
-<p>the <code>Adjustment</code> of <code>self</code></p>
-</div><h3 id="tymethod.digits" class="method"><code>fn <a href="#tymethod.digits" class="fnname">digits</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a></code><a class="srclink" href="../../src/gtk/auto/spin_button.rs.html#1031" title="goto source code">[src]</a></h3><div class="docblock"><p>Fetches the precision of <code>self</code>. See <code>SpinButtonExt::set_digits</code>.</p>
+<p>the <a href="../struct.Adjustment.html"><code>Adjustment</code></a> of <code>self</code></p>
+</div><h3 id="tymethod.digits" class="method"><code>fn <a href="#tymethod.digits" class="fnname">digits</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a></code><a class="srclink" href="../../src/gtk/auto/spin_button.rs.html#1031" title="goto source code">[src]</a></h3><div class="docblock"><p>Fetches the precision of <code>self</code>. See <a href="trait.SpinButtonExt.html#tymethod.set_digits"><code>set_digits()</code></a>.</p>
 <h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
 <p>the current precision</p>
 </div><h3 id="tymethod.increments" class="method"><code>fn <a href="#tymethod.increments" class="fnname">increments</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a></code><a class="srclink" href="../../src/gtk/auto/spin_button.rs.html#1040" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the current step and page the increments used by <code>self</code>. See
-<code>SpinButtonExt::set_increments</code>.</p>
+<a href="trait.SpinButtonExt.html#tymethod.set_increments"><code>set_increments()</code></a>.</p>
 <h2 id="step" class="section-header"><a href="#step"><code>step</code></a></h2>
-<p>location to store step increment, or <code>None</code></p>
+<p>location to store step increment, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 <h2 id="page" class="section-header"><a href="#page"><code>page</code></a></h2>
-<p>location to store page increment, or <code>None</code></p>
+<p>location to store page increment, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 </div><h3 id="tymethod.is_numeric" class="method"><code>fn <a href="#tymethod.is_numeric" class="fnname">is_numeric</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/spin_button.rs.html#1049" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns whether non-numeric text can be typed into the spin button.
-See <code>SpinButtonExt::set_numeric</code>.</p>
+See <a href="trait.SpinButtonExt.html#tymethod.set_numeric"><code>set_numeric()</code></a>.</p>
 <h1 id="returns-2" class="section-header"><a href="#returns-2">Returns</a></h1>
-<p><code>true</code> if only numeric text can be entered</p>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if only numeric text can be entered</p>
 </div><h3 id="tymethod.range" class="method"><code>fn <a href="#tymethod.range" class="fnname">range</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a></code><a class="srclink" href="../../src/gtk/auto/spin_button.rs.html#1058" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the range allowed for <code>self</code>.
-See <code>SpinButtonExt::set_range</code>.</p>
+See <a href="trait.SpinButtonExt.html#tymethod.set_range"><code>set_range()</code></a>.</p>
 <h2 id="min" class="section-header"><a href="#min"><code>min</code></a></h2>
-<p>location to store minimum allowed value, or <code>None</code></p>
+<p>location to store minimum allowed value, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 <h2 id="max" class="section-header"><a href="#max"><code>max</code></a></h2>
-<p>location to store maximum allowed value, or <code>None</code></p>
+<p>location to store maximum allowed value, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 </div><h3 id="tymethod.snaps_to_ticks" class="method"><code>fn <a href="#tymethod.snaps_to_ticks" class="fnname">snaps_to_ticks</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/spin_button.rs.html#1067" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns whether the values are corrected to the nearest step.
-See <code>SpinButtonExt::set_snap_to_ticks</code>.</p>
+See <a href="trait.SpinButtonExt.html#tymethod.set_snap_to_ticks"><code>set_snap_to_ticks()</code></a>.</p>
 <h1 id="returns-3" class="section-header"><a href="#returns-3">Returns</a></h1>
-<p><code>true</code> if values are snapped to the nearest step</p>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if values are snapped to the nearest step</p>
 </div><h3 id="tymethod.update_policy" class="method"><code>fn <a href="#tymethod.update_policy" class="fnname">update_policy</a>(&amp;self) -&gt; <a class="enum" href="../enum.SpinButtonUpdatePolicy.html" title="enum gtk::SpinButtonUpdatePolicy">SpinButtonUpdatePolicy</a></code><a class="srclink" href="../../src/gtk/auto/spin_button.rs.html#1076" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the update behavior of a spin button.
-See <code>SpinButtonExt::set_update_policy</code>.</p>
+See <a href="trait.SpinButtonExt.html#tymethod.set_update_policy"><code>set_update_policy()</code></a>.</p>
 <h1 id="returns-4" class="section-header"><a href="#returns-4">Returns</a></h1>
 <p>the current update policy</p>
 </div><h3 id="tymethod.value" class="method"><code>fn <a href="#tymethod.value" class="fnname">value</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a></code><a class="srclink" href="../../src/gtk/auto/spin_button.rs.html#1084" title="goto source code">[src]</a></h3><div class="docblock"><p>Get the value in the <code>self</code>.</p>
@@ -84,12 +84,12 @@ See <code>SpinButtonExt::set_update_policy</code>.</p>
 <p>the value of <code>self</code></p>
 </div><h3 id="tymethod.wraps" class="method"><code>fn <a href="#tymethod.wraps" class="fnname">wraps</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/spin_button.rs.html#1102" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns whether the spin button’s value wraps around to the
 opposite limit when the upper or lower limit of the range is
-exceeded. See <code>SpinButtonExt::set_wrap</code>.</p>
+exceeded. See <a href="trait.SpinButtonExt.html#tymethod.set_wrap"><code>set_wrap()</code></a>.</p>
 <h1 id="returns-7" class="section-header"><a href="#returns-7">Returns</a></h1>
-<p><code>true</code> if the spin button wraps around</p>
-</div><h3 id="tymethod.set_adjustment" class="method"><code>fn <a href="#tymethod.set_adjustment" class="fnname">set_adjustment</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Adjustment.html" title="struct gtk::Adjustment">Adjustment</a>&gt;&gt;(&amp;self, adjustment: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P)</code><a class="srclink" href="../../src/gtk/auto/spin_button.rs.html#1108" title="goto source code">[src]</a></h3><div class="docblock"><p>Replaces the <code>Adjustment</code> associated with <code>self</code>.</p>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the spin button wraps around</p>
+</div><h3 id="tymethod.set_adjustment" class="method"><code>fn <a href="#tymethod.set_adjustment" class="fnname">set_adjustment</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Adjustment.html" title="struct gtk::Adjustment">Adjustment</a>&gt;&gt;(&amp;self, adjustment: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P)</code><a class="srclink" href="../../src/gtk/auto/spin_button.rs.html#1108" title="goto source code">[src]</a></h3><div class="docblock"><p>Replaces the <a href="../struct.Adjustment.html"><code>Adjustment</code></a> associated with <code>self</code>.</p>
 <h2 id="adjustment-1" class="section-header"><a href="#adjustment-1"><code>adjustment</code></a></h2>
-<p>a <code>Adjustment</code> to replace the existing adjustment</p>
+<p>a <a href="../struct.Adjustment.html"><code>Adjustment</code></a> to replace the existing adjustment</p>
 </div><h3 id="tymethod.set_digits" class="method"><code>fn <a href="#tymethod.set_digits" class="fnname">set_digits</a>(&amp;self, digits: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>)</code><a class="srclink" href="../../src/gtk/auto/spin_button.rs.html#1115" title="goto source code">[src]</a></h3><div class="docblock"><p>Set the precision to be displayed by <code>self</code>. Up to 20 digit precision
 is allowed.</p>
 <h2 id="digits-1" class="section-header"><a href="#digits-1"><code>digits</code></a></h2>
@@ -120,7 +120,7 @@ providing an invalid value.</p>
 This determines whether the spin button is always updated
 or only when a valid value is set.</p>
 <h2 id="policy" class="section-header"><a href="#policy"><code>policy</code></a></h2>
-<p>a <code>SpinButtonUpdatePolicy</code> value</p>
+<p>a <a href="../enum.SpinButtonUpdatePolicy.html"><code>SpinButtonUpdatePolicy</code></a> value</p>
 </div><h3 id="tymethod.set_value" class="method"><code>fn <a href="#tymethod.set_value" class="fnname">set_value</a>(&amp;self, value: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>)</code><a class="srclink" href="../../src/gtk/auto/spin_button.rs.html#1164" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the value of <code>self</code>.</p>
 <h2 id="value" class="section-header"><a href="#value"><code>value</code></a></h2>
 <p>the new value</p>
@@ -132,7 +132,7 @@ of the range is exceeded.</p>
 </div><h3 id="tymethod.spin" class="method"><code>fn <a href="#tymethod.spin" class="fnname">spin</a>(&amp;self, direction: <a class="enum" href="../enum.SpinType.html" title="enum gtk::SpinType">SpinType</a>, increment: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>)</code><a class="srclink" href="../../src/gtk/auto/spin_button.rs.html#1181" title="goto source code">[src]</a></h3><div class="docblock"><p>Increment or decrement a spin button’s value in a specified
 direction by a specified amount.</p>
 <h2 id="direction" class="section-header"><a href="#direction"><code>direction</code></a></h2>
-<p>a <code>SpinType</code> indicating the direction to spin</p>
+<p>a <a href="../enum.SpinType.html"><code>SpinType</code></a> indicating the direction to spin</p>
 <h2 id="increment" class="section-header"><a href="#increment"><code>increment</code></a></h2>
 <p>step increment to apply in the specified direction</p>
 </div><h3 id="tymethod.update" class="method"><code>fn <a href="#tymethod.update" class="fnname">update</a>(&amp;self)</code><a class="srclink" href="../../src/gtk/auto/spin_button.rs.html#1185" title="goto source code">[src]</a></h3><div class="docblock"><p>Manually force an update of the spin button.</p>

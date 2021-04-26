@@ -861,12 +861,12 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// The `FileChooserButton` is a widget that lets the user select a</span>
-    <span class="doccomment">/// file. It implements the `FileChooser` interface. Visually, it is a</span>
-    <span class="doccomment">/// file name with a button to bring up a `FileChooserDialog`.</span>
+    <span class="doccomment">/// The [`FileChooserButton`](crate::FileChooserButton) is a widget that lets the user select a</span>
+    <span class="doccomment">/// file. It implements the [`FileChooser`](crate::FileChooser) interface. Visually, it is a</span>
+    <span class="doccomment">/// file name with a button to bring up a [`FileChooserDialog`](crate::FileChooserDialog).</span>
     <span class="doccomment">/// The user can then use that dialog to change the file associated with</span>
     <span class="doccomment">/// that button. This widget does not support setting the</span>
-    <span class="doccomment">/// `FileChooser:select-multiple` property to `true`.</span>
+    <span class="doccomment">/// [`FileChooser:select-multiple`](crate::FileChooser:select-multiple) property to [`true`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ## Create a button to let the user select a file in /etc</span>
     <span class="doccomment">///</span>
@@ -882,13 +882,13 @@
     <span class="doccomment">/// }</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The `FileChooserButton` supports the ``GtkFileChooserActions``</span>
-    <span class="doccomment">/// `FileChooserAction::Open` and `FileChooserAction::SelectFolder`.</span>
+    <span class="doccomment">/// The [`FileChooserButton`](crate::FileChooserButton) supports the ``GtkFileChooserActions``</span>
+    <span class="doccomment">/// [`FileChooserAction::Open`] and [`FileChooserAction::SelectFolder`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// &gt; The `FileChooserButton` will ellipsize the label, and will thus</span>
+    <span class="doccomment">/// &gt; The [`FileChooserButton`](crate::FileChooserButton) will ellipsize the label, and will thus</span>
     <span class="doccomment">/// &gt; request little horizontal space. To give the button more space,</span>
-    <span class="doccomment">/// &gt; you should call `WidgetExt::get_preferred_size`,</span>
-    <span class="doccomment">/// &gt; `FileChooserButtonExt::set_width_chars`, or pack the button in</span>
+    <span class="doccomment">/// &gt; you should call [`WidgetExt::get_preferred_size()`](crate::WidgetExt::get_preferred_size()),</span>
+    <span class="doccomment">/// &gt; [`FileChooserButtonExt::set_width_chars()`](crate::FileChooserButtonExt::set_width_chars()), or pack the button in</span>
     <span class="doccomment">/// &gt; such a way that other interface elements give space to the</span>
     <span class="doccomment">/// &gt; widget.</span>
     <span class="doccomment">///</span>
@@ -899,7 +899,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`FileChooserButtonExt`](trait@crate::FileChooserButtonExt), [`BoxExt`](trait@crate::BoxExt), [`ContainerExt`](trait@crate::ContainerExt), [`WidgetExt`](trait@crate::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::BuildableExt), [`OrientableExt`](trait@crate::OrientableExt), [`FileChooserExt`](trait@crate::FileChooserExt), [`WidgetExtManual`](trait@crate::WidgetExtManual), [`BuildableExtManual`](trait@crate::BuildableExtManual)</span>
+    <span class="doccomment">/// [`FileChooserButtonExt`](trait@crate::prelude::FileChooserButtonExt), [`BoxExt`](trait@crate::prelude::BoxExt), [`ContainerExt`](trait@crate::prelude::ContainerExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`OrientableExt`](trait@crate::prelude::OrientableExt), [`FileChooserExt`](trait@crate::prelude::FileChooserExt), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FileChooserButton</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkFileChooserButton</span>, <span class="ident">ffi::GtkFileChooserButtonClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Box</span>, <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>, <span class="ident">Orientable</span>, <span class="ident">FileChooser</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -929,15 +929,15 @@
         }
     }
 
-    <span class="doccomment">/// Creates a `FileChooserButton` widget which uses `dialog` as its</span>
+    <span class="doccomment">/// Creates a [`FileChooserButton`](crate::FileChooserButton) widget which uses `dialog` as its</span>
     <span class="doccomment">/// file-picking window.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Note that `dialog` must be a `Dialog` (or subclass) which</span>
-    <span class="doccomment">/// implements the `FileChooser` interface and must not have</span>
-    <span class="doccomment">/// `DialogFlags::DestroyWithParent` set.</span>
+    <span class="doccomment">/// Note that `dialog` must be a [`Dialog`](crate::Dialog) (or subclass) which</span>
+    <span class="doccomment">/// implements the [`FileChooser`](crate::FileChooser) interface and must not have</span>
+    <span class="doccomment">/// [`DialogFlags::DestroyWithParent`] set.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Also note that the dialog needs to have its confirmative button</span>
-    <span class="doccomment">/// added with response `ResponseType::Accept` or `ResponseType::Ok` in</span>
+    <span class="doccomment">/// added with response [`ResponseType::Accept`] or [`ResponseType::Ok`] in</span>
     <span class="doccomment">/// order for the button to take over the file selected in the dialog.</span>
     <span class="doccomment">/// ## `dialog`</span>
     <span class="doccomment">/// the widget to use as dialog</span>
@@ -1464,17 +1464,17 @@
 <span class="doccomment">/// [`FileChooserButton`](struct@crate::FileChooserButton)</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">FileChooserButtonExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Returns whether the button grabs focus when it is clicked with the mouse.</span>
-    <span class="doccomment">/// See `FileChooserButtonExt::set_focus_on_click`.</span>
+    <span class="doccomment">/// See [`set_focus_on_click()`](Self::set_focus_on_click()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated since 3.20</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Use `WidgetExt::get_focus_on_click` instead</span>
+    <span class="doccomment">/// Use [`WidgetExt::get_focus_on_click()`](crate::WidgetExt::get_focus_on_click()) instead</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if the button grabs focus when it is clicked with</span>
+    <span class="doccomment">/// [`true`] if the button grabs focus when it is clicked with</span>
     <span class="doccomment">///  the mouse.</span>
-    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>, <span class="ident">deprecated</span>)]</span>
+    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>, <span class="ident">deprecated</span> <span class="op">=</span> <span class="string">&quot;Since 3.20&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>), <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>))))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_file_chooser_button_get_focus_on_click&quot;</span>)]</span>
@@ -1504,10 +1504,10 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated since 3.20</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Use `WidgetExt::set_focus_on_click` instead</span>
+    <span class="doccomment">/// Use [`WidgetExt::set_focus_on_click()`](crate::WidgetExt::set_focus_on_click()) instead</span>
     <span class="doccomment">/// ## `focus_on_click`</span>
     <span class="doccomment">/// whether the button grabs focus when clicked with the mouse</span>
-    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>, <span class="ident">deprecated</span>)]</span>
+    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>, <span class="ident">deprecated</span> <span class="op">=</span> <span class="string">&quot;Since 3.20&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>), <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>))))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_file_chooser_button_set_focus_on_click&quot;</span>)]</span>

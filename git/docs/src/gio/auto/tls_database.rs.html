@@ -868,21 +868,21 @@
 <span class="kw">use</span> <span class="ident">std::ptr</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// `TlsDatabase` is used to look up certificates and other information</span>
+    <span class="doccomment">/// [`TlsDatabase`](crate::TlsDatabase) is used to look up certificates and other information</span>
     <span class="doccomment">/// from a certificate or key store. It is an abstract base class which</span>
     <span class="doccomment">/// TLS library specific subtypes override.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A `TlsDatabase` may be accessed from multiple threads by the TLS backend.</span>
+    <span class="doccomment">/// A [`TlsDatabase`](crate::TlsDatabase) may be accessed from multiple threads by the TLS backend.</span>
     <span class="doccomment">/// All implementations are required to be fully thread-safe.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Most common client applications will not directly interact with</span>
-    <span class="doccomment">/// `TlsDatabase`. It is used internally by `TlsConnection`.</span>
+    <span class="doccomment">/// [`TlsDatabase`](crate::TlsDatabase). It is used internally by [`TlsConnection`](crate::TlsConnection).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is an Abstract Base Class, you cannot instantiate it.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`TlsDatabaseExt`](trait@crate::TlsDatabaseExt), [`trait@glib::object::ObjectExt`]</span>
+    <span class="doccomment">/// [`TlsDatabaseExt`](trait@crate::prelude::TlsDatabaseExt), [`trait@glib::object::ObjectExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TlsDatabase</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GTlsDatabase</span>, <span class="ident">ffi::GTlsDatabaseClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -900,7 +900,7 @@
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">TlsDatabaseExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Create a handle string for the certificate. The database will only be able</span>
     <span class="doccomment">/// to create a handle for certificates that originate from the database. In</span>
-    <span class="doccomment">/// cases where the database cannot create a handle for a certificate, `None`</span>
+    <span class="doccomment">/// cases where the database cannot create a handle for a certificate, [`None`]</span>
     <span class="doccomment">/// will be returned.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This handle should be stable across various instances of the application,</span>
@@ -922,14 +922,14 @@
     <span class="doccomment">/// Look up a certificate by its handle.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The handle should have been created by calling</span>
-    <span class="doccomment">/// `TlsDatabaseExt::create_certificate_handle` on a `TlsDatabase` object of</span>
+    <span class="doccomment">/// [`create_certificate_handle()`](Self::create_certificate_handle()) on a [`TlsDatabase`](crate::TlsDatabase) object of</span>
     <span class="doccomment">/// the same TLS backend. The handle is designed to remain valid across</span>
     <span class="doccomment">/// instantiations of the database.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If the handle is no longer valid, or does not point to a certificate in</span>
-    <span class="doccomment">/// this database, then `None` will be returned.</span>
+    <span class="doccomment">/// this database, then [`None`] will be returned.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This function can block, use `TlsDatabaseExt::lookup_certificate_for_handle_async` to perform</span>
+    <span class="doccomment">/// This function can block, use [`lookup_certificate_for_handle_async()`](Self::lookup_certificate_for_handle_async()) to perform</span>
     <span class="doccomment">/// the lookup operation asynchronously.</span>
     <span class="doccomment">/// ## `handle`</span>
     <span class="doccomment">/// a certificate handle</span>
@@ -938,12 +938,12 @@
     <span class="doccomment">/// ## `flags`</span>
     <span class="doccomment">/// Flags which affect the lookup.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// a `Cancellable`, or `None`</span>
+    <span class="doccomment">/// a [`Cancellable`](crate::Cancellable), or [`None`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// a newly allocated</span>
-    <span class="doccomment">/// `TlsCertificate`, or `None`. Use `glib::object::ObjectExt::unref` to release the certificate.</span>
+    <span class="doccomment">/// [`TlsCertificate`](crate::TlsCertificate), or [`None`]. Use [`glib::object::ObjectExt::unref()`](crate::glib::object::ObjectExt::unref()) to release the certificate.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_tls_database_lookup_certificate_for_handle&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">lookup_certificate_for_handle</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">TlsInteraction</span><span class="op">&gt;</span>, <span class="ident">Q</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -954,7 +954,7 @@
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TlsCertificate</span><span class="op">&gt;</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Asynchronously look up a certificate by its handle in the database. See</span>
-    <span class="doccomment">/// `TlsDatabaseExt::lookup_certificate_for_handle` for more information.</span>
+    <span class="doccomment">/// [`lookup_certificate_for_handle()`](Self::lookup_certificate_for_handle()) for more information.</span>
     <span class="doccomment">/// ## `handle`</span>
     <span class="doccomment">/// a certificate handle</span>
     <span class="doccomment">/// ## `interaction`</span>
@@ -962,7 +962,7 @@
     <span class="doccomment">/// ## `flags`</span>
     <span class="doccomment">/// Flags which affect the lookup.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// a `Cancellable`, or `None`</span>
+    <span class="doccomment">/// a [`Cancellable`](crate::Cancellable), or [`None`]</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// callback to call when the operation completes</span>
     <span class="doccomment">/// ## `user_data`</span>
@@ -990,25 +990,25 @@
 
     <span class="doccomment">/// Look up the issuer of `certificate` in the database.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The `TlsCertificate:issuer` property</span>
+    <span class="doccomment">/// The [`TlsCertificate:issuer`](crate::TlsCertificate:issuer) property</span>
     <span class="doccomment">/// of `certificate` is not modified, and the two certificates are not hooked</span>
     <span class="doccomment">/// into a chain.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This function can block, use `TlsDatabaseExt::lookup_certificate_issuer_async` to perform</span>
+    <span class="doccomment">/// This function can block, use [`lookup_certificate_issuer_async()`](Self::lookup_certificate_issuer_async()) to perform</span>
     <span class="doccomment">/// the lookup operation asynchronously.</span>
     <span class="doccomment">/// ## `certificate`</span>
-    <span class="doccomment">/// a `TlsCertificate`</span>
+    <span class="doccomment">/// a [`TlsCertificate`](crate::TlsCertificate)</span>
     <span class="doccomment">/// ## `interaction`</span>
     <span class="doccomment">/// used to interact with the user if necessary</span>
     <span class="doccomment">/// ## `flags`</span>
     <span class="doccomment">/// flags which affect the lookup operation</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// a `Cancellable`, or `None`</span>
+    <span class="doccomment">/// a [`Cancellable`](crate::Cancellable), or [`None`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a newly allocated issuer `TlsCertificate`,</span>
-    <span class="doccomment">/// or `None`. Use `glib::object::ObjectExt::unref` to release the certificate.</span>
+    <span class="doccomment">/// a newly allocated issuer [`TlsCertificate`](crate::TlsCertificate),</span>
+    <span class="doccomment">/// or [`None`]. Use [`glib::object::ObjectExt::unref()`](crate::glib::object::ObjectExt::unref()) to release the certificate.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_tls_database_lookup_certificate_issuer&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">lookup_certificate_issuer</span><span class="op">&lt;</span>
         <span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">TlsCertificate</span><span class="op">&gt;</span>,
@@ -1023,15 +1023,15 @@
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">TlsCertificate</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Asynchronously look up the issuer of `certificate` in the database. See</span>
-    <span class="doccomment">/// `TlsDatabaseExt::lookup_certificate_issuer` for more information.</span>
+    <span class="doccomment">/// [`lookup_certificate_issuer()`](Self::lookup_certificate_issuer()) for more information.</span>
     <span class="doccomment">/// ## `certificate`</span>
-    <span class="doccomment">/// a `TlsCertificate`</span>
+    <span class="doccomment">/// a [`TlsCertificate`](crate::TlsCertificate)</span>
     <span class="doccomment">/// ## `interaction`</span>
     <span class="doccomment">/// used to interact with the user if necessary</span>
     <span class="doccomment">/// ## `flags`</span>
     <span class="doccomment">/// flags which affect the lookup operation</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// a `Cancellable`, or `None`</span>
+    <span class="doccomment">/// a [`Cancellable`](crate::Cancellable), or [`None`]</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// callback to call when the operation completes</span>
     <span class="doccomment">/// ## `user_data`</span>
@@ -1063,21 +1063,21 @@
 
     <span class="doccomment">/// Look up certificates issued by this issuer in the database.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This function can block, use `TlsDatabaseExt::lookup_certificates_issued_by_async` to perform</span>
+    <span class="doccomment">/// This function can block, use [`lookup_certificates_issued_by_async()`](Self::lookup_certificates_issued_by_async()) to perform</span>
     <span class="doccomment">/// the lookup operation asynchronously.</span>
     <span class="doccomment">/// ## `issuer_raw_dn`</span>
-    <span class="doccomment">/// a `glib::ByteArray` which holds the DER encoded issuer DN.</span>
+    <span class="doccomment">/// a [`glib::ByteArray`](crate::glib::ByteArray) which holds the DER encoded issuer DN.</span>
     <span class="doccomment">/// ## `interaction`</span>
     <span class="doccomment">/// used to interact with the user if necessary</span>
     <span class="doccomment">/// ## `flags`</span>
     <span class="doccomment">/// Flags which affect the lookup operation.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// a `Cancellable`, or `None`</span>
+    <span class="doccomment">/// a [`Cancellable`](crate::Cancellable), or [`None`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a newly allocated list of `TlsCertificate`</span>
-    <span class="doccomment">/// objects. Use `glib::object::ObjectExt::unref` on each certificate, and `glib::List::free` on the release the list.</span>
+    <span class="doccomment">/// a newly allocated list of [`TlsCertificate`](crate::TlsCertificate)</span>
+    <span class="doccomment">/// objects. Use [`glib::object::ObjectExt::unref()`](crate::glib::object::ObjectExt::unref()) on each certificate, and [`glib::List::free()`](crate::glib::List::free()) on the release the list.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_tls_database_lookup_certificates_issued_by&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">lookup_certificates_issued_by</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">TlsInteraction</span><span class="op">&gt;</span>, <span class="ident">Q</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -1088,19 +1088,19 @@
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">TlsCertificate</span><span class="op">&gt;</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Asynchronously look up certificates issued by this issuer in the database. See</span>
-    <span class="doccomment">/// `TlsDatabaseExt::lookup_certificates_issued_by` for more information.</span>
+    <span class="doccomment">/// [`lookup_certificates_issued_by()`](Self::lookup_certificates_issued_by()) for more information.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The database may choose to hold a reference to the issuer byte array for the duration</span>
     <span class="doccomment">/// of of this asynchronous operation. The byte array should not be modified during</span>
     <span class="doccomment">/// this time.</span>
     <span class="doccomment">/// ## `issuer_raw_dn`</span>
-    <span class="doccomment">/// a `glib::ByteArray` which holds the DER encoded issuer DN.</span>
+    <span class="doccomment">/// a [`glib::ByteArray`](crate::glib::ByteArray) which holds the DER encoded issuer DN.</span>
     <span class="doccomment">/// ## `interaction`</span>
     <span class="doccomment">/// used to interact with the user if necessary</span>
     <span class="doccomment">/// ## `flags`</span>
     <span class="doccomment">/// Flags which affect the lookup operation.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// a `Cancellable`, or `None`</span>
+    <span class="doccomment">/// a [`Cancellable`](crate::Cancellable), or [`None`]</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// callback to call when the operation completes</span>
     <span class="doccomment">/// ## `user_data`</span>
@@ -1131,8 +1131,8 @@
     <span class="doccomment">/// Determines the validity of a certificate chain after looking up and</span>
     <span class="doccomment">/// adding any missing certificates to the chain.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `chain` is a chain of `TlsCertificate` objects each pointing to the next</span>
-    <span class="doccomment">/// certificate in the chain by its `TlsCertificate:issuer` property. The chain may initially</span>
+    <span class="doccomment">/// `chain` is a chain of [`TlsCertificate`](crate::TlsCertificate) objects each pointing to the next</span>
+    <span class="doccomment">/// certificate in the chain by its [`TlsCertificate:issuer`](crate::TlsCertificate:issuer) property. The chain may initially</span>
     <span class="doccomment">/// consist of one or more certificates. After the verification process is</span>
     <span class="doccomment">/// complete, `chain` may be modified by adding missing certificates, or removing</span>
     <span class="doccomment">/// extra certificates. If a certificate anchor was found, then it is added to</span>
@@ -1145,13 +1145,13 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// The `identity` is used to ensure the server certificate is valid for</span>
     <span class="doccomment">/// the expected peer identity. If the identity does not match the</span>
-    <span class="doccomment">/// certificate, `TlsCertificateFlags::BadIdentity` will be set in the</span>
-    <span class="doccomment">/// return value. If `identity` is `None`, that bit will never be set in</span>
+    <span class="doccomment">/// certificate, [`TlsCertificateFlags::BadIdentity`] will be set in the</span>
+    <span class="doccomment">/// return value. If `identity` is [`None`], that bit will never be set in</span>
     <span class="doccomment">/// the return value. The peer identity may also be used to check for</span>
     <span class="doccomment">/// pinned certificates (trust exceptions) in the database. These may</span>
     <span class="doccomment">/// override the normal verification process on a host-by-host basis.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Currently there are no `flags`, and `TlsDatabaseVerifyFlags::None` should be</span>
+    <span class="doccomment">/// Currently there are no `flags`, and [`TlsDatabaseVerifyFlags::None`] should be</span>
     <span class="doccomment">/// used.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If `chain` is found to be valid, then the return value will be 0. If</span>
@@ -1159,14 +1159,14 @@
     <span class="doccomment">/// the problems found. If the function is unable to determine whether</span>
     <span class="doccomment">/// `chain` is valid or not (eg, because `cancellable` is triggered</span>
     <span class="doccomment">/// before it completes) then the return value will be</span>
-    <span class="doccomment">/// `TlsCertificateFlags::GenericError` and `error` will be set</span>
+    <span class="doccomment">/// [`TlsCertificateFlags::GenericError`] and `error` will be set</span>
     <span class="doccomment">/// accordingly. `error` is not set when `chain` is successfully analyzed</span>
     <span class="doccomment">/// but found to be invalid.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This function can block, use `TlsDatabaseExt::verify_chain_async` to perform</span>
+    <span class="doccomment">/// This function can block, use [`verify_chain_async()`](Self::verify_chain_async()) to perform</span>
     <span class="doccomment">/// the verification operation asynchronously.</span>
     <span class="doccomment">/// ## `chain`</span>
-    <span class="doccomment">/// a `TlsCertificate` chain</span>
+    <span class="doccomment">/// a [`TlsCertificate`](crate::TlsCertificate) chain</span>
     <span class="doccomment">/// ## `purpose`</span>
     <span class="doccomment">/// the purpose that this certificate chain will be used for.</span>
     <span class="doccomment">/// ## `identity`</span>
@@ -1176,11 +1176,11 @@
     <span class="doccomment">/// ## `flags`</span>
     <span class="doccomment">/// additional verify flags</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// a `Cancellable`, or `None`</span>
+    <span class="doccomment">/// a [`Cancellable`](crate::Cancellable), or [`None`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the appropriate `TlsCertificateFlags` which represents the</span>
+    <span class="doccomment">/// the appropriate [`TlsCertificateFlags`](crate::TlsCertificateFlags) which represents the</span>
     <span class="doccomment">/// result of verification.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_tls_database_verify_chain&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">verify_chain</span><span class="op">&lt;</span>
@@ -1200,9 +1200,9 @@
 
     <span class="doccomment">/// Asynchronously determines the validity of a certificate chain after</span>
     <span class="doccomment">/// looking up and adding any missing certificates to the chain. See</span>
-    <span class="doccomment">/// `TlsDatabaseExt::verify_chain` for more information.</span>
+    <span class="doccomment">/// [`verify_chain()`](Self::verify_chain()) for more information.</span>
     <span class="doccomment">/// ## `chain`</span>
-    <span class="doccomment">/// a `TlsCertificate` chain</span>
+    <span class="doccomment">/// a [`TlsCertificate`](crate::TlsCertificate) chain</span>
     <span class="doccomment">/// ## `purpose`</span>
     <span class="doccomment">/// the purpose that this certificate chain will be used for.</span>
     <span class="doccomment">/// ## `identity`</span>
@@ -1212,7 +1212,7 @@
     <span class="doccomment">/// ## `flags`</span>
     <span class="doccomment">/// additional verify flags</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// a `Cancellable`, or `None`</span>
+    <span class="doccomment">/// a [`Cancellable`](crate::Cancellable), or [`None`]</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// callback to call when the operation completes</span>
     <span class="doccomment">/// ## `user_data`</span>

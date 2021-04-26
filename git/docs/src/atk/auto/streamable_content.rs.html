@@ -150,7 +150,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`StreamableContentExt`](trait@crate::StreamableContentExt)</span>
+    <span class="doccomment">/// [`StreamableContentExt`](trait@crate::prelude::StreamableContentExt)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">StreamableContent</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi::AtkStreamableContent</span>, <span class="ident">ffi::AtkStreamableContentIface</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -203,7 +203,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Returns a string representing a URI, or `None`</span>
+    <span class="doccomment">/// Returns a string representing a URI, or [`None`]</span>
     <span class="doccomment">/// if no corresponding URI can be constructed.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_streamable_content_get_uri&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">uri</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">mime_type</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span>;

@@ -765,33 +765,33 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// A single radio button performs the same basic function as a `CheckButton`,</span>
+    <span class="doccomment">/// A single radio button performs the same basic function as a [`CheckButton`](crate::CheckButton),</span>
     <span class="doccomment">/// as its position in the object hierarchy reflects. It is only when multiple</span>
     <span class="doccomment">/// radio buttons are grouped together that they become a different user</span>
     <span class="doccomment">/// interface component in their own right.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Every radio button is a member of some group of radio buttons. When one is</span>
     <span class="doccomment">/// selected, all other radio buttons in the same group are deselected. A</span>
-    <span class="doccomment">/// `RadioButton` is one way of giving the user a choice from many options.</span>
+    <span class="doccomment">/// [`RadioButton`](crate::RadioButton) is one way of giving the user a choice from many options.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Radio button widgets are created with `RadioButton::new`, passing `None`</span>
+    <span class="doccomment">/// Radio button widgets are created with [`new()`](Self::new()), passing [`None`]</span>
     <span class="doccomment">/// as the argument if this is the first radio button in a group. In subsequent</span>
     <span class="doccomment">/// calls, the group you wish to add this button to should be passed as an</span>
-    <span class="doccomment">/// argument. Optionally, `RadioButton::new_with_label` can be used if you</span>
+    <span class="doccomment">/// argument. Optionally, [`new_with_label()`](Self::new_with_label()) can be used if you</span>
     <span class="doccomment">/// want a text label on the radio button.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Alternatively, when adding widgets to an existing group of radio buttons,</span>
-    <span class="doccomment">/// use `RadioButton::new_from_widget` with a `RadioButton` that already</span>
+    <span class="doccomment">/// use [`new_from_widget()`](Self::new_from_widget()) with a [`RadioButton`](crate::RadioButton) that already</span>
     <span class="doccomment">/// has a group assigned to it. The convenience function</span>
-    <span class="doccomment">/// `RadioButton::new_with_label_from_widget` is also provided.</span>
+    <span class="doccomment">/// [`new_with_label_from_widget()`](Self::new_with_label_from_widget()) is also provided.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// To retrieve the group a `RadioButton` is assigned to, use</span>
-    <span class="doccomment">/// `RadioButtonExt::get_group`.</span>
+    <span class="doccomment">/// To retrieve the group a [`RadioButton`](crate::RadioButton) is assigned to, use</span>
+    <span class="doccomment">/// [`RadioButtonExt::get_group()`](crate::RadioButtonExt::get_group()).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// To remove a `RadioButton` from one group and make it part of a new one,</span>
-    <span class="doccomment">/// use `RadioButton::set_group`.</span>
+    <span class="doccomment">/// To remove a [`RadioButton`](crate::RadioButton) from one group and make it part of a new one,</span>
+    <span class="doccomment">/// use [`set_group()`](Self::set_group()).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The group list does not need to be freed, as each `RadioButton` will remove</span>
+    <span class="doccomment">/// The group list does not need to be freed, as each [`RadioButton`](crate::RadioButton) will remove</span>
     <span class="doccomment">/// itself and its list item when it is destroyed.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # CSS nodes</span>
@@ -803,7 +803,7 @@
     <span class="doccomment">/// ╰── &lt;child&gt;</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A `RadioButton` with indicator (see `ToggleButtonExt::set_mode`) has a</span>
+    <span class="doccomment">/// A `RadioButton` with indicator (see [`ToggleButtonExt::set_mode()`](crate::ToggleButtonExt::set_mode())) has a</span>
     <span class="doccomment">/// main CSS node with name radiobutton and a subnode with name radio.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">///</span>
@@ -848,14 +848,14 @@
     <span class="doccomment">/// ```</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// When an unselected button in the group is clicked the clicked button</span>
-    <span class="doccomment">/// receives the `ToggleButton::toggled` signal, as does the previously</span>
+    <span class="doccomment">/// receives the [`ToggleButton::toggled`](crate::ToggleButton::toggled) signal, as does the previously</span>
     <span class="doccomment">/// selected button.</span>
-    <span class="doccomment">/// Inside the `ToggleButton::toggled` handler, `ToggleButtonExt::get_active`</span>
+    <span class="doccomment">/// Inside the [`ToggleButton::toggled`](crate::ToggleButton::toggled) handler, [`ToggleButtonExt::get_active()`](crate::ToggleButtonExt::get_active())</span>
     <span class="doccomment">/// can be used to determine if the button has been selected or deselected.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`RadioButtonExt`](trait@crate::RadioButtonExt), [`CheckButtonExt`](trait@crate::CheckButtonExt), [`ToggleButtonExt`](trait@crate::ToggleButtonExt), [`ButtonExt`](trait@crate::ButtonExt), [`BinExt`](trait@crate::BinExt), [`ContainerExt`](trait@crate::ContainerExt), [`WidgetExt`](trait@crate::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::BuildableExt), [`ActionableExt`](trait@crate::ActionableExt), [`WidgetExtManual`](trait@crate::WidgetExtManual), [`BuildableExtManual`](trait@crate::BuildableExtManual)</span>
+    <span class="doccomment">/// [`RadioButtonExt`](trait@crate::prelude::RadioButtonExt), [`CheckButtonExt`](trait@crate::prelude::CheckButtonExt), [`ToggleButtonExt`](trait@crate::prelude::ToggleButtonExt), [`ButtonExt`](trait@crate::prelude::ButtonExt), [`BinExt`](trait@crate::prelude::BinExt), [`ContainerExt`](trait@crate::prelude::ContainerExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`ActionableExt`](trait@crate::prelude::ActionableExt), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RadioButton</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkRadioButton</span>, <span class="ident">ffi::GtkRadioButtonClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">CheckButton</span>, <span class="ident">ToggleButton</span>, <span class="ident">Button</span>, <span class="ident">Bin</span>, <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>, <span class="ident">Actionable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -864,11 +864,11 @@
 }
 
 <span class="kw">impl</span> <span class="ident">RadioButton</span> {
-    <span class="doccomment">/// Creates a new `RadioButton`, adding it to the same group as</span>
-    <span class="doccomment">/// `radio_group_member`. As with `RadioButton::new`, a widget</span>
+    <span class="doccomment">/// Creates a new [`RadioButton`](crate::RadioButton), adding it to the same group as</span>
+    <span class="doccomment">/// `radio_group_member`. As with [`new()`](Self::new()), a widget</span>
     <span class="doccomment">/// should be packed into the radio button.</span>
     <span class="doccomment">/// ## `radio_group_member`</span>
-    <span class="doccomment">/// an existing `RadioButton`.</span>
+    <span class="doccomment">/// an existing [`RadioButton`](crate::RadioButton).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -884,10 +884,10 @@
         }
     }
 
-    <span class="doccomment">/// Creates a new `RadioButton` with a text label, adding it to</span>
+    <span class="doccomment">/// Creates a new [`RadioButton`](crate::RadioButton) with a text label, adding it to</span>
     <span class="doccomment">/// the same group as `radio_group_member`.</span>
     <span class="doccomment">/// ## `radio_group_member`</span>
-    <span class="doccomment">/// widget to get radio group from or `None`</span>
+    <span class="doccomment">/// widget to get radio group from or [`None`]</span>
     <span class="doccomment">/// ## `label`</span>
     <span class="doccomment">/// a text string to display next to the radio button.</span>
     <span class="doccomment">///</span>
@@ -909,18 +909,18 @@
         }
     }
 
-    <span class="doccomment">/// Creates a new `RadioButton` containing a label. The label</span>
-    <span class="doccomment">/// will be created using `Label::new_with_mnemonic`, so underscores</span>
+    <span class="doccomment">/// Creates a new [`RadioButton`](crate::RadioButton) containing a label. The label</span>
+    <span class="doccomment">/// will be created using [`Label::new_with_mnemonic()`](crate::Label::new_with_mnemonic()), so underscores</span>
     <span class="doccomment">/// in `label` indicate the mnemonic for the button.</span>
     <span class="doccomment">/// ## `radio_group_member`</span>
-    <span class="doccomment">/// widget to get radio group from or `None`</span>
+    <span class="doccomment">/// widget to get radio group from or [`None`]</span>
     <span class="doccomment">/// ## `label`</span>
     <span class="doccomment">/// the text of the button, with an underscore in front of the</span>
     <span class="doccomment">///  mnemonic character</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new `RadioButton`</span>
+    <span class="doccomment">/// a new [`RadioButton`](crate::RadioButton)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_radio_button_new_with_mnemonic_from_widget&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_mnemonic_from_widget</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">RadioButton</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="ident">radio_group_member</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>,
@@ -1391,10 +1391,10 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_radio_button_get_group&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">group</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">RadioButton</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// Joins a `RadioButton` object to the group of another `RadioButton` object</span>
+    <span class="doccomment">/// Joins a [`RadioButton`](crate::RadioButton) object to the group of another [`RadioButton`](crate::RadioButton) object</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Use this in language bindings instead of the `RadioButtonExt::get_group`</span>
-    <span class="doccomment">/// and `RadioButton::set_group` methods</span>
+    <span class="doccomment">/// Use this in language bindings instead of the [`get_group()`](Self::get_group())</span>
+    <span class="doccomment">/// and [`RadioButton::set_group()`](crate::RadioButton::set_group()) methods</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// A common way to set up a group of radio buttons is the following:</span>
     <span class="doccomment">///</span>
@@ -1412,7 +1412,7 @@
     <span class="doccomment">/// ```</span>
     <span class="doccomment">/// ## `group_source`</span>
     <span class="doccomment">/// a radio button object whos group we are</span>
-    <span class="doccomment">///  joining, or `None` to remove the radio button from its group</span>
+    <span class="doccomment">///  joining, or [`None`] to remove the radio button from its group</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_radio_button_join_group&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">join_group</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">RadioButton</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">group_source</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>);
 

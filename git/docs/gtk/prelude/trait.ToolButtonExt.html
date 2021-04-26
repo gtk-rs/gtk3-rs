@@ -23,60 +23,60 @@
 <h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
 <p><a href="../struct.MenuToolButton.html"><code>MenuToolButton</code></a>, <a href="../struct.ToggleToolButton.html"><code>ToggleToolButton</code></a>, <a href="../struct.ToolButton.html"><code>ToolButton</code></a></p>
 </div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.icon_name" class="method"><code>fn <a href="#tymethod.icon_name" class="fnname">icon_name</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/tool_button.rs.html#525" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns the name of the themed icon for the tool button,
-see <code>ToolButtonExt::set_icon_name</code>.</p>
+see <a href="trait.ToolButtonExt.html#tymethod.set_icon_name"><code>set_icon_name()</code></a>.</p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
-<p>the icon name or <code>None</code> if the tool button has
+<p>the icon name or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> if the tool button has
 no themed icon</p>
 </div><h3 id="tymethod.icon_widget" class="method"><code>fn <a href="#tymethod.icon_widget" class="fnname">icon_widget</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.Widget.html" title="struct gtk::Widget">Widget</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/tool_button.rs.html#535" title="goto source code">[src]</a></h3><div class="docblock"><p>Return the widget used as icon widget on <code>self</code>.
-See <code>ToolButtonExt::set_icon_widget</code>.</p>
+See <a href="trait.ToolButtonExt.html#tymethod.set_icon_widget"><code>set_icon_widget()</code></a>.</p>
 <h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
 <p>The widget used as icon
-on <code>self</code>, or <code>None</code>.</p>
-</div><h3 id="tymethod.label" class="method"><code>fn <a href="#tymethod.label" class="fnname">label</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/tool_button.rs.html#545" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns the label used by the tool button, or <code>None</code> if the tool button
+on <code>self</code>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>.</p>
+</div><h3 id="tymethod.label" class="method"><code>fn <a href="#tymethod.label" class="fnname">label</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/tool_button.rs.html#545" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns the label used by the tool button, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> if the tool button
 doesn’t have a label. or uses a the label from a stock item. The returned
 string is owned by GTK+, and must not be modified or freed.</p>
 <h1 id="returns-2" class="section-header"><a href="#returns-2">Returns</a></h1>
-<p>The label, or <code>None</code></p>
+<p>The label, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 </div><h3 id="tymethod.label_widget" class="method"><code>fn <a href="#tymethod.label_widget" class="fnname">label_widget</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.Widget.html" title="struct gtk::Widget">Widget</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/tool_button.rs.html#555" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns the widget used as label on <code>self</code>.
-See <code>ToolButtonExt::set_label_widget</code>.</p>
+See <a href="trait.ToolButtonExt.html#tymethod.set_label_widget"><code>set_label_widget()</code></a>.</p>
 <h1 id="returns-3" class="section-header"><a href="#returns-3">Returns</a></h1>
 <p>The widget used as label
-on <code>self</code>, or <code>None</code>.</p>
+on <code>self</code>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>.</p>
 </div><h3 id="tymethod.uses_underline" class="method"><code>fn <a href="#tymethod.uses_underline" class="fnname">uses_underline</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/tool_button.rs.html#565" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns whether underscores in the label property are used as mnemonics
-on menu items on the overflow menu. See <code>ToolButtonExt::set_use_underline</code>.</p>
+on menu items on the overflow menu. See <a href="trait.ToolButtonExt.html#tymethod.set_use_underline"><code>set_use_underline()</code></a>.</p>
 <h1 id="returns-4" class="section-header"><a href="#returns-4">Returns</a></h1>
-<p><code>true</code> if underscores in the label property are used as
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if underscores in the label property are used as
 mnemonics on menu items on the overflow menu.</p>
 </div><h3 id="tymethod.set_icon_name" class="method"><code>fn <a href="#tymethod.set_icon_name" class="fnname">set_icon_name</a>(&amp;self, icon_name: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;)</code><a class="srclink" href="../../src/gtk/auto/tool_button.rs.html#575" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the icon for the tool button from a named themed icon.
-See the docs for <code>IconTheme</code> for more details.
-The <code>ToolButton:icon-name</code> property only has an effect if not
-overridden by non-<code>None</code> <code>ToolButton:label-widget</code>,
-<code>ToolButton:icon-widget</code> and <code>ToolButton:stock-id</code> properties.</p>
+See the docs for <a href="../struct.IconTheme.html"><code>IconTheme</code></a> for more details.
+The <a href="crate::ToolButton:icon-name"><code>ToolButton:icon-name</code></a> property only has an effect if not
+overridden by non-<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> <a href="crate::ToolButton:label-widget"><code>ToolButton:label-widget</code></a>,
+<a href="crate::ToolButton:icon-widget"><code>ToolButton:icon-widget</code></a> and <a href="crate::ToolButton:stock-id"><code>ToolButton:stock-id</code></a> properties.</p>
 <h2 id="icon_name" class="section-header"><a href="#icon_name"><code>icon_name</code></a></h2>
 <p>the name of the themed icon</p>
 </div><h3 id="tymethod.set_icon_widget" class="method"><code>fn <a href="#tymethod.set_icon_widget" class="fnname">set_icon_widget</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Widget.html" title="struct gtk::Widget">Widget</a>&gt;&gt;(&amp;self, icon_widget: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P&gt;)</code><a class="srclink" href="../../src/gtk/auto/tool_button.rs.html#583" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets <code>icon</code> as the widget used as icon on <code>self</code>. If <code>icon_widget</code> is
-<code>None</code> the icon is determined by the <code>ToolButton:stock-id</code> property. If the
-<code>ToolButton:stock-id</code> property is also <code>None</code>, <code>self</code> will not have an icon.</p>
+<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> the icon is determined by the <a href="crate::ToolButton:stock-id"><code>ToolButton:stock-id</code></a> property. If the
+<a href="crate::ToolButton:stock-id"><code>ToolButton:stock-id</code></a> property is also <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>, <code>self</code> will not have an icon.</p>
 <h2 id="icon_widget" class="section-header"><a href="#icon_widget"><code>icon_widget</code></a></h2>
-<p>the widget used as icon, or <code>None</code></p>
-</div><h3 id="tymethod.set_label" class="method"><code>fn <a href="#tymethod.set_label" class="fnname">set_label</a>(&amp;self, label: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;)</code><a class="srclink" href="../../src/gtk/auto/tool_button.rs.html#594" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets <code>label</code> as the label used for the tool button. The <code>ToolButton:label</code>
-property only has an effect if not overridden by a non-<code>None</code>
-<code>ToolButton:label-widget</code> property. If both the <code>ToolButton:label-widget</code>
-and <code>ToolButton:label</code> properties are <code>None</code>, the label is determined by the
-<code>ToolButton:stock-id</code> property. If the <code>ToolButton:stock-id</code> property is
-also <code>None</code>, <code>self</code> will not have a label.</p>
+<p>the widget used as icon, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
+</div><h3 id="tymethod.set_label" class="method"><code>fn <a href="#tymethod.set_label" class="fnname">set_label</a>(&amp;self, label: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;)</code><a class="srclink" href="../../src/gtk/auto/tool_button.rs.html#594" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets <code>label</code> as the label used for the tool button. The <a href="crate::ToolButton:label"><code>ToolButton:label</code></a>
+property only has an effect if not overridden by a non-<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>
+<a href="crate::ToolButton:label-widget"><code>ToolButton:label-widget</code></a> property. If both the <a href="crate::ToolButton:label-widget"><code>ToolButton:label-widget</code></a>
+and <a href="crate::ToolButton:label"><code>ToolButton:label</code></a> properties are <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>, the label is determined by the
+<a href="crate::ToolButton:stock-id"><code>ToolButton:stock-id</code></a> property. If the <a href="crate::ToolButton:stock-id"><code>ToolButton:stock-id</code></a> property is
+also <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>, <code>self</code> will not have a label.</p>
 <h2 id="label" class="section-header"><a href="#label"><code>label</code></a></h2>
-<p>a string that will be used as label, or <code>None</code>.</p>
+<p>a string that will be used as label, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>.</p>
 </div><h3 id="tymethod.set_label_widget" class="method"><code>fn <a href="#tymethod.set_label_widget" class="fnname">set_label_widget</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Widget.html" title="struct gtk::Widget">Widget</a>&gt;&gt;(&amp;self, label_widget: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P&gt;)</code><a class="srclink" href="../../src/gtk/auto/tool_button.rs.html#604" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets <code>label_widget</code> as the widget that will be used as the label
-for <code>self</code>. If <code>label_widget</code> is <code>None</code> the <code>ToolButton:label</code> property is used
-as label. If <code>ToolButton:label</code> is also <code>None</code>, the label in the stock item
-determined by the <code>ToolButton:stock-id</code> property is used as label. If
-<code>ToolButton:stock-id</code> is also <code>None</code>, <code>self</code> does not have a label.</p>
+for <code>self</code>. If <code>label_widget</code> is <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> the <a href="crate::ToolButton:label"><code>ToolButton:label</code></a> property is used
+as label. If <a href="crate::ToolButton:label"><code>ToolButton:label</code></a> is also <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>, the label in the stock item
+determined by the <a href="crate::ToolButton:stock-id"><code>ToolButton:stock-id</code></a> property is used as label. If
+<a href="crate::ToolButton:stock-id"><code>ToolButton:stock-id</code></a> is also <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>, <code>self</code> does not have a label.</p>
 <h2 id="label_widget" class="section-header"><a href="#label_widget"><code>label_widget</code></a></h2>
-<p>the widget used as label, or <code>None</code></p>
+<p>the widget used as label, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 </div><h3 id="tymethod.set_use_underline" class="method"><code>fn <a href="#tymethod.set_use_underline" class="fnname">set_use_underline</a>(&amp;self, use_underline: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gtk/auto/tool_button.rs.html#617" title="goto source code">[src]</a></h3><div class="docblock"><p>If set, an underline in the label property indicates that the next character
 should be used for the mnemonic accelerator key in the overflow menu. For
-example, if the label property is “_Open” and <code>use_underline</code> is <code>true</code>,
+example, if the label property is “_Open” and <code>use_underline</code> is <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a>,
 the label on the tool button will be “Open” and the item on the overflow
 menu will have an underlined “O”.</p>
 <p>Labels shown on tool buttons never have mnemonics on them; this property

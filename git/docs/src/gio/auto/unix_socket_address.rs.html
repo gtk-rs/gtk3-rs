@@ -170,8 +170,8 @@
     <span class="doccomment">/// visible in the filesystem and not affected by the filesystem</span>
     <span class="doccomment">/// permissions, visibility, etc. Currently this is only supported</span>
     <span class="doccomment">/// under Linux. If you attempt to use abstract sockets on other</span>
-    <span class="doccomment">/// systems, function calls may return `IOErrorEnum::NotSupported`</span>
-    <span class="doccomment">/// errors. You can use `UnixSocketAddress::abstract_names_supported`</span>
+    <span class="doccomment">/// systems, function calls may return [`IOErrorEnum::NotSupported`]</span>
+    <span class="doccomment">/// errors. You can use [`abstract_names_supported()`](Self::abstract_names_supported())</span>
     <span class="doccomment">/// to see if abstract names are supported.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that `&lt;gio/gunixsocketaddress.h&gt;` belongs to the UNIX-specific GIO</span>
@@ -180,7 +180,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`UnixSocketAddressExt`](trait@crate::UnixSocketAddressExt), [`SocketAddressExt`](trait@crate::SocketAddressExt), [`trait@glib::object::ObjectExt`], [`SocketConnectableExt`](trait@crate::SocketConnectableExt), [`UnixSocketAddressExtManual`](trait@crate::UnixSocketAddressExtManual)</span>
+    <span class="doccomment">/// [`UnixSocketAddressExt`](trait@crate::prelude::UnixSocketAddressExt), [`SocketAddressExt`](trait@crate::prelude::SocketAddressExt), [`trait@glib::object::ObjectExt`], [`SocketConnectableExt`](trait@crate::prelude::SocketConnectableExt), [`UnixSocketAddressExtManual`](trait@crate::prelude::UnixSocketAddressExtManual)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">UnixSocketAddress</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GUnixSocketAddress</span>, <span class="ident">ffi::GUnixSocketAddressClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">SocketAddress</span>, @<span class="ident">implements</span> <span class="ident">SocketConnectable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -203,7 +203,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if supported, `false` otherwise</span>
+    <span class="doccomment">/// [`true`] if supported, [`false`] otherwise</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_unix_socket_address_abstract_names_supported&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">abstract_names_supported</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::g_unix_socket_address_abstract_names_supported</span>()) }
@@ -225,7 +225,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a `UnixSocketAddressType`</span>
+    <span class="doccomment">/// a [`UnixSocketAddressType`](crate::UnixSocketAddressType)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_unix_socket_address_get_address_type&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">address_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">UnixSocketAddressType</span>;
 
@@ -233,17 +233,17 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Use `UnixSocketAddressExt::get_address_type`</span>
+    <span class="doccomment">/// Use [`get_address_type()`](Self::get_address_type())</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if the address is abstract, `false` otherwise</span>
+    <span class="doccomment">/// [`true`] if the address is abstract, [`false`] otherwise</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_unix_socket_address_get_is_abstract&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">is_abstract</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
     <span class="doccomment">/// Gets the length of `self`&#39;s path.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// For details, see `UnixSocketAddress::get_path`.</span>
+    <span class="doccomment">/// For details, see [`UnixSocketAddress::get_path()`](crate::UnixSocketAddress::get_path()).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>

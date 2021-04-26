@@ -14,9 +14,9 @@
 containing all the radio buttons in the same group
 as <code>self</code>. The returned list is owned by the radio button
 and must not be modified or freed.</p>
-</div><h3 id="tymethod.join_group" class="method"><code>fn <a href="#tymethod.join_group" class="fnname">join_group</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.RadioButton.html" title="struct gtk::RadioButton">RadioButton</a>&gt;&gt;(&amp;self, group_source: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P&gt;)</code><a class="srclink" href="../../src/gtk/auto/radio_button.rs.html#678" title="goto source code">[src]</a></h3><div class="docblock"><p>Joins a <code>RadioButton</code> object to the group of another <code>RadioButton</code> object</p>
-<p>Use this in language bindings instead of the <code>RadioButtonExt::get_group</code>
-and <code>RadioButton::set_group</code> methods</p>
+</div><h3 id="tymethod.join_group" class="method"><code>fn <a href="#tymethod.join_group" class="fnname">join_group</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.RadioButton.html" title="struct gtk::RadioButton">RadioButton</a>&gt;&gt;(&amp;self, group_source: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P&gt;)</code><a class="srclink" href="../../src/gtk/auto/radio_button.rs.html#678" title="goto source code">[src]</a></h3><div class="docblock"><p>Joins a <a href="../struct.RadioButton.html"><code>RadioButton</code></a> object to the group of another <a href="../struct.RadioButton.html"><code>RadioButton</code></a> object</p>
+<p>Use this in language bindings instead of the <a href="Self::get_group()"><code>get_group()</code></a>
+and <a href="crate::RadioButton::set_group()"><code>RadioButton::set_group()</code></a> methods</p>
 <p>A common way to set up a group of radio buttons is the following:</p>
 <pre><code class="language-C">  GtkRadioButton *radio_button;
   GtkRadioButton *last_button;
@@ -31,7 +31,7 @@ and <code>RadioButton::set_group</code> methods</p>
 </code></pre>
 <h2 id="group_source" class="section-header"><a href="#group_source"><code>group_source</code></a></h2>
 <p>a radio button object whos group we are
-joining, or <code>None</code> to remove the radio button from its group</p>
+joining, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> to remove the radio button from its group</p>
 </div><h3 id="tymethod.connect_group_changed" class="method"><code>fn <a href="#tymethod.connect_group_changed" class="fnname">connect_group_changed</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(&amp;self, f: F) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../../src/gtk/auto/radio_button.rs.html#686" title="goto source code">[src]</a></h3><div class="docblock"><p>Emitted when the group of radio buttons that a radio button belongs
 to changes. This is emitted when a radio button switches from
 being alone to being part of a group of 2 or more buttons, or

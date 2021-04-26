@@ -48,10 +48,10 @@
 <span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// A `FrameTimings` object holds timing information for a single frame</span>
-    <span class="doccomment">/// of the application’s displays. To retrieve `FrameTimings` objects,</span>
-    <span class="doccomment">/// use `FrameClock::get_timings` or `FrameClock::get_current_timings`.</span>
-    <span class="doccomment">/// The information in `FrameTimings` is useful for precise synchronization</span>
+    <span class="doccomment">/// A [`FrameTimings`](crate::FrameTimings) object holds timing information for a single frame</span>
+    <span class="doccomment">/// of the application’s displays. To retrieve [`FrameTimings`](crate::FrameTimings) objects,</span>
+    <span class="doccomment">/// use [`FrameClock::get_timings()`](crate::FrameClock::get_timings()) or [`FrameClock::get_current_timings()`](crate::FrameClock::get_current_timings()).</span>
+    <span class="doccomment">/// The information in [`FrameTimings`](crate::FrameTimings) is useful for precise synchronization</span>
     <span class="doccomment">/// of video with the event or audio streams, and for measuring</span>
     <span class="doccomment">/// quality metrics for the application’s display, such as latency and jitter.</span>
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>

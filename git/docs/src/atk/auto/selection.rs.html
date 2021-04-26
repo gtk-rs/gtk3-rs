@@ -238,20 +238,20 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// `Selection` should be implemented by UI components with children</span>
+    <span class="doccomment">/// [`Selection`](crate::Selection) should be implemented by UI components with children</span>
     <span class="doccomment">/// which are exposed by `atk_object_ref_child` and</span>
     <span class="doccomment">/// `atk_object_get_n_children`, if the use of the parent UI component</span>
     <span class="doccomment">/// ordinarily involves selection of one or more of the objects</span>
-    <span class="doccomment">/// corresponding to those `Object` children - for example,</span>
+    <span class="doccomment">/// corresponding to those [`Object`](crate::Object) children - for example,</span>
     <span class="doccomment">/// selectable lists.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that other types of &quot;selection&quot; (for instance text selection)</span>
-    <span class="doccomment">/// are accomplished a other ATK interfaces - `Selection` is limited</span>
+    <span class="doccomment">/// are accomplished a other ATK interfaces - [`Selection`](crate::Selection) is limited</span>
     <span class="doccomment">/// to the selection/deselection of children.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`SelectionExt`](trait@crate::SelectionExt)</span>
+    <span class="doccomment">/// [`SelectionExt`](trait@crate::prelude::SelectionExt)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Selection</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi::AtkSelection</span>, <span class="ident">ffi::AtkSelectionIface</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -288,10 +288,10 @@
     <span class="kw">fn</span> <span class="ident">clear_selection</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
     <span class="doccomment">/// Gets the number of accessible children currently selected.</span>
-    <span class="doccomment">/// Note: callers should not rely on `None` or on a zero value for</span>
+    <span class="doccomment">/// Note: callers should not rely on [`None`] or on a zero value for</span>
     <span class="doccomment">/// indication of whether AtkSelectionIface is implemented, they should</span>
     <span class="doccomment">/// use type checking/interface checking macros or the</span>
-    <span class="doccomment">/// `atk_get_accessible_value` convenience method.</span>
+    <span class="doccomment">/// `atk_get_accessible_value()` convenience method.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -301,10 +301,10 @@
     <span class="kw">fn</span> <span class="ident">selection_count</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span>;
 
     <span class="doccomment">/// Determines if the current child of this object is selected</span>
-    <span class="doccomment">/// Note: callers should not rely on `None` or on a zero value for</span>
+    <span class="doccomment">/// Note: callers should not rely on [`None`] or on a zero value for</span>
     <span class="doccomment">/// indication of whether AtkSelectionIface is implemented, they should</span>
     <span class="doccomment">/// use type checking/interface checking macros or the</span>
-    <span class="doccomment">/// `atk_get_accessible_value` convenience method.</span>
+    <span class="doccomment">/// `atk_get_accessible_value()` convenience method.</span>
     <span class="doccomment">/// ## `i`</span>
     <span class="doccomment">/// a `gint` specifying the child index.</span>
     <span class="doccomment">///</span>
@@ -317,18 +317,18 @@
 
     <span class="doccomment">/// Gets a reference to the accessible object representing the specified</span>
     <span class="doccomment">/// selected child of the object.</span>
-    <span class="doccomment">/// Note: callers should not rely on `None` or on a zero value for</span>
+    <span class="doccomment">/// Note: callers should not rely on [`None`] or on a zero value for</span>
     <span class="doccomment">/// indication of whether AtkSelectionIface is implemented, they should</span>
     <span class="doccomment">/// use type checking/interface checking macros or the</span>
-    <span class="doccomment">/// `atk_get_accessible_value` convenience method.</span>
+    <span class="doccomment">/// `atk_get_accessible_value()` convenience method.</span>
     <span class="doccomment">/// ## `i`</span>
     <span class="doccomment">/// a `gint` specifying the index in the selection set. (e.g. the</span>
     <span class="doccomment">/// ith selection as opposed to the ith child).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// an `Object` representing the</span>
-    <span class="doccomment">/// selected accessible, or `None` if `self` does not implement this</span>
+    <span class="doccomment">/// an [`Object`](crate::Object) representing the</span>
+    <span class="doccomment">/// selected accessible, or [`None`] if `self` does not implement this</span>
     <span class="doccomment">/// interface.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_selection_ref_selection&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">ref_selection</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">i</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Object</span><span class="op">&gt;</span>;
