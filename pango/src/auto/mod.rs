@@ -5,30 +5,29 @@
 mod context;
 pub use self::context::Context;
 
+#[cfg_attr(feature = "v1_38", deprecated = "Since 1.38")]
 mod engine_lang;
+#[cfg_attr(feature = "v1_38", deprecated = "Since 1.38")]
 pub use self::engine_lang::{EngineLang, NONE_ENGINE_LANG};
 
+#[cfg_attr(feature = "v1_38", deprecated = "Since 1.38")]
 mod engine_shape;
+#[cfg_attr(feature = "v1_38", deprecated = "Since 1.38")]
 pub use self::engine_shape::{EngineShape, NONE_ENGINE_SHAPE};
 
 mod font;
-pub use self::font::FontExt;
 pub use self::font::{Font, NONE_FONT};
 
 mod font_face;
-pub use self::font_face::FontFaceExt;
 pub use self::font_face::{FontFace, NONE_FONT_FACE};
 
 mod font_family;
-pub use self::font_family::FontFamilyExt;
 pub use self::font_family::{FontFamily, NONE_FONT_FAMILY};
 
 mod font_map;
-pub use self::font_map::FontMapExt;
 pub use self::font_map::{FontMap, NONE_FONT_MAP};
 
 mod fontset;
-pub use self::fontset::FontsetExt;
 pub use self::fontset::{Fontset, NONE_FONTSET};
 
 mod fontset_simple;
@@ -38,7 +37,6 @@ mod layout;
 pub use self::layout::Layout;
 
 mod renderer;
-pub use self::renderer::RendererExt;
 pub use self::renderer::{Renderer, NONE_RENDERER};
 
 mod attr_iterator;
@@ -128,10 +126,10 @@ pub use self::constants::RENDER_TYPE_NONE;
 
 #[doc(hidden)]
 pub mod traits {
-    pub use super::FontExt;
-    pub use super::FontFaceExt;
-    pub use super::FontFamilyExt;
-    pub use super::FontMapExt;
-    pub use super::FontsetExt;
-    pub use super::RendererExt;
+    pub use super::font::FontExt;
+    pub use super::font_face::FontFaceExt;
+    pub use super::font_family::FontFamilyExt;
+    pub use super::font_map::FontMapExt;
+    pub use super::fontset::FontsetExt;
+    pub use super::renderer::RendererExt;
 }

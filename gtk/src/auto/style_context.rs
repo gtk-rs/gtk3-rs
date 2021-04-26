@@ -144,14 +144,14 @@ pub trait StyleContextExt: 'static {
     //#[doc(alias = "gtk_style_context_get")]
     //fn get(&self, state: StateFlags, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
 
-    #[cfg_attr(feature = "v3_16", deprecated)]
+    #[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
     #[doc(alias = "gtk_style_context_get_background_color")]
     fn background_color(&self, state: StateFlags) -> gdk::RGBA;
 
     #[doc(alias = "gtk_style_context_get_border")]
     fn border(&self, state: StateFlags) -> Border;
 
-    #[cfg_attr(feature = "v3_16", deprecated)]
+    #[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
     #[doc(alias = "gtk_style_context_get_border_color")]
     fn border_color(&self, state: StateFlags) -> gdk::RGBA;
 
@@ -224,7 +224,7 @@ pub trait StyleContextExt: 'static {
     #[doc(alias = "gtk_style_context_save")]
     fn save(&self);
 
-    #[cfg_attr(feature = "v3_18", deprecated)]
+    #[cfg_attr(feature = "v3_18", deprecated = "Since 3.18")]
     #[doc(alias = "gtk_style_context_set_background")]
     fn set_background(&self, window: &gdk::Window);
 

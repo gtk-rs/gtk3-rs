@@ -15,7 +15,7 @@ use glib::translate::*;
 use std::mem;
 use std::ptr;
 
-//#[cfg_attr(feature = "v3_16", deprecated)]
+//#[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
 //#[doc(alias = "gdk_add_option_entries_libgtk_only")]
 //pub fn add_option_entries_libgtk_only(group: /*Ignored*/&glib::OptionGroup) {
 //    unsafe { TODO: call ffi:gdk_add_option_entries_libgtk_only() }
@@ -191,7 +191,7 @@ pub fn keyval_to_upper(keyval: u32) -> u32 {
     unsafe { ffi::gdk_keyval_to_upper(keyval) }
 }
 
-#[cfg_attr(feature = "v3_22", deprecated)]
+#[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
 #[doc(alias = "gdk_list_visuals")]
 pub fn list_visuals() -> Vec<Visual> {
     assert_initialized_main_thread!();
@@ -272,7 +272,7 @@ pub fn pixbuf_get_from_surface(
     }
 }
 
-#[cfg_attr(feature = "v3_16", deprecated)]
+#[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
 #[doc(alias = "gdk_pre_parse_libgtk_only")]
 pub fn pre_parse_libgtk_only() {
     assert_initialized_main_thread!();
@@ -329,7 +329,7 @@ pub fn property_get(
     }
 }
 
-#[cfg_attr(feature = "v3_22", deprecated)]
+#[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
 #[doc(alias = "gdk_query_depths")]
 pub fn query_depths() -> Vec<i32> {
     assert_initialized_main_thread!();
@@ -341,7 +341,7 @@ pub fn query_depths() -> Vec<i32> {
     }
 }
 
-//#[cfg_attr(feature = "v3_22", deprecated)]
+//#[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
 //#[doc(alias = "gdk_query_visual_types")]
 //pub fn query_visual_types(visual_types: /*Unimplemented*/CArray TypeId { ns_id: 1, id: 99 }) -> i32 {
 //    unsafe { TODO: call ffi:gdk_query_visual_types() }

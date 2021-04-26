@@ -113,7 +113,7 @@ impl Window {
         }
     }
 
-    #[cfg_attr(feature = "v3_22", deprecated)]
+    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
     #[doc(alias = "gdk_window_begin_paint_rect")]
     pub fn begin_paint_rect(&self, rectangle: &Rectangle) {
         unsafe {
@@ -121,7 +121,7 @@ impl Window {
         }
     }
 
-    #[cfg_attr(feature = "v3_22", deprecated)]
+    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
     #[doc(alias = "gdk_window_begin_paint_region")]
     pub fn begin_paint_region(&self, region: &cairo::Region) {
         unsafe {
@@ -273,7 +273,7 @@ impl Window {
         }
     }
 
-    #[cfg_attr(feature = "v3_16", deprecated)]
+    #[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
     #[doc(alias = "gdk_window_freeze_toplevel_updates_libgtk_only")]
     pub fn freeze_toplevel_updates_libgtk_only(&self) {
         unsafe {
@@ -335,7 +335,7 @@ impl Window {
         unsafe { from_glib_full(ffi::gdk_window_get_clip_region(self.to_glib_none().0)) }
     }
 
-    #[cfg_attr(feature = "v3_16", deprecated)]
+    #[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
     #[doc(alias = "gdk_window_get_composited")]
     pub fn is_composited(&self) -> bool {
         unsafe { from_glib(ffi::gdk_window_get_composited(self.to_glib_none().0)) }
@@ -879,7 +879,7 @@ impl Window {
         }
     }
 
-    #[cfg_attr(feature = "v3_22", deprecated)]
+    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
     #[doc(alias = "gdk_window_process_updates")]
     pub fn process_updates(&self, update_children: bool) {
         unsafe {
@@ -945,7 +945,7 @@ impl Window {
         }
     }
 
-    #[cfg_attr(feature = "v3_22", deprecated)]
+    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
     #[doc(alias = "gdk_window_set_background_rgba")]
     pub fn set_background_rgba(&self, rgba: &RGBA) {
         unsafe {
@@ -967,7 +967,7 @@ impl Window {
         }
     }
 
-    #[cfg_attr(feature = "v3_16", deprecated)]
+    #[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
     #[doc(alias = "gdk_window_set_composited")]
     pub fn set_composited(&self, composited: bool) {
         unsafe {
@@ -1189,7 +1189,7 @@ impl Window {
         }
     }
 
-    #[cfg_attr(feature = "v3_16", deprecated)]
+    #[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
     #[doc(alias = "gdk_window_set_static_gravities")]
     pub fn set_static_gravities(&self, use_static: bool) -> bool {
         unsafe {
@@ -1286,7 +1286,7 @@ impl Window {
         }
     }
 
-    #[cfg_attr(feature = "v3_16", deprecated)]
+    #[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
     #[doc(alias = "gdk_window_thaw_toplevel_updates_libgtk_only")]
     pub fn thaw_toplevel_updates_libgtk_only(&self) {
         unsafe {
@@ -1354,7 +1354,7 @@ impl Window {
         }
     }
 
-    #[cfg_attr(feature = "v3_22", deprecated)]
+    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
     #[doc(alias = "gdk_window_process_all_updates")]
     pub fn process_all_updates() {
         assert_initialized_main_thread!();
@@ -1363,7 +1363,7 @@ impl Window {
         }
     }
 
-    #[cfg_attr(feature = "v3_22", deprecated)]
+    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
     #[doc(alias = "gdk_window_set_debug_updates")]
     pub fn set_debug_updates(setting: bool) {
         assert_initialized_main_thread!();

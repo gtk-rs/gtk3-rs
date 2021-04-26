@@ -566,7 +566,7 @@ pub trait GtkMenuExt: 'static {
     #[doc(alias = "gtk_menu_popdown")]
     fn popdown(&self);
 
-    //#[cfg_attr(feature = "v3_22", deprecated)]
+    //#[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
     //#[doc(alias = "gtk_menu_popup")]
     //fn popup<P: IsA<Widget>, Q: IsA<Widget>>(&self, parent_menu_shell: Option<&P>, parent_menu_item: Option<&Q>, func: Option<Box_<dyn FnOnce(&Menu, i32, i32, bool) + 'static>>, button: u32, activate_time: u32);
 
@@ -598,7 +598,7 @@ pub trait GtkMenuExt: 'static {
         trigger_event: Option<&gdk::Event>,
     );
 
-    //#[cfg_attr(feature = "v3_22", deprecated)]
+    //#[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
     //#[doc(alias = "gtk_menu_popup_for_device")]
     //fn popup_for_device<P: IsA<Widget>, Q: IsA<Widget>>(&self, device: Option<&gdk::Device>, parent_menu_shell: Option<&P>, parent_menu_item: Option<&Q>, func: Option<Box_<dyn Fn(&Menu, i32, i32, bool) + 'static>>, button: u32, activate_time: u32);
 

@@ -44,19 +44,19 @@ pub trait SettingsExt: 'static {
     #[doc(alias = "gtk_settings_reset_property")]
     fn reset_property(&self, name: &str);
 
-    #[cfg_attr(feature = "v3_16", deprecated)]
+    #[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
     #[doc(alias = "gtk_settings_set_double_property")]
     fn set_double_property(&self, name: &str, v_double: f64, origin: &str);
 
-    #[cfg_attr(feature = "v3_16", deprecated)]
+    #[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
     #[doc(alias = "gtk_settings_set_long_property")]
     fn set_long_property(&self, name: &str, v_long: libc::c_long, origin: &str);
 
-    //#[cfg_attr(feature = "v3_16", deprecated)]
+    //#[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
     //#[doc(alias = "gtk_settings_set_property_value")]
     //fn set_property_value(&self, name: &str, svalue: /*Ignored*/&SettingsValue);
 
-    #[cfg_attr(feature = "v3_16", deprecated)]
+    #[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
     #[doc(alias = "gtk_settings_set_string_property")]
     fn set_string_property(&self, name: &str, v_string: &str, origin: &str);
 

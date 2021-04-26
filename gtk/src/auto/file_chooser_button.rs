@@ -560,7 +560,7 @@ impl FileChooserButtonBuilder {
 pub const NONE_FILE_CHOOSER_BUTTON: Option<&FileChooserButton> = None;
 
 pub trait FileChooserButtonExt: 'static {
-    #[cfg_attr(feature = "v3_20", deprecated)]
+    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
     #[cfg(any(not(feature = "v3_20"), feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(not(feature = "v3_20"))))]
     #[doc(alias = "gtk_file_chooser_button_get_focus_on_click")]
@@ -572,7 +572,7 @@ pub trait FileChooserButtonExt: 'static {
     #[doc(alias = "gtk_file_chooser_button_get_width_chars")]
     fn width_chars(&self) -> i32;
 
-    #[cfg_attr(feature = "v3_20", deprecated)]
+    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
     #[cfg(any(not(feature = "v3_20"), feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(not(feature = "v3_20"))))]
     #[doc(alias = "gtk_file_chooser_button_set_focus_on_click")]

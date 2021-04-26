@@ -72,7 +72,7 @@ impl Pixbuf {
     //    unsafe { TODO: call ffi:gdk_pixbuf_new_from_data() }
     //}
 
-    #[cfg_attr(feature = "v2_32", deprecated)]
+    #[cfg_attr(feature = "v2_32", deprecated = "Since 2.32")]
     #[doc(alias = "gdk_pixbuf_new_from_inline")]
     pub fn from_inline(data: &[u8], copy_pixels: bool) -> Result<Pixbuf, glib::Error> {
         let data_length = data.len() as i32;

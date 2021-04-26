@@ -3397,7 +3397,7 @@ impl ToValue for TlsInteractionResult {
     }
 }
 
-#[cfg_attr(feature = "v2_60", deprecated)]
+#[cfg_attr(feature = "v2_60", deprecated = "Since 2.60")]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
 #[doc(alias = "GTlsRehandshakeMode")]

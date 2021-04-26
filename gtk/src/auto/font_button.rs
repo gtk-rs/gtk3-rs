@@ -589,7 +589,7 @@ impl FontButtonBuilder {
 pub const NONE_FONT_BUTTON: Option<&FontButton> = None;
 
 pub trait FontButtonExt: 'static {
-    #[cfg_attr(feature = "v3_22", deprecated)]
+    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
     #[doc(alias = "gtk_font_button_get_font_name")]
     fn font_name(&self) -> Option<glib::GString>;
 
@@ -608,7 +608,7 @@ pub trait FontButtonExt: 'static {
     #[doc(alias = "gtk_font_button_get_use_size")]
     fn uses_size(&self) -> bool;
 
-    #[cfg_attr(feature = "v3_22", deprecated)]
+    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
     #[doc(alias = "gtk_font_button_set_font_name")]
     fn set_font_name(&self, fontname: &str) -> bool;
 
@@ -629,7 +629,7 @@ pub trait FontButtonExt: 'static {
 
     fn connect_font_set<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    #[cfg_attr(feature = "v3_22", deprecated)]
+    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
     fn connect_property_font_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn connect_property_show_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;

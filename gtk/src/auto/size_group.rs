@@ -72,7 +72,7 @@ pub trait SizeGroupExt: 'static {
     #[doc(alias = "gtk_size_group_add_widget")]
     fn add_widget<P: IsA<Widget>>(&self, widget: &P);
 
-    #[cfg_attr(feature = "v3_22", deprecated)]
+    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
     #[doc(alias = "gtk_size_group_get_ignore_hidden")]
     fn ignores_hidden(&self) -> bool;
 
@@ -85,14 +85,14 @@ pub trait SizeGroupExt: 'static {
     #[doc(alias = "gtk_size_group_remove_widget")]
     fn remove_widget<P: IsA<Widget>>(&self, widget: &P);
 
-    #[cfg_attr(feature = "v3_22", deprecated)]
+    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
     #[doc(alias = "gtk_size_group_set_ignore_hidden")]
     fn set_ignore_hidden(&self, ignore_hidden: bool);
 
     #[doc(alias = "gtk_size_group_set_mode")]
     fn set_mode(&self, mode: SizeGroupMode);
 
-    #[cfg_attr(feature = "v3_22", deprecated)]
+    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
     fn connect_property_ignore_hidden_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,

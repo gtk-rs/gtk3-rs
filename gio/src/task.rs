@@ -90,10 +90,8 @@ impl Task {
 #[cfg(test)]
 mod test {
     use super::*;
+    use crate::prelude::*;
     use crate::test_util::run_async_local;
-    use crate::CancellableExt;
-    use glib::Cast;
-    use glib::ToValue;
 
     #[test]
     fn test_int_async_result() {

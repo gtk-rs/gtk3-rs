@@ -18,7 +18,7 @@ use glib::translate::*;
 use std::mem;
 use std::ptr;
 
-//#[cfg_attr(feature = "v1_44", deprecated)]
+//#[cfg_attr(feature = "v1_44", deprecated = "Since 1.44")]
 //#[doc(alias = "pango_break")]
 //pub fn break_(text: &str, analysis: &mut Analysis, attrs: /*Ignored*/&[&LogAttr]) {
 //    unsafe { TODO: call ffi:pango_break() }
@@ -45,7 +45,7 @@ pub fn find_base_dir(text: &str) -> Direction {
     unsafe { from_glib(ffi::pango_find_base_dir(text.to_glib_none().0, length)) }
 }
 
-//#[cfg_attr(feature = "v1_38", deprecated)]
+//#[cfg_attr(feature = "v1_38", deprecated = "Since 1.38")]
 //#[doc(alias = "pango_find_map")]
 //pub fn find_map(language: &mut Language, engine_type_id: u32, render_type_id: u32) -> /*Ignored*/Option<Map> {
 //    unsafe { TODO: call ffi:pango_find_map() }
@@ -133,13 +133,13 @@ pub fn itemize_with_base_dir(
 //    unsafe { TODO: call ffi:pango_markup_parser_new() }
 //}
 
-//#[cfg_attr(feature = "v1_38", deprecated)]
+//#[cfg_attr(feature = "v1_38", deprecated = "Since 1.38")]
 //#[doc(alias = "pango_module_register")]
 //pub fn module_register(module: /*Ignored*/&mut IncludedModule) {
 //    unsafe { TODO: call ffi:pango_module_register() }
 //}
 
-#[cfg_attr(feature = "v1_38", deprecated)]
+#[cfg_attr(feature = "v1_38", deprecated = "Since 1.38")]
 #[doc(alias = "pango_parse_enum")]
 pub fn parse_enum(
     type_: glib::types::Type,
@@ -278,25 +278,25 @@ pub fn quantize_line_geometry(thickness: &mut i32, position: &mut i32) {
     }
 }
 
-//#[cfg_attr(feature = "v1_38", deprecated)]
+//#[cfg_attr(feature = "v1_38", deprecated = "Since 1.38")]
 //#[doc(alias = "pango_read_line")]
 //pub fn read_line(stream: /*Unimplemented*/Option<Fundamental: Pointer>, str: /*Ignored*/&mut glib::String) -> i32 {
 //    unsafe { TODO: call ffi:pango_read_line() }
 //}
 
-//#[cfg_attr(feature = "v1_38", deprecated)]
+//#[cfg_attr(feature = "v1_38", deprecated = "Since 1.38")]
 //#[doc(alias = "pango_scan_int")]
 //pub fn scan_int(pos: /*Unimplemented*/glib::GString) -> Option<i32> {
 //    unsafe { TODO: call ffi:pango_scan_int() }
 //}
 
-//#[cfg_attr(feature = "v1_38", deprecated)]
+//#[cfg_attr(feature = "v1_38", deprecated = "Since 1.38")]
 //#[doc(alias = "pango_scan_string")]
 //pub fn scan_string(pos: /*Unimplemented*/glib::GString, out: /*Ignored*/&mut glib::String) -> bool {
 //    unsafe { TODO: call ffi:pango_scan_string() }
 //}
 
-//#[cfg_attr(feature = "v1_38", deprecated)]
+//#[cfg_attr(feature = "v1_38", deprecated = "Since 1.38")]
 //#[doc(alias = "pango_scan_word")]
 //pub fn scan_word(pos: /*Unimplemented*/glib::GString, out: /*Ignored*/&mut glib::String) -> bool {
 //    unsafe { TODO: call ffi:pango_scan_word() }
@@ -315,13 +315,13 @@ pub fn shape(text: &str, analysis: &Analysis, glyphs: &mut GlyphString) {
     }
 }
 
-//#[cfg_attr(feature = "v1_38", deprecated)]
+//#[cfg_attr(feature = "v1_38", deprecated = "Since 1.38")]
 //#[doc(alias = "pango_skip_space")]
 //pub fn skip_space(pos: /*Unimplemented*/glib::GString) -> bool {
 //    unsafe { TODO: call ffi:pango_skip_space() }
 //}
 
-#[cfg_attr(feature = "v1_38", deprecated)]
+#[cfg_attr(feature = "v1_38", deprecated = "Since 1.38")]
 #[doc(alias = "pango_split_file_list")]
 pub fn split_file_list(str: &str) -> Vec<glib::GString> {
     unsafe {
@@ -336,7 +336,7 @@ pub fn split_file_list(str: &str) -> Vec<glib::GString> {
 //    unsafe { TODO: call ffi:pango_tailor_break() }
 //}
 
-#[cfg_attr(feature = "v1_38", deprecated)]
+#[cfg_attr(feature = "v1_38", deprecated = "Since 1.38")]
 #[doc(alias = "pango_trim_string")]
 pub fn trim_string(str: &str) -> Option<glib::GString> {
     unsafe { from_glib_full(ffi::pango_trim_string(str.to_glib_none().0)) }

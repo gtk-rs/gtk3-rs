@@ -73,7 +73,7 @@ pub trait ContainerExt: 'static {
     #[doc(alias = "gtk_container_get_children")]
     fn children(&self) -> Vec<Widget>;
 
-    //#[cfg_attr(feature = "v3_24", deprecated)]
+    //#[cfg_attr(feature = "v3_24", deprecated = "Since 3.24")]
     //#[doc(alias = "gtk_container_get_focus_chain")]
     //fn focus_chain(&self, focusable_widgets: /*Unimplemented*/Vec<Widget>) -> bool;
 
@@ -98,7 +98,7 @@ pub trait ContainerExt: 'static {
     #[doc(alias = "gtk_container_set_border_width")]
     fn set_border_width(&self, border_width: u32);
 
-    #[cfg_attr(feature = "v3_24", deprecated)]
+    #[cfg_attr(feature = "v3_24", deprecated = "Since 3.24")]
     #[doc(alias = "gtk_container_set_focus_chain")]
     fn set_focus_chain(&self, focusable_widgets: &[Widget]);
 
@@ -111,7 +111,7 @@ pub trait ContainerExt: 'static {
     #[doc(alias = "gtk_container_set_focus_vadjustment")]
     fn set_focus_vadjustment<P: IsA<Adjustment>>(&self, adjustment: &P);
 
-    #[cfg_attr(feature = "v3_24", deprecated)]
+    #[cfg_attr(feature = "v3_24", deprecated = "Since 3.24")]
     #[doc(alias = "gtk_container_unset_focus_chain")]
     fn unset_focus_chain(&self);
 

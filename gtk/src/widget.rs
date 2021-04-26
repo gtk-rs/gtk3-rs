@@ -2,19 +2,18 @@
 
 use gdk::{DragAction, Event, ModifierType};
 use glib::ffi::gboolean;
-use glib::object::{Cast, IsA, WeakRef};
 use glib::signal::{connect_raw, Inhibit, SignalHandlerId};
 use glib::translate::*;
 use glib::Continue;
-use glib::ObjectExt;
 use std::mem::transmute;
 use std::ptr;
 
-use crate::{DestDefaults, Rectangle, TargetEntry, Widget, WidgetExt};
+use crate::prelude::*;
+use crate::{DestDefaults, Rectangle, TargetEntry, Widget};
 
 pub struct TickCallbackId {
     id: u32,
-    widget: WeakRef<Widget>,
+    widget: glib::WeakRef<Widget>,
 }
 
 impl TickCallbackId {

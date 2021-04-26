@@ -60,7 +60,7 @@ pub trait TlsClientConnectionExt: 'static {
     #[doc(alias = "g_tls_client_connection_get_server_identity")]
     fn server_identity(&self) -> Option<SocketConnectable>;
 
-    #[cfg_attr(feature = "v2_56", deprecated)]
+    #[cfg_attr(feature = "v2_56", deprecated = "Since 2.56")]
     #[doc(alias = "g_tls_client_connection_get_use_ssl3")]
     fn uses_ssl3(&self) -> bool;
 
@@ -70,7 +70,7 @@ pub trait TlsClientConnectionExt: 'static {
     #[doc(alias = "g_tls_client_connection_set_server_identity")]
     fn set_server_identity<P: IsA<SocketConnectable>>(&self, identity: &P);
 
-    #[cfg_attr(feature = "v2_56", deprecated)]
+    #[cfg_attr(feature = "v2_56", deprecated = "Since 2.56")]
     #[doc(alias = "g_tls_client_connection_set_use_ssl3")]
     fn set_use_ssl3(&self, use_ssl3: bool);
 
@@ -85,7 +85,7 @@ pub trait TlsClientConnectionExt: 'static {
         f: F,
     ) -> SignalHandlerId;
 
-    #[cfg_attr(feature = "v2_56", deprecated)]
+    #[cfg_attr(feature = "v2_56", deprecated = "Since 2.56")]
     fn connect_property_use_ssl3_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn connect_property_validation_flags_notify<F: Fn(&Self) + 'static>(

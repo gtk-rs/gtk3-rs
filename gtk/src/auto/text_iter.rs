@@ -241,7 +241,7 @@ impl TextIter {
         }
     }
 
-    #[cfg_attr(feature = "v3_20", deprecated)]
+    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
     #[doc(alias = "gtk_text_iter_begins_tag")]
     pub fn begins_tag<P: IsA<TextTag>>(&self, tag: Option<&P>) -> bool {
         unsafe {

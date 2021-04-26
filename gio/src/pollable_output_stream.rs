@@ -1,10 +1,9 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
 use crate::error::to_std_io_result;
+use crate::prelude::*;
 use crate::Cancellable;
-use crate::OutputStreamExt;
 use crate::PollableOutputStream;
-use crate::PollableOutputStreamExt;
 use futures_channel::oneshot;
 use futures_core::task::{Context, Poll};
 use futures_core::Future;

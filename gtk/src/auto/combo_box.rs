@@ -579,7 +579,7 @@ pub trait ComboBoxExt: 'static {
     #[doc(alias = "gtk_combo_box_get_entry_text_column")]
     fn entry_text_column(&self) -> i32;
 
-    #[cfg_attr(feature = "v3_20", deprecated)]
+    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
     #[cfg(any(not(feature = "v3_20"), feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(not(feature = "v3_20"))))]
     #[doc(alias = "gtk_combo_box_get_focus_on_click")]
@@ -633,7 +633,7 @@ pub trait ComboBoxExt: 'static {
     #[doc(alias = "gtk_combo_box_set_entry_text_column")]
     fn set_entry_text_column(&self, text_column: i32);
 
-    #[cfg_attr(feature = "v3_20", deprecated)]
+    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
     #[cfg(any(not(feature = "v3_20"), feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(not(feature = "v3_20"))))]
     #[doc(alias = "gtk_combo_box_set_focus_on_click")]

@@ -233,7 +233,7 @@ impl Device {
         }
     }
 
-    #[cfg_attr(feature = "v3_20", deprecated)]
+    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
     #[doc(alias = "gdk_device_grab")]
     pub fn grab(
         &self,
@@ -299,7 +299,7 @@ impl Device {
         }
     }
 
-    #[cfg_attr(feature = "v3_20", deprecated)]
+    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
     #[doc(alias = "gdk_device_ungrab")]
     pub fn ungrab(&self, time_: u32) {
         unsafe {
@@ -432,7 +432,7 @@ impl Device {
         }
     }
 
-    #[cfg_attr(feature = "v3_16", deprecated)]
+    #[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
     #[doc(alias = "gdk_device_grab_info_libgtk_only")]
     pub fn grab_info_libgtk_only(display: &Display, device: &Device) -> Option<(Window, bool)> {
         skip_assert_initialized!();

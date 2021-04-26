@@ -84,7 +84,7 @@ impl PlacesSidebar {
         }
     }
 
-    #[cfg_attr(feature = "v3_18", deprecated)]
+    #[cfg_attr(feature = "v3_18", deprecated = "Since 3.18")]
     #[doc(alias = "gtk_places_sidebar_get_show_connect_to_server")]
     pub fn shows_connect_to_server(&self) -> bool {
         unsafe {
@@ -212,7 +212,7 @@ impl PlacesSidebar {
         }
     }
 
-    #[cfg_attr(feature = "v3_18", deprecated)]
+    #[cfg_attr(feature = "v3_18", deprecated = "Since 3.18")]
     #[doc(alias = "gtk_places_sidebar_set_show_connect_to_server")]
     pub fn set_show_connect_to_server(&self, show_connect_to_server: bool) {
         unsafe {
@@ -476,7 +476,7 @@ impl PlacesSidebar {
     //    Ignored selected_volume: Gio.Volume
     //}
 
-    #[cfg_attr(feature = "v3_18", deprecated)]
+    #[cfg_attr(feature = "v3_18", deprecated = "Since 3.18")]
     pub fn connect_show_connect_to_server<F: Fn(&PlacesSidebar) + 'static>(
         &self,
         f: F,
@@ -557,7 +557,7 @@ impl PlacesSidebar {
         }
     }
 
-    #[cfg_attr(feature = "v3_20", deprecated)]
+    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn connect_show_other_locations<F: Fn(&PlacesSidebar) + 'static>(

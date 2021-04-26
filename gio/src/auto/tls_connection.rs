@@ -61,7 +61,7 @@ pub trait TlsConnectionExt: 'static {
     #[doc(alias = "g_tls_connection_get_peer_certificate_errors")]
     fn peer_certificate_errors(&self) -> TlsCertificateFlags;
 
-    #[cfg_attr(feature = "v2_60", deprecated)]
+    #[cfg_attr(feature = "v2_60", deprecated = "Since 2.60")]
     #[doc(alias = "g_tls_connection_get_rehandshake_mode")]
     fn rehandshake_mode(&self) -> TlsRehandshakeMode;
 
@@ -98,7 +98,7 @@ pub trait TlsConnectionExt: 'static {
     #[doc(alias = "g_tls_connection_set_interaction")]
     fn set_interaction<P: IsA<TlsInteraction>>(&self, interaction: Option<&P>);
 
-    #[cfg_attr(feature = "v2_60", deprecated)]
+    #[cfg_attr(feature = "v2_60", deprecated = "Since 2.60")]
     #[doc(alias = "g_tls_connection_set_rehandshake_mode")]
     fn set_rehandshake_mode(&self, mode: TlsRehandshakeMode);
 
@@ -150,7 +150,7 @@ pub trait TlsConnectionExt: 'static {
         f: F,
     ) -> SignalHandlerId;
 
-    #[cfg_attr(feature = "v2_60", deprecated)]
+    #[cfg_attr(feature = "v2_60", deprecated = "Since 2.60")]
     fn connect_property_rehandshake_mode_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,

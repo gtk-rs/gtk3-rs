@@ -45,7 +45,7 @@ pub trait RangeExt: 'static {
     #[doc(alias = "gtk_range_get_lower_stepper_sensitivity")]
     fn lower_stepper_sensitivity(&self) -> SensitivityType;
 
-    #[cfg_attr(feature = "v3_20", deprecated)]
+    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
     #[doc(alias = "gtk_range_get_min_slider_size")]
     fn min_slider_size(&self) -> i32;
 
@@ -91,7 +91,7 @@ pub trait RangeExt: 'static {
     #[doc(alias = "gtk_range_set_lower_stepper_sensitivity")]
     fn set_lower_stepper_sensitivity(&self, sensitivity: SensitivityType);
 
-    #[cfg_attr(feature = "v3_20", deprecated)]
+    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
     #[doc(alias = "gtk_range_set_min_slider_size")]
     fn set_min_slider_size(&self, min_size: i32);
 

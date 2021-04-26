@@ -2,11 +2,10 @@
 
 use crate::rt;
 use crate::Application;
-use gio::ApplicationExt;
+use gio::prelude::*;
 use gio::ApplicationFlags;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-use glib::ObjectExt;
 
 use std::cell::RefCell;
 use std::rc::Rc;

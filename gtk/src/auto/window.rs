@@ -877,7 +877,7 @@ pub trait GtkWindowExt: 'static {
     #[doc(alias = "gtk_window_move")]
     fn move_(&self, x: i32, y: i32);
 
-    #[cfg_attr(feature = "v3_20", deprecated)]
+    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
     #[doc(alias = "gtk_window_parse_geometry")]
     fn parse_geometry(&self, geometry: &str) -> bool;
 
@@ -896,7 +896,7 @@ pub trait GtkWindowExt: 'static {
     #[doc(alias = "gtk_window_resize")]
     fn resize(&self, width: i32, height: i32);
 
-    #[cfg_attr(feature = "v3_20", deprecated)]
+    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
     #[doc(alias = "gtk_window_resize_to_geometry")]
     fn resize_to_geometry(&self, width: i32, height: i32);
 
@@ -915,7 +915,7 @@ pub trait GtkWindowExt: 'static {
     #[doc(alias = "gtk_window_set_default")]
     fn set_default<P: IsA<Widget>>(&self, default_widget: Option<&P>);
 
-    #[cfg_attr(feature = "v3_20", deprecated)]
+    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
     #[doc(alias = "gtk_window_set_default_geometry")]
     fn set_default_geometry(&self, width: i32, height: i32);
 
@@ -1018,7 +1018,7 @@ pub trait GtkWindowExt: 'static {
     #[doc(alias = "gtk_window_set_urgency_hint")]
     fn set_urgency_hint(&self, setting: bool);
 
-    #[cfg_attr(feature = "v3_22", deprecated)]
+    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
     #[doc(alias = "gtk_window_set_wmclass")]
     fn set_wmclass(&self, wmclass_name: &str, wmclass_class: &str);
 

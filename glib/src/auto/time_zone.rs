@@ -17,7 +17,7 @@ crate::wrapper! {
 }
 
 impl TimeZone {
-    #[cfg_attr(feature = "v2_68", deprecated)]
+    #[cfg_attr(feature = "v2_68", deprecated = "Since 2.68")]
     #[doc(alias = "g_time_zone_new")]
     pub fn new(identifier: Option<&str>) -> TimeZone {
         unsafe { from_glib_full(ffi::g_time_zone_new(identifier.to_glib_none().0)) }

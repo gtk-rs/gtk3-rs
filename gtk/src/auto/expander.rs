@@ -473,7 +473,7 @@ pub trait ExpanderExt: 'static {
     #[doc(alias = "gtk_expander_get_resize_toplevel")]
     fn resizes_toplevel(&self) -> bool;
 
-    #[cfg_attr(feature = "v3_20", deprecated)]
+    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
     #[doc(alias = "gtk_expander_get_spacing")]
     fn spacing(&self) -> i32;
 
@@ -498,7 +498,7 @@ pub trait ExpanderExt: 'static {
     #[doc(alias = "gtk_expander_set_resize_toplevel")]
     fn set_resize_toplevel(&self, resize_toplevel: bool);
 
-    #[cfg_attr(feature = "v3_20", deprecated)]
+    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
     #[doc(alias = "gtk_expander_set_spacing")]
     fn set_spacing(&self, spacing: i32);
 
@@ -526,7 +526,7 @@ pub trait ExpanderExt: 'static {
         f: F,
     ) -> SignalHandlerId;
 
-    #[cfg_attr(feature = "v3_20", deprecated)]
+    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
     fn connect_property_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn connect_property_use_markup_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;

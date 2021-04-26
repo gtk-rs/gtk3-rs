@@ -1114,11 +1114,11 @@ pub trait EntryExt: 'static {
     #[doc(alias = "get_property_selection_bound")]
     fn selection_bound(&self) -> i32;
 
-    #[cfg_attr(feature = "v3_20", deprecated)]
+    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
     #[doc(alias = "get_property_shadow_type")]
     fn shadow_type(&self) -> ShadowType;
 
-    #[cfg_attr(feature = "v3_20", deprecated)]
+    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
     #[doc(alias = "set_property_shadow_type")]
     fn set_shadow_type(&self, shadow_type: ShadowType);
 
@@ -1375,7 +1375,7 @@ pub trait EntryExt: 'static {
         f: F,
     ) -> SignalHandlerId;
 
-    #[cfg_attr(feature = "v3_20", deprecated)]
+    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
     fn connect_property_shadow_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn connect_property_show_emoji_icon_notify<F: Fn(&Self) + 'static>(

@@ -1,10 +1,10 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
 use crate::error::to_std_io_result;
+use crate::prelude::*;
 use crate::Cancellable;
 use crate::InputStream;
 use crate::Seekable;
-use crate::SeekableExt;
 use futures_core::task::{Context, Poll};
 use futures_io::{AsyncBufRead, AsyncRead};
 use glib::object::IsA;

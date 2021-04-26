@@ -583,19 +583,19 @@ pub fn resources_unregister(resource: &Resource) {
     }
 }
 
-//#[cfg_attr(feature = "v2_46", deprecated)]
+//#[cfg_attr(feature = "v2_46", deprecated = "Since 2.46")]
 //#[doc(alias = "g_simple_async_report_error_in_idle")]
 //pub fn simple_async_report_error_in_idle<P: IsA<glib::Object>, Q: FnOnce(Result<(), glib::Error>) + 'static>(object: Option<&P>, callback: Q, domain: glib::Quark, code: i32, format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
 //    unsafe { TODO: call ffi:g_simple_async_report_error_in_idle() }
 //}
 
-//#[cfg_attr(feature = "v2_46", deprecated)]
+//#[cfg_attr(feature = "v2_46", deprecated = "Since 2.46")]
 //#[doc(alias = "g_simple_async_report_gerror_in_idle")]
 //pub fn simple_async_report_gerror_in_idle<P: IsA<glib::Object>, Q: FnOnce(Result<(), glib::Error>) + 'static>(object: Option<&P>, callback: Q, error: &glib::Error) {
 //    unsafe { TODO: call ffi:g_simple_async_report_gerror_in_idle() }
 //}
 
-//#[cfg_attr(feature = "v2_46", deprecated)]
+//#[cfg_attr(feature = "v2_46", deprecated = "Since 2.46")]
 //#[doc(alias = "g_simple_async_report_take_gerror_in_idle")]
 //pub fn simple_async_report_take_gerror_in_idle<P: IsA<glib::Object>, Q: FnOnce(Result<(), glib::Error>) + 'static>(object: Option<&P>, callback: Q, error: &mut glib::Error) {
 //    unsafe { TODO: call ffi:g_simple_async_report_take_gerror_in_idle() }

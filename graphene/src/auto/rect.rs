@@ -238,7 +238,7 @@ impl Rect {
         }
     }
 
-    #[cfg_attr(feature = "v1_10", deprecated)]
+    #[cfg_attr(feature = "v1_10", deprecated = "Since 1.10")]
     #[doc(alias = "graphene_rect_round")]
     pub fn round(&self) -> Rect {
         unsafe {

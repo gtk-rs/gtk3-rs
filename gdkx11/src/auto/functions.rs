@@ -56,7 +56,7 @@ pub fn x11_get_default_screen() -> i32 {
     unsafe { ffi::gdk_x11_get_default_screen() }
 }
 
-//#[cfg_attr(feature = "v3_24", deprecated)]
+//#[cfg_attr(feature = "v3_24", deprecated = "Since 3.24")]
 //#[cfg(any(feature = "v3_24_2", feature = "dox"))]
 //#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24_2")))]
 //#[doc(alias = "gdk_x11_get_parent_relative_pattern")]

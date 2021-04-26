@@ -3,17 +3,15 @@
 // DO NOT EDIT
 
 mod font;
-pub use self::font::FontExt;
 pub use self::font::{Font, NONE_FONT};
 
 mod font_map;
-pub use self::font_map::FontMapExt;
 pub use self::font_map::{FontMap, NONE_FONT_MAP};
 
 pub mod functions;
 
 #[doc(hidden)]
 pub mod traits {
-    pub use super::FontExt;
-    pub use super::FontMapExt;
+    pub use super::font::FontExt;
+    pub use super::font_map::FontMapExt;
 }

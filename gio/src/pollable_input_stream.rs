@@ -1,8 +1,8 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
+use crate::prelude::*;
 use crate::Cancellable;
 use crate::PollableInputStream;
-use crate::PollableInputStreamExt;
 use futures_core::task::{Context, Poll};
 use futures_io::AsyncRead;
 use glib::object::{Cast, IsA};

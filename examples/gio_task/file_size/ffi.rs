@@ -1,9 +1,6 @@
 use gtk::glib::subclass::prelude::*;
 use gtk::glib::translate::*;
-use gtk::prelude::AsyncResultExt;
-use gtk::prelude::Cast;
-use gtk::prelude::FileExt;
-use gtk::prelude::ToValue;
+use gtk::prelude::*;
 use gtk::{gio, glib};
 
 pub type FileSize = <super::imp::FileSize as ObjectSubclass>::Instance;

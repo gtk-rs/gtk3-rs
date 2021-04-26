@@ -118,7 +118,7 @@ impl AdjustmentBuilder {
 pub const NONE_ADJUSTMENT: Option<&Adjustment> = None;
 
 pub trait AdjustmentExt: 'static {
-    #[cfg_attr(feature = "v3_18", deprecated)]
+    #[cfg_attr(feature = "v3_18", deprecated = "Since 3.18")]
     #[doc(alias = "gtk_adjustment_changed")]
     fn changed(&self);
 
@@ -175,7 +175,7 @@ pub trait AdjustmentExt: 'static {
     #[doc(alias = "gtk_adjustment_set_value")]
     fn set_value(&self, value: f64);
 
-    #[cfg_attr(feature = "v3_18", deprecated)]
+    #[cfg_attr(feature = "v3_18", deprecated = "Since 3.18")]
     #[doc(alias = "gtk_adjustment_value_changed")]
     fn value_changed(&self);
 

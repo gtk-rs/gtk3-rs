@@ -1,9 +1,7 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use crate::pollable_input_stream::PollableInputStreamExtManual;
-use crate::pollable_output_stream::PollableOutputStreamExtManual;
+use crate::prelude::*;
 use crate::IOStream;
-use crate::IOStreamExt;
 use crate::InputStreamAsyncRead;
 use crate::OutputStreamAsyncWrite;
 use crate::PollableInputStream;
