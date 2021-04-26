@@ -37,9 +37,11 @@ pub trait WindowGroupExt: 'static {
     fn add_window<P: IsA<Window>>(&self, window: &P);
 
     #[doc(alias = "gtk_window_group_get_current_device_grab")]
+    #[doc(alias = "get_current_device_grab")]
     fn current_device_grab(&self, device: &gdk::Device) -> Option<Widget>;
 
     #[doc(alias = "gtk_window_group_get_current_grab")]
+    #[doc(alias = "get_current_grab")]
     fn current_grab(&self) -> Option<Widget>;
 
     #[doc(alias = "gtk_window_group_list_windows")]

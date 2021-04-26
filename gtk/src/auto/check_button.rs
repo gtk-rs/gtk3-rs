@@ -36,6 +36,7 @@ impl CheckButton {
     }
 
     #[doc(alias = "gtk_check_button_new_with_label")]
+    #[doc(alias = "new_with_label")]
     pub fn with_label(label: &str) -> CheckButton {
         assert_initialized_main_thread!();
         unsafe {
@@ -45,6 +46,7 @@ impl CheckButton {
     }
 
     #[doc(alias = "gtk_check_button_new_with_mnemonic")]
+    #[doc(alias = "new_with_mnemonic")]
     pub fn with_mnemonic(label: &str) -> CheckButton {
         assert_initialized_main_thread!();
         unsafe {
@@ -260,8 +262,8 @@ impl CheckButtonBuilder {
         if let Some(ref action_target) = self.action_target {
             properties.push(("action-target", action_target));
         }
-        let ret = glib::Object::new::<CheckButton>(&properties).expect("object new");
-        ret
+        glib::Object::new::<CheckButton>(&properties)
+            .expect("Failed to create an instance of CheckButton")
     }
 
     pub fn active(mut self, active: bool) -> Self {

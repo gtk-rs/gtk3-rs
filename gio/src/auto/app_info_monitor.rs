@@ -24,6 +24,7 @@ impl AppInfoMonitor {
         unsafe { from_glib_full(ffi::g_app_info_monitor_get()) }
     }
 
+    #[doc(alias = "changed")]
     pub fn connect_changed<F: Fn(&AppInfoMonitor) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn changed_trampoline<F: Fn(&AppInfoMonitor) + 'static>(
             this: *mut ffi::GAppInfoMonitor,

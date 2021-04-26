@@ -29,6 +29,7 @@ impl KeyFile {
     }
 
     #[doc(alias = "g_key_file_get_comment")]
+    #[doc(alias = "get_comment")]
     pub fn comment(
         &self,
         group_name: Option<&str>,
@@ -51,6 +52,7 @@ impl KeyFile {
     }
 
     #[doc(alias = "g_key_file_get_double")]
+    #[doc(alias = "get_double")]
     pub fn double(&self, group_name: &str, key: &str) -> Result<f64, crate::Error> {
         unsafe {
             let mut error = ptr::null_mut();
@@ -69,6 +71,7 @@ impl KeyFile {
     }
 
     #[doc(alias = "g_key_file_get_double_list")]
+    #[doc(alias = "get_double_list")]
     pub fn double_list(&self, group_name: &str, key: &str) -> Result<Vec<f64>, crate::Error> {
         unsafe {
             let mut length = mem::MaybeUninit::uninit();
@@ -92,6 +95,7 @@ impl KeyFile {
     }
 
     #[doc(alias = "g_key_file_get_groups")]
+    #[doc(alias = "get_groups")]
     pub fn groups(&self) -> (Vec<crate::GString>, usize) {
         unsafe {
             let mut length = mem::MaybeUninit::uninit();
@@ -105,6 +109,7 @@ impl KeyFile {
     }
 
     #[doc(alias = "g_key_file_get_int64")]
+    #[doc(alias = "get_int64")]
     pub fn int64(&self, group_name: &str, key: &str) -> Result<i64, crate::Error> {
         unsafe {
             let mut error = ptr::null_mut();
@@ -123,6 +128,7 @@ impl KeyFile {
     }
 
     #[doc(alias = "g_key_file_get_integer")]
+    #[doc(alias = "get_integer")]
     pub fn integer(&self, group_name: &str, key: &str) -> Result<i32, crate::Error> {
         unsafe {
             let mut error = ptr::null_mut();
@@ -141,6 +147,7 @@ impl KeyFile {
     }
 
     #[doc(alias = "g_key_file_get_integer_list")]
+    #[doc(alias = "get_integer_list")]
     pub fn integer_list(&self, group_name: &str, key: &str) -> Result<Vec<i32>, crate::Error> {
         unsafe {
             let mut length = mem::MaybeUninit::uninit();
@@ -164,6 +171,7 @@ impl KeyFile {
     }
 
     #[doc(alias = "g_key_file_get_keys")]
+    #[doc(alias = "get_keys")]
     pub fn keys(&self, group_name: &str) -> Result<(Vec<crate::GString>, usize), crate::Error> {
         unsafe {
             let mut length = mem::MaybeUninit::uninit();
@@ -186,6 +194,7 @@ impl KeyFile {
     #[cfg(any(feature = "v2_56", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
     #[doc(alias = "g_key_file_get_locale_for_key")]
+    #[doc(alias = "get_locale_for_key")]
     pub fn locale_for_key(
         &self,
         group_name: &str,
@@ -203,11 +212,13 @@ impl KeyFile {
     }
 
     #[doc(alias = "g_key_file_get_start_group")]
+    #[doc(alias = "get_start_group")]
     pub fn start_group(&self) -> Option<crate::GString> {
         unsafe { from_glib_full(ffi::g_key_file_get_start_group(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_key_file_get_uint64")]
+    #[doc(alias = "get_uint64")]
     pub fn uint64(&self, group_name: &str, key: &str) -> Result<u64, crate::Error> {
         unsafe {
             let mut error = ptr::null_mut();
@@ -226,6 +237,7 @@ impl KeyFile {
     }
 
     #[doc(alias = "g_key_file_get_value")]
+    #[doc(alias = "get_value")]
     pub fn value(&self, group_name: &str, key: &str) -> Result<crate::GString, crate::Error> {
         unsafe {
             let mut error = ptr::null_mut();

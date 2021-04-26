@@ -45,6 +45,7 @@ pub trait TextTagTableExt: 'static {
     fn foreach<P: FnMut(&TextTag)>(&self, func: P);
 
     #[doc(alias = "gtk_text_tag_table_get_size")]
+    #[doc(alias = "get_size")]
     fn size(&self) -> i32;
 
     #[doc(alias = "gtk_text_tag_table_lookup")]
@@ -53,10 +54,13 @@ pub trait TextTagTableExt: 'static {
     #[doc(alias = "gtk_text_tag_table_remove")]
     fn remove<P: IsA<TextTag>>(&self, tag: &P);
 
+    #[doc(alias = "tag-added")]
     fn connect_tag_added<F: Fn(&Self, &TextTag) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "tag-changed")]
     fn connect_tag_changed<F: Fn(&Self, &TextTag, bool) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "tag-removed")]
     fn connect_tag_removed<F: Fn(&Self, &TextTag) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
@@ -113,6 +117,7 @@ impl<O: IsA<TextTagTable>> TextTagTableExt for O {
         }
     }
 
+    #[doc(alias = "tag-added")]
     fn connect_tag_added<F: Fn(&Self, &TextTag) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn tag_added_trampoline<P, F: Fn(&P, &TextTag) + 'static>(
             this: *mut ffi::GtkTextTagTable,
@@ -140,6 +145,7 @@ impl<O: IsA<TextTagTable>> TextTagTableExt for O {
         }
     }
 
+    #[doc(alias = "tag-changed")]
     fn connect_tag_changed<F: Fn(&Self, &TextTag, bool) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn tag_changed_trampoline<P, F: Fn(&P, &TextTag, bool) + 'static>(
             this: *mut ffi::GtkTextTagTable,
@@ -169,6 +175,7 @@ impl<O: IsA<TextTagTable>> TextTagTableExt for O {
         }
     }
 
+    #[doc(alias = "tag-removed")]
     fn connect_tag_removed<F: Fn(&Self, &TextTag) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn tag_removed_trampoline<P, F: Fn(&P, &TextTag) + 'static>(
             this: *mut ffi::GtkTextTagTable,

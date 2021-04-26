@@ -307,8 +307,8 @@ impl OffscreenWindowBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        let ret = glib::Object::new::<OffscreenWindow>(&properties).expect("object new");
-        ret
+        glib::Object::new::<OffscreenWindow>(&properties)
+            .expect("Failed to create an instance of OffscreenWindow")
     }
 
     pub fn accept_focus(mut self, accept_focus: bool) -> Self {
@@ -633,9 +633,11 @@ pub const NONE_OFFSCREEN_WINDOW: Option<&OffscreenWindow> = None;
 
 pub trait OffscreenWindowExt: 'static {
     #[doc(alias = "gtk_offscreen_window_get_pixbuf")]
+    #[doc(alias = "get_pixbuf")]
     fn pixbuf(&self) -> Option<gdk_pixbuf::Pixbuf>;
 
     #[doc(alias = "gtk_offscreen_window_get_surface")]
+    #[doc(alias = "get_surface")]
     fn surface(&self) -> Option<cairo::Surface>;
 }
 

@@ -40,11 +40,13 @@ impl Plane {
     }
 
     #[doc(alias = "graphene_plane_get_constant")]
+    #[doc(alias = "get_constant")]
     pub fn constant(&self) -> f32 {
         unsafe { ffi::graphene_plane_get_constant(self.to_glib_none().0) }
     }
 
     #[doc(alias = "graphene_plane_get_normal")]
+    #[doc(alias = "get_normal")]
     pub fn normal(&self) -> Vec3 {
         unsafe {
             let mut normal = Vec3::uninitialized();

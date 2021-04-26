@@ -44,6 +44,7 @@ impl GesturePan {
     }
 
     #[doc(alias = "gtk_gesture_pan_get_orientation")]
+    #[doc(alias = "get_orientation")]
     pub fn orientation(&self) -> Orientation {
         unsafe { from_glib(ffi::gtk_gesture_pan_get_orientation(self.to_glib_none().0)) }
     }
@@ -55,6 +56,7 @@ impl GesturePan {
         }
     }
 
+    #[doc(alias = "pan")]
     pub fn connect_pan<F: Fn(&GesturePan, PanDirection, f64) + 'static>(
         &self,
         f: F,
@@ -81,7 +83,8 @@ impl GesturePan {
         }
     }
 
-    pub fn connect_property_orientation_notify<F: Fn(&GesturePan) + 'static>(
+    #[doc(alias = "orientation")]
+    pub fn connect_orientation_notify<F: Fn(&GesturePan) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -150,8 +153,8 @@ impl GesturePanBuilder {
         if let Some(ref widget) = self.widget {
             properties.push(("widget", widget));
         }
-        let ret = glib::Object::new::<GesturePan>(&properties).expect("object new");
-        ret
+        glib::Object::new::<GesturePan>(&properties)
+            .expect("Failed to create an instance of GesturePan")
     }
 
     pub fn orientation(mut self, orientation: Orientation) -> Self {

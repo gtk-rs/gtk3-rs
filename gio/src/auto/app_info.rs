@@ -55,11 +55,13 @@ impl AppInfo {
     }
 
     #[doc(alias = "g_app_info_get_all")]
+    #[doc(alias = "get_all")]
     pub fn all() -> Vec<AppInfo> {
         unsafe { FromGlibPtrContainer::from_glib_full(ffi::g_app_info_get_all()) }
     }
 
     #[doc(alias = "g_app_info_get_all_for_type")]
+    #[doc(alias = "get_all_for_type")]
     pub fn all_for_type(content_type: &str) -> Vec<AppInfo> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::g_app_info_get_all_for_type(
@@ -69,6 +71,7 @@ impl AppInfo {
     }
 
     #[doc(alias = "g_app_info_get_default_for_type")]
+    #[doc(alias = "get_default_for_type")]
     pub fn default_for_type(content_type: &str, must_support_uris: bool) -> Option<AppInfo> {
         unsafe {
             from_glib_full(ffi::g_app_info_get_default_for_type(
@@ -79,6 +82,7 @@ impl AppInfo {
     }
 
     #[doc(alias = "g_app_info_get_default_for_uri_scheme")]
+    #[doc(alias = "get_default_for_uri_scheme")]
     pub fn default_for_uri_scheme(uri_scheme: &str) -> Option<AppInfo> {
         unsafe {
             from_glib_full(ffi::g_app_info_get_default_for_uri_scheme(
@@ -88,6 +92,7 @@ impl AppInfo {
     }
 
     #[doc(alias = "g_app_info_get_fallback_for_type")]
+    #[doc(alias = "get_fallback_for_type")]
     pub fn fallback_for_type(content_type: &str) -> Vec<AppInfo> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::g_app_info_get_fallback_for_type(
@@ -97,6 +102,7 @@ impl AppInfo {
     }
 
     #[doc(alias = "g_app_info_get_recommended_for_type")]
+    #[doc(alias = "get_recommended_for_type")]
     pub fn recommended_for_type(content_type: &str) -> Vec<AppInfo> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::g_app_info_get_recommended_for_type(
@@ -221,27 +227,35 @@ pub trait AppInfoExt: 'static {
     fn equal<P: IsA<AppInfo>>(&self, appinfo2: &P) -> bool;
 
     #[doc(alias = "g_app_info_get_commandline")]
+    #[doc(alias = "get_commandline")]
     fn commandline(&self) -> Option<std::path::PathBuf>;
 
     #[doc(alias = "g_app_info_get_description")]
+    #[doc(alias = "get_description")]
     fn description(&self) -> Option<glib::GString>;
 
     #[doc(alias = "g_app_info_get_display_name")]
+    #[doc(alias = "get_display_name")]
     fn display_name(&self) -> glib::GString;
 
     #[doc(alias = "g_app_info_get_executable")]
+    #[doc(alias = "get_executable")]
     fn executable(&self) -> std::path::PathBuf;
 
     #[doc(alias = "g_app_info_get_icon")]
+    #[doc(alias = "get_icon")]
     fn icon(&self) -> Option<Icon>;
 
     #[doc(alias = "g_app_info_get_id")]
+    #[doc(alias = "get_id")]
     fn id(&self) -> Option<glib::GString>;
 
     #[doc(alias = "g_app_info_get_name")]
+    #[doc(alias = "get_name")]
     fn name(&self) -> glib::GString;
 
     #[doc(alias = "g_app_info_get_supported_types")]
+    #[doc(alias = "get_supported_types")]
     fn supported_types(&self) -> Vec<glib::GString>;
 
     #[doc(alias = "g_app_info_launch")]

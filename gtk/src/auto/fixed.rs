@@ -190,8 +190,7 @@ impl FixedBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        let ret = glib::Object::new::<Fixed>(&properties).expect("object new");
-        ret
+        glib::Object::new::<Fixed>(&properties).expect("Failed to create an instance of Fixed")
     }
 
     pub fn border_width(mut self, border_width: u32) -> Self {
@@ -376,6 +375,7 @@ pub const NONE_FIXED: Option<&Fixed> = None;
 
 pub trait FixedExt: 'static {
     #[doc(alias = "gtk_fixed_move")]
+    #[doc(alias = "move")]
     fn move_<P: IsA<Widget>>(&self, widget: &P, x: i32, y: i32);
 
     #[doc(alias = "gtk_fixed_put")]

@@ -307,8 +307,8 @@ impl CellRendererAccelBuilder {
         if let Some(ref ypad) = self.ypad {
             properties.push(("ypad", ypad));
         }
-        let ret = glib::Object::new::<CellRendererAccel>(&properties).expect("object new");
-        ret
+        glib::Object::new::<CellRendererAccel>(&properties)
+            .expect("Failed to create an instance of CellRendererAccel")
     }
 
     pub fn accel_key(mut self, accel_key: u32) -> Self {
@@ -635,44 +635,48 @@ impl CellRendererAccelBuilder {
 pub const NONE_CELL_RENDERER_ACCEL: Option<&CellRendererAccel> = None;
 
 pub trait CellRendererAccelExt: 'static {
-    #[doc(alias = "get_property_accel_key")]
+    #[doc(alias = "accel-key")]
     fn accel_key(&self) -> u32;
 
-    #[doc(alias = "set_property_accel_key")]
+    #[doc(alias = "accel-key")]
     fn set_accel_key(&self, accel_key: u32);
 
-    #[doc(alias = "get_property_accel_mode")]
+    #[doc(alias = "accel-mode")]
     fn accel_mode(&self) -> CellRendererAccelMode;
 
-    #[doc(alias = "set_property_accel_mode")]
+    #[doc(alias = "accel-mode")]
     fn set_accel_mode(&self, accel_mode: CellRendererAccelMode);
 
-    #[doc(alias = "get_property_accel_mods")]
+    #[doc(alias = "accel-mods")]
     fn accel_mods(&self) -> gdk::ModifierType;
 
-    #[doc(alias = "set_property_accel_mods")]
+    #[doc(alias = "accel-mods")]
     fn set_accel_mods(&self, accel_mods: gdk::ModifierType);
 
-    #[doc(alias = "get_property_keycode")]
     fn keycode(&self) -> u32;
 
-    #[doc(alias = "set_property_keycode")]
     fn set_keycode(&self, keycode: u32);
 
+    #[doc(alias = "accel-cleared")]
     fn connect_accel_cleared<F: Fn(&Self, TreePath) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "accel-edited")]
     fn connect_accel_edited<F: Fn(&Self, TreePath, u32, gdk::ModifierType, u32) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
-    fn connect_property_accel_key_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "accel-key")]
+    fn connect_accel_key_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_accel_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "accel-mode")]
+    fn connect_accel_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_accel_mods_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "accel-mods")]
+    fn connect_accel_mods_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_keycode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "keycode")]
+    fn connect_keycode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<CellRendererAccel>> CellRendererAccelExt for O {
@@ -774,6 +778,7 @@ impl<O: IsA<CellRendererAccel>> CellRendererAccelExt for O {
         }
     }
 
+    #[doc(alias = "accel-cleared")]
     fn connect_accel_cleared<F: Fn(&Self, TreePath) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn accel_cleared_trampoline<P, F: Fn(&P, TreePath) + 'static>(
             this: *mut ffi::GtkCellRendererAccel,
@@ -802,6 +807,7 @@ impl<O: IsA<CellRendererAccel>> CellRendererAccelExt for O {
         }
     }
 
+    #[doc(alias = "accel-edited")]
     fn connect_accel_edited<F: Fn(&Self, TreePath, u32, gdk::ModifierType, u32) + 'static>(
         &self,
         f: F,
@@ -842,7 +848,8 @@ impl<O: IsA<CellRendererAccel>> CellRendererAccelExt for O {
         }
     }
 
-    fn connect_property_accel_key_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "accel-key")]
+    fn connect_accel_key_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_accel_key_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRendererAccel,
             _param_spec: glib::ffi::gpointer,
@@ -866,7 +873,8 @@ impl<O: IsA<CellRendererAccel>> CellRendererAccelExt for O {
         }
     }
 
-    fn connect_property_accel_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "accel-mode")]
+    fn connect_accel_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_accel_mode_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRendererAccel,
             _param_spec: glib::ffi::gpointer,
@@ -890,7 +898,8 @@ impl<O: IsA<CellRendererAccel>> CellRendererAccelExt for O {
         }
     }
 
-    fn connect_property_accel_mods_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "accel-mods")]
+    fn connect_accel_mods_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_accel_mods_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRendererAccel,
             _param_spec: glib::ffi::gpointer,
@@ -914,7 +923,8 @@ impl<O: IsA<CellRendererAccel>> CellRendererAccelExt for O {
         }
     }
 
-    fn connect_property_keycode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "keycode")]
+    fn connect_keycode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_keycode_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRendererAccel,
             _param_spec: glib::ffi::gpointer,

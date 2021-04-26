@@ -24,18 +24,18 @@ pub const NONE_FILTER_OUTPUT_STREAM: Option<&FilterOutputStream> = None;
 
 pub trait FilterOutputStreamExt: 'static {
     #[doc(alias = "g_filter_output_stream_get_base_stream")]
+    #[doc(alias = "get_base_stream")]
     fn base_stream(&self) -> OutputStream;
 
     #[doc(alias = "g_filter_output_stream_get_close_base_stream")]
+    #[doc(alias = "get_close_base_stream")]
     fn closes_base_stream(&self) -> bool;
 
     #[doc(alias = "g_filter_output_stream_set_close_base_stream")]
     fn set_close_base_stream(&self, close_base: bool);
 
-    fn connect_property_close_base_stream_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "close-base-stream")]
+    fn connect_close_base_stream_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<FilterOutputStream>> FilterOutputStreamExt for O {
@@ -64,10 +64,8 @@ impl<O: IsA<FilterOutputStream>> FilterOutputStreamExt for O {
         }
     }
 
-    fn connect_property_close_base_stream_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "close-base-stream")]
+    fn connect_close_base_stream_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_close_base_stream_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GFilterOutputStream,
             _param_spec: glib::ffi::gpointer,

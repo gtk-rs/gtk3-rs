@@ -30,12 +30,14 @@ impl IconTheme {
     }
 
     #[doc(alias = "gtk_icon_theme_get_default")]
+    #[doc(alias = "get_default")]
     pub fn default() -> Option<IconTheme> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gtk_icon_theme_get_default()) }
     }
 
     #[doc(alias = "gtk_icon_theme_get_for_screen")]
+    #[doc(alias = "get_for_screen")]
     pub fn for_screen(screen: &gdk::Screen) -> Option<IconTheme> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gtk_icon_theme_get_for_screen(screen.to_glib_none().0)) }
@@ -58,6 +60,7 @@ pub trait IconThemeExt: 'static {
     fn append_search_path<P: AsRef<std::path::Path>>(&self, path: P);
 
     #[doc(alias = "gtk_icon_theme_get_example_icon_name")]
+    #[doc(alias = "get_example_icon_name")]
     fn example_icon_name(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_icon_theme_has_icon")]
@@ -137,6 +140,7 @@ pub trait IconThemeExt: 'static {
     #[doc(alias = "gtk_icon_theme_set_screen")]
     fn set_screen(&self, screen: &gdk::Screen);
 
+    #[doc(alias = "changed")]
     fn connect_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
@@ -363,6 +367,7 @@ impl<O: IsA<IconTheme>> IconThemeExt for O {
         }
     }
 
+    #[doc(alias = "changed")]
     fn connect_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn changed_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkIconTheme,

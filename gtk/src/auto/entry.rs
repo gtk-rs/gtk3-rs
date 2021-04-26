@@ -48,6 +48,7 @@ impl Entry {
     }
 
     #[doc(alias = "gtk_entry_new_with_buffer")]
+    #[doc(alias = "new_with_buffer")]
     pub fn with_buffer<P: IsA<EntryBuffer>>(buffer: &P) -> Entry {
         skip_assert_initialized!();
         unsafe {
@@ -382,8 +383,7 @@ impl EntryBuilder {
         if let Some(ref editing_canceled) = self.editing_canceled {
             properties.push(("editing-canceled", editing_canceled));
         }
-        let ret = glib::Object::new::<Entry>(&properties).expect("object new");
-        ret
+        glib::Object::new::<Entry>(&properties).expect("Failed to create an instance of Entry")
     }
 
     pub fn activates_default(mut self, activates_default: bool) -> Self {
@@ -768,105 +768,139 @@ pub const NONE_ENTRY: Option<&Entry> = None;
 
 pub trait EntryExt: 'static {
     #[doc(alias = "gtk_entry_get_activates_default")]
+    #[doc(alias = "get_activates_default")]
     fn activates_default(&self) -> bool;
 
     #[doc(alias = "gtk_entry_get_alignment")]
+    #[doc(alias = "get_alignment")]
     fn alignment(&self) -> f32;
 
     #[doc(alias = "gtk_entry_get_attributes")]
+    #[doc(alias = "get_attributes")]
     fn attributes(&self) -> Option<pango::AttrList>;
 
     #[doc(alias = "gtk_entry_get_buffer")]
+    #[doc(alias = "get_buffer")]
     fn buffer(&self) -> EntryBuffer;
 
     #[doc(alias = "gtk_entry_get_completion")]
+    #[doc(alias = "get_completion")]
     fn completion(&self) -> Option<EntryCompletion>;
 
     #[doc(alias = "gtk_entry_get_current_icon_drag_source")]
+    #[doc(alias = "get_current_icon_drag_source")]
     fn current_icon_drag_source(&self) -> i32;
 
     #[doc(alias = "gtk_entry_get_cursor_hadjustment")]
+    #[doc(alias = "get_cursor_hadjustment")]
     fn cursor_hadjustment(&self) -> Option<Adjustment>;
 
     #[doc(alias = "gtk_entry_get_has_frame")]
+    #[doc(alias = "get_has_frame")]
     fn has_frame(&self) -> bool;
 
     #[doc(alias = "gtk_entry_get_icon_activatable")]
+    #[doc(alias = "get_icon_activatable")]
     fn icon_is_activatable(&self, icon_pos: EntryIconPosition) -> bool;
 
     #[doc(alias = "gtk_entry_get_icon_area")]
+    #[doc(alias = "get_icon_area")]
     fn icon_area(&self, icon_pos: EntryIconPosition) -> gdk::Rectangle;
 
     #[doc(alias = "gtk_entry_get_icon_at_pos")]
+    #[doc(alias = "get_icon_at_pos")]
     fn icon_at_pos(&self, x: i32, y: i32) -> i32;
 
     #[doc(alias = "gtk_entry_get_icon_gicon")]
+    #[doc(alias = "get_icon_gicon")]
     fn icon_gicon(&self, icon_pos: EntryIconPosition) -> Option<gio::Icon>;
 
     #[doc(alias = "gtk_entry_get_icon_name")]
+    #[doc(alias = "get_icon_name")]
     fn icon_name(&self, icon_pos: EntryIconPosition) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_entry_get_icon_pixbuf")]
+    #[doc(alias = "get_icon_pixbuf")]
     fn icon_pixbuf(&self, icon_pos: EntryIconPosition) -> Option<gdk_pixbuf::Pixbuf>;
 
     #[doc(alias = "gtk_entry_get_icon_sensitive")]
+    #[doc(alias = "get_icon_sensitive")]
     fn icon_is_sensitive(&self, icon_pos: EntryIconPosition) -> bool;
 
     #[doc(alias = "gtk_entry_get_icon_storage_type")]
+    #[doc(alias = "get_icon_storage_type")]
     fn icon_storage_type(&self, icon_pos: EntryIconPosition) -> ImageType;
 
     #[doc(alias = "gtk_entry_get_icon_tooltip_markup")]
+    #[doc(alias = "get_icon_tooltip_markup")]
     fn icon_tooltip_markup(&self, icon_pos: EntryIconPosition) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_entry_get_icon_tooltip_text")]
+    #[doc(alias = "get_icon_tooltip_text")]
     fn icon_tooltip_text(&self, icon_pos: EntryIconPosition) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_entry_get_input_hints")]
+    #[doc(alias = "get_input_hints")]
     fn input_hints(&self) -> InputHints;
 
     #[doc(alias = "gtk_entry_get_input_purpose")]
+    #[doc(alias = "get_input_purpose")]
     fn input_purpose(&self) -> InputPurpose;
 
     #[doc(alias = "gtk_entry_get_layout")]
+    #[doc(alias = "get_layout")]
     fn layout(&self) -> Option<pango::Layout>;
 
     #[doc(alias = "gtk_entry_get_layout_offsets")]
+    #[doc(alias = "get_layout_offsets")]
     fn layout_offsets(&self) -> (i32, i32);
 
     #[doc(alias = "gtk_entry_get_max_length")]
+    #[doc(alias = "get_max_length")]
     fn max_length(&self) -> i32;
 
     #[doc(alias = "gtk_entry_get_max_width_chars")]
+    #[doc(alias = "get_max_width_chars")]
     fn max_width_chars(&self) -> i32;
 
     #[doc(alias = "gtk_entry_get_overwrite_mode")]
+    #[doc(alias = "get_overwrite_mode")]
     fn is_overwrite_mode(&self) -> bool;
 
     #[doc(alias = "gtk_entry_get_placeholder_text")]
+    #[doc(alias = "get_placeholder_text")]
     fn placeholder_text(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_entry_get_progress_fraction")]
+    #[doc(alias = "get_progress_fraction")]
     fn progress_fraction(&self) -> f64;
 
     #[doc(alias = "gtk_entry_get_progress_pulse_step")]
+    #[doc(alias = "get_progress_pulse_step")]
     fn progress_pulse_step(&self) -> f64;
 
     #[doc(alias = "gtk_entry_get_tabs")]
+    #[doc(alias = "get_tabs")]
     fn tabs(&self) -> Option<pango::TabArray>;
 
     #[doc(alias = "gtk_entry_get_text")]
+    #[doc(alias = "get_text")]
     fn text(&self) -> glib::GString;
 
     #[doc(alias = "gtk_entry_get_text_area")]
+    #[doc(alias = "get_text_area")]
     fn text_area(&self) -> gdk::Rectangle;
 
     #[doc(alias = "gtk_entry_get_text_length")]
+    #[doc(alias = "get_text_length")]
     fn text_length(&self) -> u16;
 
     #[doc(alias = "gtk_entry_get_visibility")]
+    #[doc(alias = "get_visibility")]
     fn is_visible(&self) -> bool;
 
     #[doc(alias = "gtk_entry_get_width_chars")]
+    #[doc(alias = "get_width_chars")]
     fn width_chars(&self) -> i32;
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
@@ -985,177 +1019,180 @@ pub trait EntryExt: 'static {
     #[doc(alias = "gtk_entry_unset_invisible_char")]
     fn unset_invisible_char(&self);
 
-    #[doc(alias = "get_property_caps_lock_warning")]
+    #[doc(alias = "caps-lock-warning")]
     fn is_caps_lock_warning(&self) -> bool;
 
-    #[doc(alias = "set_property_caps_lock_warning")]
+    #[doc(alias = "caps-lock-warning")]
     fn set_caps_lock_warning(&self, caps_lock_warning: bool);
 
-    #[doc(alias = "get_property_cursor_position")]
+    #[doc(alias = "cursor-position")]
     fn cursor_position(&self) -> i32;
 
-    #[doc(alias = "get_property_enable_emoji_completion")]
+    #[doc(alias = "enable-emoji-completion")]
     fn enables_emoji_completion(&self) -> bool;
 
-    #[doc(alias = "set_property_enable_emoji_completion")]
+    #[doc(alias = "enable-emoji-completion")]
     fn set_enable_emoji_completion(&self, enable_emoji_completion: bool);
 
-    #[doc(alias = "get_property_im_module")]
+    #[doc(alias = "im-module")]
     fn im_module(&self) -> Option<glib::GString>;
 
-    #[doc(alias = "set_property_im_module")]
+    #[doc(alias = "im-module")]
     fn set_im_module(&self, im_module: Option<&str>);
 
-    #[doc(alias = "get_property_invisible_char_set")]
+    #[doc(alias = "invisible-char-set")]
     fn is_invisible_char_set(&self) -> bool;
 
-    #[doc(alias = "set_property_invisible_char_set")]
+    #[doc(alias = "invisible-char-set")]
     fn set_invisible_char_set(&self, invisible_char_set: bool);
 
-    #[doc(alias = "get_property_populate_all")]
+    #[doc(alias = "populate-all")]
     fn populates_all(&self) -> bool;
 
-    #[doc(alias = "set_property_populate_all")]
+    #[doc(alias = "populate-all")]
     fn set_populate_all(&self, populate_all: bool);
 
-    #[doc(alias = "get_property_primary_icon_activatable")]
+    #[doc(alias = "primary-icon-activatable")]
     fn is_primary_icon_activatable(&self) -> bool;
 
-    #[doc(alias = "set_property_primary_icon_activatable")]
+    #[doc(alias = "primary-icon-activatable")]
     fn set_primary_icon_activatable(&self, primary_icon_activatable: bool);
 
-    #[doc(alias = "get_property_primary_icon_gicon")]
+    #[doc(alias = "primary-icon-gicon")]
     fn primary_icon_gicon(&self) -> Option<gio::Icon>;
 
-    #[doc(alias = "set_property_primary_icon_gicon")]
+    #[doc(alias = "primary-icon-gicon")]
     fn set_primary_icon_gicon<P: IsA<gio::Icon>>(&self, primary_icon_gicon: Option<&P>);
 
-    #[doc(alias = "get_property_primary_icon_name")]
+    #[doc(alias = "primary-icon-name")]
     fn primary_icon_name(&self) -> Option<glib::GString>;
 
-    #[doc(alias = "set_property_primary_icon_name")]
+    #[doc(alias = "primary-icon-name")]
     fn set_primary_icon_name(&self, primary_icon_name: Option<&str>);
 
-    #[doc(alias = "get_property_primary_icon_pixbuf")]
+    #[doc(alias = "primary-icon-pixbuf")]
     fn primary_icon_pixbuf(&self) -> Option<gdk_pixbuf::Pixbuf>;
 
-    #[doc(alias = "set_property_primary_icon_pixbuf")]
+    #[doc(alias = "primary-icon-pixbuf")]
     fn set_primary_icon_pixbuf(&self, primary_icon_pixbuf: Option<&gdk_pixbuf::Pixbuf>);
 
-    #[doc(alias = "get_property_primary_icon_sensitive")]
+    #[doc(alias = "primary-icon-sensitive")]
     fn is_primary_icon_sensitive(&self) -> bool;
 
-    #[doc(alias = "set_property_primary_icon_sensitive")]
+    #[doc(alias = "primary-icon-sensitive")]
     fn set_primary_icon_sensitive(&self, primary_icon_sensitive: bool);
 
-    #[doc(alias = "get_property_primary_icon_storage_type")]
+    #[doc(alias = "primary-icon-storage-type")]
     fn primary_icon_storage_type(&self) -> ImageType;
 
-    #[doc(alias = "get_property_primary_icon_tooltip_markup")]
+    #[doc(alias = "primary-icon-tooltip-markup")]
     fn primary_icon_tooltip_markup(&self) -> Option<glib::GString>;
 
-    #[doc(alias = "set_property_primary_icon_tooltip_markup")]
+    #[doc(alias = "primary-icon-tooltip-markup")]
     fn set_primary_icon_tooltip_markup(&self, primary_icon_tooltip_markup: Option<&str>);
 
-    #[doc(alias = "get_property_primary_icon_tooltip_text")]
+    #[doc(alias = "primary-icon-tooltip-text")]
     fn primary_icon_tooltip_text(&self) -> Option<glib::GString>;
 
-    #[doc(alias = "set_property_primary_icon_tooltip_text")]
+    #[doc(alias = "primary-icon-tooltip-text")]
     fn set_primary_icon_tooltip_text(&self, primary_icon_tooltip_text: Option<&str>);
 
-    #[doc(alias = "get_property_scroll_offset")]
+    #[doc(alias = "scroll-offset")]
     fn scroll_offset(&self) -> i32;
 
-    #[doc(alias = "get_property_secondary_icon_activatable")]
+    #[doc(alias = "secondary-icon-activatable")]
     fn is_secondary_icon_activatable(&self) -> bool;
 
-    #[doc(alias = "set_property_secondary_icon_activatable")]
+    #[doc(alias = "secondary-icon-activatable")]
     fn set_secondary_icon_activatable(&self, secondary_icon_activatable: bool);
 
-    #[doc(alias = "get_property_secondary_icon_gicon")]
+    #[doc(alias = "secondary-icon-gicon")]
     fn secondary_icon_gicon(&self) -> Option<gio::Icon>;
 
-    #[doc(alias = "set_property_secondary_icon_gicon")]
+    #[doc(alias = "secondary-icon-gicon")]
     fn set_secondary_icon_gicon<P: IsA<gio::Icon>>(&self, secondary_icon_gicon: Option<&P>);
 
-    #[doc(alias = "get_property_secondary_icon_name")]
+    #[doc(alias = "secondary-icon-name")]
     fn secondary_icon_name(&self) -> Option<glib::GString>;
 
-    #[doc(alias = "set_property_secondary_icon_name")]
+    #[doc(alias = "secondary-icon-name")]
     fn set_secondary_icon_name(&self, secondary_icon_name: Option<&str>);
 
-    #[doc(alias = "get_property_secondary_icon_pixbuf")]
+    #[doc(alias = "secondary-icon-pixbuf")]
     fn secondary_icon_pixbuf(&self) -> Option<gdk_pixbuf::Pixbuf>;
 
-    #[doc(alias = "set_property_secondary_icon_pixbuf")]
+    #[doc(alias = "secondary-icon-pixbuf")]
     fn set_secondary_icon_pixbuf(&self, secondary_icon_pixbuf: Option<&gdk_pixbuf::Pixbuf>);
 
-    #[doc(alias = "get_property_secondary_icon_sensitive")]
+    #[doc(alias = "secondary-icon-sensitive")]
     fn is_secondary_icon_sensitive(&self) -> bool;
 
-    #[doc(alias = "set_property_secondary_icon_sensitive")]
+    #[doc(alias = "secondary-icon-sensitive")]
     fn set_secondary_icon_sensitive(&self, secondary_icon_sensitive: bool);
 
-    #[doc(alias = "get_property_secondary_icon_storage_type")]
+    #[doc(alias = "secondary-icon-storage-type")]
     fn secondary_icon_storage_type(&self) -> ImageType;
 
-    #[doc(alias = "get_property_secondary_icon_tooltip_markup")]
+    #[doc(alias = "secondary-icon-tooltip-markup")]
     fn secondary_icon_tooltip_markup(&self) -> Option<glib::GString>;
 
-    #[doc(alias = "set_property_secondary_icon_tooltip_markup")]
+    #[doc(alias = "secondary-icon-tooltip-markup")]
     fn set_secondary_icon_tooltip_markup(&self, secondary_icon_tooltip_markup: Option<&str>);
 
-    #[doc(alias = "get_property_secondary_icon_tooltip_text")]
+    #[doc(alias = "secondary-icon-tooltip-text")]
     fn secondary_icon_tooltip_text(&self) -> Option<glib::GString>;
 
-    #[doc(alias = "set_property_secondary_icon_tooltip_text")]
+    #[doc(alias = "secondary-icon-tooltip-text")]
     fn set_secondary_icon_tooltip_text(&self, secondary_icon_tooltip_text: Option<&str>);
 
-    #[doc(alias = "get_property_selection_bound")]
+    #[doc(alias = "selection-bound")]
     fn selection_bound(&self) -> i32;
 
     #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
-    #[doc(alias = "get_property_shadow_type")]
+    #[doc(alias = "shadow-type")]
     fn shadow_type(&self) -> ShadowType;
 
     #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
-    #[doc(alias = "set_property_shadow_type")]
+    #[doc(alias = "shadow-type")]
     fn set_shadow_type(&self, shadow_type: ShadowType);
 
-    #[doc(alias = "get_property_show_emoji_icon")]
+    #[doc(alias = "show-emoji-icon")]
     fn shows_emoji_icon(&self) -> bool;
 
-    #[doc(alias = "set_property_show_emoji_icon")]
+    #[doc(alias = "show-emoji-icon")]
     fn set_show_emoji_icon(&self, show_emoji_icon: bool);
 
-    #[doc(alias = "get_property_truncate_multiline")]
+    #[doc(alias = "truncate-multiline")]
     fn must_truncate_multiline(&self) -> bool;
 
-    #[doc(alias = "set_property_truncate_multiline")]
+    #[doc(alias = "truncate-multiline")]
     fn set_truncate_multiline(&self, truncate_multiline: bool);
 
-    #[doc(alias = "get_property_xalign")]
     fn xalign(&self) -> f32;
 
-    #[doc(alias = "set_property_xalign")]
     fn set_xalign(&self, xalign: f32);
 
+    #[doc(alias = "activate")]
     fn connect_activate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn emit_activate(&self);
 
+    #[doc(alias = "backspace")]
     fn connect_backspace<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn emit_backspace(&self);
 
+    #[doc(alias = "copy-clipboard")]
     fn connect_copy_clipboard<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn emit_copy_clipboard(&self);
 
+    #[doc(alias = "cut-clipboard")]
     fn connect_cut_clipboard<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn emit_cut_clipboard(&self);
 
+    #[doc(alias = "delete-from-cursor")]
     fn connect_delete_from_cursor<F: Fn(&Self, DeleteType, i32) + 'static>(
         &self,
         f: F,
@@ -1163,28 +1200,33 @@ pub trait EntryExt: 'static {
 
     fn emit_delete_from_cursor(&self, type_: DeleteType, count: i32);
 
+    #[doc(alias = "icon-press")]
     fn connect_icon_press<F: Fn(&Self, EntryIconPosition, &gdk::Event) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "icon-release")]
     fn connect_icon_release<F: Fn(&Self, EntryIconPosition, &gdk::Event) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "insert-at-cursor")]
     fn connect_insert_at_cursor<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn emit_insert_at_cursor(&self, string: &str);
 
     #[cfg(any(feature = "v3_22_27", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_27")))]
+    #[doc(alias = "insert-emoji")]
     fn connect_insert_emoji<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     #[cfg(any(feature = "v3_22_27", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_27")))]
     fn emit_insert_emoji(&self);
 
+    #[doc(alias = "move-cursor")]
     fn connect_move_cursor<F: Fn(&Self, MovementStep, i32, bool) + 'static>(
         &self,
         f: F,
@@ -1192,213 +1234,202 @@ pub trait EntryExt: 'static {
 
     fn emit_move_cursor(&self, step: MovementStep, count: i32, extend_selection: bool);
 
+    #[doc(alias = "paste-clipboard")]
     fn connect_paste_clipboard<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn emit_paste_clipboard(&self);
 
+    #[doc(alias = "populate-popup")]
     fn connect_populate_popup<F: Fn(&Self, &Widget) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "preedit-changed")]
     fn connect_preedit_changed<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn emit_preedit_changed(&self, preedit: &str);
 
+    #[doc(alias = "toggle-overwrite")]
     fn connect_toggle_overwrite<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn emit_toggle_overwrite(&self);
 
-    fn connect_property_activates_default_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "activates-default")]
+    fn connect_activates_default_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+
+    #[doc(alias = "attributes")]
+    fn connect_attributes_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+
+    #[doc(alias = "buffer")]
+    fn connect_buffer_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+
+    #[doc(alias = "caps-lock-warning")]
+    fn connect_caps_lock_warning_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+
+    #[doc(alias = "completion")]
+    fn connect_completion_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+
+    #[doc(alias = "cursor-position")]
+    fn connect_cursor_position_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+
+    #[doc(alias = "editable")]
+    fn connect_editable_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+
+    #[doc(alias = "enable-emoji-completion")]
+    fn connect_enable_emoji_completion_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
-    fn connect_property_attributes_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "has-frame")]
+    fn connect_has_frame_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_buffer_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "im-module")]
+    fn connect_im_module_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_caps_lock_warning_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "input-hints")]
+    fn connect_input_hints_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+
+    #[doc(alias = "input-purpose")]
+    fn connect_input_purpose_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+
+    #[doc(alias = "invisible-char")]
+    fn connect_invisible_char_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+
+    #[doc(alias = "invisible-char-set")]
+    fn connect_invisible_char_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+
+    #[doc(alias = "max-length")]
+    fn connect_max_length_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+
+    #[doc(alias = "max-width-chars")]
+    fn connect_max_width_chars_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+
+    #[doc(alias = "overwrite-mode")]
+    fn connect_overwrite_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+
+    #[doc(alias = "placeholder-text")]
+    fn connect_placeholder_text_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+
+    #[doc(alias = "populate-all")]
+    fn connect_populate_all_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+
+    #[doc(alias = "primary-icon-activatable")]
+    fn connect_primary_icon_activatable_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
-    fn connect_property_completion_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "primary-icon-gicon")]
+    fn connect_primary_icon_gicon_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_cursor_position_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "primary-icon-name")]
+    fn connect_primary_icon_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+
+    #[doc(alias = "primary-icon-pixbuf")]
+    fn connect_primary_icon_pixbuf_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+
+    #[doc(alias = "primary-icon-sensitive")]
+    fn connect_primary_icon_sensitive_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
-    fn connect_property_editable_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_property_enable_emoji_completion_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "primary-icon-storage-type")]
+    fn connect_primary_icon_storage_type_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
-    fn connect_property_has_frame_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_property_im_module_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_property_input_hints_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_property_input_purpose_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "primary-icon-tooltip-markup")]
+    fn connect_primary_icon_tooltip_markup_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
-    fn connect_property_invisible_char_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "primary-icon-tooltip-text")]
+    fn connect_primary_icon_tooltip_text_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
-    fn connect_property_invisible_char_set_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "progress-fraction")]
+    fn connect_progress_fraction_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+
+    #[doc(alias = "progress-pulse-step")]
+    fn connect_progress_pulse_step_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+
+    #[doc(alias = "scroll-offset")]
+    fn connect_scroll_offset_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+
+    #[doc(alias = "secondary-icon-activatable")]
+    fn connect_secondary_icon_activatable_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
-    fn connect_property_max_length_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "secondary-icon-gicon")]
+    fn connect_secondary_icon_gicon_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_max_width_chars_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "secondary-icon-name")]
+    fn connect_secondary_icon_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_overwrite_mode_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    fn connect_property_placeholder_text_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    fn connect_property_populate_all_notify<F: Fn(&Self) + 'static>(&self, f: F)
+    #[doc(alias = "secondary-icon-pixbuf")]
+    fn connect_secondary_icon_pixbuf_notify<F: Fn(&Self) + 'static>(&self, f: F)
         -> SignalHandlerId;
 
-    fn connect_property_primary_icon_activatable_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "secondary-icon-sensitive")]
+    fn connect_secondary_icon_sensitive_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
-    fn connect_property_primary_icon_gicon_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "secondary-icon-storage-type")]
+    fn connect_secondary_icon_storage_type_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
-    fn connect_property_primary_icon_name_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "secondary-icon-tooltip-markup")]
+    fn connect_secondary_icon_tooltip_markup_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
-    fn connect_property_primary_icon_pixbuf_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "secondary-icon-tooltip-text")]
+    fn connect_secondary_icon_tooltip_text_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
-    fn connect_property_primary_icon_sensitive_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    fn connect_property_primary_icon_storage_type_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    fn connect_property_primary_icon_tooltip_markup_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    fn connect_property_primary_icon_tooltip_text_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    fn connect_property_progress_fraction_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    fn connect_property_progress_pulse_step_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    fn connect_property_scroll_offset_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    fn connect_property_secondary_icon_activatable_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    fn connect_property_secondary_icon_gicon_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    fn connect_property_secondary_icon_name_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    fn connect_property_secondary_icon_pixbuf_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    fn connect_property_secondary_icon_sensitive_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    fn connect_property_secondary_icon_storage_type_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    fn connect_property_secondary_icon_tooltip_markup_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    fn connect_property_secondary_icon_tooltip_text_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    fn connect_property_selection_bound_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "selection-bound")]
+    fn connect_selection_bound_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
-    fn connect_property_shadow_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "shadow-type")]
+    fn connect_shadow_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_show_emoji_icon_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "show-emoji-icon")]
+    fn connect_show_emoji_icon_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_tabs_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "tabs")]
+    fn connect_tabs_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_text_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "text")]
+    fn connect_text_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_text_length_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "text-length")]
+    fn connect_text_length_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_truncate_multiline_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "truncate-multiline")]
+    fn connect_truncate_multiline_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_visibility_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "visibility")]
+    fn connect_visibility_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_width_chars_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "width-chars")]
+    fn connect_width_chars_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_xalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "xalign")]
+    fn connect_xalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<Entry>> EntryExt for O {
@@ -2546,6 +2577,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
+    #[doc(alias = "activate")]
     fn connect_activate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn activate_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
@@ -2577,6 +2609,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         };
     }
 
+    #[doc(alias = "backspace")]
     fn connect_backspace<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn backspace_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
@@ -2608,6 +2641,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         };
     }
 
+    #[doc(alias = "copy-clipboard")]
     fn connect_copy_clipboard<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn copy_clipboard_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
@@ -2639,6 +2673,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         };
     }
 
+    #[doc(alias = "cut-clipboard")]
     fn connect_cut_clipboard<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn cut_clipboard_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
@@ -2670,6 +2705,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         };
     }
 
+    #[doc(alias = "delete-from-cursor")]
     fn connect_delete_from_cursor<F: Fn(&Self, DeleteType, i32) + 'static>(
         &self,
         f: F,
@@ -2713,6 +2749,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         };
     }
 
+    #[doc(alias = "icon-press")]
     fn connect_icon_press<F: Fn(&Self, EntryIconPosition, &gdk::Event) + 'static>(
         &self,
         f: F,
@@ -2748,6 +2785,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
+    #[doc(alias = "icon-release")]
     fn connect_icon_release<F: Fn(&Self, EntryIconPosition, &gdk::Event) + 'static>(
         &self,
         f: F,
@@ -2783,6 +2821,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
+    #[doc(alias = "insert-at-cursor")]
     fn connect_insert_at_cursor<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn insert_at_cursor_trampoline<P, F: Fn(&P, &str) + 'static>(
             this: *mut ffi::GtkEntry,
@@ -2820,6 +2859,7 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     #[cfg(any(feature = "v3_22_27", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_27")))]
+    #[doc(alias = "insert-emoji")]
     fn connect_insert_emoji<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn insert_emoji_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
@@ -2853,6 +2893,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         };
     }
 
+    #[doc(alias = "move-cursor")]
     fn connect_move_cursor<F: Fn(&Self, MovementStep, i32, bool) + 'static>(
         &self,
         f: F,
@@ -2898,6 +2939,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         };
     }
 
+    #[doc(alias = "paste-clipboard")]
     fn connect_paste_clipboard<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn paste_clipboard_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
@@ -2929,6 +2971,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         };
     }
 
+    #[doc(alias = "populate-popup")]
     fn connect_populate_popup<F: Fn(&Self, &Widget) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn populate_popup_trampoline<P, F: Fn(&P, &Widget) + 'static>(
             this: *mut ffi::GtkEntry,
@@ -2956,6 +2999,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
+    #[doc(alias = "preedit-changed")]
     fn connect_preedit_changed<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn preedit_changed_trampoline<P, F: Fn(&P, &str) + 'static>(
             this: *mut ffi::GtkEntry,
@@ -2991,6 +3035,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         };
     }
 
+    #[doc(alias = "toggle-overwrite")]
     fn connect_toggle_overwrite<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn toggle_overwrite_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
@@ -3022,10 +3067,8 @@ impl<O: IsA<Entry>> EntryExt for O {
         };
     }
 
-    fn connect_property_activates_default_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "activates-default")]
+    fn connect_activates_default_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_activates_default_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
@@ -3049,7 +3092,8 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn connect_property_attributes_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "attributes")]
+    fn connect_attributes_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_attributes_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
@@ -3073,7 +3117,8 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn connect_property_buffer_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "buffer")]
+    fn connect_buffer_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_buffer_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
@@ -3097,10 +3142,8 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn connect_property_caps_lock_warning_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "caps-lock-warning")]
+    fn connect_caps_lock_warning_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_caps_lock_warning_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
@@ -3124,7 +3167,8 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn connect_property_completion_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "completion")]
+    fn connect_completion_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_completion_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
@@ -3148,10 +3192,8 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn connect_property_cursor_position_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "cursor-position")]
+    fn connect_cursor_position_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_cursor_position_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
@@ -3175,7 +3217,8 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn connect_property_editable_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "editable")]
+    fn connect_editable_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_editable_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
@@ -3199,7 +3242,8 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn connect_property_enable_emoji_completion_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "enable-emoji-completion")]
+    fn connect_enable_emoji_completion_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -3226,7 +3270,8 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn connect_property_has_frame_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "has-frame")]
+    fn connect_has_frame_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_has_frame_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
@@ -3250,7 +3295,8 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn connect_property_im_module_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "im-module")]
+    fn connect_im_module_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_im_module_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
@@ -3274,7 +3320,8 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn connect_property_input_hints_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "input-hints")]
+    fn connect_input_hints_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_input_hints_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
@@ -3298,10 +3345,8 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn connect_property_input_purpose_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "input-purpose")]
+    fn connect_input_purpose_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_input_purpose_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
@@ -3325,10 +3370,8 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn connect_property_invisible_char_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "invisible-char")]
+    fn connect_invisible_char_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_invisible_char_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
@@ -3352,10 +3395,8 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn connect_property_invisible_char_set_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "invisible-char-set")]
+    fn connect_invisible_char_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_invisible_char_set_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
@@ -3379,7 +3420,8 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn connect_property_max_length_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "max-length")]
+    fn connect_max_length_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_max_length_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
@@ -3403,10 +3445,8 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn connect_property_max_width_chars_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "max-width-chars")]
+    fn connect_max_width_chars_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_max_width_chars_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
@@ -3430,10 +3470,8 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn connect_property_overwrite_mode_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "overwrite-mode")]
+    fn connect_overwrite_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_overwrite_mode_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
@@ -3457,10 +3495,8 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn connect_property_placeholder_text_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "placeholder-text")]
+    fn connect_placeholder_text_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_placeholder_text_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
@@ -3484,10 +3520,8 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn connect_property_populate_all_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "populate-all")]
+    fn connect_populate_all_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_populate_all_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
@@ -3511,7 +3545,8 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn connect_property_primary_icon_activatable_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "primary-icon-activatable")]
+    fn connect_primary_icon_activatable_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -3538,10 +3573,8 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn connect_property_primary_icon_gicon_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "primary-icon-gicon")]
+    fn connect_primary_icon_gicon_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_primary_icon_gicon_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
@@ -3565,10 +3598,8 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn connect_property_primary_icon_name_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "primary-icon-name")]
+    fn connect_primary_icon_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_primary_icon_name_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
@@ -3592,10 +3623,8 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn connect_property_primary_icon_pixbuf_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "primary-icon-pixbuf")]
+    fn connect_primary_icon_pixbuf_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_primary_icon_pixbuf_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
@@ -3619,7 +3648,8 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn connect_property_primary_icon_sensitive_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "primary-icon-sensitive")]
+    fn connect_primary_icon_sensitive_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -3646,7 +3676,8 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn connect_property_primary_icon_storage_type_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "primary-icon-storage-type")]
+    fn connect_primary_icon_storage_type_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -3673,7 +3704,8 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn connect_property_primary_icon_tooltip_markup_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "primary-icon-tooltip-markup")]
+    fn connect_primary_icon_tooltip_markup_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -3700,7 +3732,8 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn connect_property_primary_icon_tooltip_text_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "primary-icon-tooltip-text")]
+    fn connect_primary_icon_tooltip_text_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -3727,10 +3760,8 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn connect_property_progress_fraction_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "progress-fraction")]
+    fn connect_progress_fraction_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_progress_fraction_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
@@ -3754,10 +3785,8 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn connect_property_progress_pulse_step_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "progress-pulse-step")]
+    fn connect_progress_pulse_step_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_progress_pulse_step_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
@@ -3781,10 +3810,8 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn connect_property_scroll_offset_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "scroll-offset")]
+    fn connect_scroll_offset_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_scroll_offset_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
@@ -3808,7 +3835,8 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn connect_property_secondary_icon_activatable_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "secondary-icon-activatable")]
+    fn connect_secondary_icon_activatable_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -3835,10 +3863,8 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn connect_property_secondary_icon_gicon_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "secondary-icon-gicon")]
+    fn connect_secondary_icon_gicon_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_secondary_icon_gicon_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
@@ -3862,10 +3888,8 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn connect_property_secondary_icon_name_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "secondary-icon-name")]
+    fn connect_secondary_icon_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_secondary_icon_name_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
@@ -3889,7 +3913,8 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn connect_property_secondary_icon_pixbuf_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "secondary-icon-pixbuf")]
+    fn connect_secondary_icon_pixbuf_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -3916,7 +3941,8 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn connect_property_secondary_icon_sensitive_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "secondary-icon-sensitive")]
+    fn connect_secondary_icon_sensitive_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -3943,7 +3969,8 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn connect_property_secondary_icon_storage_type_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "secondary-icon-storage-type")]
+    fn connect_secondary_icon_storage_type_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -3970,7 +3997,8 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn connect_property_secondary_icon_tooltip_markup_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "secondary-icon-tooltip-markup")]
+    fn connect_secondary_icon_tooltip_markup_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -4000,7 +4028,8 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn connect_property_secondary_icon_tooltip_text_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "secondary-icon-tooltip-text")]
+    fn connect_secondary_icon_tooltip_text_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -4027,10 +4056,8 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn connect_property_selection_bound_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "selection-bound")]
+    fn connect_selection_bound_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_selection_bound_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
@@ -4054,7 +4081,8 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn connect_property_shadow_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "shadow-type")]
+    fn connect_shadow_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_shadow_type_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
@@ -4078,10 +4106,8 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn connect_property_show_emoji_icon_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "show-emoji-icon")]
+    fn connect_show_emoji_icon_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_emoji_icon_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
@@ -4105,7 +4131,8 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn connect_property_tabs_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "tabs")]
+    fn connect_tabs_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_tabs_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
@@ -4129,7 +4156,8 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn connect_property_text_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "text")]
+    fn connect_text_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_text_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
@@ -4153,7 +4181,8 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn connect_property_text_length_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "text-length")]
+    fn connect_text_length_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_text_length_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
@@ -4177,10 +4206,8 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn connect_property_truncate_multiline_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "truncate-multiline")]
+    fn connect_truncate_multiline_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_truncate_multiline_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
@@ -4204,7 +4231,8 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn connect_property_visibility_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "visibility")]
+    fn connect_visibility_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_visibility_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
@@ -4228,7 +4256,8 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn connect_property_width_chars_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "width-chars")]
+    fn connect_width_chars_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_width_chars_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
@@ -4252,7 +4281,8 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn connect_property_xalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "xalign")]
+    fn connect_xalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_xalign_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,

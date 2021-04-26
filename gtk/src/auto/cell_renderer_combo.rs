@@ -304,8 +304,8 @@ impl CellRendererComboBuilder {
         if let Some(ref ypad) = self.ypad {
             properties.push(("ypad", ypad));
         }
-        let ret = glib::Object::new::<CellRendererCombo>(&properties).expect("object new");
-        ret
+        glib::Object::new::<CellRendererCombo>(&properties)
+            .expect("Failed to create an instance of CellRendererCombo")
     }
 
     pub fn has_entry(mut self, has_entry: bool) -> Self {
@@ -627,32 +627,34 @@ impl CellRendererComboBuilder {
 pub const NONE_CELL_RENDERER_COMBO: Option<&CellRendererCombo> = None;
 
 pub trait CellRendererComboExt: 'static {
-    #[doc(alias = "get_property_has_entry")]
+    #[doc(alias = "has-entry")]
     fn has_entry(&self) -> bool;
 
-    #[doc(alias = "set_property_has_entry")]
+    #[doc(alias = "has-entry")]
     fn set_has_entry(&self, has_entry: bool);
 
-    #[doc(alias = "get_property_model")]
     fn model(&self) -> Option<TreeModel>;
 
-    #[doc(alias = "set_property_model")]
     fn set_model<P: IsA<TreeModel>>(&self, model: Option<&P>);
 
-    #[doc(alias = "get_property_text_column")]
+    #[doc(alias = "text-column")]
     fn text_column(&self) -> i32;
 
-    #[doc(alias = "set_property_text_column")]
+    #[doc(alias = "text-column")]
     fn set_text_column(&self, text_column: i32);
 
+    #[doc(alias = "changed")]
     fn connect_changed<F: Fn(&Self, TreePath, &TreeIter) + 'static>(&self, f: F)
         -> SignalHandlerId;
 
-    fn connect_property_has_entry_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "has-entry")]
+    fn connect_has_entry_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_model_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "model")]
+    fn connect_model_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_text_column_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "text-column")]
+    fn connect_text_column_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<CellRendererCombo>> CellRendererComboExt for O {
@@ -728,6 +730,7 @@ impl<O: IsA<CellRendererCombo>> CellRendererComboExt for O {
         }
     }
 
+    #[doc(alias = "changed")]
     fn connect_changed<F: Fn(&Self, TreePath, &TreeIter) + 'static>(
         &self,
         f: F,
@@ -761,7 +764,8 @@ impl<O: IsA<CellRendererCombo>> CellRendererComboExt for O {
         }
     }
 
-    fn connect_property_has_entry_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "has-entry")]
+    fn connect_has_entry_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_has_entry_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRendererCombo,
             _param_spec: glib::ffi::gpointer,
@@ -785,7 +789,8 @@ impl<O: IsA<CellRendererCombo>> CellRendererComboExt for O {
         }
     }
 
-    fn connect_property_model_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "model")]
+    fn connect_model_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_model_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRendererCombo,
             _param_spec: glib::ffi::gpointer,
@@ -809,7 +814,8 @@ impl<O: IsA<CellRendererCombo>> CellRendererComboExt for O {
         }
     }
 
-    fn connect_property_text_column_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "text-column")]
+    fn connect_text_column_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_text_column_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRendererCombo,
             _param_spec: glib::ffi::gpointer,

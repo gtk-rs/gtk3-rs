@@ -29,6 +29,7 @@ impl ZlibDecompressor {
     }
 
     #[doc(alias = "g_zlib_decompressor_get_file_info")]
+    #[doc(alias = "get_file_info")]
     pub fn file_info(&self) -> Option<FileInfo> {
         unsafe {
             from_glib_none(ffi::g_zlib_decompressor_get_file_info(
@@ -37,7 +38,6 @@ impl ZlibDecompressor {
         }
     }
 
-    #[doc(alias = "get_property_format")]
     pub fn format(&self) -> ZlibCompressorFormat {
         unsafe {
             let mut value =
@@ -53,7 +53,8 @@ impl ZlibDecompressor {
         }
     }
 
-    pub fn connect_property_file_info_notify<F: Fn(&ZlibDecompressor) + 'static>(
+    #[doc(alias = "file-info")]
+    pub fn connect_file_info_notify<F: Fn(&ZlibDecompressor) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {

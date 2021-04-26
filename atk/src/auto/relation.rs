@@ -44,26 +44,26 @@ pub trait RelationExt: 'static {
     fn add_target<P: IsA<Object>>(&self, target: &P);
 
     #[doc(alias = "atk_relation_get_relation_type")]
+    #[doc(alias = "get_relation_type")]
     fn relation_type(&self) -> RelationType;
 
     #[doc(alias = "atk_relation_get_target")]
+    #[doc(alias = "get_target")]
     fn target(&self) -> Vec<Object>;
 
     #[doc(alias = "atk_relation_remove_target")]
     fn remove_target<P: IsA<Object>>(&self, target: &P) -> bool;
 
-    #[doc(alias = "set_property_relation_type")]
+    #[doc(alias = "relation-type")]
     fn set_relation_type(&self, relation_type: RelationType);
 
-    #[doc(alias = "set_property_target")]
     fn set_target(&self, target: Option<&glib::ValueArray>);
 
-    fn connect_property_relation_type_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "relation-type")]
+    fn connect_relation_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_target_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "target")]
+    fn connect_target_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<Relation>> RelationExt for O {
@@ -121,10 +121,8 @@ impl<O: IsA<Relation>> RelationExt for O {
         }
     }
 
-    fn connect_property_relation_type_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "relation-type")]
+    fn connect_relation_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_relation_type_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::AtkRelation,
             _param_spec: glib::ffi::gpointer,
@@ -148,7 +146,8 @@ impl<O: IsA<Relation>> RelationExt for O {
         }
     }
 
-    fn connect_property_target_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "target")]
+    fn connect_target_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_target_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::AtkRelation,
             _param_spec: glib::ffi::gpointer,

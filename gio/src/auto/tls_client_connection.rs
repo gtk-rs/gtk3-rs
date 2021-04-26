@@ -55,16 +55,20 @@ pub trait TlsClientConnectionExt: 'static {
     fn copy_session_state<P: IsA<TlsClientConnection>>(&self, source: &P);
 
     #[doc(alias = "g_tls_client_connection_get_accepted_cas")]
+    #[doc(alias = "get_accepted_cas")]
     fn accepted_cas(&self) -> Vec<glib::ByteArray>;
 
     #[doc(alias = "g_tls_client_connection_get_server_identity")]
+    #[doc(alias = "get_server_identity")]
     fn server_identity(&self) -> Option<SocketConnectable>;
 
     #[cfg_attr(feature = "v2_56", deprecated = "Since 2.56")]
     #[doc(alias = "g_tls_client_connection_get_use_ssl3")]
+    #[doc(alias = "get_use_ssl3")]
     fn uses_ssl3(&self) -> bool;
 
     #[doc(alias = "g_tls_client_connection_get_validation_flags")]
+    #[doc(alias = "get_validation_flags")]
     fn validation_flags(&self) -> TlsCertificateFlags;
 
     #[doc(alias = "g_tls_client_connection_set_server_identity")]
@@ -77,21 +81,18 @@ pub trait TlsClientConnectionExt: 'static {
     #[doc(alias = "g_tls_client_connection_set_validation_flags")]
     fn set_validation_flags(&self, flags: TlsCertificateFlags);
 
-    fn connect_property_accepted_cas_notify<F: Fn(&Self) + 'static>(&self, f: F)
-        -> SignalHandlerId;
+    #[doc(alias = "accepted-cas")]
+    fn connect_accepted_cas_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_server_identity_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "server-identity")]
+    fn connect_server_identity_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     #[cfg_attr(feature = "v2_56", deprecated = "Since 2.56")]
-    fn connect_property_use_ssl3_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "use-ssl3")]
+    fn connect_use_ssl3_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_validation_flags_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "validation-flags")]
+    fn connect_validation_flags_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<TlsClientConnection>> TlsClientConnectionExt for O {
@@ -165,10 +166,8 @@ impl<O: IsA<TlsClientConnection>> TlsClientConnectionExt for O {
         }
     }
 
-    fn connect_property_accepted_cas_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "accepted-cas")]
+    fn connect_accepted_cas_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_accepted_cas_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GTlsClientConnection,
             _param_spec: glib::ffi::gpointer,
@@ -192,10 +191,8 @@ impl<O: IsA<TlsClientConnection>> TlsClientConnectionExt for O {
         }
     }
 
-    fn connect_property_server_identity_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "server-identity")]
+    fn connect_server_identity_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_server_identity_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GTlsClientConnection,
             _param_spec: glib::ffi::gpointer,
@@ -219,7 +216,8 @@ impl<O: IsA<TlsClientConnection>> TlsClientConnectionExt for O {
         }
     }
 
-    fn connect_property_use_ssl3_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "use-ssl3")]
+    fn connect_use_ssl3_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_use_ssl3_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GTlsClientConnection,
             _param_spec: glib::ffi::gpointer,
@@ -243,10 +241,8 @@ impl<O: IsA<TlsClientConnection>> TlsClientConnectionExt for O {
         }
     }
 
-    fn connect_property_validation_flags_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "validation-flags")]
+    fn connect_validation_flags_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_validation_flags_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GTlsClientConnection,
             _param_spec: glib::ffi::gpointer,

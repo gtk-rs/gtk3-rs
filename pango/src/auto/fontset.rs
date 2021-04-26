@@ -23,9 +23,11 @@ pub trait FontsetExt: 'static {
     fn foreach<P: FnMut(&Fontset, &Font) -> bool>(&self, func: P);
 
     #[doc(alias = "pango_fontset_get_font")]
+    #[doc(alias = "get_font")]
     fn font(&self, wc: u32) -> Option<Font>;
 
     #[doc(alias = "pango_fontset_get_metrics")]
+    #[doc(alias = "get_metrics")]
     fn metrics(&self) -> Option<FontMetrics>;
 }
 

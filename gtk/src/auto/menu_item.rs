@@ -38,6 +38,7 @@ impl MenuItem {
     }
 
     #[doc(alias = "gtk_menu_item_new_with_label")]
+    #[doc(alias = "new_with_label")]
     pub fn with_label(label: &str) -> MenuItem {
         assert_initialized_main_thread!();
         unsafe {
@@ -47,6 +48,7 @@ impl MenuItem {
     }
 
     #[doc(alias = "gtk_menu_item_new_with_mnemonic")]
+    #[doc(alias = "new_with_mnemonic")]
     pub fn with_mnemonic(label: &str) -> MenuItem {
         assert_initialized_main_thread!();
         unsafe {
@@ -244,8 +246,8 @@ impl MenuItemBuilder {
         if let Some(ref action_target) = self.action_target {
             properties.push(("action-target", action_target));
         }
-        let ret = glib::Object::new::<MenuItem>(&properties).expect("object new");
-        ret
+        glib::Object::new::<MenuItem>(&properties)
+            .expect("Failed to create an instance of MenuItem")
     }
 
     pub fn accel_path(mut self, accel_path: &str) -> Self {
@@ -468,18 +470,23 @@ pub trait GtkMenuItemExt: 'static {
     fn deselect(&self);
 
     #[doc(alias = "gtk_menu_item_get_accel_path")]
+    #[doc(alias = "get_accel_path")]
     fn accel_path(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_menu_item_get_label")]
+    #[doc(alias = "get_label")]
     fn label(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_menu_item_get_reserve_indicator")]
+    #[doc(alias = "get_reserve_indicator")]
     fn must_reserve_indicator(&self) -> bool;
 
     #[doc(alias = "gtk_menu_item_get_submenu")]
+    #[doc(alias = "get_submenu")]
     fn submenu(&self) -> Option<Widget>;
 
     #[doc(alias = "gtk_menu_item_get_use_underline")]
+    #[doc(alias = "get_use_underline")]
     fn uses_underline(&self) -> bool;
 
     #[doc(alias = "gtk_menu_item_select")]
@@ -506,41 +513,46 @@ pub trait GtkMenuItemExt: 'static {
     #[doc(alias = "gtk_menu_item_toggle_size_request")]
     fn toggle_size_request(&self, requisition: &mut i32);
 
-    #[doc(alias = "get_property_right_justified")]
+    #[doc(alias = "right-justified")]
     fn is_right_justified(&self) -> bool;
 
-    #[doc(alias = "set_property_right_justified")]
+    #[doc(alias = "right-justified")]
     fn set_right_justified(&self, right_justified: bool);
 
+    #[doc(alias = "activate")]
     fn connect_activate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn emit_activate(&self);
 
+    #[doc(alias = "activate-item")]
     fn connect_activate_item<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "deselect")]
     fn connect_deselect<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "select")]
     fn connect_select<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "toggle-size-allocate")]
     fn connect_toggle_size_allocate<F: Fn(&Self, i32) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    //#[doc(alias = "toggle-size-request")]
     //fn connect_toggle_size_request<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_accel_path_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "accel-path")]
+    fn connect_accel_path_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_label_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "label")]
+    fn connect_label_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_right_justified_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "right-justified")]
+    fn connect_right_justified_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_submenu_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "submenu")]
+    fn connect_submenu_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_use_underline_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "use-underline")]
+    fn connect_use_underline_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
@@ -670,6 +682,7 @@ impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
         }
     }
 
+    #[doc(alias = "activate")]
     fn connect_activate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn activate_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenuItem,
@@ -701,6 +714,7 @@ impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
         };
     }
 
+    #[doc(alias = "activate-item")]
     fn connect_activate_item<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn activate_item_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenuItem,
@@ -724,6 +738,7 @@ impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
         }
     }
 
+    #[doc(alias = "deselect")]
     fn connect_deselect<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn deselect_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenuItem,
@@ -747,6 +762,7 @@ impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
         }
     }
 
+    #[doc(alias = "select")]
     fn connect_select<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn select_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenuItem,
@@ -770,6 +786,7 @@ impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
         }
     }
 
+    #[doc(alias = "toggle-size-allocate")]
     fn connect_toggle_size_allocate<F: Fn(&Self, i32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn toggle_size_allocate_trampoline<P, F: Fn(&P, i32) + 'static>(
             this: *mut ffi::GtkMenuItem,
@@ -794,11 +811,13 @@ impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
         }
     }
 
+    //#[doc(alias = "toggle-size-request")]
     //fn connect_toggle_size_request<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId {
     //    Unimplemented object: *.Pointer
     //}
 
-    fn connect_property_accel_path_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "accel-path")]
+    fn connect_accel_path_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_accel_path_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenuItem,
             _param_spec: glib::ffi::gpointer,
@@ -822,7 +841,8 @@ impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
         }
     }
 
-    fn connect_property_label_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "label")]
+    fn connect_label_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_label_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenuItem,
             _param_spec: glib::ffi::gpointer,
@@ -846,10 +866,8 @@ impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
         }
     }
 
-    fn connect_property_right_justified_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "right-justified")]
+    fn connect_right_justified_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_right_justified_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenuItem,
             _param_spec: glib::ffi::gpointer,
@@ -873,7 +891,8 @@ impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
         }
     }
 
-    fn connect_property_submenu_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "submenu")]
+    fn connect_submenu_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_submenu_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenuItem,
             _param_spec: glib::ffi::gpointer,
@@ -897,10 +916,8 @@ impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
         }
     }
 
-    fn connect_property_use_underline_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "use-underline")]
+    fn connect_use_underline_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_use_underline_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenuItem,
             _param_spec: glib::ffi::gpointer,

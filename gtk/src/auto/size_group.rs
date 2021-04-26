@@ -51,8 +51,8 @@ impl SizeGroupBuilder {
         if let Some(ref mode) = self.mode {
             properties.push(("mode", mode));
         }
-        let ret = glib::Object::new::<SizeGroup>(&properties).expect("object new");
-        ret
+        glib::Object::new::<SizeGroup>(&properties)
+            .expect("Failed to create an instance of SizeGroup")
     }
 
     pub fn ignore_hidden(mut self, ignore_hidden: bool) -> Self {
@@ -74,12 +74,15 @@ pub trait SizeGroupExt: 'static {
 
     #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
     #[doc(alias = "gtk_size_group_get_ignore_hidden")]
+    #[doc(alias = "get_ignore_hidden")]
     fn ignores_hidden(&self) -> bool;
 
     #[doc(alias = "gtk_size_group_get_mode")]
+    #[doc(alias = "get_mode")]
     fn mode(&self) -> SizeGroupMode;
 
     #[doc(alias = "gtk_size_group_get_widgets")]
+    #[doc(alias = "get_widgets")]
     fn widgets(&self) -> Vec<Widget>;
 
     #[doc(alias = "gtk_size_group_remove_widget")]
@@ -93,12 +96,11 @@ pub trait SizeGroupExt: 'static {
     fn set_mode(&self, mode: SizeGroupMode);
 
     #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
-    fn connect_property_ignore_hidden_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "ignore-hidden")]
+    fn connect_ignore_hidden_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "mode")]
+    fn connect_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<SizeGroup>> SizeGroupExt for O {
@@ -155,10 +157,8 @@ impl<O: IsA<SizeGroup>> SizeGroupExt for O {
         }
     }
 
-    fn connect_property_ignore_hidden_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "ignore-hidden")]
+    fn connect_ignore_hidden_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_ignore_hidden_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkSizeGroup,
             _param_spec: glib::ffi::gpointer,
@@ -182,7 +182,8 @@ impl<O: IsA<SizeGroup>> SizeGroupExt for O {
         }
     }
 
-    fn connect_property_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "mode")]
+    fn connect_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_mode_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkSizeGroup,
             _param_spec: glib::ffi::gpointer,

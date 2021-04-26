@@ -38,6 +38,7 @@ impl RecentChooserDialog {
     //}
 
     //#[doc(alias = "gtk_recent_chooser_dialog_new_for_manager")]
+    //#[doc(alias = "new_for_manager")]
     //pub fn for_manager<P: IsA<Window>, Q: IsA<RecentManager>>(title: Option<&str>, parent: Option<&P>, manager: &Q, first_button_text: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> RecentChooserDialog {
     //    unsafe { TODO: call ffi:gtk_recent_chooser_dialog_new_for_manager() }
     //}
@@ -353,8 +354,8 @@ impl RecentChooserDialogBuilder {
         if let Some(ref sort_type) = self.sort_type {
             properties.push(("sort-type", sort_type));
         }
-        let ret = glib::Object::new::<RecentChooserDialog>(&properties).expect("object new");
-        ret
+        glib::Object::new::<RecentChooserDialog>(&properties)
+            .expect("Failed to create an instance of RecentChooserDialog")
     }
 
     pub fn use_header_bar(mut self, use_header_bar: i32) -> Self {

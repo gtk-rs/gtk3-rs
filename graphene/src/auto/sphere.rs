@@ -46,6 +46,7 @@ impl Sphere {
     }
 
     #[doc(alias = "graphene_sphere_get_bounding_box")]
+    #[doc(alias = "get_bounding_box")]
     pub fn bounding_box(&self) -> Box {
         unsafe {
             let mut box_ = Box::uninitialized();
@@ -55,6 +56,7 @@ impl Sphere {
     }
 
     #[doc(alias = "graphene_sphere_get_center")]
+    #[doc(alias = "get_center")]
     pub fn center(&self) -> Point3D {
         unsafe {
             let mut center = Point3D::uninitialized();
@@ -64,6 +66,7 @@ impl Sphere {
     }
 
     #[doc(alias = "graphene_sphere_get_radius")]
+    #[doc(alias = "get_radius")]
     pub fn radius(&self) -> f32 {
         unsafe { ffi::graphene_sphere_get_radius(self.to_glib_none().0) }
     }

@@ -243,8 +243,8 @@ impl MenuToolButtonBuilder {
         if let Some(ref action_target) = self.action_target {
             properties.push(("action-target", action_target));
         }
-        let ret = glib::Object::new::<MenuToolButton>(&properties).expect("object new");
-        ret
+        glib::Object::new::<MenuToolButton>(&properties)
+            .expect("Failed to create an instance of MenuToolButton")
     }
 
     pub fn menu<P: IsA<Menu>>(mut self, menu: &P) -> Self {
@@ -484,6 +484,7 @@ pub const NONE_MENU_TOOL_BUTTON: Option<&MenuToolButton> = None;
 
 pub trait MenuToolButtonExt: 'static {
     #[doc(alias = "gtk_menu_tool_button_get_menu")]
+    #[doc(alias = "get_menu")]
     fn menu(&self) -> Option<Widget>;
 
     #[doc(alias = "gtk_menu_tool_button_set_arrow_tooltip_markup")]
@@ -495,9 +496,11 @@ pub trait MenuToolButtonExt: 'static {
     #[doc(alias = "gtk_menu_tool_button_set_menu")]
     fn set_menu<P: IsA<Widget>>(&self, menu: &P);
 
+    #[doc(alias = "show-menu")]
     fn connect_show_menu<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_menu_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "menu")]
+    fn connect_menu_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<MenuToolButton>> MenuToolButtonExt for O {
@@ -536,6 +539,7 @@ impl<O: IsA<MenuToolButton>> MenuToolButtonExt for O {
         }
     }
 
+    #[doc(alias = "show-menu")]
     fn connect_show_menu<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn show_menu_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenuToolButton,
@@ -559,7 +563,8 @@ impl<O: IsA<MenuToolButton>> MenuToolButtonExt for O {
         }
     }
 
-    fn connect_property_menu_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "menu")]
+    fn connect_menu_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_menu_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenuToolButton,
             _param_spec: glib::ffi::gpointer,

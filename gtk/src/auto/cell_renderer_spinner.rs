@@ -117,8 +117,8 @@ impl CellRendererSpinnerBuilder {
         if let Some(ref ypad) = self.ypad {
             properties.push(("ypad", ypad));
         }
-        let ret = glib::Object::new::<CellRendererSpinner>(&properties).expect("object new");
-        ret
+        glib::Object::new::<CellRendererSpinner>(&properties)
+            .expect("Failed to create an instance of CellRendererSpinner")
     }
 
     pub fn active(mut self, active: bool) -> Self {
@@ -210,29 +210,26 @@ impl CellRendererSpinnerBuilder {
 pub const NONE_CELL_RENDERER_SPINNER: Option<&CellRendererSpinner> = None;
 
 pub trait CellRendererSpinnerExt: 'static {
-    #[doc(alias = "get_property_active")]
     fn is_active(&self) -> bool;
 
-    #[doc(alias = "set_property_active")]
     fn set_active(&self, active: bool);
 
-    #[doc(alias = "get_property_pulse")]
     fn pulse(&self) -> u32;
 
-    #[doc(alias = "set_property_pulse")]
     fn set_pulse(&self, pulse: u32);
 
-    #[doc(alias = "get_property_size")]
     fn size(&self) -> IconSize;
 
-    #[doc(alias = "set_property_size")]
     fn set_size(&self, size: IconSize);
 
-    fn connect_property_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "active")]
+    fn connect_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_pulse_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "pulse")]
+    fn connect_pulse_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "size")]
+    fn connect_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<CellRendererSpinner>> CellRendererSpinnerExt for O {
@@ -308,7 +305,8 @@ impl<O: IsA<CellRendererSpinner>> CellRendererSpinnerExt for O {
         }
     }
 
-    fn connect_property_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "active")]
+    fn connect_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_active_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRendererSpinner,
             _param_spec: glib::ffi::gpointer,
@@ -332,7 +330,8 @@ impl<O: IsA<CellRendererSpinner>> CellRendererSpinnerExt for O {
         }
     }
 
-    fn connect_property_pulse_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "pulse")]
+    fn connect_pulse_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_pulse_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRendererSpinner,
             _param_spec: glib::ffi::gpointer,
@@ -356,7 +355,8 @@ impl<O: IsA<CellRendererSpinner>> CellRendererSpinnerExt for O {
         }
     }
 
-    fn connect_property_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "size")]
+    fn connect_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_size_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRendererSpinner,
             _param_spec: glib::ffi::gpointer,

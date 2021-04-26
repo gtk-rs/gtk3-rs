@@ -18,15 +18,19 @@ pub const NONE_STREAMABLE_CONTENT: Option<&StreamableContent> = None;
 
 pub trait StreamableContentExt: 'static {
     #[doc(alias = "atk_streamable_content_get_mime_type")]
+    #[doc(alias = "get_mime_type")]
     fn mime_type(&self, i: i32) -> Option<glib::GString>;
 
     #[doc(alias = "atk_streamable_content_get_n_mime_types")]
+    #[doc(alias = "get_n_mime_types")]
     fn n_mime_types(&self) -> i32;
 
     //#[doc(alias = "atk_streamable_content_get_stream")]
+    //#[doc(alias = "get_stream")]
     //fn stream(&self, mime_type: &str) -> /*Ignored*/Option<glib::IOChannel>;
 
     #[doc(alias = "atk_streamable_content_get_uri")]
+    #[doc(alias = "get_uri")]
     fn uri(&self, mime_type: &str) -> Option<glib::GString>;
 }
 

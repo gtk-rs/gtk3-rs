@@ -47,6 +47,7 @@ impl PaperSize {
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gtk_paper_size_new_from_gvariant")]
+    #[doc(alias = "new_from_gvariant")]
     pub fn from_gvariant(variant: &glib::Variant) -> PaperSize {
         assert_initialized_main_thread!();
         unsafe {
@@ -59,6 +60,7 @@ impl PaperSize {
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_paper_size_new_from_ipp")]
+    #[doc(alias = "new_from_ipp")]
     pub fn from_ipp(ipp_name: &str, width: f64, height: f64) -> PaperSize {
         assert_initialized_main_thread!();
         unsafe {
@@ -71,6 +73,7 @@ impl PaperSize {
     }
 
     #[doc(alias = "gtk_paper_size_new_from_key_file")]
+    #[doc(alias = "new_from_key_file")]
     pub fn from_key_file(
         key_file: &glib::KeyFile,
         group_name: Option<&str>,
@@ -92,6 +95,7 @@ impl PaperSize {
     }
 
     #[doc(alias = "gtk_paper_size_new_from_ppd")]
+    #[doc(alias = "new_from_ppd")]
     pub fn from_ppd(ppd_name: &str, ppd_display_name: &str, width: f64, height: f64) -> PaperSize {
         assert_initialized_main_thread!();
         unsafe {
@@ -105,6 +109,7 @@ impl PaperSize {
     }
 
     #[doc(alias = "gtk_paper_size_get_default_bottom_margin")]
+    #[doc(alias = "get_default_bottom_margin")]
     pub fn default_bottom_margin(&self, unit: Unit) -> f64 {
         unsafe {
             ffi::gtk_paper_size_get_default_bottom_margin(
@@ -115,6 +120,7 @@ impl PaperSize {
     }
 
     #[doc(alias = "gtk_paper_size_get_default_left_margin")]
+    #[doc(alias = "get_default_left_margin")]
     pub fn default_left_margin(&self, unit: Unit) -> f64 {
         unsafe {
             ffi::gtk_paper_size_get_default_left_margin(
@@ -125,6 +131,7 @@ impl PaperSize {
     }
 
     #[doc(alias = "gtk_paper_size_get_default_right_margin")]
+    #[doc(alias = "get_default_right_margin")]
     pub fn default_right_margin(&self, unit: Unit) -> f64 {
         unsafe {
             ffi::gtk_paper_size_get_default_right_margin(
@@ -135,6 +142,7 @@ impl PaperSize {
     }
 
     #[doc(alias = "gtk_paper_size_get_default_top_margin")]
+    #[doc(alias = "get_default_top_margin")]
     pub fn default_top_margin(&self, unit: Unit) -> f64 {
         unsafe {
             ffi::gtk_paper_size_get_default_top_margin(
@@ -145,6 +153,7 @@ impl PaperSize {
     }
 
     #[doc(alias = "gtk_paper_size_get_display_name")]
+    #[doc(alias = "get_display_name")]
     pub fn display_name(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_paper_size_get_display_name(mut_override(
@@ -154,6 +163,7 @@ impl PaperSize {
     }
 
     #[doc(alias = "gtk_paper_size_get_height")]
+    #[doc(alias = "get_height")]
     pub fn height(&self, unit: Unit) -> f64 {
         unsafe {
             ffi::gtk_paper_size_get_height(mut_override(self.to_glib_none().0), unit.into_glib())
@@ -161,6 +171,7 @@ impl PaperSize {
     }
 
     #[doc(alias = "gtk_paper_size_get_name")]
+    #[doc(alias = "get_name")]
     pub fn name(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_paper_size_get_name(mut_override(
@@ -170,6 +181,7 @@ impl PaperSize {
     }
 
     #[doc(alias = "gtk_paper_size_get_ppd_name")]
+    #[doc(alias = "get_ppd_name")]
     pub fn ppd_name(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_paper_size_get_ppd_name(mut_override(
@@ -179,6 +191,7 @@ impl PaperSize {
     }
 
     #[doc(alias = "gtk_paper_size_get_width")]
+    #[doc(alias = "get_width")]
     pub fn width(&self, unit: Unit) -> f64 {
         unsafe {
             ffi::gtk_paper_size_get_width(mut_override(self.to_glib_none().0), unit.into_glib())
@@ -246,12 +259,14 @@ impl PaperSize {
     }
 
     #[doc(alias = "gtk_paper_size_get_default")]
+    #[doc(alias = "get_default")]
     pub fn default() -> Option<glib::GString> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gtk_paper_size_get_default()) }
     }
 
     #[doc(alias = "gtk_paper_size_get_paper_sizes")]
+    #[doc(alias = "get_paper_sizes")]
     pub fn paper_sizes(include_custom: bool) -> Vec<PaperSize> {
         assert_initialized_main_thread!();
         unsafe {

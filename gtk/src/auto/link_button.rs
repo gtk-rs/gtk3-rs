@@ -41,6 +41,7 @@ impl LinkButton {
     }
 
     #[doc(alias = "gtk_link_button_new_with_label")]
+    #[doc(alias = "new_with_label")]
     pub fn with_label(uri: &str, label: &str) -> LinkButton {
         assert_initialized_main_thread!();
         unsafe {
@@ -247,8 +248,8 @@ impl LinkButtonBuilder {
         if let Some(ref action_target) = self.action_target {
             properties.push(("action-target", action_target));
         }
-        let ret = glib::Object::new::<LinkButton>(&properties).expect("object new");
-        ret
+        glib::Object::new::<LinkButton>(&properties)
+            .expect("Failed to create an instance of LinkButton")
     }
 
     pub fn uri(mut self, uri: &str) -> Self {
@@ -483,9 +484,11 @@ pub const NONE_LINK_BUTTON: Option<&LinkButton> = None;
 
 pub trait LinkButtonExt: 'static {
     #[doc(alias = "gtk_link_button_get_uri")]
+    #[doc(alias = "get_uri")]
     fn uri(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_link_button_get_visited")]
+    #[doc(alias = "get_visited")]
     fn is_visited(&self) -> bool;
 
     #[doc(alias = "gtk_link_button_set_uri")]
@@ -494,14 +497,17 @@ pub trait LinkButtonExt: 'static {
     #[doc(alias = "gtk_link_button_set_visited")]
     fn set_visited(&self, visited: bool);
 
+    #[doc(alias = "activate-link")]
     fn connect_activate_link<F: Fn(&Self) -> glib::signal::Inhibit + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
-    fn connect_property_uri_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "uri")]
+    fn connect_uri_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_visited_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "visited")]
+    fn connect_visited_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<LinkButton>> LinkButtonExt for O {
@@ -529,6 +535,7 @@ impl<O: IsA<LinkButton>> LinkButtonExt for O {
         }
     }
 
+    #[doc(alias = "activate-link")]
     fn connect_activate_link<F: Fn(&Self) -> glib::signal::Inhibit + 'static>(
         &self,
         f: F,
@@ -559,7 +566,8 @@ impl<O: IsA<LinkButton>> LinkButtonExt for O {
         }
     }
 
-    fn connect_property_uri_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "uri")]
+    fn connect_uri_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_uri_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLinkButton,
             _param_spec: glib::ffi::gpointer,
@@ -583,7 +591,8 @@ impl<O: IsA<LinkButton>> LinkButtonExt for O {
         }
     }
 
-    fn connect_property_visited_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "visited")]
+    fn connect_visited_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_visited_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLinkButton,
             _param_spec: glib::ffi::gpointer,

@@ -47,31 +47,37 @@ impl Source {
     }
 
     #[doc(alias = "g_source_get_can_recurse")]
+    #[doc(alias = "get_can_recurse")]
     pub fn can_recurse(&self) -> bool {
         unsafe { from_glib(ffi::g_source_get_can_recurse(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_source_get_context")]
+    #[doc(alias = "get_context")]
     pub fn context(&self) -> Option<MainContext> {
         unsafe { from_glib_none(ffi::g_source_get_context(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_source_get_name")]
+    #[doc(alias = "get_name")]
     pub fn name(&self) -> Option<crate::GString> {
         unsafe { from_glib_none(ffi::g_source_get_name(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_source_get_priority")]
+    #[doc(alias = "get_priority")]
     pub fn priority(&self) -> i32 {
         unsafe { ffi::g_source_get_priority(self.to_glib_none().0) }
     }
 
     #[doc(alias = "g_source_get_ready_time")]
+    #[doc(alias = "get_ready_time")]
     pub fn ready_time(&self) -> i64 {
         unsafe { ffi::g_source_get_ready_time(self.to_glib_none().0) }
     }
 
     #[doc(alias = "g_source_get_time")]
+    #[doc(alias = "get_time")]
     pub fn time(&self) -> i64 {
         unsafe { ffi::g_source_get_time(self.to_glib_none().0) }
     }

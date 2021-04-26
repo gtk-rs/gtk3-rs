@@ -260,8 +260,8 @@ impl VolumeButtonBuilder {
         if let Some(ref orientation) = self.orientation {
             properties.push(("orientation", orientation));
         }
-        let ret = glib::Object::new::<VolumeButton>(&properties).expect("object new");
-        ret
+        glib::Object::new::<VolumeButton>(&properties)
+            .expect("Failed to create an instance of VolumeButton")
     }
 
     pub fn use_symbolic(mut self, use_symbolic: bool) -> Self {
@@ -515,14 +515,14 @@ impl VolumeButtonBuilder {
 pub const NONE_VOLUME_BUTTON: Option<&VolumeButton> = None;
 
 pub trait VolumeButtonExt: 'static {
-    #[doc(alias = "get_property_use_symbolic")]
+    #[doc(alias = "use-symbolic")]
     fn uses_symbolic(&self) -> bool;
 
-    #[doc(alias = "set_property_use_symbolic")]
+    #[doc(alias = "use-symbolic")]
     fn set_use_symbolic(&self, use_symbolic: bool);
 
-    fn connect_property_use_symbolic_notify<F: Fn(&Self) + 'static>(&self, f: F)
-        -> SignalHandlerId;
+    #[doc(alias = "use-symbolic")]
+    fn connect_use_symbolic_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<VolumeButton>> VolumeButtonExt for O {
@@ -550,10 +550,8 @@ impl<O: IsA<VolumeButton>> VolumeButtonExt for O {
         }
     }
 
-    fn connect_property_use_symbolic_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "use-symbolic")]
+    fn connect_use_symbolic_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_use_symbolic_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkVolumeButton,
             _param_spec: glib::ffi::gpointer,

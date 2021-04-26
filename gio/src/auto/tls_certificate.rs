@@ -20,6 +20,7 @@ glib::wrapper! {
 
 impl TlsCertificate {
     #[doc(alias = "g_tls_certificate_new_from_file")]
+    #[doc(alias = "new_from_file")]
     pub fn from_file<P: AsRef<std::path::Path>>(file: P) -> Result<TlsCertificate, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
@@ -34,6 +35,7 @@ impl TlsCertificate {
     }
 
     #[doc(alias = "g_tls_certificate_new_from_files")]
+    #[doc(alias = "new_from_files")]
     pub fn from_files<P: AsRef<std::path::Path>, Q: AsRef<std::path::Path>>(
         cert_file: P,
         key_file: Q,
@@ -54,6 +56,7 @@ impl TlsCertificate {
     }
 
     #[doc(alias = "g_tls_certificate_new_from_pem")]
+    #[doc(alias = "new_from_pem")]
     pub fn from_pem(data: &str) -> Result<TlsCertificate, glib::Error> {
         let length = data.len() as isize;
         unsafe {
@@ -91,6 +94,7 @@ pub const NONE_TLS_CERTIFICATE: Option<&TlsCertificate> = None;
 
 pub trait TlsCertificateExt: 'static {
     #[doc(alias = "g_tls_certificate_get_issuer")]
+    #[doc(alias = "get_issuer")]
     fn issuer(&self) -> Option<TlsCertificate>;
 
     #[doc(alias = "g_tls_certificate_is_same")]
@@ -103,10 +107,9 @@ pub trait TlsCertificateExt: 'static {
         trusted_ca: Option<&Q>,
     ) -> TlsCertificateFlags;
 
-    #[doc(alias = "get_property_certificate")]
     fn certificate(&self) -> Option<glib::ByteArray>;
 
-    #[doc(alias = "get_property_certificate_pem")]
+    #[doc(alias = "certificate-pem")]
     fn certificate_pem(&self) -> Option<glib::GString>;
 }
 

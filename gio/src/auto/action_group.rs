@@ -41,18 +41,23 @@ pub trait ActionGroupExt: 'static {
     fn change_action_state(&self, action_name: &str, value: &glib::Variant);
 
     #[doc(alias = "g_action_group_get_action_enabled")]
+    #[doc(alias = "get_action_enabled")]
     fn is_action_enabled(&self, action_name: &str) -> bool;
 
     #[doc(alias = "g_action_group_get_action_parameter_type")]
+    #[doc(alias = "get_action_parameter_type")]
     fn action_parameter_type(&self, action_name: &str) -> Option<glib::VariantType>;
 
     #[doc(alias = "g_action_group_get_action_state")]
+    #[doc(alias = "get_action_state")]
     fn action_state(&self, action_name: &str) -> Option<glib::Variant>;
 
     #[doc(alias = "g_action_group_get_action_state_hint")]
+    #[doc(alias = "get_action_state_hint")]
     fn action_state_hint(&self, action_name: &str) -> Option<glib::Variant>;
 
     #[doc(alias = "g_action_group_get_action_state_type")]
+    #[doc(alias = "get_action_state_type")]
     fn action_state_type(&self, action_name: &str) -> Option<glib::VariantType>;
 
     #[doc(alias = "g_action_group_has_action")]
@@ -61,24 +66,28 @@ pub trait ActionGroupExt: 'static {
     #[doc(alias = "g_action_group_list_actions")]
     fn list_actions(&self) -> Vec<glib::GString>;
 
+    #[doc(alias = "action-added")]
     fn connect_action_added<F: Fn(&Self, &str) + 'static>(
         &self,
         detail: Option<&str>,
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "action-enabled-changed")]
     fn connect_action_enabled_changed<F: Fn(&Self, &str, bool) + 'static>(
         &self,
         detail: Option<&str>,
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "action-removed")]
     fn connect_action_removed<F: Fn(&Self, &str) + 'static>(
         &self,
         detail: Option<&str>,
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "action-state-changed")]
     fn connect_action_state_changed<F: Fn(&Self, &str, &glib::Variant) + 'static>(
         &self,
         detail: Option<&str>,
@@ -207,6 +216,7 @@ impl<O: IsA<ActionGroup>> ActionGroupExt for O {
         }
     }
 
+    #[doc(alias = "action-added")]
     fn connect_action_added<F: Fn(&Self, &str) + 'static>(
         &self,
         detail: Option<&str>,
@@ -242,6 +252,7 @@ impl<O: IsA<ActionGroup>> ActionGroupExt for O {
         }
     }
 
+    #[doc(alias = "action-enabled-changed")]
     fn connect_action_enabled_changed<F: Fn(&Self, &str, bool) + 'static>(
         &self,
         detail: Option<&str>,
@@ -280,6 +291,7 @@ impl<O: IsA<ActionGroup>> ActionGroupExt for O {
         }
     }
 
+    #[doc(alias = "action-removed")]
     fn connect_action_removed<F: Fn(&Self, &str) + 'static>(
         &self,
         detail: Option<&str>,
@@ -315,6 +327,7 @@ impl<O: IsA<ActionGroup>> ActionGroupExt for O {
         }
     }
 
+    #[doc(alias = "action-state-changed")]
     fn connect_action_state_changed<F: Fn(&Self, &str, &glib::Variant) + 'static>(
         &self,
         detail: Option<&str>,

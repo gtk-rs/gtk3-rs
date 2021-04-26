@@ -43,6 +43,7 @@ impl Resource {
     }
 
     #[doc(alias = "g_resource_get_info")]
+    #[doc(alias = "get_info")]
     pub fn info(
         &self,
         path: &str,

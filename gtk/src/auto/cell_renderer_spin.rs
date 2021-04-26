@@ -302,8 +302,8 @@ impl CellRendererSpinBuilder {
         if let Some(ref ypad) = self.ypad {
             properties.push(("ypad", ypad));
         }
-        let ret = glib::Object::new::<CellRendererSpin>(&properties).expect("object new");
-        ret
+        glib::Object::new::<CellRendererSpin>(&properties)
+            .expect("Failed to create an instance of CellRendererSpin")
     }
 
     pub fn adjustment<P: IsA<Adjustment>>(mut self, adjustment: &P) -> Self {
@@ -625,29 +625,28 @@ impl CellRendererSpinBuilder {
 pub const NONE_CELL_RENDERER_SPIN: Option<&CellRendererSpin> = None;
 
 pub trait CellRendererSpinExt: 'static {
-    #[doc(alias = "get_property_adjustment")]
     fn adjustment(&self) -> Option<Adjustment>;
 
-    #[doc(alias = "set_property_adjustment")]
     fn set_adjustment<P: IsA<Adjustment>>(&self, adjustment: Option<&P>);
 
-    #[doc(alias = "get_property_climb_rate")]
+    #[doc(alias = "climb-rate")]
     fn climb_rate(&self) -> f64;
 
-    #[doc(alias = "set_property_climb_rate")]
+    #[doc(alias = "climb-rate")]
     fn set_climb_rate(&self, climb_rate: f64);
 
-    #[doc(alias = "get_property_digits")]
     fn digits(&self) -> u32;
 
-    #[doc(alias = "set_property_digits")]
     fn set_digits(&self, digits: u32);
 
-    fn connect_property_adjustment_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "adjustment")]
+    fn connect_adjustment_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_climb_rate_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "climb-rate")]
+    fn connect_climb_rate_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_digits_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "digits")]
+    fn connect_digits_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<CellRendererSpin>> CellRendererSpinExt for O {
@@ -723,7 +722,8 @@ impl<O: IsA<CellRendererSpin>> CellRendererSpinExt for O {
         }
     }
 
-    fn connect_property_adjustment_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "adjustment")]
+    fn connect_adjustment_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_adjustment_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRendererSpin,
             _param_spec: glib::ffi::gpointer,
@@ -747,7 +747,8 @@ impl<O: IsA<CellRendererSpin>> CellRendererSpinExt for O {
         }
     }
 
-    fn connect_property_climb_rate_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "climb-rate")]
+    fn connect_climb_rate_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_climb_rate_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRendererSpin,
             _param_spec: glib::ffi::gpointer,
@@ -771,7 +772,8 @@ impl<O: IsA<CellRendererSpin>> CellRendererSpinExt for O {
         }
     }
 
-    fn connect_property_digits_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "digits")]
+    fn connect_digits_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_digits_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRendererSpin,
             _param_spec: glib::ffi::gpointer,

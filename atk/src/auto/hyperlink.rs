@@ -26,18 +26,23 @@ pub const NONE_HYPERLINK: Option<&Hyperlink> = None;
 
 pub trait HyperlinkExt: 'static {
     #[doc(alias = "atk_hyperlink_get_end_index")]
+    #[doc(alias = "get_end_index")]
     fn end_index(&self) -> i32;
 
     #[doc(alias = "atk_hyperlink_get_n_anchors")]
+    #[doc(alias = "get_n_anchors")]
     fn n_anchors(&self) -> i32;
 
     #[doc(alias = "atk_hyperlink_get_object")]
+    #[doc(alias = "get_object")]
     fn object(&self, i: i32) -> Option<Object>;
 
     #[doc(alias = "atk_hyperlink_get_start_index")]
+    #[doc(alias = "get_start_index")]
     fn start_index(&self) -> i32;
 
     #[doc(alias = "atk_hyperlink_get_uri")]
+    #[doc(alias = "get_uri")]
     fn uri(&self, i: i32) -> Option<glib::GString>;
 
     #[doc(alias = "atk_hyperlink_is_inline")]
@@ -46,19 +51,20 @@ pub trait HyperlinkExt: 'static {
     #[doc(alias = "atk_hyperlink_is_valid")]
     fn is_valid(&self) -> bool;
 
-    #[doc(alias = "get_property_number_of_anchors")]
+    #[doc(alias = "number-of-anchors")]
     fn number_of_anchors(&self) -> i32;
 
+    #[doc(alias = "link-activated")]
     fn connect_link_activated<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_end_index_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "end-index")]
+    fn connect_end_index_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_number_of_anchors_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "number-of-anchors")]
+    fn connect_number_of_anchors_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_start_index_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "start-index")]
+    fn connect_start_index_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<Hyperlink>> HyperlinkExt for O {
@@ -114,6 +120,7 @@ impl<O: IsA<Hyperlink>> HyperlinkExt for O {
         }
     }
 
+    #[doc(alias = "link-activated")]
     fn connect_link_activated<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn link_activated_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::AtkHyperlink,
@@ -137,7 +144,8 @@ impl<O: IsA<Hyperlink>> HyperlinkExt for O {
         }
     }
 
-    fn connect_property_end_index_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "end-index")]
+    fn connect_end_index_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_end_index_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::AtkHyperlink,
             _param_spec: glib::ffi::gpointer,
@@ -161,10 +169,8 @@ impl<O: IsA<Hyperlink>> HyperlinkExt for O {
         }
     }
 
-    fn connect_property_number_of_anchors_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "number-of-anchors")]
+    fn connect_number_of_anchors_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_number_of_anchors_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::AtkHyperlink,
             _param_spec: glib::ffi::gpointer,
@@ -188,7 +194,8 @@ impl<O: IsA<Hyperlink>> HyperlinkExt for O {
         }
     }
 
-    fn connect_property_start_index_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "start-index")]
+    fn connect_start_index_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_start_index_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::AtkHyperlink,
             _param_spec: glib::ffi::gpointer,

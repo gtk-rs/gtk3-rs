@@ -19,9 +19,11 @@ pub const NONE_REGISTRY: Option<&Registry> = None;
 
 pub trait RegistryExt: 'static {
     #[doc(alias = "atk_registry_get_factory")]
+    #[doc(alias = "get_factory")]
     fn factory(&self, type_: glib::types::Type) -> Option<ObjectFactory>;
 
     #[doc(alias = "atk_registry_get_factory_type")]
+    #[doc(alias = "get_factory_type")]
     fn factory_type(&self, type_: glib::types::Type) -> glib::types::Type;
 
     #[doc(alias = "atk_registry_set_factory_type")]

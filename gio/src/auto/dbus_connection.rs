@@ -38,6 +38,7 @@ glib::wrapper! {
 
 impl DBusConnection {
     #[doc(alias = "g_dbus_connection_new_for_address_sync")]
+    #[doc(alias = "new_for_address_sync")]
     pub fn for_address_sync<P: IsA<Cancellable>>(
         address: &str,
         flags: DBusConnectionFlags,
@@ -536,6 +537,7 @@ impl DBusConnection {
     }
 
     #[doc(alias = "g_dbus_connection_get_capabilities")]
+    #[doc(alias = "get_capabilities")]
     pub fn capabilities(&self) -> DBusCapabilityFlags {
         unsafe {
             from_glib(ffi::g_dbus_connection_get_capabilities(
@@ -545,6 +547,7 @@ impl DBusConnection {
     }
 
     #[doc(alias = "g_dbus_connection_get_exit_on_close")]
+    #[doc(alias = "get_exit_on_close")]
     pub fn exits_on_close(&self) -> bool {
         unsafe {
             from_glib(ffi::g_dbus_connection_get_exit_on_close(
@@ -556,21 +559,25 @@ impl DBusConnection {
     #[cfg(any(feature = "v2_60", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     #[doc(alias = "g_dbus_connection_get_flags")]
+    #[doc(alias = "get_flags")]
     pub fn flags(&self) -> DBusConnectionFlags {
         unsafe { from_glib(ffi::g_dbus_connection_get_flags(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_dbus_connection_get_guid")]
+    #[doc(alias = "get_guid")]
     pub fn guid(&self) -> glib::GString {
         unsafe { from_glib_none(ffi::g_dbus_connection_get_guid(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_dbus_connection_get_last_serial")]
+    #[doc(alias = "get_last_serial")]
     pub fn last_serial(&self) -> u32 {
         unsafe { ffi::g_dbus_connection_get_last_serial(self.to_glib_none().0) }
     }
 
     #[doc(alias = "g_dbus_connection_get_peer_credentials")]
+    #[doc(alias = "get_peer_credentials")]
     pub fn peer_credentials(&self) -> Option<Credentials> {
         unsafe {
             from_glib_none(ffi::g_dbus_connection_get_peer_credentials(
@@ -580,11 +587,13 @@ impl DBusConnection {
     }
 
     #[doc(alias = "g_dbus_connection_get_stream")]
+    #[doc(alias = "get_stream")]
     pub fn stream(&self) -> IOStream {
         unsafe { from_glib_none(ffi::g_dbus_connection_get_stream(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_dbus_connection_get_unique_name")]
+    #[doc(alias = "get_unique_name")]
     pub fn unique_name(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::g_dbus_connection_get_unique_name(
@@ -903,6 +912,7 @@ impl DBusConnection {
         }))
     }
 
+    #[doc(alias = "closed")]
     pub fn connect_closed<
         F: Fn(&DBusConnection, bool, Option<&glib::Error>) + Send + Sync + 'static,
     >(
@@ -939,7 +949,8 @@ impl DBusConnection {
         }
     }
 
-    pub fn connect_property_capabilities_notify<F: Fn(&DBusConnection) + Send + Sync + 'static>(
+    #[doc(alias = "capabilities")]
+    pub fn connect_capabilities_notify<F: Fn(&DBusConnection) + Send + Sync + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -966,7 +977,8 @@ impl DBusConnection {
         }
     }
 
-    pub fn connect_property_closed_notify<F: Fn(&DBusConnection) + Send + Sync + 'static>(
+    #[doc(alias = "closed")]
+    pub fn connect_closed_notify<F: Fn(&DBusConnection) + Send + Sync + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -993,7 +1005,8 @@ impl DBusConnection {
         }
     }
 
-    pub fn connect_property_exit_on_close_notify<F: Fn(&DBusConnection) + Send + Sync + 'static>(
+    #[doc(alias = "exit-on-close")]
+    pub fn connect_exit_on_close_notify<F: Fn(&DBusConnection) + Send + Sync + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -1020,7 +1033,8 @@ impl DBusConnection {
         }
     }
 
-    pub fn connect_property_unique_name_notify<F: Fn(&DBusConnection) + Send + Sync + 'static>(
+    #[doc(alias = "unique-name")]
+    pub fn connect_unique_name_notify<F: Fn(&DBusConnection) + Send + Sync + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {

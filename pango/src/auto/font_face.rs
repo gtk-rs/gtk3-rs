@@ -27,11 +27,13 @@ pub trait FontFaceExt: 'static {
     fn describe(&self) -> Option<FontDescription>;
 
     #[doc(alias = "pango_font_face_get_face_name")]
+    #[doc(alias = "get_face_name")]
     fn face_name(&self) -> Option<glib::GString>;
 
     #[cfg(any(feature = "v1_46", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_46")))]
     #[doc(alias = "pango_font_face_get_family")]
+    #[doc(alias = "get_family")]
     fn family(&self) -> Option<FontFamily>;
 
     #[doc(alias = "pango_font_face_is_synthesized")]

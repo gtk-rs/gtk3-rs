@@ -41,6 +41,7 @@ impl Resolver {
     //}
 
     #[doc(alias = "g_resolver_get_default")]
+    #[doc(alias = "get_default")]
     pub fn default() -> Resolver {
         unsafe { from_glib_full(ffi::g_resolver_get_default()) }
     }
@@ -188,6 +189,7 @@ pub trait ResolverExt: 'static {
     #[doc(alias = "g_resolver_set_default")]
     fn set_default(&self);
 
+    #[doc(alias = "reload")]
     fn connect_reload<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
@@ -622,6 +624,7 @@ impl<O: IsA<Resolver>> ResolverExt for O {
         }
     }
 
+    #[doc(alias = "reload")]
     fn connect_reload<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn reload_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GResolver,

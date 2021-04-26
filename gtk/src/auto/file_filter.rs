@@ -25,6 +25,7 @@ impl FileFilter {
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gtk_file_filter_new_from_gvariant")]
+    #[doc(alias = "new_from_gvariant")]
     pub fn from_gvariant(variant: &glib::Variant) -> FileFilter {
         assert_initialized_main_thread!();
         unsafe {
@@ -66,11 +67,13 @@ impl FileFilter {
     //}
 
     #[doc(alias = "gtk_file_filter_get_name")]
+    #[doc(alias = "get_name")]
     pub fn name(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::gtk_file_filter_get_name(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gtk_file_filter_get_needed")]
+    #[doc(alias = "get_needed")]
     pub fn needed(&self) -> FileFilterFlags {
         unsafe { from_glib(ffi::gtk_file_filter_get_needed(self.to_glib_none().0)) }
     }

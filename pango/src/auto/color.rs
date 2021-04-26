@@ -51,6 +51,7 @@ impl Color {
     }
 
     #[doc(alias = "pango_color_to_string")]
+    #[doc(alias = "to_string")]
     pub fn to_str(&self) -> glib::GString {
         unsafe { from_glib_full(ffi::pango_color_to_string(self.to_glib_none().0)) }
     }

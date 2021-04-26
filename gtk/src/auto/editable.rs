@@ -31,15 +31,19 @@ pub trait EditableExt: 'static {
     fn delete_text(&self, start_pos: i32, end_pos: i32);
 
     #[doc(alias = "gtk_editable_get_chars")]
+    #[doc(alias = "get_chars")]
     fn chars(&self, start_pos: i32, end_pos: i32) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_editable_get_editable")]
+    #[doc(alias = "get_editable")]
     fn is_editable(&self) -> bool;
 
     #[doc(alias = "gtk_editable_get_position")]
+    #[doc(alias = "get_position")]
     fn position(&self) -> i32;
 
     #[doc(alias = "gtk_editable_get_selection_bounds")]
+    #[doc(alias = "get_selection_bounds")]
     fn selection_bounds(&self) -> Option<(i32, i32)>;
 
     #[doc(alias = "gtk_editable_insert_text")]

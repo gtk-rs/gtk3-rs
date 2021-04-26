@@ -27,6 +27,7 @@ impl ThemedIcon {
     }
 
     #[doc(alias = "g_themed_icon_new_from_names")]
+    #[doc(alias = "new_from_names")]
     pub fn from_names(iconnames: &[&str]) -> ThemedIcon {
         let len = iconnames.len() as i32;
         unsafe {
@@ -38,6 +39,7 @@ impl ThemedIcon {
     }
 
     #[doc(alias = "g_themed_icon_new_with_default_fallbacks")]
+    #[doc(alias = "new_with_default_fallbacks")]
     pub fn with_default_fallbacks(iconname: &str) -> ThemedIcon {
         unsafe {
             from_glib_full(ffi::g_themed_icon_new_with_default_fallbacks(
@@ -54,6 +56,7 @@ impl ThemedIcon {
     }
 
     #[doc(alias = "g_themed_icon_get_names")]
+    #[doc(alias = "get_names")]
     pub fn names(&self) -> Vec<glib::GString> {
         unsafe {
             FromGlibPtrContainer::from_glib_none(ffi::g_themed_icon_get_names(
@@ -69,7 +72,7 @@ impl ThemedIcon {
         }
     }
 
-    #[doc(alias = "get_property_use_default_fallbacks")]
+    #[doc(alias = "use-default-fallbacks")]
     pub fn uses_default_fallbacks(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
@@ -84,10 +87,8 @@ impl ThemedIcon {
         }
     }
 
-    pub fn connect_property_names_notify<F: Fn(&ThemedIcon) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "names")]
+    pub fn connect_names_notify<F: Fn(&ThemedIcon) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_names_trampoline<F: Fn(&ThemedIcon) + 'static>(
             this: *mut ffi::GThemedIcon,
             _param_spec: glib::ffi::gpointer,

@@ -225,8 +225,7 @@ impl LayoutBuilder {
         if let Some(ref vscroll_policy) = self.vscroll_policy {
             properties.push(("vscroll-policy", vscroll_policy));
         }
-        let ret = glib::Object::new::<Layout>(&properties).expect("object new");
-        ret
+        glib::Object::new::<Layout>(&properties).expect("Failed to create an instance of Layout")
     }
 
     pub fn height(mut self, height: u32) -> Self {
@@ -441,12 +440,15 @@ pub const NONE_LAYOUT: Option<&Layout> = None;
 
 pub trait LayoutExt: 'static {
     #[doc(alias = "gtk_layout_get_bin_window")]
+    #[doc(alias = "get_bin_window")]
     fn bin_window(&self) -> Option<gdk::Window>;
 
     #[doc(alias = "gtk_layout_get_size")]
+    #[doc(alias = "get_size")]
     fn size(&self) -> (u32, u32);
 
     #[doc(alias = "gtk_layout_move")]
+    #[doc(alias = "move")]
     fn move_<P: IsA<Widget>>(&self, child_widget: &P, x: i32, y: i32);
 
     #[doc(alias = "gtk_layout_put")]
@@ -455,16 +457,12 @@ pub trait LayoutExt: 'static {
     #[doc(alias = "gtk_layout_set_size")]
     fn set_size(&self, width: u32, height: u32);
 
-    #[doc(alias = "get_property_height")]
     fn height(&self) -> u32;
 
-    #[doc(alias = "set_property_height")]
     fn set_height(&self, height: u32);
 
-    #[doc(alias = "get_property_width")]
     fn width(&self) -> u32;
 
-    #[doc(alias = "set_property_width")]
     fn set_width(&self, width: u32);
 
     fn child_x<T: IsA<Widget>>(&self, item: &T) -> i32;
@@ -475,9 +473,11 @@ pub trait LayoutExt: 'static {
 
     fn set_child_y<T: IsA<Widget>>(&self, item: &T, y: i32);
 
-    fn connect_property_height_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "height")]
+    fn connect_height_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_width_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "width")]
+    fn connect_width_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<Layout>> LayoutExt for O {
@@ -628,7 +628,8 @@ impl<O: IsA<Layout>> LayoutExt for O {
         }
     }
 
-    fn connect_property_height_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "height")]
+    fn connect_height_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_height_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLayout,
             _param_spec: glib::ffi::gpointer,
@@ -652,7 +653,8 @@ impl<O: IsA<Layout>> LayoutExt for O {
         }
     }
 
-    fn connect_property_width_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "width")]
+    fn connect_width_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_width_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLayout,
             _param_spec: glib::ffi::gpointer,

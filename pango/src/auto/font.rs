@@ -38,30 +38,37 @@ pub trait FontExt: 'static {
     fn find_shaper(&self, language: &Language, ch: u32) -> Option<EngineShape>;
 
     #[doc(alias = "pango_font_get_coverage")]
+    #[doc(alias = "get_coverage")]
     fn coverage(&self, language: &Language) -> Option<Coverage>;
 
     #[cfg(any(feature = "v1_46", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_46")))]
     #[doc(alias = "pango_font_get_face")]
+    #[doc(alias = "get_face")]
     fn face(&self) -> Option<FontFace>;
 
     //#[cfg(any(feature = "v1_44", feature = "dox"))]
     //#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
     //#[doc(alias = "pango_font_get_features")]
+    //#[doc(alias = "get_features")]
     //fn features(&self, features: /*Unimplemented*/&mut Fundamental: Pointer, num_features: &mut u32) -> u32;
 
     #[doc(alias = "pango_font_get_font_map")]
+    #[doc(alias = "get_font_map")]
     fn font_map(&self) -> Option<FontMap>;
 
     #[doc(alias = "pango_font_get_glyph_extents")]
+    #[doc(alias = "get_glyph_extents")]
     fn glyph_extents(&self, glyph: Glyph) -> (Rectangle, Rectangle);
 
     //#[cfg(any(feature = "v1_44", feature = "dox"))]
     //#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
     //#[doc(alias = "pango_font_get_hb_font")]
+    //#[doc(alias = "get_hb_font")]
     //fn hb_font(&self) -> /*Ignored*/Option<harf_buzz::font_t>;
 
     #[doc(alias = "pango_font_get_metrics")]
+    #[doc(alias = "get_metrics")]
     fn metrics(&self, language: Option<&Language>) -> Option<FontMetrics>;
 
     #[cfg(any(feature = "v1_44", feature = "dox"))]

@@ -35,6 +35,7 @@ pub const NONE_PLUG: Option<&Plug> = None;
 
 pub trait AtkPlugExt: 'static {
     #[doc(alias = "atk_plug_get_id")]
+    #[doc(alias = "get_id")]
     fn id(&self) -> Option<glib::GString>;
 }
 

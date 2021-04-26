@@ -39,6 +39,7 @@ impl GestureSwipe {
     }
 
     #[doc(alias = "gtk_gesture_swipe_get_velocity")]
+    #[doc(alias = "get_velocity")]
     pub fn velocity(&self) -> Option<(f64, f64)> {
         unsafe {
             let mut velocity_x = mem::MaybeUninit::uninit();
@@ -58,6 +59,7 @@ impl GestureSwipe {
         }
     }
 
+    #[doc(alias = "swipe")]
     pub fn connect_swipe<F: Fn(&GestureSwipe, f64, f64) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn swipe_trampoline<F: Fn(&GestureSwipe, f64, f64) + 'static>(
             this: *mut ffi::GtkGestureSwipe,
@@ -121,8 +123,8 @@ impl GestureSwipeBuilder {
         if let Some(ref widget) = self.widget {
             properties.push(("widget", widget));
         }
-        let ret = glib::Object::new::<GestureSwipe>(&properties).expect("object new");
-        ret
+        glib::Object::new::<GestureSwipe>(&properties)
+            .expect("Failed to create an instance of GestureSwipe")
     }
 
     pub fn button(mut self, button: u32) -> Self {

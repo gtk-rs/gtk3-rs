@@ -31,6 +31,7 @@ impl InetSocketAddress {
     }
 
     #[doc(alias = "g_inet_socket_address_new_from_string")]
+    #[doc(alias = "new_from_string")]
     pub fn from_string(address: &str, port: u32) -> Option<InetSocketAddress> {
         unsafe {
             Option::<SocketAddress>::from_glib_full(ffi::g_inet_socket_address_new_from_string(
@@ -49,15 +50,19 @@ pub const NONE_INET_SOCKET_ADDRESS: Option<&InetSocketAddress> = None;
 
 pub trait InetSocketAddressExt: 'static {
     #[doc(alias = "g_inet_socket_address_get_address")]
+    #[doc(alias = "get_address")]
     fn address(&self) -> InetAddress;
 
     #[doc(alias = "g_inet_socket_address_get_flowinfo")]
+    #[doc(alias = "get_flowinfo")]
     fn flowinfo(&self) -> u32;
 
     #[doc(alias = "g_inet_socket_address_get_port")]
+    #[doc(alias = "get_port")]
     fn port(&self) -> u16;
 
     #[doc(alias = "g_inet_socket_address_get_scope_id")]
+    #[doc(alias = "get_scope_id")]
     fn scope_id(&self) -> u32;
 }
 

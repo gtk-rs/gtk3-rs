@@ -179,51 +179,61 @@ impl Subprocess {
     }
 
     #[doc(alias = "g_subprocess_get_exit_status")]
+    #[doc(alias = "get_exit_status")]
     pub fn exit_status(&self) -> i32 {
         unsafe { ffi::g_subprocess_get_exit_status(self.to_glib_none().0) }
     }
 
     #[doc(alias = "g_subprocess_get_identifier")]
+    #[doc(alias = "get_identifier")]
     pub fn identifier(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::g_subprocess_get_identifier(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_subprocess_get_if_exited")]
+    #[doc(alias = "get_if_exited")]
     pub fn has_exited(&self) -> bool {
         unsafe { from_glib(ffi::g_subprocess_get_if_exited(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_subprocess_get_if_signaled")]
+    #[doc(alias = "get_if_signaled")]
     pub fn has_signaled(&self) -> bool {
         unsafe { from_glib(ffi::g_subprocess_get_if_signaled(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_subprocess_get_status")]
+    #[doc(alias = "get_status")]
     pub fn status(&self) -> i32 {
         unsafe { ffi::g_subprocess_get_status(self.to_glib_none().0) }
     }
 
     #[doc(alias = "g_subprocess_get_stderr_pipe")]
+    #[doc(alias = "get_stderr_pipe")]
     pub fn stderr_pipe(&self) -> Option<InputStream> {
         unsafe { from_glib_none(ffi::g_subprocess_get_stderr_pipe(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_subprocess_get_stdin_pipe")]
+    #[doc(alias = "get_stdin_pipe")]
     pub fn stdin_pipe(&self) -> Option<OutputStream> {
         unsafe { from_glib_none(ffi::g_subprocess_get_stdin_pipe(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_subprocess_get_stdout_pipe")]
+    #[doc(alias = "get_stdout_pipe")]
     pub fn stdout_pipe(&self) -> Option<InputStream> {
         unsafe { from_glib_none(ffi::g_subprocess_get_stdout_pipe(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_subprocess_get_successful")]
+    #[doc(alias = "get_successful")]
     pub fn is_successful(&self) -> bool {
         unsafe { from_glib(ffi::g_subprocess_get_successful(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_subprocess_get_term_sig")]
+    #[doc(alias = "get_term_sig")]
     pub fn term_sig(&self) -> i32 {
         unsafe { ffi::g_subprocess_get_term_sig(self.to_glib_none().0) }
     }

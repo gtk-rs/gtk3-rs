@@ -261,30 +261,39 @@ pub trait FileExt: 'static {
     ) -> Result<Mount, glib::Error>;
 
     #[doc(alias = "g_file_get_basename")]
+    #[doc(alias = "get_basename")]
     fn basename(&self) -> Option<std::path::PathBuf>;
 
     #[doc(alias = "g_file_get_child")]
+    #[doc(alias = "get_child")]
     fn child<P: AsRef<std::path::Path>>(&self, name: P) -> File;
 
     #[doc(alias = "g_file_get_child_for_display_name")]
+    #[doc(alias = "get_child_for_display_name")]
     fn child_for_display_name(&self, display_name: &str) -> Result<File, glib::Error>;
 
     #[doc(alias = "g_file_get_parent")]
+    #[doc(alias = "get_parent")]
     fn parent(&self) -> Option<File>;
 
     #[doc(alias = "g_file_get_parse_name")]
+    #[doc(alias = "get_parse_name")]
     fn parse_name(&self) -> glib::GString;
 
     #[doc(alias = "g_file_get_path")]
+    #[doc(alias = "get_path")]
     fn path(&self) -> Option<std::path::PathBuf>;
 
     #[doc(alias = "g_file_get_relative_path")]
+    #[doc(alias = "get_relative_path")]
     fn relative_path<P: IsA<File>>(&self, descendant: &P) -> Option<std::path::PathBuf>;
 
     #[doc(alias = "g_file_get_uri")]
+    #[doc(alias = "get_uri")]
     fn uri(&self) -> glib::GString;
 
     #[doc(alias = "g_file_get_uri_scheme")]
+    #[doc(alias = "get_uri_scheme")]
     fn uri_scheme(&self) -> Option<glib::GString>;
 
     #[doc(alias = "g_file_has_parent")]
@@ -471,6 +480,7 @@ pub trait FileExt: 'static {
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<File, glib::Error>> + 'static>>;
 
     #[doc(alias = "g_file_move")]
+    #[doc(alias = "move")]
     fn move_<P: IsA<File>, Q: IsA<Cancellable>>(
         &self,
         destination: &P,

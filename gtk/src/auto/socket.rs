@@ -195,8 +195,7 @@ impl SocketBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        let ret = glib::Object::new::<Socket>(&properties).expect("object new");
-        ret
+        glib::Object::new::<Socket>(&properties).expect("Failed to create an instance of Socket")
     }
 
     pub fn border_width(mut self, border_width: u32) -> Self {
@@ -384,13 +383,17 @@ pub trait GtkSocketExt: 'static {
     fn add_id(&self, window: xlib::Window);
 
     #[doc(alias = "gtk_socket_get_id")]
+    #[doc(alias = "get_id")]
     fn id(&self) -> xlib::Window;
 
     #[doc(alias = "gtk_socket_get_plug_window")]
+    #[doc(alias = "get_plug_window")]
     fn plug_window(&self) -> Option<gdk::Window>;
 
+    #[doc(alias = "plug-added")]
     fn connect_plug_added<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "plug-removed")]
     fn connect_plug_removed<F: Fn(&Self) -> bool + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
@@ -413,6 +416,7 @@ impl<O: IsA<Socket>> GtkSocketExt for O {
         }
     }
 
+    #[doc(alias = "plug-added")]
     fn connect_plug_added<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn plug_added_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkSocket,
@@ -436,6 +440,7 @@ impl<O: IsA<Socket>> GtkSocketExt for O {
         }
     }
 
+    #[doc(alias = "plug-removed")]
     fn connect_plug_removed<F: Fn(&Self) -> bool + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn plug_removed_trampoline<P, F: Fn(&P) -> bool + 'static>(
             this: *mut ffi::GtkSocket,

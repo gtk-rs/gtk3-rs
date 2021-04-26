@@ -25,9 +25,11 @@ pub const NONE_MENU_MODEL: Option<&MenuModel> = None;
 
 pub trait MenuModelExt: 'static {
     //#[doc(alias = "g_menu_model_get_item_attribute")]
+    //#[doc(alias = "get_item_attribute")]
     //fn is_item_attribute(&self, item_index: i32, attribute: &str, format_string: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> bool;
 
     #[doc(alias = "g_menu_model_get_item_attribute_value")]
+    #[doc(alias = "get_item_attribute_value")]
     fn item_attribute_value(
         &self,
         item_index: i32,
@@ -36,9 +38,11 @@ pub trait MenuModelExt: 'static {
     ) -> Option<glib::Variant>;
 
     #[doc(alias = "g_menu_model_get_item_link")]
+    #[doc(alias = "get_item_link")]
     fn item_link(&self, item_index: i32, link: &str) -> Option<MenuModel>;
 
     #[doc(alias = "g_menu_model_get_n_items")]
+    #[doc(alias = "get_n_items")]
     fn n_items(&self) -> i32;
 
     #[doc(alias = "g_menu_model_is_mutable")]
@@ -53,6 +57,7 @@ pub trait MenuModelExt: 'static {
     #[doc(alias = "g_menu_model_iterate_item_links")]
     fn iterate_item_links(&self, item_index: i32) -> MenuLinkIter;
 
+    #[doc(alias = "items-changed")]
     fn connect_items_changed<F: Fn(&Self, i32, i32, i32) + 'static>(&self, f: F)
         -> SignalHandlerId;
 }
@@ -125,6 +130,7 @@ impl<O: IsA<MenuModel>> MenuModelExt for O {
         }
     }
 
+    #[doc(alias = "items-changed")]
     fn connect_items_changed<F: Fn(&Self, i32, i32, i32) + 'static>(
         &self,
         f: F,

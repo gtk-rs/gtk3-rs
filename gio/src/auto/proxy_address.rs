@@ -52,24 +52,31 @@ pub const NONE_PROXY_ADDRESS: Option<&ProxyAddress> = None;
 
 pub trait ProxyAddressExt: 'static {
     #[doc(alias = "g_proxy_address_get_destination_hostname")]
+    #[doc(alias = "get_destination_hostname")]
     fn destination_hostname(&self) -> glib::GString;
 
     #[doc(alias = "g_proxy_address_get_destination_port")]
+    #[doc(alias = "get_destination_port")]
     fn destination_port(&self) -> u16;
 
     #[doc(alias = "g_proxy_address_get_destination_protocol")]
+    #[doc(alias = "get_destination_protocol")]
     fn destination_protocol(&self) -> glib::GString;
 
     #[doc(alias = "g_proxy_address_get_password")]
+    #[doc(alias = "get_password")]
     fn password(&self) -> Option<glib::GString>;
 
     #[doc(alias = "g_proxy_address_get_protocol")]
+    #[doc(alias = "get_protocol")]
     fn protocol(&self) -> glib::GString;
 
     #[doc(alias = "g_proxy_address_get_uri")]
+    #[doc(alias = "get_uri")]
     fn uri(&self) -> Option<glib::GString>;
 
     #[doc(alias = "g_proxy_address_get_username")]
+    #[doc(alias = "get_username")]
     fn username(&self) -> Option<glib::GString>;
 }
 

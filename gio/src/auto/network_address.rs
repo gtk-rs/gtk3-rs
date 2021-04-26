@@ -68,12 +68,15 @@ pub const NONE_NETWORK_ADDRESS: Option<&NetworkAddress> = None;
 
 pub trait NetworkAddressExt: 'static {
     #[doc(alias = "g_network_address_get_hostname")]
+    #[doc(alias = "get_hostname")]
     fn hostname(&self) -> glib::GString;
 
     #[doc(alias = "g_network_address_get_port")]
+    #[doc(alias = "get_port")]
     fn port(&self) -> u16;
 
     #[doc(alias = "g_network_address_get_scheme")]
+    #[doc(alias = "get_scheme")]
     fn scheme(&self) -> Option<glib::GString>;
 }
 

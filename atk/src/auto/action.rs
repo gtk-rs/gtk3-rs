@@ -21,18 +21,23 @@ pub trait AtkActionExt: 'static {
     fn do_action(&self, i: i32) -> bool;
 
     #[doc(alias = "atk_action_get_description")]
+    #[doc(alias = "get_description")]
     fn description(&self, i: i32) -> Option<glib::GString>;
 
     #[doc(alias = "atk_action_get_keybinding")]
+    #[doc(alias = "get_keybinding")]
     fn keybinding(&self, i: i32) -> Option<glib::GString>;
 
     #[doc(alias = "atk_action_get_localized_name")]
+    #[doc(alias = "get_localized_name")]
     fn localized_name(&self, i: i32) -> Option<glib::GString>;
 
     #[doc(alias = "atk_action_get_n_actions")]
+    #[doc(alias = "get_n_actions")]
     fn n_actions(&self) -> i32;
 
     #[doc(alias = "atk_action_get_name")]
+    #[doc(alias = "get_name")]
     fn name(&self, i: i32) -> Option<glib::GString>;
 
     #[doc(alias = "atk_action_set_description")]

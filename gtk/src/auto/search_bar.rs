@@ -204,8 +204,8 @@ impl SearchBarBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        let ret = glib::Object::new::<SearchBar>(&properties).expect("object new");
-        ret
+        glib::Object::new::<SearchBar>(&properties)
+            .expect("Failed to create an instance of SearchBar")
     }
 
     pub fn search_mode_enabled(mut self, search_mode_enabled: bool) -> Self {
@@ -403,9 +403,11 @@ pub trait SearchBarExt: 'static {
     fn connect_entry<P: IsA<Entry>>(&self, entry: &P);
 
     #[doc(alias = "gtk_search_bar_get_search_mode")]
+    #[doc(alias = "get_search_mode")]
     fn is_search_mode(&self) -> bool;
 
     #[doc(alias = "gtk_search_bar_get_show_close_button")]
+    #[doc(alias = "get_show_close_button")]
     fn shows_close_button(&self) -> bool;
 
     #[doc(alias = "gtk_search_bar_handle_event")]
@@ -417,21 +419,17 @@ pub trait SearchBarExt: 'static {
     #[doc(alias = "gtk_search_bar_set_show_close_button")]
     fn set_show_close_button(&self, visible: bool);
 
-    #[doc(alias = "get_property_search_mode_enabled")]
+    #[doc(alias = "search-mode-enabled")]
     fn is_search_mode_enabled(&self) -> bool;
 
-    #[doc(alias = "set_property_search_mode_enabled")]
+    #[doc(alias = "search-mode-enabled")]
     fn set_search_mode_enabled(&self, search_mode_enabled: bool);
 
-    fn connect_property_search_mode_enabled_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "search-mode-enabled")]
+    fn connect_search_mode_enabled_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_show_close_button_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "show-close-button")]
+    fn connect_show_close_button_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<SearchBar>> SearchBarExt for O {
@@ -511,10 +509,8 @@ impl<O: IsA<SearchBar>> SearchBarExt for O {
         }
     }
 
-    fn connect_property_search_mode_enabled_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "search-mode-enabled")]
+    fn connect_search_mode_enabled_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_search_mode_enabled_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkSearchBar,
             _param_spec: glib::ffi::gpointer,
@@ -538,10 +534,8 @@ impl<O: IsA<SearchBar>> SearchBarExt for O {
         }
     }
 
-    fn connect_property_show_close_button_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "show-close-button")]
+    fn connect_show_close_button_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_close_button_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkSearchBar,
             _param_spec: glib::ffi::gpointer,

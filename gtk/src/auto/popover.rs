@@ -44,6 +44,7 @@ impl Popover {
     }
 
     #[doc(alias = "gtk_popover_new_from_model")]
+    #[doc(alias = "new_from_model")]
     pub fn from_model<P: IsA<Widget>, Q: IsA<gio::MenuModel>>(
         relative_to: Option<&P>,
         model: &Q,
@@ -243,8 +244,7 @@ impl PopoverBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        let ret = glib::Object::new::<Popover>(&properties).expect("object new");
-        ret
+        glib::Object::new::<Popover>(&properties).expect("Failed to create an instance of Popover")
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
@@ -468,29 +468,36 @@ pub trait PopoverExt: 'static {
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "gtk_popover_get_constrain_to")]
+    #[doc(alias = "get_constrain_to")]
     fn constrain_to(&self) -> PopoverConstraint;
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gtk_popover_get_default_widget")]
+    #[doc(alias = "get_default_widget")]
     fn default_widget(&self) -> Option<Widget>;
 
     #[doc(alias = "gtk_popover_get_modal")]
+    #[doc(alias = "get_modal")]
     fn is_modal(&self) -> bool;
 
     #[doc(alias = "gtk_popover_get_pointing_to")]
+    #[doc(alias = "get_pointing_to")]
     fn pointing_to(&self) -> Option<gdk::Rectangle>;
 
     #[doc(alias = "gtk_popover_get_position")]
+    #[doc(alias = "get_position")]
     fn position(&self) -> PositionType;
 
     #[doc(alias = "gtk_popover_get_relative_to")]
+    #[doc(alias = "get_relative_to")]
     fn relative_to(&self) -> Option<Widget>;
 
     #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_popover_get_transitions_enabled")]
+    #[doc(alias = "get_transitions_enabled")]
     fn is_transitions_enabled(&self) -> bool;
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
@@ -531,28 +538,31 @@ pub trait PopoverExt: 'static {
     #[doc(alias = "gtk_popover_set_transitions_enabled")]
     fn set_transitions_enabled(&self, transitions_enabled: bool);
 
+    #[doc(alias = "closed")]
     fn connect_closed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-    fn connect_property_constrain_to_notify<F: Fn(&Self) + 'static>(&self, f: F)
-        -> SignalHandlerId;
+    #[doc(alias = "constrain-to")]
+    fn connect_constrain_to_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_modal_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "modal")]
+    fn connect_modal_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_pointing_to_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "pointing-to")]
+    fn connect_pointing_to_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_position_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "position")]
+    fn connect_position_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_relative_to_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "relative-to")]
+    fn connect_relative_to_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    fn connect_property_transitions_enabled_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "transitions-enabled")]
+    fn connect_transitions_enabled_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<Popover>> PopoverExt for O {
@@ -711,6 +721,7 @@ impl<O: IsA<Popover>> PopoverExt for O {
         }
     }
 
+    #[doc(alias = "closed")]
     fn connect_closed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn closed_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkPopover,
@@ -736,10 +747,8 @@ impl<O: IsA<Popover>> PopoverExt for O {
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-    fn connect_property_constrain_to_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "constrain-to")]
+    fn connect_constrain_to_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_constrain_to_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkPopover,
             _param_spec: glib::ffi::gpointer,
@@ -763,7 +772,8 @@ impl<O: IsA<Popover>> PopoverExt for O {
         }
     }
 
-    fn connect_property_modal_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "modal")]
+    fn connect_modal_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_modal_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkPopover,
             _param_spec: glib::ffi::gpointer,
@@ -787,7 +797,8 @@ impl<O: IsA<Popover>> PopoverExt for O {
         }
     }
 
-    fn connect_property_pointing_to_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "pointing-to")]
+    fn connect_pointing_to_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_pointing_to_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkPopover,
             _param_spec: glib::ffi::gpointer,
@@ -811,7 +822,8 @@ impl<O: IsA<Popover>> PopoverExt for O {
         }
     }
 
-    fn connect_property_position_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "position")]
+    fn connect_position_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_position_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkPopover,
             _param_spec: glib::ffi::gpointer,
@@ -835,7 +847,8 @@ impl<O: IsA<Popover>> PopoverExt for O {
         }
     }
 
-    fn connect_property_relative_to_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "relative-to")]
+    fn connect_relative_to_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_relative_to_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkPopover,
             _param_spec: glib::ffi::gpointer,
@@ -861,10 +874,8 @@ impl<O: IsA<Popover>> PopoverExt for O {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    fn connect_property_transitions_enabled_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "transitions-enabled")]
+    fn connect_transitions_enabled_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_transitions_enabled_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkPopover,
             _param_spec: glib::ffi::gpointer,

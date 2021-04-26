@@ -367,8 +367,8 @@ impl SearchEntryBuilder {
         if let Some(ref editing_canceled) = self.editing_canceled {
             properties.push(("editing-canceled", editing_canceled));
         }
-        let ret = glib::Object::new::<SearchEntry>(&properties).expect("object new");
-        ret
+        glib::Object::new::<SearchEntry>(&properties)
+            .expect("Failed to create an instance of SearchEntry")
     }
 
     pub fn activates_default(mut self, activates_default: bool) -> Self {
@@ -759,6 +759,7 @@ pub trait SearchEntryExt: 'static {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[doc(alias = "next-match")]
     fn connect_next_match<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
@@ -767,16 +768,19 @@ pub trait SearchEntryExt: 'static {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[doc(alias = "previous-match")]
     fn connect_previous_match<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn emit_previous_match(&self);
 
+    #[doc(alias = "search-changed")]
     fn connect_search_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[doc(alias = "stop-search")]
     fn connect_stop_search<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
@@ -798,6 +802,7 @@ impl<O: IsA<SearchEntry>> SearchEntryExt for O {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[doc(alias = "next-match")]
     fn connect_next_match<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn next_match_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkSearchEntry,
@@ -833,6 +838,7 @@ impl<O: IsA<SearchEntry>> SearchEntryExt for O {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[doc(alias = "previous-match")]
     fn connect_previous_match<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn previous_match_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkSearchEntry,
@@ -866,6 +872,7 @@ impl<O: IsA<SearchEntry>> SearchEntryExt for O {
         };
     }
 
+    #[doc(alias = "search-changed")]
     fn connect_search_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn search_changed_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkSearchEntry,
@@ -891,6 +898,7 @@ impl<O: IsA<SearchEntry>> SearchEntryExt for O {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[doc(alias = "stop-search")]
     fn connect_stop_search<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn stop_search_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkSearchEntry,

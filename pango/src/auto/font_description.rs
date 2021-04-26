@@ -55,6 +55,7 @@ impl FontDescription {
     }
 
     #[doc(alias = "pango_font_description_get_family")]
+    #[doc(alias = "get_family")]
     pub fn family(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::pango_font_description_get_family(
@@ -64,6 +65,7 @@ impl FontDescription {
     }
 
     #[doc(alias = "pango_font_description_get_gravity")]
+    #[doc(alias = "get_gravity")]
     pub fn gravity(&self) -> Gravity {
         unsafe {
             from_glib(ffi::pango_font_description_get_gravity(
@@ -73,6 +75,7 @@ impl FontDescription {
     }
 
     #[doc(alias = "pango_font_description_get_set_fields")]
+    #[doc(alias = "get_set_fields")]
     pub fn set_fields(&self) -> FontMask {
         unsafe {
             from_glib(ffi::pango_font_description_get_set_fields(
@@ -82,11 +85,13 @@ impl FontDescription {
     }
 
     #[doc(alias = "pango_font_description_get_size")]
+    #[doc(alias = "get_size")]
     pub fn size(&self) -> i32 {
         unsafe { ffi::pango_font_description_get_size(self.to_glib_none().0) }
     }
 
     #[doc(alias = "pango_font_description_get_size_is_absolute")]
+    #[doc(alias = "get_size_is_absolute")]
     pub fn is_size_absolute(&self) -> bool {
         unsafe {
             from_glib(ffi::pango_font_description_get_size_is_absolute(
@@ -96,6 +101,7 @@ impl FontDescription {
     }
 
     #[doc(alias = "pango_font_description_get_stretch")]
+    #[doc(alias = "get_stretch")]
     pub fn stretch(&self) -> Stretch {
         unsafe {
             from_glib(ffi::pango_font_description_get_stretch(
@@ -105,11 +111,13 @@ impl FontDescription {
     }
 
     #[doc(alias = "pango_font_description_get_style")]
+    #[doc(alias = "get_style")]
     pub fn style(&self) -> Style {
         unsafe { from_glib(ffi::pango_font_description_get_style(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "pango_font_description_get_variant")]
+    #[doc(alias = "get_variant")]
     pub fn variant(&self) -> Variant {
         unsafe {
             from_glib(ffi::pango_font_description_get_variant(
@@ -121,6 +129,7 @@ impl FontDescription {
     #[cfg(any(feature = "v1_42", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_42")))]
     #[doc(alias = "pango_font_description_get_variations")]
+    #[doc(alias = "get_variations")]
     pub fn variations(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::pango_font_description_get_variations(
@@ -130,6 +139,7 @@ impl FontDescription {
     }
 
     #[doc(alias = "pango_font_description_get_weight")]
+    #[doc(alias = "get_weight")]
     pub fn weight(&self) -> Weight {
         unsafe {
             from_glib(ffi::pango_font_description_get_weight(
@@ -247,6 +257,7 @@ impl FontDescription {
     }
 
     #[doc(alias = "pango_font_description_to_string")]
+    #[doc(alias = "to_string")]
     pub fn to_str(&self) -> glib::GString {
         unsafe { from_glib_full(ffi::pango_font_description_to_string(self.to_glib_none().0)) }
     }

@@ -196,8 +196,8 @@ impl FlowBoxChildBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        let ret = glib::Object::new::<FlowBoxChild>(&properties).expect("object new");
-        ret
+        glib::Object::new::<FlowBoxChild>(&properties)
+            .expect("Failed to create an instance of FlowBoxChild")
     }
 
     pub fn border_width(mut self, border_width: u32) -> Self {
@@ -385,11 +385,13 @@ pub trait FlowBoxChildExt: 'static {
     fn changed(&self);
 
     #[doc(alias = "gtk_flow_box_child_get_index")]
+    #[doc(alias = "get_index")]
     fn index(&self) -> i32;
 
     #[doc(alias = "gtk_flow_box_child_is_selected")]
     fn is_selected(&self) -> bool;
 
+    #[doc(alias = "activate")]
     fn connect_activate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn emit_activate(&self);
@@ -414,6 +416,7 @@ impl<O: IsA<FlowBoxChild>> FlowBoxChildExt for O {
         }
     }
 
+    #[doc(alias = "activate")]
     fn connect_activate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn activate_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkFlowBoxChild,

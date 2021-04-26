@@ -222,8 +222,8 @@ impl SeparatorMenuItemBuilder {
         if let Some(ref action_target) = self.action_target {
             properties.push(("action-target", action_target));
         }
-        let ret = glib::Object::new::<SeparatorMenuItem>(&properties).expect("object new");
-        ret
+        glib::Object::new::<SeparatorMenuItem>(&properties)
+            .expect("Failed to create an instance of SeparatorMenuItem")
     }
 
     pub fn accel_path(mut self, accel_path: &str) -> Self {

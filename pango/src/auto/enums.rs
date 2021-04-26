@@ -29,7 +29,7 @@ impl fmt::Display for Alignment {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "Alignment::{}",
             match *self {
                 Self::Left => "Left",
                 Self::Center => "Center",
@@ -170,6 +170,7 @@ pub enum AttrType {
 
 impl AttrType {
     #[doc(alias = "pango_attr_type_get_name")]
+    #[doc(alias = "get_name")]
     pub fn name(self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::pango_attr_type_get_name(self.into_glib())) }
     }
@@ -179,7 +180,7 @@ impl fmt::Display for AttrType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "AttrType::{}",
             match *self {
                 Self::Invalid => "Invalid",
                 Self::Language => "Language",
@@ -390,7 +391,7 @@ impl fmt::Display for BidiType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "BidiType::{}",
             match *self {
                 Self::L => "L",
                 Self::Lre => "Lre",
@@ -527,7 +528,7 @@ impl fmt::Display for CoverageLevel {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "CoverageLevel::{}",
             match *self {
                 Self::None => "None",
                 Self::Fallback => "Fallback",
@@ -625,7 +626,7 @@ impl fmt::Display for Direction {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "Direction::{}",
             match *self {
                 Self::Ltr => "Ltr",
                 Self::Rtl => "Rtl",
@@ -726,7 +727,7 @@ impl fmt::Display for EllipsizeMode {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "EllipsizeMode::{}",
             match *self {
                 Self::None => "None",
                 Self::Start => "Start",
@@ -818,11 +819,13 @@ pub enum Gravity {
 
 impl Gravity {
     #[doc(alias = "pango_gravity_get_for_matrix")]
+    #[doc(alias = "get_for_matrix")]
     pub fn for_matrix(matrix: Option<&Matrix>) -> Gravity {
         unsafe { from_glib(ffi::pango_gravity_get_for_matrix(matrix.to_glib_none().0)) }
     }
 
     #[doc(alias = "pango_gravity_get_for_script")]
+    #[doc(alias = "get_for_script")]
     pub fn for_script(script: Script, base_gravity: Gravity, hint: GravityHint) -> Gravity {
         unsafe {
             from_glib(ffi::pango_gravity_get_for_script(
@@ -834,6 +837,7 @@ impl Gravity {
     }
 
     #[doc(alias = "pango_gravity_get_for_script_and_width")]
+    #[doc(alias = "get_for_script_and_width")]
     pub fn for_script_and_width(
         script: Script,
         wide: bool,
@@ -860,7 +864,7 @@ impl fmt::Display for Gravity {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "Gravity::{}",
             match *self {
                 Self::South => "South",
                 Self::East => "East",
@@ -953,7 +957,7 @@ impl fmt::Display for GravityHint {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "GravityHint::{}",
             match *self {
                 Self::Natural => "Natural",
                 Self::Strong => "Strong",
@@ -1042,7 +1046,7 @@ impl fmt::Display for Overline {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "Overline::{}",
             match *self {
                 Self::None => "None",
                 Self::Single => "Single",
@@ -1142,7 +1146,7 @@ impl fmt::Display for RenderPart {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "RenderPart::{}",
             match *self {
                 Self::Foreground => "Foreground",
                 Self::Background => "Background",
@@ -1469,6 +1473,7 @@ impl Script {
     }
 
     #[doc(alias = "pango_script_get_sample_language")]
+    #[doc(alias = "get_sample_language")]
     pub fn sample_language(self) -> Option<Language> {
         unsafe { from_glib_full(ffi::pango_script_get_sample_language(self.into_glib())) }
     }
@@ -1478,7 +1483,7 @@ impl fmt::Display for Script {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "Script::{}",
             match *self {
                 Self::InvalidCode => "InvalidCode",
                 Self::Common => "Common",
@@ -1922,7 +1927,7 @@ impl fmt::Display for Stretch {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "Stretch::{}",
             match *self {
                 Self::UltraCondensed => "UltraCondensed",
                 Self::ExtraCondensed => "ExtraCondensed",
@@ -2027,7 +2032,7 @@ impl fmt::Display for Style {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "Style::{}",
             match *self {
                 Self::Normal => "Normal",
                 Self::Oblique => "Oblique",
@@ -2110,7 +2115,7 @@ impl fmt::Display for TabAlign {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "TabAlign::{}",
             match *self {
                 Self::Left => "Left",
                 _ => "Unknown",
@@ -2201,7 +2206,7 @@ impl fmt::Display for Underline {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "Underline::{}",
             match *self {
                 Self::None => "None",
                 Self::Single => "Single",
@@ -2301,7 +2306,7 @@ impl fmt::Display for Variant {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "Variant::{}",
             match *self {
                 Self::Normal => "Normal",
                 Self::SmallCaps => "SmallCaps",
@@ -2403,7 +2408,7 @@ impl fmt::Display for Weight {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "Weight::{}",
             match *self {
                 Self::Thin => "Thin",
                 Self::Ultralight => "Ultralight",
@@ -2517,7 +2522,7 @@ impl fmt::Display for WrapMode {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "WrapMode::{}",
             match *self {
                 Self::Word => "Word",
                 Self::Char => "Char",

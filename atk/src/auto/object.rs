@@ -36,36 +36,47 @@ pub trait AtkObjectExt: 'static {
     #[cfg(any(feature = "v2_34", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
     #[doc(alias = "atk_object_get_accessible_id")]
+    #[doc(alias = "get_accessible_id")]
     fn accessible_id(&self) -> Option<glib::GString>;
 
     //#[doc(alias = "atk_object_get_attributes")]
+    //#[doc(alias = "get_attributes")]
     //fn attributes(&self) -> /*Ignored*/Option<AttributeSet>;
 
     #[doc(alias = "atk_object_get_description")]
+    #[doc(alias = "get_description")]
     fn description(&self) -> Option<glib::GString>;
 
     #[doc(alias = "atk_object_get_index_in_parent")]
+    #[doc(alias = "get_index_in_parent")]
     fn index_in_parent(&self) -> i32;
 
     #[doc(alias = "atk_object_get_layer")]
+    #[doc(alias = "get_layer")]
     fn layer(&self) -> Layer;
 
     #[doc(alias = "atk_object_get_mdi_zorder")]
+    #[doc(alias = "get_mdi_zorder")]
     fn mdi_zorder(&self) -> i32;
 
     #[doc(alias = "atk_object_get_n_accessible_children")]
+    #[doc(alias = "get_n_accessible_children")]
     fn n_accessible_children(&self) -> i32;
 
     #[doc(alias = "atk_object_get_name")]
+    #[doc(alias = "get_name")]
     fn name(&self) -> Option<glib::GString>;
 
     #[doc(alias = "atk_object_get_object_locale")]
+    #[doc(alias = "get_object_locale")]
     fn object_locale(&self) -> Option<glib::GString>;
 
     #[doc(alias = "atk_object_get_parent")]
+    #[doc(alias = "get_parent")]
     fn parent(&self) -> Option<Object>;
 
     #[doc(alias = "atk_object_get_role")]
+    #[doc(alias = "get_role")]
     fn role(&self) -> Role;
 
     //#[doc(alias = "atk_object_initialize")]
@@ -106,195 +117,203 @@ pub trait AtkObjectExt: 'static {
     #[doc(alias = "atk_object_set_role")]
     fn set_role(&self, role: Role);
 
-    #[doc(alias = "get_property_accessible_component_layer")]
+    #[doc(alias = "accessible-component-layer")]
     fn accessible_component_layer(&self) -> i32;
 
-    #[doc(alias = "get_property_accessible_component_mdi_zorder")]
+    #[doc(alias = "accessible-component-mdi-zorder")]
     fn accessible_component_mdi_zorder(&self) -> i32;
 
-    #[doc(alias = "get_property_accessible_description")]
+    #[doc(alias = "accessible-description")]
     fn accessible_description(&self) -> Option<glib::GString>;
 
-    #[doc(alias = "set_property_accessible_description")]
+    #[doc(alias = "accessible-description")]
     fn set_accessible_description(&self, accessible_description: Option<&str>);
 
-    #[doc(alias = "get_property_accessible_hypertext_nlinks")]
+    #[doc(alias = "accessible-hypertext-nlinks")]
     fn accessible_hypertext_nlinks(&self) -> i32;
 
-    #[doc(alias = "get_property_accessible_name")]
+    #[doc(alias = "accessible-name")]
     fn accessible_name(&self) -> Option<glib::GString>;
 
-    #[doc(alias = "set_property_accessible_name")]
+    #[doc(alias = "accessible-name")]
     fn set_accessible_name(&self, accessible_name: Option<&str>);
 
-    #[doc(alias = "get_property_accessible_parent")]
+    #[doc(alias = "accessible-parent")]
     fn accessible_parent(&self) -> Option<Object>;
 
-    #[doc(alias = "set_property_accessible_parent")]
+    #[doc(alias = "accessible-parent")]
     fn set_accessible_parent<P: IsA<Object>>(&self, accessible_parent: Option<&P>);
 
-    #[doc(alias = "get_property_accessible_role")]
+    #[doc(alias = "accessible-role")]
     fn accessible_role(&self) -> Role;
 
-    #[doc(alias = "set_property_accessible_role")]
+    #[doc(alias = "accessible-role")]
     fn set_accessible_role(&self, accessible_role: Role);
 
-    #[doc(alias = "get_property_accessible_table_caption")]
+    #[doc(alias = "accessible-table-caption")]
     fn accessible_table_caption(&self) -> Option<glib::GString>;
 
-    #[doc(alias = "set_property_accessible_table_caption")]
+    #[doc(alias = "accessible-table-caption")]
     fn set_accessible_table_caption(&self, accessible_table_caption: Option<&str>);
 
-    #[doc(alias = "get_property_accessible_table_caption_object")]
+    #[doc(alias = "accessible-table-caption-object")]
     fn accessible_table_caption_object(&self) -> Option<Object>;
 
-    #[doc(alias = "set_property_accessible_table_caption_object")]
+    #[doc(alias = "accessible-table-caption-object")]
     fn set_accessible_table_caption_object<P: IsA<Object>>(
         &self,
         accessible_table_caption_object: Option<&P>,
     );
 
-    #[doc(alias = "get_property_accessible_table_column_description")]
+    #[doc(alias = "accessible-table-column-description")]
     fn accessible_table_column_description(&self) -> Option<glib::GString>;
 
-    #[doc(alias = "set_property_accessible_table_column_description")]
+    #[doc(alias = "accessible-table-column-description")]
     fn set_accessible_table_column_description(
         &self,
         accessible_table_column_description: Option<&str>,
     );
 
-    #[doc(alias = "get_property_accessible_table_column_header")]
+    #[doc(alias = "accessible-table-column-header")]
     fn accessible_table_column_header(&self) -> Option<Object>;
 
-    #[doc(alias = "set_property_accessible_table_column_header")]
+    #[doc(alias = "accessible-table-column-header")]
     fn set_accessible_table_column_header<P: IsA<Object>>(
         &self,
         accessible_table_column_header: Option<&P>,
     );
 
-    #[doc(alias = "get_property_accessible_table_row_description")]
+    #[doc(alias = "accessible-table-row-description")]
     fn accessible_table_row_description(&self) -> Option<glib::GString>;
 
-    #[doc(alias = "set_property_accessible_table_row_description")]
+    #[doc(alias = "accessible-table-row-description")]
     fn set_accessible_table_row_description(&self, accessible_table_row_description: Option<&str>);
 
-    #[doc(alias = "get_property_accessible_table_row_header")]
+    #[doc(alias = "accessible-table-row-header")]
     fn accessible_table_row_header(&self) -> Option<Object>;
 
-    #[doc(alias = "set_property_accessible_table_row_header")]
+    #[doc(alias = "accessible-table-row-header")]
     fn set_accessible_table_row_header<P: IsA<Object>>(
         &self,
         accessible_table_row_header: Option<&P>,
     );
 
-    #[doc(alias = "get_property_accessible_table_summary")]
+    #[doc(alias = "accessible-table-summary")]
     fn accessible_table_summary(&self) -> Option<Object>;
 
-    #[doc(alias = "set_property_accessible_table_summary")]
+    #[doc(alias = "accessible-table-summary")]
     fn set_accessible_table_summary<P: IsA<Object>>(&self, accessible_table_summary: Option<&P>);
 
-    #[doc(alias = "get_property_accessible_value")]
+    #[doc(alias = "accessible-value")]
     fn accessible_value(&self) -> f64;
 
-    #[doc(alias = "set_property_accessible_value")]
+    #[doc(alias = "accessible-value")]
     fn set_accessible_value(&self, accessible_value: f64);
 
+    #[doc(alias = "active-descendant-changed")]
     fn connect_active_descendant_changed<F: Fn(&Self, &Object) + 'static>(
         &self,
         detail: Option<&str>,
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "children-changed")]
     fn connect_children_changed<F: Fn(&Self, u32, &Object) + 'static>(
         &self,
         detail: Option<&str>,
         f: F,
     ) -> SignalHandlerId;
 
+    //#[doc(alias = "property-change")]
     //fn connect_property_change<Unsupported or ignored types>(&self, detail: Option<&str>, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "state-change")]
     fn connect_state_change<F: Fn(&Self, &str, bool) + 'static>(
         &self,
         detail: Option<&str>,
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "visible-data-changed")]
     fn connect_visible_data_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_accessible_component_layer_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "accessible-component-layer")]
+    fn connect_accessible_component_layer_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
-    fn connect_property_accessible_component_mdi_zorder_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "accessible-component-mdi-zorder")]
+    fn connect_accessible_component_mdi_zorder_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
-    fn connect_property_accessible_description_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "accessible-description")]
+    fn connect_accessible_description_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
-    fn connect_property_accessible_hypertext_nlinks_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "accessible-hypertext-nlinks")]
+    fn connect_accessible_hypertext_nlinks_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
-    fn connect_property_accessible_name_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "accessible-name")]
+    fn connect_accessible_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+
+    #[doc(alias = "accessible-parent")]
+    fn connect_accessible_parent_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+
+    #[doc(alias = "accessible-role")]
+    fn connect_accessible_role_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+
+    #[doc(alias = "accessible-table-caption")]
+    fn connect_accessible_table_caption_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
-    fn connect_property_accessible_parent_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "accessible-table-caption-object")]
+    fn connect_accessible_table_caption_object_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
-    fn connect_property_accessible_role_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "accessible-table-column-description")]
+    fn connect_accessible_table_column_description_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
-    fn connect_property_accessible_table_caption_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "accessible-table-column-header")]
+    fn connect_accessible_table_column_header_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
-    fn connect_property_accessible_table_caption_object_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "accessible-table-row-description")]
+    fn connect_accessible_table_row_description_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
-    fn connect_property_accessible_table_column_description_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "accessible-table-row-header")]
+    fn connect_accessible_table_row_header_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
-    fn connect_property_accessible_table_column_header_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "accessible-table-summary")]
+    fn connect_accessible_table_summary_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
-    fn connect_property_accessible_table_row_description_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    fn connect_property_accessible_table_row_header_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    fn connect_property_accessible_table_summary_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    fn connect_property_accessible_value_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "accessible-value")]
+    fn connect_accessible_value_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<Object>> AtkObjectExt for O {
@@ -805,6 +824,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
+    #[doc(alias = "active-descendant-changed")]
     fn connect_active_descendant_changed<F: Fn(&Self, &Object) + 'static>(
         &self,
         detail: Option<&str>,
@@ -841,6 +861,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
+    #[doc(alias = "children-changed")]
     fn connect_children_changed<F: Fn(&Self, u32, &Object) + 'static>(
         &self,
         detail: Option<&str>,
@@ -878,10 +899,12 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
+    //#[doc(alias = "property-change")]
     //fn connect_property_change<Unsupported or ignored types>(&self, detail: Option<&str>, f: F) -> SignalHandlerId {
     //    Ignored arg1: Atk.PropertyValues
     //}
 
+    #[doc(alias = "state-change")]
     fn connect_state_change<F: Fn(&Self, &str, bool) + 'static>(
         &self,
         detail: Option<&str>,
@@ -919,6 +942,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
+    #[doc(alias = "visible-data-changed")]
     fn connect_visible_data_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn visible_data_changed_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::AtkObject,
@@ -942,7 +966,8 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn connect_property_accessible_component_layer_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "accessible-component-layer")]
+    fn connect_accessible_component_layer_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -969,7 +994,8 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn connect_property_accessible_component_mdi_zorder_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "accessible-component-mdi-zorder")]
+    fn connect_accessible_component_mdi_zorder_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -999,7 +1025,8 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn connect_property_accessible_description_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "accessible-description")]
+    fn connect_accessible_description_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -1026,7 +1053,8 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn connect_property_accessible_hypertext_nlinks_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "accessible-hypertext-nlinks")]
+    fn connect_accessible_hypertext_nlinks_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -1053,10 +1081,8 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn connect_property_accessible_name_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "accessible-name")]
+    fn connect_accessible_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_accessible_name_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::AtkObject,
             _param_spec: glib::ffi::gpointer,
@@ -1080,10 +1106,8 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn connect_property_accessible_parent_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "accessible-parent")]
+    fn connect_accessible_parent_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_accessible_parent_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::AtkObject,
             _param_spec: glib::ffi::gpointer,
@@ -1107,10 +1131,8 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn connect_property_accessible_role_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "accessible-role")]
+    fn connect_accessible_role_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_accessible_role_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::AtkObject,
             _param_spec: glib::ffi::gpointer,
@@ -1134,7 +1156,8 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn connect_property_accessible_table_caption_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "accessible-table-caption")]
+    fn connect_accessible_table_caption_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -1161,7 +1184,8 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn connect_property_accessible_table_caption_object_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "accessible-table-caption-object")]
+    fn connect_accessible_table_caption_object_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -1191,7 +1215,8 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn connect_property_accessible_table_column_description_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "accessible-table-column-description")]
+    fn connect_accessible_table_column_description_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -1221,7 +1246,8 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn connect_property_accessible_table_column_header_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "accessible-table-column-header")]
+    fn connect_accessible_table_column_header_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -1251,7 +1277,8 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn connect_property_accessible_table_row_description_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "accessible-table-row-description")]
+    fn connect_accessible_table_row_description_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -1281,7 +1308,8 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn connect_property_accessible_table_row_header_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "accessible-table-row-header")]
+    fn connect_accessible_table_row_header_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -1308,7 +1336,8 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn connect_property_accessible_table_summary_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "accessible-table-summary")]
+    fn connect_accessible_table_summary_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -1335,10 +1364,8 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn connect_property_accessible_value_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "accessible-value")]
+    fn connect_accessible_value_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_accessible_value_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::AtkObject,
             _param_spec: glib::ffi::gpointer,

@@ -68,18 +68,23 @@ pub trait RendererExt: 'static {
     #[cfg(any(feature = "v1_38", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_38")))]
     #[doc(alias = "pango_renderer_get_alpha")]
+    #[doc(alias = "get_alpha")]
     fn alpha(&self, part: RenderPart) -> u16;
 
     #[doc(alias = "pango_renderer_get_color")]
+    #[doc(alias = "get_color")]
     fn color(&self, part: RenderPart) -> Option<Color>;
 
     #[doc(alias = "pango_renderer_get_layout")]
+    #[doc(alias = "get_layout")]
     fn layout(&self) -> Option<Layout>;
 
     #[doc(alias = "pango_renderer_get_layout_line")]
+    #[doc(alias = "get_layout_line")]
     fn layout_line(&self) -> Option<LayoutLine>;
 
     #[doc(alias = "pango_renderer_get_matrix")]
+    #[doc(alias = "get_matrix")]
     fn matrix(&self) -> Option<Matrix>;
 
     #[doc(alias = "pango_renderer_part_changed")]

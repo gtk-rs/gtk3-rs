@@ -39,6 +39,7 @@ pub trait BuildableExt: 'static {
     //fn custom_tag_start<P: IsA<Builder>, Q: IsA<glib::Object>>(&self, builder: &P, child: Option<&Q>, tagname: &str, parser: /*Ignored*/glib::MarkupParser, data: /*Unimplemented*/&mut Option<Fundamental: Pointer>) -> bool;
 
     #[doc(alias = "gtk_buildable_get_internal_child")]
+    #[doc(alias = "get_internal_child")]
     fn internal_child<P: IsA<Builder>>(&self, builder: &P, childname: &str)
         -> Option<glib::Object>;
 

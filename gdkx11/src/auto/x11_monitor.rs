@@ -17,6 +17,7 @@ glib::wrapper! {
 
 impl X11Monitor {
     #[doc(alias = "gdk_x11_monitor_get_output")]
+    #[doc(alias = "get_output")]
     pub fn output<P: IsA<gdk::Monitor>>(monitor: &P) -> xlib::XID {
         assert_initialized_main_thread!();
         unsafe { ffi::gdk_x11_monitor_get_output(monitor.as_ref().to_glib_none().0) }

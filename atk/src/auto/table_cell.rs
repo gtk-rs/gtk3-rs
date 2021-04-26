@@ -20,24 +20,31 @@ pub const NONE_TABLE_CELL: Option<&TableCell> = None;
 
 pub trait TableCellExt: 'static {
     #[doc(alias = "atk_table_cell_get_column_header_cells")]
+    #[doc(alias = "get_column_header_cells")]
     fn column_header_cells(&self) -> Vec<Object>;
 
     #[doc(alias = "atk_table_cell_get_column_span")]
+    #[doc(alias = "get_column_span")]
     fn column_span(&self) -> i32;
 
     #[doc(alias = "atk_table_cell_get_position")]
+    #[doc(alias = "get_position")]
     fn position(&self) -> Option<(i32, i32)>;
 
     #[doc(alias = "atk_table_cell_get_row_column_span")]
+    #[doc(alias = "get_row_column_span")]
     fn row_column_span(&self) -> Option<(i32, i32, i32, i32)>;
 
     #[doc(alias = "atk_table_cell_get_row_header_cells")]
+    #[doc(alias = "get_row_header_cells")]
     fn row_header_cells(&self) -> Vec<Object>;
 
     #[doc(alias = "atk_table_cell_get_row_span")]
+    #[doc(alias = "get_row_span")]
     fn row_span(&self) -> i32;
 
     #[doc(alias = "atk_table_cell_get_table")]
+    #[doc(alias = "get_table")]
     fn table(&self) -> Option<Object>;
 }
 

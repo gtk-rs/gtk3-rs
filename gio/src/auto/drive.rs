@@ -70,24 +70,31 @@ pub trait DriveExt: 'static {
     fn enumerate_identifiers(&self) -> Vec<glib::GString>;
 
     #[doc(alias = "g_drive_get_icon")]
+    #[doc(alias = "get_icon")]
     fn icon(&self) -> Icon;
 
     #[doc(alias = "g_drive_get_identifier")]
+    #[doc(alias = "get_identifier")]
     fn identifier(&self, kind: &str) -> Option<glib::GString>;
 
     #[doc(alias = "g_drive_get_name")]
+    #[doc(alias = "get_name")]
     fn name(&self) -> glib::GString;
 
     #[doc(alias = "g_drive_get_sort_key")]
+    #[doc(alias = "get_sort_key")]
     fn sort_key(&self) -> Option<glib::GString>;
 
     #[doc(alias = "g_drive_get_start_stop_type")]
+    #[doc(alias = "get_start_stop_type")]
     fn start_stop_type(&self) -> DriveStartStopType;
 
     #[doc(alias = "g_drive_get_symbolic_icon")]
+    #[doc(alias = "get_symbolic_icon")]
     fn symbolic_icon(&self) -> Icon;
 
     #[doc(alias = "g_drive_get_volumes")]
+    #[doc(alias = "get_volumes")]
     fn volumes(&self) -> Vec<Volume>;
 
     #[doc(alias = "g_drive_has_media")]
@@ -156,12 +163,16 @@ pub trait DriveExt: 'static {
         mount_operation: Option<&P>,
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>>;
 
+    #[doc(alias = "changed")]
     fn connect_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "disconnected")]
     fn connect_disconnected<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "eject-button")]
     fn connect_eject_button<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "stop-button")]
     fn connect_stop_button<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
@@ -514,6 +525,7 @@ impl<O: IsA<Drive>> DriveExt for O {
         }))
     }
 
+    #[doc(alias = "changed")]
     fn connect_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn changed_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GDrive,
@@ -537,6 +549,7 @@ impl<O: IsA<Drive>> DriveExt for O {
         }
     }
 
+    #[doc(alias = "disconnected")]
     fn connect_disconnected<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn disconnected_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GDrive,
@@ -560,6 +573,7 @@ impl<O: IsA<Drive>> DriveExt for O {
         }
     }
 
+    #[doc(alias = "eject-button")]
     fn connect_eject_button<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn eject_button_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GDrive,
@@ -583,6 +597,7 @@ impl<O: IsA<Drive>> DriveExt for O {
         }
     }
 
+    #[doc(alias = "stop-button")]
     fn connect_stop_button<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn stop_button_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GDrive,

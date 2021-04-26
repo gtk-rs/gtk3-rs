@@ -24,6 +24,7 @@ impl FileIcon {
     }
 
     #[doc(alias = "g_file_icon_get_file")]
+    #[doc(alias = "get_file")]
     pub fn file(&self) -> File {
         unsafe { from_glib_none(ffi::g_file_icon_get_file(self.to_glib_none().0)) }
     }

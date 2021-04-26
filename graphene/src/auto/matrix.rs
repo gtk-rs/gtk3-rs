@@ -84,6 +84,7 @@ impl Matrix {
     }
 
     #[doc(alias = "graphene_matrix_get_row")]
+    #[doc(alias = "get_row")]
     pub fn row(&self, index_: u32) -> Vec4 {
         unsafe {
             let mut res = Vec4::uninitialized();
@@ -93,11 +94,13 @@ impl Matrix {
     }
 
     #[doc(alias = "graphene_matrix_get_value")]
+    #[doc(alias = "get_value")]
     pub fn value(&self, row: u32, col: u32) -> f32 {
         unsafe { ffi::graphene_matrix_get_value(self.to_glib_none().0, row, col) }
     }
 
     #[doc(alias = "graphene_matrix_get_x_scale")]
+    #[doc(alias = "get_x_scale")]
     pub fn x_scale(&self) -> f32 {
         unsafe { ffi::graphene_matrix_get_x_scale(self.to_glib_none().0) }
     }
@@ -105,11 +108,13 @@ impl Matrix {
     #[cfg(any(feature = "v1_10", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
     #[doc(alias = "graphene_matrix_get_x_translation")]
+    #[doc(alias = "get_x_translation")]
     pub fn x_translation(&self) -> f32 {
         unsafe { ffi::graphene_matrix_get_x_translation(self.to_glib_none().0) }
     }
 
     #[doc(alias = "graphene_matrix_get_y_scale")]
+    #[doc(alias = "get_y_scale")]
     pub fn y_scale(&self) -> f32 {
         unsafe { ffi::graphene_matrix_get_y_scale(self.to_glib_none().0) }
     }
@@ -117,11 +122,13 @@ impl Matrix {
     #[cfg(any(feature = "v1_10", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
     #[doc(alias = "graphene_matrix_get_y_translation")]
+    #[doc(alias = "get_y_translation")]
     pub fn y_translation(&self) -> f32 {
         unsafe { ffi::graphene_matrix_get_y_translation(self.to_glib_none().0) }
     }
 
     #[doc(alias = "graphene_matrix_get_z_scale")]
+    #[doc(alias = "get_z_scale")]
     pub fn z_scale(&self) -> f32 {
         unsafe { ffi::graphene_matrix_get_z_scale(self.to_glib_none().0) }
     }
@@ -129,6 +136,7 @@ impl Matrix {
     #[cfg(any(feature = "v1_10", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
     #[doc(alias = "graphene_matrix_get_z_translation")]
+    #[doc(alias = "get_z_translation")]
     pub fn z_translation(&self) -> f32 {
         unsafe { ffi::graphene_matrix_get_z_translation(self.to_glib_none().0) }
     }

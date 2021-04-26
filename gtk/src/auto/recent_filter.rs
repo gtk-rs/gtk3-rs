@@ -78,11 +78,13 @@ impl RecentFilter {
     //}
 
     #[doc(alias = "gtk_recent_filter_get_name")]
+    #[doc(alias = "get_name")]
     pub fn name(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::gtk_recent_filter_get_name(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gtk_recent_filter_get_needed")]
+    #[doc(alias = "get_needed")]
     pub fn needed(&self) -> RecentFilterFlags {
         unsafe { from_glib(ffi::gtk_recent_filter_get_needed(self.to_glib_none().0)) }
     }

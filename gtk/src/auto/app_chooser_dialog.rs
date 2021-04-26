@@ -53,6 +53,7 @@ impl AppChooserDialog {
     }
 
     #[doc(alias = "gtk_app_chooser_dialog_new_for_content_type")]
+    #[doc(alias = "new_for_content_type")]
     pub fn for_content_type<P: IsA<Window>>(
         parent: Option<&P>,
         flags: DialogFlags,
@@ -352,8 +353,8 @@ impl AppChooserDialogBuilder {
         if let Some(ref content_type) = self.content_type {
             properties.push(("content-type", content_type));
         }
-        let ret = glib::Object::new::<AppChooserDialog>(&properties).expect("object new");
-        ret
+        glib::Object::new::<AppChooserDialog>(&properties)
+            .expect("Failed to create an instance of AppChooserDialog")
     }
 
     pub fn gfile<P: IsA<gio::File>>(mut self, gfile: &P) -> Self {
@@ -698,18 +699,20 @@ pub const NONE_APP_CHOOSER_DIALOG: Option<&AppChooserDialog> = None;
 
 pub trait AppChooserDialogExt: 'static {
     #[doc(alias = "gtk_app_chooser_dialog_get_heading")]
+    #[doc(alias = "get_heading")]
     fn heading(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_app_chooser_dialog_get_widget")]
+    #[doc(alias = "get_widget")]
     fn widget(&self) -> Widget;
 
     #[doc(alias = "gtk_app_chooser_dialog_set_heading")]
     fn set_heading(&self, heading: &str);
 
-    #[doc(alias = "get_property_gfile")]
     fn gfile(&self) -> Option<gio::File>;
 
-    fn connect_property_heading_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "heading")]
+    fn connect_heading_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<AppChooserDialog>> AppChooserDialogExt for O {
@@ -752,7 +755,8 @@ impl<O: IsA<AppChooserDialog>> AppChooserDialogExt for O {
         }
     }
 
-    fn connect_property_heading_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "heading")]
+    fn connect_heading_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_heading_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAppChooserDialog,
             _param_spec: glib::ffi::gpointer,

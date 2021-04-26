@@ -25,6 +25,7 @@ impl MemoryInputStream {
     }
 
     #[doc(alias = "g_memory_input_stream_new_from_bytes")]
+    #[doc(alias = "new_from_bytes")]
     pub fn from_bytes(bytes: &glib::Bytes) -> MemoryInputStream {
         unsafe {
             InputStream::from_glib_full(ffi::g_memory_input_stream_new_from_bytes(

@@ -267,30 +267,35 @@ pub fn events_pending() -> bool {
 }
 
 #[doc(alias = "gtk_false")]
+#[doc(alias = "false")]
 pub fn false_() -> bool {
     assert_initialized_main_thread!();
     unsafe { from_glib(ffi::gtk_false()) }
 }
 
 #[doc(alias = "gtk_get_binary_age")]
+#[doc(alias = "get_binary_age")]
 pub fn binary_age() -> u32 {
     skip_assert_initialized!();
     unsafe { ffi::gtk_get_binary_age() }
 }
 
 #[doc(alias = "gtk_get_current_event")]
+#[doc(alias = "get_current_event")]
 pub fn current_event() -> Option<gdk::Event> {
     assert_initialized_main_thread!();
     unsafe { from_glib_full(ffi::gtk_get_current_event()) }
 }
 
 #[doc(alias = "gtk_get_current_event_device")]
+#[doc(alias = "get_current_event_device")]
 pub fn current_event_device() -> Option<gdk::Device> {
     assert_initialized_main_thread!();
     unsafe { from_glib_none(ffi::gtk_get_current_event_device()) }
 }
 
 #[doc(alias = "gtk_get_current_event_state")]
+#[doc(alias = "get_current_event_state")]
 pub fn current_event_state() -> Option<gdk::ModifierType> {
     assert_initialized_main_thread!();
     unsafe {
@@ -306,60 +311,70 @@ pub fn current_event_state() -> Option<gdk::ModifierType> {
 }
 
 #[doc(alias = "gtk_get_current_event_time")]
+#[doc(alias = "get_current_event_time")]
 pub fn current_event_time() -> u32 {
     assert_initialized_main_thread!();
     unsafe { ffi::gtk_get_current_event_time() }
 }
 
 #[doc(alias = "gtk_get_debug_flags")]
+#[doc(alias = "get_debug_flags")]
 pub fn debug_flags() -> u32 {
     assert_initialized_main_thread!();
     unsafe { ffi::gtk_get_debug_flags() }
 }
 
 #[doc(alias = "gtk_get_default_language")]
+#[doc(alias = "get_default_language")]
 pub fn default_language() -> Option<pango::Language> {
     assert_initialized_main_thread!();
     unsafe { from_glib_none(ffi::gtk_get_default_language()) }
 }
 
 #[doc(alias = "gtk_get_event_widget")]
+#[doc(alias = "get_event_widget")]
 pub fn event_widget(event: &mut gdk::Event) -> Option<Widget> {
     assert_initialized_main_thread!();
     unsafe { from_glib_none(ffi::gtk_get_event_widget(event.to_glib_none_mut().0)) }
 }
 
 #[doc(alias = "gtk_get_interface_age")]
+#[doc(alias = "get_interface_age")]
 pub fn interface_age() -> u32 {
     skip_assert_initialized!();
     unsafe { ffi::gtk_get_interface_age() }
 }
 
 #[doc(alias = "gtk_get_locale_direction")]
+#[doc(alias = "get_locale_direction")]
 pub fn locale_direction() -> TextDirection {
     assert_initialized_main_thread!();
     unsafe { from_glib(ffi::gtk_get_locale_direction()) }
 }
 
 #[doc(alias = "gtk_get_major_version")]
+#[doc(alias = "get_major_version")]
 pub fn major_version() -> u32 {
     skip_assert_initialized!();
     unsafe { ffi::gtk_get_major_version() }
 }
 
 #[doc(alias = "gtk_get_micro_version")]
+#[doc(alias = "get_micro_version")]
 pub fn micro_version() -> u32 {
     skip_assert_initialized!();
     unsafe { ffi::gtk_get_micro_version() }
 }
 
 #[doc(alias = "gtk_get_minor_version")]
+#[doc(alias = "get_minor_version")]
 pub fn minor_version() -> u32 {
     skip_assert_initialized!();
     unsafe { ffi::gtk_get_minor_version() }
 }
 
 //#[doc(alias = "gtk_get_option_group")]
+//#[doc(alias = "get_option_group")]
 //pub fn option_group(open_default_display: bool) -> /*Ignored*/Option<glib::OptionGroup> {
 //    unsafe { TODO: call ffi:gtk_get_option_group() }
 //}
@@ -1307,6 +1322,7 @@ pub fn tree_set_row_drag_data<P: IsA<TreeModel>>(
 }
 
 #[doc(alias = "gtk_true")]
+#[doc(alias = "true")]
 pub fn true_() -> bool {
     assert_initialized_main_thread!();
     unsafe { from_glib(ffi::gtk_true()) }

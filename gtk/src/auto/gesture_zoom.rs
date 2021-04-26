@@ -37,10 +37,12 @@ impl GestureZoom {
     }
 
     #[doc(alias = "gtk_gesture_zoom_get_scale_delta")]
+    #[doc(alias = "get_scale_delta")]
     pub fn scale_delta(&self) -> f64 {
         unsafe { ffi::gtk_gesture_zoom_get_scale_delta(self.to_glib_none().0) }
     }
 
+    #[doc(alias = "scale-changed")]
     pub fn connect_scale_changed<F: Fn(&GestureZoom, f64) + 'static>(
         &self,
         f: F,
@@ -94,8 +96,8 @@ impl GestureZoomBuilder {
         if let Some(ref widget) = self.widget {
             properties.push(("widget", widget));
         }
-        let ret = glib::Object::new::<GestureZoom>(&properties).expect("object new");
-        ret
+        glib::Object::new::<GestureZoom>(&properties)
+            .expect("Failed to create an instance of GestureZoom")
     }
 
     pub fn n_points(mut self, n_points: u32) -> Self {

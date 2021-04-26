@@ -27,7 +27,7 @@ impl fmt::Display for CoordType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "CoordType::{}",
             match *self {
                 Self::Screen => "Screen",
                 Self::Window => "Window",
@@ -126,7 +126,7 @@ impl fmt::Display for Layer {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "Layer::{}",
             match *self {
                 Self::Invalid => "Invalid",
                 Self::Background => "Background",
@@ -272,6 +272,7 @@ impl RelationType {
     }
 
     #[doc(alias = "atk_relation_type_get_name")]
+    #[doc(alias = "get_name")]
     pub fn name(self) -> Option<glib::GString> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::atk_relation_type_get_name(self.into_glib())) }
@@ -282,7 +283,7 @@ impl fmt::Display for RelationType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "RelationType::{}",
             match *self {
                 Self::Null => "Null",
                 Self::ControlledBy => "ControlledBy",
@@ -682,12 +683,14 @@ impl Role {
     }
 
     #[doc(alias = "atk_role_get_localized_name")]
+    #[doc(alias = "get_localized_name")]
     pub fn localized_name(self) -> Option<glib::GString> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::atk_role_get_localized_name(self.into_glib())) }
     }
 
     #[doc(alias = "atk_role_get_name")]
+    #[doc(alias = "get_name")]
     pub fn name(self) -> Option<glib::GString> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::atk_role_get_name(self.into_glib())) }
@@ -698,7 +701,7 @@ impl fmt::Display for Role {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "Role::{}",
             match *self {
                 Self::Invalid => "Invalid",
                 Self::AcceleratorLabel => "AcceleratorLabel",
@@ -1174,7 +1177,7 @@ impl fmt::Display for ScrollType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "ScrollType::{}",
             match *self {
                 Self::TopLeft => "TopLeft",
                 Self::BottomRight => "BottomRight",
@@ -1373,6 +1376,7 @@ impl StateType {
     }
 
     #[doc(alias = "atk_state_type_get_name")]
+    #[doc(alias = "get_name")]
     pub fn name(self) -> Option<glib::GString> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::atk_state_type_get_name(self.into_glib())) }
@@ -1383,7 +1387,7 @@ impl fmt::Display for StateType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "StateType::{}",
             match *self {
                 Self::Invalid => "Invalid",
                 Self::Active => "Active",
@@ -1653,12 +1657,14 @@ impl TextAttribute {
     }
 
     #[doc(alias = "atk_text_attribute_get_name")]
+    #[doc(alias = "get_name")]
     pub fn name(self) -> Option<glib::GString> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::atk_text_attribute_get_name(self.into_glib())) }
     }
 
     #[doc(alias = "atk_text_attribute_get_value")]
+    #[doc(alias = "get_value")]
     pub fn value(self, index_: i32) -> Option<glib::GString> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::atk_text_attribute_get_value(self.into_glib(), index_)) }
@@ -1669,7 +1675,7 @@ impl fmt::Display for TextAttribute {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "TextAttribute::{}",
             match *self {
                 Self::Invalid => "Invalid",
                 Self::LeftMargin => "LeftMargin",
@@ -1847,7 +1853,7 @@ impl fmt::Display for TextBoundary {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "TextBoundary::{}",
             match *self {
                 Self::Char => "Char",
                 Self::WordStart => "WordStart",
@@ -1950,7 +1956,7 @@ impl fmt::Display for TextClipType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "TextClipType::{}",
             match *self {
                 Self::None => "None",
                 Self::Min => "Min",
@@ -2046,7 +2052,7 @@ impl fmt::Display for TextGranularity {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "TextGranularity::{}",
             match *self {
                 Self::Char => "Char",
                 Self::Word => "Word",
@@ -2165,12 +2171,14 @@ pub enum ValueType {
 
 impl ValueType {
     #[doc(alias = "atk_value_type_get_localized_name")]
+    #[doc(alias = "get_localized_name")]
     pub fn localized_name(self) -> Option<glib::GString> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::atk_value_type_get_localized_name(self.into_glib())) }
     }
 
     #[doc(alias = "atk_value_type_get_name")]
+    #[doc(alias = "get_name")]
     pub fn name(self) -> Option<glib::GString> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::atk_value_type_get_name(self.into_glib())) }
@@ -2181,7 +2189,7 @@ impl fmt::Display for ValueType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "ValueType::{}",
             match *self {
                 Self::VeryWeak => "VeryWeak",
                 Self::Weak => "Weak",

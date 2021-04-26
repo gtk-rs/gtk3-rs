@@ -22,6 +22,7 @@ glib::wrapper! {
 
 impl IconInfo {
     #[doc(alias = "gtk_icon_info_new_for_pixbuf")]
+    #[doc(alias = "new_for_pixbuf")]
     pub fn for_pixbuf<P: IsA<IconTheme>>(icon_theme: &P, pixbuf: &gdk_pixbuf::Pixbuf) -> IconInfo {
         skip_assert_initialized!();
         unsafe {
@@ -33,16 +34,19 @@ impl IconInfo {
     }
 
     #[doc(alias = "gtk_icon_info_get_base_scale")]
+    #[doc(alias = "get_base_scale")]
     pub fn base_scale(&self) -> i32 {
         unsafe { ffi::gtk_icon_info_get_base_scale(self.to_glib_none().0) }
     }
 
     #[doc(alias = "gtk_icon_info_get_base_size")]
+    #[doc(alias = "get_base_size")]
     pub fn base_size(&self) -> i32 {
         unsafe { ffi::gtk_icon_info_get_base_size(self.to_glib_none().0) }
     }
 
     #[doc(alias = "gtk_icon_info_get_filename")]
+    #[doc(alias = "get_filename")]
     pub fn filename(&self) -> Option<std::path::PathBuf> {
         unsafe { from_glib_none(ffi::gtk_icon_info_get_filename(self.to_glib_none().0)) }
     }

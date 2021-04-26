@@ -109,51 +109,67 @@ pub trait SocketExt: 'static {
     fn connection_factory_create_connection(&self) -> SocketConnection;
 
     #[doc(alias = "g_socket_get_available_bytes")]
+    #[doc(alias = "get_available_bytes")]
     fn available_bytes(&self) -> isize;
 
     #[doc(alias = "g_socket_get_blocking")]
+    #[doc(alias = "get_blocking")]
     fn is_blocking(&self) -> bool;
 
     #[doc(alias = "g_socket_get_broadcast")]
+    #[doc(alias = "get_broadcast")]
     fn is_broadcast(&self) -> bool;
 
     #[doc(alias = "g_socket_get_credentials")]
+    #[doc(alias = "get_credentials")]
     fn credentials(&self) -> Result<Credentials, glib::Error>;
 
     #[doc(alias = "g_socket_get_family")]
+    #[doc(alias = "get_family")]
     fn family(&self) -> SocketFamily;
 
     #[doc(alias = "g_socket_get_keepalive")]
+    #[doc(alias = "get_keepalive")]
     fn is_keepalive(&self) -> bool;
 
     #[doc(alias = "g_socket_get_listen_backlog")]
+    #[doc(alias = "get_listen_backlog")]
     fn listen_backlog(&self) -> i32;
 
     #[doc(alias = "g_socket_get_local_address")]
+    #[doc(alias = "get_local_address")]
     fn local_address(&self) -> Result<SocketAddress, glib::Error>;
 
     #[doc(alias = "g_socket_get_multicast_loopback")]
+    #[doc(alias = "get_multicast_loopback")]
     fn is_multicast_loopback(&self) -> bool;
 
     #[doc(alias = "g_socket_get_multicast_ttl")]
+    #[doc(alias = "get_multicast_ttl")]
     fn multicast_ttl(&self) -> u32;
 
     #[doc(alias = "g_socket_get_option")]
+    #[doc(alias = "get_option")]
     fn option(&self, level: i32, optname: i32) -> Result<i32, glib::Error>;
 
     #[doc(alias = "g_socket_get_protocol")]
+    #[doc(alias = "get_protocol")]
     fn protocol(&self) -> SocketProtocol;
 
     #[doc(alias = "g_socket_get_remote_address")]
+    #[doc(alias = "get_remote_address")]
     fn remote_address(&self) -> Result<SocketAddress, glib::Error>;
 
     #[doc(alias = "g_socket_get_socket_type")]
+    #[doc(alias = "get_socket_type")]
     fn socket_type(&self) -> SocketType;
 
     #[doc(alias = "g_socket_get_timeout")]
+    #[doc(alias = "get_timeout")]
     fn timeout(&self) -> u32;
 
     #[doc(alias = "g_socket_get_ttl")]
+    #[doc(alias = "get_ttl")]
     fn ttl(&self) -> u32;
 
     #[doc(alias = "g_socket_is_closed")]
@@ -234,55 +250,43 @@ pub trait SocketExt: 'static {
     #[doc(alias = "g_socket_speaks_ipv4")]
     fn speaks_ipv4(&self) -> bool;
 
-    #[doc(alias = "get_property_type")]
+    #[doc(alias = "type")]
     fn type_(&self) -> SocketType;
 
-    fn connect_property_blocking_notify<F: Fn(&Self) + Send + 'static>(
+    #[doc(alias = "blocking")]
+    fn connect_blocking_notify<F: Fn(&Self) + Send + 'static>(&self, f: F) -> SignalHandlerId;
+
+    #[doc(alias = "broadcast")]
+    fn connect_broadcast_notify<F: Fn(&Self) + Send + 'static>(&self, f: F) -> SignalHandlerId;
+
+    #[doc(alias = "keepalive")]
+    fn connect_keepalive_notify<F: Fn(&Self) + Send + 'static>(&self, f: F) -> SignalHandlerId;
+
+    #[doc(alias = "listen-backlog")]
+    fn connect_listen_backlog_notify<F: Fn(&Self) + Send + 'static>(&self, f: F)
+        -> SignalHandlerId;
+
+    #[doc(alias = "local-address")]
+    fn connect_local_address_notify<F: Fn(&Self) + Send + 'static>(&self, f: F) -> SignalHandlerId;
+
+    #[doc(alias = "multicast-loopback")]
+    fn connect_multicast_loopback_notify<F: Fn(&Self) + Send + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
-    fn connect_property_broadcast_notify<F: Fn(&Self) + Send + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "multicast-ttl")]
+    fn connect_multicast_ttl_notify<F: Fn(&Self) + Send + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_keepalive_notify<F: Fn(&Self) + Send + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "remote-address")]
+    fn connect_remote_address_notify<F: Fn(&Self) + Send + 'static>(&self, f: F)
+        -> SignalHandlerId;
 
-    fn connect_property_listen_backlog_notify<F: Fn(&Self) + Send + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "timeout")]
+    fn connect_timeout_notify<F: Fn(&Self) + Send + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_local_address_notify<F: Fn(&Self) + Send + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    fn connect_property_multicast_loopback_notify<F: Fn(&Self) + Send + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    fn connect_property_multicast_ttl_notify<F: Fn(&Self) + Send + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    fn connect_property_remote_address_notify<F: Fn(&Self) + Send + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    fn connect_property_timeout_notify<F: Fn(&Self) + Send + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    fn connect_property_ttl_notify<F: Fn(&Self) + Send + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "ttl")]
+    fn connect_ttl_notify<F: Fn(&Self) + Send + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<Socket>> SocketExt for O {
@@ -761,10 +765,8 @@ impl<O: IsA<Socket>> SocketExt for O {
         }
     }
 
-    fn connect_property_blocking_notify<F: Fn(&Self) + Send + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "blocking")]
+    fn connect_blocking_notify<F: Fn(&Self) + Send + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_blocking_trampoline<P, F: Fn(&P) + Send + 'static>(
             this: *mut ffi::GSocket,
             _param_spec: glib::ffi::gpointer,
@@ -788,10 +790,8 @@ impl<O: IsA<Socket>> SocketExt for O {
         }
     }
 
-    fn connect_property_broadcast_notify<F: Fn(&Self) + Send + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "broadcast")]
+    fn connect_broadcast_notify<F: Fn(&Self) + Send + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_broadcast_trampoline<P, F: Fn(&P) + Send + 'static>(
             this: *mut ffi::GSocket,
             _param_spec: glib::ffi::gpointer,
@@ -815,10 +815,8 @@ impl<O: IsA<Socket>> SocketExt for O {
         }
     }
 
-    fn connect_property_keepalive_notify<F: Fn(&Self) + Send + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "keepalive")]
+    fn connect_keepalive_notify<F: Fn(&Self) + Send + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_keepalive_trampoline<P, F: Fn(&P) + Send + 'static>(
             this: *mut ffi::GSocket,
             _param_spec: glib::ffi::gpointer,
@@ -842,7 +840,8 @@ impl<O: IsA<Socket>> SocketExt for O {
         }
     }
 
-    fn connect_property_listen_backlog_notify<F: Fn(&Self) + Send + 'static>(
+    #[doc(alias = "listen-backlog")]
+    fn connect_listen_backlog_notify<F: Fn(&Self) + Send + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -869,10 +868,8 @@ impl<O: IsA<Socket>> SocketExt for O {
         }
     }
 
-    fn connect_property_local_address_notify<F: Fn(&Self) + Send + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "local-address")]
+    fn connect_local_address_notify<F: Fn(&Self) + Send + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_local_address_trampoline<P, F: Fn(&P) + Send + 'static>(
             this: *mut ffi::GSocket,
             _param_spec: glib::ffi::gpointer,
@@ -896,7 +893,8 @@ impl<O: IsA<Socket>> SocketExt for O {
         }
     }
 
-    fn connect_property_multicast_loopback_notify<F: Fn(&Self) + Send + 'static>(
+    #[doc(alias = "multicast-loopback")]
+    fn connect_multicast_loopback_notify<F: Fn(&Self) + Send + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -923,10 +921,8 @@ impl<O: IsA<Socket>> SocketExt for O {
         }
     }
 
-    fn connect_property_multicast_ttl_notify<F: Fn(&Self) + Send + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "multicast-ttl")]
+    fn connect_multicast_ttl_notify<F: Fn(&Self) + Send + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_multicast_ttl_trampoline<P, F: Fn(&P) + Send + 'static>(
             this: *mut ffi::GSocket,
             _param_spec: glib::ffi::gpointer,
@@ -950,7 +946,8 @@ impl<O: IsA<Socket>> SocketExt for O {
         }
     }
 
-    fn connect_property_remote_address_notify<F: Fn(&Self) + Send + 'static>(
+    #[doc(alias = "remote-address")]
+    fn connect_remote_address_notify<F: Fn(&Self) + Send + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -977,10 +974,8 @@ impl<O: IsA<Socket>> SocketExt for O {
         }
     }
 
-    fn connect_property_timeout_notify<F: Fn(&Self) + Send + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "timeout")]
+    fn connect_timeout_notify<F: Fn(&Self) + Send + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_timeout_trampoline<P, F: Fn(&P) + Send + 'static>(
             this: *mut ffi::GSocket,
             _param_spec: glib::ffi::gpointer,
@@ -1004,7 +999,8 @@ impl<O: IsA<Socket>> SocketExt for O {
         }
     }
 
-    fn connect_property_ttl_notify<F: Fn(&Self) + Send + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "ttl")]
+    fn connect_ttl_notify<F: Fn(&Self) + Send + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_ttl_trampoline<P, F: Fn(&P) + Send + 'static>(
             this: *mut ffi::GSocket,
             _param_spec: glib::ffi::gpointer,

@@ -36,6 +36,7 @@ pub trait TextExt: 'static {
     fn add_selection(&self, start_offset: i32, end_offset: i32) -> bool;
 
     #[doc(alias = "atk_text_get_bounded_ranges")]
+    #[doc(alias = "get_bounded_ranges")]
     fn bounded_ranges(
         &self,
         rect: &mut TextRectangle,
@@ -45,27 +46,35 @@ pub trait TextExt: 'static {
     ) -> Vec<TextRange>;
 
     #[doc(alias = "atk_text_get_caret_offset")]
+    #[doc(alias = "get_caret_offset")]
     fn caret_offset(&self) -> i32;
 
     #[doc(alias = "atk_text_get_character_at_offset")]
+    #[doc(alias = "get_character_at_offset")]
     fn character_at_offset(&self, offset: i32) -> char;
 
     #[doc(alias = "atk_text_get_character_count")]
+    #[doc(alias = "get_character_count")]
     fn character_count(&self) -> i32;
 
     #[doc(alias = "atk_text_get_character_extents")]
+    #[doc(alias = "get_character_extents")]
     fn character_extents(&self, offset: i32, coords: CoordType) -> (i32, i32, i32, i32);
 
     //#[doc(alias = "atk_text_get_default_attributes")]
+    //#[doc(alias = "get_default_attributes")]
     //fn default_attributes(&self) -> /*Ignored*/Option<AttributeSet>;
 
     #[doc(alias = "atk_text_get_n_selections")]
+    #[doc(alias = "get_n_selections")]
     fn n_selections(&self) -> i32;
 
     #[doc(alias = "atk_text_get_offset_at_point")]
+    #[doc(alias = "get_offset_at_point")]
     fn offset_at_point(&self, x: i32, y: i32, coords: CoordType) -> i32;
 
     #[doc(alias = "atk_text_get_range_extents")]
+    #[doc(alias = "get_range_extents")]
     fn range_extents(
         &self,
         start_offset: i32,
@@ -74,12 +83,15 @@ pub trait TextExt: 'static {
     ) -> TextRectangle;
 
     //#[doc(alias = "atk_text_get_run_attributes")]
+    //#[doc(alias = "get_run_attributes")]
     //fn run_attributes(&self, offset: i32) -> (/*Ignored*/AttributeSet, i32, i32);
 
     #[doc(alias = "atk_text_get_selection")]
+    #[doc(alias = "get_selection")]
     fn selection(&self, selection_num: i32) -> (glib::GString, i32, i32);
 
     #[doc(alias = "atk_text_get_string_at_offset")]
+    #[doc(alias = "get_string_at_offset")]
     fn string_at_offset(
         &self,
         offset: i32,
@@ -87,9 +99,11 @@ pub trait TextExt: 'static {
     ) -> (Option<glib::GString>, i32, i32);
 
     #[doc(alias = "atk_text_get_text")]
+    #[doc(alias = "get_text")]
     fn text(&self, start_offset: i32, end_offset: i32) -> Option<glib::GString>;
 
     #[doc(alias = "atk_text_get_text_at_offset")]
+    #[doc(alias = "get_text_at_offset")]
     fn text_at_offset(&self, offset: i32, boundary_type: TextBoundary)
         -> (glib::GString, i32, i32);
 
@@ -119,22 +133,27 @@ pub trait TextExt: 'static {
     #[doc(alias = "atk_text_set_selection")]
     fn set_selection(&self, selection_num: i32, start_offset: i32, end_offset: i32) -> bool;
 
+    #[doc(alias = "text-attributes-changed")]
     fn connect_text_attributes_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "text-caret-moved")]
     fn connect_text_caret_moved<F: Fn(&Self, i32) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "text-insert")]
     fn connect_text_insert<F: Fn(&Self, i32, i32, &str) + 'static>(
         &self,
         detail: Option<&str>,
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "text-remove")]
     fn connect_text_remove<F: Fn(&Self, i32, i32, &str) + 'static>(
         &self,
         detail: Option<&str>,
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "text-selection-changed")]
     fn connect_text_selection_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
@@ -382,6 +401,7 @@ impl<O: IsA<Text>> TextExt for O {
         }
     }
 
+    #[doc(alias = "text-attributes-changed")]
     fn connect_text_attributes_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn text_attributes_changed_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::AtkText,
@@ -405,6 +425,7 @@ impl<O: IsA<Text>> TextExt for O {
         }
     }
 
+    #[doc(alias = "text-caret-moved")]
     fn connect_text_caret_moved<F: Fn(&Self, i32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn text_caret_moved_trampoline<P, F: Fn(&P, i32) + 'static>(
             this: *mut ffi::AtkText,
@@ -429,6 +450,7 @@ impl<O: IsA<Text>> TextExt for O {
         }
     }
 
+    #[doc(alias = "text-insert")]
     fn connect_text_insert<F: Fn(&Self, i32, i32, &str) + 'static>(
         &self,
         detail: Option<&str>,
@@ -468,6 +490,7 @@ impl<O: IsA<Text>> TextExt for O {
         }
     }
 
+    #[doc(alias = "text-remove")]
     fn connect_text_remove<F: Fn(&Self, i32, i32, &str) + 'static>(
         &self,
         detail: Option<&str>,
@@ -507,6 +530,7 @@ impl<O: IsA<Text>> TextExt for O {
         }
     }
 
+    #[doc(alias = "text-selection-changed")]
     fn connect_text_selection_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn text_selection_changed_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::AtkText,

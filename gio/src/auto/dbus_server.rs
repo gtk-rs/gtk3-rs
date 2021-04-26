@@ -53,16 +53,19 @@ impl DBusServer {
     }
 
     #[doc(alias = "g_dbus_server_get_client_address")]
+    #[doc(alias = "get_client_address")]
     pub fn client_address(&self) -> glib::GString {
         unsafe { from_glib_none(ffi::g_dbus_server_get_client_address(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_dbus_server_get_flags")]
+    #[doc(alias = "get_flags")]
     pub fn flags(&self) -> DBusServerFlags {
         unsafe { from_glib(ffi::g_dbus_server_get_flags(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_dbus_server_get_guid")]
+    #[doc(alias = "get_guid")]
     pub fn guid(&self) -> glib::GString {
         unsafe { from_glib_none(ffi::g_dbus_server_get_guid(self.to_glib_none().0)) }
     }
@@ -86,7 +89,6 @@ impl DBusServer {
         }
     }
 
-    #[doc(alias = "get_property_address")]
     pub fn address(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
@@ -101,7 +103,7 @@ impl DBusServer {
         }
     }
 
-    #[doc(alias = "get_property_authentication_observer")]
+    #[doc(alias = "authentication-observer")]
     pub fn authentication_observer(&self) -> Option<DBusAuthObserver> {
         unsafe {
             let mut value = glib::Value::from_type(<DBusAuthObserver as StaticType>::static_type());
@@ -116,6 +118,7 @@ impl DBusServer {
         }
     }
 
+    #[doc(alias = "new-connection")]
     pub fn connect_new_connection<F: Fn(&DBusServer, &DBusConnection) -> bool + 'static>(
         &self,
         f: F,
@@ -143,10 +146,8 @@ impl DBusServer {
         }
     }
 
-    pub fn connect_property_active_notify<F: Fn(&DBusServer) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "active")]
+    pub fn connect_active_notify<F: Fn(&DBusServer) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_active_trampoline<F: Fn(&DBusServer) + 'static>(
             this: *mut ffi::GDBusServer,
             _param_spec: glib::ffi::gpointer,
@@ -168,7 +169,8 @@ impl DBusServer {
         }
     }
 
-    pub fn connect_property_client_address_notify<F: Fn(&DBusServer) + 'static>(
+    #[doc(alias = "client-address")]
+    pub fn connect_client_address_notify<F: Fn(&DBusServer) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {

@@ -20,6 +20,7 @@ use std::ptr;
 
 //#[cfg_attr(feature = "v1_44", deprecated = "Since 1.44")]
 //#[doc(alias = "pango_break")]
+//#[doc(alias = "break")]
 //pub fn break_(text: &str, analysis: &mut Analysis, attrs: /*Ignored*/&[&LogAttr]) {
 //    unsafe { TODO: call ffi:pango_break() }
 //}
@@ -70,6 +71,7 @@ pub fn find_paragraph_boundary(text: &str) -> (i32, i32) {
 }
 
 //#[doc(alias = "pango_get_log_attrs")]
+//#[doc(alias = "get_log_attrs")]
 //pub fn log_attrs(text: &str, level: i32, language: &mut Language, log_attrs: /*Ignored*/&[&LogAttr]) {
 //    unsafe { TODO: call ffi:pango_get_log_attrs() }
 //}

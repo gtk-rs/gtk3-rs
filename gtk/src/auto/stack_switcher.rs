@@ -226,8 +226,8 @@ impl StackSwitcherBuilder {
         if let Some(ref orientation) = self.orientation {
             properties.push(("orientation", orientation));
         }
-        let ret = glib::Object::new::<StackSwitcher>(&properties).expect("object new");
-        ret
+        glib::Object::new::<StackSwitcher>(&properties)
+            .expect("Failed to create an instance of StackSwitcher")
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
@@ -444,6 +444,7 @@ pub const NONE_STACK_SWITCHER: Option<&StackSwitcher> = None;
 
 pub trait StackSwitcherExt: 'static {
     #[doc(alias = "gtk_stack_switcher_get_stack")]
+    #[doc(alias = "get_stack")]
     fn stack(&self) -> Option<Stack>;
 
     #[doc(alias = "gtk_stack_switcher_set_stack")]
@@ -451,19 +452,21 @@ pub trait StackSwitcherExt: 'static {
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-    #[doc(alias = "get_property_icon_size")]
+    #[doc(alias = "icon-size")]
     fn icon_size(&self) -> i32;
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-    #[doc(alias = "set_property_icon_size")]
+    #[doc(alias = "icon-size")]
     fn set_icon_size(&self, icon_size: i32);
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-    fn connect_property_icon_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "icon-size")]
+    fn connect_icon_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_stack_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "stack")]
+    fn connect_stack_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<StackSwitcher>> StackSwitcherExt for O {
@@ -514,7 +517,8 @@ impl<O: IsA<StackSwitcher>> StackSwitcherExt for O {
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-    fn connect_property_icon_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "icon-size")]
+    fn connect_icon_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_icon_size_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkStackSwitcher,
             _param_spec: glib::ffi::gpointer,
@@ -538,7 +542,8 @@ impl<O: IsA<StackSwitcher>> StackSwitcherExt for O {
         }
     }
 
-    fn connect_property_stack_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "stack")]
+    fn connect_stack_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_stack_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkStackSwitcher,
             _param_spec: glib::ffi::gpointer,

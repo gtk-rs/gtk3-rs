@@ -79,7 +79,7 @@ impl fmt::Display for EulerOrder {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "EulerOrder::{}",
             match *self {
                 Self::Default => "Default",
                 Self::Xyz => "Xyz",
@@ -223,7 +223,7 @@ impl fmt::Display for RayIntersectionKind {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "RayIntersectionKind::{}",
             match *self {
                 Self::None => "None",
                 Self::Enter => "Enter",

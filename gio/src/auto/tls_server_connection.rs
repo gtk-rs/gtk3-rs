@@ -51,16 +51,14 @@ impl TlsServerConnection {
 pub const NONE_TLS_SERVER_CONNECTION: Option<&TlsServerConnection> = None;
 
 pub trait TlsServerConnectionExt: 'static {
-    #[doc(alias = "get_property_authentication_mode")]
+    #[doc(alias = "authentication-mode")]
     fn authentication_mode(&self) -> TlsAuthenticationMode;
 
-    #[doc(alias = "set_property_authentication_mode")]
+    #[doc(alias = "authentication-mode")]
     fn set_authentication_mode(&self, authentication_mode: TlsAuthenticationMode);
 
-    fn connect_property_authentication_mode_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "authentication-mode")]
+    fn connect_authentication_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<TlsServerConnection>> TlsServerConnectionExt for O {
@@ -89,10 +87,8 @@ impl<O: IsA<TlsServerConnection>> TlsServerConnectionExt for O {
         }
     }
 
-    fn connect_property_authentication_mode_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "authentication-mode")]
+    fn connect_authentication_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_authentication_mode_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GTlsServerConnection,
             _param_spec: glib::ffi::gpointer,

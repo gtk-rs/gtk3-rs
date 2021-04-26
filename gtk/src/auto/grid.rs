@@ -222,8 +222,7 @@ impl GridBuilder {
         if let Some(ref orientation) = self.orientation {
             properties.push(("orientation", orientation));
         }
-        let ret = glib::Object::new::<Grid>(&properties).expect("object new");
-        ret
+        glib::Object::new::<Grid>(&properties).expect("Failed to create an instance of Grid")
     }
 
     pub fn baseline_row(mut self, baseline_row: i32) -> Self {
@@ -451,24 +450,31 @@ pub trait GridExt: 'static {
     );
 
     #[doc(alias = "gtk_grid_get_baseline_row")]
+    #[doc(alias = "get_baseline_row")]
     fn baseline_row(&self) -> i32;
 
     #[doc(alias = "gtk_grid_get_child_at")]
+    #[doc(alias = "get_child_at")]
     fn child_at(&self, left: i32, top: i32) -> Option<Widget>;
 
     #[doc(alias = "gtk_grid_get_column_homogeneous")]
+    #[doc(alias = "get_column_homogeneous")]
     fn is_column_homogeneous(&self) -> bool;
 
     #[doc(alias = "gtk_grid_get_column_spacing")]
+    #[doc(alias = "get_column_spacing")]
     fn column_spacing(&self) -> u32;
 
     #[doc(alias = "gtk_grid_get_row_baseline_position")]
+    #[doc(alias = "get_row_baseline_position")]
     fn row_baseline_position(&self, row: i32) -> BaselinePosition;
 
     #[doc(alias = "gtk_grid_get_row_homogeneous")]
+    #[doc(alias = "get_row_homogeneous")]
     fn is_row_homogeneous(&self) -> bool;
 
     #[doc(alias = "gtk_grid_get_row_spacing")]
+    #[doc(alias = "get_row_spacing")]
     fn row_spacing(&self) -> u32;
 
     #[doc(alias = "gtk_grid_insert_column")]
@@ -512,33 +518,32 @@ pub trait GridExt: 'static {
 
     fn set_cell_width<T: IsA<Widget>>(&self, item: &T, width: i32);
 
+    #[doc(alias = "cell.left-attach")]
     fn cell_left_attach<T: IsA<Widget>>(&self, item: &T) -> i32;
 
+    #[doc(alias = "cell.left-attach")]
     fn set_cell_left_attach<T: IsA<Widget>>(&self, item: &T, left_attach: i32);
 
+    #[doc(alias = "cell.top-attach")]
     fn cell_top_attach<T: IsA<Widget>>(&self, item: &T) -> i32;
 
+    #[doc(alias = "cell.top-attach")]
     fn set_cell_top_attach<T: IsA<Widget>>(&self, item: &T, top_attach: i32);
 
-    fn connect_property_baseline_row_notify<F: Fn(&Self) + 'static>(&self, f: F)
-        -> SignalHandlerId;
+    #[doc(alias = "baseline-row")]
+    fn connect_baseline_row_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_column_homogeneous_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "column-homogeneous")]
+    fn connect_column_homogeneous_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_column_spacing_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "column-spacing")]
+    fn connect_column_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_row_homogeneous_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "row-homogeneous")]
+    fn connect_row_homogeneous_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_row_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "row-spacing")]
+    fn connect_row_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<Grid>> GridExt for O {
@@ -806,10 +811,8 @@ impl<O: IsA<Grid>> GridExt for O {
         }
     }
 
-    fn connect_property_baseline_row_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "baseline-row")]
+    fn connect_baseline_row_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_baseline_row_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkGrid,
             _param_spec: glib::ffi::gpointer,
@@ -833,10 +836,8 @@ impl<O: IsA<Grid>> GridExt for O {
         }
     }
 
-    fn connect_property_column_homogeneous_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "column-homogeneous")]
+    fn connect_column_homogeneous_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_column_homogeneous_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkGrid,
             _param_spec: glib::ffi::gpointer,
@@ -860,10 +861,8 @@ impl<O: IsA<Grid>> GridExt for O {
         }
     }
 
-    fn connect_property_column_spacing_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "column-spacing")]
+    fn connect_column_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_column_spacing_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkGrid,
             _param_spec: glib::ffi::gpointer,
@@ -887,10 +886,8 @@ impl<O: IsA<Grid>> GridExt for O {
         }
     }
 
-    fn connect_property_row_homogeneous_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "row-homogeneous")]
+    fn connect_row_homogeneous_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_row_homogeneous_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkGrid,
             _param_spec: glib::ffi::gpointer,
@@ -914,7 +911,8 @@ impl<O: IsA<Grid>> GridExt for O {
         }
     }
 
-    fn connect_property_row_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "row-spacing")]
+    fn connect_row_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_row_spacing_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkGrid,
             _param_spec: glib::ffi::gpointer,

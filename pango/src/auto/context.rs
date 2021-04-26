@@ -41,16 +41,19 @@ impl Context {
     }
 
     #[doc(alias = "pango_context_get_base_dir")]
+    #[doc(alias = "get_base_dir")]
     pub fn base_dir(&self) -> Direction {
         unsafe { from_glib(ffi::pango_context_get_base_dir(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "pango_context_get_base_gravity")]
+    #[doc(alias = "get_base_gravity")]
     pub fn base_gravity(&self) -> Gravity {
         unsafe { from_glib(ffi::pango_context_get_base_gravity(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "pango_context_get_font_description")]
+    #[doc(alias = "get_font_description")]
     pub fn font_description(&self) -> Option<FontDescription> {
         unsafe {
             from_glib_none(ffi::pango_context_get_font_description(
@@ -60,31 +63,37 @@ impl Context {
     }
 
     #[doc(alias = "pango_context_get_font_map")]
+    #[doc(alias = "get_font_map")]
     pub fn font_map(&self) -> Option<FontMap> {
         unsafe { from_glib_none(ffi::pango_context_get_font_map(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "pango_context_get_gravity")]
+    #[doc(alias = "get_gravity")]
     pub fn gravity(&self) -> Gravity {
         unsafe { from_glib(ffi::pango_context_get_gravity(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "pango_context_get_gravity_hint")]
+    #[doc(alias = "get_gravity_hint")]
     pub fn gravity_hint(&self) -> GravityHint {
         unsafe { from_glib(ffi::pango_context_get_gravity_hint(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "pango_context_get_language")]
+    #[doc(alias = "get_language")]
     pub fn language(&self) -> Option<Language> {
         unsafe { from_glib_full(ffi::pango_context_get_language(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "pango_context_get_matrix")]
+    #[doc(alias = "get_matrix")]
     pub fn matrix(&self) -> Option<Matrix> {
         unsafe { from_glib_none(ffi::pango_context_get_matrix(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "pango_context_get_metrics")]
+    #[doc(alias = "get_metrics")]
     pub fn metrics(
         &self,
         desc: Option<&FontDescription>,
@@ -102,6 +111,7 @@ impl Context {
     #[cfg(any(feature = "v1_44", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
     #[doc(alias = "pango_context_get_round_glyph_positions")]
+    #[doc(alias = "get_round_glyph_positions")]
     pub fn is_round_glyph_positions(&self) -> bool {
         unsafe {
             from_glib(ffi::pango_context_get_round_glyph_positions(
@@ -111,6 +121,7 @@ impl Context {
     }
 
     #[doc(alias = "pango_context_get_serial")]
+    #[doc(alias = "get_serial")]
     pub fn serial(&self) -> u32 {
         unsafe { ffi::pango_context_get_serial(self.to_glib_none().0) }
     }
