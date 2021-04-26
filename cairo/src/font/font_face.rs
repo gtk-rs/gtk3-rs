@@ -122,17 +122,20 @@ impl FontFace {
     }
 
     #[doc(alias = "cairo_font_face_get_type")]
+    #[doc(alias = "get_type")]
     pub fn type_(&self) -> FontType {
         unsafe { FontType::from(ffi::cairo_font_face_get_type(self.to_raw_none())) }
     }
 
     #[doc(alias = "cairo_font_face_get_reference_count")]
+    #[doc(alias = "get_reference_count")]
     pub fn reference_count(&self) -> usize {
         unsafe { ffi::cairo_font_face_get_reference_count(self.to_raw_none()) as usize }
     }
 
     #[doc(alias = "cairo_ft_font_face_get_synthesize")]
     #[cfg(any(feature = "freetype", feature = "dox"))]
+    #[doc(alias = "get_synthesize")]
     pub fn synthesize(&self) -> FtSynthesize {
         unsafe { FtSynthesize::from(ffi::cairo_ft_font_face_get_synthesize(self.to_raw_none())) }
     }

@@ -83,6 +83,7 @@ impl Device {
 
     #[cfg(any(feature = "script", feature = "dox"))]
     #[doc(alias = "cairo_script_get_mode")]
+    #[doc(alias = "get_mode")]
     pub fn mode(&self) -> ScriptMode {
         unsafe { ScriptMode::from(ffi::cairo_script_get_mode(self.to_raw_none())) }
     }
@@ -145,6 +146,7 @@ impl Device {
     }
 
     #[doc(alias = "cairo_device_get_type")]
+    #[doc(alias = "get_type")]
     pub fn type_(&self) -> DeviceType {
         unsafe { DeviceType::from(ffi::cairo_device_get_type(self.to_raw_none())) }
     }

@@ -7,6 +7,7 @@ use glib::IsA;
 // For some reasons, it's not generated...
 pub trait InvisibleExtManual: 'static {
     #[doc(alias = "gtk_invisible_get_screen")]
+    #[doc(alias = "get_screen")]
     fn screen(&self) -> Option<gdk::Screen>;
 }
 

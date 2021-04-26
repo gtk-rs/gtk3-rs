@@ -377,6 +377,7 @@ impl State {
         }
     }
 
+    #[doc(alias = "get_pending")]
     fn pending(
         &mut self,
     ) -> &mut Pin<
@@ -437,6 +438,7 @@ impl<T: IsA<InputStream>> InputStreamAsyncBufRead<T> {
         self.state.pending()
     }
 
+    #[doc(alias = "get_data")]
     fn data(&self) -> Poll<io::Result<&[u8]>> {
         if let State::HasData {
             ref buffer,

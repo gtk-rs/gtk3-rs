@@ -35,6 +35,7 @@ impl AsRawFd for UnixOutputStream {
 
 pub trait UnixOutputStreamExtManual: Sized {
     #[doc(alias = "g_unix_output_stream_get_fd")]
+    #[doc(alias = "get_fd")]
     fn fd<T: FromRawFd>(&self) -> T;
 
     #[doc(alias = "g_unix_output_stream_set_close_fd")]

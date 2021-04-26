@@ -19,6 +19,7 @@ pub const NONE_WIN32_INPUT_STREAM: Option<&Win32InputStream> = None;
 
 pub trait Win32InputStreamExt: 'static {
     #[doc(alias = "g_win32_input_stream_get_close_handle")]
+    #[doc(alias = "get_close_handle")]
     fn closes_handle(&self) -> bool;
 }
 
@@ -66,6 +67,7 @@ impl AsRawHandle for Win32InputStream {
 
 pub trait Win32InputStreamExtManual: Sized {
     #[doc(alias = "g_win32_input_stream_get_handle")]
+    #[doc(alias = "get_handle")]
     fn handle<T: FromRawHandle>(&self) -> T;
 
     #[doc(alias = "g_win32_input_stream_set_close_handle")]

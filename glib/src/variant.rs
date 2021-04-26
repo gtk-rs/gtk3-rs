@@ -196,6 +196,7 @@ impl Variant {
     ///
     /// Returns `Some` if self contains a `Variant`.
     #[inline]
+    #[doc(alias = "get_variant")]
     pub fn as_variant(&self) -> Option<Variant> {
         unsafe { from_glib_none(ffi::g_variant_get_variant(self.to_glib_none().0)) }
     }
@@ -206,6 +207,7 @@ impl Variant {
     ///
     /// * if `self` is not a container type.
     /// * if given `index` is larger than number of children.
+    #[doc(alias = "get_child_value")]
     pub fn child_value(&self, index: usize) -> Variant {
         assert!(index < self.n_children());
         assert!(self.is_container());
@@ -217,6 +219,7 @@ impl Variant {
     ///
     /// Returns `Some` if the variant has a string type (`s`, `o` or `g` type
     /// strings).
+    #[doc(alias = "get_str")]
     pub fn str(&self) -> Option<&str> {
         unsafe {
             match self.type_().to_str() {
@@ -313,6 +316,7 @@ impl Variant {
     }
 
     /// Returns the serialised form of a GVariant instance.
+    #[doc(alias = "get_data_as_bytes")]
     pub fn data_as_bytes(&self) -> Bytes {
         unsafe { from_glib_full(ffi::g_variant_get_data_as_bytes(self.to_glib_none().0)) }
     }

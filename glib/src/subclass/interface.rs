@@ -62,6 +62,7 @@ pub unsafe trait ObjectInterfaceType {
     /// Returns the `glib::Type` ID of the interface.
     ///
     /// This will register the type with the type system on the first call.
+    #[doc(alias = "get_type")]
     fn type_() -> Type;
 }
 

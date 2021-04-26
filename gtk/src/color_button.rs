@@ -12,6 +12,7 @@ pub trait ColorButtonExtManual: 'static {
     fn with_color(color: &gdk::Color) -> ColorButton;
 
     #[doc(alias = "gtk_color_button_get_color")]
+    #[doc(alias = "get_color")]
     fn color(&self) -> gdk::Color;
 
     #[doc(alias = "gtk_color_button_set_color")]

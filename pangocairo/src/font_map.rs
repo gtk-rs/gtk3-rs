@@ -6,6 +6,7 @@ use glib::translate::*;
 
 pub trait FontMapExtManual {
     #[doc(alias = "pango_cairo_font_map_get_font_type")]
+    #[doc(alias = "get_font_type")]
     fn font_type(&self) -> cairo::FontType;
 }
 

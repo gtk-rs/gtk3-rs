@@ -40,6 +40,7 @@ impl PsSurface {
     for_stream_constructors!(cairo_ps_surface_create_for_stream);
 
     #[doc(alias = "cairo_ps_get_levels")]
+    #[doc(alias = "get_levels")]
     pub fn levels() -> impl Iterator<Item = PsLevel> {
         let lvls_slice = unsafe {
             let mut vers_ptr = ptr::null_mut();
@@ -60,6 +61,7 @@ impl PsSurface {
     }
 
     #[doc(alias = "cairo_ps_surface_get_eps")]
+    #[doc(alias = "get_eps")]
     pub fn is_eps(&self) -> bool {
         unsafe { ffi::cairo_ps_surface_get_eps(self.0.to_raw_none()).as_bool() }
     }

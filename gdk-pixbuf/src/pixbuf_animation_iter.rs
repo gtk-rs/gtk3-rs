@@ -32,6 +32,7 @@ impl PixbufAnimationIter {
     }
 
     #[doc(alias = "gdk_pixbuf_animation_iter_get_pixbuf")]
+    #[doc(alias = "get_pixbuf")]
     pub fn pixbuf(&self) -> Pixbuf {
         unsafe {
             from_glib_none(ffi::gdk_pixbuf_animation_iter_get_pixbuf(
@@ -41,6 +42,7 @@ impl PixbufAnimationIter {
     }
 
     #[doc(alias = "gdk_pixbuf_animation_iter_get_delay_time")]
+    #[doc(alias = "get_delay_time")]
     pub fn delay_time(&self) -> i32 {
         unsafe { ffi::gdk_pixbuf_animation_iter_get_delay_time(self.to_glib_none().0) }
     }

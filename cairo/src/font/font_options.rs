@@ -79,6 +79,7 @@ impl FontOptions {
     }
 
     #[doc(alias = "cairo_font_options_get_antialias")]
+    #[doc(alias = "get_antialias")]
     pub fn antialias(&self) -> Antialias {
         unsafe { Antialias::from(ffi::cairo_font_options_get_antialias(self.to_raw_none())) }
     }
@@ -89,6 +90,7 @@ impl FontOptions {
     }
 
     #[doc(alias = "cairo_font_options_get_subpixel_order")]
+    #[doc(alias = "get_subpixel_order")]
     pub fn subpixel_order(&self) -> SubpixelOrder {
         unsafe {
             SubpixelOrder::from(ffi::cairo_font_options_get_subpixel_order(
@@ -103,6 +105,7 @@ impl FontOptions {
     }
 
     #[doc(alias = "cairo_font_options_get_hint_style")]
+    #[doc(alias = "get_hint_style")]
     pub fn hint_style(&self) -> HintStyle {
         unsafe { HintStyle::from(ffi::cairo_font_options_get_hint_style(self.to_raw_none())) }
     }
@@ -113,12 +116,14 @@ impl FontOptions {
     }
 
     #[doc(alias = "cairo_font_options_get_hint_metrics")]
+    #[doc(alias = "get_hint_metrics")]
     pub fn hint_metrics(&self) -> HintMetrics {
         unsafe { HintMetrics::from(ffi::cairo_font_options_get_hint_metrics(self.to_raw_none())) }
     }
 
     #[cfg(any(feature = "v1_16", feature = "dox"))]
     #[doc(alias = "cairo_font_options_get_variations")]
+    #[doc(alias = "get_variations")]
     pub fn variations(&self) -> Option<String> {
         unsafe { to_optional_string(ffi::cairo_font_options_get_variations(self.to_raw_none())) }
     }

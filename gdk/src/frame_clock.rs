@@ -5,6 +5,7 @@ use glib::translate::*;
 
 impl FrameClock {
     #[doc(alias = "gdk_frame_clock_get_refresh_info")]
+    #[doc(alias = "get_refresh_info")]
     pub fn refresh_info(&self, base_time: i64) -> (i64, i64) {
         unsafe {
             let mut refresh_interval = 0;

@@ -37,6 +37,7 @@ impl UnixMountEntry {
     }
 
     #[doc(alias = "g_unix_mounts_get")]
+    #[doc(alias = "get_mounts")]
     pub fn mounts() -> (Vec<UnixMountEntry>, u64) {
         unsafe {
             let mut time_read = mem::MaybeUninit::uninit();
@@ -59,6 +60,7 @@ impl UnixMountEntry {
     }
 
     #[doc(alias = "g_unix_mount_get_device_path")]
+    #[doc(alias = "get_device_path")]
     pub fn device_path(&self) -> Option<std::path::PathBuf> {
         unsafe {
             from_glib_none(ffi::g_unix_mount_get_device_path(mut_override(
@@ -68,6 +70,7 @@ impl UnixMountEntry {
     }
 
     #[doc(alias = "g_unix_mount_get_fs_type")]
+    #[doc(alias = "get_fs_type")]
     pub fn fs_type(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::g_unix_mount_get_fs_type(mut_override(
@@ -88,6 +91,7 @@ impl UnixMountEntry {
     #[cfg(any(feature = "v2_58", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_58")))]
     #[doc(alias = "g_unix_mount_get_options")]
+    #[doc(alias = "get_options")]
     pub fn options(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::g_unix_mount_get_options(mut_override(
@@ -99,6 +103,7 @@ impl UnixMountEntry {
     #[cfg(any(feature = "v2_60", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     #[doc(alias = "g_unix_mount_get_root_path")]
+    #[doc(alias = "get_root_path")]
     pub fn root_path(&self) -> Option<std::path::PathBuf> {
         unsafe {
             from_glib_none(ffi::g_unix_mount_get_root_path(mut_override(

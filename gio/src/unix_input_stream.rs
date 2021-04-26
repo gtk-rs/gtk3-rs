@@ -37,6 +37,7 @@ impl AsRawFd for UnixInputStream {
 
 pub trait UnixInputStreamExtManual: Sized {
     #[doc(alias = "g_unix_input_stream_get_fd")]
+    #[doc(alias = "get_fd")]
     fn fd<T: FromRawFd>(&self) -> T;
     #[allow(clippy::missing_safety_doc)]
     #[doc(alias = "g_unix_input_stream_set_close_fd")]

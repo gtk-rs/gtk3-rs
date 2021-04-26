@@ -7,6 +7,7 @@ use std::mem;
 impl UnixMountPoint {
     #[cfg(any(unix, feature = "dox"))]
     #[doc(alias = "g_unix_mount_points_get")]
+    #[doc(alias = "get_mount_points")]
     pub fn mount_points() -> (Vec<UnixMountPoint>, u64) {
         unsafe {
             let mut time_read = mem::MaybeUninit::uninit();

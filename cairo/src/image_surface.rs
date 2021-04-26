@@ -87,6 +87,7 @@ impl ImageSurface {
     }
 
     #[doc(alias = "cairo_image_surface_get_data")]
+    #[doc(alias = "get_data")]
     pub fn data(&mut self) -> Result<ImageSurfaceData, BorrowError> {
         unsafe {
             if ffi::cairo_surface_get_reference_count(self.to_raw_none()) > 1 {
@@ -124,21 +125,25 @@ impl ImageSurface {
     }
 
     #[doc(alias = "cairo_image_surface_get_format")]
+    #[doc(alias = "get_format")]
     pub fn format(&self) -> Format {
         unsafe { Format::from(ffi::cairo_image_surface_get_format(self.to_raw_none())) }
     }
 
     #[doc(alias = "cairo_image_surface_get_height")]
+    #[doc(alias = "get_height")]
     pub fn height(&self) -> i32 {
         unsafe { ffi::cairo_image_surface_get_height(self.to_raw_none()) }
     }
 
     #[doc(alias = "cairo_image_surface_get_stride")]
+    #[doc(alias = "get_stride")]
     pub fn stride(&self) -> i32 {
         unsafe { ffi::cairo_image_surface_get_stride(self.to_raw_none()) }
     }
 
     #[doc(alias = "cairo_image_surface_get_width")]
+    #[doc(alias = "get_width")]
     pub fn width(&self) -> i32 {
         unsafe { ffi::cairo_image_surface_get_width(self.to_raw_none()) }
     }

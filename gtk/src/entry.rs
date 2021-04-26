@@ -8,6 +8,7 @@ use crate::Entry;
 
 pub trait EntryExtManual: 'static {
     #[doc(alias = "gtk_entry_get_invisible_char")]
+    #[doc(alias = "get_invisible_char")]
     fn invisible_char(&self) -> Option<char>;
 }
 

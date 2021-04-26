@@ -60,6 +60,7 @@ pub trait WidgetExtManual: 'static {
     fn add_events(&self, events: gdk::EventMask);
 
     #[doc(alias = "gtk_widget_get_events")]
+    #[doc(alias = "get_events")]
     fn events(&self) -> gdk::EventMask;
 
     #[doc(alias = "gtk_widget_set_events")]

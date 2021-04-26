@@ -90,6 +90,7 @@ impl Language {
         }
     }
 
+    #[doc(alias = "get_scripts")]
     pub fn scripts(&self) -> Vec<Script> {
         let mut num_scripts = 0;
         let mut ret = Vec::new();
@@ -108,6 +109,7 @@ impl Language {
         }
     }
 
+    #[doc(alias = "get_sample_string")]
     pub fn sample_string(&self) -> GString {
         unsafe { from_glib_none(ffi::pango_language_get_sample_string(self.to_glib_none().0)) }
     }

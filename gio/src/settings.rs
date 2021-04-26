@@ -23,6 +23,7 @@ impl<'a> BindingBuilder<'a> {
         self
     }
 
+    #[doc(alias = "get_mapping")]
     pub fn mapping<F: Fn(&glib::Variant, glib::Type) -> Option<glib::Value> + 'static>(
         mut self,
         f: F,

@@ -62,6 +62,7 @@ pub trait GdkContextExt {
         height: i32,
     );
 
+    #[doc(alias = "get_clip_rectangle")]
     fn clip_rectangle(&self) -> Option<Rectangle>;
 
     fn set_source_rgba(&self, rgba: &RGBA);

@@ -8,6 +8,7 @@ use glib::StaticType;
 use glib::Value;
 
 pub trait CellRendererPixbufExtManual: 'static {
+    #[doc(alias = "get_property_stock_size")]
     fn property_stock_size(&self) -> IconSize;
 
     fn set_property_stock_size(&self, stock_size: IconSize);

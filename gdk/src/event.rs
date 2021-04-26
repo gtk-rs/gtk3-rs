@@ -93,6 +93,7 @@ impl Event {
     }
 
     #[doc(alias = "gdk_event_get_axis")]
+    #[doc(alias = "get_axis")]
     pub fn axis(&self, axis_use: AxisUse) -> Option<f64> {
         let mut value = 0f64;
         if unsafe {
@@ -109,6 +110,7 @@ impl Event {
     }
 
     #[doc(alias = "gdk_event_get_button")]
+    #[doc(alias = "get_button")]
     pub fn button(&self) -> Option<u32> {
         let mut button = 0u32;
         if unsafe {
@@ -124,6 +126,7 @@ impl Event {
     }
 
     #[doc(alias = "gdk_event_get_click_count")]
+    #[doc(alias = "get_click_count")]
     pub fn click_count(&self) -> Option<u32> {
         let mut click_count = 0u32;
         if unsafe {
@@ -139,6 +142,7 @@ impl Event {
     }
 
     #[doc(alias = "gdk_event_get_coords")]
+    #[doc(alias = "get_coords")]
     pub fn coords(&self) -> Option<(f64, f64)> {
         let mut x_win = 0f64;
         let mut y_win = 0f64;
@@ -156,6 +160,7 @@ impl Event {
     }
 
     #[doc(alias = "gdk_event_get_keycode")]
+    #[doc(alias = "get_keycode")]
     pub fn keycode(&self) -> Option<u16> {
         let mut keycode = 0u16;
         if unsafe {
@@ -171,6 +176,7 @@ impl Event {
     }
 
     #[doc(alias = "gdk_event_get_keyval")]
+    #[doc(alias = "get_keyval")]
     pub fn keyval(&self) -> Option<u32> {
         let mut keyval = 0u32;
         if unsafe {
@@ -186,6 +192,7 @@ impl Event {
     }
 
     #[doc(alias = "gdk_event_get_root_coords")]
+    #[doc(alias = "get_root_coords")]
     pub fn root_coords(&self) -> Option<(f64, f64)> {
         let mut x_root = 0f64;
         let mut y_root = 0f64;
@@ -203,6 +210,7 @@ impl Event {
     }
 
     #[doc(alias = "gdk_event_get_scroll_direction")]
+    #[doc(alias = "get_scroll_direction")]
     pub fn scroll_direction(&self) -> Option<ScrollDirection> {
         unsafe {
             let mut direction = mem::MaybeUninit::uninit();
@@ -218,6 +226,7 @@ impl Event {
     }
 
     #[doc(alias = "gdk_event_get_scroll_deltas")]
+    #[doc(alias = "get_scroll_deltas")]
     pub fn scroll_deltas(&self) -> Option<(f64, f64)> {
         let mut delta_x = 0f64;
         let mut delta_y = 0f64;
@@ -242,6 +251,7 @@ impl Event {
     }
 
     #[doc(alias = "gdk_event_get_scroll_direction")]
+    #[doc(alias = "get_state")]
     pub fn state(&self) -> Option<ModifierType> {
         unsafe {
             let mut state = mem::MaybeUninit::uninit();
@@ -257,17 +267,20 @@ impl Event {
     }
 
     #[doc(alias = "gdk_event_get_time")]
+    #[doc(alias = "get_time")]
     pub fn time(&self) -> u32 {
         unsafe { ffi::gdk_event_get_time(self.to_glib_none().0) }
     }
 
     /// Returns the associated `Window` if applicable.
     #[doc(alias = "gdk_event_get_window")]
+    #[doc(alias = "get_window")]
     pub fn window(&self) -> Option<Window> {
         unsafe { from_glib_none(ffi::gdk_event_get_window(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_event_get_event_sequence")]
+    #[doc(alias = "get_event_sequence")]
     pub fn event_sequence(&self) -> Option<EventSequence> {
         unsafe { from_glib_none(ffi::gdk_event_get_event_sequence(self.to_glib_none().0)) }
     }
@@ -280,6 +293,7 @@ impl Event {
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "gdk_event_get_seat")]
+    #[doc(alias = "get_seat")]
     pub fn seat(&self) -> Option<Seat> {
         unsafe { from_glib_none(ffi::gdk_event_get_seat(self.to_glib_none().0)) }
     }
@@ -287,6 +301,7 @@ impl Event {
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gdk_event_get_scancode")]
+    #[doc(alias = "get_scancode")]
     pub fn scancode(&mut self) -> i32 {
         unsafe { ffi::gdk_event_get_scancode(self.to_glib_none_mut().0) }
     }
@@ -294,6 +309,7 @@ impl Event {
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gdk_event_get_pointer_emulated")]
+    #[doc(alias = "get_pointer_emulated")]
     pub fn is_pointer_emulated(&mut self) -> bool {
         unsafe {
             from_glib(ffi::gdk_event_get_pointer_emulated(
@@ -308,6 +324,7 @@ impl Event {
     }
 
     #[doc(alias = "gdk_event_get_screen")]
+    #[doc(alias = "get_screen")]
     pub fn screen(&self) -> Option<Screen> {
         unsafe { from_glib_none(ffi::gdk_event_get_screen(self.to_glib_none().0)) }
     }
@@ -318,6 +335,7 @@ impl Event {
     }
 
     #[doc(alias = "gdk_event_get_device")]
+    #[doc(alias = "get_device")]
     pub fn device(&self) -> Option<Device> {
         unsafe { from_glib_none(ffi::gdk_event_get_device(self.to_glib_none().0)) }
     }
@@ -330,6 +348,7 @@ impl Event {
     }
 
     #[doc(alias = "gdk_event_get_source_device")]
+    #[doc(alias = "get_source_device")]
     pub fn source_device(&self) -> Option<Device> {
         unsafe { from_glib_none(ffi::gdk_event_get_source_device(self.to_glib_none().0)) }
     }
@@ -346,17 +365,20 @@ impl Event {
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gdk_event_get_device_tool")]
+    #[doc(alias = "get_device_tool")]
     pub fn device_tool(&self) -> Option<DeviceTool> {
         unsafe { from_glib_none(ffi::gdk_event_get_device_tool(self.to_glib_none().0)) }
     }
 
     /// Returns the event type.
+    #[doc(alias = "get_event_type")]
     pub fn event_type(&self) -> EventType {
         unsafe { from_glib(self.as_ref().type_) }
     }
 
     /// Returns whether the event was sent explicitly.
     #[allow(clippy::cast_lossless)]
+    #[doc(alias = "get_send_event")]
     pub fn is_send_event(&self) -> bool {
         unsafe { from_glib(self.as_ref().send_event as i32) }
     }

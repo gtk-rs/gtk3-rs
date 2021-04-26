@@ -23,14 +23,17 @@ impl TargetEntry {
         }
     }
 
+    #[doc(alias = "get_target")]
     pub fn target(&self) -> &str {
         &self.target
     }
 
+    #[doc(alias = "get_flags")]
     pub fn flags(&self) -> TargetFlags {
         self.flags
     }
 
+    #[doc(alias = "get_info")]
     pub fn info(&self) -> u32 {
         self.info
     }

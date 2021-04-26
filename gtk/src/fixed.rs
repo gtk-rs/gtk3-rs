@@ -18,10 +18,12 @@ fn has_widget<O: IsA<Fixed>, T: IsA<Widget>>(c: &O, item: &T) -> bool {
 }
 
 pub trait FixedExtManual: 'static {
+    #[doc(alias = "get_child_x")]
     fn child_x<T: IsA<Widget>>(&self, item: &T) -> i32;
 
     fn set_child_x<T: IsA<Widget>>(&self, item: &T, x: i32);
 
+    #[doc(alias = "get_child_y")]
     fn child_y<T: IsA<Widget>>(&self, item: &T) -> i32;
 
     fn set_child_y<T: IsA<Widget>>(&self, item: &T, y: i32);

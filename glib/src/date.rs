@@ -111,46 +111,55 @@ impl Date {
     }
 
     #[doc(alias = "g_date_get_day")]
+    #[doc(alias = "get_day")]
     pub fn day(&self) -> DateDay {
         unsafe { ffi::g_date_get_day(self.to_glib_none().0) }
     }
 
     #[doc(alias = "g_date_get_day_of_year")]
+    #[doc(alias = "get_day_of_year")]
     pub fn day_of_year(&self) -> u32 {
         unsafe { ffi::g_date_get_day_of_year(self.to_glib_none().0) }
     }
 
     #[doc(alias = "g_date_get_iso8601_week_of_year")]
+    #[doc(alias = "get_iso8601_week_of_year")]
     pub fn iso8601_week_of_year(&self) -> u32 {
         unsafe { ffi::g_date_get_iso8601_week_of_year(self.to_glib_none().0) }
     }
 
     #[doc(alias = "g_date_get_julian")]
+    #[doc(alias = "get_julian")]
     pub fn julian(&self) -> u32 {
         unsafe { ffi::g_date_get_julian(self.to_glib_none().0) }
     }
 
     #[doc(alias = "g_date_get_monday_week_of_year")]
+    #[doc(alias = "get_monday_week_of_year")]
     pub fn monday_week_of_year(&self) -> u32 {
         unsafe { ffi::g_date_get_monday_week_of_year(self.to_glib_none().0) }
     }
 
     #[doc(alias = "g_date_get_month")]
+    #[doc(alias = "get_month")]
     pub fn month(&self) -> DateMonth {
         unsafe { from_glib(ffi::g_date_get_month(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_date_get_sunday_week_of_year")]
+    #[doc(alias = "get_sunday_week_of_year")]
     pub fn sunday_week_of_year(&self) -> u32 {
         unsafe { ffi::g_date_get_sunday_week_of_year(self.to_glib_none().0) }
     }
 
     #[doc(alias = "g_date_get_weekday")]
+    #[doc(alias = "get_weekday")]
     pub fn weekday(&self) -> DateWeekday {
         unsafe { from_glib(ffi::g_date_get_weekday(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_date_get_year")]
+    #[doc(alias = "get_year")]
     pub fn year(&self) -> DateYear {
         unsafe { ffi::g_date_get_year(self.to_glib_none().0) }
     }
@@ -315,16 +324,19 @@ impl Date {
     }
 
     #[doc(alias = "g_date_get_days_in_month")]
+    #[doc(alias = "get_days_in_month")]
     pub fn days_in_month(month: DateMonth, year: DateYear) -> u8 {
         unsafe { ffi::g_date_get_days_in_month(month.into_glib(), year) }
     }
 
     #[doc(alias = "g_date_get_monday_weeks_in_year")]
+    #[doc(alias = "get_monday_weeks_in_year")]
     pub fn monday_weeks_in_year(year: DateYear) -> u8 {
         unsafe { ffi::g_date_get_monday_weeks_in_year(year) }
     }
 
     #[doc(alias = "g_date_get_sunday_weeks_in_year")]
+    #[doc(alias = "get_sunday_weeks_in_year")]
     pub fn sunday_weeks_in_year(year: DateYear) -> u8 {
         unsafe { ffi::g_date_get_sunday_weeks_in_year(year) }
     }

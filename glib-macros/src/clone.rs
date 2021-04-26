@@ -199,6 +199,7 @@ fn check_tokens(
     Ok(())
 }
 
+#[doc(alias = "get_full_ident")]
 fn full_ident(parts: &mut Peekable<ProcIter>, borrow_kind: BorrowKind) -> String {
     let mut name = String::new();
     let mut prev_is_ident = false;
@@ -244,6 +245,7 @@ fn full_ident(parts: &mut Peekable<ProcIter>, borrow_kind: BorrowKind) -> String
     name
 }
 
+#[doc(alias = "get_keyword")]
 fn keyword(parts: &mut Peekable<ProcIter>) -> String {
     let mut ret = String::new();
     let mut prev_is_ident = false;
@@ -361,6 +363,7 @@ fn group_to_string(g: &Group) -> String {
     )
 }
 
+#[doc(alias = "get_expr")]
 fn expr(parts: &mut Peekable<ProcIter>) -> String {
     let mut ret = String::new();
     let mut total = 0;
@@ -407,6 +410,7 @@ fn expr(parts: &mut Peekable<ProcIter>) -> String {
     }
 }
 
+#[doc(alias = "get_return_kind")]
 fn return_kind(parts: &mut Peekable<ProcIter>) -> WrapperKind {
     match check_tokens(
         &[SimpleToken::Ident("default"), SimpleToken::Punct("-")],
@@ -467,6 +471,7 @@ enum BlockKind {
 }
 
 impl BlockKind {
+    #[doc(alias = "get_closure")]
     fn closure(self) -> Option<Vec<TokenTree>> {
         match self {
             Self::AsyncBlock => None,
@@ -571,6 +576,7 @@ fn check_before_closure(parts: &mut Peekable<ProcIter>) -> BlockKind {
     }
 }
 
+#[doc(alias = "get_closure")]
 fn closure(parts: &mut Peekable<ProcIter>) -> Vec<TokenTree> {
     let mut ret = Vec::new();
 

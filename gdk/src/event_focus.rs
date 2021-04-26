@@ -9,6 +9,7 @@ event_wrapper!(EventFocus, GdkEventFocus);
 event_subtype!(EventFocus, ffi::GDK_FOCUS_CHANGE);
 
 impl EventFocus {
+    #[doc(alias = "get_in")]
     pub fn is_in(&self) -> bool {
         unsafe { from_glib(self.as_ref().in_ as _) }
     }

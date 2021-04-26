@@ -69,6 +69,7 @@ impl UnixSocketAddress {
 
 pub trait UnixSocketAddressExtManual {
     #[doc(alias = "g_unix_socket_address_get_path")]
+    #[doc(alias = "get_path")]
     fn path(&self) -> Option<UnixSocketAddressPath>;
 }
 
