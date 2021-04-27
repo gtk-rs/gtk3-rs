@@ -18,7 +18,7 @@
 //!     }
 //! ```
 //!
-//! Implementing [`OptionToGlib`] on a Rust type `T` allows specifying a sentinel to indicate
+//! Implementing [`OptionIntoGlib`] on a Rust type `T` allows specifying a sentinel to indicate
 //! a `None` value and auto-implementing [`FromGlib`] for `Option<T>`, which would not be
 //! possible in dependent crates due to the [orphan rule](https://doc.rust-lang.org/book/ch10-02-traits.html#implementing-a-trait-on-a-type).
 //! In the example below, [`IntoGlib`] is auto-implemented for `Option<SpecialU32>`.
@@ -32,7 +32,7 @@
 //!         self.0 as libc::c_uint
 //!     }
 //! }
-//! impl OptionToGlib for SpecialU32 {
+//! impl OptionIntoGlib for SpecialU32 {
 //!     const GLIB_NONE: Self::GlibType = 0xFFFFFF;
 //! }
 //! ```
@@ -48,7 +48,7 @@
 //! #         self.0 as libc::c_uint
 //! #     }
 //! # }
-//! # impl OptionToGlib for SpecialU32 {
+//! # impl OptionIntoGlib for SpecialU32 {
 //! #     const GLIB_NONE: Self::GlibType = 0xFFFFFF;
 //! # }
 //! impl TryFromGlib<libc::c_uint> for SpecialU32 {
@@ -358,11 +358,11 @@ where
 }
 
 /// A Rust type `T` for which `Option<T>` translates to the same glib type as T.
-pub trait OptionToGlib: IntoGlib {
+pub trait OptionIntoGlib: IntoGlib {
     const GLIB_NONE: Self::GlibType;
 }
 
-impl<T: OptionToGlib> IntoGlib for Option<T> {
+impl<T: OptionIntoGlib> IntoGlib for Option<T> {
     type GlibType = T::GlibType;
 
     #[inline]
@@ -2458,7 +2458,7 @@ mod tests {
                 self.0 as libc::c_uint
             }
         }
-        impl OptionToGlib for SpecialU32 {
+        impl OptionIntoGlib for SpecialU32 {
             const GLIB_NONE: Self::GlibType = CLONG_NONE as libc::c_uint;
         }
 
@@ -2534,7 +2534,7 @@ mod tests {
                 self.0 as libc::c_long
             }
         }
-        impl OptionToGlib for SpecialU32 {
+        impl OptionIntoGlib for SpecialU32 {
             const GLIB_NONE: Self::GlibType = -1;
         }
 
