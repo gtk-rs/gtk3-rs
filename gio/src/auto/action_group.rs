@@ -101,7 +101,7 @@ impl<O: IsA<ActionGroup>> ActionGroupExt for O {
             ffi::g_action_group_action_enabled_changed(
                 self.as_ref().to_glib_none().0,
                 action_name.to_glib_none().0,
-                enabled.to_glib(),
+                enabled.into_glib(),
             );
         }
     }

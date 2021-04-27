@@ -8,7 +8,6 @@ use crate::UnixSocketAddressType;
 use glib::object::IsA;
 use glib::translate::*;
 use glib::StaticType;
-use glib::ToValue;
 use std::fmt;
 
 glib::wrapper! {

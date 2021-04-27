@@ -60,7 +60,7 @@ impl<O: IsA<Image>> AtkImageExt for O {
                 self.as_ref().to_glib_none().0,
                 x.as_mut_ptr(),
                 y.as_mut_ptr(),
-                coord_type.to_glib(),
+                coord_type.into_glib(),
             );
             let x = x.assume_init();
             let y = y.assume_init();

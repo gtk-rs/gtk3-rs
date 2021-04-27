@@ -45,7 +45,7 @@ impl AppChooserDialog {
         unsafe {
             Widget::from_glib_none(ffi::gtk_app_chooser_dialog_new(
                 parent.map(|p| p.as_ref()).to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 file.as_ref().to_glib_none().0,
             ))
             .unsafe_cast()
@@ -62,7 +62,7 @@ impl AppChooserDialog {
         unsafe {
             Widget::from_glib_none(ffi::gtk_app_chooser_dialog_new_for_content_type(
                 parent.map(|p| p.as_ref()).to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 content_type.to_glib_none().0,
             ))
             .unsafe_cast()

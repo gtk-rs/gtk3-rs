@@ -47,7 +47,7 @@ impl FilenameCompleter {
     #[doc(alias = "g_filename_completer_set_dirs_only")]
     pub fn set_dirs_only(&self, dirs_only: bool) {
         unsafe {
-            ffi::g_filename_completer_set_dirs_only(self.to_glib_none().0, dirs_only.to_glib());
+            ffi::g_filename_completer_set_dirs_only(self.to_glib_none().0, dirs_only.into_glib());
         }
     }
 

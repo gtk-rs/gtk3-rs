@@ -161,7 +161,7 @@ impl<O: IsA<Volume>> VolumeExt for O {
         unsafe {
             ffi::g_volume_eject_with_operation(
                 self.as_ref().to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 mount_operation.map(|p| p.as_ref()).to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
@@ -281,7 +281,7 @@ impl<O: IsA<Volume>> VolumeExt for O {
         unsafe {
             ffi::g_volume_mount(
                 self.as_ref().to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 mount_operation.map(|p| p.as_ref()).to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),

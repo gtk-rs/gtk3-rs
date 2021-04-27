@@ -578,19 +578,19 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
 
     fn set_icon_size(&self, icon_size: IconSize) {
         unsafe {
-            ffi::gtk_toolbar_set_icon_size(self.as_ref().to_glib_none().0, icon_size.to_glib());
+            ffi::gtk_toolbar_set_icon_size(self.as_ref().to_glib_none().0, icon_size.into_glib());
         }
     }
 
     fn set_show_arrow(&self, show_arrow: bool) {
         unsafe {
-            ffi::gtk_toolbar_set_show_arrow(self.as_ref().to_glib_none().0, show_arrow.to_glib());
+            ffi::gtk_toolbar_set_show_arrow(self.as_ref().to_glib_none().0, show_arrow.into_glib());
         }
     }
 
     fn set_style(&self, style: ToolbarStyle) {
         unsafe {
-            ffi::gtk_toolbar_set_style(self.as_ref().to_glib_none().0, style.to_glib());
+            ffi::gtk_toolbar_set_style(self.as_ref().to_glib_none().0, style.into_glib());
         }
     }
 
@@ -723,7 +723,7 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
                 &Toolbar::from_glib_borrow(this).unsafe_cast_ref(),
                 from_glib(focus_home),
             )
-            .to_glib()
+            .into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -805,7 +805,7 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
                 y,
                 button,
             )
-            .to_glib()
+            .into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

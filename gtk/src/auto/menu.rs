@@ -852,8 +852,8 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
                 self.as_ref().to_glib_none().0,
                 rect_window.to_glib_none().0,
                 rect.to_glib_none().0,
-                rect_anchor.to_glib(),
-                menu_anchor.to_glib(),
+                rect_anchor.into_glib(),
+                menu_anchor.into_glib(),
                 trigger_event.to_glib_none().0,
             );
         }
@@ -872,8 +872,8 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
             ffi::gtk_menu_popup_at_widget(
                 self.as_ref().to_glib_none().0,
                 widget.as_ref().to_glib_none().0,
-                widget_anchor.to_glib(),
-                menu_anchor.to_glib(),
+                widget_anchor.into_glib(),
+                menu_anchor.into_glib(),
                 trigger_event.to_glib_none().0,
             );
         }
@@ -933,7 +933,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
         unsafe {
             ffi::gtk_menu_set_reserve_toggle_size(
                 self.as_ref().to_glib_none().0,
-                reserve_toggle_size.to_glib(),
+                reserve_toggle_size.into_glib(),
             );
         }
     }

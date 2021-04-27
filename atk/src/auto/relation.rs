@@ -31,7 +31,7 @@ impl Relation {
             from_glib_full(ffi::atk_relation_new(
                 targets.to_glib_none().0,
                 n_targets,
-                relationship.to_glib(),
+                relationship.into_glib(),
             ))
         }
     }

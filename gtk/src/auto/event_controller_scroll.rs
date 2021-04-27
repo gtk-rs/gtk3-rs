@@ -33,7 +33,7 @@ impl EventControllerScroll {
         unsafe {
             EventController::from_glib_full(ffi::gtk_event_controller_scroll_new(
                 widget.as_ref().to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
             ))
             .unsafe_cast()
         }
@@ -51,7 +51,7 @@ impl EventControllerScroll {
     #[doc(alias = "gtk_event_controller_scroll_set_flags")]
     pub fn set_flags(&self, flags: EventControllerScrollFlags) {
         unsafe {
-            ffi::gtk_event_controller_scroll_set_flags(self.to_glib_none().0, flags.to_glib());
+            ffi::gtk_event_controller_scroll_set_flags(self.to_glib_none().0, flags.into_glib());
         }
     }
 

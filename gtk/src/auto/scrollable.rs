@@ -134,7 +134,7 @@ impl<O: IsA<Scrollable>> ScrollableExt for O {
         unsafe {
             ffi::gtk_scrollable_set_hscroll_policy(
                 self.as_ref().to_glib_none().0,
-                policy.to_glib(),
+                policy.into_glib(),
             );
         }
     }
@@ -152,7 +152,7 @@ impl<O: IsA<Scrollable>> ScrollableExt for O {
         unsafe {
             ffi::gtk_scrollable_set_vscroll_policy(
                 self.as_ref().to_glib_none().0,
-                policy.to_glib(),
+                policy.into_glib(),
             );
         }
     }

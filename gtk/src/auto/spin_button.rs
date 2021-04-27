@@ -1062,7 +1062,7 @@ impl<O: IsA<SpinButton>> SpinButtonExt for O {
 
     fn set_numeric(&self, numeric: bool) {
         unsafe {
-            ffi::gtk_spin_button_set_numeric(self.as_ref().to_glib_none().0, numeric.to_glib());
+            ffi::gtk_spin_button_set_numeric(self.as_ref().to_glib_none().0, numeric.into_glib());
         }
     }
 
@@ -1076,7 +1076,7 @@ impl<O: IsA<SpinButton>> SpinButtonExt for O {
         unsafe {
             ffi::gtk_spin_button_set_snap_to_ticks(
                 self.as_ref().to_glib_none().0,
-                snap_to_ticks.to_glib(),
+                snap_to_ticks.into_glib(),
             );
         }
     }
@@ -1085,7 +1085,7 @@ impl<O: IsA<SpinButton>> SpinButtonExt for O {
         unsafe {
             ffi::gtk_spin_button_set_update_policy(
                 self.as_ref().to_glib_none().0,
-                policy.to_glib(),
+                policy.into_glib(),
             );
         }
     }
@@ -1098,7 +1098,7 @@ impl<O: IsA<SpinButton>> SpinButtonExt for O {
 
     fn set_wrap(&self, wrap: bool) {
         unsafe {
-            ffi::gtk_spin_button_set_wrap(self.as_ref().to_glib_none().0, wrap.to_glib());
+            ffi::gtk_spin_button_set_wrap(self.as_ref().to_glib_none().0, wrap.into_glib());
         }
     }
 
@@ -1106,7 +1106,7 @@ impl<O: IsA<SpinButton>> SpinButtonExt for O {
         unsafe {
             ffi::gtk_spin_button_spin(
                 self.as_ref().to_glib_none().0,
-                direction.to_glib(),
+                direction.into_glib(),
                 increment,
             );
         }

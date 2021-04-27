@@ -21,7 +21,7 @@ impl Cursor {
     #[doc(alias = "gdk_cursor_new")]
     pub fn new(cursor_type: CursorType) -> Cursor {
         assert_initialized_main_thread!();
-        unsafe { from_glib_full(ffi::gdk_cursor_new(cursor_type.to_glib())) }
+        unsafe { from_glib_full(ffi::gdk_cursor_new(cursor_type.into_glib())) }
     }
 
     #[doc(alias = "gdk_cursor_new_for_display")]
@@ -30,7 +30,7 @@ impl Cursor {
         unsafe {
             from_glib_full(ffi::gdk_cursor_new_for_display(
                 display.to_glib_none().0,
-                cursor_type.to_glib(),
+                cursor_type.into_glib(),
             ))
         }
     }

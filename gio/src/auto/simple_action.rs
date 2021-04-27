@@ -48,7 +48,7 @@ impl SimpleAction {
     #[doc(alias = "g_simple_action_set_enabled")]
     pub fn set_enabled(&self, enabled: bool) {
         unsafe {
-            ffi::g_simple_action_set_enabled(self.to_glib_none().0, enabled.to_glib());
+            ffi::g_simple_action_set_enabled(self.to_glib_none().0, enabled.into_glib());
         }
     }
 

@@ -29,7 +29,7 @@ impl SettingsSchemaSource {
             let ret = ffi::g_settings_schema_source_new_from_directory(
                 directory.as_ref().to_glib_none().0,
                 parent.to_glib_none().0,
-                trusted.to_glib(),
+                trusted.into_glib(),
                 &mut error,
             );
             if error.is_null() {
@@ -47,7 +47,7 @@ impl SettingsSchemaSource {
             let mut relocatable = ptr::null_mut();
             ffi::g_settings_schema_source_list_schemas(
                 self.to_glib_none().0,
-                recursive.to_glib(),
+                recursive.into_glib(),
                 &mut non_relocatable,
                 &mut relocatable,
             );
@@ -64,7 +64,7 @@ impl SettingsSchemaSource {
             from_glib_full(ffi::g_settings_schema_source_lookup(
                 self.to_glib_none().0,
                 schema_id.to_glib_none().0,
-                recursive.to_glib(),
+                recursive.into_glib(),
             ))
         }
     }

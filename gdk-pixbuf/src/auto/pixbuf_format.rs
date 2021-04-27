@@ -103,7 +103,7 @@ impl PixbufFormat {
     #[doc(alias = "gdk_pixbuf_format_set_disabled")]
     pub fn set_disabled(&mut self, disabled: bool) {
         unsafe {
-            ffi::gdk_pixbuf_format_set_disabled(self.to_glib_none_mut().0, disabled.to_glib());
+            ffi::gdk_pixbuf_format_set_disabled(self.to_glib_none_mut().0, disabled.into_glib());
         }
     }
 }

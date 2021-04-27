@@ -437,7 +437,7 @@ impl<O: IsA<SeparatorToolItem>> SeparatorToolItemExt for O {
 
     fn set_draw(&self, draw: bool) {
         unsafe {
-            ffi::gtk_separator_tool_item_set_draw(self.as_ref().to_glib_none().0, draw.to_glib());
+            ffi::gtk_separator_tool_item_set_draw(self.as_ref().to_glib_none().0, draw.into_glib());
         }
     }
 

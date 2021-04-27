@@ -713,13 +713,16 @@ impl<O: IsA<Stack>> StackExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn set_hhomogeneous(&self, hhomogeneous: bool) {
         unsafe {
-            ffi::gtk_stack_set_hhomogeneous(self.as_ref().to_glib_none().0, hhomogeneous.to_glib());
+            ffi::gtk_stack_set_hhomogeneous(
+                self.as_ref().to_glib_none().0,
+                hhomogeneous.into_glib(),
+            );
         }
     }
 
     fn set_homogeneous(&self, homogeneous: bool) {
         unsafe {
-            ffi::gtk_stack_set_homogeneous(self.as_ref().to_glib_none().0, homogeneous.to_glib());
+            ffi::gtk_stack_set_homogeneous(self.as_ref().to_glib_none().0, homogeneous.into_glib());
         }
     }
 
@@ -729,7 +732,7 @@ impl<O: IsA<Stack>> StackExt for O {
         unsafe {
             ffi::gtk_stack_set_interpolate_size(
                 self.as_ref().to_glib_none().0,
-                interpolate_size.to_glib(),
+                interpolate_size.into_glib(),
             );
         }
     }
@@ -744,7 +747,7 @@ impl<O: IsA<Stack>> StackExt for O {
         unsafe {
             ffi::gtk_stack_set_transition_type(
                 self.as_ref().to_glib_none().0,
-                transition.to_glib(),
+                transition.into_glib(),
             );
         }
     }
@@ -753,7 +756,10 @@ impl<O: IsA<Stack>> StackExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn set_vhomogeneous(&self, vhomogeneous: bool) {
         unsafe {
-            ffi::gtk_stack_set_vhomogeneous(self.as_ref().to_glib_none().0, vhomogeneous.to_glib());
+            ffi::gtk_stack_set_vhomogeneous(
+                self.as_ref().to_glib_none().0,
+                vhomogeneous.into_glib(),
+            );
         }
     }
 
@@ -771,7 +777,7 @@ impl<O: IsA<Stack>> StackExt for O {
             ffi::gtk_stack_set_visible_child_full(
                 self.as_ref().to_glib_none().0,
                 name.to_glib_none().0,
-                transition.to_glib(),
+                transition.into_glib(),
             );
         }
     }

@@ -706,7 +706,10 @@ impl<O: IsA<Calendar>> CalendarExt for O {
 
     fn set_display_options(&self, flags: CalendarDisplayOptions) {
         unsafe {
-            ffi::gtk_calendar_set_display_options(self.as_ref().to_glib_none().0, flags.to_glib());
+            ffi::gtk_calendar_set_display_options(
+                self.as_ref().to_glib_none().0,
+                flags.into_glib(),
+            );
         }
     }
 

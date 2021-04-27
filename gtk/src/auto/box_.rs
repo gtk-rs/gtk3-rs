@@ -36,7 +36,7 @@ impl Box {
     pub fn new(orientation: Orientation, spacing: i32) -> Box {
         assert_initialized_main_thread!();
         unsafe {
-            Widget::from_glib_none(ffi::gtk_box_new(orientation.to_glib(), spacing)).unsafe_cast()
+            Widget::from_glib_none(ffi::gtk_box_new(orientation.into_glib(), spacing)).unsafe_cast()
         }
     }
 }
@@ -530,8 +530,8 @@ impl<O: IsA<Box>> BoxExt for O {
             ffi::gtk_box_pack_end(
                 self.as_ref().to_glib_none().0,
                 child.as_ref().to_glib_none().0,
-                expand.to_glib(),
-                fill.to_glib(),
+                expand.into_glib(),
+                fill.into_glib(),
                 padding,
             );
         }
@@ -542,8 +542,8 @@ impl<O: IsA<Box>> BoxExt for O {
             ffi::gtk_box_pack_start(
                 self.as_ref().to_glib_none().0,
                 child.as_ref().to_glib_none().0,
-                expand.to_glib(),
-                fill.to_glib(),
+                expand.into_glib(),
+                fill.into_glib(),
                 padding,
             );
         }
@@ -588,7 +588,10 @@ impl<O: IsA<Box>> BoxExt for O {
 
     fn set_baseline_position(&self, position: BaselinePosition) {
         unsafe {
-            ffi::gtk_box_set_baseline_position(self.as_ref().to_glib_none().0, position.to_glib());
+            ffi::gtk_box_set_baseline_position(
+                self.as_ref().to_glib_none().0,
+                position.into_glib(),
+            );
         }
     }
 
@@ -613,17 +616,17 @@ impl<O: IsA<Box>> BoxExt for O {
             ffi::gtk_box_set_child_packing(
                 self.as_ref().to_glib_none().0,
                 child.as_ref().to_glib_none().0,
-                expand.to_glib(),
-                fill.to_glib(),
+                expand.into_glib(),
+                fill.into_glib(),
                 padding,
-                pack_type.to_glib(),
+                pack_type.into_glib(),
             );
         }
     }
 
     fn set_homogeneous(&self, homogeneous: bool) {
         unsafe {
-            ffi::gtk_box_set_homogeneous(self.as_ref().to_glib_none().0, homogeneous.to_glib());
+            ffi::gtk_box_set_homogeneous(self.as_ref().to_glib_none().0, homogeneous.into_glib());
         }
     }
 

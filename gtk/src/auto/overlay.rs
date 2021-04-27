@@ -441,7 +441,7 @@ impl<O: IsA<Overlay>> OverlayExt for O {
             ffi::gtk_overlay_set_overlay_pass_through(
                 self.as_ref().to_glib_none().0,
                 widget.as_ref().to_glib_none().0,
-                pass_through.to_glib(),
+                pass_through.into_glib(),
             );
         }
     }

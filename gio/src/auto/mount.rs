@@ -207,7 +207,7 @@ impl<O: IsA<Mount>> MountExt for O {
         unsafe {
             ffi::g_mount_eject_with_operation(
                 self.as_ref().to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 mount_operation.map(|p| p.as_ref()).to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
@@ -313,7 +313,7 @@ impl<O: IsA<Mount>> MountExt for O {
         unsafe {
             ffi::g_mount_guess_content_type(
                 self.as_ref().to_glib_none().0,
-                force_rescan.to_glib(),
+                force_rescan.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
                 Box_::into_raw(user_data) as *mut _,
@@ -346,7 +346,7 @@ impl<O: IsA<Mount>> MountExt for O {
             let mut error = ptr::null_mut();
             let ret = ffi::g_mount_guess_content_type_sync(
                 self.as_ref().to_glib_none().0,
-                force_rescan.to_glib(),
+                force_rescan.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
             );
@@ -395,7 +395,7 @@ impl<O: IsA<Mount>> MountExt for O {
         unsafe {
             ffi::g_mount_remount(
                 self.as_ref().to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 mount_operation.map(|p| p.as_ref()).to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
@@ -468,7 +468,7 @@ impl<O: IsA<Mount>> MountExt for O {
         unsafe {
             ffi::g_mount_unmount_with_operation(
                 self.as_ref().to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 mount_operation.map(|p| p.as_ref()).to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),

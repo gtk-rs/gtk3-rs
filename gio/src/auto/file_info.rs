@@ -291,7 +291,7 @@ impl FileInfo {
             ffi::g_file_info_set_attribute_boolean(
                 self.to_glib_none().0,
                 attribute.to_glib_none().0,
-                attr_value.to_glib(),
+                attr_value.into_glib(),
             );
         }
     }
@@ -353,7 +353,7 @@ impl FileInfo {
             from_glib(ffi::g_file_info_set_attribute_status(
                 self.to_glib_none().0,
                 attribute.to_glib_none().0,
-                status.to_glib(),
+                status.into_glib(),
             ))
         }
     }
@@ -426,7 +426,7 @@ impl FileInfo {
     #[doc(alias = "g_file_info_set_file_type")]
     pub fn set_file_type(&self, type_: FileType) {
         unsafe {
-            ffi::g_file_info_set_file_type(self.to_glib_none().0, type_.to_glib());
+            ffi::g_file_info_set_file_type(self.to_glib_none().0, type_.into_glib());
         }
     }
 
@@ -440,14 +440,14 @@ impl FileInfo {
     #[doc(alias = "g_file_info_set_is_hidden")]
     pub fn set_is_hidden(&self, is_hidden: bool) {
         unsafe {
-            ffi::g_file_info_set_is_hidden(self.to_glib_none().0, is_hidden.to_glib());
+            ffi::g_file_info_set_is_hidden(self.to_glib_none().0, is_hidden.into_glib());
         }
     }
 
     #[doc(alias = "g_file_info_set_is_symlink")]
     pub fn set_is_symlink(&self, is_symlink: bool) {
         unsafe {
-            ffi::g_file_info_set_is_symlink(self.to_glib_none().0, is_symlink.to_glib());
+            ffi::g_file_info_set_is_symlink(self.to_glib_none().0, is_symlink.into_glib());
         }
     }
 

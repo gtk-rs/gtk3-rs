@@ -118,7 +118,7 @@ impl<O: IsA<FileIOStream>> FileIOStreamExt for O {
             ffi::g_file_io_stream_query_info_async(
                 self.as_ref().to_glib_none().0,
                 attributes.to_glib_none().0,
-                io_priority.to_glib(),
+                io_priority.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
                 Box_::into_raw(user_data) as *mut _,

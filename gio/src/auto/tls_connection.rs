@@ -16,7 +16,6 @@ use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
-use glib::ToValue;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
@@ -172,7 +171,7 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
             from_glib(ffi::g_tls_connection_emit_accept_certificate(
                 self.as_ref().to_glib_none().0,
                 peer_cert.as_ref().to_glib_none().0,
-                errors.to_glib(),
+                errors.into_glib(),
             ))
         }
     }
@@ -288,7 +287,7 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
         unsafe {
             ffi::g_tls_connection_handshake_async(
                 self.as_ref().to_glib_none().0,
-                io_priority.to_glib(),
+                io_priority.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
                 Box_::into_raw(user_data) as *mut _,
@@ -352,7 +351,7 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
         unsafe {
             ffi::g_tls_connection_set_rehandshake_mode(
                 self.as_ref().to_glib_none().0,
-                mode.to_glib(),
+                mode.into_glib(),
             );
         }
     }
@@ -361,7 +360,7 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
         unsafe {
             ffi::g_tls_connection_set_require_close_notify(
                 self.as_ref().to_glib_none().0,
-                require_close_notify.to_glib(),
+                require_close_notify.into_glib(),
             );
         }
     }
@@ -421,7 +420,7 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
                 &from_glib_borrow(peer_cert),
                 from_glib(errors),
             )
-            .to_glib()
+            .into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

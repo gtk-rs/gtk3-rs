@@ -638,7 +638,7 @@ impl<O: IsA<RecentChooserMenu>> RecentChooserMenuExt for O {
         unsafe {
             ffi::gtk_recent_chooser_menu_set_show_numbers(
                 self.as_ref().to_glib_none().0,
-                show_numbers.to_glib(),
+                show_numbers.into_glib(),
             );
         }
     }

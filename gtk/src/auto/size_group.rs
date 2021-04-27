@@ -28,7 +28,7 @@ impl SizeGroup {
     #[doc(alias = "gtk_size_group_new")]
     pub fn new(mode: SizeGroupMode) -> SizeGroup {
         assert_initialized_main_thread!();
-        unsafe { from_glib_full(ffi::gtk_size_group_new(mode.to_glib())) }
+        unsafe { from_glib_full(ffi::gtk_size_group_new(mode.into_glib())) }
     }
 }
 
@@ -144,14 +144,14 @@ impl<O: IsA<SizeGroup>> SizeGroupExt for O {
         unsafe {
             ffi::gtk_size_group_set_ignore_hidden(
                 self.as_ref().to_glib_none().0,
-                ignore_hidden.to_glib(),
+                ignore_hidden.into_glib(),
             );
         }
     }
 
     fn set_mode(&self, mode: SizeGroupMode) {
         unsafe {
-            ffi::gtk_size_group_set_mode(self.as_ref().to_glib_none().0, mode.to_glib());
+            ffi::gtk_size_group_set_mode(self.as_ref().to_glib_none().0, mode.into_glib());
         }
     }
 

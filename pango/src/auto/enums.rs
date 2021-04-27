@@ -41,11 +41,11 @@ impl fmt::Display for Alignment {
 }
 
 #[doc(hidden)]
-impl ToGlib for Alignment {
+impl IntoGlib for Alignment {
     type GlibType = ffi::PangoAlignment;
 
-    fn to_glib(&self) -> ffi::PangoAlignment {
-        match *self {
+    fn into_glib(self) -> ffi::PangoAlignment {
+        match self {
             Alignment::Left => ffi::PANGO_ALIGN_LEFT,
             Alignment::Center => ffi::PANGO_ALIGN_CENTER,
             Alignment::Right => ffi::PANGO_ALIGN_RIGHT,
@@ -88,7 +88,7 @@ impl ToValue for Alignment {
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<Alignment>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -171,7 +171,7 @@ pub enum AttrType {
 impl AttrType {
     #[doc(alias = "pango_attr_type_get_name")]
     pub fn name(self) -> Option<glib::GString> {
-        unsafe { from_glib_none(ffi::pango_attr_type_get_name(self.to_glib())) }
+        unsafe { from_glib_none(ffi::pango_attr_type_get_name(self.into_glib())) }
     }
 }
 
@@ -219,11 +219,11 @@ impl fmt::Display for AttrType {
 }
 
 #[doc(hidden)]
-impl ToGlib for AttrType {
+impl IntoGlib for AttrType {
     type GlibType = ffi::PangoAttrType;
 
-    fn to_glib(&self) -> ffi::PangoAttrType {
-        match *self {
+    fn into_glib(self) -> ffi::PangoAttrType {
+        match self {
             AttrType::Invalid => ffi::PANGO_ATTR_INVALID,
             AttrType::Language => ffi::PANGO_ATTR_LANGUAGE,
             AttrType::Family => ffi::PANGO_ATTR_FAMILY,
@@ -322,7 +322,7 @@ impl ToValue for AttrType {
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<AttrType>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -382,7 +382,7 @@ pub enum BidiType {
 impl BidiType {
     #[doc(alias = "pango_bidi_type_for_unichar")]
     pub fn for_unichar(ch: char) -> BidiType {
-        unsafe { from_glib(ffi::pango_bidi_type_for_unichar(ch.to_glib())) }
+        unsafe { from_glib(ffi::pango_bidi_type_for_unichar(ch.into_glib())) }
     }
 }
 
@@ -418,11 +418,11 @@ impl fmt::Display for BidiType {
 }
 
 #[doc(hidden)]
-impl ToGlib for BidiType {
+impl IntoGlib for BidiType {
     type GlibType = ffi::PangoBidiType;
 
-    fn to_glib(&self) -> ffi::PangoBidiType {
-        match *self {
+    fn into_glib(self) -> ffi::PangoBidiType {
+        match self {
             BidiType::L => ffi::PANGO_BIDI_TYPE_L,
             BidiType::Lre => ffi::PANGO_BIDI_TYPE_LRE,
             BidiType::Lro => ffi::PANGO_BIDI_TYPE_LRO,
@@ -497,7 +497,7 @@ impl ToValue for BidiType {
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<BidiType>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -540,11 +540,11 @@ impl fmt::Display for CoverageLevel {
 }
 
 #[doc(hidden)]
-impl ToGlib for CoverageLevel {
+impl IntoGlib for CoverageLevel {
     type GlibType = ffi::PangoCoverageLevel;
 
-    fn to_glib(&self) -> ffi::PangoCoverageLevel {
-        match *self {
+    fn into_glib(self) -> ffi::PangoCoverageLevel {
+        match self {
             CoverageLevel::None => ffi::PANGO_COVERAGE_NONE,
             CoverageLevel::Fallback => ffi::PANGO_COVERAGE_FALLBACK,
             CoverageLevel::Approximate => ffi::PANGO_COVERAGE_APPROXIMATE,
@@ -589,7 +589,7 @@ impl ToValue for CoverageLevel {
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<CoverageLevel>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -641,11 +641,11 @@ impl fmt::Display for Direction {
 }
 
 #[doc(hidden)]
-impl ToGlib for Direction {
+impl IntoGlib for Direction {
     type GlibType = ffi::PangoDirection;
 
-    fn to_glib(&self) -> ffi::PangoDirection {
-        match *self {
+    fn into_glib(self) -> ffi::PangoDirection {
+        match self {
             Direction::Ltr => ffi::PANGO_DIRECTION_LTR,
             Direction::Rtl => ffi::PANGO_DIRECTION_RTL,
             Direction::TtbLtr => ffi::PANGO_DIRECTION_TTB_LTR,
@@ -696,7 +696,7 @@ impl ToValue for Direction {
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<Direction>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -739,11 +739,11 @@ impl fmt::Display for EllipsizeMode {
 }
 
 #[doc(hidden)]
-impl ToGlib for EllipsizeMode {
+impl IntoGlib for EllipsizeMode {
     type GlibType = ffi::PangoEllipsizeMode;
 
-    fn to_glib(&self) -> ffi::PangoEllipsizeMode {
-        match *self {
+    fn into_glib(self) -> ffi::PangoEllipsizeMode {
+        match self {
             EllipsizeMode::None => ffi::PANGO_ELLIPSIZE_NONE,
             EllipsizeMode::Start => ffi::PANGO_ELLIPSIZE_START,
             EllipsizeMode::Middle => ffi::PANGO_ELLIPSIZE_MIDDLE,
@@ -788,7 +788,7 @@ impl ToValue for EllipsizeMode {
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<EllipsizeMode>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -826,9 +826,9 @@ impl Gravity {
     pub fn for_script(script: Script, base_gravity: Gravity, hint: GravityHint) -> Gravity {
         unsafe {
             from_glib(ffi::pango_gravity_get_for_script(
-                script.to_glib(),
-                base_gravity.to_glib(),
-                hint.to_glib(),
+                script.into_glib(),
+                base_gravity.into_glib(),
+                hint.into_glib(),
             ))
         }
     }
@@ -842,17 +842,17 @@ impl Gravity {
     ) -> Gravity {
         unsafe {
             from_glib(ffi::pango_gravity_get_for_script_and_width(
-                script.to_glib(),
-                wide.to_glib(),
-                base_gravity.to_glib(),
-                hint.to_glib(),
+                script.into_glib(),
+                wide.into_glib(),
+                base_gravity.into_glib(),
+                hint.into_glib(),
             ))
         }
     }
 
     #[doc(alias = "pango_gravity_to_rotation")]
     pub fn to_rotation(self) -> f64 {
-        unsafe { ffi::pango_gravity_to_rotation(self.to_glib()) }
+        unsafe { ffi::pango_gravity_to_rotation(self.into_glib()) }
     }
 }
 
@@ -874,11 +874,11 @@ impl fmt::Display for Gravity {
 }
 
 #[doc(hidden)]
-impl ToGlib for Gravity {
+impl IntoGlib for Gravity {
     type GlibType = ffi::PangoGravity;
 
-    fn to_glib(&self) -> ffi::PangoGravity {
-        match *self {
+    fn into_glib(self) -> ffi::PangoGravity {
+        match self {
             Gravity::South => ffi::PANGO_GRAVITY_SOUTH,
             Gravity::East => ffi::PANGO_GRAVITY_EAST,
             Gravity::North => ffi::PANGO_GRAVITY_NORTH,
@@ -925,7 +925,7 @@ impl ToValue for Gravity {
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<Gravity>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -965,11 +965,11 @@ impl fmt::Display for GravityHint {
 }
 
 #[doc(hidden)]
-impl ToGlib for GravityHint {
+impl IntoGlib for GravityHint {
     type GlibType = ffi::PangoGravityHint;
 
-    fn to_glib(&self) -> ffi::PangoGravityHint {
-        match *self {
+    fn into_glib(self) -> ffi::PangoGravityHint {
+        match self {
             GravityHint::Natural => ffi::PANGO_GRAVITY_HINT_NATURAL,
             GravityHint::Strong => ffi::PANGO_GRAVITY_HINT_STRONG,
             GravityHint::Line => ffi::PANGO_GRAVITY_HINT_LINE,
@@ -1012,7 +1012,7 @@ impl ToValue for GravityHint {
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<GravityHint>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -1055,11 +1055,11 @@ impl fmt::Display for Overline {
 #[cfg(any(feature = "v1_46", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_46")))]
 #[doc(hidden)]
-impl ToGlib for Overline {
+impl IntoGlib for Overline {
     type GlibType = ffi::PangoOverline;
 
-    fn to_glib(&self) -> ffi::PangoOverline {
-        match *self {
+    fn into_glib(self) -> ffi::PangoOverline {
+        match self {
             Overline::None => ffi::PANGO_OVERLINE_NONE,
             Overline::Single => ffi::PANGO_OVERLINE_SINGLE,
             Overline::__Unknown(value) => value,
@@ -1110,7 +1110,7 @@ impl ToValue for Overline {
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<Overline>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -1156,11 +1156,11 @@ impl fmt::Display for RenderPart {
 }
 
 #[doc(hidden)]
-impl ToGlib for RenderPart {
+impl IntoGlib for RenderPart {
     type GlibType = ffi::PangoRenderPart;
 
-    fn to_glib(&self) -> ffi::PangoRenderPart {
-        match *self {
+    fn into_glib(self) -> ffi::PangoRenderPart {
+        match self {
             RenderPart::Foreground => ffi::PANGO_RENDER_PART_FOREGROUND,
             RenderPart::Background => ffi::PANGO_RENDER_PART_BACKGROUND,
             RenderPart::Underline => ffi::PANGO_RENDER_PART_UNDERLINE,
@@ -1207,7 +1207,7 @@ impl ToValue for RenderPart {
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<RenderPart>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -1465,12 +1465,12 @@ impl Script {
     #[cfg_attr(feature = "v1_44", deprecated = "Since 1.44")]
     #[doc(alias = "pango_script_for_unichar")]
     pub fn for_unichar(ch: char) -> Script {
-        unsafe { from_glib(ffi::pango_script_for_unichar(ch.to_glib())) }
+        unsafe { from_glib(ffi::pango_script_for_unichar(ch.into_glib())) }
     }
 
     #[doc(alias = "pango_script_get_sample_language")]
     pub fn sample_language(self) -> Option<Language> {
-        unsafe { from_glib_full(ffi::pango_script_get_sample_language(self.to_glib())) }
+        unsafe { from_glib_full(ffi::pango_script_get_sample_language(self.into_glib())) }
     }
 }
 
@@ -1605,11 +1605,11 @@ impl fmt::Display for Script {
 }
 
 #[doc(hidden)]
-impl ToGlib for Script {
+impl IntoGlib for Script {
     type GlibType = ffi::PangoScript;
 
-    fn to_glib(&self) -> ffi::PangoScript {
-        match *self {
+    fn into_glib(self) -> ffi::PangoScript {
+        match self {
             Script::InvalidCode => ffi::PANGO_SCRIPT_INVALID_CODE,
             Script::Common => ffi::PANGO_SCRIPT_COMMON,
             Script::Inherited => ffi::PANGO_SCRIPT_INHERITED,
@@ -1882,7 +1882,7 @@ impl ToValue for Script {
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<Script>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -1940,11 +1940,11 @@ impl fmt::Display for Stretch {
 }
 
 #[doc(hidden)]
-impl ToGlib for Stretch {
+impl IntoGlib for Stretch {
     type GlibType = ffi::PangoStretch;
 
-    fn to_glib(&self) -> ffi::PangoStretch {
-        match *self {
+    fn into_glib(self) -> ffi::PangoStretch {
+        match self {
             Stretch::UltraCondensed => ffi::PANGO_STRETCH_ULTRA_CONDENSED,
             Stretch::ExtraCondensed => ffi::PANGO_STRETCH_EXTRA_CONDENSED,
             Stretch::Condensed => ffi::PANGO_STRETCH_CONDENSED,
@@ -1999,7 +1999,7 @@ impl ToValue for Stretch {
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<Stretch>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -2039,11 +2039,11 @@ impl fmt::Display for Style {
 }
 
 #[doc(hidden)]
-impl ToGlib for Style {
+impl IntoGlib for Style {
     type GlibType = ffi::PangoStyle;
 
-    fn to_glib(&self) -> ffi::PangoStyle {
-        match *self {
+    fn into_glib(self) -> ffi::PangoStyle {
+        match self {
             Style::Normal => ffi::PANGO_STYLE_NORMAL,
             Style::Oblique => ffi::PANGO_STYLE_OBLIQUE,
             Style::Italic => ffi::PANGO_STYLE_ITALIC,
@@ -2086,7 +2086,7 @@ impl ToValue for Style {
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<Style>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -2120,11 +2120,11 @@ impl fmt::Display for TabAlign {
 }
 
 #[doc(hidden)]
-impl ToGlib for TabAlign {
+impl IntoGlib for TabAlign {
     type GlibType = ffi::PangoTabAlign;
 
-    fn to_glib(&self) -> ffi::PangoTabAlign {
-        match *self {
+    fn into_glib(self) -> ffi::PangoTabAlign {
+        match self {
             TabAlign::Left => ffi::PANGO_TAB_LEFT,
             TabAlign::__Unknown(value) => value,
         }
@@ -2163,7 +2163,7 @@ impl ToValue for TabAlign {
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<TabAlign>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -2218,11 +2218,11 @@ impl fmt::Display for Underline {
 }
 
 #[doc(hidden)]
-impl ToGlib for Underline {
+impl IntoGlib for Underline {
     type GlibType = ffi::PangoUnderline;
 
-    fn to_glib(&self) -> ffi::PangoUnderline {
-        match *self {
+    fn into_glib(self) -> ffi::PangoUnderline {
+        match self {
             Underline::None => ffi::PANGO_UNDERLINE_NONE,
             Underline::Single => ffi::PANGO_UNDERLINE_SINGLE,
             Underline::Double => ffi::PANGO_UNDERLINE_DOUBLE,
@@ -2275,7 +2275,7 @@ impl ToValue for Underline {
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<Underline>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -2312,11 +2312,11 @@ impl fmt::Display for Variant {
 }
 
 #[doc(hidden)]
-impl ToGlib for Variant {
+impl IntoGlib for Variant {
     type GlibType = ffi::PangoVariant;
 
-    fn to_glib(&self) -> ffi::PangoVariant {
-        match *self {
+    fn into_glib(self) -> ffi::PangoVariant {
+        match self {
             Variant::Normal => ffi::PANGO_VARIANT_NORMAL,
             Variant::SmallCaps => ffi::PANGO_VARIANT_SMALL_CAPS,
             Variant::__Unknown(value) => value,
@@ -2357,7 +2357,7 @@ impl ToValue for Variant {
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<Variant>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -2424,11 +2424,11 @@ impl fmt::Display for Weight {
 }
 
 #[doc(hidden)]
-impl ToGlib for Weight {
+impl IntoGlib for Weight {
     type GlibType = ffi::PangoWeight;
 
-    fn to_glib(&self) -> ffi::PangoWeight {
-        match *self {
+    fn into_glib(self) -> ffi::PangoWeight {
+        match self {
             Weight::Thin => ffi::PANGO_WEIGHT_THIN,
             Weight::Ultralight => ffi::PANGO_WEIGHT_ULTRALIGHT,
             Weight::Light => ffi::PANGO_WEIGHT_LIGHT,
@@ -2489,7 +2489,7 @@ impl ToValue for Weight {
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<Weight>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -2529,11 +2529,11 @@ impl fmt::Display for WrapMode {
 }
 
 #[doc(hidden)]
-impl ToGlib for WrapMode {
+impl IntoGlib for WrapMode {
     type GlibType = ffi::PangoWrapMode;
 
-    fn to_glib(&self) -> ffi::PangoWrapMode {
-        match *self {
+    fn into_glib(self) -> ffi::PangoWrapMode {
+        match self {
             WrapMode::Word => ffi::PANGO_WRAP_WORD,
             WrapMode::Char => ffi::PANGO_WRAP_CHAR,
             WrapMode::WordChar => ffi::PANGO_WRAP_WORD_CHAR,
@@ -2576,7 +2576,7 @@ impl ToValue for WrapMode {
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<WrapMode>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }

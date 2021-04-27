@@ -109,10 +109,10 @@ impl<O: IsA<AccelGroup>> AccelGroupExt for O {
         unsafe {
             from_glib(ffi::gtk_accel_group_activate(
                 self.as_ref().to_glib_none().0,
-                accel_quark.to_glib(),
+                accel_quark.into_glib(),
                 acceleratable.as_ref().to_glib_none().0,
                 accel_key,
-                accel_mods.to_glib(),
+                accel_mods.into_glib(),
             ))
         }
     }
@@ -131,7 +131,7 @@ impl<O: IsA<AccelGroup>> AccelGroupExt for O {
             from_glib(ffi::gtk_accel_group_disconnect_key(
                 self.as_ref().to_glib_none().0,
                 accel_key,
-                accel_mods.to_glib(),
+                accel_mods.into_glib(),
             ))
         }
     }
@@ -195,7 +195,7 @@ impl<O: IsA<AccelGroup>> AccelGroupExt for O {
                 keyval,
                 from_glib(modifier),
             )
-            .to_glib()
+            .into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

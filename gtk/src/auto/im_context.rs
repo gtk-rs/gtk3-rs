@@ -203,7 +203,7 @@ impl<O: IsA<IMContext>> IMContextExt for O {
         unsafe {
             ffi::gtk_im_context_set_use_preedit(
                 self.as_ref().to_glib_none().0,
-                use_preedit.to_glib(),
+                use_preedit.into_glib(),
             );
         }
     }
@@ -305,7 +305,7 @@ impl<O: IsA<IMContext>> IMContextExt for O {
                 offset,
                 n_chars,
             )
-            .to_glib()
+            .into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -401,7 +401,7 @@ impl<O: IsA<IMContext>> IMContextExt for O {
             P: IsA<IMContext>,
         {
             let f: &F = &*(f as *const F);
-            f(&IMContext::from_glib_borrow(this).unsafe_cast_ref()).to_glib()
+            f(&IMContext::from_glib_borrow(this).unsafe_cast_ref()).into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

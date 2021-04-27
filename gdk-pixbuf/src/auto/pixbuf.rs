@@ -10,7 +10,6 @@ use glib::object::IsA;
 use glib::object::ObjectType as ObjectType_;
 use glib::translate::*;
 use glib::StaticType;
-use glib::ToValue;
 use std::fmt;
 use std::ptr;
 
@@ -33,8 +32,8 @@ impl Pixbuf {
     ) -> Option<Pixbuf> {
         unsafe {
             from_glib_full(ffi::gdk_pixbuf_new(
-                colorspace.to_glib(),
-                has_alpha.to_glib(),
+                colorspace.into_glib(),
+                has_alpha.into_glib(),
                 bits_per_sample,
                 width,
                 height,
@@ -57,8 +56,8 @@ impl Pixbuf {
         unsafe {
             from_glib_full(ffi::gdk_pixbuf_new_from_bytes(
                 data.to_glib_none().0,
-                colorspace.to_glib(),
-                has_alpha.to_glib(),
+                colorspace.into_glib(),
+                has_alpha.into_glib(),
                 bits_per_sample,
                 width,
                 height,
@@ -81,7 +80,7 @@ impl Pixbuf {
             let ret = ffi::gdk_pixbuf_new_from_inline(
                 data_length,
                 data.to_glib_none().0,
-                copy_pixels.to_glib(),
+                copy_pixels.into_glib(),
                 &mut error,
             );
             if error.is_null() {
@@ -118,7 +117,7 @@ impl Pixbuf {
                 resource_path.to_glib_none().0,
                 width,
                 height,
-                preserve_aspect_ratio.to_glib(),
+                preserve_aspect_ratio.into_glib(),
                 &mut error,
             );
             if error.is_null() {
@@ -163,7 +162,7 @@ impl Pixbuf {
                 stream.as_ref().to_glib_none().0,
                 width,
                 height,
-                preserve_aspect_ratio.to_glib(),
+                preserve_aspect_ratio.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
             );
@@ -185,7 +184,7 @@ impl Pixbuf {
         unsafe {
             from_glib_full(ffi::gdk_pixbuf_add_alpha(
                 self.to_glib_none().0,
-                substitute_color.to_glib(),
+                substitute_color.into_glib(),
                 r,
                 g,
                 b,
@@ -229,7 +228,7 @@ impl Pixbuf {
                 offset_y,
                 scale_x,
                 scale_y,
-                interp_type.to_glib(),
+                interp_type.into_glib(),
                 overall_alpha,
             );
         }
@@ -267,7 +266,7 @@ impl Pixbuf {
                 offset_y,
                 scale_x,
                 scale_y,
-                interp_type.to_glib(),
+                interp_type.into_glib(),
                 overall_alpha,
                 check_x,
                 check_y,
@@ -294,7 +293,7 @@ impl Pixbuf {
                 self.to_glib_none().0,
                 dest_width,
                 dest_height,
-                interp_type.to_glib(),
+                interp_type.into_glib(),
                 overall_alpha,
                 check_size,
                 color1,
@@ -357,7 +356,7 @@ impl Pixbuf {
         unsafe {
             from_glib_full(ffi::gdk_pixbuf_flip(
                 self.to_glib_none().0,
-                horizontal.to_glib(),
+                horizontal.into_glib(),
             ))
         }
     }
@@ -456,7 +455,7 @@ impl Pixbuf {
         unsafe {
             from_glib_full(ffi::gdk_pixbuf_rotate_simple(
                 self.to_glib_none().0,
-                angle.to_glib(),
+                angle.into_glib(),
             ))
         }
     }
@@ -468,7 +467,7 @@ impl Pixbuf {
                 self.to_glib_none().0,
                 dest.to_glib_none().0,
                 saturation,
-                pixelate.to_glib(),
+                pixelate.into_glib(),
             );
         }
     }
@@ -550,7 +549,7 @@ impl Pixbuf {
                 offset_y,
                 scale_x,
                 scale_y,
-                interp_type.to_glib(),
+                interp_type.into_glib(),
             );
         }
     }
@@ -567,7 +566,7 @@ impl Pixbuf {
                 self.to_glib_none().0,
                 dest_width,
                 dest_height,
-                interp_type.to_glib(),
+                interp_type.into_glib(),
             ))
         }
     }
@@ -610,8 +609,8 @@ impl Pixbuf {
     ) -> i32 {
         unsafe {
             ffi::gdk_pixbuf_calculate_rowstride(
-                colorspace.to_glib(),
-                has_alpha.to_glib(),
+                colorspace.into_glib(),
+                has_alpha.into_glib(),
                 bits_per_sample,
                 width,
                 height,

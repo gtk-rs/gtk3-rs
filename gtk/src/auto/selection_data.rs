@@ -141,7 +141,7 @@ impl SelectionData {
         unsafe {
             from_glib(ffi::gtk_selection_data_targets_include_image(
                 self.to_glib_none().0,
-                writable.to_glib(),
+                writable.into_glib(),
             ))
         }
     }

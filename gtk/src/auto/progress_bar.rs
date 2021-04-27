@@ -517,7 +517,7 @@ impl<O: IsA<ProgressBar>> ProgressBarExt for O {
 
     fn set_ellipsize(&self, mode: pango::EllipsizeMode) {
         unsafe {
-            ffi::gtk_progress_bar_set_ellipsize(self.as_ref().to_glib_none().0, mode.to_glib());
+            ffi::gtk_progress_bar_set_ellipsize(self.as_ref().to_glib_none().0, mode.into_glib());
         }
     }
 
@@ -529,7 +529,10 @@ impl<O: IsA<ProgressBar>> ProgressBarExt for O {
 
     fn set_inverted(&self, inverted: bool) {
         unsafe {
-            ffi::gtk_progress_bar_set_inverted(self.as_ref().to_glib_none().0, inverted.to_glib());
+            ffi::gtk_progress_bar_set_inverted(
+                self.as_ref().to_glib_none().0,
+                inverted.into_glib(),
+            );
         }
     }
 
@@ -543,7 +546,7 @@ impl<O: IsA<ProgressBar>> ProgressBarExt for O {
         unsafe {
             ffi::gtk_progress_bar_set_show_text(
                 self.as_ref().to_glib_none().0,
-                show_text.to_glib(),
+                show_text.into_glib(),
             );
         }
     }

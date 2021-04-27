@@ -102,7 +102,7 @@ impl Notification {
     #[doc(alias = "g_notification_set_priority")]
     pub fn set_priority(&self, priority: NotificationPriority) {
         unsafe {
-            ffi::g_notification_set_priority(self.to_glib_none().0, priority.to_glib());
+            ffi::g_notification_set_priority(self.to_glib_none().0, priority.into_glib());
         }
     }
 

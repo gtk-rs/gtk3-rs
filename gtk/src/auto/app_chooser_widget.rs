@@ -617,7 +617,7 @@ impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
         unsafe {
             ffi::gtk_app_chooser_widget_set_show_all(
                 self.as_ref().to_glib_none().0,
-                setting.to_glib(),
+                setting.into_glib(),
             );
         }
     }
@@ -626,7 +626,7 @@ impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
         unsafe {
             ffi::gtk_app_chooser_widget_set_show_default(
                 self.as_ref().to_glib_none().0,
-                setting.to_glib(),
+                setting.into_glib(),
             );
         }
     }
@@ -635,7 +635,7 @@ impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
         unsafe {
             ffi::gtk_app_chooser_widget_set_show_fallback(
                 self.as_ref().to_glib_none().0,
-                setting.to_glib(),
+                setting.into_glib(),
             );
         }
     }
@@ -644,7 +644,7 @@ impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
         unsafe {
             ffi::gtk_app_chooser_widget_set_show_other(
                 self.as_ref().to_glib_none().0,
-                setting.to_glib(),
+                setting.into_glib(),
             );
         }
     }
@@ -653,7 +653,7 @@ impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
         unsafe {
             ffi::gtk_app_chooser_widget_set_show_recommended(
                 self.as_ref().to_glib_none().0,
-                setting.to_glib(),
+                setting.into_glib(),
             );
         }
     }

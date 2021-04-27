@@ -93,7 +93,7 @@ impl Euler {
             ffi::graphene_euler_init_from_matrix(
                 self.to_glib_none_mut().0,
                 m.to_glib_none().0,
-                order.to_glib(),
+                order.into_glib(),
             );
         }
     }
@@ -104,7 +104,7 @@ impl Euler {
             ffi::graphene_euler_init_from_quaternion(
                 self.to_glib_none_mut().0,
                 q.to_glib_none().0,
-                order.to_glib(),
+                order.into_glib(),
             );
         }
     }
@@ -125,7 +125,7 @@ impl Euler {
                 x,
                 y,
                 z,
-                order.to_glib(),
+                order.into_glib(),
             ))
         }
     }
@@ -136,7 +136,7 @@ impl Euler {
             ffi::graphene_euler_init_from_vec3(
                 self.to_glib_none_mut().0,
                 v.to_glib_none().0,
-                order.to_glib(),
+                order.into_glib(),
             );
         }
     }
@@ -149,7 +149,7 @@ impl Euler {
                 x,
                 y,
                 z,
-                order.to_glib(),
+                order.into_glib(),
             );
         }
     }
@@ -160,7 +160,7 @@ impl Euler {
             let mut res = Euler::uninitialized();
             ffi::graphene_euler_reorder(
                 self.to_glib_none().0,
-                order.to_glib(),
+                order.into_glib(),
                 res.to_glib_none_mut().0,
             );
             res

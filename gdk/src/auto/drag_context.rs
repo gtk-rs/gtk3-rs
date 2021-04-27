@@ -108,7 +108,7 @@ impl DragContext {
             from_glib(ffi::gdk_drag_context_manage_dnd(
                 self.to_glib_none().0,
                 ipc_window.to_glib_none().0,
-                actions.to_glib(),
+                actions.into_glib(),
             ))
         }
     }

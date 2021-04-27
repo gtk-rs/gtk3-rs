@@ -271,7 +271,7 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
                 path.to_glib_none().0,
                 background_area.to_glib_none().0,
                 cell_area.to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
             ))
         }
     }
@@ -287,7 +287,7 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
             ffi::gtk_cell_renderer_get_aligned_area(
                 self.as_ref().to_glib_none().0,
                 widget.as_ref().to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 cell_area.to_glib_none().0,
                 aligned_area.to_glib_none_mut().0,
             );
@@ -445,7 +445,7 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
             from_glib(ffi::gtk_cell_renderer_get_state(
                 self.as_ref().to_glib_none().0,
                 widget.map(|p| p.as_ref()).to_glib_none().0,
-                cell_state.to_glib(),
+                cell_state.into_glib(),
             ))
         }
     }
@@ -481,7 +481,7 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
                 widget.as_ref().to_glib_none().0,
                 background_area.to_glib_none().0,
                 cell_area.to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
             );
         }
     }
@@ -508,14 +508,14 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
         unsafe {
             ffi::gtk_cell_renderer_set_sensitive(
                 self.as_ref().to_glib_none().0,
-                sensitive.to_glib(),
+                sensitive.into_glib(),
             );
         }
     }
 
     fn set_visible(&self, visible: bool) {
         unsafe {
-            ffi::gtk_cell_renderer_set_visible(self.as_ref().to_glib_none().0, visible.to_glib());
+            ffi::gtk_cell_renderer_set_visible(self.as_ref().to_glib_none().0, visible.into_glib());
         }
     }
 
@@ -536,14 +536,17 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
                 path.to_glib_none().0,
                 background_area.to_glib_none().0,
                 cell_area.to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
             ))
         }
     }
 
     fn stop_editing(&self, canceled: bool) {
         unsafe {
-            ffi::gtk_cell_renderer_stop_editing(self.as_ref().to_glib_none().0, canceled.to_glib());
+            ffi::gtk_cell_renderer_stop_editing(
+                self.as_ref().to_glib_none().0,
+                canceled.into_glib(),
+            );
         }
     }
 

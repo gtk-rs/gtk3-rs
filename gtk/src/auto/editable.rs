@@ -150,7 +150,7 @@ impl<O: IsA<Editable>> EditableExt for O {
 
     fn set_editable(&self, is_editable: bool) {
         unsafe {
-            ffi::gtk_editable_set_editable(self.as_ref().to_glib_none().0, is_editable.to_glib());
+            ffi::gtk_editable_set_editable(self.as_ref().to_glib_none().0, is_editable.into_glib());
         }
     }
 

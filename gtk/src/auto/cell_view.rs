@@ -599,14 +599,14 @@ impl<O: IsA<CellView>> CellViewExt for O {
         unsafe {
             ffi::gtk_cell_view_set_draw_sensitive(
                 self.as_ref().to_glib_none().0,
-                draw_sensitive.to_glib(),
+                draw_sensitive.into_glib(),
             );
         }
     }
 
     fn set_fit_model(&self, fit_model: bool) {
         unsafe {
-            ffi::gtk_cell_view_set_fit_model(self.as_ref().to_glib_none().0, fit_model.to_glib());
+            ffi::gtk_cell_view_set_fit_model(self.as_ref().to_glib_none().0, fit_model.into_glib());
         }
     }
 

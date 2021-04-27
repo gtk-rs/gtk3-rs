@@ -153,14 +153,14 @@ impl Context {
     #[doc(alias = "pango_context_set_base_dir")]
     pub fn set_base_dir(&self, direction: Direction) {
         unsafe {
-            ffi::pango_context_set_base_dir(self.to_glib_none().0, direction.to_glib());
+            ffi::pango_context_set_base_dir(self.to_glib_none().0, direction.into_glib());
         }
     }
 
     #[doc(alias = "pango_context_set_base_gravity")]
     pub fn set_base_gravity(&self, gravity: Gravity) {
         unsafe {
-            ffi::pango_context_set_base_gravity(self.to_glib_none().0, gravity.to_glib());
+            ffi::pango_context_set_base_gravity(self.to_glib_none().0, gravity.into_glib());
         }
     }
 
@@ -184,7 +184,7 @@ impl Context {
     #[doc(alias = "pango_context_set_gravity_hint")]
     pub fn set_gravity_hint(&self, hint: GravityHint) {
         unsafe {
-            ffi::pango_context_set_gravity_hint(self.to_glib_none().0, hint.to_glib());
+            ffi::pango_context_set_gravity_hint(self.to_glib_none().0, hint.into_glib());
         }
     }
 
@@ -212,7 +212,7 @@ impl Context {
         unsafe {
             ffi::pango_context_set_round_glyph_positions(
                 self.to_glib_none().0,
-                round_positions.to_glib(),
+                round_positions.into_glib(),
             );
         }
     }

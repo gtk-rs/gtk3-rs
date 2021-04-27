@@ -68,7 +68,7 @@ impl<O: IsA<StateSet>> StateSetExt for O {
         unsafe {
             from_glib(ffi::atk_state_set_add_state(
                 self.as_ref().to_glib_none().0,
-                type_.to_glib(),
+                type_.into_glib(),
             ))
         }
     }
@@ -96,7 +96,7 @@ impl<O: IsA<StateSet>> StateSetExt for O {
         unsafe {
             from_glib(ffi::atk_state_set_contains_state(
                 self.as_ref().to_glib_none().0,
-                type_.to_glib(),
+                type_.into_glib(),
             ))
         }
     }
@@ -122,7 +122,7 @@ impl<O: IsA<StateSet>> StateSetExt for O {
         unsafe {
             from_glib(ffi::atk_state_set_remove_state(
                 self.as_ref().to_glib_none().0,
-                type_.to_glib(),
+                type_.into_glib(),
             ))
         }
     }

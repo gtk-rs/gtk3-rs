@@ -48,8 +48,8 @@ impl DBusProxy {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = ffi::g_dbus_proxy_new_for_bus_sync(
-                bus_type.to_glib(),
-                flags.to_glib(),
+                bus_type.into_glib(),
+                flags.into_glib(),
                 info.to_glib_none().0,
                 name.to_glib_none().0,
                 object_path.to_glib_none().0,
@@ -79,7 +79,7 @@ impl DBusProxy {
             let mut error = ptr::null_mut();
             let ret = ffi::g_dbus_proxy_new_sync(
                 connection.to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 info.to_glib_none().0,
                 name.to_glib_none().0,
                 object_path.to_glib_none().0,
@@ -128,7 +128,7 @@ impl DBusProxy {
         unsafe {
             ffi::g_dbus_proxy_new(
                 connection.to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 info.to_glib_none().0,
                 name.to_glib_none().0,
                 object_path.to_glib_none().0,
@@ -207,8 +207,8 @@ impl DBusProxy {
         let callback = new_for_bus_trampoline::<Q>;
         unsafe {
             ffi::g_dbus_proxy_new_for_bus(
-                bus_type.to_glib(),
-                flags.to_glib(),
+                bus_type.into_glib(),
+                flags.into_glib(),
                 info.to_glib_none().0,
                 name.to_glib_none().0,
                 object_path.to_glib_none().0,
@@ -460,7 +460,7 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
                 self.as_ref().to_glib_none().0,
                 method_name.to_glib_none().0,
                 parameters.to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 timeout_msec,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
@@ -510,7 +510,7 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
                 self.as_ref().to_glib_none().0,
                 method_name.to_glib_none().0,
                 parameters.to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 timeout_msec,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
@@ -569,7 +569,7 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
                 self.as_ref().to_glib_none().0,
                 method_name.to_glib_none().0,
                 parameters.to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 timeout_msec,
                 fd_list.map(|p| p.as_ref()).to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -633,7 +633,7 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
                 self.as_ref().to_glib_none().0,
                 method_name.to_glib_none().0,
                 parameters.to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 timeout_msec,
                 fd_list.map(|p| p.as_ref()).to_glib_none().0,
                 &mut out_fd_list,

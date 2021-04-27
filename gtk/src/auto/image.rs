@@ -65,7 +65,7 @@ impl Image {
         unsafe {
             Widget::from_glib_none(ffi::gtk_image_new_from_gicon(
                 icon.as_ref().to_glib_none().0,
-                size.to_glib(),
+                size.into_glib(),
             ))
             .unsafe_cast()
         }
@@ -77,7 +77,7 @@ impl Image {
         unsafe {
             Widget::from_glib_none(ffi::gtk_image_new_from_icon_name(
                 icon_name.to_glib_none().0,
-                size.to_glib(),
+                size.into_glib(),
             ))
             .unsafe_cast()
         }
@@ -711,7 +711,7 @@ impl<O: IsA<Image>> ImageExt for O {
             ffi::gtk_image_set_from_gicon(
                 self.as_ref().to_glib_none().0,
                 icon.as_ref().to_glib_none().0,
-                size.to_glib(),
+                size.into_glib(),
             );
         }
     }
@@ -721,7 +721,7 @@ impl<O: IsA<Image>> ImageExt for O {
             ffi::gtk_image_set_from_icon_name(
                 self.as_ref().to_glib_none().0,
                 icon_name.to_glib_none().0,
-                size.to_glib(),
+                size.into_glib(),
             );
         }
     }

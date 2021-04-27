@@ -360,7 +360,7 @@ impl<O: IsA<Resolver>> ResolverExt for O {
             let ret = ffi::g_resolver_lookup_by_name_with_flags(
                 self.as_ref().to_glib_none().0,
                 hostname.to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
             );
@@ -411,7 +411,7 @@ impl<O: IsA<Resolver>> ResolverExt for O {
             ffi::g_resolver_lookup_by_name_with_flags_async(
                 self.as_ref().to_glib_none().0,
                 hostname.to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
                 Box_::into_raw(user_data) as *mut _,
@@ -449,7 +449,7 @@ impl<O: IsA<Resolver>> ResolverExt for O {
             let ret = ffi::g_resolver_lookup_records(
                 self.as_ref().to_glib_none().0,
                 rrname.to_glib_none().0,
-                record_type.to_glib(),
+                record_type.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
             );
@@ -495,7 +495,7 @@ impl<O: IsA<Resolver>> ResolverExt for O {
             ffi::g_resolver_lookup_records_async(
                 self.as_ref().to_glib_none().0,
                 rrname.to_glib_none().0,
-                record_type.to_glib(),
+                record_type.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
                 Box_::into_raw(user_data) as *mut _,

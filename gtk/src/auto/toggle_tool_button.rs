@@ -506,7 +506,7 @@ impl<O: IsA<ToggleToolButton>> ToggleToolButtonExt for O {
         unsafe {
             ffi::gtk_toggle_tool_button_set_active(
                 self.as_ref().to_glib_none().0,
-                is_active.to_glib(),
+                is_active.into_glib(),
             );
         }
     }

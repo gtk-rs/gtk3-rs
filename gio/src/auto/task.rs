@@ -109,7 +109,7 @@ impl Task {
     #[doc(alias = "g_task_set_check_cancellable")]
     pub fn set_check_cancellable(&self, check_cancellable: bool) {
         unsafe {
-            ffi::g_task_set_check_cancellable(self.to_glib_none().0, check_cancellable.to_glib());
+            ffi::g_task_set_check_cancellable(self.to_glib_none().0, check_cancellable.into_glib());
         }
     }
 
@@ -127,7 +127,7 @@ impl Task {
         unsafe {
             from_glib(ffi::g_task_set_return_on_cancel(
                 self.to_glib_none().0,
-                return_on_cancel.to_glib(),
+                return_on_cancel.into_glib(),
             ))
         }
     }

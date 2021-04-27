@@ -795,7 +795,7 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         unsafe {
             ffi::gtk_flow_box_set_activate_on_single_click(
                 self.as_ref().to_glib_none().0,
-                single.to_glib(),
+                single.into_glib(),
             );
         }
     }
@@ -821,7 +821,7 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
             } else {
                 panic!("cannot get closure...")
             };
-            res.to_glib()
+            res.into_glib()
         }
         let filter_func = if filter_func_data.is_some() {
             Some(filter_func_func as _)
@@ -858,7 +858,7 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         unsafe {
             ffi::gtk_flow_box_set_homogeneous(
                 self.as_ref().to_glib_none().0,
-                homogeneous.to_glib(),
+                homogeneous.into_glib(),
             );
         }
     }
@@ -883,7 +883,7 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
 
     fn set_selection_mode(&self, mode: SelectionMode) {
         unsafe {
-            ffi::gtk_flow_box_set_selection_mode(self.as_ref().to_glib_none().0, mode.to_glib());
+            ffi::gtk_flow_box_set_selection_mode(self.as_ref().to_glib_none().0, mode.into_glib());
         }
     }
 
@@ -1041,7 +1041,7 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
                 from_glib(step),
                 count,
             )
-            .to_glib()
+            .into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

@@ -88,7 +88,7 @@ impl<O: IsA<StyleProperties>> StylePropertiesExt for O {
             let ret = from_glib(ffi::gtk_style_properties_get_property(
                 self.as_ref().to_glib_none().0,
                 property.to_glib_none().0,
-                state.to_glib(),
+                state.into_glib(),
                 value.to_glib_none_mut().0,
             ));
             if ret {
@@ -108,7 +108,7 @@ impl<O: IsA<StyleProperties>> StylePropertiesExt for O {
             ffi::gtk_style_properties_merge(
                 self.as_ref().to_glib_none().0,
                 props_to_merge.as_ref().to_glib_none().0,
-                replace.to_glib(),
+                replace.into_glib(),
             );
         }
     }
@@ -122,7 +122,7 @@ impl<O: IsA<StyleProperties>> StylePropertiesExt for O {
             ffi::gtk_style_properties_set_property(
                 self.as_ref().to_glib_none().0,
                 property.to_glib_none().0,
-                state.to_glib(),
+                state.into_glib(),
                 value.to_glib_none().0,
             );
         }
@@ -137,7 +137,7 @@ impl<O: IsA<StyleProperties>> StylePropertiesExt for O {
             ffi::gtk_style_properties_unset_property(
                 self.as_ref().to_glib_none().0,
                 property.to_glib_none().0,
-                state.to_glib(),
+                state.into_glib(),
             );
         }
     }

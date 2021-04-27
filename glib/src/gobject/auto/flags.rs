@@ -26,10 +26,10 @@ impl fmt::Display for BindingFlags {
 }
 
 #[doc(hidden)]
-impl ToGlib for BindingFlags {
+impl IntoGlib for BindingFlags {
     type GlibType = gobject_ffi::GBindingFlags;
 
-    fn to_glib(&self) -> gobject_ffi::GBindingFlags {
+    fn into_glib(self) -> gobject_ffi::GBindingFlags {
         self.bits()
     }
 }
@@ -65,7 +65,7 @@ impl ToValue for BindingFlags {
     fn to_value(&self) -> crate::Value {
         let mut value = crate::Value::for_value_type::<BindingFlags>();
         unsafe {
-            crate::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, self.to_glib());
+            crate::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -96,10 +96,10 @@ impl fmt::Display for SignalFlags {
 }
 
 #[doc(hidden)]
-impl ToGlib for SignalFlags {
+impl IntoGlib for SignalFlags {
     type GlibType = gobject_ffi::GSignalFlags;
 
-    fn to_glib(&self) -> gobject_ffi::GSignalFlags {
+    fn into_glib(self) -> gobject_ffi::GSignalFlags {
         self.bits()
     }
 }

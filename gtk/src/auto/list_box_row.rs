@@ -501,7 +501,7 @@ impl<O: IsA<ListBoxRow>> ListBoxRowExt for O {
         unsafe {
             ffi::gtk_list_box_row_set_activatable(
                 self.as_ref().to_glib_none().0,
-                activatable.to_glib(),
+                activatable.into_glib(),
             );
         }
     }
@@ -519,7 +519,7 @@ impl<O: IsA<ListBoxRow>> ListBoxRowExt for O {
         unsafe {
             ffi::gtk_list_box_row_set_selectable(
                 self.as_ref().to_glib_none().0,
-                selectable.to_glib(),
+                selectable.into_glib(),
             );
         }
     }

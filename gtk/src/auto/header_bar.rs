@@ -629,7 +629,10 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
 
     fn set_has_subtitle(&self, setting: bool) {
         unsafe {
-            ffi::gtk_header_bar_set_has_subtitle(self.as_ref().to_glib_none().0, setting.to_glib());
+            ffi::gtk_header_bar_set_has_subtitle(
+                self.as_ref().to_glib_none().0,
+                setting.into_glib(),
+            );
         }
     }
 
@@ -637,7 +640,7 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         unsafe {
             ffi::gtk_header_bar_set_show_close_button(
                 self.as_ref().to_glib_none().0,
-                setting.to_glib(),
+                setting.into_glib(),
             );
         }
     }

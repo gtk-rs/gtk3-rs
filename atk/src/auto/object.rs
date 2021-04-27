@@ -302,7 +302,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         unsafe {
             from_glib(ffi::atk_object_add_relationship(
                 self.as_ref().to_glib_none().0,
-                relationship.to_glib(),
+                relationship.into_glib(),
                 target.as_ref().to_glib_none().0,
             ))
         }
@@ -375,7 +375,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
             ffi::atk_object_notify_state_change(
                 self.as_ref().to_glib_none().0,
                 state,
-                value.to_glib(),
+                value.into_glib(),
             );
         }
     }
@@ -413,7 +413,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         unsafe {
             from_glib(ffi::atk_object_remove_relationship(
                 self.as_ref().to_glib_none().0,
-                relationship.to_glib(),
+                relationship.into_glib(),
                 target.as_ref().to_glib_none().0,
             ))
         }
@@ -456,7 +456,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
 
     fn set_role(&self, role: Role) {
         unsafe {
-            ffi::atk_object_set_role(self.as_ref().to_glib_none().0, role.to_glib());
+            ffi::atk_object_set_role(self.as_ref().to_glib_none().0, role.into_glib());
         }
     }
 

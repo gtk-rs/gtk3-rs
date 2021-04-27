@@ -86,7 +86,7 @@ impl<O: IsA<Component>> ComponentExt for O {
                 self.as_ref().to_glib_none().0,
                 x,
                 y,
-                coord_type.to_glib(),
+                coord_type.into_glib(),
             ))
         }
     }
@@ -107,7 +107,7 @@ impl<O: IsA<Component>> ComponentExt for O {
                 y.as_mut_ptr(),
                 width.as_mut_ptr(),
                 height.as_mut_ptr(),
-                coord_type.to_glib(),
+                coord_type.into_glib(),
             );
             let x = x.assume_init();
             let y = y.assume_init();
@@ -133,7 +133,7 @@ impl<O: IsA<Component>> ComponentExt for O {
                 self.as_ref().to_glib_none().0,
                 x.as_mut_ptr(),
                 y.as_mut_ptr(),
-                coord_type.to_glib(),
+                coord_type.into_glib(),
             );
             let x = x.assume_init();
             let y = y.assume_init();
@@ -170,7 +170,7 @@ impl<O: IsA<Component>> ComponentExt for O {
                 self.as_ref().to_glib_none().0,
                 x,
                 y,
-                coord_type.to_glib(),
+                coord_type.into_glib(),
             ))
         }
     }
@@ -181,7 +181,7 @@ impl<O: IsA<Component>> ComponentExt for O {
         unsafe {
             from_glib(ffi::atk_component_scroll_to(
                 self.as_ref().to_glib_none().0,
-                type_.to_glib(),
+                type_.into_glib(),
             ))
         }
     }
@@ -192,7 +192,7 @@ impl<O: IsA<Component>> ComponentExt for O {
         unsafe {
             from_glib(ffi::atk_component_scroll_to_point(
                 self.as_ref().to_glib_none().0,
-                coords.to_glib(),
+                coords.into_glib(),
                 x,
                 y,
             ))
@@ -207,7 +207,7 @@ impl<O: IsA<Component>> ComponentExt for O {
                 y,
                 width,
                 height,
-                coord_type.to_glib(),
+                coord_type.into_glib(),
             ))
         }
     }
@@ -218,7 +218,7 @@ impl<O: IsA<Component>> ComponentExt for O {
                 self.as_ref().to_glib_none().0,
                 x,
                 y,
-                coord_type.to_glib(),
+                coord_type.into_glib(),
             ))
         }
     }

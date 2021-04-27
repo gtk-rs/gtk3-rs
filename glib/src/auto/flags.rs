@@ -32,10 +32,10 @@ impl fmt::Display for FileSetContentsFlags {
 #[cfg(any(feature = "v2_66", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
 #[doc(hidden)]
-impl ToGlib for FileSetContentsFlags {
+impl IntoGlib for FileSetContentsFlags {
     type GlibType = ffi::GFileSetContentsFlags;
 
-    fn to_glib(&self) -> ffi::GFileSetContentsFlags {
+    fn into_glib(self) -> ffi::GFileSetContentsFlags {
         self.bits()
     }
 }
@@ -66,10 +66,10 @@ impl fmt::Display for FileTest {
 }
 
 #[doc(hidden)]
-impl ToGlib for FileTest {
+impl IntoGlib for FileTest {
     type GlibType = ffi::GFileTest;
 
-    fn to_glib(&self) -> ffi::GFileTest {
+    fn into_glib(self) -> ffi::GFileTest {
         self.bits()
     }
 }
@@ -97,10 +97,10 @@ impl fmt::Display for FormatSizeFlags {
 }
 
 #[doc(hidden)]
-impl ToGlib for FormatSizeFlags {
+impl IntoGlib for FormatSizeFlags {
     type GlibType = ffi::GFormatSizeFlags;
 
-    fn to_glib(&self) -> ffi::GFormatSizeFlags {
+    fn into_glib(self) -> ffi::GFormatSizeFlags {
         self.bits()
     }
 }
@@ -130,10 +130,10 @@ impl fmt::Display for IOCondition {
 }
 
 #[doc(hidden)]
-impl ToGlib for IOCondition {
+impl IntoGlib for IOCondition {
     type GlibType = ffi::GIOCondition;
 
-    fn to_glib(&self) -> ffi::GIOCondition {
+    fn into_glib(self) -> ffi::GIOCondition {
         self.bits()
     }
 }
@@ -169,7 +169,7 @@ impl ToValue for IOCondition {
     fn to_value(&self) -> crate::Value {
         let mut value = crate::Value::for_value_type::<IOCondition>();
         unsafe {
-            crate::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, self.to_glib());
+            crate::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -194,10 +194,10 @@ impl fmt::Display for KeyFileFlags {
 }
 
 #[doc(hidden)]
-impl ToGlib for KeyFileFlags {
+impl IntoGlib for KeyFileFlags {
     type GlibType = ffi::GKeyFileFlags;
 
-    fn to_glib(&self) -> ffi::GKeyFileFlags {
+    fn into_glib(self) -> ffi::GKeyFileFlags {
         self.bits()
     }
 }
@@ -230,10 +230,10 @@ impl fmt::Display for LogLevelFlags {
 }
 
 #[doc(hidden)]
-impl ToGlib for LogLevelFlags {
+impl IntoGlib for LogLevelFlags {
     type GlibType = ffi::GLogLevelFlags;
 
-    fn to_glib(&self) -> ffi::GLogLevelFlags {
+    fn into_glib(self) -> ffi::GLogLevelFlags {
         self.bits()
     }
 }
@@ -265,10 +265,10 @@ impl fmt::Display for OptionFlags {
 }
 
 #[doc(hidden)]
-impl ToGlib for OptionFlags {
+impl IntoGlib for OptionFlags {
     type GlibType = ffi::GOptionFlags;
 
-    fn to_glib(&self) -> ffi::GOptionFlags {
+    fn into_glib(self) -> ffi::GOptionFlags {
         self.bits()
     }
 }
@@ -302,10 +302,10 @@ impl fmt::Display for SpawnFlags {
 }
 
 #[doc(hidden)]
-impl ToGlib for SpawnFlags {
+impl IntoGlib for SpawnFlags {
     type GlibType = ffi::GSpawnFlags;
 
-    fn to_glib(&self) -> ffi::GSpawnFlags {
+    fn into_glib(self) -> ffi::GSpawnFlags {
         self.bits()
     }
 }
@@ -344,10 +344,10 @@ impl fmt::Display for UriFlags {
 #[cfg(any(feature = "v2_66", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
 #[doc(hidden)]
-impl ToGlib for UriFlags {
+impl IntoGlib for UriFlags {
     type GlibType = ffi::GUriFlags;
 
-    fn to_glib(&self) -> ffi::GUriFlags {
+    fn into_glib(self) -> ffi::GUriFlags {
         self.bits()
     }
 }
@@ -385,10 +385,10 @@ impl fmt::Display for UriHideFlags {
 #[cfg(any(feature = "v2_66", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
 #[doc(hidden)]
-impl ToGlib for UriHideFlags {
+impl IntoGlib for UriHideFlags {
     type GlibType = ffi::GUriHideFlags;
 
-    fn to_glib(&self) -> ffi::GUriHideFlags {
+    fn into_glib(self) -> ffi::GUriHideFlags {
         self.bits()
     }
 }
@@ -424,10 +424,10 @@ impl fmt::Display for UriParamsFlags {
 #[cfg(any(feature = "v2_66", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
 #[doc(hidden)]
-impl ToGlib for UriParamsFlags {
+impl IntoGlib for UriParamsFlags {
     type GlibType = ffi::GUriParamsFlags;
 
-    fn to_glib(&self) -> ffi::GUriParamsFlags {
+    fn into_glib(self) -> ffi::GUriParamsFlags {
         self.bits()
     }
 }

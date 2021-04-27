@@ -64,7 +64,7 @@ impl<O: IsA<Seekable>> SeekableExt for O {
             let _ = ffi::g_seekable_seek(
                 self.as_ref().to_glib_none().0,
                 offset,
-                type_.to_glib(),
+                type_.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
             );

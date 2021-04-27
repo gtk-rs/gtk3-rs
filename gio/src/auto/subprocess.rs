@@ -35,7 +35,7 @@ impl Subprocess {
     ) -> Result<Subprocess, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = ffi::g_subprocess_newv(argv.to_glib_none().0, flags.to_glib(), &mut error);
+            let ret = ffi::g_subprocess_newv(argv.to_glib_none().0, flags.into_glib(), &mut error);
             if error.is_null() {
                 Ok(from_glib_full(ret))
             } else {

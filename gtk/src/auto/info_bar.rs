@@ -531,7 +531,7 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
             ffi::gtk_info_bar_add_action_widget(
                 self.as_ref().to_glib_none().0,
                 child.as_ref().to_glib_none().0,
-                response_id.to_glib(),
+                response_id.into_glib(),
             );
         }
     }
@@ -541,7 +541,7 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
             from_glib_none(ffi::gtk_info_bar_add_button(
                 self.as_ref().to_glib_none().0,
                 button_text.to_glib_none().0,
-                response_id.to_glib(),
+                response_id.into_glib(),
             ))
         }
     }
@@ -594,7 +594,7 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
 
     fn response(&self, response_id: ResponseType) {
         unsafe {
-            ffi::gtk_info_bar_response(self.as_ref().to_glib_none().0, response_id.to_glib());
+            ffi::gtk_info_bar_response(self.as_ref().to_glib_none().0, response_id.into_glib());
         }
     }
 
@@ -602,7 +602,7 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
         unsafe {
             ffi::gtk_info_bar_set_default_response(
                 self.as_ref().to_glib_none().0,
-                response_id.to_glib(),
+                response_id.into_glib(),
             );
         }
     }
@@ -611,7 +611,7 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
         unsafe {
             ffi::gtk_info_bar_set_message_type(
                 self.as_ref().to_glib_none().0,
-                message_type.to_glib(),
+                message_type.into_glib(),
             );
         }
     }
@@ -620,8 +620,8 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
         unsafe {
             ffi::gtk_info_bar_set_response_sensitive(
                 self.as_ref().to_glib_none().0,
-                response_id.to_glib(),
-                setting.to_glib(),
+                response_id.into_glib(),
+                setting.into_glib(),
             );
         }
     }
@@ -630,7 +630,7 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_29")))]
     fn set_revealed(&self, revealed: bool) {
         unsafe {
-            ffi::gtk_info_bar_set_revealed(self.as_ref().to_glib_none().0, revealed.to_glib());
+            ffi::gtk_info_bar_set_revealed(self.as_ref().to_glib_none().0, revealed.into_glib());
         }
     }
 
@@ -638,7 +638,7 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
         unsafe {
             ffi::gtk_info_bar_set_show_close_button(
                 self.as_ref().to_glib_none().0,
-                setting.to_glib(),
+                setting.into_glib(),
             );
         }
     }

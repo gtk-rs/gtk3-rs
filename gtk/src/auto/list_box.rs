@@ -733,7 +733,7 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
         unsafe {
             ffi::gtk_list_box_set_activate_on_single_click(
                 self.as_ref().to_glib_none().0,
-                single.to_glib(),
+                single.into_glib(),
             );
         }
     }
@@ -762,7 +762,7 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
             } else {
                 panic!("cannot get closure...")
             };
-            res.to_glib()
+            res.into_glib()
         }
         let filter_func = if filter_func_data.is_some() {
             Some(filter_func_func as _)
@@ -842,7 +842,7 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
 
     fn set_selection_mode(&self, mode: SelectionMode) {
         unsafe {
-            ffi::gtk_list_box_set_selection_mode(self.as_ref().to_glib_none().0, mode.to_glib());
+            ffi::gtk_list_box_set_selection_mode(self.as_ref().to_glib_none().0, mode.into_glib());
         }
     }
 

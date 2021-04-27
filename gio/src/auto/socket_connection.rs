@@ -33,8 +33,8 @@ impl SocketConnection {
     ) -> glib::types::Type {
         unsafe {
             from_glib(ffi::g_socket_connection_factory_lookup_type(
-                family.to_glib(),
-                type_.to_glib(),
+                family.into_glib(),
+                type_.into_glib(),
                 protocol_id,
             ))
         }
@@ -49,9 +49,9 @@ impl SocketConnection {
     ) {
         unsafe {
             ffi::g_socket_connection_factory_register_type(
-                g_type.to_glib(),
-                family.to_glib(),
-                type_.to_glib(),
+                g_type.into_glib(),
+                family.into_glib(),
+                type_.into_glib(),
                 protocol,
             );
         }

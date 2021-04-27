@@ -212,7 +212,7 @@ impl<O: IsA<TlsInteraction>> TlsInteractionExt for O {
             let ret = ffi::g_tls_interaction_invoke_request_certificate(
                 self.as_ref().to_glib_none().0,
                 connection.as_ref().to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
             );
@@ -235,7 +235,7 @@ impl<O: IsA<TlsInteraction>> TlsInteractionExt for O {
             let ret = ffi::g_tls_interaction_request_certificate(
                 self.as_ref().to_glib_none().0,
                 connection.as_ref().to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
             );
@@ -285,7 +285,7 @@ impl<O: IsA<TlsInteraction>> TlsInteractionExt for O {
             ffi::g_tls_interaction_request_certificate_async(
                 self.as_ref().to_glib_none().0,
                 connection.as_ref().to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
                 Box_::into_raw(user_data) as *mut _,

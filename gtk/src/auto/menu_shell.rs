@@ -115,7 +115,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
             ffi::gtk_menu_shell_activate_item(
                 self.as_ref().to_glib_none().0,
                 menu_item.as_ref().to_glib_none().0,
-                force_deactivate.to_glib(),
+                force_deactivate.into_glib(),
             );
         }
     }
@@ -140,7 +140,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
                 self.as_ref().to_glib_none().0,
                 model.map(|p| p.as_ref()).to_glib_none().0,
                 action_namespace.to_glib_none().0,
-                with_separators.to_glib(),
+                with_separators.into_glib(),
             );
         }
     }
@@ -210,7 +210,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
         unsafe {
             ffi::gtk_menu_shell_select_first(
                 self.as_ref().to_glib_none().0,
-                search_sensitive.to_glib(),
+                search_sensitive.into_glib(),
             );
         }
     }
@@ -228,7 +228,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
         unsafe {
             ffi::gtk_menu_shell_set_take_focus(
                 self.as_ref().to_glib_none().0,
-                take_focus.to_glib(),
+                take_focus.into_glib(),
             );
         }
     }
@@ -444,7 +444,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
                 &MenuShell::from_glib_borrow(this).unsafe_cast_ref(),
                 distance,
             )
-            .to_glib()
+            .into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

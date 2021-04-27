@@ -76,7 +76,7 @@ pub fn find_paragraph_boundary(text: &str) -> (i32, i32) {
 
 #[doc(alias = "pango_is_zero_width")]
 pub fn is_zero_width(ch: char) -> bool {
-    unsafe { from_glib(ffi::pango_is_zero_width(ch.to_glib())) }
+    unsafe { from_glib(ffi::pango_is_zero_width(ch.into_glib())) }
 }
 
 #[doc(alias = "pango_itemize")]
@@ -113,7 +113,7 @@ pub fn itemize_with_base_dir(
     unsafe {
         FromGlibPtrContainer::from_glib_full(ffi::pango_itemize_with_base_dir(
             context.to_glib_none().0,
-            base_dir.to_glib(),
+            base_dir.into_glib(),
             text.to_glib_none().0,
             start_index,
             length,
@@ -150,10 +150,10 @@ pub fn parse_enum(
         let mut value = mem::MaybeUninit::uninit();
         let mut possible_values = ptr::null_mut();
         let ret = from_glib(ffi::pango_parse_enum(
-            type_.to_glib(),
+            type_.into_glib(),
             str.to_glib_none().0,
             value.as_mut_ptr(),
-            warn.to_glib(),
+            warn.into_glib(),
             &mut possible_values,
         ));
         let value = value.assume_init();
@@ -179,7 +179,7 @@ pub fn parse_markup(
         let _ = ffi::pango_parse_markup(
             markup_text.to_glib_none().0,
             length,
-            accel_marker.to_glib(),
+            accel_marker.into_glib(),
             &mut attr_list,
             &mut text,
             accel_char.as_mut_ptr(),
@@ -206,7 +206,7 @@ pub fn parse_stretch(str: &str, warn: bool) -> Option<Stretch> {
         let ret = from_glib(ffi::pango_parse_stretch(
             str.to_glib_none().0,
             stretch.as_mut_ptr(),
-            warn.to_glib(),
+            warn.into_glib(),
         ));
         let stretch = stretch.assume_init();
         if ret {
@@ -224,7 +224,7 @@ pub fn parse_style(str: &str, warn: bool) -> Option<Style> {
         let ret = from_glib(ffi::pango_parse_style(
             str.to_glib_none().0,
             style.as_mut_ptr(),
-            warn.to_glib(),
+            warn.into_glib(),
         ));
         let style = style.assume_init();
         if ret {
@@ -242,7 +242,7 @@ pub fn parse_variant(str: &str, warn: bool) -> Option<Variant> {
         let ret = from_glib(ffi::pango_parse_variant(
             str.to_glib_none().0,
             variant.as_mut_ptr(),
-            warn.to_glib(),
+            warn.into_glib(),
         ));
         let variant = variant.assume_init();
         if ret {
@@ -260,7 +260,7 @@ pub fn parse_weight(str: &str, warn: bool) -> Option<Weight> {
         let ret = from_glib(ffi::pango_parse_weight(
             str.to_glib_none().0,
             weight.as_mut_ptr(),
-            warn.to_glib(),
+            warn.into_glib(),
         ));
         let weight = weight.assume_init();
         if ret {
@@ -344,7 +344,7 @@ pub fn trim_string(str: &str) -> Option<glib::GString> {
 
 #[doc(alias = "pango_unichar_direction")]
 pub fn unichar_direction(ch: char) -> Direction {
-    unsafe { from_glib(ffi::pango_unichar_direction(ch.to_glib())) }
+    unsafe { from_glib(ffi::pango_unichar_direction(ch.into_glib())) }
 }
 
 #[doc(alias = "pango_units_from_double")]

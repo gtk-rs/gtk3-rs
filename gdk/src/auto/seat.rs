@@ -54,7 +54,7 @@ impl Seat {
         unsafe {
             FromGlibPtrContainer::from_glib_container(ffi::gdk_seat_get_slaves(
                 self.to_glib_none().0,
-                capabilities.to_glib(),
+                capabilities.into_glib(),
             ))
         }
     }
@@ -95,8 +95,8 @@ impl Seat {
             from_glib(ffi::gdk_seat_grab(
                 self.to_glib_none().0,
                 window.to_glib_none().0,
-                capabilities.to_glib(),
-                owner_events.to_glib(),
+                capabilities.into_glib(),
+                owner_events.into_glib(),
                 cursor.to_glib_none().0,
                 event.to_glib_none().0,
                 prepare_func,

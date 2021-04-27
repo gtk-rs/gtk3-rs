@@ -38,7 +38,7 @@ impl AttrList {
             let attribute = from_glib_borrow(attribute);
             let callback: *mut P = user_data as *const _ as usize as *mut P;
             let res = (*callback)(&attribute);
-            res.to_glib()
+            res.into_glib()
         }
         let func = Some(func_func::<P> as _);
         let super_callback0: &P = &func_data;

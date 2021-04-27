@@ -36,7 +36,7 @@ impl ButtonBox {
     pub fn new(orientation: Orientation) -> ButtonBox {
         assert_initialized_main_thread!();
         unsafe {
-            Widget::from_glib_none(ffi::gtk_button_box_new(orientation.to_glib())).unsafe_cast()
+            Widget::from_glib_none(ffi::gtk_button_box_new(orientation.into_glib())).unsafe_cast()
         }
     }
 }
@@ -485,7 +485,7 @@ impl<O: IsA<ButtonBox>> ButtonBoxExt for O {
             ffi::gtk_button_box_set_child_non_homogeneous(
                 self.as_ref().to_glib_none().0,
                 child.as_ref().to_glib_none().0,
-                non_homogeneous.to_glib(),
+                non_homogeneous.into_glib(),
             );
         }
     }
@@ -495,14 +495,17 @@ impl<O: IsA<ButtonBox>> ButtonBoxExt for O {
             ffi::gtk_button_box_set_child_secondary(
                 self.as_ref().to_glib_none().0,
                 child.as_ref().to_glib_none().0,
-                is_secondary.to_glib(),
+                is_secondary.into_glib(),
             );
         }
     }
 
     fn set_layout(&self, layout_style: ButtonBoxStyle) {
         unsafe {
-            ffi::gtk_button_box_set_layout(self.as_ref().to_glib_none().0, layout_style.to_glib());
+            ffi::gtk_button_box_set_layout(
+                self.as_ref().to_glib_none().0,
+                layout_style.into_glib(),
+            );
         }
     }
 

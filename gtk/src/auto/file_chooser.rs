@@ -640,7 +640,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
 
     fn set_action(&self, action: FileChooserAction) {
         unsafe {
-            ffi::gtk_file_chooser_set_action(self.as_ref().to_glib_none().0, action.to_glib());
+            ffi::gtk_file_chooser_set_action(self.as_ref().to_glib_none().0, action.into_glib());
         }
     }
 
@@ -660,7 +660,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         unsafe {
             ffi::gtk_file_chooser_set_create_folders(
                 self.as_ref().to_glib_none().0,
-                create_folders.to_glib(),
+                create_folders.into_glib(),
             );
         }
     }
@@ -712,7 +712,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         unsafe {
             ffi::gtk_file_chooser_set_do_overwrite_confirmation(
                 self.as_ref().to_glib_none().0,
-                do_overwrite_confirmation.to_glib(),
+                do_overwrite_confirmation.into_glib(),
             );
         }
     }
@@ -764,7 +764,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         unsafe {
             ffi::gtk_file_chooser_set_local_only(
                 self.as_ref().to_glib_none().0,
-                local_only.to_glib(),
+                local_only.into_glib(),
             );
         }
     }
@@ -782,7 +782,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         unsafe {
             ffi::gtk_file_chooser_set_preview_widget_active(
                 self.as_ref().to_glib_none().0,
-                active.to_glib(),
+                active.into_glib(),
             );
         }
     }
@@ -791,7 +791,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         unsafe {
             ffi::gtk_file_chooser_set_select_multiple(
                 self.as_ref().to_glib_none().0,
-                select_multiple.to_glib(),
+                select_multiple.into_glib(),
             );
         }
     }
@@ -800,7 +800,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         unsafe {
             ffi::gtk_file_chooser_set_show_hidden(
                 self.as_ref().to_glib_none().0,
-                show_hidden.to_glib(),
+                show_hidden.into_glib(),
             );
         }
     }
@@ -818,7 +818,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         unsafe {
             ffi::gtk_file_chooser_set_use_preview_label(
                 self.as_ref().to_glib_none().0,
-                use_label.to_glib(),
+                use_label.into_glib(),
             );
         }
     }
@@ -871,7 +871,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
             P: IsA<FileChooser>,
         {
             let f: &F = &*(f as *const F);
-            f(&FileChooser::from_glib_borrow(this).unsafe_cast_ref()).to_glib()
+            f(&FileChooser::from_glib_borrow(this).unsafe_cast_ref()).into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

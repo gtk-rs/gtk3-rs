@@ -34,7 +34,7 @@ impl Paned {
     #[doc(alias = "gtk_paned_new")]
     pub fn new(orientation: Orientation) -> Paned {
         assert_initialized_main_thread!();
-        unsafe { Widget::from_glib_none(ffi::gtk_paned_new(orientation.to_glib())).unsafe_cast() }
+        unsafe { Widget::from_glib_none(ffi::gtk_paned_new(orientation.into_glib())).unsafe_cast() }
     }
 }
 
@@ -578,8 +578,8 @@ impl<O: IsA<Paned>> PanedExt for O {
             ffi::gtk_paned_pack1(
                 self.as_ref().to_glib_none().0,
                 child.as_ref().to_glib_none().0,
-                resize.to_glib(),
-                shrink.to_glib(),
+                resize.into_glib(),
+                shrink.into_glib(),
             );
         }
     }
@@ -589,8 +589,8 @@ impl<O: IsA<Paned>> PanedExt for O {
             ffi::gtk_paned_pack2(
                 self.as_ref().to_glib_none().0,
                 child.as_ref().to_glib_none().0,
-                resize.to_glib(),
-                shrink.to_glib(),
+                resize.into_glib(),
+                shrink.into_glib(),
             );
         }
     }
@@ -605,7 +605,7 @@ impl<O: IsA<Paned>> PanedExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn set_wide_handle(&self, wide: bool) {
         unsafe {
-            ffi::gtk_paned_set_wide_handle(self.as_ref().to_glib_none().0, wide.to_glib());
+            ffi::gtk_paned_set_wide_handle(self.as_ref().to_glib_none().0, wide.into_glib());
         }
     }
 
@@ -722,7 +722,7 @@ impl<O: IsA<Paned>> PanedExt for O {
             P: IsA<Paned>,
         {
             let f: &F = &*(f as *const F);
-            f(&Paned::from_glib_borrow(this).unsafe_cast_ref()).to_glib()
+            f(&Paned::from_glib_borrow(this).unsafe_cast_ref()).into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -757,7 +757,7 @@ impl<O: IsA<Paned>> PanedExt for O {
             P: IsA<Paned>,
         {
             let f: &F = &*(f as *const F);
-            f(&Paned::from_glib_borrow(this).unsafe_cast_ref()).to_glib()
+            f(&Paned::from_glib_borrow(this).unsafe_cast_ref()).into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -800,7 +800,7 @@ impl<O: IsA<Paned>> PanedExt for O {
                 &Paned::from_glib_borrow(this).unsafe_cast_ref(),
                 from_glib(reversed),
             )
-            .to_glib()
+            .into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -843,7 +843,7 @@ impl<O: IsA<Paned>> PanedExt for O {
                 &Paned::from_glib_borrow(this).unsafe_cast_ref(),
                 from_glib(reversed),
             )
-            .to_glib()
+            .into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -886,7 +886,7 @@ impl<O: IsA<Paned>> PanedExt for O {
                 &Paned::from_glib_borrow(this).unsafe_cast_ref(),
                 from_glib(scroll_type),
             )
-            .to_glib()
+            .into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -921,7 +921,7 @@ impl<O: IsA<Paned>> PanedExt for O {
             P: IsA<Paned>,
         {
             let f: &F = &*(f as *const F);
-            f(&Paned::from_glib_borrow(this).unsafe_cast_ref()).to_glib()
+            f(&Paned::from_glib_borrow(this).unsafe_cast_ref()).into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

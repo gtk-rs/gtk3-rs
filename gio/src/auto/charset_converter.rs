@@ -60,7 +60,7 @@ impl CharsetConverter {
         unsafe {
             ffi::g_charset_converter_set_use_fallback(
                 self.to_glib_none().0,
-                use_fallback.to_glib(),
+                use_fallback.into_glib(),
             );
         }
     }

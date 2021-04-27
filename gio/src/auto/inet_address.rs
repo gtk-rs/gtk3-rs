@@ -23,7 +23,7 @@ glib::wrapper! {
 impl InetAddress {
     #[doc(alias = "g_inet_address_new_any")]
     pub fn new_any(family: SocketFamily) -> InetAddress {
-        unsafe { from_glib_full(ffi::g_inet_address_new_any(family.to_glib())) }
+        unsafe { from_glib_full(ffi::g_inet_address_new_any(family.into_glib())) }
     }
 
     #[doc(alias = "g_inet_address_new_from_string")]
@@ -33,7 +33,7 @@ impl InetAddress {
 
     #[doc(alias = "g_inet_address_new_loopback")]
     pub fn new_loopback(family: SocketFamily) -> InetAddress {
-        unsafe { from_glib_full(ffi::g_inet_address_new_loopback(family.to_glib())) }
+        unsafe { from_glib_full(ffi::g_inet_address_new_loopback(family.into_glib())) }
     }
 }
 

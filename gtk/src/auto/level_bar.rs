@@ -537,7 +537,7 @@ impl<O: IsA<LevelBar>> LevelBarExt for O {
 
     fn set_inverted(&self, inverted: bool) {
         unsafe {
-            ffi::gtk_level_bar_set_inverted(self.as_ref().to_glib_none().0, inverted.to_glib());
+            ffi::gtk_level_bar_set_inverted(self.as_ref().to_glib_none().0, inverted.into_glib());
         }
     }
 
@@ -555,7 +555,7 @@ impl<O: IsA<LevelBar>> LevelBarExt for O {
 
     fn set_mode(&self, mode: LevelBarMode) {
         unsafe {
-            ffi::gtk_level_bar_set_mode(self.as_ref().to_glib_none().0, mode.to_glib());
+            ffi::gtk_level_bar_set_mode(self.as_ref().to_glib_none().0, mode.into_glib());
         }
     }
 

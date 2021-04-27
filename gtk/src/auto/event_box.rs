@@ -439,7 +439,7 @@ impl<O: IsA<EventBox>> EventBoxExt for O {
         unsafe {
             ffi::gtk_event_box_set_above_child(
                 self.as_ref().to_glib_none().0,
-                above_child.to_glib(),
+                above_child.into_glib(),
             );
         }
     }
@@ -448,7 +448,7 @@ impl<O: IsA<EventBox>> EventBoxExt for O {
         unsafe {
             ffi::gtk_event_box_set_visible_window(
                 self.as_ref().to_glib_none().0,
-                visible_window.to_glib(),
+                visible_window.into_glib(),
             );
         }
     }

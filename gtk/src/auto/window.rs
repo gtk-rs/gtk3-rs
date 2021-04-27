@@ -39,7 +39,7 @@ impl Window {
     #[doc(alias = "gtk_window_new")]
     pub fn new(type_: WindowType) -> Window {
         assert_initialized_main_thread!();
-        unsafe { Widget::from_glib_none(ffi::gtk_window_new(type_.to_glib())).unsafe_cast() }
+        unsafe { Widget::from_glib_none(ffi::gtk_window_new(type_.into_glib())).unsafe_cast() }
     }
 
     #[doc(alias = "gtk_window_get_default_icon_list")]
@@ -66,7 +66,7 @@ impl Window {
     pub fn set_auto_startup_notification(setting: bool) {
         assert_initialized_main_thread!();
         unsafe {
-            ffi::gtk_window_set_auto_startup_notification(setting.to_glib());
+            ffi::gtk_window_set_auto_startup_notification(setting.into_glib());
         }
     }
 
@@ -117,7 +117,7 @@ impl Window {
     pub fn set_interactive_debugging(enable: bool) {
         assert_initialized_main_thread!();
         unsafe {
-            ffi::gtk_window_set_interactive_debugging(enable.to_glib());
+            ffi::gtk_window_set_interactive_debugging(enable.into_glib());
         }
     }
 }
@@ -1240,7 +1240,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         unsafe {
             ffi::gtk_window_begin_resize_drag(
                 self.as_ref().to_glib_none().0,
-                edge.to_glib(),
+                edge.into_glib(),
                 button,
                 root_x,
                 root_y,
@@ -1563,7 +1563,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
             from_glib(ffi::gtk_window_mnemonic_activate(
                 self.as_ref().to_glib_none().0,
                 keyval,
-                modifier.to_glib(),
+                modifier.into_glib(),
             ))
         }
     }
@@ -1631,7 +1631,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
 
     fn set_accept_focus(&self, setting: bool) {
         unsafe {
-            ffi::gtk_window_set_accept_focus(self.as_ref().to_glib_none().0, setting.to_glib());
+            ffi::gtk_window_set_accept_focus(self.as_ref().to_glib_none().0, setting.into_glib());
         }
     }
 
@@ -1655,7 +1655,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
 
     fn set_decorated(&self, setting: bool) {
         unsafe {
-            ffi::gtk_window_set_decorated(self.as_ref().to_glib_none().0, setting.to_glib());
+            ffi::gtk_window_set_decorated(self.as_ref().to_glib_none().0, setting.into_glib());
         }
     }
 
@@ -1682,7 +1682,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
 
     fn set_deletable(&self, setting: bool) {
         unsafe {
-            ffi::gtk_window_set_deletable(self.as_ref().to_glib_none().0, setting.to_glib());
+            ffi::gtk_window_set_deletable(self.as_ref().to_glib_none().0, setting.into_glib());
         }
     }
 
@@ -1690,7 +1690,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         unsafe {
             ffi::gtk_window_set_destroy_with_parent(
                 self.as_ref().to_glib_none().0,
-                setting.to_glib(),
+                setting.into_glib(),
             );
         }
     }
@@ -1706,13 +1706,13 @@ impl<O: IsA<Window>> GtkWindowExt for O {
 
     fn set_focus_on_map(&self, setting: bool) {
         unsafe {
-            ffi::gtk_window_set_focus_on_map(self.as_ref().to_glib_none().0, setting.to_glib());
+            ffi::gtk_window_set_focus_on_map(self.as_ref().to_glib_none().0, setting.into_glib());
         }
     }
 
     fn set_focus_visible(&self, setting: bool) {
         unsafe {
-            ffi::gtk_window_set_focus_visible(self.as_ref().to_glib_none().0, setting.to_glib());
+            ffi::gtk_window_set_focus_visible(self.as_ref().to_glib_none().0, setting.into_glib());
         }
     }
 
@@ -1727,14 +1727,14 @@ impl<O: IsA<Window>> GtkWindowExt for O {
                 self.as_ref().to_glib_none().0,
                 geometry_widget.map(|p| p.as_ref()).to_glib_none().0,
                 mut_override(geometry.to_glib_none().0),
-                geom_mask.to_glib(),
+                geom_mask.into_glib(),
             );
         }
     }
 
     fn set_gravity(&self, gravity: gdk::Gravity) {
         unsafe {
-            ffi::gtk_window_set_gravity(self.as_ref().to_glib_none().0, gravity.to_glib());
+            ffi::gtk_window_set_gravity(self.as_ref().to_glib_none().0, gravity.into_glib());
         }
     }
 
@@ -1742,7 +1742,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         unsafe {
             ffi::gtk_window_set_has_user_ref_count(
                 self.as_ref().to_glib_none().0,
-                setting.to_glib(),
+                setting.into_glib(),
             );
         }
     }
@@ -1751,7 +1751,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         unsafe {
             ffi::gtk_window_set_hide_titlebar_when_maximized(
                 self.as_ref().to_glib_none().0,
-                setting.to_glib(),
+                setting.into_glib(),
             );
         }
     }
@@ -1795,13 +1795,13 @@ impl<O: IsA<Window>> GtkWindowExt for O {
 
     fn set_keep_above(&self, setting: bool) {
         unsafe {
-            ffi::gtk_window_set_keep_above(self.as_ref().to_glib_none().0, setting.to_glib());
+            ffi::gtk_window_set_keep_above(self.as_ref().to_glib_none().0, setting.into_glib());
         }
     }
 
     fn set_keep_below(&self, setting: bool) {
         unsafe {
-            ffi::gtk_window_set_keep_below(self.as_ref().to_glib_none().0, setting.to_glib());
+            ffi::gtk_window_set_keep_below(self.as_ref().to_glib_none().0, setting.into_glib());
         }
     }
 
@@ -1809,7 +1809,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         unsafe {
             ffi::gtk_window_set_mnemonic_modifier(
                 self.as_ref().to_glib_none().0,
-                modifier.to_glib(),
+                modifier.into_glib(),
             );
         }
     }
@@ -1818,26 +1818,26 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         unsafe {
             ffi::gtk_window_set_mnemonics_visible(
                 self.as_ref().to_glib_none().0,
-                setting.to_glib(),
+                setting.into_glib(),
             );
         }
     }
 
     fn set_modal(&self, modal: bool) {
         unsafe {
-            ffi::gtk_window_set_modal(self.as_ref().to_glib_none().0, modal.to_glib());
+            ffi::gtk_window_set_modal(self.as_ref().to_glib_none().0, modal.into_glib());
         }
     }
 
     fn set_position(&self, position: WindowPosition) {
         unsafe {
-            ffi::gtk_window_set_position(self.as_ref().to_glib_none().0, position.to_glib());
+            ffi::gtk_window_set_position(self.as_ref().to_glib_none().0, position.into_glib());
         }
     }
 
     fn set_resizable(&self, resizable: bool) {
         unsafe {
-            ffi::gtk_window_set_resizable(self.as_ref().to_glib_none().0, resizable.to_glib());
+            ffi::gtk_window_set_resizable(self.as_ref().to_glib_none().0, resizable.into_glib());
         }
     }
 
@@ -1855,7 +1855,10 @@ impl<O: IsA<Window>> GtkWindowExt for O {
 
     fn set_skip_pager_hint(&self, setting: bool) {
         unsafe {
-            ffi::gtk_window_set_skip_pager_hint(self.as_ref().to_glib_none().0, setting.to_glib());
+            ffi::gtk_window_set_skip_pager_hint(
+                self.as_ref().to_glib_none().0,
+                setting.into_glib(),
+            );
         }
     }
 
@@ -1863,7 +1866,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         unsafe {
             ffi::gtk_window_set_skip_taskbar_hint(
                 self.as_ref().to_glib_none().0,
-                setting.to_glib(),
+                setting.into_glib(),
             );
         }
     }
@@ -1903,13 +1906,13 @@ impl<O: IsA<Window>> GtkWindowExt for O {
 
     fn set_type_hint(&self, hint: gdk::WindowTypeHint) {
         unsafe {
-            ffi::gtk_window_set_type_hint(self.as_ref().to_glib_none().0, hint.to_glib());
+            ffi::gtk_window_set_type_hint(self.as_ref().to_glib_none().0, hint.into_glib());
         }
     }
 
     fn set_urgency_hint(&self, setting: bool) {
         unsafe {
-            ffi::gtk_window_set_urgency_hint(self.as_ref().to_glib_none().0, setting.to_glib());
+            ffi::gtk_window_set_urgency_hint(self.as_ref().to_glib_none().0, setting.into_glib());
         }
     }
 
@@ -2112,7 +2115,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
                 &Window::from_glib_borrow(this).unsafe_cast_ref(),
                 from_glib(toggle),
             )
-            .to_glib()
+            .into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

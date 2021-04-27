@@ -11,7 +11,6 @@ use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
-use glib::ToValue;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
@@ -289,7 +288,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
                 key.to_glib_none().0,
                 object.as_ref().to_glib_none().0,
                 property.to_glib_none().0,
-                inverted.to_glib(),
+                inverted.into_glib(),
             );
         }
     }
@@ -467,7 +466,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
                 ffi::g_settings_set_boolean(
                     self.as_ref().to_glib_none().0,
                     key.to_glib_none().0,
-                    value.to_glib()
+                    value.into_glib()
                 ),
                 "Can't set readonly key"
             )
@@ -733,7 +732,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
             P: IsA<Settings>,
         {
             let f: &F = &*(f as *const F);
-            f(&Settings::from_glib_borrow(this).unsafe_cast_ref(), key).to_glib()
+            f(&Settings::from_glib_borrow(this).unsafe_cast_ref(), key).into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

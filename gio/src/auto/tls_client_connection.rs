@@ -151,7 +151,7 @@ impl<O: IsA<TlsClientConnection>> TlsClientConnectionExt for O {
         unsafe {
             ffi::g_tls_client_connection_set_use_ssl3(
                 self.as_ref().to_glib_none().0,
-                use_ssl3.to_glib(),
+                use_ssl3.into_glib(),
             );
         }
     }
@@ -160,7 +160,7 @@ impl<O: IsA<TlsClientConnection>> TlsClientConnectionExt for O {
         unsafe {
             ffi::g_tls_client_connection_set_validation_flags(
                 self.as_ref().to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
             );
         }
     }

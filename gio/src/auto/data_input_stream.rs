@@ -290,7 +290,7 @@ impl<O: IsA<DataInputStream>> DataInputStreamExt for O {
         unsafe {
             ffi::g_data_input_stream_set_byte_order(
                 self.as_ref().to_glib_none().0,
-                order.to_glib(),
+                order.into_glib(),
             );
         }
     }
@@ -299,7 +299,7 @@ impl<O: IsA<DataInputStream>> DataInputStreamExt for O {
         unsafe {
             ffi::g_data_input_stream_set_newline_type(
                 self.as_ref().to_glib_none().0,
-                type_.to_glib(),
+                type_.into_glib(),
             );
         }
     }
