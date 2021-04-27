@@ -1110,7 +1110,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::gtk_menu_bar_set_child_pack_direction</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">child_pack_dir</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">child_pack_dir</span>.<span class="ident">into_glib</span>(),
             );
         }
     }
@@ -1119,7 +1119,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::gtk_menu_bar_set_pack_direction</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">pack_dir</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">pack_dir</span>.<span class="ident">into_glib</span>(),
             );
         }
     }

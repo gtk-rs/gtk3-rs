@@ -100,7 +100,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::g_dbus_method_invocation_return_error_literal</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_full</span>(),
-                <span class="ident">T::domain</span>().<span class="ident">to_glib</span>(),
+                <span class="ident">T::domain</span>().<span class="ident">into_glib</span>(),
                 <span class="ident">error</span>.<span class="ident">code</span>(),
                 <span class="ident">message</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             );

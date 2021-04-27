@@ -228,7 +228,7 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="kw">crate</span><span class="ident">::ObjectType</span><span class="op">&gt;</span> <span class="ident">PrerequisiteList</span> <span class="kw">for</span> (<span class="ident">T</span>,) {
     <span class="kw">fn</span> <span class="ident">types</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ffi::GType</span><span class="op">&gt;</span> {
-        <span class="macro">vec!</span>[<span class="ident">T::static_type</span>().<span class="ident">to_glib</span>()]
+        <span class="macro">vec!</span>[<span class="ident">T::static_type</span>().<span class="ident">into_glib</span>()]
     }
 }
 
@@ -255,7 +255,7 @@
     ($(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ident</span>),<span class="op">+</span>) <span class="op">=</span><span class="op">&gt;</span> (
         <span class="kw">impl</span><span class="op">&lt;</span>$(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>: <span class="kw">crate</span><span class="ident">::ObjectType</span>),<span class="op">+</span><span class="op">&gt;</span> <span class="ident">PrerequisiteList</span> <span class="kw">for</span> ( $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>),<span class="op">+</span> ) {
             <span class="kw">fn</span> <span class="ident">types</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ffi::GType</span><span class="op">&gt;</span> {
-                <span class="macro">vec!</span>[$(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name::static_type</span>().<span class="ident">to_glib</span>()),<span class="op">+</span>]
+                <span class="macro">vec!</span>[$(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name::static_type</span>().<span class="ident">into_glib</span>()),<span class="op">+</span>]
             }
         }
     );
@@ -338,7 +338,7 @@
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">klass</span> <span class="op">=</span> (<span class="kw-2">*</span>(<span class="ident">obj</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">gobject_ffi::GTypeInstance</span>)).<span class="ident">g_class</span>;
             <span class="kw">let</span> <span class="ident">interface</span> <span class="op">=</span>
-                <span class="ident">gobject_ffi::g_type_interface_peek</span>(<span class="ident">klass</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>, <span class="self">Self</span><span class="ident">::type_</span>().<span class="ident">to_glib</span>());
+                <span class="ident">gobject_ffi::g_type_interface_peek</span>(<span class="ident">klass</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>, <span class="self">Self</span><span class="ident">::type_</span>().<span class="ident">into_glib</span>());
             <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">interface</span>.<span class="ident">is_null</span>());
             <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">interface</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="self">Self</span>)
         }
@@ -389,7 +389,7 @@
         );
 
         <span class="kw">let</span> <span class="ident">type_</span> <span class="op">=</span> <span class="ident">gobject_ffi::g_type_register_static_simple</span>(
-            <span class="ident">Type::INTERFACE</span>.<span class="ident">to_glib</span>(),
+            <span class="ident">Type::INTERFACE</span>.<span class="ident">into_glib</span>(),
             <span class="ident">type_name</span>.<span class="ident">as_ptr</span>(),
             <span class="ident">mem::size_of</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>() <span class="kw">as</span> <span class="ident">u32</span>,
             <span class="prelude-val">Some</span>(<span class="ident">interface_init</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>),

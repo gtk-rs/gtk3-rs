@@ -212,7 +212,7 @@
             <span class="ident">ffi::pango_layout_line_index_to_x</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">index_</span>,
-                <span class="ident">trailing</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">trailing</span>.<span class="ident">into_glib</span>(),
                 <span class="ident">x_pos</span>.<span class="ident">as_mut_ptr</span>(),
             );
             <span class="kw">let</span> <span class="ident">x_pos</span> <span class="op">=</span> <span class="ident">x_pos</span>.<span class="ident">assume_init</span>();

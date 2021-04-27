@@ -1026,7 +1026,7 @@
             <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">ffi::g_app_info_create_from_commandline</span>(
                 <span class="ident">commandline</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">application_name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">flags</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">flags</span>.<span class="ident">into_glib</span>(),
                 <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">error</span>,
             );
             <span class="kw">if</span> <span class="ident">error</span>.<span class="ident">is_null</span>() {
@@ -1090,7 +1090,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_app_info_get_default_for_type</span>(
                 <span class="ident">content_type</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">must_support_uris</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">must_support_uris</span>.<span class="ident">into_glib</span>(),
             ))
         }
     }

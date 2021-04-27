@@ -604,7 +604,7 @@
             <span class="ident">ffi::gtk_cell_layout_pack_end</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">cell</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">expand</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">expand</span>.<span class="ident">into_glib</span>(),
             );
         }
     }
@@ -614,7 +614,7 @@
             <span class="ident">ffi::gtk_cell_layout_pack_start</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">cell</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">expand</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">expand</span>.<span class="ident">into_glib</span>(),
             );
         }
     }

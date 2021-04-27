@@ -3501,8 +3501,8 @@
             <span class="ident">from_glib</span>(<span class="ident">ffi::gtk_text_buffer_backspace</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">iter</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
-                <span class="ident">interactive</span>.<span class="ident">to_glib</span>(),
-                <span class="ident">default_editable</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">interactive</span>.<span class="ident">into_glib</span>(),
+                <span class="ident">default_editable</span>.<span class="ident">into_glib</span>(),
             ))
         }
     }
@@ -3542,7 +3542,7 @@
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">mark_name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">where_</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">left_gravity</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">left_gravity</span>.<span class="ident">into_glib</span>(),
             ))
         }
     }
@@ -3556,7 +3556,7 @@
             <span class="ident">ffi::gtk_text_buffer_cut_clipboard</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">clipboard</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">default_editable</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">default_editable</span>.<span class="ident">into_glib</span>(),
             );
         }
     }
@@ -3582,7 +3582,7 @@
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">start_iter</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
                 <span class="ident">end_iter</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
-                <span class="ident">default_editable</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">default_editable</span>.<span class="ident">into_glib</span>(),
             ))
         }
     }
@@ -3609,8 +3609,8 @@
         <span class="kw">unsafe</span> {
             <span class="ident">from_glib</span>(<span class="ident">ffi::gtk_text_buffer_delete_selection</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">interactive</span>.<span class="ident">to_glib</span>(),
-                <span class="ident">default_editable</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">interactive</span>.<span class="ident">into_glib</span>(),
+                <span class="ident">default_editable</span>.<span class="ident">into_glib</span>(),
             ))
         }
     }
@@ -3656,7 +3656,7 @@
             <span class="ident">ffi::gtk_text_buffer_deserialize_set_can_create_tags</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">format</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">can_create_tags</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">can_create_tags</span>.<span class="ident">into_glib</span>(),
             );
         }
     }
@@ -3886,7 +3886,7 @@
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">start</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">end</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">include_hidden_chars</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">include_hidden_chars</span>.<span class="ident">into_glib</span>(),
             ))
         }
     }
@@ -3921,7 +3921,7 @@
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">start</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">end</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">include_hidden_chars</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">include_hidden_chars</span>.<span class="ident">into_glib</span>(),
             ))
         }
     }
@@ -3967,7 +3967,7 @@
                 <span class="ident">iter</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
                 <span class="ident">text</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">len</span>,
-                <span class="ident">default_editable</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">default_editable</span>.<span class="ident">into_glib</span>(),
             ))
         }
     }
@@ -3979,7 +3979,7 @@
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">text</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">len</span>,
-                <span class="ident">default_editable</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">default_editable</span>.<span class="ident">into_glib</span>(),
             ))
         }
     }
@@ -4032,7 +4032,7 @@
                 <span class="ident">iter</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
                 <span class="ident">start</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">end</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">default_editable</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">default_editable</span>.<span class="ident">into_glib</span>(),
             ))
         }
     }
@@ -4076,7 +4076,7 @@
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">clipboard</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">mut_override</span>(<span class="ident">override_location</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>),
-                <span class="ident">default_editable</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">default_editable</span>.<span class="ident">into_glib</span>(),
             );
         }
     }
@@ -4189,7 +4189,7 @@
 
     <span class="kw">fn</span> <span class="ident">set_modified</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">setting</span>: <span class="ident">bool</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi::gtk_text_buffer_set_modified</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">setting</span>.<span class="ident">to_glib</span>());
+            <span class="ident">ffi::gtk_text_buffer_set_modified</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">setting</span>.<span class="ident">into_glib</span>());
         }
     }
 

@@ -226,7 +226,7 @@
 
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">Settings</span>, <span class="ident">SettingsBindFlags</span>};
-<span class="kw">use</span> <span class="ident">glib::translate</span>::{<span class="ident">from_glib_borrow</span>, <span class="ident">from_glib_none</span>, <span class="ident">ToGlib</span>, <span class="ident">ToGlibPtr</span>};
+<span class="kw">use</span> <span class="ident">glib::translate</span>::{<span class="ident">from_glib_borrow</span>, <span class="ident">from_glib_none</span>, <span class="ident">IntoGlib</span>, <span class="ident">ToGlibPtr</span>};
 <span class="kw">use</span> <span class="ident">glib::variant::FromVariant</span>;
 <span class="kw">use</span> <span class="ident">glib</span>::{<span class="ident">BoolError</span>, <span class="ident">IsA</span>, <span class="ident">ToVariant</span>};
 
@@ -284,7 +284,7 @@
             } <span class="kw">else</span> {
                 <span class="bool-val">false</span>
             }
-            .<span class="ident">to_glib</span>()
+            .<span class="ident">into_glib</span>()
         }
         <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">bind_with_mapping_set_trampoline</span>(
             <span class="ident">value</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">glib::gobject_ffi::GValue</span>,
@@ -318,7 +318,7 @@
                 <span class="self">self</span>.<span class="ident">key</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="self">self</span>.<span class="ident">object</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="self">self</span>.<span class="ident">property</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="self">self</span>.<span class="ident">flags</span>.<span class="ident">to_glib</span>(),
+                <span class="self">self</span>.<span class="ident">flags</span>.<span class="ident">into_glib</span>(),
                 <span class="ident">get_trampoline</span>,
                 <span class="ident">set_trampoline</span>,
                 <span class="ident">Box::into_raw</span>(<span class="ident">Box::new</span>(<span class="ident">mappings</span>)) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">libc::c_void</span>,

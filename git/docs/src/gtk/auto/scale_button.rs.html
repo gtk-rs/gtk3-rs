@@ -1025,7 +1025,7 @@
         <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe</span> {
             <span class="ident">Widget::from_glib_none</span>(<span class="ident">ffi::gtk_scale_button_new</span>(
-                <span class="ident">size</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">size</span>.<span class="ident">into_glib</span>(),
                 <span class="ident">min</span>,
                 <span class="ident">max</span>,
                 <span class="ident">step</span>,

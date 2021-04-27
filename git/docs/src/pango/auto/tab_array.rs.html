@@ -158,7 +158,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">from_glib_full</span>(<span class="ident">ffi::pango_tab_array_new</span>(
                 <span class="ident">initial_size</span>,
-                <span class="ident">positions_in_pixels</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">positions_in_pixels</span>.<span class="ident">into_glib</span>(),
             ))
         }
     }
@@ -230,7 +230,7 @@
             <span class="ident">ffi::pango_tab_array_set_tab</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
                 <span class="ident">tab_index</span>,
-                <span class="ident">alignment</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">alignment</span>.<span class="ident">into_glib</span>(),
                 <span class="ident">location</span>,
             );
         }

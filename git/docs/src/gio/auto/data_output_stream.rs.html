@@ -897,7 +897,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::g_data_output_stream_set_byte_order</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">order</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">order</span>.<span class="ident">into_glib</span>(),
             );
         }
     }

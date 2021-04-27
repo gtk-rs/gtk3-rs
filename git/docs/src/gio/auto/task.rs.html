@@ -1504,7 +1504,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_task_set_check_cancellable&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_check_cancellable</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">check_cancellable</span>: <span class="ident">bool</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi::g_task_set_check_cancellable</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">check_cancellable</span>.<span class="ident">to_glib</span>());
+            <span class="ident">ffi::g_task_set_check_cancellable</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">check_cancellable</span>.<span class="ident">into_glib</span>());
         }
     }
 
@@ -1570,7 +1570,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">from_glib</span>(<span class="ident">ffi::g_task_set_return_on_cancel</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">return_on_cancel</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">return_on_cancel</span>.<span class="ident">into_glib</span>(),
             ))
         }
     }

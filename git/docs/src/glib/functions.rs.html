@@ -303,7 +303,7 @@
             <span class="ident">working_directory</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             <span class="ident">argv</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             <span class="ident">envp</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-            <span class="ident">flags</span>.<span class="ident">to_glib</span>(),
+            <span class="ident">flags</span>.<span class="ident">into_glib</span>(),
             <span class="ident">child_setup</span>,
             <span class="ident">Box_::into_raw</span>(<span class="ident">super_callback0</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
             <span class="ident">child_pid</span>.<span class="ident">as_mut_ptr</span>(),
@@ -360,7 +360,7 @@
 <span class="comment">//             working_directory.as_ref().to_glib_none().0,</span>
 <span class="comment">//             argv.to_glib_none().0,</span>
 <span class="comment">//             envp.to_glib_none().0,</span>
-<span class="comment">//             flags.to_glib(),</span>
+<span class="comment">//             flags.into_glib(),</span>
 <span class="comment">//             child_setup,</span>
 <span class="comment">//             Box_::into_raw(super_callback0) as *mut _,</span>
 <span class="comment">//             child_pid.as_mut_ptr(),</span>
@@ -416,7 +416,7 @@
             <span class="ident">working_directory</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             <span class="ident">argv</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             <span class="ident">envp</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-            <span class="ident">flags</span>.<span class="ident">to_glib</span>(),
+            <span class="ident">flags</span>.<span class="ident">into_glib</span>(),
             <span class="ident">child_setup</span>,
             <span class="ident">Box_::into_raw</span>(<span class="ident">super_callback0</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
             <span class="ident">child_pid</span>.<span class="ident">as_mut_ptr</span>(),

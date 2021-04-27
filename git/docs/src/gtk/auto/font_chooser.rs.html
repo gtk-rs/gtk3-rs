@@ -1132,7 +1132,7 @@
             } <span class="kw">else</span> {
                 <span class="macro">panic!</span>(<span class="string">&quot;cannot get closure...&quot;</span>)
             };
-            <span class="ident">res</span>.<span class="ident">to_glib</span>()
+            <span class="ident">res</span>.<span class="ident">into_glib</span>()
         }
         <span class="kw">let</span> <span class="ident">filter</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">filter_data</span>.<span class="ident">is_some</span>() {
             <span class="prelude-val">Some</span>(<span class="ident">filter_func</span> <span class="kw">as</span> <span class="kw">_</span>)
@@ -1202,7 +1202,7 @@
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_24&quot;</span>)))]</span>
     <span class="kw">fn</span> <span class="ident">set_level</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">level</span>: <span class="ident">FontChooserLevel</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi::gtk_font_chooser_set_level</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">level</span>.<span class="ident">to_glib</span>());
+            <span class="ident">ffi::gtk_font_chooser_set_level</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">level</span>.<span class="ident">into_glib</span>());
         }
     }
 
@@ -1219,7 +1219,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::gtk_font_chooser_set_show_preview_entry</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">show_preview_entry</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">show_preview_entry</span>.<span class="ident">into_glib</span>(),
             );
         }
     }

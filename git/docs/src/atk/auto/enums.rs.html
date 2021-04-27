@@ -2821,11 +2821,11 @@
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">CoordType</span> {
+<span class="kw">impl</span> <span class="ident">IntoGlib</span> <span class="kw">for</span> <span class="ident">CoordType</span> {
     <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi::AtkCoordType</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::AtkCoordType</span> {
-        <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
+    <span class="kw">fn</span> <span class="ident">into_glib</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::AtkCoordType</span> {
+        <span class="kw">match</span> <span class="self">self</span> {
             <span class="ident">CoordType::Screen</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::ATK_XY_SCREEN</span>,
             <span class="ident">CoordType::Window</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::ATK_XY_WINDOW</span>,
             <span class="ident">CoordType::Parent</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::ATK_XY_PARENT</span>,
@@ -2870,7 +2870,7 @@
     <span class="kw">fn</span> <span class="ident">to_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::for_value_type</span>::<span class="op">&lt;</span><span class="ident">CoordType</span><span class="op">&gt;</span>();
         <span class="kw">unsafe</span> {
-            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">to_glib</span>());
+            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">into_glib</span>());
         }
         <span class="ident">value</span>
     }
@@ -2938,11 +2938,11 @@
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">Layer</span> {
+<span class="kw">impl</span> <span class="ident">IntoGlib</span> <span class="kw">for</span> <span class="ident">Layer</span> {
     <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi::AtkLayer</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::AtkLayer</span> {
-        <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
+    <span class="kw">fn</span> <span class="ident">into_glib</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::AtkLayer</span> {
+        <span class="kw">match</span> <span class="self">self</span> {
             <span class="ident">Layer::Invalid</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::ATK_LAYER_INVALID</span>,
             <span class="ident">Layer::Background</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::ATK_LAYER_BACKGROUND</span>,
             <span class="ident">Layer::Canvas</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::ATK_LAYER_CANVAS</span>,
@@ -2997,7 +2997,7 @@
     <span class="kw">fn</span> <span class="ident">to_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::for_value_type</span>::<span class="op">&lt;</span><span class="ident">Layer</span><span class="op">&gt;</span>();
         <span class="kw">unsafe</span> {
-            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">to_glib</span>());
+            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">into_glib</span>());
         }
         <span class="ident">value</span>
     }
@@ -3121,7 +3121,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_relation_type_get_name&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">name</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::atk_relation_type_get_name</span>(<span class="self">self</span>.<span class="ident">to_glib</span>())) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::atk_relation_type_get_name</span>(<span class="self">self</span>.<span class="ident">into_glib</span>())) }
     }
 }
 
@@ -3160,11 +3160,11 @@
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">RelationType</span> {
+<span class="kw">impl</span> <span class="ident">IntoGlib</span> <span class="kw">for</span> <span class="ident">RelationType</span> {
     <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi::AtkRelationType</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::AtkRelationType</span> {
-        <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
+    <span class="kw">fn</span> <span class="ident">into_glib</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::AtkRelationType</span> {
+        <span class="kw">match</span> <span class="self">self</span> {
             <span class="ident">RelationType::Null</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::ATK_RELATION_NULL</span>,
             <span class="ident">RelationType::ControlledBy</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::ATK_RELATION_CONTROLLED_BY</span>,
             <span class="ident">RelationType::ControllerFor</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::ATK_RELATION_CONTROLLER_FOR</span>,
@@ -3247,7 +3247,7 @@
     <span class="kw">fn</span> <span class="ident">to_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::for_value_type</span>::<span class="op">&lt;</span><span class="ident">RelationType</span><span class="op">&gt;</span>();
         <span class="kw">unsafe</span> {
-            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">to_glib</span>());
+            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">into_glib</span>());
         }
         <span class="ident">value</span>
     }
@@ -3738,13 +3738,13 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_role_get_localized_name&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">localized_name</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::atk_role_get_localized_name</span>(<span class="self">self</span>.<span class="ident">to_glib</span>())) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::atk_role_get_localized_name</span>(<span class="self">self</span>.<span class="ident">into_glib</span>())) }
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_role_get_name&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">name</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::atk_role_get_name</span>(<span class="self">self</span>.<span class="ident">to_glib</span>())) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::atk_role_get_name</span>(<span class="self">self</span>.<span class="ident">into_glib</span>())) }
     }
 }
 
@@ -3889,11 +3889,11 @@
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">Role</span> {
+<span class="kw">impl</span> <span class="ident">IntoGlib</span> <span class="kw">for</span> <span class="ident">Role</span> {
     <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi::AtkRole</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::AtkRole</span> {
-        <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
+    <span class="kw">fn</span> <span class="ident">into_glib</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::AtkRole</span> {
+        <span class="kw">match</span> <span class="self">self</span> {
             <span class="ident">Role::Invalid</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::ATK_ROLE_INVALID</span>,
             <span class="ident">Role::AcceleratorLabel</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::ATK_ROLE_ACCEL_LABEL</span>,
             <span class="ident">Role::Alert</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::ATK_ROLE_ALERT</span>,
@@ -4188,7 +4188,7 @@
     <span class="kw">fn</span> <span class="ident">to_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::for_value_type</span>::<span class="op">&lt;</span><span class="ident">Role</span><span class="op">&gt;</span>();
         <span class="kw">unsafe</span> {
-            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">to_glib</span>());
+            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">into_glib</span>());
         }
         <span class="ident">value</span>
     }
@@ -4262,11 +4262,11 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_30&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_30&quot;</span>)))]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">ScrollType</span> {
+<span class="kw">impl</span> <span class="ident">IntoGlib</span> <span class="kw">for</span> <span class="ident">ScrollType</span> {
     <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi::AtkScrollType</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::AtkScrollType</span> {
-        <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
+    <span class="kw">fn</span> <span class="ident">into_glib</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::AtkScrollType</span> {
+        <span class="kw">match</span> <span class="self">self</span> {
             <span class="ident">ScrollType::TopLeft</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::ATK_SCROLL_TOP_LEFT</span>,
             <span class="ident">ScrollType::BottomRight</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::ATK_SCROLL_BOTTOM_RIGHT</span>,
             <span class="ident">ScrollType::TopEdge</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::ATK_SCROLL_TOP_EDGE</span>,
@@ -4329,7 +4329,7 @@
     <span class="kw">fn</span> <span class="ident">to_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::for_value_type</span>::<span class="op">&lt;</span><span class="ident">ScrollType</span><span class="op">&gt;</span>();
         <span class="kw">unsafe</span> {
-            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">to_glib</span>());
+            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">into_glib</span>());
         }
         <span class="ident">value</span>
     }
@@ -4557,7 +4557,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_state_type_get_name&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">name</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::atk_state_type_get_name</span>(<span class="self">self</span>.<span class="ident">to_glib</span>())) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::atk_state_type_get_name</span>(<span class="self">self</span>.<span class="ident">into_glib</span>())) }
     }
 }
 
@@ -4618,11 +4618,11 @@
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">StateType</span> {
+<span class="kw">impl</span> <span class="ident">IntoGlib</span> <span class="kw">for</span> <span class="ident">StateType</span> {
     <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi::AtkStateType</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::AtkStateType</span> {
-        <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
+    <span class="kw">fn</span> <span class="ident">into_glib</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::AtkStateType</span> {
+        <span class="kw">match</span> <span class="self">self</span> {
             <span class="ident">StateType::Invalid</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::ATK_STATE_INVALID</span>,
             <span class="ident">StateType::Active</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::ATK_STATE_ACTIVE</span>,
             <span class="ident">StateType::Armed</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::ATK_STATE_ARMED</span>,
@@ -4749,7 +4749,7 @@
     <span class="kw">fn</span> <span class="ident">to_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::for_value_type</span>::<span class="op">&lt;</span><span class="ident">StateType</span><span class="op">&gt;</span>();
         <span class="kw">unsafe</span> {
-            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">to_glib</span>());
+            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">into_glib</span>());
         }
         <span class="ident">value</span>
     }
@@ -4868,13 +4868,13 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_text_attribute_get_name&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">name</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::atk_text_attribute_get_name</span>(<span class="self">self</span>.<span class="ident">to_glib</span>())) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::atk_text_attribute_get_name</span>(<span class="self">self</span>.<span class="ident">into_glib</span>())) }
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_text_attribute_get_value&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">value</span>(<span class="self">self</span>, <span class="ident">index_</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::atk_text_attribute_get_value</span>(<span class="self">self</span>.<span class="ident">to_glib</span>(), <span class="ident">index_</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::atk_text_attribute_get_value</span>(<span class="self">self</span>.<span class="ident">into_glib</span>(), <span class="ident">index_</span>)) }
     }
 }
 
@@ -4921,11 +4921,11 @@
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">TextAttribute</span> {
+<span class="kw">impl</span> <span class="ident">IntoGlib</span> <span class="kw">for</span> <span class="ident">TextAttribute</span> {
     <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi::AtkTextAttribute</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::AtkTextAttribute</span> {
-        <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
+    <span class="kw">fn</span> <span class="ident">into_glib</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::AtkTextAttribute</span> {
+        <span class="kw">match</span> <span class="self">self</span> {
             <span class="ident">TextAttribute::Invalid</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::ATK_TEXT_ATTR_INVALID</span>,
             <span class="ident">TextAttribute::LeftMargin</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::ATK_TEXT_ATTR_LEFT_MARGIN</span>,
             <span class="ident">TextAttribute::RightMargin</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::ATK_TEXT_ATTR_RIGHT_MARGIN</span>,
@@ -5024,7 +5024,7 @@
     <span class="kw">fn</span> <span class="ident">to_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::for_value_type</span>::<span class="op">&lt;</span><span class="ident">TextAttribute</span><span class="op">&gt;</span>();
         <span class="kw">unsafe</span> {
-            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">to_glib</span>());
+            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">into_glib</span>());
         }
         <span class="ident">value</span>
     }
@@ -5093,11 +5093,11 @@
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">TextBoundary</span> {
+<span class="kw">impl</span> <span class="ident">IntoGlib</span> <span class="kw">for</span> <span class="ident">TextBoundary</span> {
     <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi::AtkTextBoundary</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::AtkTextBoundary</span> {
-        <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
+    <span class="kw">fn</span> <span class="ident">into_glib</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::AtkTextBoundary</span> {
+        <span class="kw">match</span> <span class="self">self</span> {
             <span class="ident">TextBoundary::Char</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::ATK_TEXT_BOUNDARY_CHAR</span>,
             <span class="ident">TextBoundary::WordStart</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::ATK_TEXT_BOUNDARY_WORD_START</span>,
             <span class="ident">TextBoundary::WordEnd</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::ATK_TEXT_BOUNDARY_WORD_END</span>,
@@ -5150,7 +5150,7 @@
     <span class="kw">fn</span> <span class="ident">to_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::for_value_type</span>::<span class="op">&lt;</span><span class="ident">TextBoundary</span><span class="op">&gt;</span>();
         <span class="kw">unsafe</span> {
-            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">to_glib</span>());
+            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">into_glib</span>());
         }
         <span class="ident">value</span>
     }
@@ -5198,11 +5198,11 @@
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">TextClipType</span> {
+<span class="kw">impl</span> <span class="ident">IntoGlib</span> <span class="kw">for</span> <span class="ident">TextClipType</span> {
     <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi::AtkTextClipType</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::AtkTextClipType</span> {
-        <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
+    <span class="kw">fn</span> <span class="ident">into_glib</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::AtkTextClipType</span> {
+        <span class="kw">match</span> <span class="self">self</span> {
             <span class="ident">TextClipType::None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::ATK_TEXT_CLIP_NONE</span>,
             <span class="ident">TextClipType::Min</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::ATK_TEXT_CLIP_MIN</span>,
             <span class="ident">TextClipType::Max</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::ATK_TEXT_CLIP_MAX</span>,
@@ -5249,7 +5249,7 @@
     <span class="kw">fn</span> <span class="ident">to_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::for_value_type</span>::<span class="op">&lt;</span><span class="ident">TextClipType</span><span class="op">&gt;</span>();
         <span class="kw">unsafe</span> {
-            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">to_glib</span>());
+            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">into_glib</span>());
         }
         <span class="ident">value</span>
     }
@@ -5311,11 +5311,11 @@
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">TextGranularity</span> {
+<span class="kw">impl</span> <span class="ident">IntoGlib</span> <span class="kw">for</span> <span class="ident">TextGranularity</span> {
     <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi::AtkTextGranularity</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::AtkTextGranularity</span> {
-        <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
+    <span class="kw">fn</span> <span class="ident">into_glib</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::AtkTextGranularity</span> {
+        <span class="kw">match</span> <span class="self">self</span> {
             <span class="ident">TextGranularity::Char</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::ATK_TEXT_GRANULARITY_CHAR</span>,
             <span class="ident">TextGranularity::Word</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::ATK_TEXT_GRANULARITY_WORD</span>,
             <span class="ident">TextGranularity::Sentence</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::ATK_TEXT_GRANULARITY_SENTENCE</span>,
@@ -5364,7 +5364,7 @@
     <span class="kw">fn</span> <span class="ident">to_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::for_value_type</span>::<span class="op">&lt;</span><span class="ident">TextGranularity</span><span class="op">&gt;</span>();
         <span class="kw">unsafe</span> {
-            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">to_glib</span>());
+            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">into_glib</span>());
         }
         <span class="ident">value</span>
     }
@@ -5421,13 +5421,13 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_value_type_get_localized_name&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">localized_name</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::atk_value_type_get_localized_name</span>(<span class="self">self</span>.<span class="ident">to_glib</span>())) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::atk_value_type_get_localized_name</span>(<span class="self">self</span>.<span class="ident">into_glib</span>())) }
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_value_type_get_name&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">name</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::atk_value_type_get_name</span>(<span class="self">self</span>.<span class="ident">to_glib</span>())) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::atk_value_type_get_name</span>(<span class="self">self</span>.<span class="ident">into_glib</span>())) }
     }
 }
 
@@ -5460,11 +5460,11 @@
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">ValueType</span> {
+<span class="kw">impl</span> <span class="ident">IntoGlib</span> <span class="kw">for</span> <span class="ident">ValueType</span> {
     <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi::AtkValueType</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::AtkValueType</span> {
-        <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
+    <span class="kw">fn</span> <span class="ident">into_glib</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::AtkValueType</span> {
+        <span class="kw">match</span> <span class="self">self</span> {
             <span class="ident">ValueType::VeryWeak</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::ATK_VALUE_VERY_WEAK</span>,
             <span class="ident">ValueType::Weak</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::ATK_VALUE_WEAK</span>,
             <span class="ident">ValueType::Acceptable</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::ATK_VALUE_ACCEPTABLE</span>,
@@ -5535,7 +5535,7 @@
     <span class="kw">fn</span> <span class="ident">to_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::for_value_type</span>::<span class="op">&lt;</span><span class="ident">ValueType</span><span class="op">&gt;</span>();
         <span class="kw">unsafe</span> {
-            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">to_glib</span>());
+            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">into_glib</span>());
         }
         <span class="ident">value</span>
     }

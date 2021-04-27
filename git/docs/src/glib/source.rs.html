@@ -1002,52 +1002,10 @@
 <span id="999"> 999</span>
 <span id="1000">1000</span>
 <span id="1001">1001</span>
-<span id="1002">1002</span>
-<span id="1003">1003</span>
-<span id="1004">1004</span>
-<span id="1005">1005</span>
-<span id="1006">1006</span>
-<span id="1007">1007</span>
-<span id="1008">1008</span>
-<span id="1009">1009</span>
-<span id="1010">1010</span>
-<span id="1011">1011</span>
-<span id="1012">1012</span>
-<span id="1013">1013</span>
-<span id="1014">1014</span>
-<span id="1015">1015</span>
-<span id="1016">1016</span>
-<span id="1017">1017</span>
-<span id="1018">1018</span>
-<span id="1019">1019</span>
-<span id="1020">1020</span>
-<span id="1021">1021</span>
-<span id="1022">1022</span>
-<span id="1023">1023</span>
-<span id="1024">1024</span>
-<span id="1025">1025</span>
-<span id="1026">1026</span>
-<span id="1027">1027</span>
-<span id="1028">1028</span>
-<span id="1029">1029</span>
-<span id="1030">1030</span>
-<span id="1031">1031</span>
-<span id="1032">1032</span>
-<span id="1033">1033</span>
-<span id="1034">1034</span>
-<span id="1035">1035</span>
-<span id="1036">1036</span>
-<span id="1037">1037</span>
-<span id="1038">1038</span>
-<span id="1039">1039</span>
-<span id="1040">1040</span>
-<span id="1041">1041</span>
-<span id="1042">1042</span>
-<span id="1043">1043</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
-<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::translate</span>::{<span class="ident">from_glib</span>, <span class="ident">from_glib_full</span>, <span class="ident">FromGlib</span>, <span class="ident">ToGlib</span>, <span class="ident">ToGlibPtr</span>};
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::translate</span>::{<span class="ident">from_glib</span>, <span class="ident">from_glib_full</span>, <span class="ident">FromGlib</span>, <span class="ident">IntoGlib</span>, <span class="ident">ToGlibPtr</span>};
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">unix</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::IOCondition</span>;
 <span class="kw">use</span> <span class="ident">ffi</span>::{<span class="self">self</span>, <span class="ident">gboolean</span>, <span class="ident">gpointer</span>};
@@ -1067,12 +1025,9 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SourceId</span>(<span class="ident">NonZeroU32</span>);
 
-<span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">SourceId</span> {
-    <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">u32</span>;
-
-    <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
+<span class="kw">impl</span> <span class="ident">SourceId</span> {
+    <span class="doccomment">/// Returns the internal source ID.</span>
+    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">as_raw</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">get</span>()
     }
 }
@@ -1094,11 +1049,11 @@
 <span class="kw">unsafe</span> <span class="kw">impl</span> <span class="ident">Sync</span> <span class="kw">for</span> <span class="ident">Pid</span> {}
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">Pid</span> {
+<span class="kw">impl</span> <span class="ident">IntoGlib</span> <span class="kw">for</span> <span class="ident">Pid</span> {
     <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi::GPid</span>;
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::GPid</span> {
+    <span class="kw">fn</span> <span class="ident">into_glib</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::GPid</span> {
         <span class="self">self</span>.<span class="number">0</span>
     }
 }
@@ -1122,18 +1077,18 @@
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Continue</span>(<span class="kw">pub</span> <span class="ident">bool</span>);
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">Continue</span> {
+<span class="kw">impl</span> <span class="ident">IntoGlib</span> <span class="kw">for</span> <span class="ident">Continue</span> {
     <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">gboolean</span>;
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">gboolean</span> {
-        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">to_glib</span>()
+    <span class="kw">fn</span> <span class="ident">into_glib</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">gboolean</span> {
+        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">into_glib</span>()
     }
 }
 
 <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">trampoline</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">FnMut</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Continue</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="ident">func</span>: <span class="ident">gpointer</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">gboolean</span> {
     <span class="kw">let</span> <span class="ident">func</span>: <span class="kw-2">&amp;</span><span class="ident">RefCell</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">func</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">RefCell</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>);
-    (<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="ident">func</span>.<span class="ident">borrow_mut</span>())().<span class="ident">to_glib</span>()
+    (<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="ident">func</span>.<span class="ident">borrow_mut</span>())().<span class="ident">into_glib</span>()
 }
 
 <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">destroy_closure</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">FnMut</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Continue</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="ident">ptr</span>: <span class="ident">gpointer</span>) {
@@ -1171,7 +1126,7 @@
     <span class="ident">func</span>: <span class="ident">gpointer</span>,
 ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">gboolean</span> {
     <span class="kw">let</span> <span class="ident">func</span>: <span class="kw-2">&amp;</span><span class="ident">RefCell</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">func</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">RefCell</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>);
-    (<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="ident">func</span>.<span class="ident">borrow_mut</span>())(<span class="ident">fd</span>, <span class="ident">from_glib</span>(<span class="ident">condition</span>)).<span class="ident">to_glib</span>()
+    (<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="ident">func</span>.<span class="ident">borrow_mut</span>())(<span class="ident">fd</span>, <span class="ident">from_glib</span>(<span class="ident">condition</span>)).<span class="ident">into_glib</span>()
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">unix</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
@@ -1696,7 +1651,7 @@
         <span class="ident">from_glib</span>(<span class="ident">ffi::g_unix_fd_add_full</span>(
             <span class="ident">ffi::G_PRIORITY_DEFAULT</span>,
             <span class="ident">fd</span>,
-            <span class="ident">condition</span>.<span class="ident">to_glib</span>(),
+            <span class="ident">condition</span>.<span class="ident">into_glib</span>(),
             <span class="prelude-val">Some</span>(<span class="ident">trampoline_unix_fd</span>::<span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>),
             <span class="ident">into_raw_unix_fd</span>(<span class="ident">func</span>),
             <span class="prelude-val">Some</span>(<span class="ident">destroy_closure_unix_fd</span>::<span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>),
@@ -1730,7 +1685,7 @@
         <span class="ident">from_glib</span>(<span class="ident">ffi::g_unix_fd_add_full</span>(
             <span class="ident">ffi::G_PRIORITY_DEFAULT</span>,
             <span class="ident">fd</span>,
-            <span class="ident">condition</span>.<span class="ident">to_glib</span>(),
+            <span class="ident">condition</span>.<span class="ident">into_glib</span>(),
             <span class="prelude-val">Some</span>(<span class="ident">trampoline_unix_fd</span>::<span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>),
             <span class="ident">into_raw_unix_fd</span>(<span class="ident">func</span>),
             <span class="prelude-val">Some</span>(<span class="ident">destroy_closure_unix_fd</span>::<span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>),
@@ -1748,7 +1703,7 @@
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::needless_pass_by_value</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">source_remove</span>(<span class="ident">source_id</span>: <span class="ident">SourceId</span>) {
     <span class="kw">unsafe</span> {
-        <span class="ident">ffi::g_source_remove</span>(<span class="ident">source_id</span>.<span class="ident">to_glib</span>());
+        <span class="ident">ffi::g_source_remove</span>(<span class="ident">source_id</span>.<span class="ident">as_raw</span>());
     }
 }
 
@@ -1758,11 +1713,11 @@
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Priority</span>(<span class="ident">i32</span>);
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">Priority</span> {
+<span class="kw">impl</span> <span class="ident">IntoGlib</span> <span class="kw">for</span> <span class="ident">Priority</span> {
     <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">i32</span>;
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
+    <span class="kw">fn</span> <span class="ident">into_glib</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
         <span class="self">self</span>.<span class="number">0</span>
     }
 }
@@ -1803,7 +1758,7 @@
             <span class="ident">into_raw</span>(<span class="ident">func</span>),
             <span class="prelude-val">Some</span>(<span class="ident">destroy_closure</span>::<span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>),
         );
-        <span class="ident">ffi::g_source_set_priority</span>(<span class="ident">source</span>, <span class="ident">priority</span>.<span class="ident">to_glib</span>());
+        <span class="ident">ffi::g_source_set_priority</span>(<span class="ident">source</span>, <span class="ident">priority</span>.<span class="ident">into_glib</span>());
 
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">name</span>) <span class="op">=</span> <span class="ident">name</span> {
             <span class="ident">ffi::g_source_set_name</span>(<span class="ident">source</span>, <span class="ident">name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
@@ -1838,7 +1793,7 @@
             <span class="ident">into_raw</span>(<span class="ident">func</span>),
             <span class="prelude-val">Some</span>(<span class="ident">destroy_closure</span>::<span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>),
         );
-        <span class="ident">ffi::g_source_set_priority</span>(<span class="ident">source</span>, <span class="ident">priority</span>.<span class="ident">to_glib</span>());
+        <span class="ident">ffi::g_source_set_priority</span>(<span class="ident">source</span>, <span class="ident">priority</span>.<span class="ident">into_glib</span>());
 
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">name</span>) <span class="op">=</span> <span class="ident">name</span> {
             <span class="ident">ffi::g_source_set_name</span>(<span class="ident">source</span>, <span class="ident">name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
@@ -1872,7 +1827,7 @@
             <span class="ident">into_raw</span>(<span class="ident">func</span>),
             <span class="prelude-val">Some</span>(<span class="ident">destroy_closure</span>::<span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>),
         );
-        <span class="ident">ffi::g_source_set_priority</span>(<span class="ident">source</span>, <span class="ident">priority</span>.<span class="ident">to_glib</span>());
+        <span class="ident">ffi::g_source_set_priority</span>(<span class="ident">source</span>, <span class="ident">priority</span>.<span class="ident">into_glib</span>());
 
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">name</span>) <span class="op">=</span> <span class="ident">name</span> {
             <span class="ident">ffi::g_source_set_name</span>(<span class="ident">source</span>, <span class="ident">name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
@@ -1907,7 +1862,7 @@
             <span class="ident">into_raw_child_watch</span>(<span class="ident">func</span>),
             <span class="prelude-val">Some</span>(<span class="ident">destroy_closure_child_watch</span>::<span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>),
         );
-        <span class="ident">ffi::g_source_set_priority</span>(<span class="ident">source</span>, <span class="ident">priority</span>.<span class="ident">to_glib</span>());
+        <span class="ident">ffi::g_source_set_priority</span>(<span class="ident">source</span>, <span class="ident">priority</span>.<span class="ident">into_glib</span>());
 
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">name</span>) <span class="op">=</span> <span class="ident">name</span> {
             <span class="ident">ffi::g_source_set_name</span>(<span class="ident">source</span>, <span class="ident">name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
@@ -1942,7 +1897,7 @@
             <span class="ident">into_raw</span>(<span class="ident">func</span>),
             <span class="prelude-val">Some</span>(<span class="ident">destroy_closure</span>::<span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>),
         );
-        <span class="ident">ffi::g_source_set_priority</span>(<span class="ident">source</span>, <span class="ident">priority</span>.<span class="ident">to_glib</span>());
+        <span class="ident">ffi::g_source_set_priority</span>(<span class="ident">source</span>, <span class="ident">priority</span>.<span class="ident">into_glib</span>());
 
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">name</span>) <span class="op">=</span> <span class="ident">name</span> {
             <span class="ident">ffi::g_source_set_name</span>(<span class="ident">source</span>, <span class="ident">name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
@@ -1971,7 +1926,7 @@
     <span class="ident">F</span>: <span class="ident">FnMut</span>(<span class="ident">RawFd</span>, <span class="ident">IOCondition</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Continue</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
 {
     <span class="kw">unsafe</span> {
-        <span class="kw">let</span> <span class="ident">source</span> <span class="op">=</span> <span class="ident">ffi::g_unix_fd_source_new</span>(<span class="ident">fd</span>, <span class="ident">condition</span>.<span class="ident">to_glib</span>());
+        <span class="kw">let</span> <span class="ident">source</span> <span class="op">=</span> <span class="ident">ffi::g_unix_fd_source_new</span>(<span class="ident">fd</span>, <span class="ident">condition</span>.<span class="ident">into_glib</span>());
         <span class="ident">ffi::g_source_set_callback</span>(
             <span class="ident">source</span>,
             <span class="prelude-val">Some</span>(<span class="ident">transmute</span>::<span class="op">&lt;</span>
@@ -1981,7 +1936,7 @@
             <span class="ident">into_raw_unix_fd</span>(<span class="ident">func</span>),
             <span class="prelude-val">Some</span>(<span class="ident">destroy_closure_unix_fd</span>::<span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>),
         );
-        <span class="ident">ffi::g_source_set_priority</span>(<span class="ident">source</span>, <span class="ident">priority</span>.<span class="ident">to_glib</span>());
+        <span class="ident">ffi::g_source_set_priority</span>(<span class="ident">source</span>, <span class="ident">priority</span>.<span class="ident">into_glib</span>());
 
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">name</span>) <span class="op">=</span> <span class="ident">name</span> {
             <span class="ident">ffi::g_source_set_name</span>(<span class="ident">source</span>, <span class="ident">name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
@@ -1992,19 +1947,6 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Source</span> {
-    <span class="doccomment">/// Adds a [`Source`](crate::Source) to a `context` so that it will be executed within</span>
-    <span class="doccomment">/// that context. Remove it by calling [`destroy()`](Self::destroy()).</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// This function is safe to call from any thread, regardless of which thread</span>
-    <span class="doccomment">/// the `context` is running in.</span>
-    <span class="doccomment">/// ## `context`</span>
-    <span class="doccomment">/// a [`MainContext`](crate::MainContext) (if [`None`], the default context will be used)</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Returns</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// the ID (greater than 0) for the source within the</span>
-    <span class="doccomment">///  [`MainContext`](crate::MainContext).</span>
-    <span class="comment">// rustdoc-stripper-ignore-next-stop</span>
     <span class="doccomment">/// Adds a [`Source`](crate::Source) to a `context` so that it will be executed within</span>
     <span class="doccomment">/// that context. Remove it by calling [`destroy()`](Self::destroy()).</span>
     <span class="doccomment">///</span>
@@ -2052,37 +1994,11 @@
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// For historical reasons, this function always returns [`true`]</span>
-    <span class="comment">// rustdoc-stripper-ignore-next-stop</span>
-    <span class="doccomment">/// Removes the source with the given ID from the default main context. You must</span>
-    <span class="doccomment">/// use [`destroy()`](Self::destroy()) for sources added to a non-default main context.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// The ID of a [`Source`](crate::Source) is given by [`get_id()`](Self::get_id()), or will be</span>
-    <span class="doccomment">/// returned by the functions [`attach()`](Self::attach()), `g_idle_add()`,</span>
-    <span class="doccomment">/// `g_idle_add_full()`, `g_timeout_add()`, `g_timeout_add_full()`,</span>
-    <span class="doccomment">/// `g_child_watch_add()`, `g_child_watch_add_full()`, `g_io_add_watch()`, and</span>
-    <span class="doccomment">/// `g_io_add_watch_full()`.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// It is a programmer error to attempt to remove a non-existent source.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// More specifically: source IDs can be reissued after a source has been</span>
-    <span class="doccomment">/// destroyed and therefore it is never valid to use this function with a</span>
-    <span class="doccomment">/// source ID which may have already been removed. An example is when</span>
-    <span class="doccomment">/// scheduling an idle to run in another thread with `g_idle_add()`: the</span>
-    <span class="doccomment">/// idle may already have run and been removed by the time this function</span>
-    <span class="doccomment">/// is called on its (now invalid) source ID. This source ID may have</span>
-    <span class="doccomment">/// been reissued, leading to the operation being performed against the</span>
-    <span class="doccomment">/// wrong source.</span>
-    <span class="doccomment">/// ## `tag`</span>
-    <span class="doccomment">/// the ID of the source to remove.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Returns</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// For historical reasons, this function always returns [`true`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_source_remove&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">remove</span>(<span class="ident">tag</span>: <span class="ident">SourceId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="kw">crate</span><span class="ident">::BoolError</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="macro">result_from_gboolean!</span>(
-                <span class="ident">ffi::g_source_remove</span>(<span class="ident">tag</span>.<span class="ident">to_glib</span>()),
+                <span class="ident">ffi::g_source_remove</span>(<span class="ident">tag</span>.<span class="ident">as_raw</span>()),
                 <span class="string">&quot;Failed to remove source&quot;</span>
             )
         }

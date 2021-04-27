@@ -2965,8 +2965,8 @@
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">rect_window</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">rect</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">rect_anchor</span>.<span class="ident">to_glib</span>(),
-                <span class="ident">menu_anchor</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">rect_anchor</span>.<span class="ident">into_glib</span>(),
+                <span class="ident">menu_anchor</span>.<span class="ident">into_glib</span>(),
                 <span class="ident">trigger_event</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             );
         }
@@ -2985,8 +2985,8 @@
             <span class="ident">ffi::gtk_menu_popup_at_widget</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">widget</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">widget_anchor</span>.<span class="ident">to_glib</span>(),
-                <span class="ident">menu_anchor</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">widget_anchor</span>.<span class="ident">into_glib</span>(),
+                <span class="ident">menu_anchor</span>.<span class="ident">into_glib</span>(),
                 <span class="ident">trigger_event</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             );
         }
@@ -3046,7 +3046,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::gtk_menu_set_reserve_toggle_size</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">reserve_toggle_size</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">reserve_toggle_size</span>.<span class="ident">into_glib</span>(),
             );
         }
     }

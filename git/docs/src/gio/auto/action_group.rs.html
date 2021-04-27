@@ -981,7 +981,7 @@
             <span class="ident">ffi::g_action_group_action_enabled_changed</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">action_name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">enabled</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">enabled</span>.<span class="ident">into_glib</span>(),
             );
         }
     }

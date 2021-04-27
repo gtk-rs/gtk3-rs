@@ -3352,7 +3352,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::gdk_window_begin_resize_drag</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">edge</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">edge</span>.<span class="ident">into_glib</span>(),
                 <span class="ident">button</span>,
                 <span class="ident">root_x</span>,
                 <span class="ident">root_y</span>,
@@ -3392,7 +3392,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::gdk_window_begin_resize_drag_for_device</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">edge</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">edge</span>.<span class="ident">into_glib</span>(),
                 <span class="ident">device</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">button</span>,
                 <span class="ident">root_x</span>,
@@ -4306,7 +4306,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">from_glib</span>(<span class="ident">ffi::gdk_window_get_source_events</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">source</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">source</span>.<span class="ident">into_glib</span>(),
             ))
         }
     }
@@ -4544,7 +4544,7 @@
             } <span class="kw">else</span> {
                 <span class="macro">panic!</span>(<span class="string">&quot;cannot get closure...&quot;</span>)
             };
-            <span class="ident">res</span>.<span class="ident">to_glib</span>()
+            <span class="ident">res</span>.<span class="ident">into_glib</span>()
         }
         <span class="kw">let</span> <span class="ident">child_func</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">child_func_data</span>.<span class="ident">is_some</span>() {
             <span class="prelude-val">Some</span>(<span class="ident">child_func_func</span> <span class="kw">as</span> <span class="kw">_</span>)
@@ -4576,7 +4576,7 @@
             <span class="ident">ffi::gdk_window_invalidate_rect</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">rect</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">invalidate_children</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">invalidate_children</span>.<span class="ident">into_glib</span>(),
             );
         }
     }
@@ -4608,7 +4608,7 @@
             <span class="ident">ffi::gdk_window_invalidate_region</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">region</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">invalidate_children</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">invalidate_children</span>.<span class="ident">into_glib</span>(),
             );
         }
     }
@@ -4842,9 +4842,9 @@
             <span class="ident">ffi::gdk_window_move_to_rect</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">rect</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">rect_anchor</span>.<span class="ident">to_glib</span>(),
-                <span class="ident">window_anchor</span>.<span class="ident">to_glib</span>(),
-                <span class="ident">anchor_hints</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">rect_anchor</span>.<span class="ident">into_glib</span>(),
+                <span class="ident">window_anchor</span>.<span class="ident">into_glib</span>(),
+                <span class="ident">anchor_hints</span>.<span class="ident">into_glib</span>(),
                 <span class="ident">rect_anchor_dx</span>,
                 <span class="ident">rect_anchor_dy</span>,
             );
@@ -4884,7 +4884,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_process_updates&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">process_updates</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">update_children</span>: <span class="ident">bool</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi::gdk_window_process_updates</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">update_children</span>.<span class="ident">to_glib</span>());
+            <span class="ident">ffi::gdk_window_process_updates</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">update_children</span>.<span class="ident">into_glib</span>());
         }
     }
 
@@ -4969,7 +4969,7 @@
             <span class="ident">ffi::gdk_window_restack</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">sibling</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">above</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">above</span>.<span class="ident">into_glib</span>(),
             );
         }
     }
@@ -5006,7 +5006,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_set_accept_focus&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_accept_focus</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">accept_focus</span>: <span class="ident">bool</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi::gdk_window_set_accept_focus</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">accept_focus</span>.<span class="ident">to_glib</span>());
+            <span class="ident">ffi::gdk_window_set_accept_focus</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">accept_focus</span>.<span class="ident">into_glib</span>());
         }
     }
 
@@ -5082,7 +5082,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_set_composited&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_composited</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">composited</span>: <span class="ident">bool</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi::gdk_window_set_composited</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">composited</span>.<span class="ident">to_glib</span>());
+            <span class="ident">ffi::gdk_window_set_composited</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">composited</span>.<span class="ident">into_glib</span>());
         }
     }
 
@@ -5123,7 +5123,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_set_decorations&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_decorations</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">decorations</span>: <span class="ident">WMDecoration</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi::gdk_window_set_decorations</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">decorations</span>.<span class="ident">to_glib</span>());
+            <span class="ident">ffi::gdk_window_set_decorations</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">decorations</span>.<span class="ident">into_glib</span>());
         }
     }
 
@@ -5165,7 +5165,7 @@
             <span class="ident">ffi::gdk_window_set_device_events</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">device</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">event_mask</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">event_mask</span>.<span class="ident">into_glib</span>(),
             );
         }
     }
@@ -5185,7 +5185,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::gdk_window_set_event_compression</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">event_compression</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">event_compression</span>.<span class="ident">into_glib</span>(),
             );
         }
     }
@@ -5202,7 +5202,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_set_events&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_events</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">event_mask</span>: <span class="ident">EventMask</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi::gdk_window_set_events</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">event_mask</span>.<span class="ident">to_glib</span>());
+            <span class="ident">ffi::gdk_window_set_events</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">event_mask</span>.<span class="ident">into_glib</span>());
         }
     }
 
@@ -5219,7 +5219,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_set_focus_on_map&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_focus_on_map</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">focus_on_map</span>: <span class="ident">bool</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi::gdk_window_set_focus_on_map</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">focus_on_map</span>.<span class="ident">to_glib</span>());
+            <span class="ident">ffi::gdk_window_set_focus_on_map</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">focus_on_map</span>.<span class="ident">into_glib</span>());
         }
     }
 
@@ -5245,7 +5245,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_set_fullscreen_mode&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_fullscreen_mode</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">mode</span>: <span class="ident">FullscreenMode</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi::gdk_window_set_fullscreen_mode</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">mode</span>.<span class="ident">to_glib</span>());
+            <span class="ident">ffi::gdk_window_set_fullscreen_mode</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">mode</span>.<span class="ident">into_glib</span>());
         }
     }
 
@@ -5267,7 +5267,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_set_functions&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_functions</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">functions</span>: <span class="ident">WMFunction</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi::gdk_window_set_functions</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">functions</span>.<span class="ident">to_glib</span>());
+            <span class="ident">ffi::gdk_window_set_functions</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">functions</span>.<span class="ident">into_glib</span>());
         }
     }
 
@@ -5302,7 +5302,7 @@
             <span class="ident">ffi::gdk_window_set_geometry_hints</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">geometry</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">geom_mask</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">geom_mask</span>.<span class="ident">into_glib</span>(),
             );
         }
     }
@@ -5385,7 +5385,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_set_keep_above&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_keep_above</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">setting</span>: <span class="ident">bool</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi::gdk_window_set_keep_above</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">setting</span>.<span class="ident">to_glib</span>());
+            <span class="ident">ffi::gdk_window_set_keep_above</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">setting</span>.<span class="ident">into_glib</span>());
         }
     }
 
@@ -5403,7 +5403,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_set_keep_below&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_keep_below</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">setting</span>: <span class="ident">bool</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi::gdk_window_set_keep_below</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">setting</span>.<span class="ident">to_glib</span>());
+            <span class="ident">ffi::gdk_window_set_keep_below</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">setting</span>.<span class="ident">into_glib</span>());
         }
     }
 
@@ -5419,7 +5419,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_set_modal_hint&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_modal_hint</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">modal</span>: <span class="ident">bool</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi::gdk_window_set_modal_hint</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">modal</span>.<span class="ident">to_glib</span>());
+            <span class="ident">ffi::gdk_window_set_modal_hint</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">modal</span>.<span class="ident">into_glib</span>());
         }
     }
 
@@ -5491,7 +5491,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::gdk_window_set_override_redirect</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">override_redirect</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">override_redirect</span>.<span class="ident">into_glib</span>(),
             );
         }
     }
@@ -5521,7 +5521,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_set_pass_through&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_pass_through</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">pass_through</span>: <span class="ident">bool</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi::gdk_window_set_pass_through</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">pass_through</span>.<span class="ident">to_glib</span>());
+            <span class="ident">ffi::gdk_window_set_pass_through</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">pass_through</span>.<span class="ident">into_glib</span>());
         }
     }
 
@@ -5583,7 +5583,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_set_skip_pager_hint&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_skip_pager_hint</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">skips_pager</span>: <span class="ident">bool</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi::gdk_window_set_skip_pager_hint</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">skips_pager</span>.<span class="ident">to_glib</span>());
+            <span class="ident">ffi::gdk_window_set_skip_pager_hint</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">skips_pager</span>.<span class="ident">into_glib</span>());
         }
     }
 
@@ -5598,7 +5598,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_set_skip_taskbar_hint&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_skip_taskbar_hint</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">skips_taskbar</span>: <span class="ident">bool</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi::gdk_window_set_skip_taskbar_hint</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">skips_taskbar</span>.<span class="ident">to_glib</span>());
+            <span class="ident">ffi::gdk_window_set_skip_taskbar_hint</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">skips_taskbar</span>.<span class="ident">into_glib</span>());
         }
     }
 
@@ -5615,8 +5615,8 @@
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::gdk_window_set_source_events</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">source</span>.<span class="ident">to_glib</span>(),
-                <span class="ident">event_mask</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">source</span>.<span class="ident">into_glib</span>(),
+                <span class="ident">event_mask</span>.<span class="ident">into_glib</span>(),
             );
         }
     }
@@ -5653,7 +5653,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">from_glib</span>(<span class="ident">ffi::gdk_window_set_static_gravities</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">use_static</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">use_static</span>.<span class="ident">into_glib</span>(),
             ))
         }
     }
@@ -5669,7 +5669,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::gdk_window_set_support_multidevice</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">support_multidevice</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">support_multidevice</span>.<span class="ident">into_glib</span>(),
             );
         }
     }
@@ -5715,7 +5715,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_set_type_hint&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_type_hint</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">hint</span>: <span class="ident">WindowTypeHint</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi::gdk_window_set_type_hint</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">hint</span>.<span class="ident">to_glib</span>());
+            <span class="ident">ffi::gdk_window_set_type_hint</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">hint</span>.<span class="ident">into_glib</span>());
         }
     }
 
@@ -5726,7 +5726,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_set_urgency_hint&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_urgency_hint</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">urgent</span>: <span class="ident">bool</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi::gdk_window_set_urgency_hint</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">urgent</span>.<span class="ident">to_glib</span>());
+            <span class="ident">ffi::gdk_window_set_urgency_hint</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">urgent</span>.<span class="ident">into_glib</span>());
         }
     }
 
@@ -5940,7 +5940,7 @@
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">new_height</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
             <span class="ident">ffi::gdk_window_constrain_size</span>(
                 <span class="ident">geometry</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
-                <span class="ident">flags</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">flags</span>.<span class="ident">into_glib</span>(),
                 <span class="ident">width</span>,
                 <span class="ident">height</span>,
                 <span class="ident">new_width</span>.<span class="ident">as_mut_ptr</span>(),
@@ -5995,7 +5995,7 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_debug_updates</span>(<span class="ident">setting</span>: <span class="ident">bool</span>) {
         <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi::gdk_window_set_debug_updates</span>(<span class="ident">setting</span>.<span class="ident">to_glib</span>());
+            <span class="ident">ffi::gdk_window_set_debug_updates</span>(<span class="ident">setting</span>.<span class="ident">into_glib</span>());
         }
     }
 

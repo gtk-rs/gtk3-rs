@@ -1083,7 +1083,7 @@
             <span class="ident">ffi::gtk_overlay_set_overlay_pass_through</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">widget</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">pass_through</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">pass_through</span>.<span class="ident">into_glib</span>(),
             );
         }
     }

@@ -1335,7 +1335,7 @@
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">icon_name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">size</span>,
-                <span class="ident">flags</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">flags</span>.<span class="ident">into_glib</span>(),
                 <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">error</span>,
             );
             <span class="kw">if</span> <span class="ident">error</span>.<span class="ident">is_null</span>() {
@@ -1360,7 +1360,7 @@
                 <span class="ident">icon_name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">size</span>,
                 <span class="ident">scale</span>,
-                <span class="ident">flags</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">flags</span>.<span class="ident">into_glib</span>(),
                 <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">error</span>,
             );
             <span class="kw">if</span> <span class="ident">error</span>.<span class="ident">is_null</span>() {
@@ -1387,7 +1387,7 @@
                 <span class="ident">size</span>,
                 <span class="ident">scale</span>,
                 <span class="ident">for_window</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">flags</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">flags</span>.<span class="ident">into_glib</span>(),
                 <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">error</span>,
             );
             <span class="kw">if</span> <span class="ident">error</span>.<span class="ident">is_null</span>() {
@@ -1409,7 +1409,7 @@
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">icon</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">size</span>,
-                <span class="ident">flags</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">flags</span>.<span class="ident">into_glib</span>(),
             ))
         }
     }
@@ -1427,7 +1427,7 @@
                 <span class="ident">icon</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">size</span>,
                 <span class="ident">scale</span>,
-                <span class="ident">flags</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">flags</span>.<span class="ident">into_glib</span>(),
             ))
         }
     }
@@ -1438,7 +1438,7 @@
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">icon_name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">size</span>,
-                <span class="ident">flags</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">flags</span>.<span class="ident">into_glib</span>(),
             ))
         }
     }
@@ -1456,7 +1456,7 @@
                 <span class="ident">icon_name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">size</span>,
                 <span class="ident">scale</span>,
-                <span class="ident">flags</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">flags</span>.<span class="ident">into_glib</span>(),
             ))
         }
     }

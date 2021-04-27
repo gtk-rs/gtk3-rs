@@ -399,7 +399,7 @@
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
-<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::translate</span>::{<span class="ident">from_glib_borrow</span>, <span class="ident">from_glib_full</span>, <span class="ident">mut_override</span>, <span class="ident">Borrowed</span>, <span class="ident">ToGlib</span>};
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::translate</span>::{<span class="ident">from_glib_borrow</span>, <span class="ident">from_glib_full</span>, <span class="ident">mut_override</span>, <span class="ident">Borrowed</span>, <span class="ident">IntoGlib</span>};
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::ThreadGuard</span>;
 <span class="kw">use</span> <span class="ident">futures_core::future::Future</span>;
 <span class="kw">use</span> <span class="ident">futures_core::task</span>::{<span class="ident">Context</span>, <span class="ident">Poll</span>, <span class="ident">RawWaker</span>, <span class="ident">RawWakerVTable</span>, <span class="ident">Waker</span>};
@@ -560,7 +560,7 @@
                 <span class="ident">mem::size_of</span>::<span class="op">&lt;</span><span class="ident">WakerSource</span><span class="op">&gt;</span>() <span class="kw">as</span> <span class="ident">u32</span>,
             );
 
-            <span class="ident">ffi::g_source_set_priority</span>(<span class="ident">source</span>, <span class="ident">priority</span>.<span class="ident">to_glib</span>());
+            <span class="ident">ffi::g_source_set_priority</span>(<span class="ident">source</span>, <span class="ident">priority</span>.<span class="ident">into_glib</span>());
             <span class="ident">ffi::g_source_add_child_source</span>(<span class="ident">source</span>, <span class="ident">waker_source</span>);
 
             {

@@ -167,7 +167,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">from_glib_none</span>(<span class="ident">ffi::pango_attr_iterator_get</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
-                <span class="ident">type_</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">type_</span>.<span class="ident">into_glib</span>(),
             ))
         }
     }

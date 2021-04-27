@@ -836,8 +836,8 @@
         <span class="kw">unsafe</span> {
             <span class="ident">from_glib_full</span>(<span class="ident">ffi::gdk_pixbuf_new_from_data</span>(
                 <span class="ident">ptr</span>,
-                <span class="ident">colorspace</span>.<span class="ident">to_glib</span>(),
-                <span class="ident">has_alpha</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">colorspace</span>.<span class="ident">into_glib</span>(),
+                <span class="ident">has_alpha</span>.<span class="ident">into_glib</span>(),
                 <span class="ident">bits_per_sample</span> <span class="kw">as</span> <span class="ident">i32</span>,
                 <span class="ident">width</span> <span class="kw">as</span> <span class="ident">i32</span>,
                 <span class="ident">height</span> <span class="kw">as</span> <span class="ident">i32</span>,
@@ -994,7 +994,7 @@
                 <span class="ident">filename</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">width</span>,
                 <span class="ident">height</span>,
-                <span class="ident">preserve_aspect_ratio</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">preserve_aspect_ratio</span>.<span class="ident">into_glib</span>(),
                 <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">error</span>,
             );
             <span class="kw">if</span> <span class="ident">error</span>.<span class="ident">is_null</span>() {
@@ -1097,7 +1097,7 @@
                 <span class="ident">stream</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">width</span>,
                 <span class="ident">height</span>,
-                <span class="ident">preserve_aspect_ratio</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">preserve_aspect_ratio</span>.<span class="ident">into_glib</span>(),
                 <span class="ident">cancellable</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="prelude-val">Some</span>(<span class="ident">callback</span>),
                 <span class="ident">Box::into_raw</span>(<span class="ident">user_data</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,

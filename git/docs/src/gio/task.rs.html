@@ -437,7 +437,7 @@
     <span class="doccomment">/// the [priority][io-priority] of the request</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_priority</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">priority</span>: <span class="ident">glib::source::Priority</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi::g_task_set_priority</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">priority</span>.<span class="ident">to_glib</span>());
+            <span class="ident">ffi::g_task_set_priority</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">priority</span>.<span class="ident">into_glib</span>());
         }
     }
 

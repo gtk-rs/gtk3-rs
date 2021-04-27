@@ -1035,7 +1035,7 @@
             <span class="ident">ffi::gtk_menu_shell_activate_item</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">menu_item</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">force_deactivate</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">force_deactivate</span>.<span class="ident">into_glib</span>(),
             );
         }
     }
@@ -1060,7 +1060,7 @@
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">model</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> <span class="ident">p</span>.<span class="ident">as_ref</span>()).<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">action_namespace</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">with_separators</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">with_separators</span>.<span class="ident">into_glib</span>(),
             );
         }
     }
@@ -1130,7 +1130,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::gtk_menu_shell_select_first</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">search_sensitive</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">search_sensitive</span>.<span class="ident">into_glib</span>(),
             );
         }
     }
@@ -1148,7 +1148,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::gtk_menu_shell_set_take_focus</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">take_focus</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">take_focus</span>.<span class="ident">into_glib</span>(),
             );
         }
     }
@@ -1364,7 +1364,7 @@
                 <span class="kw-2">&amp;</span><span class="ident">MenuShell::from_glib_borrow</span>(<span class="ident">this</span>).<span class="ident">unsafe_cast_ref</span>(),
                 <span class="ident">distance</span>,
             )
-            .<span class="ident">to_glib</span>()
+            .<span class="ident">into_glib</span>()
         }
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">f</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_::new</span>(<span class="ident">f</span>);

@@ -2950,7 +2950,7 @@
 
     <span class="kw">fn</span> <span class="ident">set_numeric</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">numeric</span>: <span class="ident">bool</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi::gtk_spin_button_set_numeric</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">numeric</span>.<span class="ident">to_glib</span>());
+            <span class="ident">ffi::gtk_spin_button_set_numeric</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">numeric</span>.<span class="ident">into_glib</span>());
         }
     }
 
@@ -2964,7 +2964,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::gtk_spin_button_set_snap_to_ticks</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">snap_to_ticks</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">snap_to_ticks</span>.<span class="ident">into_glib</span>(),
             );
         }
     }
@@ -2973,7 +2973,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::gtk_spin_button_set_update_policy</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">policy</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">policy</span>.<span class="ident">into_glib</span>(),
             );
         }
     }
@@ -2986,7 +2986,7 @@
 
     <span class="kw">fn</span> <span class="ident">set_wrap</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">wrap</span>: <span class="ident">bool</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi::gtk_spin_button_set_wrap</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">wrap</span>.<span class="ident">to_glib</span>());
+            <span class="ident">ffi::gtk_spin_button_set_wrap</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">wrap</span>.<span class="ident">into_glib</span>());
         }
     }
 
@@ -2994,7 +2994,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::gtk_spin_button_spin</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">direction</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">direction</span>.<span class="ident">into_glib</span>(),
                 <span class="ident">increment</span>,
             );
         }

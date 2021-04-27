@@ -467,14 +467,14 @@
             <span class="ident">y</span>: <span class="self">self</span>.<span class="ident">y</span>.<span class="ident">unwrap_or</span>(<span class="number">0</span>),
             <span class="ident">width</span>: <span class="self">self</span>.<span class="ident">width</span>,
             <span class="ident">height</span>: <span class="self">self</span>.<span class="ident">height</span>,
-            <span class="ident">wclass</span>: <span class="self">self</span>.<span class="ident">wclass</span>.<span class="ident">to_glib</span>(),
+            <span class="ident">wclass</span>: <span class="self">self</span>.<span class="ident">wclass</span>.<span class="ident">into_glib</span>(),
             <span class="ident">visual</span>: <span class="ident">visual</span>.<span class="number">0</span>,
-            <span class="ident">window_type</span>: <span class="self">self</span>.<span class="ident">window_type</span>.<span class="ident">to_glib</span>(),
+            <span class="ident">window_type</span>: <span class="self">self</span>.<span class="ident">window_type</span>.<span class="ident">into_glib</span>(),
             <span class="ident">cursor</span>: <span class="ident">cursor</span>.<span class="number">0</span>,
             <span class="ident">wmclass_name</span>: <span class="ident">ptr::null_mut</span>(),
             <span class="ident">wmclass_class</span>: <span class="ident">ptr::null_mut</span>(),
-            <span class="ident">override_redirect</span>: <span class="self">self</span>.<span class="ident">override_redirect</span>.<span class="ident">to_glib</span>(),
-            <span class="ident">type_hint</span>: <span class="self">self</span>.<span class="ident">type_hint</span>.<span class="ident">unwrap_or</span>(<span class="ident">WindowTypeHint::Normal</span>).<span class="ident">to_glib</span>(),
+            <span class="ident">override_redirect</span>: <span class="self">self</span>.<span class="ident">override_redirect</span>.<span class="ident">into_glib</span>(),
+            <span class="ident">type_hint</span>: <span class="self">self</span>.<span class="ident">type_hint</span>.<span class="ident">unwrap_or</span>(<span class="ident">WindowTypeHint::Normal</span>).<span class="ident">into_glib</span>(),
         });
 
         <span class="ident">Stash</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="ident">attrs</span>, (<span class="ident">attrs</span>, <span class="ident">visual</span>, <span class="ident">cursor</span>, <span class="ident">title</span>))

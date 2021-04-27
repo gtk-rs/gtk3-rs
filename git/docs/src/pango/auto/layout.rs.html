@@ -1778,7 +1778,7 @@
             <span class="ident">ffi::pango_layout_index_to_line_x</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">index_</span>,
-                <span class="ident">trailing</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">trailing</span>.<span class="ident">into_glib</span>(),
                 <span class="ident">line</span>.<span class="ident">as_mut_ptr</span>(),
                 <span class="ident">x_pos</span>.<span class="ident">as_mut_ptr</span>(),
             );
@@ -1894,7 +1894,7 @@
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">new_trailing</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
             <span class="ident">ffi::pango_layout_move_cursor_visually</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">strong</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">strong</span>.<span class="ident">into_glib</span>(),
                 <span class="ident">old_index</span>,
                 <span class="ident">old_trailing</span>,
                 <span class="ident">direction</span>,
@@ -1914,7 +1914,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_set_alignment&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_alignment</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">alignment</span>: <span class="ident">Alignment</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi::pango_layout_set_alignment</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">alignment</span>.<span class="ident">to_glib</span>());
+            <span class="ident">ffi::pango_layout_set_alignment</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">alignment</span>.<span class="ident">into_glib</span>());
         }
     }
 
@@ -1951,7 +1951,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_set_auto_dir&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_auto_dir</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">auto_dir</span>: <span class="ident">bool</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi::pango_layout_set_auto_dir</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">auto_dir</span>.<span class="ident">to_glib</span>());
+            <span class="ident">ffi::pango_layout_set_auto_dir</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">auto_dir</span>.<span class="ident">into_glib</span>());
         }
     }
 
@@ -1971,7 +1971,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_set_ellipsize&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_ellipsize</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">ellipsize</span>: <span class="ident">EllipsizeMode</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi::pango_layout_set_ellipsize</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">ellipsize</span>.<span class="ident">to_glib</span>());
+            <span class="ident">ffi::pango_layout_set_ellipsize</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">ellipsize</span>.<span class="ident">into_glib</span>());
         }
     }
 
@@ -2051,7 +2051,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_set_justify&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_justify</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">justify</span>: <span class="ident">bool</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi::pango_layout_set_justify</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">justify</span>.<span class="ident">to_glib</span>());
+            <span class="ident">ffi::pango_layout_set_justify</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">justify</span>.<span class="ident">into_glib</span>());
         }
     }
 
@@ -2128,7 +2128,7 @@
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">markup</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">length</span>,
-                <span class="ident">accel_marker</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">accel_marker</span>.<span class="ident">into_glib</span>(),
                 <span class="ident">accel_char</span>.<span class="ident">as_mut_ptr</span>(),
             );
             <span class="kw">let</span> <span class="ident">accel_char</span> <span class="op">=</span> <span class="ident">accel_char</span>.<span class="ident">assume_init</span>();
@@ -2146,7 +2146,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_set_single_paragraph_mode&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_single_paragraph_mode</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">setting</span>: <span class="ident">bool</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi::pango_layout_set_single_paragraph_mode</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">setting</span>.<span class="ident">to_glib</span>());
+            <span class="ident">ffi::pango_layout_set_single_paragraph_mode</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">setting</span>.<span class="ident">into_glib</span>());
         }
     }
 
@@ -2229,7 +2229,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_layout_set_wrap&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_wrap</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">wrap</span>: <span class="ident">WrapMode</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi::pango_layout_set_wrap</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">wrap</span>.<span class="ident">to_glib</span>());
+            <span class="ident">ffi::pango_layout_set_wrap</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">wrap</span>.<span class="ident">into_glib</span>());
         }
     }
 

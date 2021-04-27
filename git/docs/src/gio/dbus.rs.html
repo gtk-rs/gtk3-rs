@@ -208,7 +208,7 @@
         <span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> <span class="ident">ffi::g_bus_own_name_on_connection_with_closures</span>(
             <span class="ident">connection</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             <span class="ident">name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-            <span class="ident">flags</span>.<span class="ident">to_glib</span>(),
+            <span class="ident">flags</span>.<span class="ident">into_glib</span>(),
             <span class="ident">own_closure</span>(<span class="ident">name_acquired</span>).<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             <span class="ident">own_closure</span>(<span class="ident">name_lost</span>).<span class="ident">to_glib_none</span>().<span class="number">0</span>,
         );
@@ -231,9 +231,9 @@
 {
     <span class="kw">unsafe</span> {
         <span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> <span class="ident">ffi::g_bus_own_name_with_closures</span>(
-            <span class="ident">bus_type</span>.<span class="ident">to_glib</span>(),
+            <span class="ident">bus_type</span>.<span class="ident">into_glib</span>(),
             <span class="ident">name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-            <span class="ident">flags</span>.<span class="ident">to_glib</span>(),
+            <span class="ident">flags</span>.<span class="ident">into_glib</span>(),
             <span class="ident">own_closure</span>(<span class="ident">bus_acquired</span>).<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             <span class="ident">own_closure</span>(<span class="ident">name_acquired</span>).<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             <span class="ident">glib::Closure::new</span>(<span class="kw">move</span> <span class="op">|</span><span class="ident">args</span><span class="op">|</span> {
@@ -270,7 +270,7 @@
         <span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> <span class="ident">ffi::g_bus_watch_name_on_connection_with_closures</span>(
             <span class="ident">connection</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             <span class="ident">name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-            <span class="ident">flags</span>.<span class="ident">to_glib</span>(),
+            <span class="ident">flags</span>.<span class="ident">into_glib</span>(),
             <span class="ident">watch_closure</span>(<span class="ident">name_appeared</span>).<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             <span class="ident">watch_closure</span>(<span class="ident">name_vanished</span>).<span class="ident">to_glib_none</span>().<span class="number">0</span>,
         );
@@ -291,9 +291,9 @@
 {
     <span class="kw">unsafe</span> {
         <span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> <span class="ident">ffi::g_bus_watch_name_with_closures</span>(
-            <span class="ident">bus_type</span>.<span class="ident">to_glib</span>(),
+            <span class="ident">bus_type</span>.<span class="ident">into_glib</span>(),
             <span class="ident">name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-            <span class="ident">flags</span>.<span class="ident">to_glib</span>(),
+            <span class="ident">flags</span>.<span class="ident">into_glib</span>(),
             <span class="ident">watch_closure</span>(<span class="ident">name_appeared</span>).<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             <span class="ident">watch_closure</span>(<span class="ident">name_vanished</span>).<span class="ident">to_glib_none</span>().<span class="number">0</span>,
         );

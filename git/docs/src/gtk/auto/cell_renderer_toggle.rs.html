@@ -973,7 +973,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::gtk_cell_renderer_toggle_set_activatable</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">setting</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">setting</span>.<span class="ident">into_glib</span>(),
             );
         }
     }
@@ -982,7 +982,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::gtk_cell_renderer_toggle_set_active</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">setting</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">setting</span>.<span class="ident">into_glib</span>(),
             );
         }
     }
@@ -991,7 +991,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::gtk_cell_renderer_toggle_set_radio</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">radio</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">radio</span>.<span class="ident">into_glib</span>(),
             );
         }
     }

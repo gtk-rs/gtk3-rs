@@ -849,7 +849,7 @@
             <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">ffi::g_dbus_message_new_from_blob</span>(
                 <span class="ident">blob</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">blob_len</span>,
-                <span class="ident">capabilities</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">capabilities</span>.<span class="ident">into_glib</span>(),
                 <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">error</span>,
             );
             <span class="kw">if</span> <span class="ident">error</span>.<span class="ident">is_null</span>() {
@@ -1014,7 +1014,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">from_glib_none</span>(<span class="ident">ffi::g_dbus_message_get_header</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">header_field</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">header_field</span>.<span class="ident">into_glib</span>(),
             ))
         }
     }
@@ -1257,7 +1257,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_dbus_message_set_byte_order&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_byte_order</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">byte_order</span>: <span class="ident">DBusMessageByteOrder</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi::g_dbus_message_set_byte_order</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">byte_order</span>.<span class="ident">to_glib</span>());
+            <span class="ident">ffi::g_dbus_message_set_byte_order</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">byte_order</span>.<span class="ident">into_glib</span>());
         }
     }
 
@@ -1288,7 +1288,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_dbus_message_set_flags&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_flags</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">flags</span>: <span class="ident">DBusMessageFlags</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi::g_dbus_message_set_flags</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">flags</span>.<span class="ident">to_glib</span>());
+            <span class="ident">ffi::g_dbus_message_set_flags</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">flags</span>.<span class="ident">into_glib</span>());
         }
     }
 
@@ -1304,7 +1304,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::g_dbus_message_set_header</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">header_field</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">header_field</span>.<span class="ident">into_glib</span>(),
                 <span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             );
         }
@@ -1336,7 +1336,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_dbus_message_set_message_type&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_message_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">type_</span>: <span class="ident">DBusMessageType</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi::g_dbus_message_set_message_type</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">type_</span>.<span class="ident">to_glib</span>());
+            <span class="ident">ffi::g_dbus_message_set_message_type</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">type_</span>.<span class="ident">into_glib</span>());
         }
     }
 
@@ -1447,7 +1447,7 @@
             <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">ffi::g_dbus_message_to_blob</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">out_size</span>.<span class="ident">as_mut_ptr</span>(),
-                <span class="ident">capabilities</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">capabilities</span>.<span class="ident">into_glib</span>(),
                 <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">error</span>,
             );
             <span class="kw">if</span> <span class="ident">error</span>.<span class="ident">is_null</span>() {

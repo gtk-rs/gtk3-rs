@@ -1797,6 +1797,9 @@
 <span id="1794">1794</span>
 <span id="1795">1795</span>
 <span id="1796">1796</span>
+<span id="1797">1797</span>
+<span id="1798">1798</span>
+<span id="1799">1799</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -2202,7 +2205,7 @@
                 .<span class="ident">expect</span>(<span class="string">&quot;No parent class impl for \&quot;adjust_size_allocation\&quot;&quot;</span>);
             <span class="ident">f</span>(
                 <span class="ident">widget</span>.<span class="ident">unsafe_cast_ref</span>::<span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">orientation</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">orientation</span>.<span class="ident">into_glib</span>(),
                 <span class="ident">minimum_size</span>,
                 <span class="ident">natural_size</span>,
                 <span class="ident">allocated_pos</span>,
@@ -2226,7 +2229,7 @@
                 .<span class="ident">expect</span>(<span class="string">&quot;No parent class impl for \&quot;adjust_size_request\&quot;&quot;</span>);
             <span class="ident">f</span>(
                 <span class="ident">widget</span>.<span class="ident">unsafe_cast_ref</span>::<span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">orientation</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">orientation</span>.<span class="ident">into_glib</span>(),
                 <span class="ident">minimum_size</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">i32</span>,
                 <span class="ident">natural_size</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">i32</span>,
             )
@@ -2311,8 +2314,8 @@
             <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::GtkWidgetClass</span>;
             <span class="kw">let</span> <span class="ident">widget</span> <span class="op">=</span> <span class="ident">widget</span>.<span class="ident">unsafe_cast_ref</span>::<span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span>();
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">f</span>) <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">parent_class</span>).<span class="ident">compute_expand</span> {
-                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">hexpand_glib</span> <span class="op">=</span> <span class="ident">hexpand</span>.<span class="ident">to_glib</span>();
-                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">vexpand_glib</span> <span class="op">=</span> <span class="ident">vexpand</span>.<span class="ident">to_glib</span>();
+                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">hexpand_glib</span> <span class="op">=</span> <span class="ident">hexpand</span>.<span class="ident">into_glib</span>();
+                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">vexpand_glib</span> <span class="op">=</span> <span class="ident">vexpand</span>.<span class="ident">into_glib</span>();
                 <span class="ident">f</span>(
                     <span class="ident">widget</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                     <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">hexpand_glib</span>,
@@ -2405,7 +2408,7 @@
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">f</span>) <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">parent_class</span>).<span class="ident">direction_changed</span> {
                 <span class="ident">f</span>(
                     <span class="ident">widget</span>.<span class="ident">unsafe_cast_ref</span>::<span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                    <span class="ident">previous_direction</span>.<span class="ident">to_glib</span>(),
+                    <span class="ident">previous_direction</span>.<span class="ident">into_glib</span>(),
                 )
             }
         }
@@ -2563,7 +2566,7 @@
                 <span class="ident">Inhibit</span>(<span class="ident">from_glib</span>(<span class="ident">f</span>(
                     <span class="ident">widget</span>.<span class="ident">unsafe_cast_ref</span>::<span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                     <span class="ident">context</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                    <span class="ident">result</span>.<span class="ident">to_glib</span>(),
+                    <span class="ident">result</span>.<span class="ident">into_glib</span>(),
                 )))
             } <span class="kw">else</span> {
                 <span class="ident">Inhibit</span>(<span class="bool-val">false</span>)
@@ -2952,7 +2955,7 @@
     <span class="kw">let</span> <span class="ident">evwrap</span>: <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">gdk::EventButton</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">btnptr</span>);
 
     <span class="ident">imp</span>.<span class="ident">button_press_event</span>(<span class="ident">wrap</span>.<span class="ident">unsafe_cast_ref</span>(), <span class="kw-2">&amp;</span><span class="ident">evwrap</span>)
-        .<span class="ident">to_glib</span>()
+        .<span class="ident">into_glib</span>()
 }
 
 <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">widget_button_release_event</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">WidgetImpl</span><span class="op">&gt;</span>(
@@ -2965,7 +2968,7 @@
     <span class="kw">let</span> <span class="ident">evwrap</span>: <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">gdk::EventButton</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">btnptr</span>);
 
     <span class="ident">imp</span>.<span class="ident">button_release_event</span>(<span class="ident">wrap</span>.<span class="ident">unsafe_cast_ref</span>(), <span class="kw-2">&amp;</span><span class="ident">evwrap</span>)
-        .<span class="ident">to_glib</span>()
+        .<span class="ident">into_glib</span>()
 }
 
 <span class="comment">// unsafe extern &quot;C&quot; fn widget_can_activate_accel&lt;T: WidgetImpl&gt;(</span>
@@ -3022,8 +3025,8 @@
     };
 
     <span class="ident">imp</span>.<span class="ident">compute_expand</span>(<span class="ident">wrap</span>.<span class="ident">unsafe_cast_ref</span>(), <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">hexpand</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">vexpand</span>);
-    <span class="kw-2">*</span><span class="ident">hexpand_ptr</span> <span class="op">=</span> <span class="ident">hexpand</span>.<span class="ident">to_glib</span>();
-    <span class="kw-2">*</span><span class="ident">vexpand_ptr</span> <span class="op">=</span> <span class="ident">vexpand</span>.<span class="ident">to_glib</span>();
+    <span class="kw-2">*</span><span class="ident">hexpand_ptr</span> <span class="op">=</span> <span class="ident">hexpand</span>.<span class="ident">into_glib</span>();
+    <span class="kw-2">*</span><span class="ident">vexpand_ptr</span> <span class="op">=</span> <span class="ident">vexpand</span>.<span class="ident">into_glib</span>();
 }
 
 <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">widget_configure_event</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">WidgetImpl</span><span class="op">&gt;</span>(
@@ -3036,7 +3039,7 @@
     <span class="kw">let</span> <span class="ident">evwrap</span>: <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">gdk::EventConfigure</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">confptr</span>);
 
     <span class="ident">imp</span>.<span class="ident">configure_event</span>(<span class="ident">wrap</span>.<span class="ident">unsafe_cast_ref</span>(), <span class="kw-2">&amp;</span><span class="ident">evwrap</span>)
-        .<span class="ident">to_glib</span>()
+        .<span class="ident">into_glib</span>()
 }
 
 <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">widget_damage_event</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">WidgetImpl</span><span class="op">&gt;</span>(
@@ -3048,7 +3051,8 @@
     <span class="kw">let</span> <span class="ident">wrap</span>: <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">ptr</span>);
     <span class="kw">let</span> <span class="ident">evwrap</span>: <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">gdk::EventExpose</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">exposeptr</span>);
 
-    <span class="ident">imp</span>.<span class="ident">damage_event</span>(<span class="ident">wrap</span>.<span class="ident">unsafe_cast_ref</span>(), <span class="kw-2">&amp;</span><span class="ident">evwrap</span>).<span class="ident">to_glib</span>()
+    <span class="ident">imp</span>.<span class="ident">damage_event</span>(<span class="ident">wrap</span>.<span class="ident">unsafe_cast_ref</span>(), <span class="kw-2">&amp;</span><span class="ident">evwrap</span>)
+        .<span class="ident">into_glib</span>()
 }
 
 <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">widget_delete_event</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">WidgetImpl</span><span class="op">&gt;</span>(
@@ -3060,7 +3064,8 @@
     <span class="kw">let</span> <span class="ident">wrap</span>: <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">ptr</span>);
     <span class="kw">let</span> <span class="ident">evwrap</span>: <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">gdk::Event</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">anyptr</span>);
 
-    <span class="ident">imp</span>.<span class="ident">delete_event</span>(<span class="ident">wrap</span>.<span class="ident">unsafe_cast_ref</span>(), <span class="kw-2">&amp;</span><span class="ident">evwrap</span>).<span class="ident">to_glib</span>()
+    <span class="ident">imp</span>.<span class="ident">delete_event</span>(<span class="ident">wrap</span>.<span class="ident">unsafe_cast_ref</span>(), <span class="kw-2">&amp;</span><span class="ident">evwrap</span>)
+        .<span class="ident">into_glib</span>()
 }
 
 <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">widget_destroy</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">WidgetImpl</span><span class="op">&gt;</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::GtkWidget</span>) {
@@ -3080,7 +3085,8 @@
     <span class="kw">let</span> <span class="ident">wrap</span>: <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">ptr</span>);
     <span class="kw">let</span> <span class="ident">evwrap</span>: <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">gdk::Event</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">anyptr</span>);
 
-    <span class="ident">imp</span>.<span class="ident">destroy_event</span>(<span class="ident">wrap</span>.<span class="ident">unsafe_cast_ref</span>(), <span class="kw-2">&amp;</span><span class="ident">evwrap</span>).<span class="ident">to_glib</span>()
+    <span class="ident">imp</span>.<span class="ident">destroy_event</span>(<span class="ident">wrap</span>.<span class="ident">unsafe_cast_ref</span>(), <span class="kw-2">&amp;</span><span class="ident">evwrap</span>)
+        .<span class="ident">into_glib</span>()
 }
 
 <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">widget_direction_changed</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">WidgetImpl</span><span class="op">&gt;</span>(
@@ -3194,7 +3200,7 @@
     <span class="kw">let</span> <span class="ident">context</span>: <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">gdk::DragContext</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">ctxptr</span>);
 
     <span class="ident">imp</span>.<span class="ident">drag_drop</span>(<span class="ident">wrap</span>.<span class="ident">unsafe_cast_ref</span>(), <span class="kw-2">&amp;</span><span class="ident">context</span>, <span class="ident">x</span>, <span class="ident">y</span>, <span class="ident">time</span>)
-        .<span class="ident">to_glib</span>()
+        .<span class="ident">into_glib</span>()
 }
 
 <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">widget_drag_end</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">WidgetImpl</span><span class="op">&gt;</span>(
@@ -3221,7 +3227,7 @@
     <span class="kw">let</span> <span class="ident">result</span>: <span class="ident">DragResult</span> <span class="op">=</span> <span class="ident">from_glib</span>(<span class="ident">resultptr</span>);
 
     <span class="ident">imp</span>.<span class="ident">drag_failed</span>(<span class="ident">wrap</span>.<span class="ident">unsafe_cast_ref</span>(), <span class="kw-2">&amp;</span><span class="ident">context</span>, <span class="ident">result</span>)
-        .<span class="ident">to_glib</span>()
+        .<span class="ident">into_glib</span>()
 }
 
 <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">widget_drag_leave</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">WidgetImpl</span><span class="op">&gt;</span>(
@@ -3250,7 +3256,7 @@
     <span class="kw">let</span> <span class="ident">context</span>: <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">gdk::DragContext</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">ctxptr</span>);
 
     <span class="ident">imp</span>.<span class="ident">drag_motion</span>(<span class="ident">wrap</span>.<span class="ident">unsafe_cast_ref</span>(), <span class="kw-2">&amp;</span><span class="ident">context</span>, <span class="ident">x</span>, <span class="ident">y</span>, <span class="ident">time</span>)
-        .<span class="ident">to_glib</span>()
+        .<span class="ident">into_glib</span>()
 }
 
 <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">widget_draw</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">WidgetImpl</span><span class="op">&gt;</span>(
@@ -3262,7 +3268,7 @@
     <span class="kw">let</span> <span class="ident">wrap</span>: <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">ptr</span>);
     <span class="kw">let</span> <span class="ident">cr</span>: <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">cairo::Context</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">cr_ptr</span>);
 
-    <span class="ident">imp</span>.<span class="ident">draw</span>(<span class="ident">wrap</span>.<span class="ident">unsafe_cast_ref</span>(), <span class="kw-2">&amp;</span><span class="ident">cr</span>).<span class="ident">to_glib</span>()
+    <span class="ident">imp</span>.<span class="ident">draw</span>(<span class="ident">wrap</span>.<span class="ident">unsafe_cast_ref</span>(), <span class="kw-2">&amp;</span><span class="ident">cr</span>).<span class="ident">into_glib</span>()
 }
 
 <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">widget_get_request_mode</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">WidgetImpl</span><span class="op">&gt;</span>(
@@ -3272,7 +3278,7 @@
     <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="ident">instance</span>.<span class="ident">impl_</span>();
     <span class="kw">let</span> <span class="ident">wrap</span>: <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">ptr</span>);
 
-    <span class="ident">imp</span>.<span class="ident">request_mode</span>(<span class="ident">wrap</span>.<span class="ident">unsafe_cast_ref</span>()).<span class="ident">to_glib</span>()
+    <span class="ident">imp</span>.<span class="ident">request_mode</span>(<span class="ident">wrap</span>.<span class="ident">unsafe_cast_ref</span>()).<span class="ident">into_glib</span>()
 }
 
 <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">widget_get_preferred_height</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">WidgetImpl</span><span class="op">&gt;</span>(
@@ -3400,7 +3406,7 @@
     <span class="kw">let</span> <span class="ident">event</span>: <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">gdk::EventMotion</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">mptr</span>);
 
     <span class="ident">imp</span>.<span class="ident">motion_notify_event</span>(<span class="ident">wrap</span>.<span class="ident">unsafe_cast_ref</span>(), <span class="kw-2">&amp;</span><span class="ident">event</span>)
-        .<span class="ident">to_glib</span>()
+        .<span class="ident">into_glib</span>()
 }
 
 <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">widget_scroll_event</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">WidgetImpl</span><span class="op">&gt;</span>(
@@ -3412,7 +3418,7 @@
     <span class="kw">let</span> <span class="ident">wrap</span>: <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">ptr</span>);
     <span class="kw">let</span> <span class="ident">event</span>: <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">gdk::EventScroll</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">mptr</span>);
 
-    <span class="ident">imp</span>.<span class="ident">scroll_event</span>(<span class="ident">wrap</span>.<span class="ident">unsafe_cast_ref</span>(), <span class="kw-2">&amp;</span><span class="ident">event</span>).<span class="ident">to_glib</span>()
+    <span class="ident">imp</span>.<span class="ident">scroll_event</span>(<span class="ident">wrap</span>.<span class="ident">unsafe_cast_ref</span>(), <span class="kw-2">&amp;</span><span class="ident">event</span>).<span class="ident">into_glib</span>()
 }
 
 <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">widget_enter_notify_event</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">WidgetImpl</span><span class="op">&gt;</span>(
@@ -3425,7 +3431,7 @@
     <span class="kw">let</span> <span class="ident">event</span>: <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">gdk::EventCrossing</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">mptr</span>);
 
     <span class="ident">imp</span>.<span class="ident">enter_notify_event</span>(<span class="ident">wrap</span>.<span class="ident">unsafe_cast_ref</span>(), <span class="kw-2">&amp;</span><span class="ident">event</span>)
-        .<span class="ident">to_glib</span>()
+        .<span class="ident">into_glib</span>()
 }
 
 <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">widget_leave_notify_event</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">WidgetImpl</span><span class="op">&gt;</span>(
@@ -3438,7 +3444,7 @@
     <span class="kw">let</span> <span class="ident">event</span>: <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">gdk::EventCrossing</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">mptr</span>);
 
     <span class="ident">imp</span>.<span class="ident">leave_notify_event</span>(<span class="ident">wrap</span>.<span class="ident">unsafe_cast_ref</span>(), <span class="kw-2">&amp;</span><span class="ident">event</span>)
-        .<span class="ident">to_glib</span>()
+        .<span class="ident">into_glib</span>()
 }
 
 <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">trait</span> <span class="ident">WidgetClassSubclassExt</span>: <span class="ident">ClassStruct</span> {

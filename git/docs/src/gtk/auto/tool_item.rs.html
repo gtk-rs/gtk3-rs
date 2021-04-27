@@ -1981,7 +1981,7 @@
 
     <span class="kw">fn</span> <span class="ident">set_expand</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">expand</span>: <span class="ident">bool</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi::gtk_tool_item_set_expand</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">expand</span>.<span class="ident">to_glib</span>());
+            <span class="ident">ffi::gtk_tool_item_set_expand</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">expand</span>.<span class="ident">into_glib</span>());
         }
     }
 
@@ -1989,7 +1989,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::gtk_tool_item_set_homogeneous</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">homogeneous</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">homogeneous</span>.<span class="ident">into_glib</span>(),
             );
         }
     }
@@ -1998,7 +1998,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::gtk_tool_item_set_is_important</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">is_important</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">is_important</span>.<span class="ident">into_glib</span>(),
             );
         }
     }
@@ -2017,7 +2017,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::gtk_tool_item_set_use_drag_window</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">use_drag_window</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">use_drag_window</span>.<span class="ident">into_glib</span>(),
             );
         }
     }
@@ -2026,7 +2026,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::gtk_tool_item_set_visible_horizontal</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">visible_horizontal</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">visible_horizontal</span>.<span class="ident">into_glib</span>(),
             );
         }
     }
@@ -2035,7 +2035,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::gtk_tool_item_set_visible_vertical</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">visible_vertical</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">visible_vertical</span>.<span class="ident">into_glib</span>(),
             );
         }
     }
@@ -2061,7 +2061,7 @@
             <span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">ToolItem</span><span class="op">&gt;</span>,
         {
             <span class="kw">let</span> <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="ident">F</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">f</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">F</span>);
-            <span class="ident">f</span>(<span class="kw-2">&amp;</span><span class="ident">ToolItem::from_glib_borrow</span>(<span class="ident">this</span>).<span class="ident">unsafe_cast_ref</span>()).<span class="ident">to_glib</span>()
+            <span class="ident">f</span>(<span class="kw-2">&amp;</span><span class="ident">ToolItem::from_glib_borrow</span>(<span class="ident">this</span>).<span class="ident">unsafe_cast_ref</span>()).<span class="ident">into_glib</span>()
         }
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">f</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_::new</span>(<span class="ident">f</span>);

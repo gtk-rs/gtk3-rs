@@ -555,7 +555,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">from_glib</span>(<span class="ident">ffi::pango_font_has_char</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">wc</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">wc</span>.<span class="ident">into_glib</span>(),
             ))
         }
     }

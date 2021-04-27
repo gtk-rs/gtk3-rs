@@ -1925,7 +1925,7 @@
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">color</span> <span class="op">=</span> <span class="ident">gdk::RGBA::uninitialized</span>();
             <span class="ident">ffi::gtk_style_context_get_background_color</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">state</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">state</span>.<span class="ident">into_glib</span>(),
                 <span class="ident">color</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
             );
             <span class="ident">color</span>
@@ -1937,7 +1937,7 @@
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">border</span> <span class="op">=</span> <span class="ident">Border::uninitialized</span>();
             <span class="ident">ffi::gtk_style_context_get_border</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">state</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">state</span>.<span class="ident">into_glib</span>(),
                 <span class="ident">border</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
             );
             <span class="ident">border</span>
@@ -1949,7 +1949,7 @@
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">color</span> <span class="op">=</span> <span class="ident">gdk::RGBA::uninitialized</span>();
             <span class="ident">ffi::gtk_style_context_get_border_color</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">state</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">state</span>.<span class="ident">into_glib</span>(),
                 <span class="ident">color</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
             );
             <span class="ident">color</span>
@@ -1961,7 +1961,7 @@
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">color</span> <span class="op">=</span> <span class="ident">gdk::RGBA::uninitialized</span>();
             <span class="ident">ffi::gtk_style_context_get_color</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">state</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">state</span>.<span class="ident">into_glib</span>(),
                 <span class="ident">color</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
             );
             <span class="ident">color</span>
@@ -1989,7 +1989,7 @@
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">margin</span> <span class="op">=</span> <span class="ident">Border::uninitialized</span>();
             <span class="ident">ffi::gtk_style_context_get_margin</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">state</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">state</span>.<span class="ident">into_glib</span>(),
                 <span class="ident">margin</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
             );
             <span class="ident">margin</span>
@@ -2001,7 +2001,7 @@
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">padding</span> <span class="op">=</span> <span class="ident">Border::uninitialized</span>();
             <span class="ident">ffi::gtk_style_context_get_padding</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">state</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">state</span>.<span class="ident">into_glib</span>(),
                 <span class="ident">padding</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
             );
             <span class="ident">padding</span>
@@ -2030,7 +2030,7 @@
             <span class="ident">ffi::gtk_style_context_get_property</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">property</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">state</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">state</span>.<span class="ident">into_glib</span>(),
                 <span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
             );
             <span class="ident">value</span>
@@ -2175,7 +2175,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::gtk_style_context_set_junction_sides</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">sides</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">sides</span>.<span class="ident">into_glib</span>(),
             );
         }
     }
@@ -2212,7 +2212,7 @@
 
     <span class="kw">fn</span> <span class="ident">set_state</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">flags</span>: <span class="ident">StateFlags</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi::gtk_style_context_set_state</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">flags</span>.<span class="ident">to_glib</span>());
+            <span class="ident">ffi::gtk_style_context_set_state</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">flags</span>.<span class="ident">into_glib</span>());
         }
     }
 
@@ -2222,7 +2222,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">from_glib_full</span>(<span class="ident">ffi::gtk_style_context_to_string</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">flags</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">flags</span>.<span class="ident">into_glib</span>(),
             ))
         }
     }

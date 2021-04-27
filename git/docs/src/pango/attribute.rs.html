@@ -204,6 +204,10 @@
 <span id="201">201</span>
 <span id="202">202</span>
 <span id="203">203</span>
+<span id="204">204</span>
+<span id="205">205</span>
+<span id="206">206</span>
+<span id="207">207</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -229,7 +233,7 @@
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v1_44&quot;</span>)))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_attr_allow_breaks_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_allow_breaks</span>(<span class="ident">allow_breaks</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Attribute</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::pango_attr_allow_breaks_new</span>(<span class="ident">allow_breaks</span>.<span class="ident">to_glib</span>())) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::pango_attr_allow_breaks_new</span>(<span class="ident">allow_breaks</span>.<span class="ident">into_glib</span>())) }
     }
 
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v1_38&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
@@ -246,7 +250,7 @@
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_attr_fallback_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_fallback</span>(<span class="ident">enable_fallback</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Attribute</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::pango_attr_fallback_new</span>(<span class="ident">enable_fallback</span>.<span class="ident">to_glib</span>())) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::pango_attr_fallback_new</span>(<span class="ident">enable_fallback</span>.<span class="ident">into_glib</span>())) }
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_attr_family_new&quot;</span>)]</span>
@@ -275,19 +279,23 @@
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_attr_gravity_hint_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_gravity_hint</span>(<span class="ident">hint</span>: <span class="ident">GravityHint</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Attribute</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::pango_attr_gravity_hint_new</span>(<span class="ident">hint</span>.<span class="ident">to_glib</span>())) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::pango_attr_gravity_hint_new</span>(<span class="ident">hint</span>.<span class="ident">into_glib</span>())) }
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_attr_gravity_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_gravity</span>(<span class="ident">gravity</span>: <span class="ident">Gravity</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Attribute</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::pango_attr_gravity_new</span>(<span class="ident">gravity</span>.<span class="ident">to_glib</span>())) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::pango_attr_gravity_new</span>(<span class="ident">gravity</span>.<span class="ident">into_glib</span>())) }
     }
 
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v1_44&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v1_44&quot;</span>)))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_attr_insert_hyphens_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_insert_hyphens</span>(<span class="ident">insert_hyphens</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Attribute</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::pango_attr_insert_hyphens_new</span>(<span class="ident">insert_hyphens</span>.<span class="ident">to_glib</span>())) }
+        <span class="kw">unsafe</span> {
+            <span class="ident">from_glib_full</span>(<span class="ident">ffi::pango_attr_insert_hyphens_new</span>(
+                <span class="ident">insert_hyphens</span>.<span class="ident">into_glib</span>(),
+            ))
+        }
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_attr_letter_spacing_new&quot;</span>)]</span>
@@ -306,7 +314,7 @@
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v1_46&quot;</span>)))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_attr_overline_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_overline</span>(<span class="ident">overline</span>: <span class="ident">Overline</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Attribute</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::pango_attr_overline_new</span>(<span class="ident">overline</span>.<span class="ident">to_glib</span>())) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::pango_attr_overline_new</span>(<span class="ident">overline</span>.<span class="ident">into_glib</span>())) }
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_attr_rise_new&quot;</span>)]</span>
@@ -323,7 +331,7 @@
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v1_44&quot;</span>)))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_attr_show_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_show</span>(<span class="ident">flags</span>: <span class="ident">ShowFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Attribute</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::pango_attr_show_new</span>(<span class="ident">flags</span>.<span class="ident">to_glib</span>())) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::pango_attr_show_new</span>(<span class="ident">flags</span>.<span class="ident">into_glib</span>())) }
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_attr_size_new&quot;</span>)]</span>
@@ -338,7 +346,7 @@
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_attr_stretch_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_stretch</span>(<span class="ident">stretch</span>: <span class="ident">Stretch</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Attribute</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::pango_attr_stretch_new</span>(<span class="ident">stretch</span>.<span class="ident">to_glib</span>())) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::pango_attr_stretch_new</span>(<span class="ident">stretch</span>.<span class="ident">into_glib</span>())) }
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_attr_strikethrough_color_new&quot;</span>)]</span>
@@ -348,12 +356,12 @@
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_attr_strikethrough_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_strikethrough</span>(<span class="ident">strikethrough</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Attribute</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::pango_attr_strikethrough_new</span>(<span class="ident">strikethrough</span>.<span class="ident">to_glib</span>())) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::pango_attr_strikethrough_new</span>(<span class="ident">strikethrough</span>.<span class="ident">into_glib</span>())) }
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_attr_style_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_style</span>(<span class="ident">style</span>: <span class="ident">Style</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Attribute</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::pango_attr_style_new</span>(<span class="ident">style</span>.<span class="ident">to_glib</span>())) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::pango_attr_style_new</span>(<span class="ident">style</span>.<span class="ident">into_glib</span>())) }
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_attr_underline_color_new&quot;</span>)]</span>
@@ -363,17 +371,17 @@
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_attr_underline_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_underline</span>(<span class="ident">underline</span>: <span class="ident">Underline</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Attribute</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::pango_attr_underline_new</span>(<span class="ident">underline</span>.<span class="ident">to_glib</span>())) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::pango_attr_underline_new</span>(<span class="ident">underline</span>.<span class="ident">into_glib</span>())) }
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_attr_variant_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_variant</span>(<span class="ident">variant</span>: <span class="ident">Variant</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Attribute</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::pango_attr_variant_new</span>(<span class="ident">variant</span>.<span class="ident">to_glib</span>())) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::pango_attr_variant_new</span>(<span class="ident">variant</span>.<span class="ident">into_glib</span>())) }
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_attr_weight_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_weight</span>(<span class="ident">weight</span>: <span class="ident">Weight</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Attribute</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::pango_attr_weight_new</span>(<span class="ident">weight</span>.<span class="ident">to_glib</span>())) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::pango_attr_weight_new</span>(<span class="ident">weight</span>.<span class="ident">into_glib</span>())) }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">attr_class</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">AttrClass</span> {

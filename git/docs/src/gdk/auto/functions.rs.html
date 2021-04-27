@@ -983,7 +983,7 @@
             <span class="ident">owner</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             <span class="ident">selection</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             <span class="ident">time_</span>,
-            <span class="ident">send_event</span>.<span class="ident">to_glib</span>(),
+            <span class="ident">send_event</span>.<span class="ident">into_glib</span>(),
         ))
     }
 }
@@ -1003,7 +1003,7 @@
             <span class="ident">owner</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             <span class="ident">selection</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             <span class="ident">time_</span>,
-            <span class="ident">send_event</span>.<span class="ident">to_glib</span>(),
+            <span class="ident">send_event</span>.<span class="ident">into_glib</span>(),
         ))
     }
 }
@@ -1078,7 +1078,7 @@
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_show_events</span>(<span class="ident">show_events</span>: <span class="ident">bool</span>) {
     <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe</span> {
-        <span class="ident">ffi::gdk_set_show_events</span>(<span class="ident">show_events</span>.<span class="ident">to_glib</span>());
+        <span class="ident">ffi::gdk_set_show_events</span>(<span class="ident">show_events</span>.<span class="ident">into_glib</span>());
     }
 }
 
@@ -1088,8 +1088,8 @@
     <span class="kw">unsafe</span> {
         <span class="ident">ffi::gdk_synthesize_window_state</span>(
             <span class="ident">window</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-            <span class="ident">unset_flags</span>.<span class="ident">to_glib</span>(),
-            <span class="ident">set_flags</span>.<span class="ident">to_glib</span>(),
+            <span class="ident">unset_flags</span>.<span class="ident">into_glib</span>(),
+            <span class="ident">set_flags</span>.<span class="ident">into_glib</span>(),
         );
     }
 }
@@ -1118,8 +1118,8 @@
             <span class="ident">x</span>,
             <span class="ident">y</span>,
             <span class="ident">button</span>,
-            <span class="ident">modifiers</span>.<span class="ident">to_glib</span>(),
-            <span class="ident">button_pressrelease</span>.<span class="ident">to_glib</span>(),
+            <span class="ident">modifiers</span>.<span class="ident">into_glib</span>(),
+            <span class="ident">button_pressrelease</span>.<span class="ident">into_glib</span>(),
         ))
     }
 }
@@ -1140,8 +1140,8 @@
             <span class="ident">x</span>,
             <span class="ident">y</span>,
             <span class="ident">keyval</span>,
-            <span class="ident">modifiers</span>.<span class="ident">to_glib</span>(),
-            <span class="ident">key_pressrelease</span>.<span class="ident">to_glib</span>(),
+            <span class="ident">modifiers</span>.<span class="ident">into_glib</span>(),
+            <span class="ident">key_pressrelease</span>.<span class="ident">into_glib</span>(),
         ))
     }
 }

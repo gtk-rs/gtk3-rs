@@ -273,11 +273,11 @@
     <span class="kw">let</span> (<span class="ident">genum_values</span>, <span class="ident">nb_genum_values</span>) <span class="op">=</span> <span class="ident">gen_genum_values</span>(<span class="ident">name</span>, <span class="ident">enum_variants</span>);
 
     <span class="macro">quote!</span> {
-        <span class="kw">impl</span> #<span class="ident">crate_ident::translate::ToGlib</span> <span class="kw">for</span> #<span class="ident">name</span> {
+        <span class="kw">impl</span> #<span class="ident">crate_ident::translate::IntoGlib</span> <span class="kw">for</span> #<span class="ident">name</span> {
             <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">i32</span>;
 
-            <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
-                <span class="kw-2">*</span><span class="self">self</span> <span class="kw">as</span> <span class="ident">i32</span>
+            <span class="kw">fn</span> <span class="ident">into_glib</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
+                <span class="self">self</span> <span class="kw">as</span> <span class="ident">i32</span>
             }
         }
 
@@ -321,7 +321,7 @@
                 <span class="kw">unsafe</span> {
                     #<span class="ident">crate_ident::gobject_ffi::g_value_set_enum</span>(
                         #<span class="ident">crate_ident::translate::ToGlibPtrMut::to_glib_none_mut</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">value</span>).<span class="number">0</span>,
-                        #<span class="ident">crate_ident::translate::ToGlib::to_glib</span>(<span class="self">self</span>)
+                        #<span class="ident">crate_ident::translate::IntoGlib::into_glib</span>(<span class="kw-2">*</span><span class="self">self</span>)
                     )
                 }
                 <span class="ident">value</span>

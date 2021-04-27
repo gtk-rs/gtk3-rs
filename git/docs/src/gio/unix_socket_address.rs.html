@@ -274,7 +274,7 @@
             <span class="ident">SocketAddress::from_glib_full</span>(<span class="ident">ffi::g_unix_socket_address_new_with_type</span>(
                 <span class="ident">path</span>,
                 <span class="ident">len</span> <span class="kw">as</span> <span class="ident">i32</span>,
-                <span class="ident">type_</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">type_</span>.<span class="ident">into_glib</span>(),
             ))
             .<span class="ident">unsafe_cast</span>()
         }

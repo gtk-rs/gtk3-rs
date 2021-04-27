@@ -2994,11 +2994,11 @@
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">Alignment</span> {
+<span class="kw">impl</span> <span class="ident">IntoGlib</span> <span class="kw">for</span> <span class="ident">Alignment</span> {
     <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi::PangoAlignment</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::PangoAlignment</span> {
-        <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
+    <span class="kw">fn</span> <span class="ident">into_glib</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::PangoAlignment</span> {
+        <span class="kw">match</span> <span class="self">self</span> {
             <span class="ident">Alignment::Left</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::PANGO_ALIGN_LEFT</span>,
             <span class="ident">Alignment::Center</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::PANGO_ALIGN_CENTER</span>,
             <span class="ident">Alignment::Right</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::PANGO_ALIGN_RIGHT</span>,
@@ -3041,7 +3041,7 @@
     <span class="kw">fn</span> <span class="ident">to_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::for_value_type</span>::<span class="op">&lt;</span><span class="ident">Alignment</span><span class="op">&gt;</span>();
         <span class="kw">unsafe</span> {
-            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">to_glib</span>());
+            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">into_glib</span>());
         }
         <span class="ident">value</span>
     }
@@ -3161,7 +3161,7 @@
 <span class="kw">impl</span> <span class="ident">AttrType</span> {
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_attr_type_get_name&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">name</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::pango_attr_type_get_name</span>(<span class="self">self</span>.<span class="ident">to_glib</span>())) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::pango_attr_type_get_name</span>(<span class="self">self</span>.<span class="ident">into_glib</span>())) }
     }
 }
 
@@ -3209,11 +3209,11 @@
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">AttrType</span> {
+<span class="kw">impl</span> <span class="ident">IntoGlib</span> <span class="kw">for</span> <span class="ident">AttrType</span> {
     <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi::PangoAttrType</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::PangoAttrType</span> {
-        <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
+    <span class="kw">fn</span> <span class="ident">into_glib</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::PangoAttrType</span> {
+        <span class="kw">match</span> <span class="self">self</span> {
             <span class="ident">AttrType::Invalid</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::PANGO_ATTR_INVALID</span>,
             <span class="ident">AttrType::Language</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::PANGO_ATTR_LANGUAGE</span>,
             <span class="ident">AttrType::Family</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::PANGO_ATTR_FAMILY</span>,
@@ -3312,7 +3312,7 @@
     <span class="kw">fn</span> <span class="ident">to_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::for_value_type</span>::<span class="op">&lt;</span><span class="ident">AttrType</span><span class="op">&gt;</span>();
         <span class="kw">unsafe</span> {
-            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">to_glib</span>());
+            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">into_glib</span>());
         }
         <span class="ident">value</span>
     }
@@ -3398,7 +3398,7 @@
 <span class="kw">impl</span> <span class="ident">BidiType</span> {
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_bidi_type_for_unichar&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">for_unichar</span>(<span class="ident">ch</span>: <span class="ident">char</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">BidiType</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::pango_bidi_type_for_unichar</span>(<span class="ident">ch</span>.<span class="ident">to_glib</span>())) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::pango_bidi_type_for_unichar</span>(<span class="ident">ch</span>.<span class="ident">into_glib</span>())) }
     }
 }
 
@@ -3434,11 +3434,11 @@
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">BidiType</span> {
+<span class="kw">impl</span> <span class="ident">IntoGlib</span> <span class="kw">for</span> <span class="ident">BidiType</span> {
     <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi::PangoBidiType</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::PangoBidiType</span> {
-        <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
+    <span class="kw">fn</span> <span class="ident">into_glib</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::PangoBidiType</span> {
+        <span class="kw">match</span> <span class="self">self</span> {
             <span class="ident">BidiType::L</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::PANGO_BIDI_TYPE_L</span>,
             <span class="ident">BidiType::Lre</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::PANGO_BIDI_TYPE_LRE</span>,
             <span class="ident">BidiType::Lro</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::PANGO_BIDI_TYPE_LRO</span>,
@@ -3513,7 +3513,7 @@
     <span class="kw">fn</span> <span class="ident">to_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::for_value_type</span>::<span class="op">&lt;</span><span class="ident">BidiType</span><span class="op">&gt;</span>();
         <span class="kw">unsafe</span> {
-            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">to_glib</span>());
+            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">into_glib</span>());
         }
         <span class="ident">value</span>
     }
@@ -3570,11 +3570,11 @@
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">CoverageLevel</span> {
+<span class="kw">impl</span> <span class="ident">IntoGlib</span> <span class="kw">for</span> <span class="ident">CoverageLevel</span> {
     <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi::PangoCoverageLevel</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::PangoCoverageLevel</span> {
-        <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
+    <span class="kw">fn</span> <span class="ident">into_glib</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::PangoCoverageLevel</span> {
+        <span class="kw">match</span> <span class="self">self</span> {
             <span class="ident">CoverageLevel::None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::PANGO_COVERAGE_NONE</span>,
             <span class="ident">CoverageLevel::Fallback</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::PANGO_COVERAGE_FALLBACK</span>,
             <span class="ident">CoverageLevel::Approximate</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::PANGO_COVERAGE_APPROXIMATE</span>,
@@ -3619,7 +3619,7 @@
     <span class="kw">fn</span> <span class="ident">to_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::for_value_type</span>::<span class="op">&lt;</span><span class="ident">CoverageLevel</span><span class="op">&gt;</span>();
         <span class="kw">unsafe</span> {
-            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">to_glib</span>());
+            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">into_glib</span>());
         }
         <span class="ident">value</span>
     }
@@ -3699,11 +3699,11 @@
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">Direction</span> {
+<span class="kw">impl</span> <span class="ident">IntoGlib</span> <span class="kw">for</span> <span class="ident">Direction</span> {
     <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi::PangoDirection</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::PangoDirection</span> {
-        <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
+    <span class="kw">fn</span> <span class="ident">into_glib</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::PangoDirection</span> {
+        <span class="kw">match</span> <span class="self">self</span> {
             <span class="ident">Direction::Ltr</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::PANGO_DIRECTION_LTR</span>,
             <span class="ident">Direction::Rtl</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::PANGO_DIRECTION_RTL</span>,
             <span class="ident">Direction::TtbLtr</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::PANGO_DIRECTION_TTB_LTR</span>,
@@ -3754,7 +3754,7 @@
     <span class="kw">fn</span> <span class="ident">to_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::for_value_type</span>::<span class="op">&lt;</span><span class="ident">Direction</span><span class="op">&gt;</span>();
         <span class="kw">unsafe</span> {
-            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">to_glib</span>());
+            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">into_glib</span>());
         }
         <span class="ident">value</span>
     }
@@ -3806,11 +3806,11 @@
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">EllipsizeMode</span> {
+<span class="kw">impl</span> <span class="ident">IntoGlib</span> <span class="kw">for</span> <span class="ident">EllipsizeMode</span> {
     <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi::PangoEllipsizeMode</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::PangoEllipsizeMode</span> {
-        <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
+    <span class="kw">fn</span> <span class="ident">into_glib</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::PangoEllipsizeMode</span> {
+        <span class="kw">match</span> <span class="self">self</span> {
             <span class="ident">EllipsizeMode::None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::PANGO_ELLIPSIZE_NONE</span>,
             <span class="ident">EllipsizeMode::Start</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::PANGO_ELLIPSIZE_START</span>,
             <span class="ident">EllipsizeMode::Middle</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::PANGO_ELLIPSIZE_MIDDLE</span>,
@@ -3855,7 +3855,7 @@
     <span class="kw">fn</span> <span class="ident">to_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::for_value_type</span>::<span class="op">&lt;</span><span class="ident">EllipsizeMode</span><span class="op">&gt;</span>();
         <span class="kw">unsafe</span> {
-            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">to_glib</span>());
+            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">into_glib</span>());
         }
         <span class="ident">value</span>
     }
@@ -3908,9 +3908,9 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">for_script</span>(<span class="ident">script</span>: <span class="ident">Script</span>, <span class="ident">base_gravity</span>: <span class="ident">Gravity</span>, <span class="ident">hint</span>: <span class="ident">GravityHint</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Gravity</span> {
         <span class="kw">unsafe</span> {
             <span class="ident">from_glib</span>(<span class="ident">ffi::pango_gravity_get_for_script</span>(
-                <span class="ident">script</span>.<span class="ident">to_glib</span>(),
-                <span class="ident">base_gravity</span>.<span class="ident">to_glib</span>(),
-                <span class="ident">hint</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">script</span>.<span class="ident">into_glib</span>(),
+                <span class="ident">base_gravity</span>.<span class="ident">into_glib</span>(),
+                <span class="ident">hint</span>.<span class="ident">into_glib</span>(),
             ))
         }
     }
@@ -3924,17 +3924,17 @@
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Gravity</span> {
         <span class="kw">unsafe</span> {
             <span class="ident">from_glib</span>(<span class="ident">ffi::pango_gravity_get_for_script_and_width</span>(
-                <span class="ident">script</span>.<span class="ident">to_glib</span>(),
-                <span class="ident">wide</span>.<span class="ident">to_glib</span>(),
-                <span class="ident">base_gravity</span>.<span class="ident">to_glib</span>(),
-                <span class="ident">hint</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">script</span>.<span class="ident">into_glib</span>(),
+                <span class="ident">wide</span>.<span class="ident">into_glib</span>(),
+                <span class="ident">base_gravity</span>.<span class="ident">into_glib</span>(),
+                <span class="ident">hint</span>.<span class="ident">into_glib</span>(),
             ))
         }
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_gravity_to_rotation&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_rotation</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f64</span> {
-        <span class="kw">unsafe</span> { <span class="ident">ffi::pango_gravity_to_rotation</span>(<span class="self">self</span>.<span class="ident">to_glib</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi::pango_gravity_to_rotation</span>(<span class="self">self</span>.<span class="ident">into_glib</span>()) }
     }
 }
 
@@ -3956,11 +3956,11 @@
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">Gravity</span> {
+<span class="kw">impl</span> <span class="ident">IntoGlib</span> <span class="kw">for</span> <span class="ident">Gravity</span> {
     <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi::PangoGravity</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::PangoGravity</span> {
-        <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
+    <span class="kw">fn</span> <span class="ident">into_glib</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::PangoGravity</span> {
+        <span class="kw">match</span> <span class="self">self</span> {
             <span class="ident">Gravity::South</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::PANGO_GRAVITY_SOUTH</span>,
             <span class="ident">Gravity::East</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::PANGO_GRAVITY_EAST</span>,
             <span class="ident">Gravity::North</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::PANGO_GRAVITY_NORTH</span>,
@@ -4007,7 +4007,7 @@
     <span class="kw">fn</span> <span class="ident">to_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::for_value_type</span>::<span class="op">&lt;</span><span class="ident">Gravity</span><span class="op">&gt;</span>();
         <span class="kw">unsafe</span> {
-            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">to_glib</span>());
+            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">into_glib</span>());
         }
         <span class="ident">value</span>
     }
@@ -4060,11 +4060,11 @@
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">GravityHint</span> {
+<span class="kw">impl</span> <span class="ident">IntoGlib</span> <span class="kw">for</span> <span class="ident">GravityHint</span> {
     <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi::PangoGravityHint</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::PangoGravityHint</span> {
-        <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
+    <span class="kw">fn</span> <span class="ident">into_glib</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::PangoGravityHint</span> {
+        <span class="kw">match</span> <span class="self">self</span> {
             <span class="ident">GravityHint::Natural</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::PANGO_GRAVITY_HINT_NATURAL</span>,
             <span class="ident">GravityHint::Strong</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::PANGO_GRAVITY_HINT_STRONG</span>,
             <span class="ident">GravityHint::Line</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::PANGO_GRAVITY_HINT_LINE</span>,
@@ -4107,7 +4107,7 @@
     <span class="kw">fn</span> <span class="ident">to_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::for_value_type</span>::<span class="op">&lt;</span><span class="ident">GravityHint</span><span class="op">&gt;</span>();
         <span class="kw">unsafe</span> {
-            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">to_glib</span>());
+            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">into_glib</span>());
         }
         <span class="ident">value</span>
     }
@@ -4156,11 +4156,11 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v1_46&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v1_46&quot;</span>)))]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">Overline</span> {
+<span class="kw">impl</span> <span class="ident">IntoGlib</span> <span class="kw">for</span> <span class="ident">Overline</span> {
     <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi::PangoOverline</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::PangoOverline</span> {
-        <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
+    <span class="kw">fn</span> <span class="ident">into_glib</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::PangoOverline</span> {
+        <span class="kw">match</span> <span class="self">self</span> {
             <span class="ident">Overline::None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::PANGO_OVERLINE_NONE</span>,
             <span class="ident">Overline::Single</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::PANGO_OVERLINE_SINGLE</span>,
             <span class="ident">Overline::__Unknown</span>(<span class="ident">value</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">value</span>,
@@ -4211,7 +4211,7 @@
     <span class="kw">fn</span> <span class="ident">to_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::for_value_type</span>::<span class="op">&lt;</span><span class="ident">Overline</span><span class="op">&gt;</span>();
         <span class="kw">unsafe</span> {
-            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">to_glib</span>());
+            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">into_glib</span>());
         }
         <span class="ident">value</span>
     }
@@ -4264,11 +4264,11 @@
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">RenderPart</span> {
+<span class="kw">impl</span> <span class="ident">IntoGlib</span> <span class="kw">for</span> <span class="ident">RenderPart</span> {
     <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi::PangoRenderPart</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::PangoRenderPart</span> {
-        <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
+    <span class="kw">fn</span> <span class="ident">into_glib</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::PangoRenderPart</span> {
+        <span class="kw">match</span> <span class="self">self</span> {
             <span class="ident">RenderPart::Foreground</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::PANGO_RENDER_PART_FOREGROUND</span>,
             <span class="ident">RenderPart::Background</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::PANGO_RENDER_PART_BACKGROUND</span>,
             <span class="ident">RenderPart::Underline</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::PANGO_RENDER_PART_UNDERLINE</span>,
@@ -4315,7 +4315,7 @@
     <span class="kw">fn</span> <span class="ident">to_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::for_value_type</span>::<span class="op">&lt;</span><span class="ident">RenderPart</span><span class="op">&gt;</span>();
         <span class="kw">unsafe</span> {
-            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">to_glib</span>());
+            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">into_glib</span>());
         }
         <span class="ident">value</span>
     }
@@ -4702,12 +4702,12 @@
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v1_44&quot;</span>, <span class="ident">deprecated</span> <span class="op">=</span> <span class="string">&quot;Since 1.44&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_script_for_unichar&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">for_unichar</span>(<span class="ident">ch</span>: <span class="ident">char</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Script</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::pango_script_for_unichar</span>(<span class="ident">ch</span>.<span class="ident">to_glib</span>())) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::pango_script_for_unichar</span>(<span class="ident">ch</span>.<span class="ident">into_glib</span>())) }
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_script_get_sample_language&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">sample_language</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Language</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::pango_script_get_sample_language</span>(<span class="self">self</span>.<span class="ident">to_glib</span>())) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::pango_script_get_sample_language</span>(<span class="self">self</span>.<span class="ident">into_glib</span>())) }
     }
 }
 
@@ -4842,11 +4842,11 @@
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">Script</span> {
+<span class="kw">impl</span> <span class="ident">IntoGlib</span> <span class="kw">for</span> <span class="ident">Script</span> {
     <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi::PangoScript</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::PangoScript</span> {
-        <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
+    <span class="kw">fn</span> <span class="ident">into_glib</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::PangoScript</span> {
+        <span class="kw">match</span> <span class="self">self</span> {
             <span class="ident">Script::InvalidCode</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::PANGO_SCRIPT_INVALID_CODE</span>,
             <span class="ident">Script::Common</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::PANGO_SCRIPT_COMMON</span>,
             <span class="ident">Script::Inherited</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::PANGO_SCRIPT_INHERITED</span>,
@@ -5119,7 +5119,7 @@
     <span class="kw">fn</span> <span class="ident">to_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::for_value_type</span>::<span class="op">&lt;</span><span class="ident">Script</span><span class="op">&gt;</span>();
         <span class="kw">unsafe</span> {
-            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">to_glib</span>());
+            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">into_glib</span>());
         }
         <span class="ident">value</span>
     }
@@ -5188,11 +5188,11 @@
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">Stretch</span> {
+<span class="kw">impl</span> <span class="ident">IntoGlib</span> <span class="kw">for</span> <span class="ident">Stretch</span> {
     <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi::PangoStretch</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::PangoStretch</span> {
-        <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
+    <span class="kw">fn</span> <span class="ident">into_glib</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::PangoStretch</span> {
+        <span class="kw">match</span> <span class="self">self</span> {
             <span class="ident">Stretch::UltraCondensed</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::PANGO_STRETCH_ULTRA_CONDENSED</span>,
             <span class="ident">Stretch::ExtraCondensed</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::PANGO_STRETCH_EXTRA_CONDENSED</span>,
             <span class="ident">Stretch::Condensed</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::PANGO_STRETCH_CONDENSED</span>,
@@ -5247,7 +5247,7 @@
     <span class="kw">fn</span> <span class="ident">to_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::for_value_type</span>::<span class="op">&lt;</span><span class="ident">Stretch</span><span class="op">&gt;</span>();
         <span class="kw">unsafe</span> {
-            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">to_glib</span>());
+            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">into_glib</span>());
         }
         <span class="ident">value</span>
     }
@@ -5291,11 +5291,11 @@
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">Style</span> {
+<span class="kw">impl</span> <span class="ident">IntoGlib</span> <span class="kw">for</span> <span class="ident">Style</span> {
     <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi::PangoStyle</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::PangoStyle</span> {
-        <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
+    <span class="kw">fn</span> <span class="ident">into_glib</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::PangoStyle</span> {
+        <span class="kw">match</span> <span class="self">self</span> {
             <span class="ident">Style::Normal</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::PANGO_STYLE_NORMAL</span>,
             <span class="ident">Style::Oblique</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::PANGO_STYLE_OBLIQUE</span>,
             <span class="ident">Style::Italic</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::PANGO_STYLE_ITALIC</span>,
@@ -5338,7 +5338,7 @@
     <span class="kw">fn</span> <span class="ident">to_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::for_value_type</span>::<span class="op">&lt;</span><span class="ident">Style</span><span class="op">&gt;</span>();
         <span class="kw">unsafe</span> {
-            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">to_glib</span>());
+            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">into_glib</span>());
         }
         <span class="ident">value</span>
     }
@@ -5374,11 +5374,11 @@
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">TabAlign</span> {
+<span class="kw">impl</span> <span class="ident">IntoGlib</span> <span class="kw">for</span> <span class="ident">TabAlign</span> {
     <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi::PangoTabAlign</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::PangoTabAlign</span> {
-        <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
+    <span class="kw">fn</span> <span class="ident">into_glib</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::PangoTabAlign</span> {
+        <span class="kw">match</span> <span class="self">self</span> {
             <span class="ident">TabAlign::Left</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::PANGO_TAB_LEFT</span>,
             <span class="ident">TabAlign::__Unknown</span>(<span class="ident">value</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">value</span>,
         }
@@ -5417,7 +5417,7 @@
     <span class="kw">fn</span> <span class="ident">to_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::for_value_type</span>::<span class="op">&lt;</span><span class="ident">TabAlign</span><span class="op">&gt;</span>();
         <span class="kw">unsafe</span> {
-            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">to_glib</span>());
+            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">into_glib</span>());
         }
         <span class="ident">value</span>
     }
@@ -5498,11 +5498,11 @@
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">Underline</span> {
+<span class="kw">impl</span> <span class="ident">IntoGlib</span> <span class="kw">for</span> <span class="ident">Underline</span> {
     <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi::PangoUnderline</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::PangoUnderline</span> {
-        <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
+    <span class="kw">fn</span> <span class="ident">into_glib</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::PangoUnderline</span> {
+        <span class="kw">match</span> <span class="self">self</span> {
             <span class="ident">Underline::None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::PANGO_UNDERLINE_NONE</span>,
             <span class="ident">Underline::Single</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::PANGO_UNDERLINE_SINGLE</span>,
             <span class="ident">Underline::Double</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::PANGO_UNDERLINE_DOUBLE</span>,
@@ -5555,7 +5555,7 @@
     <span class="kw">fn</span> <span class="ident">to_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::for_value_type</span>::<span class="op">&lt;</span><span class="ident">Underline</span><span class="op">&gt;</span>();
         <span class="kw">unsafe</span> {
-            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">to_glib</span>());
+            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">into_glib</span>());
         }
         <span class="ident">value</span>
     }
@@ -5596,11 +5596,11 @@
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">Variant</span> {
+<span class="kw">impl</span> <span class="ident">IntoGlib</span> <span class="kw">for</span> <span class="ident">Variant</span> {
     <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi::PangoVariant</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::PangoVariant</span> {
-        <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
+    <span class="kw">fn</span> <span class="ident">into_glib</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::PangoVariant</span> {
+        <span class="kw">match</span> <span class="self">self</span> {
             <span class="ident">Variant::Normal</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::PANGO_VARIANT_NORMAL</span>,
             <span class="ident">Variant::SmallCaps</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::PANGO_VARIANT_SMALL_CAPS</span>,
             <span class="ident">Variant::__Unknown</span>(<span class="ident">value</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">value</span>,
@@ -5641,7 +5641,7 @@
     <span class="kw">fn</span> <span class="ident">to_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::for_value_type</span>::<span class="op">&lt;</span><span class="ident">Variant</span><span class="op">&gt;</span>();
         <span class="kw">unsafe</span> {
-            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">to_glib</span>());
+            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">into_glib</span>());
         }
         <span class="ident">value</span>
     }
@@ -5722,11 +5722,11 @@
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">Weight</span> {
+<span class="kw">impl</span> <span class="ident">IntoGlib</span> <span class="kw">for</span> <span class="ident">Weight</span> {
     <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi::PangoWeight</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::PangoWeight</span> {
-        <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
+    <span class="kw">fn</span> <span class="ident">into_glib</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::PangoWeight</span> {
+        <span class="kw">match</span> <span class="self">self</span> {
             <span class="ident">Weight::Thin</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::PANGO_WEIGHT_THIN</span>,
             <span class="ident">Weight::Ultralight</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::PANGO_WEIGHT_ULTRALIGHT</span>,
             <span class="ident">Weight::Light</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::PANGO_WEIGHT_LIGHT</span>,
@@ -5787,7 +5787,7 @@
     <span class="kw">fn</span> <span class="ident">to_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::for_value_type</span>::<span class="op">&lt;</span><span class="ident">Weight</span><span class="op">&gt;</span>();
         <span class="kw">unsafe</span> {
-            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">to_glib</span>());
+            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">into_glib</span>());
         }
         <span class="ident">value</span>
     }
@@ -5832,11 +5832,11 @@
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">WrapMode</span> {
+<span class="kw">impl</span> <span class="ident">IntoGlib</span> <span class="kw">for</span> <span class="ident">WrapMode</span> {
     <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi::PangoWrapMode</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::PangoWrapMode</span> {
-        <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
+    <span class="kw">fn</span> <span class="ident">into_glib</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::PangoWrapMode</span> {
+        <span class="kw">match</span> <span class="self">self</span> {
             <span class="ident">WrapMode::Word</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::PANGO_WRAP_WORD</span>,
             <span class="ident">WrapMode::Char</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::PANGO_WRAP_CHAR</span>,
             <span class="ident">WrapMode::WordChar</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::PANGO_WRAP_WORD_CHAR</span>,
@@ -5879,7 +5879,7 @@
     <span class="kw">fn</span> <span class="ident">to_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::for_value_type</span>::<span class="op">&lt;</span><span class="ident">WrapMode</span><span class="op">&gt;</span>();
         <span class="kw">unsafe</span> {
-            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">to_glib</span>());
+            <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">into_glib</span>());
         }
         <span class="ident">value</span>
     }

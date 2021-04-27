@@ -1837,9 +1837,9 @@
             <span class="ident">ffi::gtk_tool_palette_add_drag_dest</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">widget</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">flags</span>.<span class="ident">to_glib</span>(),
-                <span class="ident">targets</span>.<span class="ident">to_glib</span>(),
-                <span class="ident">actions</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">flags</span>.<span class="ident">into_glib</span>(),
+                <span class="ident">targets</span>.<span class="ident">into_glib</span>(),
+                <span class="ident">actions</span>.<span class="ident">into_glib</span>(),
             );
         }
     }
@@ -1920,7 +1920,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::gtk_tool_palette_set_drag_source</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">targets</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">targets</span>.<span class="ident">into_glib</span>(),
             );
         }
     }
@@ -1930,7 +1930,7 @@
             <span class="ident">ffi::gtk_tool_palette_set_exclusive</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">group</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">exclusive</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">exclusive</span>.<span class="ident">into_glib</span>(),
             );
         }
     }
@@ -1940,7 +1940,7 @@
             <span class="ident">ffi::gtk_tool_palette_set_expand</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">group</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">expand</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">expand</span>.<span class="ident">into_glib</span>(),
             );
         }
     }
@@ -1959,14 +1959,14 @@
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::gtk_tool_palette_set_icon_size</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">icon_size</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">icon_size</span>.<span class="ident">into_glib</span>(),
             );
         }
     }
 
     <span class="kw">fn</span> <span class="ident">set_style</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">style</span>: <span class="ident">ToolbarStyle</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi::gtk_tool_palette_set_style</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">style</span>.<span class="ident">to_glib</span>());
+            <span class="ident">ffi::gtk_tool_palette_set_style</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">style</span>.<span class="ident">into_glib</span>());
         }
     }
 

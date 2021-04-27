@@ -329,7 +329,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::gdk_x11_window_set_frame_sync_enabled</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">frame_sync_enabled</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">frame_sync_enabled</span>.<span class="ident">into_glib</span>(),
             );
         }
     }
@@ -348,7 +348,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::gdk_x11_window_set_hide_titlebar_when_maximized</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">hide_titlebar_when_maximized</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">hide_titlebar_when_maximized</span>.<span class="ident">into_glib</span>(),
             );
         }
     }

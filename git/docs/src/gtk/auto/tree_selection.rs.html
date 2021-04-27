@@ -909,7 +909,7 @@
 
     <span class="kw">fn</span> <span class="ident">set_mode</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">type_</span>: <span class="ident">SelectionMode</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi::gtk_tree_selection_set_mode</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">type_</span>.<span class="ident">to_glib</span>());
+            <span class="ident">ffi::gtk_tree_selection_set_mode</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">type_</span>.<span class="ident">into_glib</span>());
         }
     }
 
@@ -939,7 +939,7 @@
             } <span class="kw">else</span> {
                 <span class="macro">panic!</span>(<span class="string">&quot;cannot get closure...&quot;</span>)
             };
-            <span class="ident">res</span>.<span class="ident">to_glib</span>()
+            <span class="ident">res</span>.<span class="ident">into_glib</span>()
         }
         <span class="kw">let</span> <span class="ident">func</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">func_data</span>.<span class="ident">is_some</span>() {
             <span class="prelude-val">Some</span>(<span class="ident">func_func</span> <span class="kw">as</span> <span class="kw">_</span>)

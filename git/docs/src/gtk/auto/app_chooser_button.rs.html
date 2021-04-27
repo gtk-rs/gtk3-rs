@@ -1646,7 +1646,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::gtk_app_chooser_button_set_show_default_item</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">setting</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">setting</span>.<span class="ident">into_glib</span>(),
             );
         }
     }
@@ -1655,7 +1655,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::gtk_app_chooser_button_set_show_dialog_item</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">setting</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">setting</span>.<span class="ident">into_glib</span>(),
             );
         }
     }

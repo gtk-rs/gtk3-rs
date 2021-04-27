@@ -1432,7 +1432,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::gtk_check_menu_item_set_active</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">is_active</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">is_active</span>.<span class="ident">into_glib</span>(),
             );
         }
     }
@@ -1441,7 +1441,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::gtk_check_menu_item_set_draw_as_radio</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">draw_as_radio</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">draw_as_radio</span>.<span class="ident">into_glib</span>(),
             );
         }
     }
@@ -1450,7 +1450,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::gtk_check_menu_item_set_inconsistent</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">setting</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">setting</span>.<span class="ident">into_glib</span>(),
             );
         }
     }

@@ -157,7 +157,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_inet_address_new_from_bytes</span>(
                 <span class="ident">bytes</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">family</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">family</span>.<span class="ident">into_glib</span>(),
             ))
         }
     }

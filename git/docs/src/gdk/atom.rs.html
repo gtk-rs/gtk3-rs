@@ -310,7 +310,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">Atom</span>(<span class="ident">ffi::gdk_atom_intern</span>(
                 <span class="ident">atom_name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="bool-val">false</span>.<span class="ident">to_glib</span>(),
+                <span class="bool-val">false</span>.<span class="ident">into_glib</span>(),
             ))
         }
     }

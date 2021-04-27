@@ -332,7 +332,7 @@
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">uris</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">launch_context</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> <span class="ident">p</span>.<span class="ident">as_ref</span>()).<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">spawn_flags</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">spawn_flags</span>.<span class="ident">into_glib</span>(),
                 <span class="ident">user_setup</span>,
                 <span class="ident">Box_::into_raw</span>(<span class="ident">super_callback0</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
                 <span class="ident">pid_callback</span>,

@@ -182,7 +182,7 @@
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::translate::FromGlib</span>;
-<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::translate::ToGlib</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::translate::IntoGlib</span>;
 <span class="kw">use</span> <span class="ident">libc</span>::{<span class="ident">c_char</span>, <span class="ident">c_uchar</span>};
 
 <span class="doccomment">/// Wrapper for values where C functions expect a plain C `char`</span>
@@ -210,7 +210,7 @@
 <span class="doccomment">/// done in the `new` function; see its documentation for details.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// The inner `libc::c_char` (which is equivalent to `i8` can be extracted with `.0`, or</span>
-<span class="doccomment">/// by calling `my_char.to_glib()`.</span>
+<span class="doccomment">/// by calling `my_char.into_glib()`.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Copy</span>, <span class="ident">Clone</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Char</span>(<span class="kw">pub</span> <span class="ident">c_char</span>);
 
@@ -223,7 +223,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// let a = Char::new(&#39;a&#39;).unwrap();</span>
     <span class="doccomment">/// assert!(a.0 == 65);</span>
-    <span class="doccomment">/// have_a_byte(a.to_glib());</span>
+    <span class="doccomment">/// have_a_byte(a.into_glib());</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// let not_representable = Char::new(&#39;☔&#39;);</span>
     <span class="doccomment">/// assert!(not_representable.is_none());</span>
@@ -251,10 +251,10 @@
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">Char</span> {
+<span class="kw">impl</span> <span class="ident">IntoGlib</span> <span class="kw">for</span> <span class="ident">Char</span> {
     <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">c_char</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">c_char</span> {
+    <span class="kw">fn</span> <span class="ident">into_glib</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">c_char</span> {
         <span class="self">self</span>.<span class="number">0</span>
     }
 }
@@ -266,7 +266,7 @@
 <span class="doccomment">/// done in the `new` function; see its documentation for details.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// The inner `libc::c_uchar` (which is equivalent to `u8` can be extracted with `.0`, or</span>
-<span class="doccomment">/// by calling `my_char.to_glib()`.</span>
+<span class="doccomment">/// by calling `my_char.into_glib()`.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Copy</span>, <span class="ident">Clone</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">UChar</span>(<span class="kw">pub</span> <span class="ident">c_uchar</span>);
 
@@ -279,7 +279,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// let a = Char::new(&#39;a&#39;).unwrap();</span>
     <span class="doccomment">/// assert!(a.0 == 65);</span>
-    <span class="doccomment">/// have_a_byte(a.to_glib());</span>
+    <span class="doccomment">/// have_a_byte(a.into_glib());</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// let not_representable = Char::new(&#39;☔&#39;);</span>
     <span class="doccomment">/// assert!(not_representable.is_none());</span>
@@ -307,10 +307,10 @@
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">UChar</span> {
+<span class="kw">impl</span> <span class="ident">IntoGlib</span> <span class="kw">for</span> <span class="ident">UChar</span> {
     <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">c_uchar</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">c_uchar</span> {
+    <span class="kw">fn</span> <span class="ident">into_glib</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">c_uchar</span> {
         <span class="self">self</span>.<span class="number">0</span>
     }
 }
@@ -336,12 +336,12 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">into_i8</span>() {
-        <span class="macro">assert_eq!</span>(<span class="ident">Char::new</span>(<span class="string">&#39;A&#39;</span>).<span class="ident">unwrap</span>().<span class="ident">to_glib</span>(), <span class="number">65_i8</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">Char::new</span>(<span class="string">&#39;A&#39;</span>).<span class="ident">unwrap</span>().<span class="ident">into_glib</span>(), <span class="number">65_i8</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">into_u8</span>() {
-        <span class="macro">assert_eq!</span>(<span class="ident">UChar::new</span>(<span class="string">&#39;A&#39;</span>).<span class="ident">unwrap</span>().<span class="ident">to_glib</span>(), <span class="number">65_u8</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">UChar::new</span>(<span class="string">&#39;A&#39;</span>).<span class="ident">unwrap</span>().<span class="ident">into_glib</span>(), <span class="number">65_u8</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>

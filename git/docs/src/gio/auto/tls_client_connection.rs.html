@@ -671,7 +671,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::g_tls_client_connection_set_use_ssl3</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">use_ssl3</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">use_ssl3</span>.<span class="ident">into_glib</span>(),
             );
         }
     }
@@ -680,7 +680,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::g_tls_client_connection_set_validation_flags</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">flags</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">flags</span>.<span class="ident">into_glib</span>(),
             );
         }
     }

@@ -1247,7 +1247,7 @@
 
     <span class="kw">fn</span> <span class="ident">reply</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">result</span>: <span class="ident">MountOperationResult</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi::g_mount_operation_reply</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">result</span>.<span class="ident">to_glib</span>());
+            <span class="ident">ffi::g_mount_operation_reply</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">result</span>.<span class="ident">into_glib</span>());
         }
     }
 
@@ -1255,7 +1255,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::g_mount_operation_set_anonymous</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">anonymous</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">anonymous</span>.<span class="ident">into_glib</span>(),
             );
         }
     }
@@ -1281,7 +1281,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::g_mount_operation_set_is_tcrypt_hidden_volume</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">hidden_volume</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">hidden_volume</span>.<span class="ident">into_glib</span>(),
             );
         }
     }
@@ -1292,7 +1292,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::g_mount_operation_set_is_tcrypt_system_volume</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">system_volume</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">system_volume</span>.<span class="ident">into_glib</span>(),
             );
         }
     }
@@ -1310,7 +1310,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::g_mount_operation_set_password_save</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">save</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">save</span>.<span class="ident">into_glib</span>(),
             );
         }
     }

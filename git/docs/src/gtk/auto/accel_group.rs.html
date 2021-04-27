@@ -674,10 +674,10 @@
         <span class="kw">unsafe</span> {
             <span class="ident">from_glib</span>(<span class="ident">ffi::gtk_accel_group_activate</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">accel_quark</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">accel_quark</span>.<span class="ident">into_glib</span>(),
                 <span class="ident">acceleratable</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">accel_key</span>,
-                <span class="ident">accel_mods</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">accel_mods</span>.<span class="ident">into_glib</span>(),
             ))
         }
     }
@@ -696,7 +696,7 @@
             <span class="ident">from_glib</span>(<span class="ident">ffi::gtk_accel_group_disconnect_key</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">accel_key</span>,
-                <span class="ident">accel_mods</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">accel_mods</span>.<span class="ident">into_glib</span>(),
             ))
         }
     }
@@ -760,7 +760,7 @@
                 <span class="ident">keyval</span>,
                 <span class="ident">from_glib</span>(<span class="ident">modifier</span>),
             )
-            .<span class="ident">to_glib</span>()
+            .<span class="ident">into_glib</span>()
         }
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">f</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_::new</span>(<span class="ident">f</span>);

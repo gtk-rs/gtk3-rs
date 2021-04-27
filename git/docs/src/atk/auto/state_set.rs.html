@@ -380,7 +380,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">from_glib</span>(<span class="ident">ffi::atk_state_set_add_state</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">type_</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">type_</span>.<span class="ident">into_glib</span>(),
             ))
         }
     }
@@ -408,7 +408,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">from_glib</span>(<span class="ident">ffi::atk_state_set_contains_state</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">type_</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">type_</span>.<span class="ident">into_glib</span>(),
             ))
         }
     }
@@ -434,7 +434,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">from_glib</span>(<span class="ident">ffi::atk_state_set_remove_state</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">type_</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">type_</span>.<span class="ident">into_glib</span>(),
             ))
         }
     }

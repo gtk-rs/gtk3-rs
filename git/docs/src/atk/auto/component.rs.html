@@ -730,7 +730,7 @@
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">x</span>,
                 <span class="ident">y</span>,
-                <span class="ident">coord_type</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">coord_type</span>.<span class="ident">into_glib</span>(),
             ))
         }
     }
@@ -751,7 +751,7 @@
                 <span class="ident">y</span>.<span class="ident">as_mut_ptr</span>(),
                 <span class="ident">width</span>.<span class="ident">as_mut_ptr</span>(),
                 <span class="ident">height</span>.<span class="ident">as_mut_ptr</span>(),
-                <span class="ident">coord_type</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">coord_type</span>.<span class="ident">into_glib</span>(),
             );
             <span class="kw">let</span> <span class="ident">x</span> <span class="op">=</span> <span class="ident">x</span>.<span class="ident">assume_init</span>();
             <span class="kw">let</span> <span class="ident">y</span> <span class="op">=</span> <span class="ident">y</span>.<span class="ident">assume_init</span>();
@@ -777,7 +777,7 @@
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">x</span>.<span class="ident">as_mut_ptr</span>(),
                 <span class="ident">y</span>.<span class="ident">as_mut_ptr</span>(),
-                <span class="ident">coord_type</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">coord_type</span>.<span class="ident">into_glib</span>(),
             );
             <span class="kw">let</span> <span class="ident">x</span> <span class="op">=</span> <span class="ident">x</span>.<span class="ident">assume_init</span>();
             <span class="kw">let</span> <span class="ident">y</span> <span class="op">=</span> <span class="ident">y</span>.<span class="ident">assume_init</span>();
@@ -814,7 +814,7 @@
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">x</span>,
                 <span class="ident">y</span>,
-                <span class="ident">coord_type</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">coord_type</span>.<span class="ident">into_glib</span>(),
             ))
         }
     }
@@ -825,7 +825,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">from_glib</span>(<span class="ident">ffi::atk_component_scroll_to</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">type_</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">type_</span>.<span class="ident">into_glib</span>(),
             ))
         }
     }
@@ -836,7 +836,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">from_glib</span>(<span class="ident">ffi::atk_component_scroll_to_point</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">coords</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">coords</span>.<span class="ident">into_glib</span>(),
                 <span class="ident">x</span>,
                 <span class="ident">y</span>,
             ))
@@ -851,7 +851,7 @@
                 <span class="ident">y</span>,
                 <span class="ident">width</span>,
                 <span class="ident">height</span>,
-                <span class="ident">coord_type</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">coord_type</span>.<span class="ident">into_glib</span>(),
             ))
         }
     }
@@ -862,7 +862,7 @@
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">x</span>,
                 <span class="ident">y</span>,
-                <span class="ident">coord_type</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">coord_type</span>.<span class="ident">into_glib</span>(),
             ))
         }
     }

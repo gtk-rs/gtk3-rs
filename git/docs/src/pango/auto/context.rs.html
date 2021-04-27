@@ -745,7 +745,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_context_set_base_dir&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_base_dir</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">direction</span>: <span class="ident">Direction</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi::pango_context_set_base_dir</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">direction</span>.<span class="ident">to_glib</span>());
+            <span class="ident">ffi::pango_context_set_base_dir</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">direction</span>.<span class="ident">into_glib</span>());
         }
     }
 
@@ -757,7 +757,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_context_set_base_gravity&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_base_gravity</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">gravity</span>: <span class="ident">Gravity</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi::pango_context_set_base_gravity</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">gravity</span>.<span class="ident">to_glib</span>());
+            <span class="ident">ffi::pango_context_set_base_gravity</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">gravity</span>.<span class="ident">into_glib</span>());
         }
     }
 
@@ -796,7 +796,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_context_set_gravity_hint&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_gravity_hint</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">hint</span>: <span class="ident">GravityHint</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi::pango_context_set_gravity_hint</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">hint</span>.<span class="ident">to_glib</span>());
+            <span class="ident">ffi::pango_context_set_gravity_hint</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">hint</span>.<span class="ident">into_glib</span>());
         }
     }
 
@@ -849,7 +849,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::pango_context_set_round_glyph_positions</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">round_positions</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">round_positions</span>.<span class="ident">into_glib</span>(),
             );
         }
     }

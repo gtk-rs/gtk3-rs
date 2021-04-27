@@ -100,7 +100,7 @@
             <span class="ident">from_glib</span>(<span class="ident">ffi::gdk_device_get_axis</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">axes</span>.<span class="ident">as_mut_ptr</span>(),
-                <span class="ident">use_</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">use_</span>.<span class="ident">into_glib</span>(),
                 <span class="ident">value</span>,
             ))
         }

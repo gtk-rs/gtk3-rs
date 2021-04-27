@@ -2561,6 +2561,12 @@
 <span id="2558">2558</span>
 <span id="2559">2559</span>
 <span id="2560">2560</span>
+<span id="2561">2561</span>
+<span id="2562">2562</span>
+<span id="2563">2563</span>
+<span id="2564">2564</span>
+<span id="2565">2565</span>
+<span id="2566">2566</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -2570,11 +2576,11 @@
 <span class="doccomment">//! logic and use unified idioms at FFI boundaries. It also implements</span>
 <span class="doccomment">//! translation of GLib core data types.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! `FromGlib`, `from_glib` and `ToGlib` translate simple types like `bool`.</span>
+<span class="doccomment">//! `FromGlib`, `from_glib` and `IntoGlib` translate simple types like `bool`.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ```ignore</span>
 <span class="doccomment">//!     pub fn set_accept_focus(&amp;self, accept_focus: bool) {</span>
-<span class="doccomment">//!         unsafe { gdk::ffi::gdk_window_set_accept_focus(self.pointer, accept_focus.to_glib()) }</span>
+<span class="doccomment">//!         unsafe { gdk::ffi::gdk_window_set_accept_focus(self.pointer, accept_focus.into_glib()) }</span>
 <span class="doccomment">//!     }</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//!     pub fn get_accept_focus(&amp;self) -&gt; bool {</span>
@@ -2585,14 +2591,14 @@
 <span class="doccomment">//! Implementing [`OptionToGlib`] on a Rust type `T` allows specifying a sentinel to indicate</span>
 <span class="doccomment">//! a `None` value and auto-implementing [`FromGlib`] for `Option&lt;T&gt;`, which would not be</span>
 <span class="doccomment">//! possible in dependent crates due to the [orphan rule](https://doc.rust-lang.org/book/ch10-02-traits.html#implementing-a-trait-on-a-type).</span>
-<span class="doccomment">//! In the example below, [`ToGlib`] is auto-implemented for `Option&lt;SpecialU32&gt;`.</span>
+<span class="doccomment">//! In the example below, [`IntoGlib`] is auto-implemented for `Option&lt;SpecialU32&gt;`.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ```</span>
 <span class="doccomment">//! # use glib::translate::*;</span>
 <span class="doccomment">//! struct SpecialU32(u32);</span>
-<span class="doccomment">//! impl ToGlib for SpecialU32 {</span>
+<span class="doccomment">//! impl IntoGlib for SpecialU32 {</span>
 <span class="doccomment">//!     type GlibType = libc::c_uint;</span>
-<span class="doccomment">//!     fn to_glib(&amp;self) -&gt; libc::c_uint {</span>
+<span class="doccomment">//!     fn into_glib(self) -&gt; libc::c_uint {</span>
 <span class="doccomment">//!         self.0 as libc::c_uint</span>
 <span class="doccomment">//!     }</span>
 <span class="doccomment">//! }</span>
@@ -2606,9 +2612,9 @@
 <span class="doccomment">//! ```</span>
 <span class="doccomment">//! # use glib::translate::*;</span>
 <span class="doccomment">//! # struct SpecialU32(u32);</span>
-<span class="doccomment">//! # impl ToGlib for SpecialU32 {</span>
+<span class="doccomment">//! # impl IntoGlib for SpecialU32 {</span>
 <span class="doccomment">//! #     type GlibType = libc::c_uint;</span>
-<span class="doccomment">//! #     fn to_glib(&amp;self) -&gt; libc::c_uint {</span>
+<span class="doccomment">//! #     fn into_glib(self) -&gt; libc::c_uint {</span>
 <span class="doccomment">//! #         self.0 as libc::c_uint</span>
 <span class="doccomment">//! #     }</span>
 <span class="doccomment">//! # }</span>
@@ -2854,18 +2860,18 @@
 }
 
 <span class="doccomment">/// Translate a simple type.</span>
-<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ToGlib</span> {
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">IntoGlib</span> {
     <span class="kw">type</span> <span class="ident">GlibType</span>: <span class="ident">Copy</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::GlibType</span>;
+    <span class="kw">fn</span> <span class="ident">into_glib</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::GlibType</span>;
 }
 
-<span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">bool</span> {
+<span class="kw">impl</span> <span class="ident">IntoGlib</span> <span class="kw">for</span> <span class="ident">bool</span> {
     <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi::gboolean</span>;
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::gboolean</span> {
-        <span class="kw">if</span> <span class="kw-2">*</span><span class="self">self</span> {
+    <span class="kw">fn</span> <span class="ident">into_glib</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::gboolean</span> {
+        <span class="kw">if</span> <span class="self">self</span> {
             <span class="ident">ffi::GTRUE</span>
         } <span class="kw">else</span> {
             <span class="ident">ffi::GFALSE</span>
@@ -2873,30 +2879,30 @@
     }
 }
 
-<span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">char</span> {
+<span class="kw">impl</span> <span class="ident">IntoGlib</span> <span class="kw">for</span> <span class="ident">char</span> {
     <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">u32</span>;
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
-        <span class="kw-2">*</span><span class="self">self</span> <span class="kw">as</span> <span class="ident">u32</span>
+    <span class="kw">fn</span> <span class="ident">into_glib</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
+        <span class="self">self</span> <span class="kw">as</span> <span class="ident">u32</span>
     }
 }
 
-<span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">char</span><span class="op">&gt;</span> {
+<span class="kw">impl</span> <span class="ident">IntoGlib</span> <span class="kw">for</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">char</span><span class="op">&gt;</span> {
     <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">u32</span>;
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
+    <span class="kw">fn</span> <span class="ident">into_glib</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
         <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">map</span>(<span class="op">|</span><span class="kw-2">&amp;</span><span class="ident">c</span><span class="op">|</span> <span class="ident">c</span> <span class="kw">as</span> <span class="ident">u32</span>).<span class="ident">unwrap_or</span>(<span class="number">0</span>)
     }
 }
 
-<span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">Ordering</span> {
+<span class="kw">impl</span> <span class="ident">IntoGlib</span> <span class="kw">for</span> <span class="ident">Ordering</span> {
     <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">i32</span>;
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
-        <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
+    <span class="kw">fn</span> <span class="ident">into_glib</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
+        <span class="kw">match</span> <span class="self">self</span> {
             <span class="ident">Ordering::Less</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">-</span><span class="number">1</span>,
             <span class="ident">Ordering::Equal</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">0</span>,
             <span class="ident">Ordering::Greater</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">1</span>,
@@ -2905,17 +2911,17 @@
 }
 
 <span class="doccomment">/// A Rust type `T` for which `Option&lt;T&gt;` translates to the same glib type as T.</span>
-<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">OptionToGlib</span>: <span class="ident">ToGlib</span> {
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">OptionToGlib</span>: <span class="ident">IntoGlib</span> {
     <span class="kw">const</span> <span class="ident">GLIB_NONE</span>: <span class="self">Self</span><span class="ident">::GlibType</span>;
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">OptionToGlib</span><span class="op">&gt;</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">OptionToGlib</span><span class="op">&gt;</span> <span class="ident">IntoGlib</span> <span class="kw">for</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
     <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">T::GlibType</span>;
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::GlibType</span> {
+    <span class="kw">fn</span> <span class="ident">into_glib</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::GlibType</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="prelude-val">Some</span>(<span class="ident">t</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">t</span>.<span class="ident">to_glib</span>(),
+            <span class="prelude-val">Some</span>(<span class="ident">t</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">t</span>.<span class="ident">into_glib</span>(),
             <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">T::GLIB_NONE</span>,
         }
     }
@@ -4820,8 +4826,8 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">boolean</span>() {
-        <span class="macro">assert_eq!</span>(<span class="bool-val">true</span>.<span class="ident">to_glib</span>(), <span class="ident">ffi::GTRUE</span>);
-        <span class="macro">assert_eq!</span>(<span class="bool-val">false</span>.<span class="ident">to_glib</span>(), <span class="ident">ffi::GFALSE</span>);
+        <span class="macro">assert_eq!</span>(<span class="bool-val">true</span>.<span class="ident">into_glib</span>(), <span class="ident">ffi::GTRUE</span>);
+        <span class="macro">assert_eq!</span>(<span class="bool-val">false</span>.<span class="ident">into_glib</span>(), <span class="ident">ffi::GFALSE</span>);
         <span class="macro">assert_eq!</span>(<span class="bool-val">true</span>, <span class="kw">unsafe</span> { <span class="ident">bool::from_glib</span>(<span class="ident">ffi::GTRUE</span>) });
         <span class="macro">assert_eq!</span>(<span class="bool-val">false</span>, <span class="kw">unsafe</span> { <span class="ident">bool::from_glib</span>(<span class="ident">ffi::GFALSE</span>) });
         <span class="macro">assert_eq!</span>(<span class="bool-val">true</span>, <span class="kw">unsafe</span> { <span class="ident">bool::from_glib</span>(<span class="number">42</span>) });
@@ -4829,9 +4835,9 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">ordering</span>() {
-        <span class="macro">assert_eq!</span>(<span class="ident">Ordering::Less</span>.<span class="ident">to_glib</span>(), <span class="op">-</span><span class="number">1</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">Ordering::Equal</span>.<span class="ident">to_glib</span>(), <span class="number">0</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">Ordering::Greater</span>.<span class="ident">to_glib</span>(), <span class="number">1</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">Ordering::Less</span>.<span class="ident">into_glib</span>(), <span class="op">-</span><span class="number">1</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">Ordering::Equal</span>.<span class="ident">into_glib</span>(), <span class="number">0</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">Ordering::Greater</span>.<span class="ident">into_glib</span>(), <span class="number">1</span>);
         <span class="macro">assert_eq!</span>(<span class="ident">Ordering::Less</span>, <span class="kw">unsafe</span> { <span class="ident">Ordering::from_glib</span>(<span class="op">-</span><span class="number">42</span>) });
         <span class="macro">assert_eq!</span>(<span class="ident">Ordering::Less</span>, <span class="kw">unsafe</span> { <span class="ident">Ordering::from_glib</span>(<span class="op">-</span><span class="number">1</span>) });
         <span class="macro">assert_eq!</span>(<span class="ident">Ordering::Equal</span>, <span class="kw">unsafe</span> { <span class="ident">Ordering::from_glib</span>(<span class="number">0</span>) });
@@ -4999,9 +5005,9 @@
 
         <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>)]</span>
         <span class="kw">struct</span> <span class="ident">SpecialU32</span>(<span class="ident">u32</span>);
-        <span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">SpecialU32</span> {
+        <span class="kw">impl</span> <span class="ident">IntoGlib</span> <span class="kw">for</span> <span class="ident">SpecialU32</span> {
             <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">libc::c_uint</span>;
-            <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">libc::c_uint</span> {
+            <span class="kw">fn</span> <span class="ident">into_glib</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">libc::c_uint</span> {
                 <span class="self">self</span>.<span class="number">0</span> <span class="kw">as</span> <span class="ident">libc::c_uint</span>
             }
         }
@@ -5009,11 +5015,14 @@
             <span class="kw">const</span> <span class="ident">GLIB_NONE</span>: <span class="self">Self</span><span class="ident">::GlibType</span> <span class="op">=</span> <span class="ident">CLONG_NONE</span> <span class="kw">as</span> <span class="ident">libc::c_uint</span>;
         }
 
-        <span class="macro">assert_eq!</span>(<span class="ident">SpecialU32</span>(<span class="number">0</span>).<span class="ident">to_glib</span>(), <span class="number">0</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">SpecialU32</span>(<span class="number">42</span>).<span class="ident">to_glib</span>(), <span class="number">42</span>);
-        <span class="macro">assert_eq!</span>(<span class="prelude-val">Some</span>(<span class="ident">SpecialU32</span>(<span class="number">0</span>)).<span class="ident">to_glib</span>(), <span class="number">0</span>);
-        <span class="macro">assert_eq!</span>(<span class="prelude-val">Some</span>(<span class="ident">SpecialU32</span>(<span class="number">42</span>)).<span class="ident">to_glib</span>(), <span class="number">42</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">Option::None</span>::<span class="op">&lt;</span><span class="ident">SpecialU32</span><span class="op">&gt;</span>.<span class="ident">to_glib</span>(), <span class="ident">SpecialU32::GLIB_NONE</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">SpecialU32</span>(<span class="number">0</span>).<span class="ident">into_glib</span>(), <span class="number">0</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">SpecialU32</span>(<span class="number">42</span>).<span class="ident">into_glib</span>(), <span class="number">42</span>);
+        <span class="macro">assert_eq!</span>(<span class="prelude-val">Some</span>(<span class="ident">SpecialU32</span>(<span class="number">0</span>)).<span class="ident">into_glib</span>(), <span class="number">0</span>);
+        <span class="macro">assert_eq!</span>(<span class="prelude-val">Some</span>(<span class="ident">SpecialU32</span>(<span class="number">42</span>)).<span class="ident">into_glib</span>(), <span class="number">42</span>);
+        <span class="macro">assert_eq!</span>(
+            <span class="ident">Option::None</span>::<span class="op">&lt;</span><span class="ident">SpecialU32</span><span class="op">&gt;</span>.<span class="ident">into_glib</span>(),
+            <span class="ident">SpecialU32::GLIB_NONE</span>
+        );
 
         <span class="kw">impl</span> <span class="ident">TryFromGlib</span><span class="op">&lt;</span><span class="ident">libc::c_uint</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">SpecialU32</span> {
             <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">GlibNoneError</span>;
@@ -5072,9 +5081,9 @@
 
         <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>)]</span>
         <span class="kw">struct</span> <span class="ident">SpecialU32</span>(<span class="ident">u32</span>);
-        <span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">SpecialU32</span> {
+        <span class="kw">impl</span> <span class="ident">IntoGlib</span> <span class="kw">for</span> <span class="ident">SpecialU32</span> {
             <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">libc::c_long</span>;
-            <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">libc::c_long</span> {
+            <span class="kw">fn</span> <span class="ident">into_glib</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">libc::c_long</span> {
                 <span class="self">self</span>.<span class="number">0</span> <span class="kw">as</span> <span class="ident">libc::c_long</span>
             }
         }
@@ -5082,10 +5091,13 @@
             <span class="kw">const</span> <span class="ident">GLIB_NONE</span>: <span class="self">Self</span><span class="ident">::GlibType</span> <span class="op">=</span> <span class="op">-</span><span class="number">1</span>;
         }
 
-        <span class="macro">assert_eq!</span>(<span class="ident">SpecialU32</span>(<span class="number">0</span>).<span class="ident">to_glib</span>(), <span class="number">0</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">SpecialU32</span>(<span class="number">42</span>).<span class="ident">to_glib</span>(), <span class="number">42</span>);
-        <span class="macro">assert_eq!</span>(<span class="prelude-val">Some</span>(<span class="ident">SpecialU32</span>(<span class="number">42</span>)).<span class="ident">to_glib</span>(), <span class="number">42</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">Option::None</span>::<span class="op">&lt;</span><span class="ident">SpecialU32</span><span class="op">&gt;</span>.<span class="ident">to_glib</span>(), <span class="ident">SpecialU32::GLIB_NONE</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">SpecialU32</span>(<span class="number">0</span>).<span class="ident">into_glib</span>(), <span class="number">0</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">SpecialU32</span>(<span class="number">42</span>).<span class="ident">into_glib</span>(), <span class="number">42</span>);
+        <span class="macro">assert_eq!</span>(<span class="prelude-val">Some</span>(<span class="ident">SpecialU32</span>(<span class="number">42</span>)).<span class="ident">into_glib</span>(), <span class="number">42</span>);
+        <span class="macro">assert_eq!</span>(
+            <span class="ident">Option::None</span>::<span class="op">&lt;</span><span class="ident">SpecialU32</span><span class="op">&gt;</span>.<span class="ident">into_glib</span>(),
+            <span class="ident">SpecialU32::GLIB_NONE</span>
+        );
 
         <span class="kw">impl</span> <span class="ident">TryFromGlib</span><span class="op">&lt;</span><span class="ident">libc::c_long</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">SpecialU32</span> {
             <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">GlibNoneOrInvalidError</span><span class="op">&lt;</span><span class="ident">TryFromIntError</span><span class="op">&gt;</span>;

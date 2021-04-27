@@ -89,7 +89,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_simple_permission_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">allowed</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SimplePermission</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">Permission::from_glib_full</span>(<span class="ident">ffi::g_simple_permission_new</span>(<span class="ident">allowed</span>.<span class="ident">to_glib</span>()))
+            <span class="ident">Permission::from_glib_full</span>(<span class="ident">ffi::g_simple_permission_new</span>(<span class="ident">allowed</span>.<span class="ident">into_glib</span>()))
                 .<span class="ident">unsafe_cast</span>()
         }
     }

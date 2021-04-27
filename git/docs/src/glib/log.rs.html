@@ -787,10 +787,10 @@
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">LogHandlerId</span> {
+<span class="kw">impl</span> <span class="ident">IntoGlib</span> <span class="kw">for</span> <span class="ident">LogHandlerId</span> {
     <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">u32</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
+    <span class="kw">fn</span> <span class="ident">into_glib</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
         <span class="self">self</span>.<span class="number">0</span>
     }
 }
@@ -806,11 +806,11 @@
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">LogLevel</span> {
+<span class="kw">impl</span> <span class="ident">IntoGlib</span> <span class="kw">for</span> <span class="ident">LogLevel</span> {
     <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">u32</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
-        <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
+    <span class="kw">fn</span> <span class="ident">into_glib</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
+        <span class="kw">match</span> <span class="self">self</span> {
             <span class="ident">LogLevel::Error</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_LOG_LEVEL_ERROR</span>,
             <span class="ident">LogLevel::Critical</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_LOG_LEVEL_CRITICAL</span>,
             <span class="ident">LogLevel::Warning</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_LOG_LEVEL_WARNING</span>,
@@ -854,10 +854,10 @@
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">LogLevels</span> {
+<span class="kw">impl</span> <span class="ident">IntoGlib</span> <span class="kw">for</span> <span class="ident">LogLevels</span> {
     <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi::GLogLevelFlags</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::GLogLevelFlags</span> {
+    <span class="kw">fn</span> <span class="ident">into_glib</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::GLogLevelFlags</span> {
         <span class="self">self</span>.<span class="ident">bits</span>()
     }
 }
@@ -919,7 +919,7 @@
     <span class="kw">unsafe</span> {
         <span class="ident">from_glib</span>(<span class="ident">ffi::g_log_set_handler_full</span>(
             <span class="ident">log_domain</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-            <span class="ident">log_levels</span>.<span class="ident">to_glib</span>() <span class="op">|</span> <span class="ident">to_log_flags</span>(<span class="ident">fatal</span>, <span class="ident">recursion</span>),
+            <span class="ident">log_levels</span>.<span class="ident">into_glib</span>() <span class="op">|</span> <span class="ident">to_log_flags</span>(<span class="ident">fatal</span>, <span class="ident">recursion</span>),
             <span class="ident">log_func</span>,
             <span class="ident">Box_::into_raw</span>(<span class="ident">super_callback0</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
             <span class="ident">destroy_call4</span>,
@@ -930,13 +930,13 @@
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_log_remove_handler&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">log_remove_handler</span>(<span class="ident">log_domain</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>, <span class="ident">handler_id</span>: <span class="ident">LogHandlerId</span>) {
     <span class="kw">unsafe</span> {
-        <span class="ident">ffi::g_log_remove_handler</span>(<span class="ident">log_domain</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">handler_id</span>.<span class="ident">to_glib</span>());
+        <span class="ident">ffi::g_log_remove_handler</span>(<span class="ident">log_domain</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">handler_id</span>.<span class="ident">into_glib</span>());
     }
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_log_set_always_fatal&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">log_set_always_fatal</span>(<span class="ident">fatal_levels</span>: <span class="ident">LogLevels</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">LogLevels</span> {
-    <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::g_log_set_always_fatal</span>(<span class="ident">fatal_levels</span>.<span class="ident">to_glib</span>())) }
+    <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::g_log_set_always_fatal</span>(<span class="ident">fatal_levels</span>.<span class="ident">into_glib</span>())) }
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_log_set_fatal_mask&quot;</span>)]</span>
@@ -944,7 +944,7 @@
     <span class="kw">unsafe</span> {
         <span class="ident">from_glib</span>(<span class="ident">ffi::g_log_set_fatal_mask</span>(
             <span class="ident">log_domain</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-            <span class="ident">fatal_levels</span>.<span class="ident">to_glib</span>(),
+            <span class="ident">fatal_levels</span>.<span class="ident">into_glib</span>(),
         ))
     }
 }
@@ -954,7 +954,7 @@
 <span class="comment">//     unsafe {</span>
 <span class="comment">//         ffi::g_log_variant(</span>
 <span class="comment">//             log_domain.to_glib_none().0,</span>
-<span class="comment">//             log_level.to_glib(),</span>
+<span class="comment">//             log_level.into_glib(),</span>
 <span class="comment">//             fields.to_glib_none().0,</span>
 <span class="comment">//         );</span>
 <span class="comment">//     }</span>
@@ -1074,7 +1074,7 @@
     <span class="kw">unsafe</span> {
         <span class="ident">ffi::g_log_default_handler</span>(
             <span class="ident">log_domain</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-            <span class="ident">log_level</span>.<span class="ident">to_glib</span>(),
+            <span class="ident">log_level</span>.<span class="ident">into_glib</span>(),
             <span class="ident">message</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             <span class="ident">std::ptr::null_mut</span>(),
         )
@@ -1123,7 +1123,7 @@
 <span class="attribute">#[<span class="ident">macro_export</span>]</span>
 <span class="macro">macro_rules!</span> <span class="ident">g_log</span> {
     (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">log_level</span>:<span class="ident">expr</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">format</span>:<span class="ident">literal</span>, $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">arg</span>:<span class="ident">expr</span>),<span class="op">*</span> $(,)<span class="question-mark">?</span>) <span class="op">=</span><span class="op">&gt;</span> {{
-        <span class="kw">use</span> <span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro-nonterminal">::translate</span>::{<span class="ident">ToGlib</span>, <span class="ident">ToGlibPtr</span>};
+        <span class="kw">use</span> <span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro-nonterminal">::translate</span>::{<span class="ident">IntoGlib</span>, <span class="ident">ToGlibPtr</span>};
         <span class="kw">use</span> <span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro-nonterminal">::LogLevel</span>;
 
         <span class="kw">fn</span> <span class="ident">check_log_args</span>(<span class="ident">_log_level</span>: <span class="ident">LogLevel</span>, <span class="ident">_format</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) {}
@@ -1134,13 +1134,13 @@
         <span class="kw">unsafe</span> {
             <span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro-nonterminal">::ffi::g_log</span>(
                 <span class="ident">std::ptr::null</span>(),
-                <span class="macro-nonterminal">$</span><span class="macro-nonterminal">log_level</span>.<span class="ident">to_glib</span>(),
+                <span class="macro-nonterminal">$</span><span class="macro-nonterminal">log_level</span>.<span class="ident">into_glib</span>(),
                 <span class="ident">f</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             );
         }
     }};
     (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">log_level</span>:<span class="ident">expr</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">format</span>:<span class="ident">literal</span> $(,)<span class="question-mark">?</span>) <span class="op">=</span><span class="op">&gt;</span> {{
-        <span class="kw">use</span> <span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro-nonterminal">::translate</span>::{<span class="ident">ToGlib</span>, <span class="ident">ToGlibPtr</span>};
+        <span class="kw">use</span> <span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro-nonterminal">::translate</span>::{<span class="ident">IntoGlib</span>, <span class="ident">ToGlibPtr</span>};
         <span class="kw">use</span> <span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro-nonterminal">::LogLevel</span>;
 
         <span class="kw">fn</span> <span class="ident">check_log_args</span>(<span class="ident">_log_level</span>: <span class="ident">LogLevel</span>, <span class="ident">_format</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) {}
@@ -1151,13 +1151,13 @@
         <span class="kw">unsafe</span> {
             <span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro-nonterminal">::ffi::g_log</span>(
                 <span class="ident">std::ptr::null</span>(),
-                <span class="macro-nonterminal">$</span><span class="macro-nonterminal">log_level</span>.<span class="ident">to_glib</span>(),
+                <span class="macro-nonterminal">$</span><span class="macro-nonterminal">log_level</span>.<span class="ident">into_glib</span>(),
                 <span class="ident">f</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             );
         }
     }};
     (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">log_domain</span>:<span class="ident">expr</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">log_level</span>:<span class="ident">expr</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">format</span>:<span class="ident">literal</span>, $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">arg</span>:<span class="ident">expr</span>),<span class="op">*</span> $(,)<span class="question-mark">?</span>) <span class="op">=</span><span class="op">&gt;</span> {{
-        <span class="kw">use</span> <span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro-nonterminal">::translate</span>::{<span class="ident">ToGlib</span>, <span class="ident">ToGlibPtr</span>};
+        <span class="kw">use</span> <span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro-nonterminal">::translate</span>::{<span class="ident">IntoGlib</span>, <span class="ident">ToGlibPtr</span>};
         <span class="kw">use</span> <span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro-nonterminal">::LogLevel</span>;
 
         <span class="kw">fn</span> <span class="ident">check_log_args</span>(<span class="ident">_log_level</span>: <span class="ident">LogLevel</span>, <span class="ident">_format</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) {}
@@ -1170,13 +1170,13 @@
         <span class="kw">unsafe</span> {
             <span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro-nonterminal">::ffi::g_log</span>(
                 <span class="ident">log_domain</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="macro-nonterminal">$</span><span class="macro-nonterminal">log_level</span>.<span class="ident">to_glib</span>(),
+                <span class="macro-nonterminal">$</span><span class="macro-nonterminal">log_level</span>.<span class="ident">into_glib</span>(),
                 <span class="ident">f</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             );
         }
     }};
     (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">log_domain</span>:<span class="ident">expr</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">log_level</span>:<span class="ident">expr</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">format</span>:<span class="ident">literal</span> $(,)<span class="question-mark">?</span>) <span class="op">=</span><span class="op">&gt;</span> {{
-        <span class="kw">use</span> <span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro-nonterminal">::translate</span>::{<span class="ident">ToGlib</span>, <span class="ident">ToGlibPtr</span>};
+        <span class="kw">use</span> <span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro-nonterminal">::translate</span>::{<span class="ident">IntoGlib</span>, <span class="ident">ToGlibPtr</span>};
         <span class="kw">use</span> <span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro-nonterminal">::LogLevel</span>;
 
         <span class="kw">fn</span> <span class="ident">check_log_args</span>(<span class="ident">_log_level</span>: <span class="ident">LogLevel</span>, <span class="ident">_format</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) {}
@@ -1189,7 +1189,7 @@
         <span class="kw">unsafe</span> {
             <span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro-nonterminal">::ffi::g_log</span>(
                 <span class="ident">log_domain</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="macro-nonterminal">$</span><span class="macro-nonterminal">log_level</span>.<span class="ident">to_glib</span>(),
+                <span class="macro-nonterminal">$</span><span class="macro-nonterminal">log_level</span>.<span class="ident">into_glib</span>(),
                 <span class="ident">f</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             );
         }
@@ -1515,7 +1515,7 @@
 <span class="comment">// #[macro_export]</span>
 <span class="comment">// macro_rules! g_log_structured {</span>
 <span class="comment">//     ($log_domain:expr, $log_level:expr, {$($key:expr =&gt; $value:expr),+}) =&gt; {{</span>
-<span class="comment">//         use $crate::translate::{Stash, ToGlib, ToGlibPtr};</span>
+<span class="comment">//         use $crate::translate::{Stash, IntoGlib, ToGlibPtr};</span>
 <span class="comment">//         use $crate::LogLevel;</span>
 <span class="comment">//         use std::ffi::CString;</span>
 
@@ -1526,7 +1526,7 @@
 <span class="comment">//         unsafe {</span>
 <span class="comment">//             ffi::g_log_structured(</span>
 <span class="comment">//                 $log_domain.to_glib_none().0,</span>
-<span class="comment">//                 $log_level.to_glib(),</span>
+<span class="comment">//                 $log_level.into_glib(),</span>
 <span class="comment">//                 $(check_key($key).0, check_key(format!(&quot;{}&quot;, $value).as_str()).0 ),+</span>
 <span class="comment">//             )</span>
 <span class="comment">//         }</span>

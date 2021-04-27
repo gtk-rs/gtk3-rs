@@ -382,7 +382,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::atk_relation_set_add_relation_by_type</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">relationship</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">relationship</span>.<span class="ident">into_glib</span>(),
                 <span class="ident">target</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             );
         }
@@ -392,7 +392,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">from_glib</span>(<span class="ident">ffi::atk_relation_set_contains</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">relationship</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">relationship</span>.<span class="ident">into_glib</span>(),
             ))
         }
     }
@@ -401,7 +401,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">from_glib</span>(<span class="ident">ffi::atk_relation_set_contains_target</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">relationship</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">relationship</span>.<span class="ident">into_glib</span>(),
                 <span class="ident">target</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
         }
@@ -424,7 +424,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">from_glib_none</span>(<span class="ident">ffi::atk_relation_set_get_relation_by_type</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">relationship</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">relationship</span>.<span class="ident">into_glib</span>(),
             ))
         }
     }

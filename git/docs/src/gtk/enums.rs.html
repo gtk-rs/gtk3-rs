@@ -46,7 +46,7 @@
 
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::IconSize</span>;
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::ResponseType</span>;
-<span class="kw">use</span> <span class="ident">glib::translate</span>::{<span class="ident">from_glib</span>, <span class="ident">ToGlib</span>};
+<span class="kw">use</span> <span class="ident">glib::translate</span>::{<span class="ident">from_glib</span>, <span class="ident">IntoGlib</span>};
 
 <span class="kw">impl</span> <span class="ident">IconSize</span> {
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">unscaled</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">IconSize</span> {
@@ -58,7 +58,7 @@
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">IconSize</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">i32</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">val</span>: <span class="ident">IconSize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
         <span class="macro">skip_assert_initialized!</span>();
-        <span class="ident">val</span>.<span class="ident">to_glib</span>() <span class="kw">as</span> <span class="ident">i32</span>
+        <span class="ident">val</span>.<span class="ident">into_glib</span>() <span class="kw">as</span> <span class="ident">i32</span>
     }
 }
 
@@ -72,7 +72,7 @@
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">ResponseType</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">i32</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">val</span>: <span class="ident">ResponseType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
         <span class="macro">skip_assert_initialized!</span>();
-        <span class="ident">val</span>.<span class="ident">to_glib</span>() <span class="kw">as</span> <span class="ident">i32</span>
+        <span class="ident">val</span>.<span class="ident">into_glib</span>() <span class="kw">as</span> <span class="ident">i32</span>
     }
 }
 

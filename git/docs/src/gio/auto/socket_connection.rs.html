@@ -407,8 +407,8 @@
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::types::Type</span> {
         <span class="kw">unsafe</span> {
             <span class="ident">from_glib</span>(<span class="ident">ffi::g_socket_connection_factory_lookup_type</span>(
-                <span class="ident">family</span>.<span class="ident">to_glib</span>(),
-                <span class="ident">type_</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">family</span>.<span class="ident">into_glib</span>(),
+                <span class="ident">type_</span>.<span class="ident">into_glib</span>(),
                 <span class="ident">protocol_id</span>,
             ))
         }
@@ -435,9 +435,9 @@
     ) {
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::g_socket_connection_factory_register_type</span>(
-                <span class="ident">g_type</span>.<span class="ident">to_glib</span>(),
-                <span class="ident">family</span>.<span class="ident">to_glib</span>(),
-                <span class="ident">type_</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">g_type</span>.<span class="ident">into_glib</span>(),
+                <span class="ident">family</span>.<span class="ident">into_glib</span>(),
+                <span class="ident">type_</span>.<span class="ident">into_glib</span>(),
                 <span class="ident">protocol</span>,
             );
         }

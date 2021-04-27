@@ -66,6 +66,9 @@
 <span id="63">63</span>
 <span id="64">64</span>
 <span id="65">65</span>
+<span id="66">66</span>
+<span id="67">67</span>
+<span id="68">68</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -84,14 +87,14 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_unix_output_stream_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">take_fd</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">IntoRawFd</span><span class="op">&gt;</span>(<span class="ident">fd</span>: <span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">UnixOutputStream</span> {
         <span class="kw">let</span> <span class="ident">fd</span> <span class="op">=</span> <span class="ident">fd</span>.<span class="ident">into_raw_fd</span>();
-        <span class="kw">let</span> <span class="ident">close_fd</span> <span class="op">=</span> <span class="bool-val">true</span>.<span class="ident">to_glib</span>();
+        <span class="kw">let</span> <span class="ident">close_fd</span> <span class="op">=</span> <span class="bool-val">true</span>.<span class="ident">into_glib</span>();
         <span class="ident">OutputStream::from_glib_full</span>(<span class="ident">ffi::g_unix_output_stream_new</span>(<span class="ident">fd</span>, <span class="ident">close_fd</span>)).<span class="ident">unsafe_cast</span>()
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_unix_output_stream_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">with_fd</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">AsRawFd</span><span class="op">&gt;</span>(<span class="ident">fd</span>: <span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">UnixOutputStream</span> {
         <span class="kw">let</span> <span class="ident">fd</span> <span class="op">=</span> <span class="ident">fd</span>.<span class="ident">as_raw_fd</span>();
-        <span class="kw">let</span> <span class="ident">close_fd</span> <span class="op">=</span> <span class="bool-val">false</span>.<span class="ident">to_glib</span>();
+        <span class="kw">let</span> <span class="ident">close_fd</span> <span class="op">=</span> <span class="bool-val">false</span>.<span class="ident">into_glib</span>();
         <span class="ident">OutputStream::from_glib_full</span>(<span class="ident">ffi::g_unix_output_stream_new</span>(<span class="ident">fd</span>, <span class="ident">close_fd</span>)).<span class="ident">unsafe_cast</span>()
     }
 }
@@ -129,7 +132,10 @@
     }
 
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_close_fd</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">close_fd</span>: <span class="ident">bool</span>) {
-        <span class="ident">ffi::g_unix_output_stream_set_close_fd</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">close_fd</span>.<span class="ident">to_glib</span>());
+        <span class="ident">ffi::g_unix_output_stream_set_close_fd</span>(
+            <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
+            <span class="ident">close_fd</span>.<span class="ident">into_glib</span>(),
+        );
     }
 }
 </pre></div>

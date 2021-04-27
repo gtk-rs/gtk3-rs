@@ -486,7 +486,7 @@
             <span class="ident">ffi::graphene_euler_init_from_matrix</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
                 <span class="ident">m</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">order</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">order</span>.<span class="ident">into_glib</span>(),
             );
         }
     }
@@ -509,7 +509,7 @@
             <span class="ident">ffi::graphene_euler_init_from_quaternion</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
                 <span class="ident">q</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">order</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">order</span>.<span class="ident">into_glib</span>(),
             );
         }
     }
@@ -544,7 +544,7 @@
                 <span class="ident">x</span>,
                 <span class="ident">y</span>,
                 <span class="ident">z</span>,
-                <span class="ident">order</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">order</span>.<span class="ident">into_glib</span>(),
             ))
         }
     }
@@ -569,7 +569,7 @@
             <span class="ident">ffi::graphene_euler_init_from_vec3</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
                 <span class="ident">v</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">order</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">order</span>.<span class="ident">into_glib</span>(),
             );
         }
     }
@@ -595,7 +595,7 @@
                 <span class="ident">x</span>,
                 <span class="ident">y</span>,
                 <span class="ident">z</span>,
-                <span class="ident">order</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">order</span>.<span class="ident">into_glib</span>(),
             );
         }
     }
@@ -616,7 +616,7 @@
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Euler::uninitialized</span>();
             <span class="ident">ffi::graphene_euler_reorder</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">order</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">order</span>.<span class="ident">into_glib</span>(),
                 <span class="ident">res</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
             );
             <span class="ident">res</span>

@@ -1398,9 +1398,9 @@
             <span class="ident">FromGlibPtrContainer::from_glib_full</span>(<span class="ident">ffi::atk_text_get_bounded_ranges</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">rect</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
-                <span class="ident">coord_type</span>.<span class="ident">to_glib</span>(),
-                <span class="ident">x_clip_type</span>.<span class="ident">to_glib</span>(),
-                <span class="ident">y_clip_type</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">coord_type</span>.<span class="ident">into_glib</span>(),
+                <span class="ident">x_clip_type</span>.<span class="ident">into_glib</span>(),
+                <span class="ident">y_clip_type</span>.<span class="ident">into_glib</span>(),
             ))
         }
     }
@@ -1436,7 +1436,7 @@
                 <span class="ident">y</span>.<span class="ident">as_mut_ptr</span>(),
                 <span class="ident">width</span>.<span class="ident">as_mut_ptr</span>(),
                 <span class="ident">height</span>.<span class="ident">as_mut_ptr</span>(),
-                <span class="ident">coords</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">coords</span>.<span class="ident">into_glib</span>(),
             );
             <span class="kw">let</span> <span class="ident">x</span> <span class="op">=</span> <span class="ident">x</span>.<span class="ident">assume_init</span>();
             <span class="kw">let</span> <span class="ident">y</span> <span class="op">=</span> <span class="ident">y</span>.<span class="ident">assume_init</span>();
@@ -1460,7 +1460,7 @@
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">x</span>,
                 <span class="ident">y</span>,
-                <span class="ident">coords</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">coords</span>.<span class="ident">into_glib</span>(),
             )
         }
     }
@@ -1477,7 +1477,7 @@
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">start_offset</span>,
                 <span class="ident">end_offset</span>,
-                <span class="ident">coord_type</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">coord_type</span>.<span class="ident">into_glib</span>(),
                 <span class="ident">rect</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
             );
             <span class="ident">rect</span>
@@ -1515,7 +1515,7 @@
             <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">from_glib_full</span>(<span class="ident">ffi::atk_text_get_string_at_offset</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">offset</span>,
-                <span class="ident">granularity</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">granularity</span>.<span class="ident">into_glib</span>(),
                 <span class="ident">start_offset</span>.<span class="ident">as_mut_ptr</span>(),
                 <span class="ident">end_offset</span>.<span class="ident">as_mut_ptr</span>(),
             ));
@@ -1546,7 +1546,7 @@
             <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">from_glib_full</span>(<span class="ident">ffi::atk_text_get_text_at_offset</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">offset</span>,
-                <span class="ident">boundary_type</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">boundary_type</span>.<span class="ident">into_glib</span>(),
                 <span class="ident">start_offset</span>.<span class="ident">as_mut_ptr</span>(),
                 <span class="ident">end_offset</span>.<span class="ident">as_mut_ptr</span>(),
             ));
@@ -1573,7 +1573,7 @@
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">start_offset</span>,
                 <span class="ident">end_offset</span>,
-                <span class="ident">type_</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">type_</span>.<span class="ident">into_glib</span>(),
             ))
         }
     }
@@ -1593,7 +1593,7 @@
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">start_offset</span>,
                 <span class="ident">end_offset</span>,
-                <span class="ident">coords</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">coords</span>.<span class="ident">into_glib</span>(),
                 <span class="ident">x</span>,
                 <span class="ident">y</span>,
             ))

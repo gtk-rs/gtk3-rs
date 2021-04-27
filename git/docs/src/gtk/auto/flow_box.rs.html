@@ -2849,7 +2849,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::gtk_flow_box_set_activate_on_single_click</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">single</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">single</span>.<span class="ident">into_glib</span>(),
             );
         }
     }
@@ -2875,7 +2875,7 @@
             } <span class="kw">else</span> {
                 <span class="macro">panic!</span>(<span class="string">&quot;cannot get closure...&quot;</span>)
             };
-            <span class="ident">res</span>.<span class="ident">to_glib</span>()
+            <span class="ident">res</span>.<span class="ident">into_glib</span>()
         }
         <span class="kw">let</span> <span class="ident">filter_func</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">filter_func_data</span>.<span class="ident">is_some</span>() {
             <span class="prelude-val">Some</span>(<span class="ident">filter_func_func</span> <span class="kw">as</span> <span class="kw">_</span>)
@@ -2912,7 +2912,7 @@
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::gtk_flow_box_set_homogeneous</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">homogeneous</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">homogeneous</span>.<span class="ident">into_glib</span>(),
             );
         }
     }
@@ -2937,7 +2937,7 @@
 
     <span class="kw">fn</span> <span class="ident">set_selection_mode</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">mode</span>: <span class="ident">SelectionMode</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">ffi::gtk_flow_box_set_selection_mode</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">mode</span>.<span class="ident">to_glib</span>());
+            <span class="ident">ffi::gtk_flow_box_set_selection_mode</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">mode</span>.<span class="ident">into_glib</span>());
         }
     }
 
@@ -3095,7 +3095,7 @@
                 <span class="ident">from_glib</span>(<span class="ident">step</span>),
                 <span class="ident">count</span>,
             )
-            .<span class="ident">to_glib</span>()
+            .<span class="ident">into_glib</span>()
         }
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">f</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_::new</span>(<span class="ident">f</span>);

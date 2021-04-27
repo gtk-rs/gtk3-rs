@@ -724,9 +724,9 @@
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::g_permission_impl_update</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">allowed</span>.<span class="ident">to_glib</span>(),
-                <span class="ident">can_acquire</span>.<span class="ident">to_glib</span>(),
-                <span class="ident">can_release</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">allowed</span>.<span class="ident">into_glib</span>(),
+                <span class="ident">can_acquire</span>.<span class="ident">into_glib</span>(),
+                <span class="ident">can_release</span>.<span class="ident">into_glib</span>(),
             );
         }
     }
