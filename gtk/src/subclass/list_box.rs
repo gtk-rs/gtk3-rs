@@ -76,7 +76,7 @@ impl<T: ListBoxImpl> ListBoxImplExt for T {
             if let Some(f) = (*parent_class).move_cursor {
                 f(
                     list_box.unsafe_cast_ref::<ListBox>().to_glib_none().0,
-                    step.to_glib(),
+                    step.into_glib(),
                     count,
                 );
             }

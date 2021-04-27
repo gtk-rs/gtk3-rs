@@ -18,11 +18,11 @@ use super::SignalId;
 #[derive(Debug, PartialEq, Eq)]
 pub struct InitializingType<T>(pub(crate) Type, pub(crate) marker::PhantomData<*const T>);
 
-impl<T> ToGlib for InitializingType<T> {
+impl<T> IntoGlib for InitializingType<T> {
     type GlibType = ffi::GType;
 
-    fn to_glib(self) -> ffi::GType {
-        self.0.to_glib()
+    fn into_glib(self) -> ffi::GType {
+        self.0.into_glib()
     }
 }
 
@@ -192,7 +192,7 @@ where
 {
     fn iface_infos() -> Vec<(ffi::GType, gobject_ffi::GInterfaceInfo)> {
         vec![(
-            A::static_type().to_glib(),
+            A::static_type().into_glib(),
             gobject_ffi::GInterfaceInfo {
                 interface_init: Some(interface_init::<T, A>),
                 interface_finalize: None,
@@ -235,7 +235,7 @@ macro_rules! interface_list_trait_impl(
                 vec![
                     $(
                         (
-                            $name::static_type().to_glib(),
+                            $name::static_type().into_glib(),
                             gobject_ffi::GInterfaceInfo {
                                 interface_init: Some(interface_init::<T, $name>),
                                 interface_finalize: None,
@@ -744,7 +744,7 @@ pub fn register_type<T: ObjectSubclass>() -> Type {
         }
 
         let type_ = from_glib(gobject_ffi::g_type_register_static_simple(
-            <T::ParentType as StaticType>::static_type().to_glib(),
+            <T::ParentType as StaticType>::static_type().into_glib(),
             type_name.as_ptr(),
             mem::size_of::<T::Class>() as u32,
             Some(class_init::<T>),
@@ -761,7 +761,7 @@ pub fn register_type<T: ObjectSubclass>() -> Type {
         (*data.as_mut()).type_ = type_;
 
         let private_offset = gobject_ffi::g_type_add_instance_private(
-            type_.to_glib(),
+            type_.into_glib(),
             mem::size_of::<PrivateStruct<T>>(),
         );
         (*data.as_mut()).private_offset = private_offset as isize;
@@ -780,7 +780,7 @@ pub fn register_type<T: ObjectSubclass>() -> Type {
 
         let iface_types = T::Interfaces::iface_infos();
         for (iface_type, iface_info) in iface_types {
-            gobject_ffi::g_type_add_interface_static(type_.to_glib(), iface_type, &iface_info);
+            gobject_ffi::g_type_add_interface_static(type_.into_glib(), iface_type, &iface_info);
         }
 
         T::type_init(&mut InitializingType::<T>(type_, marker::PhantomData));
@@ -803,7 +803,7 @@ pub(crate) unsafe fn signal_override_class_handler<F>(
 
     if let Some((signal_id, _)) = SignalId::parse_name(name, from_glib(type_), false) {
         gobject_ffi::g_signal_override_class_closure(
-            signal_id.to_glib(),
+            signal_id.into_glib(),
             type_,
             class_handler.to_glib_none().0,
         );

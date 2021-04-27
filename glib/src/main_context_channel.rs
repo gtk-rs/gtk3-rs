@@ -1,6 +1,6 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use crate::translate::{mut_override, FromGlibPtrFull, ToGlib};
+use crate::translate::{mut_override, FromGlibPtrFull, IntoGlib};
 use crate::Continue;
 use crate::MainContext;
 use crate::Priority;
@@ -440,7 +440,7 @@ impl<T> Receiver<T> {
                 let source = &mut *source;
                 let mut inner = (channel.0).0.lock().unwrap();
 
-                ffi::g_source_set_priority(mut_override(&source.source), self.1.to_glib());
+                ffi::g_source_set_priority(mut_override(&source.source), self.1.into_glib());
 
                 // We're immediately ready if the queue is not empty or if no sender is left at this point
                 ffi::g_source_set_ready_time(

@@ -59,7 +59,7 @@ impl<T: CellRendererAccelImpl> CellRendererAccelImplExt for T {
                         .0,
                     path.to_glib_none().0,
                     accel_key,
-                    accel_mods.to_glib(),
+                    accel_mods.into_glib(),
                     hardware_keycode,
                 )
             }

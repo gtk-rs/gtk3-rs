@@ -24,7 +24,7 @@ impl DragContext {
 
     #[doc(alias = "gdk_drop_reply")]
     pub fn drop_reply(&self, accepted: bool, time_: u32) {
-        unsafe { ffi::gdk_drop_reply(self.to_glib_none().0, accepted.to_glib(), time_) }
+        unsafe { ffi::gdk_drop_reply(self.to_glib_none().0, accepted.into_glib(), time_) }
     }
 
     #[doc(alias = "gdk_drag_drop")]
@@ -72,11 +72,11 @@ impl DragContext {
             from_glib(ffi::gdk_drag_motion(
                 self.to_glib_none().0,
                 dest_window.to_glib_none().0,
-                protocol.to_glib(),
+                protocol.into_glib(),
                 x_root,
                 y_root,
-                suggested_action.to_glib(),
-                possible_actions.to_glib(),
+                suggested_action.into_glib(),
+                possible_actions.into_glib(),
                 time_,
             ))
         }
@@ -84,12 +84,12 @@ impl DragContext {
 
     #[doc(alias = "gdk_drop_finish")]
     pub fn drop_finish(&self, success: bool, time_: u32) {
-        unsafe { ffi::gdk_drop_finish(self.to_glib_none().0, success.to_glib(), time_) }
+        unsafe { ffi::gdk_drop_finish(self.to_glib_none().0, success.into_glib(), time_) }
     }
 
     #[doc(alias = "gdk_drag_status")]
     pub fn drag_status(&self, action: DragAction, time_: u32) {
-        unsafe { ffi::gdk_drag_status(self.to_glib_none().0, action.to_glib(), time_) }
+        unsafe { ffi::gdk_drag_status(self.to_glib_none().0, action.into_glib(), time_) }
     }
 
     #[doc(alias = "gdk_drag_drop_succeeded")]
@@ -152,7 +152,7 @@ impl DragContext {
     pub fn drag_drop_done(&self, success: bool) {
         skip_assert_initialized!();
         unsafe {
-            ffi::gdk_drag_drop_done(self.to_glib_none().0, success.to_glib());
+            ffi::gdk_drag_drop_done(self.to_glib_none().0, success.into_glib());
         }
     }
 }

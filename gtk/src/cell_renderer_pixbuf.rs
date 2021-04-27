@@ -32,7 +32,7 @@ impl<O: IsA<CellRendererPixbuf> + IsA<glib::object::Object>> CellRendererPixbufE
 
     fn set_property_stock_size(&self, stock_size: IconSize) {
         unsafe {
-            let value = Value::from(&(stock_size.to_glib() as u32));
+            let value = Value::from(&(stock_size.into_glib() as u32));
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut _,
                 "stock-size".to_glib_none().0,

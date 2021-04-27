@@ -13,7 +13,10 @@ impl TreeStore {
     pub fn new(column_types: &[Type]) -> TreeStore {
         assert_initialized_main_thread!();
         unsafe {
-            let mut column_types = column_types.iter().map(|t| t.to_glib()).collect::<Vec<_>>();
+            let mut column_types = column_types
+                .iter()
+                .map(|t| t.into_glib())
+                .collect::<Vec<_>>();
             from_glib_full(ffi::gtk_tree_store_newv(
                 column_types.len() as c_int,
                 column_types.as_mut_ptr(),

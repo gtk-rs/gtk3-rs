@@ -4,7 +4,7 @@
 
 use glib::prelude::*;
 use glib::subclass::prelude::*;
-use glib::translate::{FromGlib, ToGlib};
+use glib::translate::{FromGlib, IntoGlib};
 use glib::{gflags, GBoxed, GEnum, GErrorDomain, GSharedBoxed};
 
 #[test]
@@ -102,9 +102,9 @@ fn derive_genum() {
         Badger,
     }
 
-    assert_eq!(Animal::Goat.to_glib(), 0);
-    assert_eq!(Animal::Dog.to_glib(), 1);
-    assert_eq!(Animal::Cat.to_glib(), 5);
+    assert_eq!(Animal::Goat.into_glib(), 0);
+    assert_eq!(Animal::Dog.into_glib(), 1);
+    assert_eq!(Animal::Cat.into_glib(), 5);
 
     assert_eq!(unsafe { Animal::from_glib(0) }, Animal::Goat);
     assert_eq!(unsafe { Animal::from_glib(1) }, Animal::Dog);
@@ -193,10 +193,10 @@ fn attr_gflags() {
     assert_eq!(MyFlags::B.bits(), 2);
     assert_eq!(MyFlags::AB.bits(), 3);
 
-    assert_eq!(MyFlags::empty().to_glib(), 0);
-    assert_eq!(MyFlags::A.to_glib(), 1);
-    assert_eq!(MyFlags::B.to_glib(), 2);
-    assert_eq!(MyFlags::AB.to_glib(), 3);
+    assert_eq!(MyFlags::empty().into_glib(), 0);
+    assert_eq!(MyFlags::A.into_glib(), 1);
+    assert_eq!(MyFlags::B.into_glib(), 2);
+    assert_eq!(MyFlags::AB.into_glib(), 3);
 
     assert_eq!(unsafe { MyFlags::from_glib(0) }, MyFlags::empty());
     assert_eq!(unsafe { MyFlags::from_glib(1) }, MyFlags::A);

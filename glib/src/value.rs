@@ -129,7 +129,7 @@ unsafe impl<T: StaticType> ValueTypeChecker for GenericValueTypeChecker<T> {
 
     fn check(value: &Value) -> Result<(), Self::Error> {
         unsafe {
-            if gobject_ffi::g_type_check_value_holds(&value.0, T::static_type().to_glib())
+            if gobject_ffi::g_type_check_value_holds(&value.0, T::static_type().into_glib())
                 == ffi::GFALSE
             {
                 Err(ValueTypeMismatchError::new(
@@ -316,11 +316,11 @@ impl Value {
     pub fn from_type(type_: Type) -> Self {
         unsafe {
             assert_eq!(
-                gobject_ffi::g_type_check_is_value_type(type_.to_glib()),
+                gobject_ffi::g_type_check_is_value_type(type_.into_glib()),
                 ffi::GTRUE
             );
             let mut value = Value::uninitialized();
-            gobject_ffi::g_value_init(value.to_glib_none_mut().0, type_.to_glib());
+            gobject_ffi::g_value_init(value.to_glib_none_mut().0, type_.into_glib());
             value
         }
     }
@@ -359,8 +359,8 @@ impl Value {
     pub fn type_transformable(src: Type, dst: Type) -> bool {
         unsafe {
             from_glib(gobject_ffi::g_value_type_transformable(
-                src.to_glib(),
-                dst.to_glib(),
+                src.into_glib(),
+                dst.into_glib(),
             ))
         }
     }
@@ -517,7 +517,7 @@ impl<'a> ToGlibContainerFromSlice<'a, *mut gobject_ffi::GValue> for &'a Value {
             let res = ffi::g_malloc0(mem::size_of::<gobject_ffi::GValue>() * t.len())
                 as *mut gobject_ffi::GValue;
             for (i, v) in t.iter().enumerate() {
-                gobject_ffi::g_value_init(res.add(i), v.type_().to_glib());
+                gobject_ffi::g_value_init(res.add(i), v.type_().into_glib());
                 gobject_ffi::g_value_copy(v.to_glib_none().0, res.add(i));
             }
             res
@@ -914,7 +914,7 @@ impl ToValue for bool {
     fn to_value(&self) -> Value {
         let mut value = Value::for_value_type::<bool>();
         unsafe {
-            gobject_ffi::g_value_set_boolean(&mut value.0, self.to_glib());
+            gobject_ffi::g_value_set_boolean(&mut value.0, self.into_glib());
         }
         value
     }

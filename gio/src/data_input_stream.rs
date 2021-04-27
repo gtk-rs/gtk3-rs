@@ -162,7 +162,7 @@ impl<O: IsA<DataInputStream>> DataInputStreamExtManual for O {
         unsafe {
             ffi::g_data_input_stream_read_line_async(
                 self.as_ref().to_glib_none().0,
-                io_priority.to_glib(),
+                io_priority.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
                 Box_::into_raw(user_data) as *mut _,
@@ -240,7 +240,7 @@ impl<O: IsA<DataInputStream>> DataInputStreamExtManual for O {
         unsafe {
             ffi::g_data_input_stream_read_line_async(
                 self.as_ref().to_glib_none().0,
-                io_priority.to_glib(),
+                io_priority.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
                 Box_::into_raw(user_data) as *mut _,
@@ -349,7 +349,7 @@ impl<O: IsA<DataInputStream>> DataInputStreamExtManual for O {
             ffi::g_data_input_stream_read_until_async(
                 self.as_ref().to_glib_none().0,
                 stop_chars.to_glib_none().0 as *const _,
-                io_priority.to_glib(),
+                io_priority.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
                 Box_::into_raw(user_data) as *mut _,
@@ -447,7 +447,7 @@ impl<O: IsA<DataInputStream>> DataInputStreamExtManual for O {
                 self.as_ref().to_glib_none().0,
                 stop_chars.to_glib_none().0 as *const _,
                 stop_chars_len,
-                io_priority.to_glib(),
+                io_priority.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
                 Box_::into_raw(user_data) as *mut _,

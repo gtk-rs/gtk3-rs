@@ -20,7 +20,7 @@ impl PrerequisiteList for () {
 
 impl<T: crate::ObjectType> PrerequisiteList for (T,) {
     fn types() -> Vec<ffi::GType> {
-        vec![T::static_type().to_glib()]
+        vec![T::static_type().into_glib()]
     }
 }
 
@@ -47,7 +47,7 @@ macro_rules! prerequisite_list_trait_impl(
     ($($name:ident),+) => (
         impl<$($name: crate::ObjectType),+> PrerequisiteList for ( $($name),+ ) {
             fn types() -> Vec<ffi::GType> {
-                vec![$($name::static_type().to_glib()),+]
+                vec![$($name::static_type().into_glib()),+]
             }
         }
     );
@@ -130,7 +130,7 @@ pub trait ObjectInterfaceExt: ObjectInterface {
         unsafe {
             let klass = (*(obj.as_ptr() as *const gobject_ffi::GTypeInstance)).g_class;
             let interface =
-                gobject_ffi::g_type_interface_peek(klass as *mut _, Self::type_().to_glib());
+                gobject_ffi::g_type_interface_peek(klass as *mut _, Self::type_().into_glib());
             assert!(!interface.is_null());
             &*(interface as *const Self)
         }
@@ -181,7 +181,7 @@ pub fn register_interface<T: ObjectInterface>() -> Type {
         );
 
         let type_ = gobject_ffi::g_type_register_static_simple(
-            Type::INTERFACE.to_glib(),
+            Type::INTERFACE.into_glib(),
             type_name.as_ptr(),
             mem::size_of::<T>() as u32,
             Some(interface_init::<T>),

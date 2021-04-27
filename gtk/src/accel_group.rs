@@ -61,8 +61,8 @@ impl<O: IsA<AccelGroup>> AccelGroupExtManual for O {
             ffi::gtk_accel_group_connect(
                 self.as_ref().to_glib_none().0,
                 accel_key,
-                accel_mods.to_glib(),
-                accel_flags.to_glib(),
+                accel_mods.into_glib(),
+                accel_flags.into_glib(),
                 closure.to_glib_none().0,
             );
         }

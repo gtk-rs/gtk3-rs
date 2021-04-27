@@ -98,7 +98,7 @@ impl<T: SeekableImpl> SeekableImplExt for T {
             func(
                 seekable.unsafe_cast_ref::<Seekable>().to_glib_none().0,
                 offset,
-                type_.to_glib(),
+                type_.into_glib(),
                 cancellable.to_glib_none().0,
                 &mut err,
             );
@@ -185,7 +185,7 @@ unsafe extern "C" fn seekable_can_seek<T: SeekableImpl>(
     let imp = instance.impl_();
 
     imp.can_seek(from_glib_borrow::<_, Seekable>(seekable).unsafe_cast_ref())
-        .to_glib()
+        .into_glib()
 }
 
 unsafe extern "C" fn seekable_seek<T: SeekableImpl>(
@@ -221,7 +221,7 @@ unsafe extern "C" fn seekable_can_truncate<T: SeekableImpl>(
     let imp = instance.impl_();
 
     imp.can_truncate(from_glib_borrow::<_, Seekable>(seekable).unsafe_cast_ref())
-        .to_glib()
+        .into_glib()
 }
 
 unsafe extern "C" fn seekable_truncate<T: SeekableImpl>(

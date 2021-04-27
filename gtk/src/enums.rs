@@ -2,7 +2,7 @@
 
 use crate::IconSize;
 use crate::ResponseType;
-use glib::translate::{from_glib, ToGlib};
+use glib::translate::{from_glib, IntoGlib};
 
 impl IconSize {
     pub fn unscaled() -> IconSize {
@@ -14,7 +14,7 @@ impl IconSize {
 impl From<IconSize> for i32 {
     fn from(val: IconSize) -> i32 {
         skip_assert_initialized!();
-        val.to_glib() as i32
+        val.into_glib() as i32
     }
 }
 
@@ -28,7 +28,7 @@ impl From<i32> for IconSize {
 impl From<ResponseType> for i32 {
     fn from(val: ResponseType) -> i32 {
         skip_assert_initialized!();
-        val.to_glib() as i32
+        val.into_glib() as i32
     }
 }
 

@@ -121,10 +121,10 @@ pub fn impl_gflags(input: &DeriveInput, gtype_name: &LitStr) -> TokenStream {
     quote! {
         #bitflags
 
-        impl #crate_ident::translate::ToGlib for #name {
+        impl #crate_ident::translate::IntoGlib for #name {
             type GlibType = u32;
 
-            fn to_glib(self) -> u32 {
+            fn into_glib(self) -> u32 {
                 self.bits()
             }
         }
@@ -155,7 +155,7 @@ pub fn impl_gflags(input: &DeriveInput, gtype_name: &LitStr) -> TokenStream {
                 unsafe {
                     #crate_ident::gobject_ffi::g_value_set_flags(
                         #crate_ident::translate::ToGlibPtrMut::to_glib_none_mut(&mut value).0,
-                        #crate_ident::translate::ToGlib::to_glib(self)
+                        #crate_ident::translate::IntoGlib::into_glib(*self)
                     )
                 }
                 value

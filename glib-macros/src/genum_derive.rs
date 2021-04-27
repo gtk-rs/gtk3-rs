@@ -87,10 +87,10 @@ pub fn impl_genum(input: &syn::DeriveInput) -> TokenStream {
     let (genum_values, nb_genum_values) = gen_genum_values(name, enum_variants);
 
     quote! {
-        impl #crate_ident::translate::ToGlib for #name {
+        impl #crate_ident::translate::IntoGlib for #name {
             type GlibType = i32;
 
-            fn to_glib(self) -> i32 {
+            fn into_glib(self) -> i32 {
                 self as i32
             }
         }
@@ -135,7 +135,7 @@ pub fn impl_genum(input: &syn::DeriveInput) -> TokenStream {
                 unsafe {
                     #crate_ident::gobject_ffi::g_value_set_enum(
                         #crate_ident::translate::ToGlibPtrMut::to_glib_none_mut(&mut value).0,
-                        #crate_ident::translate::ToGlib::to_glib(self)
+                        #crate_ident::translate::IntoGlib::into_glib(*self)
                     )
                 }
                 value

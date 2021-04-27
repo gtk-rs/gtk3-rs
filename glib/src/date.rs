@@ -28,7 +28,7 @@ unsafe impl Sync for Date {}
 impl Date {
     #[doc(alias = "g_date_valid_dmy")]
     pub fn new_dmy(day: DateDay, month: DateMonth, year: DateYear) -> Result<Date, BoolError> {
-        let month = month.to_glib();
+        let month = month.into_glib();
         unsafe {
             let check: bool = from_glib(ffi::g_date_valid_dmy(day, month, year));
             if !check {
@@ -195,7 +195,7 @@ impl Date {
             Err(bool_error!("invalid date"))
         } else {
             unsafe {
-                ffi::g_date_set_dmy(self.to_glib_none_mut().0, day, month.to_glib(), y);
+                ffi::g_date_set_dmy(self.to_glib_none_mut().0, day, month.into_glib(), y);
             }
             Ok(())
         }
@@ -219,7 +219,7 @@ impl Date {
             Err(bool_error!("invalid month"))
         } else {
             unsafe {
-                ffi::g_date_set_month(self.to_glib_none_mut().0, month.to_glib());
+                ffi::g_date_set_month(self.to_glib_none_mut().0, month.into_glib());
             }
             Ok(())
         }
@@ -316,7 +316,7 @@ impl Date {
 
     #[doc(alias = "g_date_get_days_in_month")]
     pub fn days_in_month(month: DateMonth, year: DateYear) -> u8 {
-        unsafe { ffi::g_date_get_days_in_month(month.to_glib(), year) }
+        unsafe { ffi::g_date_get_days_in_month(month.into_glib(), year) }
     }
 
     #[doc(alias = "g_date_get_monday_weeks_in_year")]
@@ -354,7 +354,7 @@ impl Date {
 
     #[doc(alias = "g_date_valid_dmy")]
     pub fn valid_dmy(day: DateDay, month: DateMonth, year: DateYear) -> bool {
-        unsafe { from_glib(ffi::g_date_valid_dmy(day, month.to_glib(), year)) }
+        unsafe { from_glib(ffi::g_date_valid_dmy(day, month.into_glib(), year)) }
     }
 
     #[doc(alias = "g_date_valid_julian")]
@@ -364,12 +364,12 @@ impl Date {
 
     #[doc(alias = "g_date_valid_month")]
     pub fn valid_month(month: DateMonth) -> bool {
-        unsafe { from_glib(ffi::g_date_valid_month(month.to_glib())) }
+        unsafe { from_glib(ffi::g_date_valid_month(month.into_glib())) }
     }
 
     #[doc(alias = "g_date_valid_weekday")]
     pub fn valid_weekday(weekday: DateWeekday) -> bool {
-        unsafe { from_glib(ffi::g_date_valid_weekday(weekday.to_glib())) }
+        unsafe { from_glib(ffi::g_date_valid_weekday(weekday.into_glib())) }
     }
 
     #[doc(alias = "g_date_valid_year")]

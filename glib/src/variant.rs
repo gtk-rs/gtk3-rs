@@ -287,7 +287,7 @@ impl Variant {
             from_glib_none(ffi::g_variant_new_from_bytes(
                 T::static_variant_type().as_ptr() as *const _,
                 bytes.to_glib_none().0,
-                false.to_glib(),
+                false.into_glib(),
             ))
         }
     }
@@ -308,7 +308,7 @@ impl Variant {
         from_glib_none(ffi::g_variant_new_from_bytes(
             T::static_variant_type().as_ptr() as *const _,
             bytes.to_glib_none().0,
-            true.to_glib(),
+            true.into_glib(),
         ))
     }
 
@@ -352,8 +352,12 @@ impl fmt::Debug for Variant {
 
 impl fmt::Display for Variant {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        let serialized: GString =
-            unsafe { from_glib_full(ffi::g_variant_print(self.to_glib_none().0, false.to_glib())) };
+        let serialized: GString = unsafe {
+            from_glib_full(ffi::g_variant_print(
+                self.to_glib_none().0,
+                false.into_glib(),
+            ))
+        };
         f.write_str(&serialized)
     }
 }
@@ -483,7 +487,7 @@ impl StaticVariantType for bool {
 
 impl ToVariant for bool {
     fn to_variant(&self) -> Variant {
-        unsafe { from_glib_none(ffi::g_variant_new_boolean(self.to_glib())) }
+        unsafe { from_glib_none(ffi::g_variant_new_boolean(self.into_glib())) }
     }
 }
 

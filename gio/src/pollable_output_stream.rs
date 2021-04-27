@@ -75,7 +75,7 @@ impl<O: IsA<PollableOutputStream>> PollableOutputStreamExtManual for O {
             let func: &RefCell<F> = &*(func as *const RefCell<F>);
             let mut func = func.borrow_mut();
             (&mut *func)(&PollableOutputStream::from_glib_borrow(stream).unsafe_cast_ref())
-                .to_glib()
+                .into_glib()
         }
         unsafe extern "C" fn destroy_closure<O, F>(ptr: glib::ffi::gpointer) {
             Box::<RefCell<F>>::from_raw(ptr as *mut _);
@@ -98,7 +98,7 @@ impl<O: IsA<PollableOutputStream>> PollableOutputStreamExtManual for O {
                 Box::into_raw(Box::new(RefCell::new(func))) as glib::ffi::gpointer,
                 Some(destroy_closure::<Self, F>),
             );
-            glib::ffi::g_source_set_priority(source, priority.to_glib());
+            glib::ffi::g_source_set_priority(source, priority.into_glib());
 
             if let Some(name) = name {
                 glib::ffi::g_source_set_name(source, name.to_glib_none().0);

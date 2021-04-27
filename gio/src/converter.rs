@@ -45,7 +45,7 @@ impl<O: IsA<Converter>> ConverterExtManual for O {
                 inbuf_size,
                 outbuf,
                 outbuf_size,
-                flags.to_glib(),
+                flags.into_glib(),
                 bytes_read.as_mut_ptr(),
                 bytes_written.as_mut_ptr(),
                 &mut error,

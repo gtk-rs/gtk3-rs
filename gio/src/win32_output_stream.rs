@@ -43,7 +43,7 @@ impl Win32OutputStream {
     #[allow(clippy::missing_safety_doc)]
     pub unsafe fn take_handle<T: IntoRawHandle>(handle: T) -> Win32OutputStream {
         let handle = handle.into_raw_handle();
-        let close_handle = true.to_glib();
+        let close_handle = true.into_glib();
         OutputStream::from_glib_full(ffi::g_win32_output_stream_new(handle, close_handle))
             .unsafe_cast()
     }
@@ -52,7 +52,7 @@ impl Win32OutputStream {
     #[allow(clippy::missing_safety_doc)]
     pub unsafe fn with_handle<T: AsRawHandle>(handle: T) -> Win32OutputStream {
         let handle = handle.as_raw_handle();
-        let close_handle = false.to_glib();
+        let close_handle = false.into_glib();
         OutputStream::from_glib_full(ffi::g_win32_output_stream_new(handle, close_handle))
             .unsafe_cast()
     }
@@ -85,7 +85,7 @@ impl<O: IsA<Win32OutputStream>> Win32OutputStreamExtManual for O {
     unsafe fn set_close_handle(&self, close_handle: bool) {
         ffi::g_win32_output_stream_set_close_handle(
             self.as_ref().to_glib_none().0,
-            close_handle.to_glib(),
+            close_handle.into_glib(),
         );
     }
 }

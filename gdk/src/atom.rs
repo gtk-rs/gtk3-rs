@@ -33,7 +33,7 @@ impl Atom {
         unsafe {
             Atom(ffi::gdk_atom_intern(
                 atom_name.to_glib_none().0,
-                false.to_glib(),
+                false.into_glib(),
             ))
         }
     }

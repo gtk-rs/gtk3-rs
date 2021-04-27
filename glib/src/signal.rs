@@ -3,7 +3,7 @@
 //! `IMPL` Low level signal support.
 
 use crate::object::ObjectType;
-use crate::translate::{from_glib, FromGlib, ToGlib, ToGlibPtr};
+use crate::translate::{from_glib, FromGlib, IntoGlib, ToGlibPtr};
 use ffi::{gboolean, gpointer};
 use gobject_ffi::{self, GCallback};
 use libc::{c_char, c_ulong, c_void};
@@ -66,12 +66,12 @@ impl FromGlib<c_ulong> for SignalHandlerId {
 pub struct Inhibit(pub bool);
 
 #[doc(hidden)]
-impl ToGlib for Inhibit {
+impl IntoGlib for Inhibit {
     type GlibType = gboolean;
 
     #[inline]
-    fn to_glib(self) -> gboolean {
-        self.0.to_glib()
+    fn into_glib(self) -> gboolean {
+        self.0.into_glib()
     }
 }
 
@@ -150,9 +150,9 @@ pub fn signal_has_handler_pending<T: ObjectType>(
     unsafe {
         from_glib(gobject_ffi::g_signal_has_handler_pending(
             instance.as_object_ref().to_glib_none().0,
-            signal_id.to_glib(),
-            detail.map_or(0, |d| d.to_glib()),
-            may_be_blocked.to_glib(),
+            signal_id.into_glib(),
+            detail.map_or(0, |d| d.into_glib()),
+            may_be_blocked.into_glib(),
         ))
     }
 }

@@ -134,7 +134,7 @@ impl<T: ContainerImpl> ContainerImplExt for T {
             if let Some(f) = (*parent_class).forall {
                 f(
                     container.unsafe_cast_ref::<Container>().to_glib_none().0,
-                    include_internals.to_glib(),
+                    include_internals.into_glib(),
                     callback.callback,
                     callback.user_data,
                 )
@@ -213,7 +213,7 @@ unsafe extern "C" fn container_child_type<T: ContainerImpl>(
     let imp = instance.impl_();
     let wrap: Borrowed<Container> = from_glib_borrow(ptr);
 
-    imp.child_type(wrap.unsafe_cast_ref()).to_glib()
+    imp.child_type(wrap.unsafe_cast_ref()).into_glib()
 }
 
 unsafe extern "C" fn container_get_path_for_child<T: ContainerImpl>(

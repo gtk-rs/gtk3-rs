@@ -101,7 +101,7 @@ impl MainContext {
         let func = Box::into_raw(Box::new(Some(func)));
         ffi::g_main_context_invoke_full(
             self.to_glib_none().0,
-            priority.to_glib(),
+            priority.into_glib(),
             Some(trampoline::<F>),
             func as gpointer,
             Some(destroy_closure::<F>),

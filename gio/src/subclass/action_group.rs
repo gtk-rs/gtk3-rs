@@ -181,7 +181,7 @@ impl<T: ActionGroupImpl> ActionGroupImplExt for T {
                         .to_glib_none()
                         .0,
                     action_name.to_glib_none().0,
-                    enabled.to_glib(),
+                    enabled.into_glib(),
                 );
             }
         }
@@ -519,7 +519,7 @@ unsafe extern "C" fn action_group_has_action<T: ActionGroupImpl>(
         from_glib_borrow::<_, ActionGroup>(action_group).unsafe_cast_ref(),
         &action_name,
     )
-    .to_glib()
+    .into_glib()
 }
 
 unsafe extern "C" fn action_group_get_action_enabled<T: ActionGroupImpl>(
@@ -534,7 +534,7 @@ unsafe extern "C" fn action_group_get_action_enabled<T: ActionGroupImpl>(
         from_glib_borrow::<_, ActionGroup>(action_group).unsafe_cast_ref(),
         &action_name,
     )
-    .to_glib()
+    .into_glib()
 }
 
 static ACTION_GROUP_GET_ACTION_PARAMETER_QUARK: Lazy<Quark> =
@@ -770,7 +770,7 @@ unsafe extern "C" fn action_group_query_action<T: ActionGroupImpl>(
     let ret = imp.query_action(wrap.unsafe_cast_ref(), &action_name);
     if let Some((rs_enabled, rs_parameter_type, rs_state_type, rs_state_hint, rs_state)) = ret {
         if !enabled.is_null() {
-            *enabled = rs_enabled.to_glib();
+            *enabled = rs_enabled.into_glib();
         }
         if !parameter_type.is_null() {
             if let Some(rs_parameter_type) = rs_parameter_type {
@@ -812,5 +812,5 @@ unsafe extern "C" fn action_group_query_action<T: ActionGroupImpl>(
     } else {
         false
     }
-    .to_glib()
+    .into_glib()
 }

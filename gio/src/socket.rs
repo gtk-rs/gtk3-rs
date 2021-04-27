@@ -207,7 +207,7 @@ impl<O: IsA<Socket>> SocketExtManual for O {
                 self.as_ref().to_glib_none().0,
                 buffer_ptr,
                 count,
-                blocking.to_glib(),
+                blocking.into_glib(),
                 gcancellable.0,
                 &mut error,
             );
@@ -296,7 +296,7 @@ impl<O: IsA<Socket>> SocketExtManual for O {
                 self.as_ref().to_glib_none().0,
                 mut_override(buffer_ptr),
                 count,
-                blocking.to_glib(),
+                blocking.into_glib(),
                 gcancellable.0,
                 &mut error,
             );
@@ -348,7 +348,7 @@ impl<O: IsA<Socket>> SocketExtManual for O {
                 &Socket::from_glib_borrow(socket).unsafe_cast_ref(),
                 from_glib(condition),
             )
-            .to_glib()
+            .into_glib()
         }
         unsafe extern "C" fn destroy_closure<O, F>(ptr: glib::ffi::gpointer) {
             Box::<RefCell<F>>::from_raw(ptr as *mut _);
@@ -358,7 +358,7 @@ impl<O: IsA<Socket>> SocketExtManual for O {
         unsafe {
             let source = ffi::g_socket_create_source(
                 self.as_ref().to_glib_none().0,
-                condition.to_glib(),
+                condition.into_glib(),
                 gcancellable.0,
             );
             let trampoline = trampoline::<O, F> as glib::ffi::gpointer;
@@ -371,7 +371,7 @@ impl<O: IsA<Socket>> SocketExtManual for O {
                 Box::into_raw(Box::new(RefCell::new(func))) as glib::ffi::gpointer,
                 Some(destroy_closure::<O, F>),
             );
-            glib::ffi::g_source_set_priority(source, priority.to_glib());
+            glib::ffi::g_source_set_priority(source, priority.into_glib());
 
             if let Some(name) = name {
                 glib::ffi::g_source_set_name(source, name.to_glib_none().0);

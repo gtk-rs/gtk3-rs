@@ -1,6 +1,6 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use crate::translate::{from_glib, from_glib_full, FromGlib, ToGlib, ToGlibPtr};
+use crate::translate::{from_glib, from_glib_full, FromGlib, IntoGlib, ToGlibPtr};
 #[cfg(any(unix, feature = "dox"))]
 use crate::IOCondition;
 use ffi::{self, gboolean, gpointer};
@@ -44,11 +44,11 @@ unsafe impl Send for Pid {}
 unsafe impl Sync for Pid {}
 
 #[doc(hidden)]
-impl ToGlib for Pid {
+impl IntoGlib for Pid {
     type GlibType = ffi::GPid;
 
     #[inline]
-    fn to_glib(self) -> ffi::GPid {
+    fn into_glib(self) -> ffi::GPid {
         self.0
     }
 }
@@ -72,18 +72,18 @@ impl FromGlib<ffi::GPid> for Pid {
 pub struct Continue(pub bool);
 
 #[doc(hidden)]
-impl ToGlib for Continue {
+impl IntoGlib for Continue {
     type GlibType = gboolean;
 
     #[inline]
-    fn to_glib(self) -> gboolean {
-        self.0.to_glib()
+    fn into_glib(self) -> gboolean {
+        self.0.into_glib()
     }
 }
 
 unsafe extern "C" fn trampoline<F: FnMut() -> Continue + 'static>(func: gpointer) -> gboolean {
     let func: &RefCell<F> = &*(func as *const RefCell<F>);
-    (&mut *func.borrow_mut())().to_glib()
+    (&mut *func.borrow_mut())().into_glib()
 }
 
 unsafe extern "C" fn destroy_closure<F: FnMut() -> Continue + 'static>(ptr: gpointer) {
@@ -121,7 +121,7 @@ unsafe extern "C" fn trampoline_unix_fd<F: FnMut(RawFd, IOCondition) -> Continue
     func: gpointer,
 ) -> gboolean {
     let func: &RefCell<F> = &*(func as *const RefCell<F>);
-    (&mut *func.borrow_mut())(fd, from_glib(condition)).to_glib()
+    (&mut *func.borrow_mut())(fd, from_glib(condition)).into_glib()
 }
 
 #[cfg(any(unix, feature = "dox"))]
@@ -646,7 +646,7 @@ where
         from_glib(ffi::g_unix_fd_add_full(
             ffi::G_PRIORITY_DEFAULT,
             fd,
-            condition.to_glib(),
+            condition.into_glib(),
             Some(trampoline_unix_fd::<F>),
             into_raw_unix_fd(func),
             Some(destroy_closure_unix_fd::<F>),
@@ -680,7 +680,7 @@ where
         from_glib(ffi::g_unix_fd_add_full(
             ffi::G_PRIORITY_DEFAULT,
             fd,
-            condition.to_glib(),
+            condition.into_glib(),
             Some(trampoline_unix_fd::<F>),
             into_raw_unix_fd(func),
             Some(destroy_closure_unix_fd::<F>),
@@ -708,11 +708,11 @@ pub fn source_remove(source_id: SourceId) {
 pub struct Priority(i32);
 
 #[doc(hidden)]
-impl ToGlib for Priority {
+impl IntoGlib for Priority {
     type GlibType = i32;
 
     #[inline]
-    fn to_glib(self) -> i32 {
+    fn into_glib(self) -> i32 {
         self.0
     }
 }
@@ -753,7 +753,7 @@ where
             into_raw(func),
             Some(destroy_closure::<F>),
         );
-        ffi::g_source_set_priority(source, priority.to_glib());
+        ffi::g_source_set_priority(source, priority.into_glib());
 
         if let Some(name) = name {
             ffi::g_source_set_name(source, name.to_glib_none().0);
@@ -788,7 +788,7 @@ where
             into_raw(func),
             Some(destroy_closure::<F>),
         );
-        ffi::g_source_set_priority(source, priority.to_glib());
+        ffi::g_source_set_priority(source, priority.into_glib());
 
         if let Some(name) = name {
             ffi::g_source_set_name(source, name.to_glib_none().0);
@@ -822,7 +822,7 @@ where
             into_raw(func),
             Some(destroy_closure::<F>),
         );
-        ffi::g_source_set_priority(source, priority.to_glib());
+        ffi::g_source_set_priority(source, priority.into_glib());
 
         if let Some(name) = name {
             ffi::g_source_set_name(source, name.to_glib_none().0);
@@ -857,7 +857,7 @@ where
             into_raw_child_watch(func),
             Some(destroy_closure_child_watch::<F>),
         );
-        ffi::g_source_set_priority(source, priority.to_glib());
+        ffi::g_source_set_priority(source, priority.into_glib());
 
         if let Some(name) = name {
             ffi::g_source_set_name(source, name.to_glib_none().0);
@@ -892,7 +892,7 @@ where
             into_raw(func),
             Some(destroy_closure::<F>),
         );
-        ffi::g_source_set_priority(source, priority.to_glib());
+        ffi::g_source_set_priority(source, priority.into_glib());
 
         if let Some(name) = name {
             ffi::g_source_set_name(source, name.to_glib_none().0);
@@ -921,7 +921,7 @@ where
     F: FnMut(RawFd, IOCondition) -> Continue + Send + 'static,
 {
     unsafe {
-        let source = ffi::g_unix_fd_source_new(fd, condition.to_glib());
+        let source = ffi::g_unix_fd_source_new(fd, condition.into_glib());
         ffi::g_source_set_callback(
             source,
             Some(transmute::<
@@ -931,7 +931,7 @@ where
             into_raw_unix_fd(func),
             Some(destroy_closure_unix_fd::<F>),
         );
-        ffi::g_source_set_priority(source, priority.to_glib());
+        ffi::g_source_set_priority(source, priority.into_glib());
 
         if let Some(name) = name {
             ffi::g_source_set_name(source, name.to_glib_none().0);

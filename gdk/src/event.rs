@@ -36,7 +36,7 @@ impl Event {
     #[doc(alias = "gdk_event_new")]
     pub fn new(type_: EventType) -> Event {
         assert_initialized_main_thread!();
-        unsafe { from_glib_none(ffi::gdk_event_new(type_.to_glib())) }
+        unsafe { from_glib_none(ffi::gdk_event_new(type_.into_glib())) }
     }
 
     #[doc(alias = "gdk_event_get")]
@@ -98,7 +98,7 @@ impl Event {
         if unsafe {
             from_glib(ffi::gdk_event_get_axis(
                 self.to_glib_none().0,
-                axis_use.to_glib(),
+                axis_use.into_glib(),
                 &mut value,
             ))
         } {

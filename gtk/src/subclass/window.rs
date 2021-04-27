@@ -92,7 +92,7 @@ impl<T: WindowImpl> WindowImplExt for T {
             if let Some(f) = (*parent_class).enable_debugging {
                 from_glib(f(
                     window.unsafe_cast_ref::<Window>().to_glib_none().0,
-                    toggle.to_glib(),
+                    toggle.into_glib(),
                 ))
             } else {
                 false
@@ -164,5 +164,5 @@ unsafe extern "C" fn window_enable_debugging<T: WindowImpl>(
     let toggle: bool = from_glib(toggleptr);
 
     imp.enable_debugging(wrap.unsafe_cast_ref(), toggle)
-        .to_glib()
+        .into_glib()
 }

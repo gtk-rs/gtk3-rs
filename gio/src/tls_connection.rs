@@ -31,7 +31,7 @@ impl<O: IsA<TlsConnection>> TlsConnectionExtManual for O {
             let mut error = ptr::null_mut();
             let _ = ffi::g_tls_connection_get_channel_binding_data(
                 self.as_ptr() as *mut _,
-                type_.to_glib(),
+                type_.into_glib(),
                 data,
                 &mut error,
             );

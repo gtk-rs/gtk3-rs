@@ -22,7 +22,7 @@ impl Attribute {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
     #[doc(alias = "pango_attr_allow_breaks_new")]
     pub fn new_allow_breaks(allow_breaks: bool) -> Attribute {
-        unsafe { from_glib_full(ffi::pango_attr_allow_breaks_new(allow_breaks.to_glib())) }
+        unsafe { from_glib_full(ffi::pango_attr_allow_breaks_new(allow_breaks.into_glib())) }
     }
 
     #[cfg(any(feature = "v1_38", feature = "dox"))]
@@ -39,7 +39,7 @@ impl Attribute {
 
     #[doc(alias = "pango_attr_fallback_new")]
     pub fn new_fallback(enable_fallback: bool) -> Attribute {
-        unsafe { from_glib_full(ffi::pango_attr_fallback_new(enable_fallback.to_glib())) }
+        unsafe { from_glib_full(ffi::pango_attr_fallback_new(enable_fallback.into_glib())) }
     }
 
     #[doc(alias = "pango_attr_family_new")]
@@ -68,19 +68,23 @@ impl Attribute {
 
     #[doc(alias = "pango_attr_gravity_hint_new")]
     pub fn new_gravity_hint(hint: GravityHint) -> Attribute {
-        unsafe { from_glib_full(ffi::pango_attr_gravity_hint_new(hint.to_glib())) }
+        unsafe { from_glib_full(ffi::pango_attr_gravity_hint_new(hint.into_glib())) }
     }
 
     #[doc(alias = "pango_attr_gravity_new")]
     pub fn new_gravity(gravity: Gravity) -> Attribute {
-        unsafe { from_glib_full(ffi::pango_attr_gravity_new(gravity.to_glib())) }
+        unsafe { from_glib_full(ffi::pango_attr_gravity_new(gravity.into_glib())) }
     }
 
     #[cfg(any(feature = "v1_44", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
     #[doc(alias = "pango_attr_insert_hyphens_new")]
     pub fn new_insert_hyphens(insert_hyphens: bool) -> Attribute {
-        unsafe { from_glib_full(ffi::pango_attr_insert_hyphens_new(insert_hyphens.to_glib())) }
+        unsafe {
+            from_glib_full(ffi::pango_attr_insert_hyphens_new(
+                insert_hyphens.into_glib(),
+            ))
+        }
     }
 
     #[doc(alias = "pango_attr_letter_spacing_new")]
@@ -99,7 +103,7 @@ impl Attribute {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_46")))]
     #[doc(alias = "pango_attr_overline_new")]
     pub fn new_overline(overline: Overline) -> Attribute {
-        unsafe { from_glib_full(ffi::pango_attr_overline_new(overline.to_glib())) }
+        unsafe { from_glib_full(ffi::pango_attr_overline_new(overline.into_glib())) }
     }
 
     #[doc(alias = "pango_attr_rise_new")]
@@ -116,7 +120,7 @@ impl Attribute {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
     #[doc(alias = "pango_attr_show_new")]
     pub fn new_show(flags: ShowFlags) -> Attribute {
-        unsafe { from_glib_full(ffi::pango_attr_show_new(flags.to_glib())) }
+        unsafe { from_glib_full(ffi::pango_attr_show_new(flags.into_glib())) }
     }
 
     #[doc(alias = "pango_attr_size_new")]
@@ -131,7 +135,7 @@ impl Attribute {
 
     #[doc(alias = "pango_attr_stretch_new")]
     pub fn new_stretch(stretch: Stretch) -> Attribute {
-        unsafe { from_glib_full(ffi::pango_attr_stretch_new(stretch.to_glib())) }
+        unsafe { from_glib_full(ffi::pango_attr_stretch_new(stretch.into_glib())) }
     }
 
     #[doc(alias = "pango_attr_strikethrough_color_new")]
@@ -141,12 +145,12 @@ impl Attribute {
 
     #[doc(alias = "pango_attr_strikethrough_new")]
     pub fn new_strikethrough(strikethrough: bool) -> Attribute {
-        unsafe { from_glib_full(ffi::pango_attr_strikethrough_new(strikethrough.to_glib())) }
+        unsafe { from_glib_full(ffi::pango_attr_strikethrough_new(strikethrough.into_glib())) }
     }
 
     #[doc(alias = "pango_attr_style_new")]
     pub fn new_style(style: Style) -> Attribute {
-        unsafe { from_glib_full(ffi::pango_attr_style_new(style.to_glib())) }
+        unsafe { from_glib_full(ffi::pango_attr_style_new(style.into_glib())) }
     }
 
     #[doc(alias = "pango_attr_underline_color_new")]
@@ -156,17 +160,17 @@ impl Attribute {
 
     #[doc(alias = "pango_attr_underline_new")]
     pub fn new_underline(underline: Underline) -> Attribute {
-        unsafe { from_glib_full(ffi::pango_attr_underline_new(underline.to_glib())) }
+        unsafe { from_glib_full(ffi::pango_attr_underline_new(underline.into_glib())) }
     }
 
     #[doc(alias = "pango_attr_variant_new")]
     pub fn new_variant(variant: Variant) -> Attribute {
-        unsafe { from_glib_full(ffi::pango_attr_variant_new(variant.to_glib())) }
+        unsafe { from_glib_full(ffi::pango_attr_variant_new(variant.into_glib())) }
     }
 
     #[doc(alias = "pango_attr_weight_new")]
     pub fn new_weight(weight: Weight) -> Attribute {
-        unsafe { from_glib_full(ffi::pango_attr_weight_new(weight.to_glib())) }
+        unsafe { from_glib_full(ffi::pango_attr_weight_new(weight.into_glib())) }
     }
 
     pub fn attr_class(&self) -> AttrClass {

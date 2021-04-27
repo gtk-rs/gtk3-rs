@@ -54,7 +54,7 @@ impl Coverage {
     #[doc(alias = "pango_coverage_set")]
     pub fn set(&self, index_: i32, level: CoverageLevel) {
         unsafe {
-            ffi::pango_coverage_set(self.to_glib_none().0, index_, level.to_glib());
+            ffi::pango_coverage_set(self.to_glib_none().0, index_, level.into_glib());
         }
     }
 

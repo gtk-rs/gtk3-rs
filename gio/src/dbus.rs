@@ -52,7 +52,7 @@ where
         let id = ffi::g_bus_own_name_on_connection_with_closures(
             connection.to_glib_none().0,
             name.to_glib_none().0,
-            flags.to_glib(),
+            flags.into_glib(),
             own_closure(name_acquired).to_glib_none().0,
             own_closure(name_lost).to_glib_none().0,
         );
@@ -75,9 +75,9 @@ where
 {
     unsafe {
         let id = ffi::g_bus_own_name_with_closures(
-            bus_type.to_glib(),
+            bus_type.into_glib(),
             name.to_glib_none().0,
-            flags.to_glib(),
+            flags.into_glib(),
             own_closure(bus_acquired).to_glib_none().0,
             own_closure(name_acquired).to_glib_none().0,
             glib::Closure::new(move |args| {
@@ -114,7 +114,7 @@ where
         let id = ffi::g_bus_watch_name_on_connection_with_closures(
             connection.to_glib_none().0,
             name.to_glib_none().0,
-            flags.to_glib(),
+            flags.into_glib(),
             watch_closure(name_appeared).to_glib_none().0,
             watch_closure(name_vanished).to_glib_none().0,
         );
@@ -135,9 +135,9 @@ where
 {
     unsafe {
         let id = ffi::g_bus_watch_name_with_closures(
-            bus_type.to_glib(),
+            bus_type.into_glib(),
             name.to_glib_none().0,
-            flags.to_glib(),
+            flags.into_glib(),
             watch_closure(name_appeared).to_glib_none().0,
             watch_closure(name_vanished).to_glib_none().0,
         );
