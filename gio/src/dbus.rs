@@ -24,7 +24,7 @@ where
     })
 }
 
-fn watch_closure<F>(f: F) -> glib::Closure
+fn appeared_closure<F>(f: F) -> glib::Closure
 where
     F: Fn(DBusConnection, &str, &str) + Send + Sync + 'static,
 {
@@ -33,6 +33,18 @@ where
         let name = args[1].get::<&str>().unwrap();
         let name_owner = args[2].get::<&str>().unwrap();
         f(conn, name, name_owner);
+        None
+    })
+}
+
+fn vanished_closure<F>(f: F) -> glib::Closure
+where
+    F: Fn(DBusConnection, &str) + Send + Sync + 'static,
+{
+    glib::Closure::new(move |args| {
+        let conn = args[0].get::<DBusConnection>().unwrap();
+        let name = args[1].get::<&str>().unwrap();
+        f(conn, name);
         None
     })
 }
@@ -108,15 +120,15 @@ pub fn bus_watch_name_on_connection<NameAppeared, NameVanished>(
 ) -> WatcherId
 where
     NameAppeared: Fn(DBusConnection, &str, &str) + Send + Sync + 'static,
-    NameVanished: Fn(DBusConnection, &str, &str) + Send + Sync + 'static,
+    NameVanished: Fn(DBusConnection, &str) + Send + Sync + 'static,
 {
     unsafe {
         let id = ffi::g_bus_watch_name_on_connection_with_closures(
             connection.to_glib_none().0,
             name.to_glib_none().0,
             flags.to_glib(),
-            watch_closure(name_appeared).to_glib_none().0,
-            watch_closure(name_vanished).to_glib_none().0,
+            appeared_closure(name_appeared).to_glib_none().0,
+            vanished_closure(name_vanished).to_glib_none().0,
         );
         WatcherId(NonZeroU32::new_unchecked(id))
     }
@@ -131,15 +143,15 @@ pub fn bus_watch_name<NameAppeared, NameVanished>(
 ) -> WatcherId
 where
     NameAppeared: Fn(DBusConnection, &str, &str) + Send + Sync + 'static,
-    NameVanished: Fn(DBusConnection, &str, &str) + Send + Sync + 'static,
+    NameVanished: Fn(DBusConnection, &str) + Send + Sync + 'static,
 {
     unsafe {
         let id = ffi::g_bus_watch_name_with_closures(
             bus_type.to_glib(),
             name.to_glib_none().0,
             flags.to_glib(),
-            watch_closure(name_appeared).to_glib_none().0,
-            watch_closure(name_vanished).to_glib_none().0,
+            appeared_closure(name_appeared).to_glib_none().0,
+            vanished_closure(name_vanished).to_glib_none().0,
         );
         WatcherId(NonZeroU32::new_unchecked(id))
     }
