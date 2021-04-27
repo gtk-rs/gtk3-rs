@@ -1,7 +1,7 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
 use crate::translate::FromGlib;
-use crate::translate::ToGlib;
+use crate::translate::IntoGlib;
 use libc::{c_char, c_uchar};
 
 /// Wrapper for values where C functions expect a plain C `char`
@@ -29,7 +29,7 @@ use libc::{c_char, c_uchar};
 /// done in the `new` function; see its documentation for details.
 ///
 /// The inner `libc::c_char` (which is equivalent to `i8` can be extracted with `.0`, or
-/// by calling `my_char.to_glib()`.
+/// by calling `my_char.into_glib()`.
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
 pub struct Char(pub c_char);
 
@@ -42,7 +42,7 @@ impl Char {
     ///
     /// let a = Char::new('a').unwrap();
     /// assert!(a.0 == 65);
-    /// have_a_byte(a.to_glib());
+    /// have_a_byte(a.into_glib());
     ///
     /// let not_representable = Char::new('☔');
     /// assert!(not_representable.is_none());
@@ -70,10 +70,10 @@ impl FromGlib<c_char> for Char {
 }
 
 #[doc(hidden)]
-impl ToGlib for Char {
+impl IntoGlib for Char {
     type GlibType = c_char;
 
-    fn to_glib(&self) -> c_char {
+    fn into_glib(self) -> c_char {
         self.0
     }
 }
@@ -85,7 +85,7 @@ impl ToGlib for Char {
 /// done in the `new` function; see its documentation for details.
 ///
 /// The inner `libc::c_uchar` (which is equivalent to `u8` can be extracted with `.0`, or
-/// by calling `my_char.to_glib()`.
+/// by calling `my_char.into_glib()`.
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
 pub struct UChar(pub c_uchar);
 
@@ -98,7 +98,7 @@ impl UChar {
     ///
     /// let a = Char::new('a').unwrap();
     /// assert!(a.0 == 65);
-    /// have_a_byte(a.to_glib());
+    /// have_a_byte(a.into_glib());
     ///
     /// let not_representable = Char::new('☔');
     /// assert!(not_representable.is_none());
@@ -126,10 +126,10 @@ impl FromGlib<c_uchar> for UChar {
 }
 
 #[doc(hidden)]
-impl ToGlib for UChar {
+impl IntoGlib for UChar {
     type GlibType = c_uchar;
 
-    fn to_glib(&self) -> c_uchar {
+    fn into_glib(self) -> c_uchar {
         self.0
     }
 }
@@ -155,12 +155,12 @@ mod tests {
 
     #[test]
     fn into_i8() {
-        assert_eq!(Char::new('A').unwrap().to_glib(), 65_i8);
+        assert_eq!(Char::new('A').unwrap().into_glib(), 65_i8);
     }
 
     #[test]
     fn into_u8() {
-        assert_eq!(UChar::new('A').unwrap().to_glib(), 65_u8);
+        assert_eq!(UChar::new('A').unwrap().into_glib(), 65_u8);
     }
 
     #[test]

@@ -18,12 +18,12 @@ pub enum SortColumn {
 }
 
 #[doc(hidden)]
-impl ToGlib for SortColumn {
+impl IntoGlib for SortColumn {
     type GlibType = i32;
 
     #[inline]
-    fn to_glib(&self) -> i32 {
-        match *self {
+    fn into_glib(self) -> i32 {
+        match self {
             SortColumn::Default => ffi::GTK_TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID,
             SortColumn::Index(x) => {
                 assert!(x <= i32::max_value() as u32, "column index is too big");
@@ -118,7 +118,7 @@ impl<O: IsA<TreeSortable>> TreeSortableExtManual for O {
                 &from_glib_borrow(iter),
                 &from_glib_borrow(iter2),
             )
-            .to_glib()
+            .into_glib()
         }
         unsafe extern "C" fn destroy_closure<
             F: Fn(&TreeModel, &TreeIter, &TreeIter) -> Ordering,
@@ -142,8 +142,8 @@ impl<O: IsA<TreeSortable>> TreeSortableExtManual for O {
         unsafe {
             ffi::gtk_tree_sortable_set_sort_column_id(
                 self.as_ref().to_glib_none().0,
-                sort_column_id.to_glib(),
-                order.to_glib(),
+                sort_column_id.into_glib(),
+                order.into_glib(),
             );
         }
     }
@@ -153,7 +153,7 @@ impl<O: IsA<TreeSortable>> TreeSortableExtManual for O {
             ffi::gtk_tree_sortable_set_sort_column_id(
                 self.as_ref().to_glib_none().0,
                 ffi::GTK_TREE_SORTABLE_UNSORTED_SORT_COLUMN_ID,
-                SortType::Ascending.to_glib(),
+                SortType::Ascending.into_glib(),
             );
         }
     }
@@ -174,7 +174,7 @@ impl<O: IsA<TreeSortable>> TreeSortableExtManual for O {
                 &from_glib_borrow(iter),
                 &from_glib_borrow(iter2),
             )
-            .to_glib()
+            .into_glib()
         }
         unsafe extern "C" fn destroy_closure<
             F: Fn(&TreeModel, &TreeIter, &TreeIter) -> Ordering,
@@ -186,7 +186,7 @@ impl<O: IsA<TreeSortable>> TreeSortableExtManual for O {
         unsafe {
             ffi::gtk_tree_sortable_set_sort_func(
                 self.as_ref().to_glib_none().0,
-                sort_column_id.to_glib(),
+                sort_column_id.into_glib(),
                 Some(trampoline::<F>),
                 into_raw(sort_func),
                 Some(destroy_closure::<F>),

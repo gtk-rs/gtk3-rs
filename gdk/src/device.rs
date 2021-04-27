@@ -17,7 +17,7 @@ impl Device {
             from_glib(ffi::gdk_device_get_axis(
                 self.to_glib_none().0,
                 axes.as_mut_ptr(),
-                use_.to_glib(),
+                use_.into_glib(),
                 value,
             ))
         }

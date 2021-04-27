@@ -42,7 +42,7 @@ impl ScaleButton {
         assert_initialized_main_thread!();
         unsafe {
             Widget::from_glib_none(ffi::gtk_scale_button_new(
-                size.to_glib(),
+                size.into_glib(),
                 min,
                 max,
                 step,

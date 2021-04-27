@@ -90,7 +90,7 @@ impl GlyphString {
                 length,
                 analysis.to_glib_none_mut().0,
                 index_,
-                trailing.to_glib(),
+                trailing.into_glib(),
                 x_pos.as_mut_ptr(),
             );
             let x_pos = x_pos.assume_init();

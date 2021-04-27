@@ -228,7 +228,7 @@ impl<O: IsA<Drive>> DriveExt for O {
         unsafe {
             ffi::g_drive_eject_with_operation(
                 self.as_ref().to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 mount_operation.map(|p| p.as_ref()).to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
@@ -421,7 +421,7 @@ impl<O: IsA<Drive>> DriveExt for O {
         unsafe {
             ffi::g_drive_start(
                 self.as_ref().to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 mount_operation.map(|p| p.as_ref()).to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
@@ -484,7 +484,7 @@ impl<O: IsA<Drive>> DriveExt for O {
         unsafe {
             ffi::g_drive_stop(
                 self.as_ref().to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 mount_operation.map(|p| p.as_ref()).to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),

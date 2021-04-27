@@ -136,7 +136,7 @@ impl<O: IsA<BufferedOutputStream>> BufferedOutputStreamExt for O {
         unsafe {
             ffi::g_buffered_output_stream_set_auto_grow(
                 self.as_ref().to_glib_none().0,
-                auto_grow.to_glib(),
+                auto_grow.into_glib(),
             );
         }
     }

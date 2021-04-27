@@ -1454,7 +1454,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         unsafe {
             from_glib(ffi::gtk_entry_get_icon_activatable(
                 self.as_ref().to_glib_none().0,
-                icon_pos.to_glib(),
+                icon_pos.into_glib(),
             ))
         }
     }
@@ -1464,7 +1464,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             let mut icon_area = gdk::Rectangle::uninitialized();
             ffi::gtk_entry_get_icon_area(
                 self.as_ref().to_glib_none().0,
-                icon_pos.to_glib(),
+                icon_pos.into_glib(),
                 icon_area.to_glib_none_mut().0,
             );
             icon_area
@@ -1479,7 +1479,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         unsafe {
             from_glib_none(ffi::gtk_entry_get_icon_gicon(
                 self.as_ref().to_glib_none().0,
-                icon_pos.to_glib(),
+                icon_pos.into_glib(),
             ))
         }
     }
@@ -1488,7 +1488,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         unsafe {
             from_glib_none(ffi::gtk_entry_get_icon_name(
                 self.as_ref().to_glib_none().0,
-                icon_pos.to_glib(),
+                icon_pos.into_glib(),
             ))
         }
     }
@@ -1497,7 +1497,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         unsafe {
             from_glib_none(ffi::gtk_entry_get_icon_pixbuf(
                 self.as_ref().to_glib_none().0,
-                icon_pos.to_glib(),
+                icon_pos.into_glib(),
             ))
         }
     }
@@ -1506,7 +1506,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         unsafe {
             from_glib(ffi::gtk_entry_get_icon_sensitive(
                 self.as_ref().to_glib_none().0,
-                icon_pos.to_glib(),
+                icon_pos.into_glib(),
             ))
         }
     }
@@ -1515,7 +1515,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         unsafe {
             from_glib(ffi::gtk_entry_get_icon_storage_type(
                 self.as_ref().to_glib_none().0,
-                icon_pos.to_glib(),
+                icon_pos.into_glib(),
             ))
         }
     }
@@ -1524,7 +1524,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         unsafe {
             from_glib_full(ffi::gtk_entry_get_icon_tooltip_markup(
                 self.as_ref().to_glib_none().0,
-                icon_pos.to_glib(),
+                icon_pos.into_glib(),
             ))
         }
     }
@@ -1533,7 +1533,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         unsafe {
             from_glib_full(ffi::gtk_entry_get_icon_tooltip_text(
                 self.as_ref().to_glib_none().0,
-                icon_pos.to_glib(),
+                icon_pos.into_glib(),
             ))
         }
     }
@@ -1677,7 +1677,10 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     fn set_activates_default(&self, setting: bool) {
         unsafe {
-            ffi::gtk_entry_set_activates_default(self.as_ref().to_glib_none().0, setting.to_glib());
+            ffi::gtk_entry_set_activates_default(
+                self.as_ref().to_glib_none().0,
+                setting.into_glib(),
+            );
         }
     }
 
@@ -1722,7 +1725,7 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     fn set_has_frame(&self, setting: bool) {
         unsafe {
-            ffi::gtk_entry_set_has_frame(self.as_ref().to_glib_none().0, setting.to_glib());
+            ffi::gtk_entry_set_has_frame(self.as_ref().to_glib_none().0, setting.into_glib());
         }
     }
 
@@ -1730,8 +1733,8 @@ impl<O: IsA<Entry>> EntryExt for O {
         unsafe {
             ffi::gtk_entry_set_icon_activatable(
                 self.as_ref().to_glib_none().0,
-                icon_pos.to_glib(),
-                activatable.to_glib(),
+                icon_pos.into_glib(),
+                activatable.into_glib(),
             );
         }
     }
@@ -1745,9 +1748,9 @@ impl<O: IsA<Entry>> EntryExt for O {
         unsafe {
             ffi::gtk_entry_set_icon_drag_source(
                 self.as_ref().to_glib_none().0,
-                icon_pos.to_glib(),
+                icon_pos.into_glib(),
                 target_list.to_glib_none().0,
-                actions.to_glib(),
+                actions.into_glib(),
             );
         }
     }
@@ -1760,7 +1763,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         unsafe {
             ffi::gtk_entry_set_icon_from_gicon(
                 self.as_ref().to_glib_none().0,
-                icon_pos.to_glib(),
+                icon_pos.into_glib(),
                 icon.map(|p| p.as_ref()).to_glib_none().0,
             );
         }
@@ -1770,7 +1773,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         unsafe {
             ffi::gtk_entry_set_icon_from_icon_name(
                 self.as_ref().to_glib_none().0,
-                icon_pos.to_glib(),
+                icon_pos.into_glib(),
                 icon_name.to_glib_none().0,
             );
         }
@@ -1784,7 +1787,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         unsafe {
             ffi::gtk_entry_set_icon_from_pixbuf(
                 self.as_ref().to_glib_none().0,
-                icon_pos.to_glib(),
+                icon_pos.into_glib(),
                 pixbuf.to_glib_none().0,
             );
         }
@@ -1794,8 +1797,8 @@ impl<O: IsA<Entry>> EntryExt for O {
         unsafe {
             ffi::gtk_entry_set_icon_sensitive(
                 self.as_ref().to_glib_none().0,
-                icon_pos.to_glib(),
-                sensitive.to_glib(),
+                icon_pos.into_glib(),
+                sensitive.into_glib(),
             );
         }
     }
@@ -1804,7 +1807,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         unsafe {
             ffi::gtk_entry_set_icon_tooltip_markup(
                 self.as_ref().to_glib_none().0,
-                icon_pos.to_glib(),
+                icon_pos.into_glib(),
                 tooltip.to_glib_none().0,
             );
         }
@@ -1814,7 +1817,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         unsafe {
             ffi::gtk_entry_set_icon_tooltip_text(
                 self.as_ref().to_glib_none().0,
-                icon_pos.to_glib(),
+                icon_pos.into_glib(),
                 tooltip.to_glib_none().0,
             );
         }
@@ -1822,19 +1825,19 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     fn set_input_hints(&self, hints: InputHints) {
         unsafe {
-            ffi::gtk_entry_set_input_hints(self.as_ref().to_glib_none().0, hints.to_glib());
+            ffi::gtk_entry_set_input_hints(self.as_ref().to_glib_none().0, hints.into_glib());
         }
     }
 
     fn set_input_purpose(&self, purpose: InputPurpose) {
         unsafe {
-            ffi::gtk_entry_set_input_purpose(self.as_ref().to_glib_none().0, purpose.to_glib());
+            ffi::gtk_entry_set_input_purpose(self.as_ref().to_glib_none().0, purpose.into_glib());
         }
     }
 
     fn set_invisible_char(&self, ch: Option<char>) {
         unsafe {
-            ffi::gtk_entry_set_invisible_char(self.as_ref().to_glib_none().0, ch.to_glib());
+            ffi::gtk_entry_set_invisible_char(self.as_ref().to_glib_none().0, ch.into_glib());
         }
     }
 
@@ -1852,7 +1855,10 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     fn set_overwrite_mode(&self, overwrite: bool) {
         unsafe {
-            ffi::gtk_entry_set_overwrite_mode(self.as_ref().to_glib_none().0, overwrite.to_glib());
+            ffi::gtk_entry_set_overwrite_mode(
+                self.as_ref().to_glib_none().0,
+                overwrite.into_glib(),
+            );
         }
     }
 
@@ -1894,7 +1900,7 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     fn set_visibility(&self, visible: bool) {
         unsafe {
-            ffi::gtk_entry_set_visibility(self.as_ref().to_glib_none().0, visible.to_glib());
+            ffi::gtk_entry_set_visibility(self.as_ref().to_glib_none().0, visible.into_glib());
         }
     }
 

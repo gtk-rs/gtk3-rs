@@ -473,7 +473,7 @@ impl<O: IsA<SearchBar>> SearchBarExt for O {
         unsafe {
             ffi::gtk_search_bar_set_search_mode(
                 self.as_ref().to_glib_none().0,
-                search_mode.to_glib(),
+                search_mode.into_glib(),
             );
         }
     }
@@ -482,7 +482,7 @@ impl<O: IsA<SearchBar>> SearchBarExt for O {
         unsafe {
             ffi::gtk_search_bar_set_show_close_button(
                 self.as_ref().to_glib_none().0,
-                visible.to_glib(),
+                visible.into_glib(),
             );
         }
     }

@@ -151,10 +151,10 @@ impl SignalId {
         unsafe {
             let found: bool = from_glib(gobject_ffi::g_signal_parse_name(
                 name.to_glib_none().0,
-                type_.to_glib(),
+                type_.into_glib(),
                 signal_id.as_mut_ptr(),
                 detail_quark.as_mut_ptr(),
-                force_detail.to_glib(),
+                force_detail.into_glib(),
             ));
 
             if found {
@@ -172,7 +172,7 @@ impl SignalId {
     #[doc(alias = "g_signal_lookup")]
     pub fn lookup(name: &str, type_: Type) -> Option<Self> {
         unsafe {
-            let signal_id = gobject_ffi::g_signal_lookup(name.to_glib_none().0, type_.to_glib());
+            let signal_id = gobject_ffi::g_signal_lookup(name.to_glib_none().0, type_.into_glib());
             if signal_id == 0 {
                 None
             } else {
@@ -186,7 +186,7 @@ impl SignalId {
     pub fn query(&self) -> SignalQuery {
         unsafe {
             let mut query_ptr = std::mem::MaybeUninit::uninit();
-            gobject_ffi::g_signal_query(self.to_glib(), query_ptr.as_mut_ptr());
+            gobject_ffi::g_signal_query(self.into_glib(), query_ptr.as_mut_ptr());
             let query = query_ptr.assume_init();
             assert_ne!(query.signal_id, 0);
             SignalQuery(query)
@@ -197,7 +197,7 @@ impl SignalId {
     #[doc(alias = "g_signal_name")]
     pub fn name<'a>(&self) -> &'a str {
         unsafe {
-            let ptr = gobject_ffi::g_signal_name(self.to_glib());
+            let ptr = gobject_ffi::g_signal_name(self.into_glib());
             std::ffi::CStr::from_ptr(ptr).to_str().unwrap()
         }
     }
@@ -212,10 +212,10 @@ impl FromGlib<u32> for SignalId {
 }
 
 #[doc(hidden)]
-impl ToGlib for SignalId {
+impl IntoGlib for SignalId {
     type GlibType = u32;
 
-    fn to_glib(&self) -> u32 {
+    fn into_glib(self) -> u32 {
         self.0.into()
     }
 }
@@ -225,7 +225,7 @@ pub struct SignalType(ffi::GType);
 
 impl SignalType {
     pub fn with_static_scope(type_: Type) -> Self {
-        Self(type_.to_glib() | gobject_ffi::G_TYPE_FLAG_RESERVED_ID_BIT)
+        Self(type_.into_glib() | gobject_ffi::G_TYPE_FLAG_RESERVED_ID_BIT)
     }
 
     pub fn static_scope(&self) -> bool {
@@ -239,7 +239,7 @@ impl SignalType {
 
 impl From<Type> for SignalType {
     fn from(type_: Type) -> Self {
-        Self(type_.to_glib())
+        Self(type_.into_glib())
     }
 }
 
@@ -286,10 +286,10 @@ impl FromGlib<ffi::GType> for SignalType {
 }
 
 #[doc(hidden)]
-impl ToGlib for SignalType {
+impl IntoGlib for SignalType {
     type GlibType = ffi::GType;
 
-    fn to_glib(&self) -> ffi::GType {
+    fn into_glib(self) -> ffi::GType {
         self.0
     }
 }
@@ -530,7 +530,7 @@ impl Signal {
         let param_types = self
             .param_types
             .iter()
-            .map(ToGlib::to_glib)
+            .map(|t| t.into_glib())
             .collect::<Vec<_>>();
 
         let class_handler = class_handler.map(|class_handler| {
@@ -556,7 +556,7 @@ impl Signal {
                 &mut *(return_accu as *mut Value),
                 &*(handler_return as *const Value),
             )
-            .to_glib()
+            .into_glib()
         }
 
         let (accumulator, accumulator_trampoline) = if let Some(accumulator) = accumulator {
@@ -571,13 +571,13 @@ impl Signal {
         unsafe {
             let signal_id = gobject_ffi::g_signal_newv(
                 self.name.to_glib_none().0,
-                type_.to_glib(),
-                self.flags.to_glib(),
+                type_.into_glib(),
+                self.flags.into_glib(),
                 class_handler.to_glib_none().0,
                 accumulator_trampoline,
                 accumulator as ffi::gpointer,
                 None,
-                self.return_type.to_glib(),
+                self.return_type.into_glib(),
                 param_types.len() as u32,
                 param_types.as_ptr() as *mut _,
             );

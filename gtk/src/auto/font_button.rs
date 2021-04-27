@@ -703,7 +703,10 @@ impl<O: IsA<FontButton>> FontButtonExt for O {
 
     fn set_show_size(&self, show_size: bool) {
         unsafe {
-            ffi::gtk_font_button_set_show_size(self.as_ref().to_glib_none().0, show_size.to_glib());
+            ffi::gtk_font_button_set_show_size(
+                self.as_ref().to_glib_none().0,
+                show_size.into_glib(),
+            );
         }
     }
 
@@ -711,7 +714,7 @@ impl<O: IsA<FontButton>> FontButtonExt for O {
         unsafe {
             ffi::gtk_font_button_set_show_style(
                 self.as_ref().to_glib_none().0,
-                show_style.to_glib(),
+                show_style.into_glib(),
             );
         }
     }
@@ -724,13 +727,13 @@ impl<O: IsA<FontButton>> FontButtonExt for O {
 
     fn set_use_font(&self, use_font: bool) {
         unsafe {
-            ffi::gtk_font_button_set_use_font(self.as_ref().to_glib_none().0, use_font.to_glib());
+            ffi::gtk_font_button_set_use_font(self.as_ref().to_glib_none().0, use_font.into_glib());
         }
     }
 
     fn set_use_size(&self, use_size: bool) {
         unsafe {
-            ffi::gtk_font_button_set_use_size(self.as_ref().to_glib_none().0, use_size.to_glib());
+            ffi::gtk_font_button_set_use_size(self.as_ref().to_glib_none().0, use_size.into_glib());
         }
     }
 

@@ -46,11 +46,11 @@ impl fmt::Display for ChecksumType {
 }
 
 #[doc(hidden)]
-impl ToGlib for ChecksumType {
+impl IntoGlib for ChecksumType {
     type GlibType = ffi::GChecksumType;
 
-    fn to_glib(&self) -> ffi::GChecksumType {
-        match *self {
+    fn into_glib(self) -> ffi::GChecksumType {
+        match self {
             ChecksumType::Md5 => ffi::G_CHECKSUM_MD5,
             ChecksumType::Sha1 => ffi::G_CHECKSUM_SHA1,
             ChecksumType::Sha256 => ffi::G_CHECKSUM_SHA256,
@@ -137,11 +137,11 @@ impl fmt::Display for DateMonth {
 }
 
 #[doc(hidden)]
-impl ToGlib for DateMonth {
+impl IntoGlib for DateMonth {
     type GlibType = ffi::GDateMonth;
 
-    fn to_glib(&self) -> ffi::GDateMonth {
-        match *self {
+    fn into_glib(self) -> ffi::GDateMonth {
+        match self {
             DateMonth::BadMonth => ffi::G_DATE_BAD_MONTH,
             DateMonth::January => ffi::G_DATE_JANUARY,
             DateMonth::February => ffi::G_DATE_FEBRUARY,
@@ -227,11 +227,11 @@ impl fmt::Display for DateWeekday {
 }
 
 #[doc(hidden)]
-impl ToGlib for DateWeekday {
+impl IntoGlib for DateWeekday {
     type GlibType = ffi::GDateWeekday;
 
-    fn to_glib(&self) -> ffi::GDateWeekday {
-        match *self {
+    fn into_glib(self) -> ffi::GDateWeekday {
+        match self {
             DateWeekday::BadWeekday => ffi::G_DATE_BAD_WEEKDAY,
             DateWeekday::Monday => ffi::G_DATE_MONDAY,
             DateWeekday::Tuesday => ffi::G_DATE_TUESDAY,
@@ -301,11 +301,11 @@ impl fmt::Display for KeyFileError {
 }
 
 #[doc(hidden)]
-impl ToGlib for KeyFileError {
+impl IntoGlib for KeyFileError {
     type GlibType = ffi::GKeyFileError;
 
-    fn to_glib(&self) -> ffi::GKeyFileError {
-        match *self {
+    fn into_glib(self) -> ffi::GKeyFileError {
+        match self {
             KeyFileError::UnknownEncoding => ffi::G_KEY_FILE_ERROR_UNKNOWN_ENCODING,
             KeyFileError::Parse => ffi::G_KEY_FILE_ERROR_PARSE,
             KeyFileError::NotFound => ffi::G_KEY_FILE_ERROR_NOT_FOUND,
@@ -338,7 +338,7 @@ impl ErrorDomain for KeyFileError {
     }
 
     fn code(self) -> i32 {
-        self.to_glib()
+        self.into_glib()
     }
 
     fn from(code: i32) -> Option<Self> {
@@ -402,11 +402,11 @@ impl fmt::Display for OptionArg {
 }
 
 #[doc(hidden)]
-impl ToGlib for OptionArg {
+impl IntoGlib for OptionArg {
     type GlibType = ffi::GOptionArg;
 
-    fn to_glib(&self) -> ffi::GOptionArg {
-        match *self {
+    fn into_glib(self) -> ffi::GOptionArg {
+        match self {
             OptionArg::None => ffi::G_OPTION_ARG_NONE,
             OptionArg::String => ffi::G_OPTION_ARG_STRING,
             OptionArg::Int => ffi::G_OPTION_ARG_INT,
@@ -469,11 +469,11 @@ impl fmt::Display for SeekType {
 }
 
 #[doc(hidden)]
-impl ToGlib for SeekType {
+impl IntoGlib for SeekType {
     type GlibType = ffi::GSeekType;
 
-    fn to_glib(&self) -> ffi::GSeekType {
-        match *self {
+    fn into_glib(self) -> ffi::GSeekType {
+        match self {
             SeekType::Cur => ffi::G_SEEK_CUR,
             SeekType::Set => ffi::G_SEEK_SET,
             SeekType::End => ffi::G_SEEK_END,
@@ -524,11 +524,11 @@ impl fmt::Display for TimeType {
 }
 
 #[doc(hidden)]
-impl ToGlib for TimeType {
+impl IntoGlib for TimeType {
     type GlibType = ffi::GTimeType;
 
-    fn to_glib(&self) -> ffi::GTimeType {
-        match *self {
+    fn into_glib(self) -> ffi::GTimeType {
+        match self {
             TimeType::Standard => ffi::G_TIME_TYPE_STANDARD,
             TimeType::Daylight => ffi::G_TIME_TYPE_DAYLIGHT,
             TimeType::Universal => ffi::G_TIME_TYPE_UNIVERSAL,
@@ -606,11 +606,11 @@ impl fmt::Display for UriError {
 #[cfg(any(feature = "v2_66", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
 #[doc(hidden)]
-impl ToGlib for UriError {
+impl IntoGlib for UriError {
     type GlibType = ffi::GUriError;
 
-    fn to_glib(&self) -> ffi::GUriError {
-        match *self {
+    fn into_glib(self) -> ffi::GUriError {
+        match self {
             UriError::Failed => ffi::G_URI_ERROR_FAILED,
             UriError::BadScheme => ffi::G_URI_ERROR_BAD_SCHEME,
             UriError::BadUser => ffi::G_URI_ERROR_BAD_USER,
@@ -655,7 +655,7 @@ impl ErrorDomain for UriError {
     }
 
     fn code(self) -> i32 {
-        self.to_glib()
+        self.into_glib()
     }
 
     fn from(code: i32) -> Option<Self> {

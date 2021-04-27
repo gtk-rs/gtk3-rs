@@ -22,7 +22,7 @@ impl MainLoop {
         unsafe {
             from_glib_full(ffi::g_main_loop_new(
                 context.to_glib_none().0,
-                is_running.to_glib(),
+                is_running.into_glib(),
             ))
         }
     }

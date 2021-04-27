@@ -136,7 +136,7 @@ impl Visual {
         unsafe {
             from_glib_none(ffi::gdk_visual_get_best_with_both(
                 depth,
-                visual_type.to_glib(),
+                visual_type.into_glib(),
             ))
         }
     }
@@ -152,7 +152,7 @@ impl Visual {
     #[doc(alias = "gdk_visual_get_best_with_type")]
     pub fn best_with_type(visual_type: VisualType) -> Option<Visual> {
         assert_initialized_main_thread!();
-        unsafe { from_glib_none(ffi::gdk_visual_get_best_with_type(visual_type.to_glib())) }
+        unsafe { from_glib_none(ffi::gdk_visual_get_best_with_type(visual_type.into_glib())) }
     }
 
     #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]

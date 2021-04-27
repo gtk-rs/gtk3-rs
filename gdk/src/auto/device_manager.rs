@@ -43,7 +43,7 @@ impl DeviceManager {
         unsafe {
             FromGlibPtrContainer::from_glib_container(ffi::gdk_device_manager_list_devices(
                 self.to_glib_none().0,
-                type_.to_glib(),
+                type_.into_glib(),
             ))
         }
     }

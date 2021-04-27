@@ -42,7 +42,7 @@ impl TimeZone {
 
     #[doc(alias = "g_time_zone_find_interval")]
     pub fn find_interval(&self, type_: TimeType, time_: i64) -> i32 {
-        unsafe { ffi::g_time_zone_find_interval(self.to_glib_none().0, type_.to_glib(), time_) }
+        unsafe { ffi::g_time_zone_find_interval(self.to_glib_none().0, type_.into_glib(), time_) }
     }
 
     #[doc(alias = "g_time_zone_get_abbreviation")]

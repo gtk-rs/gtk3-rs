@@ -330,7 +330,7 @@ impl<O: IsA<DataOutputStream>> DataOutputStreamExt for O {
         unsafe {
             ffi::g_data_output_stream_set_byte_order(
                 self.as_ref().to_glib_none().0,
-                order.to_glib(),
+                order.into_glib(),
             );
         }
     }

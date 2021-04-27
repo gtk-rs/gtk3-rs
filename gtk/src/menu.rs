@@ -56,7 +56,7 @@ impl<O: IsA<Menu>> GtkMenuExtManual for O {
                 x.as_mut().unwrap(),
                 y.as_mut().unwrap(),
             )
-            .to_glib();
+            .into_glib();
         }
         unsafe {
             let f: Box_<Option<F>> = Box_::new(Some(f));

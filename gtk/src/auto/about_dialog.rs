@@ -1112,7 +1112,7 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
         unsafe {
             ffi::gtk_about_dialog_set_license_type(
                 self.as_ref().to_glib_none().0,
-                license_type.to_glib(),
+                license_type.into_glib(),
             );
         }
     }
@@ -1181,7 +1181,7 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
         unsafe {
             ffi::gtk_about_dialog_set_wrap_license(
                 self.as_ref().to_glib_none().0,
-                wrap_license.to_glib(),
+                wrap_license.into_glib(),
             );
         }
     }
@@ -1206,7 +1206,7 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
                 &AboutDialog::from_glib_borrow(this).unsafe_cast_ref(),
                 &glib::GString::from_glib_borrow(uri),
             )
-            .to_glib()
+            .into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

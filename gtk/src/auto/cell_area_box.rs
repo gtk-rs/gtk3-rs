@@ -118,9 +118,9 @@ impl<O: IsA<CellAreaBox>> CellAreaBoxExt for O {
             ffi::gtk_cell_area_box_pack_end(
                 self.as_ref().to_glib_none().0,
                 renderer.as_ref().to_glib_none().0,
-                expand.to_glib(),
-                align.to_glib(),
-                fixed.to_glib(),
+                expand.into_glib(),
+                align.into_glib(),
+                fixed.into_glib(),
             );
         }
     }
@@ -136,9 +136,9 @@ impl<O: IsA<CellAreaBox>> CellAreaBoxExt for O {
             ffi::gtk_cell_area_box_pack_start(
                 self.as_ref().to_glib_none().0,
                 renderer.as_ref().to_glib_none().0,
-                expand.to_glib(),
-                align.to_glib(),
-                fixed.to_glib(),
+                expand.into_glib(),
+                align.into_glib(),
+                fixed.into_glib(),
             );
         }
     }

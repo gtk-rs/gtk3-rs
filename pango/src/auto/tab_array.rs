@@ -23,7 +23,7 @@ impl TabArray {
         unsafe {
             from_glib_full(ffi::pango_tab_array_new(
                 initial_size,
-                positions_in_pixels.to_glib(),
+                positions_in_pixels.into_glib(),
             ))
         }
     }
@@ -82,7 +82,7 @@ impl TabArray {
             ffi::pango_tab_array_set_tab(
                 self.to_glib_none_mut().0,
                 tab_index,
-                alignment.to_glib(),
+                alignment.into_glib(),
                 location,
             );
         }

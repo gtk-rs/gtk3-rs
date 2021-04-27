@@ -667,13 +667,16 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
 
     fn set_enable_proxy(&self, enable: bool) {
         unsafe {
-            ffi::g_socket_client_set_enable_proxy(self.as_ref().to_glib_none().0, enable.to_glib());
+            ffi::g_socket_client_set_enable_proxy(
+                self.as_ref().to_glib_none().0,
+                enable.into_glib(),
+            );
         }
     }
 
     fn set_family(&self, family: SocketFamily) {
         unsafe {
-            ffi::g_socket_client_set_family(self.as_ref().to_glib_none().0, family.to_glib());
+            ffi::g_socket_client_set_family(self.as_ref().to_glib_none().0, family.into_glib());
         }
     }
 
@@ -688,7 +691,7 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
 
     fn set_protocol(&self, protocol: SocketProtocol) {
         unsafe {
-            ffi::g_socket_client_set_protocol(self.as_ref().to_glib_none().0, protocol.to_glib());
+            ffi::g_socket_client_set_protocol(self.as_ref().to_glib_none().0, protocol.into_glib());
         }
     }
 
@@ -703,7 +706,7 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
 
     fn set_socket_type(&self, type_: SocketType) {
         unsafe {
-            ffi::g_socket_client_set_socket_type(self.as_ref().to_glib_none().0, type_.to_glib());
+            ffi::g_socket_client_set_socket_type(self.as_ref().to_glib_none().0, type_.into_glib());
         }
     }
 
@@ -715,7 +718,7 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
 
     fn set_tls(&self, tls: bool) {
         unsafe {
-            ffi::g_socket_client_set_tls(self.as_ref().to_glib_none().0, tls.to_glib());
+            ffi::g_socket_client_set_tls(self.as_ref().to_glib_none().0, tls.into_glib());
         }
     }
 
@@ -723,7 +726,7 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
         unsafe {
             ffi::g_socket_client_set_tls_validation_flags(
                 self.as_ref().to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
             );
         }
     }

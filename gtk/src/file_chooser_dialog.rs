@@ -24,7 +24,7 @@ impl FileChooserDialog {
             Widget::from_glib_none(ffi::gtk_file_chooser_dialog_new(
                 title.to_glib_none().0,
                 parent.map(|p| p.as_ref()).to_glib_none().0,
-                action.to_glib(),
+                action.into_glib(),
                 ptr::null::<c_char>(),
             ))
             .unsafe_cast()
@@ -45,7 +45,7 @@ impl FileChooserDialog {
                     ffi::gtk_file_chooser_dialog_new(
                         title.to_glib_none().0,
                         parent.map(|p| p.as_ref()).to_glib_none().0,
-                        action.to_glib(),
+                        action.into_glib(),
                         ptr::null::<c_char>()
                     )
                 },
@@ -53,9 +53,9 @@ impl FileChooserDialog {
                     ffi::gtk_file_chooser_dialog_new(
                         title.to_glib_none().0,
                         parent.map(|p| p.as_ref()).to_glib_none().0,
-                        action.to_glib(),
+                        action.into_glib(),
                         buttons[0].0.to_glib_none().0,
-                        buttons[0].1.to_glib(),
+                        buttons[0].1.into_glib(),
                         ptr::null::<c_char>(),
                     )
                 },
@@ -63,11 +63,11 @@ impl FileChooserDialog {
                     ffi::gtk_file_chooser_dialog_new(
                         title.to_glib_none().0,
                         parent.map(|p| p.as_ref()).to_glib_none().0,
-                        action.to_glib(),
+                        action.into_glib(),
                         buttons[0].0.to_glib_none().0,
-                        buttons[0].1.to_glib(),
+                        buttons[0].1.into_glib(),
                         (buttons[1].0.to_glib_none() as Stash<*const c_char, str>).0,
-                        buttons[1].1.to_glib(),
+                        buttons[1].1.into_glib(),
                         ptr::null::<c_char>(),
                     )
                 },
@@ -75,13 +75,13 @@ impl FileChooserDialog {
                     ffi::gtk_file_chooser_dialog_new(
                         title.to_glib_none().0,
                         parent.map(|p| p.as_ref()).to_glib_none().0,
-                        action.to_glib(),
+                        action.into_glib(),
                         buttons[0].0.to_glib_none().0,
-                        buttons[0].1.to_glib(),
+                        buttons[0].1.into_glib(),
                         (buttons[1].0.to_glib_none() as Stash<*const c_char, str>).0,
-                        buttons[1].1.to_glib(),
+                        buttons[1].1.into_glib(),
                         (buttons[2].0.to_glib_none() as Stash<*const c_char, str>).0,
-                        buttons[2].1.to_glib(),
+                        buttons[2].1.into_glib(),
                         ptr::null::<c_char>(),
                     )
                 },

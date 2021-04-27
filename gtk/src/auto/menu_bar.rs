@@ -463,7 +463,7 @@ impl<O: IsA<MenuBar>> MenuBarExt for O {
         unsafe {
             ffi::gtk_menu_bar_set_child_pack_direction(
                 self.as_ref().to_glib_none().0,
-                child_pack_dir.to_glib(),
+                child_pack_dir.into_glib(),
             );
         }
     }
@@ -472,7 +472,7 @@ impl<O: IsA<MenuBar>> MenuBarExt for O {
         unsafe {
             ffi::gtk_menu_bar_set_pack_direction(
                 self.as_ref().to_glib_none().0,
-                pack_dir.to_glib(),
+                pack_dir.into_glib(),
             );
         }
     }

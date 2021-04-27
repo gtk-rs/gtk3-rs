@@ -25,7 +25,7 @@ impl TlsPassword {
     pub fn new(flags: TlsPasswordFlags, description: &str) -> TlsPassword {
         unsafe {
             from_glib_full(ffi::g_tls_password_new(
-                flags.to_glib(),
+                flags.into_glib(),
                 description.to_glib_none().0,
             ))
         }
@@ -99,7 +99,7 @@ impl<O: IsA<TlsPassword>> TlsPasswordExt for O {
 
     fn set_flags(&self, flags: TlsPasswordFlags) {
         unsafe {
-            ffi::g_tls_password_set_flags(self.as_ref().to_glib_none().0, flags.to_glib());
+            ffi::g_tls_password_set_flags(self.as_ref().to_glib_none().0, flags.into_glib());
         }
     }
 

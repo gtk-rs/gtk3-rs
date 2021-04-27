@@ -92,10 +92,10 @@ impl<O: IsA<Widget>> WidgetExtManual for O {
         unsafe {
             ffi::gtk_drag_dest_set(
                 self.as_ref().to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 t_ptr,
                 t.len() as i32,
-                actions.to_glib(),
+                actions.into_glib(),
             )
         };
     }
@@ -116,10 +116,10 @@ impl<O: IsA<Widget>> WidgetExtManual for O {
         unsafe {
             ffi::gtk_drag_source_set(
                 self.as_ref().to_glib_none().0,
-                start_button_mask.to_glib(),
+                start_button_mask.into_glib(),
                 t_ptr,
                 t.len() as i32,
-                actions.to_glib(),
+                actions.into_glib(),
             )
         };
     }
@@ -150,7 +150,7 @@ impl<O: IsA<Widget>> WidgetExtManual for O {
                 &Widget::from_glib_borrow(this).unsafe_cast_ref(),
                 &from_glib_borrow(event),
             )
-            .to_glib()
+            .into_glib()
         }
         unsafe {
             let f: Box<F> = Box::new(f);
@@ -181,7 +181,7 @@ impl<O: IsA<Widget>> WidgetExtManual for O {
                 &Widget::from_glib_borrow(this).unsafe_cast_ref(),
                 &from_glib_borrow(event),
             )
-            .to_glib()
+            .into_glib()
         }
         unsafe {
             let f: Box<F> = Box::new(f);
@@ -214,7 +214,7 @@ impl<O: IsA<Widget>> WidgetExtManual for O {
             let frame_clock = from_glib_borrow(frame_clock);
             let callback: &P = &*(user_data as *mut _);
             let res = (*callback)(&widget.unsafe_cast_ref(), &frame_clock);
-            res.to_glib()
+            res.into_glib()
         }
         let callback = Some(callback_func::<Self, P> as _);
 
@@ -244,7 +244,7 @@ impl<O: IsA<Widget>> WidgetExtManual for O {
 
     fn add_events(&self, events: gdk::EventMask) {
         unsafe {
-            ffi::gtk_widget_add_events(self.as_ref().to_glib_none().0, events.to_glib() as i32);
+            ffi::gtk_widget_add_events(self.as_ref().to_glib_none().0, events.into_glib() as i32);
         }
     }
 
@@ -254,7 +254,7 @@ impl<O: IsA<Widget>> WidgetExtManual for O {
 
     fn set_events(&self, events: gdk::EventMask) {
         unsafe {
-            ffi::gtk_widget_set_events(self.as_ref().to_glib_none().0, events.to_glib() as i32);
+            ffi::gtk_widget_set_events(self.as_ref().to_glib_none().0, events.into_glib() as i32);
         }
     }
 

@@ -37,7 +37,7 @@ impl InetAddress {
         unsafe {
             from_glib_full(ffi::g_inet_address_new_from_bytes(
                 bytes.to_glib_none().0,
-                family.to_glib(),
+                family.into_glib(),
             ))
         }
     }

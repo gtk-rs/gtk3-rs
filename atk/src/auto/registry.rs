@@ -33,7 +33,7 @@ impl<O: IsA<Registry>> RegistryExt for O {
         unsafe {
             from_glib_none(ffi::atk_registry_get_factory(
                 self.as_ref().to_glib_none().0,
-                type_.to_glib(),
+                type_.into_glib(),
             ))
         }
     }
@@ -42,7 +42,7 @@ impl<O: IsA<Registry>> RegistryExt for O {
         unsafe {
             from_glib(ffi::atk_registry_get_factory_type(
                 self.as_ref().to_glib_none().0,
-                type_.to_glib(),
+                type_.into_glib(),
             ))
         }
     }
@@ -51,8 +51,8 @@ impl<O: IsA<Registry>> RegistryExt for O {
         unsafe {
             ffi::atk_registry_set_factory_type(
                 self.as_ref().to_glib_none().0,
-                type_.to_glib(),
-                factory_type.to_glib(),
+                type_.into_glib(),
+                factory_type.into_glib(),
             );
         }
     }

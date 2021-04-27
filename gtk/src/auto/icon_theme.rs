@@ -205,7 +205,7 @@ impl<O: IsA<IconTheme>> IconThemeExt for O {
                 self.as_ref().to_glib_none().0,
                 icon_name.to_glib_none().0,
                 size,
-                flags.to_glib(),
+                flags.into_glib(),
                 &mut error,
             );
             if error.is_null() {
@@ -230,7 +230,7 @@ impl<O: IsA<IconTheme>> IconThemeExt for O {
                 icon_name.to_glib_none().0,
                 size,
                 scale,
-                flags.to_glib(),
+                flags.into_glib(),
                 &mut error,
             );
             if error.is_null() {
@@ -257,7 +257,7 @@ impl<O: IsA<IconTheme>> IconThemeExt for O {
                 size,
                 scale,
                 for_window.to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 &mut error,
             );
             if error.is_null() {
@@ -279,7 +279,7 @@ impl<O: IsA<IconTheme>> IconThemeExt for O {
                 self.as_ref().to_glib_none().0,
                 icon.as_ref().to_glib_none().0,
                 size,
-                flags.to_glib(),
+                flags.into_glib(),
             ))
         }
     }
@@ -297,7 +297,7 @@ impl<O: IsA<IconTheme>> IconThemeExt for O {
                 icon.as_ref().to_glib_none().0,
                 size,
                 scale,
-                flags.to_glib(),
+                flags.into_glib(),
             ))
         }
     }
@@ -308,7 +308,7 @@ impl<O: IsA<IconTheme>> IconThemeExt for O {
                 self.as_ref().to_glib_none().0,
                 icon_name.to_glib_none().0,
                 size,
-                flags.to_glib(),
+                flags.into_glib(),
             ))
         }
     }
@@ -326,7 +326,7 @@ impl<O: IsA<IconTheme>> IconThemeExt for O {
                 icon_name.to_glib_none().0,
                 size,
                 scale,
-                flags.to_glib(),
+                flags.into_glib(),
             ))
         }
     }

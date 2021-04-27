@@ -525,7 +525,7 @@ impl<O: IsA<LinkButton>> LinkButtonExt for O {
 
     fn set_visited(&self, visited: bool) {
         unsafe {
-            ffi::gtk_link_button_set_visited(self.as_ref().to_glib_none().0, visited.to_glib());
+            ffi::gtk_link_button_set_visited(self.as_ref().to_glib_none().0, visited.into_glib());
         }
     }
 
@@ -544,7 +544,7 @@ impl<O: IsA<LinkButton>> LinkButtonExt for O {
             P: IsA<LinkButton>,
         {
             let f: &F = &*(f as *const F);
-            f(&LinkButton::from_glib_borrow(this).unsafe_cast_ref()).to_glib()
+            f(&LinkButton::from_glib_borrow(this).unsafe_cast_ref()).into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

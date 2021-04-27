@@ -81,7 +81,7 @@ pub fn property_change(
             property.to_glib_none().0,
             type_.to_glib_none().0,
             format,
-            mode.to_glib(),
+            mode.into_glib(),
             data.to_glib(),
             nelements as i32,
         );

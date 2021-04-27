@@ -10,7 +10,6 @@ use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
-use glib::ToValue;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
@@ -72,7 +71,7 @@ impl<O: IsA<FileMonitor>> FileMonitorExt for O {
                 self.as_ref().to_glib_none().0,
                 child.as_ref().to_glib_none().0,
                 other_file.as_ref().to_glib_none().0,
-                event_type.to_glib(),
+                event_type.into_glib(),
             );
         }
     }

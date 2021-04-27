@@ -301,7 +301,7 @@ impl Layout {
             ffi::pango_layout_index_to_line_x(
                 self.to_glib_none().0,
                 index_,
-                trailing.to_glib(),
+                trailing.into_glib(),
                 line.as_mut_ptr(),
                 x_pos.as_mut_ptr(),
             );
@@ -343,7 +343,7 @@ impl Layout {
             let mut new_trailing = mem::MaybeUninit::uninit();
             ffi::pango_layout_move_cursor_visually(
                 self.to_glib_none().0,
-                strong.to_glib(),
+                strong.into_glib(),
                 old_index,
                 old_trailing,
                 direction,
@@ -359,7 +359,7 @@ impl Layout {
     #[doc(alias = "pango_layout_set_alignment")]
     pub fn set_alignment(&self, alignment: Alignment) {
         unsafe {
-            ffi::pango_layout_set_alignment(self.to_glib_none().0, alignment.to_glib());
+            ffi::pango_layout_set_alignment(self.to_glib_none().0, alignment.into_glib());
         }
     }
 
@@ -373,14 +373,14 @@ impl Layout {
     #[doc(alias = "pango_layout_set_auto_dir")]
     pub fn set_auto_dir(&self, auto_dir: bool) {
         unsafe {
-            ffi::pango_layout_set_auto_dir(self.to_glib_none().0, auto_dir.to_glib());
+            ffi::pango_layout_set_auto_dir(self.to_glib_none().0, auto_dir.into_glib());
         }
     }
 
     #[doc(alias = "pango_layout_set_ellipsize")]
     pub fn set_ellipsize(&self, ellipsize: EllipsizeMode) {
         unsafe {
-            ffi::pango_layout_set_ellipsize(self.to_glib_none().0, ellipsize.to_glib());
+            ffi::pango_layout_set_ellipsize(self.to_glib_none().0, ellipsize.into_glib());
         }
     }
 
@@ -408,7 +408,7 @@ impl Layout {
     #[doc(alias = "pango_layout_set_justify")]
     pub fn set_justify(&self, justify: bool) {
         unsafe {
-            ffi::pango_layout_set_justify(self.to_glib_none().0, justify.to_glib());
+            ffi::pango_layout_set_justify(self.to_glib_none().0, justify.into_glib());
         }
     }
 
@@ -438,7 +438,7 @@ impl Layout {
                 self.to_glib_none().0,
                 markup.to_glib_none().0,
                 length,
-                accel_marker.to_glib(),
+                accel_marker.into_glib(),
                 accel_char.as_mut_ptr(),
             );
             let accel_char = accel_char.assume_init();
@@ -450,7 +450,7 @@ impl Layout {
     #[doc(alias = "pango_layout_set_single_paragraph_mode")]
     pub fn set_single_paragraph_mode(&self, setting: bool) {
         unsafe {
-            ffi::pango_layout_set_single_paragraph_mode(self.to_glib_none().0, setting.to_glib());
+            ffi::pango_layout_set_single_paragraph_mode(self.to_glib_none().0, setting.into_glib());
         }
     }
 
@@ -486,7 +486,7 @@ impl Layout {
     #[doc(alias = "pango_layout_set_wrap")]
     pub fn set_wrap(&self, wrap: WrapMode) {
         unsafe {
-            ffi::pango_layout_set_wrap(self.to_glib_none().0, wrap.to_glib());
+            ffi::pango_layout_set_wrap(self.to_glib_none().0, wrap.into_glib());
         }
     }
 

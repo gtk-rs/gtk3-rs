@@ -152,7 +152,7 @@ impl<O: IsA<InputStream>> InputStreamExt for O {
         unsafe {
             ffi::g_input_stream_close_async(
                 self.as_ref().to_glib_none().0,
-                io_priority.to_glib(),
+                io_priority.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
                 Box_::into_raw(user_data) as *mut _,
@@ -245,7 +245,7 @@ impl<O: IsA<InputStream>> InputStreamExt for O {
             ffi::g_input_stream_read_bytes_async(
                 self.as_ref().to_glib_none().0,
                 count,
-                io_priority.to_glib(),
+                io_priority.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
                 Box_::into_raw(user_data) as *mut _,
@@ -332,7 +332,7 @@ impl<O: IsA<InputStream>> InputStreamExt for O {
             ffi::g_input_stream_skip_async(
                 self.as_ref().to_glib_none().0,
                 count,
-                io_priority.to_glib(),
+                io_priority.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
                 Box_::into_raw(user_data) as *mut _,

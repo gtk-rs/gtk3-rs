@@ -390,7 +390,7 @@ pub fn selection_owner_set(
             owner.to_glib_none().0,
             selection.to_glib_none().0,
             time_,
-            send_event.to_glib(),
+            send_event.into_glib(),
         ))
     }
 }
@@ -410,7 +410,7 @@ pub fn selection_owner_set_for_display(
             owner.to_glib_none().0,
             selection.to_glib_none().0,
             time_,
-            send_event.to_glib(),
+            send_event.into_glib(),
         ))
     }
 }
@@ -485,7 +485,7 @@ pub fn set_program_class(program_class: &str) {
 pub fn set_show_events(show_events: bool) {
     assert_initialized_main_thread!();
     unsafe {
-        ffi::gdk_set_show_events(show_events.to_glib());
+        ffi::gdk_set_show_events(show_events.into_glib());
     }
 }
 
@@ -495,8 +495,8 @@ pub fn synthesize_window_state(window: &Window, unset_flags: WindowState, set_fl
     unsafe {
         ffi::gdk_synthesize_window_state(
             window.to_glib_none().0,
-            unset_flags.to_glib(),
-            set_flags.to_glib(),
+            unset_flags.into_glib(),
+            set_flags.into_glib(),
         );
     }
 }
@@ -525,8 +525,8 @@ pub fn test_simulate_button(
             x,
             y,
             button,
-            modifiers.to_glib(),
-            button_pressrelease.to_glib(),
+            modifiers.into_glib(),
+            button_pressrelease.into_glib(),
         ))
     }
 }
@@ -547,8 +547,8 @@ pub fn test_simulate_key(
             x,
             y,
             keyval,
-            modifiers.to_glib(),
-            key_pressrelease.to_glib(),
+            modifiers.into_glib(),
+            key_pressrelease.into_glib(),
         ))
     }
 }

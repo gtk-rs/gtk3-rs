@@ -223,7 +223,7 @@ impl<O: IsA<OutputStream>> OutputStreamExt for O {
         unsafe {
             ffi::g_output_stream_close_async(
                 self.as_ref().to_glib_none().0,
-                io_priority.to_glib(),
+                io_priority.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
                 Box_::into_raw(user_data) as *mut _,
@@ -289,7 +289,7 @@ impl<O: IsA<OutputStream>> OutputStreamExt for O {
         unsafe {
             ffi::g_output_stream_flush_async(
                 self.as_ref().to_glib_none().0,
-                io_priority.to_glib(),
+                io_priority.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
                 Box_::into_raw(user_data) as *mut _,
@@ -362,7 +362,7 @@ impl<O: IsA<OutputStream>> OutputStreamExt for O {
             let ret = ffi::g_output_stream_splice(
                 self.as_ref().to_glib_none().0,
                 source.as_ref().to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
             );
@@ -409,8 +409,8 @@ impl<O: IsA<OutputStream>> OutputStreamExt for O {
             ffi::g_output_stream_splice_async(
                 self.as_ref().to_glib_none().0,
                 source.as_ref().to_glib_none().0,
-                flags.to_glib(),
-                io_priority.to_glib(),
+                flags.into_glib(),
+                io_priority.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
                 Box_::into_raw(user_data) as *mut _,
@@ -523,7 +523,7 @@ impl<O: IsA<OutputStream>> OutputStreamExt for O {
             ffi::g_output_stream_write_bytes_async(
                 self.as_ref().to_glib_none().0,
                 bytes.to_glib_none().0,
-                io_priority.to_glib(),
+                io_priority.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
                 Box_::into_raw(user_data) as *mut _,

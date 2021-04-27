@@ -41,7 +41,7 @@ impl FileChooserButton {
         unsafe {
             Widget::from_glib_none(ffi::gtk_file_chooser_button_new(
                 title.to_glib_none().0,
-                action.to_glib(),
+                action.into_glib(),
             ))
             .unsafe_cast()
         }
@@ -620,7 +620,7 @@ impl<O: IsA<FileChooserButton>> FileChooserButtonExt for O {
         unsafe {
             ffi::gtk_file_chooser_button_set_focus_on_click(
                 self.as_ref().to_glib_none().0,
-                focus_on_click.to_glib(),
+                focus_on_click.into_glib(),
             );
         }
     }

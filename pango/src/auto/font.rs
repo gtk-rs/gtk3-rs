@@ -153,7 +153,7 @@ impl<O: IsA<Font>> FontExt for O {
         unsafe {
             from_glib(ffi::pango_font_has_char(
                 self.as_ref().to_glib_none().0,
-                wc.to_glib(),
+                wc.into_glib(),
             ))
         }
     }

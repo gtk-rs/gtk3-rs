@@ -41,7 +41,7 @@ impl PixbufSimpleAnim {
     #[doc(alias = "gdk_pixbuf_simple_anim_set_loop")]
     pub fn set_loop(&self, loop_: bool) {
         unsafe {
-            ffi::gdk_pixbuf_simple_anim_set_loop(self.to_glib_none().0, loop_.to_glib());
+            ffi::gdk_pixbuf_simple_anim_set_loop(self.to_glib_none().0, loop_.into_glib());
         }
     }
 

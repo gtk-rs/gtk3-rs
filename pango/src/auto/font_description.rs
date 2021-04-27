@@ -149,7 +149,7 @@ impl FontDescription {
             ffi::pango_font_description_merge(
                 self.to_glib_none_mut().0,
                 desc_to_merge.to_glib_none().0,
-                replace_existing.to_glib(),
+                replace_existing.into_glib(),
             );
         }
     }
@@ -174,7 +174,7 @@ impl FontDescription {
     #[doc(alias = "pango_font_description_set_gravity")]
     pub fn set_gravity(&mut self, gravity: Gravity) {
         unsafe {
-            ffi::pango_font_description_set_gravity(self.to_glib_none_mut().0, gravity.to_glib());
+            ffi::pango_font_description_set_gravity(self.to_glib_none_mut().0, gravity.into_glib());
         }
     }
 
@@ -188,21 +188,21 @@ impl FontDescription {
     #[doc(alias = "pango_font_description_set_stretch")]
     pub fn set_stretch(&mut self, stretch: Stretch) {
         unsafe {
-            ffi::pango_font_description_set_stretch(self.to_glib_none_mut().0, stretch.to_glib());
+            ffi::pango_font_description_set_stretch(self.to_glib_none_mut().0, stretch.into_glib());
         }
     }
 
     #[doc(alias = "pango_font_description_set_style")]
     pub fn set_style(&mut self, style: Style) {
         unsafe {
-            ffi::pango_font_description_set_style(self.to_glib_none_mut().0, style.to_glib());
+            ffi::pango_font_description_set_style(self.to_glib_none_mut().0, style.into_glib());
         }
     }
 
     #[doc(alias = "pango_font_description_set_variant")]
     pub fn set_variant(&mut self, variant: Variant) {
         unsafe {
-            ffi::pango_font_description_set_variant(self.to_glib_none_mut().0, variant.to_glib());
+            ffi::pango_font_description_set_variant(self.to_glib_none_mut().0, variant.into_glib());
         }
     }
 
@@ -233,7 +233,7 @@ impl FontDescription {
     #[doc(alias = "pango_font_description_set_weight")]
     pub fn set_weight(&mut self, weight: Weight) {
         unsafe {
-            ffi::pango_font_description_set_weight(self.to_glib_none_mut().0, weight.to_glib());
+            ffi::pango_font_description_set_weight(self.to_glib_none_mut().0, weight.into_glib());
         }
     }
 
@@ -254,7 +254,10 @@ impl FontDescription {
     #[doc(alias = "pango_font_description_unset_fields")]
     pub fn unset_fields(&mut self, to_unset: FontMask) {
         unsafe {
-            ffi::pango_font_description_unset_fields(self.to_glib_none_mut().0, to_unset.to_glib());
+            ffi::pango_font_description_unset_fields(
+                self.to_glib_none_mut().0,
+                to_unset.into_glib(),
+            );
         }
     }
 

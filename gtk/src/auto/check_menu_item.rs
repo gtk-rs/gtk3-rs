@@ -558,7 +558,7 @@ impl<O: IsA<CheckMenuItem>> CheckMenuItemExt for O {
         unsafe {
             ffi::gtk_check_menu_item_set_active(
                 self.as_ref().to_glib_none().0,
-                is_active.to_glib(),
+                is_active.into_glib(),
             );
         }
     }
@@ -567,7 +567,7 @@ impl<O: IsA<CheckMenuItem>> CheckMenuItemExt for O {
         unsafe {
             ffi::gtk_check_menu_item_set_draw_as_radio(
                 self.as_ref().to_glib_none().0,
-                draw_as_radio.to_glib(),
+                draw_as_radio.into_glib(),
             );
         }
     }
@@ -576,7 +576,7 @@ impl<O: IsA<CheckMenuItem>> CheckMenuItemExt for O {
         unsafe {
             ffi::gtk_check_menu_item_set_inconsistent(
                 self.as_ref().to_glib_none().0,
-                setting.to_glib(),
+                setting.into_glib(),
             );
         }
     }

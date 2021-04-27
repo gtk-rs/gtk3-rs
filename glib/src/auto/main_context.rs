@@ -68,7 +68,7 @@ impl MainContext {
         unsafe {
             from_glib(ffi::g_main_context_iteration(
                 self.to_glib_none().0,
-                may_block.to_glib(),
+                may_block.into_glib(),
             ))
         }
     }

@@ -160,7 +160,7 @@ impl<O: IsA<DBusInterfaceSkeleton>> DBusInterfaceSkeletonExt for O {
         unsafe {
             ffi::g_dbus_interface_skeleton_set_flags(
                 self.as_ref().to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
             );
         }
     }
@@ -225,7 +225,7 @@ impl<O: IsA<DBusInterfaceSkeleton>> DBusInterfaceSkeletonExt for O {
                 &DBusInterfaceSkeleton::from_glib_borrow(this).unsafe_cast_ref(),
                 &from_glib_borrow(invocation),
             )
-            .to_glib()
+            .into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

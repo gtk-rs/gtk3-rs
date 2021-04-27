@@ -169,7 +169,7 @@ impl<T: OutputStreamImpl> OutputStreamImplExt for T {
             let res = f(
                 stream.unsafe_cast_ref::<OutputStream>().to_glib_none().0,
                 input_stream.to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 cancellable.to_glib_none().0,
                 &mut err,
             );

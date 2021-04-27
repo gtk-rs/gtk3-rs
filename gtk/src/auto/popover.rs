@@ -655,7 +655,10 @@ impl<O: IsA<Popover>> PopoverExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn set_constrain_to(&self, constraint: PopoverConstraint) {
         unsafe {
-            ffi::gtk_popover_set_constrain_to(self.as_ref().to_glib_none().0, constraint.to_glib());
+            ffi::gtk_popover_set_constrain_to(
+                self.as_ref().to_glib_none().0,
+                constraint.into_glib(),
+            );
         }
     }
 
@@ -672,7 +675,7 @@ impl<O: IsA<Popover>> PopoverExt for O {
 
     fn set_modal(&self, modal: bool) {
         unsafe {
-            ffi::gtk_popover_set_modal(self.as_ref().to_glib_none().0, modal.to_glib());
+            ffi::gtk_popover_set_modal(self.as_ref().to_glib_none().0, modal.into_glib());
         }
     }
 
@@ -684,7 +687,7 @@ impl<O: IsA<Popover>> PopoverExt for O {
 
     fn set_position(&self, position: PositionType) {
         unsafe {
-            ffi::gtk_popover_set_position(self.as_ref().to_glib_none().0, position.to_glib());
+            ffi::gtk_popover_set_position(self.as_ref().to_glib_none().0, position.into_glib());
         }
     }
 
@@ -703,7 +706,7 @@ impl<O: IsA<Popover>> PopoverExt for O {
         unsafe {
             ffi::gtk_popover_set_transitions_enabled(
                 self.as_ref().to_glib_none().0,
-                transitions_enabled.to_glib(),
+                transitions_enabled.into_glib(),
             );
         }
     }

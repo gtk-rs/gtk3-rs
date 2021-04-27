@@ -41,7 +41,7 @@ impl KeyFile {
                 self.to_glib_none().0,
                 file.as_ref().to_glib_none().0,
                 &mut full_path,
-                flags.to_glib(),
+                flags.into_glib(),
                 &mut error,
             );
             if error.is_null() {
@@ -70,7 +70,7 @@ impl KeyFile {
                 file.as_ref().to_glib_none().0,
                 search_dirs.to_glib_none().0,
                 &mut full_path,
-                flags.to_glib(),
+                flags.into_glib(),
                 &mut error,
             );
             if error.is_null() {

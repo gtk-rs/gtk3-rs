@@ -658,7 +658,7 @@ impl<O: IsA<AppChooserButton>> AppChooserButtonExt for O {
         unsafe {
             ffi::gtk_app_chooser_button_set_show_default_item(
                 self.as_ref().to_glib_none().0,
-                setting.to_glib(),
+                setting.into_glib(),
             );
         }
     }
@@ -667,7 +667,7 @@ impl<O: IsA<AppChooserButton>> AppChooserButtonExt for O {
         unsafe {
             ffi::gtk_app_chooser_button_set_show_dialog_item(
                 self.as_ref().to_glib_none().0,
-                setting.to_glib(),
+                setting.into_glib(),
             );
         }
     }

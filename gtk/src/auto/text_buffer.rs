@@ -430,8 +430,8 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
             from_glib(ffi::gtk_text_buffer_backspace(
                 self.as_ref().to_glib_none().0,
                 iter.to_glib_none_mut().0,
-                interactive.to_glib(),
-                default_editable.to_glib(),
+                interactive.into_glib(),
+                default_editable.into_glib(),
             ))
         }
     }
@@ -471,7 +471,7 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
                 self.as_ref().to_glib_none().0,
                 mark_name.to_glib_none().0,
                 where_.to_glib_none().0,
-                left_gravity.to_glib(),
+                left_gravity.into_glib(),
             ))
         }
     }
@@ -485,7 +485,7 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
             ffi::gtk_text_buffer_cut_clipboard(
                 self.as_ref().to_glib_none().0,
                 clipboard.to_glib_none().0,
-                default_editable.to_glib(),
+                default_editable.into_glib(),
             );
         }
     }
@@ -511,7 +511,7 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
                 self.as_ref().to_glib_none().0,
                 start_iter.to_glib_none_mut().0,
                 end_iter.to_glib_none_mut().0,
-                default_editable.to_glib(),
+                default_editable.into_glib(),
             ))
         }
     }
@@ -538,8 +538,8 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
         unsafe {
             from_glib(ffi::gtk_text_buffer_delete_selection(
                 self.as_ref().to_glib_none().0,
-                interactive.to_glib(),
-                default_editable.to_glib(),
+                interactive.into_glib(),
+                default_editable.into_glib(),
             ))
         }
     }
@@ -585,7 +585,7 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
             ffi::gtk_text_buffer_deserialize_set_can_create_tags(
                 self.as_ref().to_glib_none().0,
                 format.to_glib_none().0,
-                can_create_tags.to_glib(),
+                can_create_tags.into_glib(),
             );
         }
     }
@@ -815,7 +815,7 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
                 self.as_ref().to_glib_none().0,
                 start.to_glib_none().0,
                 end.to_glib_none().0,
-                include_hidden_chars.to_glib(),
+                include_hidden_chars.into_glib(),
             ))
         }
     }
@@ -850,7 +850,7 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
                 self.as_ref().to_glib_none().0,
                 start.to_glib_none().0,
                 end.to_glib_none().0,
-                include_hidden_chars.to_glib(),
+                include_hidden_chars.into_glib(),
             ))
         }
     }
@@ -896,7 +896,7 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
                 iter.to_glib_none_mut().0,
                 text.to_glib_none().0,
                 len,
-                default_editable.to_glib(),
+                default_editable.into_glib(),
             ))
         }
     }
@@ -908,7 +908,7 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
                 self.as_ref().to_glib_none().0,
                 text.to_glib_none().0,
                 len,
-                default_editable.to_glib(),
+                default_editable.into_glib(),
             ))
         }
     }
@@ -961,7 +961,7 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
                 iter.to_glib_none_mut().0,
                 start.to_glib_none().0,
                 end.to_glib_none().0,
-                default_editable.to_glib(),
+                default_editable.into_glib(),
             ))
         }
     }
@@ -1005,7 +1005,7 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
                 self.as_ref().to_glib_none().0,
                 clipboard.to_glib_none().0,
                 mut_override(override_location.to_glib_none().0),
-                default_editable.to_glib(),
+                default_editable.into_glib(),
             );
         }
     }
@@ -1118,7 +1118,7 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
 
     fn set_modified(&self, setting: bool) {
         unsafe {
-            ffi::gtk_text_buffer_set_modified(self.as_ref().to_glib_none().0, setting.to_glib());
+            ffi::gtk_text_buffer_set_modified(self.as_ref().to_glib_none().0, setting.into_glib());
         }
     }
 

@@ -36,7 +36,7 @@ impl Application {
         unsafe {
             from_glib_full(ffi::g_application_new(
                 application_id.to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
             ))
         }
     }
@@ -311,9 +311,9 @@ impl<O: IsA<Application>> ApplicationExt for O {
             ffi::g_application_add_main_option(
                 self.as_ref().to_glib_none().0,
                 long_name.to_glib_none().0,
-                short_name.to_glib(),
-                flags.to_glib(),
-                arg.to_glib(),
+                short_name.into_glib(),
+                flags.into_glib(),
+                arg.into_glib(),
                 description.to_glib_none().0,
                 arg_description.to_glib_none().0,
             );
@@ -485,7 +485,7 @@ impl<O: IsA<Application>> ApplicationExt for O {
 
     fn set_flags(&self, flags: ApplicationFlags) {
         unsafe {
-            ffi::g_application_set_flags(self.as_ref().to_glib_none().0, flags.to_glib());
+            ffi::g_application_set_flags(self.as_ref().to_glib_none().0, flags.into_glib());
         }
     }
 
@@ -679,7 +679,7 @@ impl<O: IsA<Application>> ApplicationExt for O {
             P: IsA<Application>,
         {
             let f: &F = &*(f as *const F);
-            f(&Application::from_glib_borrow(this).unsafe_cast_ref()).to_glib()
+            f(&Application::from_glib_borrow(this).unsafe_cast_ref()).into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

@@ -39,7 +39,7 @@ impl Keymap {
         unsafe {
             from_glib(ffi::gdk_keymap_get_modifier_mask(
                 self.to_glib_none().0,
-                intent.to_glib(),
+                intent.into_glib(),
             ))
         }
     }
@@ -86,7 +86,7 @@ impl Keymap {
             let ret = from_glib(ffi::gdk_keymap_translate_keyboard_state(
                 self.to_glib_none().0,
                 hardware_keycode,
-                state.to_glib(),
+                state.into_glib(),
                 group,
                 keyval.as_mut_ptr(),
                 effective_group.as_mut_ptr(),

@@ -182,7 +182,7 @@ impl PlacesSidebar {
         unsafe {
             ffi::gtk_places_sidebar_set_drop_targets_visible(
                 self.to_glib_none().0,
-                visible.to_glib(),
+                visible.into_glib(),
                 context.to_glib_none().0,
             );
         }
@@ -191,7 +191,7 @@ impl PlacesSidebar {
     #[doc(alias = "gtk_places_sidebar_set_local_only")]
     pub fn set_local_only(&self, local_only: bool) {
         unsafe {
-            ffi::gtk_places_sidebar_set_local_only(self.to_glib_none().0, local_only.to_glib());
+            ffi::gtk_places_sidebar_set_local_only(self.to_glib_none().0, local_only.into_glib());
         }
     }
 
@@ -208,7 +208,7 @@ impl PlacesSidebar {
     #[doc(alias = "gtk_places_sidebar_set_open_flags")]
     pub fn set_open_flags(&self, flags: PlacesOpenFlags) {
         unsafe {
-            ffi::gtk_places_sidebar_set_open_flags(self.to_glib_none().0, flags.to_glib());
+            ffi::gtk_places_sidebar_set_open_flags(self.to_glib_none().0, flags.into_glib());
         }
     }
 
@@ -218,7 +218,7 @@ impl PlacesSidebar {
         unsafe {
             ffi::gtk_places_sidebar_set_show_connect_to_server(
                 self.to_glib_none().0,
-                show_connect_to_server.to_glib(),
+                show_connect_to_server.into_glib(),
             );
         }
     }
@@ -226,7 +226,10 @@ impl PlacesSidebar {
     #[doc(alias = "gtk_places_sidebar_set_show_desktop")]
     pub fn set_show_desktop(&self, show_desktop: bool) {
         unsafe {
-            ffi::gtk_places_sidebar_set_show_desktop(self.to_glib_none().0, show_desktop.to_glib());
+            ffi::gtk_places_sidebar_set_show_desktop(
+                self.to_glib_none().0,
+                show_desktop.into_glib(),
+            );
         }
     }
 
@@ -235,7 +238,7 @@ impl PlacesSidebar {
         unsafe {
             ffi::gtk_places_sidebar_set_show_enter_location(
                 self.to_glib_none().0,
-                show_enter_location.to_glib(),
+                show_enter_location.into_glib(),
             );
         }
     }
@@ -247,7 +250,7 @@ impl PlacesSidebar {
         unsafe {
             ffi::gtk_places_sidebar_set_show_other_locations(
                 self.to_glib_none().0,
-                show_other_locations.to_glib(),
+                show_other_locations.into_glib(),
             );
         }
     }
@@ -257,7 +260,7 @@ impl PlacesSidebar {
     #[doc(alias = "gtk_places_sidebar_set_show_recent")]
     pub fn set_show_recent(&self, show_recent: bool) {
         unsafe {
-            ffi::gtk_places_sidebar_set_show_recent(self.to_glib_none().0, show_recent.to_glib());
+            ffi::gtk_places_sidebar_set_show_recent(self.to_glib_none().0, show_recent.into_glib());
         }
     }
 
@@ -268,7 +271,7 @@ impl PlacesSidebar {
         unsafe {
             ffi::gtk_places_sidebar_set_show_starred_location(
                 self.to_glib_none().0,
-                show_starred_location.to_glib(),
+                show_starred_location.into_glib(),
             );
         }
     }
@@ -278,7 +281,7 @@ impl PlacesSidebar {
     #[doc(alias = "gtk_places_sidebar_set_show_trash")]
     pub fn set_show_trash(&self, show_trash: bool) {
         unsafe {
-            ffi::gtk_places_sidebar_set_show_trash(self.to_glib_none().0, show_trash.to_glib());
+            ffi::gtk_places_sidebar_set_show_trash(self.to_glib_none().0, show_trash.into_glib());
         }
     }
 

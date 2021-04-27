@@ -27,7 +27,7 @@ impl Emblem {
         unsafe {
             from_glib_full(ffi::g_emblem_new_with_origin(
                 icon.as_ref().to_glib_none().0,
-                origin.to_glib(),
+                origin.into_glib(),
             ))
         }
     }

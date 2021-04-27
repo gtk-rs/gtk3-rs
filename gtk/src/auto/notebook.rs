@@ -668,7 +668,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         unsafe {
             from_glib_none(ffi::gtk_notebook_get_action_widget(
                 self.as_ref().to_glib_none().0,
-                pack_type.to_glib(),
+                pack_type.into_glib(),
             ))
         }
     }
@@ -796,7 +796,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
             ffi::gtk_notebook_set_action_widget(
                 self.as_ref().to_glib_none().0,
                 widget.as_ref().to_glib_none().0,
-                pack_type.to_glib(),
+                pack_type.into_glib(),
             );
         }
     }
@@ -832,7 +832,10 @@ impl<O: IsA<Notebook>> NotebookExt for O {
 
     fn set_scrollable(&self, scrollable: bool) {
         unsafe {
-            ffi::gtk_notebook_set_scrollable(self.as_ref().to_glib_none().0, scrollable.to_glib());
+            ffi::gtk_notebook_set_scrollable(
+                self.as_ref().to_glib_none().0,
+                scrollable.into_glib(),
+            );
         }
     }
 
@@ -840,14 +843,14 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         unsafe {
             ffi::gtk_notebook_set_show_border(
                 self.as_ref().to_glib_none().0,
-                show_border.to_glib(),
+                show_border.into_glib(),
             );
         }
     }
 
     fn set_show_tabs(&self, show_tabs: bool) {
         unsafe {
-            ffi::gtk_notebook_set_show_tabs(self.as_ref().to_glib_none().0, show_tabs.to_glib());
+            ffi::gtk_notebook_set_show_tabs(self.as_ref().to_glib_none().0, show_tabs.into_glib());
         }
     }
 
@@ -856,7 +859,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
             ffi::gtk_notebook_set_tab_detachable(
                 self.as_ref().to_glib_none().0,
                 child.as_ref().to_glib_none().0,
-                detachable.to_glib(),
+                detachable.into_glib(),
             );
         }
     }
@@ -883,7 +886,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
 
     fn set_tab_pos(&self, pos: PositionType) {
         unsafe {
-            ffi::gtk_notebook_set_tab_pos(self.as_ref().to_glib_none().0, pos.to_glib());
+            ffi::gtk_notebook_set_tab_pos(self.as_ref().to_glib_none().0, pos.into_glib());
         }
     }
 
@@ -892,7 +895,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
             ffi::gtk_notebook_set_tab_reorderable(
                 self.as_ref().to_glib_none().0,
                 child.as_ref().to_glib_none().0,
-                reorderable.to_glib(),
+                reorderable.into_glib(),
             );
         }
     }
@@ -1154,7 +1157,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
             P: IsA<Notebook>,
         {
             let f: &F = &*(f as *const F);
-            f(&Notebook::from_glib_borrow(this).unsafe_cast_ref(), object).to_glib()
+            f(&Notebook::from_glib_borrow(this).unsafe_cast_ref(), object).into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -1237,7 +1240,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
                 &Notebook::from_glib_borrow(this).unsafe_cast_ref(),
                 from_glib(object),
             )
-            .to_glib()
+            .into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -1413,7 +1416,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
                 from_glib(object),
                 from_glib(p0),
             )
-            .to_glib()
+            .into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -1453,7 +1456,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
                 &Notebook::from_glib_borrow(this).unsafe_cast_ref(),
                 from_glib(object),
             )
-            .to_glib()
+            .into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

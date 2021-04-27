@@ -24,7 +24,7 @@ glib::wrapper! {
 impl ListStore {
     #[doc(alias = "g_list_store_new")]
     pub fn new(item_type: glib::types::Type) -> ListStore {
-        unsafe { from_glib_full(ffi::g_list_store_new(item_type.to_glib())) }
+        unsafe { from_glib_full(ffi::g_list_store_new(item_type.into_glib())) }
     }
 
     #[doc(alias = "g_list_store_append")]

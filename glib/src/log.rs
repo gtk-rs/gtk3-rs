@@ -18,10 +18,10 @@ impl FromGlib<u32> for LogHandlerId {
 }
 
 #[doc(hidden)]
-impl ToGlib for LogHandlerId {
+impl IntoGlib for LogHandlerId {
     type GlibType = u32;
 
-    fn to_glib(&self) -> u32 {
+    fn into_glib(self) -> u32 {
         self.0
     }
 }
@@ -37,11 +37,11 @@ pub enum LogLevel {
 }
 
 #[doc(hidden)]
-impl ToGlib for LogLevel {
+impl IntoGlib for LogLevel {
     type GlibType = u32;
 
-    fn to_glib(&self) -> u32 {
-        match *self {
+    fn into_glib(self) -> u32 {
+        match self {
             LogLevel::Error => ffi::G_LOG_LEVEL_ERROR,
             LogLevel::Critical => ffi::G_LOG_LEVEL_CRITICAL,
             LogLevel::Warning => ffi::G_LOG_LEVEL_WARNING,
@@ -85,10 +85,10 @@ bitflags::bitflags! {
 }
 
 #[doc(hidden)]
-impl ToGlib for LogLevels {
+impl IntoGlib for LogLevels {
     type GlibType = ffi::GLogLevelFlags;
 
-    fn to_glib(&self) -> ffi::GLogLevelFlags {
+    fn into_glib(self) -> ffi::GLogLevelFlags {
         self.bits()
     }
 }
@@ -150,7 +150,7 @@ pub fn log_set_handler<P: Fn(Option<&str>, LogLevel, &str) + Send + Sync + 'stat
     unsafe {
         from_glib(ffi::g_log_set_handler_full(
             log_domain.to_glib_none().0,
-            log_levels.to_glib() | to_log_flags(fatal, recursion),
+            log_levels.into_glib() | to_log_flags(fatal, recursion),
             log_func,
             Box_::into_raw(super_callback0) as *mut _,
             destroy_call4,
@@ -161,13 +161,13 @@ pub fn log_set_handler<P: Fn(Option<&str>, LogLevel, &str) + Send + Sync + 'stat
 #[doc(alias = "g_log_remove_handler")]
 pub fn log_remove_handler(log_domain: Option<&str>, handler_id: LogHandlerId) {
     unsafe {
-        ffi::g_log_remove_handler(log_domain.to_glib_none().0, handler_id.to_glib());
+        ffi::g_log_remove_handler(log_domain.to_glib_none().0, handler_id.into_glib());
     }
 }
 
 #[doc(alias = "g_log_set_always_fatal")]
 pub fn log_set_always_fatal(fatal_levels: LogLevels) -> LogLevels {
-    unsafe { from_glib(ffi::g_log_set_always_fatal(fatal_levels.to_glib())) }
+    unsafe { from_glib(ffi::g_log_set_always_fatal(fatal_levels.into_glib())) }
 }
 
 #[doc(alias = "g_log_set_fatal_mask")]
@@ -175,7 +175,7 @@ pub fn log_set_fatal_mask(log_domain: Option<&str>, fatal_levels: LogLevels) -> 
     unsafe {
         from_glib(ffi::g_log_set_fatal_mask(
             log_domain.to_glib_none().0,
-            fatal_levels.to_glib(),
+            fatal_levels.into_glib(),
         ))
     }
 }
@@ -185,7 +185,7 @@ pub fn log_set_fatal_mask(log_domain: Option<&str>, fatal_levels: LogLevels) -> 
 //     unsafe {
 //         ffi::g_log_variant(
 //             log_domain.to_glib_none().0,
-//             log_level.to_glib(),
+//             log_level.into_glib(),
 //             fields.to_glib_none().0,
 //         );
 //     }
@@ -305,7 +305,7 @@ pub fn log_default_handler(log_domain: Option<&str>, log_level: LogLevel, messag
     unsafe {
         ffi::g_log_default_handler(
             log_domain.to_glib_none().0,
-            log_level.to_glib(),
+            log_level.into_glib(),
             message.to_glib_none().0,
             std::ptr::null_mut(),
         )
@@ -354,7 +354,7 @@ pub fn log_default_handler(log_domain: Option<&str>, log_level: LogLevel, messag
 #[macro_export]
 macro_rules! g_log {
     ($log_level:expr, $format:literal, $($arg:expr),* $(,)?) => {{
-        use $crate::translate::{ToGlib, ToGlibPtr};
+        use $crate::translate::{IntoGlib, ToGlibPtr};
         use $crate::LogLevel;
 
         fn check_log_args(_log_level: LogLevel, _format: &str) {}
@@ -365,13 +365,13 @@ macro_rules! g_log {
         unsafe {
             $crate::ffi::g_log(
                 std::ptr::null(),
-                $log_level.to_glib(),
+                $log_level.into_glib(),
                 f.to_glib_none().0,
             );
         }
     }};
     ($log_level:expr, $format:literal $(,)?) => {{
-        use $crate::translate::{ToGlib, ToGlibPtr};
+        use $crate::translate::{IntoGlib, ToGlibPtr};
         use $crate::LogLevel;
 
         fn check_log_args(_log_level: LogLevel, _format: &str) {}
@@ -382,13 +382,13 @@ macro_rules! g_log {
         unsafe {
             $crate::ffi::g_log(
                 std::ptr::null(),
-                $log_level.to_glib(),
+                $log_level.into_glib(),
                 f.to_glib_none().0,
             );
         }
     }};
     ($log_domain:expr, $log_level:expr, $format:literal, $($arg:expr),* $(,)?) => {{
-        use $crate::translate::{ToGlib, ToGlibPtr};
+        use $crate::translate::{IntoGlib, ToGlibPtr};
         use $crate::LogLevel;
 
         fn check_log_args(_log_level: LogLevel, _format: &str) {}
@@ -401,13 +401,13 @@ macro_rules! g_log {
         unsafe {
             $crate::ffi::g_log(
                 log_domain.to_glib_none().0,
-                $log_level.to_glib(),
+                $log_level.into_glib(),
                 f.to_glib_none().0,
             );
         }
     }};
     ($log_domain:expr, $log_level:expr, $format:literal $(,)?) => {{
-        use $crate::translate::{ToGlib, ToGlibPtr};
+        use $crate::translate::{IntoGlib, ToGlibPtr};
         use $crate::LogLevel;
 
         fn check_log_args(_log_level: LogLevel, _format: &str) {}
@@ -420,7 +420,7 @@ macro_rules! g_log {
         unsafe {
             $crate::ffi::g_log(
                 log_domain.to_glib_none().0,
-                $log_level.to_glib(),
+                $log_level.into_glib(),
                 f.to_glib_none().0,
             );
         }
@@ -746,7 +746,7 @@ macro_rules! g_printerr {
 // #[macro_export]
 // macro_rules! g_log_structured {
 //     ($log_domain:expr, $log_level:expr, {$($key:expr => $value:expr),+}) => {{
-//         use $crate::translate::{Stash, ToGlib, ToGlibPtr};
+//         use $crate::translate::{Stash, IntoGlib, ToGlibPtr};
 //         use $crate::LogLevel;
 //         use std::ffi::CString;
 
@@ -757,7 +757,7 @@ macro_rules! g_printerr {
 //         unsafe {
 //             ffi::g_log_structured(
 //                 $log_domain.to_glib_none().0,
-//                 $log_level.to_glib(),
+//                 $log_level.into_glib(),
 //                 $(check_key($key).0, check_key(format!("{}", $value).as_str()).0 ),+
 //             )
 //         }

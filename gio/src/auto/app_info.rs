@@ -43,7 +43,7 @@ impl AppInfo {
             let ret = ffi::g_app_info_create_from_commandline(
                 commandline.as_ref().to_glib_none().0,
                 application_name.to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 &mut error,
             );
             if error.is_null() {
@@ -73,7 +73,7 @@ impl AppInfo {
         unsafe {
             from_glib_full(ffi::g_app_info_get_default_for_type(
                 content_type.to_glib_none().0,
-                must_support_uris.to_glib(),
+                must_support_uris.into_glib(),
             ))
         }
     }

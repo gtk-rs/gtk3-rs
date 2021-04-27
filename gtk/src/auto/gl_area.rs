@@ -613,7 +613,10 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
 
     fn set_auto_render(&self, auto_render: bool) {
         unsafe {
-            ffi::gtk_gl_area_set_auto_render(self.as_ref().to_glib_none().0, auto_render.to_glib());
+            ffi::gtk_gl_area_set_auto_render(
+                self.as_ref().to_glib_none().0,
+                auto_render.into_glib(),
+            );
         }
     }
 
@@ -625,7 +628,7 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
 
     fn set_has_alpha(&self, has_alpha: bool) {
         unsafe {
-            ffi::gtk_gl_area_set_has_alpha(self.as_ref().to_glib_none().0, has_alpha.to_glib());
+            ffi::gtk_gl_area_set_has_alpha(self.as_ref().to_glib_none().0, has_alpha.into_glib());
         }
     }
 
@@ -633,7 +636,7 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
         unsafe {
             ffi::gtk_gl_area_set_has_depth_buffer(
                 self.as_ref().to_glib_none().0,
-                has_depth_buffer.to_glib(),
+                has_depth_buffer.into_glib(),
             );
         }
     }
@@ -642,7 +645,7 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
         unsafe {
             ffi::gtk_gl_area_set_has_stencil_buffer(
                 self.as_ref().to_glib_none().0,
-                has_stencil_buffer.to_glib(),
+                has_stencil_buffer.into_glib(),
             );
         }
     }
@@ -657,7 +660,7 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn set_use_es(&self, use_es: bool) {
         unsafe {
-            ffi::gtk_gl_area_set_use_es(self.as_ref().to_glib_none().0, use_es.to_glib());
+            ffi::gtk_gl_area_set_use_es(self.as_ref().to_glib_none().0, use_es.into_glib());
         }
     }
 
@@ -715,7 +718,7 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
                 &GLArea::from_glib_borrow(this).unsafe_cast_ref(),
                 &from_glib_borrow(context),
             )
-            .to_glib()
+            .into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

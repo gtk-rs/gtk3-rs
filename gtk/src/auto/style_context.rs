@@ -306,7 +306,7 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
             let mut color = gdk::RGBA::uninitialized();
             ffi::gtk_style_context_get_background_color(
                 self.as_ref().to_glib_none().0,
-                state.to_glib(),
+                state.into_glib(),
                 color.to_glib_none_mut().0,
             );
             color
@@ -318,7 +318,7 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
             let mut border = Border::uninitialized();
             ffi::gtk_style_context_get_border(
                 self.as_ref().to_glib_none().0,
-                state.to_glib(),
+                state.into_glib(),
                 border.to_glib_none_mut().0,
             );
             border
@@ -330,7 +330,7 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
             let mut color = gdk::RGBA::uninitialized();
             ffi::gtk_style_context_get_border_color(
                 self.as_ref().to_glib_none().0,
-                state.to_glib(),
+                state.into_glib(),
                 color.to_glib_none_mut().0,
             );
             color
@@ -342,7 +342,7 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
             let mut color = gdk::RGBA::uninitialized();
             ffi::gtk_style_context_get_color(
                 self.as_ref().to_glib_none().0,
-                state.to_glib(),
+                state.into_glib(),
                 color.to_glib_none_mut().0,
             );
             color
@@ -370,7 +370,7 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
             let mut margin = Border::uninitialized();
             ffi::gtk_style_context_get_margin(
                 self.as_ref().to_glib_none().0,
-                state.to_glib(),
+                state.into_glib(),
                 margin.to_glib_none_mut().0,
             );
             margin
@@ -382,7 +382,7 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
             let mut padding = Border::uninitialized();
             ffi::gtk_style_context_get_padding(
                 self.as_ref().to_glib_none().0,
-                state.to_glib(),
+                state.into_glib(),
                 padding.to_glib_none_mut().0,
             );
             padding
@@ -411,7 +411,7 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
             ffi::gtk_style_context_get_property(
                 self.as_ref().to_glib_none().0,
                 property.to_glib_none().0,
-                state.to_glib(),
+                state.into_glib(),
                 value.to_glib_none_mut().0,
             );
             value
@@ -556,7 +556,7 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
         unsafe {
             ffi::gtk_style_context_set_junction_sides(
                 self.as_ref().to_glib_none().0,
-                sides.to_glib(),
+                sides.into_glib(),
             );
         }
     }
@@ -593,7 +593,7 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
 
     fn set_state(&self, flags: StateFlags) {
         unsafe {
-            ffi::gtk_style_context_set_state(self.as_ref().to_glib_none().0, flags.to_glib());
+            ffi::gtk_style_context_set_state(self.as_ref().to_glib_none().0, flags.into_glib());
         }
     }
 
@@ -603,7 +603,7 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
         unsafe {
             from_glib_full(ffi::gtk_style_context_to_string(
                 self.as_ref().to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
             ))
         }
     }

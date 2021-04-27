@@ -191,7 +191,7 @@ impl<O: IsA<BufferedInputStream>> BufferedInputStreamExt for O {
             ffi::g_buffered_input_stream_fill_async(
                 self.as_ref().to_glib_none().0,
                 count,
-                io_priority.to_glib(),
+                io_priority.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
                 Box_::into_raw(user_data) as *mut _,

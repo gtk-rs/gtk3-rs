@@ -426,13 +426,13 @@ impl<O: IsA<Switch>> SwitchExt for O {
 
     fn set_active(&self, is_active: bool) {
         unsafe {
-            ffi::gtk_switch_set_active(self.as_ref().to_glib_none().0, is_active.to_glib());
+            ffi::gtk_switch_set_active(self.as_ref().to_glib_none().0, is_active.into_glib());
         }
     }
 
     fn set_state(&self, state: bool) {
         unsafe {
-            ffi::gtk_switch_set_state(self.as_ref().to_glib_none().0, state.to_glib());
+            ffi::gtk_switch_set_state(self.as_ref().to_glib_none().0, state.into_glib());
         }
     }
 
@@ -487,7 +487,7 @@ impl<O: IsA<Switch>> SwitchExt for O {
                 &Switch::from_glib_borrow(this).unsafe_cast_ref(),
                 from_glib(state),
             )
-            .to_glib()
+            .into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

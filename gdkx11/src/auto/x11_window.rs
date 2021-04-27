@@ -58,7 +58,7 @@ impl X11Window {
         unsafe {
             ffi::gdk_x11_window_set_frame_sync_enabled(
                 self.to_glib_none().0,
-                frame_sync_enabled.to_glib(),
+                frame_sync_enabled.into_glib(),
             );
         }
     }
@@ -68,7 +68,7 @@ impl X11Window {
         unsafe {
             ffi::gdk_x11_window_set_hide_titlebar_when_maximized(
                 self.to_glib_none().0,
-                hide_titlebar_when_maximized.to_glib(),
+                hide_titlebar_when_maximized.into_glib(),
             );
         }
     }

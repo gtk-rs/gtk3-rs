@@ -21,11 +21,11 @@ pub enum UserDirectory {
 }
 
 #[doc(hidden)]
-impl ToGlib for UserDirectory {
+impl IntoGlib for UserDirectory {
     type GlibType = ffi::GUserDirectory;
 
-    fn to_glib(&self) -> ffi::GUserDirectory {
-        match *self {
+    fn into_glib(self) -> ffi::GUserDirectory {
+        match self {
             UserDirectory::Desktop => ffi::G_USER_DIRECTORY_DESKTOP,
             UserDirectory::Documents => ffi::G_USER_DIRECTORY_DOCUMENTS,
             UserDirectory::Downloads => ffi::G_USER_DIRECTORY_DOWNLOAD,
@@ -54,7 +54,7 @@ impl EnumClass {
     pub fn new(type_: Type) -> Option<Self> {
         unsafe {
             let is_enum: bool = from_glib(gobject_ffi::g_type_is_a(
-                type_.to_glib(),
+                type_.into_glib(),
                 gobject_ffi::G_TYPE_ENUM,
             ));
             if !is_enum {
@@ -62,7 +62,7 @@ impl EnumClass {
             }
 
             Some(EnumClass(
-                gobject_ffi::g_type_class_ref(type_.to_glib()) as *mut _
+                gobject_ffi::g_type_class_ref(type_.into_glib()) as *mut _
             ))
         }
     }
@@ -158,7 +158,7 @@ impl Drop for EnumClass {
 
 impl Clone for EnumClass {
     fn clone(&self) -> Self {
-        unsafe { EnumClass(gobject_ffi::g_type_class_ref(self.type_().to_glib()) as *mut _) }
+        unsafe { EnumClass(gobject_ffi::g_type_class_ref(self.type_().into_glib()) as *mut _) }
     }
 }
 
@@ -243,7 +243,7 @@ impl FlagsClass {
     pub fn new(type_: Type) -> Option<Self> {
         unsafe {
             let is_flags: bool = from_glib(gobject_ffi::g_type_is_a(
-                type_.to_glib(),
+                type_.into_glib(),
                 gobject_ffi::G_TYPE_FLAGS,
             ));
             if !is_flags {
@@ -251,7 +251,7 @@ impl FlagsClass {
             }
 
             Some(FlagsClass(
-                gobject_ffi::g_type_class_ref(type_.to_glib()) as *mut _
+                gobject_ffi::g_type_class_ref(type_.into_glib()) as *mut _
             ))
         }
     }
@@ -534,7 +534,7 @@ impl Drop for FlagsClass {
 
 impl Clone for FlagsClass {
     fn clone(&self) -> Self {
-        unsafe { FlagsClass(gobject_ffi::g_type_class_ref(self.type_().to_glib()) as *mut _) }
+        unsafe { FlagsClass(gobject_ffi::g_type_class_ref(self.type_().into_glib()) as *mut _) }
     }
 }
 

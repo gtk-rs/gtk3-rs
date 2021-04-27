@@ -1140,7 +1140,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
                 self.as_ref().to_glib_none().0,
                 x,
                 y,
-                keyboard_tip.to_glib(),
+                keyboard_tip.into_glib(),
                 &mut model,
                 &mut path,
                 iter.to_glib_none_mut().0,
@@ -1193,7 +1193,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
             ffi::gtk_icon_view_scroll_to_path(
                 self.as_ref().to_glib_none().0,
                 mut_override(path.to_glib_none().0),
-                use_align.to_glib(),
+                use_align.into_glib(),
                 row_align,
                 col_align,
             );
@@ -1242,7 +1242,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
         unsafe {
             ffi::gtk_icon_view_set_activate_on_single_click(
                 self.as_ref().to_glib_none().0,
-                single.to_glib(),
+                single.into_glib(),
             );
         }
     }
@@ -1270,7 +1270,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
                 self.as_ref().to_glib_none().0,
                 mut_override(path.to_glib_none().0),
                 cell.map(|p| p.as_ref()).to_glib_none().0,
-                start_editing.to_glib(),
+                start_editing.into_glib(),
             );
         }
     }
@@ -1280,7 +1280,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
             ffi::gtk_icon_view_set_drag_dest_item(
                 self.as_ref().to_glib_none().0,
                 mut_override(path.to_glib_none().0),
-                pos.to_glib(),
+                pos.into_glib(),
             );
         }
     }
@@ -1289,7 +1289,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
         unsafe {
             ffi::gtk_icon_view_set_item_orientation(
                 self.as_ref().to_glib_none().0,
-                orientation.to_glib(),
+                orientation.into_glib(),
             );
         }
     }
@@ -1337,7 +1337,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
         unsafe {
             ffi::gtk_icon_view_set_reorderable(
                 self.as_ref().to_glib_none().0,
-                reorderable.to_glib(),
+                reorderable.into_glib(),
             );
         }
     }
@@ -1350,7 +1350,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
 
     fn set_selection_mode(&self, mode: SelectionMode) {
         unsafe {
-            ffi::gtk_icon_view_set_selection_mode(self.as_ref().to_glib_none().0, mode.to_glib());
+            ffi::gtk_icon_view_set_selection_mode(self.as_ref().to_glib_none().0, mode.into_glib());
         }
     }
 
@@ -1451,7 +1451,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
             P: IsA<IconView>,
         {
             let f: &F = &*(f as *const F);
-            f(&IconView::from_glib_borrow(this).unsafe_cast_ref()).to_glib()
+            f(&IconView::from_glib_borrow(this).unsafe_cast_ref()).into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -1526,7 +1526,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
                 from_glib(step),
                 count,
             )
-            .to_glib()
+            .into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

@@ -651,7 +651,10 @@ impl<O: IsA<MenuButton>> MenuButtonExt for O {
 
     fn set_direction(&self, direction: ArrowType) {
         unsafe {
-            ffi::gtk_menu_button_set_direction(self.as_ref().to_glib_none().0, direction.to_glib());
+            ffi::gtk_menu_button_set_direction(
+                self.as_ref().to_glib_none().0,
+                direction.into_glib(),
+            );
         }
     }
 
@@ -686,7 +689,7 @@ impl<O: IsA<MenuButton>> MenuButtonExt for O {
         unsafe {
             ffi::gtk_menu_button_set_use_popover(
                 self.as_ref().to_glib_none().0,
-                use_popover.to_glib(),
+                use_popover.into_glib(),
             );
         }
     }

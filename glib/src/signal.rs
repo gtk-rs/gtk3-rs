@@ -3,7 +3,7 @@
 //! `IMPL` Low level signal support.
 
 use crate::object::ObjectType;
-use crate::translate::{from_glib, FromGlib, ToGlib, ToGlibPtr};
+use crate::translate::{from_glib, FromGlib, IntoGlib, ToGlibPtr};
 use ffi::{gboolean, gpointer};
 use gobject_ffi::{self, GCallback};
 use libc::{c_char, c_ulong, c_void};
@@ -44,12 +44,10 @@ use std::num::NonZeroU64;
 #[derive(Debug, Eq, PartialEq)]
 pub struct SignalHandlerId(NonZeroU64);
 
-impl ToGlib for SignalHandlerId {
-    type GlibType = c_ulong;
-
-    #[inline]
-    fn to_glib(&self) -> c_ulong {
-        self.0.get() as c_ulong
+impl SignalHandlerId {
+    /// Returns the internal signal handler ID.
+    pub unsafe fn as_raw(&self) -> libc::c_ulong {
+        self.0.get() as libc::c_ulong
     }
 }
 
@@ -68,12 +66,12 @@ impl FromGlib<c_ulong> for SignalHandlerId {
 pub struct Inhibit(pub bool);
 
 #[doc(hidden)]
-impl ToGlib for Inhibit {
+impl IntoGlib for Inhibit {
     type GlibType = gboolean;
 
     #[inline]
-    fn to_glib(&self) -> gboolean {
-        self.0.to_glib()
+    fn into_glib(self) -> gboolean {
+        self.0.into_glib()
     }
 }
 
@@ -106,7 +104,7 @@ pub fn signal_handler_block<T: ObjectType>(instance: &T, handler_id: &SignalHand
     unsafe {
         gobject_ffi::g_signal_handler_block(
             instance.as_object_ref().to_glib_none().0,
-            handler_id.to_glib(),
+            handler_id.as_raw(),
         );
     }
 }
@@ -116,7 +114,7 @@ pub fn signal_handler_unblock<T: ObjectType>(instance: &T, handler_id: &SignalHa
     unsafe {
         gobject_ffi::g_signal_handler_unblock(
             instance.as_object_ref().to_glib_none().0,
-            handler_id.to_glib(),
+            handler_id.as_raw(),
         );
     }
 }
@@ -127,7 +125,7 @@ pub fn signal_handler_disconnect<T: ObjectType>(instance: &T, handler_id: Signal
     unsafe {
         gobject_ffi::g_signal_handler_disconnect(
             instance.as_object_ref().to_glib_none().0,
-            handler_id.to_glib(),
+            handler_id.as_raw(),
         );
     }
 }
@@ -152,9 +150,9 @@ pub fn signal_has_handler_pending<T: ObjectType>(
     unsafe {
         from_glib(gobject_ffi::g_signal_has_handler_pending(
             instance.as_object_ref().to_glib_none().0,
-            signal_id.to_glib(),
-            detail.map_or(0, |d| d.to_glib()),
-            may_be_blocked.to_glib(),
+            signal_id.into_glib(),
+            detail.map_or(0, |d| d.into_glib()),
+            may_be_blocked.into_glib(),
         ))
     }
 }

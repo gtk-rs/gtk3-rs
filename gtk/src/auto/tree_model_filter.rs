@@ -9,7 +9,6 @@ use crate::TreePath;
 use glib::object::IsA;
 use glib::translate::*;
 use glib::StaticType;
-use glib::ToValue;
 use std::boxed::Box as Box_;
 use std::fmt;
 
@@ -146,7 +145,7 @@ impl<O: IsA<TreeModelFilter>> TreeModelFilterExt for O {
             let iter = from_glib_borrow(iter);
             let callback: &P = &*(data as *mut _);
             let res = (*callback)(&model, &iter);
-            res.to_glib()
+            res.into_glib()
         }
         let func = Some(func_func::<P> as _);
         unsafe extern "C" fn destroy_func<P: Fn(&TreeModel, &TreeIter) -> bool + 'static>(

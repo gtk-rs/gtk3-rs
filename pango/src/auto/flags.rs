@@ -30,10 +30,10 @@ impl fmt::Display for FontMask {
 }
 
 #[doc(hidden)]
-impl ToGlib for FontMask {
+impl IntoGlib for FontMask {
     type GlibType = ffi::PangoFontMask;
 
-    fn to_glib(&self) -> ffi::PangoFontMask {
+    fn into_glib(self) -> ffi::PangoFontMask {
         self.bits()
     }
 }
@@ -67,7 +67,7 @@ impl ToValue for FontMask {
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<FontMask>();
         unsafe {
-            glib::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -97,10 +97,10 @@ impl fmt::Display for ShapeFlags {
 #[cfg(any(feature = "v1_44", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
 #[doc(hidden)]
-impl ToGlib for ShapeFlags {
+impl IntoGlib for ShapeFlags {
     type GlibType = ffi::PangoShapeFlags;
 
-    fn to_glib(&self) -> ffi::PangoShapeFlags {
+    fn into_glib(self) -> ffi::PangoShapeFlags {
         self.bits()
     }
 }
@@ -144,7 +144,7 @@ impl ToValue for ShapeFlags {
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<ShapeFlags>();
         unsafe {
-            glib::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -176,10 +176,10 @@ impl fmt::Display for ShowFlags {
 #[cfg(any(feature = "v1_44", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
 #[doc(hidden)]
-impl ToGlib for ShowFlags {
+impl IntoGlib for ShowFlags {
     type GlibType = ffi::PangoShowFlags;
 
-    fn to_glib(&self) -> ffi::PangoShowFlags {
+    fn into_glib(self) -> ffi::PangoShowFlags {
         self.bits()
     }
 }
@@ -223,7 +223,7 @@ impl ToValue for ShowFlags {
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<ShowFlags>();
         unsafe {
-            glib::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }

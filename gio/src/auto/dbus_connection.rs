@@ -21,7 +21,6 @@ use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
-use glib::ToValue;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem;
@@ -49,7 +48,7 @@ impl DBusConnection {
             let mut error = ptr::null_mut();
             let ret = ffi::g_dbus_connection_new_for_address_sync(
                 address.to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 observer.to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
@@ -75,7 +74,7 @@ impl DBusConnection {
             let ret = ffi::g_dbus_connection_new_sync(
                 stream.as_ref().to_glib_none().0,
                 guid.to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 observer.to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
@@ -133,7 +132,7 @@ impl DBusConnection {
                 method_name.to_glib_none().0,
                 parameters.to_glib_none().0,
                 reply_type.to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 timeout_msec,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
@@ -204,7 +203,7 @@ impl DBusConnection {
                 method_name.to_glib_none().0,
                 parameters.to_glib_none().0,
                 reply_type.to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 timeout_msec,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
@@ -272,7 +271,7 @@ impl DBusConnection {
                 method_name.to_glib_none().0,
                 parameters.to_glib_none().0,
                 reply_type.to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 timeout_msec,
                 fd_list.map(|p| p.as_ref()).to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -357,7 +356,7 @@ impl DBusConnection {
                 method_name.to_glib_none().0,
                 parameters.to_glib_none().0,
                 reply_type.to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 timeout_msec,
                 fd_list.map(|p| p.as_ref()).to_glib_none().0,
                 &mut out_fd_list,
@@ -616,7 +615,7 @@ impl DBusConnection {
             let _ = ffi::g_dbus_connection_send_message(
                 self.to_glib_none().0,
                 message.to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 out_serial.as_mut_ptr(),
                 &mut error,
             );
@@ -669,7 +668,7 @@ impl DBusConnection {
             ffi::g_dbus_connection_send_message_with_reply(
                 self.to_glib_none().0,
                 message.to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 timeout_msec,
                 out_serial.as_mut_ptr(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -719,7 +718,7 @@ impl DBusConnection {
             let ret = ffi::g_dbus_connection_send_message_with_reply_sync(
                 self.to_glib_none().0,
                 message.to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 timeout_msec,
                 out_serial.as_mut_ptr(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -739,7 +738,7 @@ impl DBusConnection {
         unsafe {
             ffi::g_dbus_connection_set_exit_on_close(
                 self.to_glib_none().0,
-                exit_on_close.to_glib(),
+                exit_on_close.into_glib(),
             );
         }
     }
@@ -802,7 +801,7 @@ impl DBusConnection {
             ffi::g_dbus_connection_new(
                 stream.as_ref().to_glib_none().0,
                 guid.to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 observer.to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
@@ -871,7 +870,7 @@ impl DBusConnection {
         unsafe {
             ffi::g_dbus_connection_new_for_address(
                 address.to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 observer.to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),

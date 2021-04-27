@@ -262,7 +262,7 @@ impl KeyFile {
             let _ = ffi::g_key_file_load_from_bytes(
                 self.to_glib_none().0,
                 bytes.to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 &mut error,
             );
             if error.is_null() {
@@ -282,7 +282,7 @@ impl KeyFile {
                 self.to_glib_none().0,
                 data.to_glib_none().0,
                 length,
-                flags.to_glib(),
+                flags.into_glib(),
                 &mut error,
             );
             if error.is_null() {
@@ -304,7 +304,7 @@ impl KeyFile {
             let _ = ffi::g_key_file_load_from_file(
                 self.to_glib_none().0,
                 file.as_ref().to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 &mut error,
             );
             if error.is_null() {
@@ -379,7 +379,7 @@ impl KeyFile {
                 self.to_glib_none().0,
                 group_name.to_glib_none().0,
                 key.to_glib_none().0,
-                value.to_glib(),
+                value.into_glib(),
             );
         }
     }
@@ -452,7 +452,7 @@ impl KeyFile {
     #[doc(alias = "g_key_file_set_list_separator")]
     pub fn set_list_separator(&self, separator: crate::Char) {
         unsafe {
-            ffi::g_key_file_set_list_separator(self.to_glib_none().0, separator.to_glib());
+            ffi::g_key_file_set_list_separator(self.to_glib_none().0, separator.into_glib());
         }
     }
 

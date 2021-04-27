@@ -233,7 +233,7 @@ impl<O: IsA<TreeSelection>> TreeSelectionExt for O {
 
     fn set_mode(&self, type_: SelectionMode) {
         unsafe {
-            ffi::gtk_tree_selection_set_mode(self.as_ref().to_glib_none().0, type_.to_glib());
+            ffi::gtk_tree_selection_set_mode(self.as_ref().to_glib_none().0, type_.into_glib());
         }
     }
 
@@ -263,7 +263,7 @@ impl<O: IsA<TreeSelection>> TreeSelectionExt for O {
             } else {
                 panic!("cannot get closure...")
             };
-            res.to_glib()
+            res.into_glib()
         }
         let func = if func_data.is_some() {
             Some(func_func as _)

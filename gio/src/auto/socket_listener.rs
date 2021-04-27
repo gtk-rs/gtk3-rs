@@ -333,8 +333,8 @@ impl<O: IsA<SocketListener>> SocketListenerExt for O {
             let _ = ffi::g_socket_listener_add_address(
                 self.as_ref().to_glib_none().0,
                 address.as_ref().to_glib_none().0,
-                type_.to_glib(),
-                protocol.to_glib(),
+                type_.into_glib(),
+                protocol.into_glib(),
                 source_object.map(|p| p.as_ref()).to_glib_none().0,
                 &mut effective_address,
                 &mut error,

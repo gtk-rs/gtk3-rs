@@ -481,7 +481,7 @@ impl<O: IsA<Revealer>> RevealerExt for O {
         unsafe {
             ffi::gtk_revealer_set_reveal_child(
                 self.as_ref().to_glib_none().0,
-                reveal_child.to_glib(),
+                reveal_child.into_glib(),
             );
         }
     }
@@ -496,7 +496,7 @@ impl<O: IsA<Revealer>> RevealerExt for O {
         unsafe {
             ffi::gtk_revealer_set_transition_type(
                 self.as_ref().to_glib_none().0,
-                transition.to_glib(),
+                transition.into_glib(),
             );
         }
     }

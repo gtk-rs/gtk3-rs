@@ -49,7 +49,7 @@ impl<O: IsA<TcpConnection>> TcpConnectionExt for O {
         unsafe {
             ffi::g_tcp_connection_set_graceful_disconnect(
                 self.as_ref().to_glib_none().0,
-                graceful_disconnect.to_glib(),
+                graceful_disconnect.into_glib(),
             );
         }
     }

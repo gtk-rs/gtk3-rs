@@ -85,7 +85,7 @@ impl Language {
         unsafe {
             from_glib(ffi::pango_language_includes_script(
                 self.to_glib_none().0,
-                script.to_glib(),
+                script.into_glib(),
             ))
         }
     }

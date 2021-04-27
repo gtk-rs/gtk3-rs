@@ -252,7 +252,7 @@ pub fn compute_checksum_for_bytes(
 ) -> Option<crate::GString> {
     unsafe {
         from_glib_full(ffi::g_compute_checksum_for_bytes(
-            checksum_type.to_glib(),
+            checksum_type.into_glib(),
             data.to_glib_none().0,
         ))
     }
@@ -266,7 +266,7 @@ pub fn compute_checksum_for_data(
     let length = data.len() as usize;
     unsafe {
         from_glib_full(ffi::g_compute_checksum_for_data(
-            checksum_type.to_glib(),
+            checksum_type.into_glib(),
             data.to_glib_none().0,
             length,
         ))
@@ -281,7 +281,7 @@ pub fn compute_checksum_for_string(
     let length = str.len() as isize;
     unsafe {
         from_glib_full(ffi::g_compute_checksum_for_string(
-            checksum_type.to_glib(),
+            checksum_type.into_glib(),
             str.to_glib_none().0,
             length,
         ))
@@ -298,7 +298,7 @@ pub fn compute_hmac_for_bytes(
 ) -> crate::GString {
     unsafe {
         from_glib_full(ffi::g_compute_hmac_for_bytes(
-            digest_type.to_glib(),
+            digest_type.into_glib(),
             key.to_glib_none().0,
             data.to_glib_none().0,
         ))
@@ -311,7 +311,7 @@ pub fn compute_hmac_for_data(digest_type: ChecksumType, key: &[u8], data: &[u8])
     let length = data.len() as usize;
     unsafe {
         from_glib_full(ffi::g_compute_hmac_for_data(
-            digest_type.to_glib(),
+            digest_type.into_glib(),
             key.to_glib_none().0,
             key_len,
             data.to_glib_none().0,
@@ -326,7 +326,7 @@ pub fn compute_hmac_for_string(digest_type: ChecksumType, key: &[u8], str: &str)
     let length = str.len() as isize;
     unsafe {
         from_glib_full(ffi::g_compute_hmac_for_string(
-            digest_type.to_glib(),
+            digest_type.into_glib(),
             key.to_glib_none().0,
             key_len,
             str.to_glib_none().0,
@@ -602,7 +602,7 @@ pub fn file_set_contents_full<P: AsRef<std::path::Path>>(
             filename.as_ref().to_glib_none().0,
             contents.to_glib_none().0,
             length,
-            flags.to_glib(),
+            flags.into_glib(),
             mode,
             &mut error,
         );
@@ -619,7 +619,7 @@ pub fn file_test<P: AsRef<std::path::Path>>(filename: P, test: FileTest) -> bool
     unsafe {
         from_glib(ffi::g_file_test(
             filename.as_ref().to_glib_none().0,
-            test.to_glib(),
+            test.into_glib(),
         ))
     }
 }
@@ -649,7 +649,7 @@ pub fn format_size(size: u64) -> crate::GString {
 
 #[doc(alias = "g_format_size_full")]
 pub fn format_size_full(size: u64, flags: FormatSizeFlags) -> crate::GString {
-    unsafe { from_glib_full(ffi::g_format_size_full(size, flags.to_glib())) }
+    unsafe { from_glib_full(ffi::g_format_size_full(size, flags.into_glib())) }
 }
 
 //#[doc(alias = "g_fprintf")]
@@ -780,7 +780,7 @@ pub fn user_runtime_dir() -> std::path::PathBuf {
 
 #[doc(alias = "g_get_user_special_dir")]
 pub fn user_special_dir(directory: UserDirectory) -> std::path::PathBuf {
-    unsafe { from_glib_none(ffi::g_get_user_special_dir(directory.to_glib())) }
+    unsafe { from_glib_none(ffi::g_get_user_special_dir(directory.into_glib())) }
 }
 
 #[doc(alias = "g_hostname_is_ascii_encoded")]
@@ -1336,7 +1336,7 @@ pub fn spawn_async<P: AsRef<std::path::Path>>(
             working_directory.as_ref().to_glib_none().0,
             argv.to_glib_none().0,
             envp.to_glib_none().0,
-            flags.to_glib(),
+            flags.into_glib(),
             child_setup,
             Box_::into_raw(super_callback0) as *mut _,
             child_pid.as_mut_ptr(),

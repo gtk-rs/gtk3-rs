@@ -611,7 +611,7 @@ impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
         unsafe {
             ffi::gtk_menu_item_set_reserve_indicator(
                 self.as_ref().to_glib_none().0,
-                reserve.to_glib(),
+                reserve.into_glib(),
             );
         }
     }
@@ -627,7 +627,10 @@ impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
 
     fn set_use_underline(&self, setting: bool) {
         unsafe {
-            ffi::gtk_menu_item_set_use_underline(self.as_ref().to_glib_none().0, setting.to_glib());
+            ffi::gtk_menu_item_set_use_underline(
+                self.as_ref().to_glib_none().0,
+                setting.into_glib(),
+            );
         }
     }
 

@@ -596,7 +596,7 @@ impl<O: IsA<Expander>> ExpanderExt for O {
 
     fn set_expanded(&self, expanded: bool) {
         unsafe {
-            ffi::gtk_expander_set_expanded(self.as_ref().to_glib_none().0, expanded.to_glib());
+            ffi::gtk_expander_set_expanded(self.as_ref().to_glib_none().0, expanded.into_glib());
         }
     }
 
@@ -608,7 +608,10 @@ impl<O: IsA<Expander>> ExpanderExt for O {
 
     fn set_label_fill(&self, label_fill: bool) {
         unsafe {
-            ffi::gtk_expander_set_label_fill(self.as_ref().to_glib_none().0, label_fill.to_glib());
+            ffi::gtk_expander_set_label_fill(
+                self.as_ref().to_glib_none().0,
+                label_fill.into_glib(),
+            );
         }
     }
 
@@ -625,7 +628,7 @@ impl<O: IsA<Expander>> ExpanderExt for O {
         unsafe {
             ffi::gtk_expander_set_resize_toplevel(
                 self.as_ref().to_glib_none().0,
-                resize_toplevel.to_glib(),
+                resize_toplevel.into_glib(),
             );
         }
     }
@@ -638,7 +641,10 @@ impl<O: IsA<Expander>> ExpanderExt for O {
 
     fn set_use_markup(&self, use_markup: bool) {
         unsafe {
-            ffi::gtk_expander_set_use_markup(self.as_ref().to_glib_none().0, use_markup.to_glib());
+            ffi::gtk_expander_set_use_markup(
+                self.as_ref().to_glib_none().0,
+                use_markup.into_glib(),
+            );
         }
     }
 
@@ -646,7 +652,7 @@ impl<O: IsA<Expander>> ExpanderExt for O {
         unsafe {
             ffi::gtk_expander_set_use_underline(
                 self.as_ref().to_glib_none().0,
-                use_underline.to_glib(),
+                use_underline.into_glib(),
             );
         }
     }

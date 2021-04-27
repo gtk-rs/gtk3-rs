@@ -295,7 +295,7 @@ impl DBusConnection {
                 member.to_glib_none().0,
                 object_path.to_glib_none().0,
                 arg0.to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 callback,
                 Box_::into_raw(super_callback0) as *mut _,
                 destroy_call9,

@@ -35,11 +35,11 @@ impl fmt::Display for Colorspace {
 }
 
 #[doc(hidden)]
-impl ToGlib for Colorspace {
+impl IntoGlib for Colorspace {
     type GlibType = ffi::GdkColorspace;
 
-    fn to_glib(&self) -> ffi::GdkColorspace {
-        match *self {
+    fn into_glib(self) -> ffi::GdkColorspace {
+        match self {
             Colorspace::Rgb => ffi::GDK_COLORSPACE_RGB,
             Colorspace::__Unknown(value) => value,
         }
@@ -78,7 +78,7 @@ impl ToValue for Colorspace {
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<Colorspace>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -121,11 +121,11 @@ impl fmt::Display for InterpType {
 }
 
 #[doc(hidden)]
-impl ToGlib for InterpType {
+impl IntoGlib for InterpType {
     type GlibType = ffi::GdkInterpType;
 
-    fn to_glib(&self) -> ffi::GdkInterpType {
-        match *self {
+    fn into_glib(self) -> ffi::GdkInterpType {
+        match self {
             InterpType::Nearest => ffi::GDK_INTERP_NEAREST,
             InterpType::Tiles => ffi::GDK_INTERP_TILES,
             InterpType::Bilinear => ffi::GDK_INTERP_BILINEAR,
@@ -170,7 +170,7 @@ impl ToValue for InterpType {
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<InterpType>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -207,11 +207,11 @@ impl fmt::Display for PixbufAlphaMode {
 }
 
 #[doc(hidden)]
-impl ToGlib for PixbufAlphaMode {
+impl IntoGlib for PixbufAlphaMode {
     type GlibType = ffi::GdkPixbufAlphaMode;
 
-    fn to_glib(&self) -> ffi::GdkPixbufAlphaMode {
-        match *self {
+    fn into_glib(self) -> ffi::GdkPixbufAlphaMode {
+        match self {
             PixbufAlphaMode::Bilevel => ffi::GDK_PIXBUF_ALPHA_BILEVEL,
             PixbufAlphaMode::Full => ffi::GDK_PIXBUF_ALPHA_FULL,
             PixbufAlphaMode::__Unknown(value) => value,
@@ -252,7 +252,7 @@ impl ToValue for PixbufAlphaMode {
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<PixbufAlphaMode>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -304,11 +304,11 @@ impl fmt::Display for PixbufError {
 }
 
 #[doc(hidden)]
-impl ToGlib for PixbufError {
+impl IntoGlib for PixbufError {
     type GlibType = ffi::GdkPixbufError;
 
-    fn to_glib(&self) -> ffi::GdkPixbufError {
-        match *self {
+    fn into_glib(self) -> ffi::GdkPixbufError {
+        match self {
             PixbufError::CorruptImage => ffi::GDK_PIXBUF_ERROR_CORRUPT_IMAGE,
             PixbufError::InsufficientMemory => ffi::GDK_PIXBUF_ERROR_INSUFFICIENT_MEMORY,
             PixbufError::BadOption => ffi::GDK_PIXBUF_ERROR_BAD_OPTION,
@@ -343,7 +343,7 @@ impl ErrorDomain for PixbufError {
     }
 
     fn code(self) -> i32 {
-        self.to_glib()
+        self.into_glib()
     }
 
     fn from(code: i32) -> Option<Self> {
@@ -382,7 +382,7 @@ impl ToValue for PixbufError {
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<PixbufError>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -425,11 +425,11 @@ impl fmt::Display for PixbufRotation {
 }
 
 #[doc(hidden)]
-impl ToGlib for PixbufRotation {
+impl IntoGlib for PixbufRotation {
     type GlibType = ffi::GdkPixbufRotation;
 
-    fn to_glib(&self) -> ffi::GdkPixbufRotation {
-        match *self {
+    fn into_glib(self) -> ffi::GdkPixbufRotation {
+        match self {
             PixbufRotation::None => ffi::GDK_PIXBUF_ROTATE_NONE,
             PixbufRotation::Counterclockwise => ffi::GDK_PIXBUF_ROTATE_COUNTERCLOCKWISE,
             PixbufRotation::Upsidedown => ffi::GDK_PIXBUF_ROTATE_UPSIDEDOWN,
@@ -474,7 +474,7 @@ impl ToValue for PixbufRotation {
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<PixbufRotation>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }

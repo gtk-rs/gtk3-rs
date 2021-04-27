@@ -59,8 +59,8 @@ impl Pixbuf {
         unsafe {
             from_glib_full(ffi::gdk_pixbuf_new_from_data(
                 ptr,
-                colorspace.to_glib(),
-                has_alpha.to_glib(),
+                colorspace.into_glib(),
+                has_alpha.into_glib(),
                 bits_per_sample as i32,
                 width as i32,
                 height as i32,
@@ -151,7 +151,7 @@ impl Pixbuf {
                 filename.as_ref().to_glib_none().0,
                 width,
                 height,
-                preserve_aspect_ratio.to_glib(),
+                preserve_aspect_ratio.into_glib(),
                 &mut error,
             );
             if error.is_null() {
@@ -254,7 +254,7 @@ impl Pixbuf {
                 stream.as_ref().to_glib_none().0,
                 width,
                 height,
-                preserve_aspect_ratio.to_glib(),
+                preserve_aspect_ratio.into_glib(),
                 cancellable.to_glib_none().0,
                 Some(callback),
                 Box::into_raw(user_data) as *mut _,

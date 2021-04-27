@@ -244,7 +244,7 @@ impl<O: IsA<FontChooser>> FontChooserExt for O {
             } else {
                 panic!("cannot get closure...")
             };
-            res.to_glib()
+            res.into_glib()
         }
         let filter = if filter_data.is_some() {
             Some(filter_func as _)
@@ -314,7 +314,7 @@ impl<O: IsA<FontChooser>> FontChooserExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     fn set_level(&self, level: FontChooserLevel) {
         unsafe {
-            ffi::gtk_font_chooser_set_level(self.as_ref().to_glib_none().0, level.to_glib());
+            ffi::gtk_font_chooser_set_level(self.as_ref().to_glib_none().0, level.into_glib());
         }
     }
 
@@ -331,7 +331,7 @@ impl<O: IsA<FontChooser>> FontChooserExt for O {
         unsafe {
             ffi::gtk_font_chooser_set_show_preview_entry(
                 self.as_ref().to_glib_none().0,
-                show_preview_entry.to_glib(),
+                show_preview_entry.into_glib(),
             );
         }
     }

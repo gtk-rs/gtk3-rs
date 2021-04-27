@@ -445,7 +445,7 @@ impl<O: IsA<Socket>> GtkSocketExt for O {
             P: IsA<Socket>,
         {
             let f: &F = &*(f as *const F);
-            f(&Socket::from_glib_borrow(this).unsafe_cast_ref()).to_glib()
+            f(&Socket::from_glib_borrow(this).unsafe_cast_ref()).into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

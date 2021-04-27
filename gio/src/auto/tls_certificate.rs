@@ -7,7 +7,6 @@ use crate::TlsCertificateFlags;
 use glib::object::IsA;
 use glib::translate::*;
 use glib::StaticType;
-use glib::ToValue;
 use std::fmt;
 use std::ptr;
 

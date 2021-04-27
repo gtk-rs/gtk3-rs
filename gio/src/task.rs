@@ -51,7 +51,7 @@ impl Task {
 
     pub fn set_priority(&self, priority: glib::source::Priority) {
         unsafe {
-            ffi::g_task_set_priority(self.to_glib_none().0, priority.to_glib());
+            ffi::g_task_set_priority(self.to_glib_none().0, priority.into_glib());
         }
     }
 

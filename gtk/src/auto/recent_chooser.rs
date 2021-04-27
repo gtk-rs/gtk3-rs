@@ -340,7 +340,7 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
         unsafe {
             ffi::gtk_recent_chooser_set_local_only(
                 self.as_ref().to_glib_none().0,
-                local_only.to_glib(),
+                local_only.into_glib(),
             );
         }
     }
@@ -349,7 +349,7 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
         unsafe {
             ffi::gtk_recent_chooser_set_select_multiple(
                 self.as_ref().to_glib_none().0,
-                select_multiple.to_glib(),
+                select_multiple.into_glib(),
             );
         }
     }
@@ -358,7 +358,7 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
         unsafe {
             ffi::gtk_recent_chooser_set_show_icons(
                 self.as_ref().to_glib_none().0,
-                show_icons.to_glib(),
+                show_icons.into_glib(),
             );
         }
     }
@@ -367,7 +367,7 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
         unsafe {
             ffi::gtk_recent_chooser_set_show_not_found(
                 self.as_ref().to_glib_none().0,
-                show_not_found.to_glib(),
+                show_not_found.into_glib(),
             );
         }
     }
@@ -376,7 +376,7 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
         unsafe {
             ffi::gtk_recent_chooser_set_show_private(
                 self.as_ref().to_glib_none().0,
-                show_private.to_glib(),
+                show_private.into_glib(),
             );
         }
     }
@@ -385,7 +385,7 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
         unsafe {
             ffi::gtk_recent_chooser_set_show_tips(
                 self.as_ref().to_glib_none().0,
-                show_tips.to_glib(),
+                show_tips.into_glib(),
             );
         }
     }
@@ -425,7 +425,7 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
         unsafe {
             ffi::gtk_recent_chooser_set_sort_type(
                 self.as_ref().to_glib_none().0,
-                sort_type.to_glib(),
+                sort_type.into_glib(),
             );
         }
     }

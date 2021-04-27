@@ -37,7 +37,7 @@ impl AttrIterator {
         unsafe {
             from_glib_none(ffi::pango_attr_iterator_get(
                 self.to_glib_none_mut().0,
-                type_.to_glib(),
+                type_.into_glib(),
             ))
         }
     }

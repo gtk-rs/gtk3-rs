@@ -165,9 +165,9 @@ impl<O: IsA<Permission>> PermissionExt for O {
         unsafe {
             ffi::g_permission_impl_update(
                 self.as_ref().to_glib_none().0,
-                allowed.to_glib(),
-                can_acquire.to_glib(),
-                can_release.to_glib(),
+                allowed.into_glib(),
+                can_acquire.into_glib(),
+                can_release.into_glib(),
             );
         }
     }

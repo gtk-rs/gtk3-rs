@@ -59,7 +59,7 @@ impl<O: IsA<FilterInputStream>> FilterInputStreamExt for O {
         unsafe {
             ffi::g_filter_input_stream_set_close_base_stream(
                 self.as_ref().to_glib_none().0,
-                close_base.to_glib(),
+                close_base.into_glib(),
             );
         }
     }

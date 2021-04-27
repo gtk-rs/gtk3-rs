@@ -81,5 +81,5 @@ unsafe extern "C" fn socket_plug_removed<T: SocketImpl>(
     let imp = instance.impl_();
     let wrap: Borrowed<Socket> = from_glib_borrow(ptr);
 
-    imp.plug_removed(wrap.unsafe_cast_ref()).to_glib()
+    imp.plug_removed(wrap.unsafe_cast_ref()).into_glib()
 }

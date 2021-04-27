@@ -64,7 +64,7 @@ impl Keymap {
     #[doc(alias = "gdk_keymap_add_virtual_modifiers")]
     pub fn add_virtual_modifiers(&self, state: &mut ModifierType) {
         unsafe {
-            let mut s = state.to_glib();
+            let mut s = state.into_glib();
             ffi::gdk_keymap_add_virtual_modifiers(self.to_glib_none().0, &mut s);
             *state = from_glib(s);
         }
@@ -73,7 +73,7 @@ impl Keymap {
     #[doc(alias = "gdk_keymap_map_virtual_modifiers")]
     pub fn map_virtual_modifiers(&self, state: &mut ModifierType) -> bool {
         unsafe {
-            let mut s = state.to_glib();
+            let mut s = state.into_glib();
             let ret = from_glib(ffi::gdk_keymap_map_virtual_modifiers(
                 self.to_glib_none().0,
                 &mut s,

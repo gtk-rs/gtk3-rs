@@ -58,7 +58,7 @@ pub fn setenv<K: AsRef<OsStr>, V: AsRef<OsStr>>(
             g_setenv(
                 variable_name.as_ref().to_glib_none().0,
                 value.as_ref().to_glib_none().0,
-                overwrite.to_glib(),
+                overwrite.into_glib(),
             ),
             "Failed to set environment variable"
         )

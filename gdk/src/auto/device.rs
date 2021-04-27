@@ -248,9 +248,9 @@ impl Device {
             from_glib(ffi::gdk_device_grab(
                 self.to_glib_none().0,
                 window.to_glib_none().0,
-                grab_ownership.to_glib(),
-                owner_events.to_glib(),
-                event_mask.to_glib(),
+                grab_ownership.into_glib(),
+                owner_events.into_glib(),
+                event_mask.into_glib(),
                 cursor.to_glib_none().0,
                 time_,
             ))
@@ -278,14 +278,14 @@ impl Device {
     #[doc(alias = "gdk_device_set_axis_use")]
     pub fn set_axis_use(&self, index_: u32, use_: AxisUse) {
         unsafe {
-            ffi::gdk_device_set_axis_use(self.to_glib_none().0, index_, use_.to_glib());
+            ffi::gdk_device_set_axis_use(self.to_glib_none().0, index_, use_.into_glib());
         }
     }
 
     #[doc(alias = "gdk_device_set_key")]
     pub fn set_key(&self, index_: u32, keyval: u32, modifiers: ModifierType) {
         unsafe {
-            ffi::gdk_device_set_key(self.to_glib_none().0, index_, keyval, modifiers.to_glib());
+            ffi::gdk_device_set_key(self.to_glib_none().0, index_, keyval, modifiers.into_glib());
         }
     }
 
@@ -294,7 +294,7 @@ impl Device {
         unsafe {
             from_glib(ffi::gdk_device_set_mode(
                 self.to_glib_none().0,
-                mode.to_glib(),
+                mode.into_glib(),
             ))
         }
     }

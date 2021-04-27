@@ -47,7 +47,7 @@ impl DBusMessage {
             let ret = ffi::g_dbus_message_new_from_blob(
                 blob.to_glib_none().0,
                 blob_len,
-                capabilities.to_glib(),
+                capabilities.into_glib(),
                 &mut error,
             );
             if error.is_null() {
@@ -134,7 +134,7 @@ impl DBusMessage {
         unsafe {
             from_glib_none(ffi::g_dbus_message_get_header(
                 self.to_glib_none().0,
-                header_field.to_glib(),
+                header_field.into_glib(),
             ))
         }
     }
@@ -246,7 +246,7 @@ impl DBusMessage {
     #[doc(alias = "g_dbus_message_set_byte_order")]
     pub fn set_byte_order(&self, byte_order: DBusMessageByteOrder) {
         unsafe {
-            ffi::g_dbus_message_set_byte_order(self.to_glib_none().0, byte_order.to_glib());
+            ffi::g_dbus_message_set_byte_order(self.to_glib_none().0, byte_order.into_glib());
         }
     }
 
@@ -267,7 +267,7 @@ impl DBusMessage {
     #[doc(alias = "g_dbus_message_set_flags")]
     pub fn set_flags(&self, flags: DBusMessageFlags) {
         unsafe {
-            ffi::g_dbus_message_set_flags(self.to_glib_none().0, flags.to_glib());
+            ffi::g_dbus_message_set_flags(self.to_glib_none().0, flags.into_glib());
         }
     }
 
@@ -276,7 +276,7 @@ impl DBusMessage {
         unsafe {
             ffi::g_dbus_message_set_header(
                 self.to_glib_none().0,
-                header_field.to_glib(),
+                header_field.into_glib(),
                 value.to_glib_none().0,
             );
         }
@@ -299,7 +299,7 @@ impl DBusMessage {
     #[doc(alias = "g_dbus_message_set_message_type")]
     pub fn set_message_type(&self, type_: DBusMessageType) {
         unsafe {
-            ffi::g_dbus_message_set_message_type(self.to_glib_none().0, type_.to_glib());
+            ffi::g_dbus_message_set_message_type(self.to_glib_none().0, type_.into_glib());
         }
     }
 
@@ -367,7 +367,7 @@ impl DBusMessage {
             let ret = ffi::g_dbus_message_to_blob(
                 self.to_glib_none().0,
                 out_size.as_mut_ptr(),
-                capabilities.to_glib(),
+                capabilities.into_glib(),
                 &mut error,
             );
             if error.is_null() {

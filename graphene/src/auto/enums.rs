@@ -119,11 +119,11 @@ impl fmt::Display for EulerOrder {
 }
 
 #[doc(hidden)]
-impl ToGlib for EulerOrder {
+impl IntoGlib for EulerOrder {
     type GlibType = ffi::graphene_euler_order_t;
 
-    fn to_glib(&self) -> ffi::graphene_euler_order_t {
-        match *self {
+    fn into_glib(self) -> ffi::graphene_euler_order_t {
+        match self {
             EulerOrder::Default => ffi::GRAPHENE_EULER_ORDER_DEFAULT,
             EulerOrder::Xyz => ffi::GRAPHENE_EULER_ORDER_XYZ,
             EulerOrder::Yzx => ffi::GRAPHENE_EULER_ORDER_YZX,
@@ -237,11 +237,11 @@ impl fmt::Display for RayIntersectionKind {
 #[cfg(any(feature = "v1_10", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
 #[doc(hidden)]
-impl ToGlib for RayIntersectionKind {
+impl IntoGlib for RayIntersectionKind {
     type GlibType = ffi::graphene_ray_intersection_kind_t;
 
-    fn to_glib(&self) -> ffi::graphene_ray_intersection_kind_t {
-        match *self {
+    fn into_glib(self) -> ffi::graphene_ray_intersection_kind_t {
+        match self {
             RayIntersectionKind::None => ffi::GRAPHENE_RAY_INTERSECTION_KIND_NONE,
             RayIntersectionKind::Enter => ffi::GRAPHENE_RAY_INTERSECTION_KIND_ENTER,
             RayIntersectionKind::Leave => ffi::GRAPHENE_RAY_INTERSECTION_KIND_LEAVE,

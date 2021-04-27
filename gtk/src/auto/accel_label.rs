@@ -620,7 +620,7 @@ impl<O: IsA<AccelLabel>> AccelLabelExt for O {
             ffi::gtk_accel_label_set_accel(
                 self.as_ref().to_glib_none().0,
                 accelerator_key,
-                accelerator_mods.to_glib(),
+                accelerator_mods.into_glib(),
             );
         }
     }

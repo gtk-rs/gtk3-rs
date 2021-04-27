@@ -288,7 +288,7 @@ mod spin_button {
     where
         T: IsA<SpinButton>,
     {
-        f(&SpinButton::from_glib_borrow(this).unsafe_cast_ref()).to_glib()
+        f(&SpinButton::from_glib_borrow(this).unsafe_cast_ref()).into_glib()
     }
 
     unsafe extern "C" fn trampoline<T, F: Fn(&T) + 'static>(this: *mut GtkSpinButton, f: &F)
@@ -361,6 +361,6 @@ mod overlay {
             }
             None => false,
         }
-        .to_glib()
+        .into_glib()
     }
 }

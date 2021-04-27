@@ -590,7 +590,7 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
         unsafe {
             ffi::gtk_tool_item_group_set_collapsed(
                 self.as_ref().to_glib_none().0,
-                collapsed.to_glib(),
+                collapsed.into_glib(),
             );
         }
     }
@@ -599,7 +599,7 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
         unsafe {
             ffi::gtk_tool_item_group_set_ellipsize(
                 self.as_ref().to_glib_none().0,
-                ellipsize.to_glib(),
+                ellipsize.into_glib(),
             );
         }
     }
@@ -608,7 +608,7 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
         unsafe {
             ffi::gtk_tool_item_group_set_header_relief(
                 self.as_ref().to_glib_none().0,
-                style.to_glib(),
+                style.into_glib(),
             );
         }
     }

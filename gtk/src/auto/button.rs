@@ -45,7 +45,7 @@ impl Button {
         unsafe {
             Widget::from_glib_none(ffi::gtk_button_new_from_icon_name(
                 icon_name.to_glib_none().0,
-                size.to_glib(),
+                size.into_glib(),
             ))
             .unsafe_cast()
         }
@@ -636,7 +636,7 @@ impl<O: IsA<Button>> ButtonExt for O {
         unsafe {
             ffi::gtk_button_set_always_show_image(
                 self.as_ref().to_glib_none().0,
-                always_show.to_glib(),
+                always_show.into_glib(),
             );
         }
     }
@@ -647,7 +647,7 @@ impl<O: IsA<Button>> ButtonExt for O {
         unsafe {
             ffi::gtk_button_set_focus_on_click(
                 self.as_ref().to_glib_none().0,
-                focus_on_click.to_glib(),
+                focus_on_click.into_glib(),
             );
         }
     }
@@ -663,7 +663,10 @@ impl<O: IsA<Button>> ButtonExt for O {
 
     fn set_image_position(&self, position: PositionType) {
         unsafe {
-            ffi::gtk_button_set_image_position(self.as_ref().to_glib_none().0, position.to_glib());
+            ffi::gtk_button_set_image_position(
+                self.as_ref().to_glib_none().0,
+                position.into_glib(),
+            );
         }
     }
 
@@ -675,7 +678,7 @@ impl<O: IsA<Button>> ButtonExt for O {
 
     fn set_relief(&self, relief: ReliefStyle) {
         unsafe {
-            ffi::gtk_button_set_relief(self.as_ref().to_glib_none().0, relief.to_glib());
+            ffi::gtk_button_set_relief(self.as_ref().to_glib_none().0, relief.into_glib());
         }
     }
 
@@ -683,7 +686,7 @@ impl<O: IsA<Button>> ButtonExt for O {
         unsafe {
             ffi::gtk_button_set_use_underline(
                 self.as_ref().to_glib_none().0,
-                use_underline.to_glib(),
+                use_underline.into_glib(),
             );
         }
     }

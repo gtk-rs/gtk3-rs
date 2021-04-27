@@ -570,9 +570,9 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
             ffi::gtk_tool_palette_add_drag_dest(
                 self.as_ref().to_glib_none().0,
                 widget.as_ref().to_glib_none().0,
-                flags.to_glib(),
-                targets.to_glib(),
-                actions.to_glib(),
+                flags.into_glib(),
+                targets.into_glib(),
+                actions.into_glib(),
             );
         }
     }
@@ -653,7 +653,7 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
         unsafe {
             ffi::gtk_tool_palette_set_drag_source(
                 self.as_ref().to_glib_none().0,
-                targets.to_glib(),
+                targets.into_glib(),
             );
         }
     }
@@ -663,7 +663,7 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
             ffi::gtk_tool_palette_set_exclusive(
                 self.as_ref().to_glib_none().0,
                 group.as_ref().to_glib_none().0,
-                exclusive.to_glib(),
+                exclusive.into_glib(),
             );
         }
     }
@@ -673,7 +673,7 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
             ffi::gtk_tool_palette_set_expand(
                 self.as_ref().to_glib_none().0,
                 group.as_ref().to_glib_none().0,
-                expand.to_glib(),
+                expand.into_glib(),
             );
         }
     }
@@ -692,14 +692,14 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
         unsafe {
             ffi::gtk_tool_palette_set_icon_size(
                 self.as_ref().to_glib_none().0,
-                icon_size.to_glib(),
+                icon_size.into_glib(),
             );
         }
     }
 
     fn set_style(&self, style: ToolbarStyle) {
         unsafe {
-            ffi::gtk_tool_palette_set_style(self.as_ref().to_glib_none().0, style.to_glib());
+            ffi::gtk_tool_palette_set_style(self.as_ref().to_glib_none().0, style.into_glib());
         }
     }
 

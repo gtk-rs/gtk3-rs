@@ -1457,7 +1457,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn changed(&self, size_changed: bool) {
         unsafe {
-            ffi::gtk_text_tag_changed(self.as_ref().to_glib_none().0, size_changed.to_glib());
+            ffi::gtk_text_tag_changed(self.as_ref().to_glib_none().0, size_changed.into_glib());
         }
     }
 
@@ -3194,7 +3194,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
                 &from_glib_none(event),
                 &from_glib_borrow(iter),
             )
-            .to_glib()
+            .into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

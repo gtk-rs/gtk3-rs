@@ -33,7 +33,7 @@ impl Euler {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = ffi::graphene_euler_alloc();
-            ffi::graphene_euler_init_from_matrix(alloc, m.to_glib_none().0, order.to_glib());
+            ffi::graphene_euler_init_from_matrix(alloc, m.to_glib_none().0, order.into_glib());
             from_glib_full(alloc)
         }
     }
@@ -43,7 +43,7 @@ impl Euler {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = ffi::graphene_euler_alloc();
-            ffi::graphene_euler_init_from_quaternion(alloc, q.to_glib_none().0, order.to_glib());
+            ffi::graphene_euler_init_from_quaternion(alloc, q.to_glib_none().0, order.into_glib());
             from_glib_full(alloc)
         }
     }
@@ -53,7 +53,7 @@ impl Euler {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = ffi::graphene_euler_alloc();
-            ffi::graphene_euler_init_from_vec3(alloc, v.to_glib_none().0, order.to_glib());
+            ffi::graphene_euler_init_from_vec3(alloc, v.to_glib_none().0, order.into_glib());
             from_glib_full(alloc)
         }
     }
@@ -63,7 +63,7 @@ impl Euler {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = ffi::graphene_euler_alloc();
-            ffi::graphene_euler_init_with_order(alloc, x, y, z, order.to_glib());
+            ffi::graphene_euler_init_with_order(alloc, x, y, z, order.into_glib());
             from_glib_full(alloc)
         }
     }

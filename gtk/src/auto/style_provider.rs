@@ -40,7 +40,7 @@ impl<O: IsA<StyleProvider>> StyleProviderExt for O {
             let ret = from_glib(ffi::gtk_style_provider_get_style_property(
                 self.as_ref().to_glib_none().0,
                 path.to_glib_none().0,
-                state.to_glib(),
+                state.into_glib(),
                 pspec.to_glib_none().0,
                 value.to_glib_none_mut().0,
             ));

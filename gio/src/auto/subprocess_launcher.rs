@@ -22,7 +22,7 @@ glib::wrapper! {
 impl SubprocessLauncher {
     #[doc(alias = "g_subprocess_launcher_new")]
     pub fn new(flags: SubprocessFlags) -> SubprocessLauncher {
-        unsafe { from_glib_full(ffi::g_subprocess_launcher_new(flags.to_glib())) }
+        unsafe { from_glib_full(ffi::g_subprocess_launcher_new(flags.into_glib())) }
     }
 
     #[doc(alias = "g_subprocess_launcher_getenv")]
@@ -80,7 +80,7 @@ impl SubprocessLauncher {
     #[doc(alias = "g_subprocess_launcher_set_flags")]
     pub fn set_flags(&self, flags: SubprocessFlags) {
         unsafe {
-            ffi::g_subprocess_launcher_set_flags(self.to_glib_none().0, flags.to_glib());
+            ffi::g_subprocess_launcher_set_flags(self.to_glib_none().0, flags.into_glib());
         }
     }
 
@@ -132,7 +132,7 @@ impl SubprocessLauncher {
                 self.to_glib_none().0,
                 variable.as_ref().to_glib_none().0,
                 value.as_ref().to_glib_none().0,
-                overwrite.to_glib(),
+                overwrite.into_glib(),
             );
         }
     }

@@ -38,7 +38,7 @@ impl WidgetPath {
 
     #[doc(alias = "gtk_widget_path_append_type")]
     pub fn append_type(&self, type_: glib::types::Type) -> i32 {
-        unsafe { ffi::gtk_widget_path_append_type(self.to_glib_none().0, type_.to_glib()) }
+        unsafe { ffi::gtk_widget_path_append_type(self.to_glib_none().0, type_.into_glib()) }
     }
 
     #[doc(alias = "gtk_widget_path_append_with_siblings")]
@@ -67,7 +67,7 @@ impl WidgetPath {
         unsafe {
             from_glib(ffi::gtk_widget_path_has_parent(
                 self.to_glib_none().0,
-                type_.to_glib(),
+                type_.into_glib(),
             ))
         }
     }
@@ -77,7 +77,7 @@ impl WidgetPath {
         unsafe {
             from_glib(ffi::gtk_widget_path_is_type(
                 self.to_glib_none().0,
-                type_.to_glib(),
+                type_.into_glib(),
             ))
         }
     }
@@ -181,7 +181,7 @@ impl WidgetPath {
             from_glib(ffi::gtk_widget_path_iter_has_qclass(
                 self.to_glib_none().0,
                 pos,
-                qname.to_glib(),
+                qname.into_glib(),
             ))
         }
     }
@@ -192,7 +192,7 @@ impl WidgetPath {
             from_glib(ffi::gtk_widget_path_iter_has_qname(
                 self.to_glib_none().0,
                 pos,
-                qname.to_glib(),
+                qname.into_glib(),
             ))
         }
     }
@@ -241,14 +241,18 @@ impl WidgetPath {
     #[doc(alias = "gtk_widget_path_iter_set_object_type")]
     pub fn iter_set_object_type(&self, pos: i32, type_: glib::types::Type) {
         unsafe {
-            ffi::gtk_widget_path_iter_set_object_type(self.to_glib_none().0, pos, type_.to_glib());
+            ffi::gtk_widget_path_iter_set_object_type(
+                self.to_glib_none().0,
+                pos,
+                type_.into_glib(),
+            );
         }
     }
 
     #[doc(alias = "gtk_widget_path_iter_set_state")]
     pub fn iter_set_state(&self, pos: i32, state: StateFlags) {
         unsafe {
-            ffi::gtk_widget_path_iter_set_state(self.to_glib_none().0, pos, state.to_glib());
+            ffi::gtk_widget_path_iter_set_state(self.to_glib_none().0, pos, state.into_glib());
         }
     }
 
@@ -260,7 +264,7 @@ impl WidgetPath {
     #[doc(alias = "gtk_widget_path_prepend_type")]
     pub fn prepend_type(&self, type_: glib::types::Type) {
         unsafe {
-            ffi::gtk_widget_path_prepend_type(self.to_glib_none().0, type_.to_glib());
+            ffi::gtk_widget_path_prepend_type(self.to_glib_none().0, type_.into_glib());
         }
     }
 

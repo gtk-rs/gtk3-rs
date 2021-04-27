@@ -642,7 +642,7 @@ impl<O: IsA<ToolItem>> ToolItemExt for O {
 
     fn set_expand(&self, expand: bool) {
         unsafe {
-            ffi::gtk_tool_item_set_expand(self.as_ref().to_glib_none().0, expand.to_glib());
+            ffi::gtk_tool_item_set_expand(self.as_ref().to_glib_none().0, expand.into_glib());
         }
     }
 
@@ -650,7 +650,7 @@ impl<O: IsA<ToolItem>> ToolItemExt for O {
         unsafe {
             ffi::gtk_tool_item_set_homogeneous(
                 self.as_ref().to_glib_none().0,
-                homogeneous.to_glib(),
+                homogeneous.into_glib(),
             );
         }
     }
@@ -659,7 +659,7 @@ impl<O: IsA<ToolItem>> ToolItemExt for O {
         unsafe {
             ffi::gtk_tool_item_set_is_important(
                 self.as_ref().to_glib_none().0,
-                is_important.to_glib(),
+                is_important.into_glib(),
             );
         }
     }
@@ -678,7 +678,7 @@ impl<O: IsA<ToolItem>> ToolItemExt for O {
         unsafe {
             ffi::gtk_tool_item_set_use_drag_window(
                 self.as_ref().to_glib_none().0,
-                use_drag_window.to_glib(),
+                use_drag_window.into_glib(),
             );
         }
     }
@@ -687,7 +687,7 @@ impl<O: IsA<ToolItem>> ToolItemExt for O {
         unsafe {
             ffi::gtk_tool_item_set_visible_horizontal(
                 self.as_ref().to_glib_none().0,
-                visible_horizontal.to_glib(),
+                visible_horizontal.into_glib(),
             );
         }
     }
@@ -696,7 +696,7 @@ impl<O: IsA<ToolItem>> ToolItemExt for O {
         unsafe {
             ffi::gtk_tool_item_set_visible_vertical(
                 self.as_ref().to_glib_none().0,
-                visible_vertical.to_glib(),
+                visible_vertical.into_glib(),
             );
         }
     }
@@ -722,7 +722,7 @@ impl<O: IsA<ToolItem>> ToolItemExt for O {
             P: IsA<ToolItem>,
         {
             let f: &F = &*(f as *const F);
-            f(&ToolItem::from_glib_borrow(this).unsafe_cast_ref()).to_glib()
+            f(&ToolItem::from_glib_borrow(this).unsafe_cast_ref()).into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

@@ -232,7 +232,7 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
 
     fn reply(&self, result: MountOperationResult) {
         unsafe {
-            ffi::g_mount_operation_reply(self.as_ref().to_glib_none().0, result.to_glib());
+            ffi::g_mount_operation_reply(self.as_ref().to_glib_none().0, result.into_glib());
         }
     }
 
@@ -240,7 +240,7 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
         unsafe {
             ffi::g_mount_operation_set_anonymous(
                 self.as_ref().to_glib_none().0,
-                anonymous.to_glib(),
+                anonymous.into_glib(),
             );
         }
     }
@@ -266,7 +266,7 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
         unsafe {
             ffi::g_mount_operation_set_is_tcrypt_hidden_volume(
                 self.as_ref().to_glib_none().0,
-                hidden_volume.to_glib(),
+                hidden_volume.into_glib(),
             );
         }
     }
@@ -277,7 +277,7 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
         unsafe {
             ffi::g_mount_operation_set_is_tcrypt_system_volume(
                 self.as_ref().to_glib_none().0,
-                system_volume.to_glib(),
+                system_volume.into_glib(),
             );
         }
     }
@@ -295,7 +295,7 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
         unsafe {
             ffi::g_mount_operation_set_password_save(
                 self.as_ref().to_glib_none().0,
-                save.to_glib(),
+                save.into_glib(),
             );
         }
     }

@@ -68,7 +68,7 @@ impl DBusAuthObserver {
                 &from_glib_borrow(this),
                 &glib::GString::from_glib_borrow(mechanism),
             )
-            .to_glib()
+            .into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -105,7 +105,7 @@ impl DBusAuthObserver {
                     .as_ref()
                     .as_ref(),
             )
-            .to_glib()
+            .into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

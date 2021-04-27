@@ -600,7 +600,7 @@ impl<O: IsA<ToolButton>> ToolButtonExt for O {
         unsafe {
             ffi::gtk_tool_button_set_use_underline(
                 self.as_ref().to_glib_none().0,
-                use_underline.to_glib(),
+                use_underline.into_glib(),
             );
         }
     }

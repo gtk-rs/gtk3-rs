@@ -474,7 +474,7 @@ impl<O: IsA<Viewport>> ViewportExt for O {
 
     fn set_shadow_type(&self, type_: ShadowType) {
         unsafe {
-            ffi::gtk_viewport_set_shadow_type(self.as_ref().to_glib_none().0, type_.to_glib());
+            ffi::gtk_viewport_set_shadow_type(self.as_ref().to_glib_none().0, type_.into_glib());
         }
     }
 
