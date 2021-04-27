@@ -340,6 +340,23 @@ impl IntoGlib for Ordering {
     }
 }
 
+impl<O, E, G> IntoGlib for Result<O, E>
+where
+    G: Copy,
+    O: IntoGlib<GlibType = G> + TryFromGlib<G, Error = E>,
+    E: IntoGlib<GlibType = G>,
+{
+    type GlibType = G;
+
+    #[inline]
+    fn into_glib(self) -> Self::GlibType {
+        match self {
+            Ok(ok) => ok.into_glib(),
+            Err(err) => err.into_glib(),
+        }
+    }
+}
+
 /// A Rust type `T` for which `Option<T>` translates to the same glib type as T.
 pub trait OptionToGlib: IntoGlib {
     const GLIB_NONE: Self::GlibType;
