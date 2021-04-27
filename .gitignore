@@ -10,4 +10,4 @@ config.status
 *.o
 *.swp
 **Cargo.lock
-gtk/tests/*
+# gtk/tests/*
