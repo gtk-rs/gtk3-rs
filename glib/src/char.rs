@@ -32,31 +32,24 @@ use std::num::TryFromIntError;
 ///
 /// The inner `libc::c_char` (which is equivalent to `i8` can be extracted with `.0`, or
 /// by calling `my_char.into_glib()`.
+///
+/// # Examples
+/// ```
+/// use glib::Char;
+/// use std::convert::TryFrom;
+///
+/// Char::from(b'a');
+/// Char::try_from('a').unwrap();
+/// assert!(Char::try_from('☔').is_err());
+/// ```
+///
+/// ```ignore
+/// extern "C" fn have_a_byte(b: libc::c_char);
+///
+/// have_a_byte(Char::from(b'a').into_glib());
+/// ```
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
 pub struct Char(pub c_char);
-
-impl Char {
-    /// Creates a `Some(Char)` if the given `char` is representable as an `libc::c_char`
-    ///
-    /// # Example
-    /// ```ignore
-    /// extern "C" fn have_a_byte(b: libc::c_char);
-    ///
-    /// let a = Char::new('a').unwrap();
-    /// assert!(a.0 == 65);
-    /// have_a_byte(a.into_glib());
-    ///
-    /// let not_representable = Char::new('☔');
-    /// assert!(not_representable.is_none());
-    /// ```
-    pub fn new(c: char) -> Option<Char> {
-        if c as u32 > 255 {
-            None
-        } else {
-            Some(Char(c as c_char))
-        }
-    }
-}
 
 impl TryFrom<char> for Char {
     type Error = TryFromIntError;
@@ -108,31 +101,24 @@ impl IntoGlib for Char {
 ///
 /// The inner `libc::c_uchar` (which is equivalent to `u8` can be extracted with `.0`, or
 /// by calling `my_char.into_glib()`.
+///
+/// # Examples
+/// ```
+/// use glib::UChar;
+/// use std::convert::TryFrom;
+///
+/// UChar::from(b'a');
+/// UChar::try_from('a').unwrap();
+/// assert!(UChar::try_from('☔').is_err());
+/// ```
+///
+/// ```ignore
+/// extern "C" fn have_a_byte(b: libc::c_uchar);
+///
+/// have_a_byte(UChar::from(b'a').into_glib());
+/// ```
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
 pub struct UChar(pub c_uchar);
-
-impl UChar {
-    /// Creates a `Some(UChar)` if the given `char` is representable as an `libc::c_uchar`
-    ///
-    /// # Example
-    /// ```ignore
-    /// extern "C" fn have_a_byte(b: libc::c_uchar);
-    ///
-    /// let a = Char::new('a').unwrap();
-    /// assert!(a.0 == 65);
-    /// have_a_byte(a.into_glib());
-    ///
-    /// let not_representable = Char::new('☔');
-    /// assert!(not_representable.is_none());
-    /// ```
-    pub fn new(c: char) -> Option<UChar> {
-        if c as u32 > 255 {
-            None
-        } else {
-            Some(UChar(c as c_uchar))
-        }
-    }
-}
 
 impl TryFrom<char> for UChar {
     type Error = TryFromIntError;
@@ -183,26 +169,26 @@ mod tests {
 
     #[test]
     fn converts_single_byte_chars() {
-        assert_eq!(Char::new(0 as char), Some(Char(0_i8)));
-        assert_eq!(UChar::new(0 as char), Some(UChar(0_u8)));
-        assert_eq!(UChar::new(255 as char), Some(UChar(255_u8)));
-        assert_eq!(UChar::new('ñ'), Some(UChar(241_u8)));
+        assert_eq!(Char::try_from(0 as char), Ok(Char(0_i8)));
+        assert_eq!(UChar::try_from(0 as char), Ok(UChar(0_u8)));
+        assert_eq!(UChar::try_from(255 as char), Ok(UChar(255_u8)));
+        assert_eq!(UChar::try_from('ñ'), Ok(UChar(241_u8)));
     }
 
     #[test]
     fn refuses_multibyte_chars() {
-        assert_eq!(Char::new('☔'), None); // no umbrella for you
-        assert_eq!(UChar::new('☔'), None);
+        assert!(Char::try_from('☔').is_err()); // no umbrella for you
+        assert!(UChar::try_from('☔').is_err());
     }
 
     #[test]
     fn into_i8() {
-        assert_eq!(Char::new('A').unwrap().into_glib(), 65_i8);
+        assert_eq!(Char::from(b'A').into_glib(), 65_i8);
     }
 
     #[test]
     fn into_u8() {
-        assert_eq!(UChar::new('A').unwrap().into_glib(), 65_u8);
+        assert_eq!(UChar::from(b'A').into_glib(), 65_u8);
     }
 
     #[test]
