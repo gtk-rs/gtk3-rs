@@ -2567,6 +2567,23 @@
 <span id="2564">2564</span>
 <span id="2565">2565</span>
 <span id="2566">2566</span>
+<span id="2567">2567</span>
+<span id="2568">2568</span>
+<span id="2569">2569</span>
+<span id="2570">2570</span>
+<span id="2571">2571</span>
+<span id="2572">2572</span>
+<span id="2573">2573</span>
+<span id="2574">2574</span>
+<span id="2575">2575</span>
+<span id="2576">2576</span>
+<span id="2577">2577</span>
+<span id="2578">2578</span>
+<span id="2579">2579</span>
+<span id="2580">2580</span>
+<span id="2581">2581</span>
+<span id="2582">2582</span>
+<span id="2583">2583</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -2588,7 +2605,7 @@
 <span class="doccomment">//!     }</span>
 <span class="doccomment">//! ```</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! Implementing [`OptionToGlib`] on a Rust type `T` allows specifying a sentinel to indicate</span>
+<span class="doccomment">//! Implementing [`OptionIntoGlib`] on a Rust type `T` allows specifying a sentinel to indicate</span>
 <span class="doccomment">//! a `None` value and auto-implementing [`FromGlib`] for `Option&lt;T&gt;`, which would not be</span>
 <span class="doccomment">//! possible in dependent crates due to the [orphan rule](https://doc.rust-lang.org/book/ch10-02-traits.html#implementing-a-trait-on-a-type).</span>
 <span class="doccomment">//! In the example below, [`IntoGlib`] is auto-implemented for `Option&lt;SpecialU32&gt;`.</span>
@@ -2602,7 +2619,7 @@
 <span class="doccomment">//!         self.0 as libc::c_uint</span>
 <span class="doccomment">//!     }</span>
 <span class="doccomment">//! }</span>
-<span class="doccomment">//! impl OptionToGlib for SpecialU32 {</span>
+<span class="doccomment">//! impl OptionIntoGlib for SpecialU32 {</span>
 <span class="doccomment">//!     const GLIB_NONE: Self::GlibType = 0xFFFFFF;</span>
 <span class="doccomment">//! }</span>
 <span class="doccomment">//! ```</span>
@@ -2618,7 +2635,7 @@
 <span class="doccomment">//! #         self.0 as libc::c_uint</span>
 <span class="doccomment">//! #     }</span>
 <span class="doccomment">//! # }</span>
-<span class="doccomment">//! # impl OptionToGlib for SpecialU32 {</span>
+<span class="doccomment">//! # impl OptionIntoGlib for SpecialU32 {</span>
 <span class="doccomment">//! #     const GLIB_NONE: Self::GlibType = 0xFFFFFF;</span>
 <span class="doccomment">//! # }</span>
 <span class="doccomment">//! impl TryFromGlib&lt;libc::c_uint&gt; for SpecialU32 {</span>
@@ -2910,12 +2927,29 @@
     }
 }
 
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">O</span>, <span class="ident">E</span>, <span class="ident">G</span><span class="op">&gt;</span> <span class="ident">IntoGlib</span> <span class="kw">for</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">O</span>, <span class="ident">E</span><span class="op">&gt;</span>
+<span class="kw">where</span>
+    <span class="ident">G</span>: <span class="ident">Copy</span>,
+    <span class="ident">O</span>: <span class="ident">IntoGlib</span><span class="op">&lt;</span><span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">G</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">TryFromGlib</span><span class="op">&lt;</span><span class="ident">G</span>, <span class="ident">Error</span> <span class="op">=</span> <span class="ident">E</span><span class="op">&gt;</span>,
+    <span class="ident">E</span>: <span class="ident">IntoGlib</span><span class="op">&lt;</span><span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">G</span><span class="op">&gt;</span>,
+{
+    <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">G</span>;
+
+    <span class="attribute">#[<span class="ident">inline</span>]</span>
+    <span class="kw">fn</span> <span class="ident">into_glib</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::GlibType</span> {
+        <span class="kw">match</span> <span class="self">self</span> {
+            <span class="prelude-val">Ok</span>(<span class="ident">ok</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ok</span>.<span class="ident">into_glib</span>(),
+            <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">err</span>.<span class="ident">into_glib</span>(),
+        }
+    }
+}
+
 <span class="doccomment">/// A Rust type `T` for which `Option&lt;T&gt;` translates to the same glib type as T.</span>
-<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">OptionToGlib</span>: <span class="ident">IntoGlib</span> {
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">OptionIntoGlib</span>: <span class="ident">IntoGlib</span> {
     <span class="kw">const</span> <span class="ident">GLIB_NONE</span>: <span class="self">Self</span><span class="ident">::GlibType</span>;
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">OptionToGlib</span><span class="op">&gt;</span> <span class="ident">IntoGlib</span> <span class="kw">for</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">OptionIntoGlib</span><span class="op">&gt;</span> <span class="ident">IntoGlib</span> <span class="kw">for</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
     <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">T::GlibType</span>;
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
@@ -5011,7 +5045,7 @@
                 <span class="self">self</span>.<span class="number">0</span> <span class="kw">as</span> <span class="ident">libc::c_uint</span>
             }
         }
-        <span class="kw">impl</span> <span class="ident">OptionToGlib</span> <span class="kw">for</span> <span class="ident">SpecialU32</span> {
+        <span class="kw">impl</span> <span class="ident">OptionIntoGlib</span> <span class="kw">for</span> <span class="ident">SpecialU32</span> {
             <span class="kw">const</span> <span class="ident">GLIB_NONE</span>: <span class="self">Self</span><span class="ident">::GlibType</span> <span class="op">=</span> <span class="ident">CLONG_NONE</span> <span class="kw">as</span> <span class="ident">libc::c_uint</span>;
         }
 
@@ -5087,7 +5121,7 @@
                 <span class="self">self</span>.<span class="number">0</span> <span class="kw">as</span> <span class="ident">libc::c_long</span>
             }
         }
-        <span class="kw">impl</span> <span class="ident">OptionToGlib</span> <span class="kw">for</span> <span class="ident">SpecialU32</span> {
+        <span class="kw">impl</span> <span class="ident">OptionIntoGlib</span> <span class="kw">for</span> <span class="ident">SpecialU32</span> {
             <span class="kw">const</span> <span class="ident">GLIB_NONE</span>: <span class="self">Self</span><span class="ident">::GlibType</span> <span class="op">=</span> <span class="op">-</span><span class="number">1</span>;
         }
 
