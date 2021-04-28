@@ -3,6 +3,8 @@
 use crate::translate::FromGlib;
 use crate::translate::IntoGlib;
 use libc::{c_char, c_uchar};
+use std::convert::TryFrom;
+use std::num::TryFromIntError;
 
 /// Wrapper for values where C functions expect a plain C `char`
 ///
@@ -56,9 +58,29 @@ impl Char {
     }
 }
 
+impl TryFrom<char> for Char {
+    type Error = TryFromIntError;
+
+    fn try_from(c: char) -> Result<Char, Self::Error> {
+        Ok(Self(u8::try_from(u32::from(c))? as c_char))
+    }
+}
+
 impl From<Char> for char {
     fn from(c: Char) -> char {
         c.0 as u8 as char
+    }
+}
+
+impl From<u8> for Char {
+    fn from(c: u8) -> Char {
+        Char(c as c_char)
+    }
+}
+
+impl From<Char> for u8 {
+    fn from(c: Char) -> u8 {
+        c.0 as u8
     }
 }
 
@@ -112,9 +134,29 @@ impl UChar {
     }
 }
 
+impl TryFrom<char> for UChar {
+    type Error = TryFromIntError;
+
+    fn try_from(c: char) -> Result<UChar, Self::Error> {
+        Ok(Self(u8::try_from(u32::from(c))? as c_uchar))
+    }
+}
+
 impl From<UChar> for char {
     fn from(c: UChar) -> char {
         c.0 as char
+    }
+}
+
+impl From<u8> for UChar {
+    fn from(c: u8) -> UChar {
+        UChar(c as c_uchar)
+    }
+}
+
+impl From<UChar> for u8 {
+    fn from(c: UChar) -> u8 {
+        c.0 as u8
     }
 }
 
