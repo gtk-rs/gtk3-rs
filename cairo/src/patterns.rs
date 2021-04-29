@@ -92,7 +92,7 @@ impl Pattern {
         matrix
     }
 
-    fn status(&self) -> Result<(), Error> {
+    pub(crate) fn status(&self) -> Result<(), Error> {
         let status = unsafe { ffi::cairo_pattern_status(self.pointer) };
         status_to_result(status)
     }
