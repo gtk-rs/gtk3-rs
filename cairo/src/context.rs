@@ -208,11 +208,11 @@ impl Context {
         unsafe { ffi::cairo_set_source_rgba(self.0.as_ptr(), red, green, blue, alpha) }
     }
 
-    pub fn set_source(&self, source: &Pattern) {
+    pub fn set_source(&self, source: &Pattern) -> Result<(), Error> {
         unsafe {
             ffi::cairo_set_source(self.0.as_ptr(), source.to_raw_none());
         }
-        self.status().expect("Failed to set source");
+        self.status()
     }
 
     #[doc(alias = "get_source")]
@@ -852,7 +852,7 @@ mod tests {
     fn drop_non_reference_pattern() {
         let ctx = create_ctx();
         let pattern = LinearGradient::new(1.0f64, 2.0f64, 3.0f64, 4.0f64);
-        ctx.set_source(&pattern);
+        ctx.set_source(&pattern).expect("Invalid surface state");
     }
 
     #[test]
