@@ -211,6 +211,7 @@ impl Context {
     }
 
     pub fn set_source(&self, source: &Pattern) -> Result<(), Error> {
+        source.status()?;
         unsafe {
             ffi::cairo_set_source(self.0.as_ptr(), source.to_raw_none());
         }
@@ -223,6 +224,7 @@ impl Context {
     }
 
     pub fn set_source_surface(&self, surface: &Surface, x: f64, y: f64) -> Result<(), Error> {
+        surface.status()?;
         unsafe {
             ffi::cairo_set_source_surface(self.0.as_ptr(), surface.to_raw_none(), x, y);
         }
