@@ -177,7 +177,7 @@ pub trait StyleContextExt: 'static {
     fn path(&self) -> Option<WidgetPath>;
 
     #[doc(alias = "gtk_style_context_get_property")]
-    fn property(&self, property: &str, state: StateFlags) -> glib::Value;
+    fn style_property_for_state(&self, property: &str, state: StateFlags) -> glib::Value;
 
     #[doc(alias = "gtk_style_context_get_scale")]
     fn scale(&self) -> i32;
@@ -405,7 +405,7 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
         }
     }
 
-    fn property(&self, property: &str, state: StateFlags) -> glib::Value {
+    fn style_property_for_state(&self, property: &str, state: StateFlags) -> glib::Value {
         unsafe {
             let mut value = glib::Value::uninitialized();
             ffi::gtk_style_context_get_property(

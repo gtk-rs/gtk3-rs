@@ -2102,6 +2102,9 @@ manual_traits = ["StyleContextExtManual"]
     [[object.property]]
     name = "paint-clock"
     version = "3.8"
+    [[object.function]]
+    name = "get_property"
+    rename = "style_property_for_state" # avoid collision with ObjectExt::property
 
 [[object]]
 name = "Gtk.StyleContextPrintFlags"
