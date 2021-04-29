@@ -220,10 +220,11 @@ impl Context {
         unsafe { Pattern::from_raw_none(ffi::cairo_get_source(self.0.as_ptr())) }
     }
 
-    pub fn set_source_surface(&self, surface: &Surface, x: f64, y: f64) {
+    pub fn set_source_surface(&self, surface: &Surface, x: f64, y: f64) -> Result<(), Error> {
         unsafe {
             ffi::cairo_set_source_surface(self.0.as_ptr(), surface.to_raw_none(), x, y);
         }
+        self.status()
     }
 
     pub fn set_antialias(&self, antialias: Antialias) {
