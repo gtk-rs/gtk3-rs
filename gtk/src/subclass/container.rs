@@ -268,3 +268,15 @@ impl Callback {
         }
     }
 }
+
+pub unsafe trait ContainerClassSubclassExt: ClassStruct {
+    #[doc(alias = "gtk_container_class_handle_border_width")]
+    fn handle_border_width(&mut self) {
+        unsafe {
+            let widget_class = self as *mut _ as *mut ffi::GtkContainerClass;
+            ffi::gtk_container_class_handle_border_width(widget_class);
+        }
+    }
+}
+
+unsafe impl<T: ClassStruct> ContainerClassSubclassExt for T where T::Type: ContainerImpl {}

@@ -52,7 +52,7 @@ pub mod prelude {
     pub use super::cell_renderer_spinner::CellRendererSpinnerImpl;
     pub use super::cell_renderer_text::{CellRendererTextImpl, CellRendererTextImplExt};
     pub use super::cell_renderer_toggle::{CellRendererToggleImpl, CellRendererToggleImplExt};
-    pub use super::container::{ContainerImpl, ContainerImplExt};
+    pub use super::container::{ContainerClassSubclassExt, ContainerImpl, ContainerImplExt};
     pub use super::dialog::{DialogImpl, DialogImplExt};
     pub use super::drawing_area::DrawingAreaImpl;
     pub use super::event_box::EventBoxImpl;
