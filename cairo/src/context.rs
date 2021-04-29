@@ -187,8 +187,9 @@ impl Context {
         unsafe { ffi::cairo_push_group_with_content(self.0.as_ptr(), content.into()) }
     }
 
-    pub fn pop_group(&self) -> Pattern {
-        unsafe { Pattern::from_raw_full(ffi::cairo_pop_group(self.0.as_ptr())) }
+    pub fn pop_group(&self) -> Result<Pattern, Error> {
+        let pattern = unsafe { Pattern::from_raw_full(ffi::cairo_pop_group(self.0.as_ptr())) };
+        self.status().map(|_| pattern)
     }
 
     pub fn pop_group_to_source(&self) {
