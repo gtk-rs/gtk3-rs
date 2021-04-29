@@ -115,6 +115,7 @@ impl Device {
     #[cfg(any(feature = "script", feature = "dox"))]
     #[doc(alias = "cairo_script_surface_create_for_target")]
     pub fn surface_create_for_target(&self, target: &Surface) -> Result<Surface, Error> {
+        target.status()?;
         unsafe {
             Ok(Surface::from_raw_full(
                 ffi::cairo_script_surface_create_for_target(
