@@ -12,7 +12,7 @@ pub fn draw_initial(width: i32, height: i32) -> Image {
     image.with_surface(|surface| {
         let cr = Context::new(surface).expect("Can't create a Cairo context");
         cr.set_source_rgb(0., 1., 0.);
-        cr.paint();
+        cr.paint().expect("Invalid cairo surface state");
     });
 
     image
@@ -24,10 +24,10 @@ pub fn draw_slow(cr: &Context, delay: Duration, x: f64, y: f64, radius: f64) {
 
     thread::sleep(delay);
     cr.set_source_rgb(0., 0., 0.);
-    cr.paint();
+    cr.paint().expect("Invalid cairo surface state");
     cr.set_source_rgb(1., 1., 1.);
     cr.arc(x, y, radius, 0.0, 2. * PI);
-    cr.stroke();
+    cr.stroke().expect("Invalid cairo surface state");
 }
 
 /// Render the image surface into the context at the given position
@@ -48,7 +48,7 @@ pub fn draw_image_if_dirty(
     }
     cr.set_source_surface(image, x, y)
         .expect("The surface has an invalid state");
-    cr.paint();
+    cr.paint().expect("Invalid cairo surface state");
 
     // Release the reference to the surface again
     cr.set_source_rgba(0.0, 0.0, 0.0, 0.0);

@@ -120,12 +120,12 @@ mod test {
         cr.set_source_rgb(1.0, 0.0, 0.0);
         cr.line_to(0., 0.);
         cr.line_to(100., 100.);
-        cr.stroke();
+        cr.stroke().expect("Surface on an invalid state");
 
         cr.set_source_rgb(0.0, 0.0, 1.0);
         cr.line_to(0., 100.);
         cr.line_to(100., 0.);
-        cr.stroke();
+        cr.stroke().expect("Surface on an invalid state");
     }
 
     fn draw_in_buffer() -> Vec<u8> {

@@ -396,12 +396,14 @@ impl Context {
         }
     }
 
-    pub fn fill(&self) {
-        unsafe { ffi::cairo_fill(self.0.as_ptr()) }
+    pub fn fill(&self) -> Result<(), Error> {
+        unsafe { ffi::cairo_fill(self.0.as_ptr()) };
+        self.status()
     }
 
-    pub fn fill_preserve(&self) {
-        unsafe { ffi::cairo_fill_preserve(self.0.as_ptr()) }
+    pub fn fill_preserve(&self) -> Result<(), Error> {
+        unsafe { ffi::cairo_fill_preserve(self.0.as_ptr()) };
+        self.status()
     }
 
     pub fn fill_extents(&self) -> Result<(f64, f64, f64, f64), Error> {
@@ -421,30 +423,38 @@ impl Context {
         self.status().map(|_| in_fill)
     }
 
-    pub fn mask(&self, pattern: &Pattern) {
-        unsafe { ffi::cairo_mask(self.0.as_ptr(), pattern.to_raw_none()) }
+    pub fn mask(&self, pattern: &Pattern) -> Result<(), Error> {
+        pattern.status()?;
+        unsafe { ffi::cairo_mask(self.0.as_ptr(), pattern.to_raw_none()) };
+        self.status()
     }
 
-    pub fn mask_surface(&self, surface: &Surface, x: f64, y: f64) {
+    pub fn mask_surface(&self, surface: &Surface, x: f64, y: f64) -> Result<(), Error> {
+        surface.status()?;
         unsafe {
             ffi::cairo_mask_surface(self.0.as_ptr(), surface.to_raw_none(), x, y);
-        }
+        };
+        self.status()
     }
 
-    pub fn paint(&self) {
-        unsafe { ffi::cairo_paint(self.0.as_ptr()) }
+    pub fn paint(&self) -> Result<(), Error> {
+        unsafe { ffi::cairo_paint(self.0.as_ptr()) };
+        self.status()
     }
 
-    pub fn paint_with_alpha(&self, alpha: f64) {
-        unsafe { ffi::cairo_paint_with_alpha(self.0.as_ptr(), alpha) }
+    pub fn paint_with_alpha(&self, alpha: f64) -> Result<(), Error> {
+        unsafe { ffi::cairo_paint_with_alpha(self.0.as_ptr(), alpha) };
+        self.status()
     }
 
-    pub fn stroke(&self) {
-        unsafe { ffi::cairo_stroke(self.0.as_ptr()) }
+    pub fn stroke(&self) -> Result<(), Error> {
+        unsafe { ffi::cairo_stroke(self.0.as_ptr()) };
+        self.status()
     }
 
-    pub fn stroke_preserve(&self) {
-        unsafe { ffi::cairo_stroke_preserve(self.0.as_ptr()) }
+    pub fn stroke_preserve(&self) -> Result<(), Error> {
+        unsafe { ffi::cairo_stroke_preserve(self.0.as_ptr()) };
+        self.status()
     }
 
     pub fn stroke_extents(&self) -> Result<(f64, f64, f64, f64), Error> {
@@ -464,12 +474,14 @@ impl Context {
         self.status().map(|_| in_stroke)
     }
 
-    pub fn copy_page(&self) {
-        unsafe { ffi::cairo_copy_page(self.0.as_ptr()) }
+    pub fn copy_page(&self) -> Result<(), Error> {
+        unsafe { ffi::cairo_copy_page(self.0.as_ptr()) };
+        self.status()
     }
 
-    pub fn show_page(&self) {
-        unsafe { ffi::cairo_show_page(self.0.as_ptr()) }
+    pub fn show_page(&self) -> Result<(), Error> {
+        unsafe { ffi::cairo_show_page(self.0.as_ptr()) };
+        self.status()
     }
 
     #[doc(alias = "get_reference_count")]
@@ -607,15 +619,17 @@ impl Context {
         unsafe { ScaledFont::from_raw_none(ffi::cairo_get_scaled_font(self.0.as_ptr())) }
     }
 
-    pub fn show_text(&self, text: &str) {
+    pub fn show_text(&self, text: &str) -> Result<(), Error> {
         unsafe {
             let text = CString::new(text).unwrap();
             ffi::cairo_show_text(self.0.as_ptr(), text.as_ptr())
-        }
+        };
+        self.status()
     }
 
-    pub fn show_glyphs(&self, glyphs: &[Glyph]) {
-        unsafe { ffi::cairo_show_glyphs(self.0.as_ptr(), glyphs.as_ptr(), glyphs.len() as c_int) }
+    pub fn show_glyphs(&self, glyphs: &[Glyph]) -> Result<(), Error> {
+        unsafe { ffi::cairo_show_glyphs(self.0.as_ptr(), glyphs.as_ptr(), glyphs.len() as c_int) };
+        self.status()
     }
 
     pub fn show_text_glyphs(
@@ -624,7 +638,7 @@ impl Context {
         glyphs: &[Glyph],
         clusters: &[TextCluster],
         cluster_flags: TextClusterFlags,
-    ) {
+    ) -> Result<(), Error> {
         unsafe {
             let text = CString::new(text).unwrap();
             ffi::cairo_show_text_glyphs(
@@ -637,7 +651,8 @@ impl Context {
                 clusters.len() as c_int,
                 cluster_flags.into(),
             )
-        }
+        };
+        self.status()
     }
 
     pub fn font_extents(&self) -> Result<FontExtents, Error> {

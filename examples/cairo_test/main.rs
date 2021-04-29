@@ -13,20 +13,20 @@ fn build_ui(application: &gtk::Application) {
         cr.scale(500f64, 500f64);
 
         cr.set_source_rgb(250.0 / 255.0, 224.0 / 255.0, 55.0 / 255.0);
-        cr.paint();
+        cr.paint().expect("Invalid cairo surface state");
 
         cr.set_line_width(0.05);
 
         // border
         cr.set_source_rgb(0.3, 0.3, 0.3);
         cr.rectangle(0.0, 0.0, 1.0, 1.0);
-        cr.stroke();
+        cr.stroke().expect("Invalid cairo surface state");
 
         cr.set_line_width(0.03);
 
         // draw circle
         cr.arc(0.5, 0.5, 0.4, 0.0, PI * 2.);
-        cr.stroke();
+        cr.stroke().expect("Invalid cairo surface state");
 
         // mouth
         let mouth_top = 0.68;
@@ -47,15 +47,15 @@ fn build_ui(application: &gtk::Application) {
 
         println!("Extents: {:?}", cr.fill_extents());
 
-        cr.stroke();
+        cr.stroke().expect("Invalid cairo surface state");
 
         let eye_y = 0.38;
         let eye_dx = 0.15;
         cr.arc(0.5 - eye_dx, eye_y, 0.05, 0.0, PI * 2.);
-        cr.fill();
+        cr.fill().expect("Invalid cairo surface state");
 
         cr.arc(0.5 + eye_dx, eye_y, 0.05, 0.0, PI * 2.);
-        cr.fill();
+        cr.fill().expect("Invalid cairo surface state");
 
         Inhibit(false)
     });
@@ -67,20 +67,20 @@ fn build_ui(application: &gtk::Application) {
         cr.set_font_size(0.35);
 
         cr.move_to(0.04, 0.53);
-        cr.show_text("Hello");
+        cr.show_text("Hello").expect("Invalid cairo surface state");
 
         cr.move_to(0.27, 0.65);
         cr.text_path("void");
         cr.set_source_rgb(0.5, 0.5, 1.0);
-        cr.fill_preserve();
+        cr.fill_preserve().expect("Invalid cairo surface state");
         cr.set_source_rgb(0.0, 0.0, 0.0);
         cr.set_line_width(0.01);
-        cr.stroke();
+        cr.stroke().expect("Invalid cairo surface state");
 
         cr.set_source_rgba(1.0, 0.2, 0.2, 0.6);
         cr.arc(0.04, 0.53, 0.02, 0.0, PI * 2.);
         cr.arc(0.27, 0.65, 0.02, 0.0, PI * 2.);
-        cr.fill();
+        cr.fill().expect("Invalid cairo surface state");
 
         Inhibit(false)
     });

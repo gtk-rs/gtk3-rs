@@ -11,7 +11,7 @@ fn main() {
     cr.set_line_width(0.1);
     cr.set_source_rgb(0.0, 0.0, 0.0);
     cr.rectangle(0.25, 0.25, 0.5, 0.5);
-    cr.stroke();
+    cr.stroke().expect("Invalid cairo surface state");
 
     let mut file = File::create("file.png").expect("Couldn't create 'file.png'");
     match surface.write_to_png(&mut file) {
