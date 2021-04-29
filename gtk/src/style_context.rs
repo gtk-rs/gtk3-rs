@@ -1,8 +1,8 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
+use crate::prelude::*;
 use crate::StateFlags;
 use crate::StyleContext;
-use glib::prelude::*;
 use pango::FontDescription;
 
 pub trait StyleContextExtManual: 'static {
@@ -11,7 +11,7 @@ pub trait StyleContextExtManual: 'static {
 
 impl<O: IsA<StyleContext>> StyleContextExtManual for O {
     fn font(&self, state: StateFlags) -> FontDescription {
-        <Self as crate::prelude::StyleContextExt>::property(self, "font", state)
+        self.style_property_for_state("font", state)
             .get()
             .expect("font property is not pango::FontDescription")
     }
