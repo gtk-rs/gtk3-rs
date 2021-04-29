@@ -41,7 +41,8 @@ pub fn draw_image_if_dirty(
     let y = origin.1 as f64;
     let w = dimensions.0 as f64;
     let h = dimensions.1 as f64;
-    let (clip_x1, clip_y1, clip_x2, clip_y2) = cr.clip_extents();
+    let (clip_x1, clip_y1, clip_x2, clip_y2) =
+        cr.clip_extents().expect("Can't get cairo clip extents");
     if clip_x1 >= x + w || clip_y1 >= y + h || clip_x2 <= x || clip_y2 <= y {
         return;
     }

@@ -362,7 +362,7 @@ impl Context {
         unsafe { ffi::cairo_clip_preserve(self.0.as_ptr()) }
     }
 
-    pub fn clip_extents(&self) -> (f64, f64, f64, f64) {
+    pub fn clip_extents(&self) -> Result<(f64, f64, f64, f64), Error> {
         let mut x1: f64 = 0.0;
         let mut y1: f64 = 0.0;
         let mut x2: f64 = 0.0;
@@ -371,11 +371,12 @@ impl Context {
         unsafe {
             ffi::cairo_clip_extents(self.0.as_ptr(), &mut x1, &mut y1, &mut x2, &mut y2);
         }
-        (x1, y1, x2, y2)
+        self.status().map(|_| (x1, y1, x2, y2))
     }
 
-    pub fn in_clip(&self, x: f64, y: f64) -> bool {
-        unsafe { ffi::cairo_in_clip(self.0.as_ptr(), x, y).as_bool() }
+    pub fn in_clip(&self, x: f64, y: f64) -> Result<bool, Error> {
+        let in_clip = unsafe { ffi::cairo_in_clip(self.0.as_ptr(), x, y).as_bool() };
+        self.status().map(|_| in_clip)
     }
 
     pub fn reset_clip(&self) {
@@ -403,7 +404,7 @@ impl Context {
         unsafe { ffi::cairo_fill_preserve(self.0.as_ptr()) }
     }
 
-    pub fn fill_extents(&self) -> (f64, f64, f64, f64) {
+    pub fn fill_extents(&self) -> Result<(f64, f64, f64, f64), Error> {
         let mut x1: f64 = 0.0;
         let mut y1: f64 = 0.0;
         let mut x2: f64 = 0.0;
@@ -412,11 +413,12 @@ impl Context {
         unsafe {
             ffi::cairo_fill_extents(self.0.as_ptr(), &mut x1, &mut y1, &mut x2, &mut y2);
         }
-        (x1, y1, x2, y2)
+        self.status().map(|_| (x1, y1, x2, y2))
     }
 
-    pub fn in_fill(&self, x: f64, y: f64) -> bool {
-        unsafe { ffi::cairo_in_fill(self.0.as_ptr(), x, y).as_bool() }
+    pub fn in_fill(&self, x: f64, y: f64) -> Result<bool, Error> {
+        let in_fill = unsafe { ffi::cairo_in_fill(self.0.as_ptr(), x, y).as_bool() };
+        self.status().map(|_| in_fill)
     }
 
     pub fn mask(&self, pattern: &Pattern) {
@@ -445,7 +447,7 @@ impl Context {
         unsafe { ffi::cairo_stroke_preserve(self.0.as_ptr()) }
     }
 
-    pub fn stroke_extents(&self) -> (f64, f64, f64, f64) {
+    pub fn stroke_extents(&self) -> Result<(f64, f64, f64, f64), Error> {
         let mut x1: f64 = 0.0;
         let mut y1: f64 = 0.0;
         let mut x2: f64 = 0.0;
@@ -454,11 +456,12 @@ impl Context {
         unsafe {
             ffi::cairo_stroke_extents(self.0.as_ptr(), &mut x1, &mut y1, &mut x2, &mut y2);
         }
-        (x1, y1, x2, y2)
+        self.status().map(|_| (x1, y1, x2, y2))
     }
 
-    pub fn in_stroke(&self, x: f64, y: f64) -> bool {
-        unsafe { ffi::cairo_in_stroke(self.0.as_ptr(), x, y).as_bool() }
+    pub fn in_stroke(&self, x: f64, y: f64) -> Result<bool, Error> {
+        let in_stroke = unsafe { ffi::cairo_in_stroke(self.0.as_ptr(), x, y).as_bool() };
+        self.status().map(|_| in_stroke)
     }
 
     pub fn copy_page(&self) {
@@ -520,25 +523,25 @@ impl Context {
         }
     }
 
-    pub fn user_to_device_distance(&self, mut dx: f64, mut dy: f64) -> (f64, f64) {
+    pub fn user_to_device_distance(&self, mut dx: f64, mut dy: f64) -> Result<(f64, f64), Error> {
         unsafe {
             ffi::cairo_user_to_device_distance(self.0.as_ptr(), &mut dx, &mut dy);
-            (dx, dy)
-        }
+        };
+        self.status().map(|_| (dx, dy))
     }
 
-    pub fn device_to_user(&self, mut x: f64, mut y: f64) -> (f64, f64) {
+    pub fn device_to_user(&self, mut x: f64, mut y: f64) -> Result<(f64, f64), Error> {
         unsafe {
             ffi::cairo_device_to_user(self.0.as_ptr(), &mut x, &mut y);
-            (x, y)
         }
+        self.status().map(|_| (x, y))
     }
 
-    pub fn device_to_user_distance(&self, mut dx: f64, mut dy: f64) -> (f64, f64) {
+    pub fn device_to_user_distance(&self, mut dx: f64, mut dy: f64) -> Result<(f64, f64), Error> {
         unsafe {
             ffi::cairo_device_to_user_distance(self.0.as_ptr(), &mut dx, &mut dy);
-            (dx, dy)
         }
+        self.status().map(|_| (dx, dy))
     }
 
     // font stuff
@@ -637,7 +640,7 @@ impl Context {
         }
     }
 
-    pub fn font_extents(&self) -> FontExtents {
+    pub fn font_extents(&self) -> Result<FontExtents, Error> {
         let mut extents = FontExtents {
             ascent: 0.0,
             descent: 0.0,
@@ -650,10 +653,10 @@ impl Context {
             ffi::cairo_font_extents(self.0.as_ptr(), &mut extents);
         }
 
-        extents
+        self.status().map(|_| extents)
     }
 
-    pub fn text_extents(&self, text: &str) -> TextExtents {
+    pub fn text_extents(&self, text: &str) -> Result<TextExtents, Error> {
         let mut extents = TextExtents {
             x_bearing: 0.0,
             y_bearing: 0.0,
@@ -667,10 +670,10 @@ impl Context {
             let text = CString::new(text).unwrap();
             ffi::cairo_text_extents(self.0.as_ptr(), text.as_ptr(), &mut extents);
         }
-        extents
+        self.status().map(|_| extents)
     }
 
-    pub fn glyph_extents(&self, glyphs: &[Glyph]) -> TextExtents {
+    pub fn glyph_extents(&self, glyphs: &[Glyph]) -> Result<TextExtents, Error> {
         let mut extents = TextExtents {
             x_bearing: 0.0,
             y_bearing: 0.0,
@@ -689,34 +692,37 @@ impl Context {
             );
         }
 
-        extents
+        self.status().map(|_| extents)
     }
 
     // paths stuff
 
-    pub fn copy_path(&self) -> Path {
-        unsafe { Path::from_raw_full(ffi::cairo_copy_path(self.0.as_ptr())) }
+    pub fn copy_path(&self) -> Result<Path, Error> {
+        let path = unsafe { Path::from_raw_full(ffi::cairo_copy_path(self.0.as_ptr())) };
+        self.status().map(|_| path)
     }
 
-    pub fn copy_path_flat(&self) -> Path {
-        unsafe { Path::from_raw_full(ffi::cairo_copy_path_flat(self.0.as_ptr())) }
+    pub fn copy_path_flat(&self) -> Result<Path, Error> {
+        let path = unsafe { Path::from_raw_full(ffi::cairo_copy_path_flat(self.0.as_ptr())) };
+        self.status().map(|_| path)
     }
 
     pub fn append_path(&self, path: &Path) {
         unsafe { ffi::cairo_append_path(self.0.as_ptr(), path.as_ptr()) }
     }
 
-    pub fn has_current_point(&self) -> bool {
-        unsafe { ffi::cairo_has_current_point(self.0.as_ptr()).as_bool() }
+    pub fn has_current_point(&self) -> Result<bool, Error> {
+        let has_current_point = unsafe { ffi::cairo_has_current_point(self.0.as_ptr()).as_bool() };
+        self.status().map(|_| has_current_point)
     }
 
     #[doc(alias = "get_current_point")]
-    pub fn current_point(&self) -> (f64, f64) {
+    pub fn current_point(&self) -> Result<(f64, f64), Error> {
         unsafe {
             let mut x = 0.0;
             let mut y = 0.0;
             ffi::cairo_get_current_point(self.0.as_ptr(), &mut x, &mut y);
-            (x, y)
+            self.status().map(|_| (x, y))
         }
     }
 
@@ -779,7 +785,7 @@ impl Context {
         unsafe { ffi::cairo_rel_move_to(self.0.as_ptr(), dx, dy) }
     }
 
-    pub fn path_extents(&self) -> (f64, f64, f64, f64) {
+    pub fn path_extents(&self) -> Result<(f64, f64, f64, f64), Error> {
         let mut x1: f64 = 0.0;
         let mut y1: f64 = 0.0;
         let mut x2: f64 = 0.0;
@@ -788,7 +794,7 @@ impl Context {
         unsafe {
             ffi::cairo_path_extents(self.0.as_ptr(), &mut x1, &mut y1, &mut x2, &mut y2);
         }
-        (x1, y1, x2, y2)
+        self.status().map(|_| (x1, y1, x2, y2))
     }
 
     #[cfg(any(feature = "v1_16", feature = "dox"))]
