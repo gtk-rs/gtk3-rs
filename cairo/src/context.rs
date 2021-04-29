@@ -233,7 +233,6 @@ impl Context {
 
     pub fn set_antialias(&self, antialias: Antialias) {
         unsafe { ffi::cairo_set_antialias(self.0.as_ptr(), antialias.into()) }
-        self.status().expect("Failed to set antialias");
     }
 
     #[doc(alias = "get_antialias")]
@@ -250,7 +249,6 @@ impl Context {
                 offset,
             )
         }
-        self.status().expect("Failed to set a dash"); //Possible invalid dashes value
     }
 
     #[doc(alias = "get_dash_count")]
@@ -287,7 +285,6 @@ impl Context {
         unsafe {
             ffi::cairo_set_fill_rule(self.0.as_ptr(), fill_rule.into());
         }
-        self.status().expect("Failed to set fill rule");
     }
 
     #[doc(alias = "get_fill_rule")]
@@ -297,7 +294,6 @@ impl Context {
 
     pub fn set_line_cap(&self, arg: LineCap) {
         unsafe { ffi::cairo_set_line_cap(self.0.as_ptr(), arg.into()) }
-        self.status().expect("Failed to set line cap");
     }
 
     #[doc(alias = "get_line_cap")]
@@ -307,7 +303,6 @@ impl Context {
 
     pub fn set_line_join(&self, arg: LineJoin) {
         unsafe { ffi::cairo_set_line_join(self.0.as_ptr(), arg.into()) }
-        self.status().expect("Failed to set line join");
     }
 
     #[doc(alias = "get_line_join")]
@@ -317,7 +312,6 @@ impl Context {
 
     pub fn set_line_width(&self, arg: f64) {
         unsafe { ffi::cairo_set_line_width(self.0.as_ptr(), arg) }
-        self.status().expect("Failed to set line width");
     }
 
     #[doc(alias = "get_line_width")]
@@ -327,7 +321,6 @@ impl Context {
 
     pub fn set_miter_limit(&self, arg: f64) {
         unsafe { ffi::cairo_set_miter_limit(self.0.as_ptr(), arg) }
-        self.status().expect("Failed to set miter limit");
     }
 
     #[doc(alias = "get_miter_limit")]
@@ -348,7 +341,6 @@ impl Context {
 
     pub fn set_tolerance(&self, arg: f64) {
         unsafe { ffi::cairo_set_tolerance(self.0.as_ptr(), arg) }
-        self.status().expect("Failed to set tolerance");
     }
 
     #[doc(alias = "get_tolerance")]
@@ -383,7 +375,6 @@ impl Context {
 
     pub fn reset_clip(&self) {
         unsafe { ffi::cairo_reset_clip(self.0.as_ptr()) }
-        self.status().expect("Failed to reset clip");
     }
 
     pub fn copy_clip_rectangle_list(&self) -> Result<RectangleList, Error> {
