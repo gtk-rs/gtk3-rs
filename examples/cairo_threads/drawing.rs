@@ -10,7 +10,7 @@ pub fn draw_initial(width: i32, height: i32) -> Image {
     let mut image = Image::new(width, height);
 
     image.with_surface(|surface| {
-        let cr = Context::new(surface);
+        let cr = Context::new(surface).expect("Can't create a Cairo context");
         cr.set_source_rgb(0., 1., 0.);
         cr.paint();
     });

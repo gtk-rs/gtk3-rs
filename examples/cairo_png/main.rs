@@ -3,7 +3,7 @@ use std::fs::File;
 
 fn main() {
     let surface = ImageSurface::create(Format::ARgb32, 120, 120).expect("Can't create surface");
-    let cr = Context::new(&surface);
+    let cr = Context::new(&surface).expect("Can't create a Cairo context");
     // Examples are in 1.0 x 1.0 coordinate space
     cr.scale(120.0, 120.0);
 

@@ -119,7 +119,7 @@ mod test {
     use tempfile::{tempfile, NamedTempFile};
 
     fn draw(surface: &Surface) {
-        let cr = Context::new(surface);
+        let cr = Context::new(surface).expect("Can't create a Cairo context");
 
         cr.set_line_width(25.0);
 

@@ -204,8 +204,7 @@ impl<'a> fmt::Display for ImageSurfaceData<'a> {
 // See: https://gitlab.freedesktop.org/cairo/cairo/-/issues/406
 fn is_finished(surface: &ImageSurface) -> bool {
     use super::Context;
-    let ctxt = Context::new(surface);
-    ctxt.status().is_err()
+    Context::new(surface).is_err()
 }
 
 #[cfg(test)]

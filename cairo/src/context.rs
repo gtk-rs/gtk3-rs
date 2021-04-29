@@ -159,8 +159,9 @@ impl Context {
         status_to_result(status)
     }
 
-    pub fn new(target: &Surface) -> Context {
-        unsafe { Self::from_raw_full(ffi::cairo_create(target.to_raw_none())) }
+    pub fn new(target: &Surface) -> Result<Context, Error> {
+        let ctx = unsafe { Self::from_raw_full(ffi::cairo_create(target.to_raw_none())) };
+        ctx.status().map(|_| ctx)
     }
 
     pub fn save(&self) -> Result<(), Error> {
@@ -820,7 +821,24 @@ mod tests {
 
     fn create_ctx() -> Context {
         let surface = ImageSurface::create(Format::ARgb32, 10, 10).unwrap();
-        Context::new(&surface)
+        Context::new(&surface).expect("Can't create a Cairo context")
+    }
+
+    #[test]
+    fn invalid_surface_cant_create_context() {
+        unsafe {
+            // The size here will create an image surface in an error state
+            let image_surf =
+                ffi::cairo_image_surface_create(Format::ARgb32.into(), 100_000, 100_000);
+
+            // from_raw_none() as from_raw_full() checks the surface status, and we *want*
+            // a surface in an error state.
+            let wrapped = Surface::from_raw_none(image_surf);
+
+            assert!(Context::new(&wrapped).is_err());
+
+            ffi::cairo_surface_destroy(image_surf);
+        }
     }
 
     #[test]
