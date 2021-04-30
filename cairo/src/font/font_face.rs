@@ -6,7 +6,10 @@ use std::ffi::{CStr, CString};
 #[cfg(not(feature = "use_glib"))]
 use std::ptr;
 
-use crate::enums::{FontSlant, FontType, FontWeight};
+use crate::{
+    enums::{FontSlant, FontType, FontWeight},
+    Error,
+};
 
 #[cfg(any(feature = "freetype", feature = "dox"))]
 use crate::enums::FtSynthesize;
@@ -150,6 +153,12 @@ impl FontFace {
     #[doc(alias = "cairo_ft_font_face_unset_synthesize")]
     pub fn unset_synthesize(&self, synth_flags: FtSynthesize) {
         unsafe { ffi::cairo_ft_font_face_unset_synthesize(self.to_raw_none(), synth_flags.into()) }
+    }
+
+    #[doc(alias = "cairo_font_face_status")]
+    pub fn status(&self) -> Result<(), Error> {
+        let status = unsafe { ffi::cairo_font_face_status(self.to_raw_none()) };
+        status_to_result(status)
     }
 
     user_data_methods! {

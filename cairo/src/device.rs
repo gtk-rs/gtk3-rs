@@ -293,6 +293,12 @@ impl Device {
         }
     }
 
+    #[doc(alias = "cairo_device_status")]
+    pub fn status(&self) -> Result<(), Error> {
+        let status = unsafe { ffi::cairo_device_status(self.to_raw_none()) };
+        status_to_result(status)
+    }
+
     user_data_methods! {
         ffi::cairo_device_get_user_data,
         ffi::cairo_device_set_user_data,

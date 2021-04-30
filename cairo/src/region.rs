@@ -241,6 +241,12 @@ impl Region {
             status_to_result(status)
         }
     }
+
+    #[doc(alias = "cairo_region_status")]
+    pub fn status(&self) -> Result<(), Error> {
+        let status = unsafe { ffi::cairo_region_status(self.0.as_ptr()) };
+        status_to_result(status)
+    }
 }
 
 impl fmt::Display for Region {

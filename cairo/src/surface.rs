@@ -272,7 +272,8 @@ impl Surface {
         unsafe { ffi::cairo_surface_mark_dirty_rectangle(self.to_raw_none(), x, y, width, height) }
     }
 
-    pub(crate) fn status(&self) -> Result<(), Error> {
+    #[doc(alias = "cairo_surface_status")]
+    pub fn status(&self) -> Result<(), Error> {
         let status = unsafe { ffi::cairo_surface_status(self.to_raw_none()) };
         status_to_result(status)
     }

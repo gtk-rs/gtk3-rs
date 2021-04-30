@@ -12,8 +12,11 @@ use std::ffi::CString;
 #[cfg(not(feature = "use_glib"))]
 use std::ptr;
 
-use crate::enums::{Antialias, HintMetrics, HintStyle, SubpixelOrder};
 use crate::utils::status_to_result;
+use crate::{
+    enums::{Antialias, HintMetrics, HintStyle, SubpixelOrder},
+    Error,
+};
 
 #[cfg(feature = "use_glib")]
 glib::wrapper! {
@@ -143,6 +146,12 @@ impl FontOptions {
                 }
             }
         }
+    }
+
+    #[doc(alias = "cairo_font_options_status")]
+    pub fn status(&self) -> Result<(), Error> {
+        let status = unsafe { ffi::cairo_font_options_status(self.to_raw_none()) };
+        status_to_result(status)
     }
 }
 

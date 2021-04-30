@@ -5,10 +5,10 @@ use glib::translate::*;
 use std::ffi::CString;
 use std::ptr;
 
-use crate::enums::FontType;
 use crate::ffi::{FontExtents, Glyph, TextCluster, TextExtents};
 use crate::matrices::Matrix;
 use crate::utils::status_to_result;
+use crate::{enums::FontType, Error};
 
 use super::{FontFace, FontOptions};
 
@@ -253,6 +253,12 @@ impl ScaledFont {
         unsafe { ffi::cairo_scaled_font_get_scale_matrix(self.to_raw_none(), matrix.mut_ptr()) }
 
         matrix
+    }
+
+    #[doc(alias = "cairo_scaled_font_status")]
+    pub fn status(&self) -> Result<(), Error> {
+        let status = unsafe { ffi::cairo_scaled_font_status(self.to_raw_none()) };
+        status_to_result(status)
     }
 
     user_data_methods! {
