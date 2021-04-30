@@ -78,7 +78,7 @@ impl Surface {
         unsafe {
             let ptr = constructor(Some(write_callback::<W>), env as *mut c_void, width, height);
             let surface = Surface::from_raw_full(ptr)?;
-            surface.set_user_data(&STREAM_CALLBACK_ENVIRONMENT, env_rc);
+            surface.set_user_data(&STREAM_CALLBACK_ENVIRONMENT, env_rc)?;
             Ok(surface)
         }
     }

@@ -42,7 +42,7 @@ macro_rules! user_data_methods {
             &self,
             key: &'static crate::UserDataKey<T>,
             value: std::rc::Rc<T>,
-        ) {
+        ) -> Result<(), crate::Error> {
             unsafe extern "C" fn destructor<T>(ptr: *mut libc::c_void) {
                 let ptr: *const T = ptr as _;
                 drop(std::rc::Rc::from_raw(ptr))
@@ -58,7 +58,7 @@ macro_rules! user_data_methods {
             let status = unsafe {
                 $ffi_set_user_data(self.to_raw_none(), &key.ffi, ptr, Some(destructor::<T>))
             };
-            crate::utils::status_to_result(status).expect("Failed to set user data");
+            crate::utils::status_to_result(status)
         }
 
         /// Return the user data previously attached to `self` with the given `key`, if any.
@@ -119,11 +119,14 @@ macro_rules! user_data_methods {
 
         /// Unattach from `self` the user data associated with `key`, if any.
         /// If there is no other `Rc` strong reference, the data is destroyed.
-        pub fn remove_user_data<T: 'static>(&self, key: &'static crate::UserDataKey<T>) {
+        pub fn remove_user_data<T: 'static>(
+            &self,
+            key: &'static crate::UserDataKey<T>,
+        ) -> Result<(), crate::Error> {
             let status = unsafe {
                 $ffi_set_user_data(self.to_raw_none(), &key.ffi, std::ptr::null_mut(), None)
             };
-            crate::utils::status_to_result(status).expect("Failed to remove user data");
+            crate::utils::status_to_result(status)
         }
     };
 }
