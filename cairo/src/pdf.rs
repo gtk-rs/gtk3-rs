@@ -14,7 +14,6 @@ use crate::enums::{PdfMetadata, PdfOutline};
 use crate::enums::{PdfVersion, SurfaceType};
 use crate::error::Error;
 use crate::surface::Surface;
-use crate::utils::status_to_result;
 
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
@@ -131,11 +130,6 @@ impl PdfSurface {
 
         self.status()?;
         Ok(res)
-    }
-
-    fn status(&self) -> Result<(), Error> {
-        let status = unsafe { ffi::cairo_surface_status(self.to_raw_none()) };
-        status_to_result(status)
     }
 }
 
