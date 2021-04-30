@@ -587,12 +587,12 @@ impl Context {
     }
 
     #[doc(alias = "get_font_options")]
-    pub fn font_options(&self) -> FontOptions {
-        let out = FontOptions::new();
+    pub fn font_options(&self) -> Result<FontOptions, Error> {
+        let out = FontOptions::new()?;
         unsafe {
             ffi::cairo_get_font_options(self.0.as_ptr(), out.to_raw_none());
         }
-        out
+        Ok(out)
     }
 
     pub fn set_font_face(&self, font_face: &FontFace) {

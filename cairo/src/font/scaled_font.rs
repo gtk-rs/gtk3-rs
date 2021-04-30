@@ -215,14 +215,14 @@ impl ScaledFont {
 
     #[doc(alias = "cairo_scaled_font_get_font_options")]
     #[doc(alias = "get_font_options")]
-    pub fn font_options(&self) -> FontOptions {
-        let options = FontOptions::new();
+    pub fn font_options(&self) -> Result<FontOptions, Error> {
+        let options = FontOptions::new()?;
 
         unsafe {
             ffi::cairo_scaled_font_get_font_options(self.to_raw_none(), options.to_raw_none())
         }
 
-        options
+        Ok(options)
     }
 
     #[doc(alias = "cairo_scaled_font_get_font_matrix")]

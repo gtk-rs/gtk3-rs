@@ -41,13 +41,14 @@ pub struct FontOptions(ptr::NonNull<ffi::cairo_font_options_t>);
 
 impl FontOptions {
     #[doc(alias = "cairo_font_options_create")]
-    pub fn new() -> Self {
-        let font_options: Self = unsafe { Self::from_raw_full(ffi::cairo_font_options_create()) };
+    pub fn new() -> Result<FontOptions, Error> {
+        let font_options: FontOptions =
+            unsafe { FontOptions::from_raw_full(ffi::cairo_font_options_create()) };
 
         let status = unsafe { ffi::cairo_font_options_status(font_options.to_raw_none()) };
-        status_to_result(status).expect("Failed to create a font option");
+        status_to_result(status)?;
 
-        font_options
+        Ok(font_options)
     }
 
     #[cfg(feature = "use_glib")]
@@ -171,12 +172,6 @@ impl hash::Hash for FontOptions {
         H: hash::Hasher,
     {
         unsafe { hash::Hash::hash(&ffi::cairo_font_options_hash(self.to_raw_none()), state) }
-    }
-}
-
-impl Default for FontOptions {
-    fn default() -> Self {
-        Self::new()
     }
 }
 
