@@ -92,7 +92,7 @@ impl Matrix {
     #[doc(alias = "cairo_matrix_invert")]
     pub fn invert(&mut self) {
         let status = unsafe { ffi::cairo_matrix_invert(self.mut_ptr()) };
-        status_to_result(status).expect("Failed to invert matrix");
+        status_to_result(status).expect("Failed to invert the matrix")
     }
 
     #[doc(alias = "cairo_matrix_invert")]

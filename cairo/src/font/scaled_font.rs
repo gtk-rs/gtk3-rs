@@ -152,7 +152,12 @@ impl ScaledFont {
     }
 
     #[doc(alias = "cairo_scaled_font_text_to_glyphs")]
-    pub fn text_to_glyphs(&self, x: f64, y: f64, text: &str) -> (Vec<Glyph>, Vec<TextCluster>) {
+    pub fn text_to_glyphs(
+        &self,
+        x: f64,
+        y: f64,
+        text: &str,
+    ) -> Result<(Vec<Glyph>, Vec<TextCluster>), Error> {
         // This large unsafe block is due to the FFI function returning two specially allocated
         // (cairo_{glyph,text_cluster}_allocate) pointers that need to be copied into Vec<T>
         // types before they're of any use to Rust code.
@@ -178,7 +183,7 @@ impl ScaledFont {
                 &mut cluster_count,
                 &mut cluster_flags,
             );
-            status_to_result(status).expect("Failed to convert text to glyphs");
+            status_to_result(status)?;
 
             let glyph_count = glyph_count as usize;
             let glyphs: Vec<Glyph> = {
@@ -203,7 +208,7 @@ impl ScaledFont {
             ffi::cairo_glyph_free(glyphs_ptr);
             ffi::cairo_text_cluster_free(clusters_ptr);
 
-            (glyphs, clusters)
+            Ok((glyphs, clusters))
         }
     }
 

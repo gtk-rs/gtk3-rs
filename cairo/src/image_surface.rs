@@ -81,7 +81,7 @@ impl ImageSurface {
         if let Ok(surface) = &result {
             static IMAGE_SURFACE_DATA: crate::UserDataKey<Box<dyn AsMut<[u8]>>> =
                 crate::UserDataKey::new();
-            surface.set_user_data(&IMAGE_SURFACE_DATA, Rc::new(data))
+            surface.set_user_data(&IMAGE_SURFACE_DATA, Rc::new(data))?;
         }
         result
     }
