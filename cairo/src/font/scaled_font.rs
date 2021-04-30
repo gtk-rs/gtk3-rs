@@ -35,7 +35,7 @@ impl ScaledFont {
         font_matrix: &Matrix,
         ctm: &Matrix,
         options: &FontOptions,
-    ) -> ScaledFont {
+    ) -> Result<ScaledFont, Error> {
         let scaled_font: ScaledFont = unsafe {
             ScaledFont::from_raw_full(ffi::cairo_scaled_font_create(
                 font_face.to_raw_none(),
@@ -45,8 +45,9 @@ impl ScaledFont {
             ))
         };
         let status = unsafe { ffi::cairo_scaled_font_status(scaled_font.to_raw_none()) };
-        status_to_result(status).expect("Failed to create a scaled font");
-        scaled_font
+        status_to_result(status)?;
+
+        Ok(scaled_font)
     }
 
     #[cfg(feature = "use_glib")]
