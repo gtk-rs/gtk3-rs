@@ -33,9 +33,9 @@ impl IntoGlib for HyperlinkStateFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::AtkHyperlinkStateFlags> for HyperlinkStateFlags {
-    unsafe fn from_glib(value: ffi::AtkHyperlinkStateFlags) -> HyperlinkStateFlags {
+    unsafe fn from_glib(value: ffi::AtkHyperlinkStateFlags) -> Self {
         skip_assert_initialized!();
-        HyperlinkStateFlags::from_bits_truncate(value)
+        Self::from_bits_truncate(value)
     }
 }
 
@@ -60,7 +60,7 @@ unsafe impl<'a> FromValue<'a> for HyperlinkStateFlags {
 
 impl ToValue for HyperlinkStateFlags {
     fn to_value(&self) -> glib::Value {
-        let mut value = glib::Value::for_value_type::<HyperlinkStateFlags>();
+        let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
             glib::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, self.into_glib());
         }

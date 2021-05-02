@@ -44,8 +44,8 @@ impl IntoGlib for FileSetContentsFlags {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GFileSetContentsFlags> for FileSetContentsFlags {
-    unsafe fn from_glib(value: ffi::GFileSetContentsFlags) -> FileSetContentsFlags {
-        FileSetContentsFlags::from_bits_truncate(value)
+    unsafe fn from_glib(value: ffi::GFileSetContentsFlags) -> Self {
+        Self::from_bits_truncate(value)
     }
 }
 
@@ -76,8 +76,8 @@ impl IntoGlib for FileTest {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GFileTest> for FileTest {
-    unsafe fn from_glib(value: ffi::GFileTest) -> FileTest {
-        FileTest::from_bits_truncate(value)
+    unsafe fn from_glib(value: ffi::GFileTest) -> Self {
+        Self::from_bits_truncate(value)
     }
 }
 
@@ -107,8 +107,8 @@ impl IntoGlib for FormatSizeFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GFormatSizeFlags> for FormatSizeFlags {
-    unsafe fn from_glib(value: ffi::GFormatSizeFlags) -> FormatSizeFlags {
-        FormatSizeFlags::from_bits_truncate(value)
+    unsafe fn from_glib(value: ffi::GFormatSizeFlags) -> Self {
+        Self::from_bits_truncate(value)
     }
 }
 
@@ -140,8 +140,8 @@ impl IntoGlib for IOCondition {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GIOCondition> for IOCondition {
-    unsafe fn from_glib(value: ffi::GIOCondition) -> IOCondition {
-        IOCondition::from_bits_truncate(value)
+    unsafe fn from_glib(value: ffi::GIOCondition) -> Self {
+        Self::from_bits_truncate(value)
     }
 }
 
@@ -167,7 +167,7 @@ unsafe impl<'a> FromValue<'a> for IOCondition {
 
 impl ToValue for IOCondition {
     fn to_value(&self) -> crate::Value {
-        let mut value = crate::Value::for_value_type::<IOCondition>();
+        let mut value = crate::Value::for_value_type::<Self>();
         unsafe {
             crate::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, self.into_glib());
         }
@@ -204,8 +204,8 @@ impl IntoGlib for KeyFileFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GKeyFileFlags> for KeyFileFlags {
-    unsafe fn from_glib(value: ffi::GKeyFileFlags) -> KeyFileFlags {
-        KeyFileFlags::from_bits_truncate(value)
+    unsafe fn from_glib(value: ffi::GKeyFileFlags) -> Self {
+        Self::from_bits_truncate(value)
     }
 }
 
@@ -240,8 +240,8 @@ impl IntoGlib for LogLevelFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GLogLevelFlags> for LogLevelFlags {
-    unsafe fn from_glib(value: ffi::GLogLevelFlags) -> LogLevelFlags {
-        LogLevelFlags::from_bits_truncate(value)
+    unsafe fn from_glib(value: ffi::GLogLevelFlags) -> Self {
+        Self::from_bits_truncate(value)
     }
 }
 
@@ -275,8 +275,8 @@ impl IntoGlib for OptionFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GOptionFlags> for OptionFlags {
-    unsafe fn from_glib(value: ffi::GOptionFlags) -> OptionFlags {
-        OptionFlags::from_bits_truncate(value)
+    unsafe fn from_glib(value: ffi::GOptionFlags) -> Self {
+        Self::from_bits_truncate(value)
     }
 }
 
@@ -312,8 +312,8 @@ impl IntoGlib for SpawnFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GSpawnFlags> for SpawnFlags {
-    unsafe fn from_glib(value: ffi::GSpawnFlags) -> SpawnFlags {
-        SpawnFlags::from_bits_truncate(value)
+    unsafe fn from_glib(value: ffi::GSpawnFlags) -> Self {
+        Self::from_bits_truncate(value)
     }
 }
 
@@ -356,8 +356,8 @@ impl IntoGlib for UriFlags {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GUriFlags> for UriFlags {
-    unsafe fn from_glib(value: ffi::GUriFlags) -> UriFlags {
-        UriFlags::from_bits_truncate(value)
+    unsafe fn from_glib(value: ffi::GUriFlags) -> Self {
+        Self::from_bits_truncate(value)
     }
 }
 
@@ -397,8 +397,8 @@ impl IntoGlib for UriHideFlags {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GUriHideFlags> for UriHideFlags {
-    unsafe fn from_glib(value: ffi::GUriHideFlags) -> UriHideFlags {
-        UriHideFlags::from_bits_truncate(value)
+    unsafe fn from_glib(value: ffi::GUriHideFlags) -> Self {
+        Self::from_bits_truncate(value)
     }
 }
 
@@ -436,7 +436,7 @@ impl IntoGlib for UriParamsFlags {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GUriParamsFlags> for UriParamsFlags {
-    unsafe fn from_glib(value: ffi::GUriParamsFlags) -> UriParamsFlags {
-        UriParamsFlags::from_bits_truncate(value)
+    unsafe fn from_glib(value: ffi::GUriParamsFlags) -> Self {
+        Self::from_bits_truncate(value)
     }
 }

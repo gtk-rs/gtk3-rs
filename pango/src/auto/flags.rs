@@ -40,8 +40,8 @@ impl IntoGlib for FontMask {
 
 #[doc(hidden)]
 impl FromGlib<ffi::PangoFontMask> for FontMask {
-    unsafe fn from_glib(value: ffi::PangoFontMask) -> FontMask {
-        FontMask::from_bits_truncate(value)
+    unsafe fn from_glib(value: ffi::PangoFontMask) -> Self {
+        Self::from_bits_truncate(value)
     }
 }
 
@@ -65,7 +65,7 @@ unsafe impl<'a> FromValue<'a> for FontMask {
 
 impl ToValue for FontMask {
     fn to_value(&self) -> glib::Value {
-        let mut value = glib::Value::for_value_type::<FontMask>();
+        let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
             glib::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, self.into_glib());
         }
@@ -109,8 +109,8 @@ impl IntoGlib for ShapeFlags {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
 #[doc(hidden)]
 impl FromGlib<ffi::PangoShapeFlags> for ShapeFlags {
-    unsafe fn from_glib(value: ffi::PangoShapeFlags) -> ShapeFlags {
-        ShapeFlags::from_bits_truncate(value)
+    unsafe fn from_glib(value: ffi::PangoShapeFlags) -> Self {
+        Self::from_bits_truncate(value)
     }
 }
 
@@ -142,7 +142,7 @@ unsafe impl<'a> FromValue<'a> for ShapeFlags {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
 impl ToValue for ShapeFlags {
     fn to_value(&self) -> glib::Value {
-        let mut value = glib::Value::for_value_type::<ShapeFlags>();
+        let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
             glib::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, self.into_glib());
         }
@@ -188,8 +188,8 @@ impl IntoGlib for ShowFlags {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
 #[doc(hidden)]
 impl FromGlib<ffi::PangoShowFlags> for ShowFlags {
-    unsafe fn from_glib(value: ffi::PangoShowFlags) -> ShowFlags {
-        ShowFlags::from_bits_truncate(value)
+    unsafe fn from_glib(value: ffi::PangoShowFlags) -> Self {
+        Self::from_bits_truncate(value)
     }
 }
 
@@ -221,7 +221,7 @@ unsafe impl<'a> FromValue<'a> for ShowFlags {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
 impl ToValue for ShowFlags {
     fn to_value(&self) -> glib::Value {
-        let mut value = glib::Value::for_value_type::<ShowFlags>();
+        let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
             glib::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, self.into_glib());
         }

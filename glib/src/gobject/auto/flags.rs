@@ -36,8 +36,8 @@ impl IntoGlib for BindingFlags {
 
 #[doc(hidden)]
 impl FromGlib<gobject_ffi::GBindingFlags> for BindingFlags {
-    unsafe fn from_glib(value: gobject_ffi::GBindingFlags) -> BindingFlags {
-        BindingFlags::from_bits_truncate(value)
+    unsafe fn from_glib(value: gobject_ffi::GBindingFlags) -> Self {
+        Self::from_bits_truncate(value)
     }
 }
 
@@ -63,7 +63,7 @@ unsafe impl<'a> FromValue<'a> for BindingFlags {
 
 impl ToValue for BindingFlags {
     fn to_value(&self) -> crate::Value {
-        let mut value = crate::Value::for_value_type::<BindingFlags>();
+        let mut value = crate::Value::for_value_type::<Self>();
         unsafe {
             crate::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, self.into_glib());
         }
@@ -106,7 +106,7 @@ impl IntoGlib for SignalFlags {
 
 #[doc(hidden)]
 impl FromGlib<gobject_ffi::GSignalFlags> for SignalFlags {
-    unsafe fn from_glib(value: gobject_ffi::GSignalFlags) -> SignalFlags {
-        SignalFlags::from_bits_truncate(value)
+    unsafe fn from_glib(value: gobject_ffi::GSignalFlags) -> Self {
+        Self::from_bits_truncate(value)
     }
 }
