@@ -330,7 +330,7 @@ impl crate::value::ToValue for VariantType {
 #[doc(hidden)]
 impl crate::value::ToValueOptional for VariantType {
     fn to_value_optional(s: Option<&Self>) -> crate::Value {
-        let mut value = crate::Value::for_value_type::<VariantType>();
+        let mut value = crate::Value::for_value_type::<Self>();
         unsafe {
             gobject_ffi::g_value_set_boxed(
                 value.to_glib_none_mut().0,

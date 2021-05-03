@@ -18,8 +18,8 @@ pub struct Matrix {
 }
 
 impl Default for Matrix {
-    fn default() -> Matrix {
-        Matrix::identity()
+    fn default() -> Self {
+        Self::identity()
     }
 }
 
@@ -32,8 +32,8 @@ impl Matrix {
         self as *mut Matrix as _
     }
 
-    pub(crate) fn null() -> Matrix {
-        Matrix {
+    pub(crate) fn null() -> Self {
+        Self {
             xx: 0.0,
             yx: 0.0,
             xy: 0.0,
@@ -43,8 +43,8 @@ impl Matrix {
         }
     }
 
-    pub fn identity() -> Matrix {
-        Matrix {
+    pub fn identity() -> Self {
+        Self {
             xx: 1.0,
             yx: 0.0,
             xy: 0.0,
@@ -54,8 +54,8 @@ impl Matrix {
         }
     }
 
-    pub fn new(xx: f64, yx: f64, xy: f64, yy: f64, x0: f64, y0: f64) -> Matrix {
-        Matrix {
+    pub fn new(xx: f64, yx: f64, xy: f64, yy: f64, x0: f64, y0: f64) -> Self {
+        Self {
             xx,
             yx,
             xy,
@@ -67,7 +67,7 @@ impl Matrix {
 
     #[doc(alias = "cairo_matrix_multiply")]
     pub fn multiply(left: &Matrix, right: &Matrix) -> Matrix {
-        let mut matrix = Matrix::null();
+        let mut matrix = Self::null();
         unsafe {
             ffi::cairo_matrix_multiply(matrix.mut_ptr(), left.ptr(), right.ptr());
         }

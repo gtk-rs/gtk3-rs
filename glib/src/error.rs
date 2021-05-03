@@ -181,7 +181,7 @@ impl BoolError {
         function: &'static str,
         line: u32,
     ) -> Self {
-        BoolError {
+        Self {
             message: message.into(),
             filename,
             function,

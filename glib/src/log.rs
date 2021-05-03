@@ -12,8 +12,8 @@ pub struct LogHandlerId(u32);
 
 #[doc(hidden)]
 impl FromGlib<u32> for LogHandlerId {
-    unsafe fn from_glib(value: u32) -> LogHandlerId {
-        LogHandlerId(value)
+    unsafe fn from_glib(value: u32) -> Self {
+        Self(value)
     }
 }
 
@@ -42,31 +42,31 @@ impl IntoGlib for LogLevel {
 
     fn into_glib(self) -> u32 {
         match self {
-            LogLevel::Error => ffi::G_LOG_LEVEL_ERROR,
-            LogLevel::Critical => ffi::G_LOG_LEVEL_CRITICAL,
-            LogLevel::Warning => ffi::G_LOG_LEVEL_WARNING,
-            LogLevel::Message => ffi::G_LOG_LEVEL_MESSAGE,
-            LogLevel::Info => ffi::G_LOG_LEVEL_INFO,
-            LogLevel::Debug => ffi::G_LOG_LEVEL_DEBUG,
+            Self::Error => ffi::G_LOG_LEVEL_ERROR,
+            Self::Critical => ffi::G_LOG_LEVEL_CRITICAL,
+            Self::Warning => ffi::G_LOG_LEVEL_WARNING,
+            Self::Message => ffi::G_LOG_LEVEL_MESSAGE,
+            Self::Info => ffi::G_LOG_LEVEL_INFO,
+            Self::Debug => ffi::G_LOG_LEVEL_DEBUG,
         }
     }
 }
 
 #[doc(hidden)]
 impl FromGlib<u32> for LogLevel {
-    unsafe fn from_glib(value: u32) -> LogLevel {
+    unsafe fn from_glib(value: u32) -> Self {
         if value & ffi::G_LOG_LEVEL_ERROR != 0 {
-            LogLevel::Error
+            Self::Error
         } else if value & ffi::G_LOG_LEVEL_CRITICAL != 0 {
-            LogLevel::Critical
+            Self::Critical
         } else if value & ffi::G_LOG_LEVEL_WARNING != 0 {
-            LogLevel::Warning
+            Self::Warning
         } else if value & ffi::G_LOG_LEVEL_MESSAGE != 0 {
-            LogLevel::Message
+            Self::Message
         } else if value & ffi::G_LOG_LEVEL_INFO != 0 {
-            LogLevel::Info
+            Self::Info
         } else if value & ffi::G_LOG_LEVEL_DEBUG != 0 {
-            LogLevel::Debug
+            Self::Debug
         } else {
             panic!("Unknown log level: {}", value)
         }
@@ -95,8 +95,8 @@ impl IntoGlib for LogLevels {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GLogLevelFlags> for LogLevels {
-    unsafe fn from_glib(value: ffi::GLogLevelFlags) -> LogLevels {
-        LogLevels::from_bits_truncate(value)
+    unsafe fn from_glib(value: ffi::GLogLevelFlags) -> Self {
+        Self::from_bits_truncate(value)
     }
 }
 

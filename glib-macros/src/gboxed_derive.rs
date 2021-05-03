@@ -69,7 +69,7 @@ fn gen_impl_to_value_optional(name: &Ident, crate_ident: &TokenStream) -> TokenS
     quote! {
         impl #crate_ident::value::ToValueOptional for #name {
             fn to_value_optional(s: Option<&Self>) -> #crate_ident::Value {
-                let mut value = #crate_ident::Value::for_value_type::<#name>();
+                let mut value = #crate_ident::Value::for_value_type::<Self>();
                 unsafe {
                     let ptr: *mut #name = #option_to_ptr;
                     #crate_ident::gobject_ffi::g_value_take_boxed(

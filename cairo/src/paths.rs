@@ -67,12 +67,12 @@ impl fmt::Display for PathSegment {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "PathSegment::{}",
+            "Self::{}",
             match *self {
-                PathSegment::MoveTo(_) => "MoveTo",
-                PathSegment::LineTo(_) => "LineTo",
-                PathSegment::CurveTo(_, _, _) => "CurveTo",
-                PathSegment::ClosePath => "ClosePath",
+                Self::MoveTo(_) => "MoveTo",
+                Self::LineTo(_) => "LineTo",
+                Self::CurveTo(_, _, _) => "CurveTo",
+                Self::ClosePath => "ClosePath",
             }
         )
     }

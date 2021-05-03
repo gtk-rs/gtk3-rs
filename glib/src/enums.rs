@@ -26,15 +26,15 @@ impl IntoGlib for UserDirectory {
 
     fn into_glib(self) -> ffi::GUserDirectory {
         match self {
-            UserDirectory::Desktop => ffi::G_USER_DIRECTORY_DESKTOP,
-            UserDirectory::Documents => ffi::G_USER_DIRECTORY_DOCUMENTS,
-            UserDirectory::Downloads => ffi::G_USER_DIRECTORY_DOWNLOAD,
-            UserDirectory::Music => ffi::G_USER_DIRECTORY_MUSIC,
-            UserDirectory::Pictures => ffi::G_USER_DIRECTORY_PICTURES,
-            UserDirectory::PublicShare => ffi::G_USER_DIRECTORY_PUBLIC_SHARE,
-            UserDirectory::Templates => ffi::G_USER_DIRECTORY_TEMPLATES,
-            UserDirectory::Videos => ffi::G_USER_DIRECTORY_VIDEOS,
-            UserDirectory::NDirectories => ffi::G_USER_N_DIRECTORIES,
+            Self::Desktop => ffi::G_USER_DIRECTORY_DESKTOP,
+            Self::Documents => ffi::G_USER_DIRECTORY_DOCUMENTS,
+            Self::Downloads => ffi::G_USER_DIRECTORY_DOWNLOAD,
+            Self::Music => ffi::G_USER_DIRECTORY_MUSIC,
+            Self::Pictures => ffi::G_USER_DIRECTORY_PICTURES,
+            Self::PublicShare => ffi::G_USER_DIRECTORY_PUBLIC_SHARE,
+            Self::Templates => ffi::G_USER_DIRECTORY_TEMPLATES,
+            Self::Videos => ffi::G_USER_DIRECTORY_VIDEOS,
+            Self::NDirectories => ffi::G_USER_N_DIRECTORIES,
         }
     }
 }
@@ -158,7 +158,7 @@ impl Drop for EnumClass {
 
 impl Clone for EnumClass {
     fn clone(&self) -> Self {
-        unsafe { EnumClass(gobject_ffi::g_type_class_ref(self.type_().into_glib()) as *mut _) }
+        unsafe { Self(gobject_ffi::g_type_class_ref(self.type_().into_glib()) as *mut _) }
     }
 }
 
@@ -534,7 +534,7 @@ impl Drop for FlagsClass {
 
 impl Clone for FlagsClass {
     fn clone(&self) -> Self {
-        unsafe { FlagsClass(gobject_ffi::g_type_class_ref(self.type_().into_glib()) as *mut _) }
+        unsafe { Self(gobject_ffi::g_type_class_ref(self.type_().into_glib()) as *mut _) }
     }
 }
 

@@ -29,7 +29,7 @@ glib::wrapper! {
 
 impl Coverage {
     #[doc(alias = "pango_coverage_new")]
-    pub fn new() -> Coverage {
+    pub fn new() -> Self {
         unsafe { from_glib_full(ffi::pango_coverage_new()) }
     }
 

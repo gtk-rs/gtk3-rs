@@ -96,7 +96,7 @@ macro_rules! gvalue_impl {
 
         impl glib::value::ToValueOptional for $name {
             fn to_value_optional(s: Option<&Self>) -> glib::Value {
-                let mut value = glib::Value::for_value_type::<$name>();
+                let mut value = glib::Value::for_value_type::<Self>();
                 unsafe {
                     glib::gobject_ffi::g_value_take_boxed(
                         value.to_glib_none_mut().0,

@@ -3,7 +3,7 @@
 use crate::ApplicationFlags;
 
 impl Default for ApplicationFlags {
-    fn default() -> ApplicationFlags {
-        ApplicationFlags::empty()
+    fn default() -> Self {
+        Self::empty()
     }
 }

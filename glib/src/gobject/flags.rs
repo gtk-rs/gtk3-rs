@@ -35,7 +35,7 @@ impl IntoGlib for ParamFlags {
 
 #[doc(hidden)]
 impl FromGlib<gobject_ffi::GParamFlags> for ParamFlags {
-    unsafe fn from_glib(value: gobject_ffi::GParamFlags) -> ParamFlags {
-        ParamFlags::from_bits_truncate(value)
+    unsafe fn from_glib(value: gobject_ffi::GParamFlags) -> Self {
+        Self::from_bits_truncate(value)
     }
 }

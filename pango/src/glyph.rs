@@ -119,7 +119,7 @@ impl<'a> ToGlibPtrMut<'a, *mut ffi::PangoGlyphInfo> for GlyphInfo {
 impl FromGlibPtrNone<*mut ffi::PangoGlyphInfo> for GlyphInfo {
     unsafe fn from_glib_none(ptr: *mut ffi::PangoGlyphInfo) -> Self {
         assert!(!ptr.is_null());
-        GlyphInfo(ptr)
+        Self(ptr)
     }
 }
 
@@ -127,7 +127,7 @@ impl FromGlibPtrNone<*mut ffi::PangoGlyphInfo> for GlyphInfo {
 impl FromGlibPtrFull<*mut ffi::PangoGlyphInfo> for GlyphInfo {
     unsafe fn from_glib_full(ptr: *mut ffi::PangoGlyphInfo) -> Self {
         assert!(!ptr.is_null());
-        GlyphInfo(ptr)
+        Self(ptr)
     }
 }
 
@@ -135,7 +135,7 @@ impl FromGlibPtrFull<*mut ffi::PangoGlyphInfo> for GlyphInfo {
 impl FromGlibPtrNone<*const ffi::PangoGlyphInfo> for GlyphInfo {
     unsafe fn from_glib_none(ptr: *const ffi::PangoGlyphInfo) -> Self {
         assert!(!ptr.is_null());
-        GlyphInfo(ptr as *mut _)
+        Self(ptr as *mut _)
     }
 }
 
@@ -143,7 +143,7 @@ impl FromGlibPtrNone<*const ffi::PangoGlyphInfo> for GlyphInfo {
 impl FromGlibPtrFull<*const ffi::PangoGlyphInfo> for GlyphInfo {
     unsafe fn from_glib_full(ptr: *const ffi::PangoGlyphInfo) -> Self {
         assert!(!ptr.is_null());
-        GlyphInfo(ptr as *mut _)
+        Self(ptr as *mut _)
     }
 }
 

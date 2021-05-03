@@ -40,7 +40,7 @@ impl Pattern {
     }
 
     pub unsafe fn from_raw_full(pointer: *mut cairo_pattern_t) -> Pattern {
-        Pattern { pointer }
+        Self { pointer }
     }
 
     #[doc(alias = "cairo_pattern_get_type")]
@@ -95,7 +95,7 @@ impl Pattern {
 
 impl Clone for Pattern {
     fn clone(&self) -> Self {
-        Pattern {
+        Self {
             pointer: unsafe { ffi::cairo_pattern_reference(self.pointer) },
         }
     }
@@ -158,18 +158,18 @@ pattern_type!(SolidPattern = Solid);
 
 impl SolidPattern {
     #[doc(alias = "cairo_pattern_create_rgb")]
-    pub fn from_rgb(red: f64, green: f64, blue: f64) -> SolidPattern {
+    pub fn from_rgb(red: f64, green: f64, blue: f64) -> Self {
         unsafe {
-            SolidPattern(Pattern::from_raw_full(ffi::cairo_pattern_create_rgb(
+            Self(Pattern::from_raw_full(ffi::cairo_pattern_create_rgb(
                 red, green, blue,
             )))
         }
     }
 
     #[doc(alias = "cairo_pattern_create_rgba")]
-    pub fn from_rgba(red: f64, green: f64, blue: f64, alpha: f64) -> SolidPattern {
+    pub fn from_rgba(red: f64, green: f64, blue: f64, alpha: f64) -> Self {
         unsafe {
-            SolidPattern(Pattern::from_raw_full(ffi::cairo_pattern_create_rgba(
+            Self(Pattern::from_raw_full(ffi::cairo_pattern_create_rgba(
                 red, green, blue, alpha,
             )))
         }
@@ -276,9 +276,9 @@ gradient_type!(LinearGradient);
 
 impl LinearGradient {
     #[doc(alias = "cairo_pattern_create_linear")]
-    pub fn new(x0: f64, y0: f64, x1: f64, y1: f64) -> LinearGradient {
+    pub fn new(x0: f64, y0: f64, x1: f64, y1: f64) -> Self {
         unsafe {
-            LinearGradient(Gradient(Pattern::from_raw_full(
+            Self(Gradient(Pattern::from_raw_full(
                 ffi::cairo_pattern_create_linear(x0, y0, x1, y1),
             )))
         }
@@ -309,9 +309,9 @@ gradient_type!(RadialGradient);
 
 impl RadialGradient {
     #[doc(alias = "cairo_pattern_create_radial")]
-    pub fn new(x0: f64, y0: f64, r0: f64, x1: f64, y1: f64, r1: f64) -> RadialGradient {
+    pub fn new(x0: f64, y0: f64, r0: f64, x1: f64, y1: f64, r1: f64) -> Self {
         unsafe {
-            RadialGradient(Gradient(Pattern::from_raw_full(
+            Self(Gradient(Pattern::from_raw_full(
                 ffi::cairo_pattern_create_radial(x0, y0, r0, x1, y1, r1),
             )))
         }
@@ -346,9 +346,9 @@ pattern_type!(SurfacePattern = Surface);
 
 impl SurfacePattern {
     #[doc(alias = "cairo_pattern_create_for_surface")]
-    pub fn create(surface: &Surface) -> SurfacePattern {
+    pub fn create(surface: &Surface) -> Self {
         unsafe {
-            SurfacePattern(Pattern::from_raw_full(
+            Self(Pattern::from_raw_full(
                 ffi::cairo_pattern_create_for_surface(surface.to_raw_none()),
             ))
         }
@@ -369,8 +369,8 @@ pattern_type!(Mesh = Mesh);
 
 impl Mesh {
     #[doc(alias = "cairo_pattern_create_mesh")]
-    pub fn new() -> Mesh {
-        unsafe { Mesh(Pattern::from_raw_full(ffi::cairo_pattern_create_mesh())) }
+    pub fn new() -> Self {
+        unsafe { Self(Pattern::from_raw_full(ffi::cairo_pattern_create_mesh())) }
     }
 
     #[doc(alias = "cairo_mesh_pattern_begin_patch")]
@@ -513,8 +513,8 @@ impl Mesh {
 }
 
 impl Default for Mesh {
-    fn default() -> Mesh {
-        Mesh::new()
+    fn default() -> Self {
+        Self::new()
     }
 }
 

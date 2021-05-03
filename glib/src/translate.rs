@@ -1176,14 +1176,14 @@ pub unsafe fn from_glib<G: Copy, T: FromGlib<G>>(val: G) -> T {
 
 impl FromGlib<ffi::gboolean> for bool {
     #[inline]
-    unsafe fn from_glib(val: ffi::gboolean) -> bool {
+    unsafe fn from_glib(val: ffi::gboolean) -> Self {
         val != ffi::GFALSE
     }
 }
 
 impl FromGlib<i32> for Ordering {
     #[inline]
-    unsafe fn from_glib(val: i32) -> Ordering {
+    unsafe fn from_glib(val: i32) -> Self {
         val.cmp(&0)
     }
 }
@@ -1208,7 +1208,7 @@ impl std::error::Error for GlibNoneError {}
 
 impl<G: Copy, T: TryFromGlib<G, Error = GlibNoneError>> FromGlib<G> for Option<T> {
     #[inline]
-    unsafe fn from_glib(val: G) -> Option<T> {
+    unsafe fn from_glib(val: G) -> Self {
         T::try_from_glib(val).ok()
     }
 }
@@ -1223,34 +1223,34 @@ pub enum GlibNoneOrInvalidError<I: Error> {
 impl<I: Error> GlibNoneOrInvalidError<I> {
     /// Builds the `None` variant.
     pub fn none() -> Self {
-        GlibNoneOrInvalidError::None
+        Self::None
     }
 
     /// Returns `true` if `self` is the `None` variant.
     pub fn is_none(&self) -> bool {
-        matches!(self, GlibNoneOrInvalidError::None)
+        matches!(self, Self::None)
     }
 
     /// Returns `true` if `self` is the `Invalid` variant.
     pub fn is_invalid(&self) -> bool {
-        matches!(self, GlibNoneOrInvalidError::Invalid(_))
+        matches!(self, Self::Invalid(_))
     }
 }
 
 impl<I: Error> From<I> for GlibNoneOrInvalidError<I> {
     fn from(invalid: I) -> Self {
-        GlibNoneOrInvalidError::Invalid(invalid)
+        Self::Invalid(invalid)
     }
 }
 
 impl<I: Error> fmt::Display for GlibNoneOrInvalidError<I> {
     fn fmt(&self, fmt: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
-            GlibNoneOrInvalidError::Invalid(err) => {
+            Self::Invalid(err) => {
                 write!(fmt, "glib value is invalid: ")?;
                 fmt::Display::fmt(err, fmt)
             }
-            GlibNoneOrInvalidError::None => write!(fmt, "glib value is None"),
+            Self::None => write!(fmt, "glib value is None"),
         }
     }
 }
@@ -1261,7 +1261,7 @@ impl<G: Copy, I: Error, T: TryFromGlib<G, Error = GlibNoneOrInvalidError<I>>> Fr
     for Result<Option<T>, I>
 {
     #[inline]
-    unsafe fn from_glib(val: G) -> Result<Option<T>, I> {
+    unsafe fn from_glib(val: G) -> Self {
         match T::try_from_glib(val) {
             Ok(value) => Ok(Some(value)),
             Err(GlibNoneOrInvalidError::None) => Ok(None),
@@ -1410,7 +1410,7 @@ impl FromGlibPtrNone<*const c_char> for String {
     #[inline]
     unsafe fn from_glib_none(ptr: *const c_char) -> Self {
         assert!(!ptr.is_null());
-        String::from_utf8_lossy(CStr::from_ptr(ptr).to_bytes()).into_owned()
+        Self::from_utf8_lossy(CStr::from_ptr(ptr).to_bytes()).into_owned()
     }
 }
 
@@ -1429,7 +1429,7 @@ impl FromGlibPtrNone<*mut c_char> for String {
     #[inline]
     unsafe fn from_glib_none(ptr: *mut c_char) -> Self {
         assert!(!ptr.is_null());
-        String::from_utf8_lossy(CStr::from_ptr(ptr).to_bytes()).into_owned()
+        Self::from_utf8_lossy(CStr::from_ptr(ptr).to_bytes()).into_owned()
     }
 }
 

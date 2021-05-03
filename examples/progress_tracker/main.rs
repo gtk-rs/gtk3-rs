@@ -133,7 +133,7 @@ impl Widgets {
             Inhibit(false)
         });
 
-        Widgets {
+        Self {
             window,
             header,
             view_stack,
@@ -154,7 +154,7 @@ impl Header {
         container.set_title(Some("Progress Tracker"));
         container.set_show_close_button(true);
 
-        Header { container }
+        Self { container }
     }
 }
 
@@ -177,7 +177,7 @@ impl CompleteView {
         container.set_hexpand(true);
         container.add(&label);
 
-        CompleteView { container }
+        Self { container }
     }
 }
 
@@ -207,7 +207,7 @@ impl MainView {
         container.set_vexpand(true);
         container.set_hexpand(true);
 
-        MainView {
+        Self {
             container,
             progress,
             button,

@@ -28,9 +28,9 @@ pub struct WindowAttr {
 }
 
 impl Default for WindowAttr {
-    fn default() -> WindowAttr {
+    fn default() -> Self {
         skip_assert_initialized!();
-        WindowAttr {
+        Self {
             title: None,
             event_mask: EventMask::empty(),
             x: None,

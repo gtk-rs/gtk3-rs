@@ -231,7 +231,7 @@ struct AnyWriter {
 
 impl AnyWriter {
     fn new<W: Write + Any + Send + 'static>(w: W) -> Self {
-        AnyWriter {
+        Self {
             writer: AnyOrPanic::Any(Box::new(w)),
             write_fn: Self::write_fn::<W>,
             flush_fn: Self::flush_fn::<W>,
@@ -240,7 +240,7 @@ impl AnyWriter {
     }
 
     fn new_seekable<W: Write + Seek + Any + Send + 'static>(w: W) -> Self {
-        AnyWriter {
+        Self {
             writer: AnyOrPanic::Any(Box::new(w)),
             write_fn: Self::write_fn::<W>,
             flush_fn: Self::flush_fn::<W>,

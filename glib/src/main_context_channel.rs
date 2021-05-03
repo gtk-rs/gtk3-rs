@@ -289,7 +289,7 @@ impl<T> fmt::Debug for Sender<T> {
 
 impl<T> Clone for Sender<T> {
     fn clone(&self) -> Sender<T> {
-        Sender::new(&self.0)
+        Self::new(&self.0)
     }
 }
 
@@ -297,7 +297,7 @@ impl<T> Sender<T> {
     fn new(channel: &Channel<T>) -> Self {
         let mut inner = (channel.0).0.lock().unwrap();
         inner.num_senders += 1;
-        Sender(channel.clone())
+        Self(channel.clone())
     }
 
     /// Sends a value to the channel.
@@ -335,7 +335,7 @@ impl<T> fmt::Debug for SyncSender<T> {
 
 impl<T> Clone for SyncSender<T> {
     fn clone(&self) -> SyncSender<T> {
-        SyncSender::new(&self.0)
+        Self::new(&self.0)
     }
 }
 
@@ -343,7 +343,7 @@ impl<T> SyncSender<T> {
     fn new(channel: &Channel<T>) -> Self {
         let mut inner = (channel.0).0.lock().unwrap();
         inner.num_senders += 1;
-        SyncSender(channel.clone())
+        Self(channel.clone())
     }
 
     /// Sends a value to the channel and blocks if the channel is full.

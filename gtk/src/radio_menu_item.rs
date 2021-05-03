@@ -8,7 +8,7 @@ use std::ptr;
 
 impl RadioMenuItem {
     #[doc(alias = "gtk_radio_menu_item_new")]
-    pub fn new() -> RadioMenuItem {
+    pub fn new() -> Self {
         assert_initialized_main_thread!();
         unsafe {
             Widget::from_glib_none(ffi::gtk_radio_menu_item_new(ptr::null_mut())).unsafe_cast()
@@ -16,7 +16,7 @@ impl RadioMenuItem {
     }
 
     #[doc(alias = "gtk_radio_menu_item_new_with_label")]
-    pub fn with_label(label: &str) -> RadioMenuItem {
+    pub fn with_label(label: &str) -> Self {
         assert_initialized_main_thread!();
         unsafe {
             Widget::from_glib_none(ffi::gtk_radio_menu_item_new_with_label(
@@ -28,7 +28,7 @@ impl RadioMenuItem {
     }
 
     #[doc(alias = "gtk_radio_menu_item_new_with_mnemonic")]
-    pub fn with_mnemonic(label: &str) -> RadioMenuItem {
+    pub fn with_mnemonic(label: &str) -> Self {
         assert_initialized_main_thread!();
         unsafe {
             Widget::from_glib_none(ffi::gtk_radio_menu_item_new_with_mnemonic(

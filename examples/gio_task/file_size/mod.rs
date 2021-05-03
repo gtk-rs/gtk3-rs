@@ -65,6 +65,6 @@ impl FileSize {
 
 impl Default for FileSize {
     fn default() -> Self {
-        FileSize::new()
+        Self::new()
     }
 }

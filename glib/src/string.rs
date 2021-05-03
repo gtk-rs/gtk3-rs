@@ -109,7 +109,7 @@ impl String {
 
 impl Default for String {
     /// Creates a new empty string.
-    fn default() -> String {
+    fn default() -> Self {
         unsafe { from_glib_full(ffi::g_string_new(ptr::null())) }
     }
 }

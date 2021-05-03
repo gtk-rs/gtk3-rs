@@ -65,7 +65,7 @@ impl crate::value::ToValue for ParamSpec {
 #[doc(hidden)]
 impl crate::value::ToValueOptional for ParamSpec {
     fn to_value_optional(s: Option<&Self>) -> crate::Value {
-        let mut value = crate::Value::for_value_type::<ParamSpec>();
+        let mut value = crate::Value::for_value_type::<Self>();
         unsafe {
             gobject_ffi::g_value_take_param(value.to_glib_none_mut().0, s.to_glib_full() as *mut _);
         }
@@ -838,7 +838,7 @@ macro_rules! define_param_spec {
         #[doc(hidden)]
         impl crate::value::ToValueOptional for $rust_type {
             fn to_value_optional(s: Option<&Self>) -> crate::Value {
-                let mut value = crate::Value::for_value_type::<$rust_type>();
+                let mut value = crate::Value::for_value_type::<Self>();
                 unsafe {
                     gobject_ffi::g_value_take_param(value.to_glib_none_mut().0, s.to_glib_full() as *mut _);
                 }

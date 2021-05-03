@@ -69,21 +69,21 @@ impl<O: IsA<InetAddress>> InetAddressExtManual for O {
 impl From<IpAddr> for InetAddress {
     fn from(addr: IpAddr) -> Self {
         match addr {
-            IpAddr::V4(v4) => InetAddress::from_bytes(InetAddressBytes::V4(&v4.octets())),
-            IpAddr::V6(v6) => InetAddress::from_bytes(InetAddressBytes::V6(&v6.octets())),
+            IpAddr::V4(v4) => Self::from_bytes(InetAddressBytes::V4(&v4.octets())),
+            IpAddr::V6(v6) => Self::from_bytes(InetAddressBytes::V6(&v6.octets())),
         }
     }
 }
 
 impl From<InetAddress> for IpAddr {
-    fn from(addr: InetAddress) -> IpAddr {
+    fn from(addr: InetAddress) -> Self {
         let size = addr.native_size();
         unsafe {
             let bytes = ffi::g_inet_address_to_bytes(addr.to_glib_none().0);
             if size == 4 {
-                IpAddr::V4(Ipv4Addr::from(*(bytes as *const [u8; 4])))
+                Self::V4(Ipv4Addr::from(*(bytes as *const [u8; 4])))
             } else if size == 16 {
-                IpAddr::V6(Ipv6Addr::from(*(bytes as *const [u16; 8])))
+                Self::V6(Ipv6Addr::from(*(bytes as *const [u16; 8])))
             } else {
                 panic!("Unknown IP kind");
             }

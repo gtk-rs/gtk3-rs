@@ -296,7 +296,7 @@ pub struct ObjectRef {
 impl Clone for ObjectRef {
     fn clone(&self) -> Self {
         unsafe {
-            ObjectRef {
+            Self {
                 inner: ptr::NonNull::new_unchecked(gobject_ffi::g_object_ref(self.inner.as_ptr())),
             }
         }
@@ -452,7 +452,7 @@ impl FromGlibPtrNone<*mut GObject> for ObjectRef {
         assert_ne!((*ptr).ref_count, 0);
 
         // Attention: This takes ownership of floating references!
-        ObjectRef {
+        Self {
             inner: ptr::NonNull::new_unchecked(gobject_ffi::g_object_ref_sink(ptr)),
         }
     }
@@ -474,7 +474,7 @@ impl FromGlibPtrFull<*mut GObject> for ObjectRef {
         assert!(!ptr.is_null());
         assert_ne!((*ptr).ref_count, 0);
 
-        ObjectRef {
+        Self {
             inner: ptr::NonNull::new_unchecked(ptr),
         }
     }
@@ -487,7 +487,7 @@ impl FromGlibPtrBorrow<*mut GObject> for ObjectRef {
         assert!(!ptr.is_null());
         assert_ne!((*ptr).ref_count, 0);
 
-        Borrowed::new(ObjectRef {
+        Borrowed::new(Self {
             inner: ptr::NonNull::new_unchecked(ptr),
         })
     }
@@ -957,7 +957,7 @@ macro_rules! glib_object_wrapper {
         #[doc(hidden)]
         impl $crate::value::ToValueOptional for $name {
             fn to_value_optional(s: Option<&Self>) -> $crate::Value {
-                let mut value = $crate::Value::for_value_type::<$name>();
+                let mut value = $crate::Value::for_value_type::<Self>();
                 unsafe {
                     $crate::gobject_ffi::g_value_take_object(
                         $crate::translate::ToGlibPtrMut::to_glib_none_mut(&mut value).0,
@@ -2503,7 +2503,7 @@ impl<T: ObjectType> ops::Deref for SendWeakRef<T> {
 // Deriving this gives the wrong trait bounds
 impl<T: ObjectType> Clone for SendWeakRef<T> {
     fn clone(&self) -> Self {
-        SendWeakRef(self.0.clone(), self.1)
+        Self(self.0.clone(), self.1)
     }
 }
 

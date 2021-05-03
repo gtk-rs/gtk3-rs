@@ -30,9 +30,9 @@ impl SourceId {
 #[doc(hidden)]
 impl FromGlib<u32> for SourceId {
     #[inline]
-    unsafe fn from_glib(val: u32) -> SourceId {
+    unsafe fn from_glib(val: u32) -> Self {
         assert_ne!(val, 0);
-        SourceId(NonZeroU32::new_unchecked(val))
+        Self(NonZeroU32::new_unchecked(val))
     }
 }
 
@@ -56,8 +56,8 @@ impl IntoGlib for Pid {
 #[doc(hidden)]
 impl FromGlib<ffi::GPid> for Pid {
     #[inline]
-    unsafe fn from_glib(val: ffi::GPid) -> Pid {
-        Pid(val)
+    unsafe fn from_glib(val: ffi::GPid) -> Self {
+        Self(val)
     }
 }
 
@@ -720,13 +720,13 @@ impl IntoGlib for Priority {
 #[doc(hidden)]
 impl FromGlib<i32> for Priority {
     #[inline]
-    unsafe fn from_glib(val: i32) -> Priority {
-        Priority(val)
+    unsafe fn from_glib(val: i32) -> Self {
+        Self(val)
     }
 }
 
 impl Default for Priority {
-    fn default() -> Priority {
+    fn default() -> Self {
         PRIORITY_DEFAULT
     }
 }

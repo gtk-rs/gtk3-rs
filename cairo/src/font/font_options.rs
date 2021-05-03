@@ -38,9 +38,8 @@ pub struct FontOptions(ptr::NonNull<ffi::cairo_font_options_t>);
 
 impl FontOptions {
     #[doc(alias = "cairo_font_options_create")]
-    pub fn new() -> FontOptions {
-        let font_options: FontOptions =
-            unsafe { FontOptions::from_raw_full(ffi::cairo_font_options_create()) };
+    pub fn new() -> Self {
+        let font_options: Self = unsafe { Self::from_raw_full(ffi::cairo_font_options_create()) };
 
         let status = unsafe { ffi::cairo_font_options_status(font_options.to_raw_none()) };
         status_to_result(status).expect("Failed to create a font option");
@@ -49,14 +48,14 @@ impl FontOptions {
     }
 
     #[cfg(feature = "use_glib")]
-    pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_font_options_t) -> FontOptions {
+    pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_font_options_t) -> Self {
         from_glib_full(ptr)
     }
 
     #[cfg(not(feature = "use_glib"))]
-    pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_font_options_t) -> FontOptions {
+    pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_font_options_t) -> Self {
         assert!(!ptr.is_null());
-        FontOptions(ptr::NonNull::new_unchecked(ptr))
+        Self(ptr::NonNull::new_unchecked(ptr))
     }
 
     #[cfg(feature = "use_glib")]

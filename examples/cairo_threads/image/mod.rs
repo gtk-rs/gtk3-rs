@@ -19,7 +19,7 @@ pub struct Image {
 impl Image {
     /// Creates a new, black image
     pub fn new(width: i32, height: i32) -> Self {
-        Image {
+        Self {
             width,
             height,
             data: Some(vec![0; 4 * width as usize * height as usize].into()),
