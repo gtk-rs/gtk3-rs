@@ -69,6 +69,7 @@
 <span id="66">66</span>
 <span id="67">67</span>
 <span id="68">68</span>
+<span id="69">69</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -112,6 +113,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// The file descriptor of `self`</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_unix_output_stream_get_fd&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_fd&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">fd</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">FromRawFd</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">T</span>;
 
     <span class="doccomment">/// Sets whether the file descriptor of `self` shall be closed</span>

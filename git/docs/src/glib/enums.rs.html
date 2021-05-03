@@ -699,6 +699,14 @@
 <span id="696">696</span>
 <span id="697">697</span>
 <span id="698">698</span>
+<span id="699">699</span>
+<span id="700">700</span>
+<span id="701">701</span>
+<span id="702">702</span>
+<span id="703">703</span>
+<span id="704">704</span>
+<span id="705">705</span>
+<span id="706">706</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -708,13 +716,6 @@
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Type</span>;
 <span class="kw">use</span> <span class="ident">std::cmp</span>;
 
-<span class="doccomment">/// These are logical ids for special directories which are defined</span>
-<span class="doccomment">/// depending on the platform used. You should use `g_get_user_special_dir()`</span>
-<span class="doccomment">/// to retrieve the full path associated to the logical id.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// The [`UserDirectory`](crate::UserDirectory) enumeration can be extended at later date. Not</span>
-<span class="doccomment">/// every platform has a directory for every logical id in this</span>
-<span class="doccomment">/// enumeration.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Hash</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">UserDirectory</span> {
     <span class="ident">Desktop</span>,
@@ -725,7 +726,6 @@
     <span class="ident">PublicShare</span>,
     <span class="ident">Templates</span>,
     <span class="ident">Videos</span>,
-    <span class="doccomment">/// the number of enum values</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
     <span class="ident">NDirectories</span>,
 }
@@ -787,6 +787,7 @@
     <span class="doccomment">/// Returns `None` if the enum does not contain any value</span>
     <span class="doccomment">/// with `value`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_enum_get_value&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_value&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">value</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">EnumValue</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">gobject_ffi::g_enum_get_value</span>(<span class="self">self</span>.<span class="number">0</span>, <span class="ident">value</span>);
@@ -803,6 +804,7 @@
     <span class="doccomment">/// Returns `None` if the enum does not contain any value</span>
     <span class="doccomment">/// with name `name`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_enum_get_value_by_name&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_value_by_name&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">value_by_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">EnumValue</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">gobject_ffi::g_enum_get_value_by_name</span>(<span class="self">self</span>.<span class="number">0</span>, <span class="ident">name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
@@ -819,6 +821,7 @@
     <span class="doccomment">/// Returns `None` if the enum does not contain any value</span>
     <span class="doccomment">/// with nick `nick`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_enum_get_value_by_nick&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_value_by_nick&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">value_by_nick</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">nick</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">EnumValue</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">gobject_ffi::g_enum_get_value_by_nick</span>(<span class="self">self</span>.<span class="number">0</span>, <span class="ident">nick</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
@@ -831,6 +834,7 @@
     }
 
     <span class="doccomment">/// Gets all `EnumValue` of this `EnumClass`.</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_values&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">values</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">EnumValue</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">n</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="self">self</span>.<span class="number">0</span>).<span class="ident">n_values</span>;
@@ -881,16 +885,19 @@
 
 <span class="kw">impl</span> <span class="ident">EnumValue</span> {
     <span class="doccomment">/// Get integer value corresponding to the value.</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_value&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
         <span class="kw">unsafe</span> { (<span class="kw-2">*</span><span class="self">self</span>.<span class="number">0</span>).<span class="ident">value</span> }
     }
 
     <span class="doccomment">/// Get name corresponding to the value.</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_name&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
         <span class="kw">unsafe</span> { <span class="ident">CStr::from_ptr</span>((<span class="kw-2">*</span><span class="self">self</span>.<span class="number">0</span>).<span class="ident">value_name</span>).<span class="ident">to_str</span>().<span class="ident">unwrap</span>() }
     }
 
     <span class="doccomment">/// Get nick corresponding to the value.</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_nick&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">nick</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
         <span class="kw">unsafe</span> { <span class="ident">CStr::from_ptr</span>((<span class="kw-2">*</span><span class="self">self</span>.<span class="number">0</span>).<span class="ident">value_nick</span>).<span class="ident">to_str</span>().<span class="ident">unwrap</span>() }
     }
@@ -913,6 +920,7 @@
     }
 
     <span class="doccomment">/// Get `EnumClass` to which the enum value belongs.</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_class&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">class</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">EnumClass</span> {
         <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">1</span>
     }
@@ -976,6 +984,7 @@
     <span class="doccomment">/// Returns `None` if the flags do not contain any value</span>
     <span class="doccomment">/// with `value`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_flags_get_first_value&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_value&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">value</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">FlagsValue</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">gobject_ffi::g_flags_get_first_value</span>(<span class="self">self</span>.<span class="number">0</span>, <span class="ident">value</span>);
@@ -992,6 +1001,7 @@
     <span class="doccomment">/// Returns `None` if the flags do not contain any value</span>
     <span class="doccomment">/// with name `name`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_flags_get_value_by_name&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_value_by_name&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">value_by_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">FlagsValue</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">gobject_ffi::g_flags_get_value_by_name</span>(<span class="self">self</span>.<span class="number">0</span>, <span class="ident">name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
@@ -1008,6 +1018,7 @@
     <span class="doccomment">/// Returns `None` if the flags do not contain any value</span>
     <span class="doccomment">/// with nick `nick`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_flags_get_value_by_nick&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_value_by_nick&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">value_by_nick</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">nick</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">FlagsValue</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">gobject_ffi::g_flags_get_value_by_nick</span>(<span class="self">self</span>.<span class="number">0</span>, <span class="ident">nick</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
@@ -1020,6 +1031,7 @@
     }
 
     <span class="doccomment">/// Gets all `FlagsValue` of this `FlagsClass`.</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_values&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">values</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">FlagsValue</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">n</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="self">self</span>.<span class="number">0</span>).<span class="ident">n_values</span>;
@@ -1257,16 +1269,19 @@
 
 <span class="kw">impl</span> <span class="ident">FlagsValue</span> {
     <span class="doccomment">/// Get integer value corresponding to the value.</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_value&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
         <span class="kw">unsafe</span> { (<span class="kw-2">*</span><span class="self">self</span>.<span class="number">0</span>).<span class="ident">value</span> }
     }
 
     <span class="doccomment">/// Get name corresponding to the value.</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_name&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
         <span class="kw">unsafe</span> { <span class="ident">CStr::from_ptr</span>((<span class="kw-2">*</span><span class="self">self</span>.<span class="number">0</span>).<span class="ident">value_name</span>).<span class="ident">to_str</span>().<span class="ident">unwrap</span>() }
     }
 
     <span class="doccomment">/// Get nick corresponding to the value.</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_nick&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">nick</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
         <span class="kw">unsafe</span> { <span class="ident">CStr::from_ptr</span>((<span class="kw-2">*</span><span class="self">self</span>.<span class="number">0</span>).<span class="ident">value_nick</span>).<span class="ident">to_str</span>().<span class="ident">unwrap</span>() }
     }
@@ -1298,6 +1313,7 @@
     }
 
     <span class="doccomment">/// Get `FlagsClass` to which the flags value belongs.</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_class&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">class</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">FlagsClass</span> {
         <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">1</span>
     }

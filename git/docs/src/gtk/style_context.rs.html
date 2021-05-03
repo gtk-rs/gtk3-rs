@@ -19,6 +19,7 @@
 <span id="16">16</span>
 <span id="17">17</span>
 <span id="18">18</span>
+<span id="19">19</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -28,6 +29,7 @@
 <span class="kw">use</span> <span class="ident">pango::FontDescription</span>;
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">StyleContextExtManual</span>: <span class="lifetime">&#39;static</span> {
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_font&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">font</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">state</span>: <span class="ident">StateFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FontDescription</span>;
 }
 

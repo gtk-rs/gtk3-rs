@@ -4122,7 +4122,7 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;Self::{}&quot;</span>,
+            <span class="string">&quot;BusType::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
                 <span class="self">Self</span><span class="ident">::Starter</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Starter&quot;</span>,
                 <span class="self">Self</span><span class="ident">::None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;None&quot;</span>,
@@ -4219,7 +4219,7 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;Self::{}&quot;</span>,
+            <span class="string">&quot;ConverterResult::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
                 <span class="self">Self</span><span class="ident">::Error</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Error&quot;</span>,
                 <span class="self">Self</span><span class="ident">::Converted</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Converted&quot;</span>,
@@ -4325,7 +4325,7 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;Self::{}&quot;</span>,
+            <span class="string">&quot;CredentialsType::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
                 <span class="self">Self</span><span class="ident">::Invalid</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Invalid&quot;</span>,
                 <span class="self">Self</span><span class="ident">::LinuxUcred</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;LinuxUcred&quot;</span>,
@@ -4425,7 +4425,7 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;Self::{}&quot;</span>,
+            <span class="string">&quot;DBusMessageByteOrder::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
                 <span class="self">Self</span><span class="ident">::BigEndian</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;BigEndian&quot;</span>,
                 <span class="self">Self</span><span class="ident">::LittleEndian</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;LittleEndian&quot;</span>,
@@ -4534,7 +4534,7 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;Self::{}&quot;</span>,
+            <span class="string">&quot;DBusMessageHeaderField::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
                 <span class="self">Self</span><span class="ident">::Invalid</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Invalid&quot;</span>,
                 <span class="self">Self</span><span class="ident">::Path</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Path&quot;</span>,
@@ -4652,7 +4652,7 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;Self::{}&quot;</span>,
+            <span class="string">&quot;DBusMessageType::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
                 <span class="self">Self</span><span class="ident">::Invalid</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Invalid&quot;</span>,
                 <span class="self">Self</span><span class="ident">::MethodCall</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;MethodCall&quot;</span>,
@@ -4750,7 +4750,7 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;Self::{}&quot;</span>,
+            <span class="string">&quot;DataStreamByteOrder::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
                 <span class="self">Self</span><span class="ident">::BigEndian</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;BigEndian&quot;</span>,
                 <span class="self">Self</span><span class="ident">::LittleEndian</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;LittleEndian&quot;</span>,
@@ -4844,7 +4844,7 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;Self::{}&quot;</span>,
+            <span class="string">&quot;DataStreamNewlineType::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
                 <span class="self">Self</span><span class="ident">::Lf</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Lf&quot;</span>,
                 <span class="self">Self</span><span class="ident">::Cr</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Cr&quot;</span>,
@@ -4952,7 +4952,7 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;Self::{}&quot;</span>,
+            <span class="string">&quot;DriveStartStopType::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
                 <span class="self">Self</span><span class="ident">::Unknown</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Unknown&quot;</span>,
                 <span class="self">Self</span><span class="ident">::Shutdown</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Shutdown&quot;</span>,
@@ -5053,7 +5053,7 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;Self::{}&quot;</span>,
+            <span class="string">&quot;EmblemOrigin::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
                 <span class="self">Self</span><span class="ident">::Unknown</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Unknown&quot;</span>,
                 <span class="self">Self</span><span class="ident">::Device</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Device&quot;</span>,
@@ -5147,7 +5147,7 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;Self::{}&quot;</span>,
+            <span class="string">&quot;FileAttributeStatus::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
                 <span class="self">Self</span><span class="ident">::Unset</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Unset&quot;</span>,
                 <span class="self">Self</span><span class="ident">::Set</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Set&quot;</span>,
@@ -5259,7 +5259,7 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;Self::{}&quot;</span>,
+            <span class="string">&quot;FileAttributeType::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
                 <span class="self">Self</span><span class="ident">::Invalid</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Invalid&quot;</span>,
                 <span class="self">Self</span><span class="ident">::String</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;String&quot;</span>,
@@ -5402,7 +5402,7 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;Self::{}&quot;</span>,
+            <span class="string">&quot;FileMonitorEvent::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
                 <span class="self">Self</span><span class="ident">::Changed</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Changed&quot;</span>,
                 <span class="self">Self</span><span class="ident">::ChangesDoneHint</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;ChangesDoneHint&quot;</span>,
@@ -5540,7 +5540,7 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;Self::{}&quot;</span>,
+            <span class="string">&quot;FileType::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
                 <span class="self">Self</span><span class="ident">::Unknown</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Unknown&quot;</span>,
                 <span class="self">Self</span><span class="ident">::Regular</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Regular&quot;</span>,
@@ -5802,7 +5802,7 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;Self::{}&quot;</span>,
+            <span class="string">&quot;IOErrorEnum::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
                 <span class="self">Self</span><span class="ident">::Failed</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Failed&quot;</span>,
                 <span class="self">Self</span><span class="ident">::NotFound</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;NotFound&quot;</span>,
@@ -6106,7 +6106,7 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;Self::{}&quot;</span>,
+            <span class="string">&quot;MemoryMonitorWarningLevel::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
                 <span class="self">Self</span><span class="ident">::Low</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Low&quot;</span>,
                 <span class="self">Self</span><span class="ident">::Medium</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Medium&quot;</span>,
@@ -6213,7 +6213,7 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;Self::{}&quot;</span>,
+            <span class="string">&quot;MountOperationResult::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
                 <span class="self">Self</span><span class="ident">::Handled</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Handled&quot;</span>,
                 <span class="self">Self</span><span class="ident">::Aborted</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Aborted&quot;</span>,
@@ -6317,7 +6317,7 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;Self::{}&quot;</span>,
+            <span class="string">&quot;NetworkConnectivity::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
                 <span class="self">Self</span><span class="ident">::Local</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Local&quot;</span>,
                 <span class="self">Self</span><span class="ident">::Limited</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Limited&quot;</span>,
@@ -6434,7 +6434,7 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;Self::{}&quot;</span>,
+            <span class="string">&quot;NotificationPriority::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
                 <span class="self">Self</span><span class="ident">::Normal</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Normal&quot;</span>,
                 <span class="self">Self</span><span class="ident">::Low</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Low&quot;</span>,
@@ -6531,7 +6531,7 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;Self::{}&quot;</span>,
+            <span class="string">&quot;PasswordSave::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
                 <span class="self">Self</span><span class="ident">::Never</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Never&quot;</span>,
                 <span class="self">Self</span><span class="ident">::ForSession</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;ForSession&quot;</span>,
@@ -6657,7 +6657,7 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;Self::{}&quot;</span>,
+            <span class="string">&quot;ResolverRecordType::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
                 <span class="self">Self</span><span class="ident">::Srv</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Srv&quot;</span>,
                 <span class="self">Self</span><span class="ident">::Mx</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Mx&quot;</span>,
@@ -6752,7 +6752,7 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;Self::{}&quot;</span>,
+            <span class="string">&quot;ResourceError::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
                 <span class="self">Self</span><span class="ident">::NotFound</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;NotFound&quot;</span>,
                 <span class="self">Self</span><span class="ident">::Internal</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Internal&quot;</span>,
@@ -6886,7 +6886,7 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;Self::{}&quot;</span>,
+            <span class="string">&quot;SocketClientEvent::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
                 <span class="self">Self</span><span class="ident">::Resolving</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Resolving&quot;</span>,
                 <span class="self">Self</span><span class="ident">::Resolved</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Resolved&quot;</span>,
@@ -7000,7 +7000,7 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;Self::{}&quot;</span>,
+            <span class="string">&quot;SocketFamily::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
                 <span class="self">Self</span><span class="ident">::Invalid</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Invalid&quot;</span>,
                 <span class="self">Self</span><span class="ident">::Unix</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Unix&quot;</span>,
@@ -7106,7 +7106,7 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;Self::{}&quot;</span>,
+            <span class="string">&quot;SocketListenerEvent::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
                 <span class="self">Self</span><span class="ident">::Binding</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Binding&quot;</span>,
                 <span class="self">Self</span><span class="ident">::Bound</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Bound&quot;</span>,
@@ -7224,7 +7224,7 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;Self::{}&quot;</span>,
+            <span class="string">&quot;SocketProtocol::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
                 <span class="self">Self</span><span class="ident">::Unknown</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Unknown&quot;</span>,
                 <span class="self">Self</span><span class="ident">::Default</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Default&quot;</span>,
@@ -7327,7 +7327,7 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;Self::{}&quot;</span>,
+            <span class="string">&quot;SocketType::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
                 <span class="self">Self</span><span class="ident">::Invalid</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Invalid&quot;</span>,
                 <span class="self">Self</span><span class="ident">::Stream</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Stream&quot;</span>,
@@ -7421,7 +7421,7 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;Self::{}&quot;</span>,
+            <span class="string">&quot;TlsAuthenticationMode::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
                 <span class="self">Self</span><span class="ident">::None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;None&quot;</span>,
                 <span class="self">Self</span><span class="ident">::Requested</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Requested&quot;</span>,
@@ -7508,7 +7508,7 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;Self::{}&quot;</span>,
+            <span class="string">&quot;TlsCertificateRequestFlags::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
                 <span class="self">Self</span><span class="ident">::None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;None&quot;</span>,
                 <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Unknown&quot;</span>,
@@ -7599,7 +7599,7 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;Self::{}&quot;</span>,
+            <span class="string">&quot;TlsChannelBindingType::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
                 <span class="self">Self</span><span class="ident">::Unique</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Unique&quot;</span>,
                 <span class="self">Self</span><span class="ident">::ServerEndPoint</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;ServerEndPoint&quot;</span>,
@@ -7699,7 +7699,7 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;Self::{}&quot;</span>,
+            <span class="string">&quot;TlsDatabaseLookupFlags::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
                 <span class="self">Self</span><span class="ident">::None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;None&quot;</span>,
                 <span class="self">Self</span><span class="ident">::Keypair</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Keypair&quot;</span>,
@@ -7791,7 +7791,7 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;Self::{}&quot;</span>,
+            <span class="string">&quot;TlsInteractionResult::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
                 <span class="self">Self</span><span class="ident">::Unhandled</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Unhandled&quot;</span>,
                 <span class="self">Self</span><span class="ident">::Handled</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Handled&quot;</span>,
@@ -7890,7 +7890,7 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;Self::{}&quot;</span>,
+            <span class="string">&quot;TlsRehandshakeMode::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
                 <span class="self">Self</span><span class="ident">::Never</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Never&quot;</span>,
                 <span class="self">Self</span><span class="ident">::Safely</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Safely&quot;</span>,
@@ -8000,7 +8000,7 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;Self::{}&quot;</span>,
+            <span class="string">&quot;UnixSocketAddressType::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
                 <span class="self">Self</span><span class="ident">::Invalid</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Invalid&quot;</span>,
                 <span class="self">Self</span><span class="ident">::Anonymous</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Anonymous&quot;</span>,
@@ -8098,7 +8098,7 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;Self::{}&quot;</span>,
+            <span class="string">&quot;ZlibCompressorFormat::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
                 <span class="self">Self</span><span class="ident">::Zlib</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Zlib&quot;</span>,
                 <span class="self">Self</span><span class="ident">::Gzip</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Gzip&quot;</span>,
