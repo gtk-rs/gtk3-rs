@@ -2394,14 +2394,14 @@
 <span class="kw">impl</span> <span class="ident">::std::convert::From</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Key</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">value</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="macro">skip_assert_initialized!</span>();
-        <span class="ident">Key</span>(<span class="ident">value</span>)
+        <span class="self">Self</span>(<span class="ident">value</span>)
     }
 }
 
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Key</span> {
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="macro">skip_assert_initialized!</span>();
-        <span class="ident">Key</span>(<span class="ident">value</span>)
+        <span class="self">Self</span>(<span class="ident">value</span>)
     }
 }
 

@@ -80,8 +80,8 @@
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">gobject_ffi::GParamFlags</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">ParamFlags</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">gobject_ffi::GParamFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ParamFlags</span> {
-        <span class="ident">ParamFlags::from_bits_truncate</span>(<span class="ident">value</span>)
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">gobject_ffi::GParamFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="self">Self</span><span class="ident">::from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
 </pre></div>

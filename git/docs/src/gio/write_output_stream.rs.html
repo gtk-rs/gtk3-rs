@@ -590,7 +590,7 @@
 
 <span class="kw">impl</span> <span class="ident">AnyWriter</span> {
     <span class="kw">fn</span> <span class="ident">new</span><span class="op">&lt;</span><span class="ident">W</span>: <span class="ident">Write</span> <span class="op">+</span> <span class="ident">Any</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="ident">w</span>: <span class="ident">W</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="ident">AnyWriter</span> {
+        <span class="self">Self</span> {
             <span class="ident">writer</span>: <span class="ident">AnyOrPanic::Any</span>(<span class="ident">Box::new</span>(<span class="ident">w</span>)),
             <span class="ident">write_fn</span>: <span class="self">Self</span><span class="ident">::write_fn</span>::<span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span>,
             <span class="ident">flush_fn</span>: <span class="self">Self</span><span class="ident">::flush_fn</span>::<span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span>,
@@ -599,7 +599,7 @@
     }
 
     <span class="kw">fn</span> <span class="ident">new_seekable</span><span class="op">&lt;</span><span class="ident">W</span>: <span class="ident">Write</span> <span class="op">+</span> <span class="ident">Seek</span> <span class="op">+</span> <span class="ident">Any</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="ident">w</span>: <span class="ident">W</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="ident">AnyWriter</span> {
+        <span class="self">Self</span> {
             <span class="ident">writer</span>: <span class="ident">AnyOrPanic::Any</span>(<span class="ident">Box::new</span>(<span class="ident">w</span>)),
             <span class="ident">write_fn</span>: <span class="self">Self</span><span class="ident">::write_fn</span>::<span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span>,
             <span class="ident">flush_fn</span>: <span class="self">Self</span><span class="ident">::flush_fn</span>::<span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span>,

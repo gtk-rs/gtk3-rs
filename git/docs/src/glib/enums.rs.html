@@ -691,6 +691,14 @@
 <span id="688">688</span>
 <span id="689">689</span>
 <span id="690">690</span>
+<span id="691">691</span>
+<span id="692">692</span>
+<span id="693">693</span>
+<span id="694">694</span>
+<span id="695">695</span>
+<span id="696">696</span>
+<span id="697">697</span>
+<span id="698">698</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -700,6 +708,13 @@
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Type</span>;
 <span class="kw">use</span> <span class="ident">std::cmp</span>;
 
+<span class="doccomment">/// These are logical ids for special directories which are defined</span>
+<span class="doccomment">/// depending on the platform used. You should use `g_get_user_special_dir()`</span>
+<span class="doccomment">/// to retrieve the full path associated to the logical id.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// The [`UserDirectory`](crate::UserDirectory) enumeration can be extended at later date. Not</span>
+<span class="doccomment">/// every platform has a directory for every logical id in this</span>
+<span class="doccomment">/// enumeration.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Hash</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">UserDirectory</span> {
     <span class="ident">Desktop</span>,
@@ -710,6 +725,7 @@
     <span class="ident">PublicShare</span>,
     <span class="ident">Templates</span>,
     <span class="ident">Videos</span>,
+    <span class="doccomment">/// the number of enum values</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
     <span class="ident">NDirectories</span>,
 }
@@ -720,15 +736,15 @@
 
     <span class="kw">fn</span> <span class="ident">into_glib</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi::GUserDirectory</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="ident">UserDirectory::Desktop</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_USER_DIRECTORY_DESKTOP</span>,
-            <span class="ident">UserDirectory::Documents</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_USER_DIRECTORY_DOCUMENTS</span>,
-            <span class="ident">UserDirectory::Downloads</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_USER_DIRECTORY_DOWNLOAD</span>,
-            <span class="ident">UserDirectory::Music</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_USER_DIRECTORY_MUSIC</span>,
-            <span class="ident">UserDirectory::Pictures</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_USER_DIRECTORY_PICTURES</span>,
-            <span class="ident">UserDirectory::PublicShare</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_USER_DIRECTORY_PUBLIC_SHARE</span>,
-            <span class="ident">UserDirectory::Templates</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_USER_DIRECTORY_TEMPLATES</span>,
-            <span class="ident">UserDirectory::Videos</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_USER_DIRECTORY_VIDEOS</span>,
-            <span class="ident">UserDirectory::NDirectories</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_USER_N_DIRECTORIES</span>,
+            <span class="self">Self</span><span class="ident">::Desktop</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_USER_DIRECTORY_DESKTOP</span>,
+            <span class="self">Self</span><span class="ident">::Documents</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_USER_DIRECTORY_DOCUMENTS</span>,
+            <span class="self">Self</span><span class="ident">::Downloads</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_USER_DIRECTORY_DOWNLOAD</span>,
+            <span class="self">Self</span><span class="ident">::Music</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_USER_DIRECTORY_MUSIC</span>,
+            <span class="self">Self</span><span class="ident">::Pictures</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_USER_DIRECTORY_PICTURES</span>,
+            <span class="self">Self</span><span class="ident">::PublicShare</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_USER_DIRECTORY_PUBLIC_SHARE</span>,
+            <span class="self">Self</span><span class="ident">::Templates</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_USER_DIRECTORY_TEMPLATES</span>,
+            <span class="self">Self</span><span class="ident">::Videos</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_USER_DIRECTORY_VIDEOS</span>,
+            <span class="self">Self</span><span class="ident">::NDirectories</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi::G_USER_N_DIRECTORIES</span>,
         }
     }
 }
@@ -852,7 +868,7 @@
 
 <span class="kw">impl</span> <span class="ident">Clone</span> <span class="kw">for</span> <span class="ident">EnumClass</span> {
     <span class="kw">fn</span> <span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="kw">unsafe</span> { <span class="ident">EnumClass</span>(<span class="ident">gobject_ffi::g_type_class_ref</span>(<span class="self">self</span>.<span class="ident">type_</span>().<span class="ident">into_glib</span>()) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>) }
+        <span class="kw">unsafe</span> { <span class="self">Self</span>(<span class="ident">gobject_ffi::g_type_class_ref</span>(<span class="self">self</span>.<span class="ident">type_</span>().<span class="ident">into_glib</span>()) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>) }
     }
 }
 
@@ -1228,7 +1244,7 @@
 
 <span class="kw">impl</span> <span class="ident">Clone</span> <span class="kw">for</span> <span class="ident">FlagsClass</span> {
     <span class="kw">fn</span> <span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="kw">unsafe</span> { <span class="ident">FlagsClass</span>(<span class="ident">gobject_ffi::g_type_class_ref</span>(<span class="self">self</span>.<span class="ident">type_</span>().<span class="ident">into_glib</span>()) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>) }
+        <span class="kw">unsafe</span> { <span class="self">Self</span>(<span class="ident">gobject_ffi::g_type_class_ref</span>(<span class="self">self</span>.<span class="ident">type_</span>().<span class="ident">into_glib</span>()) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>) }
     }
 }
 

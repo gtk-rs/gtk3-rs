@@ -441,7 +441,7 @@
     <span class="doccomment">/// log::info!(&quot;This line will get logged by glib&quot;);</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">format</span>: <span class="ident">GlibLoggerFormat</span>, <span class="ident">domain</span>: <span class="ident">GlibLoggerDomain</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="ident">GlibLogger</span> { <span class="ident">format</span>, <span class="ident">domain</span> }
+        <span class="self">Self</span> { <span class="ident">format</span>, <span class="ident">domain</span> }
     }
 
     <span class="kw">fn</span> <span class="ident">level_to_glib</span>(<span class="ident">level</span>: <span class="ident">rs_log::Level</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span><span class="ident">::ffi::GLogLevelFlags</span> {

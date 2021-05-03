@@ -590,7 +590,7 @@
 
 <span class="kw">impl</span> <span class="ident">AnyReader</span> {
     <span class="kw">fn</span> <span class="ident">new</span><span class="op">&lt;</span><span class="ident">R</span>: <span class="ident">Read</span> <span class="op">+</span> <span class="ident">Any</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="ident">r</span>: <span class="ident">R</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="ident">AnyReader</span> {
+        <span class="self">Self</span> {
             <span class="ident">reader</span>: <span class="ident">AnyOrPanic::Any</span>(<span class="ident">Box::new</span>(<span class="ident">r</span>)),
             <span class="ident">read_fn</span>: <span class="self">Self</span><span class="ident">::read_fn</span>::<span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span>,
             <span class="ident">seek_fn</span>: <span class="prelude-val">None</span>,
@@ -598,7 +598,7 @@
     }
 
     <span class="kw">fn</span> <span class="ident">new_seekable</span><span class="op">&lt;</span><span class="ident">R</span>: <span class="ident">Read</span> <span class="op">+</span> <span class="ident">Seek</span> <span class="op">+</span> <span class="ident">Any</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="ident">r</span>: <span class="ident">R</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="ident">AnyReader</span> {
+        <span class="self">Self</span> {
             <span class="ident">reader</span>: <span class="ident">AnyOrPanic::Any</span>(<span class="ident">Box::new</span>(<span class="ident">r</span>)),
             <span class="ident">read_fn</span>: <span class="self">Self</span><span class="ident">::read_fn</span>::<span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span>,
             <span class="ident">seek_fn</span>: <span class="prelude-val">Some</span>(<span class="self">Self</span><span class="ident">::seek_fn</span>::<span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span>),

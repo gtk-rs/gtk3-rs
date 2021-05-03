@@ -337,7 +337,7 @@
 
         <span class="kw">impl</span> #<span class="ident">crate_ident::translate::FromGlib</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span> <span class="kw">for</span> #<span class="ident">name</span> {
             <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-                #<span class="ident">name::from_bits_truncate</span>(<span class="ident">value</span>)
+                <span class="self">Self</span><span class="ident">::from_bits_truncate</span>(<span class="ident">value</span>)
             }
         }
 
@@ -357,7 +357,7 @@
 
         <span class="kw">impl</span> #<span class="ident">crate_ident::value::ToValue</span> <span class="kw">for</span> #<span class="ident">name</span> {
             <span class="kw">fn</span> <span class="ident">to_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> #<span class="ident">crate_ident::value::Value</span> {
-                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> #<span class="ident">crate_ident::value::Value::for_value_type</span>::<span class="op">&lt;</span>#<span class="ident">name</span><span class="op">&gt;</span>();
+                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> #<span class="ident">crate_ident::value::Value::for_value_type</span>::<span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>();
                 <span class="kw">unsafe</span> {
                     #<span class="ident">crate_ident::gobject_ffi::g_value_set_flags</span>(
                         #<span class="ident">crate_ident::translate::ToGlibPtrMut::to_glib_none_mut</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">value</span>).<span class="number">0</span>,

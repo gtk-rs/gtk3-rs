@@ -1989,7 +1989,7 @@
 
         <span class="kw">impl</span> <span class="ident">glib::value::ToValue</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> {
             <span class="kw">fn</span> <span class="ident">to_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span> {
-                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::for_value_type</span>::<span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span><span class="op">&gt;</span>();
+                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::for_value_type</span>::<span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>();
                 <span class="kw">unsafe</span> {
                     <span class="ident">glib::gobject_ffi::g_value_set_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, (<span class="kw-2">*</span><span class="self">self</span>).<span class="ident">into</span>());
                 }
@@ -2041,14 +2041,14 @@
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">ffi::cairo_antialias_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Antialias</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">value</span>: <span class="ident">ffi::cairo_antialias_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">match</span> <span class="ident">value</span> {
-            <span class="ident">ffi::ANTIALIAS_DEFAULT</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Antialias::Default</span>,
-            <span class="ident">ffi::ANTIALIAS_NONE</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Antialias::None</span>,
-            <span class="ident">ffi::ANTIALIAS_GRAY</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Antialias::Gray</span>,
-            <span class="ident">ffi::ANTIALIAS_SUBPIXEL</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Antialias::Subpixel</span>,
-            <span class="ident">ffi::ANTIALIAS_FAST</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Antialias::Fast</span>,
-            <span class="ident">ffi::ANTIALIAS_GOOD</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Antialias::Good</span>,
-            <span class="ident">ffi::ANTIALIAS_BEST</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Antialias::Best</span>,
-            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Antialias::__Unknown</span>(<span class="ident">value</span>),
+            <span class="ident">ffi::ANTIALIAS_DEFAULT</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Default</span>,
+            <span class="ident">ffi::ANTIALIAS_NONE</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::None</span>,
+            <span class="ident">ffi::ANTIALIAS_GRAY</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Gray</span>,
+            <span class="ident">ffi::ANTIALIAS_SUBPIXEL</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Subpixel</span>,
+            <span class="ident">ffi::ANTIALIAS_FAST</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Fast</span>,
+            <span class="ident">ffi::ANTIALIAS_GOOD</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Good</span>,
+            <span class="ident">ffi::ANTIALIAS_BEST</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Best</span>,
+            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::__Unknown</span>(<span class="ident">value</span>),
         }
     }
 }
@@ -2057,15 +2057,15 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;Antialias::{}&quot;</span>,
+            <span class="string">&quot;Self::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-                <span class="ident">Antialias::Default</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Default&quot;</span>,
-                <span class="ident">Antialias::None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;None&quot;</span>,
-                <span class="ident">Antialias::Gray</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Gray&quot;</span>,
-                <span class="ident">Antialias::Subpixel</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Subpixel&quot;</span>,
-                <span class="ident">Antialias::Fast</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Fast&quot;</span>,
-                <span class="ident">Antialias::Good</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Good&quot;</span>,
-                <span class="ident">Antialias::Best</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Best&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Default</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Default&quot;</span>,
+                <span class="self">Self</span><span class="ident">::None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;None&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Gray</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Gray&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Subpixel</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Subpixel&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Fast</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Fast&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Good</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Good&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Best</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Best&quot;</span>,
                 <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Unknown&quot;</span>,
             }
         )
@@ -2099,9 +2099,9 @@
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">ffi::cairo_fill_rule_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">FillRule</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">value</span>: <span class="ident">ffi::cairo_fill_rule_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">match</span> <span class="ident">value</span> {
-            <span class="ident">ffi::FILL_RULE_WINDING</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">FillRule::Winding</span>,
-            <span class="ident">ffi::FILL_RULE_EVEN_ODD</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">FillRule::EvenOdd</span>,
-            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">FillRule::__Unknown</span>(<span class="ident">value</span>),
+            <span class="ident">ffi::FILL_RULE_WINDING</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Winding</span>,
+            <span class="ident">ffi::FILL_RULE_EVEN_ODD</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::EvenOdd</span>,
+            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::__Unknown</span>(<span class="ident">value</span>),
         }
     }
 }
@@ -2110,10 +2110,10 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;FillRule::{}&quot;</span>,
+            <span class="string">&quot;Self::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-                <span class="ident">FillRule::Winding</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Winding&quot;</span>,
-                <span class="ident">FillRule::EvenOdd</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;EvenOdd&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Winding</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Winding&quot;</span>,
+                <span class="self">Self</span><span class="ident">::EvenOdd</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;EvenOdd&quot;</span>,
                 <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Unknown&quot;</span>,
             }
         )
@@ -2149,10 +2149,10 @@
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">ffi::cairo_line_cap_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">LineCap</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">value</span>: <span class="ident">ffi::cairo_line_cap_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">match</span> <span class="ident">value</span> {
-            <span class="ident">ffi::LINE_CAP_BUTT</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">LineCap::Butt</span>,
-            <span class="ident">ffi::LINE_CAP_ROUND</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">LineCap::Round</span>,
-            <span class="ident">ffi::LINE_CAP_SQUARE</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">LineCap::Square</span>,
-            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">LineCap::__Unknown</span>(<span class="ident">value</span>),
+            <span class="ident">ffi::LINE_CAP_BUTT</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Butt</span>,
+            <span class="ident">ffi::LINE_CAP_ROUND</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Round</span>,
+            <span class="ident">ffi::LINE_CAP_SQUARE</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Square</span>,
+            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::__Unknown</span>(<span class="ident">value</span>),
         }
     }
 }
@@ -2161,11 +2161,11 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;LineCap::{}&quot;</span>,
+            <span class="string">&quot;Self::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-                <span class="ident">LineCap::Butt</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Butt&quot;</span>,
-                <span class="ident">LineCap::Round</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Round&quot;</span>,
-                <span class="ident">LineCap::Square</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Square&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Butt</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Butt&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Round</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Round&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Square</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Square&quot;</span>,
                 <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Unknown&quot;</span>,
             }
         )
@@ -2201,10 +2201,10 @@
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">ffi::cairo_line_join_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">LineJoin</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">value</span>: <span class="ident">ffi::cairo_line_join_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">match</span> <span class="ident">value</span> {
-            <span class="ident">ffi::LINE_JOIN_MITER</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">LineJoin::Miter</span>,
-            <span class="ident">ffi::LINE_JOIN_ROUND</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">LineJoin::Round</span>,
-            <span class="ident">ffi::LINE_JOIN_BEVEL</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">LineJoin::Bevel</span>,
-            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">LineJoin::__Unknown</span>(<span class="ident">value</span>),
+            <span class="ident">ffi::LINE_JOIN_MITER</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Miter</span>,
+            <span class="ident">ffi::LINE_JOIN_ROUND</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Round</span>,
+            <span class="ident">ffi::LINE_JOIN_BEVEL</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Bevel</span>,
+            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::__Unknown</span>(<span class="ident">value</span>),
         }
     }
 }
@@ -2213,11 +2213,11 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;LineJoin::{}&quot;</span>,
+            <span class="string">&quot;Self::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-                <span class="ident">LineJoin::Miter</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Miter&quot;</span>,
-                <span class="ident">LineJoin::Round</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Round&quot;</span>,
-                <span class="ident">LineJoin::Bevel</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Bevel&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Miter</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Miter&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Round</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Round&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Bevel</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Bevel&quot;</span>,
                 <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Unknown&quot;</span>,
             }
         )
@@ -2309,36 +2309,36 @@
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">ffi::cairo_operator_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Operator</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">value</span>: <span class="ident">ffi::cairo_operator_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">match</span> <span class="ident">value</span> {
-            <span class="ident">ffi::OPERATOR_CLEAR</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Operator::Clear</span>,
-            <span class="ident">ffi::OPERATOR_SOURCE</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Operator::Source</span>,
-            <span class="ident">ffi::OPERATOR_OVER</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Operator::Over</span>,
-            <span class="ident">ffi::OPERATOR_IN</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Operator::In</span>,
-            <span class="ident">ffi::OPERATOR_OUT</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Operator::Out</span>,
-            <span class="ident">ffi::OPERATOR_ATOP</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Operator::Atop</span>,
-            <span class="ident">ffi::OPERATOR_DEST</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Operator::Dest</span>,
-            <span class="ident">ffi::OPERATOR_DEST_OVER</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Operator::DestOver</span>,
-            <span class="ident">ffi::OPERATOR_DEST_IN</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Operator::DestIn</span>,
-            <span class="ident">ffi::OPERATOR_DEST_OUT</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Operator::DestOut</span>,
-            <span class="ident">ffi::OPERATOR_DEST_ATOP</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Operator::DestAtop</span>,
-            <span class="ident">ffi::OPERATOR_XOR</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Operator::Xor</span>,
-            <span class="ident">ffi::OPERATOR_ADD</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Operator::Add</span>,
-            <span class="ident">ffi::OPERATOR_SATURATE</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Operator::Saturate</span>,
-            <span class="ident">ffi::OPERATOR_MULTIPLY</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Operator::Multiply</span>,
-            <span class="ident">ffi::OPERATOR_SCREEN</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Operator::Screen</span>,
-            <span class="ident">ffi::OPERATOR_OVERLAY</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Operator::Overlay</span>,
-            <span class="ident">ffi::OPERATOR_DARKEN</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Operator::Darken</span>,
-            <span class="ident">ffi::OPERATOR_LIGHTEN</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Operator::Lighten</span>,
-            <span class="ident">ffi::OPERATOR_COLOR_DODGE</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Operator::ColorDodge</span>,
-            <span class="ident">ffi::OPERATOR_COLOR_BURN</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Operator::ColorBurn</span>,
-            <span class="ident">ffi::OPERATOR_HARD_LIGHT</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Operator::HardLight</span>,
-            <span class="ident">ffi::OPERATOR_SOFT_LIGHT</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Operator::SoftLight</span>,
-            <span class="ident">ffi::OPERATOR_DIFFERENCE</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Operator::Difference</span>,
-            <span class="ident">ffi::OPERATOR_EXCLUSION</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Operator::Exclusion</span>,
-            <span class="ident">ffi::OPERATOR_HSL_HUE</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Operator::HslHue</span>,
-            <span class="ident">ffi::OPERATOR_HSL_SATURATION</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Operator::HslSaturation</span>,
-            <span class="ident">ffi::OPERATOR_HSL_COLOR</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Operator::HslColor</span>,
-            <span class="ident">ffi::OPERATOR_HSL_LUMINOSITY</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Operator::HslLuminosity</span>,
-            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Operator::__Unknown</span>(<span class="ident">value</span>),
+            <span class="ident">ffi::OPERATOR_CLEAR</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Clear</span>,
+            <span class="ident">ffi::OPERATOR_SOURCE</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Source</span>,
+            <span class="ident">ffi::OPERATOR_OVER</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Over</span>,
+            <span class="ident">ffi::OPERATOR_IN</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::In</span>,
+            <span class="ident">ffi::OPERATOR_OUT</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Out</span>,
+            <span class="ident">ffi::OPERATOR_ATOP</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Atop</span>,
+            <span class="ident">ffi::OPERATOR_DEST</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Dest</span>,
+            <span class="ident">ffi::OPERATOR_DEST_OVER</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::DestOver</span>,
+            <span class="ident">ffi::OPERATOR_DEST_IN</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::DestIn</span>,
+            <span class="ident">ffi::OPERATOR_DEST_OUT</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::DestOut</span>,
+            <span class="ident">ffi::OPERATOR_DEST_ATOP</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::DestAtop</span>,
+            <span class="ident">ffi::OPERATOR_XOR</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Xor</span>,
+            <span class="ident">ffi::OPERATOR_ADD</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Add</span>,
+            <span class="ident">ffi::OPERATOR_SATURATE</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Saturate</span>,
+            <span class="ident">ffi::OPERATOR_MULTIPLY</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Multiply</span>,
+            <span class="ident">ffi::OPERATOR_SCREEN</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Screen</span>,
+            <span class="ident">ffi::OPERATOR_OVERLAY</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Overlay</span>,
+            <span class="ident">ffi::OPERATOR_DARKEN</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Darken</span>,
+            <span class="ident">ffi::OPERATOR_LIGHTEN</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Lighten</span>,
+            <span class="ident">ffi::OPERATOR_COLOR_DODGE</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::ColorDodge</span>,
+            <span class="ident">ffi::OPERATOR_COLOR_BURN</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::ColorBurn</span>,
+            <span class="ident">ffi::OPERATOR_HARD_LIGHT</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::HardLight</span>,
+            <span class="ident">ffi::OPERATOR_SOFT_LIGHT</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::SoftLight</span>,
+            <span class="ident">ffi::OPERATOR_DIFFERENCE</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Difference</span>,
+            <span class="ident">ffi::OPERATOR_EXCLUSION</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Exclusion</span>,
+            <span class="ident">ffi::OPERATOR_HSL_HUE</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::HslHue</span>,
+            <span class="ident">ffi::OPERATOR_HSL_SATURATION</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::HslSaturation</span>,
+            <span class="ident">ffi::OPERATOR_HSL_COLOR</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::HslColor</span>,
+            <span class="ident">ffi::OPERATOR_HSL_LUMINOSITY</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::HslLuminosity</span>,
+            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::__Unknown</span>(<span class="ident">value</span>),
         }
     }
 }
@@ -2347,37 +2347,37 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;Operator::{}&quot;</span>,
+            <span class="string">&quot;Self::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-                <span class="ident">Operator::Clear</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Clear&quot;</span>,
-                <span class="ident">Operator::Source</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Source&quot;</span>,
-                <span class="ident">Operator::Over</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Over&quot;</span>,
-                <span class="ident">Operator::In</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;In&quot;</span>,
-                <span class="ident">Operator::Out</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Out&quot;</span>,
-                <span class="ident">Operator::Atop</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Atop&quot;</span>,
-                <span class="ident">Operator::Dest</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Dest&quot;</span>,
-                <span class="ident">Operator::DestOver</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;DestOver&quot;</span>,
-                <span class="ident">Operator::DestIn</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;DestIn&quot;</span>,
-                <span class="ident">Operator::DestOut</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;DestOut&quot;</span>,
-                <span class="ident">Operator::DestAtop</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;DestAtop&quot;</span>,
-                <span class="ident">Operator::Xor</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Xor&quot;</span>,
-                <span class="ident">Operator::Add</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Add&quot;</span>,
-                <span class="ident">Operator::Saturate</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Saturate&quot;</span>,
-                <span class="ident">Operator::Multiply</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Multiply&quot;</span>,
-                <span class="ident">Operator::Screen</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Screen&quot;</span>,
-                <span class="ident">Operator::Overlay</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Overlay&quot;</span>,
-                <span class="ident">Operator::Darken</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Darken&quot;</span>,
-                <span class="ident">Operator::Lighten</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Lighten&quot;</span>,
-                <span class="ident">Operator::ColorDodge</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;ColorDodge&quot;</span>,
-                <span class="ident">Operator::ColorBurn</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;ColorBurn&quot;</span>,
-                <span class="ident">Operator::HardLight</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;HardLight&quot;</span>,
-                <span class="ident">Operator::SoftLight</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;SoftLight&quot;</span>,
-                <span class="ident">Operator::Difference</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Difference&quot;</span>,
-                <span class="ident">Operator::Exclusion</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Exclusion&quot;</span>,
-                <span class="ident">Operator::HslHue</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;HslHue&quot;</span>,
-                <span class="ident">Operator::HslSaturation</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;HslSaturation&quot;</span>,
-                <span class="ident">Operator::HslColor</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;HslColor&quot;</span>,
-                <span class="ident">Operator::HslLuminosity</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;HslLuminosity&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Clear</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Clear&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Source</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Source&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Over</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Over&quot;</span>,
+                <span class="self">Self</span><span class="ident">::In</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;In&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Out</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Out&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Atop</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Atop&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Dest</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Dest&quot;</span>,
+                <span class="self">Self</span><span class="ident">::DestOver</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;DestOver&quot;</span>,
+                <span class="self">Self</span><span class="ident">::DestIn</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;DestIn&quot;</span>,
+                <span class="self">Self</span><span class="ident">::DestOut</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;DestOut&quot;</span>,
+                <span class="self">Self</span><span class="ident">::DestAtop</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;DestAtop&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Xor</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Xor&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Add</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Add&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Saturate</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Saturate&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Multiply</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Multiply&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Screen</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Screen&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Overlay</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Overlay&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Darken</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Darken&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Lighten</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Lighten&quot;</span>,
+                <span class="self">Self</span><span class="ident">::ColorDodge</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;ColorDodge&quot;</span>,
+                <span class="self">Self</span><span class="ident">::ColorBurn</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;ColorBurn&quot;</span>,
+                <span class="self">Self</span><span class="ident">::HardLight</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;HardLight&quot;</span>,
+                <span class="self">Self</span><span class="ident">::SoftLight</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;SoftLight&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Difference</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Difference&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Exclusion</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Exclusion&quot;</span>,
+                <span class="self">Self</span><span class="ident">::HslHue</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;HslHue&quot;</span>,
+                <span class="self">Self</span><span class="ident">::HslSaturation</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;HslSaturation&quot;</span>,
+                <span class="self">Self</span><span class="ident">::HslColor</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;HslColor&quot;</span>,
+                <span class="self">Self</span><span class="ident">::HslLuminosity</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;HslLuminosity&quot;</span>,
                 <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Unknown&quot;</span>,
             }
         )
@@ -2415,11 +2415,11 @@
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">ffi::cairo_path_data_type_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">PathDataType</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">value</span>: <span class="ident">ffi::cairo_path_data_type_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">match</span> <span class="ident">value</span> {
-            <span class="ident">ffi::PATH_DATA_TYPE_MOVE_TO</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">PathDataType::MoveTo</span>,
-            <span class="ident">ffi::PATH_DATA_TYPE_LINE_TO</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">PathDataType::LineTo</span>,
-            <span class="ident">ffi::PATH_DATA_TYPE_CURVE_TO</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">PathDataType::CurveTo</span>,
-            <span class="ident">ffi::PATH_DATA_TYPE_CLOSE_PATH</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">PathDataType::ClosePath</span>,
-            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">PathDataType::__Unknown</span>(<span class="ident">value</span>),
+            <span class="ident">ffi::PATH_DATA_TYPE_MOVE_TO</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::MoveTo</span>,
+            <span class="ident">ffi::PATH_DATA_TYPE_LINE_TO</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::LineTo</span>,
+            <span class="ident">ffi::PATH_DATA_TYPE_CURVE_TO</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::CurveTo</span>,
+            <span class="ident">ffi::PATH_DATA_TYPE_CLOSE_PATH</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::ClosePath</span>,
+            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::__Unknown</span>(<span class="ident">value</span>),
         }
     }
 }
@@ -2428,12 +2428,12 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;PathDataType::{}&quot;</span>,
+            <span class="string">&quot;Self::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-                <span class="ident">PathDataType::MoveTo</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;MoveTo&quot;</span>,
-                <span class="ident">PathDataType::LineTo</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;LineTo&quot;</span>,
-                <span class="ident">PathDataType::CurveTo</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;CurveTo&quot;</span>,
-                <span class="ident">PathDataType::ClosePath</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;ClosePath&quot;</span>,
+                <span class="self">Self</span><span class="ident">::MoveTo</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;MoveTo&quot;</span>,
+                <span class="self">Self</span><span class="ident">::LineTo</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;LineTo&quot;</span>,
+                <span class="self">Self</span><span class="ident">::CurveTo</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;CurveTo&quot;</span>,
+                <span class="self">Self</span><span class="ident">::ClosePath</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;ClosePath&quot;</span>,
                 <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Unknown&quot;</span>,
             }
         )
@@ -2472,10 +2472,10 @@
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">ffi::cairo_content_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Content</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">value</span>: <span class="ident">ffi::cairo_content_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">match</span> <span class="ident">value</span> {
-            <span class="ident">ffi::CONTENT_COLOR</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Content::Color</span>,
-            <span class="ident">ffi::CONTENT_ALPHA</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Content::Alpha</span>,
-            <span class="ident">ffi::CONTENT_COLOR_ALPHA</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Content::ColorAlpha</span>,
-            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Content::__Unknown</span>(<span class="ident">value</span>),
+            <span class="ident">ffi::CONTENT_COLOR</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Color</span>,
+            <span class="ident">ffi::CONTENT_ALPHA</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Alpha</span>,
+            <span class="ident">ffi::CONTENT_COLOR_ALPHA</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::ColorAlpha</span>,
+            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::__Unknown</span>(<span class="ident">value</span>),
         }
     }
 }
@@ -2484,11 +2484,11 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;Content::{}&quot;</span>,
+            <span class="string">&quot;Self::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-                <span class="ident">Content::Color</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Color&quot;</span>,
-                <span class="ident">Content::Alpha</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Alpha&quot;</span>,
-                <span class="ident">Content::ColorAlpha</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;ColorAlpha&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Color</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Color&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Alpha</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Alpha&quot;</span>,
+                <span class="self">Self</span><span class="ident">::ColorAlpha</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;ColorAlpha&quot;</span>,
                 <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Unknown&quot;</span>,
             }
         )
@@ -2526,11 +2526,11 @@
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">ffi::cairo_extend_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Extend</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">value</span>: <span class="ident">ffi::cairo_extend_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">match</span> <span class="ident">value</span> {
-            <span class="ident">ffi::EXTEND_NONE</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Extend::None</span>,
-            <span class="ident">ffi::EXTEND_REPEAT</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Extend::Repeat</span>,
-            <span class="ident">ffi::EXTEND_REFLECT</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Extend::Reflect</span>,
-            <span class="ident">ffi::EXTEND_PAD</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Extend::Pad</span>,
-            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Extend::__Unknown</span>(<span class="ident">value</span>),
+            <span class="ident">ffi::EXTEND_NONE</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::None</span>,
+            <span class="ident">ffi::EXTEND_REPEAT</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Repeat</span>,
+            <span class="ident">ffi::EXTEND_REFLECT</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Reflect</span>,
+            <span class="ident">ffi::EXTEND_PAD</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Pad</span>,
+            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::__Unknown</span>(<span class="ident">value</span>),
         }
     }
 }
@@ -2539,12 +2539,12 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;Extend::{}&quot;</span>,
+            <span class="string">&quot;Self::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-                <span class="ident">Extend::None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;None&quot;</span>,
-                <span class="ident">Extend::Repeat</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Repeat&quot;</span>,
-                <span class="ident">Extend::Reflect</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Reflect&quot;</span>,
-                <span class="ident">Extend::Pad</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Pad&quot;</span>,
+                <span class="self">Self</span><span class="ident">::None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;None&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Repeat</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Repeat&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Reflect</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Reflect&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Pad</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Pad&quot;</span>,
                 <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Unknown&quot;</span>,
             }
         )
@@ -2586,13 +2586,13 @@
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">ffi::cairo_filter_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Filter</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">value</span>: <span class="ident">ffi::cairo_filter_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">match</span> <span class="ident">value</span> {
-            <span class="ident">ffi::FILTER_FAST</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Filter::Fast</span>,
-            <span class="ident">ffi::FILTER_GOOD</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Filter::Good</span>,
-            <span class="ident">ffi::FILTER_BEST</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Filter::Best</span>,
-            <span class="ident">ffi::FILTER_NEAREST</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Filter::Nearest</span>,
-            <span class="ident">ffi::FILTER_BILINEAR</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Filter::Bilinear</span>,
-            <span class="ident">ffi::FILTER_GAUSSIAN</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Filter::Gaussian</span>,
-            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Filter::__Unknown</span>(<span class="ident">value</span>),
+            <span class="ident">ffi::FILTER_FAST</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Fast</span>,
+            <span class="ident">ffi::FILTER_GOOD</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Good</span>,
+            <span class="ident">ffi::FILTER_BEST</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Best</span>,
+            <span class="ident">ffi::FILTER_NEAREST</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Nearest</span>,
+            <span class="ident">ffi::FILTER_BILINEAR</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Bilinear</span>,
+            <span class="ident">ffi::FILTER_GAUSSIAN</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Gaussian</span>,
+            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::__Unknown</span>(<span class="ident">value</span>),
         }
     }
 }
@@ -2601,14 +2601,14 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;Filter::{}&quot;</span>,
+            <span class="string">&quot;Self::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-                <span class="ident">Filter::Fast</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Fast&quot;</span>,
-                <span class="ident">Filter::Good</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Good&quot;</span>,
-                <span class="ident">Filter::Best</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Best&quot;</span>,
-                <span class="ident">Filter::Nearest</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Nearest&quot;</span>,
-                <span class="ident">Filter::Bilinear</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Bilinear&quot;</span>,
-                <span class="ident">Filter::Gaussian</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Gaussian&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Fast</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Fast&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Good</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Good&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Best</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Best&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Nearest</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Nearest&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Bilinear</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Bilinear&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Gaussian</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Gaussian&quot;</span>,
                 <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Unknown&quot;</span>,
             }
         )
@@ -2650,13 +2650,13 @@
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">ffi::cairo_pattern_type_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">PatternType</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">value</span>: <span class="ident">ffi::cairo_pattern_type_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">match</span> <span class="ident">value</span> {
-            <span class="ident">ffi::PATTERN_TYPE_SOLID</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">PatternType::Solid</span>,
-            <span class="ident">ffi::PATTERN_TYPE_SURFACE</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">PatternType::Surface</span>,
-            <span class="ident">ffi::PATTERN_TYPE_LINEAR_GRADIENT</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">PatternType::LinearGradient</span>,
-            <span class="ident">ffi::PATTERN_TYPE_RADIAL_GRADIENT</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">PatternType::RadialGradient</span>,
-            <span class="ident">ffi::PATTERN_TYPE_MESH</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">PatternType::Mesh</span>,
-            <span class="ident">ffi::PATTERN_TYPE_RASTER_SOURCE</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">PatternType::RasterSource</span>,
-            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">PatternType::__Unknown</span>(<span class="ident">value</span>),
+            <span class="ident">ffi::PATTERN_TYPE_SOLID</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Solid</span>,
+            <span class="ident">ffi::PATTERN_TYPE_SURFACE</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Surface</span>,
+            <span class="ident">ffi::PATTERN_TYPE_LINEAR_GRADIENT</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::LinearGradient</span>,
+            <span class="ident">ffi::PATTERN_TYPE_RADIAL_GRADIENT</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::RadialGradient</span>,
+            <span class="ident">ffi::PATTERN_TYPE_MESH</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Mesh</span>,
+            <span class="ident">ffi::PATTERN_TYPE_RASTER_SOURCE</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::RasterSource</span>,
+            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::__Unknown</span>(<span class="ident">value</span>),
         }
     }
 }
@@ -2665,14 +2665,14 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;PatternType::{}&quot;</span>,
+            <span class="string">&quot;Self::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-                <span class="ident">PatternType::Solid</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Solid&quot;</span>,
-                <span class="ident">PatternType::Surface</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Surface&quot;</span>,
-                <span class="ident">PatternType::LinearGradient</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;LinearGradient&quot;</span>,
-                <span class="ident">PatternType::RadialGradient</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;RadialGradient&quot;</span>,
-                <span class="ident">PatternType::Mesh</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Mesh&quot;</span>,
-                <span class="ident">PatternType::RasterSource</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;RasterSource&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Solid</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Solid&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Surface</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Surface&quot;</span>,
+                <span class="self">Self</span><span class="ident">::LinearGradient</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;LinearGradient&quot;</span>,
+                <span class="self">Self</span><span class="ident">::RadialGradient</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;RadialGradient&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Mesh</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Mesh&quot;</span>,
+                <span class="self">Self</span><span class="ident">::RasterSource</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;RasterSource&quot;</span>,
                 <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Unknown&quot;</span>,
             }
         )
@@ -2711,10 +2711,10 @@
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">ffi::cairo_font_slant_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">FontSlant</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">value</span>: <span class="ident">ffi::cairo_font_slant_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">match</span> <span class="ident">value</span> {
-            <span class="ident">ffi::FONT_SLANT_NORMAL</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">FontSlant::Normal</span>,
-            <span class="ident">ffi::FONT_SLANT_ITALIC</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">FontSlant::Italic</span>,
-            <span class="ident">ffi::FONT_SLANT_OBLIQUE</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">FontSlant::Oblique</span>,
-            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">FontSlant::__Unknown</span>(<span class="ident">value</span>),
+            <span class="ident">ffi::FONT_SLANT_NORMAL</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Normal</span>,
+            <span class="ident">ffi::FONT_SLANT_ITALIC</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Italic</span>,
+            <span class="ident">ffi::FONT_SLANT_OBLIQUE</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Oblique</span>,
+            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::__Unknown</span>(<span class="ident">value</span>),
         }
     }
 }
@@ -2723,11 +2723,11 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;FontSlant::{}&quot;</span>,
+            <span class="string">&quot;Self::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-                <span class="ident">FontSlant::Normal</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Normal&quot;</span>,
-                <span class="ident">FontSlant::Italic</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Italic&quot;</span>,
-                <span class="ident">FontSlant::Oblique</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Oblique&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Normal</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Normal&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Italic</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Italic&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Oblique</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Oblique&quot;</span>,
                 <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Unknown&quot;</span>,
             }
         )
@@ -2761,9 +2761,9 @@
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">ffi::cairo_font_weight_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">FontWeight</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">value</span>: <span class="ident">ffi::cairo_font_weight_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">match</span> <span class="ident">value</span> {
-            <span class="ident">ffi::FONT_WEIGHT_NORMAL</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">FontWeight::Normal</span>,
-            <span class="ident">ffi::FONT_WEIGHT_BOLD</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">FontWeight::Bold</span>,
-            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">FontWeight::__Unknown</span>(<span class="ident">value</span>),
+            <span class="ident">ffi::FONT_WEIGHT_NORMAL</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Normal</span>,
+            <span class="ident">ffi::FONT_WEIGHT_BOLD</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Bold</span>,
+            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::__Unknown</span>(<span class="ident">value</span>),
         }
     }
 }
@@ -2772,10 +2772,10 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;FontWeight::{}&quot;</span>,
+            <span class="string">&quot;Self::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-                <span class="ident">FontWeight::Normal</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Normal&quot;</span>,
-                <span class="ident">FontWeight::Bold</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Bold&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Normal</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Normal&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Bold</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Bold&quot;</span>,
                 <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Unknown&quot;</span>,
             }
         )
@@ -2809,9 +2809,9 @@
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">ffi::cairo_text_cluster_flags_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">TextClusterFlags</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">value</span>: <span class="ident">ffi::cairo_text_cluster_flags_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">match</span> <span class="ident">value</span> {
-            <span class="ident">ffi::TEXT_CLUSTER_FLAGS_NONE</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">TextClusterFlags::None</span>,
-            <span class="ident">ffi::TEXT_CLUSTER_FLAGS_BACKWARD</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">TextClusterFlags::Backward</span>,
-            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">TextClusterFlags::__Unknown</span>(<span class="ident">value</span>),
+            <span class="ident">ffi::TEXT_CLUSTER_FLAGS_NONE</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::None</span>,
+            <span class="ident">ffi::TEXT_CLUSTER_FLAGS_BACKWARD</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Backward</span>,
+            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::__Unknown</span>(<span class="ident">value</span>),
         }
     }
 }
@@ -2820,10 +2820,10 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;TextClusterFlags::{}&quot;</span>,
+            <span class="string">&quot;Self::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-                <span class="ident">TextClusterFlags::None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;None&quot;</span>,
-                <span class="ident">TextClusterFlags::Backward</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Backward&quot;</span>,
+                <span class="self">Self</span><span class="ident">::None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;None&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Backward</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Backward&quot;</span>,
                 <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Unknown&quot;</span>,
             }
         )
@@ -2866,12 +2866,12 @@
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">ffi::cairo_font_type_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">FontType</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">value</span>: <span class="ident">ffi::cairo_font_type_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">match</span> <span class="ident">value</span> {
-            <span class="ident">ffi::FONT_TYPE_FONT_TYPE_TOY</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">FontType::FontTypeToy</span>,
-            <span class="ident">ffi::FONT_TYPE_FONT_TYPE_FT</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">FontType::FontTypeFt</span>,
-            <span class="ident">ffi::FONT_TYPE_FONT_TYPE_WIN32</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">FontType::FontTypeWin32</span>,
-            <span class="ident">ffi::FONT_TYPE_FONT_TYPE_QUARTZ</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">FontType::FontTypeQuartz</span>,
-            <span class="ident">ffi::FONT_TYPE_FONT_TYPE_USER</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">FontType::FontTypeUser</span>,
-            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">FontType::__Unknown</span>(<span class="ident">value</span>),
+            <span class="ident">ffi::FONT_TYPE_FONT_TYPE_TOY</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::FontTypeToy</span>,
+            <span class="ident">ffi::FONT_TYPE_FONT_TYPE_FT</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::FontTypeFt</span>,
+            <span class="ident">ffi::FONT_TYPE_FONT_TYPE_WIN32</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::FontTypeWin32</span>,
+            <span class="ident">ffi::FONT_TYPE_FONT_TYPE_QUARTZ</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::FontTypeQuartz</span>,
+            <span class="ident">ffi::FONT_TYPE_FONT_TYPE_USER</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::FontTypeUser</span>,
+            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::__Unknown</span>(<span class="ident">value</span>),
         }
     }
 }
@@ -2880,13 +2880,13 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;FontType::{}&quot;</span>,
+            <span class="string">&quot;Self::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-                <span class="ident">FontType::FontTypeToy</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;FontTypeToy&quot;</span>,
-                <span class="ident">FontType::FontTypeFt</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;FontTypeFt&quot;</span>,
-                <span class="ident">FontType::FontTypeWin32</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;FontTypeWin32&quot;</span>,
-                <span class="ident">FontType::FontTypeQuartz</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;FontTypeQuartz&quot;</span>,
-                <span class="ident">FontType::FontTypeUser</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;FontTypeUser&quot;</span>,
+                <span class="self">Self</span><span class="ident">::FontTypeToy</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;FontTypeToy&quot;</span>,
+                <span class="self">Self</span><span class="ident">::FontTypeFt</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;FontTypeFt&quot;</span>,
+                <span class="self">Self</span><span class="ident">::FontTypeWin32</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;FontTypeWin32&quot;</span>,
+                <span class="self">Self</span><span class="ident">::FontTypeQuartz</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;FontTypeQuartz&quot;</span>,
+                <span class="self">Self</span><span class="ident">::FontTypeUser</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;FontTypeUser&quot;</span>,
                 <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Unknown&quot;</span>,
             }
         )
@@ -2926,12 +2926,12 @@
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">ffi::cairo_subpixel_order_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">SubpixelOrder</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">value</span>: <span class="ident">ffi::cairo_subpixel_order_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">match</span> <span class="ident">value</span> {
-            <span class="ident">ffi::SUBPIXEL_ORDER_DEFAULT</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SubpixelOrder::Default</span>,
-            <span class="ident">ffi::SUBPIXEL_ORDER_RGB</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SubpixelOrder::Rgb</span>,
-            <span class="ident">ffi::SUBPIXEL_ORDER_BGR</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SubpixelOrder::Bgr</span>,
-            <span class="ident">ffi::SUBPIXEL_ORDER_VRGB</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SubpixelOrder::Vrgb</span>,
-            <span class="ident">ffi::SUBPIXEL_ORDER_VBGR</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SubpixelOrder::Vbgr</span>,
-            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SubpixelOrder::__Unknown</span>(<span class="ident">value</span>),
+            <span class="ident">ffi::SUBPIXEL_ORDER_DEFAULT</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Default</span>,
+            <span class="ident">ffi::SUBPIXEL_ORDER_RGB</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Rgb</span>,
+            <span class="ident">ffi::SUBPIXEL_ORDER_BGR</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Bgr</span>,
+            <span class="ident">ffi::SUBPIXEL_ORDER_VRGB</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Vrgb</span>,
+            <span class="ident">ffi::SUBPIXEL_ORDER_VBGR</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Vbgr</span>,
+            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::__Unknown</span>(<span class="ident">value</span>),
         }
     }
 }
@@ -2940,13 +2940,13 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;SubpixelOrder::{}&quot;</span>,
+            <span class="string">&quot;Self::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-                <span class="ident">SubpixelOrder::Default</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Default&quot;</span>,
-                <span class="ident">SubpixelOrder::Rgb</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Rgb&quot;</span>,
-                <span class="ident">SubpixelOrder::Bgr</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Bgr&quot;</span>,
-                <span class="ident">SubpixelOrder::Vrgb</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Vrgb&quot;</span>,
-                <span class="ident">SubpixelOrder::Vbgr</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Vbgr&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Default</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Default&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Rgb</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Rgb&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Bgr</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Bgr&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Vrgb</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Vrgb&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Vbgr</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Vbgr&quot;</span>,
                 <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Unknown&quot;</span>,
             }
         )
@@ -2989,12 +2989,12 @@
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">ffi::cairo_hint_style_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">HintStyle</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">value</span>: <span class="ident">ffi::cairo_hint_style_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">match</span> <span class="ident">value</span> {
-            <span class="ident">ffi::HINT_STYLE_DEFAULT</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">HintStyle::Default</span>,
-            <span class="ident">ffi::HINT_STYLE_NONE</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">HintStyle::None</span>,
-            <span class="ident">ffi::HINT_STYLE_SLIGHT</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">HintStyle::Slight</span>,
-            <span class="ident">ffi::HINT_STYLE_MEDIUM</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">HintStyle::Medium</span>,
-            <span class="ident">ffi::HINT_STYLE_FULL</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">HintStyle::Full</span>,
-            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">HintStyle::__Unknown</span>(<span class="ident">value</span>),
+            <span class="ident">ffi::HINT_STYLE_DEFAULT</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Default</span>,
+            <span class="ident">ffi::HINT_STYLE_NONE</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::None</span>,
+            <span class="ident">ffi::HINT_STYLE_SLIGHT</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Slight</span>,
+            <span class="ident">ffi::HINT_STYLE_MEDIUM</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Medium</span>,
+            <span class="ident">ffi::HINT_STYLE_FULL</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Full</span>,
+            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::__Unknown</span>(<span class="ident">value</span>),
         }
     }
 }
@@ -3003,13 +3003,13 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;HintStyle::{}&quot;</span>,
+            <span class="string">&quot;Self::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-                <span class="ident">HintStyle::Default</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Default&quot;</span>,
-                <span class="ident">HintStyle::None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;None&quot;</span>,
-                <span class="ident">HintStyle::Slight</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Slight&quot;</span>,
-                <span class="ident">HintStyle::Medium</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Medium&quot;</span>,
-                <span class="ident">HintStyle::Full</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Full&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Default</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Default&quot;</span>,
+                <span class="self">Self</span><span class="ident">::None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;None&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Slight</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Slight&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Medium</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Medium&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Full</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Full&quot;</span>,
                 <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Unknown&quot;</span>,
             }
         )
@@ -3045,10 +3045,10 @@
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">ffi::cairo_hint_metrics_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">HintMetrics</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">value</span>: <span class="ident">ffi::cairo_hint_metrics_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">match</span> <span class="ident">value</span> {
-            <span class="ident">ffi::HINT_METRICS_DEFAULT</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">HintMetrics::Default</span>,
-            <span class="ident">ffi::HINT_METRICS_OFF</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">HintMetrics::Off</span>,
-            <span class="ident">ffi::HINT_METRICS_ON</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">HintMetrics::On</span>,
-            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">HintMetrics::__Unknown</span>(<span class="ident">value</span>),
+            <span class="ident">ffi::HINT_METRICS_DEFAULT</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Default</span>,
+            <span class="ident">ffi::HINT_METRICS_OFF</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Off</span>,
+            <span class="ident">ffi::HINT_METRICS_ON</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::On</span>,
+            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::__Unknown</span>(<span class="ident">value</span>),
         }
     }
 }
@@ -3057,11 +3057,11 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;HintMetrics::{}&quot;</span>,
+            <span class="string">&quot;Self::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-                <span class="ident">HintMetrics::Default</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Default&quot;</span>,
-                <span class="ident">HintMetrics::Off</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Off&quot;</span>,
-                <span class="ident">HintMetrics::On</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;On&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Default</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Default&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Off</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Off&quot;</span>,
+                <span class="self">Self</span><span class="ident">::On</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;On&quot;</span>,
                 <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Unknown&quot;</span>,
             }
         )
@@ -3144,32 +3144,32 @@
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">ffi::cairo_surface_type_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">SurfaceType</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">value</span>: <span class="ident">ffi::cairo_surface_type_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">match</span> <span class="ident">value</span> {
-            <span class="ident">ffi::SURFACE_TYPE_IMAGE</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SurfaceType::Image</span>,
-            <span class="ident">ffi::SURFACE_TYPE_PDF</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SurfaceType::Pdf</span>,
-            <span class="ident">ffi::SURFACE_TYPE_PS</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SurfaceType::Ps</span>,
-            <span class="ident">ffi::SURFACE_TYPE_XLIB</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SurfaceType::Xlib</span>,
-            <span class="ident">ffi::SURFACE_TYPE_XCB</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SurfaceType::Xcb</span>,
-            <span class="ident">ffi::SURFACE_TYPE_GLITZ</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SurfaceType::Glitz</span>,
-            <span class="ident">ffi::SURFACE_TYPE_QUARTZ</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SurfaceType::Quartz</span>,
-            <span class="ident">ffi::SURFACE_TYPE_WIN32</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SurfaceType::Win32</span>,
-            <span class="ident">ffi::SURFACE_TYPE_BE_OS</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SurfaceType::BeOs</span>,
-            <span class="ident">ffi::SURFACE_TYPE_DIRECT_FB</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SurfaceType::DirectFb</span>,
-            <span class="ident">ffi::SURFACE_TYPE_SVG</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SurfaceType::Svg</span>,
-            <span class="ident">ffi::SURFACE_TYPE_OS2</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SurfaceType::Os2</span>,
-            <span class="ident">ffi::SURFACE_TYPE_WIN32_PRINTING</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SurfaceType::Win32Printing</span>,
-            <span class="ident">ffi::SURFACE_TYPE_QUARTZ_IMAGE</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SurfaceType::QuartzImage</span>,
-            <span class="ident">ffi::SURFACE_TYPE_SCRIPT</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SurfaceType::Script</span>,
-            <span class="ident">ffi::SURFACE_TYPE_QT</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SurfaceType::Qt</span>,
-            <span class="ident">ffi::SURFACE_TYPE_RECORDING</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SurfaceType::Recording</span>,
-            <span class="ident">ffi::SURFACE_TYPE_VG</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SurfaceType::Vg</span>,
-            <span class="ident">ffi::SURFACE_TYPE_GL</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SurfaceType::Gl</span>,
-            <span class="ident">ffi::SURFACE_TYPE_DRM</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SurfaceType::Drm</span>,
-            <span class="ident">ffi::SURFACE_TYPE_TEE</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SurfaceType::Tee</span>,
-            <span class="ident">ffi::SURFACE_TYPE_XML</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SurfaceType::Xml</span>,
-            <span class="ident">ffi::SURFACE_TYPE_SKIA</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SurfaceType::Skia</span>,
-            <span class="ident">ffi::SURFACE_TYPE_SUBSURFACE</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SurfaceType::Subsurface</span>,
-            <span class="ident">ffi::SURFACE_TYPE_COGL</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SurfaceType::Cogl</span>,
-            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SurfaceType::__Unknown</span>(<span class="ident">value</span>),
+            <span class="ident">ffi::SURFACE_TYPE_IMAGE</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Image</span>,
+            <span class="ident">ffi::SURFACE_TYPE_PDF</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Pdf</span>,
+            <span class="ident">ffi::SURFACE_TYPE_PS</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Ps</span>,
+            <span class="ident">ffi::SURFACE_TYPE_XLIB</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Xlib</span>,
+            <span class="ident">ffi::SURFACE_TYPE_XCB</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Xcb</span>,
+            <span class="ident">ffi::SURFACE_TYPE_GLITZ</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Glitz</span>,
+            <span class="ident">ffi::SURFACE_TYPE_QUARTZ</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Quartz</span>,
+            <span class="ident">ffi::SURFACE_TYPE_WIN32</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Win32</span>,
+            <span class="ident">ffi::SURFACE_TYPE_BE_OS</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::BeOs</span>,
+            <span class="ident">ffi::SURFACE_TYPE_DIRECT_FB</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::DirectFb</span>,
+            <span class="ident">ffi::SURFACE_TYPE_SVG</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Svg</span>,
+            <span class="ident">ffi::SURFACE_TYPE_OS2</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Os2</span>,
+            <span class="ident">ffi::SURFACE_TYPE_WIN32_PRINTING</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Win32Printing</span>,
+            <span class="ident">ffi::SURFACE_TYPE_QUARTZ_IMAGE</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::QuartzImage</span>,
+            <span class="ident">ffi::SURFACE_TYPE_SCRIPT</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Script</span>,
+            <span class="ident">ffi::SURFACE_TYPE_QT</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Qt</span>,
+            <span class="ident">ffi::SURFACE_TYPE_RECORDING</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Recording</span>,
+            <span class="ident">ffi::SURFACE_TYPE_VG</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Vg</span>,
+            <span class="ident">ffi::SURFACE_TYPE_GL</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Gl</span>,
+            <span class="ident">ffi::SURFACE_TYPE_DRM</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Drm</span>,
+            <span class="ident">ffi::SURFACE_TYPE_TEE</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Tee</span>,
+            <span class="ident">ffi::SURFACE_TYPE_XML</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Xml</span>,
+            <span class="ident">ffi::SURFACE_TYPE_SKIA</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Skia</span>,
+            <span class="ident">ffi::SURFACE_TYPE_SUBSURFACE</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Subsurface</span>,
+            <span class="ident">ffi::SURFACE_TYPE_COGL</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Cogl</span>,
+            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::__Unknown</span>(<span class="ident">value</span>),
         }
     }
 }
@@ -3178,33 +3178,33 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;SurfaceType::{}&quot;</span>,
+            <span class="string">&quot;Self::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-                <span class="ident">SurfaceType::Image</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Image&quot;</span>,
-                <span class="ident">SurfaceType::Pdf</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Pdf&quot;</span>,
-                <span class="ident">SurfaceType::Ps</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Ps&quot;</span>,
-                <span class="ident">SurfaceType::Xlib</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Xlib&quot;</span>,
-                <span class="ident">SurfaceType::Xcb</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Xcb&quot;</span>,
-                <span class="ident">SurfaceType::Glitz</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Glitz&quot;</span>,
-                <span class="ident">SurfaceType::Quartz</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Quartz&quot;</span>,
-                <span class="ident">SurfaceType::Win32</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Win32&quot;</span>,
-                <span class="ident">SurfaceType::BeOs</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;BeOs&quot;</span>,
-                <span class="ident">SurfaceType::DirectFb</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;DirectFb&quot;</span>,
-                <span class="ident">SurfaceType::Svg</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Svg&quot;</span>,
-                <span class="ident">SurfaceType::Os2</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Os2&quot;</span>,
-                <span class="ident">SurfaceType::Win32Printing</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Win32Printing&quot;</span>,
-                <span class="ident">SurfaceType::QuartzImage</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;QuartzImage&quot;</span>,
-                <span class="ident">SurfaceType::Script</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Script&quot;</span>,
-                <span class="ident">SurfaceType::Qt</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Qt&quot;</span>,
-                <span class="ident">SurfaceType::Recording</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Recording&quot;</span>,
-                <span class="ident">SurfaceType::Vg</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Vg&quot;</span>,
-                <span class="ident">SurfaceType::Gl</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Gl&quot;</span>,
-                <span class="ident">SurfaceType::Drm</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Drm&quot;</span>,
-                <span class="ident">SurfaceType::Tee</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Tee&quot;</span>,
-                <span class="ident">SurfaceType::Xml</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Xml&quot;</span>,
-                <span class="ident">SurfaceType::Skia</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Skia&quot;</span>,
-                <span class="ident">SurfaceType::Subsurface</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Subsurface&quot;</span>,
-                <span class="ident">SurfaceType::Cogl</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Cogl&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Image</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Image&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Pdf</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Pdf&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Ps</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Ps&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Xlib</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Xlib&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Xcb</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Xcb&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Glitz</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Glitz&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Quartz</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Quartz&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Win32</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Win32&quot;</span>,
+                <span class="self">Self</span><span class="ident">::BeOs</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;BeOs&quot;</span>,
+                <span class="self">Self</span><span class="ident">::DirectFb</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;DirectFb&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Svg</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Svg&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Os2</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Os2&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Win32Printing</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Win32Printing&quot;</span>,
+                <span class="self">Self</span><span class="ident">::QuartzImage</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;QuartzImage&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Script</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Script&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Qt</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Qt&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Recording</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Recording&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Vg</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Vg&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Gl</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Gl&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Drm</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Drm&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Tee</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Tee&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Xml</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Xml&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Skia</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Skia&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Subsurface</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Subsurface&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Cogl</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Cogl&quot;</span>,
                 <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Unknown&quot;</span>,
             }
         )
@@ -3260,17 +3260,17 @@
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">ffi::cairo_svg_unit_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">SvgUnit</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">value</span>: <span class="ident">ffi::cairo_svg_unit_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">match</span> <span class="ident">value</span> {
-            <span class="ident">ffi::SVG_UNIT_USER</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SvgUnit::User</span>,
-            <span class="ident">ffi::SVG_UNIT_EM</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SvgUnit::Em</span>,
-            <span class="ident">ffi::SVG_UNIT_EX</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SvgUnit::Ex</span>,
-            <span class="ident">ffi::SVG_UNIT_PX</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SvgUnit::Px</span>,
-            <span class="ident">ffi::SVG_UNIT_IN</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SvgUnit::In</span>,
-            <span class="ident">ffi::SVG_UNIT_CM</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SvgUnit::Cm</span>,
-            <span class="ident">ffi::SVG_UNIT_MM</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SvgUnit::Mm</span>,
-            <span class="ident">ffi::SVG_UNIT_PT</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SvgUnit::Pt</span>,
-            <span class="ident">ffi::SVG_UNIT_PC</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SvgUnit::Pc</span>,
-            <span class="ident">ffi::SVG_UNIT_PERCENT</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SvgUnit::Percent</span>,
-            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SvgUnit::__Unknown</span>(<span class="ident">value</span>),
+            <span class="ident">ffi::SVG_UNIT_USER</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::User</span>,
+            <span class="ident">ffi::SVG_UNIT_EM</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Em</span>,
+            <span class="ident">ffi::SVG_UNIT_EX</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Ex</span>,
+            <span class="ident">ffi::SVG_UNIT_PX</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Px</span>,
+            <span class="ident">ffi::SVG_UNIT_IN</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::In</span>,
+            <span class="ident">ffi::SVG_UNIT_CM</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Cm</span>,
+            <span class="ident">ffi::SVG_UNIT_MM</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Mm</span>,
+            <span class="ident">ffi::SVG_UNIT_PT</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Pt</span>,
+            <span class="ident">ffi::SVG_UNIT_PC</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Pc</span>,
+            <span class="ident">ffi::SVG_UNIT_PERCENT</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Percent</span>,
+            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::__Unknown</span>(<span class="ident">value</span>),
         }
     }
 }
@@ -3280,18 +3280,18 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;SvgUnit::{}&quot;</span>,
+            <span class="string">&quot;Self::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-                <span class="ident">SvgUnit::User</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;User&quot;</span>,
-                <span class="ident">SvgUnit::Em</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Em&quot;</span>,
-                <span class="ident">SvgUnit::Ex</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Ex&quot;</span>,
-                <span class="ident">SvgUnit::Px</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Px&quot;</span>,
-                <span class="ident">SvgUnit::In</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;In&quot;</span>,
-                <span class="ident">SvgUnit::Cm</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Cm&quot;</span>,
-                <span class="ident">SvgUnit::Mm</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Mm&quot;</span>,
-                <span class="ident">SvgUnit::Pt</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Pt&quot;</span>,
-                <span class="ident">SvgUnit::Pc</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Pc&quot;</span>,
-                <span class="ident">SvgUnit::Percent</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Percent&quot;</span>,
+                <span class="self">Self</span><span class="ident">::User</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;User&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Em</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Em&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Ex</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Ex&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Px</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Px&quot;</span>,
+                <span class="self">Self</span><span class="ident">::In</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;In&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Cm</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Cm&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Mm</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Mm&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Pt</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Pt&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Pc</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Pc&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Percent</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Percent&quot;</span>,
                 <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Unknown&quot;</span>,
             }
         )
@@ -3332,14 +3332,14 @@
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">ffi::cairo_format_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Format</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">value</span>: <span class="ident">ffi::cairo_format_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">match</span> <span class="ident">value</span> {
-            <span class="ident">ffi::FORMAT_INVALID</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Format::Invalid</span>,
-            <span class="ident">ffi::FORMAT_A_RGB32</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Format::ARgb32</span>,
-            <span class="ident">ffi::FORMAT_RGB24</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Format::Rgb24</span>,
-            <span class="ident">ffi::FORMAT_A8</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Format::A8</span>,
-            <span class="ident">ffi::FORMAT_A1</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Format::A1</span>,
-            <span class="ident">ffi::FORMAT_RGB16_565</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Format::Rgb16_565</span>,
-            <span class="ident">ffi::FORMAT_RGB30</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Format::Rgb30</span>,
-            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Format::__Unknown</span>(<span class="ident">value</span>),
+            <span class="ident">ffi::FORMAT_INVALID</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Invalid</span>,
+            <span class="ident">ffi::FORMAT_A_RGB32</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::ARgb32</span>,
+            <span class="ident">ffi::FORMAT_RGB24</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Rgb24</span>,
+            <span class="ident">ffi::FORMAT_A8</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::A8</span>,
+            <span class="ident">ffi::FORMAT_A1</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::A1</span>,
+            <span class="ident">ffi::FORMAT_RGB16_565</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Rgb16_565</span>,
+            <span class="ident">ffi::FORMAT_RGB30</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Rgb30</span>,
+            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::__Unknown</span>(<span class="ident">value</span>),
         }
     }
 }
@@ -3348,15 +3348,15 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;Format::{}&quot;</span>,
+            <span class="string">&quot;Self::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-                <span class="ident">Format::Invalid</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Invalid&quot;</span>,
-                <span class="ident">Format::ARgb32</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;ARgb32&quot;</span>,
-                <span class="ident">Format::Rgb24</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Rgb24&quot;</span>,
-                <span class="ident">Format::A8</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;A8&quot;</span>,
-                <span class="ident">Format::A1</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;A1&quot;</span>,
-                <span class="ident">Format::Rgb16_565</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Rgb16_565&quot;</span>,
-                <span class="ident">Format::Rgb30</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Rgb30&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Invalid</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Invalid&quot;</span>,
+                <span class="self">Self</span><span class="ident">::ARgb32</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;ARgb32&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Rgb24</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Rgb24&quot;</span>,
+                <span class="self">Self</span><span class="ident">::A8</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;A8&quot;</span>,
+                <span class="self">Self</span><span class="ident">::A1</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;A1&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Rgb16_565</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Rgb16_565&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Rgb30</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Rgb30&quot;</span>,
                 <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Unknown&quot;</span>,
             }
         )
@@ -3406,10 +3406,10 @@
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">ffi::cairo_region_overlap_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">RegionOverlap</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">value</span>: <span class="ident">ffi::cairo_region_overlap_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">match</span> <span class="ident">value</span> {
-            <span class="ident">ffi::REGION_OVERLAP_IN</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">RegionOverlap::In</span>,
-            <span class="ident">ffi::REGION_OVERLAP_OUT</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">RegionOverlap::Out</span>,
-            <span class="ident">ffi::REGION_OVERLAP_PART</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">RegionOverlap::Part</span>,
-            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">RegionOverlap::__Unknown</span>(<span class="ident">value</span>),
+            <span class="ident">ffi::REGION_OVERLAP_IN</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::In</span>,
+            <span class="ident">ffi::REGION_OVERLAP_OUT</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Out</span>,
+            <span class="ident">ffi::REGION_OVERLAP_PART</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Part</span>,
+            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::__Unknown</span>(<span class="ident">value</span>),
         }
     }
 }
@@ -3418,11 +3418,11 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;RegionOverlap::{}&quot;</span>,
+            <span class="string">&quot;Self::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-                <span class="ident">RegionOverlap::In</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;In&quot;</span>,
-                <span class="ident">RegionOverlap::Out</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Out&quot;</span>,
-                <span class="ident">RegionOverlap::Part</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Part&quot;</span>,
+                <span class="self">Self</span><span class="ident">::In</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;In&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Out</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Out&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Part</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Part&quot;</span>,
                 <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Unknown&quot;</span>,
             }
         )
@@ -3480,14 +3480,14 @@
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">ffi::cairo_pdf_metadata_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">PdfMetadata</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">value</span>: <span class="ident">ffi::cairo_pdf_metadata_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">match</span> <span class="ident">value</span> {
-            <span class="ident">ffi::PDF_METADATA_TITLE</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">PdfMetadata::Title</span>,
-            <span class="ident">ffi::PDF_METADATA_AUTHOR</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">PdfMetadata::Author</span>,
-            <span class="ident">ffi::PDF_METADATA_SUBJECT</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">PdfMetadata::Subject</span>,
-            <span class="ident">ffi::PDF_METADATA_KEYWORDS</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">PdfMetadata::Keywords</span>,
-            <span class="ident">ffi::PDF_METADATA_CREATOR</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">PdfMetadata::Creator</span>,
-            <span class="ident">ffi::PDF_METADATA_CREATE_DATE</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">PdfMetadata::CreateDate</span>,
-            <span class="ident">ffi::PDF_METADATA_MOD_DATE</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">PdfMetadata::ModDate</span>,
-            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">PdfMetadata::__Unknown</span>(<span class="ident">value</span>),
+            <span class="ident">ffi::PDF_METADATA_TITLE</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Title</span>,
+            <span class="ident">ffi::PDF_METADATA_AUTHOR</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Author</span>,
+            <span class="ident">ffi::PDF_METADATA_SUBJECT</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Subject</span>,
+            <span class="ident">ffi::PDF_METADATA_KEYWORDS</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Keywords</span>,
+            <span class="ident">ffi::PDF_METADATA_CREATOR</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Creator</span>,
+            <span class="ident">ffi::PDF_METADATA_CREATE_DATE</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::CreateDate</span>,
+            <span class="ident">ffi::PDF_METADATA_MOD_DATE</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::ModDate</span>,
+            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::__Unknown</span>(<span class="ident">value</span>),
         }
     }
 }
@@ -3497,15 +3497,15 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;PdfMetadata::{}&quot;</span>,
+            <span class="string">&quot;Self::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-                <span class="ident">PdfMetadata::Title</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Title&quot;</span>,
-                <span class="ident">PdfMetadata::Author</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Author&quot;</span>,
-                <span class="ident">PdfMetadata::Subject</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Subject&quot;</span>,
-                <span class="ident">PdfMetadata::Keywords</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Keywords&quot;</span>,
-                <span class="ident">PdfMetadata::Creator</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Creator&quot;</span>,
-                <span class="ident">PdfMetadata::CreateDate</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;CreateDate&quot;</span>,
-                <span class="ident">PdfMetadata::ModDate</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;ModDate&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Title</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Title&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Author</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Author&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Subject</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Subject&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Keywords</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Keywords&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Creator</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Creator&quot;</span>,
+                <span class="self">Self</span><span class="ident">::CreateDate</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;CreateDate&quot;</span>,
+                <span class="self">Self</span><span class="ident">::ModDate</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;ModDate&quot;</span>,
                 <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Unknown&quot;</span>,
             }
         )
@@ -3539,9 +3539,9 @@
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">ffi::cairo_pdf_version_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">PdfVersion</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">value</span>: <span class="ident">ffi::cairo_pdf_version_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">match</span> <span class="ident">value</span> {
-            <span class="ident">ffi::PDF_VERSION__1_4</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">PdfVersion::_1_4</span>,
-            <span class="ident">ffi::PDF_VERSION__1_5</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">PdfVersion::_1_5</span>,
-            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">PdfVersion::__Unknown</span>(<span class="ident">value</span>),
+            <span class="ident">ffi::PDF_VERSION__1_4</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::_1_4</span>,
+            <span class="ident">ffi::PDF_VERSION__1_5</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::_1_5</span>,
+            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::__Unknown</span>(<span class="ident">value</span>),
         }
     }
 }
@@ -3551,10 +3551,10 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;PdfVersion::{}&quot;</span>,
+            <span class="string">&quot;Self::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-                <span class="ident">PdfVersion::_1_4</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;1_4&quot;</span>,
-                <span class="ident">PdfVersion::_1_5</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;1_5&quot;</span>,
+                <span class="self">Self</span><span class="ident">::_1_4</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;1_4&quot;</span>,
+                <span class="self">Self</span><span class="ident">::_1_5</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;1_5&quot;</span>,
                 <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Unknown&quot;</span>,
             }
         )
@@ -3588,9 +3588,9 @@
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">ffi::cairo_svg_version_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">SvgVersion</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">value</span>: <span class="ident">ffi::cairo_svg_version_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">match</span> <span class="ident">value</span> {
-            <span class="ident">ffi::SVG_VERSION__1_1</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SvgVersion::_1_1</span>,
-            <span class="ident">ffi::SVG_VERSION__1_2</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SvgVersion::_1_2</span>,
-            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SvgVersion::__Unknown</span>(<span class="ident">value</span>),
+            <span class="ident">ffi::SVG_VERSION__1_1</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::_1_1</span>,
+            <span class="ident">ffi::SVG_VERSION__1_2</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::_1_2</span>,
+            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::__Unknown</span>(<span class="ident">value</span>),
         }
     }
 }
@@ -3600,10 +3600,10 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;SvgVersion::{}&quot;</span>,
+            <span class="string">&quot;Self::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-                <span class="ident">SvgVersion::_1_1</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;1_1&quot;</span>,
-                <span class="ident">SvgVersion::_1_2</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;1_2&quot;</span>,
+                <span class="self">Self</span><span class="ident">::_1_1</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;1_1&quot;</span>,
+                <span class="self">Self</span><span class="ident">::_1_2</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;1_2&quot;</span>,
                 <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Unknown&quot;</span>,
             }
         )
@@ -3637,9 +3637,9 @@
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">ffi::cairo_ps_level_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">PsLevel</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">value</span>: <span class="ident">ffi::cairo_ps_level_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">match</span> <span class="ident">value</span> {
-            <span class="ident">ffi::PS_LEVEL__2</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">PsLevel::_2</span>,
-            <span class="ident">ffi::PS_LEVEL__3</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">PsLevel::_3</span>,
-            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">PsLevel::__Unknown</span>(<span class="ident">value</span>),
+            <span class="ident">ffi::PS_LEVEL__2</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::_2</span>,
+            <span class="ident">ffi::PS_LEVEL__3</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::_3</span>,
+            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::__Unknown</span>(<span class="ident">value</span>),
         }
     }
 }
@@ -3649,10 +3649,10 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;PsLevel::{}&quot;</span>,
+            <span class="string">&quot;Self::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-                <span class="ident">PsLevel::_2</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;_2&quot;</span>,
-                <span class="ident">PsLevel::_3</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;_3&quot;</span>,
+                <span class="self">Self</span><span class="ident">::_2</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;_2&quot;</span>,
+                <span class="self">Self</span><span class="ident">::_3</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;_3&quot;</span>,
                 <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Unknown&quot;</span>,
             }
         )
@@ -3687,11 +3687,11 @@
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">ffi::cairo_mesh_corner_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">MeshCorner</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">value</span>: <span class="ident">ffi::cairo_mesh_corner_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">match</span> <span class="ident">value</span> {
-            <span class="ident">ffi::MESH_CORNER_MESH_CORNER0</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">MeshCorner::MeshCorner0</span>,
-            <span class="ident">ffi::MESH_CORNER_MESH_CORNER1</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">MeshCorner::MeshCorner1</span>,
-            <span class="ident">ffi::MESH_CORNER_MESH_CORNER2</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">MeshCorner::MeshCorner2</span>,
-            <span class="ident">ffi::MESH_CORNER_MESH_CORNER3</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">MeshCorner::MeshCorner3</span>,
-            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">MeshCorner::__Unknown</span>(<span class="ident">value</span>),
+            <span class="ident">ffi::MESH_CORNER_MESH_CORNER0</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::MeshCorner0</span>,
+            <span class="ident">ffi::MESH_CORNER_MESH_CORNER1</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::MeshCorner1</span>,
+            <span class="ident">ffi::MESH_CORNER_MESH_CORNER2</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::MeshCorner2</span>,
+            <span class="ident">ffi::MESH_CORNER_MESH_CORNER3</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::MeshCorner3</span>,
+            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::__Unknown</span>(<span class="ident">value</span>),
         }
     }
 }
@@ -3700,12 +3700,12 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;MeshCorner::{}&quot;</span>,
+            <span class="string">&quot;Self::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-                <span class="ident">MeshCorner::MeshCorner0</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;MeshCorner0&quot;</span>,
-                <span class="ident">MeshCorner::MeshCorner1</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;MeshCorner1&quot;</span>,
-                <span class="ident">MeshCorner::MeshCorner2</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;MeshCorner2&quot;</span>,
-                <span class="ident">MeshCorner::MeshCorner3</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;MeshCorner3&quot;</span>,
+                <span class="self">Self</span><span class="ident">::MeshCorner0</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;MeshCorner0&quot;</span>,
+                <span class="self">Self</span><span class="ident">::MeshCorner1</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;MeshCorner1&quot;</span>,
+                <span class="self">Self</span><span class="ident">::MeshCorner2</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;MeshCorner2&quot;</span>,
+                <span class="self">Self</span><span class="ident">::MeshCorner3</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;MeshCorner3&quot;</span>,
                 <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Unknown&quot;</span>,
             }
         )
@@ -3739,9 +3739,9 @@
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">ffi::cairo_ft_synthesize_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">FtSynthesize</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">value</span>: <span class="ident">ffi::cairo_ft_synthesize_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">match</span> <span class="ident">value</span> {
-            <span class="ident">ffi::CAIRO_FT_SYNTHESIZE_BOLD</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">FtSynthesize::Bold</span>,
-            <span class="ident">ffi::CAIRO_FT_SYNTHESIZE_OBLIQUE</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">FtSynthesize::Oblique</span>,
-            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">FtSynthesize::__Unknown</span>(<span class="ident">value</span>),
+            <span class="ident">ffi::CAIRO_FT_SYNTHESIZE_BOLD</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Bold</span>,
+            <span class="ident">ffi::CAIRO_FT_SYNTHESIZE_OBLIQUE</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Oblique</span>,
+            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::__Unknown</span>(<span class="ident">value</span>),
         }
     }
 }
@@ -3751,11 +3751,11 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;FtSynthesize::{}&quot;</span>,
+            <span class="string">&quot;Self::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-                <span class="ident">FtSynthesize::Bold</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Bold&quot;</span>,
-                <span class="ident">FtSynthesize::Oblique</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Oblique&quot;</span>,
-                <span class="ident">FtSynthesize::__Unknown</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Unknown&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Bold</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Bold&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Oblique</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Oblique&quot;</span>,
+                <span class="self">Self</span><span class="ident">::__Unknown</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Unknown&quot;</span>,
             }
         )
     }
@@ -3788,9 +3788,9 @@
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">ffi::cairo_script_mode_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">ScriptMode</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">value</span>: <span class="ident">ffi::cairo_script_mode_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">match</span> <span class="ident">value</span> {
-            <span class="ident">ffi::CAIRO_SCRIPT_MODE_ASCII</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ScriptMode::Ascii</span>,
-            <span class="ident">ffi::CAIRO_SCRIPT_MODE_BINARY</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ScriptMode::Binary</span>,
-            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ScriptMode::__Unknown</span>(<span class="ident">value</span>),
+            <span class="ident">ffi::CAIRO_SCRIPT_MODE_ASCII</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Ascii</span>,
+            <span class="ident">ffi::CAIRO_SCRIPT_MODE_BINARY</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Binary</span>,
+            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::__Unknown</span>(<span class="ident">value</span>),
         }
     }
 }
@@ -3800,11 +3800,11 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;ScriptMode::{}&quot;</span>,
+            <span class="string">&quot;Self::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-                <span class="ident">ScriptMode::Ascii</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Ascii&quot;</span>,
-                <span class="ident">ScriptMode::Binary</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Binary&quot;</span>,
-                <span class="ident">ScriptMode::__Unknown</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Unknown&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Ascii</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Ascii&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Binary</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Binary&quot;</span>,
+                <span class="self">Self</span><span class="ident">::__Unknown</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Unknown&quot;</span>,
             }
         )
     }
@@ -3848,16 +3848,16 @@
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">ffi::cairo_device_type_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">DeviceType</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">value</span>: <span class="ident">ffi::cairo_device_type_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">match</span> <span class="ident">value</span> {
-            <span class="ident">ffi::CAIRO_DEVICE_TYPE_DRM</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DeviceType::Ascii</span>,
-            <span class="ident">ffi::CAIRO_DEVICE_TYPE_GL</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DeviceType::Binary</span>,
-            <span class="ident">ffi::CAIRO_DEVICE_TYPE_SCRIPT</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DeviceType::Script</span>,
-            <span class="ident">ffi::CAIRO_DEVICE_TYPE_XCB</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DeviceType::Xcb</span>,
-            <span class="ident">ffi::CAIRO_DEVICE_TYPE_XLIB</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DeviceType::Xlib</span>,
-            <span class="ident">ffi::CAIRO_DEVICE_TYPE_XML</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DeviceType::Xml</span>,
-            <span class="ident">ffi::CAIRO_DEVICE_TYPE_COGL</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DeviceType::Cogl</span>,
-            <span class="ident">ffi::CAIRO_DEVICE_TYPE_WIN32</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DeviceType::Win32</span>,
-            <span class="ident">ffi::CAIRO_DEVICE_TYPE_INVALID</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DeviceType::Invalid</span>,
-            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DeviceType::__Unknown</span>(<span class="ident">value</span>),
+            <span class="ident">ffi::CAIRO_DEVICE_TYPE_DRM</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Ascii</span>,
+            <span class="ident">ffi::CAIRO_DEVICE_TYPE_GL</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Binary</span>,
+            <span class="ident">ffi::CAIRO_DEVICE_TYPE_SCRIPT</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Script</span>,
+            <span class="ident">ffi::CAIRO_DEVICE_TYPE_XCB</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Xcb</span>,
+            <span class="ident">ffi::CAIRO_DEVICE_TYPE_XLIB</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Xlib</span>,
+            <span class="ident">ffi::CAIRO_DEVICE_TYPE_XML</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Xml</span>,
+            <span class="ident">ffi::CAIRO_DEVICE_TYPE_COGL</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Cogl</span>,
+            <span class="ident">ffi::CAIRO_DEVICE_TYPE_WIN32</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Win32</span>,
+            <span class="ident">ffi::CAIRO_DEVICE_TYPE_INVALID</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Invalid</span>,
+            <span class="ident">value</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::__Unknown</span>(<span class="ident">value</span>),
         }
     }
 }
@@ -3866,18 +3866,18 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(
             <span class="ident">f</span>,
-            <span class="string">&quot;DeviceType::{}&quot;</span>,
+            <span class="string">&quot;Self::{}&quot;</span>,
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-                <span class="ident">DeviceType::Ascii</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Ascii&quot;</span>,
-                <span class="ident">DeviceType::Binary</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Binary&quot;</span>,
-                <span class="ident">DeviceType::Script</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Script&quot;</span>,
-                <span class="ident">DeviceType::Xcb</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Xcb&quot;</span>,
-                <span class="ident">DeviceType::Xlib</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Xlib&quot;</span>,
-                <span class="ident">DeviceType::Xml</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Xml&quot;</span>,
-                <span class="ident">DeviceType::Cogl</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Cogl&quot;</span>,
-                <span class="ident">DeviceType::Win32</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Win32&quot;</span>,
-                <span class="ident">DeviceType::Invalid</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Invalid&quot;</span>,
-                <span class="ident">DeviceType::__Unknown</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Unknown&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Ascii</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Ascii&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Binary</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Binary&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Script</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Script&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Xcb</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Xcb&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Xlib</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Xlib&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Xml</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Xml&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Cogl</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Cogl&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Win32</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Win32&quot;</span>,
+                <span class="self">Self</span><span class="ident">::Invalid</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Invalid&quot;</span>,
+                <span class="self">Self</span><span class="ident">::__Unknown</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Unknown&quot;</span>,
             }
         )
     }

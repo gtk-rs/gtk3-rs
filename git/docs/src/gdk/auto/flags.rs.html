@@ -1176,9 +1176,9 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>)))]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi::GdkAnchorHints</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">AnchorHints</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi::GdkAnchorHints</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">AnchorHints</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi::GdkAnchorHints</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="macro">skip_assert_initialized!</span>();
-        <span class="ident">AnchorHints::from_bits_truncate</span>(<span class="ident">value</span>)
+        <span class="self">Self</span><span class="ident">::from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
 
@@ -1211,7 +1211,7 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>)))]</span>
 <span class="kw">impl</span> <span class="ident">ToValue</span> <span class="kw">for</span> <span class="ident">AnchorHints</span> {
     <span class="kw">fn</span> <span class="ident">to_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span> {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::for_value_type</span>::<span class="op">&lt;</span><span class="ident">AnchorHints</span><span class="op">&gt;</span>();
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::for_value_type</span>::<span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>();
         <span class="kw">unsafe</span> {
             <span class="ident">glib::gobject_ffi::g_value_set_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">into_glib</span>());
         }
@@ -1272,9 +1272,9 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>)))]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi::GdkAxisFlags</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">AxisFlags</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi::GdkAxisFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">AxisFlags</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi::GdkAxisFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="macro">skip_assert_initialized!</span>();
-        <span class="ident">AxisFlags::from_bits_truncate</span>(<span class="ident">value</span>)
+        <span class="self">Self</span><span class="ident">::from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
 
@@ -1307,7 +1307,7 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>)))]</span>
 <span class="kw">impl</span> <span class="ident">ToValue</span> <span class="kw">for</span> <span class="ident">AxisFlags</span> {
     <span class="kw">fn</span> <span class="ident">to_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span> {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::for_value_type</span>::<span class="op">&lt;</span><span class="ident">AxisFlags</span><span class="op">&gt;</span>();
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::for_value_type</span>::<span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>();
         <span class="kw">unsafe</span> {
             <span class="ident">glib::gobject_ffi::g_value_set_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">into_glib</span>());
         }
@@ -1358,9 +1358,9 @@
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi::GdkDragAction</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">DragAction</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi::GdkDragAction</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DragAction</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi::GdkDragAction</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="macro">skip_assert_initialized!</span>();
-        <span class="ident">DragAction::from_bits_truncate</span>(<span class="ident">value</span>)
+        <span class="self">Self</span><span class="ident">::from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
 
@@ -1385,7 +1385,7 @@
 
 <span class="kw">impl</span> <span class="ident">ToValue</span> <span class="kw">for</span> <span class="ident">DragAction</span> {
     <span class="kw">fn</span> <span class="ident">to_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span> {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::for_value_type</span>::<span class="op">&lt;</span><span class="ident">DragAction</span><span class="op">&gt;</span>();
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::for_value_type</span>::<span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>();
         <span class="kw">unsafe</span> {
             <span class="ident">glib::gobject_ffi::g_value_set_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">into_glib</span>());
         }
@@ -1498,9 +1498,9 @@
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi::GdkEventMask</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">EventMask</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi::GdkEventMask</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">EventMask</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi::GdkEventMask</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="macro">skip_assert_initialized!</span>();
-        <span class="ident">EventMask::from_bits_truncate</span>(<span class="ident">value</span>)
+        <span class="self">Self</span><span class="ident">::from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
 
@@ -1525,7 +1525,7 @@
 
 <span class="kw">impl</span> <span class="ident">ToValue</span> <span class="kw">for</span> <span class="ident">EventMask</span> {
     <span class="kw">fn</span> <span class="ident">to_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span> {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::for_value_type</span>::<span class="op">&lt;</span><span class="ident">EventMask</span><span class="op">&gt;</span>();
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::for_value_type</span>::<span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>();
         <span class="kw">unsafe</span> {
             <span class="ident">glib::gobject_ffi::g_value_set_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">into_glib</span>());
         }
@@ -1578,9 +1578,9 @@
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi::GdkFrameClockPhase</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">FrameClockPhase</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi::GdkFrameClockPhase</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FrameClockPhase</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi::GdkFrameClockPhase</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="macro">skip_assert_initialized!</span>();
-        <span class="ident">FrameClockPhase::from_bits_truncate</span>(<span class="ident">value</span>)
+        <span class="self">Self</span><span class="ident">::from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
 
@@ -1605,7 +1605,7 @@
 
 <span class="kw">impl</span> <span class="ident">ToValue</span> <span class="kw">for</span> <span class="ident">FrameClockPhase</span> {
     <span class="kw">fn</span> <span class="ident">to_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span> {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::for_value_type</span>::<span class="op">&lt;</span><span class="ident">FrameClockPhase</span><span class="op">&gt;</span>();
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::for_value_type</span>::<span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>();
         <span class="kw">unsafe</span> {
             <span class="ident">glib::gobject_ffi::g_value_set_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">into_glib</span>());
         }
@@ -1729,9 +1729,9 @@
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi::GdkModifierType</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">ModifierType</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi::GdkModifierType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ModifierType</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi::GdkModifierType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="macro">skip_assert_initialized!</span>();
-        <span class="ident">ModifierType::from_bits_truncate</span>(<span class="ident">value</span>)
+        <span class="self">Self</span><span class="ident">::from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
 
@@ -1756,7 +1756,7 @@
 
 <span class="kw">impl</span> <span class="ident">ToValue</span> <span class="kw">for</span> <span class="ident">ModifierType</span> {
     <span class="kw">fn</span> <span class="ident">to_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span> {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::for_value_type</span>::<span class="op">&lt;</span><span class="ident">ModifierType</span><span class="op">&gt;</span>();
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::for_value_type</span>::<span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>();
         <span class="kw">unsafe</span> {
             <span class="ident">glib::gobject_ffi::g_value_set_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">into_glib</span>());
         }
@@ -1813,9 +1813,9 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>)))]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi::GdkSeatCapabilities</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">SeatCapabilities</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi::GdkSeatCapabilities</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SeatCapabilities</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi::GdkSeatCapabilities</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="macro">skip_assert_initialized!</span>();
-        <span class="ident">SeatCapabilities::from_bits_truncate</span>(<span class="ident">value</span>)
+        <span class="self">Self</span><span class="ident">::from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
 
@@ -1848,7 +1848,7 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>)))]</span>
 <span class="kw">impl</span> <span class="ident">ToValue</span> <span class="kw">for</span> <span class="ident">SeatCapabilities</span> {
     <span class="kw">fn</span> <span class="ident">to_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span> {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::for_value_type</span>::<span class="op">&lt;</span><span class="ident">SeatCapabilities</span><span class="op">&gt;</span>();
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::for_value_type</span>::<span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>();
         <span class="kw">unsafe</span> {
             <span class="ident">glib::gobject_ffi::g_value_set_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">into_glib</span>());
         }
@@ -1899,9 +1899,9 @@
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi::GdkWMDecoration</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">WMDecoration</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi::GdkWMDecoration</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WMDecoration</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi::GdkWMDecoration</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="macro">skip_assert_initialized!</span>();
-        <span class="ident">WMDecoration::from_bits_truncate</span>(<span class="ident">value</span>)
+        <span class="self">Self</span><span class="ident">::from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
 
@@ -1926,7 +1926,7 @@
 
 <span class="kw">impl</span> <span class="ident">ToValue</span> <span class="kw">for</span> <span class="ident">WMDecoration</span> {
     <span class="kw">fn</span> <span class="ident">to_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span> {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::for_value_type</span>::<span class="op">&lt;</span><span class="ident">WMDecoration</span><span class="op">&gt;</span>();
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::for_value_type</span>::<span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>();
         <span class="kw">unsafe</span> {
             <span class="ident">glib::gobject_ffi::g_value_set_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">into_glib</span>());
         }
@@ -1975,9 +1975,9 @@
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi::GdkWMFunction</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">WMFunction</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi::GdkWMFunction</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WMFunction</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi::GdkWMFunction</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="macro">skip_assert_initialized!</span>();
-        <span class="ident">WMFunction::from_bits_truncate</span>(<span class="ident">value</span>)
+        <span class="self">Self</span><span class="ident">::from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
 
@@ -2002,7 +2002,7 @@
 
 <span class="kw">impl</span> <span class="ident">ToValue</span> <span class="kw">for</span> <span class="ident">WMFunction</span> {
     <span class="kw">fn</span> <span class="ident">to_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span> {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::for_value_type</span>::<span class="op">&lt;</span><span class="ident">WMFunction</span><span class="op">&gt;</span>();
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::for_value_type</span>::<span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>();
         <span class="kw">unsafe</span> {
             <span class="ident">glib::gobject_ffi::g_value_set_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">into_glib</span>());
         }
@@ -2064,9 +2064,9 @@
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi::GdkWindowHints</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">WindowHints</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi::GdkWindowHints</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WindowHints</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi::GdkWindowHints</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="macro">skip_assert_initialized!</span>();
-        <span class="ident">WindowHints::from_bits_truncate</span>(<span class="ident">value</span>)
+        <span class="self">Self</span><span class="ident">::from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
 
@@ -2091,7 +2091,7 @@
 
 <span class="kw">impl</span> <span class="ident">ToValue</span> <span class="kw">for</span> <span class="ident">WindowHints</span> {
     <span class="kw">fn</span> <span class="ident">to_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span> {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::for_value_type</span>::<span class="op">&lt;</span><span class="ident">WindowHints</span><span class="op">&gt;</span>();
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::for_value_type</span>::<span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>();
         <span class="kw">unsafe</span> {
             <span class="ident">glib::gobject_ffi::g_value_set_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">into_glib</span>());
         }
@@ -2162,9 +2162,9 @@
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi::GdkWindowState</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">WindowState</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi::GdkWindowState</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WindowState</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi::GdkWindowState</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="macro">skip_assert_initialized!</span>();
-        <span class="ident">WindowState::from_bits_truncate</span>(<span class="ident">value</span>)
+        <span class="self">Self</span><span class="ident">::from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
 
@@ -2189,7 +2189,7 @@
 
 <span class="kw">impl</span> <span class="ident">ToValue</span> <span class="kw">for</span> <span class="ident">WindowState</span> {
     <span class="kw">fn</span> <span class="ident">to_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span> {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::for_value_type</span>::<span class="op">&lt;</span><span class="ident">WindowState</span><span class="op">&gt;</span>();
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">glib::Value::for_value_type</span>::<span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>();
         <span class="kw">unsafe</span> {
             <span class="ident">glib::gobject_ffi::g_value_set_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">into_glib</span>());
         }

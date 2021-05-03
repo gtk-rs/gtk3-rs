@@ -152,8 +152,8 @@
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">gobject_ffi::GBindingFlags</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">BindingFlags</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">gobject_ffi::GBindingFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">BindingFlags</span> {
-        <span class="ident">BindingFlags::from_bits_truncate</span>(<span class="ident">value</span>)
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">gobject_ffi::GBindingFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="self">Self</span><span class="ident">::from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
 
@@ -179,7 +179,7 @@
 
 <span class="kw">impl</span> <span class="ident">ToValue</span> <span class="kw">for</span> <span class="ident">BindingFlags</span> {
     <span class="kw">fn</span> <span class="ident">to_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span><span class="ident">::Value</span> {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="kw">crate</span><span class="ident">::Value::for_value_type</span>::<span class="op">&lt;</span><span class="ident">BindingFlags</span><span class="op">&gt;</span>();
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span> <span class="op">=</span> <span class="kw">crate</span><span class="ident">::Value::for_value_type</span>::<span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>();
         <span class="kw">unsafe</span> {
             <span class="kw">crate</span><span class="ident">::gobject_ffi::g_value_set_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">self</span>.<span class="ident">into_glib</span>());
         }
@@ -222,8 +222,8 @@
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">gobject_ffi::GSignalFlags</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">SignalFlags</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">gobject_ffi::GSignalFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalFlags</span> {
-        <span class="ident">SignalFlags::from_bits_truncate</span>(<span class="ident">value</span>)
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">gobject_ffi::GSignalFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="self">Self</span><span class="ident">::from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
 </pre></div>

@@ -3763,14 +3763,14 @@
 
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi::gboolean</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">bool</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">val</span>: <span class="ident">ffi::gboolean</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">val</span>: <span class="ident">ffi::gboolean</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="ident">val</span> <span class="op">!</span><span class="op">=</span> <span class="ident">ffi::GFALSE</span>
     }
 }
 
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">i32</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Ordering</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">val</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Ordering</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">val</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="ident">val</span>.<span class="ident">cmp</span>(<span class="kw-2">&amp;</span><span class="number">0</span>)
     }
 }
@@ -3795,7 +3795,7 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">G</span>: <span class="ident">Copy</span>, <span class="ident">T</span>: <span class="ident">TryFromGlib</span><span class="op">&lt;</span><span class="ident">G</span>, <span class="ident">Error</span> <span class="op">=</span> <span class="ident">GlibNoneError</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">G</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">val</span>: <span class="ident">G</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">val</span>: <span class="ident">G</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="ident">T::try_from_glib</span>(<span class="ident">val</span>).<span class="ident">ok</span>()
     }
 }
@@ -3810,34 +3810,34 @@
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">I</span>: <span class="ident">Error</span><span class="op">&gt;</span> <span class="ident">GlibNoneOrInvalidError</span><span class="op">&lt;</span><span class="ident">I</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Builds the `None` variant.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">none</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="ident">GlibNoneOrInvalidError::None</span>
+        <span class="self">Self</span><span class="ident">::None</span>
     }
 
     <span class="doccomment">/// Returns `true` if `self` is the `None` variant.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_none</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="macro">matches!</span>(<span class="self">self</span>, <span class="ident">GlibNoneOrInvalidError::None</span>)
+        <span class="macro">matches!</span>(<span class="self">self</span>, <span class="self">Self</span><span class="ident">::None</span>)
     }
 
     <span class="doccomment">/// Returns `true` if `self` is the `Invalid` variant.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_invalid</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="macro">matches!</span>(<span class="self">self</span>, <span class="ident">GlibNoneOrInvalidError::Invalid</span>(<span class="kw">_</span>))
+        <span class="macro">matches!</span>(<span class="self">self</span>, <span class="self">Self</span><span class="ident">::Invalid</span>(<span class="kw">_</span>))
     }
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">I</span>: <span class="ident">Error</span><span class="op">&gt;</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">I</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">GlibNoneOrInvalidError</span><span class="op">&lt;</span><span class="ident">I</span><span class="op">&gt;</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">invalid</span>: <span class="ident">I</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="ident">GlibNoneOrInvalidError::Invalid</span>(<span class="ident">invalid</span>)
+        <span class="self">Self</span><span class="ident">::Invalid</span>(<span class="ident">invalid</span>)
     }
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">I</span>: <span class="ident">Error</span><span class="op">&gt;</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">GlibNoneOrInvalidError</span><span class="op">&lt;</span><span class="ident">I</span><span class="op">&gt;</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">fmt</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="ident">GlibNoneOrInvalidError::Invalid</span>(<span class="ident">err</span>) <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="self">Self</span><span class="ident">::Invalid</span>(<span class="ident">err</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="macro">write!</span>(<span class="ident">fmt</span>, <span class="string">&quot;glib value is invalid: &quot;</span>)<span class="question-mark">?</span>;
                 <span class="ident">fmt::Display::fmt</span>(<span class="ident">err</span>, <span class="ident">fmt</span>)
             }
-            <span class="ident">GlibNoneOrInvalidError::None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">write!</span>(<span class="ident">fmt</span>, <span class="string">&quot;glib value is None&quot;</span>),
+            <span class="self">Self</span><span class="ident">::None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">write!</span>(<span class="ident">fmt</span>, <span class="string">&quot;glib value is None&quot;</span>),
         }
     }
 }
@@ -3848,7 +3848,7 @@
     <span class="kw">for</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">I</span><span class="op">&gt;</span>
 {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">val</span>: <span class="ident">G</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">I</span><span class="op">&gt;</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">val</span>: <span class="ident">G</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">match</span> <span class="ident">T::try_from_glib</span>(<span class="ident">val</span>) {
             <span class="prelude-val">Ok</span>(<span class="ident">value</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">value</span>)),
             <span class="prelude-val">Err</span>(<span class="ident">GlibNoneOrInvalidError::None</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>),
@@ -3997,7 +3997,7 @@
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_none</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
-        <span class="ident">String::from_utf8_lossy</span>(<span class="ident">CStr::from_ptr</span>(<span class="ident">ptr</span>).<span class="ident">to_bytes</span>()).<span class="ident">into_owned</span>()
+        <span class="self">Self</span><span class="ident">::from_utf8_lossy</span>(<span class="ident">CStr::from_ptr</span>(<span class="ident">ptr</span>).<span class="ident">to_bytes</span>()).<span class="ident">into_owned</span>()
     }
 }
 
@@ -4016,7 +4016,7 @@
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_none</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_char</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
-        <span class="ident">String::from_utf8_lossy</span>(<span class="ident">CStr::from_ptr</span>(<span class="ident">ptr</span>).<span class="ident">to_bytes</span>()).<span class="ident">into_owned</span>()
+        <span class="self">Self</span><span class="ident">::from_utf8_lossy</span>(<span class="ident">CStr::from_ptr</span>(<span class="ident">ptr</span>).<span class="ident">to_bytes</span>()).<span class="ident">into_owned</span>()
     }
 }
 
