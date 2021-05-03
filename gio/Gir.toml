@@ -538,6 +538,7 @@ cfg_condition = "all(not(windows),not(target_os = \"macos\"))"
 name = "Gio.File"
 status = "generate"
 concurrency = "send+sync"
+generate_display_trait = false
 manual_traits = ["FileExtManual"]
     [[object.function]]
     name = "new_for_commandline_arg"

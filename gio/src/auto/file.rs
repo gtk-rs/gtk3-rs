@@ -25,7 +25,6 @@ use crate::MountUnmountFlags;
 use glib::object::IsA;
 use glib::translate::*;
 use std::boxed::Box as Box_;
-use std::fmt;
 use std::mem;
 use std::pin::Pin;
 use std::ptr;
@@ -3465,11 +3464,5 @@ impl<O: IsA<File>> FileExt for O {
 
             cancellable
         }))
-    }
-}
-
-impl fmt::Display for File {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("File")
     }
 }

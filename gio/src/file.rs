@@ -7,8 +7,17 @@ use crate::FileEnumerator;
 use crate::FileQueryInfoFlags;
 use glib::object::IsA;
 use glib::translate::*;
+use std::fmt;
 use std::pin::Pin;
 use std::ptr;
+
+impl fmt::Display for File {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{}", unsafe {
+            glib::GString::from_glib_full(ffi::g_file_get_parse_name(self.to_glib_none().0))
+        })
+    }
+}
 
 pub trait FileExtManual: Sized {
     #[doc(alias = "g_file_replace_contents_async")]
