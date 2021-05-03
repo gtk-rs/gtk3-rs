@@ -20,9 +20,11 @@ pub const NONE_DBUS_INTERFACE: Option<&DBusInterface> = None;
 
 pub trait DBusInterfaceExt: 'static {
     #[doc(alias = "g_dbus_interface_dup_object")]
+    #[doc(alias = "dup_object")]
     fn get(&self) -> Option<DBusObject>;
 
     #[doc(alias = "g_dbus_interface_get_info")]
+    #[doc(alias = "get_info")]
     fn info(&self) -> DBusInterfaceInfo;
 
     #[doc(alias = "g_dbus_interface_set_object")]

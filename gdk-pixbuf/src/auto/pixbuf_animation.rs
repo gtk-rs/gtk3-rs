@@ -20,6 +20,7 @@ glib::wrapper! {
 
 impl PixbufAnimation {
     #[doc(alias = "gdk_pixbuf_animation_new_from_file")]
+    #[doc(alias = "new_from_file")]
     pub fn from_file<P: AsRef<std::path::Path>>(
         filename: P,
     ) -> Result<PixbufAnimation, glib::Error> {
@@ -38,6 +39,7 @@ impl PixbufAnimation {
     }
 
     #[doc(alias = "gdk_pixbuf_animation_new_from_resource")]
+    #[doc(alias = "new_from_resource")]
     pub fn from_resource(resource_path: &str) -> Result<PixbufAnimation, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
@@ -54,6 +56,7 @@ impl PixbufAnimation {
     }
 
     #[doc(alias = "gdk_pixbuf_animation_new_from_stream")]
+    #[doc(alias = "new_from_stream")]
     pub fn from_stream<P: IsA<gio::InputStream>, Q: IsA<gio::Cancellable>>(
         stream: &P,
         cancellable: Option<&Q>,
@@ -132,12 +135,15 @@ pub const NONE_PIXBUF_ANIMATION: Option<&PixbufAnimation> = None;
 
 pub trait PixbufAnimationExt: 'static {
     #[doc(alias = "gdk_pixbuf_animation_get_height")]
+    #[doc(alias = "get_height")]
     fn height(&self) -> i32;
 
     #[doc(alias = "gdk_pixbuf_animation_get_static_image")]
+    #[doc(alias = "get_static_image")]
     fn static_image(&self) -> Option<Pixbuf>;
 
     #[doc(alias = "gdk_pixbuf_animation_get_width")]
+    #[doc(alias = "get_width")]
     fn width(&self) -> i32;
 
     #[doc(alias = "gdk_pixbuf_animation_is_static_image")]

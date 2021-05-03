@@ -40,6 +40,7 @@ impl CellView {
     }
 
     #[doc(alias = "gtk_cell_view_new_with_context")]
+    #[doc(alias = "new_with_context")]
     pub fn with_context<P: IsA<CellArea>, Q: IsA<CellAreaContext>>(
         area: &P,
         context: &Q,
@@ -55,6 +56,7 @@ impl CellView {
     }
 
     #[doc(alias = "gtk_cell_view_new_with_markup")]
+    #[doc(alias = "new_with_markup")]
     pub fn with_markup(markup: &str) -> CellView {
         assert_initialized_main_thread!();
         unsafe {
@@ -64,6 +66,7 @@ impl CellView {
     }
 
     #[doc(alias = "gtk_cell_view_new_with_pixbuf")]
+    #[doc(alias = "new_with_pixbuf")]
     pub fn with_pixbuf(pixbuf: &gdk_pixbuf::Pixbuf) -> CellView {
         assert_initialized_main_thread!();
         unsafe {
@@ -73,6 +76,7 @@ impl CellView {
     }
 
     #[doc(alias = "gtk_cell_view_new_with_text")]
+    #[doc(alias = "new_with_text")]
     pub fn with_text(text: &str) -> CellView {
         assert_initialized_main_thread!();
         unsafe {
@@ -266,8 +270,8 @@ impl CellViewBuilder {
         if let Some(ref orientation) = self.orientation {
             properties.push(("orientation", orientation));
         }
-        let ret = glib::Object::new::<CellView>(&properties).expect("object new");
-        ret
+        glib::Object::new::<CellView>(&properties)
+            .expect("Failed to create an instance of CellView")
     }
 
     pub fn background(mut self, background: &str) -> Self {
@@ -482,15 +486,19 @@ pub const NONE_CELL_VIEW: Option<&CellView> = None;
 
 pub trait CellViewExt: 'static {
     #[doc(alias = "gtk_cell_view_get_displayed_row")]
+    #[doc(alias = "get_displayed_row")]
     fn displayed_row(&self) -> Option<TreePath>;
 
     #[doc(alias = "gtk_cell_view_get_draw_sensitive")]
+    #[doc(alias = "get_draw_sensitive")]
     fn draws_sensitive(&self) -> bool;
 
     #[doc(alias = "gtk_cell_view_get_fit_model")]
+    #[doc(alias = "get_fit_model")]
     fn fits_model(&self) -> bool;
 
     #[doc(alias = "gtk_cell_view_get_model")]
+    #[doc(alias = "get_model")]
     fn model(&self) -> Option<TreeModel>;
 
     #[doc(alias = "gtk_cell_view_set_background_rgba")]
@@ -508,44 +516,40 @@ pub trait CellViewExt: 'static {
     #[doc(alias = "gtk_cell_view_set_model")]
     fn set_model<P: IsA<TreeModel>>(&self, model: Option<&P>);
 
-    #[doc(alias = "set_property_background")]
     fn set_background(&self, background: Option<&str>);
 
-    #[doc(alias = "get_property_background_rgba")]
+    #[doc(alias = "background-rgba")]
     fn background_rgba(&self) -> Option<gdk::RGBA>;
 
-    #[doc(alias = "get_property_background_set")]
+    #[doc(alias = "background-set")]
     fn is_background_set(&self) -> bool;
 
-    #[doc(alias = "set_property_background_set")]
+    #[doc(alias = "background-set")]
     fn set_background_set(&self, background_set: bool);
 
-    #[doc(alias = "get_property_cell_area")]
+    #[doc(alias = "cell-area")]
     fn cell_area(&self) -> Option<CellArea>;
 
-    #[doc(alias = "get_property_cell_area_context")]
+    #[doc(alias = "cell-area-context")]
     fn cell_area_context(&self) -> Option<CellAreaContext>;
 
-    fn connect_property_background_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "background")]
+    fn connect_background_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_background_rgba_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "background-rgba")]
+    fn connect_background_rgba_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_background_set_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "background-set")]
+    fn connect_background_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_draw_sensitive_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "draw-sensitive")]
+    fn connect_draw_sensitive_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_fit_model_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "fit-model")]
+    fn connect_fit_model_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_model_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "model")]
+    fn connect_model_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<CellView>> CellViewExt for O {
@@ -695,7 +699,8 @@ impl<O: IsA<CellView>> CellViewExt for O {
         }
     }
 
-    fn connect_property_background_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "background")]
+    fn connect_background_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_background_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellView,
             _param_spec: glib::ffi::gpointer,
@@ -719,10 +724,8 @@ impl<O: IsA<CellView>> CellViewExt for O {
         }
     }
 
-    fn connect_property_background_rgba_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "background-rgba")]
+    fn connect_background_rgba_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_background_rgba_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellView,
             _param_spec: glib::ffi::gpointer,
@@ -746,10 +749,8 @@ impl<O: IsA<CellView>> CellViewExt for O {
         }
     }
 
-    fn connect_property_background_set_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "background-set")]
+    fn connect_background_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_background_set_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellView,
             _param_spec: glib::ffi::gpointer,
@@ -773,10 +774,8 @@ impl<O: IsA<CellView>> CellViewExt for O {
         }
     }
 
-    fn connect_property_draw_sensitive_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "draw-sensitive")]
+    fn connect_draw_sensitive_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_draw_sensitive_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellView,
             _param_spec: glib::ffi::gpointer,
@@ -800,7 +799,8 @@ impl<O: IsA<CellView>> CellViewExt for O {
         }
     }
 
-    fn connect_property_fit_model_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "fit-model")]
+    fn connect_fit_model_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_fit_model_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellView,
             _param_spec: glib::ffi::gpointer,
@@ -824,7 +824,8 @@ impl<O: IsA<CellView>> CellViewExt for O {
         }
     }
 
-    fn connect_property_model_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "model")]
+    fn connect_model_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_model_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellView,
             _param_spec: glib::ffi::gpointer,

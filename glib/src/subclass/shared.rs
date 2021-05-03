@@ -81,6 +81,7 @@ pub trait SharedType: Clone + Sized + 'static {
     /// This is usually defined via the [`Shared!`] derive macro.
     ///
     /// [`Shared!`]: ../../derive.Shared.html
+    #[doc(alias = "get_type")]
     fn type_() -> crate::Type;
 
     /// Converts the SharedType into its inner RefCountedType

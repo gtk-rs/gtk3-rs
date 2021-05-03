@@ -31,7 +31,7 @@ impl fmt::Display for ChecksumType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "ChecksumType::{}",
             match *self {
                 Self::Md5 => "Md5",
                 Self::Sha1 => "Sha1",
@@ -115,7 +115,7 @@ impl fmt::Display for DateMonth {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "DateMonth::{}",
             match *self {
                 Self::BadMonth => "BadMonth",
                 Self::January => "January",
@@ -210,7 +210,7 @@ impl fmt::Display for DateWeekday {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "DateWeekday::{}",
             match *self {
                 Self::BadWeekday => "BadWeekday",
                 Self::Monday => "Monday",
@@ -286,7 +286,7 @@ impl fmt::Display for KeyFileError {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "KeyFileError::{}",
             match *self {
                 Self::UnknownEncoding => "UnknownEncoding",
                 Self::Parse => "Parse",
@@ -384,7 +384,7 @@ impl fmt::Display for OptionArg {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "OptionArg::{}",
             match *self {
                 Self::None => "None",
                 Self::String => "String",
@@ -457,7 +457,7 @@ impl fmt::Display for SeekType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "SeekType::{}",
             match *self {
                 Self::Cur => "Cur",
                 Self::Set => "Set",
@@ -512,7 +512,7 @@ impl fmt::Display for TimeType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "TimeType::{}",
             match *self {
                 Self::Standard => "Standard",
                 Self::Daylight => "Daylight",
@@ -585,7 +585,7 @@ impl fmt::Display for UriError {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "UriError::{}",
             match *self {
                 Self::Failed => "Failed",
                 Self::BadScheme => "BadScheme",

@@ -42,6 +42,7 @@ impl InfoBar {
     }
 
     //#[doc(alias = "gtk_info_bar_new_with_buttons")]
+    //#[doc(alias = "new_with_buttons")]
     //pub fn with_buttons(first_button_text: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> InfoBar {
     //    unsafe { TODO: call ffi:gtk_info_bar_new_with_buttons() }
     //}
@@ -238,8 +239,7 @@ impl InfoBarBuilder {
         if let Some(ref orientation) = self.orientation {
             properties.push(("orientation", orientation));
         }
-        let ret = glib::Object::new::<InfoBar>(&properties).expect("object new");
-        ret
+        glib::Object::new::<InfoBar>(&properties).expect("Failed to create an instance of InfoBar")
     }
 
     pub fn message_type(mut self, message_type: MessageType) -> Self {
@@ -470,20 +470,25 @@ pub trait InfoBarExt: 'static {
     //fn add_buttons(&self, first_button_text: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
 
     #[doc(alias = "gtk_info_bar_get_action_area")]
+    #[doc(alias = "get_action_area")]
     fn action_area(&self) -> Option<Box>;
 
     #[doc(alias = "gtk_info_bar_get_content_area")]
+    #[doc(alias = "get_content_area")]
     fn content_area(&self) -> Box;
 
     #[doc(alias = "gtk_info_bar_get_message_type")]
+    #[doc(alias = "get_message_type")]
     fn message_type(&self) -> MessageType;
 
     #[cfg(any(feature = "v3_22_29", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_29")))]
     #[doc(alias = "gtk_info_bar_get_revealed")]
+    #[doc(alias = "get_revealed")]
     fn is_revealed(&self) -> bool;
 
     #[doc(alias = "gtk_info_bar_get_show_close_button")]
+    #[doc(alias = "get_show_close_button")]
     fn shows_close_button(&self) -> bool;
 
     #[doc(alias = "gtk_info_bar_response")]
@@ -506,23 +511,24 @@ pub trait InfoBarExt: 'static {
     #[doc(alias = "gtk_info_bar_set_show_close_button")]
     fn set_show_close_button(&self, setting: bool);
 
+    #[doc(alias = "close")]
     fn connect_close<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn emit_close(&self);
 
+    #[doc(alias = "response")]
     fn connect_response<F: Fn(&Self, ResponseType) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_message_type_notify<F: Fn(&Self) + 'static>(&self, f: F)
-        -> SignalHandlerId;
+    #[doc(alias = "message-type")]
+    fn connect_message_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     #[cfg(any(feature = "v3_22_29", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_29")))]
-    fn connect_property_revealed_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "revealed")]
+    fn connect_revealed_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_show_close_button_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "show-close-button")]
+    fn connect_show_close_button_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<InfoBar>> InfoBarExt for O {
@@ -643,6 +649,7 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
         }
     }
 
+    #[doc(alias = "close")]
     fn connect_close<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn close_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkInfoBar,
@@ -674,6 +681,7 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
         };
     }
 
+    #[doc(alias = "response")]
     fn connect_response<F: Fn(&Self, ResponseType) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn response_trampoline<P, F: Fn(&P, ResponseType) + 'static>(
             this: *mut ffi::GtkInfoBar,
@@ -701,10 +709,8 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
         }
     }
 
-    fn connect_property_message_type_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "message-type")]
+    fn connect_message_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_message_type_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkInfoBar,
             _param_spec: glib::ffi::gpointer,
@@ -730,7 +736,8 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
 
     #[cfg(any(feature = "v3_22_29", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_29")))]
-    fn connect_property_revealed_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "revealed")]
+    fn connect_revealed_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_revealed_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkInfoBar,
             _param_spec: glib::ffi::gpointer,
@@ -754,10 +761,8 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
         }
     }
 
-    fn connect_property_show_close_button_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "show-close-button")]
+    fn connect_show_close_button_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_close_button_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkInfoBar,
             _param_spec: glib::ffi::gpointer,

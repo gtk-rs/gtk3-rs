@@ -25,6 +25,7 @@ impl FilenameCompleter {
     }
 
     #[doc(alias = "g_filename_completer_get_completion_suffix")]
+    #[doc(alias = "get_completion_suffix")]
     pub fn completion_suffix(&self, initial_text: &str) -> Option<glib::GString> {
         unsafe {
             from_glib_full(ffi::g_filename_completer_get_completion_suffix(
@@ -35,6 +36,7 @@ impl FilenameCompleter {
     }
 
     #[doc(alias = "g_filename_completer_get_completions")]
+    #[doc(alias = "get_completions")]
     pub fn completions(&self, initial_text: &str) -> Vec<glib::GString> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::g_filename_completer_get_completions(
@@ -51,6 +53,7 @@ impl FilenameCompleter {
         }
     }
 
+    #[doc(alias = "got-completion-data")]
     pub fn connect_got_completion_data<F: Fn(&FilenameCompleter) + 'static>(
         &self,
         f: F,

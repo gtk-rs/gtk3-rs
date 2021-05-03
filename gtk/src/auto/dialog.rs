@@ -43,6 +43,7 @@ impl Dialog {
     }
 
     //#[doc(alias = "gtk_dialog_new_with_buttons")]
+    //#[doc(alias = "new_with_buttons")]
     //pub fn with_buttons<P: IsA<Window>>(title: Option<&str>, parent: Option<&P>, flags: DialogFlags, first_button_text: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Dialog {
     //    unsafe { TODO: call ffi:gtk_dialog_new_with_buttons() }
     //}
@@ -324,8 +325,7 @@ impl DialogBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        let ret = glib::Object::new::<Dialog>(&properties).expect("object new");
-        ret
+        glib::Object::new::<Dialog>(&properties).expect("Failed to create an instance of Dialog")
     }
 
     pub fn use_header_bar(mut self, use_header_bar: i32) -> Self {
@@ -664,15 +664,19 @@ pub trait DialogExt: 'static {
     //fn add_buttons(&self, first_button_text: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
 
     #[doc(alias = "gtk_dialog_get_content_area")]
+    #[doc(alias = "get_content_area")]
     fn content_area(&self) -> Box;
 
     #[doc(alias = "gtk_dialog_get_header_bar")]
+    #[doc(alias = "get_header_bar")]
     fn header_bar(&self) -> Option<HeaderBar>;
 
     #[doc(alias = "gtk_dialog_get_response_for_widget")]
+    #[doc(alias = "get_response_for_widget")]
     fn response_for_widget<P: IsA<Widget>>(&self, widget: &P) -> ResponseType;
 
     #[doc(alias = "gtk_dialog_get_widget_for_response")]
+    #[doc(alias = "get_widget_for_response")]
     fn widget_for_response(&self, response_id: ResponseType) -> Option<Widget>;
 
     #[doc(alias = "gtk_dialog_response")]
@@ -687,13 +691,15 @@ pub trait DialogExt: 'static {
     #[doc(alias = "gtk_dialog_set_response_sensitive")]
     fn set_response_sensitive(&self, response_id: ResponseType, setting: bool);
 
-    #[doc(alias = "get_property_use_header_bar")]
+    #[doc(alias = "use-header-bar")]
     fn use_header_bar(&self) -> i32;
 
+    #[doc(alias = "close")]
     fn connect_close<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn emit_close(&self);
 
+    #[doc(alias = "response")]
     fn connect_response<F: Fn(&Self, ResponseType) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
@@ -799,6 +805,7 @@ impl<O: IsA<Dialog>> DialogExt for O {
         }
     }
 
+    #[doc(alias = "close")]
     fn connect_close<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn close_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkDialog,
@@ -830,6 +837,7 @@ impl<O: IsA<Dialog>> DialogExt for O {
         };
     }
 
+    #[doc(alias = "response")]
     fn connect_response<F: Fn(&Self, ResponseType) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn response_trampoline<P, F: Fn(&P, ResponseType) + 'static>(
             this: *mut ffi::GtkDialog,

@@ -25,16 +25,19 @@ glib::wrapper! {
 
 impl Keymap {
     #[doc(alias = "gdk_keymap_get_caps_lock_state")]
+    #[doc(alias = "get_caps_lock_state")]
     pub fn is_caps_locked(&self) -> bool {
         unsafe { from_glib(ffi::gdk_keymap_get_caps_lock_state(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_keymap_get_direction")]
+    #[doc(alias = "get_direction")]
     pub fn direction(&self) -> pango::Direction {
         unsafe { from_glib(ffi::gdk_keymap_get_direction(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_keymap_get_modifier_mask")]
+    #[doc(alias = "get_modifier_mask")]
     pub fn modifier_mask(&self, intent: ModifierIntent) -> ModifierType {
         unsafe {
             from_glib(ffi::gdk_keymap_get_modifier_mask(
@@ -45,11 +48,13 @@ impl Keymap {
     }
 
     #[doc(alias = "gdk_keymap_get_modifier_state")]
+    #[doc(alias = "get_modifier_state")]
     pub fn modifier_state(&self) -> u32 {
         unsafe { ffi::gdk_keymap_get_modifier_state(self.to_glib_none().0) }
     }
 
     #[doc(alias = "gdk_keymap_get_num_lock_state")]
+    #[doc(alias = "get_num_lock_state")]
     pub fn is_num_locked(&self) -> bool {
         unsafe { from_glib(ffi::gdk_keymap_get_num_lock_state(self.to_glib_none().0)) }
     }
@@ -57,6 +62,7 @@ impl Keymap {
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gdk_keymap_get_scroll_lock_state")]
+    #[doc(alias = "get_scroll_lock_state")]
     pub fn is_scroll_locked(&self) -> bool {
         unsafe { from_glib(ffi::gdk_keymap_get_scroll_lock_state(self.to_glib_none().0)) }
     }
@@ -112,17 +118,20 @@ impl Keymap {
 
     #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
     #[doc(alias = "gdk_keymap_get_default")]
+    #[doc(alias = "get_default")]
     pub fn default() -> Option<Keymap> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gdk_keymap_get_default()) }
     }
 
     #[doc(alias = "gdk_keymap_get_for_display")]
+    #[doc(alias = "get_for_display")]
     pub fn for_display(display: &Display) -> Option<Keymap> {
         skip_assert_initialized!();
         unsafe { from_glib_none(ffi::gdk_keymap_get_for_display(display.to_glib_none().0)) }
     }
 
+    #[doc(alias = "direction-changed")]
     pub fn connect_direction_changed<F: Fn(&Keymap) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn direction_changed_trampoline<F: Fn(&Keymap) + 'static>(
             this: *mut ffi::GdkKeymap,
@@ -144,6 +153,7 @@ impl Keymap {
         }
     }
 
+    #[doc(alias = "keys-changed")]
     pub fn connect_keys_changed<F: Fn(&Keymap) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn keys_changed_trampoline<F: Fn(&Keymap) + 'static>(
             this: *mut ffi::GdkKeymap,
@@ -165,6 +175,7 @@ impl Keymap {
         }
     }
 
+    #[doc(alias = "state-changed")]
     pub fn connect_state_changed<F: Fn(&Keymap) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn state_changed_trampoline<F: Fn(&Keymap) + 'static>(
             this: *mut ffi::GdkKeymap,

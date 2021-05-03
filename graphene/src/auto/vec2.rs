@@ -60,11 +60,13 @@ impl Vec2 {
     }
 
     #[doc(alias = "graphene_vec2_get_x")]
+    #[doc(alias = "get_x")]
     pub fn x(&self) -> f32 {
         unsafe { ffi::graphene_vec2_get_x(self.to_glib_none().0) }
     }
 
     #[doc(alias = "graphene_vec2_get_y")]
+    #[doc(alias = "get_y")]
     pub fn y(&self) -> f32 {
         unsafe { ffi::graphene_vec2_get_y(self.to_glib_none().0) }
     }

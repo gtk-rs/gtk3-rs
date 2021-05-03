@@ -203,8 +203,8 @@ impl EventBoxBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        let ret = glib::Object::new::<EventBox>(&properties).expect("object new");
-        ret
+        glib::Object::new::<EventBox>(&properties)
+            .expect("Failed to create an instance of EventBox")
     }
 
     pub fn above_child(mut self, above_child: bool) -> Self {
@@ -399,9 +399,11 @@ pub const NONE_EVENT_BOX: Option<&EventBox> = None;
 
 pub trait EventBoxExt: 'static {
     #[doc(alias = "gtk_event_box_get_above_child")]
+    #[doc(alias = "get_above_child")]
     fn is_above_child(&self) -> bool;
 
     #[doc(alias = "gtk_event_box_get_visible_window")]
+    #[doc(alias = "get_visible_window")]
     fn is_visible_window(&self) -> bool;
 
     #[doc(alias = "gtk_event_box_set_above_child")]
@@ -410,12 +412,11 @@ pub trait EventBoxExt: 'static {
     #[doc(alias = "gtk_event_box_set_visible_window")]
     fn set_visible_window(&self, visible_window: bool);
 
-    fn connect_property_above_child_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "above-child")]
+    fn connect_above_child_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_visible_window_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "visible-window")]
+    fn connect_visible_window_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<EventBox>> EventBoxExt for O {
@@ -453,7 +454,8 @@ impl<O: IsA<EventBox>> EventBoxExt for O {
         }
     }
 
-    fn connect_property_above_child_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "above-child")]
+    fn connect_above_child_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_above_child_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEventBox,
             _param_spec: glib::ffi::gpointer,
@@ -477,10 +479,8 @@ impl<O: IsA<EventBox>> EventBoxExt for O {
         }
     }
 
-    fn connect_property_visible_window_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "visible-window")]
+    fn connect_visible_window_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_visible_window_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEventBox,
             _param_spec: glib::ffi::gpointer,

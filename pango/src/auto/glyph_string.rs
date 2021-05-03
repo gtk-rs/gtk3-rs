@@ -64,11 +64,13 @@ impl GlyphString {
     }
 
     //#[doc(alias = "pango_glyph_string_get_logical_widths")]
+    //#[doc(alias = "get_logical_widths")]
     //pub fn logical_widths(&mut self, text: &str, embedding_level: i32, logical_widths: &[i32]) {
     //    unsafe { TODO: call ffi:pango_glyph_string_get_logical_widths() }
     //}
 
     #[doc(alias = "pango_glyph_string_get_width")]
+    #[doc(alias = "get_width")]
     pub fn width(&mut self) -> i32 {
         unsafe { ffi::pango_glyph_string_get_width(self.to_glib_none_mut().0) }
     }

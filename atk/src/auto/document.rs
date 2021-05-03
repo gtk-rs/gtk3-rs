@@ -23,32 +23,42 @@ pub const NONE_DOCUMENT: Option<&Document> = None;
 
 pub trait DocumentExt: 'static {
     #[doc(alias = "atk_document_get_attribute_value")]
+    #[doc(alias = "get_attribute_value")]
     fn attribute_value(&self, attribute_name: &str) -> Option<glib::GString>;
 
     //#[doc(alias = "atk_document_get_attributes")]
+    //#[doc(alias = "get_attributes")]
     //fn attributes(&self) -> /*Ignored*/Option<AttributeSet>;
 
     #[doc(alias = "atk_document_get_current_page_number")]
+    #[doc(alias = "get_current_page_number")]
     fn current_page_number(&self) -> i32;
 
     //#[doc(alias = "atk_document_get_document")]
+    //#[doc(alias = "get_document")]
     //fn document(&self) -> /*Unimplemented*/Option<Fundamental: Pointer>;
 
     #[doc(alias = "atk_document_get_document_type")]
+    #[doc(alias = "get_document_type")]
     fn document_type(&self) -> Option<glib::GString>;
 
     #[doc(alias = "atk_document_get_page_count")]
+    #[doc(alias = "get_page_count")]
     fn page_count(&self) -> i32;
 
     #[doc(alias = "atk_document_set_attribute_value")]
     fn set_attribute_value(&self, attribute_name: &str, attribute_value: &str) -> bool;
 
+    #[doc(alias = "load-complete")]
     fn connect_load_complete<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "load-stopped")]
     fn connect_load_stopped<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "page-changed")]
     fn connect_page_changed<F: Fn(&Self, i32) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "reload")]
     fn connect_reload<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
@@ -96,6 +106,7 @@ impl<O: IsA<Document>> DocumentExt for O {
         }
     }
 
+    #[doc(alias = "load-complete")]
     fn connect_load_complete<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn load_complete_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::AtkDocument,
@@ -119,6 +130,7 @@ impl<O: IsA<Document>> DocumentExt for O {
         }
     }
 
+    #[doc(alias = "load-stopped")]
     fn connect_load_stopped<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn load_stopped_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::AtkDocument,
@@ -142,6 +154,7 @@ impl<O: IsA<Document>> DocumentExt for O {
         }
     }
 
+    #[doc(alias = "page-changed")]
     fn connect_page_changed<F: Fn(&Self, i32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn page_changed_trampoline<P, F: Fn(&P, i32) + 'static>(
             this: *mut ffi::AtkDocument,
@@ -169,6 +182,7 @@ impl<O: IsA<Document>> DocumentExt for O {
         }
     }
 
+    #[doc(alias = "reload")]
     fn connect_reload<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn reload_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::AtkDocument,

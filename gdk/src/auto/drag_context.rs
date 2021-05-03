@@ -38,16 +38,19 @@ glib::wrapper! {
 
 impl DragContext {
     #[doc(alias = "gdk_drag_context_get_actions")]
+    #[doc(alias = "get_actions")]
     pub fn actions(&self) -> DragAction {
         unsafe { from_glib(ffi::gdk_drag_context_get_actions(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_drag_context_get_dest_window")]
+    #[doc(alias = "get_dest_window")]
     pub fn dest_window(&self) -> Window {
         unsafe { from_glib_none(ffi::gdk_drag_context_get_dest_window(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_drag_context_get_device")]
+    #[doc(alias = "get_device")]
     pub fn device(&self) -> Device {
         unsafe { from_glib_none(ffi::gdk_drag_context_get_device(self.to_glib_none().0)) }
     }
@@ -55,16 +58,19 @@ impl DragContext {
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "gdk_drag_context_get_drag_window")]
+    #[doc(alias = "get_drag_window")]
     pub fn drag_window(&self) -> Option<Window> {
         unsafe { from_glib_none(ffi::gdk_drag_context_get_drag_window(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_drag_context_get_protocol")]
+    #[doc(alias = "get_protocol")]
     pub fn protocol(&self) -> DragProtocol {
         unsafe { from_glib(ffi::gdk_drag_context_get_protocol(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_drag_context_get_selected_action")]
+    #[doc(alias = "get_selected_action")]
     pub fn selected_action(&self) -> DragAction {
         unsafe {
             from_glib(ffi::gdk_drag_context_get_selected_action(
@@ -74,6 +80,7 @@ impl DragContext {
     }
 
     #[doc(alias = "gdk_drag_context_get_source_window")]
+    #[doc(alias = "get_source_window")]
     pub fn source_window(&self) -> Window {
         unsafe {
             from_glib_none(ffi::gdk_drag_context_get_source_window(
@@ -83,6 +90,7 @@ impl DragContext {
     }
 
     #[doc(alias = "gdk_drag_context_get_suggested_action")]
+    #[doc(alias = "get_suggested_action")]
     pub fn suggested_action(&self) -> DragAction {
         unsafe {
             from_glib(ffi::gdk_drag_context_get_suggested_action(
@@ -131,6 +139,7 @@ impl DragContext {
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[doc(alias = "action-changed")]
     pub fn connect_action_changed<F: Fn(&DragContext, DragAction) + 'static>(
         &self,
         f: F,
@@ -160,6 +169,7 @@ impl DragContext {
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[doc(alias = "cancel")]
     pub fn connect_cancel<F: Fn(&DragContext, DragCancelReason) + 'static>(
         &self,
         f: F,
@@ -187,6 +197,7 @@ impl DragContext {
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[doc(alias = "dnd-finished")]
     pub fn connect_dnd_finished<F: Fn(&DragContext) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn dnd_finished_trampoline<F: Fn(&DragContext) + 'static>(
             this: *mut ffi::GdkDragContext,
@@ -210,6 +221,7 @@ impl DragContext {
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[doc(alias = "drop-performed")]
     pub fn connect_drop_performed<F: Fn(&DragContext, i32) + 'static>(
         &self,
         f: F,

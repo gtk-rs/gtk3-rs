@@ -8,6 +8,7 @@ use std::time::{Duration, SystemTime};
 impl FileInfo {
     #[cfg_attr(feature = "v2_62", deprecated)]
     #[doc(alias = "g_file_info_get_modification_time")]
+    #[doc(alias = "get_modification_time")]
     pub fn modification_time(&self) -> SystemTime {
         unsafe {
             let mut result = mem::MaybeUninit::uninit();

@@ -17,6 +17,7 @@ impl EventGrabBroken {
         unsafe { from_glib(self.as_ref().implicit) }
     }
 
+    #[doc(alias = "get_grab_window")]
     pub fn grab_window(&self) -> Option<crate::Window> {
         unsafe { from_glib_none(self.as_ref().grab_window) }
     }

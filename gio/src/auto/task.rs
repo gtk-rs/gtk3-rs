@@ -38,11 +38,13 @@ impl Task {
     //}
 
     #[doc(alias = "g_task_get_cancellable")]
+    #[doc(alias = "get_cancellable")]
     pub fn cancellable(&self) -> Cancellable {
         unsafe { from_glib_none(ffi::g_task_get_cancellable(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_task_get_check_cancellable")]
+    #[doc(alias = "get_check_cancellable")]
     pub fn is_check_cancellable(&self) -> bool {
         unsafe { from_glib(ffi::g_task_get_check_cancellable(self.to_glib_none().0)) }
     }
@@ -50,11 +52,13 @@ impl Task {
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     #[doc(alias = "g_task_get_completed")]
+    #[doc(alias = "get_completed")]
     pub fn is_completed(&self) -> bool {
         unsafe { from_glib(ffi::g_task_get_completed(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_task_get_context")]
+    #[doc(alias = "get_context")]
     pub fn context(&self) -> glib::MainContext {
         unsafe { from_glib_none(ffi::g_task_get_context(self.to_glib_none().0)) }
     }
@@ -62,21 +66,25 @@ impl Task {
     #[cfg(any(feature = "v2_60", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     #[doc(alias = "g_task_get_name")]
+    #[doc(alias = "get_name")]
     pub fn name(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::g_task_get_name(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_task_get_return_on_cancel")]
+    #[doc(alias = "get_return_on_cancel")]
     pub fn is_return_on_cancel(&self) -> bool {
         unsafe { from_glib(ffi::g_task_get_return_on_cancel(self.to_glib_none().0)) }
     }
 
     //#[doc(alias = "g_task_get_source_tag")]
+    //#[doc(alias = "get_source_tag")]
     //pub fn source_tag(&self) -> /*Unimplemented*/Option<Fundamental: Pointer> {
     //    unsafe { TODO: call ffi:g_task_get_source_tag() }
     //}
 
     //#[doc(alias = "g_task_get_task_data")]
+    //#[doc(alias = "get_task_data")]
     //pub fn task_data(&self) -> /*Unimplemented*/Option<Fundamental: Pointer> {
     //    unsafe { TODO: call ffi:g_task_get_task_data() }
     //}
@@ -167,10 +175,8 @@ impl Task {
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
-    pub fn connect_property_completed_notify<F: Fn(&Task) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "completed")]
+    pub fn connect_completed_notify<F: Fn(&Task) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_completed_trampoline<F: Fn(&Task) + 'static>(
             this: *mut ffi::GTask,
             _param_spec: glib::ffi::gpointer,

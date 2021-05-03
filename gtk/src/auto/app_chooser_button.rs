@@ -273,8 +273,8 @@ impl AppChooserButtonBuilder {
         if let Some(ref content_type) = self.content_type {
             properties.push(("content-type", content_type));
         }
-        let ret = glib::Object::new::<AppChooserButton>(&properties).expect("object new");
-        ret
+        glib::Object::new::<AppChooserButton>(&properties)
+            .expect("Failed to create an instance of AppChooserButton")
     }
 
     pub fn heading(mut self, heading: &str) -> Self {
@@ -555,12 +555,15 @@ pub trait AppChooserButtonExt: 'static {
     fn append_separator(&self);
 
     #[doc(alias = "gtk_app_chooser_button_get_heading")]
+    #[doc(alias = "get_heading")]
     fn heading(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_app_chooser_button_get_show_default_item")]
+    #[doc(alias = "get_show_default_item")]
     fn shows_default_item(&self) -> bool;
 
     #[doc(alias = "gtk_app_chooser_button_get_show_dialog_item")]
+    #[doc(alias = "get_show_dialog_item")]
     fn shows_dialog_item(&self) -> bool;
 
     #[doc(alias = "gtk_app_chooser_button_set_active_custom_item")]
@@ -575,23 +578,21 @@ pub trait AppChooserButtonExt: 'static {
     #[doc(alias = "gtk_app_chooser_button_set_show_dialog_item")]
     fn set_show_dialog_item(&self, setting: bool);
 
+    #[doc(alias = "custom-item-activated")]
     fn connect_custom_item_activated<F: Fn(&Self, &str) + 'static>(
         &self,
         detail: Option<&str>,
         f: F,
     ) -> SignalHandlerId;
 
-    fn connect_property_heading_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "heading")]
+    fn connect_heading_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_show_default_item_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "show-default-item")]
+    fn connect_show_default_item_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_show_dialog_item_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "show-dialog-item")]
+    fn connect_show_dialog_item_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<AppChooserButton>> AppChooserButtonExt for O {
@@ -672,6 +673,7 @@ impl<O: IsA<AppChooserButton>> AppChooserButtonExt for O {
         }
     }
 
+    #[doc(alias = "custom-item-activated")]
     fn connect_custom_item_activated<F: Fn(&Self, &str) + 'static>(
         &self,
         detail: Option<&str>,
@@ -708,7 +710,8 @@ impl<O: IsA<AppChooserButton>> AppChooserButtonExt for O {
         }
     }
 
-    fn connect_property_heading_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "heading")]
+    fn connect_heading_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_heading_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAppChooserButton,
             _param_spec: glib::ffi::gpointer,
@@ -732,10 +735,8 @@ impl<O: IsA<AppChooserButton>> AppChooserButtonExt for O {
         }
     }
 
-    fn connect_property_show_default_item_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "show-default-item")]
+    fn connect_show_default_item_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_default_item_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAppChooserButton,
             _param_spec: glib::ffi::gpointer,
@@ -759,10 +760,8 @@ impl<O: IsA<AppChooserButton>> AppChooserButtonExt for O {
         }
     }
 
-    fn connect_property_show_dialog_item_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "show-dialog-item")]
+    fn connect_show_dialog_item_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_dialog_item_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAppChooserButton,
             _param_spec: glib::ffi::gpointer,

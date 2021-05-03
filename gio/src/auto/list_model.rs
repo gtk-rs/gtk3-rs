@@ -23,12 +23,15 @@ pub const NONE_LIST_MODEL: Option<&ListModel> = None;
 
 pub trait ListModelExt: 'static {
     #[doc(alias = "g_list_model_get_item_type")]
+    #[doc(alias = "get_item_type")]
     fn item_type(&self) -> glib::types::Type;
 
     #[doc(alias = "g_list_model_get_n_items")]
+    #[doc(alias = "get_n_items")]
     fn n_items(&self) -> u32;
 
     #[doc(alias = "g_list_model_get_object")]
+    #[doc(alias = "get_object")]
     fn item(&self, position: u32) -> Option<glib::Object>;
 
     #[doc(alias = "g_list_model_items_changed")]
@@ -36,6 +39,7 @@ pub trait ListModelExt: 'static {
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
+    #[doc(alias = "items-changed")]
     fn connect_items_changed<F: Fn(&Self, u32, u32, u32) + 'static>(&self, f: F)
         -> SignalHandlerId;
 }
@@ -75,6 +79,7 @@ impl<O: IsA<ListModel>> ListModelExt for O {
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
+    #[doc(alias = "items-changed")]
     fn connect_items_changed<F: Fn(&Self, u32, u32, u32) + 'static>(
         &self,
         f: F,

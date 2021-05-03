@@ -99,10 +99,12 @@ pub trait SocketExtManual: Sized {
 
     #[cfg(any(unix, feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(unix)))]
+    #[doc(alias = "get_fd")]
     fn fd<T: FromRawFd>(&self) -> T;
 
     #[cfg(any(windows, feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(windows)))]
+    #[doc(alias = "get_socket")]
     fn socket<T: FromRawSocket>(&self) -> T;
 
     fn create_source<F, C>(

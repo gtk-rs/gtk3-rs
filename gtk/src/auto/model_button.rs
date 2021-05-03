@@ -42,7 +42,6 @@ impl ModelButton {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    #[doc(alias = "get_property_active")]
     pub fn is_active(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
@@ -59,7 +58,6 @@ impl ModelButton {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    #[doc(alias = "set_property_active")]
     pub fn set_active(&self, active: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
@@ -72,7 +70,6 @@ impl ModelButton {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    #[doc(alias = "get_property_centered")]
     pub fn is_centered(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
@@ -89,7 +86,6 @@ impl ModelButton {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    #[doc(alias = "set_property_centered")]
     pub fn set_centered(&self, centered: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
@@ -102,7 +98,6 @@ impl ModelButton {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    #[doc(alias = "get_property_icon")]
     pub fn icon(&self) -> Option<gio::Icon> {
         unsafe {
             let mut value = glib::Value::from_type(<gio::Icon as StaticType>::static_type());
@@ -119,7 +114,6 @@ impl ModelButton {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    #[doc(alias = "set_property_icon")]
     pub fn set_icon<P: IsA<gio::Icon>>(&self, icon: Option<&P>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
@@ -132,7 +126,6 @@ impl ModelButton {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    #[doc(alias = "get_property_iconic")]
     pub fn is_iconic(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
@@ -149,7 +142,6 @@ impl ModelButton {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    #[doc(alias = "set_property_iconic")]
     pub fn set_iconic(&self, iconic: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
@@ -162,7 +154,6 @@ impl ModelButton {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    #[doc(alias = "get_property_inverted")]
     pub fn is_inverted(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
@@ -179,7 +170,6 @@ impl ModelButton {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    #[doc(alias = "set_property_inverted")]
     pub fn set_inverted(&self, inverted: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
@@ -192,7 +182,7 @@ impl ModelButton {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    #[doc(alias = "get_property_menu_name")]
+    #[doc(alias = "menu-name")]
     pub fn menu_name(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
@@ -209,7 +199,7 @@ impl ModelButton {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    #[doc(alias = "set_property_menu_name")]
+    #[doc(alias = "menu-name")]
     pub fn set_menu_name(&self, menu_name: Option<&str>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
@@ -222,7 +212,6 @@ impl ModelButton {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    #[doc(alias = "get_property_role")]
     pub fn role(&self) -> ButtonRole {
         unsafe {
             let mut value = glib::Value::from_type(<ButtonRole as StaticType>::static_type());
@@ -239,7 +228,6 @@ impl ModelButton {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    #[doc(alias = "set_property_role")]
     pub fn set_role(&self, role: ButtonRole) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
@@ -252,7 +240,6 @@ impl ModelButton {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    #[doc(alias = "get_property_text")]
     pub fn text(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
@@ -269,7 +256,6 @@ impl ModelButton {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    #[doc(alias = "set_property_text")]
     pub fn set_text(&self, text: Option<&str>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
@@ -282,7 +268,7 @@ impl ModelButton {
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
-    #[doc(alias = "get_property_use_markup")]
+    #[doc(alias = "use-markup")]
     pub fn uses_markup(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
@@ -299,7 +285,7 @@ impl ModelButton {
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
-    #[doc(alias = "set_property_use_markup")]
+    #[doc(alias = "use-markup")]
     pub fn set_use_markup(&self, use_markup: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
@@ -312,10 +298,8 @@ impl ModelButton {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    pub fn connect_property_active_notify<F: Fn(&ModelButton) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "active")]
+    pub fn connect_active_notify<F: Fn(&ModelButton) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_active_trampoline<F: Fn(&ModelButton) + 'static>(
             this: *mut ffi::GtkModelButton,
             _param_spec: glib::ffi::gpointer,
@@ -339,10 +323,8 @@ impl ModelButton {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    pub fn connect_property_centered_notify<F: Fn(&ModelButton) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "centered")]
+    pub fn connect_centered_notify<F: Fn(&ModelButton) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_centered_trampoline<F: Fn(&ModelButton) + 'static>(
             this: *mut ffi::GtkModelButton,
             _param_spec: glib::ffi::gpointer,
@@ -366,10 +348,8 @@ impl ModelButton {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    pub fn connect_property_icon_notify<F: Fn(&ModelButton) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "icon")]
+    pub fn connect_icon_notify<F: Fn(&ModelButton) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_icon_trampoline<F: Fn(&ModelButton) + 'static>(
             this: *mut ffi::GtkModelButton,
             _param_spec: glib::ffi::gpointer,
@@ -393,10 +373,8 @@ impl ModelButton {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    pub fn connect_property_iconic_notify<F: Fn(&ModelButton) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "iconic")]
+    pub fn connect_iconic_notify<F: Fn(&ModelButton) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_iconic_trampoline<F: Fn(&ModelButton) + 'static>(
             this: *mut ffi::GtkModelButton,
             _param_spec: glib::ffi::gpointer,
@@ -420,10 +398,8 @@ impl ModelButton {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    pub fn connect_property_inverted_notify<F: Fn(&ModelButton) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "inverted")]
+    pub fn connect_inverted_notify<F: Fn(&ModelButton) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_inverted_trampoline<F: Fn(&ModelButton) + 'static>(
             this: *mut ffi::GtkModelButton,
             _param_spec: glib::ffi::gpointer,
@@ -447,10 +423,8 @@ impl ModelButton {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    pub fn connect_property_menu_name_notify<F: Fn(&ModelButton) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "menu-name")]
+    pub fn connect_menu_name_notify<F: Fn(&ModelButton) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_menu_name_trampoline<F: Fn(&ModelButton) + 'static>(
             this: *mut ffi::GtkModelButton,
             _param_spec: glib::ffi::gpointer,
@@ -474,10 +448,8 @@ impl ModelButton {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    pub fn connect_property_role_notify<F: Fn(&ModelButton) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "role")]
+    pub fn connect_role_notify<F: Fn(&ModelButton) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_role_trampoline<F: Fn(&ModelButton) + 'static>(
             this: *mut ffi::GtkModelButton,
             _param_spec: glib::ffi::gpointer,
@@ -501,10 +473,8 @@ impl ModelButton {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    pub fn connect_property_text_notify<F: Fn(&ModelButton) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "text")]
+    pub fn connect_text_notify<F: Fn(&ModelButton) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_text_trampoline<F: Fn(&ModelButton) + 'static>(
             this: *mut ffi::GtkModelButton,
             _param_spec: glib::ffi::gpointer,
@@ -528,7 +498,8 @@ impl ModelButton {
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
-    pub fn connect_property_use_markup_notify<F: Fn(&ModelButton) + 'static>(
+    #[doc(alias = "use-markup")]
+    pub fn connect_use_markup_notify<F: Fn(&ModelButton) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -811,8 +782,8 @@ impl ModelButtonBuilder {
         if let Some(ref action_target) = self.action_target {
             properties.push(("action-target", action_target));
         }
-        let ret = glib::Object::new::<ModelButton>(&properties).expect("object new");
-        ret
+        glib::Object::new::<ModelButton>(&properties)
+            .expect("Failed to create an instance of ModelButton")
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]

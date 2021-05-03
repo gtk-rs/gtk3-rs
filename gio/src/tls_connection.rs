@@ -13,6 +13,7 @@ pub trait TlsConnectionExtManual {
     #[cfg(any(feature = "v2_66", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
     #[doc(alias = "g_tls_connection_get_channel_binding_data")]
+    #[doc(alias = "get_channel_binding_data")]
     fn channel_binding_data(
         &self,
         type_: TlsChannelBindingType,

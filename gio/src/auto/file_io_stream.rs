@@ -26,6 +26,7 @@ pub const NONE_FILE_IO_STREAM: Option<&FileIOStream> = None;
 
 pub trait FileIOStreamExt: 'static {
     #[doc(alias = "g_file_io_stream_get_etag")]
+    #[doc(alias = "get_etag")]
     fn etag(&self) -> Option<glib::GString>;
 
     #[doc(alias = "g_file_io_stream_query_info")]

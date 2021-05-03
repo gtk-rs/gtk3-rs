@@ -27,6 +27,7 @@ impl Cancellable {
     }
 
     #[doc(alias = "g_cancellable_get_current")]
+    #[doc(alias = "get_current")]
     pub fn current() -> Option<Cancellable> {
         unsafe { from_glib_none(ffi::g_cancellable_get_current()) }
     }
@@ -54,6 +55,7 @@ pub trait CancellableExt: 'static {
     fn disconnect(&self, handler_id: libc::c_ulong);
 
     #[doc(alias = "g_cancellable_get_fd")]
+    #[doc(alias = "get_fd")]
     fn fd(&self) -> i32;
 
     #[doc(alias = "g_cancellable_is_cancelled")]
@@ -74,6 +76,7 @@ pub trait CancellableExt: 'static {
     #[doc(alias = "g_cancellable_set_error_if_cancelled")]
     fn set_error_if_cancelled(&self) -> Result<(), glib::Error>;
 
+    #[doc(alias = "cancelled")]
     fn connect_cancelled<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
@@ -143,6 +146,7 @@ impl<O: IsA<Cancellable>> CancellableExt for O {
         }
     }
 
+    #[doc(alias = "cancelled")]
     fn connect_cancelled<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn cancelled_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(
             this: *mut ffi::GCancellable,

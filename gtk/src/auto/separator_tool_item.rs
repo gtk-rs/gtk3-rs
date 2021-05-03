@@ -212,8 +212,8 @@ impl SeparatorToolItemBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        let ret = glib::Object::new::<SeparatorToolItem>(&properties).expect("object new");
-        ret
+        glib::Object::new::<SeparatorToolItem>(&properties)
+            .expect("Failed to create an instance of SeparatorToolItem")
     }
 
     pub fn draw(mut self, draw: bool) -> Self {
@@ -418,12 +418,14 @@ pub const NONE_SEPARATOR_TOOL_ITEM: Option<&SeparatorToolItem> = None;
 
 pub trait SeparatorToolItemExt: 'static {
     #[doc(alias = "gtk_separator_tool_item_get_draw")]
+    #[doc(alias = "get_draw")]
     fn draws(&self) -> bool;
 
     #[doc(alias = "gtk_separator_tool_item_set_draw")]
     fn set_draw(&self, draw: bool);
 
-    fn connect_property_draw_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "draw")]
+    fn connect_draw_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<SeparatorToolItem>> SeparatorToolItemExt for O {
@@ -441,7 +443,8 @@ impl<O: IsA<SeparatorToolItem>> SeparatorToolItemExt for O {
         }
     }
 
-    fn connect_property_draw_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "draw")]
+    fn connect_draw_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_draw_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkSeparatorToolItem,
             _param_spec: glib::ffi::gpointer,

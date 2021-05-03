@@ -26,6 +26,7 @@ pub const NONE_FILE_OUTPUT_STREAM: Option<&FileOutputStream> = None;
 
 pub trait FileOutputStreamExt: 'static {
     #[doc(alias = "g_file_output_stream_get_etag")]
+    #[doc(alias = "get_etag")]
     fn etag(&self) -> Option<glib::GString>;
 
     #[doc(alias = "g_file_output_stream_query_info")]

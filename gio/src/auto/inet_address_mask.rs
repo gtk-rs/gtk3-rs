@@ -39,6 +39,7 @@ impl InetAddressMask {
     }
 
     #[doc(alias = "g_inet_address_mask_new_from_string")]
+    #[doc(alias = "new_from_string")]
     pub fn from_string(mask_string: &str) -> Result<InetAddressMask, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
@@ -70,40 +71,37 @@ pub trait InetAddressMaskExt: 'static {
     fn equal<P: IsA<InetAddressMask>>(&self, mask2: &P) -> bool;
 
     #[doc(alias = "g_inet_address_mask_get_address")]
+    #[doc(alias = "get_address")]
     fn address(&self) -> InetAddress;
 
     #[doc(alias = "g_inet_address_mask_get_family")]
+    #[doc(alias = "get_family")]
     fn family(&self) -> SocketFamily;
 
     #[doc(alias = "g_inet_address_mask_get_length")]
+    #[doc(alias = "get_length")]
     fn length(&self) -> u32;
 
     #[doc(alias = "g_inet_address_mask_matches")]
     fn matches<P: IsA<InetAddress>>(&self, address: &P) -> bool;
 
     #[doc(alias = "g_inet_address_mask_to_string")]
+    #[doc(alias = "to_string")]
     fn to_str(&self) -> glib::GString;
 
-    #[doc(alias = "set_property_address")]
     fn set_address<P: IsA<InetAddress>>(&self, address: Option<&P>);
 
-    #[doc(alias = "set_property_length")]
     fn set_length(&self, length: u32);
 
-    fn connect_property_address_notify<F: Fn(&Self) + Send + Sync + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "address")]
+    fn connect_address_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F)
+        -> SignalHandlerId;
 
-    fn connect_property_family_notify<F: Fn(&Self) + Send + Sync + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "family")]
+    fn connect_family_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_length_notify<F: Fn(&Self) + Send + Sync + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "length")]
+    fn connect_length_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<InetAddressMask>> InetAddressMaskExt for O {
@@ -173,7 +171,8 @@ impl<O: IsA<InetAddressMask>> InetAddressMaskExt for O {
         }
     }
 
-    fn connect_property_address_notify<F: Fn(&Self) + Send + Sync + 'static>(
+    #[doc(alias = "address")]
+    fn connect_address_notify<F: Fn(&Self) + Send + Sync + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -200,10 +199,8 @@ impl<O: IsA<InetAddressMask>> InetAddressMaskExt for O {
         }
     }
 
-    fn connect_property_family_notify<F: Fn(&Self) + Send + Sync + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "family")]
+    fn connect_family_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_family_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(
             this: *mut ffi::GInetAddressMask,
             _param_spec: glib::ffi::gpointer,
@@ -227,10 +224,8 @@ impl<O: IsA<InetAddressMask>> InetAddressMaskExt for O {
         }
     }
 
-    fn connect_property_length_notify<F: Fn(&Self) + Send + Sync + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "length")]
+    fn connect_length_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_length_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(
             this: *mut ffi::GInetAddressMask,
             _param_spec: glib::ffi::gpointer,

@@ -47,7 +47,7 @@ impl PopoverMenu {
         }
     }
 
-    #[doc(alias = "get_property_visible_submenu")]
+    #[doc(alias = "visible-submenu")]
     pub fn visible_submenu(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
@@ -62,7 +62,7 @@ impl PopoverMenu {
         }
     }
 
-    #[doc(alias = "set_property_visible_submenu")]
+    #[doc(alias = "visible-submenu")]
     pub fn set_visible_submenu(&self, visible_submenu: Option<&str>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
@@ -125,7 +125,8 @@ impl PopoverMenu {
         }
     }
 
-    pub fn connect_property_visible_submenu_notify<F: Fn(&PopoverMenu) + 'static>(
+    #[doc(alias = "visible-submenu")]
+    pub fn connect_visible_submenu_notify<F: Fn(&PopoverMenu) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -347,8 +348,8 @@ impl PopoverMenuBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        let ret = glib::Object::new::<PopoverMenu>(&properties).expect("object new");
-        ret
+        glib::Object::new::<PopoverMenu>(&properties)
+            .expect("Failed to create an instance of PopoverMenu")
     }
 
     pub fn visible_submenu(mut self, visible_submenu: &str) -> Self {

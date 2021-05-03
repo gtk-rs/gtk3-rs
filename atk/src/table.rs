@@ -6,9 +6,11 @@ use glib::translate::*;
 
 pub trait TableExtManual: 'static {
     #[doc(alias = "atk_table_get_selected_columns")]
+    #[doc(alias = "get_selected_columns")]
     fn selected_columns(&self) -> Vec<i32>;
 
     #[doc(alias = "atk_table_get_selected_rows")]
+    #[doc(alias = "get_selected_rows")]
     fn selected_rows(&self) -> Vec<i32>;
 }
 

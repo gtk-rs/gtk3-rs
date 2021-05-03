@@ -151,6 +151,7 @@ pub trait CellAreaExt: 'static {
     );
 
     #[doc(alias = "gtk_cell_area_get_cell_allocation")]
+    #[doc(alias = "get_cell_allocation")]
     fn cell_allocation<P: IsA<CellAreaContext>, Q: IsA<Widget>, R: IsA<CellRenderer>>(
         &self,
         context: &P,
@@ -160,6 +161,7 @@ pub trait CellAreaExt: 'static {
     ) -> gdk::Rectangle;
 
     #[doc(alias = "gtk_cell_area_get_cell_at_position")]
+    #[doc(alias = "get_cell_at_position")]
     fn cell_at_position<P: IsA<CellAreaContext>, Q: IsA<Widget>>(
         &self,
         context: &P,
@@ -170,24 +172,31 @@ pub trait CellAreaExt: 'static {
     ) -> (CellRenderer, gdk::Rectangle);
 
     #[doc(alias = "gtk_cell_area_get_current_path_string")]
+    #[doc(alias = "get_current_path_string")]
     fn current_path_string(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_cell_area_get_edit_widget")]
+    #[doc(alias = "get_edit_widget")]
     fn edit_widget(&self) -> Option<CellEditable>;
 
     #[doc(alias = "gtk_cell_area_get_edited_cell")]
+    #[doc(alias = "get_edited_cell")]
     fn edited_cell(&self) -> Option<CellRenderer>;
 
     #[doc(alias = "gtk_cell_area_get_focus_cell")]
+    #[doc(alias = "get_focus_cell")]
     fn focus_cell(&self) -> Option<CellRenderer>;
 
     #[doc(alias = "gtk_cell_area_get_focus_from_sibling")]
+    #[doc(alias = "get_focus_from_sibling")]
     fn focus_from_sibling<P: IsA<CellRenderer>>(&self, renderer: &P) -> Option<CellRenderer>;
 
     #[doc(alias = "gtk_cell_area_get_focus_siblings")]
+    #[doc(alias = "get_focus_siblings")]
     fn focus_siblings<P: IsA<CellRenderer>>(&self, renderer: &P) -> Vec<CellRenderer>;
 
     #[doc(alias = "gtk_cell_area_get_preferred_height")]
+    #[doc(alias = "get_preferred_height")]
     fn preferred_height<P: IsA<CellAreaContext>, Q: IsA<Widget>>(
         &self,
         context: &P,
@@ -195,6 +204,7 @@ pub trait CellAreaExt: 'static {
     ) -> (i32, i32);
 
     #[doc(alias = "gtk_cell_area_get_preferred_height_for_width")]
+    #[doc(alias = "get_preferred_height_for_width")]
     fn preferred_height_for_width<P: IsA<CellAreaContext>, Q: IsA<Widget>>(
         &self,
         context: &P,
@@ -203,6 +213,7 @@ pub trait CellAreaExt: 'static {
     ) -> (i32, i32);
 
     #[doc(alias = "gtk_cell_area_get_preferred_width")]
+    #[doc(alias = "get_preferred_width")]
     fn preferred_width<P: IsA<CellAreaContext>, Q: IsA<Widget>>(
         &self,
         context: &P,
@@ -210,6 +221,7 @@ pub trait CellAreaExt: 'static {
     ) -> (i32, i32);
 
     #[doc(alias = "gtk_cell_area_get_preferred_width_for_height")]
+    #[doc(alias = "get_preferred_width_for_height")]
     fn preferred_width_for_height<P: IsA<CellAreaContext>, Q: IsA<Widget>>(
         &self,
         context: &P,
@@ -218,6 +230,7 @@ pub trait CellAreaExt: 'static {
     ) -> (i32, i32);
 
     #[doc(alias = "gtk_cell_area_get_request_mode")]
+    #[doc(alias = "get_request_mode")]
     fn request_mode(&self) -> SizeRequestMode;
 
     #[doc(alias = "gtk_cell_area_has_renderer")]
@@ -277,6 +290,7 @@ pub trait CellAreaExt: 'static {
     #[doc(alias = "gtk_cell_area_stop_editing")]
     fn stop_editing(&self, canceled: bool);
 
+    #[doc(alias = "add-editable")]
     fn connect_add_editable<
         F: Fn(&Self, &CellRenderer, &CellEditable, &gdk::Rectangle, TreePath) + 'static,
     >(
@@ -284,26 +298,32 @@ pub trait CellAreaExt: 'static {
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "apply-attributes")]
     fn connect_apply_attributes<F: Fn(&Self, &TreeModel, &TreeIter, bool, bool) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "focus-changed")]
     fn connect_focus_changed<F: Fn(&Self, &CellRenderer, TreePath) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "remove-editable")]
     fn connect_remove_editable<F: Fn(&Self, &CellRenderer, &CellEditable) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
-    fn connect_property_edit_widget_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "edit-widget")]
+    fn connect_edit_widget_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_edited_cell_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "edited-cell")]
+    fn connect_edited_cell_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_focus_cell_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "focus-cell")]
+    fn connect_focus_cell_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<CellArea>> CellAreaExt for O {
@@ -910,6 +930,7 @@ impl<O: IsA<CellArea>> CellAreaExt for O {
         }
     }
 
+    #[doc(alias = "add-editable")]
     fn connect_add_editable<
         F: Fn(&Self, &CellRenderer, &CellEditable, &gdk::Rectangle, TreePath) + 'static,
     >(
@@ -952,6 +973,7 @@ impl<O: IsA<CellArea>> CellAreaExt for O {
         }
     }
 
+    #[doc(alias = "apply-attributes")]
     fn connect_apply_attributes<F: Fn(&Self, &TreeModel, &TreeIter, bool, bool) + 'static>(
         &self,
         f: F,
@@ -991,6 +1013,7 @@ impl<O: IsA<CellArea>> CellAreaExt for O {
         }
     }
 
+    #[doc(alias = "focus-changed")]
     fn connect_focus_changed<F: Fn(&Self, &CellRenderer, TreePath) + 'static>(
         &self,
         f: F,
@@ -1027,6 +1050,7 @@ impl<O: IsA<CellArea>> CellAreaExt for O {
         }
     }
 
+    #[doc(alias = "remove-editable")]
     fn connect_remove_editable<F: Fn(&Self, &CellRenderer, &CellEditable) + 'static>(
         &self,
         f: F,
@@ -1062,7 +1086,8 @@ impl<O: IsA<CellArea>> CellAreaExt for O {
         }
     }
 
-    fn connect_property_edit_widget_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "edit-widget")]
+    fn connect_edit_widget_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_edit_widget_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellArea,
             _param_spec: glib::ffi::gpointer,
@@ -1086,7 +1111,8 @@ impl<O: IsA<CellArea>> CellAreaExt for O {
         }
     }
 
-    fn connect_property_edited_cell_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "edited-cell")]
+    fn connect_edited_cell_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_edited_cell_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellArea,
             _param_spec: glib::ffi::gpointer,
@@ -1110,7 +1136,8 @@ impl<O: IsA<CellArea>> CellAreaExt for O {
         }
     }
 
-    fn connect_property_focus_cell_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "focus-cell")]
+    fn connect_focus_cell_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_focus_cell_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellArea,
             _param_spec: glib::ffi::gpointer,

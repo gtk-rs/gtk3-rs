@@ -426,6 +426,7 @@ impl fmt::Display for XCBVisualType {
 
 impl crate::device::Device {
     #[doc(alias = "cairo_xcb_device_get_connection")]
+    #[doc(alias = "get_connection")]
     pub fn connection(&self) -> XCBConnection {
         unsafe {
             XCBConnection::from_raw_full(ffi::cairo_xcb_device_get_connection(self.to_raw_none()))

@@ -52,6 +52,7 @@ impl DBusAuthObserver {
         }
     }
 
+    #[doc(alias = "allow-mechanism")]
     pub fn connect_allow_mechanism<F: Fn(&DBusAuthObserver, &str) -> bool + 'static>(
         &self,
         f: F,
@@ -83,6 +84,7 @@ impl DBusAuthObserver {
         }
     }
 
+    #[doc(alias = "authorize-authenticated-peer")]
     pub fn connect_authorize_authenticated_peer<
         F: Fn(&DBusAuthObserver, &IOStream, Option<&Credentials>) -> bool + 'static,
     >(

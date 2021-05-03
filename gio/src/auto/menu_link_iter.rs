@@ -20,6 +20,7 @@ pub const NONE_MENU_LINK_ITER: Option<&MenuLinkIter> = None;
 
 pub trait MenuLinkIterExt: 'static {
     #[doc(alias = "g_menu_link_iter_get_next")]
+    #[doc(alias = "get_next")]
     fn next(&self) -> Option<(glib::GString, MenuModel)>;
 }
 

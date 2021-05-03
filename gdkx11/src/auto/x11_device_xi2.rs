@@ -19,7 +19,7 @@ glib::wrapper! {
 }
 
 impl X11DeviceXI2 {
-    #[doc(alias = "get_property_device_id")]
+    #[doc(alias = "device-id")]
     pub fn device_id(&self) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
@@ -91,8 +91,8 @@ impl X11DeviceXI2Builder {
         if let Some(ref vendor_id) = self.vendor_id {
             properties.push(("vendor-id", vendor_id));
         }
-        let ret = glib::Object::new::<X11DeviceXI2>(&properties).expect("object new");
-        ret
+        glib::Object::new::<X11DeviceXI2>(&properties)
+            .expect("Failed to create an instance of X11DeviceXI2")
     }
 
     pub fn device_id(mut self, device_id: i32) -> Self {

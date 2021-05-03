@@ -37,6 +37,7 @@ impl LevelBar {
     }
 
     #[doc(alias = "gtk_level_bar_new_for_interval")]
+    #[doc(alias = "new_for_interval")]
     pub fn for_interval(min_value: f64, max_value: f64) -> LevelBar {
         assert_initialized_main_thread!();
         unsafe {
@@ -218,8 +219,8 @@ impl LevelBarBuilder {
         if let Some(ref orientation) = self.orientation {
             properties.push(("orientation", orientation));
         }
-        let ret = glib::Object::new::<LevelBar>(&properties).expect("object new");
-        ret
+        glib::Object::new::<LevelBar>(&properties)
+            .expect("Failed to create an instance of LevelBar")
     }
 
     pub fn inverted(mut self, inverted: bool) -> Self {
@@ -422,21 +423,27 @@ pub trait LevelBarExt: 'static {
     fn add_offset_value(&self, name: &str, value: f64);
 
     #[doc(alias = "gtk_level_bar_get_inverted")]
+    #[doc(alias = "get_inverted")]
     fn is_inverted(&self) -> bool;
 
     #[doc(alias = "gtk_level_bar_get_max_value")]
+    #[doc(alias = "get_max_value")]
     fn max_value(&self) -> f64;
 
     #[doc(alias = "gtk_level_bar_get_min_value")]
+    #[doc(alias = "get_min_value")]
     fn min_value(&self) -> f64;
 
     #[doc(alias = "gtk_level_bar_get_mode")]
+    #[doc(alias = "get_mode")]
     fn mode(&self) -> LevelBarMode;
 
     #[doc(alias = "gtk_level_bar_get_offset_value")]
+    #[doc(alias = "get_offset_value")]
     fn offset_value(&self, name: Option<&str>) -> Option<f64>;
 
     #[doc(alias = "gtk_level_bar_get_value")]
+    #[doc(alias = "get_value")]
     fn value(&self) -> f64;
 
     #[doc(alias = "gtk_level_bar_remove_offset_value")]
@@ -457,21 +464,27 @@ pub trait LevelBarExt: 'static {
     #[doc(alias = "gtk_level_bar_set_value")]
     fn set_value(&self, value: f64);
 
+    #[doc(alias = "offset-changed")]
     fn connect_offset_changed<F: Fn(&Self, &str) + 'static>(
         &self,
         detail: Option<&str>,
         f: F,
     ) -> SignalHandlerId;
 
-    fn connect_property_inverted_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "inverted")]
+    fn connect_inverted_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_max_value_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "max-value")]
+    fn connect_max_value_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_min_value_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "min-value")]
+    fn connect_min_value_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "mode")]
+    fn connect_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_value_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "value")]
+    fn connect_value_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<LevelBar>> LevelBarExt for O {
@@ -565,6 +578,7 @@ impl<O: IsA<LevelBar>> LevelBarExt for O {
         }
     }
 
+    #[doc(alias = "offset-changed")]
     fn connect_offset_changed<F: Fn(&Self, &str) + 'static>(
         &self,
         detail: Option<&str>,
@@ -600,7 +614,8 @@ impl<O: IsA<LevelBar>> LevelBarExt for O {
         }
     }
 
-    fn connect_property_inverted_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "inverted")]
+    fn connect_inverted_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_inverted_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLevelBar,
             _param_spec: glib::ffi::gpointer,
@@ -624,7 +639,8 @@ impl<O: IsA<LevelBar>> LevelBarExt for O {
         }
     }
 
-    fn connect_property_max_value_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "max-value")]
+    fn connect_max_value_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_max_value_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLevelBar,
             _param_spec: glib::ffi::gpointer,
@@ -648,7 +664,8 @@ impl<O: IsA<LevelBar>> LevelBarExt for O {
         }
     }
 
-    fn connect_property_min_value_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "min-value")]
+    fn connect_min_value_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_min_value_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLevelBar,
             _param_spec: glib::ffi::gpointer,
@@ -672,7 +689,8 @@ impl<O: IsA<LevelBar>> LevelBarExt for O {
         }
     }
 
-    fn connect_property_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "mode")]
+    fn connect_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_mode_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLevelBar,
             _param_spec: glib::ffi::gpointer,
@@ -696,7 +714,8 @@ impl<O: IsA<LevelBar>> LevelBarExt for O {
         }
     }
 
-    fn connect_property_value_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "value")]
+    fn connect_value_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_value_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLevelBar,
             _param_spec: glib::ffi::gpointer,

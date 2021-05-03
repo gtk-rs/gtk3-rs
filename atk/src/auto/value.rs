@@ -26,27 +26,35 @@ pub const NONE_VALUE: Option<&Value> = None;
 
 pub trait ValueExt: 'static {
     #[doc(alias = "atk_value_get_current_value")]
+    #[doc(alias = "get_current_value")]
     fn current_value(&self) -> glib::Value;
 
     #[doc(alias = "atk_value_get_increment")]
+    #[doc(alias = "get_increment")]
     fn increment(&self) -> f64;
 
     #[doc(alias = "atk_value_get_maximum_value")]
+    #[doc(alias = "get_maximum_value")]
     fn maximum_value(&self) -> glib::Value;
 
     #[doc(alias = "atk_value_get_minimum_increment")]
+    #[doc(alias = "get_minimum_increment")]
     fn minimum_increment(&self) -> glib::Value;
 
     #[doc(alias = "atk_value_get_minimum_value")]
+    #[doc(alias = "get_minimum_value")]
     fn minimum_value(&self) -> glib::Value;
 
     #[doc(alias = "atk_value_get_range")]
+    #[doc(alias = "get_range")]
     fn range(&self) -> Option<Range>;
 
     #[doc(alias = "atk_value_get_sub_ranges")]
+    #[doc(alias = "get_sub_ranges")]
     fn sub_ranges(&self) -> Vec<Range>;
 
     #[doc(alias = "atk_value_get_value_and_text")]
+    #[doc(alias = "get_value_and_text")]
     fn value_and_text(&self) -> (f64, glib::GString);
 
     #[doc(alias = "atk_value_set_current_value")]
@@ -55,6 +63,7 @@ pub trait ValueExt: 'static {
     #[doc(alias = "atk_value_set_value")]
     fn set_value(&self, new_value: f64);
 
+    #[doc(alias = "value-changed")]
     fn connect_value_changed<F: Fn(&Self, f64, &str) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
@@ -148,6 +157,7 @@ impl<O: IsA<Value>> ValueExt for O {
         }
     }
 
+    #[doc(alias = "value-changed")]
     fn connect_value_changed<F: Fn(&Self, f64, &str) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn value_changed_trampoline<P, F: Fn(&P, f64, &str) + 'static>(
             this: *mut ffi::AtkValue,

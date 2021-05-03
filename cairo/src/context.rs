@@ -173,6 +173,7 @@ impl Context {
         self.status()
     }
 
+    #[doc(alias = "get_target")]
     pub fn target(&self) -> Surface {
         unsafe { Surface::from_raw_none(ffi::cairo_get_target(self.0.as_ptr())) }
     }
@@ -193,6 +194,7 @@ impl Context {
         unsafe { ffi::cairo_pop_group_to_source(self.0.as_ptr()) }
     }
 
+    #[doc(alias = "get_group_target")]
     pub fn group_target(&self) -> Surface {
         unsafe { Surface::from_raw_none(ffi::cairo_get_group_target(self.0.as_ptr())) }
     }
@@ -212,6 +214,7 @@ impl Context {
         self.status().expect("Failed to set source");
     }
 
+    #[doc(alias = "get_source")]
     pub fn source(&self) -> Pattern {
         unsafe { Pattern::from_raw_none(ffi::cairo_get_source(self.0.as_ptr())) }
     }
@@ -227,6 +230,7 @@ impl Context {
         self.status().expect("Failed to set antialias");
     }
 
+    #[doc(alias = "get_antialias")]
     pub fn antialias(&self) -> Antialias {
         unsafe { Antialias::from(ffi::cairo_get_antialias(self.0.as_ptr())) }
     }
@@ -243,10 +247,12 @@ impl Context {
         self.status().expect("Failed to set a dash"); //Possible invalid dashes value
     }
 
+    #[doc(alias = "get_dash_count")]
     pub fn dash_count(&self) -> i32 {
         unsafe { ffi::cairo_get_dash_count(self.0.as_ptr()) }
     }
 
+    #[doc(alias = "get_dash")]
     pub fn dash(&self) -> (Vec<f64>, f64) {
         let dash_count = self.dash_count() as usize;
         let mut dashes: Vec<f64> = Vec::with_capacity(dash_count);
@@ -259,11 +265,13 @@ impl Context {
         }
     }
 
+    #[doc(alias = "get_dash_dashes")]
     pub fn dash_dashes(&self) -> Vec<f64> {
         let (dashes, _) = self.dash();
         dashes
     }
 
+    #[doc(alias = "get_dash_offset")]
     pub fn dash_offset(&self) -> f64 {
         let (_, offset) = self.dash();
         offset
@@ -276,6 +284,7 @@ impl Context {
         self.status().expect("Failed to set fill rule");
     }
 
+    #[doc(alias = "get_fill_rule")]
     pub fn fill_rule(&self) -> FillRule {
         unsafe { FillRule::from(ffi::cairo_get_fill_rule(self.0.as_ptr())) }
     }
@@ -285,6 +294,7 @@ impl Context {
         self.status().expect("Failed to set line cap");
     }
 
+    #[doc(alias = "get_line_cap")]
     pub fn line_cap(&self) -> LineCap {
         unsafe { LineCap::from(ffi::cairo_get_line_cap(self.0.as_ptr())) }
     }
@@ -294,6 +304,7 @@ impl Context {
         self.status().expect("Failed to set line join");
     }
 
+    #[doc(alias = "get_line_join")]
     pub fn line_join(&self) -> LineJoin {
         unsafe { LineJoin::from(ffi::cairo_get_line_join(self.0.as_ptr())) }
     }
@@ -303,6 +314,7 @@ impl Context {
         self.status().expect("Failed to set line width");
     }
 
+    #[doc(alias = "get_line_width")]
     pub fn line_width(&self) -> f64 {
         unsafe { ffi::cairo_get_line_width(self.0.as_ptr()) }
     }
@@ -312,6 +324,7 @@ impl Context {
         self.status().expect("Failed to set miter limit");
     }
 
+    #[doc(alias = "get_miter_limit")]
     pub fn miter_limit(&self) -> f64 {
         unsafe { ffi::cairo_get_miter_limit(self.0.as_ptr()) }
     }
@@ -322,6 +335,7 @@ impl Context {
         }
     }
 
+    #[doc(alias = "get_operator")]
     pub fn operator(&self) -> Operator {
         unsafe { Operator::from(ffi::cairo_get_operator(self.0.as_ptr())) }
     }
@@ -331,6 +345,7 @@ impl Context {
         self.status().expect("Failed to set tolerance");
     }
 
+    #[doc(alias = "get_tolerance")]
     pub fn tolerance(&self) -> f64 {
         unsafe { ffi::cairo_get_tolerance(self.0.as_ptr()) }
     }
@@ -450,6 +465,7 @@ impl Context {
         unsafe { ffi::cairo_show_page(self.0.as_ptr()) }
     }
 
+    #[doc(alias = "get_reference_count")]
     pub fn reference_count(&self) -> u32 {
         unsafe { ffi::cairo_get_reference_count(self.0.as_ptr()) }
     }
@@ -480,6 +496,7 @@ impl Context {
         }
     }
 
+    #[doc(alias = "get_matrix")]
     pub fn matrix(&self) -> Matrix {
         let mut matrix = Matrix::null();
         unsafe {
@@ -543,6 +560,7 @@ impl Context {
         unsafe { ffi::cairo_set_font_matrix(self.0.as_ptr(), matrix.ptr()) }
     }
 
+    #[doc(alias = "get_font_matrix")]
     pub fn font_matrix(&self) -> Matrix {
         let mut matrix = Matrix::null();
         unsafe {
@@ -555,6 +573,7 @@ impl Context {
         unsafe { ffi::cairo_set_font_options(self.0.as_ptr(), options.to_raw_none()) }
     }
 
+    #[doc(alias = "get_font_options")]
     pub fn font_options(&self) -> FontOptions {
         let out = FontOptions::new();
         unsafe {
@@ -567,6 +586,7 @@ impl Context {
         unsafe { ffi::cairo_set_font_face(self.0.as_ptr(), font_face.to_raw_none()) }
     }
 
+    #[doc(alias = "get_font_face")]
     pub fn font_face(&self) -> FontFace {
         unsafe { FontFace::from_raw_none(ffi::cairo_get_font_face(self.0.as_ptr())) }
     }
@@ -575,6 +595,7 @@ impl Context {
         unsafe { ffi::cairo_set_scaled_font(self.0.as_ptr(), scaled_font.to_raw_none()) }
     }
 
+    #[doc(alias = "get_scaled_font")]
     pub fn scaled_font(&self) -> ScaledFont {
         unsafe { ScaledFont::from_raw_none(ffi::cairo_get_scaled_font(self.0.as_ptr())) }
     }
@@ -685,6 +706,7 @@ impl Context {
         unsafe { ffi::cairo_has_current_point(self.0.as_ptr()).as_bool() }
     }
 
+    #[doc(alias = "get_current_point")]
     pub fn current_point(&self) -> (f64, f64) {
         unsafe {
             let mut x = 0.0;

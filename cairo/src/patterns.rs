@@ -44,11 +44,13 @@ impl Pattern {
     }
 
     #[doc(alias = "cairo_pattern_get_type")]
+    #[doc(alias = "get_type")]
     pub fn type_(&self) -> PatternType {
         unsafe { ffi::cairo_pattern_get_type(self.pointer).into() }
     }
 
     #[doc(alias = "cairo_pattern_get_reference_count")]
+    #[doc(alias = "get_reference_count")]
     pub fn reference_count(&self) -> isize {
         unsafe { ffi::cairo_pattern_get_reference_count(self.pointer) as isize }
     }
@@ -59,6 +61,7 @@ impl Pattern {
     }
 
     #[doc(alias = "cairo_pattern_get_extend")]
+    #[doc(alias = "get_extend")]
     pub fn extend(&self) -> Extend {
         unsafe { Extend::from(ffi::cairo_pattern_get_extend(self.pointer)) }
     }
@@ -69,6 +72,7 @@ impl Pattern {
     }
 
     #[doc(alias = "cairo_pattern_get_filter")]
+    #[doc(alias = "get_filter")]
     pub fn filter(&self) -> Filter {
         unsafe { Filter::from(ffi::cairo_pattern_get_filter(self.pointer)) }
     }
@@ -79,6 +83,7 @@ impl Pattern {
     }
 
     #[doc(alias = "cairo_pattern_get_matrix")]
+    #[doc(alias = "get_matrix")]
     pub fn matrix(&self) -> Matrix {
         let mut matrix = Matrix::null();
         unsafe {
@@ -176,6 +181,7 @@ impl SolidPattern {
     }
 
     #[doc(alias = "cairo_pattern_get_rgba")]
+    #[doc(alias = "get_rgba")]
     pub fn rgba(&self) -> (f64, f64, f64, f64) {
         unsafe {
             let mut red = 0.0;
@@ -214,6 +220,7 @@ impl Gradient {
     }
 
     #[doc(alias = "cairo_pattern_get_color_stop_count")]
+    #[doc(alias = "get_color_stop_count")]
     pub fn color_stop_count(&self) -> isize {
         unsafe {
             let mut count = 0;
@@ -225,6 +232,7 @@ impl Gradient {
     }
 
     #[doc(alias = "cairo_pattern_get_color_stop_rgba")]
+    #[doc(alias = "get_color_stop_rgba")]
     pub fn color_stop_rgba(&self, index: isize) -> (f64, f64, f64, f64, f64) {
         unsafe {
             let mut offset = 0.0;
@@ -285,6 +293,7 @@ impl LinearGradient {
     }
 
     #[doc(alias = "cairo_pattern_get_linear_points")]
+    #[doc(alias = "get_linear_points")]
     pub fn linear_points(&self) -> (f64, f64, f64, f64) {
         unsafe {
             let mut x0 = 0.0;
@@ -318,6 +327,7 @@ impl RadialGradient {
     }
 
     #[doc(alias = "cairo_pattern_get_radial_circles")]
+    #[doc(alias = "get_radial_circles")]
     pub fn radial_circles(&self) -> (f64, f64, f64, f64, f64, f64) {
         unsafe {
             let mut x0 = 0.0;
@@ -355,6 +365,7 @@ impl SurfacePattern {
     }
 
     #[doc(alias = "cairo_pattern_get_surface")]
+    #[doc(alias = "get_surface")]
     pub fn surface(&self) -> Surface {
         unsafe {
             let mut surface_ptr: *mut cairo_surface_t = ptr::null_mut();
@@ -410,6 +421,7 @@ impl Mesh {
     }
 
     #[doc(alias = "cairo_mesh_pattern_get_control_point")]
+    #[doc(alias = "get_control_point")]
     pub fn control_point(&self, patch_num: usize, corner: MeshCorner) -> (f64, f64) {
         let mut x: c_double = 0.0;
         let mut y: c_double = 0.0;
@@ -464,6 +476,7 @@ impl Mesh {
     }
 
     #[doc(alias = "cairo_mesh_pattern_get_corner_color_rgba")]
+    #[doc(alias = "get_corner_color_rgba")]
     pub fn corner_color_rgba(&self, patch_num: usize, corner: MeshCorner) -> (f64, f64, f64, f64) {
         let mut red: c_double = 0.0;
         let mut green: c_double = 0.0;
@@ -486,6 +499,7 @@ impl Mesh {
     }
 
     #[doc(alias = "cairo_mesh_pattern_get_patch_count")]
+    #[doc(alias = "get_patch_count")]
     pub fn patch_count(&self) -> usize {
         let mut count: c_uint = 0;
         unsafe {
@@ -496,6 +510,7 @@ impl Mesh {
     }
 
     #[doc(alias = "cairo_mesh_pattern_get_path")]
+    #[doc(alias = "get_path")]
     pub fn path(&self, patch_num: usize) -> Path {
         let path: Path = unsafe {
             Path::from_raw_full(ffi::cairo_mesh_pattern_get_path(

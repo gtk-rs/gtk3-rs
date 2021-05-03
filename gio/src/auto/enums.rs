@@ -31,7 +31,7 @@ impl fmt::Display for BusType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "BusType::{}",
             match *self {
                 Self::Starter => "Starter",
                 Self::None => "None",
@@ -123,7 +123,7 @@ impl fmt::Display for ConverterResult {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "ConverterResult::{}",
             match *self {
                 Self::Error => "Error",
                 Self::Converted => "Converted",
@@ -221,7 +221,7 @@ impl fmt::Display for CredentialsType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "CredentialsType::{}",
             match *self {
                 Self::Invalid => "Invalid",
                 Self::LinuxUcred => "LinuxUcred",
@@ -318,7 +318,7 @@ impl fmt::Display for DBusMessageByteOrder {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "DBusMessageByteOrder::{}",
             match *self {
                 Self::BigEndian => "BigEndian",
                 Self::LittleEndian => "LittleEndian",
@@ -416,7 +416,7 @@ impl fmt::Display for DBusMessageHeaderField {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "DBusMessageHeaderField::{}",
             match *self {
                 Self::Invalid => "Invalid",
                 Self::Path => "Path",
@@ -528,7 +528,7 @@ impl fmt::Display for DBusMessageType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "DBusMessageType::{}",
             match *self {
                 Self::Invalid => "Invalid",
                 Self::MethodCall => "MethodCall",
@@ -621,7 +621,7 @@ impl fmt::Display for DataStreamByteOrder {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "DataStreamByteOrder::{}",
             match *self {
                 Self::BigEndian => "BigEndian",
                 Self::LittleEndian => "LittleEndian",
@@ -710,7 +710,7 @@ impl fmt::Display for DataStreamNewlineType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "DataStreamNewlineType::{}",
             match *self {
                 Self::Lf => "Lf",
                 Self::Cr => "Cr",
@@ -804,7 +804,7 @@ impl fmt::Display for DriveStartStopType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "DriveStartStopType::{}",
             match *self {
                 Self::Unknown => "Unknown",
                 Self::Shutdown => "Shutdown",
@@ -899,7 +899,7 @@ impl fmt::Display for EmblemOrigin {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "EmblemOrigin::{}",
             match *self {
                 Self::Unknown => "Unknown",
                 Self::Device => "Device",
@@ -989,7 +989,7 @@ impl fmt::Display for FileAttributeStatus {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "FileAttributeStatus::{}",
             match *self {
                 Self::Unset => "Unset",
                 Self::Set => "Set",
@@ -1090,7 +1090,7 @@ impl fmt::Display for FileAttributeType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "FileAttributeType::{}",
             match *self {
                 Self::Invalid => "Invalid",
                 Self::String => "String",
@@ -1214,7 +1214,7 @@ impl fmt::Display for FileMonitorEvent {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "FileMonitorEvent::{}",
             match *self {
                 Self::Changed => "Changed",
                 Self::ChangesDoneHint => "ChangesDoneHint",
@@ -1333,7 +1333,7 @@ impl fmt::Display for FileType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "FileType::{}",
             match *self {
                 Self::Unknown => "Unknown",
                 Self::Regular => "Regular",
@@ -1520,7 +1520,7 @@ impl fmt::Display for IOErrorEnum {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "IOErrorEnum::{}",
             match *self {
                 Self::Failed => "Failed",
                 Self::NotFound => "NotFound",
@@ -1806,7 +1806,7 @@ impl fmt::Display for MemoryMonitorWarningLevel {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "MemoryMonitorWarningLevel::{}",
             match *self {
                 Self::Low => "Low",
                 Self::Medium => "Medium",
@@ -1905,7 +1905,7 @@ impl fmt::Display for MountOperationResult {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "MountOperationResult::{}",
             match *self {
                 Self::Handled => "Handled",
                 Self::Aborted => "Aborted",
@@ -1998,7 +1998,7 @@ impl fmt::Display for NetworkConnectivity {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "NetworkConnectivity::{}",
             match *self {
                 Self::Local => "Local",
                 Self::Limited => "Limited",
@@ -2102,7 +2102,7 @@ impl fmt::Display for NotificationPriority {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "NotificationPriority::{}",
             match *self {
                 Self::Normal => "Normal",
                 Self::Low => "Low",
@@ -2192,7 +2192,7 @@ impl fmt::Display for PasswordSave {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "PasswordSave::{}",
             match *self {
                 Self::Never => "Never",
                 Self::ForSession => "ForSession",
@@ -2283,7 +2283,7 @@ impl fmt::Display for ResolverRecordType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "ResolverRecordType::{}",
             match *self {
                 Self::Srv => "Srv",
                 Self::Mx => "Mx",
@@ -2374,7 +2374,7 @@ impl fmt::Display for ResourceError {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "ResourceError::{}",
             match *self {
                 Self::NotFound => "NotFound",
                 Self::Internal => "Internal",
@@ -2488,7 +2488,7 @@ impl fmt::Display for SocketClientEvent {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "SocketClientEvent::{}",
             match *self {
                 Self::Resolving => "Resolving",
                 Self::Resolved => "Resolved",
@@ -2595,7 +2595,7 @@ impl fmt::Display for SocketFamily {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "SocketFamily::{}",
             match *self {
                 Self::Invalid => "Invalid",
                 Self::Unix => "Unix",
@@ -2691,7 +2691,7 @@ impl fmt::Display for SocketListenerEvent {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "SocketListenerEvent::{}",
             match *self {
                 Self::Binding => "Binding",
                 Self::Bound => "Bound",
@@ -2797,7 +2797,7 @@ impl fmt::Display for SocketProtocol {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "SocketProtocol::{}",
             match *self {
                 Self::Unknown => "Unknown",
                 Self::Default => "Default",
@@ -2892,7 +2892,7 @@ impl fmt::Display for SocketType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "SocketType::{}",
             match *self {
                 Self::Invalid => "Invalid",
                 Self::Stream => "Stream",
@@ -2982,7 +2982,7 @@ impl fmt::Display for TlsAuthenticationMode {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "TlsAuthenticationMode::{}",
             match *self {
                 Self::None => "None",
                 Self::Requested => "Requested",
@@ -3065,7 +3065,7 @@ impl fmt::Display for TlsCertificateRequestFlags {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "TlsCertificateRequestFlags::{}",
             match *self {
                 Self::None => "None",
                 _ => "Unknown",
@@ -3148,7 +3148,7 @@ impl fmt::Display for TlsChannelBindingType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "TlsChannelBindingType::{}",
             match *self {
                 Self::Unique => "Unique",
                 Self::ServerEndPoint => "ServerEndPoint",
@@ -3242,7 +3242,7 @@ impl fmt::Display for TlsDatabaseLookupFlags {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "TlsDatabaseLookupFlags::{}",
             match *self {
                 Self::None => "None",
                 Self::Keypair => "Keypair",
@@ -3326,7 +3326,7 @@ impl fmt::Display for TlsInteractionResult {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "TlsInteractionResult::{}",
             match *self {
                 Self::Unhandled => "Unhandled",
                 Self::Handled => "Handled",
@@ -3414,7 +3414,7 @@ impl fmt::Display for TlsRehandshakeMode {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "TlsRehandshakeMode::{}",
             match *self {
                 Self::Never => "Never",
                 Self::Safely => "Safely",
@@ -3505,7 +3505,7 @@ impl fmt::Display for UnixSocketAddressType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "UnixSocketAddressType::{}",
             match *self {
                 Self::Invalid => "Invalid",
                 Self::Anonymous => "Anonymous",
@@ -3598,7 +3598,7 @@ impl fmt::Display for ZlibCompressorFormat {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "ZlibCompressorFormat::{}",
             match *self {
                 Self::Zlib => "Zlib",
                 Self::Gzip => "Gzip",

@@ -51,6 +51,7 @@ impl Widget {
     //}
 
     #[doc(alias = "gtk_widget_get_default_direction")]
+    #[doc(alias = "get_default_direction")]
     pub fn default_direction() -> TextDirection {
         assert_initialized_main_thread!();
         unsafe { from_glib(ffi::gtk_widget_get_default_direction()) }
@@ -227,223 +228,291 @@ pub trait WidgetExt: 'static {
     fn freeze_child_notify(&self);
 
     #[doc(alias = "gtk_widget_get_accessible")]
+    #[doc(alias = "get_accessible")]
     fn accessible(&self) -> Option<atk::Object>;
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_widget_get_action_group")]
+    #[doc(alias = "get_action_group")]
     fn action_group(&self, prefix: &str) -> Option<gio::ActionGroup>;
 
     #[doc(alias = "gtk_widget_get_allocated_baseline")]
+    #[doc(alias = "get_allocated_baseline")]
     fn allocated_baseline(&self) -> i32;
 
     #[doc(alias = "gtk_widget_get_allocated_height")]
+    #[doc(alias = "get_allocated_height")]
     fn allocated_height(&self) -> i32;
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "gtk_widget_get_allocated_size")]
+    #[doc(alias = "get_allocated_size")]
     fn allocated_size(&self) -> (Allocation, i32);
 
     #[doc(alias = "gtk_widget_get_allocated_width")]
+    #[doc(alias = "get_allocated_width")]
     fn allocated_width(&self) -> i32;
 
     #[doc(alias = "gtk_widget_get_allocation")]
+    #[doc(alias = "get_allocation")]
     fn allocation(&self) -> Allocation;
 
     #[doc(alias = "gtk_widget_get_ancestor")]
+    #[doc(alias = "get_ancestor")]
     fn ancestor(&self, widget_type: glib::types::Type) -> Option<Widget>;
 
     #[doc(alias = "gtk_widget_get_app_paintable")]
+    #[doc(alias = "get_app_paintable")]
     fn is_app_paintable(&self) -> bool;
 
     #[doc(alias = "gtk_widget_get_can_default")]
+    #[doc(alias = "get_can_default")]
     fn can_default(&self) -> bool;
 
     #[doc(alias = "gtk_widget_get_can_focus")]
+    #[doc(alias = "get_can_focus")]
     fn can_focus(&self) -> bool;
 
     #[doc(alias = "gtk_widget_get_child_visible")]
+    #[doc(alias = "get_child_visible")]
     fn is_child_visible(&self) -> bool;
 
     #[doc(alias = "gtk_widget_get_clip")]
+    #[doc(alias = "get_clip")]
     fn clip(&self) -> Allocation;
 
     #[doc(alias = "gtk_widget_get_clipboard")]
+    #[doc(alias = "get_clipboard")]
     fn clipboard(&self, selection: &gdk::Atom) -> Clipboard;
 
     #[doc(alias = "gtk_widget_get_device_enabled")]
+    #[doc(alias = "get_device_enabled")]
     fn device_is_enabled(&self, device: &gdk::Device) -> bool;
 
     #[doc(alias = "gtk_widget_get_device_events")]
+    #[doc(alias = "get_device_events")]
     fn device_events(&self, device: &gdk::Device) -> gdk::EventMask;
 
     #[doc(alias = "gtk_widget_get_direction")]
+    #[doc(alias = "get_direction")]
     fn direction(&self) -> TextDirection;
 
     #[doc(alias = "gtk_widget_get_display")]
+    #[doc(alias = "get_display")]
     fn display(&self) -> gdk::Display;
 
     #[doc(alias = "gtk_widget_get_double_buffered")]
+    #[doc(alias = "get_double_buffered")]
     fn is_double_buffered(&self) -> bool;
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "gtk_widget_get_focus_on_click")]
+    #[doc(alias = "get_focus_on_click")]
     fn gets_focus_on_click(&self) -> bool;
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gtk_widget_get_font_map")]
+    #[doc(alias = "get_font_map")]
     fn font_map(&self) -> Option<pango::FontMap>;
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gtk_widget_get_font_options")]
+    #[doc(alias = "get_font_options")]
     fn font_options(&self) -> Option<cairo::FontOptions>;
 
     #[doc(alias = "gtk_widget_get_frame_clock")]
+    #[doc(alias = "get_frame_clock")]
     fn frame_clock(&self) -> Option<gdk::FrameClock>;
 
     #[doc(alias = "gtk_widget_get_halign")]
+    #[doc(alias = "get_halign")]
     fn halign(&self) -> Align;
 
     #[doc(alias = "gtk_widget_get_has_tooltip")]
+    #[doc(alias = "get_has_tooltip")]
     fn has_tooltip(&self) -> bool;
 
     #[doc(alias = "gtk_widget_get_has_window")]
+    #[doc(alias = "get_has_window")]
     fn has_window(&self) -> bool;
 
     #[doc(alias = "gtk_widget_get_hexpand")]
+    #[doc(alias = "get_hexpand")]
     fn hexpands(&self) -> bool;
 
     #[doc(alias = "gtk_widget_get_hexpand_set")]
+    #[doc(alias = "get_hexpand_set")]
     fn is_hexpand_set(&self) -> bool;
 
     #[doc(alias = "gtk_widget_get_mapped")]
+    #[doc(alias = "get_mapped")]
     fn is_mapped(&self) -> bool;
 
     #[doc(alias = "gtk_widget_get_margin_bottom")]
+    #[doc(alias = "get_margin_bottom")]
     fn margin_bottom(&self) -> i32;
 
     #[doc(alias = "gtk_widget_get_margin_end")]
+    #[doc(alias = "get_margin_end")]
     fn margin_end(&self) -> i32;
 
     #[doc(alias = "gtk_widget_get_margin_start")]
+    #[doc(alias = "get_margin_start")]
     fn margin_start(&self) -> i32;
 
     #[doc(alias = "gtk_widget_get_margin_top")]
+    #[doc(alias = "get_margin_top")]
     fn margin_top(&self) -> i32;
 
     #[doc(alias = "gtk_widget_get_modifier_mask")]
+    #[doc(alias = "get_modifier_mask")]
     fn modifier_mask(&self, intent: gdk::ModifierIntent) -> gdk::ModifierType;
 
     #[doc(alias = "gtk_widget_get_name")]
+    #[doc(alias = "get_name")]
     fn widget_name(&self) -> glib::GString;
 
     #[doc(alias = "gtk_widget_get_no_show_all")]
+    #[doc(alias = "get_no_show_all")]
     fn is_no_show_all(&self) -> bool;
 
     #[doc(alias = "gtk_widget_get_opacity")]
+    #[doc(alias = "get_opacity")]
     fn opacity(&self) -> f64;
 
     #[doc(alias = "gtk_widget_get_pango_context")]
+    #[doc(alias = "get_pango_context")]
     fn pango_context(&self) -> pango::Context;
 
     #[doc(alias = "gtk_widget_get_parent")]
+    #[doc(alias = "get_parent")]
     fn parent(&self) -> Option<Widget>;
 
     #[doc(alias = "gtk_widget_get_parent_window")]
+    #[doc(alias = "get_parent_window")]
     fn parent_window(&self) -> Option<gdk::Window>;
 
     #[doc(alias = "gtk_widget_get_path")]
+    #[doc(alias = "get_path")]
     fn path(&self) -> WidgetPath;
 
     #[doc(alias = "gtk_widget_get_preferred_height")]
+    #[doc(alias = "get_preferred_height")]
     fn preferred_height(&self) -> (i32, i32);
 
     #[doc(alias = "gtk_widget_get_preferred_height_and_baseline_for_width")]
+    #[doc(alias = "get_preferred_height_and_baseline_for_width")]
     fn preferred_height_and_baseline_for_width(&self, width: i32) -> (i32, i32, i32, i32);
 
     #[doc(alias = "gtk_widget_get_preferred_height_for_width")]
+    #[doc(alias = "get_preferred_height_for_width")]
     fn preferred_height_for_width(&self, width: i32) -> (i32, i32);
 
     #[doc(alias = "gtk_widget_get_preferred_size")]
+    #[doc(alias = "get_preferred_size")]
     fn preferred_size(&self) -> (Requisition, Requisition);
 
     #[doc(alias = "gtk_widget_get_preferred_width")]
+    #[doc(alias = "get_preferred_width")]
     fn preferred_width(&self) -> (i32, i32);
 
     #[doc(alias = "gtk_widget_get_preferred_width_for_height")]
+    #[doc(alias = "get_preferred_width_for_height")]
     fn preferred_width_for_height(&self, height: i32) -> (i32, i32);
 
     #[doc(alias = "gtk_widget_get_realized")]
+    #[doc(alias = "get_realized")]
     fn is_realized(&self) -> bool;
 
     #[doc(alias = "gtk_widget_get_receives_default")]
+    #[doc(alias = "get_receives_default")]
     fn receives_default(&self) -> bool;
 
     #[doc(alias = "gtk_widget_get_request_mode")]
+    #[doc(alias = "get_request_mode")]
     fn request_mode(&self) -> SizeRequestMode;
 
     #[doc(alias = "gtk_widget_get_scale_factor")]
+    #[doc(alias = "get_scale_factor")]
     fn scale_factor(&self) -> i32;
 
     #[doc(alias = "gtk_widget_get_screen")]
+    #[doc(alias = "get_screen")]
     fn screen(&self) -> Option<gdk::Screen>;
 
     #[doc(alias = "gtk_widget_get_sensitive")]
     fn get_sensitive(&self) -> bool;
 
     #[doc(alias = "gtk_widget_get_settings")]
+    #[doc(alias = "get_settings")]
     fn settings(&self) -> Option<Settings>;
 
     #[doc(alias = "gtk_widget_get_size_request")]
+    #[doc(alias = "get_size_request")]
     fn size_request(&self) -> (i32, i32);
 
     #[doc(alias = "gtk_widget_get_state_flags")]
+    #[doc(alias = "get_state_flags")]
     fn state_flags(&self) -> StateFlags;
 
     #[doc(alias = "gtk_widget_get_style_context")]
+    #[doc(alias = "get_style_context")]
     fn style_context(&self) -> StyleContext;
 
     #[doc(alias = "gtk_widget_get_support_multidevice")]
+    #[doc(alias = "get_support_multidevice")]
     fn supports_multidevice(&self) -> bool;
 
     #[doc(alias = "gtk_widget_get_template_child")]
+    #[doc(alias = "get_template_child")]
     fn template_child(&self, widget_type: glib::types::Type, name: &str) -> Option<glib::Object>;
 
     #[doc(alias = "gtk_widget_get_tooltip_markup")]
+    #[doc(alias = "get_tooltip_markup")]
     fn tooltip_markup(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_widget_get_tooltip_text")]
+    #[doc(alias = "get_tooltip_text")]
     fn tooltip_text(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_widget_get_tooltip_window")]
+    #[doc(alias = "get_tooltip_window")]
     fn tooltip_window(&self) -> Option<Window>;
 
     #[doc(alias = "gtk_widget_get_toplevel")]
+    #[doc(alias = "get_toplevel")]
     fn toplevel(&self) -> Option<Widget>;
 
     #[doc(alias = "gtk_widget_get_valign")]
+    #[doc(alias = "get_valign")]
     fn valign(&self) -> Align;
 
     #[doc(alias = "gtk_widget_get_valign_with_baseline")]
+    #[doc(alias = "get_valign_with_baseline")]
     fn valign_with_baseline(&self) -> Align;
 
     #[doc(alias = "gtk_widget_get_vexpand")]
+    #[doc(alias = "get_vexpand")]
     fn vexpands(&self) -> bool;
 
     #[doc(alias = "gtk_widget_get_vexpand_set")]
+    #[doc(alias = "get_vexpand_set")]
     fn is_vexpand_set(&self) -> bool;
 
     #[doc(alias = "gtk_widget_get_visible")]
     fn get_visible(&self) -> bool;
 
     #[doc(alias = "gtk_widget_get_visual")]
+    #[doc(alias = "get_visual")]
     fn visual(&self) -> Option<gdk::Visual>;
 
     #[doc(alias = "gtk_widget_get_window")]
+    #[doc(alias = "get_window")]
     fn window(&self) -> Option<gdk::Window>;
 
     #[doc(alias = "gtk_grab_add")]
@@ -676,6 +745,7 @@ pub trait WidgetExt: 'static {
     fn set_margin_top(&self, margin: i32);
 
     #[doc(alias = "gtk_widget_set_name")]
+    #[doc(alias = "set_name")]
     fn set_widget_name(&self, name: &str);
 
     #[doc(alias = "gtk_widget_set_no_show_all")]
@@ -794,44 +864,42 @@ pub trait WidgetExt: 'static {
     #[doc(alias = "gtk_widget_unset_state_flags")]
     fn unset_state_flags(&self, flags: StateFlags);
 
-    #[doc(alias = "get_property_composite_child")]
+    #[doc(alias = "composite-child")]
     fn is_composite_child(&self) -> bool;
 
-    #[doc(alias = "get_property_expand")]
     fn expands(&self) -> bool;
 
-    #[doc(alias = "set_property_expand")]
     fn set_expand(&self, expand: bool);
 
-    #[doc(alias = "set_property_has_default")]
+    #[doc(alias = "has-default")]
     fn set_has_default(&self, has_default: bool);
 
-    #[doc(alias = "set_property_has_focus")]
+    #[doc(alias = "has-focus")]
     fn set_has_focus(&self, has_focus: bool);
 
-    #[doc(alias = "get_property_height_request")]
+    #[doc(alias = "height-request")]
     fn height_request(&self) -> i32;
 
-    #[doc(alias = "set_property_height_request")]
+    #[doc(alias = "height-request")]
     fn set_height_request(&self, height_request: i32);
 
-    #[doc(alias = "set_property_is_focus")]
+    #[doc(alias = "is-focus")]
     fn set_is_focus(&self, is_focus: bool);
 
-    #[doc(alias = "get_property_margin")]
     fn margin(&self) -> i32;
 
-    #[doc(alias = "set_property_margin")]
     fn set_margin(&self, margin: i32);
 
-    #[doc(alias = "get_property_width_request")]
+    #[doc(alias = "width-request")]
     fn width_request(&self) -> i32;
 
-    #[doc(alias = "set_property_width_request")]
+    #[doc(alias = "width-request")]
     fn set_width_request(&self, width_request: i32);
 
+    #[doc(alias = "accel-closures-changed")]
     fn connect_accel_closures_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "button-press-event")]
     fn connect_button_press_event<
         F: Fn(&Self, &gdk::EventButton) -> glib::signal::Inhibit + 'static,
     >(
@@ -839,6 +907,7 @@ pub trait WidgetExt: 'static {
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "button-release-event")]
     fn connect_button_release_event<
         F: Fn(&Self, &gdk::EventButton) -> glib::signal::Inhibit + 'static,
     >(
@@ -846,11 +915,13 @@ pub trait WidgetExt: 'static {
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "can-activate-accel")]
     fn connect_can_activate_accel<F: Fn(&Self, u32) -> bool + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "child-notify")]
     fn connect_child_notify<F: Fn(&Self, &glib::ParamSpec) + 'static>(
         &self,
         detail: Option<&str>,
@@ -858,53 +929,64 @@ pub trait WidgetExt: 'static {
     ) -> SignalHandlerId;
 
     #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
+    #[doc(alias = "composited-changed")]
     fn connect_composited_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
     fn emit_composited_changed(&self);
 
+    #[doc(alias = "configure-event")]
     fn connect_configure_event<F: Fn(&Self, &gdk::EventConfigure) -> bool + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "damage-event")]
     fn connect_damage_event<F: Fn(&Self, &gdk::EventExpose) -> bool + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "delete-event")]
     fn connect_delete_event<F: Fn(&Self, &gdk::Event) -> glib::signal::Inhibit + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "destroy")]
     fn connect_destroy<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "destroy-event")]
     fn connect_destroy_event<F: Fn(&Self, &gdk::Event) -> glib::signal::Inhibit + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "direction-changed")]
     fn connect_direction_changed<F: Fn(&Self, TextDirection) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "drag-begin")]
     fn connect_drag_begin<F: Fn(&Self, &gdk::DragContext) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "drag-data-delete")]
     fn connect_drag_data_delete<F: Fn(&Self, &gdk::DragContext) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "drag-data-get")]
     fn connect_drag_data_get<F: Fn(&Self, &gdk::DragContext, &SelectionData, u32, u32) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "drag-data-received")]
     fn connect_drag_data_received<
         F: Fn(&Self, &gdk::DragContext, i32, i32, &SelectionData, u32, u32) + 'static,
     >(
@@ -912,13 +994,16 @@ pub trait WidgetExt: 'static {
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "drag-drop")]
     fn connect_drag_drop<F: Fn(&Self, &gdk::DragContext, i32, i32, u32) -> bool + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "drag-end")]
     fn connect_drag_end<F: Fn(&Self, &gdk::DragContext) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "drag-failed")]
     fn connect_drag_failed<
         F: Fn(&Self, &gdk::DragContext, DragResult) -> glib::signal::Inhibit + 'static,
     >(
@@ -926,21 +1011,25 @@ pub trait WidgetExt: 'static {
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "drag-leave")]
     fn connect_drag_leave<F: Fn(&Self, &gdk::DragContext, u32) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "drag-motion")]
     fn connect_drag_motion<F: Fn(&Self, &gdk::DragContext, i32, i32, u32) -> bool + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "draw")]
     fn connect_draw<F: Fn(&Self, &cairo::Context) -> glib::signal::Inhibit + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "enter-notify-event")]
     fn connect_enter_notify_event<
         F: Fn(&Self, &gdk::EventCrossing) -> glib::signal::Inhibit + 'static,
     >(
@@ -948,28 +1037,34 @@ pub trait WidgetExt: 'static {
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "event")]
     fn connect_event<F: Fn(&Self, &gdk::Event) -> glib::signal::Inhibit + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "event-after")]
     fn connect_event_after<F: Fn(&Self, &gdk::Event) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "focus")]
     fn connect_focus<F: Fn(&Self, DirectionType) -> glib::signal::Inhibit + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "focus-in-event")]
     fn connect_focus_in_event<F: Fn(&Self, &gdk::EventFocus) -> glib::signal::Inhibit + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "focus-out-event")]
     fn connect_focus_out_event<F: Fn(&Self, &gdk::EventFocus) -> glib::signal::Inhibit + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "grab-broken-event")]
     fn connect_grab_broken_event<
         F: Fn(&Self, &gdk::EventGrabBroken) -> glib::signal::Inhibit + 'static,
     >(
@@ -977,34 +1072,42 @@ pub trait WidgetExt: 'static {
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "grab-focus")]
     fn connect_grab_focus<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn emit_grab_focus(&self);
 
+    #[doc(alias = "grab-notify")]
     fn connect_grab_notify<F: Fn(&Self, bool) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "hide")]
     fn connect_hide<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "hierarchy-changed")]
     fn connect_hierarchy_changed<F: Fn(&Self, Option<&Widget>) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "key-press-event")]
     fn connect_key_press_event<F: Fn(&Self, &gdk::EventKey) -> glib::signal::Inhibit + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "key-release-event")]
     fn connect_key_release_event<F: Fn(&Self, &gdk::EventKey) -> glib::signal::Inhibit + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "keynav-failed")]
     fn connect_keynav_failed<F: Fn(&Self, DirectionType) -> glib::signal::Inhibit + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "leave-notify-event")]
     fn connect_leave_notify_event<
         F: Fn(&Self, &gdk::EventCrossing) -> glib::signal::Inhibit + 'static,
     >(
@@ -1012,13 +1115,16 @@ pub trait WidgetExt: 'static {
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "map")]
     fn connect_map<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "mnemonic-activate")]
     fn connect_mnemonic_activate<F: Fn(&Self, bool) -> glib::signal::Inhibit + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "motion-notify-event")]
     fn connect_motion_notify_event<
         F: Fn(&Self, &gdk::EventMotion) -> glib::signal::Inhibit + 'static,
     >(
@@ -1026,16 +1132,20 @@ pub trait WidgetExt: 'static {
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "move-focus")]
     fn connect_move_focus<F: Fn(&Self, DirectionType) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn emit_move_focus(&self, direction: DirectionType);
 
+    #[doc(alias = "parent-set")]
     fn connect_parent_set<F: Fn(&Self, Option<&Widget>) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "popup-menu")]
     fn connect_popup_menu<F: Fn(&Self) -> bool + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn emit_popup_menu(&self) -> bool;
 
+    #[doc(alias = "property-notify-event")]
     fn connect_property_notify_event<
         F: Fn(&Self, &gdk::EventProperty) -> glib::signal::Inhibit + 'static,
     >(
@@ -1043,6 +1153,7 @@ pub trait WidgetExt: 'static {
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "proximity-in-event")]
     fn connect_proximity_in_event<
         F: Fn(&Self, &gdk::EventProximity) -> glib::signal::Inhibit + 'static,
     >(
@@ -1050,6 +1161,7 @@ pub trait WidgetExt: 'static {
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "proximity-out-event")]
     fn connect_proximity_out_event<
         F: Fn(&Self, &gdk::EventProximity) -> glib::signal::Inhibit + 'static,
     >(
@@ -1057,23 +1169,28 @@ pub trait WidgetExt: 'static {
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "query-tooltip")]
     fn connect_query_tooltip<F: Fn(&Self, i32, i32, bool, &Tooltip) -> bool + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "realize")]
     fn connect_realize<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "screen-changed")]
     fn connect_screen_changed<F: Fn(&Self, Option<&gdk::Screen>) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "scroll-event")]
     fn connect_scroll_event<F: Fn(&Self, &gdk::EventScroll) -> glib::signal::Inhibit + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "selection-clear-event")]
     fn connect_selection_clear_event<
         F: Fn(&Self, &gdk::EventSelection) -> glib::signal::Inhibit + 'static,
     >(
@@ -1081,11 +1198,13 @@ pub trait WidgetExt: 'static {
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "selection-get")]
     fn connect_selection_get<F: Fn(&Self, &SelectionData, u32, u32) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "selection-notify-event")]
     fn connect_selection_notify_event<
         F: Fn(&Self, &gdk::EventSelection) -> glib::signal::Inhibit + 'static,
     >(
@@ -1093,11 +1212,13 @@ pub trait WidgetExt: 'static {
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "selection-received")]
     fn connect_selection_received<F: Fn(&Self, &SelectionData, u32) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "selection-request-event")]
     fn connect_selection_request_event<
         F: Fn(&Self, &gdk::EventSelection) -> glib::signal::Inhibit + 'static,
     >(
@@ -1105,8 +1226,10 @@ pub trait WidgetExt: 'static {
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "show")]
     fn connect_show<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "show-help")]
     fn connect_show_help<F: Fn(&Self, WidgetHelpType) -> bool + 'static>(
         &self,
         f: F,
@@ -1114,24 +1237,31 @@ pub trait WidgetExt: 'static {
 
     fn emit_show_help(&self, help_type: WidgetHelpType) -> bool;
 
+    #[doc(alias = "size-allocate")]
     fn connect_size_allocate<F: Fn(&Self, &Allocation) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "state-flags-changed")]
     fn connect_state_flags_changed<F: Fn(&Self, StateFlags) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "style-updated")]
     fn connect_style_updated<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "touch-event")]
     fn connect_touch_event<F: Fn(&Self, &gdk::Event) -> glib::signal::Inhibit + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "unmap")]
     fn connect_unmap<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "unrealize")]
     fn connect_unrealize<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "window-state-event")]
     fn connect_window_state_event<
         F: Fn(&Self, &gdk::EventWindowState) -> glib::signal::Inhibit + 'static,
     >(
@@ -1139,104 +1269,112 @@ pub trait WidgetExt: 'static {
         f: F,
     ) -> SignalHandlerId;
 
-    fn connect_property_app_paintable_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "app-paintable")]
+    fn connect_app_paintable_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_can_default_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "can-default")]
+    fn connect_can_default_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_can_focus_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "can-focus")]
+    fn connect_can_focus_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_composite_child_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "composite-child")]
+    fn connect_composite_child_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_events_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "events")]
+    fn connect_events_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_expand_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "expand")]
+    fn connect_expand_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-    fn connect_property_focus_on_click_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "focus-on-click")]
+    fn connect_focus_on_click_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_halign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "halign")]
+    fn connect_halign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_has_default_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "has-default")]
+    fn connect_has_default_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_has_focus_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "has-focus")]
+    fn connect_has_focus_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_has_tooltip_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "has-tooltip")]
+    fn connect_has_tooltip_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_height_request_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "height-request")]
+    fn connect_height_request_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_hexpand_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "hexpand")]
+    fn connect_hexpand_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_hexpand_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "hexpand-set")]
+    fn connect_hexpand_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_is_focus_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "is-focus")]
+    fn connect_is_focus_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_margin_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "margin")]
+    fn connect_margin_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_margin_bottom_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "margin-bottom")]
+    fn connect_margin_bottom_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_margin_end_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "margin-end")]
+    fn connect_margin_end_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_margin_start_notify<F: Fn(&Self) + 'static>(&self, f: F)
-        -> SignalHandlerId;
+    #[doc(alias = "margin-start")]
+    fn connect_margin_start_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_margin_top_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "margin-top")]
+    fn connect_margin_top_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "name")]
+    fn connect_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_no_show_all_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "no-show-all")]
+    fn connect_no_show_all_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_opacity_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "opacity")]
+    fn connect_opacity_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_parent_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "parent")]
+    fn connect_parent_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_receives_default_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "receives-default")]
+    fn connect_receives_default_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_scale_factor_notify<F: Fn(&Self) + 'static>(&self, f: F)
-        -> SignalHandlerId;
+    #[doc(alias = "scale-factor")]
+    fn connect_scale_factor_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_sensitive_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "sensitive")]
+    fn connect_sensitive_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_tooltip_markup_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "tooltip-markup")]
+    fn connect_tooltip_markup_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_tooltip_text_notify<F: Fn(&Self) + 'static>(&self, f: F)
-        -> SignalHandlerId;
+    #[doc(alias = "tooltip-text")]
+    fn connect_tooltip_text_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_valign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "valign")]
+    fn connect_valign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_vexpand_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "vexpand")]
+    fn connect_vexpand_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_vexpand_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "vexpand-set")]
+    fn connect_vexpand_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_visible_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "visible")]
+    fn connect_visible_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_width_request_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "width-request")]
+    fn connect_width_request_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_window_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "window")]
+    fn connect_window_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<Widget>> WidgetExt for O {
@@ -3092,6 +3230,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "accel-closures-changed")]
     fn connect_accel_closures_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn accel_closures_changed_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
@@ -3115,6 +3254,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "button-press-event")]
     fn connect_button_press_event<
         F: Fn(&Self, &gdk::EventButton) -> glib::signal::Inhibit + 'static,
     >(
@@ -3152,6 +3292,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "button-release-event")]
     fn connect_button_release_event<
         F: Fn(&Self, &gdk::EventButton) -> glib::signal::Inhibit + 'static,
     >(
@@ -3189,6 +3330,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "can-activate-accel")]
     fn connect_can_activate_accel<F: Fn(&Self, u32) -> bool + 'static>(
         &self,
         f: F,
@@ -3217,6 +3359,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "child-notify")]
     fn connect_child_notify<F: Fn(&Self, &glib::ParamSpec) + 'static>(
         &self,
         detail: Option<&str>,
@@ -3252,6 +3395,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "composited-changed")]
     fn connect_composited_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn composited_changed_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
@@ -3283,6 +3427,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         };
     }
 
+    #[doc(alias = "configure-event")]
     fn connect_configure_event<F: Fn(&Self, &gdk::EventConfigure) -> bool + 'static>(
         &self,
         f: F,
@@ -3318,6 +3463,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "damage-event")]
     fn connect_damage_event<F: Fn(&Self, &gdk::EventExpose) -> bool + 'static>(
         &self,
         f: F,
@@ -3353,6 +3499,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "delete-event")]
     fn connect_delete_event<F: Fn(&Self, &gdk::Event) -> glib::signal::Inhibit + 'static>(
         &self,
         f: F,
@@ -3388,6 +3535,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "destroy")]
     fn connect_destroy<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn destroy_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
@@ -3411,6 +3559,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "destroy-event")]
     fn connect_destroy_event<F: Fn(&Self, &gdk::Event) -> glib::signal::Inhibit + 'static>(
         &self,
         f: F,
@@ -3446,6 +3595,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "direction-changed")]
     fn connect_direction_changed<F: Fn(&Self, TextDirection) + 'static>(
         &self,
         f: F,
@@ -3476,6 +3626,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "drag-begin")]
     fn connect_drag_begin<F: Fn(&Self, &gdk::DragContext) + 'static>(
         &self,
         f: F,
@@ -3506,6 +3657,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "drag-data-delete")]
     fn connect_drag_data_delete<F: Fn(&Self, &gdk::DragContext) + 'static>(
         &self,
         f: F,
@@ -3539,6 +3691,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "drag-data-get")]
     fn connect_drag_data_get<
         F: Fn(&Self, &gdk::DragContext, &SelectionData, u32, u32) + 'static,
     >(
@@ -3580,6 +3733,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "drag-data-received")]
     fn connect_drag_data_received<
         F: Fn(&Self, &gdk::DragContext, i32, i32, &SelectionData, u32, u32) + 'static,
     >(
@@ -3625,6 +3779,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "drag-drop")]
     fn connect_drag_drop<F: Fn(&Self, &gdk::DragContext, i32, i32, u32) -> bool + 'static>(
         &self,
         f: F,
@@ -3666,6 +3821,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "drag-end")]
     fn connect_drag_end<F: Fn(&Self, &gdk::DragContext) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn drag_end_trampoline<P, F: Fn(&P, &gdk::DragContext) + 'static>(
             this: *mut ffi::GtkWidget,
@@ -3693,6 +3849,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "drag-failed")]
     fn connect_drag_failed<
         F: Fn(&Self, &gdk::DragContext, DragResult) -> glib::signal::Inhibit + 'static,
     >(
@@ -3732,6 +3889,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "drag-leave")]
     fn connect_drag_leave<F: Fn(&Self, &gdk::DragContext, u32) + 'static>(
         &self,
         f: F,
@@ -3764,6 +3922,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "drag-motion")]
     fn connect_drag_motion<F: Fn(&Self, &gdk::DragContext, i32, i32, u32) -> bool + 'static>(
         &self,
         f: F,
@@ -3805,6 +3964,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "draw")]
     fn connect_draw<F: Fn(&Self, &cairo::Context) -> glib::signal::Inhibit + 'static>(
         &self,
         f: F,
@@ -3840,6 +4000,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "enter-notify-event")]
     fn connect_enter_notify_event<
         F: Fn(&Self, &gdk::EventCrossing) -> glib::signal::Inhibit + 'static,
     >(
@@ -3877,6 +4038,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "event")]
     fn connect_event<F: Fn(&Self, &gdk::Event) -> glib::signal::Inhibit + 'static>(
         &self,
         f: F,
@@ -3912,6 +4074,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "event-after")]
     fn connect_event_after<F: Fn(&Self, &gdk::Event) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn event_after_trampoline<P, F: Fn(&P, &gdk::Event) + 'static>(
             this: *mut ffi::GtkWidget,
@@ -3939,6 +4102,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "focus")]
     fn connect_focus<F: Fn(&Self, DirectionType) -> glib::signal::Inhibit + 'static>(
         &self,
         f: F,
@@ -3974,6 +4138,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "focus-in-event")]
     fn connect_focus_in_event<F: Fn(&Self, &gdk::EventFocus) -> glib::signal::Inhibit + 'static>(
         &self,
         f: F,
@@ -4009,6 +4174,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "focus-out-event")]
     fn connect_focus_out_event<
         F: Fn(&Self, &gdk::EventFocus) -> glib::signal::Inhibit + 'static,
     >(
@@ -4046,6 +4212,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "grab-broken-event")]
     fn connect_grab_broken_event<
         F: Fn(&Self, &gdk::EventGrabBroken) -> glib::signal::Inhibit + 'static,
     >(
@@ -4083,6 +4250,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "grab-focus")]
     fn connect_grab_focus<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn grab_focus_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
@@ -4114,6 +4282,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         };
     }
 
+    #[doc(alias = "grab-notify")]
     fn connect_grab_notify<F: Fn(&Self, bool) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn grab_notify_trampoline<P, F: Fn(&P, bool) + 'static>(
             this: *mut ffi::GtkWidget,
@@ -4141,6 +4310,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "hide")]
     fn connect_hide<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn hide_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
@@ -4164,6 +4334,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "hierarchy-changed")]
     fn connect_hierarchy_changed<F: Fn(&Self, Option<&Widget>) + 'static>(
         &self,
         f: F,
@@ -4196,6 +4367,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "key-press-event")]
     fn connect_key_press_event<F: Fn(&Self, &gdk::EventKey) -> glib::signal::Inhibit + 'static>(
         &self,
         f: F,
@@ -4231,6 +4403,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "key-release-event")]
     fn connect_key_release_event<
         F: Fn(&Self, &gdk::EventKey) -> glib::signal::Inhibit + 'static,
     >(
@@ -4268,6 +4441,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "keynav-failed")]
     fn connect_keynav_failed<F: Fn(&Self, DirectionType) -> glib::signal::Inhibit + 'static>(
         &self,
         f: F,
@@ -4303,6 +4477,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "leave-notify-event")]
     fn connect_leave_notify_event<
         F: Fn(&Self, &gdk::EventCrossing) -> glib::signal::Inhibit + 'static,
     >(
@@ -4340,6 +4515,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "map")]
     fn connect_map<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn map_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
@@ -4363,6 +4539,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "mnemonic-activate")]
     fn connect_mnemonic_activate<F: Fn(&Self, bool) -> glib::signal::Inhibit + 'static>(
         &self,
         f: F,
@@ -4398,6 +4575,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "motion-notify-event")]
     fn connect_motion_notify_event<
         F: Fn(&Self, &gdk::EventMotion) -> glib::signal::Inhibit + 'static,
     >(
@@ -4435,6 +4613,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "move-focus")]
     fn connect_move_focus<F: Fn(&Self, DirectionType) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn move_focus_trampoline<P, F: Fn(&P, DirectionType) + 'static>(
             this: *mut ffi::GtkWidget,
@@ -4470,6 +4649,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         };
     }
 
+    #[doc(alias = "parent-set")]
     fn connect_parent_set<F: Fn(&Self, Option<&Widget>) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn parent_set_trampoline<P, F: Fn(&P, Option<&Widget>) + 'static>(
             this: *mut ffi::GtkWidget,
@@ -4499,6 +4679,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "popup-menu")]
     fn connect_popup_menu<F: Fn(&Self) -> bool + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn popup_menu_trampoline<P, F: Fn(&P) -> bool + 'static>(
             this: *mut ffi::GtkWidget,
@@ -4534,6 +4715,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
             .expect("Return Value for `emit_popup_menu`")
     }
 
+    #[doc(alias = "property-notify-event")]
     fn connect_property_notify_event<
         F: Fn(&Self, &gdk::EventProperty) -> glib::signal::Inhibit + 'static,
     >(
@@ -4571,6 +4753,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "proximity-in-event")]
     fn connect_proximity_in_event<
         F: Fn(&Self, &gdk::EventProximity) -> glib::signal::Inhibit + 'static,
     >(
@@ -4608,6 +4791,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "proximity-out-event")]
     fn connect_proximity_out_event<
         F: Fn(&Self, &gdk::EventProximity) -> glib::signal::Inhibit + 'static,
     >(
@@ -4645,6 +4829,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "query-tooltip")]
     fn connect_query_tooltip<F: Fn(&Self, i32, i32, bool, &Tooltip) -> bool + 'static>(
         &self,
         f: F,
@@ -4686,6 +4871,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "realize")]
     fn connect_realize<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn realize_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
@@ -4709,6 +4895,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "screen-changed")]
     fn connect_screen_changed<F: Fn(&Self, Option<&gdk::Screen>) + 'static>(
         &self,
         f: F,
@@ -4744,6 +4931,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "scroll-event")]
     fn connect_scroll_event<F: Fn(&Self, &gdk::EventScroll) -> glib::signal::Inhibit + 'static>(
         &self,
         f: F,
@@ -4779,6 +4967,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "selection-clear-event")]
     fn connect_selection_clear_event<
         F: Fn(&Self, &gdk::EventSelection) -> glib::signal::Inhibit + 'static,
     >(
@@ -4816,6 +5005,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "selection-get")]
     fn connect_selection_get<F: Fn(&Self, &SelectionData, u32, u32) + 'static>(
         &self,
         f: F,
@@ -4853,6 +5043,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "selection-notify-event")]
     fn connect_selection_notify_event<
         F: Fn(&Self, &gdk::EventSelection) -> glib::signal::Inhibit + 'static,
     >(
@@ -4890,6 +5081,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "selection-received")]
     fn connect_selection_received<F: Fn(&Self, &SelectionData, u32) + 'static>(
         &self,
         f: F,
@@ -4925,6 +5117,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "selection-request-event")]
     fn connect_selection_request_event<
         F: Fn(&Self, &gdk::EventSelection) -> glib::signal::Inhibit + 'static,
     >(
@@ -4962,6 +5155,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "show")]
     fn connect_show<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn show_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
@@ -4985,6 +5179,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "show-help")]
     fn connect_show_help<F: Fn(&Self, WidgetHelpType) -> bool + 'static>(
         &self,
         f: F,
@@ -5028,6 +5223,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
             .expect("Return Value for `emit_show_help`")
     }
 
+    #[doc(alias = "size-allocate")]
     fn connect_size_allocate<F: Fn(&Self, &Allocation) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn size_allocate_trampoline<P, F: Fn(&P, &Allocation) + 'static>(
             this: *mut ffi::GtkWidget,
@@ -5055,6 +5251,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "state-flags-changed")]
     fn connect_state_flags_changed<F: Fn(&Self, StateFlags) + 'static>(
         &self,
         f: F,
@@ -5085,6 +5282,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "style-updated")]
     fn connect_style_updated<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn style_updated_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
@@ -5108,6 +5306,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "touch-event")]
     fn connect_touch_event<F: Fn(&Self, &gdk::Event) -> glib::signal::Inhibit + 'static>(
         &self,
         f: F,
@@ -5143,6 +5342,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "unmap")]
     fn connect_unmap<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn unmap_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
@@ -5166,6 +5366,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "unrealize")]
     fn connect_unrealize<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn unrealize_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
@@ -5189,6 +5390,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
+    #[doc(alias = "window-state-event")]
     fn connect_window_state_event<
         F: Fn(&Self, &gdk::EventWindowState) -> glib::signal::Inhibit + 'static,
     >(
@@ -5226,10 +5428,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn connect_property_app_paintable_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "app-paintable")]
+    fn connect_app_paintable_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_app_paintable_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
@@ -5253,7 +5453,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn connect_property_can_default_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "can-default")]
+    fn connect_can_default_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_can_default_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
@@ -5277,7 +5478,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn connect_property_can_focus_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "can-focus")]
+    fn connect_can_focus_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_can_focus_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
@@ -5301,10 +5503,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn connect_property_composite_child_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "composite-child")]
+    fn connect_composite_child_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_composite_child_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
@@ -5328,7 +5528,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn connect_property_events_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "events")]
+    fn connect_events_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_events_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
@@ -5352,7 +5553,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn connect_property_expand_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "expand")]
+    fn connect_expand_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_expand_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
@@ -5378,10 +5580,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-    fn connect_property_focus_on_click_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "focus-on-click")]
+    fn connect_focus_on_click_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_focus_on_click_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
@@ -5405,7 +5605,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn connect_property_halign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "halign")]
+    fn connect_halign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_halign_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
@@ -5429,7 +5630,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn connect_property_has_default_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "has-default")]
+    fn connect_has_default_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_has_default_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
@@ -5453,7 +5655,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn connect_property_has_focus_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "has-focus")]
+    fn connect_has_focus_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_has_focus_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
@@ -5477,7 +5680,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn connect_property_has_tooltip_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "has-tooltip")]
+    fn connect_has_tooltip_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_has_tooltip_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
@@ -5501,10 +5705,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn connect_property_height_request_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "height-request")]
+    fn connect_height_request_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_height_request_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
@@ -5528,7 +5730,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn connect_property_hexpand_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "hexpand")]
+    fn connect_hexpand_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_hexpand_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
@@ -5552,7 +5755,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn connect_property_hexpand_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "hexpand-set")]
+    fn connect_hexpand_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_hexpand_set_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
@@ -5576,7 +5780,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn connect_property_is_focus_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "is-focus")]
+    fn connect_is_focus_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_is_focus_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
@@ -5600,7 +5805,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn connect_property_margin_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "margin")]
+    fn connect_margin_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_margin_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
@@ -5624,10 +5830,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn connect_property_margin_bottom_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "margin-bottom")]
+    fn connect_margin_bottom_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_margin_bottom_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
@@ -5651,7 +5855,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn connect_property_margin_end_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "margin-end")]
+    fn connect_margin_end_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_margin_end_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
@@ -5675,10 +5880,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn connect_property_margin_start_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "margin-start")]
+    fn connect_margin_start_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_margin_start_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
@@ -5702,7 +5905,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn connect_property_margin_top_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "margin-top")]
+    fn connect_margin_top_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_margin_top_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
@@ -5726,7 +5930,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn connect_property_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "name")]
+    fn connect_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_name_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
@@ -5750,7 +5955,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn connect_property_no_show_all_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "no-show-all")]
+    fn connect_no_show_all_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_no_show_all_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
@@ -5774,7 +5980,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn connect_property_opacity_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "opacity")]
+    fn connect_opacity_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_opacity_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
@@ -5798,7 +6005,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn connect_property_parent_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "parent")]
+    fn connect_parent_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_parent_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
@@ -5822,10 +6030,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn connect_property_receives_default_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "receives-default")]
+    fn connect_receives_default_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_receives_default_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
@@ -5849,10 +6055,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn connect_property_scale_factor_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "scale-factor")]
+    fn connect_scale_factor_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_scale_factor_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
@@ -5876,7 +6080,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn connect_property_sensitive_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "sensitive")]
+    fn connect_sensitive_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_sensitive_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
@@ -5900,10 +6105,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn connect_property_tooltip_markup_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "tooltip-markup")]
+    fn connect_tooltip_markup_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_tooltip_markup_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
@@ -5927,10 +6130,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn connect_property_tooltip_text_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "tooltip-text")]
+    fn connect_tooltip_text_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_tooltip_text_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
@@ -5954,7 +6155,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn connect_property_valign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "valign")]
+    fn connect_valign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_valign_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
@@ -5978,7 +6180,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn connect_property_vexpand_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "vexpand")]
+    fn connect_vexpand_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_vexpand_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
@@ -6002,7 +6205,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn connect_property_vexpand_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "vexpand-set")]
+    fn connect_vexpand_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_vexpand_set_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
@@ -6026,7 +6230,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn connect_property_visible_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "visible")]
+    fn connect_visible_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_visible_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
@@ -6050,10 +6255,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn connect_property_width_request_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "width-request")]
+    fn connect_width_request_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_width_request_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
@@ -6077,7 +6280,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn connect_property_window_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "window")]
+    fn connect_window_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_window_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,

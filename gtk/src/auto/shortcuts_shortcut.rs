@@ -35,7 +35,7 @@ glib::wrapper! {
 }
 
 impl ShortcutsShortcut {
-    #[doc(alias = "set_property_accel_size_group")]
+    #[doc(alias = "accel-size-group")]
     pub fn set_accel_size_group<P: IsA<SizeGroup>>(&self, accel_size_group: Option<&P>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
@@ -46,7 +46,6 @@ impl ShortcutsShortcut {
         }
     }
 
-    #[doc(alias = "get_property_accelerator")]
     pub fn accelerator(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
@@ -61,7 +60,6 @@ impl ShortcutsShortcut {
         }
     }
 
-    #[doc(alias = "set_property_accelerator")]
     pub fn set_accelerator(&self, accelerator: Option<&str>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
@@ -74,7 +72,7 @@ impl ShortcutsShortcut {
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    #[doc(alias = "get_property_action_name")]
+    #[doc(alias = "action-name")]
     pub fn action_name(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
@@ -91,7 +89,7 @@ impl ShortcutsShortcut {
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    #[doc(alias = "set_property_action_name")]
+    #[doc(alias = "action-name")]
     pub fn set_action_name(&self, action_name: Option<&str>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
@@ -102,7 +100,6 @@ impl ShortcutsShortcut {
         }
     }
 
-    #[doc(alias = "get_property_icon")]
     pub fn icon(&self) -> Option<gio::Icon> {
         unsafe {
             let mut value = glib::Value::from_type(<gio::Icon as StaticType>::static_type());
@@ -117,7 +114,6 @@ impl ShortcutsShortcut {
         }
     }
 
-    #[doc(alias = "set_property_icon")]
     pub fn set_icon<P: IsA<gio::Icon>>(&self, icon: Option<&P>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
@@ -128,7 +124,7 @@ impl ShortcutsShortcut {
         }
     }
 
-    #[doc(alias = "get_property_icon_set")]
+    #[doc(alias = "icon-set")]
     pub fn is_icon_set(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
@@ -143,7 +139,7 @@ impl ShortcutsShortcut {
         }
     }
 
-    #[doc(alias = "set_property_icon_set")]
+    #[doc(alias = "icon-set")]
     pub fn set_icon_set(&self, icon_set: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
@@ -154,7 +150,7 @@ impl ShortcutsShortcut {
         }
     }
 
-    #[doc(alias = "get_property_shortcut_type")]
+    #[doc(alias = "shortcut-type")]
     pub fn shortcut_type(&self) -> ShortcutType {
         unsafe {
             let mut value = glib::Value::from_type(<ShortcutType as StaticType>::static_type());
@@ -169,7 +165,7 @@ impl ShortcutsShortcut {
         }
     }
 
-    #[doc(alias = "set_property_shortcut_type")]
+    #[doc(alias = "shortcut-type")]
     pub fn set_shortcut_type(&self, shortcut_type: ShortcutType) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
@@ -180,7 +176,6 @@ impl ShortcutsShortcut {
         }
     }
 
-    #[doc(alias = "get_property_subtitle")]
     pub fn subtitle(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
@@ -195,7 +190,6 @@ impl ShortcutsShortcut {
         }
     }
 
-    #[doc(alias = "set_property_subtitle")]
     pub fn set_subtitle(&self, subtitle: Option<&str>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
@@ -206,7 +200,7 @@ impl ShortcutsShortcut {
         }
     }
 
-    #[doc(alias = "get_property_subtitle_set")]
+    #[doc(alias = "subtitle-set")]
     pub fn is_subtitle_set(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
@@ -221,7 +215,7 @@ impl ShortcutsShortcut {
         }
     }
 
-    #[doc(alias = "set_property_subtitle_set")]
+    #[doc(alias = "subtitle-set")]
     pub fn set_subtitle_set(&self, subtitle_set: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
@@ -232,7 +226,6 @@ impl ShortcutsShortcut {
         }
     }
 
-    #[doc(alias = "get_property_title")]
     pub fn title(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
@@ -247,7 +240,6 @@ impl ShortcutsShortcut {
         }
     }
 
-    #[doc(alias = "set_property_title")]
     pub fn set_title(&self, title: Option<&str>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
@@ -258,7 +250,7 @@ impl ShortcutsShortcut {
         }
     }
 
-    #[doc(alias = "set_property_title_size_group")]
+    #[doc(alias = "title-size-group")]
     pub fn set_title_size_group<P: IsA<SizeGroup>>(&self, title_size_group: Option<&P>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
@@ -269,7 +261,8 @@ impl ShortcutsShortcut {
         }
     }
 
-    pub fn connect_property_accel_size_group_notify<F: Fn(&ShortcutsShortcut) + 'static>(
+    #[doc(alias = "accel-size-group")]
+    pub fn connect_accel_size_group_notify<F: Fn(&ShortcutsShortcut) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -296,7 +289,8 @@ impl ShortcutsShortcut {
         }
     }
 
-    pub fn connect_property_accelerator_notify<F: Fn(&ShortcutsShortcut) + 'static>(
+    #[doc(alias = "accelerator")]
+    pub fn connect_accelerator_notify<F: Fn(&ShortcutsShortcut) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -323,7 +317,8 @@ impl ShortcutsShortcut {
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    pub fn connect_property_action_name_notify<F: Fn(&ShortcutsShortcut) + 'static>(
+    #[doc(alias = "action-name")]
+    pub fn connect_action_name_notify<F: Fn(&ShortcutsShortcut) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -348,7 +343,8 @@ impl ShortcutsShortcut {
         }
     }
 
-    pub fn connect_property_direction_notify<F: Fn(&ShortcutsShortcut) + 'static>(
+    #[doc(alias = "direction")]
+    pub fn connect_direction_notify<F: Fn(&ShortcutsShortcut) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -373,7 +369,8 @@ impl ShortcutsShortcut {
         }
     }
 
-    pub fn connect_property_icon_notify<F: Fn(&ShortcutsShortcut) + 'static>(
+    #[doc(alias = "icon")]
+    pub fn connect_icon_notify<F: Fn(&ShortcutsShortcut) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -398,7 +395,8 @@ impl ShortcutsShortcut {
         }
     }
 
-    pub fn connect_property_icon_set_notify<F: Fn(&ShortcutsShortcut) + 'static>(
+    #[doc(alias = "icon-set")]
+    pub fn connect_icon_set_notify<F: Fn(&ShortcutsShortcut) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -423,7 +421,8 @@ impl ShortcutsShortcut {
         }
     }
 
-    pub fn connect_property_shortcut_type_notify<F: Fn(&ShortcutsShortcut) + 'static>(
+    #[doc(alias = "shortcut-type")]
+    pub fn connect_shortcut_type_notify<F: Fn(&ShortcutsShortcut) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -450,7 +449,8 @@ impl ShortcutsShortcut {
         }
     }
 
-    pub fn connect_property_subtitle_notify<F: Fn(&ShortcutsShortcut) + 'static>(
+    #[doc(alias = "subtitle")]
+    pub fn connect_subtitle_notify<F: Fn(&ShortcutsShortcut) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -475,7 +475,8 @@ impl ShortcutsShortcut {
         }
     }
 
-    pub fn connect_property_subtitle_set_notify<F: Fn(&ShortcutsShortcut) + 'static>(
+    #[doc(alias = "subtitle-set")]
+    pub fn connect_subtitle_set_notify<F: Fn(&ShortcutsShortcut) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -500,7 +501,8 @@ impl ShortcutsShortcut {
         }
     }
 
-    pub fn connect_property_title_notify<F: Fn(&ShortcutsShortcut) + 'static>(
+    #[doc(alias = "title")]
+    pub fn connect_title_notify<F: Fn(&ShortcutsShortcut) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -525,7 +527,8 @@ impl ShortcutsShortcut {
         }
     }
 
-    pub fn connect_property_title_size_group_notify<F: Fn(&ShortcutsShortcut) + 'static>(
+    #[doc(alias = "title-size-group")]
+    pub fn connect_title_size_group_notify<F: Fn(&ShortcutsShortcut) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -770,8 +773,8 @@ impl ShortcutsShortcutBuilder {
         if let Some(ref orientation) = self.orientation {
             properties.push(("orientation", orientation));
         }
-        let ret = glib::Object::new::<ShortcutsShortcut>(&properties).expect("object new");
-        ret
+        glib::Object::new::<ShortcutsShortcut>(&properties)
+            .expect("Failed to create an instance of ShortcutsShortcut")
     }
 
     pub fn accel_size_group<P: IsA<SizeGroup>>(mut self, accel_size_group: &P) -> Self {

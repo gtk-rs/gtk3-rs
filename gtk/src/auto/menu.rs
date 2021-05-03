@@ -39,6 +39,7 @@ impl Menu {
     }
 
     #[doc(alias = "gtk_menu_new_from_model")]
+    #[doc(alias = "new_from_model")]
     pub fn from_model<P: IsA<gio::MenuModel>>(model: &P) -> Menu {
         assert_initialized_main_thread!();
         unsafe {
@@ -50,6 +51,7 @@ impl Menu {
     }
 
     #[doc(alias = "gtk_menu_get_for_attach_widget")]
+    #[doc(alias = "get_for_attach_widget")]
     pub fn for_attach_widget<P: IsA<Widget>>(widget: &P) -> Vec<Widget> {
         skip_assert_initialized!();
         unsafe {
@@ -276,8 +278,7 @@ impl MenuBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        let ret = glib::Object::new::<Menu>(&properties).expect("object new");
-        ret
+        glib::Object::new::<Menu>(&properties).expect("Failed to create an instance of Menu")
     }
 
     pub fn accel_group<P: IsA<AccelGroup>>(mut self, accel_group: &P) -> Self {
@@ -541,21 +542,27 @@ pub trait GtkMenuExt: 'static {
     fn detach(&self);
 
     #[doc(alias = "gtk_menu_get_accel_group")]
+    #[doc(alias = "get_accel_group")]
     fn accel_group(&self) -> Option<AccelGroup>;
 
     #[doc(alias = "gtk_menu_get_accel_path")]
+    #[doc(alias = "get_accel_path")]
     fn accel_path(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_menu_get_active")]
+    #[doc(alias = "get_active")]
     fn active(&self) -> Option<Widget>;
 
     #[doc(alias = "gtk_menu_get_attach_widget")]
+    #[doc(alias = "get_attach_widget")]
     fn attach_widget(&self) -> Option<Widget>;
 
     #[doc(alias = "gtk_menu_get_monitor")]
+    #[doc(alias = "get_monitor")]
     fn monitor(&self) -> i32;
 
     #[doc(alias = "gtk_menu_get_reserve_toggle_size")]
+    #[doc(alias = "get_reserve_toggle_size")]
     fn must_reserve_toggle_size(&self) -> bool;
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
@@ -628,114 +635,118 @@ pub trait GtkMenuExt: 'static {
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    #[doc(alias = "get_property_anchor_hints")]
+    #[doc(alias = "anchor-hints")]
     fn anchor_hints(&self) -> gdk::AnchorHints;
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    #[doc(alias = "set_property_anchor_hints")]
+    #[doc(alias = "anchor-hints")]
     fn set_anchor_hints(&self, anchor_hints: gdk::AnchorHints);
 
-    #[doc(alias = "set_property_attach_widget")]
+    #[doc(alias = "attach-widget")]
     fn set_attach_widget<P: IsA<Widget>>(&self, attach_widget: Option<&P>);
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    #[doc(alias = "get_property_menu_type_hint")]
+    #[doc(alias = "menu-type-hint")]
     fn menu_type_hint(&self) -> gdk::WindowTypeHint;
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    #[doc(alias = "set_property_menu_type_hint")]
+    #[doc(alias = "menu-type-hint")]
     fn set_menu_type_hint(&self, menu_type_hint: gdk::WindowTypeHint);
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    #[doc(alias = "get_property_rect_anchor_dx")]
+    #[doc(alias = "rect-anchor-dx")]
     fn rect_anchor_dx(&self) -> i32;
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    #[doc(alias = "set_property_rect_anchor_dx")]
+    #[doc(alias = "rect-anchor-dx")]
     fn set_rect_anchor_dx(&self, rect_anchor_dx: i32);
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    #[doc(alias = "get_property_rect_anchor_dy")]
+    #[doc(alias = "rect-anchor-dy")]
     fn rect_anchor_dy(&self) -> i32;
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    #[doc(alias = "set_property_rect_anchor_dy")]
+    #[doc(alias = "rect-anchor-dy")]
     fn set_rect_anchor_dy(&self, rect_anchor_dy: i32);
 
+    #[doc(alias = "item.bottom-attach")]
     fn item_bottom_attach<T: IsA<MenuItem>>(&self, item: &T) -> i32;
 
+    #[doc(alias = "item.bottom-attach")]
     fn set_item_bottom_attach<T: IsA<MenuItem>>(&self, item: &T, bottom_attach: i32);
 
+    #[doc(alias = "item.left-attach")]
     fn item_left_attach<T: IsA<MenuItem>>(&self, item: &T) -> i32;
 
+    #[doc(alias = "item.left-attach")]
     fn set_item_left_attach<T: IsA<MenuItem>>(&self, item: &T, left_attach: i32);
 
+    #[doc(alias = "item.right-attach")]
     fn item_right_attach<T: IsA<MenuItem>>(&self, item: &T) -> i32;
 
+    #[doc(alias = "item.right-attach")]
     fn set_item_right_attach<T: IsA<MenuItem>>(&self, item: &T, right_attach: i32);
 
+    #[doc(alias = "item.top-attach")]
     fn item_top_attach<T: IsA<MenuItem>>(&self, item: &T) -> i32;
 
+    #[doc(alias = "item.top-attach")]
     fn set_item_top_attach<T: IsA<MenuItem>>(&self, item: &T, top_attach: i32);
 
+    #[doc(alias = "move-scroll")]
     fn connect_move_scroll<F: Fn(&Self, ScrollType) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn emit_move_scroll(&self, scroll_type: ScrollType);
 
     //#[cfg(any(feature = "v3_22", feature = "dox"))]
     //#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    //#[doc(alias = "popped-up")]
     //fn connect_popped_up<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_accel_group_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "accel-group")]
+    fn connect_accel_group_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_accel_path_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "accel-path")]
+    fn connect_accel_path_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    fn connect_property_anchor_hints_notify<F: Fn(&Self) + 'static>(&self, f: F)
-        -> SignalHandlerId;
-
-    fn connect_property_attach_widget_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "active")]
+    fn connect_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    fn connect_property_menu_type_hint_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "anchor-hints")]
+    fn connect_anchor_hints_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_monitor_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    fn connect_property_rect_anchor_dx_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "attach-widget")]
+    fn connect_attach_widget_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    fn connect_property_rect_anchor_dy_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "menu-type-hint")]
+    fn connect_menu_type_hint_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_reserve_toggle_size_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "monitor")]
+    fn connect_monitor_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+
+    #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[doc(alias = "rect-anchor-dx")]
+    fn connect_rect_anchor_dx_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+
+    #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[doc(alias = "rect-anchor-dy")]
+    fn connect_rect_anchor_dy_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+
+    #[doc(alias = "reserve-toggle-size")]
+    fn connect_reserve_toggle_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<Menu>> GtkMenuExt for O {
@@ -1171,6 +1182,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
         }
     }
 
+    #[doc(alias = "move-scroll")]
     fn connect_move_scroll<F: Fn(&Self, ScrollType) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn move_scroll_trampoline<P, F: Fn(&P, ScrollType) + 'static>(
             this: *mut ffi::GtkMenu,
@@ -1208,12 +1220,14 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
 
     //#[cfg(any(feature = "v3_22", feature = "dox"))]
     //#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    //#[doc(alias = "popped-up")]
     //fn connect_popped_up<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId {
     //    Unimplemented flipped_rect: *.Pointer
     //    Unimplemented final_rect: *.Pointer
     //}
 
-    fn connect_property_accel_group_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "accel-group")]
+    fn connect_accel_group_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_accel_group_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenu,
             _param_spec: glib::ffi::gpointer,
@@ -1237,7 +1251,8 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
         }
     }
 
-    fn connect_property_accel_path_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "accel-path")]
+    fn connect_accel_path_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_accel_path_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenu,
             _param_spec: glib::ffi::gpointer,
@@ -1261,7 +1276,8 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
         }
     }
 
-    fn connect_property_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "active")]
+    fn connect_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_active_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenu,
             _param_spec: glib::ffi::gpointer,
@@ -1287,10 +1303,8 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    fn connect_property_anchor_hints_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "anchor-hints")]
+    fn connect_anchor_hints_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_anchor_hints_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenu,
             _param_spec: glib::ffi::gpointer,
@@ -1314,10 +1328,8 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
         }
     }
 
-    fn connect_property_attach_widget_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "attach-widget")]
+    fn connect_attach_widget_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_attach_widget_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenu,
             _param_spec: glib::ffi::gpointer,
@@ -1343,10 +1355,8 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    fn connect_property_menu_type_hint_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "menu-type-hint")]
+    fn connect_menu_type_hint_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_menu_type_hint_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenu,
             _param_spec: glib::ffi::gpointer,
@@ -1370,7 +1380,8 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
         }
     }
 
-    fn connect_property_monitor_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "monitor")]
+    fn connect_monitor_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_monitor_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenu,
             _param_spec: glib::ffi::gpointer,
@@ -1396,10 +1407,8 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    fn connect_property_rect_anchor_dx_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "rect-anchor-dx")]
+    fn connect_rect_anchor_dx_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_rect_anchor_dx_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenu,
             _param_spec: glib::ffi::gpointer,
@@ -1425,10 +1434,8 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    fn connect_property_rect_anchor_dy_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "rect-anchor-dy")]
+    fn connect_rect_anchor_dy_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_rect_anchor_dy_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenu,
             _param_spec: glib::ffi::gpointer,
@@ -1452,10 +1459,8 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
         }
     }
 
-    fn connect_property_reserve_toggle_size_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "reserve-toggle-size")]
+    fn connect_reserve_toggle_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_reserve_toggle_size_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenu,
             _param_spec: glib::ffi::gpointer,

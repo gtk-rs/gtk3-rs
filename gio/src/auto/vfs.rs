@@ -20,11 +20,13 @@ glib::wrapper! {
 
 impl Vfs {
     #[doc(alias = "g_vfs_get_default")]
+    #[doc(alias = "get_default")]
     pub fn default() -> Vfs {
         unsafe { from_glib_none(ffi::g_vfs_get_default()) }
     }
 
     #[doc(alias = "g_vfs_get_local")]
+    #[doc(alias = "get_local")]
     pub fn local() -> Vfs {
         unsafe { from_glib_none(ffi::g_vfs_get_local()) }
     }
@@ -37,12 +39,15 @@ pub const NONE_VFS: Option<&Vfs> = None;
 
 pub trait VfsExt: 'static {
     #[doc(alias = "g_vfs_get_file_for_path")]
+    #[doc(alias = "get_file_for_path")]
     fn file_for_path(&self, path: &str) -> File;
 
     #[doc(alias = "g_vfs_get_file_for_uri")]
+    #[doc(alias = "get_file_for_uri")]
     fn file_for_uri(&self, uri: &str) -> File;
 
     #[doc(alias = "g_vfs_get_supported_uri_schemes")]
+    #[doc(alias = "get_supported_uri_schemes")]
     fn supported_uri_schemes(&self) -> Vec<glib::GString>;
 
     #[doc(alias = "g_vfs_is_active")]

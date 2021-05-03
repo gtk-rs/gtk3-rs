@@ -21,41 +21,49 @@ glib::wrapper! {
 
 impl SelectionData {
     #[doc(alias = "gtk_selection_data_get_data_type")]
+    #[doc(alias = "get_data_type")]
     pub fn data_type(&self) -> gdk::Atom {
         unsafe { from_glib_none(ffi::gtk_selection_data_get_data_type(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gtk_selection_data_get_display")]
+    #[doc(alias = "get_display")]
     pub fn display(&self) -> Option<gdk::Display> {
         unsafe { from_glib_none(ffi::gtk_selection_data_get_display(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gtk_selection_data_get_format")]
+    #[doc(alias = "get_format")]
     pub fn format(&self) -> i32 {
         unsafe { ffi::gtk_selection_data_get_format(self.to_glib_none().0) }
     }
 
     #[doc(alias = "gtk_selection_data_get_length")]
+    #[doc(alias = "get_length")]
     pub fn length(&self) -> i32 {
         unsafe { ffi::gtk_selection_data_get_length(self.to_glib_none().0) }
     }
 
     #[doc(alias = "gtk_selection_data_get_pixbuf")]
+    #[doc(alias = "get_pixbuf")]
     pub fn pixbuf(&self) -> Option<gdk_pixbuf::Pixbuf> {
         unsafe { from_glib_full(ffi::gtk_selection_data_get_pixbuf(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gtk_selection_data_get_selection")]
+    #[doc(alias = "get_selection")]
     pub fn selection(&self) -> gdk::Atom {
         unsafe { from_glib_none(ffi::gtk_selection_data_get_selection(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gtk_selection_data_get_target")]
+    #[doc(alias = "get_target")]
     pub fn target(&self) -> gdk::Atom {
         unsafe { from_glib_none(ffi::gtk_selection_data_get_target(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gtk_selection_data_get_targets")]
+    #[doc(alias = "get_targets")]
     pub fn targets(&self) -> Option<Vec<gdk::Atom>> {
         unsafe {
             let mut targets = ptr::null_mut();
@@ -77,11 +85,13 @@ impl SelectionData {
     }
 
     #[doc(alias = "gtk_selection_data_get_text")]
+    #[doc(alias = "get_text")]
     pub fn text(&self) -> Option<glib::GString> {
         unsafe { from_glib_full(ffi::gtk_selection_data_get_text(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gtk_selection_data_get_uris")]
+    #[doc(alias = "get_uris")]
     pub fn uris(&self) -> Vec<glib::GString> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::gtk_selection_data_get_uris(

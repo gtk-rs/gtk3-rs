@@ -28,6 +28,7 @@ impl MenuItem {
     }
 
     #[doc(alias = "g_menu_item_new_from_model")]
+    #[doc(alias = "new_from_model")]
     pub fn from_model<P: IsA<MenuModel>>(model: &P, item_index: i32) -> MenuItem {
         unsafe {
             from_glib_full(ffi::g_menu_item_new_from_model(
@@ -58,11 +59,13 @@ impl MenuItem {
     }
 
     //#[doc(alias = "g_menu_item_get_attribute")]
+    //#[doc(alias = "get_attribute")]
     //pub fn is_attribute(&self, attribute: &str, format_string: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> bool {
     //    unsafe { TODO: call ffi:g_menu_item_get_attribute() }
     //}
 
     #[doc(alias = "g_menu_item_get_attribute_value")]
+    #[doc(alias = "get_attribute_value")]
     pub fn attribute_value(
         &self,
         attribute: &str,
@@ -78,6 +81,7 @@ impl MenuItem {
     }
 
     #[doc(alias = "g_menu_item_get_link")]
+    #[doc(alias = "get_link")]
     pub fn link(&self, link: &str) -> Option<MenuModel> {
         unsafe {
             from_glib_full(ffi::g_menu_item_get_link(

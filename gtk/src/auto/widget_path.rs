@@ -58,6 +58,7 @@ impl WidgetPath {
     }
 
     #[doc(alias = "gtk_widget_path_get_object_type")]
+    #[doc(alias = "get_object_type")]
     pub fn object_type(&self) -> glib::types::Type {
         unsafe { from_glib(ffi::gtk_widget_path_get_object_type(self.to_glib_none().0)) }
     }
@@ -269,6 +270,7 @@ impl WidgetPath {
     }
 
     #[doc(alias = "gtk_widget_path_to_string")]
+    #[doc(alias = "to_string")]
     pub fn to_str(&self) -> glib::GString {
         unsafe { from_glib_full(ffi::gtk_widget_path_to_string(self.to_glib_none().0)) }
     }

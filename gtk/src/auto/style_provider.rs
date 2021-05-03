@@ -20,6 +20,7 @@ pub const NONE_STYLE_PROVIDER: Option<&StyleProvider> = None;
 
 pub trait StyleProviderExt: 'static {
     #[doc(alias = "gtk_style_provider_get_style_property")]
+    #[doc(alias = "get_style_property")]
     fn style_property(
         &self,
         path: &WidgetPath,

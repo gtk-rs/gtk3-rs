@@ -21,6 +21,7 @@ impl Credentials {
     }
 
     //#[doc(alias = "g_credentials_get_native")]
+    //#[doc(alias = "get_native")]
     //pub fn native(&self, native_type: CredentialsType) -> /*Unimplemented*/Option<Fundamental: Pointer> {
     //    unsafe { TODO: call ffi:g_credentials_get_native() }
     //}
@@ -28,6 +29,7 @@ impl Credentials {
     #[cfg(any(unix, feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(unix)))]
     #[doc(alias = "g_credentials_get_unix_pid")]
+    #[doc(alias = "get_unix_pid")]
     pub fn unix_pid(&self) -> Result<i32, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
@@ -43,6 +45,7 @@ impl Credentials {
     #[cfg(any(unix, feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(unix)))]
     #[doc(alias = "g_credentials_get_unix_user")]
+    #[doc(alias = "get_unix_user")]
     pub fn unix_user(&self) -> Result<u32, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
@@ -93,6 +96,7 @@ impl Credentials {
     }
 
     #[doc(alias = "g_credentials_to_string")]
+    #[doc(alias = "to_string")]
     pub fn to_str(&self) -> glib::GString {
         unsafe { from_glib_full(ffi::g_credentials_to_string(self.to_glib_none().0)) }
     }

@@ -75,11 +75,13 @@ impl Vec3 {
     }
 
     #[doc(alias = "graphene_vec3_get_x")]
+    #[doc(alias = "get_x")]
     pub fn x(&self) -> f32 {
         unsafe { ffi::graphene_vec3_get_x(self.to_glib_none().0) }
     }
 
     #[doc(alias = "graphene_vec3_get_xy")]
+    #[doc(alias = "get_xy")]
     pub fn xy(&self) -> Vec2 {
         unsafe {
             let mut res = Vec2::uninitialized();
@@ -89,6 +91,7 @@ impl Vec3 {
     }
 
     #[doc(alias = "graphene_vec3_get_xy0")]
+    #[doc(alias = "get_xy0")]
     pub fn xy0(&self) -> Vec3 {
         unsafe {
             let mut res = Vec3::uninitialized();
@@ -98,6 +101,7 @@ impl Vec3 {
     }
 
     #[doc(alias = "graphene_vec3_get_xyz0")]
+    #[doc(alias = "get_xyz0")]
     pub fn xyz0(&self) -> Vec4 {
         unsafe {
             let mut res = Vec4::uninitialized();
@@ -107,6 +111,7 @@ impl Vec3 {
     }
 
     #[doc(alias = "graphene_vec3_get_xyz1")]
+    #[doc(alias = "get_xyz1")]
     pub fn xyz1(&self) -> Vec4 {
         unsafe {
             let mut res = Vec4::uninitialized();
@@ -116,6 +121,7 @@ impl Vec3 {
     }
 
     #[doc(alias = "graphene_vec3_get_xyzw")]
+    #[doc(alias = "get_xyzw")]
     pub fn xyzw(&self, w: f32) -> Vec4 {
         unsafe {
             let mut res = Vec4::uninitialized();
@@ -125,11 +131,13 @@ impl Vec3 {
     }
 
     #[doc(alias = "graphene_vec3_get_y")]
+    #[doc(alias = "get_y")]
     pub fn y(&self) -> f32 {
         unsafe { ffi::graphene_vec3_get_y(self.to_glib_none().0) }
     }
 
     #[doc(alias = "graphene_vec3_get_z")]
+    #[doc(alias = "get_z")]
     pub fn z(&self) -> f32 {
         unsafe { ffi::graphene_vec3_get_z(self.to_glib_none().0) }
     }

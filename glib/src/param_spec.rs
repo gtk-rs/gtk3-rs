@@ -98,6 +98,7 @@ impl ParamSpec {
         }
     }
 
+    #[doc(alias = "get_type")]
     pub fn type_(&self) -> Type {
         unsafe {
             let ptr = self.to_glib_none().0;
@@ -106,19 +107,23 @@ impl ParamSpec {
         }
     }
 
+    #[doc(alias = "get_value_type")]
     pub fn value_type(&self) -> crate::Type {
         unsafe { from_glib((*self.to_glib_none().0).value_type) }
     }
 
+    #[doc(alias = "get_owner_type")]
     pub fn owner_type(&self) -> crate::Type {
         unsafe { from_glib((*self.to_glib_none().0).owner_type) }
     }
 
+    #[doc(alias = "get_flags")]
     pub fn flags(&self) -> ParamFlags {
         unsafe { from_glib((*self.to_glib_none().0).flags) }
     }
 
     #[doc(alias = "g_param_spec_get_blurb")]
+    #[doc(alias = "get_blurb")]
     pub fn blurb(&self) -> &str {
         unsafe {
             CStr::from_ptr(gobject_ffi::g_param_spec_get_blurb(self.to_glib_none().0))
@@ -128,6 +133,7 @@ impl ParamSpec {
     }
 
     #[doc(alias = "g_param_spec_get_default_value")]
+    #[doc(alias = "get_default_value")]
     pub fn default_value(&self) -> &Value {
         unsafe {
             &*(gobject_ffi::g_param_spec_get_default_value(self.to_glib_none().0)
@@ -136,6 +142,7 @@ impl ParamSpec {
     }
 
     #[doc(alias = "g_param_spec_get_name")]
+    #[doc(alias = "get_name")]
     pub fn name<'a>(&self) -> &'a str {
         unsafe {
             CStr::from_ptr(gobject_ffi::g_param_spec_get_name(self.to_glib_none().0))
@@ -147,6 +154,7 @@ impl ParamSpec {
     #[cfg(any(feature = "v2_46", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
     #[doc(alias = "g_param_spec_get_name_quark")]
+    #[doc(alias = "get_name_quark")]
     pub fn name_quark(&self) -> crate::Quark {
         unsafe {
             from_glib(gobject_ffi::g_param_spec_get_name_quark(
@@ -156,6 +164,7 @@ impl ParamSpec {
     }
 
     #[doc(alias = "g_param_spec_get_nick")]
+    #[doc(alias = "get_nick")]
     pub fn nick(&self) -> &str {
         unsafe {
             CStr::from_ptr(gobject_ffi::g_param_spec_get_nick(self.to_glib_none().0))
@@ -169,6 +178,7 @@ impl ParamSpec {
     //}
 
     #[doc(alias = "g_param_spec_get_redirect_target")]
+    #[doc(alias = "get_redirect_target")]
     pub fn redirect_target(&self) -> Option<ParamSpec> {
         unsafe {
             from_glib_none(gobject_ffi::g_param_spec_get_redirect_target(
@@ -1024,6 +1034,7 @@ define_param_spec!(
 define_param_spec_default!(ParamSpecEnum, i32, |x| x);
 
 impl ParamSpecEnum {
+    #[doc(alias = "get_enum_class")]
     pub fn enum_class(&self) -> crate::EnumClass {
         unsafe {
             let ptr = self.to_glib_none().0;
@@ -1046,6 +1057,7 @@ define_param_spec!(
 define_param_spec_default!(ParamSpecFlags, u32, |x| x);
 
 impl ParamSpecFlags {
+    #[doc(alias = "get_flags_class")]
     pub fn flags_class(&self) -> crate::FlagsClass {
         unsafe {
             let ptr = self.to_glib_none().0;
@@ -1122,6 +1134,7 @@ define_param_spec!(
 );
 
 impl ParamSpecValueArray {
+    #[doc(alias = "get_element_spec")]
     pub fn element_spec(&self) -> Option<ParamSpec> {
         unsafe {
             let ptr = self.to_glib_none().0;
@@ -1130,6 +1143,7 @@ impl ParamSpecValueArray {
         }
     }
 
+    #[doc(alias = "get_fixed_n_elements")]
     pub fn fixed_n_elements(&self) -> u32 {
         unsafe {
             let ptr = self.to_glib_none().0;
@@ -1154,6 +1168,7 @@ define_param_spec!(
 );
 
 impl ParamSpecOverride {
+    #[doc(alias = "get_overridden")]
     pub fn overridden(&self) -> ParamSpec {
         unsafe {
             let ptr = self.to_glib_none().0;
@@ -1184,6 +1199,7 @@ define_param_spec_default!(
 );
 
 impl ParamSpecVariant {
+    #[doc(alias = "get_type")]
     pub fn type_(&self) -> Option<&crate::VariantTy> {
         unsafe {
             let ptr = self.to_glib_none().0;

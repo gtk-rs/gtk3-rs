@@ -86,12 +86,15 @@ pub trait SocketConnectionExt: 'static {
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>>;
 
     #[doc(alias = "g_socket_connection_get_local_address")]
+    #[doc(alias = "get_local_address")]
     fn local_address(&self) -> Result<SocketAddress, glib::Error>;
 
     #[doc(alias = "g_socket_connection_get_remote_address")]
+    #[doc(alias = "get_remote_address")]
     fn remote_address(&self) -> Result<SocketAddress, glib::Error>;
 
     #[doc(alias = "g_socket_connection_get_socket")]
+    #[doc(alias = "get_socket")]
     fn socket(&self) -> Socket;
 
     #[doc(alias = "g_socket_connection_is_connected")]

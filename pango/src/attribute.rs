@@ -173,10 +173,12 @@ impl Attribute {
         unsafe { from_glib_full(ffi::pango_attr_weight_new(weight.into_glib())) }
     }
 
+    #[doc(alias = "get_attr_class")]
     pub fn attr_class(&self) -> AttrClass {
         unsafe { from_glib_full((*self.to_glib_none().0).klass) }
     }
 
+    #[doc(alias = "get_start_index")]
     pub fn start_index(&self) -> u32 {
         unsafe {
             let stash = self.to_glib_none();
@@ -184,6 +186,7 @@ impl Attribute {
         }
     }
 
+    #[doc(alias = "get_end_index")]
     pub fn end_index(&self) -> u32 {
         unsafe {
             let stash = self.to_glib_none();

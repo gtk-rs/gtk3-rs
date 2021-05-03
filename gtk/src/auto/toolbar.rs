@@ -221,8 +221,7 @@ impl ToolbarBuilder {
         if let Some(ref orientation) = self.orientation {
             properties.push(("orientation", orientation));
         }
-        let ret = glib::Object::new::<Toolbar>(&properties).expect("object new");
-        ret
+        glib::Object::new::<Toolbar>(&properties).expect("Failed to create an instance of Toolbar")
     }
 
     pub fn icon_size(mut self, icon_size: IconSize) -> Self {
@@ -432,18 +431,23 @@ pub const NONE_TOOLBAR: Option<&Toolbar> = None;
 
 pub trait ToolbarExt: 'static {
     #[doc(alias = "gtk_toolbar_get_drop_index")]
+    #[doc(alias = "get_drop_index")]
     fn drop_index(&self, x: i32, y: i32) -> i32;
 
     #[doc(alias = "gtk_toolbar_get_item_index")]
+    #[doc(alias = "get_item_index")]
     fn item_index<P: IsA<ToolItem>>(&self, item: &P) -> i32;
 
     #[doc(alias = "gtk_toolbar_get_n_items")]
+    #[doc(alias = "get_n_items")]
     fn n_items(&self) -> i32;
 
     #[doc(alias = "gtk_toolbar_get_nth_item")]
+    #[doc(alias = "get_nth_item")]
     fn nth_item(&self, n: i32) -> Option<ToolItem>;
 
     #[doc(alias = "gtk_toolbar_get_show_arrow")]
+    #[doc(alias = "get_show_arrow")]
     fn shows_arrow(&self) -> bool;
 
     #[doc(alias = "gtk_toolbar_insert")]
@@ -467,16 +471,16 @@ pub trait ToolbarExt: 'static {
     #[doc(alias = "gtk_toolbar_unset_style")]
     fn unset_style(&self);
 
-    #[doc(alias = "get_property_icon_size_set")]
+    #[doc(alias = "icon-size-set")]
     fn is_icon_size_set(&self) -> bool;
 
-    #[doc(alias = "set_property_icon_size_set")]
+    #[doc(alias = "icon-size-set")]
     fn set_icon_size_set(&self, icon_size_set: bool);
 
-    #[doc(alias = "get_property_toolbar_style")]
+    #[doc(alias = "toolbar-style")]
     fn toolbar_style(&self) -> ToolbarStyle;
 
-    #[doc(alias = "set_property_toolbar_style")]
+    #[doc(alias = "toolbar-style")]
     fn set_toolbar_style(&self, toolbar_style: ToolbarStyle);
 
     fn item_expands<T: IsA<Widget>>(&self, item: &T) -> bool;
@@ -487,6 +491,7 @@ pub trait ToolbarExt: 'static {
 
     fn set_item_homogeneous<T: IsA<Widget>>(&self, item: &T, homogeneous: bool);
 
+    #[doc(alias = "focus-home-or-end")]
     fn connect_focus_home_or_end<F: Fn(&Self, bool) -> bool + 'static>(
         &self,
         f: F,
@@ -494,31 +499,32 @@ pub trait ToolbarExt: 'static {
 
     fn emit_focus_home_or_end(&self, focus_home: bool) -> bool;
 
+    #[doc(alias = "orientation-changed")]
     fn connect_orientation_changed<F: Fn(&Self, Orientation) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "popup-context-menu")]
     fn connect_popup_context_menu<F: Fn(&Self, i32, i32, i32) -> glib::signal::Inhibit + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "style-changed")]
     fn connect_style_changed<F: Fn(&Self, ToolbarStyle) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_icon_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "icon-size")]
+    fn connect_icon_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_icon_size_set_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "icon-size-set")]
+    fn connect_icon_size_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_show_arrow_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "show-arrow")]
+    fn connect_show_arrow_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_toolbar_style_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "toolbar-style")]
+    fn connect_toolbar_style_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<Toolbar>> ToolbarExt for O {
@@ -706,6 +712,7 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
         }
     }
 
+    #[doc(alias = "focus-home-or-end")]
     fn connect_focus_home_or_end<F: Fn(&Self, bool) -> bool + 'static>(
         &self,
         f: F,
@@ -749,6 +756,7 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
             .expect("Return Value for `emit_focus_home_or_end`")
     }
 
+    #[doc(alias = "orientation-changed")]
     fn connect_orientation_changed<F: Fn(&Self, Orientation) + 'static>(
         &self,
         f: F,
@@ -779,6 +787,7 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
         }
     }
 
+    #[doc(alias = "popup-context-menu")]
     fn connect_popup_context_menu<
         F: Fn(&Self, i32, i32, i32) -> glib::signal::Inhibit + 'static,
     >(
@@ -820,6 +829,7 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
         }
     }
 
+    #[doc(alias = "style-changed")]
     fn connect_style_changed<F: Fn(&Self, ToolbarStyle) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn style_changed_trampoline<P, F: Fn(&P, ToolbarStyle) + 'static>(
             this: *mut ffi::GtkToolbar,
@@ -847,7 +857,8 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
         }
     }
 
-    fn connect_property_icon_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "icon-size")]
+    fn connect_icon_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_icon_size_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkToolbar,
             _param_spec: glib::ffi::gpointer,
@@ -871,10 +882,8 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
         }
     }
 
-    fn connect_property_icon_size_set_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "icon-size-set")]
+    fn connect_icon_size_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_icon_size_set_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkToolbar,
             _param_spec: glib::ffi::gpointer,
@@ -898,7 +907,8 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
         }
     }
 
-    fn connect_property_show_arrow_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "show-arrow")]
+    fn connect_show_arrow_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_arrow_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkToolbar,
             _param_spec: glib::ffi::gpointer,
@@ -922,10 +932,8 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
         }
     }
 
-    fn connect_property_toolbar_style_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "toolbar-style")]
+    fn connect_toolbar_style_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_toolbar_style_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkToolbar,
             _param_spec: glib::ffi::gpointer,

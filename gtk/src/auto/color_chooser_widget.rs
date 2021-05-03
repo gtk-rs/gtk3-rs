@@ -227,8 +227,8 @@ impl ColorChooserWidgetBuilder {
         if let Some(ref use_alpha) = self.use_alpha {
             properties.push(("use-alpha", use_alpha));
         }
-        let ret = glib::Object::new::<ColorChooserWidget>(&properties).expect("object new");
-        ret
+        glib::Object::new::<ColorChooserWidget>(&properties)
+            .expect("Failed to create an instance of ColorChooserWidget")
     }
 
     pub fn show_editor(mut self, show_editor: bool) -> Self {
@@ -447,13 +447,14 @@ impl ColorChooserWidgetBuilder {
 pub const NONE_COLOR_CHOOSER_WIDGET: Option<&ColorChooserWidget> = None;
 
 pub trait ColorChooserWidgetExt: 'static {
-    #[doc(alias = "get_property_show_editor")]
+    #[doc(alias = "show-editor")]
     fn shows_editor(&self) -> bool;
 
-    #[doc(alias = "set_property_show_editor")]
+    #[doc(alias = "show-editor")]
     fn set_show_editor(&self, show_editor: bool);
 
-    fn connect_property_show_editor_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "show-editor")]
+    fn connect_show_editor_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<ColorChooserWidget>> ColorChooserWidgetExt for O {
@@ -481,7 +482,8 @@ impl<O: IsA<ColorChooserWidget>> ColorChooserWidgetExt for O {
         }
     }
 
-    fn connect_property_show_editor_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "show-editor")]
+    fn connect_show_editor_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_editor_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkColorChooserWidget,
             _param_spec: glib::ffi::gpointer,

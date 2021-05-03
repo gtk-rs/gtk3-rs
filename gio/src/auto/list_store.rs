@@ -119,8 +119,8 @@ impl ListStoreBuilder {
         if let Some(ref item_type) = self.item_type {
             properties.push(("item-type", item_type));
         }
-        let ret = glib::Object::new::<ListStore>(&properties).expect("object new");
-        ret
+        glib::Object::new::<ListStore>(&properties)
+            .expect("Failed to create an instance of ListStore")
     }
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]

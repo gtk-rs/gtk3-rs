@@ -33,6 +33,7 @@ impl Invisible {
     }
 
     #[doc(alias = "gtk_invisible_new_for_screen")]
+    #[doc(alias = "new_for_screen")]
     pub fn for_screen(screen: &gdk::Screen) -> Invisible {
         assert_initialized_main_thread!();
         unsafe {
@@ -194,8 +195,8 @@ impl InvisibleBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        let ret = glib::Object::new::<Invisible>(&properties).expect("object new");
-        ret
+        glib::Object::new::<Invisible>(&properties)
+            .expect("Failed to create an instance of Invisible")
     }
 
     pub fn screen(mut self, screen: &gdk::Screen) -> Self {
@@ -372,7 +373,8 @@ pub trait InvisibleExt: 'static {
     #[doc(alias = "gtk_invisible_set_screen")]
     fn set_screen(&self, screen: &gdk::Screen);
 
-    fn connect_property_screen_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "screen")]
+    fn connect_screen_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<Invisible>> InvisibleExt for O {
@@ -382,7 +384,8 @@ impl<O: IsA<Invisible>> InvisibleExt for O {
         }
     }
 
-    fn connect_property_screen_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "screen")]
+    fn connect_screen_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_screen_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkInvisible,
             _param_spec: glib::ffi::gpointer,

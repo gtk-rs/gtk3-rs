@@ -44,10 +44,12 @@ pub trait StylePropertiesExt: 'static {
 
     #[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
     #[doc(alias = "gtk_style_properties_get_property")]
+    #[doc(alias = "get_property")]
     fn property(&self, property: &str, state: StateFlags) -> Option<glib::Value>;
 
     //#[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
     //#[doc(alias = "gtk_style_properties_get_valist")]
+    //#[doc(alias = "get_valist")]
     //fn valist(&self, state: StateFlags, args: /*Unknown conversion*//*Unimplemented*/Unsupported);
 
     #[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]

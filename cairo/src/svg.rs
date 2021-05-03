@@ -72,6 +72,7 @@ impl SvgSurface {
     for_stream_constructors!(cairo_svg_surface_create_for_stream);
 
     #[doc(alias = "cairo_svg_get_versions")]
+    #[doc(alias = "get_versions")]
     pub fn versions() -> impl Iterator<Item = SvgVersion> {
         let vers_slice = unsafe {
             let mut vers_ptr = ptr::null_mut();
@@ -101,6 +102,7 @@ impl SvgSurface {
 
     #[cfg(any(all(feature = "svg", feature = "v1_16"), feature = "dox"))]
     #[doc(alias = "cairo_svg_surface_get_document_unit")]
+    #[doc(alias = "get_document_unit")]
     pub fn document_unit(&self) -> SvgUnit {
         unsafe {
             SvgUnit::from(ffi::cairo_svg_surface_get_document_unit(

@@ -39,6 +39,7 @@ impl ToggleButton {
     }
 
     #[doc(alias = "gtk_toggle_button_new_with_label")]
+    #[doc(alias = "new_with_label")]
     pub fn with_label(label: &str) -> ToggleButton {
         assert_initialized_main_thread!();
         unsafe {
@@ -50,6 +51,7 @@ impl ToggleButton {
     }
 
     #[doc(alias = "gtk_toggle_button_new_with_mnemonic")]
+    #[doc(alias = "new_with_mnemonic")]
     pub fn with_mnemonic(label: &str) -> ToggleButton {
         assert_initialized_main_thread!();
         unsafe {
@@ -265,8 +267,8 @@ impl ToggleButtonBuilder {
         if let Some(ref action_target) = self.action_target {
             properties.push(("action-target", action_target));
         }
-        let ret = glib::Object::new::<ToggleButton>(&properties).expect("object new");
-        ret
+        glib::Object::new::<ToggleButton>(&properties)
+            .expect("Failed to create an instance of ToggleButton")
     }
 
     pub fn active(mut self, active: bool) -> Self {
@@ -506,12 +508,15 @@ pub const NONE_TOGGLE_BUTTON: Option<&ToggleButton> = None;
 
 pub trait ToggleButtonExt: 'static {
     #[doc(alias = "gtk_toggle_button_get_active")]
+    #[doc(alias = "get_active")]
     fn is_active(&self) -> bool;
 
     #[doc(alias = "gtk_toggle_button_get_inconsistent")]
+    #[doc(alias = "get_inconsistent")]
     fn is_inconsistent(&self) -> bool;
 
     #[doc(alias = "gtk_toggle_button_get_mode")]
+    #[doc(alias = "get_mode")]
     fn is_mode(&self) -> bool;
 
     #[doc(alias = "gtk_toggle_button_set_active")]
@@ -526,23 +531,23 @@ pub trait ToggleButtonExt: 'static {
     #[doc(alias = "gtk_toggle_button_toggled")]
     fn toggled(&self);
 
-    #[doc(alias = "get_property_draw_indicator")]
+    #[doc(alias = "draw-indicator")]
     fn draws_indicator(&self) -> bool;
 
-    #[doc(alias = "set_property_draw_indicator")]
+    #[doc(alias = "draw-indicator")]
     fn set_draw_indicator(&self, draw_indicator: bool);
 
+    #[doc(alias = "toggled")]
     fn connect_toggled<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "active")]
+    fn connect_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_draw_indicator_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "draw-indicator")]
+    fn connect_draw_indicator_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_inconsistent_notify<F: Fn(&Self) + 'static>(&self, f: F)
-        -> SignalHandlerId;
+    #[doc(alias = "inconsistent")]
+    fn connect_inconsistent_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<ToggleButton>> ToggleButtonExt for O {
@@ -627,6 +632,7 @@ impl<O: IsA<ToggleButton>> ToggleButtonExt for O {
         }
     }
 
+    #[doc(alias = "toggled")]
     fn connect_toggled<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn toggled_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkToggleButton,
@@ -650,7 +656,8 @@ impl<O: IsA<ToggleButton>> ToggleButtonExt for O {
         }
     }
 
-    fn connect_property_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "active")]
+    fn connect_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_active_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkToggleButton,
             _param_spec: glib::ffi::gpointer,
@@ -674,10 +681,8 @@ impl<O: IsA<ToggleButton>> ToggleButtonExt for O {
         }
     }
 
-    fn connect_property_draw_indicator_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "draw-indicator")]
+    fn connect_draw_indicator_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_draw_indicator_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkToggleButton,
             _param_spec: glib::ffi::gpointer,
@@ -701,10 +706,8 @@ impl<O: IsA<ToggleButton>> ToggleButtonExt for O {
         }
     }
 
-    fn connect_property_inconsistent_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "inconsistent")]
+    fn connect_inconsistent_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_inconsistent_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkToggleButton,
             _param_spec: glib::ffi::gpointer,

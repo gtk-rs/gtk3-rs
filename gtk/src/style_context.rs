@@ -6,6 +6,7 @@ use crate::StyleContext;
 use pango::FontDescription;
 
 pub trait StyleContextExtManual: 'static {
+    #[doc(alias = "get_font")]
     fn font(&self, state: StateFlags) -> FontDescription;
 }
 

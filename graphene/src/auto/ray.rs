@@ -47,6 +47,7 @@ impl Ray {
     }
 
     #[doc(alias = "graphene_ray_get_closest_point_to_point")]
+    #[doc(alias = "get_closest_point_to_point")]
     pub fn closest_point_to_point(&self, p: &Point3D) -> Point3D {
         unsafe {
             let mut res = Point3D::uninitialized();
@@ -60,6 +61,7 @@ impl Ray {
     }
 
     #[doc(alias = "graphene_ray_get_direction")]
+    #[doc(alias = "get_direction")]
     pub fn direction(&self) -> Vec3 {
         unsafe {
             let mut direction = Vec3::uninitialized();
@@ -69,6 +71,7 @@ impl Ray {
     }
 
     #[doc(alias = "graphene_ray_get_distance_to_plane")]
+    #[doc(alias = "get_distance_to_plane")]
     pub fn distance_to_plane(&self, p: &Plane) -> f32 {
         unsafe {
             ffi::graphene_ray_get_distance_to_plane(self.to_glib_none().0, p.to_glib_none().0)
@@ -76,6 +79,7 @@ impl Ray {
     }
 
     #[doc(alias = "graphene_ray_get_distance_to_point")]
+    #[doc(alias = "get_distance_to_point")]
     pub fn distance_to_point(&self, p: &Point3D) -> f32 {
         unsafe {
             ffi::graphene_ray_get_distance_to_point(self.to_glib_none().0, p.to_glib_none().0)
@@ -83,6 +87,7 @@ impl Ray {
     }
 
     #[doc(alias = "graphene_ray_get_origin")]
+    #[doc(alias = "get_origin")]
     pub fn origin(&self) -> Point3D {
         unsafe {
             let mut origin = Point3D::uninitialized();
@@ -92,6 +97,7 @@ impl Ray {
     }
 
     #[doc(alias = "graphene_ray_get_position_at")]
+    #[doc(alias = "get_position_at")]
     pub fn position_at(&self, t: f32) -> Point3D {
         unsafe {
             let mut position = Point3D::uninitialized();

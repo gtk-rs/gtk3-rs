@@ -6,6 +6,7 @@ use glib::IsA;
 
 pub trait BuildableExtManual: 'static {
     #[doc(alias = "gtk_buildable_get_name")]
+    #[doc(alias = "get_buildable_name")]
     fn buildable_name(&self) -> Option<String>;
 
     #[doc(alias = "gtk_buildable_set_name")]

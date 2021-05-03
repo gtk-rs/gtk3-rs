@@ -43,6 +43,7 @@ impl PdfSurface {
     for_stream_constructors!(cairo_pdf_surface_create_for_stream);
 
     #[doc(alias = "cairo_pdf_get_versions")]
+    #[doc(alias = "get_versions")]
     pub fn versions() -> impl Iterator<Item = PdfVersion> {
         let vers_slice = unsafe {
             let mut vers_ptr = ptr::null_mut();

@@ -30,6 +30,7 @@ impl PixbufLoader {
     }
 
     #[doc(alias = "gdk_pixbuf_loader_new_with_mime_type")]
+    #[doc(alias = "new_with_mime_type")]
     pub fn with_mime_type(mime_type: &str) -> Result<PixbufLoader, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
@@ -44,6 +45,7 @@ impl PixbufLoader {
     }
 
     #[doc(alias = "gdk_pixbuf_loader_new_with_type")]
+    #[doc(alias = "new_with_type")]
     pub fn with_type(image_type: &str) -> Result<PixbufLoader, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
@@ -70,12 +72,15 @@ pub trait PixbufLoaderExt: 'static {
     fn close(&self) -> Result<(), glib::Error>;
 
     #[doc(alias = "gdk_pixbuf_loader_get_animation")]
+    #[doc(alias = "get_animation")]
     fn animation(&self) -> Option<PixbufAnimation>;
 
     #[doc(alias = "gdk_pixbuf_loader_get_format")]
+    #[doc(alias = "get_format")]
     fn format(&self) -> Option<PixbufFormat>;
 
     #[doc(alias = "gdk_pixbuf_loader_get_pixbuf")]
+    #[doc(alias = "get_pixbuf")]
     fn pixbuf(&self) -> Option<Pixbuf>;
 
     #[doc(alias = "gdk_pixbuf_loader_set_size")]
@@ -87,15 +92,19 @@ pub trait PixbufLoaderExt: 'static {
     #[doc(alias = "gdk_pixbuf_loader_write_bytes")]
     fn write_bytes(&self, buffer: &glib::Bytes) -> Result<(), glib::Error>;
 
+    #[doc(alias = "area-prepared")]
     fn connect_area_prepared<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "area-updated")]
     fn connect_area_updated<F: Fn(&Self, i32, i32, i32, i32) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "closed")]
     fn connect_closed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "size-prepared")]
     fn connect_size_prepared<F: Fn(&Self, i32, i32) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
@@ -176,6 +185,7 @@ impl<O: IsA<PixbufLoader>> PixbufLoaderExt for O {
         }
     }
 
+    #[doc(alias = "area-prepared")]
     fn connect_area_prepared<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn area_prepared_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GdkPixbufLoader,
@@ -199,6 +209,7 @@ impl<O: IsA<PixbufLoader>> PixbufLoaderExt for O {
         }
     }
 
+    #[doc(alias = "area-updated")]
     fn connect_area_updated<F: Fn(&Self, i32, i32, i32, i32) + 'static>(
         &self,
         f: F,
@@ -235,6 +246,7 @@ impl<O: IsA<PixbufLoader>> PixbufLoaderExt for O {
         }
     }
 
+    #[doc(alias = "closed")]
     fn connect_closed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn closed_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GdkPixbufLoader,
@@ -258,6 +270,7 @@ impl<O: IsA<PixbufLoader>> PixbufLoaderExt for O {
         }
     }
 
+    #[doc(alias = "size-prepared")]
     fn connect_size_prepared<F: Fn(&Self, i32, i32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn size_prepared_trampoline<P, F: Fn(&P, i32, i32) + 'static>(
             this: *mut ffi::GdkPixbufLoader,

@@ -37,6 +37,7 @@ impl ComboBoxText {
     }
 
     #[doc(alias = "gtk_combo_box_text_new_with_entry")]
+    #[doc(alias = "new_with_entry")]
     pub fn with_entry() -> ComboBoxText {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_combo_box_text_new_with_entry()).unsafe_cast() }
@@ -259,8 +260,8 @@ impl ComboBoxTextBuilder {
         if let Some(ref editing_canceled) = self.editing_canceled {
             properties.push(("editing-canceled", editing_canceled));
         }
-        let ret = glib::Object::new::<ComboBoxText>(&properties).expect("object new");
-        ret
+        glib::Object::new::<ComboBoxText>(&properties)
+            .expect("Failed to create an instance of ComboBoxText")
     }
 
     pub fn active(mut self, active: i32) -> Self {
@@ -521,6 +522,7 @@ pub trait ComboBoxTextExt: 'static {
     fn append_text(&self, text: &str);
 
     #[doc(alias = "gtk_combo_box_text_get_active_text")]
+    #[doc(alias = "get_active_text")]
     fn active_text(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_combo_box_text_insert")]

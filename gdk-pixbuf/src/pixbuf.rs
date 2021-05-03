@@ -289,6 +289,7 @@ impl Pixbuf {
     #[allow(clippy::mut_from_ref)]
     #[allow(clippy::missing_safety_doc)]
     #[doc(alias = "gdk_pixbuf_get_pixels_with_length")]
+    #[doc(alias = "get_pixels")]
     pub unsafe fn pixels(&self) -> &mut [u8] {
         let mut len = 0;
         let ptr = ffi::gdk_pixbuf_get_pixels_with_length(self.to_glib_none().0, &mut len);
@@ -324,6 +325,7 @@ impl Pixbuf {
     }
 
     #[doc(alias = "gdk_pixbuf_get_file_info")]
+    #[doc(alias = "get_file_info")]
     pub fn file_info<T: AsRef<Path>>(filename: T) -> Option<(PixbufFormat, i32, i32)> {
         unsafe {
             let mut width = mem::MaybeUninit::uninit();
@@ -348,6 +350,7 @@ impl Pixbuf {
     #[cfg(any(feature = "v2_32", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
     #[doc(alias = "gdk_pixbuf_get_file_info_async")]
+    #[doc(alias = "get_file_info_async")]
     pub fn file_info_async<
         P: IsA<gio::Cancellable>,
         Q: FnOnce(Result<Option<(PixbufFormat, i32, i32)>, Error>) + Send + 'static,
@@ -403,6 +406,7 @@ impl Pixbuf {
     #[cfg(any(feature = "v2_32", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
     #[allow(clippy::type_complexity)]
+    #[doc(alias = "get_file_info_async_future")]
     pub fn file_info_async_future<T: AsRef<Path> + Clone + 'static>(
         filename: T,
     ) -> Pin<Box<dyn Future<Output = Result<Option<(PixbufFormat, i32, i32)>, Error>> + 'static>>

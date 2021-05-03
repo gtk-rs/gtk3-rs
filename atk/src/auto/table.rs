@@ -30,42 +30,55 @@ pub trait TableExt: 'static {
     fn add_row_selection(&self, row: i32) -> bool;
 
     #[doc(alias = "atk_table_get_caption")]
+    #[doc(alias = "get_caption")]
     fn caption(&self) -> Option<Object>;
 
     #[doc(alias = "atk_table_get_column_at_index")]
+    #[doc(alias = "get_column_at_index")]
     fn column_at_index(&self, index_: i32) -> i32;
 
     #[doc(alias = "atk_table_get_column_description")]
+    #[doc(alias = "get_column_description")]
     fn column_description(&self, column: i32) -> Option<glib::GString>;
 
     #[doc(alias = "atk_table_get_column_extent_at")]
+    #[doc(alias = "get_column_extent_at")]
     fn column_extent_at(&self, row: i32, column: i32) -> i32;
 
     #[doc(alias = "atk_table_get_column_header")]
+    #[doc(alias = "get_column_header")]
     fn column_header(&self, column: i32) -> Option<Object>;
 
     #[doc(alias = "atk_table_get_index_at")]
+    #[doc(alias = "get_index_at")]
     fn index_at(&self, row: i32, column: i32) -> i32;
 
     #[doc(alias = "atk_table_get_n_columns")]
+    #[doc(alias = "get_n_columns")]
     fn n_columns(&self) -> i32;
 
     #[doc(alias = "atk_table_get_n_rows")]
+    #[doc(alias = "get_n_rows")]
     fn n_rows(&self) -> i32;
 
     #[doc(alias = "atk_table_get_row_at_index")]
+    #[doc(alias = "get_row_at_index")]
     fn row_at_index(&self, index_: i32) -> i32;
 
     #[doc(alias = "atk_table_get_row_description")]
+    #[doc(alias = "get_row_description")]
     fn row_description(&self, row: i32) -> Option<glib::GString>;
 
     #[doc(alias = "atk_table_get_row_extent_at")]
+    #[doc(alias = "get_row_extent_at")]
     fn row_extent_at(&self, row: i32, column: i32) -> i32;
 
     #[doc(alias = "atk_table_get_row_header")]
+    #[doc(alias = "get_row_header")]
     fn row_header(&self, row: i32) -> Option<Object>;
 
     #[doc(alias = "atk_table_get_summary")]
+    #[doc(alias = "get_summary")]
     fn summary(&self) -> Option<Object>;
 
     #[doc(alias = "atk_table_is_column_selected")]
@@ -104,18 +117,25 @@ pub trait TableExt: 'static {
     #[doc(alias = "atk_table_set_summary")]
     fn set_summary<P: IsA<Object>>(&self, accessible: &P);
 
+    #[doc(alias = "column-deleted")]
     fn connect_column_deleted<F: Fn(&Self, i32, i32) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "column-inserted")]
     fn connect_column_inserted<F: Fn(&Self, i32, i32) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "column-reordered")]
     fn connect_column_reordered<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "model-changed")]
     fn connect_model_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "row-deleted")]
     fn connect_row_deleted<F: Fn(&Self, i32, i32) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "row-inserted")]
     fn connect_row_inserted<F: Fn(&Self, i32, i32) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "row-reordered")]
     fn connect_row_reordered<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
@@ -324,6 +344,7 @@ impl<O: IsA<Table>> TableExt for O {
         }
     }
 
+    #[doc(alias = "column-deleted")]
     fn connect_column_deleted<F: Fn(&Self, i32, i32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn column_deleted_trampoline<P, F: Fn(&P, i32, i32) + 'static>(
             this: *mut ffi::AtkTable,
@@ -349,6 +370,7 @@ impl<O: IsA<Table>> TableExt for O {
         }
     }
 
+    #[doc(alias = "column-inserted")]
     fn connect_column_inserted<F: Fn(&Self, i32, i32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn column_inserted_trampoline<P, F: Fn(&P, i32, i32) + 'static>(
             this: *mut ffi::AtkTable,
@@ -374,6 +396,7 @@ impl<O: IsA<Table>> TableExt for O {
         }
     }
 
+    #[doc(alias = "column-reordered")]
     fn connect_column_reordered<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn column_reordered_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::AtkTable,
@@ -397,6 +420,7 @@ impl<O: IsA<Table>> TableExt for O {
         }
     }
 
+    #[doc(alias = "model-changed")]
     fn connect_model_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn model_changed_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::AtkTable,
@@ -420,6 +444,7 @@ impl<O: IsA<Table>> TableExt for O {
         }
     }
 
+    #[doc(alias = "row-deleted")]
     fn connect_row_deleted<F: Fn(&Self, i32, i32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn row_deleted_trampoline<P, F: Fn(&P, i32, i32) + 'static>(
             this: *mut ffi::AtkTable,
@@ -445,6 +470,7 @@ impl<O: IsA<Table>> TableExt for O {
         }
     }
 
+    #[doc(alias = "row-inserted")]
     fn connect_row_inserted<F: Fn(&Self, i32, i32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn row_inserted_trampoline<P, F: Fn(&P, i32, i32) + 'static>(
             this: *mut ffi::AtkTable,
@@ -470,6 +496,7 @@ impl<O: IsA<Table>> TableExt for O {
         }
     }
 
+    #[doc(alias = "row-reordered")]
     fn connect_row_reordered<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn row_reordered_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::AtkTable,

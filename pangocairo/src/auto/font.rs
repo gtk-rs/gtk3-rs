@@ -18,6 +18,7 @@ pub const NONE_FONT: Option<&Font> = None;
 
 pub trait FontExt: 'static {
     #[doc(alias = "pango_cairo_font_get_scaled_font")]
+    #[doc(alias = "get_scaled_font")]
     fn scaled_font(&self) -> Option<cairo::ScaledFont>;
 }
 

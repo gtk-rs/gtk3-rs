@@ -212,8 +212,8 @@ impl ToolItemBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        let ret = glib::Object::new::<ToolItem>(&properties).expect("object new");
-        ret
+        glib::Object::new::<ToolItem>(&properties)
+            .expect("Failed to create an instance of ToolItem")
     }
 
     pub fn is_important(mut self, is_important: bool) -> Self {
@@ -413,48 +413,63 @@ pub const NONE_TOOL_ITEM: Option<&ToolItem> = None;
 
 pub trait ToolItemExt: 'static {
     #[doc(alias = "gtk_tool_item_get_ellipsize_mode")]
+    #[doc(alias = "get_ellipsize_mode")]
     fn ellipsize_mode(&self) -> pango::EllipsizeMode;
 
     #[doc(alias = "gtk_tool_item_get_expand")]
+    #[doc(alias = "get_expand")]
     fn expands(&self) -> bool;
 
     #[doc(alias = "gtk_tool_item_get_homogeneous")]
+    #[doc(alias = "get_homogeneous")]
     fn is_homogeneous(&self) -> bool;
 
     #[doc(alias = "gtk_tool_item_get_icon_size")]
+    #[doc(alias = "get_icon_size")]
     fn icon_size(&self) -> IconSize;
 
     #[doc(alias = "gtk_tool_item_get_is_important")]
+    #[doc(alias = "get_is_important")]
     fn is_important(&self) -> bool;
 
     #[doc(alias = "gtk_tool_item_get_orientation")]
+    #[doc(alias = "get_orientation")]
     fn orientation(&self) -> Orientation;
 
     #[doc(alias = "gtk_tool_item_get_proxy_menu_item")]
+    #[doc(alias = "get_proxy_menu_item")]
     fn proxy_menu_item(&self, menu_item_id: &str) -> Option<Widget>;
 
     #[doc(alias = "gtk_tool_item_get_relief_style")]
+    #[doc(alias = "get_relief_style")]
     fn relief_style(&self) -> ReliefStyle;
 
     #[doc(alias = "gtk_tool_item_get_text_alignment")]
+    #[doc(alias = "get_text_alignment")]
     fn text_alignment(&self) -> f32;
 
     #[doc(alias = "gtk_tool_item_get_text_orientation")]
+    #[doc(alias = "get_text_orientation")]
     fn text_orientation(&self) -> Orientation;
 
     #[doc(alias = "gtk_tool_item_get_text_size_group")]
+    #[doc(alias = "get_text_size_group")]
     fn text_size_group(&self) -> Option<SizeGroup>;
 
     #[doc(alias = "gtk_tool_item_get_toolbar_style")]
+    #[doc(alias = "get_toolbar_style")]
     fn toolbar_style(&self) -> ToolbarStyle;
 
     #[doc(alias = "gtk_tool_item_get_use_drag_window")]
+    #[doc(alias = "get_use_drag_window")]
     fn uses_drag_window(&self) -> bool;
 
     #[doc(alias = "gtk_tool_item_get_visible_horizontal")]
+    #[doc(alias = "get_visible_horizontal")]
     fn is_visible_horizontal(&self) -> bool;
 
     #[doc(alias = "gtk_tool_item_get_visible_vertical")]
+    #[doc(alias = "get_visible_vertical")]
     fn is_visible_vertical(&self) -> bool;
 
     #[doc(alias = "gtk_tool_item_rebuild_menu")]
@@ -487,25 +502,23 @@ pub trait ToolItemExt: 'static {
     #[doc(alias = "gtk_tool_item_toolbar_reconfigured")]
     fn toolbar_reconfigured(&self);
 
+    #[doc(alias = "create-menu-proxy")]
     fn connect_create_menu_proxy<F: Fn(&Self) -> glib::signal::Inhibit + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "toolbar-reconfigured")]
     fn connect_toolbar_reconfigured<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_is_important_notify<F: Fn(&Self) + 'static>(&self, f: F)
-        -> SignalHandlerId;
+    #[doc(alias = "is-important")]
+    fn connect_is_important_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_visible_horizontal_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "visible-horizontal")]
+    fn connect_visible_horizontal_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_visible_vertical_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "visible-vertical")]
+    fn connect_visible_vertical_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<ToolItem>> ToolItemExt for O {
@@ -707,6 +720,7 @@ impl<O: IsA<ToolItem>> ToolItemExt for O {
         }
     }
 
+    #[doc(alias = "create-menu-proxy")]
     fn connect_create_menu_proxy<F: Fn(&Self) -> glib::signal::Inhibit + 'static>(
         &self,
         f: F,
@@ -737,6 +751,7 @@ impl<O: IsA<ToolItem>> ToolItemExt for O {
         }
     }
 
+    #[doc(alias = "toolbar-reconfigured")]
     fn connect_toolbar_reconfigured<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn toolbar_reconfigured_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkToolItem,
@@ -760,10 +775,8 @@ impl<O: IsA<ToolItem>> ToolItemExt for O {
         }
     }
 
-    fn connect_property_is_important_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "is-important")]
+    fn connect_is_important_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_is_important_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkToolItem,
             _param_spec: glib::ffi::gpointer,
@@ -787,10 +800,8 @@ impl<O: IsA<ToolItem>> ToolItemExt for O {
         }
     }
 
-    fn connect_property_visible_horizontal_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "visible-horizontal")]
+    fn connect_visible_horizontal_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_visible_horizontal_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkToolItem,
             _param_spec: glib::ffi::gpointer,
@@ -814,10 +825,8 @@ impl<O: IsA<ToolItem>> ToolItemExt for O {
         }
     }
 
-    fn connect_property_visible_vertical_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "visible-vertical")]
+    fn connect_visible_vertical_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_visible_vertical_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkToolItem,
             _param_spec: glib::ffi::gpointer,

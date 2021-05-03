@@ -35,12 +35,14 @@ pub const NONE_MEMORY_OUTPUT_STREAM: Option<&MemoryOutputStream> = None;
 
 pub trait MemoryOutputStreamExt: 'static {
     #[doc(alias = "g_memory_output_stream_get_data_size")]
+    #[doc(alias = "get_data_size")]
     fn data_size(&self) -> usize;
 
     #[doc(alias = "g_memory_output_stream_steal_as_bytes")]
     fn steal_as_bytes(&self) -> glib::Bytes;
 
-    fn connect_property_data_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "data-size")]
+    fn connect_data_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<MemoryOutputStream>> MemoryOutputStreamExt for O {
@@ -56,7 +58,8 @@ impl<O: IsA<MemoryOutputStream>> MemoryOutputStreamExt for O {
         }
     }
 
-    fn connect_property_data_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "data-size")]
+    fn connect_data_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_data_size_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GMemoryOutputStream,
             _param_spec: glib::ffi::gpointer,

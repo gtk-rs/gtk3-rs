@@ -1185,12 +1185,17 @@ pub trait ObjectExt: ObjectType {
     /// Returns `true` if the object is an instance of (can be cast to) `T`.
     fn is<T: StaticType>(&self) -> bool;
 
+    #[doc(alias = "get_type")]
     fn type_(&self) -> Type;
+    #[doc(alias = "get_object_class")]
     fn object_class(&self) -> &ObjectClass;
+    #[doc(alias = "get_class")]
     fn class(&self) -> &Class<Self>
     where
         Self: IsClass;
+    #[doc(alias = "get_class_of")]
     fn class_of<T: IsClass>(&self) -> Option<&Class<T>>;
+    #[doc(alias = "get_interface")]
     fn interface<T: IsInterface>(&self) -> Option<InterfaceRef<T>>;
 
     fn set_property<'a, N: Into<&'a str>, V: ToValue>(
@@ -1206,8 +1211,10 @@ pub trait ObjectExt: ObjectType {
     fn set_properties(&self, property_values: &[(&str, &dyn ToValue)]) -> Result<(), BoolError>;
     fn set_properties_from_value(&self, property_values: &[(&str, Value)])
         -> Result<(), BoolError>;
+    #[doc(alias = "get_property")]
     fn property<'a, N: Into<&'a str>>(&self, property_name: N) -> Result<Value, BoolError>;
     fn has_property<'a, N: Into<&'a str>>(&self, property_name: N, type_: Option<Type>) -> bool;
+    #[doc(alias = "get_property_type")]
     fn property_type<'a, N: Into<&'a str>>(&self, property_name: N) -> Option<Type>;
     fn find_property<'a, N: Into<&'a str>>(&self, property_name: N) -> Option<crate::ParamSpec>;
     fn list_properties(&self) -> Vec<crate::ParamSpec>;
@@ -1223,6 +1230,7 @@ pub trait ObjectExt: ObjectType {
     /// `set_qdata`, `steal_qdata`, `set_data` or `steal_data`.
     ///
     /// The caller is responsible for ensuring the returned value is of a suitable type
+    #[doc(alias = "get_qdata")]
     unsafe fn qdata<QD: 'static>(&self, key: Quark) -> Option<ptr::NonNull<QD>>;
 
     /// # Safety
@@ -1241,6 +1249,7 @@ pub trait ObjectExt: ObjectType {
     /// `set_qdata`, `steal_qdata`, `set_data` or `steal_data`.
     ///
     /// The caller is responsible for ensuring the returned value is of a suitable type
+    #[doc(alias = "get_data")]
     unsafe fn data<QD: 'static>(&self, key: &str) -> Option<ptr::NonNull<QD>>;
 
     /// # Safety
@@ -2352,6 +2361,7 @@ impl ObjectClass {
         }
     }
 
+    #[doc(alias = "get_property_type")]
     pub fn property_type<'a, N: Into<&'a str>>(&self, property_name: N) -> Option<Type> {
         self.find_property(property_name)
             .map(|pspec| pspec.value_type())
@@ -2636,6 +2646,7 @@ impl<T: IsClass> Class<T> {
     ///
     /// This is not equivalent to `T::static_type()` but is the type of the subclass of `T` where
     /// this class belongs to.
+    #[doc(alias = "get_type")]
     pub fn type_(&self) -> Type {
         unsafe {
             // This also works for interfaces because they also have the type
@@ -2820,6 +2831,7 @@ impl<T: IsInterface> Interface<T> {
     /// Get the type id for this interface.
     ///
     /// This is equivalent to `T::static_type()`.
+    #[doc(alias = "get_type")]
     pub fn type_(&self) -> Type {
         unsafe {
             let klass = self as *const _ as *const gobject_ffi::GTypeInterface;
@@ -2831,6 +2843,7 @@ impl<T: IsInterface> Interface<T> {
     ///
     /// This is not equivalent to `T::static_type()` but is the type id of the type this specific
     /// interface belongs to.
+    #[doc(alias = "get_instance_type")]
     pub fn instance_type(&self) -> Type {
         unsafe {
             // This also works for interfaces because they also have the type

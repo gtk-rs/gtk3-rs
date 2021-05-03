@@ -41,13 +41,12 @@ impl TlsFileDatabase {
 pub const NONE_TLS_FILE_DATABASE: Option<&TlsFileDatabase> = None;
 
 pub trait TlsFileDatabaseExt: 'static {
-    #[doc(alias = "get_property_anchors")]
     fn anchors(&self) -> Option<glib::GString>;
 
-    #[doc(alias = "set_property_anchors")]
     fn set_anchors(&self, anchors: Option<&str>);
 
-    fn connect_property_anchors_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "anchors")]
+    fn connect_anchors_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<TlsFileDatabase>> TlsFileDatabaseExt for O {
@@ -75,7 +74,8 @@ impl<O: IsA<TlsFileDatabase>> TlsFileDatabaseExt for O {
         }
     }
 
-    fn connect_property_anchors_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "anchors")]
+    fn connect_anchors_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_anchors_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GTlsFileDatabase,
             _param_spec: glib::ffi::gpointer,

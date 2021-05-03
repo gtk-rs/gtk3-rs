@@ -30,6 +30,7 @@ glib::wrapper! {
 
 impl RadioToolButton {
     #[doc(alias = "gtk_radio_tool_button_new_from_widget")]
+    #[doc(alias = "new_from_widget")]
     pub fn from_widget<P: IsA<RadioToolButton>>(group: &P) -> RadioToolButton {
         skip_assert_initialized!();
         unsafe {
@@ -239,8 +240,8 @@ impl RadioToolButtonBuilder {
         if let Some(ref action_target) = self.action_target {
             properties.push(("action-target", action_target));
         }
-        let ret = glib::Object::new::<RadioToolButton>(&properties).expect("object new");
-        ret
+        glib::Object::new::<RadioToolButton>(&properties)
+            .expect("Failed to create an instance of RadioToolButton")
     }
 
     pub fn active(mut self, active: bool) -> Self {
@@ -480,6 +481,7 @@ pub const NONE_RADIO_TOOL_BUTTON: Option<&RadioToolButton> = None;
 
 pub trait RadioToolButtonExt: 'static {
     #[doc(alias = "gtk_radio_tool_button_get_group")]
+    #[doc(alias = "get_group")]
     fn group(&self) -> Vec<RadioButton>;
 }
 

@@ -48,6 +48,7 @@ impl FileChooserButton {
     }
 
     #[doc(alias = "gtk_file_chooser_button_new_with_dialog")]
+    #[doc(alias = "new_with_dialog")]
     pub fn with_dialog<P: IsA<Dialog>>(dialog: &P) -> FileChooserButton {
         skip_assert_initialized!();
         unsafe {
@@ -285,8 +286,8 @@ impl FileChooserButtonBuilder {
         if let Some(ref use_preview_label) = self.use_preview_label {
             properties.push(("use-preview-label", use_preview_label));
         }
-        let ret = glib::Object::new::<FileChooserButton>(&properties).expect("object new");
-        ret
+        glib::Object::new::<FileChooserButton>(&properties)
+            .expect("Failed to create an instance of FileChooserButton")
     }
 
     pub fn dialog<P: IsA<FileChooser>>(mut self, dialog: &P) -> Self {
@@ -564,12 +565,15 @@ pub trait FileChooserButtonExt: 'static {
     #[cfg(any(not(feature = "v3_20"), feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(not(feature = "v3_20"))))]
     #[doc(alias = "gtk_file_chooser_button_get_focus_on_click")]
+    #[doc(alias = "get_focus_on_click")]
     fn gets_focus_on_click(&self) -> bool;
 
     #[doc(alias = "gtk_file_chooser_button_get_title")]
+    #[doc(alias = "get_title")]
     fn title(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_file_chooser_button_get_width_chars")]
+    #[doc(alias = "get_width_chars")]
     fn width_chars(&self) -> i32;
 
     #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
@@ -584,11 +588,14 @@ pub trait FileChooserButtonExt: 'static {
     #[doc(alias = "gtk_file_chooser_button_set_width_chars")]
     fn set_width_chars(&self, n_chars: i32);
 
+    #[doc(alias = "file-set")]
     fn connect_file_set<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_title_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "title")]
+    fn connect_title_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_width_chars_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "width-chars")]
+    fn connect_width_chars_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<FileChooserButton>> FileChooserButtonExt for O {
@@ -640,6 +647,7 @@ impl<O: IsA<FileChooserButton>> FileChooserButtonExt for O {
         }
     }
 
+    #[doc(alias = "file-set")]
     fn connect_file_set<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn file_set_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkFileChooserButton,
@@ -663,7 +671,8 @@ impl<O: IsA<FileChooserButton>> FileChooserButtonExt for O {
         }
     }
 
-    fn connect_property_title_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "title")]
+    fn connect_title_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_title_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkFileChooserButton,
             _param_spec: glib::ffi::gpointer,
@@ -687,7 +696,8 @@ impl<O: IsA<FileChooserButton>> FileChooserButtonExt for O {
         }
     }
 
-    fn connect_property_width_chars_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "width-chars")]
+    fn connect_width_chars_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_width_chars_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkFileChooserButton,
             _param_spec: glib::ffi::gpointer,

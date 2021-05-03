@@ -25,7 +25,7 @@ impl fmt::Display for Colorspace {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "Colorspace::{}",
             match *self {
                 Self::Rgb => "Rgb",
                 _ => "Unknown",
@@ -108,7 +108,7 @@ impl fmt::Display for InterpType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "InterpType::{}",
             match *self {
                 Self::Nearest => "Nearest",
                 Self::Tiles => "Tiles",
@@ -196,7 +196,7 @@ impl fmt::Display for PixbufAlphaMode {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "PixbufAlphaMode::{}",
             match *self {
                 Self::Bilevel => "Bilevel",
                 Self::Full => "Full",
@@ -288,7 +288,7 @@ impl fmt::Display for PixbufError {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "PixbufError::{}",
             match *self {
                 Self::CorruptImage => "CorruptImage",
                 Self::InsufficientMemory => "InsufficientMemory",
@@ -412,7 +412,7 @@ impl fmt::Display for PixbufRotation {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Self::{}",
+            "PixbufRotation::{}",
             match *self {
                 Self::None => "None",
                 Self::Counterclockwise => "Counterclockwise",

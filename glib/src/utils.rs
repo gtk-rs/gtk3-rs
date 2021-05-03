@@ -11,11 +11,13 @@ use std::ptr;
 /// Same as [`get_prgname()`].
 ///
 /// [`get_prgname()`]: fn.get_prgname.html
+#[doc(alias = "get_program_name")]
 pub fn program_name() -> Option<String> {
     prgname()
 }
 
 #[doc(alias = "g_get_prgname")]
+#[doc(alias = "get_prgname")]
 pub fn prgname() -> Option<String> {
     unsafe { from_glib_none(ffi::g_get_prgname()) }
 }
@@ -86,6 +88,7 @@ pub fn environ_getenv<K: AsRef<OsStr>>(envp: &[OsString], variable: K) -> Option
 }
 
 #[doc(alias = "g_get_user_name")]
+#[doc(alias = "get_user_name")]
 pub fn user_name() -> Option<OsString> {
     #[cfg(not(all(windows, target_arch = "x86")))]
     use ffi::g_get_user_name;
@@ -96,6 +99,7 @@ pub fn user_name() -> Option<OsString> {
 }
 
 #[doc(alias = "g_get_real_name")]
+#[doc(alias = "get_real_name")]
 pub fn real_name() -> Option<OsString> {
     #[cfg(not(all(windows, target_arch = "x86")))]
     use ffi::g_get_real_name;
@@ -106,6 +110,7 @@ pub fn real_name() -> Option<OsString> {
 }
 
 #[doc(alias = "g_get_current_dir")]
+#[doc(alias = "get_current_dir")]
 pub fn current_dir() -> Option<PathBuf> {
     #[cfg(not(windows))]
     use ffi::g_get_current_dir;
@@ -167,6 +172,7 @@ pub fn find_program_in_path<P: AsRef<Path>>(program: P) -> Option<PathBuf> {
 }
 
 #[doc(alias = "g_get_home_dir")]
+#[doc(alias = "get_home_dir")]
 pub fn home_dir() -> Option<std::path::PathBuf> {
     #[cfg(not(all(windows, target_arch = "x86")))]
     use ffi::g_get_home_dir;
@@ -177,6 +183,7 @@ pub fn home_dir() -> Option<std::path::PathBuf> {
 }
 
 #[doc(alias = "g_get_tmp_dir")]
+#[doc(alias = "get_tmp_dir")]
 pub fn tmp_dir() -> Option<std::path::PathBuf> {
     #[cfg(not(all(windows, target_arch = "x86")))]
     use ffi::g_get_tmp_dir;

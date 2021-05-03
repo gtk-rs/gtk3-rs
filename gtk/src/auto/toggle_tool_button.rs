@@ -242,8 +242,8 @@ impl ToggleToolButtonBuilder {
         if let Some(ref action_target) = self.action_target {
             properties.push(("action-target", action_target));
         }
-        let ret = glib::Object::new::<ToggleToolButton>(&properties).expect("object new");
-        ret
+        glib::Object::new::<ToggleToolButton>(&properties)
+            .expect("Failed to create an instance of ToggleToolButton")
     }
 
     pub fn active(mut self, active: bool) -> Self {
@@ -483,14 +483,17 @@ pub const NONE_TOGGLE_TOOL_BUTTON: Option<&ToggleToolButton> = None;
 
 pub trait ToggleToolButtonExt: 'static {
     #[doc(alias = "gtk_toggle_tool_button_get_active")]
+    #[doc(alias = "get_active")]
     fn is_active(&self) -> bool;
 
     #[doc(alias = "gtk_toggle_tool_button_set_active")]
     fn set_active(&self, is_active: bool);
 
+    #[doc(alias = "toggled")]
     fn connect_toggled<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "active")]
+    fn connect_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<ToggleToolButton>> ToggleToolButtonExt for O {
@@ -511,6 +514,7 @@ impl<O: IsA<ToggleToolButton>> ToggleToolButtonExt for O {
         }
     }
 
+    #[doc(alias = "toggled")]
     fn connect_toggled<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn toggled_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkToggleToolButton,
@@ -534,7 +538,8 @@ impl<O: IsA<ToggleToolButton>> ToggleToolButtonExt for O {
         }
     }
 
-    fn connect_property_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "active")]
+    fn connect_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_active_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkToggleToolButton,
             _param_spec: glib::ffi::gpointer,

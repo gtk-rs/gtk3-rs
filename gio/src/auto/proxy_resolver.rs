@@ -21,6 +21,7 @@ glib::wrapper! {
 
 impl ProxyResolver {
     #[doc(alias = "g_proxy_resolver_get_default")]
+    #[doc(alias = "get_default")]
     pub fn default() -> ProxyResolver {
         unsafe { from_glib_none(ffi::g_proxy_resolver_get_default()) }
     }

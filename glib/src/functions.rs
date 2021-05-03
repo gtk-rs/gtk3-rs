@@ -214,6 +214,7 @@ pub fn spawn_async_with_pipes<
 /// This returns whether the locale's encoding is UTF-8, and the current
 /// charset if available.
 #[doc(alias = "g_get_charset")]
+#[doc(alias = "get_charset")]
 pub fn charset() -> (bool, Option<GString>) {
     unsafe {
         let mut out_charset = ptr::null();

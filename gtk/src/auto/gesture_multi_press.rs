@@ -40,6 +40,7 @@ impl GestureMultiPress {
     }
 
     #[doc(alias = "gtk_gesture_multi_press_get_area")]
+    #[doc(alias = "get_area")]
     pub fn area(&self) -> Option<gdk::Rectangle> {
         unsafe {
             let mut rect = gdk::Rectangle::uninitialized();
@@ -62,6 +63,7 @@ impl GestureMultiPress {
         }
     }
 
+    #[doc(alias = "pressed")]
     pub fn connect_pressed<F: Fn(&GestureMultiPress, i32, f64, f64) + 'static>(
         &self,
         f: F,
@@ -91,6 +93,7 @@ impl GestureMultiPress {
         }
     }
 
+    #[doc(alias = "released")]
     pub fn connect_released<F: Fn(&GestureMultiPress, i32, f64, f64) + 'static>(
         &self,
         f: F,
@@ -120,6 +123,7 @@ impl GestureMultiPress {
         }
     }
 
+    #[doc(alias = "stopped")]
     pub fn connect_stopped<F: Fn(&GestureMultiPress) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn stopped_trampoline<F: Fn(&GestureMultiPress) + 'static>(
             this: *mut ffi::GtkGestureMultiPress,
@@ -181,8 +185,8 @@ impl GestureMultiPressBuilder {
         if let Some(ref widget) = self.widget {
             properties.push(("widget", widget));
         }
-        let ret = glib::Object::new::<GestureMultiPress>(&properties).expect("object new");
-        ret
+        glib::Object::new::<GestureMultiPress>(&properties)
+            .expect("Failed to create an instance of GestureMultiPress")
     }
 
     pub fn button(mut self, button: u32) -> Self {

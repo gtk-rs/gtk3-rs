@@ -39,7 +39,7 @@ impl GestureLongPress {
         }
     }
 
-    #[doc(alias = "get_property_delay_factor")]
+    #[doc(alias = "delay-factor")]
     pub fn delay_factor(&self) -> f64 {
         unsafe {
             let mut value = glib::Value::from_type(<f64 as StaticType>::static_type());
@@ -54,7 +54,7 @@ impl GestureLongPress {
         }
     }
 
-    #[doc(alias = "set_property_delay_factor")]
+    #[doc(alias = "delay-factor")]
     pub fn set_delay_factor(&self, delay_factor: f64) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
@@ -65,6 +65,7 @@ impl GestureLongPress {
         }
     }
 
+    #[doc(alias = "cancelled")]
     pub fn connect_cancelled<F: Fn(&GestureLongPress) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn cancelled_trampoline<F: Fn(&GestureLongPress) + 'static>(
             this: *mut ffi::GtkGestureLongPress,
@@ -86,6 +87,7 @@ impl GestureLongPress {
         }
     }
 
+    #[doc(alias = "pressed")]
     pub fn connect_pressed<F: Fn(&GestureLongPress, f64, f64) + 'static>(
         &self,
         f: F,
@@ -112,7 +114,8 @@ impl GestureLongPress {
         }
     }
 
-    pub fn connect_property_delay_factor_notify<F: Fn(&GestureLongPress) + 'static>(
+    #[doc(alias = "delay-factor")]
+    pub fn connect_delay_factor_notify<F: Fn(&GestureLongPress) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -181,8 +184,8 @@ impl GestureLongPressBuilder {
         if let Some(ref widget) = self.widget {
             properties.push(("widget", widget));
         }
-        let ret = glib::Object::new::<GestureLongPress>(&properties).expect("object new");
-        ret
+        glib::Object::new::<GestureLongPress>(&properties)
+            .expect("Failed to create an instance of GestureLongPress")
     }
 
     pub fn delay_factor(mut self, delay_factor: f64) -> Self {
