@@ -131,7 +131,7 @@ pub fn impl_gflags(input: &DeriveInput, gtype_name: &LitStr) -> TokenStream {
 
         impl #crate_ident::translate::FromGlib<u32> for #name {
             unsafe fn from_glib(value: u32) -> Self {
-                #name::from_bits_truncate(value)
+                Self::from_bits_truncate(value)
             }
         }
 
@@ -151,7 +151,7 @@ pub fn impl_gflags(input: &DeriveInput, gtype_name: &LitStr) -> TokenStream {
 
         impl #crate_ident::value::ToValue for #name {
             fn to_value(&self) -> #crate_ident::value::Value {
-                let mut value = #crate_ident::value::Value::for_value_type::<#name>();
+                let mut value = #crate_ident::value::Value::for_value_type::<Self>();
                 unsafe {
                     #crate_ident::gobject_ffi::g_value_set_flags(
                         #crate_ident::translate::ToGlibPtrMut::to_glib_none_mut(&mut value).0,

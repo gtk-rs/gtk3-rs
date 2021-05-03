@@ -33,7 +33,7 @@ macro_rules! gvalue_impl {
 
         impl glib::value::ToValue for $name {
             fn to_value(&self) -> glib::Value {
-                let mut value = glib::Value::for_value_type::<$name>();
+                let mut value = glib::Value::for_value_type::<Self>();
                 unsafe {
                     glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, (*self).into());
                 }
@@ -85,14 +85,14 @@ impl From<Antialias> for ffi::cairo_antialias_t {
 impl From<ffi::cairo_antialias_t> for Antialias {
     fn from(value: ffi::cairo_antialias_t) -> Self {
         match value {
-            ffi::ANTIALIAS_DEFAULT => Antialias::Default,
-            ffi::ANTIALIAS_NONE => Antialias::None,
-            ffi::ANTIALIAS_GRAY => Antialias::Gray,
-            ffi::ANTIALIAS_SUBPIXEL => Antialias::Subpixel,
-            ffi::ANTIALIAS_FAST => Antialias::Fast,
-            ffi::ANTIALIAS_GOOD => Antialias::Good,
-            ffi::ANTIALIAS_BEST => Antialias::Best,
-            value => Antialias::__Unknown(value),
+            ffi::ANTIALIAS_DEFAULT => Self::Default,
+            ffi::ANTIALIAS_NONE => Self::None,
+            ffi::ANTIALIAS_GRAY => Self::Gray,
+            ffi::ANTIALIAS_SUBPIXEL => Self::Subpixel,
+            ffi::ANTIALIAS_FAST => Self::Fast,
+            ffi::ANTIALIAS_GOOD => Self::Good,
+            ffi::ANTIALIAS_BEST => Self::Best,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -101,15 +101,15 @@ impl fmt::Display for Antialias {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Antialias::{}",
+            "Self::{}",
             match *self {
-                Antialias::Default => "Default",
-                Antialias::None => "None",
-                Antialias::Gray => "Gray",
-                Antialias::Subpixel => "Subpixel",
-                Antialias::Fast => "Fast",
-                Antialias::Good => "Good",
-                Antialias::Best => "Best",
+                Self::Default => "Default",
+                Self::None => "None",
+                Self::Gray => "Gray",
+                Self::Subpixel => "Subpixel",
+                Self::Fast => "Fast",
+                Self::Good => "Good",
+                Self::Best => "Best",
                 _ => "Unknown",
             }
         )
@@ -143,9 +143,9 @@ impl From<FillRule> for ffi::cairo_fill_rule_t {
 impl From<ffi::cairo_fill_rule_t> for FillRule {
     fn from(value: ffi::cairo_fill_rule_t) -> Self {
         match value {
-            ffi::FILL_RULE_WINDING => FillRule::Winding,
-            ffi::FILL_RULE_EVEN_ODD => FillRule::EvenOdd,
-            value => FillRule::__Unknown(value),
+            ffi::FILL_RULE_WINDING => Self::Winding,
+            ffi::FILL_RULE_EVEN_ODD => Self::EvenOdd,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -154,10 +154,10 @@ impl fmt::Display for FillRule {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "FillRule::{}",
+            "Self::{}",
             match *self {
-                FillRule::Winding => "Winding",
-                FillRule::EvenOdd => "EvenOdd",
+                Self::Winding => "Winding",
+                Self::EvenOdd => "EvenOdd",
                 _ => "Unknown",
             }
         )
@@ -193,10 +193,10 @@ impl From<LineCap> for ffi::cairo_line_cap_t {
 impl From<ffi::cairo_line_cap_t> for LineCap {
     fn from(value: ffi::cairo_line_cap_t) -> Self {
         match value {
-            ffi::LINE_CAP_BUTT => LineCap::Butt,
-            ffi::LINE_CAP_ROUND => LineCap::Round,
-            ffi::LINE_CAP_SQUARE => LineCap::Square,
-            value => LineCap::__Unknown(value),
+            ffi::LINE_CAP_BUTT => Self::Butt,
+            ffi::LINE_CAP_ROUND => Self::Round,
+            ffi::LINE_CAP_SQUARE => Self::Square,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -205,11 +205,11 @@ impl fmt::Display for LineCap {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "LineCap::{}",
+            "Self::{}",
             match *self {
-                LineCap::Butt => "Butt",
-                LineCap::Round => "Round",
-                LineCap::Square => "Square",
+                Self::Butt => "Butt",
+                Self::Round => "Round",
+                Self::Square => "Square",
                 _ => "Unknown",
             }
         )
@@ -245,10 +245,10 @@ impl From<LineJoin> for ffi::cairo_line_join_t {
 impl From<ffi::cairo_line_join_t> for LineJoin {
     fn from(value: ffi::cairo_line_join_t) -> Self {
         match value {
-            ffi::LINE_JOIN_MITER => LineJoin::Miter,
-            ffi::LINE_JOIN_ROUND => LineJoin::Round,
-            ffi::LINE_JOIN_BEVEL => LineJoin::Bevel,
-            value => LineJoin::__Unknown(value),
+            ffi::LINE_JOIN_MITER => Self::Miter,
+            ffi::LINE_JOIN_ROUND => Self::Round,
+            ffi::LINE_JOIN_BEVEL => Self::Bevel,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -257,11 +257,11 @@ impl fmt::Display for LineJoin {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "LineJoin::{}",
+            "Self::{}",
             match *self {
-                LineJoin::Miter => "Miter",
-                LineJoin::Round => "Round",
-                LineJoin::Bevel => "Bevel",
+                Self::Miter => "Miter",
+                Self::Round => "Round",
+                Self::Bevel => "Bevel",
                 _ => "Unknown",
             }
         )
@@ -353,36 +353,36 @@ impl From<Operator> for ffi::cairo_operator_t {
 impl From<ffi::cairo_operator_t> for Operator {
     fn from(value: ffi::cairo_operator_t) -> Self {
         match value {
-            ffi::OPERATOR_CLEAR => Operator::Clear,
-            ffi::OPERATOR_SOURCE => Operator::Source,
-            ffi::OPERATOR_OVER => Operator::Over,
-            ffi::OPERATOR_IN => Operator::In,
-            ffi::OPERATOR_OUT => Operator::Out,
-            ffi::OPERATOR_ATOP => Operator::Atop,
-            ffi::OPERATOR_DEST => Operator::Dest,
-            ffi::OPERATOR_DEST_OVER => Operator::DestOver,
-            ffi::OPERATOR_DEST_IN => Operator::DestIn,
-            ffi::OPERATOR_DEST_OUT => Operator::DestOut,
-            ffi::OPERATOR_DEST_ATOP => Operator::DestAtop,
-            ffi::OPERATOR_XOR => Operator::Xor,
-            ffi::OPERATOR_ADD => Operator::Add,
-            ffi::OPERATOR_SATURATE => Operator::Saturate,
-            ffi::OPERATOR_MULTIPLY => Operator::Multiply,
-            ffi::OPERATOR_SCREEN => Operator::Screen,
-            ffi::OPERATOR_OVERLAY => Operator::Overlay,
-            ffi::OPERATOR_DARKEN => Operator::Darken,
-            ffi::OPERATOR_LIGHTEN => Operator::Lighten,
-            ffi::OPERATOR_COLOR_DODGE => Operator::ColorDodge,
-            ffi::OPERATOR_COLOR_BURN => Operator::ColorBurn,
-            ffi::OPERATOR_HARD_LIGHT => Operator::HardLight,
-            ffi::OPERATOR_SOFT_LIGHT => Operator::SoftLight,
-            ffi::OPERATOR_DIFFERENCE => Operator::Difference,
-            ffi::OPERATOR_EXCLUSION => Operator::Exclusion,
-            ffi::OPERATOR_HSL_HUE => Operator::HslHue,
-            ffi::OPERATOR_HSL_SATURATION => Operator::HslSaturation,
-            ffi::OPERATOR_HSL_COLOR => Operator::HslColor,
-            ffi::OPERATOR_HSL_LUMINOSITY => Operator::HslLuminosity,
-            value => Operator::__Unknown(value),
+            ffi::OPERATOR_CLEAR => Self::Clear,
+            ffi::OPERATOR_SOURCE => Self::Source,
+            ffi::OPERATOR_OVER => Self::Over,
+            ffi::OPERATOR_IN => Self::In,
+            ffi::OPERATOR_OUT => Self::Out,
+            ffi::OPERATOR_ATOP => Self::Atop,
+            ffi::OPERATOR_DEST => Self::Dest,
+            ffi::OPERATOR_DEST_OVER => Self::DestOver,
+            ffi::OPERATOR_DEST_IN => Self::DestIn,
+            ffi::OPERATOR_DEST_OUT => Self::DestOut,
+            ffi::OPERATOR_DEST_ATOP => Self::DestAtop,
+            ffi::OPERATOR_XOR => Self::Xor,
+            ffi::OPERATOR_ADD => Self::Add,
+            ffi::OPERATOR_SATURATE => Self::Saturate,
+            ffi::OPERATOR_MULTIPLY => Self::Multiply,
+            ffi::OPERATOR_SCREEN => Self::Screen,
+            ffi::OPERATOR_OVERLAY => Self::Overlay,
+            ffi::OPERATOR_DARKEN => Self::Darken,
+            ffi::OPERATOR_LIGHTEN => Self::Lighten,
+            ffi::OPERATOR_COLOR_DODGE => Self::ColorDodge,
+            ffi::OPERATOR_COLOR_BURN => Self::ColorBurn,
+            ffi::OPERATOR_HARD_LIGHT => Self::HardLight,
+            ffi::OPERATOR_SOFT_LIGHT => Self::SoftLight,
+            ffi::OPERATOR_DIFFERENCE => Self::Difference,
+            ffi::OPERATOR_EXCLUSION => Self::Exclusion,
+            ffi::OPERATOR_HSL_HUE => Self::HslHue,
+            ffi::OPERATOR_HSL_SATURATION => Self::HslSaturation,
+            ffi::OPERATOR_HSL_COLOR => Self::HslColor,
+            ffi::OPERATOR_HSL_LUMINOSITY => Self::HslLuminosity,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -391,37 +391,37 @@ impl fmt::Display for Operator {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Operator::{}",
+            "Self::{}",
             match *self {
-                Operator::Clear => "Clear",
-                Operator::Source => "Source",
-                Operator::Over => "Over",
-                Operator::In => "In",
-                Operator::Out => "Out",
-                Operator::Atop => "Atop",
-                Operator::Dest => "Dest",
-                Operator::DestOver => "DestOver",
-                Operator::DestIn => "DestIn",
-                Operator::DestOut => "DestOut",
-                Operator::DestAtop => "DestAtop",
-                Operator::Xor => "Xor",
-                Operator::Add => "Add",
-                Operator::Saturate => "Saturate",
-                Operator::Multiply => "Multiply",
-                Operator::Screen => "Screen",
-                Operator::Overlay => "Overlay",
-                Operator::Darken => "Darken",
-                Operator::Lighten => "Lighten",
-                Operator::ColorDodge => "ColorDodge",
-                Operator::ColorBurn => "ColorBurn",
-                Operator::HardLight => "HardLight",
-                Operator::SoftLight => "SoftLight",
-                Operator::Difference => "Difference",
-                Operator::Exclusion => "Exclusion",
-                Operator::HslHue => "HslHue",
-                Operator::HslSaturation => "HslSaturation",
-                Operator::HslColor => "HslColor",
-                Operator::HslLuminosity => "HslLuminosity",
+                Self::Clear => "Clear",
+                Self::Source => "Source",
+                Self::Over => "Over",
+                Self::In => "In",
+                Self::Out => "Out",
+                Self::Atop => "Atop",
+                Self::Dest => "Dest",
+                Self::DestOver => "DestOver",
+                Self::DestIn => "DestIn",
+                Self::DestOut => "DestOut",
+                Self::DestAtop => "DestAtop",
+                Self::Xor => "Xor",
+                Self::Add => "Add",
+                Self::Saturate => "Saturate",
+                Self::Multiply => "Multiply",
+                Self::Screen => "Screen",
+                Self::Overlay => "Overlay",
+                Self::Darken => "Darken",
+                Self::Lighten => "Lighten",
+                Self::ColorDodge => "ColorDodge",
+                Self::ColorBurn => "ColorBurn",
+                Self::HardLight => "HardLight",
+                Self::SoftLight => "SoftLight",
+                Self::Difference => "Difference",
+                Self::Exclusion => "Exclusion",
+                Self::HslHue => "HslHue",
+                Self::HslSaturation => "HslSaturation",
+                Self::HslColor => "HslColor",
+                Self::HslLuminosity => "HslLuminosity",
                 _ => "Unknown",
             }
         )
@@ -459,11 +459,11 @@ impl From<PathDataType> for ffi::cairo_path_data_type_t {
 impl From<ffi::cairo_path_data_type_t> for PathDataType {
     fn from(value: ffi::cairo_path_data_type_t) -> Self {
         match value {
-            ffi::PATH_DATA_TYPE_MOVE_TO => PathDataType::MoveTo,
-            ffi::PATH_DATA_TYPE_LINE_TO => PathDataType::LineTo,
-            ffi::PATH_DATA_TYPE_CURVE_TO => PathDataType::CurveTo,
-            ffi::PATH_DATA_TYPE_CLOSE_PATH => PathDataType::ClosePath,
-            value => PathDataType::__Unknown(value),
+            ffi::PATH_DATA_TYPE_MOVE_TO => Self::MoveTo,
+            ffi::PATH_DATA_TYPE_LINE_TO => Self::LineTo,
+            ffi::PATH_DATA_TYPE_CURVE_TO => Self::CurveTo,
+            ffi::PATH_DATA_TYPE_CLOSE_PATH => Self::ClosePath,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -472,12 +472,12 @@ impl fmt::Display for PathDataType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "PathDataType::{}",
+            "Self::{}",
             match *self {
-                PathDataType::MoveTo => "MoveTo",
-                PathDataType::LineTo => "LineTo",
-                PathDataType::CurveTo => "CurveTo",
-                PathDataType::ClosePath => "ClosePath",
+                Self::MoveTo => "MoveTo",
+                Self::LineTo => "LineTo",
+                Self::CurveTo => "CurveTo",
+                Self::ClosePath => "ClosePath",
                 _ => "Unknown",
             }
         )
@@ -516,10 +516,10 @@ impl From<Content> for ffi::cairo_content_t {
 impl From<ffi::cairo_content_t> for Content {
     fn from(value: ffi::cairo_content_t) -> Self {
         match value {
-            ffi::CONTENT_COLOR => Content::Color,
-            ffi::CONTENT_ALPHA => Content::Alpha,
-            ffi::CONTENT_COLOR_ALPHA => Content::ColorAlpha,
-            value => Content::__Unknown(value),
+            ffi::CONTENT_COLOR => Self::Color,
+            ffi::CONTENT_ALPHA => Self::Alpha,
+            ffi::CONTENT_COLOR_ALPHA => Self::ColorAlpha,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -528,11 +528,11 @@ impl fmt::Display for Content {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Content::{}",
+            "Self::{}",
             match *self {
-                Content::Color => "Color",
-                Content::Alpha => "Alpha",
-                Content::ColorAlpha => "ColorAlpha",
+                Self::Color => "Color",
+                Self::Alpha => "Alpha",
+                Self::ColorAlpha => "ColorAlpha",
                 _ => "Unknown",
             }
         )
@@ -570,11 +570,11 @@ impl From<Extend> for ffi::cairo_extend_t {
 impl From<ffi::cairo_extend_t> for Extend {
     fn from(value: ffi::cairo_extend_t) -> Self {
         match value {
-            ffi::EXTEND_NONE => Extend::None,
-            ffi::EXTEND_REPEAT => Extend::Repeat,
-            ffi::EXTEND_REFLECT => Extend::Reflect,
-            ffi::EXTEND_PAD => Extend::Pad,
-            value => Extend::__Unknown(value),
+            ffi::EXTEND_NONE => Self::None,
+            ffi::EXTEND_REPEAT => Self::Repeat,
+            ffi::EXTEND_REFLECT => Self::Reflect,
+            ffi::EXTEND_PAD => Self::Pad,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -583,12 +583,12 @@ impl fmt::Display for Extend {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Extend::{}",
+            "Self::{}",
             match *self {
-                Extend::None => "None",
-                Extend::Repeat => "Repeat",
-                Extend::Reflect => "Reflect",
-                Extend::Pad => "Pad",
+                Self::None => "None",
+                Self::Repeat => "Repeat",
+                Self::Reflect => "Reflect",
+                Self::Pad => "Pad",
                 _ => "Unknown",
             }
         )
@@ -630,13 +630,13 @@ impl From<Filter> for ffi::cairo_filter_t {
 impl From<ffi::cairo_filter_t> for Filter {
     fn from(value: ffi::cairo_filter_t) -> Self {
         match value {
-            ffi::FILTER_FAST => Filter::Fast,
-            ffi::FILTER_GOOD => Filter::Good,
-            ffi::FILTER_BEST => Filter::Best,
-            ffi::FILTER_NEAREST => Filter::Nearest,
-            ffi::FILTER_BILINEAR => Filter::Bilinear,
-            ffi::FILTER_GAUSSIAN => Filter::Gaussian,
-            value => Filter::__Unknown(value),
+            ffi::FILTER_FAST => Self::Fast,
+            ffi::FILTER_GOOD => Self::Good,
+            ffi::FILTER_BEST => Self::Best,
+            ffi::FILTER_NEAREST => Self::Nearest,
+            ffi::FILTER_BILINEAR => Self::Bilinear,
+            ffi::FILTER_GAUSSIAN => Self::Gaussian,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -645,14 +645,14 @@ impl fmt::Display for Filter {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Filter::{}",
+            "Self::{}",
             match *self {
-                Filter::Fast => "Fast",
-                Filter::Good => "Good",
-                Filter::Best => "Best",
-                Filter::Nearest => "Nearest",
-                Filter::Bilinear => "Bilinear",
-                Filter::Gaussian => "Gaussian",
+                Self::Fast => "Fast",
+                Self::Good => "Good",
+                Self::Best => "Best",
+                Self::Nearest => "Nearest",
+                Self::Bilinear => "Bilinear",
+                Self::Gaussian => "Gaussian",
                 _ => "Unknown",
             }
         )
@@ -694,13 +694,13 @@ impl From<PatternType> for ffi::cairo_pattern_type_t {
 impl From<ffi::cairo_pattern_type_t> for PatternType {
     fn from(value: ffi::cairo_pattern_type_t) -> Self {
         match value {
-            ffi::PATTERN_TYPE_SOLID => PatternType::Solid,
-            ffi::PATTERN_TYPE_SURFACE => PatternType::Surface,
-            ffi::PATTERN_TYPE_LINEAR_GRADIENT => PatternType::LinearGradient,
-            ffi::PATTERN_TYPE_RADIAL_GRADIENT => PatternType::RadialGradient,
-            ffi::PATTERN_TYPE_MESH => PatternType::Mesh,
-            ffi::PATTERN_TYPE_RASTER_SOURCE => PatternType::RasterSource,
-            value => PatternType::__Unknown(value),
+            ffi::PATTERN_TYPE_SOLID => Self::Solid,
+            ffi::PATTERN_TYPE_SURFACE => Self::Surface,
+            ffi::PATTERN_TYPE_LINEAR_GRADIENT => Self::LinearGradient,
+            ffi::PATTERN_TYPE_RADIAL_GRADIENT => Self::RadialGradient,
+            ffi::PATTERN_TYPE_MESH => Self::Mesh,
+            ffi::PATTERN_TYPE_RASTER_SOURCE => Self::RasterSource,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -709,14 +709,14 @@ impl fmt::Display for PatternType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "PatternType::{}",
+            "Self::{}",
             match *self {
-                PatternType::Solid => "Solid",
-                PatternType::Surface => "Surface",
-                PatternType::LinearGradient => "LinearGradient",
-                PatternType::RadialGradient => "RadialGradient",
-                PatternType::Mesh => "Mesh",
-                PatternType::RasterSource => "RasterSource",
+                Self::Solid => "Solid",
+                Self::Surface => "Surface",
+                Self::LinearGradient => "LinearGradient",
+                Self::RadialGradient => "RadialGradient",
+                Self::Mesh => "Mesh",
+                Self::RasterSource => "RasterSource",
                 _ => "Unknown",
             }
         )
@@ -755,10 +755,10 @@ impl From<FontSlant> for ffi::cairo_font_slant_t {
 impl From<ffi::cairo_font_slant_t> for FontSlant {
     fn from(value: ffi::cairo_font_slant_t) -> Self {
         match value {
-            ffi::FONT_SLANT_NORMAL => FontSlant::Normal,
-            ffi::FONT_SLANT_ITALIC => FontSlant::Italic,
-            ffi::FONT_SLANT_OBLIQUE => FontSlant::Oblique,
-            value => FontSlant::__Unknown(value),
+            ffi::FONT_SLANT_NORMAL => Self::Normal,
+            ffi::FONT_SLANT_ITALIC => Self::Italic,
+            ffi::FONT_SLANT_OBLIQUE => Self::Oblique,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -767,11 +767,11 @@ impl fmt::Display for FontSlant {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "FontSlant::{}",
+            "Self::{}",
             match *self {
-                FontSlant::Normal => "Normal",
-                FontSlant::Italic => "Italic",
-                FontSlant::Oblique => "Oblique",
+                Self::Normal => "Normal",
+                Self::Italic => "Italic",
+                Self::Oblique => "Oblique",
                 _ => "Unknown",
             }
         )
@@ -805,9 +805,9 @@ impl From<FontWeight> for ffi::cairo_font_weight_t {
 impl From<ffi::cairo_font_weight_t> for FontWeight {
     fn from(value: ffi::cairo_font_weight_t) -> Self {
         match value {
-            ffi::FONT_WEIGHT_NORMAL => FontWeight::Normal,
-            ffi::FONT_WEIGHT_BOLD => FontWeight::Bold,
-            value => FontWeight::__Unknown(value),
+            ffi::FONT_WEIGHT_NORMAL => Self::Normal,
+            ffi::FONT_WEIGHT_BOLD => Self::Bold,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -816,10 +816,10 @@ impl fmt::Display for FontWeight {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "FontWeight::{}",
+            "Self::{}",
             match *self {
-                FontWeight::Normal => "Normal",
-                FontWeight::Bold => "Bold",
+                Self::Normal => "Normal",
+                Self::Bold => "Bold",
                 _ => "Unknown",
             }
         )
@@ -853,9 +853,9 @@ impl From<TextClusterFlags> for ffi::cairo_text_cluster_flags_t {
 impl From<ffi::cairo_text_cluster_flags_t> for TextClusterFlags {
     fn from(value: ffi::cairo_text_cluster_flags_t) -> Self {
         match value {
-            ffi::TEXT_CLUSTER_FLAGS_NONE => TextClusterFlags::None,
-            ffi::TEXT_CLUSTER_FLAGS_BACKWARD => TextClusterFlags::Backward,
-            value => TextClusterFlags::__Unknown(value),
+            ffi::TEXT_CLUSTER_FLAGS_NONE => Self::None,
+            ffi::TEXT_CLUSTER_FLAGS_BACKWARD => Self::Backward,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -864,10 +864,10 @@ impl fmt::Display for TextClusterFlags {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "TextClusterFlags::{}",
+            "Self::{}",
             match *self {
-                TextClusterFlags::None => "None",
-                TextClusterFlags::Backward => "Backward",
+                Self::None => "None",
+                Self::Backward => "Backward",
                 _ => "Unknown",
             }
         )
@@ -910,12 +910,12 @@ impl From<FontType> for ffi::cairo_font_type_t {
 impl From<ffi::cairo_font_type_t> for FontType {
     fn from(value: ffi::cairo_font_type_t) -> Self {
         match value {
-            ffi::FONT_TYPE_FONT_TYPE_TOY => FontType::FontTypeToy,
-            ffi::FONT_TYPE_FONT_TYPE_FT => FontType::FontTypeFt,
-            ffi::FONT_TYPE_FONT_TYPE_WIN32 => FontType::FontTypeWin32,
-            ffi::FONT_TYPE_FONT_TYPE_QUARTZ => FontType::FontTypeQuartz,
-            ffi::FONT_TYPE_FONT_TYPE_USER => FontType::FontTypeUser,
-            value => FontType::__Unknown(value),
+            ffi::FONT_TYPE_FONT_TYPE_TOY => Self::FontTypeToy,
+            ffi::FONT_TYPE_FONT_TYPE_FT => Self::FontTypeFt,
+            ffi::FONT_TYPE_FONT_TYPE_WIN32 => Self::FontTypeWin32,
+            ffi::FONT_TYPE_FONT_TYPE_QUARTZ => Self::FontTypeQuartz,
+            ffi::FONT_TYPE_FONT_TYPE_USER => Self::FontTypeUser,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -924,13 +924,13 @@ impl fmt::Display for FontType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "FontType::{}",
+            "Self::{}",
             match *self {
-                FontType::FontTypeToy => "FontTypeToy",
-                FontType::FontTypeFt => "FontTypeFt",
-                FontType::FontTypeWin32 => "FontTypeWin32",
-                FontType::FontTypeQuartz => "FontTypeQuartz",
-                FontType::FontTypeUser => "FontTypeUser",
+                Self::FontTypeToy => "FontTypeToy",
+                Self::FontTypeFt => "FontTypeFt",
+                Self::FontTypeWin32 => "FontTypeWin32",
+                Self::FontTypeQuartz => "FontTypeQuartz",
+                Self::FontTypeUser => "FontTypeUser",
                 _ => "Unknown",
             }
         )
@@ -970,12 +970,12 @@ impl From<SubpixelOrder> for ffi::cairo_subpixel_order_t {
 impl From<ffi::cairo_subpixel_order_t> for SubpixelOrder {
     fn from(value: ffi::cairo_subpixel_order_t) -> Self {
         match value {
-            ffi::SUBPIXEL_ORDER_DEFAULT => SubpixelOrder::Default,
-            ffi::SUBPIXEL_ORDER_RGB => SubpixelOrder::Rgb,
-            ffi::SUBPIXEL_ORDER_BGR => SubpixelOrder::Bgr,
-            ffi::SUBPIXEL_ORDER_VRGB => SubpixelOrder::Vrgb,
-            ffi::SUBPIXEL_ORDER_VBGR => SubpixelOrder::Vbgr,
-            value => SubpixelOrder::__Unknown(value),
+            ffi::SUBPIXEL_ORDER_DEFAULT => Self::Default,
+            ffi::SUBPIXEL_ORDER_RGB => Self::Rgb,
+            ffi::SUBPIXEL_ORDER_BGR => Self::Bgr,
+            ffi::SUBPIXEL_ORDER_VRGB => Self::Vrgb,
+            ffi::SUBPIXEL_ORDER_VBGR => Self::Vbgr,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -984,13 +984,13 @@ impl fmt::Display for SubpixelOrder {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "SubpixelOrder::{}",
+            "Self::{}",
             match *self {
-                SubpixelOrder::Default => "Default",
-                SubpixelOrder::Rgb => "Rgb",
-                SubpixelOrder::Bgr => "Bgr",
-                SubpixelOrder::Vrgb => "Vrgb",
-                SubpixelOrder::Vbgr => "Vbgr",
+                Self::Default => "Default",
+                Self::Rgb => "Rgb",
+                Self::Bgr => "Bgr",
+                Self::Vrgb => "Vrgb",
+                Self::Vbgr => "Vbgr",
                 _ => "Unknown",
             }
         )
@@ -1033,12 +1033,12 @@ impl From<HintStyle> for ffi::cairo_hint_style_t {
 impl From<ffi::cairo_hint_style_t> for HintStyle {
     fn from(value: ffi::cairo_hint_style_t) -> Self {
         match value {
-            ffi::HINT_STYLE_DEFAULT => HintStyle::Default,
-            ffi::HINT_STYLE_NONE => HintStyle::None,
-            ffi::HINT_STYLE_SLIGHT => HintStyle::Slight,
-            ffi::HINT_STYLE_MEDIUM => HintStyle::Medium,
-            ffi::HINT_STYLE_FULL => HintStyle::Full,
-            value => HintStyle::__Unknown(value),
+            ffi::HINT_STYLE_DEFAULT => Self::Default,
+            ffi::HINT_STYLE_NONE => Self::None,
+            ffi::HINT_STYLE_SLIGHT => Self::Slight,
+            ffi::HINT_STYLE_MEDIUM => Self::Medium,
+            ffi::HINT_STYLE_FULL => Self::Full,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -1047,13 +1047,13 @@ impl fmt::Display for HintStyle {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "HintStyle::{}",
+            "Self::{}",
             match *self {
-                HintStyle::Default => "Default",
-                HintStyle::None => "None",
-                HintStyle::Slight => "Slight",
-                HintStyle::Medium => "Medium",
-                HintStyle::Full => "Full",
+                Self::Default => "Default",
+                Self::None => "None",
+                Self::Slight => "Slight",
+                Self::Medium => "Medium",
+                Self::Full => "Full",
                 _ => "Unknown",
             }
         )
@@ -1089,10 +1089,10 @@ impl From<HintMetrics> for ffi::cairo_hint_metrics_t {
 impl From<ffi::cairo_hint_metrics_t> for HintMetrics {
     fn from(value: ffi::cairo_hint_metrics_t) -> Self {
         match value {
-            ffi::HINT_METRICS_DEFAULT => HintMetrics::Default,
-            ffi::HINT_METRICS_OFF => HintMetrics::Off,
-            ffi::HINT_METRICS_ON => HintMetrics::On,
-            value => HintMetrics::__Unknown(value),
+            ffi::HINT_METRICS_DEFAULT => Self::Default,
+            ffi::HINT_METRICS_OFF => Self::Off,
+            ffi::HINT_METRICS_ON => Self::On,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -1101,11 +1101,11 @@ impl fmt::Display for HintMetrics {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "HintMetrics::{}",
+            "Self::{}",
             match *self {
-                HintMetrics::Default => "Default",
-                HintMetrics::Off => "Off",
-                HintMetrics::On => "On",
+                Self::Default => "Default",
+                Self::Off => "Off",
+                Self::On => "On",
                 _ => "Unknown",
             }
         )
@@ -1188,32 +1188,32 @@ impl From<SurfaceType> for ffi::cairo_surface_type_t {
 impl From<ffi::cairo_surface_type_t> for SurfaceType {
     fn from(value: ffi::cairo_surface_type_t) -> Self {
         match value {
-            ffi::SURFACE_TYPE_IMAGE => SurfaceType::Image,
-            ffi::SURFACE_TYPE_PDF => SurfaceType::Pdf,
-            ffi::SURFACE_TYPE_PS => SurfaceType::Ps,
-            ffi::SURFACE_TYPE_XLIB => SurfaceType::Xlib,
-            ffi::SURFACE_TYPE_XCB => SurfaceType::Xcb,
-            ffi::SURFACE_TYPE_GLITZ => SurfaceType::Glitz,
-            ffi::SURFACE_TYPE_QUARTZ => SurfaceType::Quartz,
-            ffi::SURFACE_TYPE_WIN32 => SurfaceType::Win32,
-            ffi::SURFACE_TYPE_BE_OS => SurfaceType::BeOs,
-            ffi::SURFACE_TYPE_DIRECT_FB => SurfaceType::DirectFb,
-            ffi::SURFACE_TYPE_SVG => SurfaceType::Svg,
-            ffi::SURFACE_TYPE_OS2 => SurfaceType::Os2,
-            ffi::SURFACE_TYPE_WIN32_PRINTING => SurfaceType::Win32Printing,
-            ffi::SURFACE_TYPE_QUARTZ_IMAGE => SurfaceType::QuartzImage,
-            ffi::SURFACE_TYPE_SCRIPT => SurfaceType::Script,
-            ffi::SURFACE_TYPE_QT => SurfaceType::Qt,
-            ffi::SURFACE_TYPE_RECORDING => SurfaceType::Recording,
-            ffi::SURFACE_TYPE_VG => SurfaceType::Vg,
-            ffi::SURFACE_TYPE_GL => SurfaceType::Gl,
-            ffi::SURFACE_TYPE_DRM => SurfaceType::Drm,
-            ffi::SURFACE_TYPE_TEE => SurfaceType::Tee,
-            ffi::SURFACE_TYPE_XML => SurfaceType::Xml,
-            ffi::SURFACE_TYPE_SKIA => SurfaceType::Skia,
-            ffi::SURFACE_TYPE_SUBSURFACE => SurfaceType::Subsurface,
-            ffi::SURFACE_TYPE_COGL => SurfaceType::Cogl,
-            value => SurfaceType::__Unknown(value),
+            ffi::SURFACE_TYPE_IMAGE => Self::Image,
+            ffi::SURFACE_TYPE_PDF => Self::Pdf,
+            ffi::SURFACE_TYPE_PS => Self::Ps,
+            ffi::SURFACE_TYPE_XLIB => Self::Xlib,
+            ffi::SURFACE_TYPE_XCB => Self::Xcb,
+            ffi::SURFACE_TYPE_GLITZ => Self::Glitz,
+            ffi::SURFACE_TYPE_QUARTZ => Self::Quartz,
+            ffi::SURFACE_TYPE_WIN32 => Self::Win32,
+            ffi::SURFACE_TYPE_BE_OS => Self::BeOs,
+            ffi::SURFACE_TYPE_DIRECT_FB => Self::DirectFb,
+            ffi::SURFACE_TYPE_SVG => Self::Svg,
+            ffi::SURFACE_TYPE_OS2 => Self::Os2,
+            ffi::SURFACE_TYPE_WIN32_PRINTING => Self::Win32Printing,
+            ffi::SURFACE_TYPE_QUARTZ_IMAGE => Self::QuartzImage,
+            ffi::SURFACE_TYPE_SCRIPT => Self::Script,
+            ffi::SURFACE_TYPE_QT => Self::Qt,
+            ffi::SURFACE_TYPE_RECORDING => Self::Recording,
+            ffi::SURFACE_TYPE_VG => Self::Vg,
+            ffi::SURFACE_TYPE_GL => Self::Gl,
+            ffi::SURFACE_TYPE_DRM => Self::Drm,
+            ffi::SURFACE_TYPE_TEE => Self::Tee,
+            ffi::SURFACE_TYPE_XML => Self::Xml,
+            ffi::SURFACE_TYPE_SKIA => Self::Skia,
+            ffi::SURFACE_TYPE_SUBSURFACE => Self::Subsurface,
+            ffi::SURFACE_TYPE_COGL => Self::Cogl,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -1222,33 +1222,33 @@ impl fmt::Display for SurfaceType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "SurfaceType::{}",
+            "Self::{}",
             match *self {
-                SurfaceType::Image => "Image",
-                SurfaceType::Pdf => "Pdf",
-                SurfaceType::Ps => "Ps",
-                SurfaceType::Xlib => "Xlib",
-                SurfaceType::Xcb => "Xcb",
-                SurfaceType::Glitz => "Glitz",
-                SurfaceType::Quartz => "Quartz",
-                SurfaceType::Win32 => "Win32",
-                SurfaceType::BeOs => "BeOs",
-                SurfaceType::DirectFb => "DirectFb",
-                SurfaceType::Svg => "Svg",
-                SurfaceType::Os2 => "Os2",
-                SurfaceType::Win32Printing => "Win32Printing",
-                SurfaceType::QuartzImage => "QuartzImage",
-                SurfaceType::Script => "Script",
-                SurfaceType::Qt => "Qt",
-                SurfaceType::Recording => "Recording",
-                SurfaceType::Vg => "Vg",
-                SurfaceType::Gl => "Gl",
-                SurfaceType::Drm => "Drm",
-                SurfaceType::Tee => "Tee",
-                SurfaceType::Xml => "Xml",
-                SurfaceType::Skia => "Skia",
-                SurfaceType::Subsurface => "Subsurface",
-                SurfaceType::Cogl => "Cogl",
+                Self::Image => "Image",
+                Self::Pdf => "Pdf",
+                Self::Ps => "Ps",
+                Self::Xlib => "Xlib",
+                Self::Xcb => "Xcb",
+                Self::Glitz => "Glitz",
+                Self::Quartz => "Quartz",
+                Self::Win32 => "Win32",
+                Self::BeOs => "BeOs",
+                Self::DirectFb => "DirectFb",
+                Self::Svg => "Svg",
+                Self::Os2 => "Os2",
+                Self::Win32Printing => "Win32Printing",
+                Self::QuartzImage => "QuartzImage",
+                Self::Script => "Script",
+                Self::Qt => "Qt",
+                Self::Recording => "Recording",
+                Self::Vg => "Vg",
+                Self::Gl => "Gl",
+                Self::Drm => "Drm",
+                Self::Tee => "Tee",
+                Self::Xml => "Xml",
+                Self::Skia => "Skia",
+                Self::Subsurface => "Subsurface",
+                Self::Cogl => "Cogl",
                 _ => "Unknown",
             }
         )
@@ -1304,17 +1304,17 @@ impl From<SvgUnit> for ffi::cairo_svg_unit_t {
 impl From<ffi::cairo_svg_unit_t> for SvgUnit {
     fn from(value: ffi::cairo_svg_unit_t) -> Self {
         match value {
-            ffi::SVG_UNIT_USER => SvgUnit::User,
-            ffi::SVG_UNIT_EM => SvgUnit::Em,
-            ffi::SVG_UNIT_EX => SvgUnit::Ex,
-            ffi::SVG_UNIT_PX => SvgUnit::Px,
-            ffi::SVG_UNIT_IN => SvgUnit::In,
-            ffi::SVG_UNIT_CM => SvgUnit::Cm,
-            ffi::SVG_UNIT_MM => SvgUnit::Mm,
-            ffi::SVG_UNIT_PT => SvgUnit::Pt,
-            ffi::SVG_UNIT_PC => SvgUnit::Pc,
-            ffi::SVG_UNIT_PERCENT => SvgUnit::Percent,
-            value => SvgUnit::__Unknown(value),
+            ffi::SVG_UNIT_USER => Self::User,
+            ffi::SVG_UNIT_EM => Self::Em,
+            ffi::SVG_UNIT_EX => Self::Ex,
+            ffi::SVG_UNIT_PX => Self::Px,
+            ffi::SVG_UNIT_IN => Self::In,
+            ffi::SVG_UNIT_CM => Self::Cm,
+            ffi::SVG_UNIT_MM => Self::Mm,
+            ffi::SVG_UNIT_PT => Self::Pt,
+            ffi::SVG_UNIT_PC => Self::Pc,
+            ffi::SVG_UNIT_PERCENT => Self::Percent,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -1324,18 +1324,18 @@ impl fmt::Display for SvgUnit {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "SvgUnit::{}",
+            "Self::{}",
             match *self {
-                SvgUnit::User => "User",
-                SvgUnit::Em => "Em",
-                SvgUnit::Ex => "Ex",
-                SvgUnit::Px => "Px",
-                SvgUnit::In => "In",
-                SvgUnit::Cm => "Cm",
-                SvgUnit::Mm => "Mm",
-                SvgUnit::Pt => "Pt",
-                SvgUnit::Pc => "Pc",
-                SvgUnit::Percent => "Percent",
+                Self::User => "User",
+                Self::Em => "Em",
+                Self::Ex => "Ex",
+                Self::Px => "Px",
+                Self::In => "In",
+                Self::Cm => "Cm",
+                Self::Mm => "Mm",
+                Self::Pt => "Pt",
+                Self::Pc => "Pc",
+                Self::Percent => "Percent",
                 _ => "Unknown",
             }
         )
@@ -1376,14 +1376,14 @@ impl From<Format> for ffi::cairo_format_t {
 impl From<ffi::cairo_format_t> for Format {
     fn from(value: ffi::cairo_format_t) -> Self {
         match value {
-            ffi::FORMAT_INVALID => Format::Invalid,
-            ffi::FORMAT_A_RGB32 => Format::ARgb32,
-            ffi::FORMAT_RGB24 => Format::Rgb24,
-            ffi::FORMAT_A8 => Format::A8,
-            ffi::FORMAT_A1 => Format::A1,
-            ffi::FORMAT_RGB16_565 => Format::Rgb16_565,
-            ffi::FORMAT_RGB30 => Format::Rgb30,
-            value => Format::__Unknown(value),
+            ffi::FORMAT_INVALID => Self::Invalid,
+            ffi::FORMAT_A_RGB32 => Self::ARgb32,
+            ffi::FORMAT_RGB24 => Self::Rgb24,
+            ffi::FORMAT_A8 => Self::A8,
+            ffi::FORMAT_A1 => Self::A1,
+            ffi::FORMAT_RGB16_565 => Self::Rgb16_565,
+            ffi::FORMAT_RGB30 => Self::Rgb30,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -1392,15 +1392,15 @@ impl fmt::Display for Format {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Format::{}",
+            "Self::{}",
             match *self {
-                Format::Invalid => "Invalid",
-                Format::ARgb32 => "ARgb32",
-                Format::Rgb24 => "Rgb24",
-                Format::A8 => "A8",
-                Format::A1 => "A1",
-                Format::Rgb16_565 => "Rgb16_565",
-                Format::Rgb30 => "Rgb30",
+                Self::Invalid => "Invalid",
+                Self::ARgb32 => "ARgb32",
+                Self::Rgb24 => "Rgb24",
+                Self::A8 => "A8",
+                Self::A1 => "A1",
+                Self::Rgb16_565 => "Rgb16_565",
+                Self::Rgb30 => "Rgb30",
                 _ => "Unknown",
             }
         )
@@ -1450,10 +1450,10 @@ impl From<RegionOverlap> for ffi::cairo_region_overlap_t {
 impl From<ffi::cairo_region_overlap_t> for RegionOverlap {
     fn from(value: ffi::cairo_region_overlap_t) -> Self {
         match value {
-            ffi::REGION_OVERLAP_IN => RegionOverlap::In,
-            ffi::REGION_OVERLAP_OUT => RegionOverlap::Out,
-            ffi::REGION_OVERLAP_PART => RegionOverlap::Part,
-            value => RegionOverlap::__Unknown(value),
+            ffi::REGION_OVERLAP_IN => Self::In,
+            ffi::REGION_OVERLAP_OUT => Self::Out,
+            ffi::REGION_OVERLAP_PART => Self::Part,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -1462,11 +1462,11 @@ impl fmt::Display for RegionOverlap {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "RegionOverlap::{}",
+            "Self::{}",
             match *self {
-                RegionOverlap::In => "In",
-                RegionOverlap::Out => "Out",
-                RegionOverlap::Part => "Part",
+                Self::In => "In",
+                Self::Out => "Out",
+                Self::Part => "Part",
                 _ => "Unknown",
             }
         )
@@ -1524,14 +1524,14 @@ impl From<PdfMetadata> for ffi::cairo_pdf_metadata_t {
 impl From<ffi::cairo_pdf_metadata_t> for PdfMetadata {
     fn from(value: ffi::cairo_pdf_metadata_t) -> Self {
         match value {
-            ffi::PDF_METADATA_TITLE => PdfMetadata::Title,
-            ffi::PDF_METADATA_AUTHOR => PdfMetadata::Author,
-            ffi::PDF_METADATA_SUBJECT => PdfMetadata::Subject,
-            ffi::PDF_METADATA_KEYWORDS => PdfMetadata::Keywords,
-            ffi::PDF_METADATA_CREATOR => PdfMetadata::Creator,
-            ffi::PDF_METADATA_CREATE_DATE => PdfMetadata::CreateDate,
-            ffi::PDF_METADATA_MOD_DATE => PdfMetadata::ModDate,
-            value => PdfMetadata::__Unknown(value),
+            ffi::PDF_METADATA_TITLE => Self::Title,
+            ffi::PDF_METADATA_AUTHOR => Self::Author,
+            ffi::PDF_METADATA_SUBJECT => Self::Subject,
+            ffi::PDF_METADATA_KEYWORDS => Self::Keywords,
+            ffi::PDF_METADATA_CREATOR => Self::Creator,
+            ffi::PDF_METADATA_CREATE_DATE => Self::CreateDate,
+            ffi::PDF_METADATA_MOD_DATE => Self::ModDate,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -1541,15 +1541,15 @@ impl fmt::Display for PdfMetadata {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "PdfMetadata::{}",
+            "Self::{}",
             match *self {
-                PdfMetadata::Title => "Title",
-                PdfMetadata::Author => "Author",
-                PdfMetadata::Subject => "Subject",
-                PdfMetadata::Keywords => "Keywords",
-                PdfMetadata::Creator => "Creator",
-                PdfMetadata::CreateDate => "CreateDate",
-                PdfMetadata::ModDate => "ModDate",
+                Self::Title => "Title",
+                Self::Author => "Author",
+                Self::Subject => "Subject",
+                Self::Keywords => "Keywords",
+                Self::Creator => "Creator",
+                Self::CreateDate => "CreateDate",
+                Self::ModDate => "ModDate",
                 _ => "Unknown",
             }
         )
@@ -1583,9 +1583,9 @@ impl From<PdfVersion> for ffi::cairo_pdf_version_t {
 impl From<ffi::cairo_pdf_version_t> for PdfVersion {
     fn from(value: ffi::cairo_pdf_version_t) -> Self {
         match value {
-            ffi::PDF_VERSION__1_4 => PdfVersion::_1_4,
-            ffi::PDF_VERSION__1_5 => PdfVersion::_1_5,
-            value => PdfVersion::__Unknown(value),
+            ffi::PDF_VERSION__1_4 => Self::_1_4,
+            ffi::PDF_VERSION__1_5 => Self::_1_5,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -1595,10 +1595,10 @@ impl fmt::Display for PdfVersion {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "PdfVersion::{}",
+            "Self::{}",
             match *self {
-                PdfVersion::_1_4 => "1_4",
-                PdfVersion::_1_5 => "1_5",
+                Self::_1_4 => "1_4",
+                Self::_1_5 => "1_5",
                 _ => "Unknown",
             }
         )
@@ -1632,9 +1632,9 @@ impl From<SvgVersion> for ffi::cairo_svg_version_t {
 impl From<ffi::cairo_svg_version_t> for SvgVersion {
     fn from(value: ffi::cairo_svg_version_t) -> Self {
         match value {
-            ffi::SVG_VERSION__1_1 => SvgVersion::_1_1,
-            ffi::SVG_VERSION__1_2 => SvgVersion::_1_2,
-            value => SvgVersion::__Unknown(value),
+            ffi::SVG_VERSION__1_1 => Self::_1_1,
+            ffi::SVG_VERSION__1_2 => Self::_1_2,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -1644,10 +1644,10 @@ impl fmt::Display for SvgVersion {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "SvgVersion::{}",
+            "Self::{}",
             match *self {
-                SvgVersion::_1_1 => "1_1",
-                SvgVersion::_1_2 => "1_2",
+                Self::_1_1 => "1_1",
+                Self::_1_2 => "1_2",
                 _ => "Unknown",
             }
         )
@@ -1681,9 +1681,9 @@ impl From<PsLevel> for ffi::cairo_ps_level_t {
 impl From<ffi::cairo_ps_level_t> for PsLevel {
     fn from(value: ffi::cairo_ps_level_t) -> Self {
         match value {
-            ffi::PS_LEVEL__2 => PsLevel::_2,
-            ffi::PS_LEVEL__3 => PsLevel::_3,
-            value => PsLevel::__Unknown(value),
+            ffi::PS_LEVEL__2 => Self::_2,
+            ffi::PS_LEVEL__3 => Self::_3,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -1693,10 +1693,10 @@ impl fmt::Display for PsLevel {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "PsLevel::{}",
+            "Self::{}",
             match *self {
-                PsLevel::_2 => "_2",
-                PsLevel::_3 => "_3",
+                Self::_2 => "_2",
+                Self::_3 => "_3",
                 _ => "Unknown",
             }
         )
@@ -1731,11 +1731,11 @@ impl From<MeshCorner> for ffi::cairo_mesh_corner_t {
 impl From<ffi::cairo_mesh_corner_t> for MeshCorner {
     fn from(value: ffi::cairo_mesh_corner_t) -> Self {
         match value {
-            ffi::MESH_CORNER_MESH_CORNER0 => MeshCorner::MeshCorner0,
-            ffi::MESH_CORNER_MESH_CORNER1 => MeshCorner::MeshCorner1,
-            ffi::MESH_CORNER_MESH_CORNER2 => MeshCorner::MeshCorner2,
-            ffi::MESH_CORNER_MESH_CORNER3 => MeshCorner::MeshCorner3,
-            value => MeshCorner::__Unknown(value),
+            ffi::MESH_CORNER_MESH_CORNER0 => Self::MeshCorner0,
+            ffi::MESH_CORNER_MESH_CORNER1 => Self::MeshCorner1,
+            ffi::MESH_CORNER_MESH_CORNER2 => Self::MeshCorner2,
+            ffi::MESH_CORNER_MESH_CORNER3 => Self::MeshCorner3,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -1744,12 +1744,12 @@ impl fmt::Display for MeshCorner {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "MeshCorner::{}",
+            "Self::{}",
             match *self {
-                MeshCorner::MeshCorner0 => "MeshCorner0",
-                MeshCorner::MeshCorner1 => "MeshCorner1",
-                MeshCorner::MeshCorner2 => "MeshCorner2",
-                MeshCorner::MeshCorner3 => "MeshCorner3",
+                Self::MeshCorner0 => "MeshCorner0",
+                Self::MeshCorner1 => "MeshCorner1",
+                Self::MeshCorner2 => "MeshCorner2",
+                Self::MeshCorner3 => "MeshCorner3",
                 _ => "Unknown",
             }
         )
@@ -1783,9 +1783,9 @@ impl From<FtSynthesize> for ffi::cairo_ft_synthesize_t {
 impl From<ffi::cairo_ft_synthesize_t> for FtSynthesize {
     fn from(value: ffi::cairo_ft_synthesize_t) -> Self {
         match value {
-            ffi::CAIRO_FT_SYNTHESIZE_BOLD => FtSynthesize::Bold,
-            ffi::CAIRO_FT_SYNTHESIZE_OBLIQUE => FtSynthesize::Oblique,
-            value => FtSynthesize::__Unknown(value),
+            ffi::CAIRO_FT_SYNTHESIZE_BOLD => Self::Bold,
+            ffi::CAIRO_FT_SYNTHESIZE_OBLIQUE => Self::Oblique,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -1795,11 +1795,11 @@ impl fmt::Display for FtSynthesize {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "FtSynthesize::{}",
+            "Self::{}",
             match *self {
-                FtSynthesize::Bold => "Bold",
-                FtSynthesize::Oblique => "Oblique",
-                FtSynthesize::__Unknown(_) => "Unknown",
+                Self::Bold => "Bold",
+                Self::Oblique => "Oblique",
+                Self::__Unknown(_) => "Unknown",
             }
         )
     }
@@ -1832,9 +1832,9 @@ impl From<ScriptMode> for ffi::cairo_script_mode_t {
 impl From<ffi::cairo_script_mode_t> for ScriptMode {
     fn from(value: ffi::cairo_script_mode_t) -> Self {
         match value {
-            ffi::CAIRO_SCRIPT_MODE_ASCII => ScriptMode::Ascii,
-            ffi::CAIRO_SCRIPT_MODE_BINARY => ScriptMode::Binary,
-            value => ScriptMode::__Unknown(value),
+            ffi::CAIRO_SCRIPT_MODE_ASCII => Self::Ascii,
+            ffi::CAIRO_SCRIPT_MODE_BINARY => Self::Binary,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -1844,11 +1844,11 @@ impl fmt::Display for ScriptMode {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "ScriptMode::{}",
+            "Self::{}",
             match *self {
-                ScriptMode::Ascii => "Ascii",
-                ScriptMode::Binary => "Binary",
-                ScriptMode::__Unknown(_) => "Unknown",
+                Self::Ascii => "Ascii",
+                Self::Binary => "Binary",
+                Self::__Unknown(_) => "Unknown",
             }
         )
     }
@@ -1892,16 +1892,16 @@ impl From<DeviceType> for ffi::cairo_device_type_t {
 impl From<ffi::cairo_device_type_t> for DeviceType {
     fn from(value: ffi::cairo_device_type_t) -> Self {
         match value {
-            ffi::CAIRO_DEVICE_TYPE_DRM => DeviceType::Ascii,
-            ffi::CAIRO_DEVICE_TYPE_GL => DeviceType::Binary,
-            ffi::CAIRO_DEVICE_TYPE_SCRIPT => DeviceType::Script,
-            ffi::CAIRO_DEVICE_TYPE_XCB => DeviceType::Xcb,
-            ffi::CAIRO_DEVICE_TYPE_XLIB => DeviceType::Xlib,
-            ffi::CAIRO_DEVICE_TYPE_XML => DeviceType::Xml,
-            ffi::CAIRO_DEVICE_TYPE_COGL => DeviceType::Cogl,
-            ffi::CAIRO_DEVICE_TYPE_WIN32 => DeviceType::Win32,
-            ffi::CAIRO_DEVICE_TYPE_INVALID => DeviceType::Invalid,
-            value => DeviceType::__Unknown(value),
+            ffi::CAIRO_DEVICE_TYPE_DRM => Self::Ascii,
+            ffi::CAIRO_DEVICE_TYPE_GL => Self::Binary,
+            ffi::CAIRO_DEVICE_TYPE_SCRIPT => Self::Script,
+            ffi::CAIRO_DEVICE_TYPE_XCB => Self::Xcb,
+            ffi::CAIRO_DEVICE_TYPE_XLIB => Self::Xlib,
+            ffi::CAIRO_DEVICE_TYPE_XML => Self::Xml,
+            ffi::CAIRO_DEVICE_TYPE_COGL => Self::Cogl,
+            ffi::CAIRO_DEVICE_TYPE_WIN32 => Self::Win32,
+            ffi::CAIRO_DEVICE_TYPE_INVALID => Self::Invalid,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -1910,18 +1910,18 @@ impl fmt::Display for DeviceType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "DeviceType::{}",
+            "Self::{}",
             match *self {
-                DeviceType::Ascii => "Ascii",
-                DeviceType::Binary => "Binary",
-                DeviceType::Script => "Script",
-                DeviceType::Xcb => "Xcb",
-                DeviceType::Xlib => "Xlib",
-                DeviceType::Xml => "Xml",
-                DeviceType::Cogl => "Cogl",
-                DeviceType::Win32 => "Win32",
-                DeviceType::Invalid => "Invalid",
-                DeviceType::__Unknown(_) => "Unknown",
+                Self::Ascii => "Ascii",
+                Self::Binary => "Binary",
+                Self::Script => "Script",
+                Self::Xcb => "Xcb",
+                Self::Xlib => "Xlib",
+                Self::Xml => "Xml",
+                Self::Cogl => "Cogl",
+                Self::Win32 => "Win32",
+                Self::Invalid => "Invalid",
+                Self::__Unknown(_) => "Unknown",
             }
         )
     }

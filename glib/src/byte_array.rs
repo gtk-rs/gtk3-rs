@@ -36,12 +36,12 @@ wrapper! {
 
 impl ByteArray {
     #[doc(alias = "g_byte_array_new")]
-    pub fn new() -> ByteArray {
+    pub fn new() -> Self {
         unsafe { from_glib_full(ffi::g_byte_array_new()) }
     }
 
     #[doc(alias = "g_byte_array_sized_new")]
-    pub fn with_capacity(size: usize) -> ByteArray {
+    pub fn with_capacity(size: usize) -> Self {
         unsafe { from_glib_full(ffi::g_byte_array_sized_new(size as u32)) }
     }
 

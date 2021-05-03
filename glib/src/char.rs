@@ -80,7 +80,7 @@ impl From<Char> for u8 {
 #[doc(hidden)]
 impl FromGlib<c_char> for Char {
     unsafe fn from_glib(value: c_char) -> Self {
-        Char(value)
+        Self(value)
     }
 }
 
@@ -149,7 +149,7 @@ impl From<UChar> for u8 {
 #[doc(hidden)]
 impl FromGlib<c_uchar> for UChar {
     unsafe fn from_glib(value: c_uchar) -> Self {
-        UChar(value)
+        Self(value)
     }
 }
 

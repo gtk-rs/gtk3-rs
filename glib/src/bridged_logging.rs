@@ -91,7 +91,7 @@ impl GlibLogger {
     /// log::info!("This line will get logged by glib");
     /// ```
     pub const fn new(format: GlibLoggerFormat, domain: GlibLoggerDomain) -> Self {
-        GlibLogger { format, domain }
+        Self { format, domain }
     }
 
     fn level_to_glib(level: rs_log::Level) -> crate::ffi::GLogLevelFlags {

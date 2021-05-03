@@ -393,7 +393,7 @@ pub unsafe fn instance_of<C: StaticType>(ptr: ffi::gconstpointer) -> bool {
 
 impl FromGlib<ffi::GType> for Type {
     #[inline]
-    unsafe fn from_glib(val: ffi::GType) -> Type {
+    unsafe fn from_glib(val: ffi::GType) -> Self {
         Self(val)
     }
 }

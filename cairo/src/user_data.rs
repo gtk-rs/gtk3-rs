@@ -13,7 +13,7 @@ unsafe impl<T> Sync for UserDataKey<T> {}
 
 impl<T> UserDataKey<T> {
     pub const fn new() -> Self {
-        UserDataKey {
+        Self {
             ffi: cairo_user_data_key_t { unused: 0 },
             marker: PhantomData,
         }

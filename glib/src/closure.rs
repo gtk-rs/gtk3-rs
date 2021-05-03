@@ -28,13 +28,13 @@ wrapper! {
 
 impl Closure {
     pub fn new<F: Fn(&[Value]) -> Option<Value> + Send + Sync + 'static>(callback: F) -> Self {
-        unsafe { Closure::new_unsafe(callback) }
+        unsafe { Self::new_unsafe(callback) }
     }
 
     pub fn new_local<F: Fn(&[Value]) -> Option<Value> + 'static>(callback: F) -> Self {
         let callback = crate::ThreadGuard::new(callback);
 
-        unsafe { Closure::new_unsafe(move |values| (callback.get_ref())(values)) }
+        unsafe { Self::new_unsafe(move |values| (callback.get_ref())(values)) }
     }
 
     pub unsafe fn new_unsafe<F: Fn(&[Value]) -> Option<Value>>(callback: F) -> Self {

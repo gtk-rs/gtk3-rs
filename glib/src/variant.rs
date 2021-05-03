@@ -154,7 +154,7 @@ impl crate::value::ToValue for Variant {
 #[doc(hidden)]
 impl crate::value::ToValueOptional for Variant {
     fn to_value_optional(s: Option<&Self>) -> crate::Value {
-        let mut value = crate::Value::for_value_type::<Variant>();
+        let mut value = crate::Value::for_value_type::<Self>();
         unsafe {
             gobject_ffi::g_value_take_variant(
                 value.to_glib_none_mut().0,
@@ -685,7 +685,7 @@ where
     V: StaticVariantType + ToVariant,
 {
     pub fn new(key: K, value: V) -> Self {
-        DictEntry { key, value }
+        Self { key, value }
     }
 
     pub fn key(&self) -> &K {
@@ -712,7 +712,7 @@ where
             None => return None,
         };
 
-        Some(DictEntry { key, value })
+        Some(Self { key, value })
     }
 }
 

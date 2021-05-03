@@ -75,13 +75,13 @@ impl<'a> ToGlibPtrMut<'a, *mut ffi::PangoAnalysis> for Analysis {
 #[doc(hidden)]
 impl FromGlibPtrNone<*const ffi::PangoAnalysis> for Analysis {
     unsafe fn from_glib_none(ptr: *const ffi::PangoAnalysis) -> Self {
-        Analysis(*ptr)
+        Self(*ptr)
     }
 }
 
 #[doc(hidden)]
 impl FromGlibPtrNone<*mut ffi::PangoAnalysis> for Analysis {
     unsafe fn from_glib_none(ptr: *mut ffi::PangoAnalysis) -> Self {
-        Analysis(*ptr)
+        Self(*ptr)
     }
 }

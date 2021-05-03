@@ -49,9 +49,9 @@ impl IntoGlib for AnchorHints {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GdkAnchorHints> for AnchorHints {
-    unsafe fn from_glib(value: ffi::GdkAnchorHints) -> AnchorHints {
+    unsafe fn from_glib(value: ffi::GdkAnchorHints) -> Self {
         skip_assert_initialized!();
-        AnchorHints::from_bits_truncate(value)
+        Self::from_bits_truncate(value)
     }
 }
 
@@ -84,7 +84,7 @@ unsafe impl<'a> FromValue<'a> for AnchorHints {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 impl ToValue for AnchorHints {
     fn to_value(&self) -> glib::Value {
-        let mut value = glib::Value::for_value_type::<AnchorHints>();
+        let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
             glib::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, self.into_glib());
         }
@@ -135,9 +135,9 @@ impl IntoGlib for AxisFlags {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GdkAxisFlags> for AxisFlags {
-    unsafe fn from_glib(value: ffi::GdkAxisFlags) -> AxisFlags {
+    unsafe fn from_glib(value: ffi::GdkAxisFlags) -> Self {
         skip_assert_initialized!();
-        AxisFlags::from_bits_truncate(value)
+        Self::from_bits_truncate(value)
     }
 }
 
@@ -170,7 +170,7 @@ unsafe impl<'a> FromValue<'a> for AxisFlags {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 impl ToValue for AxisFlags {
     fn to_value(&self) -> glib::Value {
-        let mut value = glib::Value::for_value_type::<AxisFlags>();
+        let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
             glib::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, self.into_glib());
         }
@@ -210,9 +210,9 @@ impl IntoGlib for DragAction {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GdkDragAction> for DragAction {
-    unsafe fn from_glib(value: ffi::GdkDragAction) -> DragAction {
+    unsafe fn from_glib(value: ffi::GdkDragAction) -> Self {
         skip_assert_initialized!();
-        DragAction::from_bits_truncate(value)
+        Self::from_bits_truncate(value)
     }
 }
 
@@ -237,7 +237,7 @@ unsafe impl<'a> FromValue<'a> for DragAction {
 
 impl ToValue for DragAction {
     fn to_value(&self) -> glib::Value {
-        let mut value = glib::Value::for_value_type::<DragAction>();
+        let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
             glib::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, self.into_glib());
         }
@@ -297,9 +297,9 @@ impl IntoGlib for EventMask {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GdkEventMask> for EventMask {
-    unsafe fn from_glib(value: ffi::GdkEventMask) -> EventMask {
+    unsafe fn from_glib(value: ffi::GdkEventMask) -> Self {
         skip_assert_initialized!();
-        EventMask::from_bits_truncate(value)
+        Self::from_bits_truncate(value)
     }
 }
 
@@ -324,7 +324,7 @@ unsafe impl<'a> FromValue<'a> for EventMask {
 
 impl ToValue for EventMask {
     fn to_value(&self) -> glib::Value {
-        let mut value = glib::Value::for_value_type::<EventMask>();
+        let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
             glib::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, self.into_glib());
         }
@@ -366,9 +366,9 @@ impl IntoGlib for FrameClockPhase {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GdkFrameClockPhase> for FrameClockPhase {
-    unsafe fn from_glib(value: ffi::GdkFrameClockPhase) -> FrameClockPhase {
+    unsafe fn from_glib(value: ffi::GdkFrameClockPhase) -> Self {
         skip_assert_initialized!();
-        FrameClockPhase::from_bits_truncate(value)
+        Self::from_bits_truncate(value)
     }
 }
 
@@ -393,7 +393,7 @@ unsafe impl<'a> FromValue<'a> for FrameClockPhase {
 
 impl ToValue for FrameClockPhase {
     fn to_value(&self) -> glib::Value {
-        let mut value = glib::Value::for_value_type::<FrameClockPhase>();
+        let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
             glib::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, self.into_glib());
         }
@@ -459,9 +459,9 @@ impl IntoGlib for ModifierType {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GdkModifierType> for ModifierType {
-    unsafe fn from_glib(value: ffi::GdkModifierType) -> ModifierType {
+    unsafe fn from_glib(value: ffi::GdkModifierType) -> Self {
         skip_assert_initialized!();
-        ModifierType::from_bits_truncate(value)
+        Self::from_bits_truncate(value)
     }
 }
 
@@ -486,7 +486,7 @@ unsafe impl<'a> FromValue<'a> for ModifierType {
 
 impl ToValue for ModifierType {
     fn to_value(&self) -> glib::Value {
-        let mut value = glib::Value::for_value_type::<ModifierType>();
+        let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
             glib::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, self.into_glib());
         }
@@ -535,9 +535,9 @@ impl IntoGlib for SeatCapabilities {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GdkSeatCapabilities> for SeatCapabilities {
-    unsafe fn from_glib(value: ffi::GdkSeatCapabilities) -> SeatCapabilities {
+    unsafe fn from_glib(value: ffi::GdkSeatCapabilities) -> Self {
         skip_assert_initialized!();
-        SeatCapabilities::from_bits_truncate(value)
+        Self::from_bits_truncate(value)
     }
 }
 
@@ -570,7 +570,7 @@ unsafe impl<'a> FromValue<'a> for SeatCapabilities {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 impl ToValue for SeatCapabilities {
     fn to_value(&self) -> glib::Value {
-        let mut value = glib::Value::for_value_type::<SeatCapabilities>();
+        let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
             glib::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, self.into_glib());
         }
@@ -611,9 +611,9 @@ impl IntoGlib for WMDecoration {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GdkWMDecoration> for WMDecoration {
-    unsafe fn from_glib(value: ffi::GdkWMDecoration) -> WMDecoration {
+    unsafe fn from_glib(value: ffi::GdkWMDecoration) -> Self {
         skip_assert_initialized!();
-        WMDecoration::from_bits_truncate(value)
+        Self::from_bits_truncate(value)
     }
 }
 
@@ -638,7 +638,7 @@ unsafe impl<'a> FromValue<'a> for WMDecoration {
 
 impl ToValue for WMDecoration {
     fn to_value(&self) -> glib::Value {
-        let mut value = glib::Value::for_value_type::<WMDecoration>();
+        let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
             glib::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, self.into_glib());
         }
@@ -678,9 +678,9 @@ impl IntoGlib for WMFunction {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GdkWMFunction> for WMFunction {
-    unsafe fn from_glib(value: ffi::GdkWMFunction) -> WMFunction {
+    unsafe fn from_glib(value: ffi::GdkWMFunction) -> Self {
         skip_assert_initialized!();
-        WMFunction::from_bits_truncate(value)
+        Self::from_bits_truncate(value)
     }
 }
 
@@ -705,7 +705,7 @@ unsafe impl<'a> FromValue<'a> for WMFunction {
 
 impl ToValue for WMFunction {
     fn to_value(&self) -> glib::Value {
-        let mut value = glib::Value::for_value_type::<WMFunction>();
+        let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
             glib::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, self.into_glib());
         }
@@ -748,9 +748,9 @@ impl IntoGlib for WindowHints {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GdkWindowHints> for WindowHints {
-    unsafe fn from_glib(value: ffi::GdkWindowHints) -> WindowHints {
+    unsafe fn from_glib(value: ffi::GdkWindowHints) -> Self {
         skip_assert_initialized!();
-        WindowHints::from_bits_truncate(value)
+        Self::from_bits_truncate(value)
     }
 }
 
@@ -775,7 +775,7 @@ unsafe impl<'a> FromValue<'a> for WindowHints {
 
 impl ToValue for WindowHints {
     fn to_value(&self) -> glib::Value {
-        let mut value = glib::Value::for_value_type::<WindowHints>();
+        let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
             glib::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, self.into_glib());
         }
@@ -826,9 +826,9 @@ impl IntoGlib for WindowState {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GdkWindowState> for WindowState {
-    unsafe fn from_glib(value: ffi::GdkWindowState) -> WindowState {
+    unsafe fn from_glib(value: ffi::GdkWindowState) -> Self {
         skip_assert_initialized!();
-        WindowState::from_bits_truncate(value)
+        Self::from_bits_truncate(value)
     }
 }
 
@@ -853,7 +853,7 @@ unsafe impl<'a> FromValue<'a> for WindowState {
 
 impl ToValue for WindowState {
     fn to_value(&self) -> glib::Value {
-        let mut value = glib::Value::for_value_type::<WindowState>();
+        let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
             glib::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, self.into_glib());
         }

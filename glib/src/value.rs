@@ -94,7 +94,7 @@ pub struct ValueTypeMismatchError {
 
 impl ValueTypeMismatchError {
     pub fn new(actual: Type, requested: Type) -> Self {
-        ValueTypeMismatchError { actual, requested }
+        Self { actual, requested }
     }
 }
 
@@ -154,8 +154,8 @@ pub enum ValueTypeMismatchOrNoneError {
 impl fmt::Display for ValueTypeMismatchOrNoneError {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match self {
-            ValueTypeMismatchOrNoneError::WrongValueType(err) => err.fmt(f),
-            ValueTypeMismatchOrNoneError::UnexpectedNone => write!(f, "Unexpected None",),
+            Self::WrongValueType(err) => err.fmt(f),
+            Self::UnexpectedNone => write!(f, "Unexpected None",),
         }
     }
 }
@@ -164,7 +164,7 @@ impl error::Error for ValueTypeMismatchOrNoneError {}
 
 impl From<ValueTypeMismatchError> for ValueTypeMismatchOrNoneError {
     fn from(err: ValueTypeMismatchError) -> Self {
-        ValueTypeMismatchOrNoneError::WrongValueType(err)
+        Self::WrongValueType(err)
     }
 }
 
@@ -181,7 +181,7 @@ unsafe impl<T: StaticType> ValueTypeChecker for GenericValueTypeOrNoneChecker<T>
             // Values are always zero-initialized so even if pointers are only 32 bits then the
             // whole 64 bit value will be 0 for NULL pointers.
             if value.0.data[0].v_uint64 == 0 {
-                return Err(ValueTypeMismatchOrNoneError::UnexpectedNone);
+                return Err(Self::Error::UnexpectedNone);
             }
         }
 
@@ -856,7 +856,7 @@ unsafe impl<'a> FromValue<'a> for Vec<String> {
 impl ToValue for Vec<String> {
     fn to_value(&self) -> Value {
         unsafe {
-            let mut value = Value::for_value_type::<Vec<String>>();
+            let mut value = Value::for_value_type::<Self>();
             let ptr: *mut *mut c_char = self.to_glib_full();
             gobject_ffi::g_value_take_boxed(value.to_glib_none_mut().0, ptr as *const c_void);
             value
@@ -912,7 +912,7 @@ unsafe impl<'a> FromValue<'a> for bool {
 
 impl ToValue for bool {
     fn to_value(&self) -> Value {
-        let mut value = Value::for_value_type::<bool>();
+        let mut value = Value::for_value_type::<Self>();
         unsafe {
             gobject_ffi::g_value_set_boolean(&mut value.0, self.into_glib());
         }
@@ -940,7 +940,7 @@ macro_rules! numeric {
 
         impl ToValue for $name {
             fn to_value(&self) -> Value {
-                let mut value = Value::for_value_type::<$name>();
+                let mut value = Value::for_value_type::<Self>();
                 unsafe {
                     $set(&mut value.0, *self);
                 }
@@ -1039,7 +1039,7 @@ impl ToValue for Value {
 
 impl ToValueOptional for Value {
     fn to_value_optional(s: Option<&Self>) -> Value {
-        let mut value = Value::for_value_type::<Value>();
+        let mut value = Value::for_value_type::<Self>();
         unsafe {
             gobject_ffi::g_value_set_boxed(
                 value.to_glib_none_mut().0,

@@ -131,7 +131,7 @@ pub fn impl_genum(input: &syn::DeriveInput) -> TokenStream {
 
         impl #crate_ident::value::ToValue for #name {
             fn to_value(&self) -> #crate_ident::value::Value {
-                let mut value = #crate_ident::value::Value::for_value_type::<#name>();
+                let mut value = #crate_ident::value::Value::for_value_type::<Self>();
                 unsafe {
                     #crate_ident::gobject_ffi::g_value_set_enum(
                         #crate_ident::translate::ToGlibPtrMut::to_glib_none_mut(&mut value).0,

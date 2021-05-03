@@ -205,7 +205,7 @@ struct AnyReader {
 
 impl AnyReader {
     fn new<R: Read + Any + Send + 'static>(r: R) -> Self {
-        AnyReader {
+        Self {
             reader: AnyOrPanic::Any(Box::new(r)),
             read_fn: Self::read_fn::<R>,
             seek_fn: None,
@@ -213,7 +213,7 @@ impl AnyReader {
     }
 
     fn new_seekable<R: Read + Seek + Any + Send + 'static>(r: R) -> Self {
-        AnyReader {
+        Self {
             reader: AnyOrPanic::Any(Box::new(r)),
             read_fn: Self::read_fn::<R>,
             seek_fn: Some(Self::seek_fn::<R>),

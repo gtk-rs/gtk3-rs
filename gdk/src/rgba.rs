@@ -229,7 +229,7 @@ impl glib::value::ToValue for RGBA {
 impl glib::value::ToValueOptional for RGBA {
     fn to_value_optional(s: Option<&Self>) -> glib::Value {
         skip_assert_initialized!();
-        let mut value = glib::Value::for_value_type::<RGBA>();
+        let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
             glib::gobject_ffi::g_value_set_boxed(
                 value.to_glib_none_mut().0,
