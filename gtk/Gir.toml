@@ -52,7 +52,6 @@ generate = [
     "Gtk.IconThemeError",
     "Gtk.IconViewDropPosition",
     "Gtk.ImageType",
-    "Gtk.IMPreeditStyle",
     "Gtk.InputPurpose",
     "Gtk.JunctionSides",
     "Gtk.Justification",
@@ -152,6 +151,8 @@ ignore = [
     "Gtk.IconSource",
     #deprecated since 3.10
     "Gtk.ImageMenuItem",
+    #deprecated since 3.10
+    "Gtk.IMPreeditStyle",
     #deprecated since 3.10
     "Gtk.IMStatusStyle",
     #deprecated since 3.14
