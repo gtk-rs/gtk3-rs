@@ -60,14 +60,6 @@ impl Error {
     ///     }
     /// }
     /// ```
-    ///
-    /// ```ignore
-    /// match error.kind::<FileError>() {
-    ///     Some(FileError::Exist) => ...
-    ///     Some(FileError::Isdir) => ...
-    ///     ...
-    /// }
-    /// ```
     pub fn kind<T: ErrorDomain>(&self) -> Option<T> {
         if self.is::<T>() {
             T::from(self.0.code)
