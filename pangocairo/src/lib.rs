@@ -1,6 +1,5 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-#![allow(deprecated)]
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
 
 pub use cairo;

@@ -2,7 +2,7 @@
 
 use glib::translate::*;
 use std::cell::Cell;
-use std::sync::atomic::{AtomicBool, Ordering, ATOMIC_BOOL_INIT};
+use std::sync::atomic::{AtomicBool, Ordering};
 
 #[cfg(target_os = "macos")]
 extern "C" {
@@ -13,7 +13,7 @@ thread_local! {
     static IS_MAIN_THREAD: Cell<bool> = Cell::new(false)
 }
 
-static INITIALIZED: AtomicBool = ATOMIC_BOOL_INIT;
+static INITIALIZED: AtomicBool = AtomicBool::new(false);
 
 /// Asserts that this is the main thread and `gtk::init` has been called.
 macro_rules! assert_initialized_main_thread {

@@ -1,7 +1,6 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
-#![allow(deprecated)]
 #![allow(clippy::type_complexity)]
 #![allow(clippy::upper_case_acronyms)]
 

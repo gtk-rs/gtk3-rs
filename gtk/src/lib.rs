@@ -142,7 +142,7 @@
 #![allow(clippy::type_complexity)]
 #![allow(clippy::derive_hash_xor_eq)]
 #![allow(clippy::too_many_arguments)]
-#![allow(deprecated)]
+#![allow()]
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
 
 pub use ffi;

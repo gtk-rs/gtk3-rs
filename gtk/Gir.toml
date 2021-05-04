@@ -53,7 +53,6 @@ generate = [
     "Gtk.IconViewDropPosition",
     "Gtk.ImageType",
     "Gtk.IMPreeditStyle",
-    "Gtk.IMStatusStyle",
     "Gtk.InputPurpose",
     "Gtk.JunctionSides",
     "Gtk.Justification",
@@ -110,7 +109,6 @@ generate = [
     "Gtk.SpinType",
     "Gtk.StackTransitionType",
     "Gtk.StateFlags",
-    "Gtk.StateType",
     "Gtk.StyleProperties",
     "Gtk.StyleProvider",
     "Gtk.TargetFlags",
@@ -154,6 +152,10 @@ ignore = [
     "Gtk.IconSource",
     #deprecated since 3.10
     "Gtk.ImageMenuItem",
+    #deprecated since 3.10
+    "Gtk.IMStatusStyle",
+    #deprecated since 3.14
+    "Gtk.StateType",
     #deprecated since 3.14
     "Gtk.StatusIcon",
     #deprecated since 3.8
