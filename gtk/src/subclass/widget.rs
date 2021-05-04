@@ -1649,10 +1649,7 @@ unsafe extern "C" fn widget_leave_notify_event<T: WidgetImpl>(
 pub unsafe trait WidgetClassSubclassExt: ClassStruct {
     fn set_template_bytes(&mut self, template: &glib::Bytes) {
         unsafe {
-            let type_class = self as *mut _ as *mut glib::gobject_ffi::GTypeClass;
-            let widget_class =
-                glib::gobject_ffi::g_type_check_class_cast(type_class, ffi::gtk_widget_get_type())
-                    as *mut ffi::GtkWidgetClass;
+            let widget_class = self as *mut _ as *mut ffi::GtkWidgetClass;
             ffi::gtk_widget_class_set_template(widget_class, template.to_glib_none().0);
         }
     }
@@ -1669,10 +1666,7 @@ pub unsafe trait WidgetClassSubclassExt: ClassStruct {
 
     fn set_template_from_resource(&mut self, resource_name: &str) {
         unsafe {
-            let type_class = self as *mut _ as *mut glib::gobject_ffi::GTypeClass;
-            let widget_class =
-                glib::gobject_ffi::g_type_check_class_cast(type_class, ffi::gtk_widget_get_type())
-                    as *mut ffi::GtkWidgetClass;
+            let widget_class = self as *mut _ as *mut ffi::GtkWidgetClass;
             ffi::gtk_widget_class_set_template_from_resource(
                 widget_class,
                 resource_name.to_glib_none().0,
@@ -1682,10 +1676,7 @@ pub unsafe trait WidgetClassSubclassExt: ClassStruct {
 
     fn bind_template_child(&mut self, name: &str) {
         unsafe {
-            let type_class = self as *mut _ as *mut glib::gobject_ffi::GTypeClass;
-            let widget_class =
-                glib::gobject_ffi::g_type_check_class_cast(type_class, ffi::gtk_widget_get_type())
-                    as *mut ffi::GtkWidgetClass;
+            let widget_class = self as *mut _ as *mut ffi::GtkWidgetClass;
             ffi::gtk_widget_class_bind_template_child_full(
                 widget_class,
                 name.to_glib_none().0,
@@ -1703,10 +1694,7 @@ pub unsafe trait WidgetClassSubclassExt: ClassStruct {
     ) where
         T: ObjectType + FromGlibPtrNone<*mut <T as ObjectType>::GlibType>,
     {
-        let type_class = self as *mut _ as *mut glib::gobject_ffi::GTypeClass;
-        let widget_class =
-            glib::gobject_ffi::g_type_check_class_cast(type_class, ffi::gtk_widget_get_type())
-                as *mut ffi::GtkWidgetClass;
+        let widget_class = self as *mut _ as *mut ffi::GtkWidgetClass;
         let private_offset = <Self::Type as ObjectSubclassType>::type_data()
             .as_ref()
             .impl_offset();
