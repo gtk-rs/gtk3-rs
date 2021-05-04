@@ -21,8 +21,8 @@ pub trait NativeDialogExtManual {
     ///    .build();
     ///
     /// dialog.run_future().await;
-    /// dialog.hide();
     /// println!("Selected file: {:?}", dialog.file());
+    /// dialog.destroy();
     /// # }
     /// ```
     #[cfg(any(feature = "v3_20", feature = "dox"))]
