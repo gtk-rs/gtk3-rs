@@ -44,9 +44,9 @@ impl Vec2 {
     #[doc(alias = "graphene_vec2_to_float")]
     pub fn to_float(&self) -> [f32; 2] {
         unsafe {
-            let mut out = std::mem::uninitialized();
-            ffi::graphene_vec2_to_float(self.to_glib_none().0, &mut out as *mut _);
-            out
+            let mut out = std::mem::MaybeUninit::uninit();
+            ffi::graphene_vec2_to_float(self.to_glib_none().0, out.as_mut_ptr());
+            out.assume_init()
         }
     }
 }

@@ -10,7 +10,7 @@ impl Box {
     #[doc(alias = "get_vertices")]
     pub fn vertices(&self) -> [Vec3; 8] {
         unsafe {
-            let mut out: [ffi::graphene_vec3_t; 8] = std::mem::uninitialized();
+            let mut out: [ffi::graphene_vec3_t; 8] = std::mem::zeroed();
             ffi::graphene_box_get_vertices(self.to_glib_none().0, &mut out as *mut _);
             [
                 from_glib_none(&out[0] as *const _),
