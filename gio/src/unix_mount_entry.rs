@@ -61,7 +61,7 @@ impl UnixMountEntry {
 
     #[doc(alias = "g_unix_mount_get_device_path")]
     #[doc(alias = "get_device_path")]
-    pub fn device_path(&self) -> Option<std::path::PathBuf> {
+    pub fn device_path(&self) -> std::path::PathBuf {
         unsafe {
             from_glib_none(ffi::g_unix_mount_get_device_path(mut_override(
                 self.to_glib_none().0,
@@ -71,7 +71,7 @@ impl UnixMountEntry {
 
     #[doc(alias = "g_unix_mount_get_fs_type")]
     #[doc(alias = "get_fs_type")]
-    pub fn fs_type(&self) -> Option<GString> {
+    pub fn fs_type(&self) -> GString {
         unsafe {
             from_glib_none(ffi::g_unix_mount_get_fs_type(mut_override(
                 self.to_glib_none().0,
@@ -80,7 +80,7 @@ impl UnixMountEntry {
     }
 
     #[doc(alias = "g_unix_mount_get_mount_path")]
-    pub fn unix_mount_get_mount_path(&self) -> Option<std::path::PathBuf> {
+    pub fn unix_mount_get_mount_path(&self) -> std::path::PathBuf {
         unsafe {
             from_glib_none(ffi::g_unix_mount_get_mount_path(mut_override(
                 self.to_glib_none().0,
@@ -122,7 +122,7 @@ impl UnixMountEntry {
     }
 
     #[doc(alias = "g_unix_mount_guess_icon")]
-    pub fn guess_icon(&self) -> Option<Icon> {
+    pub fn guess_icon(&self) -> Icon {
         unsafe {
             from_glib_full(ffi::g_unix_mount_guess_icon(mut_override(
                 self.to_glib_none().0,
@@ -131,7 +131,7 @@ impl UnixMountEntry {
     }
 
     #[doc(alias = "g_unix_mount_guess_name")]
-    pub fn guess_name(&self) -> Option<GString> {
+    pub fn guess_name(&self) -> GString {
         unsafe {
             from_glib_full(ffi::g_unix_mount_guess_name(mut_override(
                 self.to_glib_none().0,
@@ -149,7 +149,7 @@ impl UnixMountEntry {
     }
 
     #[doc(alias = "g_unix_mount_guess_symbolic_icon")]
-    pub fn guess_symbolic_icon(&self) -> Option<Icon> {
+    pub fn guess_symbolic_icon(&self) -> Icon {
         unsafe {
             from_glib_full(ffi::g_unix_mount_guess_symbolic_icon(mut_override(
                 self.to_glib_none().0,
