@@ -47,7 +47,8 @@ impl File {
     //}
 
     #[doc(alias = "g_file_new_for_commandline_arg")]
-    pub fn new_for_commandline_arg<P: AsRef<std::ffi::OsStr>>(arg: P) -> File {
+    #[doc(alias = "new_for_commandline_arg")]
+    pub fn for_commandline_arg<P: AsRef<std::ffi::OsStr>>(arg: P) -> File {
         unsafe {
             from_glib_full(ffi::g_file_new_for_commandline_arg(
                 arg.as_ref().to_glib_none().0,
@@ -56,7 +57,8 @@ impl File {
     }
 
     #[doc(alias = "g_file_new_for_commandline_arg_and_cwd")]
-    pub fn new_for_commandline_arg_and_cwd<P: AsRef<std::ffi::OsStr>, Q: AsRef<std::path::Path>>(
+    #[doc(alias = "new_for_commandline_arg_and_cwd")]
+    pub fn for_commandline_arg_and_cwd<P: AsRef<std::ffi::OsStr>, Q: AsRef<std::path::Path>>(
         arg: P,
         cwd: Q,
     ) -> File {
@@ -69,12 +71,14 @@ impl File {
     }
 
     #[doc(alias = "g_file_new_for_path")]
-    pub fn new_for_path<P: AsRef<std::path::Path>>(path: P) -> File {
+    #[doc(alias = "new_for_path")]
+    pub fn for_path<P: AsRef<std::path::Path>>(path: P) -> File {
         unsafe { from_glib_full(ffi::g_file_new_for_path(path.as_ref().to_glib_none().0)) }
     }
 
     #[doc(alias = "g_file_new_for_uri")]
-    pub fn new_for_uri(uri: &str) -> File {
+    #[doc(alias = "new_for_uri")]
+    pub fn for_uri(uri: &str) -> File {
         unsafe { from_glib_full(ffi::g_file_new_for_uri(uri.to_glib_none().0)) }
     }
 
@@ -96,7 +100,8 @@ impl File {
     }
 
     #[doc(alias = "g_file_parse_name")]
-    pub fn parse_name(parse_name: &str) -> File {
+    #[doc(alias = "parse_name")]
+    pub fn for_parse_name(parse_name: &str) -> File {
         unsafe { from_glib_full(ffi::g_file_parse_name(parse_name.to_glib_none().0)) }
     }
 }

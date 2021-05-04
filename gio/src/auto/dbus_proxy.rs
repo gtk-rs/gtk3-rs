@@ -174,7 +174,8 @@ impl DBusProxy {
     }
 
     #[doc(alias = "g_dbus_proxy_new_for_bus")]
-    pub fn new_for_bus<
+    #[doc(alias = "new_for_bus")]
+    pub fn for_bus<
         P: IsA<Cancellable>,
         Q: FnOnce(Result<DBusProxy, glib::Error>) + Send + 'static,
     >(
@@ -188,7 +189,7 @@ impl DBusProxy {
         callback: Q,
     ) {
         let user_data: Box_<Q> = Box_::new(callback);
-        unsafe extern "C" fn new_for_bus_trampoline<
+        unsafe extern "C" fn for_bus_trampoline<
             Q: FnOnce(Result<DBusProxy, glib::Error>) + Send + 'static,
         >(
             _source_object: *mut glib::gobject_ffi::GObject,
@@ -205,7 +206,7 @@ impl DBusProxy {
             let callback: Box_<Q> = Box_::from_raw(user_data as *mut _);
             callback(result);
         }
-        let callback = new_for_bus_trampoline::<Q>;
+        let callback = for_bus_trampoline::<Q>;
         unsafe {
             ffi::g_dbus_proxy_new_for_bus(
                 bus_type.into_glib(),
@@ -221,7 +222,7 @@ impl DBusProxy {
         }
     }
 
-    pub fn new_for_bus_future(
+    pub fn for_bus_future(
         bus_type: BusType,
         flags: DBusProxyFlags,
         info: Option<&DBusInterfaceInfo>,
@@ -235,7 +236,7 @@ impl DBusProxy {
         let interface_name = String::from(interface_name);
         Box_::pin(crate::GioFuture::new(&(), move |_obj, send| {
             let cancellable = Cancellable::new();
-            Self::new_for_bus(
+            Self::for_bus(
                 bus_type,
                 flags,
                 info.as_ref().map(::std::borrow::Borrow::borrow),

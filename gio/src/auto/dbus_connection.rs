@@ -847,7 +847,8 @@ impl DBusConnection {
     }
 
     #[doc(alias = "g_dbus_connection_new_for_address")]
-    pub fn new_for_address<
+    #[doc(alias = "new_for_address")]
+    pub fn for_address<
         P: IsA<Cancellable>,
         Q: FnOnce(Result<DBusConnection, glib::Error>) + Send + 'static,
     >(
@@ -858,7 +859,7 @@ impl DBusConnection {
         callback: Q,
     ) {
         let user_data: Box_<Q> = Box_::new(callback);
-        unsafe extern "C" fn new_for_address_trampoline<
+        unsafe extern "C" fn for_address_trampoline<
             Q: FnOnce(Result<DBusConnection, glib::Error>) + Send + 'static,
         >(
             _source_object: *mut glib::gobject_ffi::GObject,
@@ -875,7 +876,7 @@ impl DBusConnection {
             let callback: Box_<Q> = Box_::from_raw(user_data as *mut _);
             callback(result);
         }
-        let callback = new_for_address_trampoline::<Q>;
+        let callback = for_address_trampoline::<Q>;
         unsafe {
             ffi::g_dbus_connection_new_for_address(
                 address.to_glib_none().0,
@@ -888,7 +889,7 @@ impl DBusConnection {
         }
     }
 
-    pub fn new_for_address_future(
+    pub fn for_address_future(
         address: &str,
         flags: DBusConnectionFlags,
         observer: Option<&DBusAuthObserver>,
@@ -898,7 +899,7 @@ impl DBusConnection {
         let observer = observer.map(ToOwned::to_owned);
         Box_::pin(crate::GioFuture::new(&(), move |_obj, send| {
             let cancellable = Cancellable::new();
-            Self::new_for_address(
+            Self::for_address(
                 &address,
                 flags,
                 observer.as_ref().map(::std::borrow::Borrow::borrow),
