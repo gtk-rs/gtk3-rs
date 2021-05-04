@@ -138,11 +138,9 @@
 //! not have easy access to the latest ones. The higher the version, the fewer
 //! users will have it installed.
 
-#![allow(clippy::new_without_default)]
 #![allow(clippy::type_complexity)]
 #![allow(clippy::derive_hash_xor_eq)]
 #![allow(clippy::too_many_arguments)]
-#![allow()]
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
 
 pub use ffi;
@@ -172,15 +170,10 @@ pub const STYLE_PROVIDER_PRIORITY_USER: u32 = ffi::GTK_STYLE_PROVIDER_PRIORITY_U
 #[macro_use]
 mod rt;
 
-#[allow(clippy::match_same_arms)]
 #[allow(clippy::let_and_return)]
 #[allow(clippy::many_single_char_names)]
 #[allow(clippy::wrong_self_convention)]
-#[allow(clippy::cognitive_complexity)]
 #[allow(clippy::clone_on_copy)]
-#[allow(clippy::many_single_char_names)]
-#[allow(clippy::cast_ptr_alignment)]
-#[allow(unused_doc_comments)]
 #[allow(unused_imports)]
 mod auto;
 

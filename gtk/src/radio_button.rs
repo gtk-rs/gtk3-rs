@@ -37,3 +37,9 @@ impl RadioButton {
         }
     }
 }
+
+impl Default for RadioButton {
+    fn default() -> Self {
+        Self::new()
+    }
+}

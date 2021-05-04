@@ -39,3 +39,9 @@ impl RadioMenuItem {
         }
     }
 }
+
+impl Default for RadioMenuItem {
+    fn default() -> Self {
+        Self::new()
+    }
+}
