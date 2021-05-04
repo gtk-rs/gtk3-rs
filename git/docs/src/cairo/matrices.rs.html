@@ -274,7 +274,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_matrix_invert&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">invert</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
         <span class="kw">let</span> <span class="ident">status</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_matrix_invert</span>(<span class="self">self</span>.<span class="ident">mut_ptr</span>()) };
-        <span class="ident">status_to_result</span>(<span class="ident">status</span>).<span class="ident">expect</span>(<span class="string">&quot;Failed to invert matrix&quot;</span>);
+        <span class="ident">status_to_result</span>(<span class="ident">status</span>).<span class="ident">expect</span>(<span class="string">&quot;Failed to invert the matrix&quot;</span>)
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_matrix_invert&quot;</span>)]</span>

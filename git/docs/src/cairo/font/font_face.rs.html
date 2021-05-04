@@ -184,6 +184,24 @@
 <span id="181">181</span>
 <span id="182">182</span>
 <span id="183">183</span>
+<span id="184">184</span>
+<span id="185">185</span>
+<span id="186">186</span>
+<span id="187">187</span>
+<span id="188">188</span>
+<span id="189">189</span>
+<span id="190">190</span>
+<span id="191">191</span>
+<span id="192">192</span>
+<span id="193">193</span>
+<span id="194">194</span>
+<span id="195">195</span>
+<span id="196">196</span>
+<span id="197">197</span>
+<span id="198">198</span>
+<span id="199">199</span>
+<span id="200">200</span>
+<span id="201">201</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -193,7 +211,10 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>))]</span>
 <span class="kw">use</span> <span class="ident">std::ptr</span>;
 
-<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::enums</span>::{<span class="ident">FontSlant</span>, <span class="ident">FontType</span>, <span class="ident">FontWeight</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::{
+    <span class="ident">enums</span>::{<span class="ident">FontSlant</span>, <span class="ident">FontType</span>, <span class="ident">FontWeight</span>},
+    <span class="ident">Error</span>,
+};
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;freetype&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::enums::FtSynthesize</span>;
@@ -218,7 +239,11 @@
 
 <span class="kw">impl</span> <span class="ident">FontFace</span> {
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_toy_font_face_create&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">toy_create</span>(<span class="ident">family</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">slant</span>: <span class="ident">FontSlant</span>, <span class="ident">weight</span>: <span class="ident">FontWeight</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FontFace</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">toy_create</span>(
+        <span class="ident">family</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
+        <span class="ident">slant</span>: <span class="ident">FontSlant</span>,
+        <span class="ident">weight</span>: <span class="ident">FontWeight</span>,
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">FontFace</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">font_face</span>: <span class="ident">FontFace</span> <span class="op">=</span> <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">family</span> <span class="op">=</span> <span class="ident">CString::new</span>(<span class="ident">family</span>).<span class="ident">unwrap</span>();
             <span class="ident">FontFace::from_raw_full</span>(<span class="ident">ffi::cairo_toy_font_face_create</span>(
@@ -228,21 +253,25 @@
             ))
         };
         <span class="kw">let</span> <span class="ident">status</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_font_face_status</span>(<span class="ident">font_face</span>.<span class="ident">to_raw_none</span>()) };
-        <span class="ident">status_to_result</span>(<span class="ident">status</span>).<span class="ident">expect</span>(<span class="string">&quot;Failed to create a FontFace&quot;</span>);
-        <span class="ident">font_face</span>
+        <span class="ident">status_to_result</span>(<span class="ident">status</span>)<span class="question-mark">?</span>;
+
+        <span class="prelude-val">Ok</span>(<span class="ident">font_face</span>)
     }
 
     <span class="comment">// Safety: the FT_Face must be valid and not be freed until the `FontFace` is dropped.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;freetype&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_ft_font_face_create_for_ft_face&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">create_from_ft</span>(<span class="ident">face</span>: <span class="ident">freetype_crate::freetype::FT_Face</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FontFace</span> {
+    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">create_from_ft</span>(
+        <span class="ident">face</span>: <span class="ident">freetype_crate::freetype::FT_Face</span>,
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">FontFace</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">font_face</span> <span class="op">=</span> <span class="ident">FontFace::from_raw_full</span>(<span class="ident">ffi::cairo_ft_font_face_create_for_ft_face</span>(
             <span class="ident">face</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
             <span class="number">0</span>,
         ));
         <span class="kw">let</span> <span class="ident">status</span> <span class="op">=</span> <span class="ident">ffi::cairo_font_face_status</span>(<span class="ident">font_face</span>.<span class="ident">to_raw_none</span>());
-        <span class="ident">status_to_result</span>(<span class="ident">status</span>).<span class="ident">expect</span>(<span class="string">&quot;Failed to create a FontFace&quot;</span>);
-        <span class="ident">font_face</span>
+        <span class="ident">status_to_result</span>(<span class="ident">status</span>)<span class="question-mark">?</span>;
+
+        <span class="prelude-val">Ok</span>(<span class="ident">font_face</span>)
     }
 
     <span class="comment">// Safety: the FT_Face must be valid and not be freed until the `FontFace` is dropped.</span>
@@ -251,14 +280,15 @@
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">create_from_ft_with_flags</span>(
         <span class="ident">face</span>: <span class="ident">freetype_crate::freetype::FT_Face</span>,
         <span class="ident">load_flags</span>: <span class="ident">libc::c_int</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FontFace</span> {
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">FontFace</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">font_face</span> <span class="op">=</span> <span class="ident">FontFace::from_raw_full</span>(<span class="ident">ffi::cairo_ft_font_face_create_for_ft_face</span>(
             <span class="ident">face</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
             <span class="ident">load_flags</span>,
         ));
         <span class="kw">let</span> <span class="ident">status</span> <span class="op">=</span> <span class="ident">ffi::cairo_font_face_status</span>(<span class="ident">font_face</span>.<span class="ident">to_raw_none</span>());
-        <span class="ident">status_to_result</span>(<span class="ident">status</span>).<span class="ident">expect</span>(<span class="string">&quot;Failed to create a FontFace&quot;</span>);
-        <span class="ident">font_face</span>
+        <span class="ident">status_to_result</span>(<span class="ident">status</span>)<span class="question-mark">?</span>;
+
+        <span class="prelude-val">Ok</span>(<span class="ident">font_face</span>)
     }
 
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
@@ -337,6 +367,12 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_ft_font_face_unset_synthesize&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">unset_synthesize</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">synth_flags</span>: <span class="ident">FtSynthesize</span>) {
         <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_ft_font_face_unset_synthesize</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>(), <span class="ident">synth_flags</span>.<span class="ident">into</span>()) }
+    }
+
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_font_face_status&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">status</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
+        <span class="kw">let</span> <span class="ident">status</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">ffi::cairo_font_face_status</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>()) };
+        <span class="ident">status_to_result</span>(<span class="ident">status</span>)
     }
 
     <span class="macro">user_data_methods!</span> {

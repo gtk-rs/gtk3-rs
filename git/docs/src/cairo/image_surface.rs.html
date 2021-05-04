@@ -244,7 +244,6 @@
 <span id="241">241</span>
 <span id="242">242</span>
 <span id="243">243</span>
-<span id="244">244</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -329,7 +328,7 @@
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="ident">surface</span>) <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">result</span> {
             <span class="kw">static</span> <span class="ident">IMAGE_SURFACE_DATA</span>: <span class="kw">crate</span><span class="ident">::UserDataKey</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">AsMut</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">=</span>
                 <span class="kw">crate</span><span class="ident">::UserDataKey::new</span>();
-            <span class="ident">surface</span>.<span class="ident">set_user_data</span>(<span class="kw-2">&amp;</span><span class="ident">IMAGE_SURFACE_DATA</span>, <span class="ident">Rc::new</span>(<span class="ident">data</span>))
+            <span class="ident">surface</span>.<span class="ident">set_user_data</span>(<span class="kw-2">&amp;</span><span class="ident">IMAGE_SURFACE_DATA</span>, <span class="ident">Rc::new</span>(<span class="ident">data</span>))<span class="question-mark">?</span>;
         }
         <span class="ident">result</span>
     }
@@ -452,8 +451,7 @@
 <span class="comment">// See: https://gitlab.freedesktop.org/cairo/cairo/-/issues/406</span>
 <span class="kw">fn</span> <span class="ident">is_finished</span>(<span class="ident">surface</span>: <span class="kw-2">&amp;</span><span class="ident">ImageSurface</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
     <span class="kw">use</span> <span class="kw">super</span><span class="ident">::Context</span>;
-    <span class="kw">let</span> <span class="ident">ctxt</span> <span class="op">=</span> <span class="ident">Context::new</span>(<span class="ident">surface</span>);
-    <span class="ident">ctxt</span>.<span class="ident">status</span>().<span class="ident">is_err</span>()
+    <span class="ident">Context::new</span>(<span class="ident">surface</span>).<span class="ident">is_err</span>()
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>

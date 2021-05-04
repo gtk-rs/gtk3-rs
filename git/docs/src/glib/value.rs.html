@@ -1215,14 +1215,6 @@
 <span id="1212">1212</span>
 <span id="1213">1213</span>
 <span id="1214">1214</span>
-<span id="1215">1215</span>
-<span id="1216">1216</span>
-<span id="1217">1217</span>
-<span id="1218">1218</span>
-<span id="1219">1219</span>
-<span id="1220">1220</span>
-<span id="1221">1221</span>
-<span id="1222">1222</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -1534,14 +1526,6 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// See the [module documentation](index.html) for more details.</span>
 <span class="comment">// TODO: Should use impl !Send for Value {} once stable</span>
-<span class="doccomment">/// An opaque structure used to hold different types of values.</span>
-<span class="doccomment">/// The data within the structure has protected scope: it is accessible only</span>
-<span class="doccomment">/// to functions within a [`TypeValueTable`](crate::TypeValueTable) structure, or implementations of</span>
-<span class="doccomment">/// the g_value_*() API. That is, code portions which implement new fundamental</span>
-<span class="doccomment">/// types.</span>
-<span class="doccomment">/// [`Value`](crate::Value) users cannot make any assumptions about how data is stored</span>
-<span class="doccomment">/// within the 2 element `data` union, and the `g_type` member should</span>
-<span class="doccomment">/// only be accessed through the G_VALUE_TYPE() macro.</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">transparent</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Value</span>(<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">gobject_ffi::GValue</span>);
 
