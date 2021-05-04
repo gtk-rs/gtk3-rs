@@ -1073,6 +1073,14 @@ glib_object_wrapper!(@object
 );
 pub type ObjectClass = Class<Object>;
 
+pub struct ObjectGuard<'a, T: ObjectType>(&'a T);
+
+impl<'a, T: ObjectType> Drop for ObjectGuard<'a, T> {
+    fn drop(&mut self) {
+        self.0.thaw_notify()
+    }
+}
+
 impl Object {
     #[allow(clippy::new_ret_no_self)]
     pub fn new<T: IsA<Object> + IsClass>(
@@ -1372,6 +1380,13 @@ pub trait ObjectExt: ObjectType {
         f: F,
     ) -> SignalHandlerId;
     fn notify<'a, N: Into<&'a str>>(&self, property_name: N);
+
+    #[doc(alias = "g_object_freeze_notify")]
+    fn freeze_notify(&self) -> ObjectGuard<Self>;
+
+    #[doc(alias = "g_object_thaw_notify")]
+    fn thaw_notify(&self);
+
     fn notify_by_pspec(&self, pspec: &crate::ParamSpec);
 
     fn downgrade(&self) -> WeakRef<Self>;
@@ -1758,6 +1773,15 @@ impl<T: ObjectType> ObjectExt for T {
                 pspec.to_glib_none().0,
             );
         }
+    }
+
+    fn freeze_notify(&self) -> ObjectGuard<Self> {
+        unsafe { gobject_ffi::g_object_freeze_notify(self.as_object_ref().to_glib_none().0) };
+        ObjectGuard(self)
+    }
+
+    fn thaw_notify(&self) {
+        unsafe { gobject_ffi::g_object_thaw_notify(self.as_object_ref().to_glib_none().0) }
     }
 
     fn has_property<'a, N: Into<&'a str>>(&self, property_name: N, type_: Option<Type>) -> bool {
