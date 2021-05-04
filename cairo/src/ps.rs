@@ -110,7 +110,7 @@ mod test {
     use tempfile::tempfile;
 
     fn draw(surface: &Surface) {
-        let cr = Context::new(surface);
+        let cr = Context::new(surface).expect("Can't create a Cairo context");
 
         // Note: Not using RGBA here as PS doesn't natively support
         // semi-transparency and Cairo would then embed a rasterized bitmap
@@ -120,12 +120,12 @@ mod test {
         cr.set_source_rgb(1.0, 0.0, 0.0);
         cr.line_to(0., 0.);
         cr.line_to(100., 100.);
-        cr.stroke();
+        cr.stroke().expect("Surface on an invalid state");
 
         cr.set_source_rgb(0.0, 0.0, 1.0);
         cr.line_to(0., 100.);
         cr.line_to(100., 0.);
-        cr.stroke();
+        cr.stroke().expect("Surface on an invalid state");
     }
 
     fn draw_in_buffer() -> Vec<u8> {

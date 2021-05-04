@@ -14,7 +14,6 @@ use crate::enums::{PdfMetadata, PdfOutline};
 use crate::enums::{PdfVersion, SurfaceType};
 use crate::error::Error;
 use crate::surface::Surface;
-use crate::utils::status_to_result;
 
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
@@ -132,11 +131,6 @@ impl PdfSurface {
         self.status()?;
         Ok(res)
     }
-
-    fn status(&self) -> Result<(), Error> {
-        let status = unsafe { ffi::cairo_surface_status(self.to_raw_none()) };
-        status_to_result(status)
-    }
 }
 
 #[cfg(test)]
@@ -146,19 +140,19 @@ mod test {
     use tempfile::tempfile;
 
     fn draw(surface: &Surface) {
-        let cr = Context::new(surface);
+        let cr = Context::new(surface).expect("Can't create a Cairo context");
 
         cr.set_line_width(25.0);
 
         cr.set_source_rgba(1.0, 0.0, 0.0, 0.5);
         cr.line_to(0., 0.);
         cr.line_to(100., 100.);
-        cr.stroke();
+        cr.stroke().expect("Surface on an invalid state");
 
         cr.set_source_rgba(0.0, 0.0, 1.0, 0.5);
         cr.line_to(0., 100.);
         cr.line_to(100., 0.);
-        cr.stroke();
+        cr.stroke().expect("Surface on an invalid state");
     }
 
     fn draw_in_buffer() -> Vec<u8> {

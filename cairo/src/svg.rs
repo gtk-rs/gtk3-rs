@@ -119,19 +119,19 @@ mod test {
     use tempfile::{tempfile, NamedTempFile};
 
     fn draw(surface: &Surface) {
-        let cr = Context::new(surface);
+        let cr = Context::new(surface).expect("Can't create a Cairo context");
 
         cr.set_line_width(25.0);
 
         cr.set_source_rgba(1.0, 0.0, 0.0, 0.5);
         cr.line_to(0., 0.);
         cr.line_to(100., 100.);
-        cr.stroke();
+        cr.stroke().expect("Surface on an invalid state");
 
         cr.set_source_rgba(0.0, 0.0, 1.0, 0.5);
         cr.line_to(0., 100.);
         cr.line_to(100., 0.);
-        cr.stroke();
+        cr.stroke().expect("Surface on an invalid state");
     }
 
     fn draw_in_buffer() -> Vec<u8> {

@@ -81,7 +81,7 @@ impl ImageSurface {
         if let Ok(surface) = &result {
             static IMAGE_SURFACE_DATA: crate::UserDataKey<Box<dyn AsMut<[u8]>>> =
                 crate::UserDataKey::new();
-            surface.set_user_data(&IMAGE_SURFACE_DATA, Rc::new(data))
+            surface.set_user_data(&IMAGE_SURFACE_DATA, Rc::new(data))?;
         }
         result
     }
@@ -204,8 +204,7 @@ impl<'a> fmt::Display for ImageSurfaceData<'a> {
 // See: https://gitlab.freedesktop.org/cairo/cairo/-/issues/406
 fn is_finished(surface: &ImageSurface) -> bool {
     use super::Context;
-    let ctxt = Context::new(surface);
-    ctxt.status().is_err()
+    Context::new(surface).is_err()
 }
 
 #[cfg(test)]
