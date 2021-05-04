@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["BoolError",""],["Error","A generic error capable of representing various error domains (types)."]],"trait":[["ErrorDomain","`GLib` error domain."]]});
+initSidebarItems({"struct":[["BoolError",""],["Error","A generic error capable of representing various error domains (types). The `GError` structure contains information about an error that has occurred."]],"trait":[["ErrorDomain","`GLib` error domain."]]});

@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["Callback",""]],"trait":[["ContainerImpl",""],["ContainerImplExt",""]]});
+initSidebarItems({"struct":[["Callback",""]],"trait":[["ContainerClassSubclassExt",""],["ContainerImpl",""],["ContainerImplExt",""]]});
