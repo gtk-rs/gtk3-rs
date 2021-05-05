@@ -38,3 +38,9 @@ impl RadioToolButton {
         }
     }
 }
+
+impl Default for RadioToolButton {
+    fn default() -> Self {
+        Self::new()
+    }
+}

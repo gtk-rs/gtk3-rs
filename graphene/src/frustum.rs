@@ -10,7 +10,7 @@ impl Frustum {
     #[doc(alias = "get_planes")]
     pub fn planes(&self) -> [Plane; 6] {
         unsafe {
-            let mut out: [ffi::graphene_plane_t; 6] = std::mem::uninitialized();
+            let mut out: [ffi::graphene_plane_t; 6] = std::mem::zeroed();
             ffi::graphene_frustum_get_planes(self.to_glib_none().0, &mut out as *mut _);
             [
                 from_glib_none(&out[0] as *const _),

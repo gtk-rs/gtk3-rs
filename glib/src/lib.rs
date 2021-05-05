@@ -62,8 +62,6 @@
 //! conversions between high level Rust types (including the aforementioned
 //! wrappers) and their FFI counterparts.
 
-#![allow(clippy::doc_markdown)]
-#![allow(clippy::unreadable_literal)]
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
 #![allow(clippy::missing_safety_doc)]
 
@@ -120,12 +118,9 @@ pub mod object;
 
 pub use self::auto::functions::*;
 pub use self::auto::*;
-#[allow(clippy::let_and_return)]
-#[allow(clippy::let_unit_value)]
+#[allow(non_upper_case_globals)]
 #[allow(clippy::too_many_arguments)]
 #[allow(clippy::type_complexity)]
-#[allow(unused_doc_comments)]
-#[allow(non_upper_case_globals)]
 #[allow(unused_imports)]
 mod auto;
 

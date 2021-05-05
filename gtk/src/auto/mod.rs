@@ -890,8 +890,6 @@ pub use self::enums::EventSequenceState;
 pub use self::enums::FileChooserAction;
 pub use self::enums::FileChooserConfirmation;
 pub use self::enums::FileChooserError;
-pub use self::enums::IMPreeditStyle;
-pub use self::enums::IMStatusStyle;
 pub use self::enums::IconSize;
 pub use self::enums::IconThemeError;
 pub use self::enums::IconViewDropPosition;
@@ -948,7 +946,6 @@ pub use self::enums::SortType;
 pub use self::enums::SpinButtonUpdatePolicy;
 pub use self::enums::SpinType;
 pub use self::enums::StackTransitionType;
-pub use self::enums::StateType;
 pub use self::enums::TextDirection;
 #[cfg(any(feature = "v3_16", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
