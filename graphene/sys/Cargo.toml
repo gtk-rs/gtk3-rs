@@ -13,8 +13,6 @@ shell-words = "1.0.0"
 tempfile = "3"
 
 [features]
-default = ["v1_10"]
-v1_10 = []
 dox = []
 
 [lib]
@@ -36,7 +34,4 @@ edition = "2018"
 features = ["dox"]
 [package.metadata.system-deps.graphene_gobject_1_0]
 name = "graphene-gobject-1.0"
-version = "1.9.2"
-
-[package.metadata.system-deps.graphene_gobject_1_0.v1_10]
 version = "1.10"
